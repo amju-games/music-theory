@@ -33,7 +33,7 @@ colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0|cell;nose;12
 // Year of birth, death
 1685,1750
 // Biographical info 
-@@@<i>Guten tag</i>! I am Johan Sebastian Bach, but you can call me J.S. for short!
+@@@<i>Guten tag</i>! I am Johann Sebastian Bach, but you can call me J.S. for short!
 
 // TODO Message when you enter classroom for the first time
 @@@This classroom is haunted by the ghostly presence of J.S. Bach!
