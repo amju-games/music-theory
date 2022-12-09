@@ -20,9 +20,9 @@ gui-text
 // Element name
 musical-term-text
 // pos (coords are -1..1)
--1, .65
+-.5, .65
 // size
-2.0, 0.5
+1.0, 0.5
 // Text
 E.g. Alla marcia
 // Font name, size

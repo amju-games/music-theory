@@ -15,19 +15,19 @@ topic-end-root
 
 gui-text
 topic-end-text1
--1.0, 0.7
-1.0, 0.4
+-.5, 0.7
+.5, 0.4
 // WOW!
 $$$84
 dimbo, 2.5, multi, fgcol=ffffff
 
 gui-text
 topic-end-text2
--1.0, 0.5
-1.0, 0.4
+-.5, 0.5
+.5, 0.4
 // You scored
 $$$85
-dimbo, 2.5, multi, fgcol=ffffff
+dimbo, 2.0, multi, fgcol=ffffff
 
 // Top number. OK, "numerator"
 
@@ -100,14 +100,14 @@ dimbo, 3.0, fgcol=ffffff
 // OK button
 gui-button
 ok-button
--0.15, -0.3
+-0.2, -0.3
 // size
-0.3, 0.15
+0.4, 0.15
 // Image 
 Image/gui-button-2.png
 // OK
 $$$86
-dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
+dimbo, 3.0, fgcol=ffffff, bgcol=4E69F4
 
 
 // Text about having some more hint tokens

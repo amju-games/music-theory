@@ -33,6 +33,7 @@ void GSTopicEnd::OnActive()
   // Set button commands
   GuiElement* elem = GetElementByName(m_gui, "ok-button");
   elem->SetCommand(OnOK);
+  elem->SetHasFocus(true);
 
   // Set score number text
   GuiText* text = (GuiText*)GetElementByName(m_gui, "num-text");

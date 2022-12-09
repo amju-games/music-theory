@@ -24,12 +24,12 @@ Image/logo-512.png
 // Start button
 gui-button
 start-button
--0.25, -0.4
-0.5, 0.25
+-0.2, -0.4
+0.4, 0.25
 Image/gui-button-2.png
 // START
 $$$83
-dimbo, 3., fgcol=ffffff, bgcol=4E69F4
+dimbo, 2., fgcol=ffffff, bgcol=4E69F4
 
 // delay
 animation
