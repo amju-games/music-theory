@@ -448,7 +448,6 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				69A23A601F641AA40021BF88 /* TutorialIds.cpp */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				69A23A591F61E6970021BF88 /* Consts.cpp */,
@@ -573,6 +572,7 @@
 				6955431B1F3B526D007C23EA /* TappableZoomInfoLeaf.h */,
 				6959E2E81E97F6F800E251A9 /* Topic.cpp */,
 				6959E2E91E97F6F800E251A9 /* Topic.h */,
+				69A23A601F641AA40021BF88 /* TutorialIds.cpp */,
 				69A23A5F1F631DE10021BF88 /* TutorialIds.h */,
 				69A23A5A1F61E6970021BF88 /* TutorialManager.cpp */,
 				69A23A5B1F61E6970021BF88 /* TutorialManager.h */,

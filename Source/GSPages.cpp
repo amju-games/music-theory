@@ -45,22 +45,6 @@ static void OnPause(GuiElement*)
   TheGSPages::Instance()->OnPause();
 }
 
-// Called from timed FuncMessage
-static void SpeechBubbleOK()
-{
-  GSPages* pages = TheGSPages::Instance();
-  // Sanity check: this only makes sense if GSPages is active
-  if (TheGame::Instance()->GetState() == pages)
-  {
-    pages->OnSpeechBubbleOK();
-  }
-}
-
-static void OnSpeechBubbleOK(GuiElement*)
-{
-  SpeechBubbleOK();
-}
-
 GSPages::GSPages()
 {
   m_guiFilename = "Gui/gs_pages_landscape.txt";
@@ -397,25 +381,6 @@ void GSPages::OnPause()
     GetColour(COLOUR_CONFIRM_QUIT),
     Amju::OnQuitConfirmCancel,
     Amju::OnQuitConfirmOK);
-}
- 
-void GSPages::OnSpeechBubbleOK()
-{
-  std::cout << "OnSpeechBubbleOK\n";
-
-  // Hide speech bubble
-  GuiElement* speechBubble = GetElementByName(m_gui, "speech-bubble");
-  speechBubble->SetVisible(false);
-
-  HideTickAndCross();
-
-  SetButtonEnabled("pause-button", true);
-  SetButtonEnabled("hint-button", true);
-
-  // Go to next page (or end of state), after a delay to show the board
-  //  getting rubbed out.
-  GoToNextPage();
-  //TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(NEXT_PAGE_TIME)));
 }
 
 void GSPages::OnQuitConfirmCancel()

@@ -39,7 +39,6 @@ public:
   void OnHint();
   void OnPause();
   void OnQuitConfirmCancel();
-  void OnSpeechBubbleOK();
 
   // Start showing pages for the given topic (topic number as for Course)
   void StartTopic(int topicNum);
