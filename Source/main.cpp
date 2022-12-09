@@ -28,7 +28,7 @@
 namespace Amju
 {
 // Create global variable window info 
-Amju::AmjuGLWindowInfo w(640, 480, false, "Simplest");
+Amju::AmjuGLWindowInfo w(480, 640, false, "Simplest");
 
 void ReportError(const std::string& str)
 {
