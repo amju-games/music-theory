@@ -3,6 +3,7 @@
 
 #include <Game.h>
 #include <GuiText.h>
+#include <Localise.h>
 #include <MessageQueue.h>
 #include "Consts.h"
 #include "Course.h"
@@ -100,7 +101,7 @@ void GSTopicEnd::OnActive()
   // Set comment about score etc
   IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "comment-text"));
   Assert(text);
-  text->SetText(GenerateScoreComment());
+  text->SetText(Lookup(GenerateScoreComment()));
 
   // Set topic display name
   text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "topic-name-text"));
