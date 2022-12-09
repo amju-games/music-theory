@@ -764,8 +764,9 @@ void GuiMusicScore::BuildTriList()
       AmjuGL::Tri t[2];
 
       m_atlas->SetSize(g.m_scale.x, g.m_scale.y);
+      const bool NO_ITALIC = false;
 #ifdef USE_BM_FONT
-      m_atlas->MakeTris(g.m_char, 1.f, t, g.m_pos.x, g.m_pos.y);
+      m_atlas->MakeTris(g.m_char, 1.f, t, g.m_pos.x, g.m_pos.y, NO_ITALIC);
 #else
       m_atlas->MakeTris(g.m_char - ' ', 1.f, t, g.m_pos.x, g.m_pos.y);
 #endif
