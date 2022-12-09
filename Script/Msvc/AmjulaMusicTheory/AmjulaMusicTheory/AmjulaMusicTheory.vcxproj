@@ -268,6 +268,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\BassPlayMidi.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Consts.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorCamController.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorMode.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorModeEnterClassroom.cpp" />
@@ -355,6 +356,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Topic.cpp" />
+    <ClCompile Include="..\..\..\..\Source\TutorialIds.cpp" />
+    <ClCompile Include="..\..\..\..\Source\TutorialManager.cpp" />
     <ClCompile Include="..\..\..\..\Source\UserProfile.cpp" />
     <ClCompile Include="..\..\..\..\Source\Version.cpp" />
   </ItemGroup>
@@ -417,6 +420,8 @@
     <ClInclude Include="..\..\..\..\Source\TappableHint.h" />
     <ClInclude Include="..\..\..\..\Source\TappableZoomInfoLeaf.h" />
     <ClInclude Include="..\..\..\..\Source\Topic.h" />
+    <ClInclude Include="..\..\..\..\Source\TutorialIds.h" />
+    <ClInclude Include="..\..\..\..\Source\TutorialManager.h" />
     <ClInclude Include="..\..\..\..\Source\UserProfile.h" />
     <ClInclude Include="..\..\..\..\Source\Version.h" />
   </ItemGroup>
