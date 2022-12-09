@@ -6,6 +6,7 @@
 #include <GuiButton.h>
 #include <GuiComposite.h>
 #include <GuiDecAnimation.h>
+#include <ROConfig.h>
 #include "GSBase.h"
 #include "LurkMsg.h"
 #include "PrintGui.h"
@@ -113,6 +114,7 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
     (ke.key == 'r' || ke.key == 'R'))
   {
     std::cout << "Reloading\n";
+    ReloadROConfig();
     ReloadGui();
     return true;
   }
