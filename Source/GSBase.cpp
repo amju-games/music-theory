@@ -7,6 +7,7 @@
 #include <GuiComposite.h>
 #include <GuiDecAnimation.h>
 #include <ROConfig.h>
+#include "ComposerList.h"
 #include "GSBase.h"
 #include "LurkMsg.h"
 #include "PrintGui.h"
@@ -104,6 +105,8 @@ void GSBase::OnDeactive()
 void GSBase::ReloadGui()
 {
   OnDeactive();
+  // Reload Composer list
+  GetComposerList().Load("Gui/composers.txt");
   OnActive();
 }
 

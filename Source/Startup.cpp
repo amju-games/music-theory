@@ -421,7 +421,7 @@ void StartUpAfterCreateWindow()
 
   SetInitialState();
 
-  // Load this file one time only
+  // Load this file one time only (but we can reload for development)
   GetComposerList().Load("Gui/composers.txt");
 }
 }
