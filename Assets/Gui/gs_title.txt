@@ -20,24 +20,23 @@ title-root
 //step
 
 animation
-up-scroll-anim
-mirror-repeat
-1.5
+scroll-logo-onto-screen-anim
+one-shot
+0.5
 linear
 
-scale
-1,1 ; 1, 1.05
-// pivot
-0, -0.65
+translate
+-3,0;0,0
 
 // Maybe just an image, not 3D, so we can antialias better
 gui-image
-sky
+logo-image
 -.5, 1.
 1.0, 1.0
 Image/logo-512.png
 
-
+elastic
+0,-2
 // Start button
 gui-button
 start-button

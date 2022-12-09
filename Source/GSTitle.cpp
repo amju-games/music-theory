@@ -6,6 +6,7 @@
 #include <Game.h>
 #include <GuiDecAnimation.h>
 #include <MessageQueue.h>
+#include <SoundManager.h>
 #include "Consts.h"
 #include "GSCopyAssets.h" // for CopyFromGlueFile, DEPRECATED
 #include "GSFirstUser.h" // TODO Use it or lose it
@@ -18,7 +19,9 @@ namespace Amju
 {
 static void OnStart(GuiElement* elem)
 {
-  PlayWav(WAV_START_BUTTON);
+  TheSoundManager::Instance()->StopSong(); // TODO play next song
+
+  PlayWav(WAV_START_BUTTON); // This wav should blend nicely with the title music
   GoTo<TheGSMainCorridor>();
 
 //  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainCorridor>, SecondsFromNow(1.5f)));
@@ -46,12 +49,14 @@ static void OnStart(GuiElement* elem)
 GSTitle::GSTitle()
 {
   m_guiFilename = "Gui/gs_title.txt";
-  m_sceneFilename = "Scene/title-scene.txt";
 }
 
 void GSTitle::OnActive()
 {
-  GSBase3d::OnActive();
+  GSBase::OnActive();
+
+  // Start playing title music
+  TheSoundManager::Instance()->PlaySong("Music/amt-title.it");
 
   // Copy ROConfig from glue file into save dir. This is almost pointless for this
   //  game, so as an optimisation, get rid of this step
