@@ -72,7 +72,7 @@ text-choice-0
 // Text
 $$$empty
 // Font name, size
-arial, 1.5, left, multi, fgcol=000000
+dimbo, 1.5, left, multi, fgcol=000000
 
 // element type
 gui-button
@@ -87,7 +87,7 @@ Image/transparent.png, stretch
 // Text
 $$$empty
 // Font name, size
-arial, 1.5, fgcol=000000
+dimbo, 1.5, fgcol=000000
 
 gui-comp
 buttons-1-3
@@ -126,7 +126,7 @@ text-choice-1
 // Text
 $$$empty
 // Font name, size
-arial, 1.5, left, multi, fgcol=000000
+dimbo, 1.5, left, multi, fgcol=000000
 
 // element type
 gui-button
@@ -141,7 +141,7 @@ Image/transparent.png, stretch
 // Text
 $$$empty
 // Font name, size
-arial, 1.5, fgcol=000000
+dimbo, 1.5, fgcol=000000
 
 gui-comp
 buttons-2-3
@@ -179,7 +179,7 @@ text-choice-2
 // Text
 $$$empty
 // Font name, size
-arial, 1.5, left, multi, fgcol=000000
+dimbo, 1.5, left, multi, fgcol=000000
 
 // element type
 gui-button
@@ -194,7 +194,7 @@ Image/transparent.png, stretch
 // Text
 $$$empty
 // Font name, size
-arial, 1.5, fgcol=000000
+dimbo, 1.5, fgcol=000000
 
 gui-comp
 buttons-3
@@ -231,7 +231,7 @@ text-choice-3
 // Text
 $$$empty
 // Font name, size
-arial, 1.5, left, multi, fgcol=000000
+dimbo, 1.5, left, multi, fgcol=000000
 
 // element type
 gui-button
@@ -246,6 +246,6 @@ Image/transparent.png, stretch
 // Text
 $$$empty
 // Font name, size
-arial, 1.5, fgcol=000000
+dimbo, 1.5, fgcol=000000
 
 

@@ -6,7 +6,7 @@
 1
 
 // Font height
-lurk-font-y 3.0
+lurk-font-y 2.0
 // Scale factor; normally 1
 lurk-font-x 1.0
 

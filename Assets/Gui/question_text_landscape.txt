@@ -26,7 +26,7 @@ musical-term-text
 // Text
 E.g. Alla marcia
 // Font name, size
-arial, 2.0, fgcol=ffffff, multi
+dimbo, 2.0, fgcol=ffffff, multi
 
 
 
