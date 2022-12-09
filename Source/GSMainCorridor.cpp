@@ -170,8 +170,13 @@ void GSMainCorridor::SetCameraForNewLevel(bool wentUpNotDown)
 
   // TODO TEMP TEST
   // These distances should be calculated per-level because they depend on num topics
-  float leftEnd = 60.f + DISTANCE_BETWEEN_DOORS / 2;
-  float rightEnd = -740.f + DISTANCE_BETWEEN_DOORS / 2;
+  int numTopicsThisLevel = GetCourse()->GetNumTopics();
+
+  const float LEFT_END = 60.0f;
+  float leftEnd = LEFT_END + DISTANCE_BETWEEN_DOORS / 2;
+  float rightEnd = 
+    LEFT_END - DISTANCE_BETWEEN_DOORS * (numTopicsThisLevel + 1) + 
+    DISTANCE_BETWEEN_DOORS / 2;
 
   float newZ = wentUpNotDown ? leftEnd : rightEnd;
 
@@ -205,7 +210,7 @@ void GSMainCorridor::SetCameraForNewLevel(bool wentUpNotDown)
   Assert(cmw);
   // If we go up, we are on left, so at topic -1. Else we went down,
   //  and so we are at the right end, so at the last topic + 1.
-  int newTopic = wentUpNotDown ? -1 : GetCourse()->GetNumTopics();
+  int newTopic = wentUpNotDown ? -1 : numTopicsThisLevel;
   cmw->SetCurrentPosAndTopic(newZ, newTopic);
 }
 
