@@ -31,11 +31,14 @@ void MusicalTermQuestion::MakeQuestion()
   m_answers = MultiChoice();
 
   // Allow switching english/foreign: decide whether to switch
-  m_qAndASwitched = (rand() & 1) != 0;
+  if (m_canSwapQAndA)
+  {
+    m_qAndASwitched = (rand() & 1) != 0;
+  }
 
   // TODO set number of fake answers
   int numAnswers = 4;
-  numAnswers = std::min(numAnswers, n - 1); // make sure we can't overrun
+  numAnswers = std::min(numAnswers, n); // make sure we can't overrun
   int correct = rand() % numAnswers;
   m_answers.SetCorrectAnswer(correct);
   for (int i = 0; i < numAnswers; i++)
@@ -55,14 +58,6 @@ void MusicalTermQuestion::MakeQuestion()
     {
       m_musicalTerm = q;
     }
-  }
-
-  // Make question text
-  if (m_qAndASwitched)
-  {
-  }
-  else
-  {
   }
 }
 

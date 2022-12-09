@@ -34,10 +34,16 @@ public:
   // Get non-shuffled for testing
   MultiChoice GetMultiChoiceAnswers();
 
+  void SetCanSwapQAndQ(bool canSwap);
+
 protected:
   MultiChoice m_answers;
 
-  // Set if we swap the question and answer strings for variety
+  // Set if we are allowed to swap question and answer strings, to add more variety
+  //  to questions.
+  bool m_canSwapQAndA = false;
+
+  // Set if we swap the question and answer strings
   bool m_qAndASwitched = false;
 };
 

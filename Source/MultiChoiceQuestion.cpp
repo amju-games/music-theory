@@ -39,6 +39,12 @@ MultiChoice MultiChoiceQuestion::GetMultiChoiceAnswers()
 {
   return m_answers;
 }
+
+void MultiChoiceQuestion::SetCanSwapQAndQ(bool canSwap)
+{
+  m_canSwapQAndA = canSwap;
+}
+
 }
 
 
