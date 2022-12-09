@@ -5,11 +5,11 @@
 
 // (No version number for this file type)
 
-stave-line = quad, 1, 0.475,  1, 0.490,  0, 0.490,  0, 0.475 
+stave-line = quad, 1, 0.470,  1, 0.485,  0, 0.485,  0, 0.470 
 stave = stave-line, 0, 0 ; stave-line, 0, 0.1 ; stave-line, 0, 0.2 ; stave-line, 0, 0.3 ; stave-line, 0, 0.4
 
 //bar-line = quad, 0.0175, 0.475,  0.0175, 0.875,  0, 0.875,  0, 0.475
-bar-line = quad, 0.025, 0.475,  0.025, 0.875,  0, 0.875,  0, 0.475
+bar-line = quad, 0.025, 0.470,  0.025, 0.885,  0, 0.885,  0, 0.470
 
 // Stave y positions
 //  0.45
