@@ -99,7 +99,7 @@
 95=What's this tonic triad?
 96=Tap on the correct key signature!
 97=Play the note
-98=Play the note shown on the piano!
+98=Play this note!
 99=Tap on the correct meaning!
 100=What is the name of this interval?
 101=Crotchet rest

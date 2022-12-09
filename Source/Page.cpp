@@ -126,18 +126,24 @@ void Page::OnActive()
   // Only show if different. Show in centre, so it doesn't introduce delay,
   //  lets us have long explanations if needed, and we know the player read
   //  it.
-  static std::string prevInstr;
+//  static std::string prevInstr;
   const std::string& instr = GetInstructionText();
-  if (instr != prevInstr)
+  IGuiText* instrText = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "instructions-text"));
+  if (instrText)
   {
-    PLurkMsg lm = new CentreMsg(instr,
-      GetColour(COLOUR_TUTORIAL), // TODO
-      GetColour(COLOUR_TEXT),  // TODO
-      AMJU_LURK_NO_TIMER);  
-
-    TheLurker::Instance()->Queue(lm);
-    prevInstr = instr; // remember for next time
+    instrText->SetText(instr);
   }
+
+  //if (instr != prevInstr)
+  //{
+  //  PLurkMsg lm = new CentreMsg(instr,
+  //    GetColour(COLOUR_TUTORIAL), // TODO
+  //    GetColour(COLOUR_TEXT),  // TODO
+  //    AMJU_LURK_NO_TIMER);  
+
+  //  TheLurker::Instance()->Queue(lm);
+  //  prevInstr = instr; // remember for next time
+  //}
 }
 
 bool Page::Load(const Strings& strs)
