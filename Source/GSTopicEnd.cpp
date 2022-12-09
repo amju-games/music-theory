@@ -81,7 +81,8 @@ void GSTopicEnd::OnActive()
   m_topicScore = profile->GetCurrentTopicScore();
 
   // Unlock next topics if this topic has been passed.
-  if (profile->IsTopicPassed(topic->GetId()))
+  bool passed = profile->IsTopicPassed(topic->GetId());
+  if (passed)
   {
     // Passed this topic, unlock more topics
     const std::vector<std::string>& unlocks = topic->GetTopicsThisUnlocks();
@@ -113,6 +114,10 @@ void GSTopicEnd::OnActive()
   text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "cert-mark"));
   Assert(text);
   text->SetText(ToString(m_topicScore) + "%");
+  // Trigger certificate if we have passed
+  GuiElement* certificate = GetElementByName(m_gui, "certificate");
+  Assert(certificate);
+  certificate->SetVisible(passed);
 
   // Get initial hints, animate additions
   m_hints = profile->GetHints(HintType::HINT_TYPE_HINT); // TODO

@@ -154,10 +154,12 @@ bool UserProfile::IsTopicUnlocked(const std::string& topicId)
 
 bool UserProfile::IsTopicPassed(const std::string& topicId) 
 {
-  Assert(!topicId.empty());
-  int best = GetBestTopicScore(topicId);
-  const int TOPIC_PASS_MARK = 1; // TODO ok here? Per-topic??
-  return best > TOPIC_PASS_MARK;
+  // We want to know if the current attempt is a pass, right? Not 
+  //  whether the topic was _ever_ passed?
+//  Assert(!topicId.empty());
+//  int best = GetBestTopicScore(topicId);
+  const int TOPIC_PASS_MARK = 70; // TODO ok here? Per-topic??
+  return m_topicScore > TOPIC_PASS_MARK;
 }
 
 void UserProfile::UnlockTopic(const std::string& topicId)

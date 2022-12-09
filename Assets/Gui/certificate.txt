@@ -6,6 +6,10 @@
 // version
 1
 
+gui-comp
+certificate
+1
+
 animation
 clean-anim
 const
@@ -28,7 +32,7 @@ linear
 translate
 0, 0; 0, -2
 
-// Move certif on screen
+// Move certif ON screen
 animation
 clean-anim
 const
