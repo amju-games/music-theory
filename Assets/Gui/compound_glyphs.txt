@@ -8,12 +8,27 @@
 stave-line = quad, 1, 0.475,  1, 0.490,  0, 0.490,  0, 0.475 
 stave = stave-line, 0, 0 ; stave-line, 0, 0.1 ; stave-line, 0, 0.2 ; stave-line, 0, 0.3 ; stave-line, 0, 0.4
 
+// Stave y positions
+//  0.45
+//  0.40 ------- Top stave line
+//  0.35
+//  0.30 -------
+//  0.25
+//  0.20 ------- Middle stave line
+//  0.15
+//  0.10 -------
+//  0.05
+//  0.00 ------- Bottom stave line = 0
+// -0.05
+
 2/4 = 2, 0, 0.3 ; 4, 0, 0.1
 3/4 = 3, 0, 0.3 ; 4, 0, 0.1
 4/4 = 4, 0, 0.3 ; 4, 0, 0.1
 6/8 = 6, 0, 0.3 ; 8, 0, 0.1
 9/8 = 9, 0, 0.3 ; 8, 0, 0.1
 12/8 = 1, -0.1, 0.3 ; 2, 0.1, 0.3; 8, 0, 0.1
+
+// Key sigs
 
 keysig-1sharp-treble = sharp, 0, 0.4
 keysig-2sharp-treble = keysig-1sharp-treble, 0, 0 ; sharp, 0.2, 0.25
@@ -23,6 +38,14 @@ keysig-5sharp-treble = keysig-4sharp-treble, 0, 0 ; sharp, 0.8, 0.15
 keysig-6sharp-treble = keysig-5sharp-treble, 0, 0 ; sharp, 1.0, 0.35
 keysig-7sharp-treble = keysig-6sharp-treble, 0, 0 ; sharp, 1.2, 0.20
 
+keysig-1sharp-bass = sharp, 0, 0.3
+keysig-2sharp-bass = keysig-1sharp-bass, 0, 0 ; sharp, 0.2, 0.15
+keysig-3sharp-bass = keysig-2sharp-bass, 0, 0 ; sharp, 0.4, 0.35
+keysig-4sharp-bass = keysig-3sharp-bass, 0, 0 ; sharp, 0.6, 0.20
+keysig-5sharp-bass = keysig-4sharp-bass, 0, 0 ; sharp, 0.8, 0.05
+keysig-6sharp-bass = keysig-5sharp-bass, 0, 0 ; sharp, 1.0, 0.25
+keysig-7sharp-bass = keysig-6sharp-bass, 0, 0 ; sharp, 1.2, 0.10
+
 keysig-1flat-treble  = flat, 0.0, 0.19
 keysig-2flat-treble  = flat, 0.2, 0.35 ; keysig-1flat-treble, 0, 0
 keysig-3flat-treble  = flat, 0.4, 0.15 ; keysig-2flat-treble, 0, 0
@@ -30,6 +53,14 @@ keysig-4flat-treble  = flat, 0.6, 0.29 ; keysig-3flat-treble, 0, 0
 keysig-5flat-treble  = flat, 0.8, 0.09 ; keysig-4flat-treble, 0, 0
 keysig-6flat-treble  = flat, 1.0, 0.25 ; keysig-5flat-treble, 0, 0
 keysig-7flat-treble  = flat, 1.2, 0.05 ; keysig-6flat-treble, 0, 0
+
+keysig-1flat-bass  = flat, 0.0, 0.09
+keysig-2flat-bass  = flat, 0.2, 0.25 ; keysig-1flat-bass, 0, 0
+keysig-3flat-bass  = flat, 0.4, 0.05 ; keysig-2flat-bass, 0, 0
+keysig-4flat-bass  = flat, 0.6, 0.19 ; keysig-3flat-bass, 0, 0
+keysig-5flat-bass  = flat, 0.8, -0.01 ; keysig-4flat-bass, 0, 0
+keysig-6flat-bass  = flat, 1.0, 0.15 ; keysig-5flat-bass, 0, 0
+keysig-7flat-bass  = flat, 1.2, -0.05 ; keysig-6flat-bass, 0, 0
 
 stem-up = quad, 0.265, 0.495,  0.265, 0.825,  0.23, 0.825,  0.23, 0.475
 stem-down = quad, 0.09, 0.125,  0.09, 0.49,  0.06, 0.47,  0.06, 0.125
@@ -69,7 +100,7 @@ dotted-minim-down-raised-dot = minim-down, 0, 0 ; ., 0.275, 0.03
 // Ledger line, same y pos as bottom line of stave
 ledger = quad, 0.31, 0.475,  0.31, 0.490,  0.01, 0.490,  0.01, 0.475
 // Wide ledger line, for semibreves
-ledger-w = quad, 0.35, 0.475,  0.35, 0.490,  -0.04, 0.490,  -0.04, 0.475
+ledger-w = quad, 0.37, 0.475,  0.37, 0.490,  -0.01, 0.490,  -0.01, 0.475
 
 // Common notes
 // c4 = middle C
@@ -107,6 +138,7 @@ treb-bb5-cr = treb-b5-cr, 0, 0 ; flat, -0.2, 0.2
 
 // Bass clef
 // c4 = middle C
+bass-d4-cr = crotchet-down, 0, 0.55 ; ledger, 0, 0.50
 bass-c4-cr = crotchet-down, 0, 0.50 ; ledger, 0, 0.50
 bass-b4-cr = crotchet-down, 0, 0.45
 bass-a4-cr = crotchet-down, 0, 0.40
@@ -135,6 +167,37 @@ bass-ab4-cr = bass-a4-cr, 0, 0 ; flat, -0.2, 0.40
 bass-gb3-cr = bass-g3-cr, 0, 0 ; flat, -0.2, 0.35
 bass-eb3-cr = bass-e3-cr, 0, 0 ; flat, -0.2, 0.25
 bass-db3-cr = bass-d3-cr, 0, 0 ; flat, -0.2, 0.20
+
+// Semibreves
+treb-c4-sb = semibreve, 0, -0.1 ; ledger-w, 0, -0.1
+treb-d4-sb = semibreve, 0, -0.05
+treb-e4-sb = semibreve, 0, 0.0
+treb-f4-sb = semibreve, 0, 0.05 
+treb-g4-sb = semibreve, 0, 0.1 
+treb-a5-sb = semibreve, 0, 0.15
+treb-b5-sb = semibreve, 0, 0.2
+treb-c5-sb = semibreve, 0, 0.25
+treb-d5-sb = semibreve, 0, 0.3
+treb-e5-sb = semibreve, 0, 0.35
+treb-f5-sb = semibreve, 0, 0.4
+treb-g5-sb = semibreve, 0, 0.45
+
+bass-d4-sb = semibreve, 0, 0.55 ; ledger-w, 0, 0.50
+bass-c4-sb = semibreve, 0, 0.50 ; ledger-w, 0, 0.50
+bass-b4-sb = semibreve, 0, 0.45
+bass-a4-sb = semibreve, 0, 0.40
+bass-g3-sb = semibreve, 0, 0.35
+bass-f3-sb = semibreve, 0, 0.30
+bass-e3-sb = semibreve, 0, 0.25
+bass-d3-sb = semibreve, 0, 0.20
+bass-c3-sb = semibreve, 0, 0.15
+bass-b3-sb = semibreve, 0, 0.10
+bass-a3-sb = semibreve, 0, 0.05
+bass-g2-sb = semibreve, 0, 0.00
+bass-f2-sb = semibreve, 0, -0.05
+bass-e2-sb = semibreve, 0, -0.10 ; ledger-w, 0, -0.10
+bass-d2-sb = semibreve, 0, -0.15 ; ledger-w, 0, -0.10
+bass-c2-sb = semibreve, 0, -0.20 ; ledger-w, 0, -0.10; ledger-w, 0, -0.20
 
 // Convenience short versions: treble clef, notes from middle C.
 c = treb-c4-cr, 0, 0

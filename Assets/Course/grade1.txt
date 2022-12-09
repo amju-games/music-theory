@@ -9,7 +9,53 @@
 1
 
 // Num topics
-8
+10
+
+// Topic
+// ID
+whats-the-tonic-triad
+// Localised display name
+Tonic Triads
+// Group
+4
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
+10
+page-symbol-text, Course/whats_the_tonic_triad.txt
+page-symbol-text, Course/whats_the_tonic_triad.txt
+page-symbol-text, Course/whats_the_tonic_triad.txt
+page-symbol-text, Course/whats_the_tonic_triad.txt
+page-symbol-text, Course/whats_the_tonic_triad.txt
+page-symbol-text, Course/whats_the_tonic_triad.txt
+page-symbol-text, Course/whats_the_tonic_triad.txt
+page-symbol-text, Course/whats_the_tonic_triad.txt
+page-symbol-text, Course/whats_the_tonic_triad.txt
+page-symbol-text, Course/whats_the_tonic_triad.txt
+
+// Topic
+// ID
+whats-the-key-sig
+// Localised display name
+What's the key sig
+// Group
+4
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
+10
+page-symbol-text, Course/whats_the_key_sig.txt
+page-symbol-text, Course/whats_the_key_sig.txt
+page-symbol-text, Course/whats_the_key_sig.txt
+page-symbol-text, Course/whats_the_key_sig.txt
+page-symbol-text, Course/whats_the_key_sig.txt
+page-symbol-text, Course/whats_the_key_sig.txt
+page-symbol-text, Course/whats_the_key_sig.txt
+page-symbol-text, Course/whats_the_key_sig.txt
+page-symbol-text, Course/whats_the_key_sig.txt
+page-symbol-text, Course/whats_the_key_sig.txt
 
 
 // Topic
