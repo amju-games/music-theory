@@ -161,7 +161,7 @@ void CorridorModeWait::OnActive()
 
   SetCamera();
 
-  QueueFirstTimeMsgs( { TUTORIAL_HELLO, TUTORIAL_SWIPE }, AMJU_FIRST_TIME_THIS_USER);
+//  QueueFirstTimeMsgs( { TUTORIAL_HELLO, TUTORIAL_SWIPE }, AMJU_FIRST_TIME_THIS_USER);
 }
 
 void CorridorModeWait::SetCamera()
@@ -197,7 +197,7 @@ void CorridorModeWait::Update()
       SetCurrentTopic();
 
       // Successful swipe - if first time, show more tutorial msgs
-      QueueFirstTimeMsgs( { TUTORIAL_TAP_DOOR }, AMJU_FIRST_TIME_THIS_USER);
+//      QueueFirstTimeMsgs( { TUTORIAL_TAP_DOOR }, AMJU_FIRST_TIME_THIS_USER);
     }
 
     SetCamera();
@@ -273,8 +273,9 @@ bool CorridorModeWait::OnMouseButtonEvent(const MouseButtonEvent& mbe)
     if (   m_touchDownOnDoor 
         && touchUpOnDoor 
         && !m_isScrolling
-        && TheTutorialManager::Instance()->MsgHasBeenShown(
-               TUTORIAL_TAP_DOOR, AMJU_FIRST_TIME_THIS_USER))
+    )
+        //&& TheTutorialManager::Instance()->MsgHasBeenShown(
+        //       TUTORIAL_TAP_DOOR, AMJU_FIRST_TIME_THIS_USER))
     {
       OnTopic(nullptr); // replaces GuiButton
     }
