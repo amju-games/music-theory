@@ -577,6 +577,16 @@ bool GuiMusicScore::Load(File* f)
 void GuiMusicScore::SetFgCol(const Colour& col)
 {
   m_fgCol = col;
+
+  // Set this colour on each glyph
+  int numGlyphs = m_glyphs.size();
+  for (int i = 0; i < numGlyphs; i++)
+  {
+    Glyph& g = m_glyphs[i];
+    g.m_colour = m_fgCol;
+  }
+  m_highlightedSet.clear();
+
   RefreshColours();
 }
 
