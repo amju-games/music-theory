@@ -50,18 +50,11 @@ public:
   int GetNumPages() const;
   Page* GetPage(int n);
 
-  const std::string& GetGroup() const;
-
 protected:
   std::string m_id; // Unique ID
 
   // Localised name user sees
   std::string m_displayName;
-
-  // Group to which this topic belongs, so we can present Topics in a
-  //  structured way. But as far as the Topic and Course is concerned, this 
-  //  is just an arbitrary string.
-  std::string m_group;
 
   // IDs of topics which are unlocked when this topic is completed
   std::vector<std::string> m_unlocks;

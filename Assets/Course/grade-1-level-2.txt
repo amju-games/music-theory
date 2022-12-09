@@ -17,8 +17,6 @@ learning-the-notes
 // Localised display name
 // Learning the Notes TODO Maybe 'Pitch' ?
 $$$170
-// Group
-4
 // Initially locked?
 // Topics unlocked by this one
 none
@@ -41,8 +39,6 @@ page-symbol-kb=Course/level2/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
 notes-and-rests
 // Localised display name
 @@@Notes and Rests
-// Group
-4
 // Initially locked?
 // Topics unlocked by this one
 none
@@ -59,8 +55,6 @@ keys-and-scales
 // Localised display name
 // Keys and Scales
 $$$171
-// Group
-4
 // Initially locked?
 // Topics unlocked by this one
 none
@@ -76,8 +70,6 @@ page-symbol-text=Course/level2/intervals.txt=$$$100
 bars-and-time-sigs
 // Localised display name
 @@@Bars and Time Sigs
-// Group
-1
 // Topics unlocked by this one
 none
 // Pages
@@ -92,8 +84,6 @@ musical-terms-symbols-1
 // Localised display name
 // Musical terms and Symbols
 $$$9
-// Group
-3
 // Initially locked?
 // Topics unlocked by this one
 none

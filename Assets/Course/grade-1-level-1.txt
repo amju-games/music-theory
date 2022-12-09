@@ -16,8 +16,6 @@
 notes-on-treb-clef-level1
 // Localised display name
 Notes on the Treble Clef
-// Group
-4
 // Initially locked?
 // Topics unlocked by this one
 notes-and-rests-level1
@@ -40,8 +38,6 @@ page-symbol-kb=Course/level1/play-note-treb-clef.txt=-0.9=$$$98
 notes-and-rests-level1
 // Localised display name
 @@@Notes and Rests
-// Group
-4
 // Initially locked?
 // Topics unlocked by this one
 notes-on-bass-clef-level1
@@ -58,8 +54,6 @@ page-text-symbol=Course/level1/note-rest-symbols.txt=$$$92
 notes-on-bass-clef-level1
 // Localised display name
 Notes on the Bass Clef
-// Group
-4
 // Initially locked?
 // Topics unlocked by this one
 musical-terms-symbols-level1
@@ -80,8 +74,6 @@ musical-terms-symbols-level1
 // Localised display name
 // Musical terms and Symbols
 $$$9
-// Group
-3
 // Initially locked?
 // Topics unlocked by this one
 none

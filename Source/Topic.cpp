@@ -54,14 +54,6 @@ bool Topic::Load(File* f)
     return false;
   }
 
-  if (!f->GetDataLine(&m_group))
-  {
-    f->ReportError("Expected topic group");
-    return false;
-  }
-
-  // Initially locked or unlocked?
-
   // Topics unlocked by this one - string split by commas
   std::string unlocked;
   if (!f->GetDataLine(&unlocked))
@@ -121,11 +113,6 @@ int Topic::GetNumPages() const
 Page* Topic::GetPage(int n)
 {
   return m_pages[n];
-}
-
-const std::string& Topic::GetGroup() const
-{
-  return m_group;
 }
 
 }
