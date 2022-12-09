@@ -1,0 +1,77 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// gs_score.txt
+// Test: draw music notation
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+score-comp
+// Num children
+1
+
+
+music-score
+// Name, Position, Size
+music-score
+-1.0, 0
+.5, .5
+// Colour
+//1DA2FF
+000000
+
+// Glyphs start here
+stave, -0.5, 0, 20, 1
+treble-clef, 0, 0
+
+// Beams etc tests
+// 4 points, defined in anti-clockwise (CCW) order
+quad, 0, 0,  1, 0.1,  1, 0.2,  0, 0.1
+
+stave, -0.1, 0
+stave, .6, 0, 8, 1
+bass-clef, 0.6, 0
+
+// Beamed note test
+q, 2.0, .4 
+q, 2.5, .45 
+quad, 2.18, 1.2,  2.704, 1.25,  2.704, 1.3,  2.18, 1.25
+
+// A scale
+
+// Mid c
+semibreve, 1, -0.1
+_, 0.975, -0.1
+// d
+semibreve, 1.5, -0.05
+// e
+sharp, 1.8, 0
+semibreve, 2.0, 0
+// f
+semibreve, 2.5, 0.05
+// g
+semibreve, 3.0, 0.1
+// a
+semibreve, 3.5, 0.15
+// b
+semibreve, 4, 0.2
+// c1
+semibreve, 4.5, 0.25
+
+// Tests
+triplet, 0, 1
+sharp, 0.4, 1
+segno, 0.8, 1
+fff, 1.2, 1
+rest-5, 1.6, 1
+rest-5, 2.0, 1
+bass-clef, 2.4, 1
+
+// Smaller, e.g. change clef
+stave, 1, -0.5, 3.0, 0.5
+treble-clef, 1, -0.5,  0.5, 0.5
+end

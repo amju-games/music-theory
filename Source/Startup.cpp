@@ -30,6 +30,7 @@
 #include "GSPlayNotes.h"
 #include "GSShowLineDrawing.h"
 #include "GSShowMusicScore.h"
+#include "GSTestShowScore.h"
 #include "GSUserDraw.h"
 #include "GuiLineDrawing.h"
 #include "GuiMusicKb.h"
@@ -90,10 +91,13 @@ void StartUpAfterCreateWindow()
   GuiMusicKb::AddToFactory();
   GuiMusicScore::AddToFactory();
 
-  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
-//  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
+  //TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
+
+  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
+  
 }
 }
 

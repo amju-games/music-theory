@@ -25,7 +25,7 @@ public:
 protected: 
   // GUI - this is a 2D app
   PGuiElement m_gui;
-
+  std::string m_guiFilename; // used to load m_gui - set this in ctor etc.
 };
 }
 

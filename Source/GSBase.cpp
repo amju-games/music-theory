@@ -28,6 +28,9 @@ void GSBase::Draw2d()
 void GSBase::OnActive() 
 {
   GameState::OnActive();
+
+  m_gui = LoadGui(m_guiFilename);
+
 }
 
 void GSBase::OnDeactive()
