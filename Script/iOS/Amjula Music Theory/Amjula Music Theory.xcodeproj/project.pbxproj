@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		692BF7471EAE50BD00DB6CE7 /* PagePlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 692BF7461EAE50BD00DB6CE7 /* PagePlayNotes.cpp */; };
+		692BF74B1EAE5E2B00DB6CE7 /* PageFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 692BF7491EAE5E2B00DB6CE7 /* PageFactory.cpp */; };
 		6959E2D01E958C3C00E251A9 /* GSPages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2C81E958C3C00E251A9 /* GSPages.cpp */; };
 		6959E2D11E958C3C00E251A9 /* GSTitle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2CA1E958C3C00E251A9 /* GSTitle.cpp */; };
 		6959E2D21E958C3C00E251A9 /* MusicalTermsDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2CC1E958C3C00E251A9 /* MusicalTermsDictionary.cpp */; };
@@ -109,6 +110,8 @@
 
 /* Begin PBXFileReference section */
 		692BF7461EAE50BD00DB6CE7 /* PagePlayNotes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PagePlayNotes.cpp; path = ../../../../Source/PagePlayNotes.cpp; sourceTree = "<group>"; };
+		692BF7491EAE5E2B00DB6CE7 /* PageFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PageFactory.cpp; path = ../../../../Source/PageFactory.cpp; sourceTree = "<group>"; };
+		692BF74A1EAE5E2B00DB6CE7 /* PageFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageFactory.h; path = ../../../../Source/PageFactory.h; sourceTree = "<group>"; };
 		6959E2C81E958C3C00E251A9 /* GSPages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSPages.cpp; path = ../../../../Source/GSPages.cpp; sourceTree = "<group>"; };
 		6959E2C91E958C3C00E251A9 /* GSPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSPages.h; path = ../../../../Source/GSPages.h; sourceTree = "<group>"; };
 		6959E2CA1E958C3C00E251A9 /* GSTitle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSTitle.cpp; path = ../../../../Source/GSTitle.cpp; sourceTree = "<group>"; };
@@ -350,6 +353,8 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				692BF7491EAE5E2B00DB6CE7 /* PageFactory.cpp */,
+				692BF74A1EAE5E2B00DB6CE7 /* PageFactory.h */,
 				692BF7461EAE50BD00DB6CE7 /* PagePlayNotes.cpp */,
 				6959E31C1EAB5BA500E251A9 /* PrintGui.cpp */,
 				6959E31D1EAB5BA500E251A9 /* PrintGui.h */,
@@ -613,6 +618,7 @@
 				697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */,
 				69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */,
 				69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */,
+				692BF74B1EAE5E2B00DB6CE7 /* PageFactory.cpp in Sources */,
 				6959E3051EA1091500E251A9 /* MultiChoiceQuestion.cpp in Sources */,
 				6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */,
 				6959E2EE1E97F6F800E251A9 /* Topic.cpp in Sources */,
