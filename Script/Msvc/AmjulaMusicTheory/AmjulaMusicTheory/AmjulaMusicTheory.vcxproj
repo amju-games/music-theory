@@ -445,6 +445,7 @@
     <Text Include="..\..\..\..\Assets\Course\expl\ttriad-gmaj-treb.txt" />
     <Text Include="..\..\..\..\Assets\Course\higher_or_lower.txt" />
     <Text Include="..\..\..\..\Assets\Course\name_the_note.txt" />
+    <Text Include="..\..\..\..\Assets\Course\note-rest-names.txt" />
     <Text Include="..\..\..\..\Assets\Course\notes_on_bass_clef_with_accidentals.txt" />
     <Text Include="..\..\..\..\Assets\Course\grade1.txt" />
     <Text Include="..\..\..\..\Assets\Course\intervals.txt" />
@@ -452,12 +453,13 @@
     <Text Include="..\..\..\..\Assets\Course\musical_terms.txt" />
     <Text Include="..\..\..\..\Assets\Course\notes_on_treble_clef.txt" />
     <Text Include="..\..\..\..\Assets\Course\notes_on_treble_clef_with_accidentals.txt" />
-    <Text Include="..\..\..\..\Assets\Course\rest_names.txt" />
+    <Text Include="..\..\..\..\Assets\Course\note_lengths.txt" />
     <Text Include="..\..\..\..\Assets\Course\whats_the_key_sig.txt" />
     <Text Include="..\..\..\..\Assets\Course\whats_the_scale.txt" />
     <Text Include="..\..\..\..\Assets\Course\whats_the_time_sig.txt" />
     <Text Include="..\..\..\..\Assets\Course\whats_the_tonic_triad.txt" />
     <Text Include="..\..\..\..\Assets\Course\which_clef.txt" />
+    <Text Include="..\..\..\..\Assets\en.txt" />
     <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt" />
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt" />
     <Text Include="..\..\..\..\Assets\Gui\compound_glyphs.txt" />
@@ -491,6 +493,7 @@
     <Text Include="..\..\..\..\Assets\Gui\music_score_bg_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_interval.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_symbol_kb_landscape.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\page_symbol_symbol_2_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_symbol_symbol_4.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_symbol_symbol_4_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_symbol_text_4.txt" />

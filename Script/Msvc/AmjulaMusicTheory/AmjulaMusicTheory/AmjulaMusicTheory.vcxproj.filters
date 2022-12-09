@@ -678,9 +678,6 @@
     <Text Include="..\..\..\..\Assets\Gui\keyboard-pink.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Course\rest_names.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Scene\title-scene.txt">
       <Filter>Assets\Scene</Filter>
     </Text>
@@ -749,6 +746,18 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\player-score.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\en.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_symbol_symbol_2_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\note_lengths.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\note-rest-names.txt">
+      <Filter>Assets\Course</Filter>
     </Text>
   </ItemGroup>
 </Project>

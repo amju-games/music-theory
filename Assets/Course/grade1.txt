@@ -9,13 +9,13 @@
 1
 
 // Num topics
-3
+5
 
 // Topic
 // ID
 learning-the-notes
 // Localised display name
-// Learning the Notes
+// Learning the Notes TODO Maybe 'Pitch' ?
 $$$170
 // Group
 4
@@ -24,12 +24,32 @@ $$$170
 none
 // Pages
 5
+// Normally, pages are defined as a vec of strings:
+// 1. base name for page gui filename
+// 2. Dictionary defining Questions
+// 3. Instructions text
 page-symbol-symbol-2=Course/which_clef.txt=$$$3
 page-symbol-text=Course/higher_or_lower.txt=$$$92
 page-symbol-symbol=Course/name_the_note.txt=$$$93
+// Special case page:
 // 3rd param is x offset for keyboard=moving mid C close to left edge of screen
 page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
 page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
+
+// Topic
+// ID
+notes-and-rests
+// Localised display name
+@@@Note and Rests
+// Group
+4
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
+1
+page-symbol-text=Course/note-rest-names.txt=$$$92
+// TODO Length equivalences
 
 // Topic
 // ID
@@ -48,6 +68,20 @@ page-symbol-text=Course/whats_the_scale.txt=$$$94
 page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
 page-symbol-text=Course/whats_the_key_sig.txt=$$$96
 page-symbol-text=Course/intervals.txt=$$$100
+
+// Topic
+// ID
+bars-and-time-sigs
+// Localised display name
+@@@Bars and Time Sigs
+// Group
+1
+// Topics unlocked by this one
+none
+// Pages
+1
+// TODO PLACEHOLDER
+page-text-text=Course/musical_terms.txt=$$$99
 
 // Topic
 // ID
