@@ -115,6 +115,15 @@ void Page::OnActive()
   }
 }
 
+bool Page::Load(const Strings& strs)
+{
+  // Topic pages must specify the dictionary to use, as it's no longer hard coded anywhere.
+  Assert(strs.size() > 1);
+  // 2nd string is dictionary for the page
+  SetDictionaryName(strs[1]);
+  return true;
+}
+
 Question* Page::GetQuestion()
 {
   return m_question;
