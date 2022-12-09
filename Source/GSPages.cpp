@@ -357,6 +357,14 @@ bool GSPages::OnKeyEvent(const KeyEvent& ke)
         TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
         break;
       }
+
+      case 'i':
+      {
+        // Inc score
+        m_scoreThisSession++;
+        UpdateHud();
+        break;
+      }
       } // case
     } // switch
   } // if
