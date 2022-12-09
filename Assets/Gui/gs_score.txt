@@ -1,4 +1,9 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
 // gs_score.txt
+// Test: draw music notation
+
 // version
 1
 
@@ -33,6 +38,7 @@ q, 2.0, .4
 q, 2.5, .45 
 quad, 2.18, 1.2,  2.704, 1.25,  2.704, 1.3,  2.18, 1.25
 
+// A scale
 
 // Mid c
 semibreve, 1, -0.1
