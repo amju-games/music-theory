@@ -317,6 +317,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Tappable.cpp" />
+    <ClCompile Include="..\..\..\..\Source\TappableFactory.cpp" />
+    <ClCompile Include="..\..\..\..\Source\TappableHint.cpp" />
     <ClCompile Include="..\..\..\..\Source\Tests\Course_catchtest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
@@ -399,6 +401,10 @@
     <ClInclude Include="..\..\..\..\Source\ScoreBuilder.h" />
     <ClInclude Include="..\..\..\..\Source\ShareManager.h" />
     <ClInclude Include="..\..\..\..\Source\Tappable.h" />
+    <ClInclude Include="..\..\..\..\Source\TappableFactory.h" />
+    <ClInclude Include="..\..\..\..\Source\TappableZoom.h" />
+    <ClInclude Include="..\..\..\..\Source\TappableHint.h" />
+    <ClInclude Include="..\..\..\..\Source\TappableZoomInfoLeaf.h" />
     <ClInclude Include="..\..\..\..\Source\Topic.h" />
     <ClInclude Include="..\..\..\..\Source\UserProfile.h" />
   </ItemGroup>
@@ -486,6 +492,8 @@
     <Text Include="..\..\..\..\Assets\Scene\corridor-scene.txt" />
     <Text Include="..\..\..\..\Assets\Scene\room1-scene.txt" />
     <Text Include="..\..\..\..\Assets\Scene\schoolhouse-scene.txt" />
+    <Text Include="..\..\..\..\Assets\Scene\title-scene.txt" />
+    <Text Include="..\..\..\..\Assets\Scene\topic_start_scene.txt" />
     <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-frag.txt" />
     <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-vert.txt" />
     <Text Include="..\..\..\..\Assets\Shaders\opengl\rotating-frag.txt" />
