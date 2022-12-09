@@ -20,8 +20,8 @@ std::string MusicalTermQuestion::GetMusicalTermText()
 void MusicalTermQuestion::MakeQuestion()
 {
   // Pick random terms from dictionary.
-  int n = m_dictionary->GetNumTerms();
-  std::vector<int> nums(n);
+  const int maxNumQs = m_dictionary->GetNumTerms();
+  std::vector<int> nums(maxNumQs);
   // Fill with ints 0..n
   std::iota(nums.begin(), nums.end(), 0);
   // Randomise
@@ -38,7 +38,7 @@ void MusicalTermQuestion::MakeQuestion()
 
   // TODO set number of fake answers
   int numAnswers = 4;
-  numAnswers = std::min(numAnswers, n); // make sure we can't overrun
+  numAnswers = std::min(numAnswers, maxNumQs); // make sure we can't overrun
   int correct = rand() % numAnswers;
   m_answers.SetCorrectAnswer(correct);
   for (int i = 0; i < numAnswers; i++)
@@ -51,6 +51,16 @@ void MusicalTermQuestion::MakeQuestion()
     if (m_qAndASwitched)
     {
       std::swap(q, ans);
+    }
+
+    // If this answer already exists, move to next. This is to deal with multiple different 
+    //  questions which have the same answer.
+    if (m_answers.IsAnAnswer(ans))
+    {
+      // We need one more 
+      numAnswers++;
+      numAnswers = std::min(numAnswers, maxNumQs); // make sure we can't overrun
+      continue;
     }
 
     m_answers.AddAnswer(ans);

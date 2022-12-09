@@ -40,6 +40,11 @@ MultiChoice MultiChoiceQuestion::GetMultiChoiceAnswers()
   return m_answers;
 }
 
+bool MultiChoice::IsAnAnswer(const std::string& a) const
+{
+  return std::find(m_answers.begin(), m_answers.end(), a) != m_answers.end();
+}
+
 void MultiChoiceQuestion::SetCanSwapQAndA(bool canSwap)
 {
   m_canSwapQAndA = canSwap;

@@ -19,6 +19,10 @@ public:
   int GetNumAnswers() const;
   const std::string& GetAnswer(int n) const;
 
+  // Return true if the given answer string already exists in this MultiChoice.
+  // (i.e. used to check we don't repeat the same answer)
+  bool IsAnAnswer(const std::string& answer) const;
+
 private:
   Strings m_answers;
   int m_correctAnswer = -1;
