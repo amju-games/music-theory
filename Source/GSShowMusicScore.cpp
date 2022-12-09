@@ -5,7 +5,6 @@
 
 namespace Amju
 {
-
 void GSShowMusicScore::Update()
 {
 }

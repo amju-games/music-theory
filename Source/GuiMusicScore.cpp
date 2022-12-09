@@ -1,14 +1,14 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
-#include <map>
+#include <unordered_map>
 #include <GuiFactory.h>
 #include <StringUtils.h>
 #include "GuiMusicScore.h"
 
 namespace Amju
 {
-GuiElement* CreateMusicScore()
+static GuiElement* CreateMusicScore()
 {
   return new GuiMusicScore;
 }
@@ -23,7 +23,7 @@ static bool GlyphNameToCh(const std::string& s, char* ch)
     return true;
   }
 
-  static const std::map<std::string, char> NAMES = 
+  static const std::unordered_map<std::string, char> NAMES = 
   {
     { "triplet", '!' },
     { "sharp", '#' },
@@ -125,6 +125,8 @@ GuiMusicScore::GuiMusicScore()
 {
   // Create texture atlas. TODO CONFIG
   m_atlas.Load("c:/Users/Jason/projects/music-theory/Assets/Fonts/Guido2/guido2-120pt.png", 16, 14, 1, 1);
+
+  m_fgCol = Colour(0, 0, 0, 1); // default to black
 }
 
 void GuiMusicScore::AddToFactory()
@@ -144,7 +146,7 @@ void GuiMusicScore::Draw()
 
   m_atlas.Bind();
   AmjuGL::PushMatrix();
-  AmjuGL::SetColour(0, 0, 0);
+  AmjuGL::SetColour(m_fgCol);
   AmjuGL::Translate(pos.x, pos.y, 0);
   AmjuGL::Scale(size.x, size.y, 1);
   AmjuGL::Draw(m_triList);
@@ -205,6 +207,7 @@ bool GuiMusicScore::Load(File* f)
 
 void GuiMusicScore::SetFgCol(const Colour& col)
 {
+  m_fgCol = col;
 }
 
 void GuiMusicScore::BuildTriList()
