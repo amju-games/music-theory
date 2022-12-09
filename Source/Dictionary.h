@@ -21,9 +21,19 @@ public:
   bool Load(const std::string& filename);
   int GetNumTerms() const;
 
-  // Get a pair of strings with optional third (explanation) string
-  void GetTerm(int i, std::string* english, std::string* foreign, std::string* expl = nullptr) const;
+  // Get two associated strings with optional third string. 
+  // In current use case, first string is "question", second string is 
+  //  "answer", and third string is "explanation".
+  // Returns false if i is out of range.
+  bool GetTerm(
+    int i, 
+    std::string* question, 
+    std::string* answer, 
+    std::string* expl = nullptr) const;
 
+  // Add a vector of associated strings: the strings are localised as they
+  //  are stored. A string starting "$$$" will be looked up!
+  // Strs must contain at least 2 strings ("question" and "answer").
   void AddTerm(const Strings& strs);
 
 private:

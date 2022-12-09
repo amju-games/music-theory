@@ -61,8 +61,13 @@ int Dictionary::GetNumTerms() const
   return m_dictionary.size();
 }
 
-void Dictionary::GetTerm(int i, std::string* english, std::string* foreign, std::string* expl) const
+bool Dictionary::GetTerm(int i, std::string* english, std::string* foreign, std::string* expl) const
 {
+  if (i >= m_dictionary.size())
+  {
+    return false;
+  }
+
   const Strings& strs = m_dictionary[i];
   Assert(strs.size() >= 2);
   *english = strs[0];
@@ -78,6 +83,8 @@ void Dictionary::GetTerm(int i, std::string* english, std::string* foreign, std:
       *expl = "";
     }
   }
+
+  return true;
 }
 }
 
