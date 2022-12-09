@@ -89,4 +89,6 @@ struct Bar
 
   // Calc y-position for glyph, given stave type, pitch and (TODO) clef
   float CalcGlyphY(int pitch) const;
+
+  void SetStaveType(StaveType st) { m_staveType = st; }
 };

@@ -74,6 +74,7 @@ void MakeScore::AddTokens()
     if (s == "|")
     {
       Bar* bar = new Bar;
+      bar->SetStaveType(m_staveType);
       bar->SetScale(m_scale);
       // Copy time sig over to next bar
       bar->SetTimeSig(m_bars.back()->GetTimeSig());
@@ -156,6 +157,7 @@ void MakeScore::MakeInternal()
 {
   // Add first default bar
   Bar* bar = new Bar;
+  bar->SetStaveType(m_staveType);
   bar->SetScale(m_scale);
   m_bars.push_back(std::unique_ptr<Bar>(bar));
 
