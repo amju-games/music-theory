@@ -2,7 +2,7 @@ TODO prototype tech unknowns
 
 Playable keyboard
  - Link Bass midi 
- - sound font asset
+ - sound font asset - find a better piano sound font
  - Just play a sound at start up/periodically for first proof
  - Works for Windows
 
@@ -10,19 +10,44 @@ Playable keyboard
 Music notation
  - Specialised Text GUI: all one draw command, all one texture atlas
  - Except differently coloured elements; these are another GuiMusicScore object?
- - Proof of concept works (Windows), but not independent (x, y) scaling
+ - Proof of concept works (Windows)
+ - independent (x, y) scaling works
 
+Music notation: Important remaining unknowns:
+ * Bars connecting quavers and shorter notes. This is the #1 problem to solve
+ - Staves and bar lines should be drawn programatically, not just using scale.
+ - Variable-size glyphs: slurs, ties, stave, triplet etc spans
+ - Bar lines connecting multiple staves
+ - Curly braces connecting staves
+ 
+Refining music notation
+ - Subclass TextureSequence to allow variable widths. Reduce dead space on texture, improving load time/mem usage.
+
+Next-level layer over GuiMusicScore
+ - GuiMusicScore is the bottom level of a decent system. Look at Guido for how to better express music notation. 
+ * The key requirement is to highlight individual glyphs
+ - Translation layer to convert Guido format to GuiMusicScore?
+ - MusicXML? Not important, right? Unless there is a load of music available in this format.
 
 Animated Drawing
  - A GUI element, right?
  - One texture, so derived from image?
  - Just a vec of points at first
  - Animated: override Update()
- - Vec of points/segments. We grow segments from start to end. As we also want to turn through angles, and change width, (colour?) as we go, we subdivide a user-specified segment into multiple segments.
+ - How to author? 
+   - How about this: colour or grey scale image of line drawing, where the colour gets lighter with time. Animated drawing is just raising the threshold of pixels that get drawn. 
+    - Grey scale gives 256 animation steps, but then we can also sweep through colours.
+    - Nifty, but still hard to author a line drawing with a gradient? We need a vector drawing program. Trying inkscape
+    - Actually is probably possible even with PSP, use gradient or blur. The alpha channel keeps the shape. Can use hand drawn music font, ("Reprise"?)
 
 User Drawing
- - Specialised version of above drawing type
- - Segments from user cursor positions
+ - Not the same technique as the above.
+ - Vec of points/segments. Points won't be contiguous, so we connect them with segments.
+ - Rotatable 9-patch (3-patch really, but 9-patch would be more reusable)
+
+Alternate animated drawing
+ - Similar to user drawing, much closer in code terms. Traverse a sequence of line segs, building up a tri list.
+ - Problem is how to author this, but each authored glyph can be reused: we could have a library of animated glyphs.
 
 
 Animated GUI elements
