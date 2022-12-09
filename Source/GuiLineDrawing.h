@@ -22,6 +22,7 @@ public:
 
   float GetTime() const;
   void SetIsPaused(bool isPaused);
+  void SetColour(const Colour& col);
 
   // Load sequence of points from a file. This lets us make up a reusable library of strokes. 
   bool LoadPoints(File*);

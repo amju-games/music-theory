@@ -37,6 +37,10 @@ void GuiLineDrawing::Reset()
   m_isPaused = false;
 }
 
+void GuiLineDrawing::SetColour(const Colour& col)
+{
+  m_fgCol = col;
+}
 
 static Vec2f CatmullRomSpline(float t, Vec2f p1, Vec2f p2, Vec2f p3, Vec2f p4)
 {
@@ -110,6 +114,7 @@ void GuiLineDrawing::Draw()
 {
   Vec2f pos = GetCombinedPos();
 
+  AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D); // for now
   AmjuGL::PushMatrix();
   AmjuGL::SetColour(m_fgCol);
   AmjuGL::Translate(pos.x, pos.y, 0);
