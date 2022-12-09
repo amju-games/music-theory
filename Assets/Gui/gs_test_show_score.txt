@@ -49,6 +49,8 @@ scale
 0.5,0.5
 
 gui-avatar
+// Name
+test-avatar
 // Avatar string: sets values on nodes in the avatar GUI tree
 colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040
 

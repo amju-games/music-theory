@@ -11,7 +11,7 @@ gui-comp
 // Name
 topic-start-comp
 // Num children
-5
+6
 
 // Best so far display
 
@@ -112,8 +112,29 @@ scale
 0.5,0.5
 
 gui-avatar
+// Name
+composer-avatar
 // Avatar string: sets values on nodes in the avatar GUI tree
 colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040
 
 include
 avatar.txt
+
+// Composer info button
+// Quit button
+// element type
+gui-button
+// Element name
+cancel-button
+// pos (coords are -1..1)
+-0.6, 0.92
+// size
+0.12, 0.12
+// Image 
+Image/gui-button-1.png
+// Text
+// Info "i" symbol, should be I on atlas!
+H
+// Font name, size
+icon, 1.6, fgcol=ffffff, bgcol=4E69F4
+

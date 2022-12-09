@@ -144,6 +144,12 @@ void GuiAvatar::AddToFactory()
 
 bool GuiAvatar::Load(File* f)
 {
+  if (!f->GetDataLine(&m_name))
+  {
+    f->ReportError("Expected GuiAvatar name.");
+    return false;
+  }
+
   std::string s;
   if (!f->GetDataLine(&s))
   {
