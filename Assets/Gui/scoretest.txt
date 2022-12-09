@@ -1,0 +1,35 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// gs_score.txt
+// Test: draw music notation
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+score-comp
+// Num children
+1
+
+
+// Animate the score: the anim value is used to highlight glyphs.
+// (TODO And play note values?!)
+animation
+play-score
+repeat
+3.0
+linear
+
+music-score
+// Name, Position, Size
+music-score
+-0.25, 0
+.25, .55
+// Colour
+000000
+
+// Glyphs start here
+
