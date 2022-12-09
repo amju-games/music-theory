@@ -285,7 +285,8 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 
 //  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
-  TheGame::Instance()->SetCurrentState(TheGSCopyAssets::Instance());
+
+  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 }
 
 static void LoadStringTableForPreferredLanguage()

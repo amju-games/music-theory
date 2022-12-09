@@ -2,11 +2,13 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <ConfigFile.h>
+#include <Directory.h>
 #include <Game.h>
 #include <GuiDecAnimation.h>
 #include <MessageQueue.h>
 #include "Consts.h"
-#include "GSFirstUser.h"
+#include "GSCopyAssets.h" // for CopyFromGlueFile, DEPRECATED
+#include "GSFirstUser.h" // TODO Use it or lose it
 #include "GSMainCorridor.h"
 #include "GSTitle.h"
 #include "PlayWav.h"
@@ -44,6 +46,10 @@ void GSTitle::OnActive()
 {
   GSBase3d::OnActive();
 
+  // Copy ROConfig from glue file into save dir. This is almost pointless for this
+  //  game, so as an optimisation, get rid of this step
+  CopyFromGlueFile(GetSaveDir(APPNAME));
+  
   // Set button commands
   GuiElement* startButton = GetElementByName(m_gui, "start-button");
   startButton->SetCommand(OnStart);

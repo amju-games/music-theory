@@ -23,5 +23,8 @@ public:
 
 };
 typedef Singleton<GSCopyAssets> TheGSCopyAssets;
+
+// Copy asset files from Glue file into writable "Save dir"
+bool CopyFromGlueFile(const std::string& destDir);
 } // namespace
 
