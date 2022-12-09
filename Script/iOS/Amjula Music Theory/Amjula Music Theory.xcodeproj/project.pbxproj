@@ -81,7 +81,6 @@
 		69D7329C1F250B58007B73C1 /* CorridorCamController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D7329A1F250B58007B73C1 /* CorridorCamController.cpp */; };
 		69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */; };
 		69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E08B1E8C09C000E7BF93 /* Question.cpp */; };
-		69F5E0921E8C09DF00E7BF93 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0901E8C09DF00E7BF93 /* GameViewController.m */; };
 		69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */; };
 /* End PBXBuildFile section */
 
@@ -260,8 +259,6 @@
 		69F5E08A1E8C09C000E7BF93 /* PlayMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayMidi.h; path = ../../../../Source/PlayMidi.h; sourceTree = "<group>"; };
 		69F5E08B1E8C09C000E7BF93 /* Question.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Question.cpp; path = ../../../../Source/Question.cpp; sourceTree = "<group>"; };
 		69F5E08C1E8C09C000E7BF93 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = ../../../../Source/Question.h; sourceTree = "<group>"; };
-		69F5E08F1E8C09DF00E7BF93 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameViewController.h; path = "../../../../Source/iOS-MusicTheory/GameViewController.h"; sourceTree = "<group>"; };
-		69F5E0901E8C09DF00E7BF93 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameViewController.m; path = "../../../../Source/iOS-MusicTheory/GameViewController.m"; sourceTree = "<group>"; };
 		69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSPlayMidi.mm; path = "../../../../Source/iOS-MusicTheory/iOSPlayMidi.mm"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -423,8 +420,6 @@
 				69AC40301EB5331300F255A4 /* Dictionary.h */,
 				69C10CD91F17877A009B6836 /* DictionaryPickQuestion.cpp */,
 				69C10CDA1F17877A009B6836 /* DictionaryPickQuestion.h */,
-				69F5E08F1E8C09DF00E7BF93 /* GameViewController.h */,
-				69F5E0901E8C09DF00E7BF93 /* GameViewController.m */,
 				6959E2FB1EA1091500E251A9 /* GSAbout.cpp */,
 				6959E2FC1EA1091500E251A9 /* GSAbout.h */,
 				697A07EF1E82F19B0045CE54 /* GSBase.cpp */,
@@ -684,7 +679,6 @@
 				6959E2F91E9ACE8A00E251A9 /* GSTopicStart.cpp in Sources */,
 				69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */,
 				6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */,
-				69F5E0921E8C09DF00E7BF93 /* GameViewController.m in Sources */,
 				69D732911F23DA29007B73C1 /* CorridorMode.cpp in Sources */,
 				69C10CDE1F17877A009B6836 /* PageQuestion.cpp in Sources */,
 				6951CF191F0B932300140095 /* Md2SceneNode.cpp in Sources */,
