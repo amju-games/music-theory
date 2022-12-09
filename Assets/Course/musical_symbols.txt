@@ -23,6 +23,12 @@
 // 8va/ 8vb
 //note, 0.75, 0 ; dot, 0.75, 0.2    =$$$21
 
+// TODO Fix scale/position of these
+stave, -.25, 0, 1, 1; rest-crotchet, .15, .2  =$$$101
+stave, -.25, 0, 1, 1; rest-1, .15, .25  =$$$102
+stave, -.25, 0, 1, 1; rest-2, .15, .175  =$$$103
+stave, -.25, 0, 1, 1; rest-minim, .15, .19  =$$$104
+
 stave, 0.5, 0, 2.0, 1.0 ; repeat-left, 1.0, 0, 1.0, 1 ; repeat-right, 2.55, 0, 1, 1   =$$$22
 stave, 0.5, 0, 2.0, 1.0 ; repeat-right, 2.55, 0, 1.0, 1   =$$$23
 treble-clef, 1.75, 0   =$$$24
