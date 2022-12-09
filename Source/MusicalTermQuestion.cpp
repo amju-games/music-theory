@@ -39,13 +39,13 @@ void MusicalTermQuestion::MakeQuestion()
   // TODO set number of fake answers
   int numAnswers = 4;
   numAnswers = std::min(numAnswers, maxNumQs); // make sure we can't overrun
-  int correct = rand() % numAnswers;
-  m_answers.SetCorrectAnswer(correct);
+  // Store the indices we use once we eliminate any duplicate answers
+  std::vector<int> numsNoDuplicateAnswers;
+  std::string ans;
+  std::string q;
+  const int n = numAnswers;
   for (int i = 0; i < numAnswers; i++)
   {
-    std::string ans;
-    std::string q;
-
     m_dictionary->GetTerm(nums[i], &q, &ans);
 
     if (m_qAndASwitched)
@@ -59,20 +59,23 @@ void MusicalTermQuestion::MakeQuestion()
     {
       // We need one more 
       numAnswers++;
-      if (i == correct)
-      {
-        correct++;
-      }
       continue;
     }
 
     m_answers.AddAnswer(ans);
-    if (i == correct)
-    {
-      m_musicalTerm = q;
-      m_questionStrings = { q };
-    }
+    numsNoDuplicateAnswers.push_back(nums[i]);
   }
+
+  // Now choose the correct answer
+  int correct = rand() % n; // TODO this seems predictable?
+  m_dictionary->GetTerm(numsNoDuplicateAnswers[correct], &q, &ans);
+  if (m_qAndASwitched)
+  {
+    std::swap(q, ans);
+  }
+  m_musicalTerm = q;
+  m_questionStrings = { q };
+  m_answers.SetCorrectAnswer(correct);
 }
 
 void MusicalTermQuestion::SetDictionary(Dictionary* dictionary)
