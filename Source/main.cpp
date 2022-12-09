@@ -51,7 +51,7 @@ void StartUpAfterCreateWindow()
   // Set sound player
   SoundManager* sm = TheSoundManager::Instance();
   BassSoundPlayer* bsp = new BassSoundPlayer;
-  bsp->MidiSetSoundFont("Assets/Sound/velocity_grand_piano.sf2");
+  bsp->MidiSetSoundFont("Sound/velocity_grand_piano.sf2");
   sm->SetImpl(bsp);
 
   GuiMusicScore::AddToFactory();

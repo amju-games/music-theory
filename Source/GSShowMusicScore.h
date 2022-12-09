@@ -13,9 +13,6 @@ class GSShowMusicScore : public GSBase
 public:
   virtual void Update() override;
   virtual void OnActive() override;
-
-  // Reload
-  virtual bool OnKeyEvent(const KeyEvent&) override;
 };
 
 typedef Singleton<GSShowMusicScore> TheGSShowMusicScore;

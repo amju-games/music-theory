@@ -18,6 +18,9 @@ public:
   virtual void OnActive() override;
   virtual void OnDeactive() override;
 
+  // Reload
+  virtual bool OnKeyEvent(const KeyEvent&) override;
+
 protected: 
   // GUI - this is a 2D app
   PGuiElement m_gui;
