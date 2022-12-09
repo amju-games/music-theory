@@ -15,11 +15,14 @@ hint-buttons-and-counters
 
 // Move to bottom of screen
 translate
-0, -.775
+0, -.725
 
 gui-comp
 two-buttons
 2
+
+translate
+-0.4, 0
 
 gui-comp
 the-hint-button
@@ -34,7 +37,7 @@ ffffffff, ffffff40
 gui-button
 hint-button
 // pos (coords are -1..1)
--0.75, 0.05 
+0, 0 
 // size
 0.3, 0.15
 Image/gui-button-2.png
@@ -61,17 +64,14 @@ circle-and-number
 
 // Coloured circle behind counter
 //
-gui-rect
-hint-counter-bg
--.51, 0.09
-.12, .18
 // colour - same as score BG
+colour
 4D68F1
-// Radius
-0.058
-// Flags
-0
-
+gui-image
+hint-counter-bg
+0.25, 0.09
+.12, .12
+Image/circle.png
 
 
 // The number of hints
@@ -79,7 +79,7 @@ hint-counter-bg
 gui-text
 hint-counter
 // pos (coords are -1..1)
--.5, 0.05 
+0.25, 0.03 
 // size
 0.1, 0.1
 // Text
@@ -92,6 +92,9 @@ dimbo, 1.25, fgcol=ffffff
 // =============================================
 // Play button
 
+translate
+0.1, 0
+
 gui-comp
 play-button-comp
 2
@@ -103,12 +106,12 @@ ffffffff, ffffff40
 gui-button
 play-button
 // pos (coords are -1..1)
--0.075, 0.05
+0, 0
 // size
-0.15, 0.2
-Image/gui-button-1.png
-B
-icon, 2.5, fgcol=ffffff, bgcol=01D76B
+0.3, 0.2
+Image/gui-button-2.png
+Play!
+dimbo, 2, fgcol=ffffff, bgcol=01D76B
 
 // Counter: animated number in circle
 
@@ -127,24 +130,22 @@ gui-comp
 play-counter-and-bg
 2
 
-gui-rect
-hint-counter-bg
-0, 0.09
-.12, .18
 // colour - same as score BG
+colour
 4D68F1
-// Radius
-0.058
-// Flags
-0
 
+gui-image
+hint-counter-bg
+0.25, 0.09
+.12, .18
+Image/circle.png
 
 // The number of hints
 //
 gui-text
 play-counter
 // pos (coords are -1..1)
-0, 0.05 
+0.25, 0.03
 // size
 0.1, 0.1
 // Text

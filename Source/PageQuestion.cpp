@@ -102,7 +102,7 @@ std::cout << "Score has animation, so setting play button command\n";
     else
     {
 std::cout << "Score has no animation, so hiding play button\n";
-      playButton->SetVisible(false);
+      playButton->SetIsEnabled(false); //SetVisible(false);
     }
   }
   else
