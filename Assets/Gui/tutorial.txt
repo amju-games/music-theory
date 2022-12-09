@@ -11,7 +11,9 @@ gui-comp
 // Name
 tutorial-avatar-comp
 // Num children
-2
+// TODO reinstate when tutorial avatar is done
+// 2
+0
 
 elastic
 1,0
