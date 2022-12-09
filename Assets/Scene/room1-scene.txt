@@ -21,10 +21,10 @@ camera-persp
 // Name
 camera
 // Eye pos
-80, 40, 130
+80, 32, 120
 //80, 300, 300
 // Look at pos
-80, 30, 0
+80, 32, 0
 // Up vector
 0, 1, 0
 // FovY, aspect, near, far
@@ -48,9 +48,9 @@ mesh
 // Name
 blackboard
 // Matrix
-1,0,0,0,  0,1,0,0,  0,0,1,0,  100,0,0,1
+1,0,0,0,  0,1,0,0,  0,0,1,0,  80,0,0,1
 // Obj mesh
-obj/bboard1.obj
+obj/bboard-wide.obj
 // Num children
 0
 
