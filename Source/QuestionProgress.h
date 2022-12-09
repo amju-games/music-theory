@@ -4,6 +4,7 @@
 #pragma once
 
 #include <vector>
+#include <RCPtr.h>
 
 namespace Amju
 {
@@ -17,7 +18,7 @@ using QuestionSet = std::vector<int>;
 // Stores progress through a dictionary of questions. This is used to
 //  make sure we ask every question once, and we know when we have 
 //  asked all the Qs.
-class QuestionProgress
+class QuestionProgress : public RefCounted
 {
 public:
   void SetMaxQuestions(int mq);

@@ -289,7 +289,8 @@ void PageMultiChoice::SetUpQuestion()
 
   q->SetDictionary(GetDictionary());
 
-  QuestionProgress qp;
+  QuestionProgress& qp = GetPagesState()->GetProgress();
+
   q->MakeQuestion(qp);
 
 //  // Not great, but this stops us getting the same answer twice.

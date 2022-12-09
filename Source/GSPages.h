@@ -7,6 +7,7 @@
 #include "GSBase3d.h"
 #include "MusicEvent.h"
 #include "Page.h"
+#include "QuestionProgress.h"
 
 namespace Amju
 {
@@ -45,6 +46,8 @@ public:
 
   void ShowGuiElement(const std::string& elemName, bool showNotHide = true);
 
+  QuestionProgress& GetProgress();
+   
 protected:
   void ShowHints();
   void SetButtonEnabled(const std::string& buttonName, bool enabled);
@@ -57,6 +60,10 @@ protected:
 
 protected:
   RCPtr<Page> m_page;
+
+  // For this test attempt, keep track of questions asked, so we don't
+  //  ask the same question repeatedly. 
+  RCPtr<QuestionProgress> m_progress;
 
   // Number of pages shown in this topic session
   int m_numPagesShown = 0;

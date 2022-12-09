@@ -53,6 +53,11 @@ GSPages::GSPages()
   m_sceneFilename = "Scene/room1-scene.txt";
 }
 
+QuestionProgress& GSPages::GetProgress()
+{
+  return *m_progress;
+}
+
 void GSPages::ShowGuiElement(const std::string& elemName, bool showNotHide)
 {
   GuiElement* elem = GetElementByName(m_gui, elemName);
@@ -131,6 +136,9 @@ void GSPages::OnActive()
 
   // Get general user config, just a convenience, it lives in the User Profile.
   m_userConfig = TheUserProfile()->GetConfigForTopic(KEY_GENERAL);
+
+  // Create a new, empty container of questions asked so far this attempt.
+  m_progress = new QuestionProgress;
 
   NextPage();
 }
