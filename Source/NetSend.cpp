@@ -20,7 +20,7 @@ namespace Amju
 {
 static const std::string URL_ROOT = "http://www.amju.com/cgi-bin/amt/";
 static const std::string LOG_DEVICE_SCRIPT_NAME = "amt_log_device.pl";
-static const std::string LOG_SESSION_SCRIPT_NAME = "amt_log_play_session.pl";
+static const std::string LOG_ATTEMPT_SCRIPT_NAME = "amt_log_attempt.pl";
 
 std::string DeviceManufacturer()
 {
@@ -100,13 +100,12 @@ bool NetSendUpdateDeviceInfo()
   std::string deviceModel;
   std::string deviceOsVersion;
 
-  int devId = 0;
-
 #ifdef AMJU_IOS
   // Device ID and model should never change, but we get them anyway as that's
   //  what this function gives us. But we SEND the device ID we got when we first
   //  ran the program and saved in the config file. This is just in case the
   //  device ID is not constant over time.
+  int devId = 0;
   GetDeviceInfo(&devId, &deviceUserName, &deviceModel, &deviceOsVersion);
 #elif defined(WIN32) || defined(MACOSX)
   std::string deviceIdIgnore;
@@ -135,12 +134,12 @@ std::cout << "NetSend: Nothing has changed, so not resending device info.\n";
   
 static std::string s_sessionStart;
   
-void NetSendMarkSessionStart()
+void NetSendMarkAttemptStart(const std::string& topicId)
 {
   s_sessionStart = ToString(Time::Now().ToSeconds());
 }
   
-bool NetSendPlaySession(int flags)
+bool NetSendAttempt(const std::string& topicId, int flags, int score, int lives)
 {
   if (s_sessionStart.empty())
   {
@@ -154,18 +153,21 @@ bool NetSendPlaySession(int flags)
   std::string flagStr = ToString(flags);
   
   std::string url = URL_ROOT +
-    LOG_SESSION_SCRIPT_NAME + 
+    LOG_ATTEMPT_SCRIPT_NAME + 
     "?"
     "device_id='" + EncodeStr(gcf->GetValue(DEVICE_ID)) + "'&"
-    "session_start='" + EncodeStr(s_sessionStart) + "'&"
-    "session_end='" + EncodeStr(now) + "'&"
-    "session_flags='" + EncodeStr(flagStr) + "'";
+    "attempt_start='" + EncodeStr(s_sessionStart) + "'&"
+    "attempt_end='" + EncodeStr(now) + "'&"
+    "attempt_topic='" + EncodeStr(topicId) + "'&"
+    "attempt_lives='" + EncodeStr(std::to_string(lives)) + "'&"
+    "attempt_score='" + EncodeStr(std::to_string(score)) + "'&"
+    "attempt_flags='" + EncodeStr(flagStr) + "'";
   
   s_sessionStart.clear();
 
-std::cout << "Sending play session info: " << url << "\n";
+std::cout << "Sending attempt info: " << url << "\n";
   
-  auto req = new NetSendReq(url, HttpClient::GET, "send play session");
+  auto req = new NetSendReq(url, HttpClient::GET, "send attempt");
   bool b = TheSerialReqManager::Instance()->AddReq(req);
   return b;
 }

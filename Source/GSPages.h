@@ -38,8 +38,10 @@ public:
   void OnIncorrect();
   void NextPage();
   void OnHint();
-  void OnPause();
+
+  void OnQuitButton();
   void OnQuitConfirmCancel();
+  void OnQuitConfirmOK();
 
   // Start showing pages for the given topic (topic number as for Course)
   void StartTopic(int topicNum);

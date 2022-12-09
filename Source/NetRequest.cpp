@@ -28,11 +28,14 @@ void NetSendDeviceInfoReq::HandleResult()
   HttpResult res = GetResult();
   if (res.GetSuccess())
   {
+#ifndef AMJU_IOS
     // We got a response of some kind. That doesn't mean it succeeded though!
     // Check the HTTP response code.
+    // This doesn't work for iOS right now.
     int httpCode = res.GetHttpResponseCode();
     std::cout << "Net send: got response for request '" << GetName() << "': HTTP response code " << httpCode << "\n";
     if (httpCode == 200) // i.e. OK
+#endif // not iOS
     {
       // We can save device info to config file, which means we won't send again
       //  (unless we need to update, e.g. OS version changes)

@@ -24,6 +24,7 @@
 #include "LurkMsg.h"
 #include "Md2SceneNode.h" // TODO promote to Amjulib
 #include "MySceneGraph.h"
+#include "NetSend.h"
 #include "NumUpdate.h"
 #include "PlayWav.h"
 #include "PrintGui.h"
@@ -35,7 +36,7 @@ namespace Amju
 {
 static void OnQuitConfirmOK(GuiElement*)
 {
-  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
+  TheGSPages::Instance()->OnQuitConfirmOK();
 }
 
 static void OnQuitConfirmCancel(GuiElement*)
@@ -43,9 +44,9 @@ static void OnQuitConfirmCancel(GuiElement*)
   TheGSPages::Instance()->OnQuitConfirmCancel();
 }
   
-static void OnPause(GuiElement*)
+static void OnQuitButton(GuiElement*)
 {
-  TheGSPages::Instance()->OnPause();
+  TheGSPages::Instance()->OnQuitButton();
 }
 
 GSPages::GSPages()
@@ -120,7 +121,7 @@ void GSPages::ReloadGui()
 
   GuiElement* elem = GetElementByName(m_gui, "pause-button");
   Assert(elem);
-  elem->SetCommand(Amju::OnPause);
+  elem->SetCommand(Amju::OnQuitButton);
 }
 
 void GSPages::Reload3d()
@@ -163,6 +164,8 @@ void GSPages::OnActive()
   Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
   Assert(topic);
   m_maxNumPagesThisSession = topic->GetNumPages();
+
+  NetSendMarkAttemptStart(topic->GetId());
 
   // Create a new, empty container of progress objects.
   // We create one progress object for each page.
@@ -256,6 +259,11 @@ void GSPages::SetFinalScore()
 
 void GSPages::NextPage()
 {
+  Course* course = GetCourse();
+  Assert(course);
+  Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
+  Assert(topic);
+
   // Have we run out of lives?
   if (m_livesThisSession < 1) 
   {
@@ -263,6 +271,8 @@ void GSPages::NextPage()
     // (Can use the same state?)
     SetFinalScore();
     TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
+    float percent = static_cast<float>(m_scoreThisSession) / static_cast<float>(m_maxMark) * 100.f;
+    NetSendAttempt(topic->GetId(), NET_SEND_ATTEMPT_NO_LIVES_LEFT, percent, 0);
     return;
   }
 
@@ -273,15 +283,12 @@ void GSPages::NextPage()
     // No more unused questions
     SetFinalScore();
     TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
+    float percent = static_cast<float>(m_scoreThisSession) / static_cast<float>(m_maxMark) * 100.f;
+    NetSendAttempt(topic->GetId(), NET_SEND_ATTEMPT_COMPLETE, percent, m_livesThisSession);
     return;
   }
 
   // The current Topic has sequence of Pages to display.
-  Course* course = GetCourse();
-  Assert(course);
-  Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
-  Assert(topic);
-
   Page* page = topic->GetPage(m_currentPage);
   SetPage(page);
   
@@ -355,6 +362,14 @@ bool GSPages::OnKeyEvent(const KeyEvent& ke)
         // Go to topic end
         SetFinalScore();
         TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
+        float percent = static_cast<float>(m_scoreThisSession) / static_cast<float>(m_maxMark) * 100.f;
+  
+        Course* course = GetCourse();
+        Assert(course);
+        Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
+        Assert(topic);
+
+        NetSendAttempt(topic->GetId(), NET_SEND_ATTEMPT_CHEAT, percent, m_livesThisSession);
         break;
       }
 
@@ -467,7 +482,7 @@ void GSPages::SetButtonEnabled(const std::string& buttonName, bool enabled)
   col->Animate(enabled ? 0.f : 1.f); // i.e. enabled = first colour, disabled = 2nd colour
 }
 
-void GSPages::OnPause()
+void GSPages::OnQuitButton()
 {
   // Lurk messages are modal, so no need to diable page
   ShowYesNo(
@@ -476,6 +491,20 @@ void GSPages::OnPause()
     GetColour(COLOUR_CONFIRM_QUIT),
     Amju::OnQuitConfirmCancel,
     Amju::OnQuitConfirmOK);
+}
+
+void GSPages::OnQuitConfirmOK()
+{
+  Course* course = GetCourse();
+  Assert(course);
+  Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
+  Assert(topic);
+
+  float percent = static_cast<float>(m_scoreThisSession) / static_cast<float>(m_maxMark) * 100.f;
+
+  NetSendAttempt(topic->GetId(), NET_SEND_ATTEMPT_QUIT, static_cast<int>(percent), m_livesThisSession);
+
+  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
 }
 
 void GSPages::OnQuitConfirmCancel()

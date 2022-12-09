@@ -18,17 +18,17 @@ bool NetSendDeviceInfoFirstRunEver();
 bool NetSendUpdateDeviceInfo();
 
 // Call when a new play session starts, i.e. when Play state activates
-void NetSendMarkSessionStart();
+void NetSendMarkAttemptStart(const std::string& topicId);
   
 // Call when play session ends. Pass in flags depending on whether we got killed
 //  or completed the level, etc.
-bool NetSendPlaySession(int flags = 0);
+bool NetSendAttempt(const std::string& topicId, int flags, int score, int lives);
 
 // Flag values for above function.
-// Zero means the session finished but player did not die or complete level, so
-//  session interrupted.
-const int NET_SEND_PLAYER_DIED = 1;
-const int NET_SEND_LEVEL_COMPLETE = 2;
+const int NET_SEND_ATTEMPT_QUIT = 1;
+const int NET_SEND_ATTEMPT_COMPLETE = 2;
+const int NET_SEND_ATTEMPT_NO_LIVES_LEFT = 4;
+const int NET_SEND_ATTEMPT_CHEAT = 8;
 // (More flags as required)
   
 
