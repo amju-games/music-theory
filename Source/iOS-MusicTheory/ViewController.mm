@@ -38,41 +38,6 @@
 
 @implementation ViewController
 
-
-// TEST
-//#define SOUND_FONT "Grand Piano"
-//#define SOUND_FONT "ChoriumRevA"
-#define SOUND_FONT "velocity_grand_piano"
-
-- (MIKMIDISynthesizer *)synthesizer
-{
-  static MIKMIDISynthesizer* _synthesizer = nullptr;
-  
-  if (!_synthesizer) {
-    _synthesizer = [[MIKMIDISynthesizer alloc] init];
-    
-    NSURL *soundfont = [[NSBundle mainBundle] URLForResource:@"Assets/Sound/" SOUND_FONT withExtension:@"sf2"];
-    NSError *error = nil;
-    if (![_synthesizer loadSoundfontFromFileAtURL:soundfont error:&error]) {
-      NSLog(@"Error loading soundfont for synthesizer. Sound will be degraded. %@", error);
-    }
-  }
-  return _synthesizer;
-}
-
-
--(void)midiTest:(int)vol
-{
-  UInt8 note = 60;
-  MIKMIDINoteOnCommand *noteOn = [MIKMIDINoteOnCommand noteOnCommandWithNote:note velocity:vol channel:0 timestamp:[NSDate date]];
-  [[self synthesizer] handleMIDIMessages:@[noteOn]];
-  
-}
-
-// TEST
-
-
-
 - (void)dealloc
 {
     [self tearDownGL];
@@ -231,9 +196,6 @@ void PopulateCursorEvent(Amju::CursorEvent* ce, int x, int y)
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  PlayMidi(0, 127);
-  //[self midiTest:127];
-  
   float s = self.view.contentScaleFactor;
   
 	int i = 0;
@@ -258,9 +220,6 @@ void PopulateCursorEvent(Amju::CursorEvent* ce, int x, int y)
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  PlayMidi(0, 0);
-//  [self midiTest:0];
-
   float s = self.view.contentScaleFactor;
   
 	int i = 0;

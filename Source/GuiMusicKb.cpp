@@ -9,9 +9,12 @@
 #include <StringUtils.h>
 #include <Timer.h>
 #include "GuiMusicKb.h"
+#include "iOSPlayMidi.h"
 
 namespace Amju
 {
+const int MIDI_NOTE_MAX_VOLUME = 127;
+  
 static GuiElement* CreateMusicKb()
 {
   return new GuiMusicKb;
@@ -22,6 +25,12 @@ void GuiMusicKb::AddToFactory()
   TheGuiFactory::Instance()->Add("music-kb", CreateMusicKb);
 }
 
+GuiMusicKb::~GuiMusicKb()
+{
+  // Make sure all keys which were pressed send final key up events
+  ReleaseAllKeys();
+}
+  
 void GuiMusicKb::Draw()
 {
   AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
@@ -53,7 +62,6 @@ void GuiMusicKb::Draw()
   float s = GetSize().x;
   float x = GetLocalPos().x; 
 
-  int i = 0;
   for (PKey pkey: m_keys)
   {
     Key& key = *pkey;
@@ -140,6 +148,7 @@ bool GuiMusicKb::Load(File* f)
     return false;
   }
 
+  int i = 50; // TODO TEMP TEST
   std::string line;
   while (f->GetDataLine(&line))
   {
@@ -154,6 +163,8 @@ bool GuiMusicKb::Load(File* f)
       f->ReportError("Bad key data.");
       return false;
     }
+    
+    key->m_midiNote = i++; // TODO TEMP TEST
 
     m_keys.push_back(key);
   }
@@ -217,6 +228,30 @@ void GuiMusicKb::Key::CalcRect()
   m_projectedRect = r;
 }
 
+void GuiMusicKb::Key::Press()
+{
+  m_isPressed = false;
+  m_desiredAngle = 5.0f;
+  
+  PlayMidi(m_midiNote, MIDI_NOTE_MAX_VOLUME);
+}
+  
+void GuiMusicKb::Key::Release()
+{
+  m_isPressed = false;
+  m_desiredAngle = 0.0f;
+  
+  PlayMidi(m_midiNote, 0);
+}
+
+void GuiMusicKb::ReleaseAllKeys()
+{
+  for (PKey pkey : m_keys)
+  {
+    pkey->Release();
+  }
+}
+  
 void GuiMusicKb::Update()
 {
   // Scroll keyboard left/right if swiped
@@ -267,7 +302,7 @@ bool GuiMusicKb::OnCursorEvent(const CursorEvent& ce)
 
     float currentX = GetLocalPos().x;
     float dx = ce.dx; 
-    std::cout << "dx: " << dx << "\n";
+//    std::cout << "dx: " << dx << "\n";
     if (fabs(dx) > SWIPE_LIMIT && m_vel.x == 0)
     {
       m_vel = Vec2f(dx * SPEED_MULT, 0);
@@ -303,7 +338,7 @@ bool GuiMusicKb::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 
     if (mbe.isDown && mbe.y < KEYBOARD_TOP_Y_COORD)
     {
-      std::cout << "Key down!\n";
+//      std::cout << "Key down!\n";
 
       m_tapDown = true;
 
@@ -311,20 +346,23 @@ bool GuiMusicKb::OnMouseButtonEvent(const MouseButtonEvent& mbe)
       Key* key = PickKey(m_tapDownPos);
       if (key)
       {
-        key->m_desiredAngle = 5.0f; 
+        key->Press();
         // Send key down event
       }
     }
     else
     {
-      std::cout << "Key up!\n";
+//      std::cout << "Key up!\n";
       m_tapDown = false;
-      Key* key = PickKey(Vec2f(mbe.x, mbe.y));
-      if (key)
-      {
-        key->m_desiredAngle = 0.0f; 
-        // Send key up event
-      }
+      ReleaseAllKeys(); // safety net
+  
+      // For polyphonic kb
+//      Key* key = PickKey(Vec2f(mbe.x, mbe.y));
+//      if (key)
+//      {
+//        key->Release();
+//        // Send key up event
+//      }
     }
   }
 

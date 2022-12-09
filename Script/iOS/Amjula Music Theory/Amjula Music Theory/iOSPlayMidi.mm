@@ -4,9 +4,8 @@
 #import <MIKMIDI/MIKMIDI.h>
 
 // TEST
-//#define SOUND_FONT "Grand Piano"
-//#define SOUND_FONT "ChoriumRevA"
-#define SOUND_FONT "velocity_grand_piano"
+#define SOUND_FONT "Grand Piano"
+//#define SOUND_FONT "velocity_grand_piano"
 
 static MIKMIDISynthesizer* Synthesizer()
 {
@@ -27,7 +26,7 @@ static MIKMIDISynthesizer* Synthesizer()
 void PlayMidi(int note, int vol)
 {
   MIKMIDINoteOnCommand *noteOn = [MIKMIDINoteOnCommand 
-    noteOnCommandWithNote:note + 60
+    noteOnCommandWithNote:note
     velocity:vol 
     channel:0 
     timestamp:[NSDate date]];

@@ -40,7 +40,8 @@ namespace Amju
 void GSPlayNotes::Update()
 {
   GSBase::Update();
-
+  return;
+  
   static float t = 0;
   static bool isOn = false;
   float dt = TheTimer::Instance()->GetDt();
