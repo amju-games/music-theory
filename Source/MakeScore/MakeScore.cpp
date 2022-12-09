@@ -223,27 +223,10 @@ private:
     if (!m_ties.empty())
     {
       Tie* tie = m_ties.back().get();
-      if (!tie->rhsSet)
+      if (!tie->IsRhsSet())
       {
         assert(!m_bars.empty());
-
-        tie->rightBarGlyph = std::make_pair(
-          m_bars.size() - 1,  // bar glyph is in
-          m_bars.back()->GetGlyphCountNotCountingTimeSig() - 1); // position of glyph
-
-#ifdef _DEBUG
-        std::cout << "// Tie from bar "
-          << tie->leftBarGlyph.first
-          << " glyph "
-          << tie->leftBarGlyph.second
-          << " to bar "
-          << tie->rightBarGlyph.first
-          << " glyph "
-          << tie->rightBarGlyph.second
-          << "\n";
-#endif
-
-        tie->rhsSet = true;
+        tie->SetRightGlyph(m_bars.back()->m_glyphs.back().get());
       }
     }
   }
@@ -263,9 +246,7 @@ private:
     }
  
     Tie* tie = new Tie;
-    tie->leftBarGlyph = std::make_pair(
-      m_bars.size() - 1,  // bar left glyph is in
-      m_bars.back()->GetGlyphCountNotCountingTimeSig() - 1); // position of left glyph
+    tie->SetLeftGlyph(m_bars.back()->m_glyphs.back().get());
 
     tie->SetScale(m_scale);
 
@@ -306,7 +287,7 @@ private:
     float scale = 1.0f;
   };
 
-  struct Bar;
+  struct Glyph;
   struct Tie : public IGlyph
   {
     virtual std::string ToString() const 
@@ -315,10 +296,10 @@ private:
       //  on whether the tie is 'n' or 'u' shape. 
       // Inner control points: centre, and one near each end to give
       //  desired shape.
-      float y = 1.f; // for 'n' shape
+      float y = 1.f; // for 'n' shape -- TODO
       // If U shape
-      y = 0.99f;
-      float w = rightX - leftX;
+      y = 1.1f;
+      float w = m_rightX - m_leftX;
       const float TIE_ASPECT_RATIO = 8.f;
       float h = w / TIE_ASPECT_RATIO;
       // if u shape
@@ -328,13 +309,13 @@ private:
       const float CP = 0.18f; // control point, for shape
       std::vector<float> coords = 
       {
-        leftX + xoff,  y,
-        leftX + xoff,  y,
-        Interp(leftX, rightX, CP) + xoff, y + (h * 0.8f), // give shape
-        Interp(leftX, rightX, .5f) + xoff, y + h, // centre
-        Interp(leftX, rightX, (1.f - CP)) + xoff, y + (h * 0.8f), // give shape
-        rightX + xoff, y,
-        rightX + xoff, y,
+        m_leftX + xoff,  y, // we need to duplicate the first for spline calc
+        m_leftX + xoff,  y,
+        Interp(m_leftX, m_rightX, CP) + xoff, y + (h * 0.8f), // give shape
+        Interp(m_leftX, m_rightX, .5f) + xoff, y + h, // centre
+        Interp(m_leftX, m_rightX, (1.f - CP)) + xoff, y + (h * 0.8f), // give shape
+        m_rightX + xoff, y,
+        m_rightX + xoff, y, // TODO do we need this last one?
       }; 
 
       std::string res = "curve, "; 
@@ -346,20 +327,22 @@ private:
       return res;
     }
  
-    void SetPos(const std::vector<std::unique_ptr<Bar>>& bars);
+    void SetPos();
+
+    bool IsRhsSet() const { return m_rightGlyph != nullptr; }
+
+    void SetLeftGlyph(Glyph* left) { m_leftGlyph = left; }
+    void SetRightGlyph(Glyph* right) { m_rightGlyph = right; }
  
-    // When we create Tie, we only know the bar number and position of
-    //  the left end.
-    std::pair<int, int> leftBarGlyph;
-    // Later on we know the next note, then we have the bar and 
-    //  pos of the right end.
-    std::pair<int, int> rightBarGlyph;
+    // When we create Tie, we only know the glyph on the left end.
+    // Later on we know the next note, then we have the right end too.
+    Glyph* m_leftGlyph = nullptr;
+    Glyph* m_rightGlyph = nullptr;
 
     // Set left and right x-coords once positions of both glyphs have been
     //  set.
-    float leftX = 0;
-    float rightX = 0;
-    bool rhsSet = false; 
+    float m_leftX = 0;
+    float m_rightX = 0;
   };
 
   struct Glyph : public IGlyph
@@ -766,12 +749,6 @@ private:
       return glyphCount; 
     }
 
-    int GetGlyphCountNotCountingTimeSig() const 
-    {
-      int glyphCount = static_cast<int>(m_glyphs.size());
-      return glyphCount;
-    }
-
     void SetWidth(int totalNumGlyphs, float pageWidth)
     {
       int glyphCount = GetGlyphCount();
@@ -849,26 +826,16 @@ private:
 
 };
 
-void MakeScore::Tie::SetPos(
-  const std::vector<std::unique_ptr<MakeScore::Bar>>& bars)
+void MakeScore::Tie::SetPos()
 {
-#ifdef _DEBUG
-  std::cout << "// Tie from bar "
-       << leftBarGlyph.first
-       << " glyph "
-       << leftBarGlyph.second
-       << " to bar "
-       << rightBarGlyph.first
-       << " glyph "
-       << rightBarGlyph.second
-       << "\n";
-#endif
+  assert(m_leftGlyph != nullptr);
+  assert(m_rightGlyph != nullptr);
 
-  leftX  = bars[leftBarGlyph.first]->m_glyphs[leftBarGlyph.second]->x;
-  bars[leftBarGlyph.first]->m_glyphs[leftBarGlyph.second]->isTieLeft = true;
+  m_leftX  = m_leftGlyph->x;
+  m_leftGlyph->isTieLeft = true;
 
-  rightX = bars[rightBarGlyph.first]->m_glyphs[rightBarGlyph.second]->x;
-  bars[rightBarGlyph.first]->m_glyphs[rightBarGlyph.second]->isTieRight = true;
+  m_rightX = m_rightGlyph->x;
+  m_rightGlyph->isTieRight = true;
 }
 
 void MakeScore::Preprocess()
@@ -992,7 +959,7 @@ void MakeScore::CalcBarSizesAndPositions()
   for (auto& tie : m_ties) 
   {
     // Look up positions of glyphs the tie connects
-    tie->SetPos(m_bars); 
+    tie->SetPos(); 
   }
 }
 
