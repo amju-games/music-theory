@@ -2,8 +2,8 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <ConfigFile.h>
+#include "Consts.h"
 #include "Hints.h"
-#include "Keys.h"
 #include "UserProfile.h"
 
 namespace Amju

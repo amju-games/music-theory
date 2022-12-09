@@ -20,5 +20,16 @@ static const float CAM_ZOOM_MULT = 20.0f;
 static const float MAX_SCROLL_VEL = 300.0f;
 static const float SCROLL_DECEL = 280.0f;
 
+// Keys for map/config file lookups etc
+
+#define APPNAME  "amjula-mt"
+
+#define KEY_GENERAL "general"
+#define KEY_USER_NAME "user_name"
+#define KEY_TOPICS "topics"
+#define KEY_TOPIC_UNLOCKED "topic_unlocked_"
+
+#define DEFAULT_SHARE_TEXT_KEY "default_share_text"
+#define DEFAULT_SHARE_TEXT "I'm learning stuff at Amjula Music School! amjula.com #amjula"
 
 }
