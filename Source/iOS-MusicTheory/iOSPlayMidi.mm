@@ -15,7 +15,7 @@ static MIKMIDISynthesizer* Synthesizer()
   if (!_synthesizer) {
     _synthesizer = [[MIKMIDISynthesizer alloc] init];
     
-    NSURL *soundfont = [[NSBundle mainBundle] URLForResource:@"Assets/Sound/" SOUND_FONT withExtension:@"sf2"];
+    NSURL *soundfont = [[NSBundle mainBundle] URLForResource:@"/" SOUND_FONT withExtension:@"sf2"];
     NSError *error = nil;
     if (![_synthesizer loadSoundfontFromFileAtURL:soundfont error:&error]) {
       NSLog(@"Error loading soundfont for synthesizer. Sound will be degraded. %@", error);

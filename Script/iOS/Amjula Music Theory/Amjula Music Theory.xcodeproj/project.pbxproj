@@ -54,6 +54,7 @@
 		69A23A5C1F61E6970021BF88 /* Consts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69A23A591F61E6970021BF88 /* Consts.cpp */; };
 		69A23A5D1F61E6970021BF88 /* TutorialManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69A23A5A1F61E6970021BF88 /* TutorialManager.cpp */; };
 		69A23A611F641AA40021BF88 /* TutorialIds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69A23A601F641AA40021BF88 /* TutorialIds.cpp */; };
+		69A23A631F686C010021BF88 /* Grand Piano.sf2 in Resources */ = {isa = PBXBuildFile; fileRef = 69A23A621F686C010021BF88 /* Grand Piano.sf2 */; };
 		69AC40361EB5331300F255A4 /* Dictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC402F1EB5331300F255A4 /* Dictionary.cpp */; };
 		69AC40371EB5331300F255A4 /* MusicEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC40311EB5331300F255A4 /* MusicEvent.cpp */; };
 		69AC40391EB5331300F255A4 /* PageMultiChoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC40351EB5331300F255A4 /* PageMultiChoice.cpp */; };
@@ -80,7 +81,6 @@
 		69D58E671E8488E3008A8D29 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E661E8488E3008A8D29 /* Accelerate.framework */; };
 		69D58E6C1E848A0E008A8D29 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D58E681E848A0E008A8D29 /* ViewController_iPad.xib */; };
 		69D58E6D1E848A0E008A8D29 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D58E6A1E848A0E008A8D29 /* ViewController_iPhone.xib */; };
-		69D58E711E85BB44008A8D29 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = 69D58E701E85BB44008A8D29 /* Assets */; };
 		69D58E851E86A02B008A8D29 /* GuiMusicKb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E7C1E86A02B008A8D29 /* GuiMusicKb.cpp */; };
 		69D58E861E86A02B008A8D29 /* Page.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E7E1E86A02B008A8D29 /* Page.cpp */; };
 		69D58E871E86A02B008A8D29 /* ScoreBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E831E86A02B008A8D29 /* ScoreBuilder.cpp */; };
@@ -232,6 +232,7 @@
 		69A23A5B1F61E6970021BF88 /* TutorialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialManager.h; path = ../../../../Source/TutorialManager.h; sourceTree = "<group>"; };
 		69A23A5F1F631DE10021BF88 /* TutorialIds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialIds.h; path = ../../../../Source/TutorialIds.h; sourceTree = "<group>"; };
 		69A23A601F641AA40021BF88 /* TutorialIds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TutorialIds.cpp; path = ../../../../Source/TutorialIds.cpp; sourceTree = "<group>"; };
+		69A23A621F686C010021BF88 /* Grand Piano.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Grand Piano.sf2"; path = "../../../../Assets/Sound/Grand Piano.sf2"; sourceTree = "<group>"; };
 		69AC402F1EB5331300F255A4 /* Dictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Dictionary.cpp; path = ../../../../Source/Dictionary.cpp; sourceTree = "<group>"; };
 		69AC40301EB5331300F255A4 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dictionary.h; path = ../../../../Source/Dictionary.h; sourceTree = "<group>"; };
 		69AC40311EB5331300F255A4 /* MusicEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MusicEvent.cpp; path = ../../../../Source/MusicEvent.cpp; sourceTree = "<group>"; };
@@ -268,7 +269,6 @@
 		69D58E661E8488E3008A8D29 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		69D58E691E848A0E008A8D29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		69D58E6B1E848A0E008A8D29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
-		69D58E701E85BB44008A8D29 /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Assets; path = ../../../../Assets; sourceTree = "<group>"; };
 		69D58E7C1E86A02B008A8D29 /* GuiMusicKb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiMusicKb.cpp; path = ../../../../Source/GuiMusicKb.cpp; sourceTree = "<group>"; };
 		69D58E7D1E86A02B008A8D29 /* GuiMusicKb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiMusicKb.h; path = ../../../../Source/GuiMusicKb.h; sourceTree = "<group>"; };
 		69D58E7E1E86A02B008A8D29 /* Page.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Page.cpp; path = ../../../../Source/Page.cpp; sourceTree = "<group>"; };
@@ -377,9 +377,8 @@
 		699058BE1E7D3BF400E528B4 /* Amjula Music Theory */ = {
 			isa = PBXGroup;
 			children = (
-				69D10FE81F43955800F18EF1 /* CompiledAssets */,
+				69D10FE81F43955800F18EF1 /* Assets */,
 				69D58E7A1E869FF8008A8D29 /* Source */,
-				69D58E701E85BB44008A8D29 /* Assets */,
 				69D58E681E848A0E008A8D29 /* ViewController_iPad.xib */,
 				69D58E6A1E848A0E008A8D29 /* ViewController_iPhone.xib */,
 				699058CC1E7D3BF500E528B4 /* Main.storyboard */,
@@ -416,13 +415,14 @@
 			path = "Amjula Music TheoryUITests";
 			sourceTree = "<group>";
 		};
-		69D10FE81F43955800F18EF1 /* CompiledAssets */ = {
+		69D10FE81F43955800F18EF1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				69A23A621F686C010021BF88 /* Grand Piano.sf2 */,
 				69D10FEA1F43957F00F18EF1 /* data-iOS.glue */,
 				69D10FEB1F43957F00F18EF1 /* music-iOS.glue */,
 			);
-			name = CompiledAssets;
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		69D58E4A1E848318008A8D29 /* Frameworks */ = {
@@ -711,9 +711,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				69D58E6C1E848A0E008A8D29 /* ViewController_iPad.xib in Resources */,
-				69D58E711E85BB44008A8D29 /* Assets in Resources */,
 				69D10FED1F43957F00F18EF1 /* music-iOS.glue in Resources */,
 				699058CE1E7D3BF500E528B4 /* Main.storyboard in Resources */,
+				69A23A631F686C010021BF88 /* Grand Piano.sf2 in Resources */,
 				699058D01E7D3BF500E528B4 /* Assets.xcassets in Resources */,
 				699058D31E7D3BF500E528B4 /* LaunchScreen.storyboard in Resources */,
 				69D10FEC1F43957F00F18EF1 /* data-iOS.glue in Resources */,
