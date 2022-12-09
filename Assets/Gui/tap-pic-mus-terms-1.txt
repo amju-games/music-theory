@@ -46,11 +46,11 @@ dimbo, 1.25, multi, left, fgcol=000000
 gui-text
 static-text
 // pos 
--.3, .95 
+-.1, .95 
 // size
 2.0, 1.5
 // Text
 $$$35\n$$$36\n$$$37\n$$$38
 // Font name, size
-dimbo, 1.25, multi, right, fgcol=000000
+dimbo, 1.25, multi, left, fgcol=000000
 
