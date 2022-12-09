@@ -83,7 +83,6 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
   {
     std::cout << "Reloading\n";
     OnDeactive();
-    TheResourceManager::Instance()->Clear();
     OnActive(); 
     return true;
   }
