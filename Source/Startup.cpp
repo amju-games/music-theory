@@ -20,6 +20,7 @@
 
 #include <AmjuGLWindowInfo.h>
 #include <BassSoundPlayer.h>
+#include <Directory.h>
 #include <Font.h>
 #include <Game.h>
 #include <EventPoller.h>
@@ -47,6 +48,9 @@ void ReportError(const std::string& str)
 
 void StartUpBeforeCreateWindow()
 {
+  std::string dir = GetDataDir();
+  dir += "/Assets/";
+  File::SetRoot(dir, "/");
 }
 
 void StartUpAfterCreateWindow()
@@ -66,7 +70,7 @@ void StartUpAfterCreateWindow()
   // Set sound player
   SoundManager* sm = TheSoundManager::Instance();
   BassSoundPlayer* bsp = new BassSoundPlayer;
-  bsp->MidiSetSoundFont("Sound/velocity_grand_piano.sf2");
+  bsp->MidiSetSoundFont((File::GetRoot() + "Sound/velocity_grand_piano.sf2").c_str());
   sm->SetImpl(bsp);
 
   GuiLineDrawing::AddToFactory();
