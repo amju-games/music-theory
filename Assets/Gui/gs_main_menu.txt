@@ -13,6 +13,14 @@ gs-main-menu-root
 // Num children
 2
 
+
+gui-scroll
+user-scroll-topics
+// Initial pos
+0, 0
+// Extent
+0, -2
+
 // SCROLL UP/DOWN
 
 animation
