@@ -138,6 +138,19 @@ void PageMusicalTerm::OnChoice(int c)
 {
   std::cout << "Choice " << c << " which is " << (m_answers.IsAnswerCorrect(c) ? "CORRECT!" : "incorrect :(") << "\n";
   
+  // Disable all buttons
+  int numChoices = m_answers.GetNumAnswers();
+  for (int i = 0; i < numChoices; i++)
+  {
+    GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(i)));
+    button->SetIsEnabled(false);
+    // Change colour of selected choice
+    if (i == c)
+    {
+      button->SetButtonColour(Colour(0.f, 0.f, 0.f, 1.f));
+    }
+  }
+
   if (m_answers.IsAnswerCorrect(c))
   {
     dynamic_cast<GSPages*>(m_gs)->OnCorrect();
