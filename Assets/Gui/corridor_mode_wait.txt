@@ -44,11 +44,11 @@ dimbo, 3.0, fgcol=ffffff, bgcol=000000
 gui-text
 topic-name-text
 // pos (coords are -1..1)
--0.19, -0.155
+-1, 0.825
 // size
-0.4, 0.1
+2, 0.1
 // Text
 HELLO
 // Font name, size
-arial, 0.5, fgcol=000000
+arial, 2.25, fgcol=000000
 
