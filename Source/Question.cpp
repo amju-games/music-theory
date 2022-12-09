@@ -4,7 +4,9 @@
 #include <algorithm>
 #include <numeric> // iota()
 #include <random>
+#include <ConfigFile.h>
 #include <File.h>
+#include <StringUtils.h>
 #include "Question.h"
 
 namespace Amju
@@ -95,7 +97,7 @@ void MusicalTermQuestion::MakeQuestion()
   m_answers = MultiChoice();
 
   // Allow switching english/foreign: decide whether to switch
-  bool english = (rand() & 1) != 0;
+  m_qAndASwitched = (rand() & 1) != 0;
 
   // TODO set number of fake answers
   int numAnswers = 4;
@@ -109,7 +111,7 @@ void MusicalTermQuestion::MakeQuestion()
 
     m_dictionary->GetTerm(nums[i], &q, &ans);
 
-    if (english)
+    if (m_qAndASwitched)
     {
       std::swap(q, ans);
     }
@@ -130,6 +132,34 @@ void MusicalTermQuestion::SetDictionary(MusicalTermsDictionary* dictionary)
 MultiChoice MultiChoiceQuestion::GetMultiChoiceAnswers()
 {
   return m_answers;
+}
+
+bool MusicalTermQuestion::QuestionSeenBefore(ConfigFile* cf) const
+{
+  // TODO Factor out
+  std::string key = m_musicalTerm;
+  if (m_qAndASwitched)
+  {
+    key = m_answers.GetAnswer(m_answers.GetCorrectAnswer());
+  }
+
+  key = Replace(key, " ", "_");
+  key += "_SEEN";
+
+  return cf->Exists(key);
+}
+
+void MusicalTermQuestion::SetQuestionSeenBefore(ConfigFile* cf) const
+{
+  std::string key = m_musicalTerm;
+  if (m_qAndASwitched)
+  {
+    key = m_answers.GetAnswer(m_answers.GetCorrectAnswer());
+  }
+
+  key = Replace(key, " ", "_");
+  key += "_SEEN";
+  cf->SetInt(key, 1);
 }
 
 }

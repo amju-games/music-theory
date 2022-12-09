@@ -1,6 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include <ConfigFile.h>
 #include <GuiButton.h>
 #include <GuiDecAnimation.h>
 #include <ResourceManager.h>
@@ -62,6 +63,13 @@ void PageMusicalTerm::OnActive()
   m_question->MakeQuestion();
   m_answers = m_question->GetMultiChoiceAnswers();
 
+  // Seen this question before? If not we will give the correct answer.
+  bool seen = m_question->QuestionSeenBefore(m_config);
+  // Set flag for next time
+  m_question->SetQuestionSeenBefore(m_config);
+
+  m_canRemoveForHint.clear();
+
   PageMultiChoice::OnActive();
 
 //  PrintGui(m_gui, 0);
@@ -85,14 +93,11 @@ void PageMusicalTerm::OnActive()
     {
       m_canRemoveForHint.push_back(i);
     }
-//    OnHint(); // if Q not seen before
-    // Set hint for questions we have not seen before.
-    // Also do this if user taps Hint button, which should affect score and add this Q
-    //  to the list that needs extra reinforcement.
-    //if (m_answers.IsAnswerCorrect(i))
-    //{
-    //  button->SetHasFocus(true); // pulsing glow
-    //}
+    else if (!seen)
+    {
+      // Show correct answer for questions we have not seen before.
+      button->SetHasFocus(true); // pulsing glow
+    }
   }
   // TODO Hide any extra buttons?
 }

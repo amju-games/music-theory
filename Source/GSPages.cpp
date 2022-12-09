@@ -2,6 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <AmjuGL.h>
+#include <ConfigFile.h>
 #include <Game.h>
 #include <GuiText.h>
 #include <MessageQueue.h>
@@ -10,6 +11,7 @@
 #include "GSPause.h"
 #include "GuiLineDrawing.h"
 #include "PageMusicalTerm.h"
+#include "UserProfile.h"
 
 namespace Amju
 {
@@ -77,7 +79,10 @@ void GSPages::NextPage()
 
   // TODO The current Topic should know what kind of page to create
   //  (we might use separate factory?)
-  AddPage(new PageMusicalTerm);
+  Page* page = new PageMusicalTerm;
+  ConfigFile* cf = TheUserProfile()->GetConfigForTopic("todo");
+  page->SetConfigFile(cf);
+  AddPage(page);
   m_currentPage = 0;
 
   // Activate new page

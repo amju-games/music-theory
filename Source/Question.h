@@ -11,6 +11,8 @@
 
 namespace Amju
 {
+  class ConfigFile;
+
   // There could be multiple ways to phrase the same question. E.g.
   //  What is the meaning of this Italian musical term
   //  What does this term mean? 
@@ -32,6 +34,11 @@ namespace Amju
     void AddQuestionString(const std::string& qs);
 
     virtual void MakeQuestion() = 0;
+
+    // Get/set flag in config file, so we know if a question has been seen before.
+    // (We give more info if not seen before, etc.)
+    virtual bool QuestionSeenBefore(ConfigFile*) const = 0;
+    virtual void SetQuestionSeenBefore(ConfigFile*) const = 0;
 
   protected:
     Strings m_questionStrings; // typically, choose one of these at random - could be default impl of GetQString
@@ -64,6 +71,9 @@ namespace Amju
 
   protected:
     MultiChoice m_answers;
+
+    // Set if we swap the question and answer strings for variety
+    bool m_qAndASwitched = false;
   };
 
   // TODO split into files
@@ -78,6 +88,9 @@ namespace Amju
     virtual void MakeQuestion() override;
 
     void SetDictionary(MusicalTermsDictionary* dictionary);
+
+    virtual bool QuestionSeenBefore(ConfigFile*) const override;
+    virtual void SetQuestionSeenBefore(ConfigFile*) const override;
 
   protected:
     std::string m_musicalTerm; 

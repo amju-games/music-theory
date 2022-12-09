@@ -9,6 +9,7 @@
 
 namespace Amju
 {
+class ConfigFile;
 class GameState;
 
 // * Page *
@@ -35,6 +36,9 @@ public:
   virtual void Draw();
   virtual void Update();
 
+  // Set config file to save any state we want to remember about this page/topic
+  void SetConfigFile(ConfigFile* cf);
+
   void SetGameState(GameState* gs);
 
   // Called when user taps Hint button -- show page-specific hint.
@@ -60,5 +64,8 @@ protected:
   GameState* m_gs = nullptr;
 
   bool m_isLearnMode = false;
+
+  // Config file to save any state we want to remember about this page/topic
+  RCPtr<ConfigFile> m_config;
 };
 }

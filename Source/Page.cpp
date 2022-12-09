@@ -1,6 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include <ConfigFile.h>
 #include <GameState.h>
 #include <GuiElement.h>
 #include "GSPages.h"
@@ -11,6 +12,11 @@ namespace Amju
 static void OnHint(GuiElement* hintButton)
 {
   TheGSPages::Instance()->OnHint();
+}
+
+void Page::SetConfigFile(ConfigFile* cf)
+{
+  m_config = cf;
 }
 
 void Page::OnActive()
