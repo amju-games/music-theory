@@ -54,6 +54,12 @@ bool Topic::Load(File* f)
     return false;
   }
 
+  if (!f->GetDataLine(&m_group))
+  {
+    f->ReportError("Expected topic group");
+    return false;
+  }
+
   // Initially locked or unlocked?
 
   // Topics unlocked by this one - string split by commas
@@ -93,12 +99,12 @@ bool Topic::Load(File* f)
       f->ReportError("Unexpected page name");
       return false;
     }
-	// Topic pages must specify the dictionary to use, as it's no longer hard coded anywhere.
-	Assert(strs.size() > 1);
-	// 2nd string is dictionary for the page
+    // Topic pages must specify the dictionary to use, as it's no longer hard coded anywhere.
+    Assert(strs.size() > 1);
+    // 2nd string is dictionary for the page
     page->SetDictionaryName(strs[1]);
 
-	m_pages.push_back(page);
+    m_pages.push_back(page);
   }
   return true;
 }
@@ -111,6 +117,11 @@ int Topic::GetNumPages() const
 Page* Topic::GetPage(int n)
 {
   return m_pages[n];
+}
+
+const std::string& Topic::GetGroup() const
+{
+  return m_group;
 }
 
 }

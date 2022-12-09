@@ -17,6 +17,8 @@
 note-lengths-1
 // Localised display name
 Note lengths
+// Group
+1
 // Initially locked?
 // Topics unlocked by this one
 dotted-notes
@@ -41,6 +43,8 @@ page-text-text, Course/note_lengths.txt
 dotted-notes
 // Localised display name
 Dotted notes
+// Group
+1
 // Adding a dot to a note or rest increases its length by a half.
 // Initially locked?
 // Topics unlocked by this one
@@ -65,6 +69,8 @@ page-symbol-text, Course/crotchet_minim_semibreve.txt
 quavers-semiquavers
 // Localised display name
 Quavers and semiquavers
+// Group
+1
 // Initially locked?
 // Topics unlocked by this one
 none
@@ -87,6 +93,8 @@ page-symbol-text, Course/crotchet_minim_semibreve.txt
 rests
 // Localised display name
 Rests
+// Group
+1
 // Initially locked?
 // Topics unlocked by this one
 bar-lines
@@ -109,6 +117,8 @@ page-text-symbol, Course/rest_names.txt
 bar-lines
 // Localised display name
 Bar lines
+// Group
+2
 // Initially locked?
 // Topics unlocked by this one
 none
@@ -123,6 +133,8 @@ page-symbol-text, Course/crotchet_minim_semibreve.txt
 musical-terms-1
 // Localised display name
 Musical terms
+// Group
+3
 // Initially locked?
 // Topics unlocked by this one
 none
@@ -145,6 +157,8 @@ page-text-text, Course/musical_terms.txt
 musical-symbols-1
 // Localised display name
 Musical symbols
+// Group
+3
 // Initially locked?
 // Topics unlocked by this one
 none
@@ -168,6 +182,8 @@ page-symbol-text, Course/musical_symbols.txt
 notes-treble
 // Localised display name
 Notes on the treble clef
+// Group
+4
 // Initially locked?
 // Topics unlocked by this one
 none
@@ -182,6 +198,8 @@ page-symbol-text, Course/crotchet_minim_semibreve.txt
 intervals
 // Localised display name
 Intervals
+// Group
+4
 // Unlocks
 none
 // Pages
