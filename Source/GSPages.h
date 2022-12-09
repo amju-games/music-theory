@@ -9,7 +9,7 @@
 
 namespace Amju
 {
-class Colour;
+struct Colour;
   
 class GSPages : public GSBase
 {
