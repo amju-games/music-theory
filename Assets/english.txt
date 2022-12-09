@@ -1,6 +1,15 @@
 // version
 1
 // number of strings
-2
+11
 1=welcome to amjula music school!
 2=swipe left and right to move along the corridor
+3=Which clef?
+4=Higher or lower?
+5=Name the note
+6=Name the Scale
+7=Tonic Triads
+8=What's the key signature?
+9=Musical terms
+10=Musical symbols
+11=Intervals

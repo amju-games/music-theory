@@ -21,20 +21,20 @@
 // Metronome mark
 // Slur
 // 8va/ 8vb
-//note, 0.75, 0 ; dot, 0.75, 0.2    =Ummmm
+//note, 0.75, 0 ; dot, 0.75, 0.2    =@@@Ummmm
 
-stave, 0.5, 0, 2.0, 1.0 ; repeat-left, 1.0, 0, 1.0, 1 ; repeat-right, 2.55, 0, 1, 1   =Repeat this section
-stave, 0.5, 0, 2.0, 1.0 ; repeat-right, 2.55, 0, 1.0, 1   =Repeat from the beginning
-treble-clef, 1.75, 0   =Treble clef
-bass-clef, 1.85, 0     =Bass clef
-segno, 1.9, 0.2         =D.S. means repeat from this sign
-pause, 1.85, 0.2         =Pause
-pause-above, 1.85, 0.2   =Pause
-mp, 1.8, 0.2    =Moderately soft
-mf, 1.8, 0.2    =Moderately loud
-f,  1.9, 0.2    =Forte: loud
-ff, 1.8, 0.2    =Fortissimo: very loud
-sf, 1.9, 0.2    =Sforzando: with a sudden accent
-pp, 1.8, 0.2    =Pianissimo: very soft
-p,  1.9, 0.2    =Piano: soft
+stave, 0.5, 0, 2.0, 1.0 ; repeat-left, 1.0, 0, 1.0, 1 ; repeat-right, 2.55, 0, 1, 1   =@@@Repeat this section
+stave, 0.5, 0, 2.0, 1.0 ; repeat-right, 2.55, 0, 1.0, 1   =@@@Repeat from the beginning
+treble-clef, 1.75, 0   =@@@Treble clef
+bass-clef, 1.85, 0     =@@@Bass clef
+segno, 1.9, 0.2         =@@@D.S. means repeat from this sign
+pause, 1.85, 0.2         =@@@Pause
+pause-above, 1.85, 0.2   =@@@Pause
+mp, 1.8, 0.2    =@@@Moderately soft
+mf, 1.8, 0.2    =@@@Moderately loud
+f,  1.9, 0.2    =@@@Forte: loud
+ff, 1.8, 0.2    =@@@Fortissimo: very loud
+sf, 1.9, 0.2    =@@@Sforzando: with a sudden accent
+pp, 1.8, 0.2    =@@@Pianissimo: very soft
+p,  1.9, 0.2    =@@@Piano: soft
 
