@@ -10,7 +10,7 @@ pushd ../../Assets/Gui
 cp scoretest.txt gs_test_show_score.txt
 popd
 
-echo '2/4 q -- q c t | q qr qq == qq == qq == qq' | ./a.out --oneline  > out.txt
+echo '4/4 <q> 60 62 64' | ./a.out --stave-single --oneline  > out.txt
 
 # Append output to boilerplate
 cat out.txt >> ../../Assets/Gui/gs_test_show_score.txt
