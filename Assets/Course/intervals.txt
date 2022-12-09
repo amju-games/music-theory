@@ -2,14 +2,71 @@
 // (c) Copyright 2017 Jason Colman
 
 // Intervals for grade 1
+// For grade 1, intervals are not major or minor, just 2nd, 3rd... up to 8ve.
+// TODO Do we need to have key sigs/accidentals?
 
 // version
 1
 
-treble-clef, 0.25, 0;semibreve, 1.0, -0.05;semibreve, 1.5, 0.05=Major 3rd
-bass-clef, 0.25, 0;semibreve, 1.0, -0.05;semibreve, 1.5, 0.05=Perfect 5th
-treble-clef, 0.25, 0;semibreve, 1.0, -0.05;semibreve, 1.5, 0.05=Major 7th
-bass-clef, 0.25, 0;semibreve, 1.0, -0.05;semibreve, 1.5, 0.05=Major 2nd
+// TODO Rewrite these strings when ScoreBuilder is done.
+// D root
+treble-clef, 0.15, 0; semibreve, 1.0, -0.05; semibreve, 1.5, 0.00    =2nd
+treble-clef, 0.15, 0; semibreve, 1.0, -0.05; semibreve, 1.5, 0.05    =3rd
+treble-clef, 0.15, 0; semibreve, 1.0, -0.05; semibreve, 1.5, 0.10    =4th
+treble-clef, 0.15, 0; semibreve, 1.0, -0.05; semibreve, 1.5, 0.15    =5th
+treble-clef, 0.15, 0; semibreve, 1.0, -0.05; semibreve, 1.5, 0.20    =6th
+treble-clef, 0.15, 0; semibreve, 1.0, -0.05; semibreve, 1.5, 0.25    =7th
+treble-clef, 0.15, 0; semibreve, 1.0, -0.05; semibreve, 1.5, 0.30    =Octave (8ve)
+
+// E root
+treble-clef, 0.15, 0; semibreve, 1.0,  0.00; semibreve, 1.5, 0.05    =2nd
+treble-clef, 0.15, 0; semibreve, 1.0,  0.00; semibreve, 1.5, 0.10    =3rd
+treble-clef, 0.15, 0; semibreve, 1.0,  0.00; semibreve, 1.5, 0.15    =4th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.00; semibreve, 1.5, 0.20    =5th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.00; semibreve, 1.5, 0.25    =6th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.00; semibreve, 1.5, 0.30    =7th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.00; semibreve, 1.5, 0.35    =Octave (8ve)
+
+// F root
+treble-clef, 0.15, 0; semibreve, 1.0,  0.05; semibreve, 1.5, 0.10    =2nd
+treble-clef, 0.15, 0; semibreve, 1.0,  0.05; semibreve, 1.5, 0.15    =3rd
+treble-clef, 0.15, 0; semibreve, 1.0,  0.05; semibreve, 1.5, 0.20    =4th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.05; semibreve, 1.5, 0.25    =5th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.05; semibreve, 1.5, 0.30    =6th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.05; semibreve, 1.5, 0.35    =7th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.05; semibreve, 1.5, 0.40    =Octave (8ve)
+
+// G root
+treble-clef, 0.15, 0; semibreve, 1.0,  0.10; semibreve, 1.5, 0.15    =2nd
+treble-clef, 0.15, 0; semibreve, 1.0,  0.10; semibreve, 1.5, 0.20    =3rd
+treble-clef, 0.15, 0; semibreve, 1.0,  0.10; semibreve, 1.5, 0.25    =4th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.10; semibreve, 1.5, 0.30    =5th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.10; semibreve, 1.5, 0.35    =6th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.10; semibreve, 1.5, 0.40    =7th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.10; semibreve, 1.5, 0.45    =Octave (8ve)
+
+// A root
+treble-clef, 0.15, 0; semibreve, 1.0,  0.15; semibreve, 1.5, 0.20    =2nd
+treble-clef, 0.15, 0; semibreve, 1.0,  0.15; semibreve, 1.5, 0.25    =3rd
+treble-clef, 0.15, 0; semibreve, 1.0,  0.15; semibreve, 1.5, 0.30    =4th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.15; semibreve, 1.5, 0.35    =5th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.15; semibreve, 1.5, 0.40    =6th
+treble-clef, 0.15, 0; semibreve, 1.0,  0.15; semibreve, 1.5, 0.45    =7th
+// Not sure if we go up to top A on treble clef
+//treble-clef, 0.15, 0; semibreve, 1.0,  0.15; semibreve, 1.5, 0.50    =Octave (8ve)
+
+// E - G
+treble-clef, 0.15, 0; semibreve, 1.0, 0.0; semibreve, 1.5, 0.1    =3rd
+
+// F - A
+treble-clef, 0.15, 0; semibreve, 1.0, 0.05; semibreve, 1.5, 0.15    =3rd
+
+// B - D
+treble-clef, 0.15, 0; semibreve, 1.0, 0.1; semibreve, 1.5, 0.2    =3rd
+
+bass-clef, 0.15, 0; semibreve, 1.0, -0.05; semibreve, 1.5, 0.05    =3rd
+treble-clef, 0.15, 0; semibreve, 1.0, -0.05; semibreve, 1.5, 0.05    =3rd
+bass-clef, 0.15, 0; semibreve, 1.0, -0.05; semibreve, 1.5, 0.05      =3rd
 
 
 
