@@ -85,7 +85,7 @@ void StartUpBeforeCreateWindow()
   File::SetRoot(dir, "/");
 #endif
 
-  SetROConfigFilename(GetSaveDir(APPNAME) + "roconfig.txt");
+  SetROConfigFilename("roconfig.txt");
 }
 
 void StartUpAfterCreateWindow()
