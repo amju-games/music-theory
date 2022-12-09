@@ -48,8 +48,8 @@ notes-on-bass-clef-level1
 // No rests in level 1, right?
 //page-symbol-symbol=Course/level1/rest-equivs.txt=$$$179
 page-symbol-symbol=Course/level1/note-equivs.txt=$$$179
-page-symbol-text=Course/level1/note-rest-names.txt=$$$92
-page-text-symbol=Course/level1/note-rest-symbols.txt=$$$92
+page-symbol-text=Course/level1/note-rest-names.txt=@@@What is this called?
+page-text-symbol=Course/level1/note-rest-symbols.txt=@@@What is this called?
 
 // Topic
 // ID

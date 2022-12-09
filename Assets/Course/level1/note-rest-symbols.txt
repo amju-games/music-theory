@@ -6,9 +6,9 @@
 // version
 1
 
-Crotchet=   stave, 0.0, 0.8, .5, .5 ; crotchet-up,   .35, 1.0,   .5, .5
-Minim=      stave, 0.0, 0.8, .5, .5 ; minim-up,      .35, 1.0,   .5, .5
-Semibreve=  stave, 0.0, 0.8, .5, .5 ; semibreve,     .35, 1.0,   .5, .5
+Crotchet=   stave, 0.0, 0.8, .5, .5 ; crotchet-up,   .35, 1.0,   .5, .5=@@@This is called a crotchet!
+Minim=      stave, 0.0, 0.8, .5, .5 ; minim-up,      .35, 1.0,   .5, .5=@@@This is called a minim!
+Semibreve=  stave, 0.0, 0.8, .5, .5 ; semibreve,     .35, 1.0,   .5, .5=@@@This is called a semibreve!
 
 
 

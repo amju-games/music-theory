@@ -16,8 +16,8 @@
 
 // TODO Dotted, tied
 
-crotchet-down,   1.9, 0.2  =$$$110 =@@@This is a crotchet!
-minim-down,      1.9, 0.2  =$$$111 =@@@That is a minim!
+crotchet-down,   1.9, 0.2  =$$$110 =@@@This is called a crotchet!
+minim-down,      1.9, 0.2  =$$$111 =@@@That is called a minim!
 crotchet-up,     1.9, 0    =$$$110 =@@@This is called a crotchet!
 minim-up,        1.9, 0    =$$$111 =@@@This is called a minim!
-semibreve,       1.9, 0.2  =$$$112 =@@@That is a semibreve!
+semibreve,       1.9, 0.2  =$$$112 =@@@That is called a semibreve!
