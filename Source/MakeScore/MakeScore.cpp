@@ -205,7 +205,11 @@ void MakeScore::AddTokens()
     else if (IsImmediatePitch(s))
     {
       m_lastPitch = GetPitch(s) + m_transpose;
-      AddGlyph();
+      AddNote();
+    }
+    else if (IsRest(s))
+    {
+      AddRest(s);
     }
     else if (IsDeferredTimeVal(s))
     {
@@ -216,7 +220,7 @@ void MakeScore::AddTokens()
     else if (IsImmediateTimeVal(s))
     {
       m_lastTimeValToken = s;
-      AddGlyph();
+      AddNote();
     }
     else if (s[0] == TEXT_QUOTE_OPEN)
     {
@@ -327,9 +331,14 @@ void MakeScore::AddClef(const std::string& s)
   m_bars.back()->SetClef(GetClef(s));
 }
 
-void MakeScore::AddGlyph()
+void MakeScore::AddRest(const std::string& s)
 {
-  m_bars.back()->AddGlyph(
+  m_bars.back()->AddRest(s, m_switches[m_stave]);
+}
+
+void MakeScore::AddNote()
+{
+  m_bars.back()->AddNote(
     m_lastTimeValToken, m_lastPitch, m_switches[m_stave]);
 
   // If last tie has no right connection, connect it now to the

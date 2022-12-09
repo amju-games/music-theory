@@ -75,9 +75,11 @@ private:
     m_bars.back()->AddTimeSig(s);
   }
 
-  // Use most recently set note (time) value and pitch to add a new Glyph
+  // Use most recently set note (time) value and pitch to add a new NoteGlyph
   //  to the current Bar.
-  void AddGlyph();
+  void AddNote();
+
+  void AddRest(const std::string& s);
 
   void AddClef(const std::string& s);
 

@@ -11,6 +11,7 @@
 // * RestGlyph *
 class RestGlyph : public Glyph
 {
+public:
   RestGlyph() = default;
 
   // Construct glyph from inpupt token and position in bar.

@@ -48,7 +48,9 @@ public:
 
   void SetScale(float scale);
 
-  void AddGlyph(const std::string& s, int pitch, int switches);
+  void AddNote(const std::string& s, int pitch, int switches);
+
+  void AddRest(const std::string& s, int switches);
 
   void AddTimeSig(const std::string& s);
 

@@ -93,11 +93,6 @@ std::string NoteGlyph::GetGlyphOutputStr(std::string s) const
 {
   std::string out = Glyph::GetGlyphOutputStr(s);
 
-  bool dot = Contains(s, '.');
-  Remove(s, '.');
-  bool rest = Contains(s, 'r');
-  assert(!rest);
-
   if (s != "sb")
   {
     bool stemUp = (m_staveLine < 5);

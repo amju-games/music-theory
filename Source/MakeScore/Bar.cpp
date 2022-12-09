@@ -8,6 +8,7 @@
 #include "Bar.h"
 #include "Flag.h"
 #include "NoteGlyph.h"
+#include "RestGlyph.h"
 
 void Bar::CopyState(const Bar& b)
 {
@@ -142,38 +143,41 @@ void Bar::CalcGlyphY(Glyph* gl, int pitch) const
   }
 }
 
-void Bar::AddGlyph(const std::string& s, int pitch, int switches)
+void Bar::AddRest(const std::string& s, int switches)
 {
-  // TODO Split into note and rest glyph types?
-  bool rest = Contains(s, 'r');
+  int order = static_cast<int>(m_glyphs.size());
+  RestGlyph* gl = new RestGlyph(s, order);
+  gl->SetScale(m_scale);
+  gl->SetTimeVal(GetTimeVal(s));
+  m_glyphs.push_back(std::unique_ptr<Glyph>(gl));
+}
 
+void Bar::AddNote(const std::string& s, int pitch, int switches)
+{
   int order = static_cast<int>(m_glyphs.size());
 
   NoteGlyph* gl = new NoteGlyph(s, order);
   gl->SetScale(m_scale);
 
-  if (!rest)
-  {
-    gl->SetSwitches(switches); // but can pause a rest
+  gl->SetSwitches(switches); // but can pause a rest
 
-    gl->SetPitch(pitch);
+  gl->SetPitch(pitch);
 
-    // Calc y, using current pitch, stave, and clef. 
-    CalcGlyphY(gl, pitch);
+  // Calc y, using current pitch, stave, and clef. 
+  CalcGlyphY(gl, pitch);
 
-    // Calc any accidental required for the given pitch in the 
-    //  current key. 
-    // TODO Not if we have overriden by specifying an accidental.
-    gl->CalcAccidental(m_keySig);
+  // Calc any accidental required for the given pitch in the 
+  //  current key. 
+  // TODO Not if we have overriden by specifying an accidental.
+  gl->CalcAccidental(m_keySig);
 
-    // Accidental 2nd pass: adjust based on previous accidental
-    //  for the stave line for this note
-    Accidental prev = m_accidentals[gl->m_staveLine];
-    gl->AdjustAccidental(prev);
+  // Accidental 2nd pass: adjust based on previous accidental
+  //  for the stave line for this note
+  Accidental prev = m_accidentals[gl->m_staveLine];
+  gl->AdjustAccidental(prev);
 
-    // Store most recent acc for the stave line of this note
-    m_accidentals[gl->m_staveLine] = gl->m_accidental;
-  }
+  // Store most recent acc for the stave line of this note
+  m_accidentals[gl->m_staveLine] = gl->m_accidental;
 
   // Set duration for this musical symbol
   gl->SetTimeVal(GetTimeVal(s));
