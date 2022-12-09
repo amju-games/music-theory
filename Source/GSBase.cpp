@@ -104,6 +104,9 @@ void GSBase::OnDeactive()
 void GSBase::ReloadGui()
 {
   OnDeactive();
+
+  TheResourceManager::Instance()->Reload();
+
   OnActive();
 }
 
@@ -126,6 +129,7 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
     if (m_gui)
     {
       PrintGui(m_gui);
+      TheResourceManager::Instance()->DebugPrint();
     }
     else
     {
