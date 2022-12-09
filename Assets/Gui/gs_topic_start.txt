@@ -11,20 +11,63 @@ gui-comp
 // Name
 main-menu-comp
 // Num children
-3
+4
+
+
+// Animate topic title up to top of screen after a delay
+// Delay
+animation
+2.0
+step
+one-shot
+
+animation
+2
+linear
+one-shot
+
+translate
+0,0 ; 0,0.8
 
 // Element type
 gui-text
 // Element name
 topic-name-text
 // pos (coords are -1..1)
--1.0, 0.7
+-1.0, 0.1
 // size
 2.0, 0.4
 // Text
 TOPIC
 // Font name, size
 dimbo, 1.5, multi, fgcol=000000
+
+// Delay
+animation
+2.0
+step
+one-shot
+
+animation
+2
+linear
+one-shot
+
+colour
+ffffff00, ffffffff
+
+// Test: fade in some text
+// Element type
+gui-text
+topic-blurb-text
+// pos (coords are -1..1)
+-1.0, 0.1
+// size
+2.0, 0.4
+// Text
+Blah blahblah blah blah blahblahblah blahblah blah
+// Font name, size
+arial, 1., multi, fgcol=000000
 
 
 // Cancel button

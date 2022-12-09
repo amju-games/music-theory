@@ -12,11 +12,31 @@ gui-comp
 // Name
 gs-pages-root
 // Num children
-4
+5
 
 include
 gui-top-bar.txt
 
+
+
+elastic
+1.0, 0.0
+
+// Hint button
+// element type
+gui-button
+// Element name
+hint-button
+// pos (coords are -1..1)
+0.5, 0.7
+// size
+0.3, 0.15
+// Image 
+Image/gui-button-2.png
+// Text
+HINT!
+// Font name, size
+dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
 
 
 elastic
@@ -28,7 +48,7 @@ gui-button
 // Element name
 pause-button
 // pos (coords are -1..1)
--0.5, 0.2
+-0.8, 0.7
 // size
 0.3, 0.15
 // Image 

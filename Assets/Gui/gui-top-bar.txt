@@ -61,7 +61,7 @@ dimbo, 2.0,  fgcol=000000
 // Element type
 gui-text
 // Element name
-player-score
+num-pages-text
 // pos (coords are -1..1)
 0.50, 0.9
 // size
@@ -69,7 +69,7 @@ player-score
 // Text
 25600
 // Font name, size
-berlin_numeric, 1.0, right, fgcol=000000
+dimbo, 1.0, right, fgcol=000000
 
 
 

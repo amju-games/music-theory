@@ -9,29 +9,7 @@ gui-comp
 // Name
 root
 // Num children
-2
-
-
-
-elastic
-1.0, 0.0
-
-// Hint button
-// element type
-gui-button
-// Element name
-hint-button
-// pos (coords are -1..1)
-0.5, 0.2
-// size
-0.3, 0.15
-// Image 
-Image/gui-button-2.png
-// Text
-HINT!
-// Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
-
+1
 
 elastic
 0, -2.0
@@ -48,7 +26,7 @@ gui-text
 // Element name
 question-text
 // pos (coords are -1..1)
--0.9, 0.9
+-0.9, 0.7
 // size
 1.8, 0.2
 // Text
@@ -62,7 +40,7 @@ gui-text
 // Element name
 musical-term-text
 // pos (coords are -1..1)
--1.0, 0.7
+-1.0, 0.5
 // size
 2.0, 0.4
 // Text
@@ -78,9 +56,9 @@ gui-button
 // Element name
 button-choice-0
 // pos (coords are -1..1)
--0.5, 0.1
+-0.6, 0.1
 // size
-1.0, 0.15
+1.2, 0.15
 // Image 
 Image/gui-button-8.png
 // Text
@@ -93,9 +71,9 @@ gui-button
 // Element name
 button-choice-1
 // pos (coords are -1..1)
--0.5, -0.1
+-0.6, -0.1
 // size
-1.0, 0.15
+1.2, 0.15
 // Image 
 Image/gui-button-8.png
 // Text
@@ -108,9 +86,9 @@ gui-button
 // Element name
 button-choice-2
 // pos (coords are -1..1)
--0.5, -0.3
+-0.6, -0.3
 // size
-1.0, 0.15
+1.2, 0.15
 // Image 
 Image/gui-button-8.png
 // Text
@@ -123,9 +101,9 @@ gui-button
 // Element name
 button-choice-3
 // pos (coords are -1..1)
--0.5, -0.5
+-0.6, -0.5
 // size
-1.0, 0.15
+1.2, 0.15
 // Image 
 Image/gui-button-8.png
 // Text

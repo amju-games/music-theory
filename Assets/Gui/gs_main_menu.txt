@@ -14,24 +14,10 @@ gs-main-menu-root
 6
 
 
-
-gui-image
-bulb
-0, 0
-1.2, 1.2
-Image/bulb.png
-
-
-include
-title-text.txt
-
-
 // Decorator test
-
-
 // 2s delay
 animation
-3.0
+0.5
 step
 one-shot
 
@@ -39,7 +25,8 @@ one-shot
 animation
 2
 linear
-repeat
+one-shot
+//repeat
 
 //// Animation interpolates between these colours
 //colour
@@ -51,21 +38,39 @@ line-drawing-test-1
 0.0, 0
 1, 1
 // Start width
-0.04
+0.1
 // End width
-0.08
+0.01
 // Colour: (start colour, end colour?)
 6EB127c0
 // Points
 stroke-main-menu-1.txt
 
 
+colour
+DDBA19
+
+gui-image
+bulb
+-0.5, 0.15
+1.0, 1.2
+Image/bulb.png
+
+
+animation
+2
+linear
+mirror-repeat
+
+scale
+0.9, 0.9; 1.0, 1.0
+
 // Topic button
 gui-button
 // Element name
 topic-button-0
 // pos (coords are -1..1)
--0.15, -0.6
+-0.15, .9
 // size
 0.6, 0.3
 // Image 
@@ -79,7 +84,7 @@ dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
 gui-button
 topic-button-1
 // pos (coords are -1..1)
--0.15, -0.3
+-0.15, .5
 0.6, 0.3
 Image/leaf1.png
 Time signatures
@@ -89,10 +94,18 @@ dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
 gui-button
 topic-button-2
 // pos (coords are -1..1)
--0.15, -0.1
+-0.15, .7
 0.6, 0.3
 Image/leaf1.png
 Key signatures
 dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
+
+colour
+//000000
+ffffff
+
+include
+title-text.txt
+
 
 
