@@ -646,7 +646,6 @@
     <Text Include="..\..\..\..\Assets\Gui\page_play_notes.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_text_symbol_4.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_text_text_4_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\pie.txt" />
     <Text Include="..\..\..\..\Assets\Gui\player-score.txt" />
     <Text Include="..\..\..\..\Assets\Gui\question_symbol_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\question_text_landscape.txt" />

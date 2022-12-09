@@ -609,9 +609,6 @@
     <Text Include="..\..\..\..\Assets\Gui\stroke-mid-line.txt">
       <Filter>Assets\Gui\Stroke</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\pie.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
     <Text Include="..\..\..\..\Docs\TODO.txt">
       <Filter>Docs</Filter>
     </Text>
