@@ -31,8 +31,8 @@ keysig-5flat-treble  = flat, 0.8, 0.09 ; keysig-4flat-treble, 0, 0
 keysig-6flat-treble  = flat, 1.0, 0.25 ; keysig-5flat-treble, 0, 0
 keysig-7flat-treble  = flat, 1.2, 0.05 ; keysig-6flat-treble, 0, 0
 
-stem-up = quad, 0.205, 0.495,  0.205, 0.825,  0.17, 0.825,  0.17, 0.475
-stem-down = quad, 0.03, 0.125,  0.03, 0.475,  0.0, 0.455,  0.0, 0.125
+stem-up = quad, 0.265, 0.495,  0.265, 0.825,  0.23, 0.825,  0.23, 0.475
+stem-down = quad, 0.09, 0.125,  0.09, 0.49,  0.06, 0.47,  0.06, 0.125
 
 quaver-up = note-solid, 0, 0 ; stem-up, 0, 0 ; tail-down-1, 0, 0.35
 dotted-quaver-up = quaver-up, 0, 0 ; ., 0.275, 0.00
@@ -59,7 +59,9 @@ dotted-minim-down = minim-down, 0, 0 ; ., 0.275, 0.0
 dotted-minim-down-raised-dot = minim-down, 0, 0 ; ., 0.275, 0.03
 
 // Ledger line, same y pos as bottom line of stave
-ledger = quad, 0.25, 0.475,  0.25, 0.490,  -0.05, 0.490,  -0.05, 0.475
+ledger = quad, 0.31, 0.475,  0.31, 0.490,  0.01, 0.490,  0.01, 0.475
+// Wide ledger line, for semibreves
+ledger-w = quad, 0.35, 0.475,  0.35, 0.490,  -0.04, 0.490,  -0.04, 0.475
 
 // Common notes
 // c4 = middle C
