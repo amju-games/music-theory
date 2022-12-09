@@ -40,9 +40,9 @@ Image/avatar-sheet.png
 
 animation
 head-bob
-repeat
+mirror-repeat
 2.5
-sine
+linear
 translate
 0, 0; 0, 0.05
 
