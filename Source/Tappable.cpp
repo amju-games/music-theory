@@ -5,6 +5,8 @@
 #include <File.h>
 #include <LoadScene.h>
 #include <LoadVec3.h>
+#include "CorridorModeEnterTappable.h"
+#include "GSMainCorridor.h"
 #include "Tappable.h"
 
 namespace Amju
@@ -93,4 +95,10 @@ void Tappable::UpdateGui()
   m_gui->Update();
 }
 
+void Tappable::OnTapped()
+{
+  // Default behaviour
+  // TODO Get rid of this inflexible behaviour
+  TheGSMainCorridor::Instance()->SetMode(CorridorModeEnterTappable::ID);
+}
 }

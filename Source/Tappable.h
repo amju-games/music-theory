@@ -1,4 +1,4 @@
-// * Amjulib *
+// * Amjula music theory *
 // (c) Copyright 2000-2017 Jason Colman
 
 #pragma once
@@ -15,10 +15,14 @@ class File;
 // * Tappable *
 // Tappable items in the main menu corridor - user can tap on these items,
 //  and is presented with more info, etc.
+// Tappable is the base class for all tappable types.
 class Tappable : public RefCounted
 {
 public:
-  bool Load(File*);
+  virtual ~Tappable() = default;
+  virtual void OnTapped();
+  virtual bool Load(File*);
+
   SceneNode* GetSceneNode();
   const std::string& GetName() const;
   const Vec3f& GetCameraEyePos() const;
