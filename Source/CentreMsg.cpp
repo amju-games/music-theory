@@ -25,27 +25,58 @@ const float CentreMsg::DEFAULT_MAX_LURK_TIME = 3.0f;
 // Extra border around text
 static const Vec2f EXTRA(0.1f, 0.05f); // TODO CONFIG
 
-CentreMsg::CentreMsg(const std::string& text, const Colour& fgCol, const Colour& bgCol, 
-  float maxTime, CommandFunc onOk)
+CentreMsg::CentreMsg()
 {
   m_lurkPos = AMJU_CENTRE;
+}
+
+CentreMsg::CentreMsg(const std::string& text, const Colour& fgCol, const Colour& bgCol, 
+  float maxTime, CommandFunc onOk) : CentreMsg()
+{
   SetCentred(text, fgCol, bgCol, maxTime, onOk);
 }
 
 void CentreMsg::Draw()
 {
+  m_gui->SetVisible(false); // so inert if not displayed
+
+  if (m_state == LurkMsg::LURK_SHOWN)
+  {
+    Vec2f pos = m_rect->GetLocalPos();
+    pos += Vec2f(0, -m_rect->GetSize().y);
+    pos.x = 0;
+    m_text->SetLocalPos(pos);
+    m_text->SetVisible(true);
+    m_ok->SetIsFocusButton(true);
+    m_ok->SetShowIfFocus(true);
+    
+    // Hide buttons with no command
+    
+    // Hide OK button if timed
+    if (m_maxTime == 0)
+    {
+      m_gui->SetVisible(true);
+      m_gui->Draw();
+    }
+  }
+
   AmjuGL::PushMatrix();
   AmjuGL::Scale(m_scale, m_scale, 1.0f);
   m_rect->Draw();
   if (m_scale > 0.99f)
   {
-    m_gui->Draw();
+    m_text->Draw();
   }
   AmjuGL::PopMatrix();
 }
 
 void CentreMsg::Update()
 {
+  // TODO Just do once when set
+  m_ok->SetVisible(m_onOk != nullptr || (m_onYes == nullptr && m_onNo == nullptr));
+  m_yes->SetVisible(m_onYes != nullptr);
+  m_no->SetVisible(m_onNo != nullptr);
+
   float dt = TheTimer::Instance()->GetDt();
 
   switch (m_state)
@@ -57,7 +88,7 @@ void CentreMsg::Update()
 
       m_state = LURK_SHOWING;
       m_rect->SetVisible(true);
-      m_gui->SetVisible(true);
+      m_text->SetVisible(true); //? Need this??
 
       if (m_gui)
       {
@@ -86,7 +117,7 @@ void CentreMsg::Update()
       m_state = LURK_SHOWN;
 
 #ifdef TEXT_TO_SPEECH
-      m_gui->TextToSpeech();
+      m_text->TextToSpeech();
 #endif
     }
     else 
@@ -94,7 +125,7 @@ void CentreMsg::Update()
       Vec2f  dpos = m_vel * dt;
       m_pos += dpos;
       m_rect->SetLocalPos(m_rect->GetLocalPos() + dpos);
-      m_gui->SetLocalPos(m_gui->GetLocalPos() + dpos);
+      m_text->SetLocalPos(m_text->GetLocalPos() + dpos);
 
       m_scale += 2.0f * dt; // TODO TEMP TEST
     }
@@ -118,7 +149,7 @@ void CentreMsg::Update()
       Vec2f  dpos = m_vel * -dt;
       m_pos += dpos;
       m_rect->SetLocalPos(m_rect->GetLocalPos() + dpos);
-      m_gui->SetLocalPos(m_gui->GetLocalPos() + dpos);
+      m_text->SetLocalPos(m_text->GetLocalPos() + dpos);
 
       m_scale -= 2.0f * dt; // TODO TEMP TEST
     }
@@ -126,7 +157,7 @@ void CentreMsg::Update()
 
   case LURK_FINISHED:
     m_rect->SetVisible(false);
-    m_gui->SetVisible(false);
+    m_text->SetVisible(false);
     break;
 
   case LURK_HIDDEN:
@@ -160,15 +191,15 @@ void CentreMsg::SetCentred(const std::string& str, const Colour& fgCol, const Co
   SetCentred(text, fgCol, bgCol, maxTime, onFinished);
 }
 
-void CentreMsg::SetCentred(PGuiElement gui, const Colour& fgCol, const Colour& bgCol, 
+void CentreMsg::SetCentred(PGuiElement text, const Colour& fgCol, const Colour& bgCol,
   float maxTime, CommandFunc onOk)
 {
   const float LURK_MSG_CORNER_RADIUS = 0.04f;
   
-  m_gui = gui;
+  m_text = text;
 
   m_rect = new GuiRect;
-  m_rect->SetSize(m_gui->GetSize() + EXTRA);
+  m_rect->SetSize(m_text->GetSize() + EXTRA);
   m_rect->SetColour(bgCol);
   m_rect->SetCornerRadius(LURK_MSG_CORNER_RADIUS);
 
@@ -177,8 +208,8 @@ void CentreMsg::SetCentred(PGuiElement gui, const Colour& fgCol, const Colour& b
   m_state = LURK_NEW;
   m_onOk = onOk;
 
-  float h = m_gui->GetSize().y;
-  float w = m_gui->GetSize().x;
+  float h = m_text->GetSize().y;
+  float w = m_text->GetSize().x;
 
   float yOffset = 0;
 
@@ -194,8 +225,10 @@ void CentreMsg::SetCentred(PGuiElement gui, const Colour& fgCol, const Colour& b
     m_vel *= 0.5f; // TODO CONFIG
   }
   m_pos = m_hidePos;
-  m_gui->SetLocalPos(m_hidePos); 
-  m_rect->SetLocalPos(m_hidePos - 0.5f * Vec2f(EXTRA.x, -EXTRA.y)); 
+  m_text->SetLocalPos(m_hidePos);
+  m_rect->SetLocalPos(m_hidePos - 0.5f * Vec2f(EXTRA.x, -EXTRA.y));
+  
+  LoadGui(LURK_GUI_FILENAME);
 }
 
 }

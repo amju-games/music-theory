@@ -28,6 +28,10 @@ public:
   LurkMsg(const std::string& text, const Colour& fgCol, const Colour& bgCol, LurkPos lp, 
     float maxTime, CommandFunc onFinished = 0);
 
+  // Load GUI from file - currently only for CentreMsgs, but in theory other Msgs could
+  //  also load a GUI.
+  bool LoadGui(const std::string& guiFilename);
+  
   virtual void Draw();
   virtual void Update();
   virtual void Set(const std::string& text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
@@ -49,7 +53,7 @@ public:
   static const float DEFAULT_MAX_LURK_TIME;
 
 protected:
-  RCPtr<GuiText> m_text;
+  PGuiElement m_text;
   RCPtr<GuiRect> m_rect;
 
   Vec2f m_pos; // current pos
@@ -66,6 +70,14 @@ protected:
   friend class Lurker;
   LurkPos m_lurkPos;
 
+  // next/ok button - currently for Centred text only
+  PGuiElement m_gui;
+  // yes/no/ok buttons - TODO something a bit more flexible
+  GuiButton* m_ok;
+  GuiButton* m_yes;
+  GuiButton* m_no;
+
+  // Funcs to call on button press
   CommandFunc m_onOk;
   CommandFunc m_onYes;
   CommandFunc m_onNo;
@@ -100,13 +112,6 @@ private:
   typedef std::queue<PLurkMsg> LurkMsgQ; // queue of msgs or one Lurk pos
   typedef std::map<LurkPos, LurkMsgQ> QMap; 
   QMap m_qmap; // one queue for each position
-
-  // next/ok button for Centred text (TODO make this per-LurkMsg ?)
-  //RCPtr<GuiButton> m_button; 
-  PGuiElement m_gui; // yes/no/ok buttons
-  GuiButton* m_ok;
-  GuiButton* m_yes;
-  GuiButton* m_no;
 };
 
 typedef Singleton<Lurker> TheLurker;

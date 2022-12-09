@@ -20,7 +20,7 @@ namespace Amju
 class CentreMsg : public LurkMsg
 {
 public:
-  CentreMsg() = default;
+  CentreMsg();
 
   // Optional function which is called when message has been displayed and has now gone away
   CentreMsg(const std::string& text, const Colour& fgCol, const Colour& bgCol,  

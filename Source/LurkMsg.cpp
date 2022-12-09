@@ -24,6 +24,21 @@ const float LurkMsg::DEFAULT_MAX_LURK_TIME = 3.0f;
 // Extra border around text
 static const Vec2f EXTRA(0.1f, 0.05f); // TODO CONFIG
 
+static void OnLurkOk(GuiElement*)
+{
+  TheLurker::Instance()->OnLurkOk();
+}
+
+static void OnLurkYes(GuiElement*)
+{
+  TheLurker::Instance()->OnLurkYes();
+}
+
+static void OnLurkNo(GuiElement*)
+{
+  TheLurker::Instance()->OnLurkNo();
+}
+
 LurkMsg::LurkMsg()
 {
   m_timer = 0;
@@ -48,6 +63,26 @@ LurkMsg::LurkMsg(const std::string& text, const Colour& fgCol, const Colour& bgC
 bool LurkMsg::IsFinished() const
 {
   return m_state == LURK_FINISHED;
+}
+
+bool LurkMsg::LoadGui(const std::string& guiFilename)
+{
+  m_gui = ::Amju::LoadGui(LURK_GUI_FILENAME, false);
+  Assert(m_gui);
+  
+  m_ok = (GuiButton*)GetElementByName(m_gui, "ok-button");
+  Assert(m_ok);
+  m_ok->SetCommand(Amju::OnLurkOk);
+  
+  m_yes = (GuiButton*)GetElementByName(m_gui, "yes-button");
+  Assert(m_yes);
+  m_yes->SetCommand(Amju::OnLurkYes);
+  
+  m_no = (GuiButton*)GetElementByName(m_gui, "no-button");
+  Assert(m_no);
+  m_no->SetCommand(Amju::OnLurkNo);
+  
+  return true;
 }
 
 void LurkMsg::Draw()
@@ -155,6 +190,8 @@ void LurkMsg::SetNoCommand(CommandFunc onNo)
 
 void LurkMsg::DoOk()
 {
+  m_gui->SetVisible(true); // ? TODO Why
+
   if (m_onOk)
   {
     m_onOk(nullptr);
@@ -163,6 +200,8 @@ void LurkMsg::DoOk()
 
 void LurkMsg::DoYes()
 {
+  m_gui->SetVisible(true); // ? TODO Why
+
   if (m_onYes)
   {
     m_onYes(nullptr);
@@ -171,6 +210,8 @@ void LurkMsg::DoYes()
 
 void LurkMsg::DoNo()
 {
+  m_gui->SetVisible(true); // ? TODO Why
+
   if (m_onNo)
   {
     m_onNo(nullptr);
@@ -263,38 +304,8 @@ void LurkMsg::Set(GuiText* text, const Colour& fgCol, const Colour& bgCol, LurkP
   m_rect->SetLocalPos(m_hidePos - 0.5f * Vec2f(EXTRA.x, -EXTRA.y)); 
 }
 
-static void OnLurkOk(GuiElement*)
-{
-  TheLurker::Instance()->OnLurkOk();
-}
-
-static void OnLurkYes(GuiElement*)
-{
-  TheLurker::Instance()->OnLurkYes();
-}
-
-static void OnLurkNo(GuiElement*)
-{
-  TheLurker::Instance()->OnLurkNo();
-}
-
 Lurker::Lurker()
 {
-  m_gui = LoadGui(LURK_GUI_FILENAME, false);
-  Assert(m_gui);
-
-  m_ok = (GuiButton*)GetElementByName(m_gui, "ok-button");
-  Assert(m_ok);
-  m_ok->SetCommand(Amju::OnLurkOk);
-
-  m_yes = (GuiButton*)GetElementByName(m_gui, "yes-button");
-  Assert(m_yes);
-  m_yes->SetCommand(Amju::OnLurkYes);
-
-  m_no = (GuiButton*)GetElementByName(m_gui, "no-button");
-  Assert(m_no);
-  m_no->SetCommand(Amju::OnLurkNo);
-
 /*
   m_button = new GuiButton;
   m_button->OpenAndLoad("lurk-button.txt");
@@ -313,8 +324,6 @@ void Lurker::OnLurkOk()
   LurkMsg& lm = *(m_qmap[AMJU_CENTRE].front());
   lm.m_state = LurkMsg::LURK_HIDING;
   lm.DoOk();
-
-  m_gui->SetVisible(true); // ?
 }
 
 void Lurker::OnLurkYes()
@@ -322,8 +331,6 @@ void Lurker::OnLurkYes()
   LurkMsg& lm = *(m_qmap[AMJU_CENTRE].front());
   lm.m_state = LurkMsg::LURK_HIDING;
   lm.DoYes();
-
-  m_gui->SetVisible(true); // ?
 }
 
 void Lurker::OnLurkNo()
@@ -331,8 +338,6 @@ void Lurker::OnLurkNo()
   LurkMsg& lm = *(m_qmap[AMJU_CENTRE].front());
   lm.m_state = LurkMsg::LURK_HIDING;
   lm.DoNo();
-
-  m_gui->SetVisible(true); // ?
 }
 
 void Lurker::Update()
@@ -352,17 +357,12 @@ void Lurker::Update()
     else
     {
       msg.Update();
-      m_ok->SetVisible(msg.m_onOk != 0 || (msg.m_onYes == 0 && msg.m_onNo == 0));
-      m_yes->SetVisible(msg.m_onYes != 0);
-      m_no->SetVisible(msg.m_onNo != 0);
     }
   }
 }
 
 void Lurker::Draw()
 {
-  m_gui->SetVisible(false); // so inert if not displayed
-
   for (QMap::iterator it = m_qmap.begin(); it != m_qmap.end(); ++it)
   {
     LurkMsgQ& q = it->second;
@@ -371,25 +371,6 @@ void Lurker::Draw()
       continue;
     }
     LurkMsg& msg = *(q.front());
-    if (msg.m_lurkPos == AMJU_CENTRE && msg.m_state == LurkMsg::LURK_SHOWN)
-    {
-      Vec2f pos = msg.m_rect->GetLocalPos(); 
-      pos += Vec2f(0, -msg.m_rect->GetSize().y);
-      pos.x = 0;
-      m_gui->SetLocalPos(pos);
-      m_gui->SetVisible(true);
-      m_ok->SetIsFocusButton(true);
-      m_ok->SetShowIfFocus(true);
-
-      // Hide buttons with no command
-
-      // Hide OK button if timed
-      if (msg.m_maxTime == 0)
-      {
-        m_gui->SetVisible(true);
-        m_gui->Draw();
-      }
-    }
     msg.Draw();
   }
 }

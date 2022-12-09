@@ -101,6 +101,7 @@
 		69D732961F23DA29007B73C1 /* CorridorModeShowTappable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D7328D1F23DA29007B73C1 /* CorridorModeShowTappable.cpp */; };
 		69D732971F23DA29007B73C1 /* CorridorModeWait.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D7328F1F23DA29007B73C1 /* CorridorModeWait.cpp */; };
 		69D7329C1F250B58007B73C1 /* CorridorCamController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D7329A1F250B58007B73C1 /* CorridorCamController.cpp */; };
+		69EA9D4D1F7CE5630080089A /* CentreMsg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69EA9D4B1F7CE5630080089A /* CentreMsg.cpp */; };
 		69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */; };
 		69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E08B1E8C09C000E7BF93 /* Question.cpp */; };
 		69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */; };
@@ -309,6 +310,8 @@
 		69D732901F23DA29007B73C1 /* CorridorModeWait.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorModeWait.h; path = ../../../../Source/CorridorModeWait.h; sourceTree = "<group>"; };
 		69D7329A1F250B58007B73C1 /* CorridorCamController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CorridorCamController.cpp; path = ../../../../Source/CorridorCamController.cpp; sourceTree = "<group>"; };
 		69D7329B1F250B58007B73C1 /* CorridorCamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorCamController.h; path = ../../../../Source/CorridorCamController.h; sourceTree = "<group>"; };
+		69EA9D4B1F7CE5630080089A /* CentreMsg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CentreMsg.cpp; path = ../../../../Source/CentreMsg.cpp; sourceTree = "<group>"; };
+		69EA9D4C1F7CE5630080089A /* CentreMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CentreMsg.h; path = ../../../../Source/CentreMsg.h; sourceTree = "<group>"; };
 		69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSTestShowScore.cpp; path = ../../../../Source/GSTestShowScore.cpp; sourceTree = "<group>"; };
 		69F5E0871E8C09C000E7BF93 /* GSTestShowScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSTestShowScore.h; path = ../../../../Source/GSTestShowScore.h; sourceTree = "<group>"; };
 		69F5E0881E8C09C000E7BF93 /* PageMultiChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageMultiChoice.h; path = ../../../../Source/PageMultiChoice.h; sourceTree = "<group>"; };
@@ -469,6 +472,8 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				69EA9D4B1F7CE5630080089A /* CentreMsg.cpp */,
+				69EA9D4C1F7CE5630080089A /* CentreMsg.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				69A23A591F61E6970021BF88 /* Consts.cpp */,
@@ -828,6 +833,7 @@
 				69A23A5C1F61E6970021BF88 /* Consts.cpp in Sources */,
 				695E90811F5AB7260003901E /* Version.cpp in Sources */,
 				697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */,
+				69EA9D4D1F7CE5630080089A /* CentreMsg.cpp in Sources */,
 				69D732921F23DA29007B73C1 /* CorridorModeEnterClassroom.cpp in Sources */,
 				6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */,
 				6959E2EC1E97F6F800E251A9 /* Course.cpp in Sources */,
