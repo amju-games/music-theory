@@ -39,6 +39,8 @@ I
 // Num children
 1
 
+// TODO TEMP TEST
+// This should be a tappable
 // Bookshelf
 // Node type
 mesh
@@ -49,6 +51,11 @@ bookshelf1
 // Obj mesh
 obj/shelf5.obj
 // Num children
+1
+mesh
+shelf-shadow
+.75, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, .1, 0, 1
+obj/shadow-sq.obj
 0
 
 
