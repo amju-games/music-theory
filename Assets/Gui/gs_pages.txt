@@ -67,6 +67,7 @@ tick
 
 // Linear animation
 animation
+name-not-used
 one-shot
 .4
 linear
@@ -98,6 +99,7 @@ cross
 
 // Linear animation
 animation
+name-not-used
 one-shot
 .2
 linear
@@ -121,12 +123,14 @@ stroke-cross-1.txt
 
 // Delay
 animation
+name-not-used
 one-shot
 0.21
 step
 
 // Linear animation
 animation
+name-not-used
 one-shot
 .2
 linear

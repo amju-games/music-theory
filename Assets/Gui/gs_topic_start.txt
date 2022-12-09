@@ -17,11 +17,13 @@ main-menu-comp
 // Animate topic title up to top of screen after a delay
 // Delay
 animation
+name-not-used
 one-shot
 1.0
 step
 
 animation
+name-not-used
 one-shot
 2
 linear
@@ -44,11 +46,13 @@ dimbo, 1.5, multi, fgcol=000000
 
 // Delay
 animation
+name-not-used
 one-shot
 1.5
 step
 
 animation
+name-not-used
 one-shot
 2.0
 linear

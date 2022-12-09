@@ -17,12 +17,14 @@ gs-main-menu-root
 // Decorator test
 // delay
 animation
+name-not-used
 one-shot
 0.5
 step
 
 // Triangle wave animation
 animation
+name-not-used
 one-shot
 //repeat
 2.0
@@ -58,6 +60,7 @@ Image/bulb.png
 
 
 animation
+name-not-used
 mirror-repeat
 2.0
 linear
