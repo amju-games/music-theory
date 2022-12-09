@@ -2,6 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <Game.h>
+#include <GuiDecAnimation.h>
 #include <GuiButton.h>
 #include <MessageQueue.h>
 #include <ResourceManager.h>
@@ -94,11 +95,15 @@ void GSMainMenu::OnActive()
     if (unlocked)
     {
       // ?
+      GuiDecAnimation* pulseAnim = dynamic_cast<GuiDecAnimation*>(GetElementByName(topicRoot, "pulse-leaf"));
+      pulseAnim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
     }
     else
     {
       button->SetIsEnabled(false);
-      button->SetButtonColour(Colour(1, 1, 1, 0.5f));
+      Colour c = button->GetButtonColour();
+      c.m_a = 0.5f;
+      button->SetButtonColour(c);
       // TODO text colour, but IGuiText has very limited interface
     }
   }

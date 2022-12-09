@@ -41,6 +41,11 @@ rotate
 -5
 
 animation
+pulse-leaf
+const
+zero
+
+animation
 grow-leaf
 repeat
 1.5
