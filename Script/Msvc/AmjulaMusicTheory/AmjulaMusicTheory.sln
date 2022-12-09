@@ -15,6 +15,7 @@ Global
 		Debug|Win32 = Debug|Win32
 		DebugAssetTest|Win32 = DebugAssetTest|Win32
 		ES2Debug|Win32 = ES2Debug|Win32
+		GTest|Win32 = GTest|Win32
 		Release|Win32 = Release|Win32
 		ReleaseAssetTest|Win32 = ReleaseAssetTest|Win32
 	EndGlobalSection
@@ -25,6 +26,8 @@ Global
 		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.DebugAssetTest|Win32.Build.0 = Debug|Win32
 		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.ES2Debug|Win32.ActiveCfg = Debug|Win32
 		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.ES2Debug|Win32.Build.0 = Debug|Win32
+		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.GTest|Win32.ActiveCfg = GTest|Win32
+		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.GTest|Win32.Build.0 = GTest|Win32
 		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.Release|Win32.ActiveCfg = Release|Win32
 		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.Release|Win32.Build.0 = Release|Win32
 		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.ReleaseAssetTest|Win32.ActiveCfg = Release|Win32
@@ -35,6 +38,8 @@ Global
 		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.DebugAssetTest|Win32.Build.0 = DebugAssetTest|Win32
 		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.ES2Debug|Win32.ActiveCfg = ES2Debug|Win32
 		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.ES2Debug|Win32.Build.0 = ES2Debug|Win32
+		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.GTest|Win32.ActiveCfg = GTest|Win32
+		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.GTest|Win32.Build.0 = GTest|Win32
 		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.Release|Win32.ActiveCfg = Release|Win32
 		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.Release|Win32.Build.0 = Release|Win32
 		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.ReleaseAssetTest|Win32.ActiveCfg = ReleaseAssetTest|Win32
