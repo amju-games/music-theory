@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-81
+89
 1=welcome to amjula music school!
 2=swipe left and right to move along the corridor
 3=Which clef?
@@ -83,3 +83,11 @@
 79=The G Major scale has one sharp.
 80=The F Major scale has one flat.
 81=The D Major scale has two sharps.
+82=SHARE
+83=START
+84=WOW!
+85=You scored
+86=OK
+87=Have some more hints!
+88=CANCEL
+89=HINT!

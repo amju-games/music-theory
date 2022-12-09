@@ -17,14 +17,16 @@ gui-text
 topic-end-text1
 -1.0, 0.7
 1.0, 0.4
-WOW!
+// WOW!
+$$$84
 dimbo, 1.5, multi, fgcol=000000
 
 gui-text
 topic-end-text2
 -1.0, 0.5
 1.0, 0.4
-You scored
+// You scored
+$$$85
 arial, 1.0, multi, fgcol=000000
 
 // Top number. OK, "numerator"
@@ -103,7 +105,8 @@ ok-button
 0.3, 0.15
 // Image 
 Image/gui-button-2.png
-OK
+// OK
+$$$86
 dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
 
 
@@ -122,6 +125,7 @@ gui-text
 comment-text
 -1.0, -0.4
 2.0, 0.4
-Have some more hints!
+// Have some more hints!
+$$$87
 arial, 1.0, multi, fgcol=000000
 

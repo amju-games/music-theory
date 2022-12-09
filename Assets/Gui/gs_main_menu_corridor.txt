@@ -27,6 +27,7 @@ share-button
 0.65, 0.95
 0.3, 0.15
 Image/gui-button-2.png
-Share
+// SHARE
+$$$82
 dimbo, 2., fgcol=ffffff, bgcol=4E69F4
 

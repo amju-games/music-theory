@@ -63,7 +63,8 @@ hint-button
 // size
 0.2, 0.15
 Image/gui-button-2.png
-HINT!
+// HINT!
+$$$89
 dimbo, 2.0, fgcol=ffffff, bgcol=D80629
 
 gui-text

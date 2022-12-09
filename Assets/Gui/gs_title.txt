@@ -27,7 +27,8 @@ start-button
 -0.25, -0.5
 0.5, 0.15
 Image/gui-button-2.png
-START
+// START
+$$$83
 dimbo, 3., fgcol=ffffff, bgcol=4E69F4
 
 // delay
@@ -48,9 +49,4 @@ ffffff00, ffffffff
 
 include
 title-text.txt
-
-
-
-
-
 
