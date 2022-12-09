@@ -29,8 +29,7 @@ Gui decorators
 
   - Consistent CTAs: pulsing, colour change (white <-> green, say)
 
-  - Include file decorator
-   - So can reuse octaves!?
+  - Include file decorator - DONE   - So can reuse octaves? No, but can reuse the whole thing.
 
 
 
@@ -98,7 +97,7 @@ Playable keyboard
     Reflections of the keys in shiny rect behind keys! 
     Improve meshes, add textures to bake ambient occlusion.
 
-    KB responds to music key press events, showing the state of the notes.
+    KB responds to music key press events, showing the state of the notes. - DONE, keys go down
     Other events would be note colours, perhaps pulsing, etc.
     Something else generates the key press events?
     OR it all happens internally. We still want to generate events (to play the midi note), and

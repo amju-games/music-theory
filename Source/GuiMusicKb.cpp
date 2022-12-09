@@ -80,7 +80,10 @@ void GuiMusicKb::Draw()
 
     key.m_mesh->Draw();
 
+#ifdef DEBUG_SHOW_AABB
     AmjuGL::SetColour(Colour(1, 0, 0, 1));
+    DrawAABB(key.m_mesh->GetAABB());
+#endif
 
     // Get projected AABB as a rectangle
     key.CalcRect();
@@ -94,15 +97,17 @@ void GuiMusicKb::Draw()
 
   AmjuGL::SetMatrixMode(AmjuGL::AMJU_MODELVIEW_MATRIX);
 
-  //for (PKey pkey : m_keys)
-  //{
-  //  AmjuGL::SetColour(Colour(0, 0, 1, 1));
-
-  //  Key& key = *pkey;
-  //  DrawRect(key.m_projectedRect);
-  //}
-
   AmjuGL::Disable(AmjuGL::AMJU_DEPTH_READ);
+
+#ifdef DEBUG_SHOW_RECT
+  for (PKey pkey : m_keys)
+  {
+    AmjuGL::SetColour(Colour(0, 0, 1, 1));
+
+    Key& key = *pkey;
+    DrawRect(key.m_projectedRect);
+  }
+#endif // DEBUG_SHOW_RECT
 
   PopColour();
 }
