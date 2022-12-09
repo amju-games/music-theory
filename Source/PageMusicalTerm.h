@@ -21,9 +21,5 @@ public:
   static const char* NAME;
 
   virtual void OnActive() override;
-
-  void SetMusicalTermQuestion(MusicalTermQuestion* q);
-
-protected:
 };
 }
