@@ -22,16 +22,16 @@ Note lengths
 dotted-notes
 // Pages
 10
-page-musical-symbol, Course/crotchet.txt.dictionary
-page-musical-symbol, Course/minim.txt.dictionary
-page-musical-symbol, Course/crotchet_minim.txt.dictionary
-page-musical-symbol, Course/semibreve.txt.dictionary
-page-musical-symbol, Course/crotchet_minim_semibreve.txt.dictionary
-page-musical-symbol, Course/crotchet_minim_semibreve.txt.dictionary
-page-musical-term, Course/minim_length.txt.dictionary
-page-musical-term, Course/semibreve_length.txt.dictionary
-page-musical-term, Course/note_lengths.txt.dictionary
-page-musical-term, Course/note_lengths.txt.dictionary
+page-symbol-text, Course/crotchet.txt.dictionary
+page-symbol-text, Course/minim.txt.dictionary
+page-symbol-text, Course/crotchet_minim.txt.dictionary
+page-symbol-text, Course/semibreve.txt.dictionary
+page-symbol-text, Course/crotchet_minim_semibreve.txt.dictionary
+page-symbol-text, Course/crotchet_minim_semibreve.txt.dictionary
+page-text-text, Course/minim_length.txt.dictionary
+page-text-text, Course/semibreve_length.txt.dictionary
+page-text-text, Course/note_lengths.txt.dictionary
+page-text-text, Course/note_lengths.txt.dictionary
 
 
 
@@ -41,21 +41,22 @@ page-musical-term, Course/note_lengths.txt.dictionary
 dotted-notes
 // Localised display name
 Dotted notes
+// Adding a dot to a note or rest increases its length by a half.
 // Initially locked?
 // Topics unlocked by this one
 quavers-semiquavers, rests
 // Pages
 10
-page-note-length-names
-page-note-length-names
-page-note-length-names
-page-note-length-names
-page-note-length-names
-page-note-length-names
-page-note-length-names
-page-note-length-names
-page-note-length-names
-page-note-length-names
+page-symbol-text
+page-symbol-text
+page-symbol-text
+page-symbol-text
+page-symbol-text
+page-symbol-text
+page-symbol-text
+page-symbol-text
+page-symbol-text
+page-symbol-text
 
 
 // Topic
@@ -69,16 +70,16 @@ Quavers and semiquavers
 none
 // Pages
 10
-page-note-length-names
-page-note-length-names
-page-note-length-names
-page-note-length-names
-page-note-length-names
-page-note-length-names
-page-note-length-names
-page-note-length-names
-page-note-length-names
-page-note-length-names
+page-symbol-text
+page-symbol-text
+page-symbol-text
+page-symbol-text
+page-symbol-text
+page-symbol-text
+page-symbol-text
+page-symbol-text
+page-symbol-text
+page-symbol-text
 
 // Topic
 // 1b
@@ -91,7 +92,7 @@ Rests
 bar-lines
 // Pages
 1
-page-note-length-names
+page-symbol-text
 
 // Topic
 // 2a
@@ -104,7 +105,7 @@ Bar lines
 none
 // Pages
 1
-page-note-length-names
+page-symbol-text
 
 
 
@@ -119,16 +120,16 @@ none
 // Pages
 // 10 * musical term pages -- TODO num repeats?
 10
-page-musical-term
-page-musical-term
-page-musical-term
-page-musical-term
-page-musical-term
-page-musical-term
-page-musical-term
-page-musical-term
-page-musical-term
-page-musical-term
+page-text-text
+page-text-text
+page-text-text
+page-text-text
+page-text-text
+page-text-text
+page-text-text
+page-text-text
+page-text-text
+page-text-text
 
 // Topic
 // ID
@@ -141,7 +142,7 @@ none
 // Pages
 // 10 * musical term pages -- TODO num repeats?
 1
-page-musical-symbol
+page-symbol-text
 
 
 // Topic
@@ -154,7 +155,7 @@ Notes on the treble clef
 none
 // Pages
 1
-page-musical-symbol
+page-symbol-text
 //page-play-notes
 
 
@@ -168,5 +169,5 @@ none
 // Pages
 1
 //page-intervals-multi-choice
-page-musical-symbol
+page-symbol-text
 

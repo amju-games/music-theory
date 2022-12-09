@@ -10,7 +10,7 @@ namespace Amju
 template <class T>
 Page* CreateT() { return new T; }
 
-Page* CreatePageNoteLengthNames()
+Page* CreatePageSymbolSymbol()
 {
   PageMultiChoice* page = new PageMultiChoice;
   page->SetGuiName("musical_symbol"); // page_*.txt
@@ -20,7 +20,7 @@ Page* CreatePageNoteLengthNames()
   return page;
 }
 
-Page* CreatePageMusicalSymbol()
+Page* CreatePageSymbolText()
 {
   PageMultiChoice* page = new PageMultiChoice;
   page->SetGuiName("musical_symbol"); // page_*.txt
@@ -30,7 +30,7 @@ Page* CreatePageMusicalSymbol()
   return page;
 }
 
-Page* CreatePageMusicalTerm()
+Page* CreatePageTextText()
 {
   PageMultiChoice* page = new PageMultiChoice;
   page->SetGuiName("musical_term"); // page_*.txt
@@ -45,9 +45,10 @@ PageFactory::PageFactory()
 //  Add(PageIntervalsMultiChoice::NAME, &CreateT<PageIntervalsMultiChoice>);
 //Add(PagePlayNotes::NAME, &CreateT<PagePlayNotes>);
 
-  Add("page-musical-symbol", CreatePageMusicalSymbol);
-  Add("page-musical-term", CreatePageMusicalTerm);
-  Add("page-note-length-names", CreatePageNoteLengthNames);
+//  Add("page-text-symbol", CreatePageTextSymbol);
+  Add("page-text-text", CreatePageTextText);
+  Add("page-symbol-symbol", CreatePageSymbolSymbol);
+  Add("page-symbol-text", CreatePageSymbolText);
 }
 }
 
