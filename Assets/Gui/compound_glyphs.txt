@@ -104,6 +104,7 @@ ledger-w = quad, 0.37, 0.475,  0.37, 0.490,  -0.01, 0.490,  -0.01, 0.475
 
 // Common notes
 // c4 = middle C
+treb-b4-cr = crotchet-up, 0, -0.15 ; ledger, 0, -0.1
 treb-c4-cr = crotchet-up, 0, -0.1 ; ledger, 0, -0.1
 treb-d4-cr = crotchet-up, 0, -0.05
 treb-e4-cr = crotchet-up, 0, 0.0
@@ -116,25 +117,41 @@ treb-d5-cr = crotchet-down, 0, 0.3
 treb-e5-cr = crotchet-down, 0, 0.35
 treb-f5-cr = crotchet-down, 0, 0.4
 treb-g5-cr = crotchet-down, 0, 0.45
+treb-a6-cr = crotchet-down, 0, 0.50 ; ledger, 0, 0.5
+treb-b6-cr = crotchet-down, 0, 0.55 ; ledger, 0, 0.5
 
-// (Sharps and flats are black keys only so far)
 // Sharps
+treb-b#4-cr = treb-b4-cr, 0, 0 ; sharp, -0.2, -0.15
 treb-c#4-cr = treb-c4-cr, 0, 0 ; sharp, -0.2, -0.1
 treb-d#4-cr = treb-d4-cr, 0, 0 ; sharp, -0.2, -0.05
+treb-e#4-cr = treb-e4-cr, 0, 0 ; sharp, -0.2, 0.00
 treb-f#4-cr = treb-f4-cr, 0, 0 ; sharp, -0.2, 0.05
 treb-g#4-cr = treb-g4-cr, 0, 0 ; sharp, -0.2, 0.1
 treb-a#5-cr = treb-a5-cr, 0, 0 ; sharp, -0.2, 0.15
+treb-b#5-cr = treb-b5-cr, 0, 0 ; sharp, -0.2, 0.20
 treb-c#5-cr = treb-c5-cr, 0, 0 ; sharp, -0.2, 0.25
 treb-d#5-cr = treb-d5-cr, 0, 0 ; sharp, -0.2, 0.30
+treb-e#5-cr = treb-e5-cr, 0, 0 ; sharp, -0.2, 0.35
 treb-f#5-cr = treb-f5-cr, 0, 0 ; sharp, -0.2, 0.40
 treb-g#5-cr = treb-g5-cr, 0, 0 ; sharp, -0.2, 0.45
+treb-a#6-cr = treb-a6-cr, 0, 0 ; sharp, -0.2, 0.50
 
 // Flats
+treb-bb4-cr = treb-b4-cr, 0, 0 ; flat, -0.2, -0.15
+treb-cb4-cr = treb-c4-cr, 0, 0 ; flat, -0.2, -0.10
 treb-db4-cr = treb-d4-cr, 0, 0 ; flat, -0.2, -0.05
 treb-eb4-cr = treb-e4-cr, 0, 0 ; flat, -0.2, 0
+treb-fb4-cr = treb-f4-cr, 0, 0 ; flat, -0.2, 0.05
 treb-gb4-cr = treb-g4-cr, 0, 0 ; flat, -0.2, 0.1
 treb-ab5-cr = treb-a5-cr, 0, 0 ; flat, -0.2, 0.15
 treb-bb5-cr = treb-b5-cr, 0, 0 ; flat, -0.2, 0.2
+treb-cb5-cr = treb-c5-cr, 0, 0 ; flat, -0.2, 0.25
+treb-db5-cr = treb-d5-cr, 0, 0 ; flat, -0.2, 0.30
+treb-eb5-cr = treb-e5-cr, 0, 0 ; flat, -0.2, 0.35
+treb-fb5-cr = treb-f5-cr, 0, 0 ; flat, -0.2, 0.40
+treb-gb5-cr = treb-g5-cr, 0, 0 ; flat, -0.2, 0.45
+treb-ab6-cr = treb-a6-cr, 0, 0 ; flat, -0.2, 0.50
+treb-bb6-cr = treb-b6-cr, 0, 0 ; flat, -0.2, 0.55
 
 // Bass clef
 // c4 = middle C
