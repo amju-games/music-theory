@@ -179,15 +179,11 @@ void PageMultiChoice::HideChoiceButton(int n)
 
 void PageMultiChoice::ShowCorrectAnswer()
 {
-  int i = m_answers.GetCorrectAnswer();
-
-  // Show a circular line drawing which fits the button for this choice.
-  GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(i)));
-  Assert(button);
-
-  GuiElement* correct = GetElementByName(m_gui, "animate-correct");
-  correct->SetLocalPos(button->GetLocalPos());
-  correct->SetVisible(true);
+  // TODO TEMP TEST - fade all except correct
+  while (CanGetHint())
+  {
+    OnHint();
+  }
 
   // Show Lurk message with explanation, if there is one.
   std::string expl = GetQuestion()->GetExplanationString();
@@ -203,12 +199,13 @@ void PageMultiChoice::ShowCorrectAnswer()
   }
   else
   {
-    // TODO Red BG ?
     // Don't go to next page until user dismisses this message 
     LurkMsg lm(expl, 
       GetColour(COLOUR_TEXT), 
       GetColour(COLOUR_EXPLANATION),
-      AMJU_CENTRE);
+      AMJU_CENTRE,
+      AMJU_LURK_NO_TIMER);
+
     // Set completion function to go to next page
     lm.SetOkCommand(OnDismissedExplanation);
     TheLurker::Instance()->Queue(lm);
