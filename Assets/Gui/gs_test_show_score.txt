@@ -43,9 +43,7 @@ treble-clef, -0.8, 0.6
 c, 0,   0.6
 e, 0.6, 0.6
 g, 1.2, 0.6
-c', 1.8, 0.6
-end
-
+c+, 1.8, 0.6
 
 // Time sigs
 12/8, 0, 0.6
@@ -65,7 +63,7 @@ dotted-quaver-up, 1.0, 0.05
 minim-up, 1.5, 0.1
 dotted-crotchet-down, 2.0, 0.25
 dotted-minim-down, 2.5, 0.25
-dotted-minim-down-raised-dot, 3.0, 0.25
+dotted-minim-down-raised-dot, 3.0, 0.30
 
 // Stave 3
 stave, -0.5, -0.6, 20, 1
