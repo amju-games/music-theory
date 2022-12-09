@@ -10,11 +10,11 @@
 
 static const std::map<std::string, TimeSig> TIME_SIG_STRS =
 {
-  { "2/4", TimeSig::TWO_FOUR },
-  { "3/4", TimeSig::THREE_FOUR },
-  { "4/4", TimeSig::FOUR_FOUR },
-  { "common", TimeSig::COMMON },
-  { "cut-common", TimeSig::CUT_COMMON }, // TODO s/b compound glyph
+  { "2/4", TimeSig::TIME_SIG_TWO_FOUR },
+  { "3/4", TimeSig::TIME_SIG_THREE_FOUR },
+  { "4/4", TimeSig::TIME_SIG_FOUR_FOUR },
+  { "common", TimeSig::TIME_SIG_COMMON },
+  { "cut-common", TimeSig::TIME_SIG_CUT_COMMON }, // TODO s/b compound glyph
 };
 
 bool IsTimeSig(std::string s)

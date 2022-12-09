@@ -49,15 +49,26 @@ TimeValue Bar::GetDuration() const
 {
   switch (m_timeSig)
   {
-  case TimeSig::COMMON:
-  case TimeSig::FOUR_FOUR:
+  case TimeSig::TIME_SIG_NONE:
+    // Add up duration of all sequential glyphs
+    {
+      float d = 0;
+      for (auto& g : m_glyphs)
+      {
+        d += g->timeval;
+      }
+      return d;
+    }
+
+  case TimeSig::TIME_SIG_COMMON:
+  case TimeSig::TIME_SIG_FOUR_FOUR:
     return 4.f * TIMEVAL_CROTCHET;
 
-  case TimeSig::THREE_FOUR:
+  case TimeSig::TIME_SIG_THREE_FOUR:
     return 3.f * TIMEVAL_CROTCHET;
 
-  case TimeSig::CUT_COMMON:
-  case TimeSig::TWO_FOUR:
+  case TimeSig::TIME_SIG_CUT_COMMON:
+  case TimeSig::TIME_SIG_TWO_FOUR:
     return 2.f * TIMEVAL_CROTCHET;
   }
   return 0;

@@ -10,11 +10,12 @@
 
 enum class TimeSig
 {
-  TWO_FOUR,
-  THREE_FOUR,
-  FOUR_FOUR,
-  COMMON,
-  CUT_COMMON
+  TIME_SIG_NONE,
+  TIME_SIG_TWO_FOUR,
+  TIME_SIG_THREE_FOUR,
+  TIME_SIG_FOUR_FOUR,
+  TIME_SIG_COMMON,
+  TIME_SIG_CUT_COMMON
 };
 
 TimeSig GetTimeSig(std::string s);

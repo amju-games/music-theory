@@ -117,7 +117,7 @@ private:
   // Time sig: we can use this to check for errors, and do beams/groups
   //  automatically. Also, we can use it to set times for each glyph,
   //  for animation and midi events.
-  TimeSig m_timeSig = TimeSig::FOUR_FOUR;
+  TimeSig m_timeSig = TimeSig::TIME_SIG_NONE;
 
   // Clef for each stave. Output clef at start of a new line, and a mini-clef
   //  when the clef changes on a stave.
