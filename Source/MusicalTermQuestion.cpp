@@ -59,7 +59,10 @@ void MusicalTermQuestion::MakeQuestion()
     {
       // We need one more 
       numAnswers++;
-      numAnswers = std::min(numAnswers, maxNumQs); // make sure we can't overrun
+      if (i == correct)
+      {
+        correct++;
+      }
       continue;
     }
 
