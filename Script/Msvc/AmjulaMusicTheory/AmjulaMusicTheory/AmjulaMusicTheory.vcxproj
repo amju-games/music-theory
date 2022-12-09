@@ -592,6 +592,7 @@
     <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt" />
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt" />
     <Text Include="..\..\..\..\Assets\Gui\certificate.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\composers.txt" />
     <Text Include="..\..\..\..\Assets\Gui\compound_glyphs.txt" />
     <Text Include="..\..\..\..\Assets\Gui\corridor-shadow.txt" />
     <Text Include="..\..\..\..\Assets\Gui\corridor_mode_show_tappable.txt" />
@@ -623,6 +624,8 @@
     <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-wide.txt" />
     <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_square_symbol_4_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_wide_landscape.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\modal-grey-out.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\tutorial.txt" />
     <Text Include="..\..\..\..\Assets\Gui\music-score-bg.txt" />
     <Text Include="..\..\..\..\Assets\Gui\music_score_bg_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_interval.txt" />
