@@ -21,8 +21,8 @@ void GSTestShowScore::OnActive()
   for (int i = 0; i < n; i++)
   {
     GuiMusicScore::Glyph& g = ms->GetGlyph(i);
-    float t = static_cast<float>(i) / static_cast<float>(n);
-    g.SetTimeMinMax(Vec2f(t, t + 0.2f));
+//    float t = static_cast<float>(i) / static_cast<float>(n);
+//    g.SetTimeMinMax(Vec2f(t, t + 0.2f));
   }
 }
 }

@@ -11,12 +11,15 @@
 
 namespace Amju
 {
-const int QUAD_CHAR = 0;
+const int QUAD_CHAR = 1;
 
 // This non-printable character is used for quads, which are a special case.
 // Used for stave lines, bar lines, beams etc.
 const char* QUAD_NAME = "quad";
 
+// This is for setting the min/max time for subsequent glyphs
+const char* TIME_NAME = "TIME";
+  
 const char* END_TOKEN = "end";
 
 std::map<std::string, std::string> GuiMusicScore::s_compoundGlyphs;
@@ -45,13 +48,6 @@ static bool GlyphNameToCh(const std::string& s, int* ch)
     *ch = s[0];
     return true;
   }
-
-  // Convert numbers from string to int, so we can reliably map names to chars above 127
-  //if (IsInt(s))
-  //{
-  //    *ch = ToInt(s);
-  //    return true;
-  //}
 
   // TODO These can all go in the compound glyphs text file
   static const std::unordered_map<std::string, int> NAMES = 
@@ -187,7 +183,7 @@ GuiMusicScore::GuiMusicScore()
   m_atlas.Load("font2d/Guido2/guido2-60pt.png", 16, 14, 1, 1);
 
   m_fgCol = Colour(0, 0, 0, 1); // default to black
-  m_hightlightColour = Colour(1, 0, 0, 1); // TODO TEMP TEST, load it
+  m_highlightColour = Colour(1, 0, 0, 1); // TODO TEMP TEST, load it
 
 #ifdef _DEBUG
   // We can do this just once to optimise; for development, we want to initialise every time.
@@ -229,7 +225,7 @@ void GuiMusicScore::Animate(float animValue)
       // Add this glyph to highlighted set
 
       // Set glyph colour to highlight colour
-      col = m_hightlightColour;
+      col = m_highlightColour;
     }
     g.m_colour = col;
   }
@@ -271,9 +267,14 @@ void GuiMusicScore::Draw()
 #endif
 }
 
-void GuiMusicScore::AddGlyph(const Glyph& g)
+void GuiMusicScore::AddGlyph(const Glyph& cg)
 {
-  m_glyphs.push_back(g);
+  if (cg.m_char != 0)
+  {
+    auto g(cg);
+    g.SetTimeMinMax(m_timeMinMax);
+    m_glyphs.push_back(g);
+  }
 }
 
 bool GuiMusicScore::IsCompoundGlyphName(const std::string& glyphName) const
@@ -339,6 +340,25 @@ bool GuiMusicScore::AddMultipleGlyphsFromString(const std::string& line, const V
   return true;
 }
 
+bool GuiMusicScore::ParseTime(const Strings& strs)
+{
+  if (strs.size() != 3)
+  {
+    ReportError("Bad number of params for time.");
+    return false;
+  }
+  float t1 = ToFloat(strs[1]);
+  float t2 = ToFloat(strs[2]);
+  if (t2 < t1)
+  {
+    ReportError("Bad params for time, second time earlier than first.");
+    return false;
+  }
+  
+  m_timeMinMax = Vec2f(t1, t2);
+  return true;
+}
+
 bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* result, const Vec2f& pos_, const Vec2f& scale_)
 {
   // Split line. Format OK? Has optional scale?
@@ -346,8 +366,18 @@ bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* re
   int n = strs.size();
 
   // Quads are a special case
-  if (n == 9 && strs[0] == QUAD_NAME)
+  if (strs[0] == TIME_NAME)
   {
+    return ParseTime(strs);
+  }
+  else if (strs[0] == QUAD_NAME)
+  {
+    if (n != 9)
+    {
+      ReportError("Bad number of params for quad: " + line);
+      return false;
+    }
+    
     // 4 corners
     Vec2f corners[4] =
     {
@@ -394,7 +424,7 @@ bool GuiMusicScore::AddGlyphFromString(const std::string& line, const Vec2f& pos
     return false;
   }
 
-  m_glyphs.push_back(g);
+  AddGlyph(g);
   return true;
 }
 

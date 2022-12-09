@@ -62,7 +62,7 @@ public:
 
     void SetTimeMinMax(const Vec2f& tmm) { m_timeMinMax = tmm; }
 
-    int m_char = 'q';
+    int m_char = 0;
     Vec2f m_pos;
     Vec2f m_scale = Vec2f(1.f, 1.f);
 
@@ -111,11 +111,14 @@ protected:
 
   static void OneTimeInit();
 
+  // Parse strings to set min/max time, which is then set on all subsequent glyphs
+  bool ParseTime(const Strings& strs);
+  
 protected:
   RCPtr<TriList> m_triList; 
   TextureSequence m_atlas; // music font - actual image is a resource.
   Colour m_fgCol; // default colour for all glyphs
-  Colour m_hightlightColour;
+  Colour m_highlightColour;
 
   using Glyphs = std::vector<Glyph>;
   Glyphs m_glyphs;
@@ -124,6 +127,10 @@ protected:
   static std::map<std::string, std::string> s_compoundGlyphs;
 
   FullScreenPostProcess m_fullscreenRenderer;
+  
+  // Current min/max time, which we set for all subsequently added glyphs.
+  // This can be set with a special glyph name.
+  Vec2f m_timeMinMax = Vec2f(-1.f, -1.f);
 };
 }
 

@@ -15,6 +15,19 @@ ease-in-out
 colour
 ffffff00, ffffffff
 
+// Clean anim and animate from 0 to 1 linearly, to animate highlighted
+//  glyphs on music score
+animation
+clean-anim
+const
+one
+
+animation
+highlight-glyphs-anim
+repeat
+4.0
+linear
+
 // With the scale and pos below, a music score of width 4.0 fits across the blackboard.
 // So a long score can go from x=0 to x=4, a short one from x=1 to x=3, etc.
 // I.e.:
