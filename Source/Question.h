@@ -58,9 +58,10 @@ namespace Amju
     // Get (randomised?) answers to present to user, who then chooses one
     //  of them.
     // Get non-shuffled for testing
-    virtual MultiChoice GetMultiChoiceAnswers() = 0;
+    MultiChoice GetMultiChoiceAnswers();
 
-
+  protected:
+    MultiChoice m_answers;
   };
 
   // TODO split into files
@@ -86,14 +87,10 @@ namespace Amju
 
     void SetDictionary(MusicalTermsDictionary* dictionary);
 
-    virtual MultiChoice GetMultiChoiceAnswers() override;
-
   protected:
     std::string m_musicalTerm; // shown in different style I should think
 
     RCPtr<MusicalTermsDictionary> m_dictionary;
-
-    MultiChoice m_answers;
   };
 
   class Music;

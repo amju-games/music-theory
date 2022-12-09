@@ -1,6 +1,9 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include <algorithm>
+#include <numeric> // iota()
+#include <random>
 #include "Question.h"
 
 namespace Amju
@@ -107,9 +110,34 @@ std::string MusicalTermQuestion::GetMusicalTermText()
 
 void MusicalTermQuestion::MakeQuestion()
 {
-  // Pick random term from dictionary.
+  // Pick random terms from dictionary.
+  int n = m_dictionary->GetNumTerms();
+  std::vector<int> nums(n);
+  // Fill with ints 0..n
+  std::iota(nums.begin(), nums.end(), 0);
+  // Randomise
+  std::shuffle(nums.begin(), nums.end(), std::mt19937{ std::random_device{}() });
 
-  // Pick more random terms for MCQ false answers.
+  // Clear answer
+  m_answers = MultiChoice();
+
+  // Element zero in shuffled nums is the index of the correct (q, a) pair
+  //  in the dictionary. Elements 1 onwards are used to get fake answers.
+  std::string ans;
+  // TODO Allow switching english/foreign
+  m_dictionary->GetTerm(nums[0], &m_musicalTerm, &ans);
+  m_answers.AddAnswer(ans);
+  m_answers.SetCorrectAnswer(0);
+
+  // TODO set number of fake answers
+  int numFakes = 3;
+  numFakes = std::min(numFakes, n - 1); // make sure we can't overrun
+  for (int i = 1; i <= numFakes; i++)
+  {
+    std::string q;
+    m_dictionary->GetTerm(nums[i], &q, &ans);
+    m_answers.AddAnswer(ans);
+  }
 }
 
 void MusicalTermQuestion::SetDictionary(MusicalTermsDictionary* dictionary)
@@ -117,7 +145,7 @@ void MusicalTermQuestion::SetDictionary(MusicalTermsDictionary* dictionary)
   m_dictionary = dictionary;
 }
 
-MultiChoice MusicalTermQuestion::GetMultiChoiceAnswers()
+MultiChoice MultiChoiceQuestion::GetMultiChoiceAnswers()
 {
   return m_answers;
 }
