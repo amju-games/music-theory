@@ -34,8 +34,7 @@ bool Dictionary::Load(const std::string& filename)
     Strings strs = Split(line, '=');
     if (strs.size() != 2)
     {
-      // Not sure whether to make this an error
-      f.ReportError("Finished loading dictionary: " + line);
+      // Not an error, the end of the dictionary
       break;
     }
     AddTerm(strs[0], strs[1]);

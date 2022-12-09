@@ -14,6 +14,7 @@ Resource* CourseLoader(const std::string& resName)
   std::string filename = GetFileNoExt(resName);
   if (!c->Load(filename))
   {
+    Assert(0);
     delete c; // TODO res loaders like this should return an RCPtr
     return nullptr;
   }

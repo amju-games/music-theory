@@ -18,6 +18,7 @@ void PageScoreMCQBase::OnActive()
   // This is a Resource.
   Dictionary* dic = dynamic_cast<Dictionary*>(
     TheResourceManager::Instance()->GetRes(m_dictionaryFilename));
+  Assert(dic);
 
   q->SetDictionary(dic);
   q->MakeQuestion();
