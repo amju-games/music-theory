@@ -304,7 +304,7 @@ static void SetUpGui()
   GuiButton::SetClickFilename(WAV_BUTTON_CLICK);
 
   // Set image used for rounded rectangles
-  GuiRect::SetCornerImage("Image/corner.png");
+  GuiRect::SetCornerImage("Image/circle.png");
 
   Gui3dScene::AddToFactory();
   GuiAvatar::AddToFactory();
