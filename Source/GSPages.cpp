@@ -263,9 +263,6 @@ void GSPages::NextPage()
   Assert(topic);
 
   Page* page = topic->GetPage(m_currentPage);
-  // Page reads/writes config file to load/save user state
-////  ConfigFile* cf = TheUserProfile()->GetConfigFile(topic->GetId());
-////  page->SetConfigFile(cf);
   SetPage(page);
   
   m_numPagesShown++;

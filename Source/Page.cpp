@@ -55,11 +55,6 @@ void Page::SendNextPageMessage()
     SecondsFromNow(NEXT_PAGE_TIME)));
 }
 
-void Page::SetConfigFile(ConfigFile* cf)
-{
-  m_config = cf;
-}
-
 void Page::SetDictionaryName(const std::string& dictionaryName)
 {
   m_dictionaryFilename = dictionaryName;

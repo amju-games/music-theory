@@ -59,9 +59,6 @@ public:
 
   const std::string& GetInstructionText() const { return m_instructionText; }
 
-  // Set config file to save any state we want to remember about this page/topic
-  void SetConfigFile(ConfigFile* cf);
-
   // Called when user taps Hint button -- show page-specific hint.
   virtual void OnHint() {}
   virtual bool CanGetHint() { return true; }
@@ -101,9 +98,6 @@ protected:
 
   // Visible UI representation of question
   RCPtr<PageQuestion> m_pageQuestion;
-
-  // Config file to save any state we want to remember about this page/topic
-  RCPtr<ConfigFile> m_config;
 
   // (Localised) text to display to the player to give instructions for 
   //  the page - e.g. "Tap on the correct answer!"
