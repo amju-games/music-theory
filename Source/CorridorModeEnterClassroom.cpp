@@ -12,6 +12,12 @@
 
 namespace Amju
 {
+// Door opening/camera zoom  animation
+static const float DOOR_OPEN_ROT_VEL = 1.0f; // rad/sec
+static const float MAX_DOOR_ANGLE = 2.0f;
+static const float CAMERA_START = 100.0f;
+static const float CAM_ZOOM_MULT = 25.0f;
+
 void CorridorModeEnterClassroom::UpdateOpeningDoor()
 {
   if (m_doorIsOpening)
