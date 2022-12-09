@@ -29,6 +29,7 @@ KeySig.cpp \
 MakeScore.cpp \
 Pitch.cpp \
 Stave.cpp \
+Switch.cpp \
 Tie.cpp \
 TimeSig.cpp \
 TimeValue.cpp \

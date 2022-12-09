@@ -34,9 +34,11 @@
 #include <string>
 #include <vector>
 #include "Clef.h"
+#include "Consts.h"
 #include "KeySig.h"
 #include "MakeScore.h"
 #include "Pitch.h"
+#include "Switch.h"
 #include "TimeSig.h"
 #include "TimeValue.h"
 #include "Utils.h"
@@ -46,6 +48,12 @@ static int s_transpose = 0;
 static float s_pageWidth = PAGE_WIDTH;
 
 static float s_scale = 0.6f; // TODO DEFAULT_SCALE
+
+// Current stave
+static int s_stave = 0;
+
+// Bit field for staccato, accent, pause, etc., per stave
+static int s_switches[MAX_NUM_STAVES] = { 0, 0, 0, 0 };
 
 float GetHeight(BeamLevel bl)
 {
@@ -151,7 +159,8 @@ void MakeScore::AddClef(const std::string& s)
 
 void MakeScore::AddGlyph()
 {
-  m_bars.back()->AddGlyph(m_lastTimeValToken, m_lastPitch);
+  m_bars.back()->AddGlyph(
+    m_lastTimeValToken, m_lastPitch, s_switches[s_stave]);
 
   // If last tie has no right connection, connect it now to the
   //  glyph we just added.

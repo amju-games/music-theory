@@ -6,6 +6,8 @@
 
 #pragma once
 
+static const int MAX_NUM_STAVES = 4; // for SATB
+
 static const int DEFAULT_PITCH = 69; // default pitch = A above middle C
 
 static const float X_OFFSET_RIGHT = 0.25f;
@@ -25,4 +27,7 @@ extern const char* INPUT_TOKEN_QUAVER;
 extern const char* INPUT_TOKEN_CROTCHET;
 extern const char* INPUT_TOKEN_MINIM;
 extern const char* INPUT_TOKEN_SEMIBREVE;
+
+static const char TEXT_QUOTE_OPEN = '[';
+static const char TEXT_QUOTE_CLOSE = ']';
 

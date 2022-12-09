@@ -11,6 +11,7 @@
 #include <vector>
 #include "Beam.h"
 #include "Clef.h"
+#include "Consts.h"
 #include "Glyph.h"
 #include "KeySig.h"
 #include "Stave.h"
@@ -46,7 +47,7 @@ public:
 
   void SetScale(float scale);
 
-  void AddGlyph(const std::string& s, int pitch);
+  void AddGlyph(const std::string& s, int pitch, int switches);
 
   void AddTimeSig(const std::string& s);
 
@@ -91,8 +92,6 @@ private:
   float GetKeySigWidth() const;
 
 private:
-  static const int MAX_NUM_STAVES = 4; // for SATB
-
   // Sequence of glyphs, left to right, in the bar, following any key sig
   //  and time sig.
   GlyphVec m_glyphs;

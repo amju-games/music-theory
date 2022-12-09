@@ -141,7 +141,7 @@ void Bar::CalcGlyphY(Glyph* gl, int pitch) const
   }
 }
 
-void Bar::AddGlyph(const std::string& s, int pitch)
+void Bar::AddGlyph(const std::string& s, int pitch, int switches)
 {
   // TODO Split into note and rest glyph types?
   bool rest = Contains(s, 'r');
@@ -153,6 +153,8 @@ void Bar::AddGlyph(const std::string& s, int pitch)
 
   if (!rest)
   {
+    gl->SetSwitches(switches); // but can pause a rest
+
     gl->SetPitch(pitch);
 
     // Calc y, using current pitch, stave, and clef. 
