@@ -24,9 +24,11 @@ Bar.cpp \
 Beam.cpp \
 Clef.cpp \
 Consts.cpp \
+Curve.cpp \
 Flag.cpp \
 Glyph.cpp \
 KeySig.cpp \
+Main.cpp \
 MakeScore.cpp \
 Pitch.cpp \
 Stave.cpp \
