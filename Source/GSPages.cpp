@@ -4,6 +4,7 @@
 #include <AmjuGL.h>
 #include <ConfigFile.h>
 #include <Game.h>
+#include <GuiButton.h>
 #include <GuiDecAnimation.h>
 #include <GuiDecColour.h>
 #include <GuiText.h>
@@ -72,7 +73,7 @@ void GSPages::OnActive()
   // This could be a resume from pause, so we don't reset the topic progress here.
 
   GSBase::OnActive();
-  PrintGui(m_gui);
+  //PrintGui(m_gui);
 
   GuiElement* elem = GetElementByName(m_gui, "pause-button");
   Assert(elem);
@@ -244,21 +245,8 @@ void GSPages::OnHint()
 
 void GSPages::OnPause()
 {
-  // Fade page contents down, which disables the buttons
-  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(
-    GetElementByName(m_page->GetGui(), "fade-out-whole-page"));
-  Assert(anim);
-  anim->ResetAnimation();
-  anim->SetIsReversed(false);
-  anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
-  
-  anim = dynamic_cast<GuiDecAnimation*>(
-    GetElementByName(m_page->GetGui(), "anim-colour-fade-whole-page"));
-  Assert(anim);
-  anim->SetIsReversed(false);
-  
   // Bring on pause dialog
-  anim = dynamic_cast<GuiDecAnimation*>(
+  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(
     GetElementByName(m_gui, "quit-confirm-swipe"));
   Assert(anim);
   anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
@@ -268,26 +256,55 @@ void GSPages::OnPause()
   Assert(anim);
   anim->ResetAnimation();
   anim->SetIsReversed(false);
-
   
   // Disable pause and hint buttons
+  GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "pause-button"));
+  Assert(button);
+  button->SetIsEnabled(false);
+  // Set colour of decorator
+  GuiElement* col = (GetElementByName(m_gui, "colour-pause-button"));
+  Assert(col);
+  col->Animate(1.0f); // i.e. choose 2nd colour
+
+  button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "hint-button"));
+  Assert(button);
+  button->SetIsEnabled(false);
+  // Set colour of decorator
+  col = (GetElementByName(m_gui, "colour-hint-button"));
+  Assert(col);
+  col->Animate(1.0f); // i.e. choose 2nd colour
+ 
+  // Disable page contents
+  m_page->SetIsEnabled(false); 
 }
   
 void GSPages::OnQuitConfirmCancel()
 {
-  // Re-enable buttons
+  // Swipe off confirm dialog
   GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(
-    GetElementByName(m_page->GetGui(), "anim-colour-fade-whole-page"));
-  Assert(anim);
-  anim->ResetAnimation();
-  anim->SetIsReversed(true);
-
-  anim = dynamic_cast<GuiDecAnimation*>(
     GetElementByName(m_gui, "swipe-anim"));
   Assert(anim);
   anim->ResetAnimation();
   anim->SetIsReversed(true);
 
+  GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "pause-button"));
+  Assert(button);
+  button->SetIsEnabled(true);
+  // Set colour of decorator
+  GuiElement* col = (GetElementByName(m_gui, "colour-pause-button"));
+  Assert(col);
+  col->Animate(0.0f); // i.e. choose 1st colour
+ 
+  button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "hint-button"));
+  Assert(button);
+  button->SetIsEnabled(true);
+  // Set colour of decorator
+  col = (GetElementByName(m_gui, "colour-hint-button"));
+  Assert(col);
+  col->Animate(0.0f); // i.e. choose 1st colour
+ 
+  // Re-enable page contents
+  m_page->SetIsEnabled(true); 
 }
 }
 

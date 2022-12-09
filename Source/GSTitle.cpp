@@ -15,20 +15,18 @@ namespace Amju
 {
 static void OnStart(GuiElement* elem)
 {
-  TheGSTitle::Instance()->HideButtons();
-
   // Is there a user yet?
   ConfigFile* cf = TheUserProfile()->GetConfigForTopic(KEY_GENERAL);
   Assert(cf);
   if (true)//cf->Exists(KEY_USER_NAME))
   {
-    TheGSTitle::Instance()->ScrollUp();
+    TheGSTitle::Instance()->HideButtons()->ScrollUp();
     TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainMenu>, SecondsFromNow(1.5f)));
   }
   else
   {
     // No user profile yet. Go to first user state.
-    TheGSTitle::Instance()->ScrollUp();
+    TheGSTitle::Instance()->HideButtons()->ScrollUp();
     TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSFirstUser>, SecondsFromNow(1.5f)));
   }
 }

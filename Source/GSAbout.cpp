@@ -12,9 +12,7 @@ namespace Amju
 {
 static void OnOK(GuiElement* elem)
 {
-  TheGSAbout::Instance()->HideButtons();
-
-  TheGSAbout::Instance()->ScrollUp();
+  TheGSAbout::Instance()->HideButtons()->ScrollUp();
   TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainMenu>, SecondsFromNow(0.5f)));
   // TODO Also stop underground anims?
 }
@@ -28,7 +26,7 @@ void GSAbout::OnActive()
 {
   GSBase::OnActive();
 
-  PrintGui(m_gui);
+  //PrintGui(m_gui);
 
   // Set button commands
   GuiElement* startButton = GetElementByName(m_gui, "ok-button");

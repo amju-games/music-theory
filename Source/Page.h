@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <GuiElement.h>
 #include <RCPtr.h>
 #include "Question.h"
 
@@ -11,6 +10,8 @@ namespace Amju
 {
 class ConfigFile;
 class GameState;
+class GuiButton;
+class GuiElement;
 
 // * Page *
 // A page is one screenful of information, usually in the form of a "test" or question. 
@@ -37,7 +38,10 @@ public:
   virtual void Update();
 
   GuiElement* GetGui();
-  
+
+  // Enable/disable buttons, for modal dialog like quit confirm 
+  virtual void SetIsEnabled(bool enabled);
+ 
   // Set config file to save any state we want to remember about this page/topic
   void SetConfigFile(ConfigFile* cf);
 
@@ -53,7 +57,7 @@ public:
   bool IsLearnMode() const;
 
 protected:
-//?  virtual bool LoadQuestion() = 0;
+  GuiButton* GetHintButton() const; // convenience function
 
 protected:
   // Base gui file name - we append current orientation and reload if the orientation changes.

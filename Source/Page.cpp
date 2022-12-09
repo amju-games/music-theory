@@ -3,7 +3,8 @@
 
 #include <ConfigFile.h>
 #include <GameState.h>
-#include <GuiElement.h>
+#include <GuiButton.h>
+#include <GuiDecAnimation.h>
 #include "GSPages.h"
 #include "Page.h"
 
@@ -19,6 +20,40 @@ void Page::SetConfigFile(ConfigFile* cf)
   m_config = cf;
 }
 
+GuiButton* Page::GetHintButton() const
+{
+  GuiElement* hint = GetElementByName(TheGSPages::Instance()->GetGui(), "hint-button");
+  return dynamic_cast<GuiButton*>(hint);
+}
+
+void Page::SetIsEnabled(bool enabled)
+{
+  if (enabled)
+  {
+    // Re-enable buttons
+    GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(
+      GetElementByName(m_gui, "anim-colour-fade-whole-page"));
+    Assert(anim);
+    anim->ResetAnimation();
+    anim->SetIsReversed(true);
+  }
+  else
+  {
+    // Fade page contents down, which disables the buttons
+    GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(
+      GetElementByName(m_gui, "fade-out-whole-page"));
+    Assert(anim);
+    anim->ResetAnimation();
+    anim->SetIsReversed(false);
+    anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+
+    anim = dynamic_cast<GuiDecAnimation*>(
+      GetElementByName(m_gui, "anim-colour-fade-whole-page"));
+    Assert(anim);
+    anim->SetIsReversed(false);
+  }
+}
+
 void Page::OnActive()
 {
   // TODO append orientation to gui name
@@ -28,7 +63,7 @@ void Page::OnActive()
   m_gui->SetLocalPos(Vec2f(0, -0.2f));
 
   // Set command for common buttons
-  GuiElement* hint = GetElementByName(TheGSPages::Instance()->GetGui(), "hint-button");
+  GuiElement* hint = GetHintButton();
   if (hint)
   {
     hint->SetCommand(Amju::OnHint);
