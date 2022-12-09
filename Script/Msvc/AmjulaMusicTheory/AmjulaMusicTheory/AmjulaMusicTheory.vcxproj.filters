@@ -462,12 +462,6 @@
     <Text Include="..\..\..\..\Assets\Gui\stroke-main-menu-1.txt">
       <Filter>Assets\Gui\Stroke</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_play_notes.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_interval.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Course\intervals.txt">
       <Filter>Assets\Course</Filter>
     </Text>
@@ -677,6 +671,12 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Scene\topic_start_scene.txt">
       <Filter>Assets\Scene</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_play_notes.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_interval.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
   </ItemGroup>
 </Project>

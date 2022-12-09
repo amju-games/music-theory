@@ -7,7 +7,7 @@
 // Tappables: 3d objects which user can tap on to get info.
 
 // num tappables
-5
+6
 
 
 // Picture
@@ -115,6 +115,34 @@ Gui/keyboard.txt
 
 
 
+// Bookshelf
+bookshelf
+// Node type
+mesh
+// Name
+bookshelf1
+// Matrix
+.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, .5, 0,  15, 0, -200, 1
+// Obj mesh
+obj/shelf5.obj
+// Num children
+1
+mesh
+shelf-shadow
+.75, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, .1, 0, 1
+obj/shadow-sq.obj
+0
+// Camera eye
+30, 30, -200
+// Cam target
+0,  30, -200
+// GUI to display when we have been tapped
+Gui/no_gui.txt
+// GUI to put in NOTEBOOK
+Gui/no_gui.txt
+
+
+
 // Test box, make it a book
 // Name
 book
@@ -135,9 +163,9 @@ obj/cube_0.5.obj
 // Cam target
 0,  60, -200
 // GUI to display when we have been tapped
-Gui/keyboard.txt
+Gui/no_gui.txt
 // GUI to put in NOTEBOOK
-Gui/keyboard.txt
+Gui/no_gui.txt
 
 
 // Orange Piano
