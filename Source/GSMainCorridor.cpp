@@ -184,7 +184,7 @@ void GSMainCorridor::OnActive()
   Assert(shareButton);
   shareButton->SetCommand(Amju::OnShare);
 
-  QueueFirstTimeMsgs( { TUTORIAL_HELLO, TUTORIAL_SWIPE }, AMJU_FIRST_TIME_THIS_RUN);
+  QueueFirstTimeMsgs( { TUTORIAL_HELLO, TUTORIAL_SWIPE }, AMJU_FIRST_TIME_THIS_USER);
 }
 
 void GSMainCorridor::Draw2d()

@@ -12,6 +12,8 @@
 #include "GuiMusicKb.h"
 #include "MusicEvent.h"
 #include "PlayMidi.h"
+#include "TutorialIds.h"
+#include "TutorialManager.h"
 
 // If defined, we allow the user to drag across the keyboard, pressing and releasing
 //  keys accordingly.
@@ -201,7 +203,14 @@ bool GuiMusicKb::Load(File* f)
     m_keys.push_back(key);
   }
 
-  return LoadChildren(f);
+  if (!LoadChildren(f))
+  {
+    return false;
+  }
+
+  QueueFirstTimeMsgs({ TUTORIAL_KB_MIDDLE_C, TUTORIAL_KB_SWIPE }, AMJU_FIRST_TIME_THIS_USER);
+
+  return true;
 }
 
 bool GuiMusicKb::Key::LoadFromString(const std::string& s)
