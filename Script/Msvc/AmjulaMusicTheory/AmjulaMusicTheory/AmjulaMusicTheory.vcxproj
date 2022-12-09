@@ -405,6 +405,7 @@
     <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gui-top-bar.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-square-symbol.txt" />
     <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-wide.txt" />
     <Text Include="..\..\..\..\Assets\Gui\music-score-bg.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_interval.txt" />

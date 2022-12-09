@@ -465,5 +465,8 @@
     <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-wide.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-square-symbol.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>

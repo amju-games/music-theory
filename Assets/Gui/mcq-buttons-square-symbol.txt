@@ -32,6 +32,10 @@ button-group-0
 colour
 ffffffff, ffffff00
 
+gui-comp
+button-and-score-0
+2
+
 // element type
 gui-button
 // Element name
@@ -43,9 +47,18 @@ button-choice-0
 // Image 
 Image/gui-button-square.png
 // Text
-choice-text
+$$$empty
 // Font name, size
 dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+
+music-score
+music-score-0
+-0.5, -0.35
+.4, .4
+000000
+// TODO TEMP TEST
+treble-clef, 0, 0
+end
 
 // 2nd child of button-0-group
 // Translate other buttons up
@@ -79,6 +92,10 @@ button-group-1
 colour
 ffffffff, ffffff00
 
+gui-comp
+button-and-score-1
+2
+
 // element type
 gui-button
 // Element name
@@ -90,9 +107,18 @@ button-choice-1
 // Image 
 Image/gui-button-square.png
 // Text
-choice-text
+$$$empty
 // Font name, size
 dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+
+music-score
+music-score-1
+0.3, -0.35
+.4, .4
+000000
+// TODO TEMP TEST
+treble-clef, 0, 0
+end
 
 translate
 0,0 ; 0, 0.0
@@ -123,6 +149,10 @@ button-group-2
 colour
 ffffffff, ffffff00
 
+gui-comp
+button-and-score-2
+2
+
 // element type
 gui-button
 // Element name
@@ -134,9 +164,18 @@ button-choice-2
 // Image 
 Image/gui-button-square.png
 // Text
-choice-text
+$$$empty
 // Font name, size
 dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+
+music-score
+music-score-2
+-0.5, -0.8
+.4, .4
+000000
+// TODO TEMP TEST
+treble-clef, 0, 0
+end
 
 translate
 0,0 ; 0, 0.0
@@ -166,6 +205,10 @@ button-group-3
 colour
 ffffffff, ffffff00
 
+gui-comp
+button-and-score-3
+2
+
 // element type
 gui-button
 // Element name
@@ -177,8 +220,16 @@ button-choice-3
 // Image 
 Image/gui-button-square.png
 // Text
-choice-text
+$$$empty
 // Font name, size
 dimbo, 1.0, fgcol=000000, bgcol=eeeeee
 
+music-score
+music-score-3
+0.3, -0.8
+.4, .4
+000000
+// TODO TEMP TEST
+treble-clef, 0, 0
+end
 
