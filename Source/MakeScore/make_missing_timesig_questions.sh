@@ -23,9 +23,9 @@ cp boiler.txt $OUT
 echo '// Generated from script! Source/MakeScore/make_missing_timesig_questions.sh' >> $OUT
 echo >> $OUT
 
-export ANS_24='=2/4,0.5,1,.5,.5'
-export ANS_34='=3/4,0.5,1,.5,.5'
-export ANS_44='=4/4,0.5,1,.5,.5'
+export ANS_24='=2/4,0.15, 0.2,  .8,.8'
+export ANS_34='=3/4,0.15, 0.2,  .8,.8'
+export ANS_44='=4/4,0.15, 0.2,  .8,.8'
 
 # These can be GUIs, so we can use symbol for the time sig glyph.
 # TODO

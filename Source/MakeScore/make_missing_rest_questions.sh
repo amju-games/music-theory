@@ -46,13 +46,17 @@ echo '2/4  c cr | c cr | q -- q  *cr | m' | ./a.out --oneline  >> $OUT
 echo $ANS_CR $EXPL_24_CR >> $OUT
 echo >> $OUT
 
+echo '2/4  c c t | c c t | c  *cr | m' | ./a.out --oneline  >> $OUT
+echo $ANS_CR $EXPL_24_CR >> $OUT
+echo >> $OUT
+
 # 3/4
 
-echo '3/4 c *cr c | m.' | ./a.out --oneline  >> $OUT
+echo '3/4 c *cr c t | m.' | ./a.out --oneline  >> $OUT
 echo $ANS_CR $EXPL_34_CR >> $OUT
 echo >> $OUT
 
-echo '3/4 c m | c m | c c c | m *cr' | ./a.out --oneline  >> $OUT
+echo '3/4 c m t | c m | c c c | m *cr' | ./a.out --oneline  >> $OUT
 echo $ANS_CR $EXPL_34_CR >> $OUT
 echo >> $OUT
 
