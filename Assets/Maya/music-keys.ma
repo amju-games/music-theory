@@ -1,6 +1,6 @@
 //Maya ASCII 2015 scene
 //Name: music-keys.ma
-//Last modified: Fri, Mar 24, 2017 09:17:57 PM
+//Last modified: Sun, Mar 26, 2017 07:59:11 PM
 //Codeset: 1252
 requires maya "2015";
 requires -nodeType "mentalrayFramebuffer" -nodeType "mentalrayOptions" -nodeType "mentalrayGlobals"
@@ -14,12 +14,12 @@ fileInfo "osv" "Microsoft Windows 8 Business Edition, 64-bit  (Build 9200)\n";
 fileInfo "license" "student";
 createNode transform -s -n "persp";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 22.713744727968837 0.94228645590089499 0.16160093182443447 ;
-	setAttr ".r" -type "double3" -3.9383527296142127 100.20000000000014 0 ;
+	setAttr ".t" -type "double3" 0.16095486854609747 10.808281532873714 8.4711880785261648 ;
+	setAttr ".r" -type "double3" -61.538352729601115 -1.4000000000017625 9.9422012282376625e-017 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 26.774707957205344;
+	setAttr ".coi" 11.565110219067609;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
@@ -2165,7 +2165,7 @@ createNode mesh -n "pCubeShape4" -p "pCube4";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
-	setAttr ".pv" -type "double2" 0.5 0.375 ;
+	setAttr ".pv" -type "double2" 0.625 0.25 ;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
 	setAttr ".cuvs" -type "string" "map1";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
@@ -2173,8 +2173,8 @@ createNode mesh -n "pCubeShape4" -p "pCube4";
 	setAttr ".cdvm[0]"  0 1 1;
 	setAttr -s 12 ".pt[0:11]" -type "float3"  0 1.3257797 8.8817842e-016 
 		0 1.3257797 8.8817842e-016 0 0.24517864 4.4408921e-016 0 0.24517864 4.4408921e-016 
-		0 -0.3339687 4.4408921e-016 0 -0.3339687 4.4408921e-016 0 -0.3339687 4.4408921e-016 
-		0 -0.3339687 4.4408921e-016 0 0.24517864 4.4408921e-016 0 0.24517864 4.4408921e-016 
+		0 -0.3339687 4.4408921e-016 0 -0.3339687 4.4408921e-016 0 -0.63890934 8.8817842e-016 
+		0 -0.63890934 8.8817842e-016 0 0.24517864 4.4408921e-016 0 0.24517864 4.4408921e-016 
 		0 1.3257797 8.8817842e-016 0 1.3257797 8.8817842e-016;
 createNode lightLinker -s -n "lightLinker1";
 	setAttr -s 2 ".lnk";
