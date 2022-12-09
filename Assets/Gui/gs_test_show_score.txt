@@ -14,6 +14,23 @@ score-comp
 // Num children
 1
 
+// Child 1
+// Font test
+
+gui-text
+// Element name
+about-text
+// pos (coords are -1..1)
+-1.0, 0
+// size
+2.0, 1.0 
+// Text
+Amjula Music Theory\n\nVersion 0.1 
+// Font name, size
+bmtest, 1.0, multi, fgcol=000000
+
+
+// Child 2 - animated score
 
 // Animate the score: the anim value is used to highlight glyphs.
 // (TODO And play note values?!)

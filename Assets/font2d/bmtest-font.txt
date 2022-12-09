@@ -1,0 +1,7 @@
+// BM font test
+// version: 2 => BM font (TODO s/b e.g. 10-19?)
+2
+
+// BM Font .fnt file (txt appended for glue file)
+font2d/bmtest/bmtest.fnt.txt
+
