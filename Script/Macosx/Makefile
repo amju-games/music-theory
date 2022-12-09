@@ -41,9 +41,13 @@ runnoglue:
 	./macgame
 
 
-runsetup:
+runsetupold:
 	cp $(TARGET) $(RUNDIR); \
 	cp $(BASSPATH)/libbassmidi.dylib $(RUNDIR); \
 	cp $(BASSPATH)/mp3-free/libbass.dylib $(RUNDIR); 
+
+runsetup:
+	cp $(BASSPATH)/libbassmidi.dylib $(BUILD); \
+	cp $(BASSPATH)/mp3-free/libbass.dylib $(BUILD); 
 
 
