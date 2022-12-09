@@ -349,6 +349,14 @@ bool GSPages::OnKeyEvent(const KeyEvent& ke)
           std::cout << "Null page GUI!\n";
         }
         break;
+
+      case 'o':
+      {
+        // Go to topic end
+        SetFinalScore();
+        TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
+        break;
+      }
       } // case
     } // switch
   } // if
