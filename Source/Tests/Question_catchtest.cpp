@@ -2,7 +2,9 @@
 // (c) Copyright 2017 Jason Colman
 
 #include "catch.hpp"
-#include "Question.h"
+#include "Dictionary.h"
+#include "MultiChoiceQuestion.h"
+#include "MusicalTermQuestion.h"
 
 using namespace Amju;
 
@@ -31,16 +33,16 @@ TEST_CASE("Answers can be added and retrieved", "[MultiChoice]")
   }
 }
 
-TEST_CASE("Terms can be added and retrieved", "[MusicalTermsDictionary]")
+TEST_CASE("Terms can be added and retrieved", "[Dictionary]")
 {
-  RCPtr<MusicalTermsDictionary> dic(new MusicalTermsDictionary);
+  RCPtr<Dictionary> dic(new Dictionary);
 
   SECTION("Adding terms")
   {
-    dic->AddTerm("Soft", "Piano");
-    dic->AddTerm("Loud", "Forte");
-    dic->AddTerm("Sweetly", "Dolce");
-    dic->AddTerm("Gracefully", "Grazioso");
+    dic->AddTerm({ "Soft", "Piano" });
+    dic->AddTerm({ "Loud", "Forte" });
+    dic->AddTerm({ "Sweetly", "Dolce" });
+    dic->AddTerm({ "Gracefully", "Grazioso" });
 
     REQUIRE(dic->GetNumTerms() == 4);
 

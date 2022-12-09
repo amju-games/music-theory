@@ -15,7 +15,7 @@
 #define AMJU_USE_OPENGL
 #define AMJU_USE_GLUT
 #ifndef CATCH
-// Main function already exists for GTest build
+// Main function already exists for Catch (unit test) build
 #include <main.h>
 #endif
 #endif

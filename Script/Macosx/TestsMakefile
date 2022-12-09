@@ -1,0 +1,30 @@
+ifeq ($(strip $(AMJULIB_MAC_SCRIPT_PATH)),)
+$(error "Please set AMJULIB_MAC_SCRIPT_PATH in your environment.")
+endif
+
+AMJULIB		:=	$(AMJULIB_MAC_SCRIPT_PATH)/../../
+RUNDIR		:=	../../Assets/
+BUILD		:=	../../Build/Mac
+TARGET		:=	$(BUILD)/macgame_test
+LIBDIRS   	:= 	$(AMJULIB)/Build/Releases/amjulib-v.0.5-macosx
+SOURCES		:=	../../Source/Tests ../../Source
+BASSPATH	:=	$(AMJULIB)/Source/SoundBass/Bass2.4/Macosx
+
+LIBS	:= \
+	-lamju \
+	$(BASSPATH)/mp3-free/libbass.dylib \
+	$(BASSPATH)/libbassmidi.dylib \
+	-framework OpenGL \
+	-framework GLUT \
+	-framework Carbon \
+	-lcurl \
+	-lstdc++ -lm 
+
+EXTRA_CFLAGS += -DCATCH
+
+include $(AMJULIB_MAC_SCRIPT_PATH)/GenMakefile
+
+runtests:
+	$(TARGET)
+
+
