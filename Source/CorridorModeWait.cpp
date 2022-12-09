@@ -98,7 +98,7 @@ std::cout << "At highest level, so not going up.\n";
   // If current topic is in range of topics (displayed in this level),
   //  go to Topic Start state.
   if (   TheGame::Instance()->GetState() == gsmc
-      && gsmc->IsTopicUnlocked())
+      && !gsmc->IsTopicUnlocked())
   {
     std::cout << "Topic locked!\n";
     return;
