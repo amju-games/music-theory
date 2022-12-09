@@ -11,6 +11,9 @@
 elastic
 0, 2.0
 
+translate
+0, -0.05
+
 // Element type
 gui-comp
 // Name

@@ -58,7 +58,7 @@ gui-image
 sky
 -2.0, 3
 4.0, 4
-Image/white.png
+Image/white.png, stretch
 
 
 // UNDERGROUND
