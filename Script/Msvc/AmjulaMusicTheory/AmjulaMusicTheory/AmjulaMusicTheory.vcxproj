@@ -382,6 +382,7 @@
     <Text Include="..\..\..\..\Assets\Course\note_lengths.txt" />
     <Text Include="..\..\..\..\Assets\Course\semibreve.txt" />
     <Text Include="..\..\..\..\Assets\Course\semibreve_length.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt" />
     <Text Include="..\..\..\..\Assets\Gui\ground.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs-first-user.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_about.txt" />
