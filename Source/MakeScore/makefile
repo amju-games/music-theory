@@ -21,6 +21,7 @@ LDFLAGS=
 SOURCES=\
 Bar.cpp \
 Beam.cpp \
+Clef.cpp \
 Consts.cpp \
 Flag.cpp \
 Glyph.cpp \
