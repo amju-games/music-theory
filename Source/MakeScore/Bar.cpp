@@ -101,14 +101,29 @@ float Bar::CalcGlyphY(int pitch) const
 
   case StaveType::STAVE_TYPE_SINGLE:
   {
-    // TODO Calc depends on clef
-    // Treb clef
-    // Y-position for MIDI notes starting from MIDI 0, with C at y = 0
-    float Y_POS[12] = 
+    // Y-position for MIDI notes starting from MIDI 0, with C at y = 0.
+    // y = 0 corresponds to the bottom line of the stave.
+    const int Y_POS[12] = 
     {
       0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6
     };
-    float y = Y_POS[pitch % 12] * 0.05f;
+
+    // Add this offset to the y position, setting y to the correct
+    //  position on the stave. E.g. for treble clef, middle C should be
+    //  at y = -2, i.e. two stave positions below the bottom line.
+    const int CLEF_OFFSET[4] = 
+    {
+      -2, // treb
+      10, // bass
+       4, // alto
+       6, // tenor 
+    };
+    int clef = 0; // TODO use last clef set for this stave
+    int staveLine = Y_POS[pitch % 12] + CLEF_OFFSET[clef];
+    // TODO create ledger lines if staveLine is < -1 or > 9
+    // TODO decide if stem should be up or down, (unless beamed, which
+    //  overrides this decision)
+    float y = static_cast<float>(staveLine) * 0.05f;
     return y;
   }
   case StaveType::STAVE_TYPE_DOUBLE:
