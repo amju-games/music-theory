@@ -29,7 +29,9 @@ public:
   void OnIncorrect();
   void NextPage();
   void OnHint();
-
+  void OnPause();
+  void OnQuitConfirmCancel();
+  
   // Start showing pages for the given topic (topic number as for Course)
   void StartTopic(int topicNum);
 
@@ -38,8 +40,10 @@ protected:
   void SetPie(int n, const Colour& c);
 
 protected:
-  std::vector<RCPtr<Page>> m_pages;
-  int m_currentPage = 0;
+  //std::vector<RCPtr<Page>> m_pages;
+  //int m_currentPage = 0;
+  
+  RCPtr<Page> m_page;
 
   // Number of pages shown in this topic session
   int m_numPagesShown = 0;

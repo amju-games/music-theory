@@ -1,6 +1,41 @@
 Get to state of minimal, releasable app
  * MVP * 
 
+Bug: fix resume in GSPages.
+
+Fix look and feel of "Pause menu" - should it be a separate state?
+ - Just hide page contents, not separate state.
+
+Topic: show best score so far
+
+Top bar look/feel
+Fix button sizes
+
+Topic end state:
+Look/feel, text should be smart.
+Give hints, give stars etc
+Next state should be achievements - if none, we go to main menu. Scroll back down to the ground.
+
+
+Main menu: 
+ - bulb should pop into view from zero size, for continuity with other states.
+ - About button
+ - Share button
+ - I'm new: go to name entry. Should happen on first run.
+
+Avatar + user name
+
+Pie slices: 
+ - use rotate decorator, justone image
+ - allow for 20, 30 slices
+
+Correct answer streaks: start at 3, say
+
+Trophies or stars for each topic
+
+Break up musical terms into smaller topics. Split up by type: timing, dynamics, etc.
+
+
 iOS - load screen, icon, etc. 
  - Using APZ organ image?
  - Bulb is a Turnip in the ground?

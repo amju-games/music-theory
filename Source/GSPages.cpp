@@ -8,6 +8,7 @@
 #include <GuiDecColour.h>
 #include <GuiText.h>
 #include <MessageQueue.h>
+#include "GSMainMenu.h"
 #include "GSPages.h"
 #include "GSPause.h"
 #include "GSTopicEnd.h"
@@ -21,11 +22,19 @@ static const char* HINTS_AVAILABLE_KEY = "hints_avail";
 // Start life with 3 hints
 const int DEFAULT_HINTS_AVAIL = 3;
 
+static void OnQuitConfirmOK(GuiElement*)
+{
+  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
+}
+
+static void OnQuitConfirmCancel(GuiElement*)
+{
+  TheGSPages::Instance()->OnQuitConfirmCancel();
+}
+  
 static void OnPause(GuiElement*)
 {
-  GSPause* gs = TheGSPause::Instance();
-  gs->SetPrevState(TheGSPages::Instance());
-  TheGame::Instance()->SetCurrentState(gs);
+  TheGSPages::Instance()->OnPause();
 }
 
 // Called from timed FuncMessage
@@ -64,8 +73,16 @@ void GSPages::OnActive()
 
   GuiElement* elem = GetElementByName(m_gui, "pause-button");
   Assert(elem);
-  elem->SetCommand(OnPause);
-
+  elem->SetCommand(Amju::OnPause);
+  
+  elem = GetElementByName(m_gui, "quit-confirm-ok");
+  Assert(elem);
+  elem->SetCommand(Amju::OnQuitConfirmOK);
+  
+  elem = GetElementByName(m_gui, "quit-confirm-cancel");
+  Assert(elem);
+  elem->SetCommand(Amju::OnQuitConfirmCancel);
+  
   // Get general user config, just a convenience, it lives in the User Profile.
   m_userConfig = TheUserProfile()->GetConfigForTopic("general");
   // How many Hints are available?
@@ -79,7 +96,10 @@ void GSPages::OnActive()
 void GSPages::OnDeactive()
 {
   GSBase::OnDeactive();
-  m_pages.clear();
+  
+  //m_pages.clear();
+  m_page = nullptr;
+  
   // Save changes to user profile (questions seen, etc)
   TheUserProfile()->Save();
   // Just in case we switch users or something happens to invalidate this
@@ -106,10 +126,9 @@ void GSPages::NextPage()
   ConfigFile* cf = TheUserProfile()->GetConfigForTopic("todo");
   page->SetConfigFile(cf);
   AddPage(page);
-  m_currentPage = 0;
-
+  
   // Activate new page
-  m_pages[m_currentPage]->OnActive();
+  page->OnActive();
 
   // Tick/cross 
   GuiElement* tick = GetElementByName(m_gui, "tick");
@@ -151,7 +170,7 @@ void GSPages::Draw2d()
   AmjuGL::PushMatrix();
   // Bad idea douchebag, fucks up coords for clicking
   //AmjuGL::Translate(0, -0.2f, 0);
-  m_pages[m_currentPage]->Draw(); 
+  m_page->Draw();
   AmjuGL::PopMatrix();
 
   // Common GUI goes on top or under? We want tick/cross to go on top.
@@ -161,7 +180,7 @@ void GSPages::Draw2d()
 void GSPages::Update()
 {
   GSBase::Update();
-  m_pages[m_currentPage]->Update();
+  m_page->Update();
 }
 
 // Load list of pages from file?
@@ -173,7 +192,7 @@ bool GSPages::Load(const std::string& filename)
 void GSPages::AddPage(Page* p)
 {
   p->SetGameState(this);
-  m_pages.push_back(p);
+  m_page = p;
 }
 
 void GSPages::OnCorrect()
@@ -217,8 +236,55 @@ void GSPages::OnHint()
   m_userConfig->SetInt(HINTS_AVAILABLE_KEY, m_numHintsAvailable);
   ShowHints();
 
-  m_pages[m_currentPage]->OnHint(); // show context-sensitive hint
+  m_page->OnHint(); // show context-sensitive hint
 }
 
+void GSPages::OnPause()
+{
+  // Fade page contents down, which disables the buttons
+  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(
+    GetElementByName(m_page->GetGui(), "fade-out-whole-page"));
+  Assert(anim);
+  anim->ResetAnimation();
+  anim->SetIsReversed(false);
+  anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+  
+  anim = dynamic_cast<GuiDecAnimation*>(
+    GetElementByName(m_page->GetGui(), "anim-colour-fade-whole-page"));
+  Assert(anim);
+  anim->SetIsReversed(false);
+  
+  // Bring on pause dialog
+  anim = dynamic_cast<GuiDecAnimation*>(
+    GetElementByName(m_gui, "quit-confirm-swipe"));
+  Assert(anim);
+  anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+
+  anim = dynamic_cast<GuiDecAnimation*>(
+    GetElementByName(m_gui, "swipe-anim"));
+  Assert(anim);
+  anim->ResetAnimation();
+  anim->SetIsReversed(false);
+
+  
+  // Disable pause and hint buttons
+}
+  
+void GSPages::OnQuitConfirmCancel()
+{
+  // Re-enable buttons
+  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(
+    GetElementByName(m_page->GetGui(), "anim-colour-fade-whole-page"));
+  Assert(anim);
+  anim->ResetAnimation();
+  anim->SetIsReversed(true);
+
+  anim = dynamic_cast<GuiDecAnimation*>(
+    GetElementByName(m_gui, "swipe-anim"));
+  Assert(anim);
+  anim->ResetAnimation();
+  anim->SetIsReversed(true);
+
+}
 }
 

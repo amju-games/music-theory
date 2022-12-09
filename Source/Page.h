@@ -36,6 +36,8 @@ public:
   virtual void Draw();
   virtual void Update();
 
+  GuiElement* GetGui();
+  
   // Set config file to save any state we want to remember about this page/topic
   void SetConfigFile(ConfigFile* cf);
 

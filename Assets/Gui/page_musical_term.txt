@@ -7,7 +7,7 @@
 // Element type
 gui-comp
 // Name
-root
+musical-term-page-root
 // Num children
 2
 
@@ -23,9 +23,32 @@ Image/white.png, stretch
 elastic
 0, -2.0
 
+
+// Use this to fade the page contents
+// Fade out anim, off until triggered in code
+animation
+fade-out-whole-page
+const
+zero
+
+animation
+anim-colour-fade-whole-page
+one-shot
+0.3
+linear
+
+colour
+ffffffff, ffffff20
+
+
+animation
+clean-anim
+const
+one
+
 gui-comp
 // Name
-elasticated
+page
 // Num children
 2
 
@@ -232,6 +255,7 @@ Image/gui-button-8.png
 choice-text
 // Font name, size
 dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+
 
 
 // Not used

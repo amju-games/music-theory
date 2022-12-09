@@ -2,9 +2,12 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <Game.h>
+#include <GuiText.h>
+#include "Course.h"
 #include "GSMainMenu.h"
 #include "GSPages.h"
 #include "GSTopicStart.h"
+#include "Topic.h"
 
 namespace Amju
 {
@@ -37,6 +40,16 @@ void GSTopicStart::OnActive()
 
   elem = GetElementByName(m_gui, "start-button");
   elem->SetCommand(OnStart);
+  
+  // Set topic display name
+  // TODO Pass the course in
+  Course* course = (Course*)TheResourceManager::Instance()->GetRes("Course/grade1.txt.course");
+  Assert(course);
+  GuiText* text = dynamic_cast<GuiText*>(GetElementByName(m_gui, "topic-name-text"));
+  Assert(text);
+  Topic* topic = course->GetTopic(m_topicNum);
+  Assert(topic);
+  text->SetText(topic->GetDisplayName());
 }
 
 void GSTopicStart::SetTopic(int topicNum)

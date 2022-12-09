@@ -35,6 +35,11 @@ void Page::OnActive()
   }
 }
 
+GuiElement* Page::GetGui()
+{
+  return m_gui;
+}
+  
 void Page::Draw()
 {
   m_gui->Draw();
