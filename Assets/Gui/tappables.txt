@@ -7,9 +7,33 @@
 // Tappables: 3d objects which user can tap on to get info.
 
 // num tappables
-1
+2
 
-// 1 - piano
+
+// Picture
+// Name
+picture 1
+// First part is 3d node
+// Node type
+mesh
+// Name
+picture-1
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  2, 50, 45, 1
+// Obj mesh
+obj/picture-frame1.obj
+// Num children
+0
+// TODO Action when tapped
+// Camera eye
+28, 50, 45
+// Cam target
+0, 50, 45
+// GUI to display when we have been tapped
+Gui/keyboard.txt
+
+
+// Piano
 // Name
 pink piano
 // First part is 3d node
@@ -28,6 +52,7 @@ obj/piano1.obj
 25, 42, -60
 // Cam target
 22, 0, -60
-
 // GUI to display when we have been tapped
 Gui/keyboard.txt
+
+
