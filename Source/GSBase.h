@@ -20,7 +20,7 @@ public:
   virtual void OnActive() override;
   virtual void OnDeactive() override;
 
-  // Reload
+  // Check keys for debug features: R to reload, G to show GUI tree
   virtual bool OnKeyEvent(const KeyEvent&) override;
 
   GuiElement* GetGui();
