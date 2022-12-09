@@ -9,6 +9,7 @@
 #include "CorridorModeEnterClassroom.h"
 #include "Course.h"
 #include "GSMainCorridor.h"
+#include "LurkMsg.h"
 #include "PlayWav.h"
 #include "Tappable.h"
 
@@ -137,6 +138,11 @@ void CorridorModeWait::OnActive()
   m_isDragging = false;
 
   SetCamera();
+
+  // TODO TEMP TEST
+  // Try out lurk msgs
+  LurkMsg lm("Hello!", Colour(1, 1, 1, 1), Colour(0, 0, 0, 1), AMJU_CENTRE);
+  TheLurker::Instance()->Queue(lm);
 }
 
 void CorridorModeWait::SetCamera()

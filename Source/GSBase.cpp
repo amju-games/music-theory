@@ -7,6 +7,7 @@
 #include <GuiComposite.h>
 #include <GuiDecAnimation.h>
 #include "GSBase.h"
+#include "LurkMsg.h"
 #include "PrintGui.h"
 #include "SerialReqManager.h"
 #include "ShareManager.h"
@@ -47,6 +48,8 @@ void GSBase::Update()
     m_gui->Update();
   }
 
+  TheLurker::Instance()->Update();
+
   TheSerialReqManager::Instance()->Update();
 }
 
@@ -70,6 +73,8 @@ void GSBase::Draw2d()
     UseVertexColourShader();
     m_gui->Draw();
   }
+
+  TheLurker::Instance()->Draw();
 
 #ifdef GEKKO
   TheCursorManager::Instance()->Draw();
