@@ -1,0 +1,15 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Intervals for grade 1
+
+// version
+1
+
+123=Major 3rd
+456=Perfect 5th
+789=Major 7th
+abc=Major 2nd
+
+
+

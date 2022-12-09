@@ -266,7 +266,6 @@
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSFirstUser.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSMainMenu.cpp" />
-    <ClCompile Include="..\..\..\..\Source\GSMusicalTerms.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPages.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPause.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp" />
@@ -283,10 +282,11 @@
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\MultiChoiceQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\MusicalTermQuestion.cpp" />
-    <ClCompile Include="..\..\..\..\Source\MusicalTermsDictionary.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Dictionary.cpp" />
     <ClCompile Include="..\..\..\..\Source\MusicEvent.cpp" />
     <ClCompile Include="..\..\..\..\Source\Page.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageFactory.cpp" />
+    <ClCompile Include="..\..\..\..\Source\PageIntervalsMultiChoice.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageMultiChoice.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageMusicalTerm.cpp" />
     <ClCompile Include="..\..\..\..\Source\PagePlayNotes.cpp" />
@@ -334,7 +334,6 @@
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
     <ClInclude Include="..\..\..\..\Source\GSFirstUser.h" />
     <ClInclude Include="..\..\..\..\Source\GSMainMenu.h" />
-    <ClInclude Include="..\..\..\..\Source\GSMusicalTerms.h" />
     <ClInclude Include="..\..\..\..\Source\GSPages.h" />
     <ClInclude Include="..\..\..\..\Source\GSPause.h" />
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h" />
@@ -352,11 +351,12 @@
     <ClInclude Include="..\..\..\..\Source\Keys.h" />
     <ClInclude Include="..\..\..\..\Source\MultiChoiceQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\MusicalTermQuestion.h" />
-    <ClInclude Include="..\..\..\..\Source\MusicalTermsDictionary.h" />
+    <ClInclude Include="..\..\..\..\Source\Dictionary.h" />
     <ClInclude Include="..\..\..\..\Source\MusicEvent.h" />
     <ClInclude Include="..\..\..\..\Source\Page.h" />
     <ClInclude Include="..\..\..\..\Source\PageDrawOnStave.h" />
     <ClInclude Include="..\..\..\..\Source\PageFactory.h" />
+    <ClInclude Include="..\..\..\..\Source\PageIntervalsMultiChoice.h" />
     <ClInclude Include="..\..\..\..\Source\PageMultiChoice.h" />
     <ClInclude Include="..\..\..\..\Source\PageMusicalTerm.h" />
     <ClInclude Include="..\..\..\..\Source\PagePlayNotes.h" />
@@ -390,6 +390,8 @@
     <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gui-top-bar.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\music-score-bg.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\page_interval.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_musical_term.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_play_notes.txt" />
     <Text Include="..\..\..\..\Assets\Gui\pie.txt" />
