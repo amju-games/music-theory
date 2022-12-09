@@ -93,16 +93,16 @@ mesh
 // Name
 tappable-piano
 // Matrix
-1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  15, 0, -60, 1
+.4, 0, 0, 0,  0, 1, 0, 0,  0, 0, .5, 0,  15, 0, -60, 1
 // Obj mesh
 obj/piano1.obj
 // Num children
 0
 // TODO Action when tapped
 // Camera eye
-25, 42, -60
+24.5, 42, -60
 // Cam target
-22, 0, -60
+21, 0, -60
 // GUI to display when we have been tapped
 Gui/keyboard-pink.txt
 // GUI to put in NOTEBOOK

@@ -11,13 +11,19 @@ gui-comp
 // Name
 keyboard-black
 // Num children
-3
+4
+
+
+gui-image
+kb-fg2
+-1.0, 0.0
+2, 0.26
+Image/black.png, stretch
+
 
 // Base keyboard, same for all piano colours
 include
 keyboard.txt
-
-// Add colours over the top
 
 
 // Child 1: bg

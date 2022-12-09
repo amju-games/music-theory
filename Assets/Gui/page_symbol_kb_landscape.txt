@@ -16,5 +16,5 @@ include
 question_symbol_landscape.txt
 
 include
-keyboard.txt
+keyboard-black.txt
 

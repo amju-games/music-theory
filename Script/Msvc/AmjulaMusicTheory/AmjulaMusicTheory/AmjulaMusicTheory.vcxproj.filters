@@ -654,5 +654,11 @@
     <Text Include="..\..\..\..\Assets\Gui\hint-display.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\keyboard-black.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\keyboard-pink.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>

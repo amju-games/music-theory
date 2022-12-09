@@ -444,6 +444,8 @@
     <Text Include="..\..\..\..\Assets\Gui\gui-top-bar.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gui_top_bar_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\hint-display.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\keyboard-black.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\keyboard-pink.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt" />
     <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-square-symbol.txt" />
     <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-wide.txt" />

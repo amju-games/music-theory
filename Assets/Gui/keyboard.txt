@@ -16,8 +16,8 @@ keyboard
 // Background to kb
 gui-image
 kb-bg
--1.0, 0.0
-2, 1
+-1.0, -0.26
+2, 0.74
 Image/black.png
 
 // The keyboard
