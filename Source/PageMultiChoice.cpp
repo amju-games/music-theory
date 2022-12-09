@@ -50,7 +50,7 @@ void PageMultiChoice::SetUpButtons()
   // Set button callbacks
   int numChoices = m_answers.GetNumAnswers();
   int correct = m_answers.GetCorrectAnswer();
-  bool seen = m_question->QuestionSeenBefore(m_config);
+//  bool seen = m_question->QuestionSeenBefore(m_config);
 
   for (int i = 0; i < numChoices; i++)
   {
@@ -79,7 +79,7 @@ void PageMultiChoice::SetUpButtons()
     {
       m_canRemoveForHint.push_back(i);
     }
-    else if ((!seen) || (numChoices == 1))
+    else if (numChoices == 1)
     {
       // Show correct answer for questions we have not seen before.
       button->SetHasFocus(true); // pulsing glow
