@@ -9,7 +9,7 @@
 #include <StringUtils.h>
 #include <Timer.h>
 #include "GuiMusicKb.h"
-#include "iOSPlayMidi.h"
+#include "PlayMidi.h"
 
 namespace Amju
 {

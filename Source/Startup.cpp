@@ -19,12 +19,14 @@
 #endif
 
 #include <AmjuGLWindowInfo.h>
+#include <BassSoundPlayer.h>
 #include <Directory.h>
 #include <Font.h>
 #include <Game.h>
 #include <EventPoller.h>
 #include <ObjMesh.h>
 #include <ResourceManager.h>
+#include <SoundManager.h>
 #include "GSPlayNotes.h"
 #include "GSShowLineDrawing.h"
 #include "GSShowMusicScore.h"
@@ -32,6 +34,9 @@
 #include "GuiLineDrawing.h"
 #include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
+
+#define SOUND_FONT "Grand Piano"
+
 
 namespace Amju
 {
@@ -48,14 +53,15 @@ void StartUpBeforeCreateWindow()
 {
 #ifdef AMJU_IOS
   std::string dir = GetDataDir();
+  dir += "/Assets/";
+  File::SetRoot(dir, "/");
 #endif
 
 #ifdef MACOSX
-  std::string dir = "/Users/jay/projects/music-theory";
+  std::string dir = "/Users/jay/projects/music-theory/Assets/";
+  File::SetRoot(dir, "/");
 #endif
 
-  dir += "/Assets/";
-  File::SetRoot(dir, "/");
 }
 
 void StartUpAfterCreateWindow()
@@ -70,12 +76,15 @@ void StartUpAfterCreateWindow()
   rm->AddLoader("obj", TextObjLoader);
 #endif
 
-//  // Set sound player
-//  SoundManager* sm = TheSoundManager::Instance();
-//  BassSoundPlayer* bsp = new BassSoundPlayer;
-//  bsp->MidiSetSoundFont((File::GetRoot() + "Sound/ChoriumRevA.SF2").c_str());
-////velocity_grand_piano.sf2").c_str());
-//  sm->SetImpl(bsp);
+#ifdef AMJU_USE_BASS
+  // Set sound player
+  SoundManager* sm = TheSoundManager::Instance();
+  BassSoundPlayer* bsp = new BassSoundPlayer;
+#ifdef USE_BASS_MIDI
+  bsp->MidiSetSoundFont((File::GetRoot() + "Sound/" + SOUND_FONT + ".sf2").c_str());
+#endif // USE_BASS_MIDI
+  sm->SetImpl(bsp); 
+#endif
 
   GuiLineDrawing::AddToFactory();
   GuiMusicKb::AddToFactory();

@@ -6,7 +6,7 @@
 #include <Timer.h>
 #include <Teapot.h>
 #include "GSPlayNotes.h"
-#include "iOSPlayMidi.h"
+#include "PlayMidi.h"
 
 namespace Amju
 {
