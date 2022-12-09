@@ -57,6 +57,10 @@ struct Glyph : public IGlyph
   // Calc accidental, given pitch and key sig
   void CalcAccidental(KeySig ks);
 
+  // Adjust accidental calculated above, based on the most recent
+  //  accidental set on this stave line
+  void AdjustAccidental(Accidental previousAcc);
+
   std::string GetAccidentalStr() const;
 
   int order = 0; // horiz position in bar 

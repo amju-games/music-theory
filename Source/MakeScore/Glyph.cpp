@@ -6,6 +6,39 @@
 
 #include "Glyph.h"
 
+void Glyph::AdjustAccidental(Accidental previousAcc)
+{
+  // Don't repeat an accidental, e.g. two sharp notes in sequence
+  if (m_accidental == previousAcc)
+  {
+    m_accidental = Accidental::ACCIDENTAL_NONE;
+  }
+
+  // Don't put natural sign unnecessarily
+  if (m_accidental == Accidental::ACCIDENTAL_NATURAL_IN_KEY_SIG &&
+      (previousAcc == Accidental::ACCIDENTAL_NONE ||
+       previousAcc == Accidental::ACCIDENTAL_NATURAL))
+  {
+    m_accidental = Accidental::ACCIDENTAL_NONE;
+  } 
+
+  // Don't flatten a note where key sig already does so
+  if (m_accidental == Accidental::ACCIDENTAL_FLAT_IN_KEY_SIG &&
+      (previousAcc == Accidental::ACCIDENTAL_NONE ||
+       previousAcc == Accidental::ACCIDENTAL_FLAT))
+  {
+    m_accidental = Accidental::ACCIDENTAL_NONE;
+  } 
+
+  // Don't sharpen a note where key sig already does so
+  if (m_accidental == Accidental::ACCIDENTAL_SHARP_IN_KEY_SIG &&
+      (previousAcc == Accidental::ACCIDENTAL_NONE ||
+       previousAcc == Accidental::ACCIDENTAL_SHARP))
+  {
+    m_accidental = Accidental::ACCIDENTAL_NONE;
+  } 
+}
+
 void Glyph::CalcAccidental(KeySig ks)
 {
   // Is pitch in ks, or do we need an accidental?
@@ -49,8 +82,13 @@ void Glyph::CalcAccidental(KeySig ks)
 
   Accidental acc = ACCS[ks][note];
 
-  // TODO Accidental already in force for this bar?
+  // Don't worry here about any Accidental already in force 
   if (acc == S || acc == F || acc == N)
+  {
+    m_accidental = acc;
+  }
+
+  if (acc == s || acc == f || acc == _)
   {
     m_accidental = acc;
   }
@@ -94,8 +132,8 @@ std::string Glyph::GetGlyphOutputStr(std::string s) const
 }
 
 Glyph::Glyph(const std::string& inputToken, int order_) :
-  realGlyphName(inputToken),
-  order(order_)
+  order(order_),
+  realGlyphName(inputToken)
 {
   // Calc output (display) text later, but if we want to hide this glyph
   //  for a question (e.g. 'what is this note?'), do it now.
