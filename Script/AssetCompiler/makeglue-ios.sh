@@ -48,10 +48,10 @@ cd $DEST_DIR
 # Create empty glue file
 $GLUE_EXE -c $GLUE_FILE
 
-for f in *.txt *.png Course/*.txt Course/expl/*.txt Image/*.png obj/*.obj obj/*.mtl obj/*.png Gui/*.txt Scene/*.txt font2d/*.txt font2d/Berlin/* font2d/ArialRound/* font2d/Dimbo/* font2d/Guido2/* font2d/Icon/* Shaders/gles/*.txt Shaders/opengl/*.txt
+for f in *.txt *.png Course/level1/* Course/level2/* Course/level3/* Course/level4/* Course/*.txt Course/expl/*.txt Image/*.png obj/*.obj obj/*.mtl obj/*.png Gui/*.txt Scene/*.txt font2d/*.txt font2d/Berlin/* font2d/ArialRound/* font2d/Dimbo/* font2d/Guido2compressed/* font2d/Icon/* Shaders/gles/*.txt Shaders/opengl/*.txt
 do
     echo "Adding file: " $f
-    $GLUE_EXE -a $GLUE_FILE $f
+   $GLUE_EXE -a $GLUE_FILE $f
 done
 
 # Verify glue file contents
