@@ -56,7 +56,7 @@ one-shot
 linear
 
 translate
-0, -0.05
+0, -0.0
 
 // Composite: the button to fade, and the other buttons
 gui-comp
@@ -80,7 +80,7 @@ button-choice-0
 // size
 0.3,.3
 // Image 
-Image/white.png
+Image/flat-button-1.png
 // Text
 $$$empty
 // Font name, size
@@ -139,7 +139,7 @@ button-choice-1
 // size
 0.3,.3
 // Image 
-Image/white.png
+Image/flat-button-1.png
 // Text
 $$$empty
 // Font name, size
@@ -195,7 +195,7 @@ button-choice-2
 // size
 0.3,.3
 // Image 
-Image/white.png
+Image/flat-button-1.png
 // Text
 $$$empty
 // Font name, size
@@ -250,7 +250,7 @@ button-choice-3
 // size
 0.3,.3
 // Image 
-Image/white.png
+Image/flat-button-1.png
 // Text
 $$$empty
 // Font name, size
