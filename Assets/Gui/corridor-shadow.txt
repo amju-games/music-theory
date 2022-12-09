@@ -4,7 +4,7 @@
 // version
 1
 
-// Corridor shadow - an image we overlay pver the rigth hand side of the corridor
+// Corridor shadow - an image we overlay over the rigth hand side of the corridor
 
 colour
 000010e0

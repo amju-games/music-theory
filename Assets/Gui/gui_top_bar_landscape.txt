@@ -25,6 +25,8 @@ hearts.txt
 include
 player-score.txt
 
+// Currently not visible, the idea is you get more points for streaks, so this shows
+//  the score multiplier, e.g. x2, x3 
 include
 combo.txt
 
