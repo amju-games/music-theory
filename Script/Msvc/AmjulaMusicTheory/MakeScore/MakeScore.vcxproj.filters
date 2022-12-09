@@ -54,6 +54,9 @@
     <ClCompile Include="..\..\..\..\Source\MakeScore\Clef.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MakeScore\KeySig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\MakeScore\MakeScore.h">
@@ -99,6 +102,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\MakeScore\Clef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MakeScore\Accidental.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MakeScore\KeySig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
