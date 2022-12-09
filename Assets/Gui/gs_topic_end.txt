@@ -11,7 +11,51 @@ gui-comp
 // Name
 topic-end-root
 // Num children
-7
+8
+
+// Best so far display
+translate
+0.625, 0.3
+gui-comp
+best-so-far
+3
+
+gui-image
+best-so-far-bg
+-0.15, -0.1
+0.3, 0.5
+Image/paper2.png, stretch
+
+// Element type
+gui-text
+// Element name
+best-so-far-text
+// pos (coords are -1..1)
+-0.2, -0.2
+// size
+0.4, 0.1
+// Text
+Best so far
+// Font name, size
+dimbo, 1., fgcol=000000
+
+// Element type
+gui-text
+// Element name
+best-so-far-num
+// pos (coords are -1..1)
+-0.2, -.35
+// size
+0.4, 0.1
+// Text
+16%
+// Font name, size
+dimbo, 2., fgcol=000000
+
+
+// Hide hint buttons until we know what to do with them here
+translate
+0, 10
 
 include
 hint-display-no-button.txt
@@ -21,7 +65,7 @@ gui-text
 // Element name
 topic-name-text
 // pos (coords are -1..1)
--1, 0.8
+-1, 0.55
 // size
 2.0, 0.1
 // Text
@@ -36,7 +80,7 @@ topic-score-comp
 // Player score for the topic we just played
 gui-text
 topic-score-text
--10, 0.65
+-10, 0.3
 2, 0.2
 SCORE THIS TOPIC
 dimbo, 4.0, fgcol=ffffff
@@ -48,7 +92,7 @@ total-score-comp
 // Player total persistent score
 gui-text
 total-score-text
--1, 0.45
+-1, 0.3
 2, 0.2
 TOTAL SCORE
 dimbo, 4.0, fgcol=ffffff
@@ -58,7 +102,7 @@ dimbo, 4.0, fgcol=ffffff
 // OK button
 gui-button
 ok-button
--0.2, -0.3
+.1, -0.4
 // size
 0.4, 0.15
 // Image 
@@ -70,8 +114,7 @@ BUTTON, 3.0, fgcol=ffffff, bgcol=4E69F4
 // Share button
 gui-button
 share-button
-// NB HIDDEN
-0.5, 0.9
+-0.5, -.4
 0.4, 0.2
 Image/gui-button-2.png
 // SHARE
@@ -92,9 +135,9 @@ ffffff00, ffffffff
 
 gui-text
 comment-text
--1.0, -0.4
-2.0, 0.4
+-1.0, -0.0
+2.0, 0.1
 // Have some more hints!
 $$$87
-TEXT, 1.0, multi, fgcol=000000
+TEXT, 1.5, multi, fgcol=ffffff
 

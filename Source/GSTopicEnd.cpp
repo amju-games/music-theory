@@ -35,12 +35,12 @@ void UpdateNums()
 GSTopicEnd::GSTopicEnd()
 {
   m_guiFilename = "Gui/gs_topic_end.txt";
+  m_sceneFilename = "Scene/topic_start_scene.txt";
 }
 
 void GSTopicEnd::OnActive()
 {
-  // This works well because it skips loading scene again in GSBase3d::OnActive
-  GSBase::OnActive();
+  GSBase3d::OnActive();
 
   // Set button commands
   GuiElement* elem = GetElementByName(m_gui, "ok-button");

@@ -136,6 +136,6 @@ play-counter
 // Text
 NUM
 // Font name, size
-dimbo, 1, fgcol=ffffff
+dimbo, 1.25, fgcol=ffffff
 
 
