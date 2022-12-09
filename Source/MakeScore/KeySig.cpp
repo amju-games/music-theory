@@ -65,8 +65,29 @@ KeySig GetKeySig(const std::string& s)
 std::string GetKeySigOutputString(KeySig ks, Clef clef, 
   int staveNumber, float x, float y, float scale)
 {
+  if (ks == KEYSIG_0_SHARP || ks == KEYSIG_0_FLAT)
+  {
+    return "";
+  }
+
   std::string res = "keysig-";
 
+  if (ks >= KEYSIG_0_FLAT)
+  {
+    // Flat
+    res += Str(ks - KEYSIG_0_FLAT) + "flat-";
+  }
+  else
+  {
+    // Sharp
+    res += Str(ks - KEYSIG_0_SHARP) + "sharp-";
+  }
+
+  const std::string CLEF_STR[] = { "treble", "bass", "alto", "tenor" };
+  res += CLEF_STR[static_cast<int>(clef)];
+
+  res += ", " + Str(x) + ", " + Str(y) + 
+         ", " + Str(scale) + ", " + Str(scale);
   return res;
 }
 

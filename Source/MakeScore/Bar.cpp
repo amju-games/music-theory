@@ -212,19 +212,37 @@ std::string Bar::ToString(bool oneLine)
 {
   std::string res;
 
+  int numStaves = 1; // TODO 
   // Clef for each stave, if first bar of line, and single or double
   //  stave - not if no stave or just rhythm line
   if (YesShowClefAtFrontOfBar())
   {
-    int numStaves = 1; // TODO 
     for (int s = 0; s < numStaves; s++)
     {
       float x = 0;
       float y = 0.5f; // Hmm, why do we need to offset in y? 
       y += s * DOUBLE_STAVE_DISTANCE;
-      res += GetClefOutputString(m_currentClef[s], s, x, y, m_scale) + LineEnd(oneLine);
+      res += GetClefOutputString(m_currentClef[s], s, x, y, m_scale) + 
+        LineEnd(oneLine);
     }
   }
+
+  // Key sig
+  if (m_isFirstBarOfLine)
+  {
+    for (int s = 0; s < numStaves; s++)
+    {
+      float x = 0;
+      if (YesShowClefAtFrontOfBar()) // always true if showing key sig?
+      {
+        x = 0.45f; // TODO TEMP TEST
+      }
+      float y = 0.5f; // Hmm, why do we need to offset in y? 
+      y += s * DOUBLE_STAVE_DISTANCE;
+      res += GetKeySigOutputString(m_keySig, m_currentClef[s], s, x, y, m_scale) + 
+        LineEnd(oneLine);
+    }
+  }  
 
   // Optional time sig
   if (m_timeSigGlyph)
@@ -301,6 +319,21 @@ float Bar::GetWidth() const
   return m_width;
 }
 
+float Bar::GetKeySigWidth() const
+{
+  const float AW = 0.2f; // TODO width of one accidental glyph
+  if (m_keySig >= KEYSIG_0_FLAT)
+  {
+    // Flat
+    return (m_keySig - KEYSIG_0_FLAT) * AW;
+  }
+  else
+  {
+    // Sharp
+    return (m_keySig - KEYSIG_0_SHARP) * AW;
+  }
+}
+
 // x is the left edge of the bar.
 // From this and the width, we can set the final x-coord of each glyph.
 // y is an offset added to the y-coord of each glyph (all the same for
@@ -322,7 +355,13 @@ void Bar::SetPos(float x, float y)
     // Need space for clef, so shunt everything right
     const float CLEF_WIDTH = 0.45f; // ?
     x += CLEF_WIDTH;
+
+    // Also we must be outputting key sig
+    x += GetKeySigWidth();
   }
+
+  // Add more for keysig
+  // TODO
 
   if (numGlyphs > 1)
   {

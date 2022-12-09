@@ -77,8 +77,11 @@ public:
 
   const GlyphVec& GetGlyphs() const { return m_glyphs; }
 
+private:
   // Ret true if we should show clef at front of bar
   bool YesShowClefAtFrontOfBar() const;
+
+  float GetKeySigWidth() const;
 
 private:
   static const int MAX_NUM_STAVES = 4; // for SATB
