@@ -60,7 +60,10 @@ void QueueFirstTimeMsgs(const std::vector<int> ids, FirstTimeType ftt)
       LookupTutorialString(id),
       GetColour(COLOUR_TEXT),
       GetColour(COLOUR_TUTORIAL),
-      AMJU_CENTRE);
+      AMJU_CENTRE,
+      2.0f); // TODO TEMP TEST - try timed centred msg
+
+//      AMJU_LURK_NO_TIMER); // TODO allow timed centre msgs
 
     TheTutorialManager::Instance()->FirstTimeMsg(id, lm, ftt);
   }

@@ -17,6 +17,8 @@ namespace Amju
 {
 enum LurkPos { AMJU_NONE, AMJU_TOP, AMJU_BOTTOM, AMJU_LEFT, AMJU_RIGHT, AMJU_CENTRE };
 
+static const float AMJU_LURK_NO_TIMER = 0.f;
+
 // Lurk on edge of screen
 class LurkMsg
 {
@@ -24,7 +26,7 @@ public:
   LurkMsg();
   // Optional function which is called when message has been displayed and has now gone away
   LurkMsg(const std::string& text, const Colour& fgCol, const Colour& bgCol, LurkPos lp, 
-    float maxTime = DEFAULT_MAX_LURK_TIME, CommandFunc onFinished = 0);
+    float maxTime, CommandFunc onFinished = 0);
 
   void Draw();
   void Update();
@@ -56,8 +58,8 @@ private:
   Vec2f m_vel;
   float m_scale; // for centre msgs which scale up and down
 
-  float m_timer;
-  float m_maxTime;
+  float m_timer = 0;
+  float m_maxTime = 0;
   
   enum State { LURK_NEW, LURK_SHOWN, LURK_SHOWING, LURK_HIDDEN, LURK_HIDING, LURK_FINISHED };
   State m_state;

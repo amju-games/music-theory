@@ -86,7 +86,10 @@ void LurkMsg::Update()
     break;
 
   case LURK_SHOWN:
-    if (m_lurkPos != AMJU_CENTRE) // wait for button click. TODO allow timed CENTRE msgs
+    // For centred msgs, wait for button click, unless we have set a time out.
+    // For other msgs, there is no button, and we always time out.
+    if (   (m_lurkPos != AMJU_CENTRE) 
+        || (m_maxTime > 0))
     {
       m_timer += dt;
       if (m_timer > m_maxTime)
@@ -232,7 +235,7 @@ void LurkMsg::Set(const std::string& str, const Colour& fgCol, const Colour& bgC
   static const float fontY = ROConfig()->GetFloat("lurk-font-y");
 
   text->SetFont(nullptr); // cancel default font - obvs should not be required
-  text->SetFont("font2d/dimbo-font.font"); // TODO CONFIG
+  text->SetFont("font2d/rpr-font.font"); // TODO CONFIG
   text->SetFontSize(fontY);
   text->SetScaleX(fontX);
 
@@ -438,8 +441,12 @@ void Lurker::Draw()
 
       // Hide buttons with no command
 
-      m_gui->SetVisible(true);
-      m_gui->Draw();
+      // Hide OK button if timed
+      if (msg.m_maxTime == 0)
+      {
+        m_gui->SetVisible(true);
+        m_gui->Draw();
+      }
     }
     msg.Draw();
   }

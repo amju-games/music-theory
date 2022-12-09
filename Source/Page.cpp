@@ -135,7 +135,8 @@ void Page::OnActive()
     LurkMsg lm(instr,
       GetColour(COLOUR_TUTORIAL), // TODO
       GetColour(COLOUR_TEXT),  // TODO
-      AMJU_CENTRE);  
+      AMJU_CENTRE,
+      AMJU_LURK_NO_TIMER);  
 
     TheLurker::Instance()->Queue(lm);
     prevInstr = instr; // remember for next time
