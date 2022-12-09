@@ -12,3 +12,4 @@ Source/ThirdParty/googletest/msvc/gtest.v12.suo
 Script/Msvc/AmjulaMusicTheory/.vs/
 Assets/Maya/.mayaSwatches/
 Assets/obj/.mayaSwatches/
+Assets/Music/SoundFXSource/*.wav
