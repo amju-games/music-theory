@@ -76,8 +76,8 @@ void Glyph::CalcAccidental(KeySig ks)
     {   _, F, _, f, N, _, F, _, f, N, f, N }, // key f3
     {   _, f, N, f, N, _, F, _, f, N, f, N }, // key f4
     {   _, f, N, f, N, _, f, N, f, N, f, N }, // key f5
-    {   f, f, N, f, N, _, f, N, f, N, f, N }, // key f6
-    {   f, f, N, f, N, f, f, N, f, N, f, N }  // key f7
+    {   N, f, N, f, N, _, f, N, f, N, f, N }, // key f6
+    {   N, f, N, f, N, N, f, N, f, N, f, N }  // key f7
   };
 
   Accidental acc = ACCS[ks][note];
