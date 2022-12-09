@@ -31,22 +31,3 @@ Image/gui-button-2.png
 $$$83
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
-// delay
-animation
-name-not-used
-one-shot
-1.0
-step
-
-animation
-name-not-used
-one-shot
-1.0
-linear
-
-colour
-ffffff00, ffffffff
-
-include
-title-text.txt
-
