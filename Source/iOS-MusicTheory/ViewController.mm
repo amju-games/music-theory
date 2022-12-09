@@ -125,7 +125,10 @@ static ViewController* s_theVc = NULL;
     // Set the screen size so we can set sizes of screen space elements correctly, etc.
     GLKView *view = (GLKView *)self.view;
     [view bindDrawable];
-    Amju::Screen::SetSize(view.drawableWidth, view.drawableHeight);
+    int w = view.drawableWidth;
+    int h = view.drawableHeight;
+    // NB swap w and h because this app is LANDSCAPE only
+    Amju::Screen::SetSize(h, w);
   
     Amju::StartUpAfterCreateWindow();
   
@@ -160,15 +163,11 @@ static void QueueEvent(Amju::Event* e)
    // accel[1] corresponds to z-rotation, like twisting a Wii remote
   
    // This is for LANDSCAPE mode
-//   Amju::BalanceBoardEvent* be = new Amju::BalanceBoardEvent(accel[1], accel[0]);
+   Amju::BalanceBoardEvent* be = new Amju::BalanceBoardEvent(accel[1], accel[0]);
 
    // This is for PORTRAIT mode
-   Amju::BalanceBoardEvent* be = new Amju::BalanceBoardEvent(accel[0], -accel[1]);
+//   Amju::BalanceBoardEvent* be = new Amju::BalanceBoardEvent(accel[0], -accel[1]);
 
-   // TODO This depends on iphone orientation
-//   be->x = accel[1];
-//   be->y = accel[0];
-   
 #ifdef ACCELEROM_DEBUG
    std::cout << "ACCEL: X: " << accel[0] << " Y: " << accel[1] << " Z: " << accel[2] << "\n";
 #endif
@@ -180,13 +179,6 @@ static void QueueEvent(Amju::Event* e)
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-  float w = rect.size.width;
-  float h = rect.size.height;
-  float s = self.view.contentScaleFactor;
-
-  Amju::Screen::SetSize(w * s, h * s);
-  Amju::AmjuGL::Viewport(0, 0, w * s, h * s);
-  
   Amju::TheGame::Instance()->Draw();
   Amju::AmjuGL::Flip();
 }
