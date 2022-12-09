@@ -1,0 +1,14 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Note lengths
+
+// version
+1
+
+note-minim, 0.9, 0 ; tail, 0.9, 0  =Minim
+semibreve, 0.9, 0  =Semibreve
+crotchet, 0.9, 0  =Crotchet
+note-solid, 0.9, 0 ; tail-down-1, 0.9, 0  =Quaver
+note-solid, 0.9, 0 ; tail-down-2, 0.9, 0  =SemiQuaver
+
