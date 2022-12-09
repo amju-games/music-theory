@@ -435,5 +435,8 @@
     <Text Include="..\..\..\..\Assets\Gui\topic-tree.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\stroke-branch.txt">
+      <Filter>Assets\Gui\Stroke</Filter>
+    </Text>
   </ItemGroup>
 </Project>

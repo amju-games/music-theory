@@ -22,14 +22,14 @@ animation
 wait
 one-shot
 // Wait until shoot grown
-1.
+2.
 step
 colour
 ffffffff
 translate
 0, -0.3
 include
-topic-leaf-right.txt
+topic-leaf-left.txt
 
 
 gui-comp
@@ -43,14 +43,14 @@ animation
 wait
 one-shot
 // Wait until shoot grown
-2.
+1.
 step
 colour
 ffffffff
 translate
-0, -0.3
+.05, -.05
 include
-topic-leaf-left.txt
+topic-leaf-right.txt
 
 
 gui-comp

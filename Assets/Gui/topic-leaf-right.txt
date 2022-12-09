@@ -8,6 +8,22 @@
 // v.
 1
 
+animation
+clean-anim-value
+const
+one
+animation
+wait
+one-shot
+// Wait until shoot grown
+2.
+step
+colour
+ffffffff
+translate
+0, 0
+
+
 gui-comp
 leaf-comp
 3

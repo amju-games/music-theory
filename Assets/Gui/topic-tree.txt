@@ -22,7 +22,7 @@ step
 animation
 name-not-used
 one-shot
-2.0
+10.0
 linear
 
 line-drawing
@@ -31,13 +31,48 @@ line-drawing-main-shoot
 0.0, 0
 1, 1
 // Start width
-0.1
+0.06
 // End width
 0.01
 // Colour
 6EB127
 // Points
 stroke-main-menu-1.txt
+
+
+// ------------------------------------------------------------
+
+translate
+0.32, 0.5
+
+// delay
+animation
+name-not-used
+one-shot
+1.75
+step
+
+animation
+name-not-used
+one-shot
+1.0
+linear
+
+line-drawing
+// Name, Position, Size
+line-drawing-main-shoot
+0.0, 0
+1, 1
+// Start width
+0.06
+// End width
+0.01
+// Colour
+6EB127
+// Points
+stroke-branch.txt
+
+
 
 
 

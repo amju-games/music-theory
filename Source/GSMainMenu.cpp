@@ -2,8 +2,8 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <Game.h>
-#include <GuiDecAnimation.h>
 #include <GuiButton.h>
+#include <GuiDecAnimation.h>
 #include <MessageQueue.h>
 #include <ResourceManager.h>
 #include <StringUtils.h>
@@ -73,14 +73,34 @@ void GSMainMenu::OnActive()
   Course* course = GetCourse();
   Assert(course);
   int numTopics = course->GetNumTopics();
+
+  GuiComposite* leafParent = dynamic_cast<GuiComposite*>(GetElementByName(m_gui, "scrolling-part-of-scene"));
+  Assert(leafParent);
+
   for (int i = 0; i < numTopics; i++)
   {
     Topic* topic = course->GetTopic(i);
 
     bool unlocked = (i == 0) || config->Exists(KEY_TOPIC_UNLOCKED + ToString(i));
 
+    // Create leaf button for topic
+    const char* LEAF_FILE[2] = 
+    {
+      "Gui/topic-leaf-left.txt",
+      "Gui/topic-leaf-right.txt"
+    };
+    PGuiElement topicRoot = LoadGui(LEAF_FILE[i % 2], false);
+    Assert(topicRoot);
+    // Add to composite in gui
+    leafParent->AddChild(topicRoot);
+    // Set wait time
+    GuiDecAnimation* wait = dynamic_cast<GuiDecAnimation*>(GetElementByName(topicRoot, "wait"));
+    wait->SetCycleTime((float)i * 1.2f); // TODO TEMP TEST
+    // Set position
+    topicRoot->SetLocalPos(Vec2f(0, (float)i * 0.15f));
+
     // Find the subtree for topic i
-    GuiElement* topicRoot = GetElementByName(m_gui, "leaf-" + ToString(i));
+    //GuiElement* topicRoot = GetElementByName(m_gui, "leaf-" + ToString(i));
 
     // Find the button corresponding to this topic
     GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(topicRoot, "topic-button"));

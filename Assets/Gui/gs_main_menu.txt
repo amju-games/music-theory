@@ -132,7 +132,7 @@ one
 
 gui-comp
 scrolling-part-of-scene
-5
+4
 
 
 // GROWING TOPIC TREE
@@ -144,7 +144,7 @@ topic-tree.txt
 
 
 colour
-96D15980
+96D159
 //C001D7
 
 animation
@@ -171,8 +171,8 @@ Image/bulb4.png
 
 
 // GROWING TOPIC LEAVES
-include
-topic-leaves.txt
+//include
+//topic-leaves.txt
 
 
 // TITLE TEXT
