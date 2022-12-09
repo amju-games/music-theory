@@ -1,5 +1,8 @@
 MAKE SCORE TODO LIST
 
+Set note volume with dynamic marks and hairpins
+(Need a new 'volume' meta-glyph in GuiMusicScore for this)
+
 ***Ledger lines 
 - don't use wide except for SBs
 
@@ -20,6 +23,7 @@ Add accidentals automatically to notes with pitches not in the
 Symbols like f, mf, ff etc 
 
 Hairpins: these should be special glyphs. Can use < and > ?
+Need start and end, so maybe <cres> </cres> and <decres> </decres> ?
 
 Staccato, accent, pause
 Use <> for these, then apply to all subsequent notes
