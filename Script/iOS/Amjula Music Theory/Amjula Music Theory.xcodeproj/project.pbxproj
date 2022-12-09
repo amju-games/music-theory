@@ -53,6 +53,8 @@
 		69C10CDD1F17877A009B6836 /* DictionaryPickQuestion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69C10CD91F17877A009B6836 /* DictionaryPickQuestion.cpp */; };
 		69C10CDE1F17877A009B6836 /* PageQuestion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69C10CDB1F17877A009B6836 /* PageQuestion.cpp */; };
 		69C10CE21F1A2586009B6836 /* Tappable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69C10CE01F1A2586009B6836 /* Tappable.cpp */; };
+		69D10FEC1F43957F00F18EF1 /* data-iOS.glue in Resources */ = {isa = PBXBuildFile; fileRef = 69D10FEA1F43957F00F18EF1 /* data-iOS.glue */; };
+		69D10FED1F43957F00F18EF1 /* music-iOS.glue in Resources */ = {isa = PBXBuildFile; fileRef = 69D10FEB1F43957F00F18EF1 /* music-iOS.glue */; };
 		69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E431E833741008A8D29 /* AppDelegate.mm */; };
 		69D58E481E833741008A8D29 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E441E833741008A8D29 /* main.m */; };
 		69D58E491E833741008A8D29 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E461E833741008A8D29 /* ViewController.mm */; };
@@ -220,6 +222,8 @@
 		69C10CDC1F17877A009B6836 /* PageQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageQuestion.h; path = ../../../../Source/PageQuestion.h; sourceTree = "<group>"; };
 		69C10CE01F1A2586009B6836 /* Tappable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Tappable.cpp; path = ../../../../Source/Tappable.cpp; sourceTree = "<group>"; };
 		69C10CE11F1A2586009B6836 /* Tappable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tappable.h; path = ../../../../Source/Tappable.h; sourceTree = "<group>"; };
+		69D10FEA1F43957F00F18EF1 /* data-iOS.glue */ = {isa = PBXFileReference; lastKnownFileType = file; name = "data-iOS.glue"; path = "../../../../Build/CompiledAssets/data-iOS.glue"; sourceTree = "<group>"; };
+		69D10FEB1F43957F00F18EF1 /* music-iOS.glue */ = {isa = PBXFileReference; lastKnownFileType = file; name = "music-iOS.glue"; path = "../../../../Build/CompiledAssets/music-iOS.glue"; sourceTree = "<group>"; };
 		69D58E421E833741008A8D29 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "../../../../Source/iOS-MusicTheory/AppDelegate.h"; sourceTree = "<group>"; };
 		69D58E431E833741008A8D29 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = "../../../../Source/iOS-MusicTheory/AppDelegate.mm"; sourceTree = "<group>"; };
 		69D58E441E833741008A8D29 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "../../../../Source/iOS-MusicTheory/main.m"; sourceTree = "<group>"; };
@@ -350,6 +354,7 @@
 		699058BE1E7D3BF400E528B4 /* Amjula Music Theory */ = {
 			isa = PBXGroup;
 			children = (
+				69D10FE81F43955800F18EF1 /* CompiledAssets */,
 				69D58E7A1E869FF8008A8D29 /* Source */,
 				69D58E701E85BB44008A8D29 /* Assets */,
 				69D58E681E848A0E008A8D29 /* ViewController_iPad.xib */,
@@ -386,6 +391,15 @@
 				699058EA1E7D3BF500E528B4 /* Info.plist */,
 			);
 			path = "Amjula Music TheoryUITests";
+			sourceTree = "<group>";
+		};
+		69D10FE81F43955800F18EF1 /* CompiledAssets */ = {
+			isa = PBXGroup;
+			children = (
+				69D10FEA1F43957F00F18EF1 /* data-iOS.glue */,
+				69D10FEB1F43957F00F18EF1 /* music-iOS.glue */,
+			);
+			name = CompiledAssets;
 			sourceTree = "<group>";
 		};
 		69D58E4A1E848318008A8D29 /* Frameworks */ = {
@@ -660,9 +674,11 @@
 			files = (
 				69D58E6C1E848A0E008A8D29 /* ViewController_iPad.xib in Resources */,
 				69D58E711E85BB44008A8D29 /* Assets in Resources */,
+				69D10FED1F43957F00F18EF1 /* music-iOS.glue in Resources */,
 				699058CE1E7D3BF500E528B4 /* Main.storyboard in Resources */,
 				699058D01E7D3BF500E528B4 /* Assets.xcassets in Resources */,
 				699058D31E7D3BF500E528B4 /* LaunchScreen.storyboard in Resources */,
+				69D10FEC1F43957F00F18EF1 /* data-iOS.glue in Resources */,
 				69D58E6D1E848A0E008A8D29 /* ViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

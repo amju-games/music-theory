@@ -97,16 +97,22 @@ static void SetUpRootDir()
 {
 #ifdef AMJU_IOS
   std::string dir = GetDataDir();
+
+#ifndef YES_GLUE_FILE
   dir += "/Assets/";
+#endif // YES_GLUE_FILE
+
   File::SetRoot(dir, "/");
 #endif
 
 #ifdef MACOSX
+  
 #ifdef YES_GLUE_FILE
   std::string dir = "/Users/jay/projects/music-theory/Build/CompiledAssets/";
 #else
   std::string dir = "/Users/jay/projects/music-theory/Assets/";
 #endif
+  
   File::SetRoot(dir, "/");
 #endif // MACOSX
 }
@@ -131,6 +137,7 @@ static void SetUpGlueFile()
   if (pMusicGlueFile->OpenGlueFile(MUSIC_GLUE_FILE, true /* read only */))
   {
     sm->SetGlueFile(pMusicGlueFile);
+    std::cout << "Set music glue file " << MUSIC_GLUE_FILE << "\n";
   }
   else
   {
