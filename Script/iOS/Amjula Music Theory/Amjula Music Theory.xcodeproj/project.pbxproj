@@ -12,6 +12,11 @@
 		6951CF171F0B932300140095 /* GSBase3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6951CF111F0B932300140095 /* GSBase3d.cpp */; };
 		6951CF181F0B932300140095 /* Hints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6951CF131F0B932300140095 /* Hints.cpp */; };
 		6951CF191F0B932300140095 /* Md2SceneNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6951CF151F0B932300140095 /* Md2SceneNode.cpp */; };
+		6955431C1F3B526D007C23EA /* MySceneGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695543121F3B526D007C23EA /* MySceneGraph.cpp */; };
+		6955431D1F3B526D007C23EA /* ShareManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695543141F3B526D007C23EA /* ShareManager.cpp */; };
+		6955431E1F3B526D007C23EA /* TappableFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695543161F3B526D007C23EA /* TappableFactory.cpp */; };
+		6955431F1F3B526D007C23EA /* TappableHint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695543181F3B526D007C23EA /* TappableHint.cpp */; };
+		695543231F3B52C6007C23EA /* iOSShare.mm in Sources */ = {isa = PBXBuildFile; fileRef = 695543221F3B52C6007C23EA /* iOSShare.mm */; };
 		6959E2D01E958C3C00E251A9 /* GSPages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2C81E958C3C00E251A9 /* GSPages.cpp */; };
 		6959E2D11E958C3C00E251A9 /* GSTitle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2CA1E958C3C00E251A9 /* GSTitle.cpp */; };
 		6959E2EC1E97F6F800E251A9 /* Course.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2E41E97F6F800E251A9 /* Course.cpp */; };
@@ -132,6 +137,18 @@
 		6951CF141F0B932300140095 /* Hints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hints.h; path = ../../../../Source/Hints.h; sourceTree = "<group>"; };
 		6951CF151F0B932300140095 /* Md2SceneNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Md2SceneNode.cpp; path = ../../../../Source/Md2SceneNode.cpp; sourceTree = "<group>"; };
 		6951CF161F0B932300140095 /* Md2SceneNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Md2SceneNode.h; path = ../../../../Source/Md2SceneNode.h; sourceTree = "<group>"; };
+		695543121F3B526D007C23EA /* MySceneGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MySceneGraph.cpp; path = ../../../../Source/MySceneGraph.cpp; sourceTree = "<group>"; };
+		695543131F3B526D007C23EA /* MySceneGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MySceneGraph.h; path = ../../../../Source/MySceneGraph.h; sourceTree = "<group>"; };
+		695543141F3B526D007C23EA /* ShareManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShareManager.cpp; path = ../../../../Source/ShareManager.cpp; sourceTree = "<group>"; };
+		695543151F3B526D007C23EA /* ShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareManager.h; path = ../../../../Source/ShareManager.h; sourceTree = "<group>"; };
+		695543161F3B526D007C23EA /* TappableFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TappableFactory.cpp; path = ../../../../Source/TappableFactory.cpp; sourceTree = "<group>"; };
+		695543171F3B526D007C23EA /* TappableFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TappableFactory.h; path = ../../../../Source/TappableFactory.h; sourceTree = "<group>"; };
+		695543181F3B526D007C23EA /* TappableHint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TappableHint.cpp; path = ../../../../Source/TappableHint.cpp; sourceTree = "<group>"; };
+		695543191F3B526D007C23EA /* TappableHint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TappableHint.h; path = ../../../../Source/TappableHint.h; sourceTree = "<group>"; };
+		6955431A1F3B526D007C23EA /* TappableZoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TappableZoom.h; path = ../../../../Source/TappableZoom.h; sourceTree = "<group>"; };
+		6955431B1F3B526D007C23EA /* TappableZoomInfoLeaf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TappableZoomInfoLeaf.h; path = ../../../../Source/TappableZoomInfoLeaf.h; sourceTree = "<group>"; };
+		695543211F3B52C6007C23EA /* iOSShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iOSShare.h; path = "../../../../Source/iOS-MusicTheory/iOSShare.h"; sourceTree = "<group>"; };
+		695543221F3B52C6007C23EA /* iOSShare.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSShare.mm; path = "../../../../Source/iOS-MusicTheory/iOSShare.mm"; sourceTree = "<group>"; };
 		6959E2C81E958C3C00E251A9 /* GSPages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSPages.cpp; path = ../../../../Source/GSPages.cpp; sourceTree = "<group>"; };
 		6959E2C91E958C3C00E251A9 /* GSPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSPages.h; path = ../../../../Source/GSPages.h; sourceTree = "<group>"; };
 		6959E2CA1E958C3C00E251A9 /* GSTitle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSTitle.cpp; path = ../../../../Source/GSTitle.cpp; sourceTree = "<group>"; };
@@ -156,7 +173,6 @@
 		6959E3021EA1091500E251A9 /* MusicalTermQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicalTermQuestion.h; path = ../../../../Source/MusicalTermQuestion.h; sourceTree = "<group>"; };
 		6959E3081EA7CFF200E251A9 /* GSFirstUser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSFirstUser.cpp; path = ../../../../Source/GSFirstUser.cpp; sourceTree = "<group>"; };
 		6959E3091EA7CFF200E251A9 /* GSFirstUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSFirstUser.h; path = ../../../../Source/GSFirstUser.h; sourceTree = "<group>"; };
-		6959E30A1EA7CFF200E251A9 /* Keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Keys.h; path = ../../../../Source/Keys.h; sourceTree = "<group>"; };
 		6959E3151EA7F44600E251A9 /* GuiTextEditIos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiTextEditIos.h; path = "../../../../Source/iOS-MusicTheory/GuiTextEditIos.h"; sourceTree = "<group>"; };
 		6959E3161EA7F44600E251A9 /* GuiTextEditIos.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GuiTextEditIos.mm; path = "../../../../Source/iOS-MusicTheory/GuiTextEditIos.mm"; sourceTree = "<group>"; };
 		6959E3171EA7F44600E251A9 /* iOSKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iOSKeyboard.h; path = "../../../../Source/iOS-MusicTheory/iOSKeyboard.h"; sourceTree = "<group>"; };
@@ -463,7 +479,8 @@
 				6959E3171EA7F44600E251A9 /* iOSKeyboard.h */,
 				6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */,
 				69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */,
-				6959E30A1EA7CFF200E251A9 /* Keys.h */,
+				695543211F3B52C6007C23EA /* iOSShare.h */,
+				695543221F3B52C6007C23EA /* iOSShare.mm */,
 				69D58E441E833741008A8D29 /* main.m */,
 				6951CF151F0B932300140095 /* Md2SceneNode.cpp */,
 				6951CF161F0B932300140095 /* Md2SceneNode.h */,
@@ -473,6 +490,8 @@
 				6959E3021EA1091500E251A9 /* MusicalTermQuestion.h */,
 				69AC40311EB5331300F255A4 /* MusicEvent.cpp */,
 				69AC40321EB5331300F255A4 /* MusicEvent.h */,
+				695543121F3B526D007C23EA /* MySceneGraph.cpp */,
+				695543131F3B526D007C23EA /* MySceneGraph.h */,
 				69D58E7E1E86A02B008A8D29 /* Page.cpp */,
 				69D58E7F1E86A02B008A8D29 /* Page.h */,
 				69D58E801E86A02B008A8D29 /* PageDrawOnStave.h */,
@@ -494,9 +513,17 @@
 				69F5E08C1E8C09C000E7BF93 /* Question.h */,
 				69D58E831E86A02B008A8D29 /* ScoreBuilder.cpp */,
 				69D58E841E86A02B008A8D29 /* ScoreBuilder.h */,
+				695543141F3B526D007C23EA /* ShareManager.cpp */,
+				695543151F3B526D007C23EA /* ShareManager.h */,
 				69D58E4D1E84836B008A8D29 /* Startup.cpp */,
 				69C10CE01F1A2586009B6836 /* Tappable.cpp */,
 				69C10CE11F1A2586009B6836 /* Tappable.h */,
+				695543161F3B526D007C23EA /* TappableFactory.cpp */,
+				695543171F3B526D007C23EA /* TappableFactory.h */,
+				695543181F3B526D007C23EA /* TappableHint.cpp */,
+				695543191F3B526D007C23EA /* TappableHint.h */,
+				6955431A1F3B526D007C23EA /* TappableZoom.h */,
+				6955431B1F3B526D007C23EA /* TappableZoomInfoLeaf.h */,
 				6959E2E81E97F6F800E251A9 /* Topic.cpp */,
 				6959E2E91E97F6F800E251A9 /* Topic.h */,
 				6959E2EA1E97F6F800E251A9 /* UserProfile.cpp */,
@@ -662,6 +689,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6959E2D11E958C3C00E251A9 /* GSTitle.cpp in Sources */,
+				6955431F1F3B526D007C23EA /* TappableHint.cpp in Sources */,
 				69AC40371EB5331300F255A4 /* MusicEvent.cpp in Sources */,
 				692BF7471EAE50BD00DB6CE7 /* PagePlayNotes.cpp in Sources */,
 				69D58E861E86A02B008A8D29 /* Page.cpp in Sources */,
@@ -692,10 +720,13 @@
 				6951CF181F0B932300140095 /* Hints.cpp in Sources */,
 				69AC40391EB5331300F255A4 /* PageMultiChoice.cpp in Sources */,
 				69C10CDD1F17877A009B6836 /* DictionaryPickQuestion.cpp in Sources */,
+				6955431D1F3B526D007C23EA /* ShareManager.cpp in Sources */,
+				6955431C1F3B526D007C23EA /* MySceneGraph.cpp in Sources */,
 				69C10CE21F1A2586009B6836 /* Tappable.cpp in Sources */,
 				69C10CD61F122197009B6836 /* PlayWav.cpp in Sources */,
 				6959E30B1EA7CFF200E251A9 /* GSFirstUser.cpp in Sources */,
 				69AC40361EB5331300F255A4 /* Dictionary.cpp in Sources */,
+				6955431E1F3B526D007C23EA /* TappableFactory.cpp in Sources */,
 				69D58E871E86A02B008A8D29 /* ScoreBuilder.cpp in Sources */,
 				6951CF171F0B932300140095 /* GSBase3d.cpp in Sources */,
 				697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */,
@@ -714,6 +745,7 @@
 				69D58E481E833741008A8D29 /* main.m in Sources */,
 				697A08011E82F19B0045CE54 /* GSUserDraw.cpp in Sources */,
 				6959E3041EA1091500E251A9 /* GSTopicEnd.cpp in Sources */,
+				695543231F3B52C6007C23EA /* iOSShare.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
