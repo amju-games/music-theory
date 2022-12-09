@@ -20,6 +20,12 @@ public:
 
   void AddPoint(const Vec2f& p);
 
+  float GetTime() const;
+  void SetIsPaused(bool isPaused);
+
+  // Load sequence of points from a file. This lets us make up a reusable library of strokes. 
+  bool LoadPoints(File*);
+
 protected:
   void Reset();
   void BuildTriList();
@@ -33,6 +39,7 @@ protected:
   int m_index = 0; // index into m_points
 
   float m_speed = 1.0f;
+  float m_startTime = 0;
   float m_time = 0;
   float m_maxTime = 1.0f; 
   float m_startWidth = 0.03f;
@@ -45,6 +52,7 @@ protected:
   // Or just a circle, which we draw at the ends of line seg sequences.
   PTexture m_texture;
 
+  bool m_isPaused = false;
 };
 }
 

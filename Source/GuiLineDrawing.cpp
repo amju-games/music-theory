@@ -19,11 +19,22 @@ void GuiLineDrawing::AddToFactory()
   TheGuiFactory::Instance()->Add("line-drawing", CreateLineDrawing);
 }
 
+float GuiLineDrawing::GetTime() const
+{
+  return m_time;
+}
+
+void GuiLineDrawing::SetIsPaused(bool isPaused)
+{
+  m_isPaused = isPaused;
+}
+
 void GuiLineDrawing::Reset()
 {
   m_triList = nullptr;
   m_index = 0;
-  m_time = 0;
+  m_time = -m_startTime;
+  m_isPaused = false;
 }
 
 
@@ -49,11 +60,17 @@ void GuiLineDrawing::BuildTriList()
     const Vec2f& p1 = m_points[i];
     Vec2f dir = p1 - p0;
     Vec3f dir3(dir.x, dir.y, 0);
+    dir3.Normalise();
     Vec3f perp3 = CrossProduct(dir3, Vec3f(0, 0, 1));
     perp3.Normalise();
     Vec2f perp(perp3.x, perp3.y);
-    float d = static_cast<float>(i) / static_cast<float>(m_points.size());
-    float w = m_startWidth + (m_endWidth - m_startWidth) * d; // width
+
+    // Calc line width here: either linear interp between start and end...
+//    float d = static_cast<float>(i) / static_cast<float>(m_points.size());
+    // Or vary based on current direction, so a bit more like calligraphy?
+    float d = fabs(DotProduct(dir3, Vec3f(1, 0, 0)));
+    float w = m_startWidth + (m_endWidth - m_startWidth) * d; 
+
     Vec2f p[4] = 
     {
       p0 + perp * w,
@@ -108,6 +125,14 @@ bool GuiLineDrawing::Load(File* f)
     return false;
   }
 
+  // Start time
+  if (!f->GetFloat(&m_startTime))
+  {
+    f->ReportError("Expected start time for line drawing.");
+    return false;
+  }
+  m_time = -m_startTime;
+
   // Max time
   if (!f->GetFloat(&m_maxTime))
   {
@@ -132,11 +157,33 @@ bool GuiLineDrawing::Load(File* f)
   std::string colour;
   if (!f->GetDataLine(&colour))
   {
-    f->ReportError("Expected gui rect colour");
+    f->ReportError("Expected line drawing colour.");
     return false;
   }
   m_fgCol = FromHexString(colour);
 
+  // Get points filename
+  std::string pointsFilename;
+  if (!f->GetDataLine(&pointsFilename))
+  {
+    f->ReportError("Expected points file name.");
+    return false;
+  }
+
+  std::string path = GetFilePath(f->GetName());
+  pointsFilename = path + "/" + pointsFilename;
+
+  File pointsFile;
+  if (!pointsFile.OpenRead(pointsFilename))
+  {
+    return false;
+  }
+
+  return LoadPoints(&pointsFile);
+}
+
+bool GuiLineDrawing::LoadPoints(File* f)
+{
   // Load control points
   std::vector<Vec2f> points;
   std::string line;
@@ -180,6 +227,11 @@ void GuiLineDrawing::AddPoint(const Vec2f& p)
 
 void GuiLineDrawing::Update()
 {
+  if (m_isPaused)
+  {
+    return;
+  }
+
   float dt = TheTimer::Instance()->GetDt();
 
   m_time += dt;

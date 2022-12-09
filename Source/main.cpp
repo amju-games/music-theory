@@ -58,8 +58,8 @@ void StartUpAfterCreateWindow()
   GuiLineDrawing::AddToFactory();
 
 //  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
-  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
-//  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
 }
 }
 

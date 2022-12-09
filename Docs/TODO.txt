@@ -23,6 +23,7 @@ Music notation: Important remaining unknowns:
  
 Refining music notation
  - Subclass TextureSequence to allow variable widths. Reduce dead space on texture, improving load time/mem usage.
+ - Draw quad proportional to width - this allows for a range of slur widths, etc.
 
 Next-level layer over GuiMusicScore
  - GuiMusicScore is the bottom level of a decent system. Look at Guido for how to better express music notation. 
