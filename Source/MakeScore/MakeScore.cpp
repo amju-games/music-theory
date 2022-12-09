@@ -392,7 +392,10 @@ private:
       displayGlyphName = GetStr(dot ? "c." : "c");
     }
 
+    // Call to set this glyph as the left hand side of the given tie
     void SetTieLeft(Tie* tie) { m_tieLeft = tie; }
+
+    // Set this glyph as the right hand side of the given tie
     void SetTieRight(Tie* tie) { m_tieRight = tie; }
 
     int order = 0; // horiz position in bar 
@@ -821,7 +824,7 @@ void MakeScore::Tie::SetPos()
   m_leftGlyph->SetTieLeft(this);
 
   m_rightX = m_rightGlyph->x;
-  m_leftGlyph->SetTieRight(this);
+  m_rightGlyph->SetTieRight(this);
 }
 
 std::string MakeScore::Glyph::TimeBefore() const
