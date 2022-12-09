@@ -20,12 +20,13 @@ void CorridorModeExitStairs::SetCamLerpT()
 void CorridorModeExitStairs::OnActive()
 {
   CorridorModeLerpCam::OnActive();
+  m_gs->GetCameraController().SetIsLerping(true);
 }
 
 void CorridorModeExitStairs::OnFinishedLerp()
 {
   m_gs->SetMode(CorridorModeWait::ID);
-  m_gs->GetCameraController().SetNoLerp(); // stop lerping camera
+  m_gs->GetCameraController().SetIsLerping(false); // stop lerping camera
 }
 
 }

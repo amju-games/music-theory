@@ -8,9 +8,9 @@
 
 namespace Amju
 {
-void CorridorCamController::SetNoLerp()
+void CorridorCamController::SetIsLerping(bool yesLerp)
 {
-  m_isCamLerping = false;
+  m_isCamLerping = yesLerp;
 }
 
 void CorridorCamController::Update()

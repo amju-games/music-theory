@@ -27,7 +27,7 @@ public:
   void SetLerpT(float t);
 
   // Call to stop updating the camera
-  void SetNoLerp();
+  void SetIsLerping(bool yesLerp);
 
 private:
   // Store camera info for when we interpolate to tappable camera
