@@ -34,6 +34,7 @@ Main.cpp \
 MakeScore.cpp \
 NoteGlyph.cpp \
 Pitch.cpp \
+Quad.cpp \
 Stave.cpp \
 Switch.cpp \
 Tie.cpp \
