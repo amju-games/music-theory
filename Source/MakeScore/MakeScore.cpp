@@ -43,6 +43,10 @@
 
 static int s_transpose = 0;
 
+static float s_pageWidth = PAGE_WIDTH;
+
+static float s_scale = 0.6f; // TODO DEFAULT_SCALE
+
 float GetHeight(BeamLevel bl)
 {
   // Relies on the int values 0, 1...
@@ -126,7 +130,7 @@ void MakeScore::AddTokens()
     {
       std::cout << "// *ERROR* Unrecognised: " << s << "\n"; 
       // REPORT ERROR TODO
-      return;
+      // ? return;
     }
   }
 }
@@ -230,10 +234,10 @@ void MakeScore::CalcBarSizesAndPositions()
     totalNumGlyphs += gc;
   }
 
-  // Bar calculates its width as fraction of PAGE_WIDTH
+  // Bar calculates its width as fraction of s_pageWidth 
   for (auto& bar : m_bars)
   {
-    bar->CalcWidth(totalNumGlyphs, PAGE_WIDTH);
+    bar->CalcWidth(totalNumGlyphs, s_pageWidth);
   }
 
   // Set (left, bottom) position of each bar
@@ -261,7 +265,7 @@ std::string MakeScore::ToString()
   // First, output a stave. For rhythm only, it's a single line.
   // TODO Multiple lines 
 
-  res += GetStaveString(m_staveType, 0, m_y, PAGE_WIDTH, m_scale);
+  res += GetStaveString(m_staveType, 0, m_y, s_pageWidth, m_scale);
   res += LineEnd(m_outputOnOneLine);
 
   for (auto& b : m_bars)
@@ -301,6 +305,22 @@ void CommandLineParams(int argc, char** argv, MakeScore& ms)
       s_transpose = atoi(argv[i]);
       std::cout << "// Transpose: " << s_transpose << "\n";
     }
+
+    if (param == "--page-width")
+    {
+      i++; 
+      // Normalised: i.e. page width of 1 means the default width.
+      s_pageWidth = atof(argv[i]) * s_pageWidth;
+      std::cout << "// Page width: " << s_pageWidth << "\n";
+    }
+
+    if (param == "--scale")
+    {
+      i++;
+      // Normalised: i.e. scale of 1 means the default scale.
+      s_scale = atof(argv[i]) * s_scale;
+      std::cout << "// Scale: " << s_scale << "\n";
+    }
   }
 }
 
@@ -322,7 +342,8 @@ std::cout << "// " << input << "\n";
 
   CommandLineParams(argc, argv, ms);
 
-  ms.SetScale(0.6f);
+  // Scale so page fits
+  ms.SetScale(s_scale);
 
   // For single line rhythm, centre vertically
   // TODO Auto centre 1 or more lines
