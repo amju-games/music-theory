@@ -7,7 +7,7 @@
 // Tappables: 3d objects which user can tap on to get info.
 
 // num tappables
-7
+8
 
 // ==========================================================================
 // Picture
@@ -58,6 +58,51 @@ Gui/tap-picture-treb-clef.txt
 // ==========================================================================
 // Picture
 // Name
+picture mus terms 1 
+// First part is 3d node
+// Node type
+comp
+// Name, matrix, children
+picture-root
+// Matrix
+1, 0, 0, 0,  0, .5, 0, 0,  0, 0, .75, 0,  2, 55, -495, 1
+// Num children
+2
+// Child: frame
+scene-mesh-material
+// Obj
+obj/just-frame1.obj
+// Material 
+obj/just-frame-black.mtl
+//
+// Child: GUI
+// Node type
+gui
+// Node name
+mus terms gui
+// GUI file name
+Gui/tap-pic-mus-terms-1.txt
+// Matrix
+//  x size        y size                                z pos   y pos   x pos
+//     v           v                                      v       v      v
+0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
+//
+// Camera eye
+16, 55, -495
+// Cam target
+0, 55, -495
+// GUI to display when we have been tapped
+// No need as we draw the GUI in the picture frame anyway
+$$$empty
+// GUI to put in NOTEBOOK
+Gui/tap-pic-mus-terms-1.txt
+// Notebook page
+// TODO
+// 1
+
+// ==========================================================================
+// Picture
+// Name
 picture dynamics 1 
 // First part is 3d node
 // Node type
@@ -91,6 +136,51 @@ Gui/tap-pic-dynamics-1.txt
 28, 80, -460
 // Cam target
 0, 80, -460
+// GUI to display when we have been tapped
+// No need as we draw the GUI in the picture frame anyway
+$$$empty
+// GUI to put in NOTEBOOK
+Gui/tap-pic-dynamics-1.txt
+// Notebook page
+// TODO
+// 1
+
+// ==========================================================================
+// Picture
+// Name
+picture dynamics 2
+// First part is 3d node
+// Node type
+comp
+// Name, matrix, children
+picture-root
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  2, 30, -460, 1
+// Num children
+2
+// Child: frame
+scene-mesh-material
+// Obj
+obj/just-frame1.obj
+// Material 
+obj/just-frame-black.mtl
+//
+// Child: GUI
+// Node type
+gui
+// Node name
+dynamics 2 gui
+// GUI file name
+Gui/tap-pic-dynamics-2.txt
+// Matrix
+//  x size        y size                                z pos   y pos   x pos
+//     v           v                                      v       v      v
+0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
+//
+// Camera eye
+28, 30, -460
+// Cam target
+0, 30, -460
 // GUI to display when we have been tapped
 // No need as we draw the GUI in the picture frame anyway
 $$$empty
