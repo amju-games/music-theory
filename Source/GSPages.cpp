@@ -23,6 +23,7 @@
 #include "LurkMsg.h"
 #include "Md2SceneNode.h" // TODO promote to Amjulib
 #include "MySceneGraph.h"
+#include "NumUpdate.h"
 #include "PlayWav.h"
 #include "PrintGui.h"
 #include "Topic.h"
@@ -75,10 +76,10 @@ void GSPages::StartTopic(int topicNum)
 
 void GSPages::ShowHints()
 {
-  IGuiText* hintCounter = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "hint-counter"));
-  Assert(hintCounter);
-  int hints = TheUserProfile()->GetHints();
-  hintCounter->SetText(ToString(hints));
+  // Init HUD
+  auto profile = TheUserProfile();
+  int hints = profile->GetHints();
+  NumUpdate(m_gui, "hint-counter" /* TODO CONST */, hints);
 
   // Disable button if no hints available
   Assert(m_page);
@@ -148,18 +149,20 @@ void GSPages::OnDeactive()
 void GSPages::UpdateHud()
 {
   // Score
-  IGuiText* scoreText = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "score-text"));
-  Assert(scoreText);
-  // Show number of pages or number of correct answers?
-  std::string s = ToString(m_scoreThisSession);
-  scoreText->SetText(s);
+  //IGuiText* scoreText = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "score-text"));
+  //Assert(scoreText);
+  //// Show number of pages or number of correct answers?
+  //std::string s = ToString(m_scoreThisSession);
+  //scoreText->SetText(s);
+  NumUpdate(m_gui, "score-text", m_scoreThisSession);
 
   // Lives
-  IGuiText* livesText = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "num-lives-text"));
-  Assert(livesText);
-  // Show number of pages or number of correct answers?
-  s = ToString(m_livesThisSession);
-  livesText->SetText(s);
+  //IGuiText* livesText = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "num-lives-text"));
+  //Assert(livesText);
+  //// Show number of pages or number of correct answers?
+  //s = ToString(m_livesThisSession);
+  //livesText->SetText(s);
+  NumUpdate(m_gui, "num-lives-text", m_livesThisSession);
 
   // TODO Combo
 }

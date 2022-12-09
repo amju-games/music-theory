@@ -15,6 +15,30 @@ player-score-comp
 
 // TODO animation, hi score
 
+animation
+score-text-anim-trigger
+one-shot
+0.2
+linear
+
+scale
+1, 1 ; 2, 2
+1.0, 0.5
+
+gui-comp
+score-comp
+2
+
+translate
+0.01, -0.01
+// Score shadow
+gui-text
+score-text-shadow
+0.65, 0.5
+.3, .1
+TOTAL SCORE
+NUMERIC, 2, fgcol=0000ff, right
+
 gui-text
 // Element name
 score-text

@@ -189,9 +189,6 @@
     <ClCompile Include="..\..\..\..\Source\GSBase3d.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Hints.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\PlayWav.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -268,6 +265,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\CentreMsg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\NumUpdate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -391,9 +391,6 @@
     <ClInclude Include="..\..\..\..\Source\GSBase3d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\Hints.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\PlayWav.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -476,6 +473,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\CentreMsg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\NumUpdate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -621,9 +621,6 @@
     <Text Include="..\..\..\..\Assets\Gui\question_symbol_landscape.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt">
-      <Filter>Assets\Gui\PageLayout</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\stroke-rubout.txt">
       <Filter>Assets\Gui\Stroke</Filter>
     </Text>
@@ -746,6 +743,12 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Course\expl\ttriad-gmaj-bass.txt">
       <Filter>Assets\Course\expl\tonic-triads</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\player-score.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
   </ItemGroup>
 </Project>

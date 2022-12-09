@@ -28,6 +28,7 @@
 #include "GSTitle.h"
 #include "LurkMsg.h"
 #include "MySceneGraph.h"
+#include "NumUpdate.h"
 #include "PlayWav.h"
 #include "UserProfile.h"
 
@@ -159,6 +160,10 @@ void GSMainCorridor::OnActive()
   GuiButton* shareButton = (GuiButton*)GetElementByName(m_gui, "share-button");
   Assert(shareButton);
   shareButton->SetCommand(Amju::OnShare);
+
+  // Init HUD
+  auto profile = TheUserProfile();
+  NumUpdate(m_gui, "hint-counter" /* TODO CONST */, profile->GetHints());
 }
 
 void GSMainCorridor::Draw2d()

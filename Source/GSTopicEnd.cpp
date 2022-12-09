@@ -6,6 +6,7 @@
 #include <MessageQueue.h>
 #include "GSMainCorridor.h"
 #include "GSTopicEnd.h"
+#include "NumUpdate.h"
 #include "UserProfile.h"
 
 namespace Amju
@@ -71,7 +72,7 @@ void GSTopicEnd::OnActive()
   m_hints = profile->GetHints();
 
   // Add hints now
-  int addHints = 0; // calc num hints to add
+  int addHints = m_topicScore; // TODO calc num hints to add
   m_finalHints = m_hints + addHints;
   profile->AddHints(addHints); 
 
@@ -91,21 +92,13 @@ std::string GSTopicEnd::GenerateScoreComment()
 
 void GSTopicEnd::SetScoreNumbers()
 {
-  IGuiText* text = dynamic_cast<IGuiText*>(
-    GetElementByName(m_gui, "topic-score-text"));
-  Assert(text);
-  text->SetText(ToString(m_topicScore));
-
-  text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "total-score-text"));
-  Assert(text);
-  text->SetText(ToString(m_totalScore));
+  NumUpdate(m_gui, "topic-score-text" /* TODO CONST */, m_topicScore);
+  NumUpdate(m_gui, "total-score-text" /* TODO CONST */, m_totalScore);
 }
 
 void GSTopicEnd::SetHintNumbers()
 {
-  IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "hint-counter"));
-  Assert(text);
-  text->SetText(ToString(m_hints));
+  NumUpdate(m_gui, "hint-counter" /* TODO CONST */, m_hints);
 }
 
 void GSTopicEnd::UpdateNums()
@@ -120,6 +113,7 @@ void GSTopicEnd::UpdateNums()
     m_totalScore += incr;
 
     SetScoreNumbers();
+
     updateAgain = true;
   }
 

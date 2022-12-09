@@ -300,7 +300,6 @@
     <ClCompile Include="..\..\..\..\Source\GuiLineDrawing.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicKb.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
-    <ClCompile Include="..\..\..\..\Source\Hints.cpp" />
     <ClCompile Include="..\..\..\..\Source\LurkMsg.cpp" />
     <ClCompile Include="..\..\..\..\Source\Md2SceneNode.cpp" />
     <ClCompile Include="..\..\..\..\Source\MultiChoiceQuestion.cpp" />
@@ -309,6 +308,7 @@
     <ClCompile Include="..\..\..\..\Source\MusicEvent.cpp" />
     <ClCompile Include="..\..\..\..\Source\MySceneGraph.cpp" />
     <ClCompile Include="..\..\..\..\Source\NetSend.cpp" />
+    <ClCompile Include="..\..\..\..\Source\NumUpdate.cpp" />
     <ClCompile Include="..\..\..\..\Source\Page.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageFactory.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageMultiChoice.cpp" />
@@ -395,7 +395,6 @@
     <ClInclude Include="..\..\..\..\Source\GuiLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
-    <ClInclude Include="..\..\..\..\Source\Hints.h" />
     <ClInclude Include="..\..\..\..\Source\LurkMsg.h" />
     <ClInclude Include="..\..\..\..\Source\Md2SceneNode.h" />
     <ClInclude Include="..\..\..\..\Source\MultiChoiceQuestion.h" />
@@ -404,6 +403,7 @@
     <ClInclude Include="..\..\..\..\Source\MusicEvent.h" />
     <ClInclude Include="..\..\..\..\Source\MySceneGraph.h" />
     <ClInclude Include="..\..\..\..\Source\NetSend.h" />
+    <ClInclude Include="..\..\..\..\Source\NumUpdate.h" />
     <ClInclude Include="..\..\..\..\Source\Page.h" />
     <ClInclude Include="..\..\..\..\Source\PageDrawOnStave.h" />
     <ClInclude Include="..\..\..\..\Source\PageFactory.h" />
@@ -501,6 +501,7 @@
     <Text Include="..\..\..\..\Assets\Gui\page_text_symbol_4.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_text_text_4_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\pie.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\player-score.txt" />
     <Text Include="..\..\..\..\Assets\Gui\question_symbol_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\question_text_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\quit-confirm.txt" />
