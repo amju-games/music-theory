@@ -1,6 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include <AmjuGL.h>
 #include <LoadScene.h>
 #include <ResourceManager.h>
 #include <SceneGraph.h>
