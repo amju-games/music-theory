@@ -43,7 +43,12 @@ void GSShowMusicScore::OnActive()
   ScoreBuilder sb;
   for (int i = 0; i < 25; i++)
   {
-    sb.Add(1, 0, Note(i, i - 10, Note::SEMIBREVE));
+    int bar = 1;
+    int pitch = i;
+    int x = i * 10;
+    int y = i - 10;
+    int duration = Note::SEMIBREVE;
+    sb.Add(Note(pitch, x, y, duration, bar));
   }
   sb.Write(*m_score);
 }
