@@ -124,7 +124,7 @@ one
 
 gui-comp
 scrolling-part-of-scene
-7
+6
 
 
 // GROWING SHOOT
@@ -137,7 +137,7 @@ translate
 animation
 name-not-used
 one-shot
-0.5
+1.0
 step
 
 animation
@@ -163,12 +163,30 @@ stroke-main-menu-1.txt
 
 // Bulb
 
+
 colour
 96D159
 //C001D7
+
+animation
+delay
+one-shot
+0.25
+step
+
+animation
+fade-in-bulb
+one-shot
+0.5
+ease-in-out
+
+scale
+0, 0; 1, 1
+0, 0
+
 gui-image
 bulb
--0.5, -0.15
+0, -0.25
 1.0, 1.2
 Image/bulb2.png
 
@@ -186,6 +204,10 @@ one-shot
 // TODO Wait until shoot grown
 2.
 step
+
+gui-comp
+leaf-comp
+2
 
 animation
 grow-leaf
@@ -209,6 +231,30 @@ topic-button-0
 Image/leaf1.png
 $$$empty
 dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
+
+
+// 2nd child of leaf-comp: Pulse leaf
+rotate
+5
+
+animation
+grow-leaf
+repeat
+1.5
+linear
+
+colour
+ffff00c0, ffff0000
+
+scale
+0.0, 0.0; 1.5, 1.5
+-0.7, 0.0
+
+gui-image
+bulb
+0.03, 0.18
+0.8, 0.4
+Image/leaf1.png
 
 // OPTION LEAF BUTTON TEXT (not using button text as we are scaling)
 
@@ -246,6 +292,24 @@ dimbo, 1.0, multi, fgcol=ffffff
 
 
 // TITLE TEXT
+animation
+delay
+one-shot
+1.5
+step
+
+animation
+fade-in-text
+one-shot
+1.0
+linear
+
+colour
+ffffff00, ffffffff
+
+gui-comp
+grade-text-comp
+2
 
 gui-text
 grade-text

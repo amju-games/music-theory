@@ -331,5 +331,8 @@
     <Text Include="..\..\..\..\Assets\Gui\ground.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\quit-confirm.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>

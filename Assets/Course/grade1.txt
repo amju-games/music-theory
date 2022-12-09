@@ -13,9 +13,9 @@
 
 // Topic
 // ID
-pitch1
+musical-terms-1
 // Localised display name
-Pitch
+Musical terms:\nDynamics
 // Unlocks
 // Pages
 // ...

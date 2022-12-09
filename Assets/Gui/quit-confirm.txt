@@ -26,11 +26,22 @@ quit-confirm-elements
 4
 
 // Background
-gui-image
+//gui-image
+//quit-confirm-bg
+//-0.8, 0.4
+//1.6, 0.8
+//Image/gui-button-2.png
+
+gui-rect
 quit-confirm-bg
 -0.8, 0.4
-1.6, 0.8
-Image/gui-button-2.png
+1.6, 1.2
+// Colour
+ffffff
+// Radius
+0.05
+// Flags
+0
 
 gui-text
 quit-confirm-text
@@ -46,28 +57,28 @@ dimbo, 1.3, multi, fgcol=000000
 gui-button
 quit-confirm-ok
 // pos (coords are -1..1)
--0.7, 0.1
+-0.25, 0.0
 // size
-0.4, 0.2
+0.5, 0.25
 // Image
 Image/gui-button-2.png
 // Text
 QUIT
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+dimbo, 1.5, fgcol=ffffff, bgcol=FF0949
 
 
 gui-button
 quit-confirm-cancel
 // pos (coords are -1..1)
-0.0, 0.1
+-0.5, -0.3
 // size
-0.8, 0.2
+1.0, 0.25
 // Image
-Image/gui-button-2.png, stretch
+Image/gui-button-4.png
 // Text
 DON'T QUIT
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+dimbo, 1.5, fgcol=ffffff, bgcol=29A657
 
 

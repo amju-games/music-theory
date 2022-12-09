@@ -2,6 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <Game.h>
+#include <GuiButton.h>
 #include <MessageQueue.h>
 #include <ResourceManager.h>
 #include <StringUtils.h>
@@ -70,7 +71,7 @@ void GSMainMenu::OnActive()
   for (int i = 0; i < numTopics; i++)
   {
     // Find the button corresponding to this topic, should be named "topic-button-<n>"
-    GuiElement* elem = GetElementByName(m_gui, "topic-button-" + ToString(i));
+    GuiButton* elem = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "topic-button-" + ToString(i)));
     Assert(elem);
     elem->SetCommand(new TopicCommand(i));
   }
