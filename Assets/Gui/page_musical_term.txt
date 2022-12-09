@@ -51,31 +51,29 @@ gui-comp
 // Name
 page
 // Num children
-2
+3
 
 
-//// Element type
-//gui-text
-//// Element name
-//question-text
-//// pos (coords are -1..1)
-//-0.9, 0.7
-//// size
-//1.8, 0.2
-//// Text
-//Question, e.g. what does this musical term mean?
-//// Font name, size
-//dimbo, 1.0, multi, fgcol=000000
+include
+music-score-bg.txt
 
+animation
+fade-in-text
+one-shot
+1.
+ease-in-out
+
+colour
+ffffff00, ffffffff
 
 // Element type
 gui-text
 // Element name
 musical-term-text
 // pos (coords are -1..1)
--1.2, 0.6
+-.85, 0.6
 // size
-2.4, 0.4
+1.7, 0.5
 // Text
 Alla marcia
 // Font name, size
@@ -257,13 +255,4 @@ choice-text
 // Font name, size
 dimbo, 1.0, fgcol=000000, bgcol=eeeeee
 
-
-
-// Not used
-
-gui-image
-pencil
-0, 0
-0.5, 0.1
-Image/pencil-right.png
 
