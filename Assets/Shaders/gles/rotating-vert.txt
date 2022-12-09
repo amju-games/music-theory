@@ -7,7 +7,7 @@ precision highp float;
 
 attribute vec4 position;
 attribute vec2 uv;
-attribute vec4 colour;
+attribute vec4 colourAttrib;
 
 varying vec2 vUV;
 varying vec4 colorVarying;
@@ -19,6 +19,6 @@ void main()
 {
   gl_Position = modelViewProjectionMatrix * position;
   vUV = uv;
-  colorVarying = colourUniform * colour;
+  colorVarying = colourUniform * colourAttrib;
 }
 
