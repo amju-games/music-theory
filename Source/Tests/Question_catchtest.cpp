@@ -51,6 +51,7 @@ TEST_CASE("Terms can be added and retrieved", "[Dictionary]")
       std::string english, foreign;
       dic->GetTerm(0, &english, &foreign);
       REQUIRE(english == "Soft");
+      REQUIRE(foreign == "Piano");
     }
 
     SECTION("Set up a question")
