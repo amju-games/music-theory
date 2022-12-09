@@ -104,7 +104,7 @@ obj/piano1.obj
 // Cam target
 22, 0, -60
 // GUI to display when we have been tapped
-Gui/keyboard.txt
+Gui/keyboard-pink.txt
 // GUI to put in NOTEBOOK
 Gui/keyboard.txt
 

@@ -1,0 +1,36 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// keyboard-black.txt
+// Piano keyboard, piano is black
+// version
+1
+
+// Element type
+gui-comp
+// Name
+keyboard-black
+// Num children
+3
+
+// Base keyboard, same for all piano colours
+include
+keyboard.txt
+
+// Add colours over the top
+
+
+// Child 1: bg
+gui-image
+kb-fg
+-1.0, -0.9
+2, 2
+Image/black.png
+
+// Dot to show mid C
+gui-image
+kb-dot1
+-0.675, -0.02
+0.05, 0.04
+Image/dot.png
+
