@@ -15,6 +15,10 @@
 
 namespace Amju
 {
+static const char* HINTS_AVAILABLE_KEY = "hints_avail";
+// Start life with 3 hints
+const int DEFAULT_HINTS_AVAIL = 3;
+
 static void OnPause(GuiElement*)
 {
   GSPause* gs = TheGSPause::Instance();
@@ -43,6 +47,13 @@ void GSPages::StartTopic(int topicNum)
   m_maxNumPagesThisSession = 10;
 }
 
+void GSPages::ShowHints()
+{
+  GuiText* hintCounter = dynamic_cast<GuiText*>(GetElementByName(m_gui, "hint-counter"));
+  Assert(hintCounter);
+  hintCounter->SetText(ToString(m_numHintsAvailable));
+}
+
 void GSPages::OnActive()
 {
   // This could be a resume from pause, so we don't reset the topic progress here.
@@ -53,6 +64,13 @@ void GSPages::OnActive()
   Assert(elem);
   elem->SetCommand(OnPause);
 
+  // Get general user config, just a convenience, it lives in the User Profile.
+  m_userConfig = TheUserProfile()->GetConfigForTopic("general");
+  // How many Hints are available?
+  m_numHintsAvailable = m_userConfig->GetInt(HINTS_AVAILABLE_KEY, DEFAULT_HINTS_AVAIL);
+
+  ShowHints();
+
   NextPage();
 }
 
@@ -62,6 +80,8 @@ void GSPages::OnDeactive()
   m_pages.clear();
   // Save changes to user profile (questions seen, etc)
   TheUserProfile()->Save();
+  // Just in case we switch users or something happens to invalidate this
+  m_userConfig = nullptr;
 }
 
 void GSPages::NextPage()
@@ -77,7 +97,6 @@ void GSPages::NextPage()
     TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
     return;
   }
-
 
   // TODO The current Topic should know what kind of page to create
   //  (we might use separate factory?)
@@ -167,6 +186,16 @@ void GSPages::OnIncorrect()
 void GSPages::OnHint()
 {
   // Decrement hints left
+  if (m_numHintsAvailable < 1)
+  {
+    // No hints sound/anim?
+    // TODO
+
+    return;
+  }
+  m_numHintsAvailable--;
+  m_userConfig->SetInt(HINTS_AVAILABLE_KEY, m_numHintsAvailable);
+  ShowHints();
 
   m_pages[m_currentPage]->OnHint(); // show context-sensitive hint
 }

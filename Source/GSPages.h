@@ -31,6 +31,9 @@ public:
   void StartTopic(int topicNum);
 
 protected:
+  void ShowHints();
+
+protected:
   std::vector<RCPtr<Page>> m_pages;
   int m_currentPage = 0;
 
@@ -40,6 +43,12 @@ protected:
   int m_numCorrectThisSession = 0;
   int m_numIncorrectThisSession = 0;
   int m_maxNumPagesThisSession = 10;
+
+  // User config file, for things like number of hints available/used etc.
+  // Weak, owned by UserProfile
+  ConfigFile* m_userConfig = nullptr;
+
+  int m_numHintsAvailable = 0;
 };
 
 typedef Singleton<GSPages> TheGSPages;
