@@ -148,6 +148,7 @@ void PageMusicalTerm::OnChoice(int c)
     if (i == c)
     {
       button->SetButtonColour(Colour(0.f, 0.f, 0.f, 1.f));
+      button->SetTextColour(Colour(1.f, 1.f, 1.f, 1.f));
     }
   }
 

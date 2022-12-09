@@ -65,7 +65,7 @@ Image/white.png, stretch
 
 gui-comp
 underground-comp
-3
+2
 
 gui-image
 underground-1
@@ -74,14 +74,8 @@ underground-1
 Image/underground3.png, stretch
 
 gui-image
-underground-2
--1.0, -2
-2.0, 0.31
-Image/underground1.png, stretch
-
-gui-image
 underground-3
--1.0, -2.3
+-1.0, -2.0
 2.0, 2.0
 Image/underground2.png, stretch
 

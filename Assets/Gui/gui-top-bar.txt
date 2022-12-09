@@ -22,24 +22,18 @@ top-bar-elasticated
 5
 
 // Bar bg
-// Element type
-gui-rect
-// Element name
-bar-bg
-// pos (coords are -1..1)
+colour
+FFD669
+
+gui-image
+pencil
 -0.95, 0.95
-// size
 1.4, 0.2
-// colour
-F5D1F5
-// corner radius
-0.125
-// Corner flags 0 = all rounded
-0
+Image/gui-button-8.png, stretch
 
 // Avatar in Circle
 gui-image
-pencil
+avatar-example
 -0.9, 0.925
 0.2, 0.2
 Image/avatar-example1.png

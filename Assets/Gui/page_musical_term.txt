@@ -9,7 +9,16 @@ gui-comp
 // Name
 root
 // Num children
-1
+2
+
+colour
+798EEB
+
+gui-image
+screen-bg
+-1, 1.2
+2, 2
+Image/white.png, stretch
 
 elastic
 0, -2.0
@@ -88,7 +97,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=258FFB
+dimbo, 1.0, fgcol=000000, bgcol=eeeeee
 
 // 2nd child of button-0-group
 // Translate other buttons up
@@ -135,7 +144,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=258FFB
+dimbo, 1.0, fgcol=000000, bgcol=eeeeee
 
 translate
 0,0 ; 0, 0.2
@@ -179,7 +188,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=258FFB
+dimbo, 1.0, fgcol=000000, bgcol=eeeeee
 
 translate
 0,0 ; 0, 0.2
@@ -222,7 +231,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=258FFB
+dimbo, 1.0, fgcol=000000, bgcol=eeeeee
 
 
 // Not used
