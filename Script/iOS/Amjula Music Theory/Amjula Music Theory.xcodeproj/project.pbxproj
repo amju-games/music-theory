@@ -33,6 +33,10 @@
 		6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */; };
 		6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E31C1EAB5BA500E251A9 /* PrintGui.cpp */; };
 		695E90731F4A13CA0003901E /* GSCopyAssets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695E90711F4A13CA0003901E /* GSCopyAssets.cpp */; };
+		695E907E1F5AB7260003901E /* LurkMsg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695E90761F5AB7260003901E /* LurkMsg.cpp */; };
+		695E907F1F5AB7260003901E /* NetSend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695E90781F5AB7260003901E /* NetSend.cpp */; };
+		695E90801F5AB7260003901E /* SerialReqManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695E907A1F5AB7260003901E /* SerialReqManager.cpp */; };
+		695E90811F5AB7260003901E /* Version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695E907C1F5AB7260003901E /* Version.cpp */; };
 		6976F4961F2F1DD300D1D51A /* GSMainCorridor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6976F4941F2F1DD300D1D51A /* GSMainCorridor.cpp */; };
 		697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07EF1E82F19B0045CE54 /* GSBase.cpp */; };
 		697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */; };
@@ -184,6 +188,14 @@
 		6959E31D1EAB5BA500E251A9 /* PrintGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintGui.h; path = ../../../../Source/PrintGui.h; sourceTree = "<group>"; };
 		695E90711F4A13CA0003901E /* GSCopyAssets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSCopyAssets.cpp; path = ../../../../Source/GSCopyAssets.cpp; sourceTree = "<group>"; };
 		695E90721F4A13CA0003901E /* GSCopyAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSCopyAssets.h; path = ../../../../Source/GSCopyAssets.h; sourceTree = "<group>"; };
+		695E90761F5AB7260003901E /* LurkMsg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LurkMsg.cpp; path = ../../../../Source/LurkMsg.cpp; sourceTree = "<group>"; };
+		695E90771F5AB7260003901E /* LurkMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LurkMsg.h; path = ../../../../Source/LurkMsg.h; sourceTree = "<group>"; };
+		695E90781F5AB7260003901E /* NetSend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NetSend.cpp; path = ../../../../Source/NetSend.cpp; sourceTree = "<group>"; };
+		695E90791F5AB7260003901E /* NetSend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetSend.h; path = ../../../../Source/NetSend.h; sourceTree = "<group>"; };
+		695E907A1F5AB7260003901E /* SerialReqManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SerialReqManager.cpp; path = ../../../../Source/SerialReqManager.cpp; sourceTree = "<group>"; };
+		695E907B1F5AB7260003901E /* SerialReqManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SerialReqManager.h; path = ../../../../Source/SerialReqManager.h; sourceTree = "<group>"; };
+		695E907C1F5AB7260003901E /* Version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Version.cpp; path = ../../../../Source/Version.cpp; sourceTree = "<group>"; };
+		695E907D1F5AB7260003901E /* Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Version.h; path = ../../../../Source/Version.h; sourceTree = "<group>"; };
 		6976F4941F2F1DD300D1D51A /* GSMainCorridor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSMainCorridor.cpp; path = ../../../../Source/GSMainCorridor.cpp; sourceTree = "<group>"; };
 		6976F4951F2F1DD300D1D51A /* GSMainCorridor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSMainCorridor.h; path = ../../../../Source/GSMainCorridor.h; sourceTree = "<group>"; };
 		697A07EF1E82F19B0045CE54 /* GSBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSBase.cpp; path = ../../../../Source/GSBase.cpp; sourceTree = "<group>"; };
@@ -428,6 +440,14 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				695E90761F5AB7260003901E /* LurkMsg.cpp */,
+				695E90771F5AB7260003901E /* LurkMsg.h */,
+				695E90781F5AB7260003901E /* NetSend.cpp */,
+				695E90791F5AB7260003901E /* NetSend.h */,
+				695E907A1F5AB7260003901E /* SerialReqManager.cpp */,
+				695E907B1F5AB7260003901E /* SerialReqManager.h */,
+				695E907C1F5AB7260003901E /* Version.cpp */,
+				695E907D1F5AB7260003901E /* Version.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				69D732821F23DA28007B73C1 /* Consts.h */,
@@ -725,7 +745,9 @@
 				69D732951F23DA29007B73C1 /* CorridorModeExitTappable.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
 				697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */,
+				695E90801F5AB7260003901E /* SerialReqManager.cpp in Sources */,
 				6959E2F91E9ACE8A00E251A9 /* GSTopicStart.cpp in Sources */,
+				695E907E1F5AB7260003901E /* LurkMsg.cpp in Sources */,
 				69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */,
 				695E90731F4A13CA0003901E /* GSCopyAssets.cpp in Sources */,
 				6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */,
@@ -752,6 +774,7 @@
 				69D58E871E86A02B008A8D29 /* ScoreBuilder.cpp in Sources */,
 				6951CF171F0B932300140095 /* GSBase3d.cpp in Sources */,
 				697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */,
+				695E907F1F5AB7260003901E /* NetSend.cpp in Sources */,
 				69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */,
 				69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */,
 				692BF74B1EAE5E2B00DB6CE7 /* PageFactory.cpp in Sources */,
@@ -759,6 +782,7 @@
 				6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */,
 				6976F4961F2F1DD300D1D51A /* GSMainCorridor.cpp in Sources */,
 				6959E2EE1E97F6F800E251A9 /* Topic.cpp in Sources */,
+				695E90811F5AB7260003901E /* Version.cpp in Sources */,
 				697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */,
 				69D732921F23DA29007B73C1 /* CorridorModeEnterClassroom.cpp in Sources */,
 				6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */,
