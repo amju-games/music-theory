@@ -12,7 +12,7 @@ gui-comp
 // Name
 gs-main-menu-root
 // Num children
-5
+4
 
 // Button with shader
 
@@ -40,12 +40,6 @@ Image/gui-button-outline-square.png
 $$$empty
 // Font name, size
 dimbo, 3.0, fgcol=ffffff, bgcol=000000
-
-gui-image
-nameplate
--0.8, 1.92
-1.6, 0.4
-Image/sign-8.png
 
 // Topic name
 gui-text
