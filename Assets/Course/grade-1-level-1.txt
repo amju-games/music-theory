@@ -59,7 +59,7 @@ Notes on the Bass Clef
 musical-terms-symbols-level1
 // Pages
 2
-page-symbol-symbol=Course/level1/name-the-note-bass-clef.txt=$$$93
+page-symbol-text=Course/level1/name-the-note-bass-clef.txt=$$$93
 // Special case page:
 // 3rd param is x offset for keyboard=moving mid C close to left edge of screen
 page-symbol-kb=Course/level1/play-note-bass-clef.txt=0.8=$$$98

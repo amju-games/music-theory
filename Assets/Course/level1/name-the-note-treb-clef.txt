@@ -6,13 +6,13 @@
 // version
 1
 
-NOTE_ON, 60, 0.01; NOTE_OFF, 60, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-c4-cr, 2.0, 0   =C
-NOTE_ON, 64, 0.01; NOTE_OFF, 64, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-e4-cr, 2.0, 0   =E
-NOTE_ON, 62, 0.01; NOTE_OFF, 62, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-d4-cr, 2.0, 0   =D
-NOTE_ON, 65, 0.01; NOTE_OFF, 65, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-f4-cr, 2.0, 0   =F
-NOTE_ON, 69, 0.01; NOTE_OFF, 69, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-a5-cr, 2.0, 0   =A
-NOTE_ON, 67, 0.01; NOTE_OFF, 67, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-g4-cr, 2.0, 0   =G
-NOTE_ON, 71, 0.01; NOTE_OFF, 71, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-b5-cr, 2.0, 0   =B
-NOTE_ON, 72, 0.01; NOTE_OFF, 72, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-c5-cr, 2.0, 0   =C
+NOTE_ON, 60, 0.01; NOTE_OFF, 60, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-c4-cr, 2.0, 0   =@@@C
+NOTE_ON, 64, 0.01; NOTE_OFF, 64, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-e4-cr, 2.0, 0   =@@@E
+NOTE_ON, 62, 0.01; NOTE_OFF, 62, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-d4-cr, 2.0, 0   =@@@D
+NOTE_ON, 65, 0.01; NOTE_OFF, 65, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-f4-cr, 2.0, 0   =@@@F
+NOTE_ON, 69, 0.01; NOTE_OFF, 69, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-a5-cr, 2.0, 0   =@@@A
+NOTE_ON, 67, 0.01; NOTE_OFF, 67, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-g4-cr, 2.0, 0   =@@@G
+NOTE_ON, 71, 0.01; NOTE_OFF, 71, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-b5-cr, 2.0, 0   =@@@B
+NOTE_ON, 72, 0.01; NOTE_OFF, 72, 0.5; stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; TIME, 0.01, 0.5 ; treb-c5-cr, 2.0, 0   =@@@C
 end
 
