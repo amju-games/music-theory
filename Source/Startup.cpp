@@ -95,6 +95,9 @@
 #endif // NDEBUG
 #endif
 
+// Probably just for now
+#define YES_FPS_COUNTER
+
 namespace Amju
 {
 // Create global variable window info 
@@ -306,11 +309,11 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSFirstUser::Instance());
 
-  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 
 //  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
 
-//  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 }
 
 static void LoadStringTableForPreferredLanguage()
@@ -363,6 +366,12 @@ void StartUpAfterCreateWindow()
   LoadStringTableForPreferredLanguage();
 
   SetUpGui();
+
+#ifdef YES_FPS_COUNTER
+  // Set FPS counter
+  Font* font = (Font*)TheResourceManager::Instance()->GetRes("font2d/arial-font.font");
+  TheGame::Instance()->SetFrameTimeFont(font);
+#endif
 
   // Load the course which this app presents to the user: we only expect 
   //  there to be one instance. But we load different course data depending
