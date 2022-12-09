@@ -2,12 +2,38 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <GuiButton.h>
+#include <GuiDecAnimation.h>
 #include <ResourceManager.h>
 #include "GSPages.h"
 #include "PageMusicalTerm.h"
 
 namespace Amju
 {
+// TODO put somewhere else
+// Print GUI tree, useful for finding gui file errors
+void PrintGui(GuiElement* gui, int depth)
+{
+  std::string spaces(2 * depth, ' ');
+  //std::string type = typeid(gui).name();
+  std::cout << spaces << gui->GetName(); // << " (" << type << ")";
+  GuiComposite* comp = dynamic_cast<GuiComposite*>(gui);
+  if (comp)
+  {
+    int n = comp->GetNumChildren();
+
+    std::cout << " " << n << (n > 1 ? " children" : " child") << ":\n";
+
+    for (int i = 0; i < n; i++)
+    {
+      PrintGui(comp->GetChild(i), depth + 1);
+    }
+  }
+  else
+  {
+    std::cout << "\n";
+  }
+}
+
 struct ChoiceCommand : public GuiCommand
 {
   ChoiceCommand(PageMusicalTerm* page, int button) : m_page(page), m_button(button) {}
@@ -38,11 +64,15 @@ void PageMusicalTerm::OnActive()
 
   PageMultiChoice::OnActive();
 
+//  PrintGui(m_gui, 0);
+
   GuiText* text = dynamic_cast<GuiText*>(GetElementByName(m_gui, "musical-term-text"));
   text->SetText(m_question->GetMusicalTermText());
 
   // Set button callbacks
   int numChoices = m_answers.GetNumAnswers(); 
+  int correct = m_answers.GetCorrectAnswer();
+
   for (int i = 0; i < numChoices; i++)
   {
     GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(i)));
@@ -50,6 +80,11 @@ void PageMusicalTerm::OnActive()
     button->SetCommand(new ChoiceCommand(this, i));
     button->SetText(m_answers.GetAnswer(i));
 
+    // Store buttons we can remove to give a hint
+    if (i != correct)
+    {
+      m_canRemoveForHint.push_back(i);
+    }
 //    OnHint(); // if Q not seen before
     // Set hint for questions we have not seen before.
     // Also do this if user taps Hint button, which should affect score and add this Q
@@ -63,6 +98,28 @@ void PageMusicalTerm::OnActive()
 }
 
 void PageMusicalTerm::OnHint()
+{
+  // Fade out an incorrect answer. Shunt the buttons underneath up to fill the gap.
+  if (m_canRemoveForHint.size() < 1)
+  {
+    return;
+  }
+
+  std::random_shuffle(m_canRemoveForHint.begin(), m_canRemoveForHint.end());
+  int n = m_canRemoveForHint.back(); // the button to remove
+  m_canRemoveForHint.pop_back(); // so we can't remove it again
+
+  std::string fadeAnimName = "fade-button-" + ToString(n);
+  GuiDecAnimation* fadeAnim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, fadeAnimName));
+  // Change value of this anim from zero to one, enabling desendant animations
+  fadeAnim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+
+  // Disable the button
+  GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(n)));
+  button->SetIsEnabled(false);
+}
+
+void PageMusicalTerm::ShowCorrectAnswer()
 {
   int i = m_answers.GetCorrectAnswer();
   GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(i)));
