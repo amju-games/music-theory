@@ -32,9 +32,9 @@ topic-button
 // pos (coords are -1..1)
 -0.25, 0.6
 // size
-.5, 1.0
+.5, 1.2
 // Image 
-Image/gui-button-outline-square.png
+Image/gui-button-outline-square.png, stretch
 // Text
 $$$empty
 // Font name, size
@@ -44,11 +44,11 @@ dimbo, 3.0, fgcol=ffffff, bgcol=000000
 gui-text
 topic-name-text
 // pos (coords are -1..1)
--0.4, 0.2
+-0.08, -0.08
 // size
-0.8, 1.0
+0.2, 1.0
 // Text
 HELLO
 // Font name, size
-dimbo, 2.0, multi, fgcol=ffffff
+arial, 1.0, multi, fgcol=000000
 
