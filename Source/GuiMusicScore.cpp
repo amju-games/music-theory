@@ -12,8 +12,18 @@
 #include "GuiMusicScore.h"
 #include "PlayMidi.h"
 
+// Draw bounding rect for entire score
+//#define DEBUG_DRAW_BOUNDING_RECT
+
+// Draw bounding rect of every glyph
+//#define DEBUG_DRAW_GLYPH_RECTS
+
 namespace Amju
 {
+#ifdef DEBUG_DRAW_GLYPH_RECTS
+static std::vector<Rect> glyphRects;
+#endif
+
 const int QUAD_CHAR = 1;
 
 // This non-printable character is used for quads, which are a special case.
@@ -335,6 +345,16 @@ void GuiMusicScore::Draw()
   AmjuGL::UseShader(nullptr);
   DrawRect(m_rect);
 #endif // DEBUG_DRAW_BOUNDING_RECT
+
+#ifdef DEBUG_DRAW_GLYPH_RECTS
+  AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
+  AmjuGL::SetColour(Colour(0, 1, 0, 1));
+  AmjuGL::UseShader(nullptr);
+  for (const Rect& r : glyphRects)
+  {
+    DrawRect(r);
+  }
+#endif
 
   AmjuGL::PopMatrix();
 
@@ -668,6 +688,11 @@ void GuiMusicScore::MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris, const C
 void GuiMusicScore::BuildTriList()
 {
   m_rect = EmptyRect();
+
+#ifdef DEBUG_DRAW_GLYPH_RECTS
+  glyphRects.clear();
+#endif
+
   AmjuGL::Tris tris;
 
   for (const Glyph& g : m_glyphs)
@@ -705,6 +730,11 @@ void GuiMusicScore::BuildTriList()
     {
       r.SetIf(verts[i].m_x, verts[i].m_y);
     }
+
+#ifdef DEBUG_DRAW_GLYPH_RECTS
+    glyphRects.push_back(r);
+#endif
+
     m_rect.Union(r);
   }
   m_triList = Amju::MakeTriList(tris);
