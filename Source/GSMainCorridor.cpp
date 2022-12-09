@@ -26,10 +26,9 @@
 #include "GSAbout.h"
 #include "GSMainCorridor.h"
 #include "GSTitle.h"
+#include "LurkMsg.h"
 #include "MySceneGraph.h"
 #include "PlayWav.h"
-#include "TutorialIds.h"
-#include "TutorialManager.h"
 #include "UserProfile.h"
 
 namespace Amju
@@ -183,8 +182,6 @@ void GSMainCorridor::OnActive()
   GuiButton* shareButton = (GuiButton*)GetElementByName(m_gui, "share-button");
   Assert(shareButton);
   shareButton->SetCommand(Amju::OnShare);
-
-  QueueFirstTimeMsgs( { TUTORIAL_HELLO, TUTORIAL_SWIPE, TUTORIAL_TAP_DOOR }, AMJU_FIRST_TIME_THIS_USER);
 }
 
 void GSMainCorridor::Draw2d()

@@ -12,6 +12,8 @@
 #include "LurkMsg.h"
 #include "PlayWav.h"
 #include "Tappable.h"
+#include "TutorialIds.h"
+#include "TutorialManager.h"
 
 namespace Amju
 {
@@ -158,6 +160,8 @@ void CorridorModeWait::OnActive()
   m_isDragging = false;
 
   SetCamera();
+
+  QueueFirstTimeMsgs( { TUTORIAL_HELLO, TUTORIAL_SWIPE }, AMJU_FIRST_TIME_THIS_USER);
 }
 
 void CorridorModeWait::SetCamera()
@@ -191,6 +195,9 @@ void CorridorModeWait::Update()
       m_isScrolling = false;
 
       SetCurrentTopic();
+
+      // Successful swipe - if first time, show more tutorial msgs
+      QueueFirstTimeMsgs( { TUTORIAL_TAP_DOOR }, AMJU_FIRST_TIME_THIS_USER);
     }
 
     SetCamera();
@@ -263,7 +270,11 @@ bool CorridorModeWait::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 
     // Check for tap down and up on the door area
     bool touchUpOnDoor = rect.IsPointIn(m_touchUpCoord);
-    if (m_touchDownOnDoor && touchUpOnDoor && !m_isScrolling)
+    if (   m_touchDownOnDoor 
+        && touchUpOnDoor 
+        && !m_isScrolling
+        && TheTutorialManager::Instance()->MsgHasBeenShown(
+               TUTORIAL_TAP_DOOR, AMJU_FIRST_TIME_THIS_USER))
     {
       OnTopic(nullptr); // replaces GuiButton
     }
