@@ -30,8 +30,4 @@ protected:
   PGuiElement m_gui;
   std::string m_guiFilename;
 };
-
-// Unique int IDs for Corridor Modes
-#define UNIQUE_ID ((long int)(__FILE__) + __LINE__)
-
 }

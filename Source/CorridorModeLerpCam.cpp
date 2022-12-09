@@ -21,7 +21,6 @@ void CorridorModeLerpCam::Update()
   // Moving towards tappable camera setting
   m_camLerpT += dt * m_speed; 
 
-std::cout << "Lerp cam: T=" << m_camLerpT << "\n";
   if (m_camLerpT >= 1)
   { 
     // Reached desired cam pos

@@ -7,16 +7,15 @@
 
 namespace Amju
 {
-// * CorridorModeEnterStairs *
-// Move camera into stairs, fade out or other effect
-class CorridorModeEnterStairs : public CorridorModeLerpCam
+class CorridorModeExitStairs : public CorridorModeLerpCam
 {
 public:
   static const int ID;
   virtual void OnActive() override;
   virtual void OnFinishedLerp() override;
 
-  static void SetNewLevel(int newLevel);
+protected:
+  void SetCamLerpT() override;
 };
 
 }

@@ -5,12 +5,20 @@
 #include <SceneNodeCamera.h>
 #include <Timer.h>
 #include "CorridorModeEnterStairs.h"
+#include "CorridorModeExitStairs.h"
 #include "CorridorModeWait.h"
 #include "GSMainCorridor.h"
 
 namespace Amju
 {
-const int CorridorModeEnterStairs::ID = UNIQUE_ID;
+static int s_newLevel = -1;
+
+const int CorridorModeEnterStairs::ID = 6;
+
+void CorridorModeEnterStairs::SetNewLevel(int newLevel)
+{
+  s_newLevel = newLevel;
+}
 
 void CorridorModeEnterStairs::OnActive()
 {
@@ -28,9 +36,14 @@ std::cout << "CMES::OnActive\n";
 
 void CorridorModeEnterStairs::OnFinishedLerp()
 {
-std::cout << "CMES::OnFInished!\n";
-  m_gs->SetMode(CorridorModeWait::ID);
-  m_gs->GetCameraController().SetNoLerp();
+std::cout << "CMES::OnFinished!\n";
+
+  auto gsmc = TheGSMainCorridor::Instance();
+  gsmc->SetLevel(s_newLevel);
+
+  // TODO Exit stairs state. DO switch camera position in new level.
+  m_gs->SetMode(CorridorModeExitStairs::ID);
+  m_gs->GetCameraController().SetNoLerp(); // stop lerping camera
 }
 
 }

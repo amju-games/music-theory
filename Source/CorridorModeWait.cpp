@@ -65,10 +65,10 @@ void CorridorModeWait::OnTapDoorOrArch()
     if (level > 1)
     {
       level--; 
-      gsmc->SetLevel(level);
-      Reset();
       // Set x pos to FINAL door this level
 std::cout << "Go DOWN to level " << level << "\n";
+
+      CorridorModeEnterStairs::SetNewLevel(level);
       gsmc->SetMode(CorridorModeEnterStairs::ID);
     }
     else
@@ -83,12 +83,12 @@ std::cout << "At lowest level, so not going down.\n";
     // Go to next level
     int level = gsmc->GetLevel();
     // TODO Max num levels??
-    if (level < 2)
+    if (level < 2) // TODO
     {
-      level++; // TODO
+      level++; 
 std::cout << "Go UP to level " << level << "\n";
-      gsmc->SetLevel(level);
-      Reset();
+
+      CorridorModeEnterStairs::SetNewLevel(level);
       gsmc->SetMode(CorridorModeEnterStairs::ID);
     }
     else

@@ -20,6 +20,7 @@
 #include "CorridorModeEnterStairs.h"
 #include "CorridorModeEnterTappable.h"
 #include "CorridorModeExitClassroom.h"
+#include "CorridorModeExitStairs.h"
 #include "CorridorModeExitTappable.h"
 #include "CorridorModeShowTappable.h"
 #include "CorridorModeWait.h"
@@ -42,6 +43,7 @@ GSMainCorridor::GSMainCorridor()
 
   m_modes[CorridorModeEnterClassroom::ID] = new CorridorModeEnterClassroom;
   m_modes[CorridorModeEnterStairs::ID] = new CorridorModeEnterStairs;
+  m_modes[CorridorModeExitStairs::ID] = new CorridorModeExitStairs;
   m_modes[CorridorModeEnterTappable::ID] = new CorridorModeEnterTappable;
   m_modes[CorridorModeExitClassroom::ID] = new CorridorModeExitClassroom;
   m_modes[CorridorModeExitTappable::ID] = new CorridorModeExitTappable;
@@ -223,6 +225,8 @@ void GSMainCorridor::Draw2d()
 
 void GSMainCorridor::SetMode(int modeId)
 {
+std::cout << "Set Mode: new mode ID is " << modeId << "\n";
+ 
   // Don't change immediately, wait until Update.
   m_newModeId = modeId;
 }
@@ -234,6 +238,7 @@ void GSMainCorridor::ChangeMode()
     return;
   }
 
+std::cout << "Change Mode: changing to new mode ID " << m_newModeId << "\n";
   if (m_currentMode)
   {
     m_currentMode->OnDeactive();

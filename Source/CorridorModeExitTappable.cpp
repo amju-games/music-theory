@@ -10,7 +10,7 @@
 
 namespace Amju
 {
-const int CorridorModeExitTappable::ID = UNIQUE_ID;
+const int CorridorModeExitTappable::ID = 5;
 
 void CorridorModeExitTappable::OnFinishedLerp()
 {
