@@ -66,6 +66,16 @@ bool Composer::Load(File* f)
   return true;
 }
 
+const std::string& Composer::GetDisplayName() const
+{
+  return m_displayName;
+}
+
+const std::string& Composer::GetAvatarStr() const
+{
+  return m_avatarStr;
+}
+
 const std::string& Composer::GetIncorrectStr(int streak) const
 {
   int s = m_incorrectStrs.size() - 1;
@@ -101,6 +111,8 @@ const Composer* ComposerList::GetComposerById(const std::string& composerId) con
 
 const Composer* ComposerList::GetComposerForTopic(const std::string& composerId) const
 {
+  return m_composers[0]; // TODO TEMP TEST
+
   for (const Composer* c : m_composers)
   {
     if (c->m_topic == composerId)
@@ -114,6 +126,7 @@ const Composer* ComposerList::GetComposerForTopic(const std::string& composerId)
 
 bool ComposerList::Load(const std::string& filename)
 {
+  m_composers.clear();
   File f;
   if (!f.OpenRead(filename))
   {

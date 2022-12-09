@@ -30,13 +30,17 @@ public:
   //  number used to make the sequence make sense, not just disconnected.
   const std::string& GetCorrectStr(int streak) const;
 
+  const std::string& GetDisplayName() const;
+
+  const std::string& GetAvatarStr() const;
+
 private:
   friend class ComposerList;
 
   std::string m_id;
   std::string m_topic; // topic unique ID which this Composer haunts
-  std::string m_displayName;
-  std::string m_avatarStr;
+  std::string m_displayName; // utf-8 player-readable name
+  std::string m_avatarStr; // String to set GuiAvatar to look like the Composer
   Strings m_correctStrs;
   Strings m_incorrectStrs;
   Vec2i m_yearBirthDeath;

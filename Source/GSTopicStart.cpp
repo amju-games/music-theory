@@ -3,12 +3,14 @@
 
 #include <Game.h>
 #include <GuiText.h>
+#include "ComposerList.h"
 #include "Consts.h"
 #include "Course.h"
 #include "GSMainCorridor.h"
 #include "GSPages.h"
 #include "GSTopicEnd.h"
 #include "GSTopicStart.h"
+#include "GuiAvatar.h"
 #include "NumUpdate.h"
 #include "PlayWav.h"
 #include "Topic.h"
@@ -75,6 +77,11 @@ void GSTopicStart::OnActive()
   // Set this best score in Topic End state, so we can do stuff if
   //  we get a new best.
   TheGSTopicEnd::Instance()->SetBestScore(best);
+
+  // Set Composer avatar for this topic
+  auto composer = GetComposerList().GetComposerForTopic(topic->GetId());
+  GuiAvatar* avatar = dynamic_cast<GuiAvatar*>(GetElementByName(m_gui, "composer-avatar"));
+  avatar->SetFromString(composer->GetAvatarStr());
 }
 }
 

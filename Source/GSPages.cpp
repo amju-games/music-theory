@@ -20,9 +20,7 @@
 #include "GSPause.h"
 #include "GSTopicStart.h"
 #include "GSTopicEnd.h"
-#include "GuiLineDrawing.h"
-#include "LurkMsg.h"
-#include "Md2SceneNode.h" // TODO promote to Amjulib
+#include "GuiAvatar.h"
 #include "MySceneGraph.h"
 #include "NetSend.h"
 #include "NumUpdate.h"
@@ -152,7 +150,11 @@ void GSPages::OnActive()
 
   NetSendMarkAttemptStart(topic->GetId());
 
+  // Set up composer avatar. Store Composer for text later.
   m_composer = GetComposerList().GetComposerForTopic(topic->GetId());
+  Assert(m_composer);
+  GuiAvatar* avatar = dynamic_cast<GuiAvatar*>(GetElementByName(m_gui, "composer-avatar"));
+  avatar->SetFromString(m_composer->GetAvatarStr());
 
   // Create a new, empty container of progress objects.
   // We create one progress object for each page.
