@@ -1,0 +1,39 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// version
+1
+
+// 3D Basket for hints
+
+// Node type
+comp
+// Name
+root
+// Matrix
+.02,0,0,0,  0,.04,0,0,  0,0,.01,0,  0.0,0.0,  0 ,1
+// Num children
+2
+
+// Node type
+mesh
+// Name
+room
+// Matrix
+I
+// Obj mesh
+obj/basket.obj
+// Num children
+0
+
+// Node type
+mesh
+// Name
+room
+// Matrix
+1,0,0,0,  0,1,0,0,  0,0,1,0,  0.0, -5, 0 ,1
+// Obj mesh
+obj/apple1.obj
+// Num children
+0
+
