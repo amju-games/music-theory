@@ -1,0 +1,37 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// GUI frag shader
+
+varying vec2 vUV;
+varying vec4 colorVarying;
+
+uniform float uAngle;
+uniform sampler2D diffuseMap;
+
+const float PI = 3.14159265;
+
+// https://stackoverflow.com/questions/26070410/robust-atany-x-on-glsl-for-converting-xy-coordinate-to-angle
+float atan2(in float y, in float x)
+{
+  bool s = (abs(x) > abs(y));
+  return mix(PI/2.0 - atan(x,y), atan(y,x), float(s));
+}
+
+void main()
+{
+  // Get angle from centre to uv coord.
+  vec2 uv = vUV * 2.0 - vec2(1.0);
+  float angle = atan2(uv.x, uv.y);
+  const float SEGMENT = 0.3;
+  float a = mod(angle + uAngle * SEGMENT, SEGMENT);
+
+  vec4 diffuseColour = texture2D(diffuseMap, vUV);
+  gl_FragColor = diffuseColour * colorVarying;
+
+  if (a > SEGMENT * 0.5)
+  {
+    gl_FragColor.a = 0.0;
+  }
+}
+
