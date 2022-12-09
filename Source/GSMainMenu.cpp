@@ -93,9 +93,16 @@ void GSMainMenu::OnActive()
     Assert(topicRoot);
     // Add to composite in gui
     leafParent->AddChild(topicRoot);
+
     // Set wait time
     GuiDecAnimation* wait = dynamic_cast<GuiDecAnimation*>(GetElementByName(topicRoot, "wait"));
-    wait->SetCycleTime((float)i * 1.2f); // TODO TEMP TEST
+#ifdef _DEBUG
+    // Temp: don't wait, for debug/dev
+    wait->SetCycleTime(0.1f); // TODO TEMP TEST
+#else
+    wait->SetCycleTime(float)i * 1.2f); // TODO TEMP TEST
+#endif
+
     // Set position
     topicRoot->SetLocalPos(Vec2f(0, (float)i * 0.15f)); // TODO TEMP TEST
 
