@@ -10,6 +10,7 @@
 		691D91B91F9E5F1D004D6CED /* NumUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 691D91B71F9E5F1D004D6CED /* NumUpdate.cpp */; };
 		692BF7471EAE50BD00DB6CE7 /* PagePlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 692BF7461EAE50BD00DB6CE7 /* PagePlayNotes.cpp */; };
 		692BF74B1EAE5E2B00DB6CE7 /* PageFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 692BF7491EAE5E2B00DB6CE7 /* PageFactory.cpp */; };
+		69406035201E4BCD003438B4 /* NetRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69406034201E4BCD003438B4 /* NetRequest.cpp */; };
 		694519482017368F001C188B /* QuestionPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 694519372017368C001C188B /* QuestionPicker.cpp */; };
 		694519492017368F001C188B /* QuestionProgress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 694519382017368C001C188B /* QuestionProgress.cpp */; };
 		6945194A2017368F001C188B /* UseVertexColourShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6945193A2017368D001C188B /* UseVertexColourShader.cpp */; };
@@ -160,6 +161,8 @@
 		692BF7461EAE50BD00DB6CE7 /* PagePlayNotes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PagePlayNotes.cpp; path = ../../../../Source/PagePlayNotes.cpp; sourceTree = "<group>"; };
 		692BF7491EAE5E2B00DB6CE7 /* PageFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PageFactory.cpp; path = ../../../../Source/PageFactory.cpp; sourceTree = "<group>"; };
 		692BF74A1EAE5E2B00DB6CE7 /* PageFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageFactory.h; path = ../../../../Source/PageFactory.h; sourceTree = "<group>"; };
+		69406032201E4BCC003438B4 /* NetRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetRequest.h; path = ../../../../Source/NetRequest.h; sourceTree = "<group>"; };
+		69406034201E4BCD003438B4 /* NetRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NetRequest.cpp; path = ../../../../Source/NetRequest.cpp; sourceTree = "<group>"; };
 		694519352017368C001C188B /* CorridorModeEnterStairs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorModeEnterStairs.h; path = ../../../../Source/CorridorModeEnterStairs.h; sourceTree = "<group>"; };
 		694519362017368C001C188B /* Gui3dScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gui3dScene.h; path = ../../../../Source/Gui3dScene.h; sourceTree = "<group>"; };
 		694519372017368C001C188B /* QuestionPicker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QuestionPicker.cpp; path = ../../../../Source/QuestionPicker.cpp; sourceTree = "<group>"; };
@@ -595,6 +598,8 @@
 				69AC40321EB5331300F255A4 /* MusicEvent.h */,
 				695543121F3B526D007C23EA /* MySceneGraph.cpp */,
 				695543131F3B526D007C23EA /* MySceneGraph.h */,
+				69406034201E4BCD003438B4 /* NetRequest.cpp */,
+				69406032201E4BCC003438B4 /* NetRequest.h */,
 				695E90781F5AB7260003901E /* NetSend.cpp */,
 				695E90791F5AB7260003901E /* NetSend.h */,
 				691D91B71F9E5F1D004D6CED /* NumUpdate.cpp */,
@@ -889,6 +894,7 @@
 				695E90811F5AB7260003901E /* Version.cpp in Sources */,
 				697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */,
 				69EA9D4D1F7CE5630080089A /* CentreMsg.cpp in Sources */,
+				69406035201E4BCD003438B4 /* NetRequest.cpp in Sources */,
 				69D732921F23DA29007B73C1 /* CorridorModeEnterClassroom.cpp in Sources */,
 				6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */,
 				6959E2EC1E97F6F800E251A9 /* Course.cpp in Sources */,
