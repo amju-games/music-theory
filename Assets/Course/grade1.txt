@@ -9,7 +9,7 @@
 1
 
 // Num topics
-5
+9
 
 // Topic
 // 1a
@@ -21,8 +21,15 @@ Note lengths
 // Topics unlocked by this one
 dotted-notes
 // Pages
-10
-page-note-length-names
+8
+page-musical-symbol, Course/crotchet.txt.dictionary
+page-musical-symbol, Course/crotchet_minim.txt.dictionary
+page-musical-symbol, Course/crotchet_minim.txt.dictionary
+page-musical-symbol, Course/crotchet_minim_semibreve.txt.dictionary
+page-musical-symbol, Course/crotchet_minim_semibreve.txt.dictionary
+page-musical-symbol, Course/crotchet_minim_semibreve.txt.dictionary
+page-musical-symbol, Course/crotchet_minim_semibreve.txt.dictionary
+page-musical-symbol, Course/crotchet_minim_semibreve.txt.dictionary
 
 // Topic
 // 1a+
@@ -34,7 +41,7 @@ Dotted notes
 // Topics unlocked by this one
 quavers-semiquavers, rests
 // Pages
-10
+1
 page-note-length-names
 
 
@@ -48,7 +55,7 @@ Quavers and semiquavers
 // Topics unlocked by this one
 none
 // Pages
-10
+1
 page-note-length-names
 
 // Topic
@@ -61,7 +68,7 @@ Rests
 // Topics unlocked by this one
 bar-lines
 // Pages
-10
+1
 page-note-length-names
 
 // Topic
@@ -74,7 +81,7 @@ Bar lines
 // Topics unlocked by this one
 none
 // Pages
-10
+1
 page-note-length-names
 
 
@@ -89,7 +96,7 @@ Musical terms
 none
 // Pages
 // 10 * musical term pages -- TODO num repeats?
-10
+1
 page-musical-term
 
 // Topic
@@ -102,7 +109,7 @@ Musical symbols
 none
 // Pages
 // 10 * musical term pages -- TODO num repeats?
-10
+1
 page-musical-symbol
 
 
@@ -115,7 +122,7 @@ Notes on the treble clef
 // Topics unlocked by this one
 none
 // Pages
-10
+1
 page-play-notes
 
 
@@ -127,7 +134,7 @@ Intervals
 // Unlocks
 none
 // Pages
-10
+1
 page-intervals-multi-choice
 
 
