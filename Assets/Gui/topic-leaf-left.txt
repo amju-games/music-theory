@@ -9,24 +9,8 @@
 1
 
 gui-comp
-topic-leaf-left-root
-2
-
-animation
-clean-anim-value
-const
-one
-
-animation
-wait
-one-shot
-// Wait until shoot grown
-2.
-step
-
-gui-comp
 leaf-comp
-2
+3
 
 animation
 grow-leaf
@@ -76,17 +60,6 @@ pulsing-leaf-image
 Image/leaf1.png
 
 // OPTION LEAF BUTTON TEXT (not using button text as we are scaling)
-
-animation
-clean-anim-value
-const
-one
-
-animation
-delay
-one-shot
-3.5
-step
 
 animation
 fade-in-text
