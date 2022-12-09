@@ -5,6 +5,9 @@
 #include <string>
 #include <AmjuTime.h>
 #include <ConfigFile.h>
+#ifdef WIN32
+#include <DeviceInfo.h>
+#endif // WIN32
 #include <iOSUtils.h>
 #include <UrlUtils.h>
 #include "Consts.h"
@@ -155,6 +158,10 @@ bool NetSendDeviceInfoFirstRunEver()
   deviceId = ToString(devId);
 #endif // AMJU_IOS
   
+#ifdef WIN32
+  GetDeviceInfo(&deviceId, &deviceUserName, &deviceModel, &deviceOsVersion);
+#endif
+
 #ifdef _DEBUG
   std::cout << "Sending device info: " <<
   deviceId << ", " <<
