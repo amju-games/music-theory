@@ -13,6 +13,23 @@ title-root
 // Num children
 2
 
+//animation
+//trigger
+//repeat
+//3.0
+//step
+
+animation
+up-scroll-anim
+mirror-repeat
+1.5
+linear
+
+scale
+1,1 ; 1, 1.05
+// pivot
+0, -0.65
+
 // Maybe just an image, not 3D, so we can antialias better
 gui-image
 sky
