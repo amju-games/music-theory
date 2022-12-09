@@ -33,34 +33,34 @@ kb
 57
 // Mesh, isBlack, xPos
 
-key-white.obj, 0, 0
-key-black.obj, 1, 0.55
-key-white.obj, 0, 0.55
+obj/key-white.obj, 0, 0
+obj/key-black.obj, 1, 0.55
+obj/key-white.obj, 0, 0.55
 
-key-white.obj, 0, 1.1
-key-black.obj, 1, 0.55
-key-white.obj, 0, 0.55
-key-black.obj, 1, 0.55
-key-white.obj, 0, 0.55
-key-white.obj, 0, 1.1
-key-black.obj, 1, 0.55
-key-white.obj, 0, 0.55
-key-black.obj, 1, 0.55
-key-white.obj, 0, 0.55
-key-black.obj, 1, 0.55
-key-white.obj, 0, 0.55
+obj/key-white.obj, 0, 1.1
+obj/key-black.obj, 1, 0.55
+obj/key-white.obj, 0, 0.55
+obj/key-black.obj, 1, 0.55
+obj/key-white.obj, 0, 0.55
+obj/key-white.obj, 0, 1.1
+obj/key-black.obj, 1, 0.55
+obj/key-white.obj, 0, 0.55
+obj/key-black.obj, 1, 0.55
+obj/key-white.obj, 0, 0.55
+obj/key-black.obj, 1, 0.55
+obj/key-white.obj, 0, 0.55
 
-key-white.obj, 0, 1.1
-key-black.obj, 1, .55
-key-white.obj, 0, .55
-key-black.obj, 1, .55
-key-white.obj, 0, .55
-key-white.obj, 0, 1.1
-key-black.obj, 1, .55
-key-white.obj, 0, .55
-key-black.obj, 1, .55
-key-white.obj, 0, .55
-key-black.obj, 1, .55
-key-white.obj, 0, .55
+obj/key-white.obj, 0, 1.1
+obj/key-black.obj, 1, .55
+obj/key-white.obj, 0, .55
+obj/key-black.obj, 1, .55
+obj/key-white.obj, 0, .55
+obj/key-white.obj, 0, 1.1
+obj/key-black.obj, 1, .55
+obj/key-white.obj, 0, .55
+obj/key-black.obj, 1, .55
+obj/key-white.obj, 0, .55
+obj/key-black.obj, 1, .55
+obj/key-white.obj, 0, .55
 end
 
