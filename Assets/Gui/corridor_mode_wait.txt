@@ -52,32 +52,3 @@ HELLO
 // Font name, size
 dimbo, 2.0, multi, fgcol=ffffff
 
-// ------------------------------------------------------------------
-
-// Back to Title state button
-gui-button
-title-button
-// pos (coords are -1..1)
--0.95, 0.95
-// size
-0.3, 0.15
-// Image 
-Image/gui-button-2.png
-// Text
-BACK
-// Font name, size
-dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
-
-
-// About, I'm new and Share buttons
-gui-button
-about-button
-// pos (coords are -1..1)
--1.6, 0.95
-// size
-0.3, 0.15
-Image/gui-button-2.png
-About
-dimbo, 2.0, fgcol=ffffff, bgcol=BC003E
-
-
