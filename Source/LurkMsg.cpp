@@ -426,7 +426,6 @@ void Lurker::Draw()
       continue;
     }
     LurkMsg& msg = q.front();
-    msg.Draw();
     if (msg.m_lurkPos == AMJU_CENTRE && msg.m_state == LurkMsg::LURK_SHOWN)
     {
       Vec2f pos = msg.m_rect->GetLocalPos(); 
@@ -442,6 +441,7 @@ void Lurker::Draw()
       m_gui->SetVisible(true);
       m_gui->Draw();
     }
+    msg.Draw();
   }
 }
 

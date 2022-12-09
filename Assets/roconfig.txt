@@ -5,8 +5,10 @@
 // v 
 1
 
-lurk-font-x 1.3
-lurk-font-y 1.5
+// Font height
+lurk-font-y 3.0
+// Scale factor; normally 1
+lurk-font-x 1.0
 
 sound-new-lurkmsg bell_tinkle
 

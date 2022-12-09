@@ -17,10 +17,10 @@ play-button
 // pos (coords are -1..1)
 0.6, 0.55
 // size
-0.1, 0.1
+0.2, 0.2
 Image/gui-button-1.png
 B
-icon, 2.0, fgcol=ffffff, bgcol=4E69F4
+icon, 3.0, fgcol=ffffff, bgcol=4E69F4
 
 
 animation
