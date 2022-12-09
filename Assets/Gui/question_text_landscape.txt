@@ -22,7 +22,7 @@ musical-term-text
 // pos (coords are -1..1)
 -1, .8
 // size
-2.4, 0.5
+2.0, 0.5
 // Text
 E.g. Alla marcia
 // Font name, size

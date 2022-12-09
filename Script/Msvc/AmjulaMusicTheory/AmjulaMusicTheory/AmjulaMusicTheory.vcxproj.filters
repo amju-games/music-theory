@@ -681,5 +681,11 @@
     <Text Include="..\..\..\..\Assets\Course\notes_on_bass_clef_with_accidentals.txt">
       <Filter>Assets\Course</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Course\whats_the_key_sig.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\whats_the_tonic_triad.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
   </ItemGroup>
 </Project>
