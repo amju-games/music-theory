@@ -6,15 +6,24 @@
 // version
 1
 
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.5, 0  =C Major
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.5, 0 ; keysig-1sharp-treble, 1.2, 0 =G Major
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.5, 0 ; keysig-2sharp-treble, 1.1, 0 =D Major
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.5, 0 ; keysig-1flat-treble,  1.2, 0 =F Major
+// Music score coords:
+//  +--------------------------+   0.4
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+   0.0
+// 1.0                        3.0 (short stave)
 
-stave, 0.2, 0, 1.5, 1 ; bass-clef, 0.5, 0  =C Major
-stave, 0.2, 0, 1.5, 1 ; bass-clef, 0.5, 0 ; keysig-1sharp-bass, 1.2, 0 =G Major
-stave, 0.2, 0, 1.5, 1 ; bass-clef, 0.5, 0 ; keysig-2sharp-bass, 1.1, 0 =D Major
-stave, 0.2, 0, 1.5, 1 ; bass-clef, 0.5, 0 ; keysig-1flat-bass,  1.2, 0 =F Major
+// NB Stave x coord is 0.5, scaled to 1.0
+
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0  =C Major
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; keysig-1sharp-treble, 2.0, 0 =G Major
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; keysig-2sharp-treble, 2.0, 0 =D Major
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; keysig-1flat-treble,  2.0, 0 =F Major
+stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0  =C Major
+stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; keysig-1sharp-bass,   2.0, 0 =G Major
+stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; keysig-2sharp-bass,   2.0, 0 =D Major
+stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; keysig-1flat-bass,    2.0, 0 =F Major
 end
 
 

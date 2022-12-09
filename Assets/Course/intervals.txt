@@ -8,50 +8,58 @@
 // version
 1
 
+// Music score coords:
+//  +--------------------------+   0.4
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+   0.0
+// 1.0                        3.0 (short stave)
+
+// NB Stave x coord is 0.5, scaled to 1.0
 // TODO Rewrite these strings when ScoreBuilder is done.
 // D root
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85, -0.05; semibreve, 1.35, 0.00    =2nd
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85, -0.05; semibreve, 1.35, 0.05    =3rd
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85, -0.05; semibreve, 1.35, 0.10    =4th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85, -0.05; semibreve, 1.35, 0.15    =5th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85, -0.05; semibreve, 1.35, 0.20    =6th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85, -0.05; semibreve, 1.35, 0.25    =7th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85, -0.05; semibreve, 1.35, 0.30    =Octave (8ve)
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.00; semibreve, 1.35, 0.05    =2nd
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.00; semibreve, 1.35, 0.10    =3rd
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.00; semibreve, 1.35, 0.15    =4th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.00; semibreve, 1.35, 0.20    =5th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.00; semibreve, 1.35, 0.25    =6th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.00; semibreve, 1.35, 0.30    =7th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.00; semibreve, 1.35, 0.35    =Octave (8ve)
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.05; semibreve, 1.35, 0.10    =2nd
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.05; semibreve, 1.35, 0.15    =3rd
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.05; semibreve, 1.35, 0.20    =4th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.05; semibreve, 1.35, 0.25    =5th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.05; semibreve, 1.35, 0.30    =6th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.05; semibreve, 1.35, 0.35    =7th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.05; semibreve, 1.35, 0.40    =Octave (8ve)
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.10; semibreve, 1.35, 0.15    =2nd
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.10; semibreve, 1.35, 0.20    =3rd
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.10; semibreve, 1.35, 0.25    =4th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.10; semibreve, 1.35, 0.30    =5th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.10; semibreve, 1.35, 0.35    =6th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.10; semibreve, 1.35, 0.40    =7th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.10; semibreve, 1.35, 0.45    =Octave (8ve)
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.15; semibreve, 1.35, 0.20    =2nd
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.15; semibreve, 1.35, 0.25    =3rd
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.15; semibreve, 1.35, 0.30    =4th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.15; semibreve, 1.35, 0.35    =5th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.15; semibreve, 1.35, 0.40    =6th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.15; semibreve, 1.35, 0.45    =7th
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.15; semibreve, 1.35, 0.50    =Octave (8ve)
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.00; semibreve, 1.35, 0.1    =3rd
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.05; semibreve, 1.35, 0.15    =3rd
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85,  0.10; semibreve, 1.35, 0.2    =3rd
-stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.3, 0; semibreve, 0.85, -0.05; semibreve, 1.35, 0.05    =3rd
-
-stave, 0.2, 0, 1.5, 1 ; bass-clef, 0.3, 0; semibreve, 0.85, -0.05; semibreve, 1.35, 0.05    =3rd
-stave, 0.2, 0, 1.5, 1 ; bass-clef, 0.3, 0; semibreve, 0.85, -0.05; semibreve, 1.35, 0.05      =3rd
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9, -0.05; semibreve, 2.4, 0.00    =2nd
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9, -0.05; semibreve, 2.4, 0.05    =3rd
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9, -0.05; semibreve, 2.4, 0.10    =4th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9, -0.05; semibreve, 2.4, 0.15    =5th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9, -0.05; semibreve, 2.4, 0.20    =6th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9, -0.05; semibreve, 2.4, 0.25    =7th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9, -0.05; semibreve, 2.4, 0.30    =Octave (8ve)
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.00; semibreve, 2.4, 0.05    =2nd
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.00; semibreve, 2.4, 0.10    =3rd
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.00; semibreve, 2.4, 0.15    =4th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.00; semibreve, 2.4, 0.20    =5th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.00; semibreve, 2.4, 0.25    =6th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.00; semibreve, 2.4, 0.30    =7th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.00; semibreve, 2.4, 0.35    =Octave (8ve)
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.05; semibreve, 2.4, 0.10    =2nd
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.05; semibreve, 2.4, 0.15    =3rd
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.05; semibreve, 2.4, 0.20    =4th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.05; semibreve, 2.4, 0.25    =5th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.05; semibreve, 2.4, 0.30    =6th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.05; semibreve, 2.4, 0.35    =7th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.05; semibreve, 2.4, 0.40    =Octave (8ve)
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.10; semibreve, 2.4, 0.15    =2nd
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.10; semibreve, 2.4, 0.20    =3rd
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.10; semibreve, 2.4, 0.25    =4th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.10; semibreve, 2.4, 0.30    =5th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.10; semibreve, 2.4, 0.35    =6th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.10; semibreve, 2.4, 0.40    =7th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.10; semibreve, 2.4, 0.45    =Octave (8ve)
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.15; semibreve, 2.4, 0.20    =2nd
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.15; semibreve, 2.4, 0.25    =3rd
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.15; semibreve, 2.4, 0.30    =4th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.15; semibreve, 2.4, 0.35    =5th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.15; semibreve, 2.4, 0.40    =6th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.15; semibreve, 2.4, 0.45    =7th
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.15; semibreve, 2.4, 0.50    =Octave (8ve)
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.00; semibreve, 2.4, 0.10    =3rd
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.05; semibreve, 2.4, 0.15    =3rd
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9,  0.10; semibreve, 2.4, 0.20    =3rd
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; semibreve, 1.9, -0.05; semibreve, 2.4, 0.05    =3rd
+stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0; semibreve, 1.9, -0.05; semibreve, 2.4, 0.05    =3rd
+stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0; semibreve, 1.9, -0.05; semibreve, 2.4, 0.05    =3rd
 
 
 

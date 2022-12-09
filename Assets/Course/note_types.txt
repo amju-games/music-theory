@@ -6,15 +6,23 @@
 // version
 1
 
-crotchet-up, 0.5, 0 ; crotchet-up,  1.25, 0 ; h-beam-up, 0.5, 0 ;  h-beam-up, 0.5, -0.075 =Semiquaver (sixteenth note)
-semiquaver-down, 0.9, 0.2  =Semiquaver (sixteenth note)
-semiquaver-up, 0.9, 0.0  =Semiquaver (sixteenth note)
-crotchet-up, 0.5, 0 ; crotchet-up,  1.25, 0 ; h-beam-up, 0.5, 0 =Quaver (eighth note)
-quaver-down, 0.9, 0.2  =Quaver (eighth note)
-quaver-up, 0.9, 0  =Quaver (eighth note)
-crotchet-down, 0.9, 0.2  =Crotchet (quarter note)
-minim-down, 0.9, 0.2 =Minim (half note)
-crotchet-up, 0.9, 0  =Crotchet (quarter note)
-minim-up, 0.9, 0 =Minim (half note)
-semibreve, 0.9, 0.2  =Semibreve (whole note)
+// Music score coords:
+//  +--------------------------+   0.4
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+   0.0
+// 0.0                        4.0
+
+crotchet-up,     1.5, 0 ; crotchet-up,  2.25, 0 ; h-beam-up, 1.5, 0 ;  h-beam-up, 1.5, -0.075 =Semiquaver (sixteenth note)
+crotchet-up,     1.5, 0 ; crotchet-up,  2.25, 0 ; h-beam-up, 1.5, 0 =Quaver (eighth note)
+semiquaver-down, 1.9, 0.2  =Semiquaver (sixteenth note)
+semiquaver-up,   1.9, 0.0  =Semiquaver (sixteenth note)
+quaver-down,     1.9, 0.2  =Quaver (eighth note)
+quaver-up,       1.9, 0    =Quaver (eighth note)
+crotchet-down,   1.9, 0.2  =Crotchet (quarter note)
+minim-down,      1.9, 0.2  =Minim (half note)
+crotchet-up,     1.9, 0    =Crotchet (quarter note)
+minim-up,        1.9, 0    =Minim (half note)
+semibreve,       1.9, 0.2  =Semibreve (whole note)
 end

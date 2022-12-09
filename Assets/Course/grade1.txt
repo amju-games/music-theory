@@ -9,7 +9,31 @@
 1
 
 // Num topics
-11
+12
+
+// Topic
+// ID
+whats-the-time-sig
+// Localised display name
+What's the Time Sig
+// Group
+4
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
+10
+page-symbol-symbol, Course/whats_the_time_sig.txt
+page-symbol-symbol, Course/whats_the_time_sig.txt
+page-symbol-symbol, Course/whats_the_time_sig.txt
+page-symbol-symbol, Course/whats_the_time_sig.txt
+page-symbol-symbol, Course/whats_the_time_sig.txt
+page-symbol-symbol, Course/whats_the_time_sig.txt
+page-symbol-symbol, Course/whats_the_time_sig.txt
+page-symbol-symbol, Course/whats_the_time_sig.txt
+page-symbol-symbol, Course/whats_the_time_sig.txt
+page-symbol-symbol, Course/whats_the_time_sig.txt
+
 
 // Topic
 // ID

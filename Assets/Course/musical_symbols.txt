@@ -6,6 +6,14 @@
 // version
 1
 
+// Music score coords:
+//  +--------------------------+   0.4
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+   0.0
+// 0.0                        4.0
+
 // TODO
 // Staccato
 // Accent
@@ -15,18 +23,18 @@
 // 8va/ 8vb
 //note, 0.75, 0 ; dot, 0.75, 0.2    =Ummmm
 
-ff, 0.8, 0.2    =Fortissimo: very loud
-stave, 0.5, 0, 1.0, 1 ; repeat-left, 1.0, 0, 0.5, 1 ; repeat-right, 2.6, 0, 0.5, 1   =Repeat this section
-stave, 0.5, 0, 1.0, 1.0 ; repeat-right, 2.6, 0, 0.5, 1   =Repeat from the beginning
-treble-clef, 0.75, 0   =Treble clef
-bass-clef, 0.85, 0     =Bass clef
-segno, 0.9, 0.2         =D.S. means repeat from this sign
-pause, 0.85, 0.2         =Pause
-pause-above, 0.85, 0.2   =Pause
-mp, 0.8, 0.2    =Moderately soft
-mf, 0.8, 0.2    =Moderately loud
-f, 0.9, 0.2    =Forte: loud
-sf, 0.9, 0.2    =Sforzando: with a sudden accent
-pp, 0.8, 0.2    =Pianissimo: very soft
-p, 0.9, 0.2    =Piano: soft
+stave, 0.5, 0, 2.0, 1.0 ; repeat-left, 1.0, 0, 1.0, 1 ; repeat-right, 2.55, 0, 1, 1   =Repeat this section
+stave, 0.5, 0, 2.0, 1.0 ; repeat-right, 2.55, 0, 1.0, 1   =Repeat from the beginning
+treble-clef, 1.75, 0   =Treble clef
+bass-clef, 1.85, 0     =Bass clef
+segno, 1.9, 0.2         =D.S. means repeat from this sign
+pause, 1.85, 0.2         =Pause
+pause-above, 1.85, 0.2   =Pause
+mp, 10.8, 0.2    =Moderately soft
+mf, 1.8, 0.2    =Moderately loud
+f,  1.9, 0.2    =Forte: loud
+ff, 1.8, 0.2    =Fortissimo: very loud
+sf, 1.9, 0.2    =Sforzando: with a sudden accent
+pp, 1.8, 0.2    =Pianissimo: very soft
+p,  1.9, 0.2    =Piano: soft
 

@@ -15,10 +15,20 @@ ease-in-out
 colour
 ffffff00, ffffffff
 
+// With the scale and pos below, a music score of width 4.0 fits across the blackboard.
+// So a long score can go from x=0 to x=4, a short one from x=1 to x=3, etc.
+// I.e.:
+//  +--------------------------+   0.4
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+   0.0
+// 0.0                        4.0
+
 music-score
 // Name, Position
 music-score
--0.35, -0.03
+-0.55, -0.03
 // Scale - affects pos, TODO
 .28, .72
 // Colour: white, as drawn on blackboard

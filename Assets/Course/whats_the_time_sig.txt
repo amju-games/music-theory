@@ -1,0 +1,13 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// What's the time sig? 
+
+// version
+1
+
+stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; crotchet-up, 0.2, 0.2 ; crotchet-up, 0.6, 0.2 ; minim-up, 2.1, 0.2; bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =2/4, .15, .2
+end
+
+stave-line, 0, 0.2 ; crotchet, 0.2, 0.2 ; crotchet, 0.6, 0.2 ; crotchet, 1.0, 0.2 =3/4, .15, .2
+
