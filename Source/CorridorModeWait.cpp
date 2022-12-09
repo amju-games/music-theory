@@ -241,17 +241,13 @@ bool CorridorModeWait::OnMouseButtonEvent(const MouseButtonEvent& mbe)
     DOOR_RECT_YMIN,
     DOOR_RECT_YMAX);
 
-  std::cout << "Mouse " << (mbe.isDown ? "DOWN" : "UP") << " event\n";
-
   if (m_isScrolling)
   {
-    std::cout << "Scrolling\n";
     m_touchDownThisFrame = false;
     m_touchUpThisFrame = false;
   }
   else
   {
-    std::cout << "NOT Scrolling\n";
     m_touchDownThisFrame = mbe.isDown;
     m_touchUpThisFrame = !mbe.isDown;
   }
