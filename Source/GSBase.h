@@ -47,6 +47,10 @@ protected:
   //  for the state. (This could have unwanted effects.)
   virtual void ReloadGui();
 
+  // Use shader which correctly combines global and vertex colours - 
+  //  apparently necessary for desktop OGL?
+  void UseVertexColourShader();
+
 protected: 
   // 2D GUI
   PGuiElement m_gui;

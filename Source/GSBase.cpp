@@ -41,10 +41,8 @@ void GSBase::Update()
   }
 }
 
-void GSBase::Draw2d() 
+void GSBase::UseVertexColourShader()
 {
-  AmjuGL::SetClearColour(Colour(.95f, .95f, .95f, 1.f));
-  
 #if defined(WIN32) || defined(MACOSX)
   // Set shader for desktop GL - fixed function doesn't seem to treat vertex colours the
   //  way we want (i.e. multiply by currently active colour)
@@ -52,9 +50,15 @@ void GSBase::Draw2d()
   Assert(sh);
   AmjuGL::UseShader(sh);
 #endif
+}
+
+void GSBase::Draw2d() 
+{
+  AmjuGL::SetClearColour(Colour(.95f, .95f, .95f, 1.f));
 
   if (m_gui)
   { 
+    UseVertexColourShader();
     m_gui->Draw();
   }
 
