@@ -79,6 +79,9 @@
     <Filter Include="Assets\Course\Level4">
       <UniqueIdentifier>{4675da55-540f-44ff-9112-5ba0f2661ab5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Gui\AvatarMod">
+      <UniqueIdentifier>{dd2add74-0e35-4f95-a943-b0620b29e2bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp">
