@@ -42,8 +42,8 @@ private:
   int m_midiNote = 0;
 
   // TODO Currently not used
-  float m_shakeTime = 0;
-  bool m_isShakingCamera = false;
+//  float m_shakeTime = 0;
+//  bool m_isShakingCamera = false;
 };
 
 typedef Singleton<GSTopicEnd> TheGSTopicEnd;
