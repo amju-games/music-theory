@@ -39,17 +39,6 @@ score-bg
 Image/bw-edge.png, stretch
 
 
-// TODO animation, hi score
-
-animation
-score-text-anim-trigger
-one-shot
-0.2
-linear
-
-scale
-1, 1 ; 2, 2
-0.8, 0.45
 
 gui-comp
 score-comp
@@ -63,6 +52,16 @@ linear
 
 translate
 0,0 ; 0, 0.005
+
+animation
+score-text-anim-trigger
+one-shot
+0.2
+linear
+
+scale
+1, 1 ; 2, 2
+0.5, 0.5
 
 gui-text
 // Element name
