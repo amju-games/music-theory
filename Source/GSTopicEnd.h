@@ -33,7 +33,6 @@ private:
   int m_topicScore = 0;
   int m_totalScore = 0;
   int m_hints = 0;
-  int m_finalHints = 0;
 
   // So we can show best ever score before and after
   int m_bestScore = 0;

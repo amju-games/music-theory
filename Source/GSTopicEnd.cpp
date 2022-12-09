@@ -11,6 +11,7 @@
 #include "GSTopicEnd.h"
 #include "NumUpdate.h"
 #include "PlayMidi.h"
+#include "PlayWav.h"
 #include "Topic.h"
 #include "UserProfile.h"
 
@@ -23,6 +24,9 @@ namespace
 const int MIDI_START_NOTE = 65;
 // Number of points to show until we play the next note
 const int POINTS_PER_NOTE = 8;
+
+const int POINTS_PER_HINT = 30; // TODO CONFIG
+const int POINTS_PER_HINT_PLAY = 20;
 
 void OnOK(GuiElement*)
 {
@@ -115,18 +119,40 @@ void GSTopicEnd::OnActive()
   text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "cert-mark"));
   Assert(text);
   text->SetText(ToString(m_topicScore) + "%");
-  // Trigger certificate if we have passed
-  GuiElement* certificate = GetElementByName(m_gui, "certificate");
-  Assert(certificate);
-  certificate->SetVisible(passed);
+
+  if (passed)
+  {
+    // Trigger certificate if we have passed
+    GuiElement* certificate = GetElementByName(m_gui, "certificate");
+    Assert(certificate);
+    certificate->SetVisible(passed);
+
+    // Play wavs after a delay (TODO Gui wav element) 
+    const float CERTIFICATE_ON_TIME = 4.f;
+    const float CERTIFICATE_OFF_TIME = 8.f;
+    TheMessageQueue::Instance()->Add(new FuncMsg([]()
+    {
+      PlayWav("swish");
+    }, SecondsFromNow(CERTIFICATE_ON_TIME)));
+  
+    TheMessageQueue::Instance()->Add(new FuncMsg([]()
+    {
+      PlayWav("swish");
+    }, SecondsFromNow(CERTIFICATE_OFF_TIME)));
+  
+    TheMessageQueue::Instance()->Add(new FuncMsg([]()
+    {
+      PlayWav("battle003");
+    }, SecondsFromNow(CERTIFICATE_ON_TIME + 0.5f)));
+  }
 
   // Get initial hints, animate additions
   m_hints = profile->GetHints(HintType::HINT_TYPE_HINT); // TODO
 
   // Add hints now
-  int addHints = m_topicScore; // TODO calc num hints to add
-  m_finalHints = m_hints + addHints;
-  profile->AddHints(HintType::HINT_TYPE_HINT, addHints);  // TODO
+//  int addHints = m_topicScore; // TODO calc num hints to add
+//  m_finalHints = m_hints + addHints;
+//  profile->AddHints(HintType::HINT_TYPE_HINT, addHints);  // TODO
 
   SetScoreNumbers();
   SetHintNumbers();
@@ -204,6 +230,8 @@ void GSTopicEnd::SetHintNumbers()
 
 void GSTopicEnd::UpdateNums()
 {
+  auto profile = TheUserProfile();
+
   // Set this to true if we need to do another update after this one
   bool updateAgain = true;
 
@@ -225,6 +253,20 @@ void GSTopicEnd::UpdateNums()
     {
       playNote = true;
     }
+
+    // Increase hints - TODO Show this 
+    if (m_totalScore % POINTS_PER_HINT == 0)
+    {
+      profile->AddHints(HintType::HINT_TYPE_HINT, 1);
+      PlayWav("waterdrop");
+    }
+
+    if (m_totalScore % POINTS_PER_HINT_PLAY == 0)
+    {
+      profile->AddHints(HintType::HINT_TYPE_PLAY, 1);
+      PlayWav("waterdrop");
+    }
+
     if (m_totalScore > m_bestScore)
     {
       m_bestScore = m_totalScore;
@@ -240,13 +282,13 @@ void GSTopicEnd::UpdateNums()
   }
 
   // Hint counter
-  if (m_hints < m_finalHints)
-  {
-    // TODO && we pass some multiple, e.g. every 100 points
-    m_hints++;
-
-    SetHintNumbers();
-  }
+//  if (m_hints < m_finalHints)
+//  {
+//    // TODO && we pass some multiple, e.g. every 100 points
+//    m_hints++;
+//
+//    SetHintNumbers();
+//  }
 
   // Send a timed message to do this again soon
   // Only if nums are not showing their final values yet

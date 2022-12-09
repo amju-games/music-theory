@@ -45,19 +45,19 @@ static const float STAIRS_ZOOM_DIST = -100.f;
 #define MIDI_SOUND_FONT "Grand Piano"
 // "Jv_drums"
 
-#define WAV_CORRECT "good1"
-#define WAV_INCORRECT "bad1"
-#define WAV_SWIPE_LEFT "ok2"
-#define WAV_SWIPE_RIGHT "ok2"
-#define WAV_ENTER_STAIRS "ok1-transposed"
-#define WAV_ENTER_DOOR "ok1"
-#define WAV_DOOR_OPEN "doorcreak"
-#define WAV_START_BUTTON "good1"
-#define WAV_CANCEL "bad1"
-#define WAV_START_TOPIC "good1"
-#define WAV_BUTTON_CLICK "Sound/wav/click.wav"
-#define WAV_ENTER_TAPPABLE "wow1"
-#define WAV_EXIT_TAPPABLE "wow2"
+extern const std::string WAV_CORRECT;
+extern const std::string WAV_INCORRECT;
+extern const std::string WAV_SWIPE_LEFT;
+extern const std::string WAV_SWIPE_RIGHT;
+extern const std::string WAV_ENTER_STAIRS;
+extern const std::string WAV_ENTER_DOOR;
+extern const std::string WAV_DOOR_OPEN;
+extern const std::string WAV_START_BUTTON;
+extern const std::string WAV_CANCEL;
+extern const std::string WAV_START_TOPIC;
+extern const std::string WAV_BUTTON_CLICK;
+extern const std::string WAV_ENTER_TAPPABLE;
+extern const std::string WAV_EXIT_TAPPABLE;
 
 #define DEVICE_ID "device_id"
 #define DEVICE_OS_VERSION "device_os_version"
