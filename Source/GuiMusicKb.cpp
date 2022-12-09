@@ -261,7 +261,12 @@ void GuiMusicKb::Key::CalcRect()
 
 void GuiMusicKb::Key::Press()
 {
-  m_isPressed = false;
+  if (m_isPressed)
+  {
+    return;
+  }
+
+  m_isPressed = true;
   m_desiredAngle = 5.0f;
   
   PlayMidi(m_midiNote, MIDI_NOTE_MAX_VOLUME); // ?
@@ -279,8 +284,45 @@ void GuiMusicKb::Key::Release()
   TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, false)));
 }
 
+void GuiMusicKb::ReleaseKey(Key* key)
+{
+  if (key == m_lastKey)
+  {
+    m_lastKey = nullptr;
+  }
+
+  if (key)
+  {
+    key->Release();
+  }
+}
+
+void GuiMusicKb::PressKey(Key* key)
+{
+  if (!key)
+  {
+    ReleaseAllKeys(); // ?
+    return;
+  }
+
+  if (m_lastKey == key)
+  {
+    return;
+  }
+
+  ReleaseKey(m_lastKey);
+
+  m_lastKey = key;
+
+  if (IsVisible())
+  {
+    key->Press();
+  }
+}
+
 void GuiMusicKb::ReleaseAllKeys()
 {
+  m_lastKey = nullptr;
   for (PKey pkey : m_keys)
   {
     pkey->Release();
@@ -362,6 +404,14 @@ bool GuiMusicKb::OnCursorEvent(const CursorEvent& ce)
   }
 #endif // YES_ALLOW_SWIPE_TO_SCROLL
 
+  // Glissando
+  if (m_tapDown)
+  {
+    m_tapDownPos = Vec2f(ce.x, ce.y);
+    Key* key = PickKey(m_tapDownPos);
+    PressKey(key);
+  }
+
   return false;
 }
 
@@ -377,21 +427,14 @@ bool GuiMusicKb::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 
     if (mbe.isDown && mbe.y < KEYBOARD_TOP_Y_COORD)
     {
-//      std::cout << "Key down!\n";
-
       m_tapDown = true;
 
       m_tapDownPos = Vec2f(mbe.x, mbe.y);
       Key* key = PickKey(m_tapDownPos);
-      if (key)
-      {
-        key->Press();
-        // Send key down event
-      }
+      PressKey(key);
     }
     else
     {
-//      std::cout << "Key up!\n";
       m_tapDown = false;
       ReleaseAllKeys(); // safety net
   

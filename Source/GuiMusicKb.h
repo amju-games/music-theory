@@ -61,6 +61,11 @@ private:
   // Find key picked by user
   PKey PickKey(const Vec2f& pos);
   
+  // Play key: not if KB is disabled. If key is nullptr, release all?
+  void PressKey(Key* key);
+
+  void ReleaseKey(Key* key);
+
   // Release all keys: good safety net but means KB is monophonic
   void ReleaseAllKeys();
 
@@ -76,6 +81,8 @@ private:
   bool m_tapDown = false; // true when we are touching within kb area
 
   int m_octave; // the currently active octave (1 octave is visible in portrait mode)
+
+  PKey m_lastKey; // last key pressed
 };
 }
 
