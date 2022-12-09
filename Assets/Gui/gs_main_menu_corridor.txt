@@ -20,7 +20,7 @@ user-scroll-topics
 // Initial pos
 0, 0
 // Extent
-2, 0
+10, 0
 
 // SCROLL UP/DOWN
 

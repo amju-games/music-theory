@@ -13,8 +13,7 @@ Page* CreateT() { return new T; }
 Page* CreatePageSymbolSymbol()
 {
   PageMultiChoice* page = new PageMultiChoice;
-  page->SetGuiName("musical_symbol"); // page_*.txt
-////  page->SetDictionaryName("Course/note_lengths.txt.dictionary");
+  page->SetGuiName("symbol_symbol_4"); // page_*.txt
   page->SetQuestionType(QuestionType::QTYPE_SCORE);
   page->SetAnswerType(AnswerType::ATYPE_SCORE);
   return page;
@@ -23,8 +22,7 @@ Page* CreatePageSymbolSymbol()
 Page* CreatePageSymbolText()
 {
   PageMultiChoice* page = new PageMultiChoice;
-  page->SetGuiName("musical_symbol"); // page_*.txt
-////  page->SetDictionaryName("Course/musical_symbols.txt.dictionary");
+  page->SetGuiName("symbol_text_4"); // page_*.txt
   page->SetQuestionType(QuestionType::QTYPE_SCORE);
   page->SetAnswerType(AnswerType::ATYPE_TEXT);
   return page;
@@ -33,8 +31,7 @@ Page* CreatePageSymbolText()
 Page* CreatePageTextText()
 {
   PageMultiChoice* page = new PageMultiChoice;
-  page->SetGuiName("musical_term"); // page_*.txt
-////  page->SetDictionaryName("Course/musical_terms.txt.dictionary");
+  page->SetGuiName("text_text_4"); // page_*.txt
   page->SetQuestionType(QuestionType::QTYPE_TEXT);
   page->SetAnswerType(AnswerType::ATYPE_TEXT);
   return page;
@@ -44,7 +41,6 @@ Page* CreatePageTextSymbol()
 {
   PageMultiChoice* page = new PageMultiChoice;
   page->SetGuiName("text_symbol_4"); // page_*.txt
-////  page->SetDictionaryName("Course/musical_terms.txt.dictionary");
   page->SetQuestionType(QuestionType::QTYPE_TEXT);
   page->SetAnswerType(AnswerType::ATYPE_SCORE);
   return page;

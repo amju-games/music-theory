@@ -68,7 +68,8 @@ void Page::OnActive()
   m_gui = LoadGui("Gui/boilerplate.txt");
 
   // Load page-specific gui and join it to the boilerplate
-  PGuiElement pageGui = LoadGui("Gui/page_" + m_guiName + ".txt", false);
+  std::string landscape = "_landscape";
+  PGuiElement pageGui = LoadGui("Gui/page_" + m_guiName + landscape + ".txt", false);
   Assert(pageGui);
 
   GuiComposite* addComp = dynamic_cast<GuiComposite*>(GetElementByName(m_gui, "add-page-to-me"));

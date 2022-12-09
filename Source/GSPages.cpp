@@ -55,7 +55,7 @@ static void GoToNextPage()
 
 GSPages::GSPages()
 {
-  m_guiFilename = "Gui/gs_pages.txt";
+  m_guiFilename = "Gui/gs_pages_landscape.txt";
 }
 
 void GSPages::StartTopic(int topicNum)

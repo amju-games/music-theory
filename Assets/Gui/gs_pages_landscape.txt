@@ -1,0 +1,181 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// GSPages
+// Shell around Pages 
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+gs-pages-root
+// Num children
+6
+
+
+include
+gui_top_bar_landscape.txt
+
+
+
+elastic
+1.0, 0.0
+
+translate
+-0.2, 0
+
+gui-comp
+hint-button-and-counter
+// Num children
+2
+
+colour
+ffffffff, ffffff20
+
+// Hint button
+gui-button
+hint-button
+// pos (coords are -1..1)
+0.15, 0.9
+// size
+0.2, 0.15
+Image/gui-button-2.png
+HINT!
+dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+
+gui-text
+hint-counter
+// pos (coords are -1..1)
+-0.3, 0.9
+// size
+0.4, 0.1
+// Text
+NUM
+// Font name, size
+dimbo, 2.0, right, fgcol=000000
+
+
+
+elastic
+-1.5, 0.0
+
+colour
+ffffffff, ffffff20
+
+// Pause button
+// element type
+gui-button
+// Element name
+pause-button
+// pos (coords are -1..1)
+-0.9, 0.9
+// size
+0.2, 0.15
+// Image 
+Image/gui-button-2.png
+// Text
+PAUSE
+// Font name, size
+dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+
+
+gui-comp
+// Name
+tick
+// Num children
+1
+
+// Linear animation
+animation
+name-not-used
+one-shot
+.4
+linear
+
+// Tick for when user gets question correct
+line-drawing
+// Name
+tick-stroke
+// Pos
+0.5, 0
+// Size
+1, 1
+// Start width
+0.05
+// End width
+0.04
+// Colour: (start colour, end colour?)
+00ff00
+// Points
+stroke-tick-1.txt
+
+// Cross, made of 2 strokes
+// Element type
+gui-comp
+// Name
+cross
+// Num children
+2
+
+// Linear animation
+animation
+name-not-used
+one-shot
+.2
+linear
+
+line-drawing
+// Name
+cross-1
+// Pos
+0.5, 0
+// Size
+1, 1
+// Start width
+0.05
+// End width
+0.05
+// Colour: (start colour, end colour?)
+ff0000
+// Points
+stroke-cross-1.txt
+
+
+// Delay
+animation
+name-not-used
+one-shot
+0.21
+step
+
+// Linear animation
+animation
+name-not-used
+one-shot
+.2
+linear
+
+line-drawing
+// Name
+cross-2
+// Pos
+0.5, 0
+// Size
+1, 1
+// Start width
+0.05
+// End width
+0.05
+// Colour: (start colour, end colour?)
+ff0000
+// Points
+stroke-cross-2.txt
+
+
+
+include
+quit_confirm_landscape.txt
+
+

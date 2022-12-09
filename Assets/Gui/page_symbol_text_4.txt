@@ -1,0 +1,51 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Musical Symbol page
+
+// version
+1
+
+
+gui-comp
+// Name
+page
+// Num children
+2
+
+
+gui-comp
+// Name
+score-root
+// Num children
+2
+
+include
+music-score-bg.txt
+
+animation
+fade-in-music-score
+one-shot
+.6
+ease-in-out
+
+colour
+ffffff00, ffffffff
+
+music-score
+// Name, Position
+music-score
+-0.5, 0.1
+// Scale - affects pos, TODO
+.5, .5
+// Colour
+// 1DA2FF
+000000
+// Glyphs start here
+// <no glyphs>
+end
+
+include
+mcq-buttons-wide.txt
+
+

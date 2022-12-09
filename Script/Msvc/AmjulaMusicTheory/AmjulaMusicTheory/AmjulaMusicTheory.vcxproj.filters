@@ -43,6 +43,18 @@
     <Filter Include="Assets\Course\Note lengths">
       <UniqueIdentifier>{d9b8024f-5bf7-421a-b277-15e8356bd20e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Gui\GameStates">
+      <UniqueIdentifier>{ffcfdbd7-f559-4dcd-a6d2-b5b1ac252b41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Gui\PageLayout">
+      <UniqueIdentifier>{9555aefb-1d27-4eb5-a7aa-227dc67ec9aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Gui\PageLayout\Landscape">
+      <UniqueIdentifier>{60d5d345-6ce1-4901-af62-c3648d31bfa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Gui\PageLayout\Portrait">
+      <UniqueIdentifier>{0f18077a-5e86-483b-89a9-501c6f5ee205}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp">
@@ -282,34 +294,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_play_notes.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_score.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_test_show_score.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_pages.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_musical_term.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_main_menu.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_title.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\stroke-cross-1.txt">
@@ -330,12 +315,6 @@
     <Text Include="..\..\..\..\Assets\Gui\stroke-tick-1.txt">
       <Filter>Assets\Gui\Stroke</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_topic_start.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gui-top-bar.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\title-text.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
@@ -345,35 +324,17 @@
     <Text Include="..\..\..\..\Assets\Course\musical_terms.txt">
       <Filter>Assets\Course</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_topic_end.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\stroke-mid-line.txt">
       <Filter>Assets\Gui\Stroke</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\pie.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_about.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\ground.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\quit-confirm.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs-first-user.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\stroke-main-menu-1.txt">
       <Filter>Assets\Gui\Stroke</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\topic-leaf-right.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\topic-leaves.txt">
-      <Filter>Assets\Gui</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\page_play_notes.txt">
       <Filter>Assets\Gui</Filter>
@@ -387,14 +348,8 @@
     <Text Include="..\..\..\..\Assets\Course\intervals.txt">
       <Filter>Assets\Course</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_musical_symbol.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Course\musical_symbols.txt">
       <Filter>Assets\Course</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\topic-leaf-left.txt">
-      <Filter>Assets\Gui</Filter>
     </Text>
     <Text Include="..\..\..\..\Docs\TODO.txt">
       <Filter>Docs</Filter>
@@ -407,9 +362,6 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-vert.txt">
       <Filter>Assets\Shaders\opengl</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\topic-tree.txt">
-      <Filter>Assets\Gui</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\stroke-branch.txt">
       <Filter>Assets\Gui\Stroke</Filter>
@@ -438,26 +390,101 @@
     <Text Include="..\..\..\..\Assets\Course\semibreve_length.txt">
       <Filter>Assets\Course\Note lengths</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-wide.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-square-symbol.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\compound_glyphs.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_text_symbol_4.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_main_menu_corridor.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\topic_door_1.txt">
       <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_about.txt">
+      <Filter>Assets\Gui\GameStates</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt">
+      <Filter>Assets\Gui\GameStates</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_main_menu.txt">
+      <Filter>Assets\Gui\GameStates</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_main_menu_corridor.txt">
+      <Filter>Assets\Gui\GameStates</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_play_notes.txt">
+      <Filter>Assets\Gui\GameStates</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_score.txt">
+      <Filter>Assets\Gui\GameStates</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_test_show_score.txt">
+      <Filter>Assets\Gui\GameStates</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_title.txt">
+      <Filter>Assets\Gui\GameStates</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_topic_end.txt">
+      <Filter>Assets\Gui\GameStates</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_topic_start.txt">
+      <Filter>Assets\Gui\GameStates</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt">
+      <Filter>Assets\Gui\GameStates</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs-first-user.txt">
+      <Filter>Assets\Gui\GameStates</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_symbol_text_4_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_wide_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gui_top_bar_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gui-top-bar.txt">
+      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-wide.txt">
+      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\quit-confirm.txt">
+      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_text_text_4_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_text_text_4.txt">
+      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_symbol_text_4.txt">
+      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_symbol_symbol_4.txt">
+      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_symbol_symbol_4_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-square-symbol.txt">
+      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_square_symbol_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_text_symbol_4_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_text_symbol_4.txt">
+      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_pages_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_pages.txt">
+      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
     </Text>
   </ItemGroup>
 </Project>
