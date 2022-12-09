@@ -9,6 +9,7 @@
 #include "Consts.h"
 #include "Dictionary.h"
 #include "GSPages.h"
+#include "LurkMsg.h"
 #include "Page.h"
 
 namespace Amju
@@ -103,6 +104,15 @@ void Page::OnActive()
   {
     hint->SetCommand(Amju::OnHint);
   }
+
+  // Show instruction text for the page
+  LurkMsg lm(GetInstructionText(),
+             GetColour(COLOUR_TUTORIAL), // TODO
+             GetColour(COLOUR_TEXT),  // TODO
+             AMJU_TOP, PAGE_LURK_TIME);
+  
+  TheLurker::Instance()->Queue(lm);
+
 }
 
 bool Page::Load(const Strings& strs)

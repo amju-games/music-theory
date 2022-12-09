@@ -231,6 +231,8 @@ void LurkMsg::Set(const std::string& str, const Colour& fgCol, const Colour& bgC
   static const float fontX = ROConfig()->GetFloat("lurk-font-x");
   static const float fontY = ROConfig()->GetFloat("lurk-font-y");
 
+  text->SetFont(nullptr); // cancel default font - obvs should not be required
+  text->SetFont("font2d/dimbo-font.font"); // TODO CONFIG
   text->SetFontSize(fontY);
   text->SetScaleX(fontX);
 
