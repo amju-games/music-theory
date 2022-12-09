@@ -570,9 +570,6 @@
     <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-square-symbol.txt">
       <Filter>Assets\Gui\PageLayout\Portrait</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_square_symbol_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\page_text_symbol_4_landscape.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
@@ -698,6 +695,9 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Course\whats_the_time_sig.txt">
       <Filter>Assets\Course</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_square_symbol_4_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
   </ItemGroup>
 </Project>

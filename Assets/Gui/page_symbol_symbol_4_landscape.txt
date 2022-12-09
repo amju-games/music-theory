@@ -26,6 +26,6 @@ include
 question_symbol_landscape.txt
 
 include
-mcq_buttons_square_symbol_landscape.txt
+mcq_buttons_square_symbol_4_landscape.txt
 
 

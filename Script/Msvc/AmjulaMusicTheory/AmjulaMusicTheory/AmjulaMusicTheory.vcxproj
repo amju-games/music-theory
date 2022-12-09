@@ -460,7 +460,7 @@
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt" />
     <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-square-symbol.txt" />
     <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-wide.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_square_symbol_landscape.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_square_symbol_4_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_wide_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\music-score-bg.txt" />
     <Text Include="..\..\..\..\Assets\Gui\music_score_bg_landscape.txt" />
