@@ -82,7 +82,8 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
     (ke.key == 'r' || ke.key == 'R'))
   {
     std::cout << "Reloading\n";
-    OnActive(); // or factor out score loading
+    OnDeactive();
+    OnActive(); 
     return true;
   }
 

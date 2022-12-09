@@ -211,6 +211,11 @@ bool GSPages::Load(const std::string& filename)
 
 bool GSPages::OnKeyEvent(const KeyEvent& ke)
 {
+  if (GSBase::OnKeyEvent(ke))
+  {
+    return true;
+  }
+
 #ifdef _DEBUG
   // Show page GUI tree
   if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
