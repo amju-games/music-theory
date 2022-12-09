@@ -365,7 +365,7 @@ GuiMusicKb::PKey GuiMusicKb::GetKey(int midiNote)
   );
   if (it == m_keys.end())
   {
-    return 0;
+    return nullptr;
   }
   PKey key = *it;
   Assert(key->m_midiNote == midiNote);
