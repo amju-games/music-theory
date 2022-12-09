@@ -71,10 +71,12 @@
 #endif
 
 #ifdef WIN32
+#ifdef NDEBUG
 #define YES_GLUE_FILE
 #define YES_BINARY_OBJ_FILES
 #define GLUE_FILE "data-win.glue"
 #define MUSIC_GLUE_FILE "music-win.glue"
+#endif // NDEBUG
 #endif
 
 namespace Amju
