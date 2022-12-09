@@ -11,7 +11,47 @@ gui-comp
 // Name
 topic-start-comp
 // Num children
-4
+5
+
+// Best so far display
+translate
+0.625, 0.3
+gui-comp
+best-so-far
+3
+
+gui-image
+best-so-far-bg
+-0.15, -0.1
+0.3, 0.5
+Image/paper2.png, stretch
+
+// Element type
+gui-text
+// Element name
+best-so-far-text
+// pos (coords are -1..1)
+-0.2, -0.2
+// size
+0.4, 0.1
+// Text
+Best so far
+// Font name, size
+dimbo, 1., fgcol=000000
+
+// Element type
+gui-text
+// Element name
+best-so-far-num
+// pos (coords are -1..1)
+-0.2, -.35
+// size
+0.4, 0.1
+// Text
+16%
+// Font name, size
+dimbo, 2., fgcol=000000
+
 
 // Hide hint buttons until we know what to do with them here
 translate

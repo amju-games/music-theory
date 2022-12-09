@@ -49,13 +49,6 @@ void GSBase3d::Draw()
 
   // We are now experimenting with NOT using lighting, just baked colours in textures.
   AmjuGL::Disable(AmjuGL::AMJU_LIGHTING);
-//  AmjuGL::LightColour ambient(0.6f, 0.6f, 0.6f);
-//  AmjuGL::DrawLighting(
-//    AmjuGL::LightColour(0, 0, 0),
-//    ambient, // Ambient light colour
-//    AmjuGL::LightColour(1, 1, 1), // Diffuse light colour
-//    AmjuGL::LightColour(1, 1, 1),
-//    AmjuGL::Vec3(1, 1, 1)); // Light direction
 
   GetSceneGraph()->Draw();
 }

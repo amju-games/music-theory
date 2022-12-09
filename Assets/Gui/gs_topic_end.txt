@@ -11,7 +11,7 @@ gui-comp
 // Name
 topic-end-root
 // Num children
-8
+9
 
 // Best so far display
 translate
@@ -140,4 +140,29 @@ comment-text
 // Have some more hints!
 $$$87
 TEXT, 1.5, multi, fgcol=ffffff
+
+
+// Passed stamp: animation reduces scale. Then we want a camera shake.
+animation
+clean-anim
+const
+one
+
+animation
+name-not-used
+one-shot
+0.5
+linear
+
+
+scale
+1, 1 ; .25, .25
+0, 0
+
+gui-image
+pass-stamp
+-2, 2
+4, 4
+Image/heart.png, stretch
+
 

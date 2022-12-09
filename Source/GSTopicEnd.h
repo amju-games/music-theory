@@ -15,10 +15,13 @@ class GSTopicEnd : public GSBase3d
 {
 public:
   GSTopicEnd();
-  virtual void OnActive() override;
+  void Draw() override; // camera shake
+  void OnActive() override;
 
   // Called on timer
   void UpdateNums();
+ 
+  void SetBestScore(int best);
 
 private:
   std::string GenerateScoreComment();
@@ -31,6 +34,12 @@ private:
   int m_totalScore = 0;
   int m_hints = 0;
   int m_finalHints = 0;
+
+  // So we can show best ever score before and after
+  int m_bestScore = 0;
+
+  float m_shakeTime = 0;
+  bool m_isShakingCamera = false;
 };
 
 typedef Singleton<GSTopicEnd> TheGSTopicEnd;

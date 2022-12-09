@@ -7,6 +7,7 @@
 #include "Course.h"
 #include "GSMainCorridor.h"
 #include "GSPages.h"
+#include "GSTopicEnd.h"
 #include "GSTopicStart.h"
 #include "NumUpdate.h"
 #include "PlayWav.h"
@@ -59,6 +60,21 @@ void GSTopicStart::OnActive()
   auto profile = TheUserProfile();
   int numHints = profile->GetHints(HintType::HINT_TYPE_HINT); // TODO
   NumUpdate(m_gui, "hint-counter" /* TODO CONST */, numHints);
+
+  // Set best so far %
+  Course* course = GetCourse();
+  Assert(course);
+  Topic* topic = course->GetTopic(profile->GetCurrentTopic());
+  Assert(topic);
+  
+  int best = profile->GetBestTopicScore(topic->GetId());
+  text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "best-so-far-num"));
+  Assert(text);
+  text->SetText(ToString(best) + "%");
+
+  // Set this best score in Topic End state, so we can do stuff if
+  //  we get a new best.
+  TheGSTopicEnd::Instance()->SetBestScore(best);
 }
 }
 
