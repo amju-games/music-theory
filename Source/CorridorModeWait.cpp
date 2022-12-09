@@ -151,6 +151,7 @@ void CorridorModeWait::SetCurrentTopic()
       || m_currentTopicScrolledTo >= numTopics)
   {
     // Past end of Topic doors
+    ShowTopicName(false);
     return;
   }
 
