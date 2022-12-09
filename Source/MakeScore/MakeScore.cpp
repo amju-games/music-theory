@@ -12,6 +12,8 @@
 //
 // E.g. use: 
 //    (Mac) echo '4/4 c c mr' | ./a.out
+// Same for Win, although we need double quotes and internally we need to strip off the quotes:
+//    (Win) echo "4/4 c c mr" | MakeScore.exe
 
 
 // Music score coords:
@@ -36,6 +38,18 @@
 float Interp(float f0, float f1, float t)
 {
   return f0 + (f1 - f0) * t;
+}
+
+void Trim(std::string& s)
+{
+  while (!s.empty() && (s[0] == ' ' || s[0] == '\r' || s[0] == '\n'))
+  {
+    s = s.substr(1);
+  }
+  while (!s.empty() && (s[s.size() - 1] == ' ' || s[s.size() - 1] == '\r' || s[s.size() - 1] == '\n'))
+  {
+    s = s.substr(0, s.size() - 1);
+  }
 }
 
 bool Contains(const std::string& s, char c)
@@ -439,6 +453,24 @@ void CommandLineParams(int argc, char** argv, MakeScore& ms)
   }
 }
 
+bool IsQuote(char c)
+{
+  return c == '"';
+}
+
+// Strip " char from beginning and end of string
+void StripQuotes(std::string& s)
+{
+  if (s.size() < 2)
+  {
+    return;
+  }
+  if (IsQuote(s[0]))
+  {
+    s = s.substr(1, s.size() - 2);
+  }
+}
+
 #ifndef CATCH
 // Don't build this main function for unit test exe
 
@@ -446,6 +478,10 @@ int main(int argc, char** argv)
 {
   std::string input;
   std::getline(std::cin, input);
+
+  // Chop off whitespace and quotes - needed for Win, not Mac
+  Trim(input);
+  StripQuotes(input);
 
 std::cout << "// " << input << "\n"; 
 
