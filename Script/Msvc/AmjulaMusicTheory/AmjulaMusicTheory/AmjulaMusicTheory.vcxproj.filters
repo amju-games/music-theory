@@ -1164,5 +1164,26 @@
     <Text Include="..\..\..\..\Assets\Gui\avatar-mod-hair.txt">
       <Filter>Assets\Gui\AvatarMod</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-lower-lid.txt">
+      <Filter>Assets\Gui\AvatarMod</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-upper-lid.txt">
+      <Filter>Assets\Gui\AvatarMod</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\cell-control.txt">
+      <Filter>Assets\Gui\AvatarMod</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\scale-control.txt">
+      <Filter>Assets\Gui\AvatarMod</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-glasses.txt">
+      <Filter>Assets\Gui\AvatarMod</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-nose.txt">
+      <Filter>Assets\Gui\AvatarMod</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-mouth.txt">
+      <Filter>Assets\Gui\AvatarMod</Filter>
+    </Text>
   </ItemGroup>
 </Project>

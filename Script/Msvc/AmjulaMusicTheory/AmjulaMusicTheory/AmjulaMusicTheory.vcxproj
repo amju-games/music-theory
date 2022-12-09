@@ -600,11 +600,17 @@
     <Text Include="..\..\..\..\Assets\Gui\avatar-mod-body.txt" />
     <Text Include="..\..\..\..\Assets\Gui\avatar-mod-eye.txt" />
     <Text Include="..\..\..\..\Assets\Gui\avatar-mod-eyebrow.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-glasses.txt" />
     <Text Include="..\..\..\..\Assets\Gui\avatar-mod-hair.txt" />
     <Text Include="..\..\..\..\Assets\Gui\avatar-mod-head.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-lower-lid.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-mouth.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-nose.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-upper-lid.txt" />
     <Text Include="..\..\..\..\Assets\Gui\avatar.txt" />
     <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt" />
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\cell-control.txt" />
     <Text Include="..\..\..\..\Assets\Gui\certificate.txt" />
     <Text Include="..\..\..\..\Assets\Gui\colour-picker.txt" />
     <Text Include="..\..\..\..\Assets\Gui\composers.txt" />
@@ -643,6 +649,7 @@
     <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_wide_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\modal-buttons.txt" />
     <Text Include="..\..\..\..\Assets\Gui\modal-grey-out.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\scale-control.txt" />
     <Text Include="..\..\..\..\Assets\Gui\tutorial.txt" />
     <Text Include="..\..\..\..\Assets\Gui\music-score-bg.txt" />
     <Text Include="..\..\..\..\Assets\Gui\music_score_bg_landscape.txt" />
