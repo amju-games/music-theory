@@ -1,10 +1,10 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
-#ifndef SERIAL_REQ_MANAGER_H_INCLUDED
-#define SERIAL_REQ_MANAGER_H_INCLUDED
+#pragma once
 
 #include <OnlineReqManager.h>
+#include <Singleton.h>
 #include <StringUtils.h>
 
 namespace Amju
@@ -70,4 +70,3 @@ private:
 using TheSerialReqManager = Singleton<SerialReqManager>;
 }
 
-#endif
