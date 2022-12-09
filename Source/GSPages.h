@@ -33,8 +33,8 @@ public:
 
   void AddPage(Page* p);
 
-  void OnCorrect();
-  void OnIncorrect();
+  void OnCorrect(const Vec2f& choicePos);
+  void OnIncorrect(const Vec2f& choicePos);
   void NextPage();
   void OnHint();
   void OnPause();

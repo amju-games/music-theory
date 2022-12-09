@@ -230,6 +230,9 @@ void GSMainMenu::ShowTopicName(bool showNotHide)
 
 bool GSMainMenu::IsTopicUnlocked() const
 {
+  // TODO for dev
+  return true;
+
   ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
 
   bool unlocked = 

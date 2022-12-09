@@ -74,7 +74,9 @@ void PageMultiChoice::SetUpButtons()
     }
     else if (m_aType == AnswerType::ATYPE_TEXT)
     {
-      button->SetText(answerStr);
+      IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "text-choice-" + istr));
+      Assert(text);
+      text->SetText(answerStr);
     }
 
     // Store buttons we can remove to give a hint
@@ -104,7 +106,8 @@ void PageMultiChoice::SetUpButtons()
 
 void PageMultiChoice::OnChoice(int c)
 {
-  // Disable all buttons
+  // Disable all buttons. Get position of choice.
+  Vec2f choicePos;
   int numChoices = m_answers.GetNumAnswers();
   for (int i = 0; i < numChoices; i++)
   {
@@ -115,16 +118,20 @@ void PageMultiChoice::OnChoice(int c)
     {
       button->SetButtonColour(Colour(0.f, 0.f, 0.f, 1.f));
       button->SetTextColour(Colour(1.f, 1.f, 1.f, 1.f));
+      choicePos = button->GetCombinedPos();
     }
   }
 
+  // Position offset for tick/cross
+  const Vec2f OFFSET(-0.03f, -0.15f);
+
   if (m_answers.IsAnswerCorrect(c))
   {
-    dynamic_cast<GSPages*>(m_gs)->OnCorrect();
+    dynamic_cast<GSPages*>(m_gs)->OnCorrect(choicePos + OFFSET);
   }
   else
   {
-    dynamic_cast<GSPages*>(m_gs)->OnIncorrect();
+    dynamic_cast<GSPages*>(m_gs)->OnIncorrect(choicePos + OFFSET);
   }
 }
 

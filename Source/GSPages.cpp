@@ -220,7 +220,7 @@ void GSPages::NextPage()
 
   HideTickAndCross();
 
-  // Rub out blackboard
+  // Rub out blackboard - resset anim
   GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
   Assert(ruboutAnim);
   ruboutAnim->SetVisible(false);
@@ -322,7 +322,7 @@ void GSPages::OnPlayerMadeChoice()
   m_page->SetIsEnabled(false);
 }
 
-void GSPages::OnCorrect()
+void GSPages::OnCorrect(const Vec2f& choicePos)
 {
   //OnPlayerMadeChoice();
 //  SetButtonEnabled("pause-button", false);
@@ -331,6 +331,12 @@ void GSPages::OnCorrect()
 
   GuiElement* tick = GetElementByName(m_gui, "tick");
   tick->SetVisible(true);
+  tick->SetLocalPos(choicePos);
+
+  // Rub out blackboard? - OK as answer correct?
+  //GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
+  //Assert(ruboutAnim);
+  //ruboutAnim->SetVisible(true);
 
   // TODO TEMP TEST
   // Increase hint count, this is until we have a better balanced system
@@ -349,12 +355,13 @@ void GSPages::OnCorrect()
     SecondsFromNow(NEXT_PAGE_TIME)));
 }
 
-void GSPages::OnIncorrect()
+void GSPages::OnIncorrect(const Vec2f& choicePos)
 {
   //OnPlayerMadeChoice();
 
   GuiElement* cross = GetElementByName(m_gui, "cross");
   cross->SetVisible(true);
+  cross->SetLocalPos(choicePos);
 
   // Unhappy sound
   // TODO
@@ -429,14 +436,10 @@ void GSPages::OnSpeechBubbleOK()
 
   m_page->SetIsEnabled(true);
 
-  // Rub out blackboard
-  GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
-  Assert(ruboutAnim);
-  ruboutAnim->SetVisible(true);
-
   // Go to next page (or end of state), after a delay to show the board
   //  getting rubbed out.
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(NEXT_PAGE_TIME)));
+  GoToNextPage();
+  //TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(NEXT_PAGE_TIME)));
 }
 
 void GSPages::OnQuitConfirmCancel()

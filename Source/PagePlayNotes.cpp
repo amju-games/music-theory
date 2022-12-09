@@ -57,7 +57,7 @@ void PagePlayNotes::OnMusicKbEvent(const MusicKbEvent& event)
   // Check note
   if (!event.m_on)
   {
-    dynamic_cast<GSPages*>(m_gs)->OnCorrect();
+    dynamic_cast<GSPages*>(m_gs)->OnCorrect(Vec2f(0, 0));
   }
 }
 }

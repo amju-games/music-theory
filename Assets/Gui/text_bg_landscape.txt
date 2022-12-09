@@ -14,5 +14,5 @@ gui-image
 book
 -0.9, 0.2
 1.8, 2.0
-Image/book2.png
+Image/paper-square.png
 

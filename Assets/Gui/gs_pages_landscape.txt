@@ -103,13 +103,13 @@ line-drawing
 // Name
 tick-stroke
 // Pos
-0.5, 0
+0, 0
 // Size
 1, 1
 // Start width
-0.05
+0.01
 // End width
-0.04
+0.01
 // Colour: (start colour, end colour?)
 00ff00
 // Points
@@ -134,13 +134,13 @@ line-drawing
 // Name
 cross-1
 // Pos
-0.5, 0
+0.0, 0
 // Size
 1, 1
 // Start width
-0.05
+0.01
 // End width
-0.05
+0.01
 // Colour: (start colour, end colour?)
 ff0000
 // Points
@@ -165,13 +165,13 @@ line-drawing
 // Name
 cross-2
 // Pos
-0.5, 0
+0.0, 0
 // Size
 1, 1
 // Start width
-0.05
+0.01
 // End width
-0.05
+0.01
 // Colour: (start colour, end colour?)
 ff0000
 // Points

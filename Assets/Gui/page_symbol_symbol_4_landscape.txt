@@ -13,8 +13,14 @@ page
 // Num children
 3
 
-include
-text_bg_landscape.txt
+//include
+//text_bg_landscape.txt
+// Notepaper image
+gui-image
+book
+-0.9, 0.2
+1.8, 2.0
+Image/paper-square2.png
 
 include
 question_symbol_landscape.txt
