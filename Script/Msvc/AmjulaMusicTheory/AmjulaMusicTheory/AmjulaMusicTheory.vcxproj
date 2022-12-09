@@ -428,6 +428,7 @@
     <Text Include="..\..\..\..\Assets\Course\note_lengths.txt" />
     <Text Include="..\..\..\..\Assets\Course\rest_names.txt" />
     <Text Include="..\..\..\..\Assets\Course\whats_the_key_sig.txt" />
+    <Text Include="..\..\..\..\Assets\Course\whats_the_scale.txt" />
     <Text Include="..\..\..\..\Assets\Course\whats_the_tonic_triad.txt" />
     <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt" />
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt" />

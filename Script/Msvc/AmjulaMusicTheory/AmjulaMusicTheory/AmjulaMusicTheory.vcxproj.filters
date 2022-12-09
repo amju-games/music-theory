@@ -687,5 +687,8 @@
     <Text Include="..\..\..\..\Assets\Course\whats_the_tonic_triad.txt">
       <Filter>Assets\Course</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Course\whats_the_scale.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
   </ItemGroup>
 </Project>

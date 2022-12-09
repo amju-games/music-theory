@@ -9,7 +9,30 @@
 1
 
 // Num topics
+11
+
+// Topic
+// ID
+name-the-scale
+// Localised display name
+Name the Scale
+// Group
+4
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
 10
+page-symbol-text, Course/whats_the_scale.txt
+page-symbol-text, Course/whats_the_scale.txt
+page-symbol-text, Course/whats_the_scale.txt
+page-symbol-text, Course/whats_the_scale.txt
+page-symbol-text, Course/whats_the_scale.txt
+page-symbol-text, Course/whats_the_scale.txt
+page-symbol-text, Course/whats_the_scale.txt
+page-symbol-text, Course/whats_the_scale.txt
+page-symbol-text, Course/whats_the_scale.txt
+page-symbol-text, Course/whats_the_scale.txt
 
 // Topic
 // ID

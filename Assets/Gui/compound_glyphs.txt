@@ -100,7 +100,7 @@ dotted-minim-down-raised-dot = minim-down, 0, 0 ; ., 0.275, 0.03
 // Ledger line, same y pos as bottom line of stave
 ledger = quad, 0.31, 0.475,  0.31, 0.490,  0.01, 0.490,  0.01, 0.475
 // Wide ledger line, for semibreves
-ledger-w = quad, 0.38, 0.475,  0.38, 0.490,  -0.00, 0.490,  -0.00, 0.475
+ledger-w = quad, 0.38, 0.475,  0.38, 0.490,  0.02, 0.490,  0.02, 0.475
 
 // Common notes
 // c4 = middle C
