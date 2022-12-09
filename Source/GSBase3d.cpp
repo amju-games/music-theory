@@ -40,22 +40,14 @@ void GSBase3d::Reload3d()
 
 void GSBase3d::Draw()
 {
-  AmjuGL::SetMatrixMode(AmjuGL::AMJU_PROJECTION_MATRIX);
-  AmjuGL::SetIdentity();
-  const float FOVY = 60.0f;
-  const float NEAR_DIST = 1.0f;
-  const float FAR_DIST = 3000.0f;
-
-  // Always show the same amount of the world,
-  // but distorted if viewport does not have this aspect ratio
-  const float ASPECT = 1.3f; // Landscape
-
-  AmjuGL::SetPerspectiveProjection(FOVY, ASPECT, NEAR_DIST, FAR_DIST);
-
+  // Cameras set in scene desc file
   AmjuGL::SetMatrixMode(AmjuGL::AMJU_MODELVIEW_MATRIX);
   AmjuGL::SetIdentity();
-
   AmjuGL::PushMatrix();
+
+  // Use standard/default shader for 3D scene
+  AmjuGL::UseShader(nullptr);
+
   AmjuGL::Enable(AmjuGL::AMJU_LIGHTING);
   AmjuGL::LightColour ambient(0.6f, 0.6f, 0.6f);
   AmjuGL::DrawLighting(
