@@ -13,6 +13,7 @@ const char* PageMusicalTerm::NAME = "page-musical-term";
 PageMusicalTerm::PageMusicalTerm()
 {
   m_guiName = "musical_term";
+  m_dictionaryFilename = "Course/musical_terms.txt.dictionary";
 }
 
 void PageMusicalTerm::OnActive()
@@ -23,10 +24,11 @@ void PageMusicalTerm::OnActive()
   // Get musical terms dictionary (TODO select grade)
   // This is a Resource.
   Dictionary* dic = dynamic_cast<Dictionary*>(
-    TheResourceManager::Instance()->GetRes("Course/musical_terms.txt.dictionary"));
+    TheResourceManager::Instance()->GetRes(m_dictionaryFilename));
+  Assert(dic);
 
   q->SetDictionary(dic);
-  q->SetCanSwapQAndA(true);
+  //q->SetCanSwapQAndA(true); // TODO make this a page property
   q->MakeQuestion();
   m_answers = q->GetMultiChoiceAnswers();
 
