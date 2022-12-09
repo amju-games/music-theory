@@ -277,10 +277,10 @@ void PageMultiChoice::SetUpQuestion()
 
   m_answers = q->GetMultiChoiceAnswers();
 
-  // Seen this question before? If not we will give the correct answer.
-  bool seen = q->QuestionSeenBefore(m_config);
-  // Set flag for next time
-  q->SetQuestionSeenBefore(m_config);
+//  // Seen this question before? If not we will give the correct answer.
+//  bool seen = q->QuestionSeenBefore(m_config);
+//  // Set flag for next time
+//  q->SetQuestionSeenBefore(m_config);
 
   m_canRemoveForHint.clear();
 }

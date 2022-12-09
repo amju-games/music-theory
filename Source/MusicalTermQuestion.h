@@ -13,7 +13,7 @@ class MusicalTermQuestion : public MultiChoiceQuestion
 {
 public:
   virtual void MakeQuestion() override;
-  virtual std::string GetAnswerString() const;
+  virtual std::string GetAnswerString() const override;
 
   void SetDictionary(Dictionary* dictionary);
 

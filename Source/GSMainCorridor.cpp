@@ -33,25 +33,6 @@
 
 namespace Amju
 {
-namespace
-{
-void OnNewUser(GuiElement*)
-{
-  //  TheGSMainCorridor::Instance()->HideButtons()->ScrollDown();
-}
-
-void OnAbout(GuiElement*)
-{
-  //  TheGSMainCorridor::Instance()->HideButtons()->ScrollDown();
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSAbout>, SecondsFromNow(1.0f)));
-}
-
-void OnBackToTitle(GuiElement*)
-{
-  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
-}
-}
-
 GSMainCorridor::GSMainCorridor()
 {
   m_guiFilename = "Gui/gs_main_menu_corridor.txt";
@@ -120,10 +101,10 @@ void GSMainCorridor::Load3dForTopics()
 
   for (int i = 0; i < numTopics; i++)
   {
-    Topic* topic = course->GetTopic(i);
+    //Topic* topic = course->GetTopic(i);
 
     // TODO add something to locked topics so we can see it's locked
-    bool unlocked = (i == 0) || config->Exists(KEY_TOPIC_UNLOCKED + ToString(i));
+    //bool unlocked = (i == 0) || config->Exists(KEY_TOPIC_UNLOCKED + ToString(i));
 
     // TODO Load from a list of scene files; each one has a locked and
     //  unlocked variety.

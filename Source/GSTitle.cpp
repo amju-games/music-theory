@@ -20,9 +20,14 @@ static void OnStart(GuiElement* elem)
 {
   PlayWav(WAV_START_BUTTON);
 
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainCorridor>, SecondsFromNow(1.5f)));
+
+  /*
   // Is there a user yet?
   ConfigFile* cf = TheUserProfile()->GetConfigForTopic(KEY_GENERAL);
   Assert(cf);
+  
+  
   if (true)//cf->Exists(KEY_USER_NAME))
   {
 //    TheGSTitle::Instance()->HideButtons()->ScrollUp();
@@ -34,6 +39,7 @@ static void OnStart(GuiElement* elem)
 //    TheGSTitle::Instance()->HideButtons()->ScrollUp();
     TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSFirstUser>, SecondsFromNow(1.5f)));
   }
+  */
 }
 
 GSTitle::GSTitle()

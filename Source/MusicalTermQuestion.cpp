@@ -38,7 +38,7 @@ void MusicalTermQuestion::MakeQuestion()
   std::vector<int> numsNoDuplicateAnswers;
   std::string ans;
   std::string q;
-  const int n = numAnswers;
+  
   for (int i = 0; i < numAnswers && numAnswers <= maxNumQs; i++)
   {
     m_dictionary->GetTerm(nums[i], &q, &ans);
