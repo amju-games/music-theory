@@ -16,3 +16,4 @@ Assets/Music/SoundFXSource/*.wav
 *.user
 *.o
 makescore
+Source/MakeScore/out.txt
