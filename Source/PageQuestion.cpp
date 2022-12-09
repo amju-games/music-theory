@@ -29,6 +29,24 @@ void OnPlayButton(GuiElement* elem)
   }
   anim->ResetAnimation();
   anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+
+  // Disable play button so we can't spam it
+  GuiButton* button = dynamic_cast<GuiButton*>(elem);
+  Assert(button);
+  button->SetIsEnabled(false);
+  button->SetIsFocusButton(false);
+
+  // Set callback to re-enable the play button when anim completes.
+  // Animation node should be child of anim.
+  anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(anim, "play-music-anim"));
+  if (anim)
+  {
+    anim->SetOnCompleteCallback([button](Animator*) 
+    { 
+      button->SetIsEnabled(true); 
+      button->SetIsFocusButton(true); 
+    });
+  }
 }
 
 } // anon namespace
