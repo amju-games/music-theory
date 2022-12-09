@@ -94,7 +94,7 @@ void GuiLineDrawing::Draw()
   Vec2f pos = GetCombinedPos();
 
   AmjuGL::PushMatrix();
-  AmjuGL::SetColour(Colour(1, 0, 0, 1));
+  AmjuGL::SetColour(m_fgCol);
   AmjuGL::Translate(pos.x, pos.y, 0);
   AmjuGL::Draw(m_triList);
   AmjuGL::PopMatrix();
@@ -127,6 +127,15 @@ bool GuiLineDrawing::Load(File* f)
     f->ReportError("Expected end width for line drawing.");
     return false;
   }
+
+  // Colour
+  std::string colour;
+  if (!f->GetDataLine(&colour))
+  {
+    f->ReportError("Expected gui rect colour");
+    return false;
+  }
+  m_fgCol = FromHexString(colour);
 
   // Load control points
   std::vector<Vec2f> points;

@@ -25,11 +25,11 @@ protected:
   void BuildTriList();
 
 protected:
-
   // A line drawing is a sequence of points.
-
   std::vector<Vec2f> m_points;
   RCPtr<TriList> m_triList;
+  Colour m_fgCol;
+
   int m_index = 0; // index into m_points
 
   float m_speed = 1.0f;

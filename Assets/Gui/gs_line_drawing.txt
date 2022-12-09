@@ -20,8 +20,8 @@ line drawing test
 0.03
 // End width
 0.01
-// Points and other directives start here
-// start colour, end colour?
+// Colour: (start colour, end colour?)
+1DA2FF
 // Points
 // TODO Auto add duplicated start and end control points
 0, 0

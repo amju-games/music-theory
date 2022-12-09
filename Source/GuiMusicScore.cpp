@@ -161,6 +161,15 @@ bool GuiMusicScore::Load(File* f)
     return false;
   }
 
+  // Colour
+  std::string colour;
+  if (!f->GetDataLine(&colour))
+  {
+    f->ReportError("Expected gui rect colour");
+    return false;
+  }
+  m_fgCol = FromHexString(colour);
+
   // Load the score to display, not the texture atlas
   // Format is: each line specifies one glyph or the end of the score data.
   // Each line has: glyph type, x pos, y pos, with optional x scale, y scale.

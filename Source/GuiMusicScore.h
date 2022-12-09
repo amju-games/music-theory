@@ -29,7 +29,6 @@ protected:
 
 protected:
   RCPtr<TriList> m_triList; 
-  //PFont m_font;
   TextureSequence m_atlas;
   Colour m_fgCol;
 
