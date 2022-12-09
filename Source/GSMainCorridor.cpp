@@ -273,8 +273,8 @@ void GSMainCorridor::OnActive()
   shareButton->SetCommand(Amju::OnShare);
 
   // Init HUD
-  auto profile = TheUserProfile();
-  NumUpdate(m_gui, "hint-counter" /* TODO CONST */, profile->GetHints());
+//  auto profile = TheUserProfile();
+//  NumUpdate(m_gui, "hint-counter" /* TODO CONST */, profile->GetHints());
 
   // TEST start particle effect
   Gui3dScene* particleScene = (Gui3dScene*)GetElementByName(m_gui, "particles-test");

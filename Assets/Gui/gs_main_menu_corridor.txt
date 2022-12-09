@@ -12,11 +12,11 @@ gui-comp
 // Name
 gs-main-menu-root
 // Num children
-3
+2
 
 
-include
-hint-display-no-button.txt
+////include
+////hint-display-no-button.txt
 
 // TEST
 3d-scene
@@ -36,5 +36,5 @@ share-button
 Image/gui-button-2.png
 // SHARE
 $$$82
-dimbo, 2., fgcol=ffffff, bgcol=4E69F4
+BUTTON, 2., fgcol=ffffff, bgcol=4E69F4
 
