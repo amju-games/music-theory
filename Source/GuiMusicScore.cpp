@@ -583,7 +583,7 @@ bool GuiMusicScore::AddCurveFromString(
     }
 
     GuiLineDrawing* curve = new GuiLineDrawing;
-    curve->SetSize(GetSize()); // ?
+    curve->SetSize(Vec2f(1, 1));
 
     // Set thickness at ends and in middle
     curve->SetWidths(0.006f, 0.012f);

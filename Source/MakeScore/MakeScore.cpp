@@ -17,6 +17,7 @@
 // 0.0                     PAGE_WIDTH
 
 #include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <map>
 #include <memory>
@@ -25,6 +26,8 @@
 #include <vector>
 
 static const int DEFAULT_PITCH = 69; // default pitch = A above middle C
+
+static const float X_OFFSET_RIGHT = 0.25f;
 
 float Interp(float f0, float f1, float t)
 {
@@ -222,9 +225,23 @@ private:
       Tie* tie = m_ties.back().get();
       if (!tie->rhsSet)
       {
+        assert(!m_bars.empty());
+
         tie->rightBarGlyph = std::make_pair(
           m_bars.size() - 1,  // bar glyph is in
-          m_bars.back()->GetGlyphCount()); // position of glyph
+          m_bars.back()->GetGlyphCountNotCountingTimeSig() - 1); // position of glyph
+
+#ifdef _DEBUG
+        std::cout << "// Tie from bar "
+          << tie->leftBarGlyph.first
+          << " glyph "
+          << tie->leftBarGlyph.second
+          << " to bar "
+          << tie->rightBarGlyph.first
+          << " glyph "
+          << tie->rightBarGlyph.second
+          << "\n";
+#endif
 
         tie->rhsSet = true;
       }
@@ -239,10 +256,18 @@ private:
   void AddTie()
   {
     // Set bar and position of the left glyph of the tie
+    if (m_bars.empty())
+    {
+      std::cout << "// *** Error, no left glyph for tie to refer to.\n";
+      return;
+    }
+ 
     Tie* tie = new Tie;
     tie->leftBarGlyph = std::make_pair(
       m_bars.size() - 1,  // bar left glyph is in
-      m_bars.back()->GetGlyphCount()); // position of left glyph
+      m_bars.back()->GetGlyphCountNotCountingTimeSig() - 1); // position of left glyph
+
+    tie->SetScale(m_scale);
 
     m_ties.push_back(std::unique_ptr<Tie>(tie));
   }
@@ -291,26 +316,32 @@ private:
       // Inner control points: centre, and one near each end to give
       //  desired shape.
       float y = 1.f; // for 'n' shape
+      // If U shape
+      y = 0.99f;
       float w = rightX - leftX;
       const float TIE_ASPECT_RATIO = 8.f;
       float h = w / TIE_ASPECT_RATIO;
- 
+      // if u shape
+      h = -h;
+      float xoff = X_OFFSET_RIGHT * .6f;
+
+      const float CP = 0.18f; // control point, for shape
       std::vector<float> coords = 
       {
-        leftX,  y,
-        leftX,  y,
-        Interp(leftX, rightX, 0.125f), y + (h * 0.8f), // give shape
-        Interp(leftX, rightX, .5f), y + h, // centre
-        Interp(leftX, rightX, 0.875f), y + (h * 0.8f), // give shape
-        rightX, y,
-        rightX, y,
+        leftX + xoff,  y,
+        leftX + xoff,  y,
+        Interp(leftX, rightX, CP) + xoff, y + (h * 0.8f), // give shape
+        Interp(leftX, rightX, .5f) + xoff, y + h, // centre
+        Interp(leftX, rightX, (1.f - CP)) + xoff, y + (h * 0.8f), // give shape
+        rightX + xoff, y,
+        rightX + xoff, y,
       }; 
 
       std::string res = "curve, "; 
       int n = coords.size();
       for (int i = 0; i < n; i++)
       {
-        res += std::to_string(coords[i]) + (i < (n - 1) ? ", " : ""); 
+        res += std::to_string(coords[i] * scale) + (i < (n - 1) ? ", " : ""); 
       }
       return res;
     }
@@ -320,11 +351,11 @@ private:
     // When we create Tie, we only know the bar number and position of
     //  the left end.
     std::pair<int, int> leftBarGlyph;
-    // Do a search later to find the next note, then we have the bar and 
+    // Later on we know the next note, then we have the bar and 
     //  pos of the right end.
     std::pair<int, int> rightBarGlyph;
 
-    // Set left and right x-coords once positions of all glyphs have been
+    // Set left and right x-coords once positions of both glyphs have been
     //  set.
     float leftX = 0;
     float rightX = 0;
@@ -353,9 +384,9 @@ private:
         }     
         res += "TIME, " + Str(start) + ", " + Str(timeval + startTime) + " ; ";
 
-        if (!IsRest(realGlyphName))
+        if (!IsRest(realGlyphName) && !isTieRight)
         {
-          // Output MIDI note event
+          // Output MIDI note event, unless RHS of a tie
           res += "NOTE_ON, " + Str(pitch) + ", " + Str(startTime) + " ; ";
         }
       }
@@ -365,7 +396,7 @@ private:
      
       if (yesTime)
       { 
-        if (!IsRest(realGlyphName))
+        if (!IsRest(realGlyphName) && !isTieLeft)
         {
           // Output MIDI note event
           res += " ; NOTE_OFF, " + Str(pitch) + ", " + Str(timeval + startTime);
@@ -405,6 +436,17 @@ private:
     TimeValue startTime = 0;
 
     int pitch = DEFAULT_PITCH; 
+ 
+    // True if on the right hand side of a tie
+    bool isTieRight = false;
+
+    // True if on the left hand side of a tie
+    bool isTieLeft = false;
+
+    // Time value of tied note on RHS if this is on the LHS of a tie.
+    // Sum of timeVal and this guy is used for anims/midi events.
+    TimeValue tiedNoteTimeValue = 0;
+    // OR should left and right ends of tie just point to each other?
   };
 
   // Time sigs are always left-aligned, no offset
@@ -435,7 +477,7 @@ private:
         // Gap between beams/flags is half beam height, so y offset is * 1.5
         ymin -= BEAM_HEIGHT * 1.5f * GetHeight(level);
         ymin += BEAM_Y_MIN;
-        xoff = 0.25f; // move to right as stem is on right of note  
+        xoff = X_OFFSET_RIGHT; // move to right as stem is on right of note  
       }
       float ymax = ymin + BEAM_HEIGHT;
 
@@ -472,7 +514,7 @@ private:
       {
         ymin -= BEAM_HEIGHT * 1.5f * GetHeight(level);
         ymin += BEAM_Y_MIN;
-        xoff = 0.25f; // move to right as stem is on right of note  
+        xoff = X_OFFSET_RIGHT; // move to right as stem is on right of note  
       }
       float ymax = ymin + BEAM_HEIGHT;
 
@@ -591,7 +633,7 @@ private:
       else if (s == "sb") out = "semibreve";
       else 
       {
-        std::cout << "Trying to look up glyph for " << s << "\n";
+        std::cout << "// *** Failed Trying to look up glyph for " << s << "\n";
       }
  
       if (rest)
@@ -723,7 +765,13 @@ private:
       }
       return glyphCount; 
     }
-  
+
+    int GetGlyphCountNotCountingTimeSig() const 
+    {
+      int glyphCount = static_cast<int>(m_glyphs.size());
+      return glyphCount;
+    }
+
     void SetWidth(int totalNumGlyphs, float pageWidth)
     {
       int glyphCount = GetGlyphCount();
@@ -804,11 +852,23 @@ private:
 void MakeScore::Tie::SetPos(
   const std::vector<std::unique_ptr<MakeScore::Bar>>& bars)
 {
-  leftX  = bars[leftBarGlyph.first]->m_glyphs[leftBarGlyph.second]->x;
-  rightX = bars[rightBarGlyph.first]->m_glyphs[rightBarGlyph.second]->x;
+#ifdef _DEBUG
+  std::cout << "// Tie from bar "
+       << leftBarGlyph.first
+       << " glyph "
+       << leftBarGlyph.second
+       << " to bar "
+       << rightBarGlyph.first
+       << " glyph "
+       << rightBarGlyph.second
+       << "\n";
+#endif
 
-std::cout << "Setting tie leftX:  " << leftX << "\n"; 
-std::cout << "Setting tie rightX: " << rightX << "\n"; 
+  leftX  = bars[leftBarGlyph.first]->m_glyphs[leftBarGlyph.second]->x;
+  bars[leftBarGlyph.first]->m_glyphs[leftBarGlyph.second]->isTieLeft = true;
+
+  rightX = bars[rightBarGlyph.first]->m_glyphs[rightBarGlyph.second]->x;
+  bars[rightBarGlyph.first]->m_glyphs[rightBarGlyph.second]->isTieRight = true;
 }
 
 void MakeScore::Preprocess()
