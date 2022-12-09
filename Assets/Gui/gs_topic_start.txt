@@ -34,7 +34,7 @@ gui-button
 // Element name
 cancel-button
 // pos (coords are -1..1)
--1, 1
+-0.95, 0.95
 // size
 0.3, 0.15
 // Image 
