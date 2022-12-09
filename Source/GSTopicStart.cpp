@@ -82,6 +82,11 @@ void GSTopicStart::OnActive()
   auto composer = GetComposerList().GetComposerForTopic(topic->GetId());
   GuiAvatar* avatar = dynamic_cast<GuiAvatar*>(GetElementByName(m_gui, "composer-avatar"));
   avatar->SetFromString(composer->GetAvatarStr());
+
+  // Set composer name on nameplate.
+  GuiButton* nameplate = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "composer-name-button"));
+  Assert(nameplate);
+  nameplate->SetText(composer->GetDisplayName());
 }
 }
 
