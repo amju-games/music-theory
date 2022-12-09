@@ -29,6 +29,8 @@
 
 //#define YES_ALLOW_SWIPE_TO_SCROLL
 
+//#define DEBUG_SHOW_AABB
+
 namespace Amju
 {
 static GuiElement* CreateMusicKb()
@@ -104,7 +106,12 @@ void GuiMusicKb::Draw()
 
     AmjuGL::SetColour(key.m_colour);
 
-    key.m_mesh->Draw();
+    // Cull off screen keys, sigh
+    if (   key.m_projectedRect.GetMin(0) <  1.f
+        && key.m_projectedRect.GetMax(0) > -1.f)
+    {
+      key.m_mesh->Draw();
+    }
 
 #ifdef DEBUG_SHOW_AABB
     AmjuGL::SetColour(Colour(1, 0, 0, 1));
