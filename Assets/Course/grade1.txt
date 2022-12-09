@@ -47,8 +47,10 @@ notes-and-rests
 // Topics unlocked by this one
 none
 // Pages
-1
+2
 page-symbol-text=Course/note-rest-names.txt=$$$92
+page-text-symbol=Course/note-rest-symbols.txt=$$$92
+
 // TODO Length equivalences
 
 // Topic

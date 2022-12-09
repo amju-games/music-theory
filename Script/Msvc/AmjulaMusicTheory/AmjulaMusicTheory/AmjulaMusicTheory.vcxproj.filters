@@ -759,5 +759,8 @@
     <Text Include="..\..\..\..\Assets\Course\note-rest-names.txt">
       <Filter>Assets\Course</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Course\note-rest-symbols.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
   </ItemGroup>
 </Project>

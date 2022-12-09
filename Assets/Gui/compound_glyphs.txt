@@ -108,6 +108,8 @@ ledger = quad, 0.31, 0.475,  0.31, 0.490,  0.01, 0.490,  0.01, 0.475
 // Wide ledger line, for semibreves
 ledger-w = quad, 0.38, 0.475,  0.38, 0.490,  0.02, 0.490,  0.02, 0.475
 
+rest-semibreve = rest-minim, 0, 0.05
+
 // Common notes
 // c4 = middle C
 treb-b4-cr = crotchet-up, 0, -0.15 ; ledger, 0, -0.1

@@ -446,6 +446,7 @@
     <Text Include="..\..\..\..\Assets\Course\higher_or_lower.txt" />
     <Text Include="..\..\..\..\Assets\Course\name_the_note.txt" />
     <Text Include="..\..\..\..\Assets\Course\note-rest-names.txt" />
+    <Text Include="..\..\..\..\Assets\Course\note-rest-symbols.txt" />
     <Text Include="..\..\..\..\Assets\Course\notes_on_bass_clef_with_accidentals.txt" />
     <Text Include="..\..\..\..\Assets\Course\grade1.txt" />
     <Text Include="..\..\..\..\Assets\Course\intervals.txt" />
