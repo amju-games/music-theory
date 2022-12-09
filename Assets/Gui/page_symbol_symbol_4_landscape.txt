@@ -21,7 +21,7 @@ score-root
 2
 
 include
-music-score-bg.txt
+music_score_bg_landscape.txt
 
 animation
 fade-in-music-score

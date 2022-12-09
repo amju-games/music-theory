@@ -11,7 +11,7 @@ page
 3
 
 include
-music-score-bg.txt
+text_bg_landscape.txt
 
 animation
 fade-in-text

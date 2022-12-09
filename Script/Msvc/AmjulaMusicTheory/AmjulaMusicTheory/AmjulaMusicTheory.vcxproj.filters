@@ -489,5 +489,8 @@
     <Text Include="..\..\..\..\Assets\Gui\music_score_bg_landscape.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\text_bg_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
   </ItemGroup>
 </Project>

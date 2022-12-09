@@ -23,6 +23,9 @@ one-shot
 1.0
 linear
 
+translate
+0, -0.05
+
 // Composite: the button to fade, and the other buttons
 gui-comp
 button-group-0
@@ -41,11 +44,11 @@ gui-button
 // Element name
 button-choice-0
 // pos (coords are -1..1)
--0.7, 0.1
+-0.7, 0.05
 // size
-0.6, 0.8
+0.3,.3
 // Image 
-Image/gui-button-square.png
+Image/gui-button-square-invis.png
 // Text
 $$$empty
 // Font name, size
@@ -53,8 +56,8 @@ dimbo, 1.0, fgcol=000000, bgcol=eeeeee
 
 music-score
 music-score-0
--0.5, -0.35
-.4, .4
+-0.6, -0.8
+.3, .8
 000000
 // No glyphs yet
 end
@@ -100,11 +103,11 @@ gui-button
 // Element name
 button-choice-1
 // pos (coords are -1..1)
-0.1, 0.1
+-0.4, 0.05
 // size
-0.6, 0.15
+0.3,.3
 // Image 
-Image/gui-button-square.png
+Image/gui-button-square-invis.png
 // Text
 $$$empty
 // Font name, size
@@ -112,8 +115,8 @@ dimbo, 1.0, fgcol=000000, bgcol=eeeeee
 
 music-score
 music-score-1
-0.3, -0.35
-.4, .4
+-0.325, -0.8
+.3, .8
 000000
 // No glyphs yet
 end
@@ -156,11 +159,11 @@ gui-button
 // Element name
 button-choice-2
 // pos (coords are -1..1)
--0.7, -0.35
+0.075, 0.05
 // size
-0.6, 0.15
+0.3,.3
 // Image 
-Image/gui-button-square.png
+Image/gui-button-square-invis.png
 // Text
 $$$empty
 // Font name, size
@@ -168,8 +171,8 @@ dimbo, 1.0, fgcol=000000, bgcol=eeeeee
 
 music-score
 music-score-2
--0.5, -0.8
-.4, .4
+.175, -0.8
+.3, .8
 000000
 // No glyphs yet
 end
@@ -211,11 +214,11 @@ gui-button
 // Element name
 button-choice-3
 // pos (coords are -1..1)
-0.1, -0.35
+0.375, 0.05
 // size
-0.6, 0.15
+0.3,.3
 // Image 
-Image/gui-button-square.png
+Image/gui-button-square-invis.png
 // Text
 $$$empty
 // Font name, size
@@ -223,8 +226,8 @@ dimbo, 1.0, fgcol=000000, bgcol=eeeeee
 
 music-score
 music-score-3
-0.3, -0.8
-.4, .4
+0.4, -0.8
+.3, .8
 000000
 // No glyphs yet
 end

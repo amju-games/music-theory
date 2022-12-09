@@ -20,7 +20,7 @@ gui-comp
 top-bar-elasticated
 // Num children
 // TODO Most of bar hidden for now
-2
+6
 
 // Hide pie for now
 translate
@@ -41,6 +41,46 @@ num-pages-text
 25600
 // Font name, size
 dimbo, 1.0, right, fgcol=000000
+
+// Baddie Avatar - just a placeholder
+gui-image
+baddie-avatar-example
+-0.95, 0.85
+0.4, 0.4
+Image/baddie-placeholder.png
+
+// Baddie speech bubble
+gui-rect
+white-bg
+-0.6, 0.97
+0.45, 0.2
+// Colour
+ffffff
+// Radius
+0.05
+// Flags
+0
+
+gui-text
+// Element name
+baddie-text
+// pos (coords are -1..1)
+-0.55, 0.97
+// size
+0.4, 0.2
+// Text
+Tap the...
+// Font name, size
+dimbo, 1.5, fgcol=000000, sx=1.2
+
+gui-image
+speech-bubble-tail
+-0.5, 0.79
+0.12, 0.4
+Image/speech-tail-left.png
+
+
+
 
 // --------------------
 

@@ -43,7 +43,7 @@ hint-button
 0.2, 0.15
 Image/gui-button-2.png
 HINT!
-dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
 
 gui-text
 hint-counter
@@ -78,7 +78,7 @@ Image/gui-button-2.png
 // Text
 PAUSE
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
 
 
 gui-comp

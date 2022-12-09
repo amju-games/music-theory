@@ -25,8 +25,8 @@ Image/white.png, stretch
 
 // Child 2
 
-elastic
-0, -2.0
+//elastic
+//0, -2.0
 
 // Use this to fade the page contents
 // Fade out anim, off until triggered in code

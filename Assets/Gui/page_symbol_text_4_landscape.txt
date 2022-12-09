@@ -35,7 +35,7 @@ ffffff00, ffffffff
 music-score
 // Name, Position
 music-score
--0.35, 0.0
+-0.15, 0.0
 // Scale - affects pos, TODO
 .35, .75
 // Colour

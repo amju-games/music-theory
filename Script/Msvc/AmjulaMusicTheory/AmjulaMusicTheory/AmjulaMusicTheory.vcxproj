@@ -429,6 +429,7 @@
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-2.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-tick-1.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\text_bg_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\title-text.txt" />
     <Text Include="..\..\..\..\Assets\Gui\topic_door_1.txt" />
     <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-frag.txt" />
