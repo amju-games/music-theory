@@ -10,7 +10,6 @@
 #include <StringUtils.h>
 #include <TextureSequence.h>
 #include <TriList.h>
-#include "GuiLineDrawing.h"
 
 namespace Amju
 {
@@ -45,8 +44,16 @@ public:
     const Vec2f& pos = Vec2f(0, 0), 
     const Vec2f& scale = Vec2f(1.f, 1.f));
 
-  // Add a curve from a string.
+  // Add a curve from a string, if the first token in line is special
+  //  curve token. If so, return true. Return false if line does not
+  //  specify a curve.
   bool AddCurveFromString(
+    const std::string& line,
+    const Vec2f& pos = Vec2f(0, 0),
+    const Vec2f& scale = Vec2f(1.f, 1.f));
+
+  // Create text child if first token specifies this type.
+  bool AddTextFromString(
     const std::string& line,
     const Vec2f& pos = Vec2f(0, 0),
     const Vec2f& scale = Vec2f(1.f, 1.f));
@@ -99,8 +106,8 @@ public:
   bool HasAnimation() const { return m_hasAnimation; }
   
 protected:
-
-  void DrawCurves();
+  // Draw child GUI elements (curves, text, etc)
+  void DrawChildren();
 
   // Add one quad (2 triangles) to the given vec of tris, made from the
   //  4 corners supplied. I.e. can be any quad shape.
@@ -134,6 +141,10 @@ protected:
   bool ParseNoteOff(const Strings& strs);
   bool ParseNoteEvent(const Strings& strs, bool onNotOff);
 
+  // For text child nodes, set font, which will be used for all text
+  //  until changed.
+  bool ParseFont(const Strings& strs);
+  
   // Check for new note events, send them, and advance m_nextNoteEvent appropriately.
   void UpdateNoteEvents(float animValue);
 
@@ -198,8 +209,9 @@ protected:
   // Bounding rect of all glyphs, without scale and position applied
   Rect m_rect;
 
-  // Curves, use for ties, slurs, etc.
-  std::vector<RCPtr<GuiLineDrawing>> m_curves;
+  // Child GUI elements: This lets us add curves, use for ties, slurs, etc.,
+  //  text, etc.
+  std::vector<RCPtr<GuiElement>> m_children;
 };
 }
 

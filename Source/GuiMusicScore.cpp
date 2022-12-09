@@ -11,6 +11,7 @@
 #include <StringsFile.h>
 #include <StringUtils.h>
 #include "Consts.h"
+#include "GuiLineDrawing.h"
 #include "GuiMusicScore.h"
 #include "PlayMidi.h"
 
@@ -43,7 +44,13 @@ const char* QUAD_NAME = "quad";
 // This is for setting the min/max time for subsequent glyphs
 const char* TIME_NAME = "TIME";
 
+// For adding curve (LineDrawing) children
 const char* CURVE_NAME = "curve";
+
+// For adding text children
+const char* TEXT_NAME = "text";
+const char* FONT_NAME = "text_font";
+const char* FONT_SIZE = "text_size";
 
 // Note on/note off 'meta glyphs'
 const char* NOTE_ON_NAME  = "NOTE_ON";
@@ -360,7 +367,7 @@ void GuiMusicScore::Draw()
   AmjuGL::Scale(size.x, size.y, 1);
   AmjuGL::Draw(m_triList);
 
-  DrawCurves();
+  DrawChildren();
 
 #ifdef DEBUG_DRAW_BOUNDING_RECT
   AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
@@ -387,11 +394,11 @@ void GuiMusicScore::Draw()
 #endif
 }
 
-void GuiMusicScore::DrawCurves()
+void GuiMusicScore::DrawChildren()
 {
-  for (auto curve : m_curves)
+  for (auto child : m_children)
   {
-    curve->Draw();
+    child->Draw();
   }
 }
 
@@ -590,8 +597,14 @@ bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* re
   return false;
 }
 
-bool GuiMusicScore::AddCurveFromString(
+bool GuiMusicScore::AddTextFromString(
   const std::string& line, const Vec2f& pos, const Vec2f& scale)
+{
+  return false;
+}
+
+bool GuiMusicScore::AddCurveFromString(
+  const std::string& line, const Vec2f& /* pos */, const Vec2f& /* scale */)
 {
   Strings strs = Split(line, ',');
   int n = strs.size();
@@ -625,7 +638,7 @@ bool GuiMusicScore::AddCurveFromString(
     }
     curve->CreateFromControlPoints(); // create full shape from control points
 
-    m_curves.push_back(curve);
+    m_children.push_back(curve);
     return true;
   }
  
