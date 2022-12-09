@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Catch|Win32">
+      <Configuration>Catch</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
@@ -26,6 +30,12 @@
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Catch|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
@@ -45,6 +55,9 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Catch|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -56,6 +69,12 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\..\..\Build\$(Configuration)\</OutDir>
     <IntDir>..\..\..\..\Build\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Catch|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\..\..\Build\$(Configuration)\</OutDir>
+    <IntDir>..\..\..\..\Build\$(Configuration)\</IntDir>
+    <IncludePath>..\..\..\..\Source;..\..\..\..\Source\Tests;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -108,6 +127,49 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Catch|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>CATCH;USE_BASS_MIDI;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/I "../../../../../amjulib/Source/Events" 
+/I "../../../../../amjulib/Source/EventsWin32" 
+/I "../../../../../amjulib/Source/EventsSDL" 
+/I "../../../../../amjulib/Source/FileUtils" 
+/I "../../../../../amjulib/Source/Localise" 
+/I "../../../../../amjulib/Source/AmjuGL" 
+/I "../../../../../amjulib/Source/AmjuGLOpenGL" 
+/I "../../../../../amjulib/Source/AmjuGLDX9" /I "../../../../amjulib/Source/AmjuGLDX11" 
+/I "../../../../../amjulib/Source/Mem" 
+/I "../../../../../amjulib/Source/Md2" 
+/I "../../../../../amjulib/Source/Image" 
+/I "../../../../../amjulib/Source/Geom" 
+/I "../../../../../amjulib/Source/Strings" 
+/I "../../../../../amjulib/Source/TimeUtils" 
+/I "../../../../../amjulib/Source/Game" 
+/I "../../../../../amjulib/Source/Resource" 
+/I "../../../../../amjulib/Source/Scene" 
+/I "../../../../../amjulib/Source/Obj"  
+/I "../../../../../amjulib/Source/Collision" 
+/I "../../../../../amjulib/Source/Gui" 
+/I "../../../../../amjulib/Source/Font" 
+/I "../../../../../amjulib/Source/Sound" 
+/I "../../../../../amjulib/Source/SoundBass" 
+/I "../../../../../amjulib/Source/GeomLoad" 
+/I "../../../../../amjulib/Source/GeomDraw"
+/I "../../../../../amjulib/Source/Utils" 
+/I "../../../../../amjulib/Source/Main" 
+/I "../../../../../amjulib/Source/Network"  /I "../../../../../amjulib/Source/Thread"  %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">
@@ -215,14 +277,16 @@
     <ClCompile Include="..\..\..\..\Source\Startup.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\QuestionTests.cpp">
+    <ClCompile Include="..\..\..\..\Source\Tests\Question_catchtest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Catch|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\TestMain.cpp">
+    <ClCompile Include="..\..\..\..\Source\Tests\CatchTestMain.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Catch|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>

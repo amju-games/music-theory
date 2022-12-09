@@ -63,9 +63,14 @@ bool MusicalTermsDictionary::Load(const std::string& filename)
       f.ReportError("Finished loading dictionary: " + line);
       break;
     }
-    m_dictionary.push_back(std::make_pair(strs[0], strs[1]));
+	AddTerm(strs[0], strs[1]);
   }
   return true;
+}
+
+void MusicalTermsDictionary::AddTerm(const std::string& english, const std::string& foreign)
+{
+	m_dictionary.push_back(std::make_pair(english, foreign));
 }
 
 int MusicalTermsDictionary::GetNumTerms() const
