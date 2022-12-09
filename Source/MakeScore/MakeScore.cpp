@@ -1057,6 +1057,9 @@ void CommandLineParams(int argc, char** argv, MakeScore& ms)
   }
 }
 
+#ifndef CATCH
+// Don't build this main function for unit test exe
+
 int main(int argc, char** argv)
 {
   std::string input;
@@ -1088,4 +1091,6 @@ std::cout << "// " << input << "\n";
 
   return 0;
 }
+
+#endif // CATCH
 
