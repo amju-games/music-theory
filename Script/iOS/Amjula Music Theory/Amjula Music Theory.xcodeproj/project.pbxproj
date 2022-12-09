@@ -43,6 +43,7 @@
 		69AC40371EB5331300F255A4 /* MusicEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC40311EB5331300F255A4 /* MusicEvent.cpp */; };
 		69AC40381EB5331300F255A4 /* PageIntervalsMultiChoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC40331EB5331300F255A4 /* PageIntervalsMultiChoice.cpp */; };
 		69AC40391EB5331300F255A4 /* PageMultiChoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC40351EB5331300F255A4 /* PageMultiChoice.cpp */; };
+		69AC403C1EB64F2C00F255A4 /* PageScoreMCQBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC403A1EB64F2C00F255A4 /* PageScoreMCQBase.cpp */; };
 		69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E431E833741008A8D29 /* AppDelegate.mm */; };
 		69D58E481E833741008A8D29 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E441E833741008A8D29 /* main.m */; };
 		69D58E491E833741008A8D29 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E461E833741008A8D29 /* ViewController.mm */; };
@@ -182,6 +183,8 @@
 		69AC40331EB5331300F255A4 /* PageIntervalsMultiChoice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PageIntervalsMultiChoice.cpp; path = ../../../../Source/PageIntervalsMultiChoice.cpp; sourceTree = "<group>"; };
 		69AC40341EB5331300F255A4 /* PageIntervalsMultiChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageIntervalsMultiChoice.h; path = ../../../../Source/PageIntervalsMultiChoice.h; sourceTree = "<group>"; };
 		69AC40351EB5331300F255A4 /* PageMultiChoice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PageMultiChoice.cpp; path = ../../../../Source/PageMultiChoice.cpp; sourceTree = "<group>"; };
+		69AC403A1EB64F2C00F255A4 /* PageScoreMCQBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PageScoreMCQBase.cpp; path = ../../../../Source/PageScoreMCQBase.cpp; sourceTree = "<group>"; };
+		69AC403B1EB64F2C00F255A4 /* PageScoreMCQBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageScoreMCQBase.h; path = ../../../../Source/PageScoreMCQBase.h; sourceTree = "<group>"; };
 		69D58E421E833741008A8D29 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "../../../../Source/iOS-MusicTheory/AppDelegate.h"; sourceTree = "<group>"; };
 		69D58E431E833741008A8D29 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = "../../../../Source/iOS-MusicTheory/AppDelegate.mm"; sourceTree = "<group>"; };
 		69D58E441E833741008A8D29 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "../../../../Source/iOS-MusicTheory/main.m"; sourceTree = "<group>"; };
@@ -358,6 +361,8 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				69AC403A1EB64F2C00F255A4 /* PageScoreMCQBase.cpp */,
+				69AC403B1EB64F2C00F255A4 /* PageScoreMCQBase.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				6959E2E41E97F6F800E251A9 /* Course.cpp */,
@@ -615,6 +620,7 @@
 				69F5E0921E8C09DF00E7BF93 /* GameViewController.m in Sources */,
 				69D58E851E86A02B008A8D29 /* GuiMusicKb.cpp in Sources */,
 				6959E2ED1E97F6F800E251A9 /* GSMainMenu.cpp in Sources */,
+				69AC403C1EB64F2C00F255A4 /* PageScoreMCQBase.cpp in Sources */,
 				6959E2D31E958C3C00E251A9 /* PageMusicalTerm.cpp in Sources */,
 				69D58E491E833741008A8D29 /* ViewController.mm in Sources */,
 				69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */,
