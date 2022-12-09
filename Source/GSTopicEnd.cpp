@@ -253,10 +253,12 @@ void GSTopicEnd::UpdateNums()
   {
     // This calculation has the effect of whizzing very quickly though the low numbers, and slowing
     //  down as we reach the 'target' number.
-    Assert(m_topicScore > 0);
-    const float NUM_UPDATE_TIME_CONST = .3f;
-    float timeToNextUpdate = NUM_UPDATE_TIME_CONST / m_topicScore;
-    TheMessageQueue::Instance()->Add(new FuncMsg(::Amju::UpdateNums, SecondsFromNow(timeToNextUpdate)));
+    if (m_topicScore > 0)
+    {
+      const float NUM_UPDATE_TIME_CONST = .3f;
+      float timeToNextUpdate = NUM_UPDATE_TIME_CONST / m_topicScore;
+      TheMessageQueue::Instance()->Add(new FuncMsg(::Amju::UpdateNums, SecondsFromNow(timeToNextUpdate)));
+    }
   }
 }
 }
