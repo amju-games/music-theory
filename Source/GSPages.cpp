@@ -11,6 +11,7 @@
 #include <Localise.h>
 #include <MessageQueue.h>
 
+#include "CentreMsg.h"
 #include "Consts.h"
 #include "Course.h"
 #include "GSMainCorridor.h"
@@ -367,7 +368,7 @@ void GSPages::SetButtonEnabled(const std::string& buttonName, bool enabled)
 void GSPages::OnPause()
 {
   // Lurk messages are modal, so no need to diable page
-  TheLurker::Instance()->ShowYesNo(
+  ShowYesNo(
     Lookup("$$$90") /* Sure you want to quit? */,
     GetColour(COLOUR_TEXT),
     GetColour(COLOUR_CONFIRM_QUIT),

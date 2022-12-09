@@ -37,7 +37,7 @@ public:
   virtual void Set(const std::string& text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
     float maxTime, CommandFunc onFinished = 0);
 
-  void Set(GuiText* text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
+  virtual void Set(GuiElement* text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
     float maxTime, CommandFunc onFinished = 0);
 
   bool IsFinished() const;
@@ -73,14 +73,14 @@ protected:
   // next/ok button - currently for Centred text only
   PGuiElement m_gui;
   // yes/no/ok buttons - TODO something a bit more flexible
-  GuiButton* m_ok;
-  GuiButton* m_yes;
-  GuiButton* m_no;
+  GuiButton* m_ok = nullptr;
+  GuiButton* m_yes = nullptr;
+  GuiButton* m_no = nullptr;
 
   // Funcs to call on button press
-  CommandFunc m_onOk;
-  CommandFunc m_onYes;
-  CommandFunc m_onNo;
+  CommandFunc m_onOk = nullptr;
+  CommandFunc m_onYes = nullptr;
+  CommandFunc m_onNo = nullptr;
 };
 
 using PLurkMsg = RCPtr<LurkMsg>;
@@ -96,9 +96,6 @@ public:
 
   // If immediate, preceding messages in the queue are removed
   void Queue(PLurkMsg lm, bool immediate = false);
-
-  void ShowYesNo(const std::string& q, const Colour& fgCol, const Colour& bgCol, 
-    CommandFunc no, CommandFunc yes);
 
   void Clear(); // to prevent old msgs from stacking up
 

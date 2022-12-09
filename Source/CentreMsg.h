@@ -35,12 +35,16 @@ public:
   void SetCentred(PGuiElement gui, const Colour& fgCol, const Colour& bgCol, 
     float maxTime, CommandFunc onFinished = 0);
 
+  virtual void Set(GuiElement* text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
+    float maxTime, CommandFunc onFinished = 0);
+
   static const float DEFAULT_MAX_LURK_TIME;
 
 private:
-  PGuiElement m_gui;
-
   float m_scale = 1.f; // for centre msgs which scale up and down
 };
+
+void ShowYesNo(const std::string& q, const Colour& fgCol, const Colour& bgCol,
+  CommandFunc no, CommandFunc yes);
 }
 

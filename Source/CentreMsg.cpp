@@ -42,10 +42,6 @@ void CentreMsg::Draw()
 
   if (m_state == LurkMsg::LURK_SHOWN)
   {
-    Vec2f pos = m_rect->GetLocalPos();
-    pos += Vec2f(0, -m_rect->GetSize().y);
-    pos.x = 0;
-    m_text->SetLocalPos(pos);
     m_text->SetVisible(true);
     m_ok->SetIsFocusButton(true);
     m_ok->SetShowIfFocus(true);
@@ -125,7 +121,7 @@ void CentreMsg::Update()
       Vec2f  dpos = m_vel * dt;
       m_pos += dpos;
       m_rect->SetLocalPos(m_rect->GetLocalPos() + dpos);
-      m_text->SetLocalPos(m_text->GetLocalPos() + dpos);
+//      m_text->SetLocalPos(m_text->GetLocalPos() + dpos);
 
       m_scale += 2.0f * dt; // TODO TEMP TEST
     }
@@ -149,7 +145,7 @@ void CentreMsg::Update()
       Vec2f  dpos = m_vel * -dt;
       m_pos += dpos;
       m_rect->SetLocalPos(m_rect->GetLocalPos() + dpos);
-      m_text->SetLocalPos(m_text->GetLocalPos() + dpos);
+//      m_text->SetLocalPos(m_text->GetLocalPos() + dpos);
 
       m_scale -= 2.0f * dt; // TODO TEMP TEST
     }
@@ -189,6 +185,12 @@ void CentreMsg::SetCentred(const std::string& str, const Colour& fgCol, const Co
   text->SetFgCol(fgCol);
 
   SetCentred(text, fgCol, bgCol, maxTime, onFinished);
+}
+
+void CentreMsg::Set(GuiElement* text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
+  float maxTime, CommandFunc onOk)
+{
+  SetCentred(text, fgCol, bgCol, maxTime, onOk);
 }
 
 void CentreMsg::SetCentred(PGuiElement text, const Colour& fgCol, const Colour& bgCol,
@@ -231,4 +233,14 @@ void CentreMsg::SetCentred(PGuiElement text, const Colour& fgCol, const Colour& 
   LoadGui(LURK_GUI_FILENAME);
 }
 
+void ShowYesNo(const std::string& q, const Colour& fgCol, const Colour& bgCol,
+  CommandFunc no, CommandFunc yes)
+{
+  // TODO Yes/No msg should be distinct subclass, right?
+  PLurkMsg msg = new CentreMsg(q, fgCol, bgCol, 0);
+  msg->SetNoCommand(no);
+  msg->SetYesCommand(yes);
+
+  TheLurker::Instance()->Queue(msg);
+}
 }

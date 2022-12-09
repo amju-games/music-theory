@@ -15,8 +15,6 @@
 
 namespace Amju
 {
-static const char* LURK_GUI_FILENAME = "Gui/gui-lurk.txt";
-
 static const char* LURK_FONT = "font2d/arial-font.font";
 
 const float LurkMsg::DEFAULT_MAX_LURK_TIME = 3.0f;
@@ -67,7 +65,7 @@ bool LurkMsg::IsFinished() const
 
 bool LurkMsg::LoadGui(const std::string& guiFilename)
 {
-  m_gui = ::Amju::LoadGui(LURK_GUI_FILENAME, false);
+  m_gui = ::Amju::LoadGui(guiFilename, false);
   Assert(m_gui);
   
   m_ok = (GuiButton*)GetElementByName(m_gui, "ok-button");
@@ -190,8 +188,6 @@ void LurkMsg::SetNoCommand(CommandFunc onNo)
 
 void LurkMsg::DoOk()
 {
-  m_gui->SetVisible(true); // ? TODO Why
-
   if (m_onOk)
   {
     m_onOk(nullptr);
@@ -200,8 +196,6 @@ void LurkMsg::DoOk()
 
 void LurkMsg::DoYes()
 {
-  m_gui->SetVisible(true); // ? TODO Why
-
   if (m_onYes)
   {
     m_onYes(nullptr);
@@ -210,8 +204,6 @@ void LurkMsg::DoYes()
 
 void LurkMsg::DoNo()
 {
-  m_gui->SetVisible(true); // ? TODO Why
-
   if (m_onNo)
   {
     m_onNo(nullptr);
@@ -241,7 +233,7 @@ void LurkMsg::Set(const std::string& str, const Colour& fgCol, const Colour& bgC
   Set(text, fgCol, bgCol, lp, maxTime, onFinished);
 }
 
-void LurkMsg::Set(GuiText* text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
+void LurkMsg::Set(GuiElement* text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
   float maxTime, CommandFunc onOk)
 {
   const float LURK_MSG_CORNER_RADIUS = 0.04f;
@@ -306,13 +298,6 @@ void LurkMsg::Set(GuiText* text, const Colour& fgCol, const Colour& bgCol, LurkP
 
 Lurker::Lurker()
 {
-/*
-  m_button = new GuiButton;
-  m_button->OpenAndLoad("lurk-button.txt");
-  TheEventPoller::Instance()->AddListener(m_button);
-  m_button->SetVisible(false);
-  m_button->SetCommand(Amju::OnLurkOk);
-*/
 }
 
 void Lurker::OnLurkOk()
@@ -387,17 +372,6 @@ void Lurker::Queue(PLurkMsg lm, bool immediate)
   }
 
   q.push(lm);
-}
-
-void Lurker::ShowYesNo(const std::string& q, const Colour& fgCol, const Colour& bgCol, 
-  CommandFunc no, CommandFunc yes)
-{
-  // TODO Yes/No msg should be subclass, right?
-  PLurkMsg msg = new LurkMsg(q, fgCol, bgCol, AMJU_CENTRE, 0);
-  msg->SetNoCommand(no);
-  msg->SetYesCommand(yes);
-
-  Queue(msg);
 }
 
 void Lurker::Clear()
