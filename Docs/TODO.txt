@@ -15,6 +15,7 @@ Music notation
 
 Music notation: Important remaining unknowns:
  * Bars connecting quavers and shorter notes. This is the #1 problem to solve
+ + it works, but we need a layer to make it easier to author.
  - Staves and bar lines should be drawn programatically, not just using scale.
  - Variable-size glyphs: slurs, ties, stave, triplet etc spans
  - Bar lines connecting multiple staves
