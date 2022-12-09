@@ -27,15 +27,62 @@ export ANS_Q='=rest-quaver,0.5,1,.5,.5'
 export ANS_CR='=rest-crotchet,0.5,1,.5,.5'
 export ANS_MIN='=rest-minim,0.5,1,.5,.5'
 
+export EXPL_24_CR='=@@@The time signature tell us there are 2 crotchet beats in every bar. So we need a crotchet rest here to give one more beat.'
 export EXPL_34_CR='=@@@The time signature tell us there are 3 crotchet beats in every bar. So we need a crotchet rest here to give one more beat.'
 export EXPL_44_CR='=@@@The time signature tell us there are 4 crotchet beats in every bar. So we need a crotchet rest here to give one more beat.'
+
+export EXPL_24_MIN='=@@@The time signature tell us there are 2 crotchet beats in every bar. We need a minim rest to fill the bar.'
+export EXPL_34_MIN='=@@@The time signature tell us there are 3 crotchet beats in every bar. We need a minim rest here to give 2 more beats.'
 export EXPL_44_MIN='=@@@The time signature tell us there are 4 crotchet beats in every bar. We need a minim rest here to give 2 more beats.'
 
-echo '3/4 *cr  c   c | m.' | ./a.out --oneline  >> $OUT
+# Crotchet rest answers
+# 2/4
+
+echo '2/4  c cr | c *cr | q -- q  c | m' | ./a.out --oneline  >> $OUT
+echo $ANS_CR $EXPL_24_CR >> $OUT
+echo >> $OUT
+
+echo '2/4  c cr | c cr | q -- q  *cr | m' | ./a.out --oneline  >> $OUT
+echo $ANS_CR $EXPL_24_CR >> $OUT
+echo >> $OUT
+
+# 3/4
+
+echo '3/4 c *cr c | m.' | ./a.out --oneline  >> $OUT
 echo $ANS_CR $EXPL_34_CR >> $OUT
 echo >> $OUT
 
-echo '4/4 c  c *mr | m c c' | ./a.out --oneline  >> $OUT
+echo '3/4 c m | c m | c c c | m *cr' | ./a.out --oneline  >> $OUT
+echo $ANS_CR $EXPL_34_CR >> $OUT
+echo >> $OUT
+
+# 4/4
+
+echo '4/4 c c c *cr | m c c' | ./a.out --oneline  >> $OUT
+echo $ANS_CR $EXPL_44_CR >> $OUT
+echo >> $OUT
+
+echo '4/4 c cr c *cr | c c m' | ./a.out --oneline  >> $OUT
+echo $ANS_CR $EXPL_44_CR >> $OUT
+echo >> $OUT
+
+# Minim rest answers
+
+# 2/4
+
+echo '2/4 c c | *mr | c c | mr' | ./a.out --oneline  >> $OUT
+echo $ANS_MIN $EXPL_24_MIN >> $OUT
+echo >> $OUT
+
+# 3/4
+
+echo '3/4 c mr | c *mr | m.' | ./a.out --oneline  >> $OUT
+echo $ANS_MIN $EXPL_34_MIN >> $OUT
+echo >> $OUT
+
+# 4/4 
+
+echo '4/4 c c *mr | m c c' | ./a.out --oneline  >> $OUT
 echo $ANS_MIN $EXPL_44_MIN >> $OUT
 echo >> $OUT
 
