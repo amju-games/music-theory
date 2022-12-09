@@ -2,6 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <AmjuFirst.h>
+#include <Batched.h>
 #include <Timer.h>
 #include <EventPoller.h>
 #include <SoundManager.h>
@@ -56,6 +57,15 @@ void CentreMsg::Draw()
 {
   DrawModalBg();
 
+  if (m_avatarGui)
+  {
+    m_avatarGui->Draw();
+  }
+
+  // Flush, to make sure that rect/text will appear over the top of 
+  //  everything else.
+  Batched::DrawAll();
+
   AmjuGL::PushMatrix();
   AmjuGL::Scale(m_scale, m_scale, 1.0f);
   m_rect->Draw();
@@ -82,11 +92,6 @@ void CentreMsg::Draw()
       m_gui->SetVisible(true);
       m_gui->Draw();
     }
-  }
-
-  if (m_avatarGui)
-  {
-    m_avatarGui->Draw();
   }
 }
 

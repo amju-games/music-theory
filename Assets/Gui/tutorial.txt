@@ -11,7 +11,7 @@ gui-comp
 // Name
 tutorial-avatar-comp
 // Num children
-1
+2
 
 elastic
 1,0
@@ -31,6 +31,9 @@ colour;colour-head;F9EBA9|colour;colour-hair;3B1749|cell;hair;13|cell;nose;12|ce
 
 include
 avatar.txt
+
+flush
+
 
 
 

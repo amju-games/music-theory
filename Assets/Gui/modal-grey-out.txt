@@ -15,7 +15,7 @@ modal-grey-out-comp
 1
 
 colour
-00000040
+00000080
 
 gui-image
 grey-out-everything

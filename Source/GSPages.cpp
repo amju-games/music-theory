@@ -305,6 +305,9 @@ void GSPages::Draw2d()
   }
 
   // Common GUI goes on top or under? We want tick/cross to go on top.
+  // We want to draw the avatar Under so avatar doesn't obscure page GUI.
+  // But we want to draw the central lurk message last, with the 
+  //  darkened bg UNDER the avatar! We don't want to grey out the avatar.
   GSBase3d::Draw2d();
 }
 

@@ -13,7 +13,7 @@ mirror-repeat
 3.0
 linear
 translate
-0,-.1;0,.1
+0,-.1;0,0
 
 gui-comp
 avatar-comp
