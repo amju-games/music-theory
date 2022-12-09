@@ -24,21 +24,86 @@ namespace
 //  the corridor
 static const float MIN_DRAG_DIST = 0.25f; // 1/8 of screen
  
-void OnTopic(GuiElement*)
-{
-  if (!TheGSMainCorridor::Instance()->IsTopicUnlocked())
-  {
-    std::cout << "Topic locked!\n";
-    return;
-  }
-
-  TheGSMainCorridor::Instance()->SetMode(CorridorModeEnterClassroom::ID);
-}
 } // anon namespace
 
 CorridorModeWait::CorridorModeWait()
 {
   m_guiFilename = "Gui/corridor_mode_wait.txt";
+}
+
+void CorridorModeWait::Reset()
+{
+  m_isScrolling = false;
+  m_scrollVel = 0;
+  m_isDragging = false;
+  m_currentTopicScrolledTo = 0;
+  m_desiredXPos = 0;
+  m_currentXPos = 0; 
+  m_scrollVel = 0;
+  m_didScroll = false;
+
+  SetCamera();
+}
+
+void CorridorModeWait::OnTapDoorOrArch()
+{
+  auto gsmc = TheGSMainCorridor::Instance();
+
+  Course* course = GetCourse();
+  Assert(course);
+  int numTopics = course->GetNumTopics();
+
+  // If topic is out of range, we have tapped on an arch - go to next/prev
+  //  level.
+  if (m_currentTopicScrolledTo < 0)
+  {
+    // Go to prev level
+    int level = gsmc->GetLevel();
+    if (level > 1)
+    {
+      level--; 
+      gsmc->SetLevel(level);
+      Reset();
+      // Set x pos to FINAL door this level
+std::cout << "Go DOWN to level " << level << "\n";
+    }
+    else
+    {
+std::cout << "At lowest level, so not going down.\n";
+    }
+    return;
+  }
+
+  if (m_currentTopicScrolledTo >= numTopics)
+  {
+    // Go to next level
+    int level = gsmc->GetLevel();
+    // TODO Max num levels??
+    if (level < 2)
+    {
+      level++; // TODO
+std::cout << "Go UP to level " << level << "\n";
+      gsmc->SetLevel(level);
+      Reset();
+    }
+    else
+    {
+std::cout << "At highest level, so not going up.\n";
+    }
+    return;
+  }
+
+  // If current topic is in range of topics (displayed in this level),
+  //  go to Topic Start state.
+  if (   TheGame::Instance()->GetState() == gsmc
+      && gsmc->IsTopicUnlocked())
+  {
+    std::cout << "Topic locked!\n";
+    return;
+  }
+
+  // Not locked, so go inside the classroom and change state to Topic Start.
+  gsmc->SetMode(CorridorModeEnterClassroom::ID);
 }
 
 void CorridorModeWait::DecelerateScrolling()
@@ -64,11 +129,20 @@ void CorridorModeWait::ShowTopicName(bool showNotHide)
 
 void CorridorModeWait::SetCurrentTopic()
 {
+  Course* course = GetCourse();
+  Assert(course);
+  int numTopics = course->GetNumTopics();
+
+  if (   m_currentTopicScrolledTo < 0 
+      || m_currentTopicScrolledTo >= numTopics)
+  {
+    // Past end of Topic doors
+    return;
+  }
+
   TheUserProfile()->SetCurrentTopic(m_currentTopicScrolledTo);
 
   // Set topic name: get topic name...
-  Course* course = GetCourse();
-  Assert(course);
   Topic* topic = course->GetTopic(m_currentTopicScrolledTo);
 
   // ...now set the text on screen
@@ -111,8 +185,10 @@ void CorridorModeWait::Drag(bool rightNotLeft)
   int dir = rightNotLeft ? 1 : -1; // direction
 
   // Check for end of corridor
-  if (   ( rightNotLeft && (m_currentTopicScrolledTo > 0))
-      || (!rightNotLeft && (m_currentTopicScrolledTo < numTopics - 1)))
+  // We can scroll 1 position to the left and right of the doors, so we can
+  //  tap on stairs..?
+  if (   ( rightNotLeft && (m_currentTopicScrolledTo >= 0))
+      || (!rightNotLeft && (m_currentTopicScrolledTo < numTopics)))
   {
     m_currentTopicScrolledTo -= dir;
     m_desiredXPos += DISTANCE_BETWEEN_DOORS * dir;
@@ -274,7 +350,7 @@ bool CorridorModeWait::OnMouseButtonEvent(const MouseButtonEvent& mbe)
         //&& TheTutorialManager::Instance()->MsgHasBeenShown(
         //       TUTORIAL_TAP_DOOR, AMJU_FIRST_TIME_THIS_USER))
     {
-      OnTopic(nullptr); // replaces GuiButton
+      OnTapDoorOrArch();
     }
   }
   return false;

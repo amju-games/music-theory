@@ -23,6 +23,7 @@ public:
   virtual void OnDeactive(); // Call this in overridden functions
   virtual bool OnCursorEvent(const CursorEvent&) { return false; }
   virtual bool OnMouseButtonEvent(const MouseButtonEvent&) { return false; }
+  virtual void Reset() {}
 
 protected:
   GSMainCorridor* m_gs = nullptr;

@@ -35,7 +35,6 @@ public:
 
   // Conceptually private: button commands
   void GoToTopic();
-//  void ExitTappableMode();
 
   SceneNodeCamera* GetCamera();
 
@@ -61,6 +60,16 @@ public:
   // Get the current tappable selected by the user
   Tappable* GetSelectedTappable();
 
+  // Get/set level number: this is shown as different floors, connected
+  //  by stairs. The corridors on each floor can look different, and 
+  //  could have different numbers of Topics.
+  // The Topic group number is the level number - rename it.
+  // When we change level:
+  //  - Load 3D scene for level number
+  //  - Add classrooms for the topics at this level
+  void SetLevel(int newLevel);
+  int GetLevel() const;
+
 protected:
   void Load3dForTopics();
   bool LoadTappables();
@@ -85,6 +94,8 @@ private:
   std::array<RCPtr<CorridorMode>, 6> m_modes;
   RCPtr<CorridorMode> m_currentMode;
   int m_newModeId = -1; // set to a valid index in m_modes when we want to change mode
+
+  int m_levelNum = 1; // 1-based, right?
 };
 
 typedef Singleton<GSMainCorridor> TheGSMainCorridor;

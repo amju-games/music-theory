@@ -1,0 +1,106 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// version
+1
+
+// Node type
+comp
+// Name
+root
+// Matrix
+I
+// Num children
+6
+
+// Node type
+camera-persp
+// Name
+camera
+// Eye pos
+100, 45, 0
+// Look at pos
+80, 45, 0
+// Up vector
+0, 1, 0
+// FovY, aspect, near, far
+70, 2.0, 1, 1000
+// Num children
+0
+
+// Node type
+mesh
+// Name
+left-arch
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 60, 1
+// Obj mesh
+obj/arch1.obj
+// Num children
+0
+
+// Node type
+mesh
+// Name
+left-end
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 180, 1
+// Obj mesh
+obj/end1.obj
+// Num children
+0
+
+
+// Node type
+mesh
+// Name
+right-end
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, -860, 1
+// Obj mesh
+obj/end1.obj
+// Num children
+0
+
+
+// Node type
+mesh
+// Name
+right-arch
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, -740, 1
+// Obj mesh
+obj/arch1.obj
+//obj/end1.obj
+// Num children
+1
+
+// Node type
+mesh
+// Name
+right-stairs-up
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  20, 0, 0, 1
+// Obj mesh
+obj/stairs-up.obj
+// Num children
+0
+
+
+// ----------------------------------------------------------------------------
+// Not used, here in case we want to go back to ortho
+// Ortho cam:
+// Node type
+camera-ortho
+// Name
+camera
+// Eye pos
+100, 20, 0
+// Look at pos
+80, 10, 0
+// Up vector
+0, 1, 0
+// Ortho: l, r, t, b, n, f
+-100, 100, 110, -10, 0.1, 1000
+// Num children
+0

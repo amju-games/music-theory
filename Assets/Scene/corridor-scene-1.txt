@@ -11,7 +11,7 @@ root
 // Matrix
 I
 // Num children
-4
+6
 
 // Node type
 camera-persp
@@ -31,12 +31,22 @@ camera
 // Node type
 mesh
 // Name
+left-arch
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 60, 1
+// Obj mesh
+obj/arch1.obj
+// Num children
+0
+
+// Node type
+mesh
+// Name
 left-end
 // Matrix
-1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 40, 1
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 180, 1
 // Obj mesh
-//obj/end1.obj
-obj/arch1.obj
+obj/end1.obj
 // Num children
 0
 
@@ -44,22 +54,35 @@ obj/arch1.obj
 // Node type
 mesh
 // Name
-right-stairs-up
+right-end
 // Matrix
-1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  20, 0, -710, 1
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, -860, 1
 // Obj mesh
-obj/stairs-up.obj
+obj/end1.obj
 // Num children
 0
+
 
 // Node type
 mesh
 // Name
 right-arch
 // Matrix
-1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, -710, 1
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, -740, 1
 // Obj mesh
 obj/arch1.obj
+//obj/end1.obj
+// Num children
+1
+
+// Node type
+mesh
+// Name
+right-stairs-up
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  20, 0, 0, 1
+// Obj mesh
+obj/stairs-up.obj
 // Num children
 0
 

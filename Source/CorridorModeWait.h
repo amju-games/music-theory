@@ -21,6 +21,7 @@ public:
   virtual void Update() override;
   virtual bool OnCursorEvent(const CursorEvent&) override;
   virtual bool OnMouseButtonEvent(const MouseButtonEvent&) override;
+  virtual void Reset() override; 
 
 private:
   void Drag(bool rightNotLeft);
@@ -29,7 +30,8 @@ private:
   void ShowTopicName(bool showNotHide);
   void SetCurrentTopic();
   void SetCamera();
-  
+  void OnTapDoorOrArch();
+
 private:
   // To detect swipe left/right, and taps on Tappables
   Vec2f m_touchDownCoord, m_touchUpCoord;

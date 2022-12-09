@@ -19,8 +19,9 @@ namespace Amju
 static void OnStart(GuiElement* elem)
 {
   PlayWav(WAV_START_BUTTON);
+  GoTo<TheGSMainCorridor>();
 
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainCorridor>, SecondsFromNow(1.5f)));
+//  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainCorridor>, SecondsFromNow(1.5f)));
 
   /*
   // Is there a user yet?

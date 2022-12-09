@@ -37,7 +37,7 @@ namespace Amju
 GSMainCorridor::GSMainCorridor()
 {
   m_guiFilename = "Gui/gs_main_menu_corridor.txt";
-  m_sceneFilename = "Scene/corridor-scene.txt";
+  m_sceneFilename = "Scene/corridor-scene-" + ToString(m_levelNum) + ".txt";
 
   m_modes[CorridorModeEnterClassroom::ID] = new CorridorModeEnterClassroom;
   m_modes[CorridorModeEnterTappable::ID] = new CorridorModeEnterTappable;
@@ -61,10 +61,13 @@ bool GSMainCorridor::LoadTappables()
   Assert(root);
 
   File f;
-  if (!f.OpenRead("Gui/tappables.txt"))
+  std::string filename = "Gui/tappables-" + ToString(m_levelNum) + ".txt";
+  if (!f.OpenRead(filename))
   {
+    // Plenty of error messages will be displayed, don't worry
     return false;
   }
+
   int num = 0;
   if (!f.GetInteger(&num))
   {
@@ -110,7 +113,10 @@ void GSMainCorridor::Load3dForTopics()
 
     // TODO Load from a list of scene files; each one has a locked and
     //  unlocked variety.
-    PSceneNode node = LoadScene("Scene/corridor-one-door.txt");
+    
+    std::string filename = "Scene/corridor-one-door-" + 
+      ToString(m_levelNum) + ".txt";
+    PSceneNode node = LoadScene(filename);
     Assert(node);
     PSceneNode door = node->GetNodeByName("door");
     m_doors.push_back(door);
@@ -141,6 +147,37 @@ void GSMainCorridor::OnDeactive()
   m_currentMode = nullptr;
 }
 
+void GSMainCorridor::SetLevel(int levelNum)
+{
+  if (levelNum == m_levelNum)
+  {
+    return;
+  }
+
+  m_levelNum = levelNum;
+
+  // Load course for this level
+
+  // Load 3D for this level
+  // Load classroom doors for each Topic in this level
+  m_sceneFilename = "Scene/corridor-scene-" + ToString(m_levelNum) + ".txt";
+  Reload3d();
+
+  SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
+  m_camera = dynamic_cast<SceneNodeCamera*>(
+    root->GetNodeByName("camera"));
+  Assert(m_camera);
+
+  Load3dForTopics();
+
+  LoadTappables();
+}
+
+int GSMainCorridor::GetLevel() const
+{
+  return m_levelNum;
+}
+
 void GSMainCorridor::OnActive()
 {
   GSBase3d::OnActive();
@@ -150,7 +187,7 @@ void GSMainCorridor::OnActive()
     root->GetNodeByName("camera"));
   Assert(m_camera);
 
-  // TODO We only need to do this once up front??
+  // TODO What happens when we re-enter this state, and we are on e.g. level 2
   Load3dForTopics();
   LoadTappables();
 

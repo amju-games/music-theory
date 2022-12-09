@@ -32,7 +32,7 @@ void GSBase3d::Reload3d()
   SceneNode* root = new SceneNode;
   sg->SetRootNode(SceneGraph::AMJU_OPAQUE, root);
 
-  // Load 3D scene. TODO Base class for corridor/menu state and this, in-classroom state.
+  // Load 3D scene.
   PSceneNode node = LoadScene(m_sceneFilename);
   Assert(node);
   root->AddChild(node);
