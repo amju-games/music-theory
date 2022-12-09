@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\MakeScore\Attachment.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Bar.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Beam.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Clef.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="..\..\..\..\Source\MakeScore\MakeScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Pitch.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Stave.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\Switch.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Tie.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\TimeSig.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\TimeValue.cpp" />
@@ -160,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\MakeScore\Accidental.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\Attachment.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Bar.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Beam.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Clef.h" />
@@ -171,6 +174,7 @@
     <ClInclude Include="..\..\..\..\Source\MakeScore\MakeScore.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Pitch.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Stave.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\Switch.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Tie.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\TimeSig.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\TimeSigGlyph.h" />
