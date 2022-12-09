@@ -1,6 +1,13 @@
 TODO prototype tech unknowns
 
+Dr Memory: check for leaks. Dr Memory crashes on Windows 10? Maybe there is an updated version?
+OK, version 1.11.0 works ok
+Results are suspiciously good. Continue to test.
+
+
 Reload images - so trash GL resources and re-upload
+
+Fix composite bring child to front - OK
 
 
 Playable keyboard
@@ -22,11 +29,11 @@ Music notation: Important remaining unknowns:
  - Staves and bar lines should be drawn programatically, not just using scale.
  - Variable-size glyphs: slurs, ties, stave, triplet etc spans
  - Bar lines connecting multiple staves
- - Curly braces connecting staves
+ - Curly braces connecting staves: find a nice image, will have to stretch it.
  
 Refining music notation
  - Subclass TextureSequence to allow variable widths. Reduce dead space on texture, improving load time/mem usage.
- - Draw quad proportional to width - this allows for a range of slur widths, etc.
+ - Draw quad proportional to width - this allows for a range of slur widths, etc. - OK
 
 Next-level layer over GuiMusicScore
  - GuiMusicScore is the bottom level of a decent system. Look at Guido for how to better express music notation. 

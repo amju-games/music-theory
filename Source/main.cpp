@@ -25,12 +25,14 @@
 #include <Font.h>
 #include <Game.h>
 #include <EventPoller.h>
+#include <ObjMesh.h>
 #include <ResourceManager.h>
 #include "GSPlayNotes.h"
 #include "GSShowLineDrawing.h"
 #include "GSShowMusicScore.h"
 #include "GSUserDraw.h"
 #include "GuiLineDrawing.h"
+#include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
 
 namespace Amju
@@ -55,19 +57,26 @@ void StartUpAfterCreateWindow()
   ResourceManager* rm = TheResourceManager::Instance();
   rm->AddLoader("font", FontLoader);
 
+#ifdef YES_BINARY_OBJ_FILES
+  rm->AddLoader("obj", BinaryObjLoader);
+#else
+  rm->AddLoader("obj", TextObjLoader);
+#endif
+
   // Set sound player
   SoundManager* sm = TheSoundManager::Instance();
   BassSoundPlayer* bsp = new BassSoundPlayer;
   bsp->MidiSetSoundFont("Sound/velocity_grand_piano.sf2");
   sm->SetImpl(bsp);
 
-  GuiMusicScore::AddToFactory();
   GuiLineDrawing::AddToFactory();
+  GuiMusicKb::AddToFactory();
+  GuiMusicScore::AddToFactory();
 
-//  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
-  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
 }
 }
 

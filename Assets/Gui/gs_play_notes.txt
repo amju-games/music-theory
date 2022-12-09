@@ -1,0 +1,63 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Line drawing test
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+root
+// Num children
+2
+
+// Element type
+gui-text
+// Element name
+help-text
+// pos (coords are -1..1)
+-0.9, 0.9
+// size
+1.8, 0.2
+// Text
+Hello! A keyboard?
+// Font name, size
+arial, 1.0, multi, fgcol=000000
+
+music-kb
+kb
+// Pos
+0, 0
+// Scale
+1, 1
+// Keys
+key-white.obj, D9D9D9
+key-black.obj, 242424
+key-white.obj, D9D9D9
+key-black.obj, 242424
+key-white.obj, D9D9D9
+key-white.obj, D9D9D9
+key-black.obj, 242424
+key-white.obj, D9D9D9
+key-black.obj, 242424
+key-white.obj, D9D9D9
+key-black.obj, 242424
+key-white.obj, D9D9D9
+
+key-white.obj, D9D9D9
+key-black.obj, 242424
+key-white.obj, D9D9D9
+key-black.obj, 242424
+key-white.obj, D9D9D9
+key-white.obj, D9D9D9
+key-black.obj, 242424
+key-white.obj, D9D9D9
+key-black.obj, 242424
+key-white.obj, D9D9D9
+key-black.obj, 242424
+key-white.obj, D9D9D9
+
+end
+
