@@ -10,32 +10,22 @@
 
 namespace Amju
 {
-const int CorridorModeExitTappable::ID = 5;
+const int CorridorModeExitTappable::ID = UNIQUE_ID;
 
-void CorridorModeExitTappable::Update()
+void CorridorModeExitTappable::OnFinishedLerp()
 {
-  CorridorMode::Update();
+  m_gs->SetMode(CorridorModeWait::ID);
+  m_gs->GetCameraController().SetNoLerp();
+}
 
-  float dt = TheTimer::Instance()->GetDt();
-
-  // Moving back away from tappable camera setting
-  m_camLerpTime += dt; // TODO speed
-  if (m_camLerpTime > 1)
-  {
-    // Reached desired cam pos
-    // TODO change state
-    m_camLerpTime = 1;
-
-    m_gs->SetMode(CorridorModeWait::ID);
-    m_gs->GetCameraController().SetTappable(nullptr);
-  }
-  m_gs->GetCameraController().SetLerpT(1.0f - m_camLerpTime);
+void CorridorModeExitTappable::SetCamLerpT()
+{
+  m_gs->GetCameraController().SetLerpT(1.0f - m_camLerpT);
 }
 
 void CorridorModeExitTappable::OnActive()
 {
-  CorridorMode::OnActive();
-  m_camLerpTime = 0;
+  CorridorModeLerpCam::OnActive();
 
   PlayWav(WAV_EXIT_TAPPABLE);
 }

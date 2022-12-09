@@ -7,9 +7,9 @@
 
 namespace Amju
 {
-// * CorridorModeEnterTappable *
-// Transition to showing tappable
-class CorridorModeEnterTappable : public CorridorModeLerpCam
+// * CorridorModeEnterStairs *
+// Move camera into stairs, fade out or other effect
+class CorridorModeEnterStairs : public CorridorModeLerpCam
 {
 public:
   static const int ID;

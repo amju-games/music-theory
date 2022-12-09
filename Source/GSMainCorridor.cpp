@@ -17,6 +17,7 @@
 #include <Unproject.h>
 #include "Consts.h"
 #include "CorridorModeEnterClassroom.h"
+#include "CorridorModeEnterStairs.h"
 #include "CorridorModeEnterTappable.h"
 #include "CorridorModeExitClassroom.h"
 #include "CorridorModeExitTappable.h"
@@ -40,6 +41,7 @@ GSMainCorridor::GSMainCorridor()
   m_sceneFilename = "Scene/corridor-scene-" + ToString(m_levelNum) + ".txt";
 
   m_modes[CorridorModeEnterClassroom::ID] = new CorridorModeEnterClassroom;
+  m_modes[CorridorModeEnterStairs::ID] = new CorridorModeEnterStairs;
   m_modes[CorridorModeEnterTappable::ID] = new CorridorModeEnterTappable;
   m_modes[CorridorModeExitClassroom::ID] = new CorridorModeExitClassroom;
   m_modes[CorridorModeExitTappable::ID] = new CorridorModeExitTappable;
@@ -237,6 +239,7 @@ void GSMainCorridor::ChangeMode()
     m_currentMode->OnDeactive();
   }
   m_currentMode = m_modes[m_newModeId];
+  Assert(m_currentMode);
   m_currentMode->OnActive();
   m_newModeId = -1;
 }

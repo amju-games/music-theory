@@ -7,6 +7,7 @@
 #include "Consts.h"
 #include "CorridorModeWait.h"
 #include "CorridorModeEnterClassroom.h"
+#include "CorridorModeEnterStairs.h"
 #include "Course.h"
 #include "GSMainCorridor.h"
 #include "LurkMsg.h"
@@ -68,6 +69,7 @@ void CorridorModeWait::OnTapDoorOrArch()
       Reset();
       // Set x pos to FINAL door this level
 std::cout << "Go DOWN to level " << level << "\n";
+      gsmc->SetMode(CorridorModeEnterStairs::ID);
     }
     else
     {
@@ -87,6 +89,7 @@ std::cout << "At lowest level, so not going down.\n";
 std::cout << "Go UP to level " << level << "\n";
       gsmc->SetLevel(level);
       Reset();
+      gsmc->SetMode(CorridorModeEnterStairs::ID);
     }
     else
     {

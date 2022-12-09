@@ -17,6 +17,9 @@ public:
   virtual void OnFinishedLerp() = 0;
 
 protected:
+  virtual void SetCamLerpT();
+
+protected:
   float m_camLerpT = 0;
   float m_speed = 1.0f; // i.e. lerp 1..0 takes 1s, by default
 };

@@ -3,21 +3,21 @@
 
 #pragma once
 
-#include "CorridorMode.h"
+#include "CorridorModeLerpCam.h"
 
 namespace Amju
 {
 // * CorridorModeExitTappable *
 // Transition back from focusing on a tappable, to re-entering Wait mode
-class CorridorModeExitTappable : public CorridorMode
+class CorridorModeExitTappable : public CorridorModeLerpCam
 {
 public:
   static const int ID;
-  virtual void OnActive() override;
-  virtual void Update() override;
+  void OnActive() override;
+  void OnFinishedLerp() override;
 
-private:
-  float m_camLerpTime = 0;
+protected:
+  void SetCamLerpT() override;
 };
 
 }

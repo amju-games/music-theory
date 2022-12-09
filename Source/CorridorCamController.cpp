@@ -8,34 +8,44 @@
 
 namespace Amju
 {
+void CorridorCamController::SetNoLerp()
+{
+  m_isCamLerping = false;
+}
+
 void CorridorCamController::Update()
 {
   if (m_isCamLerping)
   {
     SceneNodeCamera* cam = TheGSMainCorridor::Instance()->GetCamera();
 
-    Vec3f eye = Lerp(m_origCamEye, m_tappable->GetCameraEyePos(), m_camLerpT);
-    Vec3f look = Lerp(m_origCamTarget, m_tappable->GetCameraTargetPos(), m_camLerpT);
+    Vec3f eye = Lerp(m_origCamEye, m_desiredCamEye, m_camLerpT);
+    Vec3f look = Lerp(m_origCamTarget, m_desiredCamTarget, m_camLerpT);
 
     cam->SetEyePos(eye);
     cam->SetLookAtPos(look);
   }
 }
 
-void CorridorCamController::SetTappable(RCPtr<Tappable> tappable)
+void CorridorCamController::SetDesired(const Vec3f& eye, const Vec3f& target)
 {
-  m_tappable = tappable;
+  m_desiredCamEye = eye;
+  m_desiredCamTarget = target;
 
-  m_isCamLerping = false;
+  // TODO Ptr to Camera should be member?
+  SceneNodeCamera* cam = TheGSMainCorridor::Instance()->GetCamera();
+  m_origCamEye = cam->GetEyePos();
+  m_origCamTarget = cam->GetLookAtPos();
+
+  m_isCamLerping = true;
   m_camLerpT = 0;
+}
 
-  if (m_tappable)
+void CorridorCamController::SetDesiredFromTappable(RCPtr<Tappable> tappable)
+{
+  if (tappable)
   {
-    m_isCamLerping = true;
-    // TODO Ptr to Camera should be member?
-    SceneNodeCamera* cam = TheGSMainCorridor::Instance()->GetCamera();
-    m_origCamEye = cam->GetEyePos();
-    m_origCamTarget = cam->GetLookAtPos();
+    SetDesired(tappable->GetCameraEyePos(), tappable->GetCameraTargetPos());
   }
 }
 
