@@ -15,15 +15,15 @@ gs-line-drawing-root
 
 // 2s delay
 animation
+one-shot
 2.0
 step
-one-shot
 
 // Saw tooth wave animation
 animation
-2
-linear
 repeat
+2.0
+linear
 
 line-drawing
 // Name, Position, Size
@@ -42,15 +42,15 @@ stroke-test-1.txt
 
 // Delay
 animation
-0.0
-step
 one-shot
+0.1
+step
 
 // Saw tooth wave animation
 animation
-5
-linear
 repeat
+5.0
+linear
 
 
 line-drawing

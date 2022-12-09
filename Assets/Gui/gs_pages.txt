@@ -67,9 +67,9 @@ tick
 
 // Linear animation
 animation
+one-shot
 .4
 linear
-one-shot
 
 // Tick for when user gets question correct
 line-drawing
@@ -98,9 +98,9 @@ cross
 
 // Linear animation
 animation
+one-shot
 .2
 linear
-one-shot
 
 line-drawing
 // Name
@@ -121,15 +121,15 @@ stroke-cross-1.txt
 
 // Delay
 animation
+one-shot
 0.21
 step
-one-shot
 
 // Linear animation
 animation
+one-shot
 .2
 linear
-one-shot
 
 line-drawing
 // Name

@@ -15,18 +15,18 @@ gs-main-menu-root
 
 
 // Decorator test
-// 2s delay
+// delay
 animation
+one-shot
 0.5
 step
-one-shot
 
 // Triangle wave animation
 animation
-2
-linear
 one-shot
 //repeat
+2.0
+linear
 
 //// Animation interpolates between these colours
 //colour
@@ -58,9 +58,9 @@ Image/bulb.png
 
 
 animation
-2
-linear
 mirror-repeat
+2.0
+linear
 
 scale
 0.9, 0.9; 1.0, 1.0
