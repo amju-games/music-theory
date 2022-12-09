@@ -32,6 +32,7 @@
 		6959E3191EA7F44600E251A9 /* GuiTextEditIos.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3161EA7F44600E251A9 /* GuiTextEditIos.mm */; };
 		6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */; };
 		6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E31C1EAB5BA500E251A9 /* PrintGui.cpp */; };
+		695E90731F4A13CA0003901E /* GSCopyAssets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695E90711F4A13CA0003901E /* GSCopyAssets.cpp */; };
 		6976F4961F2F1DD300D1D51A /* GSMainCorridor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6976F4941F2F1DD300D1D51A /* GSMainCorridor.cpp */; };
 		697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07EF1E82F19B0045CE54 /* GSBase.cpp */; };
 		697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */; };
@@ -181,6 +182,8 @@
 		6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSKeyboard.mm; path = "../../../../Source/iOS-MusicTheory/iOSKeyboard.mm"; sourceTree = "<group>"; };
 		6959E31C1EAB5BA500E251A9 /* PrintGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintGui.cpp; path = ../../../../Source/PrintGui.cpp; sourceTree = "<group>"; };
 		6959E31D1EAB5BA500E251A9 /* PrintGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintGui.h; path = ../../../../Source/PrintGui.h; sourceTree = "<group>"; };
+		695E90711F4A13CA0003901E /* GSCopyAssets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSCopyAssets.cpp; path = ../../../../Source/GSCopyAssets.cpp; sourceTree = "<group>"; };
+		695E90721F4A13CA0003901E /* GSCopyAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSCopyAssets.h; path = ../../../../Source/GSCopyAssets.h; sourceTree = "<group>"; };
 		6976F4941F2F1DD300D1D51A /* GSMainCorridor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSMainCorridor.cpp; path = ../../../../Source/GSMainCorridor.cpp; sourceTree = "<group>"; };
 		6976F4951F2F1DD300D1D51A /* GSMainCorridor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSMainCorridor.h; path = ../../../../Source/GSMainCorridor.h; sourceTree = "<group>"; };
 		697A07EF1E82F19B0045CE54 /* GSBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSBase.cpp; path = ../../../../Source/GSBase.cpp; sourceTree = "<group>"; };
@@ -456,6 +459,8 @@
 				697A07F01E82F19B0045CE54 /* GSBase.h */,
 				6951CF111F0B932300140095 /* GSBase3d.cpp */,
 				6951CF121F0B932300140095 /* GSBase3d.h */,
+				695E90711F4A13CA0003901E /* GSCopyAssets.cpp */,
+				695E90721F4A13CA0003901E /* GSCopyAssets.h */,
 				6959E3081EA7CFF200E251A9 /* GSFirstUser.cpp */,
 				6959E3091EA7CFF200E251A9 /* GSFirstUser.h */,
 				6976F4941F2F1DD300D1D51A /* GSMainCorridor.cpp */,
@@ -722,6 +727,7 @@
 				697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */,
 				6959E2F91E9ACE8A00E251A9 /* GSTopicStart.cpp in Sources */,
 				69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */,
+				695E90731F4A13CA0003901E /* GSCopyAssets.cpp in Sources */,
 				6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */,
 				69D732911F23DA29007B73C1 /* CorridorMode.cpp in Sources */,
 				69C10CDE1F17877A009B6836 /* PageQuestion.cpp in Sources */,
