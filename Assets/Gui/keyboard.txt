@@ -30,10 +30,19 @@ kb
 //1, 1
 // Keys
 // First key midi value (60=middle C)
-57
+48
 // Mesh, isBlack, xPos
 
-obj/key-white.obj, 0, 0
+obj/key-white.obj, 0, 1.1
+obj/key-black.obj, 1, 0.55
+obj/key-white.obj, 0, 0.55
+obj/key-black.obj, 1, 0.55
+obj/key-white.obj, 0, 0.55
+obj/key-white.obj, 0, 1.1
+obj/key-black.obj, 1, 0.55
+obj/key-white.obj, 0, 0.55
+obj/key-black.obj, 1, 0.55
+obj/key-white.obj, 0, 0.55
 obj/key-black.obj, 1, 0.55
 obj/key-white.obj, 0, 0.55
 
