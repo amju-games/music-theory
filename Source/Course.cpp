@@ -10,9 +10,7 @@ namespace Amju
 Resource* CourseLoader(const std::string& resName)
 {
   Course* c = new Course;
-  // Remove final extension
-  std::string filename = GetFileNoExt(resName);
-  if (!c->Load(filename))
+  if (!c->Load(resName))
   {
     Assert(0);
     delete c; // TODO res loaders like this should return an RCPtr
@@ -21,8 +19,10 @@ Resource* CourseLoader(const std::string& resName)
   return c;
 }
 
-bool Course::Load(const std::string& filename)
+bool Course::Load(const std::string& resName)
 {
+  // Remove final extension
+  std::string filename = GetFileNoExt(resName);
   File f;
   if (!f.OpenRead(filename))
   {
