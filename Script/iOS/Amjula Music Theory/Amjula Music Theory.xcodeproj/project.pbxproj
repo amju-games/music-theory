@@ -10,8 +10,16 @@
 		691D91B91F9E5F1D004D6CED /* NumUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 691D91B71F9E5F1D004D6CED /* NumUpdate.cpp */; };
 		692BF7471EAE50BD00DB6CE7 /* PagePlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 692BF7461EAE50BD00DB6CE7 /* PagePlayNotes.cpp */; };
 		692BF74B1EAE5E2B00DB6CE7 /* PageFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 692BF7491EAE5E2B00DB6CE7 /* PageFactory.cpp */; };
+		694519482017368F001C188B /* QuestionPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 694519372017368C001C188B /* QuestionPicker.cpp */; };
+		694519492017368F001C188B /* QuestionProgress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 694519382017368C001C188B /* QuestionProgress.cpp */; };
+		6945194A2017368F001C188B /* UseVertexColourShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6945193A2017368D001C188B /* UseVertexColourShader.cpp */; };
+		6945194B2017368F001C188B /* CorridorModeExitStairs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6945193C2017368D001C188B /* CorridorModeExitStairs.cpp */; };
+		6945194C2017368F001C188B /* Gui3dScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6945193D2017368D001C188B /* Gui3dScene.cpp */; };
+		6945194D2017368F001C188B /* CorridorModeEnterStairs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 694519402017368E001C188B /* CorridorModeEnterStairs.cpp */; };
+		6945194E2017368F001C188B /* CorridorModeLerpCam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 694519412017368E001C188B /* CorridorModeLerpCam.cpp */; };
+		6945194F2017368F001C188B /* ParticleFx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 694519452017368F001C188B /* ParticleFx.cpp */; };
+		694519502017368F001C188B /* SceneNodeGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 694519472017368F001C188B /* SceneNodeGui.cpp */; };
 		6951CF171F0B932300140095 /* GSBase3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6951CF111F0B932300140095 /* GSBase3d.cpp */; };
-		6951CF181F0B932300140095 /* Hints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6951CF131F0B932300140095 /* Hints.cpp */; };
 		6951CF191F0B932300140095 /* Md2SceneNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6951CF151F0B932300140095 /* Md2SceneNode.cpp */; };
 		6955431C1F3B526D007C23EA /* MySceneGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695543121F3B526D007C23EA /* MySceneGraph.cpp */; };
 		6955431D1F3B526D007C23EA /* ShareManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695543141F3B526D007C23EA /* ShareManager.cpp */; };
@@ -152,10 +160,27 @@
 		692BF7461EAE50BD00DB6CE7 /* PagePlayNotes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PagePlayNotes.cpp; path = ../../../../Source/PagePlayNotes.cpp; sourceTree = "<group>"; };
 		692BF7491EAE5E2B00DB6CE7 /* PageFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PageFactory.cpp; path = ../../../../Source/PageFactory.cpp; sourceTree = "<group>"; };
 		692BF74A1EAE5E2B00DB6CE7 /* PageFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageFactory.h; path = ../../../../Source/PageFactory.h; sourceTree = "<group>"; };
+		694519352017368C001C188B /* CorridorModeEnterStairs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorModeEnterStairs.h; path = ../../../../Source/CorridorModeEnterStairs.h; sourceTree = "<group>"; };
+		694519362017368C001C188B /* Gui3dScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gui3dScene.h; path = ../../../../Source/Gui3dScene.h; sourceTree = "<group>"; };
+		694519372017368C001C188B /* QuestionPicker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QuestionPicker.cpp; path = ../../../../Source/QuestionPicker.cpp; sourceTree = "<group>"; };
+		694519382017368C001C188B /* QuestionProgress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QuestionProgress.cpp; path = ../../../../Source/QuestionProgress.cpp; sourceTree = "<group>"; };
+		694519392017368D001C188B /* SceneNodeGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneNodeGui.h; path = ../../../../Source/SceneNodeGui.h; sourceTree = "<group>"; };
+		6945193A2017368D001C188B /* UseVertexColourShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UseVertexColourShader.cpp; path = ../../../../Source/UseVertexColourShader.cpp; sourceTree = "<group>"; };
+		6945193B2017368D001C188B /* QuestionPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionPicker.h; path = ../../../../Source/QuestionPicker.h; sourceTree = "<group>"; };
+		6945193C2017368D001C188B /* CorridorModeExitStairs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CorridorModeExitStairs.cpp; path = ../../../../Source/CorridorModeExitStairs.cpp; sourceTree = "<group>"; };
+		6945193D2017368D001C188B /* Gui3dScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Gui3dScene.cpp; path = ../../../../Source/Gui3dScene.cpp; sourceTree = "<group>"; };
+		6945193E2017368E001C188B /* QuestionProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionProgress.h; path = ../../../../Source/QuestionProgress.h; sourceTree = "<group>"; };
+		6945193F2017368E001C188B /* CorridorModeExitStairs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorModeExitStairs.h; path = ../../../../Source/CorridorModeExitStairs.h; sourceTree = "<group>"; };
+		694519402017368E001C188B /* CorridorModeEnterStairs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CorridorModeEnterStairs.cpp; path = ../../../../Source/CorridorModeEnterStairs.cpp; sourceTree = "<group>"; };
+		694519412017368E001C188B /* CorridorModeLerpCam.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CorridorModeLerpCam.cpp; path = ../../../../Source/CorridorModeLerpCam.cpp; sourceTree = "<group>"; };
+		694519422017368E001C188B /* UseVertexColourShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UseVertexColourShader.h; path = ../../../../Source/UseVertexColourShader.h; sourceTree = "<group>"; };
+		694519432017368E001C188B /* ParticleFx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParticleFx.h; path = ../../../../Source/ParticleFx.h; sourceTree = "<group>"; };
+		694519442017368E001C188B /* HintType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HintType.h; path = ../../../../Source/HintType.h; sourceTree = "<group>"; };
+		694519452017368F001C188B /* ParticleFx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParticleFx.cpp; path = ../../../../Source/ParticleFx.cpp; sourceTree = "<group>"; };
+		694519462017368F001C188B /* CorridorModeLerpCam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorModeLerpCam.h; path = ../../../../Source/CorridorModeLerpCam.h; sourceTree = "<group>"; };
+		694519472017368F001C188B /* SceneNodeGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneNodeGui.cpp; path = ../../../../Source/SceneNodeGui.cpp; sourceTree = "<group>"; };
 		6951CF111F0B932300140095 /* GSBase3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSBase3d.cpp; path = ../../../../Source/GSBase3d.cpp; sourceTree = "<group>"; };
 		6951CF121F0B932300140095 /* GSBase3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSBase3d.h; path = ../../../../Source/GSBase3d.h; sourceTree = "<group>"; };
-		6951CF131F0B932300140095 /* Hints.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Hints.cpp; path = ../../../../Source/Hints.cpp; sourceTree = "<group>"; };
-		6951CF141F0B932300140095 /* Hints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hints.h; path = ../../../../Source/Hints.h; sourceTree = "<group>"; };
 		6951CF151F0B932300140095 /* Md2SceneNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Md2SceneNode.cpp; path = ../../../../Source/Md2SceneNode.cpp; sourceTree = "<group>"; };
 		6951CF161F0B932300140095 /* Md2SceneNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Md2SceneNode.h; path = ../../../../Source/Md2SceneNode.h; sourceTree = "<group>"; };
 		695543121F3B526D007C23EA /* MySceneGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MySceneGraph.cpp; path = ../../../../Source/MySceneGraph.cpp; sourceTree = "<group>"; };
@@ -487,12 +512,18 @@
 				69D732841F23DA28007B73C1 /* CorridorMode.h */,
 				69D732851F23DA28007B73C1 /* CorridorModeEnterClassroom.cpp */,
 				69D732861F23DA28007B73C1 /* CorridorModeEnterClassroom.h */,
+				694519402017368E001C188B /* CorridorModeEnterStairs.cpp */,
+				694519352017368C001C188B /* CorridorModeEnterStairs.h */,
 				69D732871F23DA28007B73C1 /* CorridorModeEnterTappable.cpp */,
 				69D732881F23DA28007B73C1 /* CorridorModeEnterTappable.h */,
 				69D732891F23DA28007B73C1 /* CorridorModeExitClassroom.cpp */,
 				69D7328A1F23DA28007B73C1 /* CorridorModeExitClassroom.h */,
+				6945193C2017368D001C188B /* CorridorModeExitStairs.cpp */,
+				6945193F2017368E001C188B /* CorridorModeExitStairs.h */,
 				69D7328B1F23DA28007B73C1 /* CorridorModeExitTappable.cpp */,
 				69D7328C1F23DA28007B73C1 /* CorridorModeExitTappable.h */,
+				694519412017368E001C188B /* CorridorModeLerpCam.cpp */,
+				694519462017368F001C188B /* CorridorModeLerpCam.h */,
 				69D7328D1F23DA29007B73C1 /* CorridorModeShowTappable.cpp */,
 				69D7328E1F23DA29007B73C1 /* CorridorModeShowTappable.h */,
 				69D7328F1F23DA29007B73C1 /* CorridorModeWait.cpp */,
@@ -535,6 +566,8 @@
 				6959E2F71E9ACE8A00E251A9 /* GSTopicStart.h */,
 				697A07F71E82F19B0045CE54 /* GSUserDraw.cpp */,
 				697A07F81E82F19B0045CE54 /* GSUserDraw.h */,
+				6945193D2017368D001C188B /* Gui3dScene.cpp */,
+				694519362017368C001C188B /* Gui3dScene.h */,
 				697A07F91E82F19B0045CE54 /* GuiLineDrawing.cpp */,
 				697A07FA1E82F19B0045CE54 /* GuiLineDrawing.h */,
 				69D58E7C1E86A02B008A8D29 /* GuiMusicKb.cpp */,
@@ -543,8 +576,7 @@
 				697A07FC1E82F19B0045CE54 /* GuiMusicScore.h */,
 				6959E3151EA7F44600E251A9 /* GuiTextEditIos.h */,
 				6959E3161EA7F44600E251A9 /* GuiTextEditIos.mm */,
-				6951CF131F0B932300140095 /* Hints.cpp */,
-				6951CF141F0B932300140095 /* Hints.h */,
+				694519442017368E001C188B /* HintType.h */,
 				6959E3171EA7F44600E251A9 /* iOSKeyboard.h */,
 				6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */,
 				69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */,
@@ -579,6 +611,8 @@
 				69C10CDB1F17877A009B6836 /* PageQuestion.cpp */,
 				69C10CDC1F17877A009B6836 /* PageQuestion.h */,
 				69F5E0891E8C09C000E7BF93 /* Panel.h */,
+				694519452017368F001C188B /* ParticleFx.cpp */,
+				694519432017368E001C188B /* ParticleFx.h */,
 				69F5E08A1E8C09C000E7BF93 /* PlayMidi.h */,
 				69C10CD41F122197009B6836 /* PlayWav.cpp */,
 				69C10CD51F122197009B6836 /* PlayWav.h */,
@@ -586,6 +620,12 @@
 				6959E31D1EAB5BA500E251A9 /* PrintGui.h */,
 				69F5E08B1E8C09C000E7BF93 /* Question.cpp */,
 				69F5E08C1E8C09C000E7BF93 /* Question.h */,
+				694519372017368C001C188B /* QuestionPicker.cpp */,
+				6945193B2017368D001C188B /* QuestionPicker.h */,
+				694519382017368C001C188B /* QuestionProgress.cpp */,
+				6945193E2017368E001C188B /* QuestionProgress.h */,
+				694519472017368F001C188B /* SceneNodeGui.cpp */,
+				694519392017368D001C188B /* SceneNodeGui.h */,
 				69D58E831E86A02B008A8D29 /* ScoreBuilder.cpp */,
 				69D58E841E86A02B008A8D29 /* ScoreBuilder.h */,
 				695E907A1F5AB7260003901E /* SerialReqManager.cpp */,
@@ -609,6 +649,8 @@
 				69A23A5B1F61E6970021BF88 /* TutorialManager.h */,
 				6959E2EA1E97F6F800E251A9 /* UserProfile.cpp */,
 				6959E2EB1E97F6F800E251A9 /* UserProfile.h */,
+				6945193A2017368D001C188B /* UseVertexColourShader.cpp */,
+				694519422017368E001C188B /* UseVertexColourShader.h */,
 				695E907C1F5AB7260003901E /* Version.cpp */,
 				695E907D1F5AB7260003901E /* Version.h */,
 				69D58E451E833741008A8D29 /* ViewController.h */,
@@ -781,6 +823,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6959E2D11E958C3C00E251A9 /* GSTitle.cpp in Sources */,
+				6945194C2017368F001C188B /* Gui3dScene.cpp in Sources */,
 				6955431F1F3B526D007C23EA /* TappableHint.cpp in Sources */,
 				69AC40371EB5331300F255A4 /* MusicEvent.cpp in Sources */,
 				692BF7471EAE50BD00DB6CE7 /* PagePlayNotes.cpp in Sources */,
@@ -793,12 +836,15 @@
 				69D732931F23DA29007B73C1 /* CorridorModeEnterTappable.cpp in Sources */,
 				6959E3061EA1091500E251A9 /* MusicalTermQuestion.cpp in Sources */,
 				69D7329C1F250B58007B73C1 /* CorridorCamController.cpp in Sources */,
+				694519482017368F001C188B /* QuestionPicker.cpp in Sources */,
+				6945194D2017368F001C188B /* CorridorModeEnterStairs.cpp in Sources */,
 				691D91B91F9E5F1D004D6CED /* NumUpdate.cpp in Sources */,
 				69D732951F23DA29007B73C1 /* CorridorModeExitTappable.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
 				697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */,
 				695E90801F5AB7260003901E /* SerialReqManager.cpp in Sources */,
 				6959E2F91E9ACE8A00E251A9 /* GSTopicStart.cpp in Sources */,
+				6945194A2017368F001C188B /* UseVertexColourShader.cpp in Sources */,
 				695E907E1F5AB7260003901E /* LurkMsg.cpp in Sources */,
 				69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */,
 				695E90731F4A13CA0003901E /* GSCopyAssets.cpp in Sources */,
@@ -812,15 +858,17 @@
 				69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */,
 				69D732941F23DA29007B73C1 /* CorridorModeExitClassroom.cpp in Sources */,
 				6959E3191EA7F44600E251A9 /* GuiTextEditIos.mm in Sources */,
+				6945194F2017368F001C188B /* ParticleFx.cpp in Sources */,
+				694519492017368F001C188B /* QuestionProgress.cpp in Sources */,
 				697A08031E82F19B0045CE54 /* GuiMusicScore.cpp in Sources */,
 				69D58E4E1E84836B008A8D29 /* Startup.cpp in Sources */,
-				6951CF181F0B932300140095 /* Hints.cpp in Sources */,
 				69AC40391EB5331300F255A4 /* PageMultiChoice.cpp in Sources */,
 				69C10CDD1F17877A009B6836 /* DictionaryPickQuestion.cpp in Sources */,
 				6955431D1F3B526D007C23EA /* ShareManager.cpp in Sources */,
 				6955431C1F3B526D007C23EA /* MySceneGraph.cpp in Sources */,
 				69A23A611F641AA40021BF88 /* TutorialIds.cpp in Sources */,
 				69C10CE21F1A2586009B6836 /* Tappable.cpp in Sources */,
+				6945194E2017368F001C188B /* CorridorModeLerpCam.cpp in Sources */,
 				69C10CD61F122197009B6836 /* PlayWav.cpp in Sources */,
 				6959E30B1EA7CFF200E251A9 /* GSFirstUser.cpp in Sources */,
 				69AC40361EB5331300F255A4 /* Dictionary.cpp in Sources */,
@@ -830,6 +878,7 @@
 				697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */,
 				695E907F1F5AB7260003901E /* NetSend.cpp in Sources */,
 				69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */,
+				6945194B2017368F001C188B /* CorridorModeExitStairs.cpp in Sources */,
 				69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */,
 				692BF74B1EAE5E2B00DB6CE7 /* PageFactory.cpp in Sources */,
 				6959E3051EA1091500E251A9 /* MultiChoiceQuestion.cpp in Sources */,
@@ -847,6 +896,7 @@
 				69D58E481E833741008A8D29 /* main.m in Sources */,
 				697A08011E82F19B0045CE54 /* GSUserDraw.cpp in Sources */,
 				6959E3041EA1091500E251A9 /* GSTopicEnd.cpp in Sources */,
+				694519502017368F001C188B /* SceneNodeGui.cpp in Sources */,
 				695543231F3B52C6007C23EA /* iOSShare.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
