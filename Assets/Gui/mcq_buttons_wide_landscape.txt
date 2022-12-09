@@ -23,6 +23,9 @@ one-shot
 1.0
 linear
 
+elastic
+0, -2
+
 // Composite: the button to fade, and the other buttons, which we move
 gui-comp
 button-group-0
