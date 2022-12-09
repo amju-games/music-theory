@@ -9,7 +9,7 @@
 
 gui-comp
 topic-leaves-comp
-3
+4
 
 gui-comp
 leaf-0
@@ -28,12 +28,23 @@ leaf-1
 colour
 ffffffff
 translate
+0, -0.3
+include
+topic-leaf-left.txt
+
+
+gui-comp
+leaf-2
+1
+colour
+ffffffff
+translate
 0, 0.0
 include
 topic-leaf-right.txt
 
 gui-comp
-leaf-2
+leaf-3
 1
 colour
 ffffffff

@@ -9,7 +9,7 @@
 1
 
 // Num topics
-3
+4
 
 // Topic
 // ID
@@ -22,6 +22,18 @@ Musical terms
 // 10 * musical term pages -- TODO num repeats?
 10
 page-musical-term
+
+// Topic
+// ID
+musical-symbols-1
+// Localised display name
+Musical symbols
+// Initially locked?
+// Topics unlocked by this one
+// Pages
+// 10 * musical term pages -- TODO num repeats?
+10
+page-musical-symbol
 
 
 // Topic

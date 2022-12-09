@@ -4,6 +4,7 @@
 #include "PageFactory.h"
 #include "PageIntervalsMultiChoice.h"
 #include "PageMusicalTerm.h"
+#include "PageMusicalSymbol.h"
 #include "PagePlayNotes.h"
 
 namespace Amju
@@ -14,6 +15,7 @@ Page* CreateT() { return new T; }
 PageFactory::PageFactory()
 {
   Add(PageIntervalsMultiChoice::NAME, &CreateT<PageIntervalsMultiChoice>);
+  Add(PageMusicalSymbol::NAME, &CreateT<PageMusicalSymbol>);
   Add(PageMusicalTerm::NAME, &CreateT<PageMusicalTerm>);
   Add(PagePlayNotes::NAME, &CreateT<PagePlayNotes>);
 }

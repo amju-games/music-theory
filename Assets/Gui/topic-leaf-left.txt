@@ -3,13 +3,13 @@
 
 // Topic leaf
 // Leaf showing a topic in main menu
-// To right of central stem
+// To left of central stem
 
 // v.
 1
 
 gui-comp
-topic-leaf-root
+topic-leaf-left-root
 2
 
 animation
@@ -35,17 +35,17 @@ one-shot
 linear
 
 rotate
-5
+-5
 
 scale
 0.0, 0.0; 1.0, 1.0
--0.7, 0.0
+0.7, 0.0
 
 // Topic button
 gui-button
 topic-button
 // pos (coords are -1..1)
-0.03, 0.18
+-0.15, 0.18
 0.8, 0.4
 Image/leaf2.png
 $$$empty
@@ -54,7 +54,7 @@ dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
 
 // 2nd child of leaf-comp: Pulse leaf
 rotate
-5
+-5
 
 animation
 grow-leaf
@@ -67,11 +67,11 @@ ffff00c0, ffff0000
 
 scale
 0.0, 0.0; 1.5, 1.5
--0.7, 0.0
+0.7, 0.0
 
 gui-image
 pulsing-leaf-image
-0.03, 0.18
+-0.15, 0.18
 0.8, 0.4
 Image/leaf1.png
 
@@ -100,11 +100,11 @@ ffffff00, ffffffff
 gui-text
 topic-name-text
 // pos (coords are -1..1)
-0.0, 0.4
+-1.0, 0.4
 // size
 1.0, 0.2
 // Text
-Musical terms
+Topic name
 // Font name, size
 dimbo, 1.0, multi, fgcol=ffffff
 
