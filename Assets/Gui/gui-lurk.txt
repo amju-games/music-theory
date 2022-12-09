@@ -18,7 +18,7 @@ dimbo, 2.0, fgcol=ffffff, bgcol=4E69F4
 
 gui-button
 yes-button
-0.05, 0
+0.05, -0.05
 0.4, 0.2
 Image/gui-button-4.png
 Yes
@@ -26,7 +26,7 @@ dimbo, 2.0, sx=1.6
 
 gui-button
 no-button
--0.45, 0
+-0.45, -0.05
 0.4,0.2
 Image/gui-button-4.png
 No
