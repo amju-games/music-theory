@@ -462,9 +462,10 @@ void GSPages::OnHint()
   }
 
   profile->AddHints(HintType::HINT_TYPE_HINT, -1); // TODO
-  ShowHints();
 
   m_page->OnHint(); // show context-sensitive hint
+
+  ShowHints();
 }
 
 void GSPages::SetButtonEnabled(const std::string& buttonName, bool enabled)
