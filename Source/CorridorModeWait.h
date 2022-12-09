@@ -18,6 +18,7 @@ public:
   static const int ID = 0;
   CorridorModeWait();
   virtual void OnActive() override;
+  virtual void OnDeactive() override;
   virtual void Update() override;
   virtual bool OnCursorEvent(const CursorEvent&) override;
   virtual bool OnMouseButtonEvent(const MouseButtonEvent&) override;

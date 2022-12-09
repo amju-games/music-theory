@@ -1,3 +1,6 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
 #include <AmjuFirst.h>
 #include <Timer.h>
 #include <EventPoller.h>

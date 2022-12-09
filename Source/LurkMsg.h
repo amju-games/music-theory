@@ -1,5 +1,7 @@
-#ifndef LURK_MSG_H_INCLUDED
-#define LURK_MSG_H_INCLUDED
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+#pragma once
 
 #include <map>
 #include <queue>
@@ -110,6 +112,4 @@ private:
 
 typedef Singleton<Lurker> TheLurker;
 }
-
-#endif
 

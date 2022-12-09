@@ -5,3 +5,5 @@
 // v 
 1
 
+lurk-font-x 1
+lurk-font-y 2
