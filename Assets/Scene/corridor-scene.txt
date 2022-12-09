@@ -46,7 +46,7 @@ mesh
 // Name
 right-stairs-up
 // Matrix
-1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  20, 0, -440, 1
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  20, 0, -710, 1
 // Obj mesh
 obj/stairs-up.obj
 // Num children
@@ -57,7 +57,7 @@ mesh
 // Name
 right-arch
 // Matrix
-1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, -440, 1
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, -710, 1
 // Obj mesh
 obj/arch1.obj
 // Num children
