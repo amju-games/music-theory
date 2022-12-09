@@ -18,6 +18,24 @@
 
 namespace Amju
 {
+// TODO Move this somewhere else?
+static PGuiElement MakeExplGui(const std::string& expl)
+{
+  PGuiElement gui;
+  // If string ends ".txt", it's a GUI filename. Otherwise, it's some text.
+  if (GetFileExt(expl) == "txt")
+  {
+    gui = LoadGui(expl);
+  }
+  else
+  {
+    gui = CentreMsg::MakeGuiText(expl, GetColour(COLOUR_TEXT));
+  }
+  Assert(gui);
+  return gui;
+  return gui;
+}
+
 struct ChoiceCommand : public GuiCommand
 {
   ChoiceCommand(PageMultiChoice* page, int button) : m_page(page), m_button(button) {}
@@ -235,21 +253,26 @@ void PageMultiChoice::ShowCorrectAnswer()
   }
   else
   {
-    // Don't go to next page until user dismisses this message 
-    PLurkMsg lm = new CentreMsg(expl, 
-      GetColour(COLOUR_TEXT), 
-      GetColour(COLOUR_EXPLANATION),
-      AMJU_LURK_NO_TIMER);
-
-    // Set function to set correct answer button to have focus - lurk msg took
-    //  focus away.
-    std::function<void(GuiElement*)> fn = [button](GuiElement*) 
+    // Function to set correct answer button to go to next page and 
+    //  take back focus - centred msg GUI will take focus away.
+    std::function<void(GuiElement*)> okFunc = [button](GuiElement*) 
     { 
       button->SetIsFocusButton(true); 
       Page::SendNextPageMessage();
     };
-    lm->SetOkCommand(fn);
-    TheLurker::Instance()->Queue(lm);
+
+    PGuiElement explGui = MakeExplGui(expl);
+
+    // Don't go to next page until user dismisses this message 
+    CentreMsg* msg = new CentreMsg;
+    msg->SetCentred(
+      explGui, 
+      GetColour(COLOUR_TEXT), 
+      GetColour(COLOUR_EXPLANATION),
+      AMJU_LURK_NO_TIMER,
+      okFunc);
+
+    TheLurker::Instance()->Queue(msg);
   }
 }
 

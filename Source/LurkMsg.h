@@ -51,6 +51,7 @@ public:
   void DoNo();
 
   static const float DEFAULT_MAX_LURK_TIME;
+  static const char* MESSAGE_FONT;
 
 protected:
   PGuiElement m_text;

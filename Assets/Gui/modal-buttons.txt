@@ -1,3 +1,8 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Default GUI buttons for modal dialog
+
 // version
 1
 
@@ -6,13 +11,7 @@ gui-comp
 // Name
 lurk-comp
 // Num children
-4
-
-gui-image
-grey-out-everything
--1, 2
-2, 3
-Image/dark-filter.png, stretch
+3
 
 gui-button
 ok-button

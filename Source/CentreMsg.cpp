@@ -16,11 +16,7 @@
 
 namespace Amju
 {
-static const char* LURK_GUI_FILENAME = "Gui/gui-lurk.txt";
-
-static const char* LURK_FONT = "font2d/arial-font.font";
-
-const float CentreMsg::DEFAULT_MAX_LURK_TIME = 3.0f;
+static const char* MODAL_BUTTON_GUI_FILENAME = "Gui/modal-buttons.txt";
 
 // Extra border around text
 static const Vec2f EXTRA(0.1f, 0.05f); // TODO CONFIG
@@ -38,6 +34,16 @@ CentreMsg::CentreMsg(const std::string& text, const Colour& fgCol, const Colour&
 
 void CentreMsg::Draw()
 {
+  AmjuGL::PushMatrix();
+  AmjuGL::Scale(m_scale, m_scale, 1.0f);
+  m_rect->Draw();
+  if (m_scale > 0.99f)
+  {
+    m_text->Draw();
+  }
+  AmjuGL::PopMatrix();
+
+  // Draw GUI buttons on top
   m_gui->SetVisible(false); // so inert if not displayed
 
   if (m_state == LurkMsg::LURK_SHOWN)
@@ -55,15 +61,6 @@ void CentreMsg::Draw()
       m_gui->Draw();
     }
   }
-
-  AmjuGL::PushMatrix();
-  AmjuGL::Scale(m_scale, m_scale, 1.0f);
-  m_rect->Draw();
-  if (m_scale > 0.99f)
-  {
-    m_text->Draw();
-  }
-  AmjuGL::PopMatrix();
 }
 
 void CentreMsg::Update()
@@ -111,6 +108,12 @@ void CentreMsg::Update()
     {
       m_scale = 1.0f;
       m_state = LURK_SHOWN;
+
+      // Position GUI under text
+      Vec2f pos = m_rect->GetLocalPos(); 
+      pos += Vec2f(0, -m_rect->GetSize().y);
+      pos.x = 0;
+      m_gui->SetLocalPos(pos);
 
 #ifdef TEXT_TO_SPEECH
       m_text->TextToSpeech();
@@ -163,8 +166,15 @@ void CentreMsg::Update()
   }
 }
 
-void CentreMsg::SetCentred(const std::string& str, const Colour& fgCol, const Colour& bgCol, 
+void CentreMsg::SetCentred(
+  const std::string& str, const Colour& fgCol, const Colour& bgCol, 
   float maxTime, CommandFunc onFinished)
+{
+  GuiText* text = MakeGuiText(str, fgCol); 
+  SetCentred(text, fgCol, bgCol, maxTime, onFinished);
+}
+
+GuiText* CentreMsg::MakeGuiText(const std::string& str, const Colour& fgCol)
 {
   const float LURK_MSG_WIDTH = 1.5f;
   
@@ -175,16 +185,18 @@ void CentreMsg::SetCentred(const std::string& str, const Colour& fgCol, const Co
   static const float fontY = ROConfig()->GetFloat("lurk-font-y");
 
   text->SetFont(nullptr); // cancel default font - obvs should not be required
-  text->SetFont(LURK_FONT);
+  text->SetFont(MESSAGE_FONT);
   text->SetFontSize(fontY);
   text->SetScaleX(fontX);
 
+  text->SetFgCol(fgCol);
+
+  // Set a rough max size, then get the exact size once we have set the text.
   text->SetSize(Vec2f(LURK_MSG_WIDTH, 0.1f * fontY)); // assume single line
   text->SetText(str);
   text->SizeToText();
-  text->SetFgCol(fgCol);
 
-  SetCentred(text, fgCol, bgCol, maxTime, onFinished);
+  return text;
 }
 
 void CentreMsg::Set(GuiElement* text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
@@ -230,7 +242,7 @@ void CentreMsg::SetCentred(PGuiElement text, const Colour& fgCol, const Colour& 
   m_text->SetLocalPos(m_hidePos);
   m_rect->SetLocalPos(m_hidePos - 0.5f * Vec2f(EXTRA.x, -EXTRA.y));
   
-  LoadGui(LURK_GUI_FILENAME);
+  LoadGui(MODAL_BUTTON_GUI_FILENAME);
 }
 
 void ShowYesNo(const std::string& q, const Colour& fgCol, const Colour& bgCol,

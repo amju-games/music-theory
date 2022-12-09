@@ -35,8 +35,13 @@ public:
   void SetCentred(PGuiElement gui, const Colour& fgCol, const Colour& bgCol, 
     float maxTime, CommandFunc onFinished = 0);
 
+  // Specialised behaviour for centre msg - multi-line text
   virtual void Set(GuiElement* text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
-    float maxTime, CommandFunc onFinished = 0);
+    float maxTime, CommandFunc onFinished = 0) override;
+
+  // Convenience function: make a GuiText out of the given string, setting the
+  //  fg colour.
+  static GuiText* MakeGuiText(const std::string& str, const Colour& col);
 
   static const float DEFAULT_MAX_LURK_TIME;
 

@@ -15,7 +15,7 @@
 
 namespace Amju
 {
-static const char* LURK_FONT = "font2d/arial-font.font";
+const char* LurkMsg::MESSAGE_FONT = "font2d/TEXT-font.font";
 
 const float LurkMsg::DEFAULT_MAX_LURK_TIME = 3.0f;
 
@@ -221,7 +221,7 @@ void LurkMsg::Set(const std::string& str, const Colour& fgCol, const Colour& bgC
   static const float fontY = ROConfig()->GetFloat("lurk-font-y");
 
   text->SetFont(nullptr); // cancel default font - obvs should not be required
-  text->SetFont(LURK_FONT);
+  text->SetFont(MESSAGE_FONT);
   text->SetFontSize(fontY);
   text->SetScaleX(fontX);
 

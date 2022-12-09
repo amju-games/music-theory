@@ -1,0 +1,25 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Translucent overlay for when we display a modal dialog, greying out
+//  everything underneath.
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+modal-grey-out-comp
+// Num children
+1
+
+colour
+00000040
+
+gui-image
+grey-out-everything
+-1, 2
+2, 3
+Image/white.png, stretch
+
