@@ -124,6 +124,22 @@ treb-g5-cr = crotchet-down, 0, 0.45
 treb-a6-cr = crotchet-down, 0, 0.50 ; ledger, 0, 0.5
 treb-b6-cr = crotchet-down, 0, 0.55 ; ledger, 0, 0.5
 
+// Naturals
+treb-b4-nat-cr = treb-b4-cr, 0, 0 ; natural, -0.2, -0.15
+treb-c4-nat-cr = treb-c4-cr, 0, 0 ; natural, -0.2, -0.10
+treb-d4-nat-cr = treb-d4-cr, 0, 0 ; natural, -0.2, -0.05
+treb-e4-nat-cr = treb-e4-cr, 0, 0 ; natural, -0.2,  0.00
+treb-f4-nat-cr = treb-f4-cr, 0, 0 ; natural, -0.2,  0.05
+treb-g4-nat-cr = treb-g4-cr, 0, 0 ; natural, -0.2,  0.10
+treb-a5-nat-cr = treb-a5-cr, 0, 0 ; natural, -0.2,  0.15
+treb-b5-nat-cr = treb-b5-cr, 0, 0 ; natural, -0.2,  0.20
+treb-c5-nat-cr = treb-c5-cr, 0, 0 ; natural, -0.2,  0.25
+treb-d5-nat-cr = treb-d5-cr, 0, 0 ; natural, -0.2,  0.30
+treb-e5-nat-cr = treb-e5-cr, 0, 0 ; natural, -0.2,  0.35
+treb-f5-nat-cr = treb-f5-cr, 0, 0 ; natural, -0.2,  0.40
+treb-g5-nat-cr = treb-g5-cr, 0, 0 ; natural, -0.2,  0.45
+treb-a6-nat-cr = treb-a6-cr, 0, 0 ; natural, -0.2,  0.50
+
 // Sharps
 treb-b#4-cr = treb-b4-cr, 0, 0 ; sharp, -0.2, -0.15
 treb-c#4-cr = treb-c4-cr, 0, 0 ; sharp, -0.2, -0.1
@@ -175,6 +191,8 @@ bass-f2-cr = crotchet-up, 0, -0.05
 bass-e2-cr = crotchet-up, 0, -0.10 ; ledger, 0, -0.10
 bass-d2-cr = crotchet-up, 0, -0.15 ; ledger, 0, -0.10
 bass-c2-cr = crotchet-up, 0, -0.20 ; ledger, 0, -0.10; ledger, 0, -0.20
+
+bass-d4-nat-cr = bass-d4-cr, 0, 0 ; natural, -0.15, 0.55
 
 bass-d#4-cr = bass-d4-cr, 0, 0 ; sharp, -0.2, 0.55
 bass-c#4-cr = bass-c4-cr, 0, 0 ; sharp, -0.2, 0.50
