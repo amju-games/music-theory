@@ -1,0 +1,30 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// version
+1
+
+// Corridor shadow - an image we overlay pver the rigth hand side of the corridor
+
+colour
+000010e0
+
+gui-comp
+// Name
+join-shadow-edge-and-long-shadow
+// Num children
+2
+
+gui-image
+counter-bg
+-1, 1.25
+2, 3
+Image/shadow.png, stretch
+
+gui-image
+counter-bg
+0.98125, 1.25
+10, 3
+Image/white.png, stretch
+
+

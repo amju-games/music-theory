@@ -11,7 +11,7 @@ root
 // Matrix
 I
 // Num children
-7
+8
 
 // Node type
 camera-persp
@@ -141,6 +141,24 @@ Gui/sign-up-to-level-2.txt
 // Matrix
 0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
 
+
+// Shadow - shows locked doors to the right 
+// Node type
+comp
+// Name, matrix, children
+corridor-shadow
+// Matrix
+1.2, 0, 0, 0,  0, 0.8, 0, 0,  0, 0, 1, 0,  2, 50, -100, 1
+// Num children
+1
+// Node type
+gui
+// Node name
+corridor-shadow-gui
+// GUI file name
+Gui/corridor-shadow.txt
+// Matrix
+0, 0, 140, 0,   0, 50, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
 
 
 //// ----------------------------------------------------------------------------
