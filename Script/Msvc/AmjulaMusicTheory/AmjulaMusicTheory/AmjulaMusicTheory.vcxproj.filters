@@ -762,5 +762,11 @@
     <Text Include="..\..\..\..\Assets\Course\note-rest-symbols.txt">
       <Filter>Assets\Course</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Course\note-equivs.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\rest-equivs.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
   </ItemGroup>
 </Project>

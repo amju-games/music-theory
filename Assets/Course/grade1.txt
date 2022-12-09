@@ -53,8 +53,6 @@ page-symbol-symbol=Course/note-equivs.txt=@@@What has the same value?
 page-symbol-text=Course/note-rest-names.txt=$$$92
 page-text-symbol=Course/note-rest-symbols.txt=$$$92
 
-// TODO Length equivalences
-
 // Topic
 // ID
 keys-and-scales
