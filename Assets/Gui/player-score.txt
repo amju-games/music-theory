@@ -11,7 +11,33 @@ gui-comp
 // Name
 player-score-comp
 // Num children
-1
+4
+
+colour
+000080
+
+gui-image
+score-bg
+0.638, 0.612
+.324, .324
+Image/rough-oval.png, stretch
+
+colour
+4D68F1
+
+gui-image
+score-bg
+0.65, 0.6
+.3, .3
+Image/rough-oval.png, stretch
+
+
+gui-image
+score-bg
+0.64, 0.61
+.32, .32
+Image/bw-edge.png, stretch
+
 
 // TODO animation, hi score
 
@@ -23,30 +49,29 @@ linear
 
 scale
 1, 1 ; 2, 2
-1.0, 0.5
+0.8, 0.45
 
 gui-comp
 score-comp
-2
+1
+
+animation
+name-not-used
+mirror-repeat
+0.6
+linear
 
 translate
-0.01, -0.01
-// Score shadow
-gui-text
-score-text-shadow
-0.65, 0.5
-.3, .1
-TOTAL SCORE
-NUMERIC, 2, fgcol=0000ff, right
+0,0 ; 0, 0.005
 
 gui-text
 // Element name
 score-text
 // pos (coords are -1..1)
-0.65, 0.5
-.3, .1
+0.6, 0.5
+.4, .1
 // Text
 25600
 // Font name, size
-NUMERIC, 2, fgcol=ffffff, right
+dimbo, 1.5, fgcol=ffffff
 

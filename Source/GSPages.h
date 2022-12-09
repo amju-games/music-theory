@@ -85,6 +85,7 @@ protected:
   int m_scoreThisSession = 0;
   int m_livesThisSession = 0;
   int m_scoreMultiplier = 1;
+  int m_maxMark = 0; // maximum mark for the current topic
 
   // User config file, for things like number of hints available/used etc.
   // Weak, owned by UserProfile

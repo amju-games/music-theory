@@ -148,6 +148,7 @@ void GSPages::OnActive()
 
   // Create a new, empty container of progress objects.
   // We create one progress object for each page.
+  m_maxMark = 0; // calc max mark while we're here
   m_progress.clear();
   m_progress.reserve(m_maxNumPagesThisSession);
   for (int i = 0; i < m_maxNumPagesThisSession; i++)
@@ -157,6 +158,7 @@ void GSPages::OnActive()
     const Dictionary* dic = page->GetDictionary();
     Assert(dic);
     const int numTerms = dic->GetNumTerms();
+    m_maxMark += numTerms;
     QuestionProgress* qp = new QuestionProgress;
     qp->SetMaxQuestions(numTerms);
     m_progress.push_back(qp);
@@ -180,7 +182,9 @@ void GSPages::OnDeactive()
 void GSPages::UpdateHud()
 {
   // Score
-  NumUpdate(m_gui, "score-text", m_scoreThisSession);
+  // Show PERCENTAGE
+  float percent = static_cast<float>(m_scoreThisSession) / static_cast<float>(m_maxMark) * 100.f;
+  NumUpdate(m_gui, "score-text", ToString(static_cast<int>(percent)) + "%");
 
   // Lives
   NumUpdate(m_gui, "num-lives-text", m_livesThisSession);

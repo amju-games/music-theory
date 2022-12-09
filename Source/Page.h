@@ -6,13 +6,13 @@
 #include <GuiButton.h>
 #include <RCPtr.h>
 #include <StringUtils.h>
+#include "Dictionary.h"
 #include "PageQuestion.h"
 #include "Question.h"
 
 namespace Amju
 {
 class ConfigFile;
-class Dictionary;
 struct MusicKbEvent;
 class GSPages;
 
@@ -43,6 +43,9 @@ public:
   // Pages present info stored in "dictionaries" - text files grouping pairs/tuples of strings.
   void SetDictionaryName(const std::string& dictionaryName);
 
+  // Pages always have a "dictionary" - a list of question/answer/explanation 
+  //  tuples.
+  // Calling this function does NOT reload the dictionary.
   Dictionary* GetDictionary();
 
   // Allows us to set different GUIs for the same Page type, as many pages could be
@@ -78,6 +81,10 @@ protected:
   // Use the page question to show the question to the user
   void SetUpQuestionUI();
 
+  // Load the dictionary (it's a resource in release mode, but we reload it in
+  //  debug mode).
+  Dictionary* Page::LoadDictionary();
+
 protected:
   // Base gui file name - we append current orientation 
   //  and reload if the orientation changes.
@@ -101,5 +108,7 @@ protected:
   // (Localised) text to display to the player to give instructions for 
   //  the page - e.g. "Tap on the correct answer!"
   std::string m_instructionText;
+
+  RCPtr<Dictionary> m_dictionary;
 };
 }

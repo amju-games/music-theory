@@ -63,10 +63,18 @@ void Page::SetConfigFile(ConfigFile* cf)
 void Page::SetDictionaryName(const std::string& dictionaryName)
 {
   m_dictionaryFilename = dictionaryName;
+  LoadDictionary();
 }
 
 Dictionary* Page::GetDictionary()
 {
+  Assert(m_dictionary);
+  return m_dictionary;
+}
+
+Dictionary* Page::LoadDictionary()
+{
+  // This looks a bit worrying but is perhaps useful when developing a dictionary?
 #ifdef _DEBUG
   // Not a resource, so we can easily reload
   Dictionary* dic = new Dictionary;
@@ -78,6 +86,7 @@ Dictionary* Page::GetDictionary()
     TheResourceManager::Instance()->GetRes(m_dictionaryFilename + ".dictionary"));
   Assert(dic);
 #endif
+  m_dictionary = dic;
   return dic;
 }
 
