@@ -10,19 +10,7 @@ gui-comp
 // Name
 button-and-music-symbols
 // Num children
-2
-
-gui-text
-instructions-text
-// pos (coords are -1..1)
--1, 0.85
-// size
-2, 0.1
-// Text
-INSTRUCTIONS
-// Font name, size
-TEXT, 1.5, fgcol=ffffff
-
+1
 
 animation
 fade-in-music-score
