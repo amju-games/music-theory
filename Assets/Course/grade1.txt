@@ -22,16 +22,6 @@ Musical terms
 // 10 * musical term pages -- TODO num repeats?
 10
 page-musical-term
-page-musical-term
-page-musical-term
-page-musical-term
-page-musical-term
-page-musical-term
-page-musical-term
-page-musical-term
-page-musical-term
-page-musical-term
-
 
 
 // Topic
@@ -44,15 +34,7 @@ Notes
 // Pages
 10
 page-play-notes
-page-play-notes
-page-play-notes
-page-play-notes
-page-play-notes
-page-play-notes
-page-play-notes
-page-play-notes
-page-play-notes
-page-play-notes
+
 
 // Topic
 // ID

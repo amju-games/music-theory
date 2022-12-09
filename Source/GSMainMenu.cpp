@@ -64,7 +64,6 @@ void GSMainMenu::OnActive()
   // Set button commands. For the buttons corresponding to Topics, the command
   //  sends us to that topic.
   // Get the course, loop over the topics in it.
-  // A Course is a Resource.
   Course* course = GetCourse();
   Assert(course);
   int numTopics = course->GetNumTopics();
@@ -75,12 +74,12 @@ void GSMainMenu::OnActive()
     // Find the subtree for topic i
     GuiElement* topicRoot = GetElementByName(m_gui, "leaf-" + ToString(i));
 
-    // Find the button corresponding to this topic, should be named "topic-button-<n>"
+    // Find the button corresponding to this topic
     GuiButton* elem = dynamic_cast<GuiButton*>(GetElementByName(topicRoot, "topic-button"));
     Assert(elem);
     elem->SetCommand(new TopicCommand(i));
 
-    // Name for button
+    // Set name for button
     IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(topicRoot, "topic-name-text"));
     Assert(text);
     text->SetText(topic->GetDisplayName());
@@ -92,6 +91,8 @@ void GSMainMenu::OnActive()
 
   GuiElement* about = GetElementByName(m_gui, "about-button");
   about->SetCommand(OnAbout);
+
+  // TODO
 
   //GuiElement* share = GetElementByName(m_gui, "share-button");
   //share->SetCommand(OnShare);

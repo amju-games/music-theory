@@ -61,14 +61,16 @@ bool Topic::Load(File* f)
     f->ReportError("Expected number of pages");
     return false;
   }
+
+  std::string line;
+  if (!f->GetDataLine(&line))
+  {
+    f->ReportError("Expected page type name");
+    return false;
+  }
+
   for (int i = 0; i < numPages; i++)
   {
-    std::string line;
-    if (!f->GetDataLine(&line))
-    {
-      f->ReportError("Expected page type name");
-      return false;
-    }
     // TODO Options, number of repeats, etc.
     RCPtr<Page> page = ThePageFactory::Instance()->Create(line);
     if (!page)
