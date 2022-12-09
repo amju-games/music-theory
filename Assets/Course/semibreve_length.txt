@@ -1,0 +1,10 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Note lengths
+
+// version
+1
+
+A semibreve lasts for=4 crotchets
+end

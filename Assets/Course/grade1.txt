@@ -21,15 +21,19 @@ Note lengths
 // Topics unlocked by this one
 dotted-notes
 // Pages
-8
+10
 page-musical-symbol, Course/crotchet.txt.dictionary
+page-musical-symbol, Course/minim.txt.dictionary
 page-musical-symbol, Course/crotchet_minim.txt.dictionary
-page-musical-symbol, Course/crotchet_minim.txt.dictionary
+page-musical-symbol, Course/semibreve.txt.dictionary
 page-musical-symbol, Course/crotchet_minim_semibreve.txt.dictionary
 page-musical-symbol, Course/crotchet_minim_semibreve.txt.dictionary
-page-musical-symbol, Course/crotchet_minim_semibreve.txt.dictionary
-page-musical-symbol, Course/crotchet_minim_semibreve.txt.dictionary
-page-musical-symbol, Course/crotchet_minim_semibreve.txt.dictionary
+page-musical-term, Course/minim_length.txt.dictionary
+page-musical-term, Course/semibreve_length.txt.dictionary
+page-musical-term, Course/note_lengths.txt.dictionary
+page-musical-term, Course/note_lengths.txt.dictionary
+
+
 
 // Topic
 // 1a+

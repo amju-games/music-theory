@@ -6,6 +6,11 @@
 // version
 1
 
+A minim lasts for=2 crotchets
+A semibreve lasts for=4 crotchets
+end
+
+
 note-minim, 0.9, 0 ; tail, 0.9, 0  =Minim
 semibreve, 0.9, 0  =Semibreve
 crotchet, 0.9, 0  =Crotchet

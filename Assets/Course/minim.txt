@@ -1,0 +1,10 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Show a crotchet, minim, semibreve
+
+// version
+1
+
+note-minim, 1.0, 0 ; quad, 1.205, 0.475,  1.205, 0.825,  1.185, 0.825,  1.185, 0.475  =Minim (half note)
+end
