@@ -11,7 +11,7 @@ root
 // Matrix
 I
 // Num children
-6
+5
 
 // Node type
 camera-persp
@@ -143,6 +143,8 @@ Gui/sign-level-1.txt
 0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
 
 
+//// ----------------------------------------------------------------------------
+// Not used, doesn't work when camera moves around.
 
 // Shadow - shows locked doors to the right 
 // Node type

@@ -118,7 +118,7 @@ void GSMainCorridor::Load3dForTopics()
 
   // Get user config, so we know which topics have been unlocked.
 ////  ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
-  auto profile = TheUserProfile();
+  //auto profile = TheUserProfile();
 
   Course* course = GetCourse();
   Assert(course);
@@ -127,8 +127,8 @@ void GSMainCorridor::Load3dForTopics()
   m_doors.clear();
 
   // Find the last locked door, so we can put it in shadow.
-  int lastUnlocked = 0;
-  bool allUnlocked = true;
+//  int lastUnlocked = 0;
+//  bool allUnlocked = true;
 
   for (int i = 0; i < numTopics; i++)
   {
@@ -136,16 +136,16 @@ void GSMainCorridor::Load3dForTopics()
     Assert(topic);
 
     // TODO add something to locked topics so we can see it's locked
-    bool unlocked = (i == 0) || profile->IsTopicUnlocked(topic->GetId());
-////config->Exists(KEY_TOPIC_UNLOCKED + topic->GetId());
-    if (unlocked)
-    {
-      lastUnlocked = i;
-    }
+//    bool unlocked = (i == 0) || profile->IsTopicUnlocked(topic->GetId());
+
+//    if (unlocked)
+//    {
+//      lastUnlocked = i;
+//    }
 
     // Why can't we do this?
     //   allUnlocked &&= unlocked;
-    allUnlocked = allUnlocked && unlocked;
+//    allUnlocked = allUnlocked && unlocked;
 
     // TODO Load from a list of scene files; each one has a locked and
     //  unlocked variety.
@@ -170,6 +170,7 @@ void GSMainCorridor::Load3dForTopics()
     root->AddChild(node);
   }
 
+#ifdef YES_SHADOW
   // Position shadow to the right of the last unlocked door.
   if (AllTopicsPassed())
   {
@@ -184,6 +185,7 @@ void GSMainCorridor::Load3dForTopics()
   m.Translate(Vec3f(0, 0, X_OFFSET + lastUnlocked * -DISTANCE_BETWEEN_DOORS));
   m *= shadow->GetLocalTransform();
   shadow->SetLocalTransform(m);
+#endif // YES_SHADOW
 
   // Position right-hand stairs to the right of the last door
   PSceneNode rightStairs = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE)->GetNodeByName("right-arch");
