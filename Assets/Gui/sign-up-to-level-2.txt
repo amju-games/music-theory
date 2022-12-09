@@ -1,0 +1,41 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+tap-picture-note-lengths
+// Num children
+3
+
+// Green bg
+colour
+309030
+
+gui-image
+counter-bg
+-.4, .8
+.8, 1.6
+Image/white.png, stretch
+
+gui-image
+counter-bg
+-.2, .8
+.4, .8
+Image/stairs-up.png, stretch
+
+gui-text
+static-text
+// pos 
+-.3, .6
+// size
+0.6, 2.0 
+// Text
+Up to Level 2
+// Font name, size
+dimbo, 4, multi, fgcol=ffffff
+
+
