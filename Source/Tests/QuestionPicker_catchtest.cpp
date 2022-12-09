@@ -100,7 +100,7 @@ TEST_CASE("QuestionPicker remove duplicates in StringIndexVec", "QuestionPicker"
 
 TEST_CASE("QuestionPicker remove duplicate answers", "QuestionPicker")
 {
-  Dictionary* dic = CreateDicWithDuplicates();
+  const Dictionary* dic = CreateDicWithDuplicates();
 
   // Create a vector of indices into the dic, one index per dic entry.
   std::vector<int> indices(dic->GetNumTerms());
@@ -109,8 +109,19 @@ TEST_CASE("QuestionPicker remove duplicate answers", "QuestionPicker")
   REQUIRE(indices.size() == dic->GetNumTerms());
 
   QuestionPicker picker;
-  picker.RemoveDuplicates(indices, *dic);
+  indices = picker.RemoveDuplicates(indices, *dic);
 
   REQUIRE(indices.size() < dic->GetNumTerms());
 }
 
+TEST_CASE("QuestionPicker get fakes", "QuestionPicker")
+{
+  const Dictionary* dic = CreateDic();
+
+  int n = dic->GetNumTerms() - 1;
+  int correct = 0;
+  std::vector<int> indices = QuestionPicker::GetNFakes(n, correct, *dic);
+
+  REQUIRE(indices.size() == n);
+  REQUIRE(std::find(indices.begin(), indices.end(), correct) == indices.end());
+}

@@ -1,9 +1,9 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include <algorithm>
 #include <numeric> // iota
 #include <AmjuAssert.h>
-
 #include "QuestionPicker.h"
 
 namespace Amju
@@ -84,18 +84,28 @@ std::vector<int> QuestionPicker::RemoveDuplicates(
   return result;
 }
 
+void Shuffle(std::vector<int>&)
+{
+}
+
 std::vector<int> QuestionPicker::GetNFakes(
   int n, int correct, const Dictionary& dic) 
 {
   // Create vec of indices into dictionary, but remove the correct index.
-  std::vector<int> result(dic.GetNumTerms());
-  std::iota(result.begin(), result.end(), 0);
+  std::vector<int> indices(dic.GetNumTerms());
+  std::iota(indices.begin(), indices.end(), 0);
+  indices.erase(std::remove(indices.begin(), indices.end(), correct), indices.end());
 
   // Remove indices which have duplicate answers (or questions, if we
   //  flip Q/A).
+  indices = RemoveDuplicates(indices, dic);
 
   // Shuffle and return top n
+  Shuffle(indices);
 
+  std::vector<int> result;
+  result.reserve(n);
+  std::copy(indices.begin(), indices.begin() + n, std::back_inserter(result));
   return result;
 }
 }

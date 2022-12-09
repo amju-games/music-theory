@@ -282,6 +282,30 @@
     <ClCompile Include="..\..\..\..\Source\Gui3dScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\CreateDictionary.cpp">
+      <Filter>CatchTests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\Dictionary_catchtest.cpp">
+      <Filter>CatchTests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\MultiChoice_catchtest.cpp">
+      <Filter>CatchTests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\MusicalTermQuestion_catchtest.cpp">
+      <Filter>CatchTests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\QuestionPicker_catchtest.cpp">
+      <Filter>CatchTests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\QuestionProgress_catchtest.cpp">
+      <Filter>CatchTests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\QuestionPicker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\QuestionProgress.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -500,6 +524,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Gui3dScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Tests\CreateDictionary.h">
+      <Filter>CatchTests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\QuestionPicker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\QuestionProgress.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
