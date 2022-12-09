@@ -331,12 +331,7 @@ void GSPages::OnCorrect(const Vec2f& choicePos)
   m_numCorrectThisSession++;
   SetPie(m_numPagesShown, GetColour(COLOUR_CORRECT));
 
-  std::cout << "Correct: set pie slice " << m_numPagesShown << "\n";
-
-  // Send message to do what we do when we click the OK button on
-  //  the speech bubble, after a delay. (TODO balance delay)
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage,
-    SecondsFromNow(NEXT_PAGE_TIME)));
+  Page::SendNextPageMessage();
 
   LurkMsg lm(Lookup("Correct!"), 
     GetColour(COLOUR_TEXT),
@@ -359,8 +354,6 @@ void GSPages::OnIncorrect(const Vec2f& choicePos)
 
   m_numIncorrectThisSession++;
   SetPie(m_numPagesShown, GetColour(COLOUR_INCORRECT));
-
-  std::cout << "Incorrect: set pie slice " << m_numPagesShown << "\n";
 
   LurkMsg lm(Lookup("Incorrect!"), 
     GetColour(COLOUR_TEXT),

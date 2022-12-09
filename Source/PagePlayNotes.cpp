@@ -143,11 +143,11 @@ void PagePlayNotes::OnMusicKbEvent(const MusicKbEvent& event)
   {
     return;
   }
-  m_playerHasHitNote = true;
 
   // Check note
   if (event.m_on) // note down
   {
+    m_playerHasHitNote = true;
     // Check note against answer string
     int correctNote = ToInt(GetQuestion()->GetAnswerString());
     if (correctNote == event.m_note)
