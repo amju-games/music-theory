@@ -403,5 +403,11 @@
     <Text Include="..\..\..\..\Assets\Course\musical_symbols.txt">
       <Filter>Assets\Course</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Course\note_lengths.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\topic-leaf-left.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -381,6 +381,7 @@
     <Text Include="..\..\..\..\Assets\Course\intervals.txt" />
     <Text Include="..\..\..\..\Assets\Course\musical_symbols.txt" />
     <Text Include="..\..\..\..\Assets\Course\musical_terms.txt" />
+    <Text Include="..\..\..\..\Assets\Course\note_lengths.txt" />
     <Text Include="..\..\..\..\Assets\Gui\ground.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs-first-user.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_about.txt" />
@@ -412,6 +413,7 @@
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-2.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-tick-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\title-text.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\topic-leaf-left.txt" />
     <Text Include="..\..\..\..\Assets\Gui\topic-leaf-right.txt" />
     <Text Include="..\..\..\..\Assets\Gui\topic-leaves.txt" />
     <Text Include="..\..\..\..\Docs\TODO.txt" />
