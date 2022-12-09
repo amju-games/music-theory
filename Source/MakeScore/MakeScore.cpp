@@ -66,6 +66,24 @@ std::string LineEnd(bool oneLine)
   return (oneLine ? ";" : "\n");
 }
 
+bool IsSwitch(const std::string& s)
+{
+  if (s == "<stacc>")
+  {
+    SetSwitch(s_switches[s_stave], SW_STACCATO);
+  }
+  else if (s == "</stacc>")
+  {
+    ClearSwitch(s_switches[s_stave], SW_STACCATO);
+  }
+  else
+  {
+    // None of the above: not a switch
+    return false;
+  }
+  return true;
+}
+
 void MakeScore::Preprocess()
 {
   //  std::cout << "Preprocessed input: " << m_input << "\n";
@@ -97,6 +115,10 @@ void MakeScore::AddTokens()
     {
       // Tie prev and next notes - we can get position of prev.
       AddTie();
+    }
+    else if (IsSwitch(s))
+    {
+      // Nothing to do, if it's a switch, we flip a value
     }
     else if (IsBeam(s))
     {

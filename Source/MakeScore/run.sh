@@ -10,7 +10,7 @@ pushd ../../Assets/Gui
 cp scoretest.txt gs_test_show_score.txt
 popd
 
-echo '4/4 clef-t key-s-0 <c> 60 62 64 65 | 67 69 71 72' | ./makescore --stave-single --oneline --transpose 4 --page-width 1.0 --scale 1.0 > out.txt
+echo '[Molto <i>con shmolto</i> Andante] <stacc> 4/4 clef-t key-s-0 <c> 60 62 64 65 | 67 69 71 72' | ./makescore --stave-single --oneline --transpose 4 --page-width 1.0 --scale 1.0 > out.txt
 
 # Check rhythm stave type works OK
 #echo '4/4 m c c' | ./makescore --oneline  > out.txt

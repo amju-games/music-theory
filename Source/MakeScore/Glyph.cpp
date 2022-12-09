@@ -5,6 +5,7 @@
 // Sub-project for human-friendly authoring of musical notation.
 
 #include "Glyph.h"
+#include "Switch.h"
 
 void Glyph::AdjustAccidental(Accidental previousAcc)
 {
@@ -82,16 +83,9 @@ void Glyph::CalcAccidental(KeySig ks)
 
   Accidental acc = ACCS[ks][note];
 
-  // Don't worry here about any Accidental already in force 
-  if (acc == S || acc == F || acc == N)
-  {
-    m_accidental = acc;
-  }
-
-  if (acc == s || acc == f || acc == _)
-  {
-    m_accidental = acc;
-  }
+  // Don't worry here about any Accidental already in force, we adjust
+  //  later
+  m_accidental = acc;
 }
 
 std::string Glyph::GetGlyphOutputStr(std::string s) const
@@ -165,7 +159,7 @@ std::string Glyph::GetAccidentalStr() const
   {
     "",
     "natural",
-    "natural", // ?
+    "natural", 
     "sharp",
     "sharp",
     "flat",
@@ -174,6 +168,40 @@ std::string Glyph::GetAccidentalStr() const
     "double-flat"
   };
   return ACC_STR[static_cast<int>(m_accidental)];
+}
+
+std::string Glyph::GetStaccatoStr() const
+{
+  std::string res;
+  if (m_switches & SW_STACCATO)
+  {
+    const float STACC_X_OFFSET = 0.05f;
+    const float STACC_Y_OFFSET = 0.10f;
+    float staccX = x + STACC_X_OFFSET;
+    float staccY = y + STACC_Y_OFFSET;
+    // Add dot, choosing above or below, avoiding overlapping a line
+    bool stemUp = (m_staveLine < 5);
+    if (stemUp)
+    {
+      // Staccato dot should go below
+      staccY = y - STACC_Y_OFFSET;
+      // Move down a bit more to skip over stave line if necessary
+      if (m_staveLine == 2 || m_staveLine == 4)
+      {
+        staccY -= STACC_Y_OFFSET * 0.5f;
+      }
+    }
+    else if (m_staveLine == 6)
+    {
+      // Move down a bit more to skip over stave line if necessary
+      staccY += STACC_Y_OFFSET * 0.5f;
+    }
+   
+    // Dot glyph name is just '.' 
+    res = " ; ., " + Str(staccX) + ", " + Str(staccY) + 
+      ", " + Str(scale) + ", " + Str(scale);
+  }
+  return res;
 }
 
 std::string Glyph::ToString() const
@@ -215,6 +243,9 @@ std::string Glyph::ToString() const
       ", " + Str(scale) + ", " + Str(scale);
   }
 
+  // Add staccato dot
+  res += GetStaccatoStr(); // staccato dot or empty str
+
   res += TimeAfter();
 
   return res;
@@ -232,7 +263,12 @@ std::string Glyph::TimeBefore() const
     {
       start = 0.01f; // so first glyph is not highlighted until anim starts
     }
-    res += "TIME, " + Str(start) + ", " + Str(timeval + startTime) + " ; ";
+    float t = timeval + startTime;
+    if (m_switches & SW_STACCATO)
+    {
+      t = timeval * 0.5f + startTime; // halve length of note
+    }
+    res += "TIME, " + Str(start) + ", " + Str(t) + " ; ";
 
     if (!IsRest(realGlyphName) && !m_tieRight)
     {
@@ -256,7 +292,12 @@ std::string Glyph::TimeAfter() const
       //  in which case it will last longer.
       // Follow chain of ties back to start of tie, to get total length.
       // TODO 
-      res += " ; NOTE_OFF, " + Str(pitch) + ", " + Str(timeval + startTime);
+      float t = timeval + startTime;
+      if (m_switches & SW_STACCATO)
+      {
+        t = timeval * 0.5f + startTime; // halve length of note
+      }
+      res += " ; NOTE_OFF, " + Str(pitch) + ", " + Str(t);
     }
 
     // Cancel time for subsequent glyphs (but postprocess to strip out

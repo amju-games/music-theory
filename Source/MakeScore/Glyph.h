@@ -65,6 +65,8 @@ struct Glyph : public IGlyph
 
   std::string GetAccidentalStr() const;
 
+  std::string GetStaccatoStr() const;
+
   int order = 0; // horiz position in bar 
 
   // Two glyph names. E.g. we have a quaver, but it's drawn using a 
@@ -93,4 +95,7 @@ struct Glyph : public IGlyph
 
   // Accidental, to be added to the left of the glyph
   Accidental m_accidental = Accidental::ACCIDENTAL_NONE;
+
+  // Bit field of flags, e.g. staccato
+  int m_switches = 0;
 };
