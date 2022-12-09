@@ -2,8 +2,8 @@
 1
 // number of strings
 89
-1=welcome to amjula music school!
-2=swipe left and right to move along the corridor
+1=Welcome to Amjula Music School!
+2=Swipe left and right to move along the corridor!
 3=Which clef?
 4=Higher or lower?
 5=Name the note
@@ -79,10 +79,10 @@
 75=G Major
 76=D Major
 77=F Major
-78=The C Major scale has no sharps or flats.
-79=The G Major scale has one sharp.
-80=The F Major scale has one flat.
-81=The D Major scale has two sharps.
+78=There are no sharps or flats, and we begin and end on C, so this is the C Major scale.
+79=There's one sharp, and we begin and end on G, so this is the G Major scale.
+80=There's one flat, and we begin and end on F, so this is the F Major scale.
+81=There are two sharps, and we begin and end on D, so this is the D Major scale.
 82=SHARE
 83=START
 84=WOW!

@@ -220,6 +220,8 @@ void LurkMsg::DoNo()
 void LurkMsg::Set(const std::string& str, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
   float maxTime, CommandFunc onFinished)
 {
+  const float LURK_MSG_WIDTH = 1.5f;
+  
   GuiText* text = new GuiText;
   if (lp == AMJU_CENTRE)
   {
@@ -232,7 +234,7 @@ void LurkMsg::Set(const std::string& str, const Colour& fgCol, const Colour& bgC
   text->SetFontSize(fontY);
   text->SetScaleX(fontX);
 
-  text->SetSize(Vec2f(1.6f, 0.1f * fontY)); // assume single line
+  text->SetSize(Vec2f(LURK_MSG_WIDTH, 0.1f * fontY)); // assume single line
   text->SetText(str);
   text->SizeToText();
   text->SetFgCol(fgCol);
@@ -243,12 +245,14 @@ void LurkMsg::Set(const std::string& str, const Colour& fgCol, const Colour& bgC
 void LurkMsg::Set(GuiText* text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
   float maxTime, CommandFunc onOk)
 {
+  const float LURK_MSG_CORNER_RADIUS = 0.04f;
+  
   m_text = text;
 
   m_rect = new GuiRect;
   m_rect->SetSize(m_text->GetSize() + EXTRA);
   m_rect->SetColour(bgCol);
-  m_rect->SetCornerRadius(0.04f); // TODO CONFIG
+  m_rect->SetCornerRadius(LURK_MSG_CORNER_RADIUS);
 
   m_lurkPos = lp;
   m_timer = 0;

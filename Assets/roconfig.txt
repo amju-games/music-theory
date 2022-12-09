@@ -6,7 +6,7 @@
 1
 
 lurk-font-x 1
-lurk-font-y 2
+lurk-font-y 1.3
 
 sound-new-lurkmsg bell_tinkle
 
