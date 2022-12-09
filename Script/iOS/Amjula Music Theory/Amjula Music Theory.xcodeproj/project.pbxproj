@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6915CD0E20444A9A0001CB2E /* GuiAvatar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915CD0B20444A990001CB2E /* GuiAvatar.cpp */; };
+		6915CD0F20444A9A0001CB2E /* ComposerList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915CD0C20444A990001CB2E /* ComposerList.cpp */; };
+		6915CD14204987B70001CB2E /* GSAvatarMod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915CD12204987B70001CB2E /* GSAvatarMod.cpp */; };
 		691D91B91F9E5F1D004D6CED /* NumUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 691D91B71F9E5F1D004D6CED /* NumUpdate.cpp */; };
 		692BF7471EAE50BD00DB6CE7 /* PagePlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 692BF7461EAE50BD00DB6CE7 /* PagePlayNotes.cpp */; };
 		692BF74B1EAE5E2B00DB6CE7 /* PageFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 692BF7491EAE5E2B00DB6CE7 /* PageFactory.cpp */; };
@@ -156,6 +159,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6915CD0920444A990001CB2E /* GuiAvatar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiAvatar.h; path = ../../../../Source/GuiAvatar.h; sourceTree = "<group>"; };
+		6915CD0B20444A990001CB2E /* GuiAvatar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiAvatar.cpp; path = ../../../../Source/GuiAvatar.cpp; sourceTree = "<group>"; };
+		6915CD0C20444A990001CB2E /* ComposerList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ComposerList.cpp; path = ../../../../Source/ComposerList.cpp; sourceTree = "<group>"; };
+		6915CD0D20444A9A0001CB2E /* ComposerList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComposerList.h; path = ../../../../Source/ComposerList.h; sourceTree = "<group>"; };
+		6915CD12204987B70001CB2E /* GSAvatarMod.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSAvatarMod.cpp; path = ../../../../Source/GSAvatarMod.cpp; sourceTree = "<group>"; };
+		6915CD13204987B70001CB2E /* GSAvatarMod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSAvatarMod.h; path = ../../../../Source/GSAvatarMod.h; sourceTree = "<group>"; };
 		691D91B71F9E5F1D004D6CED /* NumUpdate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NumUpdate.cpp; path = ../../../../Source/NumUpdate.cpp; sourceTree = "<group>"; };
 		691D91B81F9E5F1D004D6CED /* NumUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NumUpdate.h; path = ../../../../Source/NumUpdate.h; sourceTree = "<group>"; };
 		692BF7461EAE50BD00DB6CE7 /* PagePlayNotes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PagePlayNotes.cpp; path = ../../../../Source/PagePlayNotes.cpp; sourceTree = "<group>"; };
@@ -507,6 +516,8 @@
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				69EA9D4B1F7CE5630080089A /* CentreMsg.cpp */,
 				69EA9D4C1F7CE5630080089A /* CentreMsg.h */,
+				6915CD0C20444A990001CB2E /* ComposerList.cpp */,
+				6915CD0D20444A9A0001CB2E /* ComposerList.h */,
 				69A23A591F61E6970021BF88 /* Consts.cpp */,
 				69D732821F23DA28007B73C1 /* Consts.h */,
 				69D7329A1F250B58007B73C1 /* CorridorCamController.cpp */,
@@ -539,6 +550,8 @@
 				69C10CDA1F17877A009B6836 /* DictionaryPickQuestion.h */,
 				6959E2FB1EA1091500E251A9 /* GSAbout.cpp */,
 				6959E2FC1EA1091500E251A9 /* GSAbout.h */,
+				6915CD12204987B70001CB2E /* GSAvatarMod.cpp */,
+				6915CD13204987B70001CB2E /* GSAvatarMod.h */,
 				697A07EF1E82F19B0045CE54 /* GSBase.cpp */,
 				697A07F01E82F19B0045CE54 /* GSBase.h */,
 				6951CF111F0B932300140095 /* GSBase3d.cpp */,
@@ -571,6 +584,8 @@
 				697A07F81E82F19B0045CE54 /* GSUserDraw.h */,
 				6945193D2017368D001C188B /* Gui3dScene.cpp */,
 				694519362017368C001C188B /* Gui3dScene.h */,
+				6915CD0B20444A990001CB2E /* GuiAvatar.cpp */,
+				6915CD0920444A990001CB2E /* GuiAvatar.h */,
 				697A07F91E82F19B0045CE54 /* GuiLineDrawing.cpp */,
 				697A07FA1E82F19B0045CE54 /* GuiLineDrawing.h */,
 				69D58E7C1E86A02B008A8D29 /* GuiMusicKb.cpp */,
@@ -851,6 +866,7 @@
 				6959E2F91E9ACE8A00E251A9 /* GSTopicStart.cpp in Sources */,
 				6945194A2017368F001C188B /* UseVertexColourShader.cpp in Sources */,
 				695E907E1F5AB7260003901E /* LurkMsg.cpp in Sources */,
+				6915CD0F20444A9A0001CB2E /* ComposerList.cpp in Sources */,
 				69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */,
 				695E90731F4A13CA0003901E /* GSCopyAssets.cpp in Sources */,
 				6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */,
@@ -899,6 +915,8 @@
 				6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */,
 				6959E2EC1E97F6F800E251A9 /* Course.cpp in Sources */,
 				697A08001E82F19B0045CE54 /* GSShowMusicScore.cpp in Sources */,
+				6915CD14204987B70001CB2E /* GSAvatarMod.cpp in Sources */,
+				6915CD0E20444A9A0001CB2E /* GuiAvatar.cpp in Sources */,
 				69D58E481E833741008A8D29 /* main.m in Sources */,
 				697A08011E82F19B0045CE54 /* GSUserDraw.cpp in Sources */,
 				6959E3041EA1091500E251A9 /* GSTopicEnd.cpp in Sources */,
