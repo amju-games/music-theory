@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6959E2D01E958C3C00E251A9 /* GSPages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2C81E958C3C00E251A9 /* GSPages.cpp */; };
+		6959E2D11E958C3C00E251A9 /* GSTitle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2CA1E958C3C00E251A9 /* GSTitle.cpp */; };
+		6959E2D21E958C3C00E251A9 /* MusicalTermsDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2CC1E958C3C00E251A9 /* MusicalTermsDictionary.cpp */; };
+		6959E2D31E958C3C00E251A9 /* PageMusicalTerm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2CE1E958C3C00E251A9 /* PageMusicalTerm.cpp */; };
 		697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07EF1E82F19B0045CE54 /* GSBase.cpp */; };
 		697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */; };
 		697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */; };
@@ -89,6 +93,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6959E2C81E958C3C00E251A9 /* GSPages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSPages.cpp; path = ../../../../Source/GSPages.cpp; sourceTree = "<group>"; };
+		6959E2C91E958C3C00E251A9 /* GSPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSPages.h; path = ../../../../Source/GSPages.h; sourceTree = "<group>"; };
+		6959E2CA1E958C3C00E251A9 /* GSTitle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSTitle.cpp; path = ../../../../Source/GSTitle.cpp; sourceTree = "<group>"; };
+		6959E2CB1E958C3C00E251A9 /* GSTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSTitle.h; path = ../../../../Source/GSTitle.h; sourceTree = "<group>"; };
+		6959E2CC1E958C3C00E251A9 /* MusicalTermsDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MusicalTermsDictionary.cpp; path = ../../../../Source/MusicalTermsDictionary.cpp; sourceTree = "<group>"; };
+		6959E2CD1E958C3C00E251A9 /* MusicalTermsDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicalTermsDictionary.h; path = ../../../../Source/MusicalTermsDictionary.h; sourceTree = "<group>"; };
+		6959E2CE1E958C3C00E251A9 /* PageMusicalTerm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PageMusicalTerm.cpp; path = ../../../../Source/PageMusicalTerm.cpp; sourceTree = "<group>"; };
+		6959E2CF1E958C3C00E251A9 /* PageMusicalTerm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageMusicalTerm.h; path = ../../../../Source/PageMusicalTerm.h; sourceTree = "<group>"; };
 		697A07EF1E82F19B0045CE54 /* GSBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSBase.cpp; path = ../../../../Source/GSBase.cpp; sourceTree = "<group>"; };
 		697A07F01E82F19B0045CE54 /* GSBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSBase.h; path = ../../../../Source/GSBase.h; sourceTree = "<group>"; };
 		697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSPlayNotes.cpp; path = ../../../../Source/GSPlayNotes.cpp; sourceTree = "<group>"; };
@@ -293,28 +305,26 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				69F5E08F1E8C09DF00E7BF93 /* GameViewController.h */,
-				69F5E0901E8C09DF00E7BF93 /* GameViewController.m */,
-				69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */,
-				69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */,
-				69F5E0871E8C09C000E7BF93 /* GSTestShowScore.h */,
-				69F5E0881E8C09C000E7BF93 /* PageMultiChoice.h */,
-				69F5E0891E8C09C000E7BF93 /* Panel.h */,
-				69F5E08A1E8C09C000E7BF93 /* PlayMidi.h */,
-				69F5E08B1E8C09C000E7BF93 /* Question.cpp */,
-				69F5E08C1E8C09C000E7BF93 /* Question.h */,
-				69F5E0831E8C099A00E7BF93 /* GSMusicalTerms.cpp */,
-				69F5E0841E8C099A00E7BF93 /* GSMusicalTerms.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
+				69F5E08F1E8C09DF00E7BF93 /* GameViewController.h */,
+				69F5E0901E8C09DF00E7BF93 /* GameViewController.m */,
 				697A07EF1E82F19B0045CE54 /* GSBase.cpp */,
 				697A07F01E82F19B0045CE54 /* GSBase.h */,
+				69F5E0831E8C099A00E7BF93 /* GSMusicalTerms.cpp */,
+				69F5E0841E8C099A00E7BF93 /* GSMusicalTerms.h */,
+				6959E2C81E958C3C00E251A9 /* GSPages.cpp */,
+				6959E2C91E958C3C00E251A9 /* GSPages.h */,
 				697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */,
 				697A07F21E82F19B0045CE54 /* GSPlayNotes.h */,
 				697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */,
 				697A07F41E82F19B0045CE54 /* GSShowLineDrawing.h */,
 				697A07F51E82F19B0045CE54 /* GSShowMusicScore.cpp */,
 				697A07F61E82F19B0045CE54 /* GSShowMusicScore.h */,
+				69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */,
+				69F5E0871E8C09C000E7BF93 /* GSTestShowScore.h */,
+				6959E2CA1E958C3C00E251A9 /* GSTitle.cpp */,
+				6959E2CB1E958C3C00E251A9 /* GSTitle.h */,
 				697A07F71E82F19B0045CE54 /* GSUserDraw.cpp */,
 				697A07F81E82F19B0045CE54 /* GSUserDraw.h */,
 				697A07F91E82F19B0045CE54 /* GuiLineDrawing.cpp */,
@@ -323,11 +333,21 @@
 				69D58E7D1E86A02B008A8D29 /* GuiMusicKb.h */,
 				697A07FB1E82F19B0045CE54 /* GuiMusicScore.cpp */,
 				697A07FC1E82F19B0045CE54 /* GuiMusicScore.h */,
+				69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */,
 				69D58E441E833741008A8D29 /* main.m */,
+				6959E2CC1E958C3C00E251A9 /* MusicalTermsDictionary.cpp */,
+				6959E2CD1E958C3C00E251A9 /* MusicalTermsDictionary.h */,
 				69D58E7E1E86A02B008A8D29 /* Page.cpp */,
 				69D58E7F1E86A02B008A8D29 /* Page.h */,
 				69D58E801E86A02B008A8D29 /* PageDrawOnStave.h */,
+				69F5E0881E8C09C000E7BF93 /* PageMultiChoice.h */,
+				6959E2CE1E958C3C00E251A9 /* PageMusicalTerm.cpp */,
+				6959E2CF1E958C3C00E251A9 /* PageMusicalTerm.h */,
 				69D58E821E86A02B008A8D29 /* PagePlayNotes.h */,
+				69F5E0891E8C09C000E7BF93 /* Panel.h */,
+				69F5E08A1E8C09C000E7BF93 /* PlayMidi.h */,
+				69F5E08B1E8C09C000E7BF93 /* Question.cpp */,
+				69F5E08C1E8C09C000E7BF93 /* Question.h */,
 				69D58E831E86A02B008A8D29 /* ScoreBuilder.cpp */,
 				69D58E841E86A02B008A8D29 /* ScoreBuilder.h */,
 				69D58E4D1E84836B008A8D29 /* Startup.cpp */,
@@ -492,12 +512,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				69F5E0851E8C099A00E7BF93 /* GSMusicalTerms.cpp in Sources */,
+				6959E2D11E958C3C00E251A9 /* GSTitle.cpp in Sources */,
 				69D58E861E86A02B008A8D29 /* Page.cpp in Sources */,
+				6959E2D01E958C3C00E251A9 /* GSPages.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
 				697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */,
 				69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */,
 				69F5E0921E8C09DF00E7BF93 /* GameViewController.m in Sources */,
 				69D58E851E86A02B008A8D29 /* GuiMusicKb.cpp in Sources */,
+				6959E2D31E958C3C00E251A9 /* PageMusicalTerm.cpp in Sources */,
 				69D58E491E833741008A8D29 /* ViewController.mm in Sources */,
 				69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */,
 				697A08031E82F19B0045CE54 /* GuiMusicScore.cpp in Sources */,
@@ -507,6 +530,7 @@
 				69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */,
 				69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */,
 				697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */,
+				6959E2D21E958C3C00E251A9 /* MusicalTermsDictionary.cpp in Sources */,
 				697A08001E82F19B0045CE54 /* GSShowMusicScore.cpp in Sources */,
 				69D58E481E833741008A8D29 /* main.m in Sources */,
 				697A08011E82F19B0045CE54 /* GSUserDraw.cpp in Sources */,

@@ -112,9 +112,16 @@
     
     Amju::AmjuGL::Init();
     Amju::StartUpBeforeCreateWindow();
+  
+    // Set the screen size so we can set sizes of screen space elements correctly, etc.
+    GLKView *view = (GLKView *)self.view;
+    [view bindDrawable];
+    Amju::Screen::SetSize(view.drawableWidth, view.drawableHeight);
+  
     Amju::StartUpAfterCreateWindow();
   
-    Amju::TheGame::Instance()->Update();  // must Update once before Draw
+    // We must Update once before Draw, so the game state is set.
+    Amju::TheGame::Instance()->Update();
 }
 
 - (void)tearDownGL

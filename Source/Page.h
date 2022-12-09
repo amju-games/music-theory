@@ -38,7 +38,7 @@ public:
   void SetGameState(GameState* gs);
 
   // Called when user taps Hint button -- show page-specific hint.
-  virtual void Page::OnHint() {}
+  virtual void OnHint() {}
 
   // Sigh, there is a difference in behaviour if we are showing something new, so
   //  set this flag if user is learning a new thing.
