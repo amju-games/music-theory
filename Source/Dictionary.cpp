@@ -1,7 +1,9 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include <algorithm> // transform
 #include <File.h>
+#include <Localise.h>
 #include <StringUtils.h>
 #include "Dictionary.h"
 
@@ -44,7 +46,14 @@ bool Dictionary::Load(const std::string& filename)
 
 void Dictionary::AddTerm(const Strings& strs)
 {
-  m_dictionary.push_back(strs);
+  // Insert localised strings into this vec
+  Strings localised;
+
+  std::transform(strs.cbegin(), strs.cend(), std::back_inserter(localised),
+    [](const std::string& s) { return Lookup(s); }
+  );
+
+  m_dictionary.push_back(localised);
 }
 
 int Dictionary::GetNumTerms() const

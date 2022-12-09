@@ -48,7 +48,7 @@ bool Topic::Load(File* f)
     return false;
   }
 
-  if (!f->GetDataLine(&m_displayName))
+  if (!f->GetLocalisedString(&m_displayName))
   {
     f->ReportError("Expected topic display name");
     return false;
