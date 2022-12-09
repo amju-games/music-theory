@@ -40,6 +40,9 @@
     <Filter Include="Assets\Shaders\opengl">
       <UniqueIdentifier>{5f6a7a55-3c78-47d9-b0ef-5911e95f9135}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Course\Note lengths">
+      <UniqueIdentifier>{d9b8024f-5bf7-421a-b277-15e8356bd20e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp">
@@ -414,9 +417,6 @@
     <Text Include="..\..\..\..\Assets\Course\musical_symbols.txt">
       <Filter>Assets\Course</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Course\note_lengths.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\topic-leaf-left.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
@@ -437,6 +437,33 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\stroke-branch.txt">
       <Filter>Assets\Gui\Stroke</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\note_lengths.txt">
+      <Filter>Assets\Course\Note lengths</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\crotchet.txt">
+      <Filter>Assets\Course\Note lengths</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\crotchet_minim.txt">
+      <Filter>Assets\Course\Note lengths</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\crotchet_minim_semibreve.txt">
+      <Filter>Assets\Course\Note lengths</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\minim.txt">
+      <Filter>Assets\Course\Note lengths</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\minim_length.txt">
+      <Filter>Assets\Course\Note lengths</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\semibreve.txt">
+      <Filter>Assets\Course\Note lengths</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\semibreve_length.txt">
+      <Filter>Assets\Course\Note lengths</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-wide.txt">
+      <Filter>Assets\Gui</Filter>
     </Text>
   </ItemGroup>
 </Project>

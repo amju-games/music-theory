@@ -378,11 +378,18 @@
     <Library Include="..\..\..\..\Source\ThirdParty\googletest\msvc\gtest\Debug\gtestd.lib" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="..\..\..\..\Assets\Course\crotchet.txt" />
+    <Text Include="..\..\..\..\Assets\Course\crotchet_minim.txt" />
+    <Text Include="..\..\..\..\Assets\Course\crotchet_minim_semibreve.txt" />
     <Text Include="..\..\..\..\Assets\Course\grade1.txt" />
     <Text Include="..\..\..\..\Assets\Course\intervals.txt" />
+    <Text Include="..\..\..\..\Assets\Course\minim.txt" />
+    <Text Include="..\..\..\..\Assets\Course\minim_length.txt" />
     <Text Include="..\..\..\..\Assets\Course\musical_symbols.txt" />
     <Text Include="..\..\..\..\Assets\Course\musical_terms.txt" />
     <Text Include="..\..\..\..\Assets\Course\note_lengths.txt" />
+    <Text Include="..\..\..\..\Assets\Course\semibreve.txt" />
+    <Text Include="..\..\..\..\Assets\Course\semibreve_length.txt" />
     <Text Include="..\..\..\..\Assets\Gui\ground.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs-first-user.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_about.txt" />
@@ -398,6 +405,7 @@
     <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gui-top-bar.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-wide.txt" />
     <Text Include="..\..\..\..\Assets\Gui\music-score-bg.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_interval.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_musical_symbol.txt" />
