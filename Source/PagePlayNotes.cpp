@@ -132,6 +132,9 @@ void PagePlayNotes::ShowCorrectAnswer()
     // TODO Colour black and white keys separately
     key->m_colour = Colour(0, 1, 0, 1);
   }
+
+  // TODO Explanation? E.g. show "F-A-C-E" etc??
+  SendNextPageMessage();
 }
 
 void PagePlayNotes::OnMusicKbEvent(const MusicKbEvent& event)
