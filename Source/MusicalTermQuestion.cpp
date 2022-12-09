@@ -39,7 +39,7 @@ void MusicalTermQuestion::MakeQuestion()
   std::string ans;
   std::string q;
   const int n = numAnswers;
-  for (int i = 0; i < numAnswers; i++)
+  for (int i = 0; i < numAnswers && numAnswers <= maxNumQs; i++)
   {
     m_dictionary->GetTerm(nums[i], &q, &ans);
 
@@ -50,7 +50,7 @@ void MusicalTermQuestion::MakeQuestion()
 
     // If this answer already exists, move to next. This is to deal with multiple different 
     //  questions which have the same answer.
-    if (m_answers.IsAnAnswer(ans) && numAnswers < maxNumQs)
+    if (m_answers.IsAnAnswer(ans))
     {
       // We need one more 
       numAnswers++;
@@ -62,7 +62,7 @@ void MusicalTermQuestion::MakeQuestion()
   }
 
   // Now choose the correct answer
-  int correct = rand() % n; // TODO this seems predictable?
+  int correct = rand() % numsNoDuplicateAnswers.size();
   m_dictionary->GetTerm(numsNoDuplicateAnswers[correct], &q, &ans);
   if (m_qAndASwitched)
   {
