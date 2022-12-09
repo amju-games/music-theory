@@ -1,0 +1,31 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Name the note
+
+// version
+1
+
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-c4-cr, 2.0, 0  =letter-c, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-c#4-cr, 2.0, 0  =letter-c, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-d4-cr, 2.0, 0  =letter-d, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-d#4-cr, 2.0, 0  =letter-d, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-e4-cr, 2.0, 0  =letter-e, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-f4-cr, 2.0, 0  =letter-f, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-f#4-cr, 2.0, 0  =letter-f, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-g4-cr, 2.0, 0  =letter-g, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-g#4-cr, 2.0, 0  =letter-g, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-a5-cr, 2.0, 0  =letter-a, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-bb5-cr, 2.0, 0  =letter-b, .0.05, .2, 0.5, 1 ; flat, .325, .3 
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-b5-cr, 2.0, 0  =letter-b, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-c#5-cr, 2.0, 0  =letter-c, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-d5-cr, 2.0, 0  =letter-d, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-d#5-cr, 2.0, 0  =letter-d, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-e5-cr, 2.0, 0  =letter-e, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-f5-cr, 2.0, 0  =letter-f, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-f#5-cr, 2.0, 0  =letter-f, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-g5-cr, 2.0, 0  =letter-g, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-g#5-cr, 2.0, 0  =letter-g, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-a6-cr, 2.0, 0  =letter-a, .3, .2, 0.5, 1
+end
+

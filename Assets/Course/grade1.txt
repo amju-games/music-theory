@@ -9,7 +9,31 @@
 1
 
 // Num topics
-12
+13
+
+// Topic
+// ID
+name-the-note
+// Localised display name
+Name the note
+// Group
+4
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
+10
+page-symbol-symbol, Course/name_the_note.txt
+page-symbol-symbol, Course/name_the_note.txt
+page-symbol-symbol, Course/name_the_note.txt
+page-symbol-symbol, Course/name_the_note.txt
+page-symbol-symbol, Course/name_the_note.txt
+page-symbol-symbol, Course/name_the_note.txt
+page-symbol-symbol, Course/name_the_note.txt
+page-symbol-symbol, Course/name_the_note.txt
+page-symbol-symbol, Course/name_the_note.txt
+page-symbol-symbol, Course/name_the_note.txt
+
 
 // Topic
 // ID
