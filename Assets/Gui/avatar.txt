@@ -127,8 +127,10 @@ nose
 .25, .25
 Image/avatar-sheet.png
 8,8
-12
+// Range of cells for noses. Then we can look up the cell range when authoring/modifying.
+// Same for hair, etc.
+12, 13
 
 
 // Avatar string: sets values on nodes in the avatar GUI tree
-colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0
+colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040

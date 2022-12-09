@@ -47,7 +47,7 @@ scale
 .8, .8
 .5, .5
 gui-sprite
-eye-iris
+iris
 0, 0
 .2, .2
 Image/avatar-sheet.png

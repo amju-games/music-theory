@@ -6,7 +6,7 @@
 #include <GuiDecScale.h>
 #include <GuiDecTranslate.h>
 #include <GuiFactory.h>
-#include <GuiImage.h>
+#include <GuiSprite.h>
 #include <Lerp.h>
 #include <LoadVec2.h>
 #include <ReportError.h>
@@ -54,7 +54,10 @@ AvatarMap s_avatarMap =
         ReportError("Bad scale value for " + elem->GetName());
         Assert(false);
       }
-      dynamic_cast<GuiDecScale*>(elem)->SetScale(scale);
+      GuiDecScale* gs = dynamic_cast<GuiDecScale*>(elem);
+      Assert(gs);
+      gs->SetScale(scale);
+      gs->SetScale(scale, 1); // as for colour, set both ends of lerp
     }
   },
 
@@ -82,18 +85,32 @@ AvatarMap s_avatarMap =
         ReportError("Bad translation value for " + elem->GetName());
         Assert(false);
       }
-      dynamic_cast<GuiDecTranslate*>(elem)->SetTranslation(translation);
+      GuiDecTranslate* gt = dynamic_cast<GuiDecTranslate*>(elem);
+      Assert(gt);
+      gt->SetTranslation(translation);
+      gt->SetTranslation(translation, 1);
     }
   },
 
   {
-    GuiImage::NAME,
+    "cell",
     [](GuiElement* elem, const std::string& value)
     {
-      Texture* tex = (Texture*)TheResourceManager::Instance()->GetRes(value);
-      dynamic_cast<GuiImage*>(elem)->SetTexture(tex);
+      GuiSprite* sprite = dynamic_cast<GuiSprite*>(elem);
+      // Allow a single cell or a range, so check for a comma in value
+      if (StringContains(value, ","))
+      {
+        Vec2i cellRange;
+        ToVec2(value, &cellRange);
+        sprite->SetCellRange(cellRange.x, cellRange.y);
+      }
+      else
+      {
+        int v = ToInt(value);
+        sprite->SetCellRange(v, v);
+      }
     }
-  },
+  }
 };
 
 void GuiAvatar::AddToFactory()
@@ -168,13 +185,31 @@ bool GuiAvatar::SetOneDescendant(const std::string& cs)
   }
   AvatarFunc func = it->second;
   Assert(func);
-  auto elem = GetElementByName(name);
-  if (!elem)
+  // For symmetrical features (currently just eyes), we need to find the left
+  //  and right instances of the element, and call the same function on each.
+  auto leftSide = GetElementByName(LEFT_EYE);
+  Assert(leftSide); // GUI doesn't contain node with expected name
+  auto elem = leftSide->GetElementByName(name);
+  if (elem)
   {
-    ReportError("Couldn't find element '" + name + "'");
-    return false;
+    func(elem, value);
+    // We expect to find the corresponding element on the right side.
+    auto rightSide = GetElementByName(RIGHT_EYE);
+    Assert(rightSide); // GUI doesn't contain node with expected name
+    elem = rightSide->GetElementByName(name);
+    Assert(elem); // element not on right side but is on left
+    func(elem, value);
   }
-  func(elem, value);
+  else
+  {
+    elem = GetElementByName(name); // search from the root node
+    if (!elem)
+    {
+      ReportError("Couldn't find element '" + name + "'");
+      return false;
+    }
+    func(elem, value);
+  }
   return true;
 }
 
