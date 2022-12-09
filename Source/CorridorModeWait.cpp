@@ -54,7 +54,7 @@ void CorridorModeWait::DecelerateScrolling()
 
 void CorridorModeWait::ShowTopicName(bool showNotHide)
 {
-  GuiElement* text = GetElementByName(m_gui, "topic-name-text");
+  GuiElement* text = GetElementByName(m_gui, "topic-name");
   Assert(text);
   text->SetVisible(showNotHide);
 }
@@ -74,6 +74,22 @@ void CorridorModeWait::SetCurrentTopic()
   Assert(text);
 
   text->SetText(topic->GetDisplayName());
+  GuiText* gtext = dynamic_cast<GuiText*>(text);
+  if (gtext)
+  {
+    float w = gtext->CalcSizeToText().x;
+
+    GuiElement* rect = GetElementByName(m_gui, "topic-name-rect");
+    Assert(rect);
+    Vec2f size = rect->GetSize();
+    const float EXTRA = 0.1f;
+    size.x = w + EXTRA;
+    rect->SetSize(size);
+
+    Vec2f pos = rect->GetLocalPos();
+    pos.x = -0.5f * (w + EXTRA);
+    rect->SetLocalPos(pos);
+  }
 
   ShowTopicName(m_gs->IsTopicUnlocked());
 }

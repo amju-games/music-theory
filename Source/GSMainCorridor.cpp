@@ -189,9 +189,17 @@ void GSMainCorridor::OnActive()
 
 void GSMainCorridor::Draw2d()
 {
-  GSBase3d::Draw2d();
+  // Don't call GSBase3d::Draw2d(), so Lurk msg is on top
+
+  if (m_gui)
+  {
+    UseVertexColourShader();
+    m_gui->Draw();
+  }
 
   m_currentMode->Draw2d();
+
+  TheLurker::Instance()->Draw();
 }
 
 void GSMainCorridor::SetMode(int modeId)

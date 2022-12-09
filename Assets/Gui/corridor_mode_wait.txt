@@ -9,9 +9,22 @@
 // Element type
 gui-comp
 // Name
-corridor-mode-wait-root
+topic-name
 // Num children
-1
+2
+
+// Rectangle behind topic name
+gui-rect
+topic-name-rect
+-.5, 0.875
+// size
+1, 0.2
+// Colour
+ffffff
+// Corner radius
+0.04
+// Flags
+0
 
 // Topic name
 gui-text
@@ -23,5 +36,5 @@ topic-name-text
 // Text
 HELLO
 // Font name, size
-arial, 2.25, fgcol=000000
+dimbo, 2.0, fgcol=000000
 
