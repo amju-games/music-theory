@@ -102,5 +102,10 @@ void MusicalTermQuestion::SetQuestionSeenBefore(ConfigFile* cf) const
   cf->SetInt(key, 1);
 }
 
+std::string MusicalTermQuestion::GetAnswerString() const
+{
+  int correct = m_answers.GetCorrectAnswer();
+  return m_answers.GetAnswer(correct);
+}
 }
 

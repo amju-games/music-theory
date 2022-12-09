@@ -190,7 +190,22 @@ void PageMultiChoice::SetUpQuestion()
   SetQuestion(q);
 
   q->SetDictionary(GetDictionary());
-  q->MakeQuestion();
+
+  // Not great, but this stops us getting the same answer twice.
+  // A better solution to this is a bit of a rewrite :(
+  static std::string prevAnswer;
+  int loopCount = 0; // Break out if we keep generating Qs with the same answer
+  const int MAX_LOOPS = 10;
+  do
+  {
+    q->MakeQuestion();
+  } 
+  while (q->GetAnswerString() == prevAnswer && loopCount++ < MAX_LOOPS);
+  // Keep generating questions until we get a different answer to last time.
+  
+  // Store the answer for next time.
+  prevAnswer = q->GetAnswerString();
+
   m_answers = q->GetMultiChoiceAnswers();
 
   // Seen this question before? If not we will give the correct answer.
