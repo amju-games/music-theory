@@ -150,8 +150,13 @@ void GSPages::OnActive()
 
   GSBase3d::OnActive();
 
-  ReloadGui();
-  //PrintGui(m_gui);
+  // GUI is loaded in GSBase::OnActive. Don't call ReloadGui() to set the quit
+  //  button handler, as this will load the entire GUI again.
+ 
+  // Set quit button handler - TODO factor into func
+  GuiElement* elem = GetElementByName(m_gui, "pause-button");
+  Assert(elem);
+  elem->SetCommand(Amju::OnQuitButton);
 
   // Get general user config, just a convenience, it lives in the User Profile.
   m_userConfig = TheUserProfile()->GetConfigFile();
