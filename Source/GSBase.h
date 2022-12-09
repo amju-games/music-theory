@@ -13,6 +13,7 @@ namespace Amju
 class GSBase : public GameState
 {
 public:
+  virtual void Update() override;
   virtual void Draw() override {}
   virtual void Draw2d() override;
   virtual void OnActive() override;

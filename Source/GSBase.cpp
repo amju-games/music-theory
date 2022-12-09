@@ -6,6 +6,14 @@
 
 namespace Amju
 {
+void GSBase::Update()
+{
+  if (m_gui)
+  {
+    m_gui->Update();
+  }
+}
+
 void GSBase::Draw2d() 
 {
   AmjuGL::SetClearColour(Colour(.95f, .95f, .95f, 1.f));

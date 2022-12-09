@@ -9,7 +9,6 @@ namespace Amju
 class GSShowLineDrawing : public GSBase
 {
 public:
-  virtual void Update() override;
   virtual void OnActive() override;
 };
 

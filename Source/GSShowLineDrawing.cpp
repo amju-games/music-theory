@@ -5,14 +5,6 @@
 
 namespace Amju
 {
-void GSShowLineDrawing::Update()
-{
-  if (m_gui)
-  {
-    m_gui->Update();
-  }
-}
-
 void GSShowLineDrawing::OnActive()
 {
   GSBase::OnActive(); 

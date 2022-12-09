@@ -38,6 +38,7 @@ namespace Amju
 
 void GSPlayNotes::Update()
 {
+  GSBase::Update();
   return;
 
   static float t = 0;
