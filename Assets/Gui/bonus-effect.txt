@@ -1,0 +1,19 @@
+// bonus effect
+// v
+1
+
+// Type
+particles
+
+// Node name
+my-particle-node
+
+// Image
+Image/sparkle1.png
+// size
+0.05
+// number
+30
+// particle max time
+6.0
+

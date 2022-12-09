@@ -20,6 +20,11 @@ void Gui3dScene::AddToFactory()
   TheGuiFactory::Instance()->Add(NAME, CreateGui3dScene);
 }
 
+SceneGraph* Gui3dScene::GetSceneGraph()
+{
+  return m_sceneGraph;
+}
+
 void Gui3dScene::Draw()
 {
   Assert(m_sceneGraph);

@@ -22,9 +22,13 @@ public:
   void Update() override;
   bool Load(File*) override;
 
+  SceneGraph* GetSceneGraph();
+
 protected:
   std::string m_sceneFilename;
-  RCPtr<SceneGraph> m_sceneGraph;
+  // TODO TEMP - SceneGraph s/b RefCounted
+  //RCPtr<SceneGraph> m_sceneGraph;
+  SceneGraph* m_sceneGraph = nullptr;
 };
 }
 

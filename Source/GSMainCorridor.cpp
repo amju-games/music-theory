@@ -34,6 +34,11 @@
 #include "PlayWav.h"
 #include "UserProfile.h"
 
+// TODO TEMP TEST
+#include "Gui3dScene.h"
+#include "SceneGraph.h"
+#include "ParticleEffect2d.h"
+
 namespace Amju
 {
 GSMainCorridor::GSMainCorridor()
@@ -269,6 +274,18 @@ void GSMainCorridor::OnActive()
   // Init HUD
   auto profile = TheUserProfile();
   NumUpdate(m_gui, "hint-counter" /* TODO CONST */, profile->GetHints());
+
+  // TEST start particle effect
+  Gui3dScene* particleScene = (Gui3dScene*)GetElementByName(m_gui, "particles-test");
+
+  auto sg = particleScene->GetSceneGraph();
+  Assert(sg);
+  auto sgroot = sg->GetRootNode(SceneGraph::AMJU_OPAQUE);
+  Assert(sgroot);
+  ParticleEffect2d* node = dynamic_cast<ParticleEffect2d*>(sgroot->GetNodeByName("my-particle-node"));
+  Assert(node);
+ 
+  node->Start();
 }
 
 void GSMainCorridor::Draw2d()

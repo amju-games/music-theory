@@ -12,11 +12,19 @@ gui-comp
 // Name
 gs-main-menu-root
 // Num children
-2
+3
 
 
 include
 hint-display-no-button.txt
+
+// TEST
+3d-scene
+particles-test
+0, 0
+1, 1
+Gui/bonus-effect.txt
+
 
 
 // Share button
