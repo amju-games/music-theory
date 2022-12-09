@@ -30,10 +30,14 @@ public:
 protected:
   void Reset();
   void BuildTriList();
+  void MakeInBetweenPoints();
 
 protected:
   // A line drawing is a sequence of points.
+  // We fill in the gaps between control points with a Catmull-Rom spline.
   std::vector<Vec2f> m_points;
+  std::vector<Vec2f> m_controlPoints;
+
   RCPtr<TriList> m_triList;
   Colour m_fgCol;
 

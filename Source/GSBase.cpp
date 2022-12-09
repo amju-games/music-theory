@@ -1,12 +1,15 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include <AmjuGL.h>
 #include "GSBase.h"
 
 namespace Amju
 {
 void GSBase::Draw2d() 
 {
+  AmjuGL::SetClearColour(Colour(.5f, .5f, .5f, 1.f));
+
   if (m_gui)
   { 
     m_gui->Draw();

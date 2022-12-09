@@ -190,7 +190,6 @@ bool GuiLineDrawing::Load(File* f)
 bool GuiLineDrawing::LoadPoints(File* f)
 {
   // Load control points
-  std::vector<Vec2f> points;
   std::string line;
   while (f->GetDataLine(&line))
   {
@@ -202,32 +201,45 @@ bool GuiLineDrawing::LoadPoints(File* f)
       break;
     }
     Vec2f pos(ToFloat(strs[0]), ToFloat(strs[1]));
-    points.push_back(pos);
+    m_controlPoints.push_back(pos);
   }
 
+  MakeInBetweenPoints();
+
+  return true;
+}
+
+void GuiLineDrawing::MakeInBetweenPoints()
+{
   // Make in between points from control points
-  int n = points.size() - 3;
+  m_points.clear();
+  int n = m_controlPoints.size() - 3;
   for (int i = 0; i < n; i++)
   {
     float t = 0;
     while (t < 1.0f)
     {
-      Vec2f v = CatmullRomSpline(t, points[i], points[i + 1], points[i + 2], points[i + 3]);
+      Vec2f v = CatmullRomSpline(t, m_controlPoints[i], m_controlPoints[i + 1], m_controlPoints[i + 2], m_controlPoints[i + 3]);
       v.x *= m_size.x;
       v.y *= m_size.y;
       m_points.push_back(v);
       t += 0.04f; // TODO 
     }
   }
-
-  return true;
 }
 
 void GuiLineDrawing::AddPoint(const Vec2f& p)
 {
+//  m_controlPoints.push_back(p);
+//  MakeInBetweenPoints();
+
   m_points.push_back(p);
   m_index = m_points.size();
   BuildTriList();
+
+#ifdef _DEBUG
+  std::cout << "Num control points: " << m_controlPoints.size() << " num points: " << m_points.size() << "\n";
+#endif
 }
 
 void GuiLineDrawing::Update()
