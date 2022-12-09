@@ -135,44 +135,16 @@ scrolling-part-of-scene
 5
 
 
-// GROWING SHOOT
-
-translate
--0.1, -0.4
-
-// delay
-animation
-name-not-used
-one-shot
-1.0
-step
-
-animation
-name-not-used
-one-shot
-2.0
-linear
-
-line-drawing
-// Name, Position, Size
-line-drawing-main-shoot
-0.0, 0
-1, 1
-// Start width
-0.1
-// End width
-0.01
-// Colour
-6EB127
-// Points
-stroke-main-menu-1.txt
+// GROWING TOPIC TREE
+include
+topic-tree.txt
 
 
 // Bulb
 
 
 colour
-96D159
+96D15980
 //C001D7
 
 animation

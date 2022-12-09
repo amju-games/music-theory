@@ -14,7 +14,7 @@ class Course;
 class File;
 
 // * Topic *
-// Base class for a unit of teaching/learning, (which for this app we expect to be 
+// Represents a unit of teaching/learning, (which for this app we expect to be 
 //  short, taking a few minutes to complete).
 // The topic contains details of what is to be learned, but not its presentation - 
 //  this is handled by Pages.
@@ -59,7 +59,7 @@ protected:
   std::string m_displayName;
 
   // IDs of topics which are unlocked when this topic is completed
-  std::vector<int> m_unlocks;
+  std::vector<std::string> m_unlocks;
 
   // The pages which present this topic, one page at a time.
   std::vector<RCPtr<Page>> m_pages;

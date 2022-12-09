@@ -11,6 +11,8 @@
 #include "GSMainMenu.h"
 #include "GSTitle.h"
 #include "GSTopicStart.h"
+#include "Keys.h"
+#include "UserProfile.h"
 
 namespace Amju
 {
@@ -61,6 +63,9 @@ void GSMainMenu::OnActive()
   //  here is coupled to the Course definition.
   GSBase::OnActive();
 
+  // Get user config, so we know which topics have been unlocked.
+  ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
+
   // Set button commands. For the buttons corresponding to Topics, the command
   //  sends us to that topic.
   // Get the course, loop over the topics in it.
@@ -71,18 +76,31 @@ void GSMainMenu::OnActive()
   {
     Topic* topic = course->GetTopic(i);
 
+    bool unlocked = (i == 0) || config->Exists(KEY_TOPIC_UNLOCKED + ToString(i));
+
     // Find the subtree for topic i
     GuiElement* topicRoot = GetElementByName(m_gui, "leaf-" + ToString(i));
 
     // Find the button corresponding to this topic
-    GuiButton* elem = dynamic_cast<GuiButton*>(GetElementByName(topicRoot, "topic-button"));
-    Assert(elem);
-    elem->SetCommand(new TopicCommand(i));
+    GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(topicRoot, "topic-button"));
+    Assert(button);
+    button->SetCommand(new TopicCommand(i));
 
     // Set name for button
     IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(topicRoot, "topic-name-text"));
     Assert(text);
     text->SetText(topic->GetDisplayName());
+
+    if (unlocked)
+    {
+      // ?
+    }
+    else
+    {
+      button->SetIsEnabled(false);
+      button->SetButtonColour(Colour(1, 1, 1, 0.5f));
+      // TODO text colour, but IGuiText has very limited interface
+    }
   }
 
   // Back to title 

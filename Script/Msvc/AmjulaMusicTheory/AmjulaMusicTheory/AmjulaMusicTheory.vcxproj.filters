@@ -432,5 +432,8 @@
     <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-vert.txt">
       <Filter>Assets\Shaders\opengl</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\topic-tree.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>

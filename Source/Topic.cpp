@@ -54,6 +54,17 @@ bool Topic::Load(File* f)
     return false;
   }
 
+  // Initially locked or unlocked?
+
+  // Topics unlocked by this one - string split by commas
+  std::string unlocked;
+  if (!f->GetDataLine(&unlocked))
+  {
+    f->ReportError("Expected list of topics unlocked by this one");
+    return false;
+  }
+  m_unlocks = Split(unlocked, ',');
+
   // Read pages
   int numPages = 0;
   if (!f->GetInteger(&numPages))

@@ -7,5 +7,6 @@
 
 #define KEY_GENERAL "general"
 #define KEY_USER_NAME "user_name"
-
+#define KEY_TOPICS "topics"
+#define KEY_TOPIC_UNLOCKED "topic_unlocked_"
 
