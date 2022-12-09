@@ -7,11 +7,11 @@
 #include <GuiDecColour.h>
 #include <Localise.h>
 #include <ReportError.h>
+#include "CentreMsg.h"
 #include "Consts.h"
 #include "Dictionary.h"
 #include "GSPages.h"
 #include "GuiMusicScore.h"
-#include "LurkMsg.h"
 #include "MusicalTermQuestion.h"
 #include "PageMultiChoice.h"
 #include "PlayWav.h"
@@ -225,7 +225,7 @@ void PageMultiChoice::ShowCorrectAnswer()
   std::string expl = GetQuestion()->GetExplanationString();
   if (expl.empty())
   {
-    LurkMsg lm(Lookup("$$$122" /* Incorrect! */), 
+    PLurkMsg lm = new LurkMsg(Lookup("$$$122" /* Incorrect! */), 
       GetColour(COLOUR_TEXT),
       GetColour(COLOUR_INCORRECT),
       AMJU_TOP, PAGE_LURK_TIME);
@@ -236,10 +236,9 @@ void PageMultiChoice::ShowCorrectAnswer()
   else
   {
     // Don't go to next page until user dismisses this message 
-    LurkMsg lm(expl, 
+    PLurkMsg lm = new CentreMsg(expl, 
       GetColour(COLOUR_TEXT), 
       GetColour(COLOUR_EXPLANATION),
-      AMJU_CENTRE,
       AMJU_LURK_NO_TIMER);
 
     // Set function to set correct answer button to have focus - lurk msg took
@@ -249,7 +248,7 @@ void PageMultiChoice::ShowCorrectAnswer()
       button->SetIsFocusButton(true); 
       Page::SendNextPageMessage();
     };
-    lm.SetOkCommand(fn);
+    lm->SetOkCommand(fn);
     TheLurker::Instance()->Queue(lm);
   }
 }

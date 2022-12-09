@@ -40,7 +40,7 @@ public:
   // Display message if not shown before, either for this process, or 
   //  ever for this install, etc.
   // Return true if we do display.
-  bool FirstTimeMsg(int msgId, const LurkMsg& lm, FirstTimeType ftt);
+  bool FirstTimeMsg(int msgId, PLurkMsg lm, FirstTimeType ftt);
 
   // Checks if the given message has already been shown, for the given
   //  firt time type.

@@ -301,7 +301,7 @@ void GSPages::OnCorrect()
 
   Page::SendNextPageMessage();
 
-  LurkMsg lm(Lookup("$$$121" /* Correct! */), 
+  PLurkMsg lm = new LurkMsg(Lookup("$$$121" /* Correct! */), 
     GetColour(COLOUR_TEXT),
     GetColour(COLOUR_CORRECT),
     AMJU_TOP, PAGE_LURK_TIME);

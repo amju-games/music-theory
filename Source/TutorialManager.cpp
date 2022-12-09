@@ -1,8 +1,8 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include "CentreMsg.h"
 #include "Consts.h"
-#include "LurkMsg.h"
 #include "TutorialIds.h"
 #include "TutorialManager.h"
 
@@ -14,7 +14,7 @@ namespace Amju
     AMJU_FIRST_TIME_THIS_INSTALL,
 */
 
-bool TutorialManager::FirstTimeMsg(int msgId, const LurkMsg& lm, FirstTimeType ftt)
+bool TutorialManager::FirstTimeMsg(int msgId, PLurkMsg lm, FirstTimeType ftt)
 {
   if (MsgHasBeenShown(msgId, ftt))
   {
@@ -56,11 +56,10 @@ void QueueFirstTimeMsgs(const std::vector<int> ids, FirstTimeType ftt)
 {
   for (int id : ids)
   {
-    LurkMsg lm(
+    PLurkMsg lm = new CentreMsg(
       LookupTutorialString(id),
       GetColour(COLOUR_TEXT),
       GetColour(COLOUR_TUTORIAL),
-      AMJU_CENTRE,
       2.0f); // TODO TEMP TEST - try timed centred msg
 
 //      AMJU_LURK_NO_TIMER); // TODO allow timed centre msgs

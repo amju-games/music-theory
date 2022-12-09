@@ -29,7 +29,6 @@ LurkMsg::LurkMsg()
   m_timer = 0;
   m_state = LURK_NEW;
   m_lurkPos = AMJU_NONE;
-  m_scale = 1.0f;
 
   m_onOk = 0;
   m_onYes = 0;
@@ -43,7 +42,6 @@ LurkMsg::LurkMsg(const std::string& text, const Colour& fgCol, const Colour& bgC
   m_onYes = 0;
   m_onNo = 0;
 
-  m_scale = 1.0f;
   Set(text, fgCol, bgCol, lp, maxTime, onOk);
 }
 
@@ -54,14 +52,8 @@ bool LurkMsg::IsFinished() const
 
 void LurkMsg::Draw()
 {
-  AmjuGL::PushMatrix();
-  AmjuGL::Scale(m_scale, m_scale, 1.0f);
   m_rect->Draw();
-  if (m_scale > 0.99f)
-  {
-    m_text->Draw();
-  }
-  AmjuGL::PopMatrix();
+  m_text->Draw();
 }
 
 void LurkMsg::Update()
@@ -78,26 +70,16 @@ void LurkMsg::Update()
       m_state = LURK_SHOWING;
       m_rect->SetVisible(true);
       m_text->SetVisible(true);
-
-      // If centred (with button[s]), make this the modal listener.
-      if (m_lurkPos == AMJU_CENTRE) 
-      {
-        TheLurker::Instance()->SetAsListener(true);
-      }
     }
     break;
 
   case LURK_SHOWN:
-    // For centred msgs, wait for button click, unless we have set a time out.
-    // For other msgs, there is no button, and we always time out.
-    if (   (m_lurkPos != AMJU_CENTRE) 
-        || (m_maxTime > 0))
+    // For non-centred msgs, there is no button, and we always time out.
+    // (TODO for now)
+    m_timer += dt;
+    if (m_timer > m_maxTime)
     {
-      m_timer += dt;
-      if (m_timer > m_maxTime)
-      {
-        m_state = LURK_HIDING;
-      }
+      m_state = LURK_HIDING;
     }
     break;
 
@@ -117,26 +99,12 @@ void LurkMsg::Update()
 
       m_state = LURK_SHOWN;
     }
-    else if (m_lurkPos == AMJU_CENTRE && m_scale > 1.0f)
-    {
-      m_scale = 1.0f;
-      m_state = LURK_SHOWN;
-
-#ifdef TEXT_TO_SPEECH
-      m_text->TextToSpeech();
-#endif
-    }
     else 
     {
       Vec2f  dpos = m_vel * dt;
       m_pos += dpos;
       m_rect->SetLocalPos(m_rect->GetLocalPos() + dpos);
       m_text->SetLocalPos(m_text->GetLocalPos() + dpos);
-
-      if (m_lurkPos == AMJU_CENTRE)
-      {
-        m_scale += 2.0f * dt; // TODO TEMP TEST
-      }
     }
     break;
 
@@ -145,17 +113,9 @@ void LurkMsg::Update()
     if ((m_lurkPos == AMJU_TOP    && m_pos.y > m_hidePos.y) ||
         (m_lurkPos == AMJU_BOTTOM && m_pos.y < m_hidePos.y) ||
         (m_lurkPos == AMJU_LEFT   && m_pos.x < m_hidePos.x) ||
-        (m_lurkPos == AMJU_RIGHT  && m_pos.x > m_hidePos.x) ||
-        (m_lurkPos == AMJU_CENTRE && m_scale < 0.25f))
+        (m_lurkPos == AMJU_RIGHT  && m_pos.x > m_hidePos.x))
     {
       m_state = LURK_FINISHED;
-      m_scale = 0;
-
-      // Release modal listener status
-      if (m_lurkPos == AMJU_CENTRE)
-      {
-        TheLurker::Instance()->SetAsListener(false);
-      }
     }
     else
     {
@@ -163,11 +123,6 @@ void LurkMsg::Update()
       m_pos += dpos;
       m_rect->SetLocalPos(m_rect->GetLocalPos() + dpos);
       m_text->SetLocalPos(m_text->GetLocalPos() + dpos);
-
-      if (m_lurkPos == AMJU_CENTRE)
-      {
-        m_scale -= 2.0f * dt; // TODO TEMP TEST
-      }
     }
     break;
 
@@ -228,10 +183,6 @@ void LurkMsg::Set(const std::string& str, const Colour& fgCol, const Colour& bgC
   const float LURK_MSG_WIDTH = 1.5f;
   
   GuiText* text = new GuiText;
-  if (lp == AMJU_CENTRE)
-  {
-    text->SetIsMulti(true);
-  }
 
   static const float fontX = ROConfig()->GetFloat("lurk-font-x");
   static const float fontY = ROConfig()->GetFloat("lurk-font-y");
@@ -294,17 +245,6 @@ void LurkMsg::Set(GuiText* text, const Colour& fgCol, const Colour& bgCol, LurkP
     m_showPos = Vec2f(1.0f - w, h * 0.5f);
     m_hidePos = Vec2f(1.0f + EXTRA.x, m_showPos.y);
     m_rect->SetRoundCorners(GuiRect::AMJU_BR | GuiRect::AMJU_TR);
-    break;
-
-  case AMJU_CENTRE:
-    {
-      float yOffset = 0;
-
-      m_showPos = Vec2f(-w * 0.5f, h * 0.5f + yOffset); 
-      m_hidePos = m_showPos;
-      m_rect->SetRoundCorners(0); 
-      m_scale = 0.5f;
-    }
     break;
 
   case AMJU_NONE:
@@ -370,7 +310,7 @@ void Lurker::OnLurkOk()
   LurkMsgQ& q = m_qmap[AMJU_CENTRE];
   Assert(!q.empty());
 
-  LurkMsg& lm = m_qmap[AMJU_CENTRE].front();
+  LurkMsg& lm = *(m_qmap[AMJU_CENTRE].front());
   lm.m_state = LurkMsg::LURK_HIDING;
   lm.DoOk();
 
@@ -379,7 +319,7 @@ void Lurker::OnLurkOk()
 
 void Lurker::OnLurkYes()
 {
-  LurkMsg& lm = m_qmap[AMJU_CENTRE].front();
+  LurkMsg& lm = *(m_qmap[AMJU_CENTRE].front());
   lm.m_state = LurkMsg::LURK_HIDING;
   lm.DoYes();
 
@@ -388,7 +328,7 @@ void Lurker::OnLurkYes()
 
 void Lurker::OnLurkNo()
 {
-  LurkMsg& lm = m_qmap[AMJU_CENTRE].front();
+  LurkMsg& lm = *(m_qmap[AMJU_CENTRE].front());
   lm.m_state = LurkMsg::LURK_HIDING;
   lm.DoNo();
 
@@ -404,7 +344,7 @@ void Lurker::Update()
     {
       continue;
     }
-    LurkMsg& msg = q.front();
+    LurkMsg& msg = *(q.front());
     if (msg.IsFinished())
     {
       q.pop();
@@ -430,7 +370,7 @@ void Lurker::Draw()
     {
       continue;
     }
-    LurkMsg& msg = q.front();
+    LurkMsg& msg = *(q.front());
     if (msg.m_lurkPos == AMJU_CENTRE && msg.m_state == LurkMsg::LURK_SHOWN)
     {
       Vec2f pos = msg.m_rect->GetLocalPos(); 
@@ -454,9 +394,9 @@ void Lurker::Draw()
   }
 }
 
-void Lurker::Queue(const LurkMsg& lm, bool immediate)
+void Lurker::Queue(PLurkMsg lm, bool immediate)
 {
-  LurkMsgQ& q = m_qmap[lm.m_lurkPos];
+  LurkMsgQ& q = m_qmap[lm->m_lurkPos];
   if (immediate)
   {
     while (!q.empty())
@@ -471,9 +411,10 @@ void Lurker::Queue(const LurkMsg& lm, bool immediate)
 void Lurker::ShowYesNo(const std::string& q, const Colour& fgCol, const Colour& bgCol, 
   CommandFunc no, CommandFunc yes)
 {
-  LurkMsg msg(q, fgCol, bgCol,AMJU_CENTRE, 0);
-  msg.SetNoCommand(no);
-  msg.SetYesCommand(yes);
+  // TODO Yes/No msg should be subclass, right?
+  PLurkMsg msg = new LurkMsg(q, fgCol, bgCol, AMJU_CENTRE, 0);
+  msg->SetNoCommand(no);
+  msg->SetYesCommand(yes);
 
   Queue(msg);
 }
@@ -483,33 +424,12 @@ void Lurker::Clear()
   m_qmap.clear();
 }
 
-bool Lurker::IsDisplayingMsg() const
-{
-  QMap::const_iterator it = m_qmap.find(AMJU_CENTRE);
-  if (it != m_qmap.end())
-  {
-    const LurkMsgQ& q = it->second;
-    if (!q.empty())
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-void Lurker::SetAsListener(bool listen)
+void SetAsListener(PGuiElement gui)
 {
   static EventPoller* ep = TheEventPoller::Instance();
 
   // Set Lurk Msg as modal, so we can't do anything else until we tap OK
-  if (listen)
-  {
-    ep->SetModalListener(m_gui);
-  }
-  else
-  {
-    ep->SetModalListener(nullptr);
-  }
+  ep->SetModalListener(gui);
 }
 } // namespace 
 

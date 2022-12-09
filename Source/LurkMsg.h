@@ -20,7 +20,7 @@ enum LurkPos { AMJU_NONE, AMJU_TOP, AMJU_BOTTOM, AMJU_LEFT, AMJU_RIGHT, AMJU_CEN
 static const float AMJU_LURK_NO_TIMER = 0.f;
 
 // Lurk on edge of screen
-class LurkMsg
+class LurkMsg : public RefCounted
 {
 public:
   LurkMsg();
@@ -28,9 +28,9 @@ public:
   LurkMsg(const std::string& text, const Colour& fgCol, const Colour& bgCol, LurkPos lp, 
     float maxTime, CommandFunc onFinished = 0);
 
-  void Draw();
-  void Update();
-  void Set(const std::string& text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
+  virtual void Draw();
+  virtual void Update();
+  virtual void Set(const std::string& text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
     float maxTime, CommandFunc onFinished = 0);
 
   void Set(GuiText* text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
@@ -48,7 +48,7 @@ public:
 
   static const float DEFAULT_MAX_LURK_TIME;
 
-private:
+protected:
   RCPtr<GuiText> m_text;
   RCPtr<GuiRect> m_rect;
 
@@ -56,7 +56,6 @@ private:
   Vec2f m_showPos; // position when LURK_SHOWN state is reached
   Vec2f m_hidePos; // position when fully hidden
   Vec2f m_vel;
-  float m_scale; // for centre msgs which scale up and down
 
   float m_timer = 0;
   float m_maxTime = 0;
@@ -72,6 +71,8 @@ private:
   CommandFunc m_onNo;
 };
 
+using PLurkMsg = RCPtr<LurkMsg>;
+
 class Lurker : public NonCopyable
 {
   Lurker();
@@ -82,10 +83,7 @@ public:
   void Draw();
 
   // If immediate, preceding messages in the queue are removed
-  void Queue(const LurkMsg& lm, bool immediate = false);
-
-  // TODO
-  void QueueMultiPage(const Strings& strs, const Colour& fgCol, const Colour& bgCol);
+  void Queue(PLurkMsg lm, bool immediate = false);
 
   void ShowYesNo(const std::string& q, const Colour& fgCol, const Colour& bgCol, 
     CommandFunc no, CommandFunc yes);
@@ -98,12 +96,8 @@ public:
 
   void TextToSpeech(const std::string& text);
 
-  bool IsDisplayingMsg() const;
-
-  void SetAsListener(bool listen);
-
 private:
-  typedef std::queue<LurkMsg> LurkMsgQ; // queue of msgs or one Lurk pos
+  typedef std::queue<PLurkMsg> LurkMsgQ; // queue of msgs or one Lurk pos
   typedef std::map<LurkPos, LurkMsgQ> QMap; 
   QMap m_qmap; // one queue for each position
 
@@ -116,5 +110,9 @@ private:
 };
 
 typedef Singleton<Lurker> TheLurker;
+
+// Convenience function: set the given GUI as modal listener, or 
+//  release current modal listener if nullptr.
+void SetAsListener(PGuiElement gui);
 }
 

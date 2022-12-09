@@ -6,10 +6,10 @@
 #include <GameState.h>
 #include <GuiDecAnimation.h>
 #include <Localise.h>
+#include "CentreMsg.h"
 #include "Consts.h"
 #include "Dictionary.h"
 #include "GSPages.h"
-#include "LurkMsg.h"
 #include "Page.h"
 
 namespace Amju
@@ -36,10 +36,8 @@ static GSPages* GetPagesState()
 void GoToNextPage()
 {
   // Sanity check: this only makes sense if GSPages is active
-  if (auto pages = GetPagesState()) //TheGame::Instance()->GetState() == pages)
+  if (auto pages = GetPagesState()) 
   {
-    std::cout << "GoToNextPage calling NextPage...\n";
-
     pages->NextPage();
   }
 }
@@ -132,10 +130,9 @@ void Page::OnActive()
   const std::string& instr = GetInstructionText();
   if (instr != prevInstr)
   {
-    LurkMsg lm(instr,
+    PLurkMsg lm = new CentreMsg(instr,
       GetColour(COLOUR_TUTORIAL), // TODO
       GetColour(COLOUR_TEXT),  // TODO
-      AMJU_CENTRE,
       AMJU_LURK_NO_TIMER);  
 
     TheLurker::Instance()->Queue(lm);
