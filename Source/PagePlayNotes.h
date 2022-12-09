@@ -21,5 +21,8 @@ public:
   virtual void ShowCorrectAnswer() override;
   virtual void OnMusicKbEvent(const MusicKbEvent&) override;
 
+private:
+  // Player only gets to play one note per page
+  bool m_playerHasHitNote = false;
 };
 }

@@ -35,6 +35,8 @@ void PagePlayNotes::OnActive()
   int note = ToInt(GetQuestion()->GetAnswerString());
   PlayMidi(note, MIDI_NOTE_MAX_VOLUME);
   // TODO Timed message to stop the note? Or just let it decay.
+
+  m_playerHasHitNote = false;
 }
 
 void PagePlayNotes::OnHint()
@@ -47,6 +49,12 @@ void PagePlayNotes::ShowCorrectAnswer()
 
 void PagePlayNotes::OnMusicKbEvent(const MusicKbEvent& event)
 {
+  if (m_playerHasHitNote)
+  {
+    return;
+  }
+  m_playerHasHitNote = true;
+
   // Check note
   if (event.m_on) // note down
   {
