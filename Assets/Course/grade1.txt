@@ -45,7 +45,16 @@ Dotted notes
 // Topics unlocked by this one
 quavers-semiquavers, rests
 // Pages
-1
+10
+page-note-length-names
+page-note-length-names
+page-note-length-names
+page-note-length-names
+page-note-length-names
+page-note-length-names
+page-note-length-names
+page-note-length-names
+page-note-length-names
 page-note-length-names
 
 
@@ -59,7 +68,16 @@ Quavers and semiquavers
 // Topics unlocked by this one
 none
 // Pages
-1
+10
+page-note-length-names
+page-note-length-names
+page-note-length-names
+page-note-length-names
+page-note-length-names
+page-note-length-names
+page-note-length-names
+page-note-length-names
+page-note-length-names
 page-note-length-names
 
 // Topic
@@ -100,7 +118,16 @@ Musical terms
 none
 // Pages
 // 10 * musical term pages -- TODO num repeats?
-1
+10
+page-musical-term
+page-musical-term
+page-musical-term
+page-musical-term
+page-musical-term
+page-musical-term
+page-musical-term
+page-musical-term
+page-musical-term
 page-musical-term
 
 // Topic
@@ -127,7 +154,8 @@ Notes on the treble clef
 none
 // Pages
 1
-page-play-notes
+page-musical-symbol
+//page-play-notes
 
 
 // Topic
@@ -139,6 +167,6 @@ Intervals
 none
 // Pages
 1
-page-intervals-multi-choice
-
+//page-intervals-multi-choice
+page-musical-symbol
 
