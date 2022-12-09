@@ -93,8 +93,8 @@ namespace Amju
 //Amju::AmjuGLWindowInfo w(320, 550, false, "iPhone 5");
 //Amju::AmjuGLWindowInfo w(480, 640, false, "Simplest");
 
-Amju::AmjuGLWindowInfo w(1136, 640, false, "Landscape iPhone 5");
-//Amju::AmjuGLWindowInfo w(1136/2, 640/2, false, "Landscape iPhone 5 (small)");
+//Amju::AmjuGLWindowInfo w(1136, 640, false, "Landscape iPhone 5");
+Amju::AmjuGLWindowInfo w(1136/2, 640/2, false, "Landscape iPhone 5 (small)");
 // For creating screen shots etc, as big as poss
 //Amju::AmjuGLWindowInfo w(2048, 2048, false, "Square");
 

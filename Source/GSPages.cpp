@@ -138,7 +138,7 @@ void GSPages::OnActive()
   //PrintGui(m_gui);
 
   // Get general user config, just a convenience, it lives in the User Profile.
-  m_userConfig = TheUserProfile()->GetConfigForTopic(KEY_GENERAL);
+  m_userConfig = TheUserProfile()->GetConfigFile();
 
   Course* course = GetCourse();
   Assert(course);
@@ -258,8 +258,8 @@ void GSPages::NextPage()
 
   Page* page = topic->GetPage(m_currentPage);
   // Page reads/writes config file to load/save user state
-  ConfigFile* cf = TheUserProfile()->GetConfigForTopic(topic->GetId());
-  page->SetConfigFile(cf);
+////  ConfigFile* cf = TheUserProfile()->GetConfigFile(topic->GetId());
+////  page->SetConfigFile(cf);
   SetPage(page);
   
   m_numPagesShown++;

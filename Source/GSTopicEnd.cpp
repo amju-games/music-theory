@@ -53,26 +53,41 @@ void GSTopicEnd::OnActive()
   // TODO Set Share message and image
   
   auto profile = TheUserProfile();
+  Course* course = GetCourse();
+  Assert(course);
+  Topic* topic = course->GetTopic(profile->GetCurrentTopic());
+  Assert(topic);
 
+  // Config file specifically for storing topic-related stuff
+  ////auto topicConfig = profile->GetConfigForTopic(KEY_TOPICS);
+
+  // Get the non-persistent score for the current attempt. 
   m_topicScore = profile->GetCurrentTopicScore();
 
+  // Set persistent best mark if current score is better than previous best
+  ////int best = topicConfig->GetInt(KEY_TOPIC_BEST + id, 0);
+  ////if (m_topicScore > best)
+  ////{
+  ////  topicConfig->SetInt(KEY_TOPIC_BEST + id, m_topicScore);
+  ////}
+  
   // Unlock next topics if this topic has been passed.
-  const int PASS_MARK = 66; // TODO TEMP TEST
-  if (m_topicScore > PASS_MARK)
+  if (profile->IsTopicPassed(topic->GetId()))
+      ////m_topicScore >= topic->GetPassMark())
   {
-    Course* course = GetCourse();
-    Assert(course);
-    Topic* topic = course->GetTopic(profile->GetCurrentTopic());
-    Assert(topic);
+    // Passed this topic, unlock more topics
     const std::vector<std::string>& unlocks = topic->GetTopicsThisUnlocks();
-    int n = unlocks.size();
-    for (int i = 0; i < n; i++)
+    for (const std::string& id : unlocks)
     {
-      std::string id = unlocks[i];
-      profile->GetConfigForTopic(KEY_TOPICS)->SetInt(KEY_TOPIC_UNLOCKED + id, 1);
+      ////topicConfig->SetInt(KEY_TOPIC_UNLOCKED + id, 1);
+      profile->UnlockTopic(id);
     }
-    profile->Save();
   }
+
+  // Save all owned config files, but only for those that have changed.
+  // Right?
+  // TODO Check this
+  profile->Save();
 
   m_totalScore = 0; // profile->GetScore();
 
@@ -85,10 +100,6 @@ void GSTopicEnd::OnActive()
   text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "topic-name-text"));
   Assert(text);
   text->SetText(profile->GetCurrentTopicDisplayName());
-
-  // Add topic score to persistent total score now, but animate the
-  //  transfer of numbers, and add to hints over time.
-//////  profile->AddTopicScoreToPersistentScore();
 
   // Get initial hints, animate additions
   m_hints = profile->GetHints();
@@ -126,12 +137,17 @@ void GSTopicEnd::SetHintNumbers()
 void GSTopicEnd::UpdateNums()
 {
   // Set this to true if we need to do another update after this one
-  bool updateAgain = false;
+  bool updateAgain = true;
 
   if (m_topicScore > 0)
   {
-    const int incr = 1;
+    const int incr = 10;
     m_topicScore -= incr;
+    if (m_topicScore <= 0)
+    {
+      m_topicScore = 0;
+      updateAgain = false;
+    }
     m_totalScore += incr;
 
     SetScoreNumbers();
@@ -146,15 +162,13 @@ void GSTopicEnd::UpdateNums()
     m_hints++;
 
     SetHintNumbers();
-
-    updateAgain = true;
   }
 
   // Send a timed message to do this again soon
   // Only if nums are not showing their final values yet
   if (updateAgain)
   {
-    TheMessageQueue::Instance()->Add(new FuncMsg(::Amju::UpdateNums, SecondsFromNow(0.2f)));
+    TheMessageQueue::Instance()->Add(new FuncMsg(::Amju::UpdateNums, SecondsFromNow(0.1f)));
   }
 }
 }

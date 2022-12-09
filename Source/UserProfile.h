@@ -4,12 +4,11 @@
 #pragma once
 
 #include <map>
+#include <ConfigFile.h>
 #include <RCPtr.h>
 
 namespace Amju
 {
-class ConfigFile;
-
 // * UserProfile *
 // This represents the student's progress through a Course.
 // And other non-course info, e.g. avatar, student name, etc? This could perhaps
@@ -19,26 +18,36 @@ class UserProfile : public RefCounted
 public:
   bool Save();
 
-  // Each Topic has a config file storing player-specific progress
-  ConfigFile* GetConfigForTopic(const std::string& topicId);
+  // Direct access to single config file for storing any persistent data
+  ConfigFile* GetConfigFile();
 
   // Get/set current topic this play session.
   // Not persistent.
   void SetCurrentTopic(int topicId);
   int GetCurrentTopic() const;
 
+  // Get current level - store in config file.
+  void SetCurrentLevel(int level);
+  int GetCurrentLevel() const;
+
   // Convenience function - move it
-  std::string GetCurrentTopicDisplayName();
+  std::string GetCurrentTopicDisplayName() const;
 
   // Get persistent total score over player lifetime
   // (On local device, right?)
   int GetScore(); // not const, may load config file
   void AddToScore(int addition);
 
-  // Set score for the current topic.
+  // Set score for the current topic. Update persistent best score
+  //  if it's better than current best.
   void SetTopicScore(int topicScore);
   int GetCurrentTopicScore() const;
-  int GetBestTopicScore(const std::string& topicId) const;
+
+  // Persistent config for each topic
+  int GetBestTopicScore(const std::string& topicId);
+  bool IsTopicUnlocked(const std::string& topicId);
+  bool IsTopicPassed(const std::string& topicId);
+  void UnlockTopic(const std::string& topicId);
 
   // Get/Inc/Dec persistent hint count
   int GetHints(); // not const, may load config file
@@ -46,7 +55,7 @@ public:
   void AddHints(int addition);
 
 private:
-  std::map<std::string, RCPtr<ConfigFile>> m_configFiles;
+  RCPtr<ConfigFile> m_configFile;
 
   int m_currentTopic = 0; // not persistent
   int m_topicScore = 0; // score for the current topic, not persistent

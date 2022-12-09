@@ -117,7 +117,8 @@ void GSMainCorridor::Load3dForTopics()
   Assert(root);
 
   // Get user config, so we know which topics have been unlocked.
-  ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
+////  ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
+  auto profile = TheUserProfile();
 
   Course* course = GetCourse();
   Assert(course);
@@ -135,7 +136,8 @@ void GSMainCorridor::Load3dForTopics()
     Assert(topic);
 
     // TODO add something to locked topics so we can see it's locked
-    bool unlocked = (i == 0) || config->Exists(KEY_TOPIC_UNLOCKED + topic->GetId());
+    bool unlocked = (i == 0) || profile->IsTopicUnlocked(topic->GetId());
+////config->Exists(KEY_TOPIC_UNLOCKED + topic->GetId());
     if (unlocked)
     {
       lastUnlocked = i;
@@ -408,7 +410,7 @@ bool GSMainCorridor::IsTopicUnlocked(int topicNum) const
 ////  return true;
 
   auto profile = TheUserProfile();
-  ConfigFile* config = profile->GetConfigForTopic(KEY_TOPICS);
+////  ConfigFile* config = profile->GetConfigForTopic(KEY_TOPICS);
 
   Course* course = GetCourse();
   Assert(course);
@@ -422,7 +424,8 @@ bool GSMainCorridor::IsTopicUnlocked(int topicNum) const
 
   bool unlocked = 
     (topicNum == 0) ||
-    config->Exists(KEY_TOPIC_UNLOCKED + topic->GetId());
+    profile->IsTopicUnlocked(topic->GetId());
+/////config->Exists(KEY_TOPIC_UNLOCKED + topic->GetId());
 
   return unlocked;
 }
