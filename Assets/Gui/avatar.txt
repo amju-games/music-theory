@@ -7,6 +7,14 @@
 // version
 1
 
+animation
+animation-bob-up-and-down
+mirror-repeat
+3.0
+linear
+translate
+0,-.1;0,.1
+
 gui-comp
 avatar-comp
 2
