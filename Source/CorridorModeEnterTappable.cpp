@@ -6,7 +6,7 @@
 #include <Timer.h>
 #include "CorridorModeEnterTappable.h"
 #include "CorridorModeShowTappable.h"
-#include "GSMainMenu.h"
+#include "GSMainCorridor.h"
 
 namespace Amju
 {

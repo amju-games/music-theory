@@ -4,14 +4,14 @@
 #include <Game.h>
 #include <GuiText.h>
 #include <MessageQueue.h>
-#include "GSMainMenu.h"
+#include "GSMainCorridor.h"
 #include "GSTopicEnd.h"
 
 namespace Amju
 {
 static void OnOK(GuiElement*)
 {
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainMenu>, SecondsFromNow(1.0f)));
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainCorridor>, SecondsFromNow(1.0f)));
 }
 
 GSTopicEnd::GSTopicEnd()

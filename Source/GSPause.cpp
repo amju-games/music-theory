@@ -2,7 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <Game.h>
-#include "GSMainMenu.h"
+#include "GSMainCorridor.h"
 #include "GSPause.h"
 
 namespace Amju
@@ -16,7 +16,7 @@ static void OnQuitTopic(GuiElement*)
 {
   // Back to main menu
   // TODO Quit confirm
-  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
 }
 
 GSPause::GSPause()

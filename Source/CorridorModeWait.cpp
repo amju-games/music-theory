@@ -8,7 +8,7 @@
 #include "CorridorModeWait.h"
 #include "CorridorModeEnterClassroom.h"
 #include "Course.h"
-#include "GSMainMenu.h"
+#include "GSMainCorridor.h"
 #include "Tappable.h"
 
 namespace Amju
@@ -19,15 +19,15 @@ void OnTopic(GuiElement*)
 {
   // Topic button for all topics: the currently selected topic is the
   //  one we go to.
-//  TheGSMainMenu::Instance()->GoToTopic();
+//  TheGSMainCorridor::Instance()->GoToTopic();
 
-  if (!TheGSMainMenu::Instance()->IsTopicUnlocked())
+  if (!TheGSMainCorridor::Instance()->IsTopicUnlocked())
   {
     std::cout << "Topic locked!\n";
     return;
   }
 
-  TheGSMainMenu::Instance()->SetMode(CorridorModeEnterClassroom::ID);
+  TheGSMainCorridor::Instance()->SetMode(CorridorModeEnterClassroom::ID);
 }
 } // anon namespace
 

@@ -4,7 +4,7 @@
 #include <Game.h>
 #include <GuiText.h>
 #include "Course.h"
-#include "GSMainMenu.h"
+#include "GSMainCorridor.h"
 #include "GSPages.h"
 #include "GSTopicStart.h"
 #include "Topic.h"

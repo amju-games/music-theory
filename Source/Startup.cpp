@@ -39,7 +39,7 @@
 #include "Course.h"
 #include "Dictionary.h"
 #include "GSFirstUser.h"
-#include "GSMainMenu.h"
+#include "GSMainCorridor.h"
 #include "GSPages.h"
 #include "GSPlayNotes.h"
 #include "GSShowLineDrawing.h"
@@ -143,7 +143,7 @@ void StartUpAfterCreateWindow()
 
 //  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 
-  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
 }
 }
 

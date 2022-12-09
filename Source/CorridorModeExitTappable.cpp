@@ -4,7 +4,7 @@
 #include <Timer.h>
 #include "CorridorModeExitTappable.h"
 #include "CorridorModeWait.h"
-#include "GSMainMenu.h"
+#include "GSMainCorridor.h"
 
 namespace Amju
 {

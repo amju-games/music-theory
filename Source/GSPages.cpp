@@ -12,7 +12,7 @@
 #include <SceneGraph.h>
 
 #include "Course.h"
-#include "GSMainMenu.h"
+#include "GSMainCorridor.h"
 #include "GSPages.h"
 #include "GSPause.h"
 #include "GSTopicStart.h"
@@ -33,7 +33,7 @@ const float NEXT_PAGE_TIME = 2.2f;
 
 static void OnQuitConfirmOK(GuiElement*)
 {
-  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
 }
 
 static void OnQuitConfirmCancel(GuiElement*)

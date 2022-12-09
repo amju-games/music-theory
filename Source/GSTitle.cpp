@@ -6,7 +6,7 @@
 #include <GuiDecAnimation.h>
 #include <MessageQueue.h>
 #include "GSFirstUser.h"
-#include "GSMainMenu.h"
+#include "GSMainCorridor.h"
 #include "GSTitle.h"
 #include "Keys.h"
 #include "UserProfile.h"
@@ -21,7 +21,7 @@ static void OnStart(GuiElement* elem)
   if (true)//cf->Exists(KEY_USER_NAME))
   {
 //    TheGSTitle::Instance()->HideButtons()->ScrollUp();
-    TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainMenu>, SecondsFromNow(1.5f)));
+    TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainCorridor>, SecondsFromNow(1.5f)));
   }
   else
   {

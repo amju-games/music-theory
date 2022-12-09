@@ -13,16 +13,16 @@
 
 namespace Amju
 {
-// * GSMainMenu *
+// * GSMainCorridor *
 // Main menu game state. 
 // Displays a scrollable corridor, with doors which lead to individual
 //  topics.
 // In the corridor are tappable 3D objects, which present the user with 
 //  more info.
-class GSMainMenu : public GSBase3d
+class GSMainCorridor : public GSBase3d
 {
 public:
-  GSMainMenu();
+  GSMainCorridor();
   virtual void OnActive() override;
   virtual void OnDeactive() override;
   virtual void Update() override;
@@ -91,6 +91,6 @@ private:
   int m_newModeId = -1; // set to a valid index in m_modes when we want to change mode
 };
 
-typedef Singleton<GSMainMenu> TheGSMainMenu;
+typedef Singleton<GSMainCorridor> TheGSMainCorridor;
 }
 

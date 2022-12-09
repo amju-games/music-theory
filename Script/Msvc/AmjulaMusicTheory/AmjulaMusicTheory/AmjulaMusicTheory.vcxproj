@@ -282,7 +282,7 @@
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase3d.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSFirstUser.cpp" />
-    <ClCompile Include="..\..\..\..\Source\GSMainMenu.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSMainCorridor.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPages.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPause.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp" />
@@ -365,7 +365,7 @@
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase3d.h" />
     <ClInclude Include="..\..\..\..\Source\GSFirstUser.h" />
-    <ClInclude Include="..\..\..\..\Source\GSMainMenu.h" />
+    <ClInclude Include="..\..\..\..\Source\GSMainCorridor.h" />
     <ClInclude Include="..\..\..\..\Source\GSPages.h" />
     <ClInclude Include="..\..\..\..\Source\GSPause.h" />
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h" />

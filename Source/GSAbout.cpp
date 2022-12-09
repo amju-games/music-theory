@@ -5,7 +5,7 @@
 #include <GuiDecAnimation.h>
 #include <MessageQueue.h>
 #include "GSAbout.h"
-#include "GSMainMenu.h"
+#include "GSMainCorridor.h"
 #include "PrintGui.h"
 
 namespace Amju
@@ -13,7 +13,7 @@ namespace Amju
 static void OnOK(GuiElement* elem)
 {
   TheGSAbout::Instance()->HideButtons()->ScrollUp();
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainMenu>, SecondsFromNow(0.5f)));
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainCorridor>, SecondsFromNow(0.5f)));
   // TODO Also stop underground anims?
 }
 

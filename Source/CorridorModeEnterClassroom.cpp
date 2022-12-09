@@ -6,7 +6,7 @@
 #include <Timer.h>
 #include "Consts.h"
 #include "CorridorModeEnterClassroom.h"
-#include "GSMainMenu.h"
+#include "GSMainCorridor.h"
 #include "GSTopicStart.h"
 #include "PlayWav.h"
 

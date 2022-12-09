@@ -25,7 +25,7 @@
 #include "CorridorModeWait.h"
 #include "Course.h"
 #include "GSAbout.h"
-#include "GSMainMenu.h"
+#include "GSMainCorridor.h"
 #include "GSTitle.h"
 #include "Keys.h"
 #include "PlayWav.h"
@@ -37,17 +37,17 @@ namespace
 {
 void OnShare(GuiElement*)
 {
-  //  TheGSMainMenu::Instance()->HideButtons()->ScrollUp();
+  //  TheGSMainCorridor::Instance()->HideButtons()->ScrollUp();
 }
 
 void OnNewUser(GuiElement*)
 {
-  //  TheGSMainMenu::Instance()->HideButtons()->ScrollDown();
+  //  TheGSMainCorridor::Instance()->HideButtons()->ScrollDown();
 }
 
 void OnAbout(GuiElement*)
 {
-  //  TheGSMainMenu::Instance()->HideButtons()->ScrollDown();
+  //  TheGSMainCorridor::Instance()->HideButtons()->ScrollDown();
   TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSAbout>, SecondsFromNow(1.0f)));
 }
 
@@ -57,7 +57,7 @@ void OnBackToTitle(GuiElement*)
 }
 }
 
-GSMainMenu::GSMainMenu()
+GSMainCorridor::GSMainCorridor()
 {
   m_guiFilename = "Gui/gs_main_menu_corridor.txt";
   m_sceneFilename = "Scene/corridor-scene.txt";
@@ -77,7 +77,7 @@ GSMainMenu::GSMainMenu()
   SetMode(CorridorModeWait::ID);
 }
 
-bool GSMainMenu::LoadTappables()
+bool GSMainCorridor::LoadTappables()
 {
   // Get root node for adding tappables - TODO camera?
   SceneNode* root = GetCamera();
@@ -108,7 +108,7 @@ bool GSMainMenu::LoadTappables()
   return true;
 }
 
-void GSMainMenu::Load3dForTopics()
+void GSMainCorridor::Load3dForTopics()
 {
   // Get root node for adding nodes - TODO SHOULDN'T BE CAMERA
   SceneNode* root = GetCamera();
@@ -155,7 +155,7 @@ void GSMainMenu::Load3dForTopics()
   }
 }
 
-void GSMainMenu::OnDeactive()
+void GSMainCorridor::OnDeactive()
 {
   GSBase3d::OnDeactive();
 
@@ -166,7 +166,7 @@ void GSMainMenu::OnDeactive()
   m_currentMode = nullptr;
 }
 
-void GSMainMenu::OnActive()
+void GSMainCorridor::OnActive()
 {
   GSBase3d::OnActive();
 
@@ -183,20 +183,20 @@ void GSMainMenu::OnActive()
   ChangeMode();
 }
 
-void GSMainMenu::Draw2d()
+void GSMainCorridor::Draw2d()
 {
   GSBase3d::Draw2d();
 
   m_currentMode->Draw2d();
 }
 
-void GSMainMenu::SetMode(int modeId)
+void GSMainCorridor::SetMode(int modeId)
 {
   // Don't change immediately, wait until Update.
   m_newModeId = modeId;
 }
 
-void GSMainMenu::ChangeMode()
+void GSMainCorridor::ChangeMode()
 {
   if (m_newModeId < 0)
   {
@@ -212,7 +212,7 @@ void GSMainMenu::ChangeMode()
   m_newModeId = -1;
 }
 
-void GSMainMenu::GoToTopic()
+void GSMainCorridor::GoToTopic()
 {
   if (!IsTopicUnlocked())
   {
@@ -222,7 +222,7 @@ void GSMainMenu::GoToTopic()
   SetMode(CorridorModeEnterClassroom::ID);
 }
 
-bool GSMainMenu::IsTopicUnlocked() const
+bool GSMainCorridor::IsTopicUnlocked() const
 {
   // TODO for dev
   return true;
@@ -236,24 +236,24 @@ bool GSMainMenu::IsTopicUnlocked() const
   return unlocked;
 }
 
-void GSMainMenu::SetCurrentTopic(int topicId)
+void GSMainCorridor::SetCurrentTopic(int topicId)
 {
   m_currentTopic = topicId;
 }
 
-int GSMainMenu::GetCurrentTopic() const
+int GSMainCorridor::GetCurrentTopic() const
 {
   return m_currentTopic;
 }
 
-PSceneNode GSMainMenu::GetDoor()
+PSceneNode GSMainCorridor::GetDoor()
 {
   Assert(m_currentTopic >= 0);
   Assert(m_currentTopic< static_cast<int>(m_doors.size()));
   return m_doors[m_currentTopic];
 }
 
-void GSMainMenu::Update()
+void GSMainCorridor::Update()
 {
   GSBase3d::Update();
 
@@ -267,18 +267,18 @@ void GSMainMenu::Update()
   m_camController.Update();
 }
 
-void GSMainMenu::OnTapped(Tappable* tapped)
+void GSMainCorridor::OnTapped(Tappable* tapped)
 {
   m_tapped = tapped;
   SetMode(CorridorModeEnterTappable::ID);
 }
 
-Tappable* GSMainMenu::GetSelectedTappable()
+Tappable* GSMainCorridor::GetSelectedTappable()
 {
   return m_tapped;
 }
 
-Tappable* GSMainMenu::TappablePickTest(const Vec2f& touchCoord)
+Tappable* GSMainCorridor::TappablePickTest(const Vec2f& touchCoord)
 {
   // Set up camera matrices for Unproject
   GetCamera()->Draw();
@@ -305,28 +305,28 @@ Tappable* GSMainMenu::TappablePickTest(const Vec2f& touchCoord)
   return nullptr;
 }
 
-void GSMainMenu::Draw()
+void GSMainCorridor::Draw()
 {
   GSBase3d::Draw();
 }
 
-SceneNodeCamera* GSMainMenu::GetCamera()
+SceneNodeCamera* GSMainCorridor::GetCamera()
 {
   Assert(m_camera);
   return m_camera;
 }
 
-bool GSMainMenu::OnCursorEvent(const CursorEvent& ce)
+bool GSMainCorridor::OnCursorEvent(const CursorEvent& ce)
 {
   return m_currentMode->OnCursorEvent(ce);
 }
 
-bool GSMainMenu::OnMouseButtonEvent(const MouseButtonEvent& mbe)
+bool GSMainCorridor::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 {
   return m_currentMode->OnMouseButtonEvent(mbe);
 }
 
-CorridorCamController& GSMainMenu::GetCameraController()
+CorridorCamController& GSMainCorridor::GetCameraController()
 {
   return m_camController;
 }

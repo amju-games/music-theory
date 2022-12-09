@@ -4,7 +4,7 @@
 #include <GuiButton.h>
 #include "CorridorModeExitTappable.h"
 #include "CorridorModeShowTappable.h"
-#include "GSMainMenu.h"
+#include "GSMainCorridor.h"
 
 namespace Amju
 {
@@ -18,7 +18,7 @@ void OnDone(GuiElement*)
   // ** Unlock topics if all relevant tappables have been seen? **
 
   // If we already saw this tappable, just exit out to the corridor again.
-  TheGSMainMenu::Instance()->SetMode(CorridorModeExitTappable::ID);
+  TheGSMainCorridor::Instance()->SetMode(CorridorModeExitTappable::ID);
 }
 } // anon namespace
 
