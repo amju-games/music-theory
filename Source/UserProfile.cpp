@@ -13,6 +13,8 @@ namespace Amju
 
 namespace
 {
+const int MAX_NUM_HINTS = 10; // TODO OK?
+
 const char* HINTS_AVAILABLE_KEY = "hints_avail";
 
 // Start life with 3 hints
@@ -127,14 +129,25 @@ void UserProfile::AddHints(HintType ht, int add)
   auto userConfig = GetConfigFile();
   const std::string key = HINTS_AVAILABLE_KEY + ToString(static_cast<int>(ht));
   int hints = userConfig->GetInt(key, DEFAULT_HINTS_AVAIL);
+  const int prevHints = hints;
+
   hints += add;
   if (hints < 0)
   {
     Assert(0); // -ve hints not allowed
     hints = 0;
   }
-  userConfig->SetInt(key, hints);
-  Save();
+
+  if (hints > MAX_NUM_HINTS)
+  {
+    hints = MAX_NUM_HINTS;
+  }
+
+  if (hints != prevHints)
+  {
+    userConfig->SetInt(key, hints);
+    Save();
+  }
 }
 
 int UserProfile::GetBestTopicScore(const std::string& topicId) 
