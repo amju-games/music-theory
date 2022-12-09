@@ -20,6 +20,11 @@ SceneGraph* GSBase3d::GetSceneGraph()
 
 void GSBase3d::Reload3d()
 {
+  if (m_sceneFilename.empty())
+  {
+    return;
+  }
+
   SceneGraph* sg = GetSceneGraph();
   sg->Clear(); // for reload
 

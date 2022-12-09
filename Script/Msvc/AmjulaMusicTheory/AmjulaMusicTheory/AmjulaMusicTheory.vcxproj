@@ -288,6 +288,7 @@
     <ClCompile Include="..\..\..\..\Source\GuiLineDrawing.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicKb.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Hints.cpp" />
     <ClCompile Include="..\..\..\..\Source\Md2SceneNode.cpp" />
     <ClCompile Include="..\..\..\..\Source\MultiChoiceQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\MusicalTermQuestion.cpp" />
@@ -357,6 +358,7 @@
     <ClInclude Include="..\..\..\..\Source\GuiLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
+    <ClInclude Include="..\..\..\..\Source\Hints.h" />
     <ClInclude Include="..\..\..\..\Source\Keys.h" />
     <ClInclude Include="..\..\..\..\Source\Md2SceneNode.h" />
     <ClInclude Include="..\..\..\..\Source\MultiChoiceQuestion.h" />
@@ -448,6 +450,7 @@
     <Text Include="..\..\..\..\Assets\Gui\text_bg_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\title-text.txt" />
     <Text Include="..\..\..\..\Assets\Gui\topic_door_1.txt" />
+    <Text Include="..\..\..\..\Assets\Scene\corridor-one-door.txt" />
     <Text Include="..\..\..\..\Assets\Scene\corridor-scene.txt" />
     <Text Include="..\..\..\..\Assets\Scene\room1-scene.txt" />
     <Text Include="..\..\..\..\Assets\Scene\schoolhouse-scene.txt" />

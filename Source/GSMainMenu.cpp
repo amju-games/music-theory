@@ -4,8 +4,10 @@
 #include <Game.h>
 #include <GuiButton.h>
 #include <GuiDecAnimation.h>
+#include <LoadScene.h>
 #include <MessageQueue.h>
 #include <ResourceManager.h>
+#include <SceneGraph.h>
 #include <StringUtils.h>
 #include "Course.h"
 #include "GSAbout.h"
@@ -63,7 +65,31 @@ GSMainMenu::GSMainMenu()
 {
   m_guiFilename = "Gui/gs_main_menu_corridor.txt";
   m_sceneFilename = "Scene/corridor-scene.txt";
+}
 
+void GSMainMenu::Load3dForTopics()
+{
+  SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
+  SceneNode* camera = root->GetNodeByName("camera");
+  Assert(camera);
+
+  for (int i = 0; i < 2; i++)
+  {
+    PSceneNode node = LoadScene("Scene/corridor-one-door.txt");
+    Assert(node);
+    node->SetIsLit(true);
+
+    // Translate this node
+    Matrix m;
+    //m.Scale(0.5f, 0.5f, 0.5f);
+    // Camera is looking down the x axis, so we translate each piece of the 
+    //  corridor in z... TODO make this translation automatically at
+    //  right angles to view vec?
+    m.Translate(Vec3f(0, 0, i * -300.0f)); // TODO TEMP TEST
+    node->SetLocalTransform(m);
+
+    camera->AddChild(node);
+  }
 }
 
 void GSMainMenu::OnActive()
@@ -94,6 +120,8 @@ void GSMainMenu::OnActive()
 
   GuiElement* about = GetElementByName(m_gui, "about-button");
   about->SetCommand(OnAbout);
+
+  Load3dForTopics();
 
 //  // Set button commands. For the buttons corresponding to Topics, the command
 //  //  sends us to that topic.
@@ -191,6 +219,39 @@ void GSMainMenu::GoToTopic(int topic)
 
   // Start animation
 //ScrollUp();
+}
+
+bool GSMainMenu::OnCursorEvent(const CursorEvent& ce)
+{
+  if (m_isDragging)
+  {
+    Vec2f pos = Vec2f(ce.x, ce.y);
+    Vec2f dragDist = pos - m_touchDown;
+    const float MIN_DRAG_DIST = 0.5f; // 1/4 of screen
+    if (fabs(dragDist.x) > MIN_DRAG_DIST)
+    {
+      if (dragDist.x > 0)
+      {
+        std::cout << "Drag right!\n";
+      }
+      else
+      {
+        std::cout << "Drag left!\n";
+      }
+      m_touchDown = pos;
+    }
+  }
+  return false;
+}
+
+bool GSMainMenu::OnMouseButtonEvent(const MouseButtonEvent& mbe)
+{
+  m_isDragging = mbe.isDown;
+  if (mbe.isDown)
+  {
+    m_touchDown = Vec2f(mbe.x, mbe.y);
+  }
+  return false;
 }
 
 }

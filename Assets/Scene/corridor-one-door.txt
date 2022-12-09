@@ -1,0 +1,26 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// version
+1
+
+// Node type
+comp
+// Name
+one-door
+// Matrix
+I
+// Num children
+1
+
+// Node type
+mesh
+// Name
+door-mesh
+// Matrix
+I
+// Obj mesh
+obj/corridor1.obj
+// Num children
+0
+
