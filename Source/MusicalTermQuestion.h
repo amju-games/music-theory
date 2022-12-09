@@ -7,6 +7,8 @@
 
 namespace Amju
 {
+class Dictionary;
+
 class MusicalTermQuestion : public MultiChoiceQuestion
 {
 public:
@@ -15,7 +17,7 @@ public:
 
   virtual void MakeQuestion() override;
 
-  void SetDictionary(MusicalTermsDictionary* dictionary);
+  void SetDictionary(Dictionary* dictionary);
 
   virtual bool QuestionSeenBefore(ConfigFile*) const override;
   virtual void SetQuestionSeenBefore(ConfigFile*) const override;
@@ -26,7 +28,7 @@ protected:
 protected:
   std::string m_musicalTerm;
 
-  RCPtr<MusicalTermsDictionary> m_dictionary;
+  RCPtr<Dictionary> m_dictionary;
 };
 
 }

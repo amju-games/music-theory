@@ -7,6 +7,7 @@
 #include <ConfigFile.h>
 #include <File.h>
 #include <StringUtils.h>
+#include "Dictionary.h"
 #include "MusicalTermQuestion.h"
 
 namespace Amju
@@ -65,7 +66,7 @@ void MusicalTermQuestion::MakeQuestion()
   }
 }
 
-void MusicalTermQuestion::SetDictionary(MusicalTermsDictionary* dictionary)
+void MusicalTermQuestion::SetDictionary(Dictionary* dictionary)
 {
   m_dictionary = dictionary;
 }

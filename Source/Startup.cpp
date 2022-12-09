@@ -34,6 +34,7 @@
 #include <ResourceManager.h>
 #include <SoundManager.h>
 #include "Course.h"
+#include "Dictionary.h"
 #include "GSFirstUser.h"
 #include "GSMainMenu.h"
 #include "GSPages.h"

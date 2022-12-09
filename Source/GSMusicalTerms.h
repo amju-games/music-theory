@@ -19,7 +19,7 @@ public:
   virtual void OnActive() override;
 
 protected:
-  RCPtr<MusicalTermsDictionary> m_dictionary;
+  RCPtr<Dictionary> m_dictionary;
   MusicalTermQuestion m_question;
 };
 }

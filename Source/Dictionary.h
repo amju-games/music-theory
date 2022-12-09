@@ -9,7 +9,12 @@
 
 namespace Amju
 {
-class MusicalTermsDictionary : public Resource
+// * Dictionary *
+// Dictionary for musical terms etc.
+// Contents can be loaded from file.
+// We can also represent music as strings, so the dictionary can be used to store
+//  intervals and their names, or a score and some remarks about it, etc.
+class Dictionary : public Resource
 {
 public:
   bool Load(const std::string& filename);

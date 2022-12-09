@@ -3,13 +3,13 @@
 
 #include <File.h>
 #include <StringUtils.h>
-#include "MusicalTermsDictionary.h"
+#include "Dictionary.h"
 
 namespace Amju
 {
 Resource* DictionaryLoader(const std::string& resName)
 {
-  MusicalTermsDictionary* d = new MusicalTermsDictionary;
+  Dictionary* d = new Dictionary;
   // Remove final extension
   std::string filename = GetFileNoExt(resName);
   if (!d->Load(filename))
@@ -20,7 +20,7 @@ Resource* DictionaryLoader(const std::string& resName)
   return d;
 }
 
-bool MusicalTermsDictionary::Load(const std::string& filename)
+bool Dictionary::Load(const std::string& filename)
 {
   File f;
   if (!f.OpenRead(filename))
@@ -43,17 +43,17 @@ bool MusicalTermsDictionary::Load(const std::string& filename)
   return true;
 }
 
-void MusicalTermsDictionary::AddTerm(const std::string& english, const std::string& foreign)
+void Dictionary::AddTerm(const std::string& english, const std::string& foreign)
 {
   m_dictionary.push_back(std::make_pair(english, foreign));
 }
 
-int MusicalTermsDictionary::GetNumTerms() const
+int Dictionary::GetNumTerms() const
 {
   return m_dictionary.size();
 }
 
-void MusicalTermsDictionary::GetTerm(int i, std::string* english, std::string* foreign) const
+void Dictionary::GetTerm(int i, std::string* english, std::string* foreign) const
 {
   const auto& p = m_dictionary[i];
   *english = p.first;

@@ -3,6 +3,7 @@
 
 #include <GuiText.h>
 #include <ResourceManager.h>
+#include "Dictionary.h"
 #include "PageMusicalTerm.h"
 
 namespace Amju
@@ -16,7 +17,7 @@ void PageMusicalTerm::OnActive()
 
   // Get musical terms dictionary (TODO select grade)
   // This is a Resource.
-  MusicalTermsDictionary* dic = dynamic_cast<MusicalTermsDictionary*>(
+  Dictionary* dic = dynamic_cast<Dictionary*>(
     TheResourceManager::Instance()->GetRes("Course/musical_terms.txt.dictionary"));
 
   q->SetDictionary(dic);
