@@ -1065,5 +1065,8 @@
     <Text Include="..\..\..\..\Assets\Course\level4\which_clef.txt">
       <Filter>Assets\Course\Level4</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\tap-picture-treb-clef.txt">
+      <Filter>Assets\Gui\Tappables</Filter>
+    </Text>
   </ItemGroup>
 </Project>
