@@ -35,6 +35,10 @@ int MultiChoice::GetNumAnswers() const
   return static_cast<int>(m_answers.size());
 }
 
+MultiChoice MultiChoiceQuestion::GetMultiChoiceAnswers()
+{
+  return m_answers;
+}
 }
 
 

@@ -70,11 +70,6 @@ void MusicalTermQuestion::SetDictionary(MusicalTermsDictionary* dictionary)
   m_dictionary = dictionary;
 }
 
-MultiChoice MultiChoiceQuestion::GetMultiChoiceAnswers()
-{
-  return m_answers;
-}
-
 std::string MusicalTermQuestion::MakeConfigKey() const
 {
   std::string key = m_musicalTerm;
