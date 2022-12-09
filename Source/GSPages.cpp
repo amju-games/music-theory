@@ -2,12 +2,18 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <AmjuGL.h>
+#include <MessageQueue.h>
 #include "GuiLineDrawing.h"
 #include "GSPages.h"
 #include "PageMusicalTerm.h"
 
 namespace Amju
 {
+void GoToNextPage()
+{
+  TheGSPages::Instance()->OnActive();
+}
+
 GSPages::GSPages()
 {
   m_guiFilename = "Gui/gs_pages.txt";
@@ -65,6 +71,8 @@ void GSPages::OnCorrect()
   tick->SetVisible(true);
 
   // Happy sound
+
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(1.0f)));
 }
 
 void GSPages::OnIncorrect()
@@ -73,6 +81,8 @@ void GSPages::OnIncorrect()
   cross->SetVisible(true);
 
   // Unhappy sound
+
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(1.0f)));
 }
 }
 
