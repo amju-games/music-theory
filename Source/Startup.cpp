@@ -58,9 +58,12 @@ namespace Amju
 {
 // Create global variable window info 
 //Amju::AmjuGLWindowInfo w(320, 550, false, "iPhone 5");
-//Amju::AmjuGLWindowInfo w(1136, 640, false, "Landscape iPhone 5");
-Amju::AmjuGLWindowInfo w(1136/2, 640/2, false, "Landscape iPhone 5 (small)");
 //Amju::AmjuGLWindowInfo w(480, 640, false, "Simplest");
+
+Amju::AmjuGLWindowInfo w(1136, 640, false, "Landscape iPhone 5");
+//Amju::AmjuGLWindowInfo w(1136/2, 640/2, false, "Landscape iPhone 5 (small)");
+// For creating screen shots etc, as big as poss
+//Amju::AmjuGLWindowInfo w(2048, 2048, false, "Square");
 
 void ReportError(const std::string& str)
 {
@@ -136,14 +139,14 @@ void StartUpAfterCreateWindow()
 //  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
-//  TheGame::Instance()->SetCurrentState(TheGSPages::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSFirstUser::Instance());
 
 //  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 
-  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 }
 }
 

@@ -1,0 +1,63 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Title scene: piano with text
+
+// version
+1
+
+// Node type
+comp
+// Name
+root
+// Matrix
+I
+// Num children
+1
+
+// Node type
+camera-persp
+// Name
+camera
+// Eye pos
+80, 60, 30
+// Look at pos
+0, 50, 0
+// Up vector
+0, 1, 0
+// FovY, aspect, near, far
+90, 1.0, 1, 1000
+// Num children
+2
+
+// Node type
+mesh
+// Name
+title-piano
+// Matrix
+1,0,0,0,  0,1.2,0,0,  0,0,.8,0, -2,17,6,1
+// Obj mesh
+//obj/schoolhouse.obj
+obj/piano1.obj
+// Num children
+0
+
+// Node type
+mesh
+// Name
+title-piano-text
+// Matrix
+1,0,0,0,  0,1.2,0,0,  0,0,.8,0, -2,17,6,1
+// Obj mesh
+//obj/schoolhouse.obj
+obj/title/title.obj
+// Num children
+1
+
+mesh
+piano-shadow
+1.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, 0, -2, 1
+obj/shadow-sq.obj
+0
+
+

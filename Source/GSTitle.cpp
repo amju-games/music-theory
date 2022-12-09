@@ -34,7 +34,7 @@ static void OnStart(GuiElement* elem)
 GSTitle::GSTitle()
 {
   m_guiFilename = "Gui/gs_title.txt";
-  m_sceneFilename = "Scene/schoolhouse-scene.txt";
+  m_sceneFilename = "Scene/title-scene.txt";
 }
 
 void GSTitle::OnActive()
