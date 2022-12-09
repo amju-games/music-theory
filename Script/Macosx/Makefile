@@ -24,11 +24,13 @@ include $(AMJULIB_MAC_SCRIPT_PATH)/GenMakefile
 CFLAGS += -D_DEBUG -DAMJU_USE_BASS
 
 run:
-	cp $(TARGET) $(RUNDIR); \
-	cp $(BASSPATH)/libbassmidi.dylib $(RUNDIR); \
-	cp $(BASSPATH)/mp3-free/libbass.dylib $(RUNDIR); \
-	cd $(RUNDIR); \
-	./macgame
+	$(TARGET)
+
+#	cp $(TARGET) $(RUNDIR); \
+#	cp $(BASSPATH)/libbassmidi.dylib $(RUNDIR); \
+#	cp $(BASSPATH)/mp3-free/libbass.dylib $(RUNDIR); \
+#	cd $(RUNDIR); \
+#	./macgame
 
 
 runnoglue:

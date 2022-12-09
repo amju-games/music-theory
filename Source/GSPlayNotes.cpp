@@ -6,6 +6,7 @@
 #include <Timer.h>
 #include <Teapot.h>
 #include "GSPlayNotes.h"
+#include "iOSPlayMidi.h"
 
 namespace Amju
 {
@@ -39,7 +40,6 @@ namespace Amju
 void GSPlayNotes::Update()
 {
   GSBase::Update();
-  return;
 
   static float t = 0;
   static bool isOn = false;
@@ -51,17 +51,17 @@ void GSPlayNotes::Update()
   static float noteTime = 0;
   noteTime += dt * 0.25f;
 
-  bool yesSustain = false;
+  bool yesSustain = true;
 
   if (t > NOTE_TIME)
   {
     if (yesSustain)
     {
-      TheSoundManager::Instance()->MidiNoteOff(oldNote);
+      PlayMidi(oldNote, 0);
     }
     else
     {
-      TheSoundManager::Instance()->MidiNoteOff(note);
+      PlayMidi(note, 0);
     }
     t = 0;
     isOn = false;
@@ -71,7 +71,8 @@ void GSPlayNotes::Update()
     oldNote = note;
     note = (int)(30 * sin(noteTime));
 
-    TheSoundManager::Instance()->MidiNoteOn(note);
+    PlayMidi(note, 127);
+
     isOn = true;
   }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6929921F1E871E8700EAC244 /* iOSPlayMidi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6929921E1E871E8700EAC244 /* iOSPlayMidi.mm */; };
 		697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07EF1E82F19B0045CE54 /* GSBase.cpp */; };
 		697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */; };
 		697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */; };
@@ -38,6 +39,11 @@
 		69D58E6C1E848A0E008A8D29 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D58E681E848A0E008A8D29 /* ViewController_iPad.xib */; };
 		69D58E6D1E848A0E008A8D29 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D58E6A1E848A0E008A8D29 /* ViewController_iPhone.xib */; };
 		69D58E711E85BB44008A8D29 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = 69D58E701E85BB44008A8D29 /* Assets */; };
+		69D58E851E86A02B008A8D29 /* GuiMusicKb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E7C1E86A02B008A8D29 /* GuiMusicKb.cpp */; };
+		69D58E861E86A02B008A8D29 /* Page.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E7E1E86A02B008A8D29 /* Page.cpp */; };
+		69D58E871E86A02B008A8D29 /* ScoreBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E831E86A02B008A8D29 /* ScoreBuilder.cpp */; };
+		69D58E8C1E86E867008A8D29 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */; };
+		69D58E8D1E86E867008A8D29 /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +70,23 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		69D58E8E1E86E867008A8D29 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				69D58E8D1E86E867008A8D29 /* MIKMIDI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		6929921D1E871E8700EAC244 /* iOSPlayMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSPlayMidi.h; sourceTree = "<group>"; };
+		6929921E1E871E8700EAC244 /* iOSPlayMidi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = iOSPlayMidi.mm; sourceTree = "<group>"; };
 		697A07EF1E82F19B0045CE54 /* GSBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSBase.cpp; path = ../../../../Source/GSBase.cpp; sourceTree = "<group>"; };
 		697A07F01E82F19B0045CE54 /* GSBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSBase.h; path = ../../../../Source/GSBase.h; sourceTree = "<group>"; };
 		697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSPlayNotes.cpp; path = ../../../../Source/GSPlayNotes.cpp; sourceTree = "<group>"; };
@@ -113,6 +135,16 @@
 		69D58E691E848A0E008A8D29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		69D58E6B1E848A0E008A8D29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		69D58E701E85BB44008A8D29 /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Assets; path = ../../../../Assets; sourceTree = "<group>"; };
+		69D58E7C1E86A02B008A8D29 /* GuiMusicKb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiMusicKb.cpp; path = ../../../../Source/GuiMusicKb.cpp; sourceTree = "<group>"; };
+		69D58E7D1E86A02B008A8D29 /* GuiMusicKb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiMusicKb.h; path = ../../../../Source/GuiMusicKb.h; sourceTree = "<group>"; };
+		69D58E7E1E86A02B008A8D29 /* Page.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Page.cpp; path = ../../../../Source/Page.cpp; sourceTree = "<group>"; };
+		69D58E7F1E86A02B008A8D29 /* Page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Page.h; path = ../../../../Source/Page.h; sourceTree = "<group>"; };
+		69D58E801E86A02B008A8D29 /* PageDrawOnStave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageDrawOnStave.h; path = ../../../../Source/PageDrawOnStave.h; sourceTree = "<group>"; };
+		69D58E811E86A02B008A8D29 /* PageMultiChoiceDrag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageMultiChoiceDrag.h; path = ../../../../Source/PageMultiChoiceDrag.h; sourceTree = "<group>"; };
+		69D58E821E86A02B008A8D29 /* PagePlayNotes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PagePlayNotes.h; path = ../../../../Source/PagePlayNotes.h; sourceTree = "<group>"; };
+		69D58E831E86A02B008A8D29 /* ScoreBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ScoreBuilder.cpp; path = ../../../../Source/ScoreBuilder.cpp; sourceTree = "<group>"; };
+		69D58E841E86A02B008A8D29 /* ScoreBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreBuilder.h; path = ../../../../Source/ScoreBuilder.h; sourceTree = "<group>"; };
+		69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MIKMIDI.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +156,7 @@
 				69D58E521E84844F008A8D29 /* libbass.a in Frameworks */,
 				69D58E501E848439008A8D29 /* libbassmidi.a in Frameworks */,
 				69D58E671E8488E3008A8D29 /* Accelerate.framework in Frameworks */,
+				69D58E8C1E86E867008A8D29 /* MIKMIDI.framework in Frameworks */,
 				69D58E611E84873C008A8D29 /* CoreMIDI.framework in Frameworks */,
 				69D58E571E848642008A8D29 /* CFNetwork.framework in Frameworks */,
 				69D58E591E84864F008A8D29 /* AudioToolbox.framework in Frameworks */,
@@ -163,6 +196,7 @@
 		699058B31E7D3BF400E528B4 = {
 			isa = PBXGroup;
 			children = (
+				69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */,
 				697A08061E82F3980045CE54 /* Amjulib.xcodeproj */,
 				699058BE1E7D3BF400E528B4 /* Amjula Music Theory */,
 				699058DC1E7D3BF500E528B4 /* Amjula Music TheoryTests */,
@@ -185,29 +219,10 @@
 		699058BE1E7D3BF400E528B4 /* Amjula Music Theory */ = {
 			isa = PBXGroup;
 			children = (
+				69D58E7A1E869FF8008A8D29 /* Source */,
 				69D58E701E85BB44008A8D29 /* Assets */,
 				69D58E681E848A0E008A8D29 /* ViewController_iPad.xib */,
 				69D58E6A1E848A0E008A8D29 /* ViewController_iPhone.xib */,
-				69D58E4D1E84836B008A8D29 /* Startup.cpp */,
-				69D58E421E833741008A8D29 /* AppDelegate.h */,
-				69D58E431E833741008A8D29 /* AppDelegate.mm */,
-				69D58E441E833741008A8D29 /* main.m */,
-				69D58E451E833741008A8D29 /* ViewController.h */,
-				69D58E461E833741008A8D29 /* ViewController.mm */,
-				697A07EF1E82F19B0045CE54 /* GSBase.cpp */,
-				697A07F01E82F19B0045CE54 /* GSBase.h */,
-				697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */,
-				697A07F21E82F19B0045CE54 /* GSPlayNotes.h */,
-				697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */,
-				697A07F41E82F19B0045CE54 /* GSShowLineDrawing.h */,
-				697A07F51E82F19B0045CE54 /* GSShowMusicScore.cpp */,
-				697A07F61E82F19B0045CE54 /* GSShowMusicScore.h */,
-				697A07F71E82F19B0045CE54 /* GSUserDraw.cpp */,
-				697A07F81E82F19B0045CE54 /* GSUserDraw.h */,
-				697A07F91E82F19B0045CE54 /* GuiLineDrawing.cpp */,
-				697A07FA1E82F19B0045CE54 /* GuiLineDrawing.h */,
-				697A07FB1E82F19B0045CE54 /* GuiMusicScore.cpp */,
-				697A07FC1E82F19B0045CE54 /* GuiMusicScore.h */,
 				699058CC1E7D3BF500E528B4 /* Main.storyboard */,
 				699058CF1E7D3BF500E528B4 /* Assets.xcassets */,
 				699058D11E7D3BF500E528B4 /* LaunchScreen.storyboard */,
@@ -262,6 +277,44 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		69D58E7A1E869FF8008A8D29 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				6929921D1E871E8700EAC244 /* iOSPlayMidi.h */,
+				6929921E1E871E8700EAC244 /* iOSPlayMidi.mm */,
+				69D58E421E833741008A8D29 /* AppDelegate.h */,
+				69D58E431E833741008A8D29 /* AppDelegate.mm */,
+				697A07EF1E82F19B0045CE54 /* GSBase.cpp */,
+				697A07F01E82F19B0045CE54 /* GSBase.h */,
+				697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */,
+				697A07F21E82F19B0045CE54 /* GSPlayNotes.h */,
+				697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */,
+				697A07F41E82F19B0045CE54 /* GSShowLineDrawing.h */,
+				697A07F51E82F19B0045CE54 /* GSShowMusicScore.cpp */,
+				697A07F61E82F19B0045CE54 /* GSShowMusicScore.h */,
+				697A07F71E82F19B0045CE54 /* GSUserDraw.cpp */,
+				697A07F81E82F19B0045CE54 /* GSUserDraw.h */,
+				697A07F91E82F19B0045CE54 /* GuiLineDrawing.cpp */,
+				697A07FA1E82F19B0045CE54 /* GuiLineDrawing.h */,
+				69D58E7C1E86A02B008A8D29 /* GuiMusicKb.cpp */,
+				69D58E7D1E86A02B008A8D29 /* GuiMusicKb.h */,
+				697A07FB1E82F19B0045CE54 /* GuiMusicScore.cpp */,
+				697A07FC1E82F19B0045CE54 /* GuiMusicScore.h */,
+				69D58E441E833741008A8D29 /* main.m */,
+				69D58E7E1E86A02B008A8D29 /* Page.cpp */,
+				69D58E7F1E86A02B008A8D29 /* Page.h */,
+				69D58E801E86A02B008A8D29 /* PageDrawOnStave.h */,
+				69D58E811E86A02B008A8D29 /* PageMultiChoiceDrag.h */,
+				69D58E821E86A02B008A8D29 /* PagePlayNotes.h */,
+				69D58E831E86A02B008A8D29 /* ScoreBuilder.cpp */,
+				69D58E841E86A02B008A8D29 /* ScoreBuilder.h */,
+				69D58E4D1E84836B008A8D29 /* Startup.cpp */,
+				69D58E451E833741008A8D29 /* ViewController.h */,
+				69D58E461E833741008A8D29 /* ViewController.mm */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -272,6 +325,7 @@
 				699058B81E7D3BF400E528B4 /* Sources */,
 				699058B91E7D3BF400E528B4 /* Frameworks */,
 				699058BA1E7D3BF400E528B4 /* Resources */,
+				69D58E8E1E86E867008A8D29 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -415,12 +469,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69D58E861E86A02B008A8D29 /* Page.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
 				697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */,
+				6929921F1E871E8700EAC244 /* iOSPlayMidi.mm in Sources */,
+				69D58E851E86A02B008A8D29 /* GuiMusicKb.cpp in Sources */,
 				69D58E491E833741008A8D29 /* ViewController.mm in Sources */,
 				69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */,
 				697A08031E82F19B0045CE54 /* GuiMusicScore.cpp in Sources */,
 				69D58E4E1E84836B008A8D29 /* Startup.cpp in Sources */,
+				69D58E871E86A02B008A8D29 /* ScoreBuilder.cpp in Sources */,
 				697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */,
 				697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */,
 				697A08001E82F19B0045CE54 /* GSShowMusicScore.cpp in Sources */,
@@ -593,6 +651,10 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				DEVELOPMENT_TEAM = SDLRPX9288;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -620,6 +682,10 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				DEVELOPMENT_TEAM = SDLRPX9288;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					AMJU_IOS,
 					AMJU_USE_ES2,

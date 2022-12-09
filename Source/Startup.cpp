@@ -19,14 +19,12 @@
 #endif
 
 #include <AmjuGLWindowInfo.h>
-#include <BassSoundPlayer.h>
 #include <Directory.h>
 #include <Font.h>
 #include <Game.h>
 #include <EventPoller.h>
 #include <ObjMesh.h>
 #include <ResourceManager.h>
-#include <SoundManager.h>
 #include "GSPlayNotes.h"
 #include "GSShowLineDrawing.h"
 #include "GSShowMusicScore.h"
@@ -48,15 +46,20 @@ void ReportError(const std::string& str)
 
 void StartUpBeforeCreateWindow()
 {
+#ifdef AMJU_IOS
   std::string dir = GetDataDir();
+#endif
+
+#ifdef MACOSX
+  std::string dir = "/Users/jay/projects/music-theory";
+#endif
+
   dir += "/Assets/";
   File::SetRoot(dir, "/");
 }
 
 void StartUpAfterCreateWindow()
 {
-//  File::SetRoot("c:/users/jason/projects/music-theory/Assets/", "/");
-
   // Add resource loaders
   ResourceManager* rm = TheResourceManager::Instance();
   rm->AddLoader("font", FontLoader);
@@ -67,18 +70,19 @@ void StartUpAfterCreateWindow()
   rm->AddLoader("obj", TextObjLoader);
 #endif
 
-  // Set sound player
-  SoundManager* sm = TheSoundManager::Instance();
-  BassSoundPlayer* bsp = new BassSoundPlayer;
-  bsp->MidiSetSoundFont((File::GetRoot() + "Sound/velocity_grand_piano.sf2").c_str());
-  sm->SetImpl(bsp);
+//  // Set sound player
+//  SoundManager* sm = TheSoundManager::Instance();
+//  BassSoundPlayer* bsp = new BassSoundPlayer;
+//  bsp->MidiSetSoundFont((File::GetRoot() + "Sound/ChoriumRevA.SF2").c_str());
+////velocity_grand_piano.sf2").c_str());
+//  sm->SetImpl(bsp);
 
   GuiLineDrawing::AddToFactory();
   GuiMusicKb::AddToFactory();
   GuiMusicScore::AddToFactory();
 
-//  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
-  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
 }
