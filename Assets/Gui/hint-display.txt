@@ -71,7 +71,7 @@ gui-image
 hint-counter-bg
 0.25, 0.09
 .12, .12
-Image/circle.png
+Image/gui-button-1.png
 
 
 // The number of hints
@@ -138,7 +138,7 @@ gui-image
 hint-counter-bg
 0.25, 0.09
 .12, .18
-Image/circle.png
+Image/gui-button-1.png
 
 // The number of hints
 //
