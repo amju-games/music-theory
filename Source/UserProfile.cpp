@@ -15,11 +15,6 @@ UserProfile* TheUserProfile()
   return &up;
 }
 
-//bool UserProfile::Load()
-//{
-//  return false;
-//}
-
 bool UserProfile::Save()
 {
   // Save all config files

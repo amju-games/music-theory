@@ -10,18 +10,6 @@ namespace Amju
 {
 class ConfigFile;
 
-//// * UserTopicState *
-//// The user's progress on a topic
-//class UserTopicState : public RefCounted
-//{
-//public:
-//
-//protected:
-//  std::string m_topicKey; // the topic for which we represent progress
-//  bool m_isCompleted;
-//  bool m_isUnlocked;
-//};
-
 // * UserProfile *
 // This represents the student's progress through a Course.
 // And other non-course info, e.g. avatar, student name, etc? This could perhaps
@@ -29,7 +17,6 @@ class ConfigFile;
 class UserProfile : public RefCounted
 {
 public:
-//??  bool Load();
   bool Save();
 
   ConfigFile* GetConfigForTopic(const std::string& topicId);

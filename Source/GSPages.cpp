@@ -60,6 +60,8 @@ void GSPages::OnDeactive()
 {
   GSBase::OnDeactive();
   m_pages.clear();
+  // Save changes to user profile (questions seen, etc)
+  TheUserProfile()->Save();
 }
 
 void GSPages::NextPage()
