@@ -3,18 +3,28 @@
 
 #pragma once
 
+#include <map>
 #include <RCPtr.h>
 
 namespace Amju
 {
-  // * UserProfile *
-  // This represents the student's progress through a Course, and other non-course
-  //  info, e.g. avatar, student name, etc.
-  class UserProfile
-  {
-  public:
-    bool Load(const std::string& userName);
+class ConfigFile;
 
-  private:
-  };
+// * UserProfile *
+// This represents the student's progress through a Course.
+// And other non-course info, e.g. avatar, student name, etc? This could perhaps
+//  live in the GameConfigFile..?
+class UserProfile : public RefCounted
+{
+public:
+  bool Save();
+
+  ConfigFile* GetConfigForTopic(const std::string& topicId);
+
+private:
+  std::map<std::string, RCPtr<ConfigFile>> m_configFiles;
+};
+
+// Get profile for current user, TODO might redo this a bit
+UserProfile* TheUserProfile();
 }

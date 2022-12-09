@@ -1,6 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include <ConfigFile.h>
 #include <GameState.h>
 #include <GuiElement.h>
 #include "GSPages.h"
@@ -13,6 +14,11 @@ static void OnHint(GuiElement* hintButton)
   TheGSPages::Instance()->OnHint();
 }
 
+void Page::SetConfigFile(ConfigFile* cf)
+{
+  m_config = cf;
+}
+
 void Page::OnActive()
 {
   // TODO append orientation to gui name
@@ -22,7 +28,7 @@ void Page::OnActive()
   m_gui->SetLocalPos(Vec2f(0, -0.2f));
 
   // Set command for common buttons
-  GuiElement* hint = GetElementByName(m_gui, "hint-button");
+  GuiElement* hint = GetElementByName(TheGSPages::Instance()->GetGui(), "hint-button");
   if (hint)
   {
     hint->SetCommand(Amju::OnHint);

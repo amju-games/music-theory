@@ -32,6 +32,7 @@
 #include <ObjMesh.h>
 #include <ResourceManager.h>
 #include <SoundManager.h>
+#include "Course.h"
 #include "GSMainMenu.h"
 #include "GSPages.h"
 #include "GSPlayNotes.h"
@@ -87,6 +88,9 @@ void StartUpAfterCreateWindow()
 
   // Musical terms dictionary 
   rm->AddLoader("dictionary", DictionaryLoader);
+
+  // Course 
+  rm->AddLoader("course", CourseLoader);
 
 #ifdef AMJU_USE_BASS
   // Set sound player

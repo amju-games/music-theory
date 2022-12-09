@@ -19,6 +19,7 @@ public:
 
   virtual void OnActive() override;
   virtual void OnHint() override;
+  virtual void ShowCorrectAnswer() override;
 
   // Called when user makes a choice
   void OnChoice(int c);
@@ -28,5 +29,8 @@ public:
 protected:
   RCPtr<MusicalTermQuestion> m_question;
   MultiChoice m_answers;
+
+  // Answer buttons we can remove when user requests a hint 
+  std::vector<int> m_canRemoveForHint;
 };
 }

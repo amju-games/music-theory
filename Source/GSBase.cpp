@@ -35,12 +35,17 @@ void GSBase::OnActive()
   GameState::OnActive();
 
   m_gui = LoadGui(m_guiFilename);
+}
 
+GuiElement* GSBase::GetGui()
+{
+  return m_gui;
 }
 
 void GSBase::OnDeactive()
 {
   GameState::OnDeactive();
+  m_gui = nullptr;
 }
 
 bool GSBase::OnKeyEvent(const KeyEvent& ke)

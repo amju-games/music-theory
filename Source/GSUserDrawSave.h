@@ -1,6 +1,8 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#pragma once
+
 #include "GSUserDraw.h"
 
 namespace Amju

@@ -9,7 +9,7 @@
 
 namespace Amju
 {
-  class MusicalTermsDictionary : public Resource
+class MusicalTermsDictionary : public Resource
 {
 public:
   bool Load(const std::string& filename);

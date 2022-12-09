@@ -8,13 +8,15 @@
 
 namespace Amju
 {
-class GSMainMenu : public GSBase
+// * GSPause *
+// Pause menu state, reached when learning a topic. Options to go back to main menu, etc.
+class GSPause : public GSBase
 {
 public:
-  GSMainMenu();
+  GSPause();
   virtual void OnActive() override;
 };
 
-typedef Singleton<GSMainMenu> TheGSMainMenu;
+typedef Singleton<GSPause> TheGSPause;
 }
 

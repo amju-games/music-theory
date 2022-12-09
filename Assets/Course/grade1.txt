@@ -1,0 +1,40 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Grade1 course definition
+// A course is defined by a series of topics. Each topic has 'pages' of learning materials.
+// When a topic is completed, it unlocks further topics in the course.
+
+// file version
+1
+
+// Num topics
+3
+
+// Topic
+// ID
+pitch1
+// Localised display name
+Pitch
+// Unlocks
+// Pages
+// ...
+
+// Topic
+// ID
+rhythm1
+// Localised display name
+Rhythm
+// Unlocks
+// Pages
+// ...
+
+// Topic
+// ID
+keys1
+// Localised display name
+Keys
+// Unlocks
+// Pages
+// ...
+

@@ -10,26 +10,88 @@
 // Element type
 gui-comp
 // Name
-top-bar-root
+gs-pages-root
 // Num children
-3
+5
 
 include
 gui-top-bar.txt
 
 
+
+elastic
+1.0, 0.0
+
+gui-comp
+hint-button-and-counter
+// Num children
+2
+
+// Hint button
+gui-button
+hint-button
+// pos (coords are -1..1)
+0.15, 0.7
+// size
+0.3, 0.15
+Image/gui-button-2.png
+HINT!
+dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+
+gui-text
+hint-counter
+// pos (coords are -1..1)
+-0.3, 0.7
+// size
+0.4, 0.1
+// Text
+NUM
+// Font name, size
+dimbo, 1.0, right, fgcol=000000
+
+
+
+elastic
+-1.5, 0.0
+
+// Pause button
+// element type
+gui-button
+// Element name
+pause-button
+// pos (coords are -1..1)
+-0.8, 0.7
+// size
+0.3, 0.15
+// Image 
+Image/gui-button-2.png
+// Text
+PAUSE
+// Font name, size
+dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+
+
+gui-comp
+// Name
+tick
+// Num children
+1
+
+// Linear animation
+animation
+name-not-used
+one-shot
+.4
+linear
+
 // Tick for when user gets question correct
 line-drawing
 // Name
-tick
+tick-stroke
 // Pos
 0.5, 0
 // Size
 1, 1
-// Start time (not counting time when invisible/paused)
-0.0
-// Duration of drawing (s) (i.e. End time - start time)
-0.5
 // Start width
 0.05
 // End width
@@ -47,6 +109,13 @@ cross
 // Num children
 2
 
+// Linear animation
+animation
+name-not-used
+one-shot
+.2
+linear
+
 line-drawing
 // Name
 cross-1
@@ -54,18 +123,29 @@ cross-1
 0.5, 0
 // Size
 1, 1
-// Start time (not counting time when invisible/paused)
-0.0
-// Duration of drawing (s) (i.e. End time - start time)
-0.5
 // Start width
 0.05
 // End width
-0.01
+0.05
 // Colour: (start colour, end colour?)
 ff0000
 // Points
 stroke-cross-1.txt
+
+
+// Delay
+animation
+name-not-used
+one-shot
+0.21
+step
+
+// Linear animation
+animation
+name-not-used
+one-shot
+.2
+linear
 
 line-drawing
 // Name
@@ -74,14 +154,10 @@ cross-2
 0.5, 0
 // Size
 1, 1
-// Start time (not counting time when invisible/paused)
-0.5
-// Duration of drawing (s) (i.e. End time - start time)
-0.5
 // Start width
 0.05
 // End width
-0.01
+0.05
 // Colour: (start colour, end colour?)
 ff0000
 // Points
