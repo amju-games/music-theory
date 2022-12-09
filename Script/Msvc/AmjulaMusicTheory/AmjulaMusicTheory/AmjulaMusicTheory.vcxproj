@@ -288,6 +288,7 @@
     <ClCompile Include="..\..\..\..\Source\CorridorModeWait.cpp" />
     <ClCompile Include="..\..\..\..\Source\Course.cpp" />
     <ClCompile Include="..\..\..\..\Source\DictionaryPickQuestion.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSAvatarMod.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiAvatar.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSAbout.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
@@ -426,6 +427,7 @@
     <ClInclude Include="..\..\..\..\Source\Course.h" />
     <ClInclude Include="..\..\..\..\Source\DictionaryPickQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\GSAbout.h" />
+    <ClInclude Include="..\..\..\..\Source\GSAvatarMod.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase3d.h" />
     <ClInclude Include="..\..\..\..\Source\GSCopyAssets.h" />
