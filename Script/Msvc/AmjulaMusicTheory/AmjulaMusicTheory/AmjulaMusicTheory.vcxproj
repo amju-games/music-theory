@@ -315,6 +315,7 @@
     <ClCompile Include="..\..\..\..\Source\Dictionary.cpp" />
     <ClCompile Include="..\..\..\..\Source\MusicEvent.cpp" />
     <ClCompile Include="..\..\..\..\Source\MySceneGraph.cpp" />
+    <ClCompile Include="..\..\..\..\Source\NetRequest.cpp" />
     <ClCompile Include="..\..\..\..\Source\NetSend.cpp" />
     <ClCompile Include="..\..\..\..\Source\NumUpdate.cpp" />
     <ClCompile Include="..\..\..\..\Source\Page.cpp" />
@@ -443,6 +444,7 @@
     <ClInclude Include="..\..\..\..\Source\Dictionary.h" />
     <ClInclude Include="..\..\..\..\Source\MusicEvent.h" />
     <ClInclude Include="..\..\..\..\Source\MySceneGraph.h" />
+    <ClInclude Include="..\..\..\..\Source\NetRequest.h" />
     <ClInclude Include="..\..\..\..\Source\NetSend.h" />
     <ClInclude Include="..\..\..\..\Source\NumUpdate.h" />
     <ClInclude Include="..\..\..\..\Source\Page.h" />
