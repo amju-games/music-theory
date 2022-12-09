@@ -97,10 +97,7 @@ void GSMainMenu::OnActive()
     GuiDecAnimation* wait = dynamic_cast<GuiDecAnimation*>(GetElementByName(topicRoot, "wait"));
     wait->SetCycleTime((float)i * 1.2f); // TODO TEMP TEST
     // Set position
-    topicRoot->SetLocalPos(Vec2f(0, (float)i * 0.15f));
-
-    // Find the subtree for topic i
-    //GuiElement* topicRoot = GetElementByName(m_gui, "leaf-" + ToString(i));
+    topicRoot->SetLocalPos(Vec2f(0, (float)i * 0.15f)); // TODO TEMP TEST
 
     // Find the button corresponding to this topic
     GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(topicRoot, "topic-button"));
@@ -112,6 +109,7 @@ void GSMainMenu::OnActive()
     Assert(text);
     text->SetText(topic->GetDisplayName());
 
+#ifdef YES_LOCK_TOPICS
     if (unlocked)
     {
       // ?
@@ -126,6 +124,8 @@ void GSMainMenu::OnActive()
       button->SetButtonColour(c);
       // TODO text colour, but IGuiText has very limited interface
     }
+#endif // YES_LOCK_TOPICS
+
   }
 
   // Back to title 
