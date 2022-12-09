@@ -76,19 +76,18 @@ private:
   void ReleaseAllKeys();
 
 private:
+  // Total width of keyboard
+  float m_kbWidth = 0.f;
 
   // 3D keys arranged from lowest to highest
   std::vector<PKey> m_keys;
 
-  float m_x; // position: we can swipe the keyboard left and right
   float m_desiredX; // position we will lock on to
   Vec2f m_tapDownPos; // position when we tapped down
   Vec2f m_vel; // swipe velocity
   bool m_tapDown = false; // true when we are touching within kb area
   bool m_tapDownScroll = false; // true when we have touched down to drag KB left or right
   
-  int m_octave; // the currently active octave (1 octave is visible in portrait mode)
-
   PKey m_lastKey; // last key pressed
 };
 }

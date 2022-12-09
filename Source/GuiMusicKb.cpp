@@ -1,6 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include <algorithm>
 #include <DrawAABB.h>
 #include <DrawRect.h>
 #include <GuiFactory.h>
@@ -14,6 +15,13 @@
 #include "PlayMidi.h"
 #include "TutorialIds.h"
 #include "TutorialManager.h"
+
+#ifdef min
+#undef min
+#endif
+#ifdef max
+#undef max
+#endif
 
 // If defined, we allow the user to drag across the keyboard, pressing and releasing
 //  keys accordingly.
@@ -78,7 +86,7 @@ void GuiMusicKb::Draw()
 
   float sx = GetSize().x;
   float sy = GetSize().y;
-  float x = 0;
+  float x = 0; // cumulative x pos of each key
 
   for (PKey pkey: m_keys)
   {
@@ -108,6 +116,8 @@ void GuiMusicKb::Draw()
 
     AmjuGL::PopMatrix();
   }
+  m_kbWidth = x;
+
   AmjuGL::PopMatrix();
 
   AmjuGL::SetMatrixMode(AmjuGL::AMJU_PROJECTION_MATRIX);
@@ -455,24 +465,24 @@ bool GuiMusicKb::OnCursorEvent(const CursorEvent& ce)
 
     float currentX = GetLocalPos().x;
     float dx = ce.dx; 
-//    std::cout << "dx: " << dx << "\n";
+
     if (fabs(dx) > SWIPE_LIMIT && m_vel.x == 0)
     {
       m_vel = Vec2f(dx * SPEED_MULT, 0);
       if (dx > 0)
       {
-        m_octave++;
+        // Swipe right => make lower part of the KB visible
         m_desiredX = currentX + OCTAVE_WIDTH;
+        float x = m_kbWidth + GetParent()->GetLocalPos().x + 0.2f;
+        m_desiredX = std::min(x, m_desiredX); // so we can't go off bottom end
       }
       else
       {
-        m_octave--;
+        // Swipe left => make higher part of the KB visible
         m_desiredX = currentX - OCTAVE_WIDTH;
+        float x = GetParent()->GetLocalPos().x + 2.1f;
+        m_desiredX = std::max(x, m_desiredX); // so we can't go off top end
       }
-
-      std::cout << "Vel is now: " << m_vel.x << "\n";
-      std::cout << "New octave: " << m_octave << "\n";
-      //m_desiredX = m_x + 2.0f * dx;
     }
     return true;
   }
