@@ -51,7 +51,7 @@ std::cout << "Glue file + path: '" << srcGlueFilePath << "'\n";
     bool doCopy = (subfile == "roconfig.txt");
 
 #if defined(WIN32) || defined(MACOSX)
-   doCopy |= (subfile.size() > 5 && subfile.substr(0, 6) == "levels");
+    doCopy |= (subfile.size() > 5 && subfile.substr(0, 6) == "levels");
 #endif
 
     if (doCopy)
@@ -182,3 +182,4 @@ void GSCopyAssets::OnActive()
 }
 
 } // namespace
+
