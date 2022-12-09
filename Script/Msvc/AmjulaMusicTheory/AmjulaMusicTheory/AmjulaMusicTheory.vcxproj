@@ -281,6 +281,7 @@
     <ClCompile Include="..\..\..\..\Source\GSAbout.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase3d.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSCopyAssets.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSFirstUser.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSMainCorridor.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPages.cpp" />
@@ -368,6 +369,7 @@
     <ClInclude Include="..\..\..\..\Source\GSAbout.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase3d.h" />
+    <ClInclude Include="..\..\..\..\Source\GSCopyAssets.h" />
     <ClInclude Include="..\..\..\..\Source\GSFirstUser.h" />
     <ClInclude Include="..\..\..\..\Source\GSMainCorridor.h" />
     <ClInclude Include="..\..\..\..\Source\GSPages.h" />

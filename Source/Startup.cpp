@@ -43,6 +43,7 @@
 #include "Consts.h"
 #include "Course.h"
 #include "Dictionary.h"
+#include "GSCopyAssets.h"
 #include "GSFirstUser.h"
 #include "GSMainCorridor.h"
 #include "GSPages.h"
@@ -224,7 +225,7 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 
 //  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
-  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSCopyAssets::Instance());
 }
 
 void StartUpAfterCreateWindow()

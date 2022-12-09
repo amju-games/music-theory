@@ -240,6 +240,9 @@
     <ClCompile Include="..\..\..\..\Source\MySceneGraph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GSCopyAssets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -419,6 +422,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\MySceneGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GSCopyAssets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
