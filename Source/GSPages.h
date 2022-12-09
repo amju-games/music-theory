@@ -43,6 +43,8 @@ public:
   // Start showing pages for the given topic (topic number as for Course)
   void StartTopic(int topicNum);
 
+  void ShowGuiElement(const std::string& elemName, bool showNotHide = true);
+
 protected:
   void ShowHints();
   void SetPie(int n, const Colour& c);

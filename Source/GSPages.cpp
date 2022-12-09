@@ -51,6 +51,13 @@ GSPages::GSPages()
   m_sceneFilename = "Scene/room1-scene.txt";
 }
 
+void GSPages::ShowGuiElement(const std::string& elemName, bool showNotHide)
+{
+  GuiElement* elem = GetElementByName(m_gui, elemName);
+  Assert(elem);
+  elem->SetVisible(showNotHide);
+}
+
 void GSPages::StartTopic(int topicNum)
 {
   m_numPagesShown = 0;
@@ -179,7 +186,7 @@ void GSPages::NextPage()
 
   HideTickAndCross();
 
-  // Rub out blackboard - resset anim
+  // Rub out blackboard - reset anim
   GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
   Assert(ruboutAnim);
   ruboutAnim->SetVisible(false);
@@ -291,9 +298,9 @@ void GSPages::OnCorrect(const Vec2f& choicePos)
   tick->SetLocalPos(choicePos);
 
   // Rub out blackboard? - OK as answer correct?
-  //GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
-  //Assert(ruboutAnim);
-  //ruboutAnim->SetVisible(true);
+  GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
+  Assert(ruboutAnim);
+  ruboutAnim->SetVisible(true);
 
   // TODO TEMP TEST
   // Increase hint count, this is until we have a better balanced system

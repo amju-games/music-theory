@@ -17,7 +17,7 @@ namespace Amju
 // Called when we dismiss the explanation for an incorrect answer
 static void OnDismissedExplanation(GuiElement*)
 {
-  GoToNextPage();
+  Page::SendNextPageMessage();
 }
 
 struct ChoiceCommand : public GuiCommand

@@ -19,12 +19,24 @@ static void OnHint(GuiElement* hintButton)
   TheGSPages::Instance()->OnHint();
 }
 
-// Called from timed FuncMessage
-void GoToNextPage()
+// Convenience function: get the GSPages game state, but only if it's
+//  currently active.
+static GSPages* GetPagesState()
 {
   GSPages* pages = TheGSPages::Instance();
   // Sanity check: this only makes sense if GSPages is active
   if (TheGame::Instance()->GetState() == pages)
+  {
+    return pages;
+  }
+  return nullptr;
+}
+
+// Called from timed FuncMessage
+void GoToNextPage()
+{
+  // Sanity check: this only makes sense if GSPages is active
+  if (auto pages = GetPagesState()) //TheGame::Instance()->GetState() == pages)
   {
     std::cout << "GoToNextPage calling NextPage...\n";
 
@@ -34,6 +46,13 @@ void GoToNextPage()
 
 void Page::SendNextPageMessage()
 {
+  // As we are transitioning to the next page after a delay, we have
+  //  got time to show the blackboard wipe anim here.
+  if (auto pages = GetPagesState())
+  {
+    pages->ShowGuiElement("blackboard-erase");
+  }
+
   TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage,
     SecondsFromNow(NEXT_PAGE_TIME)));
 }

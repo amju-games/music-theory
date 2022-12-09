@@ -7,14 +7,26 @@
 1
 
 translate
--0.6, 0.4
+-1.075, 0.3
 
 // animation
 animation
 blackboard-erase
+const
+one
+
+animation
+be-2
 one-shot
-0.7
+1.5
+step
+
+animation
+be-3
+one-shot
+0.5
 linear
+
 
 // Zig-zag line drawing
 line-drawing
@@ -29,5 +41,5 @@ line-drawing-zig-zag
 // Colour: (start colour, end colour?)
 4E525A
 // Points
-stroke_rubout.txt
+stroke_rubout_wide.txt
 
