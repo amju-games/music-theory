@@ -12,10 +12,12 @@ static const int DEFAULT_PITCH = 69; // default pitch = A above middle C
 
 static const float X_OFFSET_RIGHT = 0.25f;
 
-constexpr static const float PAGE_WIDTH = 4.0f;
+static const float DEFAULT_PAGE_WIDTH = 4.0f;
 
 // Height of stave line and glyphs on it, relative to bottom of bar lines.
-constexpr static const float DEFAULT_HEIGHT = 0.2f;
+static const float DEFAULT_HEIGHT = 0.2f;
+
+static const float DEFAULT_SCALE = 0.6f;
 
 // For double stave layout, this is the distance between the top stave line in
 //  the first and second staves (in fact, between any two corresponding

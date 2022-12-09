@@ -18,6 +18,7 @@
 
 #include "Attachment.h"
 #include "Bar.h"
+#include "Consts.h"
 #include "Glyph.h"
 #include "Stave.h"
 #include "Tie.h"
@@ -28,6 +29,9 @@ class MakeScore
 {
 public:
   MakeScore(const std::string& in) : m_input(in) { }
+
+  void SetTranspose(int semitones) { m_transpose = semitones; }
+  void SetPageWidth(float pw) { m_pageWidth = pw; }
 
   std::string ToString();
   void MakeInternal();
@@ -91,7 +95,7 @@ private:
   bool m_outputOnOneLine = false;
 
   // Scale of all glyphs
-  float m_scale = 1.0f;
+  float m_scale = DEFAULT_SCALE;
 
   float m_y = 0;
 
@@ -114,5 +118,14 @@ private:
 
   // Most recently set pitch, which is a MIDI note value.
   int m_lastPitch = DEFAULT_PITCH;
+
+  int m_transpose = 0;
+
+  float m_pageWidth = DEFAULT_PAGE_WIDTH;
+
+  // Last attachment created, for setting the second (right hand)
+  //  parent, if required (e.g. slurs need two parents, one for each
+  //  end of the curve).
+  Attachment* m_lastAttachment = nullptr;
 };
 

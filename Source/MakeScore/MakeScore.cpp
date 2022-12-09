@@ -5,12 +5,6 @@
 //
 // Sub project to convert easily-authorable music content
 //  into list of glyphs.
-//
-// E.g. use: 
-//    (Mac) echo "4/4 c c mr" | ./makescore 
-// Same for Win, although we need double quotes and internally we need to 
-// strip off the quotes:
-//    (Win) echo "4/4 c c mr" | MakeScore.exe
 
 
 // Music score coords:
@@ -19,7 +13,7 @@
 //  +--------------------------+
 //  +--------------------------+
 //  +--------------------------+   0.0
-// 0.0                     PAGE_WIDTH
+// 0.0                     DEFAULT_PAGE_WIDTH
 
 #include <algorithm>
 #include <cassert>
@@ -39,12 +33,6 @@
 #include "TimeSig.h"
 #include "TimeValue.h"
 #include "Utils.h"
-
-static int s_transpose = 0;
-
-static float s_pageWidth = PAGE_WIDTH;
-
-static float s_scale = 0.6f; // TODO DEFAULT_SCALE
 
 // Current stave
 static int s_stave = 0;
@@ -159,11 +147,11 @@ void MakeScore::AddTokens()
     }
     else if (IsDeferredPitch(s))
     {
-      m_lastPitch = GetPitch(s) + s_transpose;
+      m_lastPitch = GetPitch(s) + m_transpose;
     }
     else if (IsImmediatePitch(s))
     {
-      m_lastPitch = GetPitch(s) + s_transpose;
+      m_lastPitch = GetPitch(s) + m_transpose;
       AddGlyph();
     }
     else if (IsDeferredTimeVal(s))
@@ -275,7 +263,7 @@ void MakeScore::AddText(const std::string& s)
 void MakeScore::AddKeySig(const std::string& s)
 {
   KeySig ks = GetKeySig(s);
-  ks = TransposeKeySig(ks, s_transpose);
+  ks = TransposeKeySig(ks, m_transpose);
   m_bars.back()->SetKeySig(ks);
 }
 
@@ -375,7 +363,7 @@ void MakeScore::CalcBarSizesAndPositions()
   // Bar calculates its width as fraction of s_pageWidth 
   for (auto& bar : m_bars)
   {
-    bar->CalcWidth(totalNumGlyphs, s_pageWidth);
+    bar->CalcWidth(totalNumGlyphs, m_pageWidth);
   }
 
   // Set (left, bottom) position of each bar
@@ -392,7 +380,7 @@ void MakeScore::CalcBarSizesAndPositions()
   for (auto& tie : m_ties) 
   {
     // Look up positions of glyphs the tie connects
-    tie->SetPos(); 
+    tie->CalcPos(); 
   }
 }
 
@@ -403,7 +391,7 @@ std::string MakeScore::ToString()
   // First, output a stave. For rhythm only, it's a single line.
   // TODO Multiple lines 
 
-  res += GetStaveString(m_staveType, 0, m_y, s_pageWidth, m_scale);
+  res += GetStaveString(m_staveType, 0, m_y, m_pageWidth, m_scale);
   res += LineEnd(m_outputOnOneLine);
 
   for (auto& b : m_bars)
@@ -425,86 +413,4 @@ std::string MakeScore::ToString()
 
   return res;
 }
-
-void CommandLineParams(int argc, char** argv, MakeScore& ms)
-{
-  for (int i = 1; i < argc; i++)
-  {
-    std::string param = argv[i];
-
-    if (param == "--oneline")
-    {
-      // All on one line
-      ms.SetOutputOneLine(true);
-    }
-
-    if (param == "--stave-single")
-    {
-      ms.SetStaveType(StaveType::STAVE_TYPE_SINGLE);
-    }
-
-    if (param == "--transpose")
-    {
-      i++;
-      s_transpose = atoi(argv[i]);
-      std::cout << "// Transpose: " << s_transpose << "\n";
-    }
-
-    if (param == "--page-width")
-    {
-      i++; 
-      // Normalised: i.e. page width of 1 means the default width.
-      s_pageWidth = static_cast<float>(atof(argv[i])) * s_pageWidth;
-    }
-
-    if (param == "--scale")
-    {
-      i++;
-      // Normalised: i.e. scale of 1 means the default scale.
-      s_scale = static_cast<float>(atof(argv[i])) * s_scale;
-    }
-  }
-}
-
-#ifndef CATCH
-// Don't build this main function for unit test exe
-
-int main(int argc, char** argv)
-{
-  std::string input;
-  std::getline(std::cin, input);
-
-  // Chop off whitespace and quotes - needed for Win, not Mac
-  Trim(input);
-  StripQuotes(input);
-
-std::cout << "// " << input << "\n"; 
-
-  MakeScore ms(input);
-
-  CommandLineParams(argc, argv, ms);
-
-  // Scale so page fits
-  ms.SetScale(s_scale);
-
-  // For single line rhythm, centre vertically
-  // TODO Auto centre 1 or more lines
-  ms.SetY(0.5f);
-
-  // TODO Transform input:
-  // Add beam groupings
-  // Replace beamed quaver/semiquaver glyphs with crotchet glyphs
-  ms.Preprocess();
-
-  ms.MakeInternal();
-
-  // Output final string.
-  // Don't append a newline char, so we can add more to this line, in
-  //  enclosing script.
-  std::cout << ms.ToString();
-
-  return 0;
-}
-
-#endif // CATCH
 
