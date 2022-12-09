@@ -2,6 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <cmath>
+#include <ClipLineSegBox.h>
 #include <File.h>
 #include <Game.h>
 #include <GuiButton.h>
@@ -13,6 +14,7 @@
 #include <Sign.h>
 #include <StringUtils.h>
 #include <Timer.h>
+#include <Unproject.h>
 #include "Course.h"
 #include "GSAbout.h"
 #include "GSMainMenu.h"
@@ -71,10 +73,9 @@ GSMainMenu::GSMainMenu()
 
 bool GSMainMenu::LoadTappables()
 {
-  // Get root node for adding tappables - this is temporary, doesn't feel right
-  SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
-  SceneNode* camera = root->GetNodeByName("camera");
-  Assert(camera);
+  // Get root node for adding tappables - TODO camera?
+  SceneNode* root = GetCamera();
+  Assert(root);
 
   File f;
   if (!f.OpenRead("Gui/tappables.txt"))
@@ -96,23 +97,23 @@ bool GSMainMenu::LoadTappables()
       return false;
     }
     m_tappables.push_back(t);
-    camera->AddChild(t->GetSceneNode());
+    root->AddChild(t->GetSceneNode());
   }
   return true;
 }
 
 void GSMainMenu::Load3dForTopics()
 {
+  // Get root node for adding nodes - TODO camera?
+  SceneNode* root = GetCamera();
+  Assert(root);
+
   // Get user config, so we know which topics have been unlocked.
   ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
 
   Course* course = GetCourse();
   Assert(course);
   int numTopics = course->GetNumTopics();
-
-  SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
-  SceneNode* camera = root->GetNodeByName("camera");
-  Assert(camera);
 
   m_doors.clear();
 
@@ -145,7 +146,7 @@ void GSMainMenu::Load3dForTopics()
 
     node->SetLocalTransform(m);
 
-    camera->AddChild(node);
+    root->AddChild(node);
   }
 }
 
@@ -155,6 +156,11 @@ void GSMainMenu::OnActive()
   //  we don't want to try to programatically add the buttons. So the GUI layout
   //  here is coupled to the Course definition.
   GSBase3d::OnActive();
+
+  SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
+  m_camera = dynamic_cast<SceneNodeCamera*>(
+    root->GetNodeByName("camera"));
+  Assert(m_camera);
 
   // Just one topic button, which is fixed in the centre of the screen.
   // The scene scrolls left and right, but sticks so each door is under the 
@@ -310,20 +316,16 @@ void GSMainMenu::DecelerateScrolling()
 
 void GSMainMenu::UpdateCamera()
 {
-  SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
-  SceneNodeCamera* camera = dynamic_cast<SceneNodeCamera*>(
-    root->GetNodeByName("camera"));
-  Assert(camera);
-  Vec3f eye = camera->GetEyePos();
-  Vec3f look = camera->GetLookAtPos();
+  Vec3f eye = GetCamera()->GetEyePos();
+  Vec3f look = GetCamera()->GetLookAtPos();
   eye.z = m_currentXPos;
   look.z = m_currentXPos;
 
   eye.x = CAMERA_START - m_doorAngleRads * m_doorAngleRads * CAM_ZOOM_MULT;
   look.x = eye.x - 10.0f;
 
-  camera->SetEyePos(eye);
-  camera->SetLookAtPos(look);
+  GetCamera()->SetEyePos(eye);
+  GetCamera()->SetLookAtPos(look);
 }
 
 void GSMainMenu::Update()
@@ -354,6 +356,49 @@ void GSMainMenu::Update()
   UpdateOpeningDoor();
 }
 
+void GSMainMenu::Draw()
+{
+  GSBase3d::Draw();
+
+  if (m_isDragging)
+  {
+    // Check if we picked a Tappable.
+    // Get 3D coord at near and far plane for the mouse (touch) coord
+
+    // Set up camera matrices for Unproject
+    GetCamera()->Draw();
+
+    Vec3f nearCoord, farCoord;
+    if (   Unproject(m_touchDown, 0, &nearCoord)
+        && Unproject(m_touchDown, 1, &farCoord))
+    {
+      LineSeg seg(nearCoord, farCoord);
+
+      AmjuGL::DrawLine(
+        AmjuGL::Vec3(nearCoord.x, nearCoord.y, nearCoord.z),
+        AmjuGL::Vec3(farCoord.x, farCoord.y, farCoord.z));
+
+      // Check tappables
+      for (auto t : m_tappables)
+      {
+        // Intersect ray and AABB
+        const AABB& aabb = *(t->GetSceneNode()->GetAABB());
+
+        if (Clip(seg, aabb))
+        {
+          std::cout << "Tapped on this: " /*<< t->GetName() */<< "\n";
+        }
+      }
+    }
+  }
+}
+
+SceneNodeCamera* GSMainMenu::GetCamera()
+{
+  Assert(m_camera);
+  return m_camera;
+}
+
 bool GSMainMenu::OnCursorEvent(const CursorEvent& ce)
 {
   if (m_isDragging)
@@ -381,14 +426,6 @@ bool GSMainMenu::OnCursorEvent(const CursorEvent& ce)
 
 bool GSMainMenu::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 {
-  // Check tappables
-  for (auto t : m_tappables)
-  {
-    // Get pick ray from mbe coord and camera
-
-    // Intersect ray and AABB
-  }
-
   m_isDragging = mbe.isDown;
   if (mbe.isDown)
   {

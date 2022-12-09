@@ -10,6 +10,8 @@
 
 namespace Amju
 {
+class SceneNodeCamera;
+
 // * GSMainMenu *
 // Main menu game state. 
 // Displays a scrollable corridor, with doors which lead to individual
@@ -22,13 +24,16 @@ public:
   GSMainMenu();
   virtual void OnActive() override;
   virtual void Update() override;
- 
+  virtual void Draw() override;
+
   // Detect swipes
   virtual bool OnCursorEvent(const CursorEvent&) override;
   virtual bool OnMouseButtonEvent(const MouseButtonEvent&) override;
 
   // Conceptually private
   void GoToTopic();
+
+  SceneNodeCamera* GetCamera();
 
 protected:
   void Load3dForTopics();
@@ -58,6 +63,9 @@ private:
   float m_doorAngleRads = 0; 
 
   std::vector<RCPtr<Tappable>> m_tappables;
+
+  // Hold on to the camera scene node, it's useful
+  RCPtr<SceneNodeCamera> m_camera;
 };
 
 typedef Singleton<GSMainMenu> TheGSMainMenu;

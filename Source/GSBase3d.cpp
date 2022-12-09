@@ -43,7 +43,6 @@ void GSBase3d::Draw()
   // Cameras set in scene desc file
   AmjuGL::SetMatrixMode(AmjuGL::AMJU_MODELVIEW_MATRIX);
   AmjuGL::SetIdentity();
-  AmjuGL::PushMatrix();
 
   // Use standard/default shader for 3D scene
   AmjuGL::UseShader(nullptr);
@@ -58,8 +57,6 @@ void GSBase3d::Draw()
     AmjuGL::Vec3(1, 1, 1)); // Light direction
 
   GetSceneGraph()->Draw();
-
-  AmjuGL::PopMatrix();
 }
 
 void GSBase3d::DebugCamera(char key)
