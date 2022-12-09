@@ -24,7 +24,8 @@ hint-display.txt
 // Share button
 gui-button
 share-button
-0.65, 0.95
+// NB HIDDEN
+1.65, 0.95
 0.3, 0.15
 Image/gui-button-2.png
 // SHARE
