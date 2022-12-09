@@ -23,6 +23,9 @@ gui-top-bar.txt
 elastic
 1.0, 0.0
 
+translate
+-0.2, 0
+
 gui-comp
 hint-button-and-counter
 // Num children
@@ -35,9 +38,9 @@ ffffffff, ffffff20
 gui-button
 hint-button
 // pos (coords are -1..1)
-0.15, 0.7
+0.15, 0.9
 // size
-0.3, 0.15
+0.4, 0.15
 Image/gui-button-2.png
 HINT!
 dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
@@ -45,7 +48,7 @@ dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
 gui-text
 hint-counter
 // pos (coords are -1..1)
--0.3, 0.7
+-0.3, 0.9
 // size
 0.4, 0.1
 // Text
@@ -67,9 +70,9 @@ gui-button
 // Element name
 pause-button
 // pos (coords are -1..1)
--0.8, 0.7
+-0.9, 0.9
 // size
-0.3, 0.15
+0.4, 0.15
 // Image 
 Image/gui-button-2.png
 // Text

@@ -32,7 +32,7 @@ gui-text
 // Element name
 num-pages-text
 // pos (coords are -1..1)
-0.10, 0.9
+0.175, 0.775
 // size
 0.3, 0.1
 // Text
