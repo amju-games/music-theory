@@ -104,7 +104,7 @@ int UserProfile::GetCurrentTopic() const
 
 std::string UserProfile::GetCurrentTopicDisplayName()
 {
-  Course* course = (Course*)TheResourceManager::Instance()->GetRes("Course/grade1.txt.course");
+  Course* course = GetCourse();
   Assert(course);
   Topic* topic = course->GetTopic(m_currentTopic);
   Assert(topic);
