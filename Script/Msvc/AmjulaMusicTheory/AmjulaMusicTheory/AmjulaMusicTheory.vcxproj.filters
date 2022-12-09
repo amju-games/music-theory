@@ -510,5 +510,14 @@
     <Text Include="..\..\..\..\Assets\Gui\question_symbol_landscape.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt">
+      <Filter>Assets\Gui\PageLayout</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\stroke-rubout.txt">
+      <Filter>Assets\Gui\Stroke</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\speech_bubble_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
   </ItemGroup>
 </Project>

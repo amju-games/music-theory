@@ -1,6 +1,6 @@
 # This file uses centimeters as units for non-parametric coordinates.
 
-mtllib obj/pz-fence.mtl
+mtllib pz-fence.mtl
 g default
 v -2.618740 11.663318 33.554903
 v -1.856173 44.717292 35.144289

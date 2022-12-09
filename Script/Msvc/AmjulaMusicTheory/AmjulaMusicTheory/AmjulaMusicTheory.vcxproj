@@ -386,6 +386,7 @@
     <Text Include="..\..\..\..\Assets\Course\note_lengths.txt" />
     <Text Include="..\..\..\..\Assets\Course\semibreve.txt" />
     <Text Include="..\..\..\..\Assets\Course\semibreve_length.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt" />
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt" />
     <Text Include="..\..\..\..\Assets\Gui\compound_glyphs.txt" />
     <Text Include="..\..\..\..\Assets\Gui\ground.txt" />
@@ -426,11 +427,13 @@
     <Text Include="..\..\..\..\Assets\Gui\question_symbol_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\question_text_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\quit-confirm.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\speech_bubble_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-branch.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-cross-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-cross-2.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-main-menu-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-mid-line.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\stroke-rubout.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-spiral-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-2.txt" />

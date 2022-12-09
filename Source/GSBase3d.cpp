@@ -2,6 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <LoadScene.h>
+#include <ResourceManager.h>
 #include <SceneGraph.h> // TODO TEMP TEST
 #include "GSBase3d.h"
 #include "Md2SceneNode.h" // TODO TEMP TEST
@@ -38,13 +39,18 @@ void GSBase3d::Load3d()
   sg->SetRootNode(SceneGraph::AMJU_OPAQUE, root);
   root->AddChild(node);
 
+  // TEST
   Md2SceneNode* md2node = new Md2SceneNode;
   md2node->LoadMd2("md2/dino.md2");
+  SceneNodeMaterial* dinoMaterial = new SceneNodeMaterial;
+  PTexture dinoTex = (Texture*)TheResourceManager::Instance()->GetRes("md2/dino2a.png");
+  dinoMaterial->SetTexture(dinoTex);
+  md2node->SetMaterial(dinoMaterial);
   root->AddChild(md2node);
 
   SceneNodeCamera* camera = new SceneNodeCamera;
-  camera->SetEyePos(Vec3f(50, 50, 200));
-  camera->SetLookAtPos(Vec3f(50, 20, 0));
+  camera->SetEyePos(Vec3f(110, 0, 130));
+  camera->SetLookAtPos(Vec3f(80, 0, 0));
   sg->SetCamera(camera);
 }
 
