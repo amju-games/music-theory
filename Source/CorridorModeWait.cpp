@@ -219,15 +219,20 @@ void CorridorModeWait::Drag(bool rightNotLeft)
     canSwipe = true;
   }
   // We can scroll right if there is an door to the right...
-  if (!rightNotLeft && (m_currentTopicScrolledTo < numTopics))
+  if (!rightNotLeft)
   {
     // ...and it's unlocked...
-    if (gsmc->IsTopicUnlocked(m_currentTopicScrolledTo + 1))
+    if (   gsmc->IsTopicUnlocked(m_currentTopicScrolledTo + 1)
+        && (m_currentTopicScrolledTo < numTopics))
     {
       canSwipe = true;
     }
     // ...or ALL the topics are unlocked
-    // TODO
+    if (   gsmc->AllTopicsUnlocked()
+        && (m_currentTopicScrolledTo < numTopics))
+    {
+      canSwipe = true;
+    }
   }
 
   if (canSwipe)

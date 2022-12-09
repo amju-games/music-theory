@@ -169,13 +169,28 @@ void GSMainCorridor::Load3dForTopics()
   }
 
   // Position shadow to the right of the last unlocked door.
-  // If all unlocked, allow player to go up the stairs.
+  if (AllTopicsUnlocked())
+  {
+    // If all unlocked, allow player to go up the stairs, so move shadow 
+    //  an extra position to the right.
+    lastUnlocked++;
+  }
+ 
   PSceneNode shadow = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE)->GetNodeByName("corridor-shadow");
   Assert(shadow);
   Matrix m;
   m.Translate(Vec3f(0, 0, X_OFFSET + lastUnlocked * -DISTANCE_BETWEEN_DOORS));
   m *= shadow->GetLocalTransform();
   shadow->SetLocalTransform(m);
+
+  // Position right-hand stairs to the right of the last door
+  PSceneNode rightStairs = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE)->GetNodeByName("right-arch");
+  if (rightStairs)
+  {
+    Matrix m;
+    m.Translate(Vec3f(0, 0, X_OFFSET + numTopics * -DISTANCE_BETWEEN_DOORS));
+    rightStairs->SetLocalTransform(m);
+  }
 }
 
 bool GSMainCorridor::IsLevelPassed() const
@@ -370,6 +385,21 @@ void GSMainCorridor::GoToTopic()
   //}
 
   SetMode(CorridorModeEnterClassroom::ID);
+}
+
+bool GSMainCorridor::AllTopicsUnlocked() const
+{
+  Course* course = GetCourse();
+  Assert(course);
+  int numTopics = course->GetNumTopics();
+  for (int i = 0; i < numTopics; i++)
+  {
+    if (!IsTopicUnlocked(i))
+    {
+      return false;
+    }
+  } 
+  return true;
 }
 
 bool GSMainCorridor::IsTopicUnlocked(int topicNum) const
