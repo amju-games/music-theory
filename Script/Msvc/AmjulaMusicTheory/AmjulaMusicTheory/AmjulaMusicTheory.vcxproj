@@ -338,12 +338,30 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Catch|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\CreateDictionary.cpp" />
-    <ClCompile Include="..\..\..\..\Source\Tests\Dictionary_catchtest.cpp" />
-    <ClCompile Include="..\..\..\..\Source\Tests\MultiChoice_catchtest.cpp" />
-    <ClCompile Include="..\..\..\..\Source\Tests\MusicalTermQuestion_catchtest.cpp" />
-    <ClCompile Include="..\..\..\..\Source\Tests\QuestionPicker_catchtest.cpp" />
-    <ClCompile Include="..\..\..\..\Source\Tests\QuestionProgress_catchtest.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Tests\CreateDictionary.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\Dictionary_catchtest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\MultiChoice_catchtest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\MusicalTermQuestion_catchtest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\QuestionPicker_catchtest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\QuestionProgress_catchtest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Tests\Question_catchtest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
@@ -439,7 +457,10 @@
     <ClInclude Include="..\..\..\..\Source\TappableZoom.h" />
     <ClInclude Include="..\..\..\..\Source\TappableHint.h" />
     <ClInclude Include="..\..\..\..\Source\TappableZoomInfoLeaf.h" />
-    <ClInclude Include="..\..\..\..\Source\Tests\CreateDictionary.h" />
+    <ClInclude Include="..\..\..\..\Source\Tests\CreateDictionary.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Topic.h" />
     <ClInclude Include="..\..\..\..\Source\TutorialIds.h" />
     <ClInclude Include="..\..\..\..\Source\TutorialManager.h" />
