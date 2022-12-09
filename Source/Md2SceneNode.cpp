@@ -74,8 +74,6 @@ void Md2SceneNode::Draw()
 
   Assert(m_pModel);
 
-  DrawMaterial();
-
   float t = m_t * 10.0f;
   if (t > 1.0f)
   {

@@ -137,10 +137,10 @@ void GSPages::Reload3d()
   // TODO Use Avatar system to make a 'teacher' avatar
   Md2SceneNode* md2node = new Md2SceneNode;
   md2node->LoadMd2("md2/av1.md2");
-  SceneNodeMaterial* dinoMaterial = new SceneNodeMaterial;
-  PTexture dinoTex = (Texture*)TheResourceManager::Instance()->GetRes("md2/skin.png");
-  dinoMaterial->SetTexture(dinoTex);
-  md2node->SetMaterial(dinoMaterial);
+  //SceneNodeMaterial* dinoMaterial = new SceneNodeMaterial;
+  //PTexture dinoTex = (Texture*)TheResourceManager::Instance()->GetRes("md2/skin.png");
+  //dinoMaterial->SetTexture(dinoTex);
+  //md2node->SetMaterial(dinoMaterial);
   md2node->SetLocalTransform(Matrix().Translate(Vec3f(30, -23, 30)));
 
   SceneNode* camera = root->GetNodeByName("camera");

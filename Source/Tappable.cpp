@@ -19,6 +19,7 @@ bool Tappable::Load(File* f)
 
   // 3D mesh
   m_node = LoadScene(f);
+  m_node->SetName("Tappable: " + m_name);
   
   // Camera eye/target when selected
   if (!LoadVec3(f, &m_camEye))
