@@ -267,6 +267,9 @@ void GSMainCorridor::Update()
 void GSMainCorridor::OnTapped(Tappable* tapped)
 {
   m_tapped = tapped;
+  // TODO Let the tappable decide what to do, i.e. tapped->OnTapped();
+
+  // TODO Get rid of this inflexible behaviour
   SetMode(CorridorModeEnterTappable::ID);
 }
 
