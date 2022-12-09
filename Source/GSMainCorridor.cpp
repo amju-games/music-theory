@@ -28,6 +28,7 @@
 #include "GSTitle.h"
 #include "MySceneGraph.h"
 #include "PlayWav.h"
+#include "TutorialManager.h"
 #include "UserProfile.h"
 
 namespace Amju
@@ -181,6 +182,11 @@ void GSMainCorridor::OnActive()
   GuiButton* shareButton = (GuiButton*)GetElementByName(m_gui, "share-button");
   Assert(shareButton);
   shareButton->SetCommand(Amju::OnShare);
+
+  LurkMsg lm("Hello!", Colour(1, 1, 1, 1), Colour(0, 0, 0, 1), AMJU_CENTRE);
+
+  TheTutorialManager::Instance()->FirstTimeMsg(
+    UNIQUE_MSG_ID, lm, AMJU_FIRST_TIME_THIS_RUN);
 }
 
 void GSMainCorridor::Draw2d()

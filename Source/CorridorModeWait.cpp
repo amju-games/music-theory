@@ -143,8 +143,8 @@ void CorridorModeWait::OnActive()
   // Try out lurk msgs
   // Queue up tutorial messages here? Or separate corridor mode?
   // Special mode not required, Lurk Message is modal.
-  LurkMsg lm("Hello!", Colour(1, 1, 1, 1), Colour(0, 0, 0, 1), AMJU_CENTRE);
-  TheLurker::Instance()->Queue(lm);
+//  LurkMsg lm("Hello!", Colour(1, 1, 1, 1), Colour(0, 0, 0, 1), AMJU_CENTRE);
+//  TheLurker::Instance()->Queue(lm);
 }
 
 void CorridorModeWait::SetCamera()
