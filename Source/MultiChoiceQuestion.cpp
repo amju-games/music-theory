@@ -40,7 +40,7 @@ MultiChoice MultiChoiceQuestion::GetMultiChoiceAnswers()
   return m_answers;
 }
 
-void MultiChoiceQuestion::SetCanSwapQAndQ(bool canSwap)
+void MultiChoiceQuestion::SetCanSwapQAndA(bool canSwap)
 {
   m_canSwapQAndA = canSwap;
 }

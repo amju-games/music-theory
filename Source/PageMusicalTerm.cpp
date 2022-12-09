@@ -21,6 +21,7 @@ void PageMusicalTerm::OnActive()
     TheResourceManager::Instance()->GetRes("Course/musical_terms.txt.dictionary"));
 
   q->SetDictionary(dic);
+  q->SetCanSwapQAndA(true);
   q->MakeQuestion();
   m_answers = q->GetMultiChoiceAnswers();
 

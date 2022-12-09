@@ -34,7 +34,7 @@ public:
   // Get non-shuffled for testing
   MultiChoice GetMultiChoiceAnswers();
 
-  void SetCanSwapQAndQ(bool canSwap);
+  void SetCanSwapQAndA(bool canSwap);
 
 protected:
   MultiChoice m_answers;
