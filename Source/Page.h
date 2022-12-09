@@ -47,9 +47,6 @@ public:
   // Get non-graphical question, i.e. what we ask the user to do
   Question* GetQuestion();
 
-  // Enable/disable buttons, for modal dialog like quit confirm 
-  virtual void SetIsEnabled(bool enabled);
-
   // Set config file to save any state we want to remember about this page/topic
   void SetConfigFile(ConfigFile* cf);
 

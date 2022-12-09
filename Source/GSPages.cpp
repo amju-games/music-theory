@@ -98,14 +98,6 @@ void GSPages::ReloadGui()
   Assert(elem);
   elem->SetCommand(Amju::OnPause);
 
-  elem = GetElementByName(m_gui, "quit-confirm-ok");
-  Assert(elem);
-  elem->SetCommand(Amju::OnQuitConfirmOK);
-
-  elem = GetElementByName(m_gui, "quit-confirm-cancel");
-  Assert(elem);
-  elem->SetCommand(Amju::OnQuitConfirmCancel);
-
   elem = GetElementByName(m_gui, "speech-bubble-ok-button");
   Assert(elem);
   elem->SetCommand(Amju::OnSpeechBubbleOK);
@@ -316,24 +308,8 @@ void GSPages::SetPage(Page* p)
   }
 }
 
-void GSPages::OnPlayerMadeChoice()
-{
-  GuiElement* speechBubble = GetElementByName(m_gui, "speech-bubble");
-  speechBubble->SetVisible(true);
-
-  // Disable everything except the speech bubble OK button
-  SetButtonEnabled("pause-button", false);
-  SetButtonEnabled("hint-button", false);
-  m_page->SetIsEnabled(false);
-}
-
 void GSPages::OnCorrect(const Vec2f& choicePos)
 {
-  //OnPlayerMadeChoice();
-//  SetButtonEnabled("pause-button", false);
-//  SetButtonEnabled("hint-button", false);
-//  m_page->SetIsEnabled(false);
-
   GuiElement* tick = GetElementByName(m_gui, "tick");
   tick->SetVisible(true);
   tick->SetLocalPos(choicePos);
@@ -372,8 +348,6 @@ void GSPages::OnCorrect(const Vec2f& choicePos)
 
 void GSPages::OnIncorrect(const Vec2f& choicePos)
 {
-  //OnPlayerMadeChoice();
-
   m_page->ShowCorrectAnswer();
 
   GuiElement* cross = GetElementByName(m_gui, "cross");
@@ -431,24 +405,13 @@ void GSPages::SetButtonEnabled(const std::string& buttonName, bool enabled)
 
 void GSPages::OnPause()
 {
-  // Bring on pause dialog
-  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(
-    GetElementByName(m_gui, "quit-confirm-swipe"));
-  Assert(anim);
-  anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
-
-  anim = dynamic_cast<GuiDecAnimation*>(
-    GetElementByName(m_gui, "swipe-anim"));
-  Assert(anim);
-  anim->ResetAnimation();
-  anim->SetIsReversed(false);
-  
-  // Disable pause and hint buttons
-  SetButtonEnabled("pause-button", false);
-  SetButtonEnabled("hint-button", false);
-
-  // Disable page contents
-  m_page->SetIsEnabled(false); 
+  // Lurk messages are modal, so no need to diable page
+  TheLurker::Instance()->ShowYesNo(
+    "@@@Sure you want to quit?",
+    GetColour(COLOUR_TEXT),
+    GetColour(COLOUR_CONFIRM_QUIT),
+    Amju::OnQuitConfirmCancel,
+    Amju::OnQuitConfirmOK);
 }
  
 void GSPages::OnSpeechBubbleOK()
@@ -464,8 +427,6 @@ void GSPages::OnSpeechBubbleOK()
   SetButtonEnabled("pause-button", true);
   SetButtonEnabled("hint-button", true);
 
-  m_page->SetIsEnabled(true);
-
   // Go to next page (or end of state), after a delay to show the board
   //  getting rubbed out.
   GoToNextPage();
@@ -474,18 +435,7 @@ void GSPages::OnSpeechBubbleOK()
 
 void GSPages::OnQuitConfirmCancel()
 {
-  // Swipe off confirm dialog
-  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(
-    GetElementByName(m_gui, "swipe-anim"));
-  Assert(anim);
-  anim->ResetAnimation();
-  anim->SetIsReversed(true);
-
-  SetButtonEnabled("pause-button", true);
-  SetButtonEnabled("hint-button", true);
-
-  // Re-enable page contents
-  m_page->SetIsEnabled(true); 
+  // Nothing to do, modal Lurk dialog returns control back to us.
 }
 
 void GSPages::OnMusicKbEvent(const MusicKbEvent& e)

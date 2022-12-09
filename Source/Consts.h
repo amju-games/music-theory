@@ -82,5 +82,6 @@ Colour GetColour(const char* colourName);
 #define COLOUR_EXPLANATION "colour_explanation"
 #define COLOUR_TEXT "colour_text"
 #define COLOUR_MUSIC_HIGHLIGHT "colour_highlight"
+#define COLOUR_CONFIRM_QUIT "colour_confirm_quit"
 
 }

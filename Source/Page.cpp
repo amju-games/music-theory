@@ -73,34 +73,6 @@ GuiButton* Page::GetHintButton() const
   return dynamic_cast<GuiButton*>(hint);
 }
 
-void Page::SetIsEnabled(bool enabled)
-{
-  if (enabled)
-  {
-    // Re-enable buttons
-    GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(
-      GetElementByName(m_gui, "anim-colour-fade-whole-page"));
-    Assert(anim);
-    anim->ResetAnimation();
-    anim->SetIsReversed(true);
-  }
-  else
-  {
-    // Fade page contents down, which disables the buttons
-    GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(
-      GetElementByName(m_gui, "fade-out-whole-page"));
-    Assert(anim);
-    anim->ResetAnimation();
-    anim->SetIsReversed(false);
-    anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
-
-    anim = dynamic_cast<GuiDecAnimation*>(
-      GetElementByName(m_gui, "anim-colour-fade-whole-page"));
-    Assert(anim);
-    anim->SetIsReversed(false);
-  }
-}
-
 void Page::OnDeactive()
 {
   if (m_gui)

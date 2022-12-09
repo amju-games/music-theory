@@ -12,7 +12,7 @@ gui-comp
 // Name
 gs-pages-root
 // Num children
-8
+7
 
 
 include
@@ -148,10 +148,5 @@ cross-2
 ff0000
 // Points
 stroke-cross-2.txt
-
-
-
-include
-quit_confirm_landscape.txt
 
 

@@ -18,3 +18,5 @@ colour_highlight   4E69F4
 // Explanation when wrong answer chosen
 colour_explanation ff0000
 
+colour_confirm_quit 4E69F4
+
