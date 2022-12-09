@@ -316,7 +316,7 @@ void GSPages::OnCorrect(const Vec2f& choicePos)
 
   Page::SendNextPageMessage();
 
-  LurkMsg lm(Lookup("Correct!"), 
+  LurkMsg lm(Lookup("@@@Correct!"), 
     GetColour(COLOUR_TEXT),
     GetColour(COLOUR_CORRECT),
     AMJU_TOP, PAGE_LURK_TIME);
@@ -338,11 +338,12 @@ void GSPages::OnIncorrect(const Vec2f& choicePos)
   m_numIncorrectThisSession++;
   SetPie(m_numPagesShown, GetColour(COLOUR_INCORRECT));
 
-  LurkMsg lm(Lookup("Incorrect!"), 
-    GetColour(COLOUR_TEXT),
-    GetColour(COLOUR_INCORRECT),
-    AMJU_TOP, PAGE_LURK_TIME);
-  TheLurker::Instance()->Queue(lm);
+  // Do this in m_page->ShowCorrectAnswer() if required
+  //LurkMsg lm(Lookup("Incorrect!"), 
+  //  GetColour(COLOUR_TEXT),
+  //  GetColour(COLOUR_INCORRECT),
+  //  AMJU_TOP, PAGE_LURK_TIME);
+  //TheLurker::Instance()->Queue(lm);
 }
 
 void GSPages::OnHint()

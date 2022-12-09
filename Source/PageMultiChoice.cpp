@@ -3,6 +3,7 @@
 
 #include <GuiButton.h>
 #include <GuiDecAnimation.h>
+#include <Localise.h>
 #include <ReportError.h>
 #include "Consts.h"
 #include "Dictionary.h"
@@ -192,6 +193,12 @@ void PageMultiChoice::ShowCorrectAnswer()
   std::string expl = GetQuestion()->GetExplanationString();
   if (expl.empty())
   {
+    LurkMsg lm(Lookup("@@@Incorrect!"), 
+      GetColour(COLOUR_TEXT),
+      GetColour(COLOUR_INCORRECT),
+      AMJU_TOP, PAGE_LURK_TIME);
+    TheLurker::Instance()->Queue(lm);
+
     SendNextPageMessage();
   }
   else

@@ -45,13 +45,13 @@ pause-button
 // pos (coords are -1..1)
 -0.95, 0.9
 // size
-0.25, 0.25
+0.3, 0.2
 // Image 
-Image/gui-button-1.png
+Image/gui-button-2.png
 // Text
-G
+@@@Quit
 // Font name, size
-icon, 3.0, fgcol=ffffff, bgcol=FF0949
+dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
 
 
 gui-comp
