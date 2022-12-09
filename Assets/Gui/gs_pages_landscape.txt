@@ -29,7 +29,7 @@ hint-display.txt
 
 
 elastic
--1.5, 0.0
+0, 1.0
 
 colour
 ffffffff, ffffff20
@@ -52,12 +52,20 @@ G
 icon, 1.5, fgcol=ffffff, bgcol=FF0949
 
 // Composer avatar
+elastic
+-.05,0
+
 translate
 -.7, .45
 scale
 .25,.25
 // Pivot, unlikely to work here
 0.5,0.5
+
+gui-avatar
+// Avatar string: sets values on nodes in the avatar GUI tree
+colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040
+
 include
 avatar.txt
 
