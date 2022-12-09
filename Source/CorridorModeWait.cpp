@@ -17,6 +17,10 @@ namespace Amju
 {
 namespace
 {
+// Proportion of screen user must drag to trigger a swipe left/right along
+//  the corridor
+static const float MIN_DRAG_DIST = 0.25f; // 1/8 of screen
+ 
 void OnTopic(GuiElement*)
 {
   if (!TheGSMainCorridor::Instance()->IsTopicUnlocked())
@@ -188,7 +192,6 @@ bool CorridorModeWait::OnCursorEvent(const CursorEvent& ce)
   {
     Vec2f pos = Vec2f(ce.x, ce.y);
     Vec2f dragDist = m_touchDownCoord - pos;
-    const float MIN_DRAG_DIST = 0.5f; // 1/4 of screen
     if (fabs(dragDist.x) > MIN_DRAG_DIST)
     {
       if (dragDist.x < 0)
