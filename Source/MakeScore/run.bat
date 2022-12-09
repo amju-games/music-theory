@@ -10,5 +10,5 @@ type out.txt >>  ..\..\Assets\Gui\gs_test_show_score.txt
 
 REM Run MusicTheory app - build with GSTestShowScore as the active state
 cd ..\..\Assets
-start ..\Build\Debug\AmjulaMusicTheory.exe
+start ..\Build\Debug\AmjulaMusicTheory-ShowScore.exe
 cd ..\Source\MakeScore
