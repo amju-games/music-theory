@@ -15,6 +15,7 @@
 
 namespace 
 {
+// Convert string of comma-separated ints into a vector of ints.
 std::vector<int> ParseIntSeq(const std::string& seq)
 {
   Amju::Strings strs = Amju::Split(seq, ',');
@@ -91,6 +92,7 @@ void PagePlayNotes::OnActive()
   SetUpQuestionUI();
 
   m_correctSequence = ParseIntSeq(GetQuestion()->GetAnswerString());
+  m_correctSequenceCurrentPos = 0;
 
   // Don't play the note - player can play it if they would like to.
   // Plus, now it's a sequence, not an individual note.
@@ -180,6 +182,12 @@ void PagePlayNotes::OnMusicKbEvent(const MusicKbEvent& event)
   // Check note
   if (event.m_on) // note down
   {
+    PlayMidi(event.m_note, MIDI_NOTE_MAX_VOLUME);
+std::cout << "Playing note " << event.m_note << "\n";
+
+    GuiMusicKb* kb = GetKb();
+    GuiMusicKb::PKey key = kb->GetKey(event.m_note);
+
     // Check note against answer string
     int correctNote = m_correctSequence[m_correctSequenceCurrentPos];
     if (correctNote == event.m_note)
@@ -187,8 +195,6 @@ void PagePlayNotes::OnMusicKbEvent(const MusicKbEvent& event)
 std::cout << "Note " << m_correctSequenceCurrentPos << " correct!\n";
 
       // Correct! Show something/play wav?
-      GuiMusicKb* kb = GetKb();
-      GuiMusicKb::PKey key = kb->GetKey(correctNote);
       // TODO Colour black and white keys separately
       key->m_colour = Colour(0, 1, 0, 1);
 
@@ -196,6 +202,8 @@ std::cout << "Note " << m_correctSequenceCurrentPos << " correct!\n";
 
       if (m_correctSequenceCurrentPos == m_correctSequence.size())
       {
+std::cout << "All notes played correctly!\n";
+
         m_playerHasHitNote = true;
 
         // Would be good to delay these calls for ~.5s, so we first hear 
@@ -205,6 +213,10 @@ std::cout << "Note " << m_correctSequenceCurrentPos << " correct!\n";
     }
     else
     {
+std::cout << "Note " << m_correctSequenceCurrentPos << " incorrect!\n";
+
+      m_playerHasHitNote = true;
+      key->m_colour = Colour(1, 0, 0, 1);
       GetPagesState()->OnIncorrect();
     }
   }
