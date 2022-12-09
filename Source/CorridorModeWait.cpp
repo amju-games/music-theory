@@ -82,6 +82,7 @@ std::cout << "Go DOWN to level " << level << "\n";
 
       CorridorModeEnterStairs::SetNewLevel(level);
       gsmc->SetMode(CorridorModeEnterStairs::ID);
+      PlayWav(WAV_ENTER_STAIRS);
     }
     else
     {
@@ -102,6 +103,7 @@ std::cout << "Go UP to level " << level << "\n";
 
       CorridorModeEnterStairs::SetNewLevel(level);
       gsmc->SetMode(CorridorModeEnterStairs::ID);
+      PlayWav(WAV_ENTER_STAIRS);
     }
     else
     {

@@ -51,6 +51,7 @@ static const float STAIRS_ZOOM_DIST = -100.f;
 #define WAV_INCORRECT "bad1"
 #define WAV_SWIPE_LEFT "ok2"
 #define WAV_SWIPE_RIGHT "ok2"
+#define WAV_ENTER_STAIRS "ok1-transposed"
 #define WAV_ENTER_DOOR "ok1"
 #define WAV_DOOR_OPEN "doorcreak"
 #define WAV_START_BUTTON "good1"
