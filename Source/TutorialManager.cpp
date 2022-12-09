@@ -36,6 +36,14 @@ bool TutorialManager::SetMsgWasShown(int msgId, FirstTimeType ftt)
 
 bool TutorialManager::MsgHasBeenShown(int msgId, FirstTimeType ftt) const
 {
+  if (ftt == AMJU_EVERY_TIME)
+  {
+    // Always return false, meaning, we have not yet seen this message, so we
+    //  should show it. This is backwards, this function should be called
+    //  ShouldWeShowMsg, and we would then return true here, sigh.
+    return false;
+  }
+
   Assert(ftt < AMJU_FIRST_TIME_MAX);
   const auto& set = m_shown[ftt];
   bool shown = set.count(msgId) > 0;
@@ -56,15 +64,20 @@ void QueueFirstTimeMsgs(const std::vector<int> ids, FirstTimeType ftt)
 {
   for (int id : ids)
   {
-    PLurkMsg lm = new CentreMsg(
+    const char* TUTORIAL_FONT = "font2d/TEXT-font.font";
+
+    RCPtr<CentreMsg> lm = new CentreMsg(
       LookupTutorialString(id),
-      GetColour(COLOUR_TEXT),
-      GetColour(COLOUR_TUTORIAL),
-      2.0f); // TODO TEMP TEST - try timed centred msg
+      Colour(0, 0, 0, 1), // text colour
+      Colour(1, 1, 1, 1), // bg colour
+      AMJU_LURK_NO_TIMER, // > 0 for timed msg
+      nullptr, // On OK function
+      TUTORIAL_FONT); 
 
-//      AMJU_LURK_NO_TIMER); // TODO allow timed centre msgs
+    const char* TUTORIAL_GUI = "Gui/tutorial.txt";
 
-    TheTutorialManager::Instance()->FirstTimeMsg(id, lm, ftt);
+    lm->SetAvatarFilename(TUTORIAL_GUI);
+    TheTutorialManager::Instance()->FirstTimeMsg(id, lm.GetPtr(), ftt);
   }
 }
 

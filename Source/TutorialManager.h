@@ -14,6 +14,7 @@ namespace Amju
 // Specify if we mean 'first time this run' or 'first time ever'.
 enum FirstTimeType
 {
+  AMJU_EVERY_TIME,
   AMJU_FIRST_TIME_THIS_RUN,
   AMJU_FIRST_TIME_THIS_USER,
   AMJU_FIRST_TIME_THIS_INSTALL,
@@ -22,7 +23,7 @@ enum FirstTimeType
 };
 
 // * Tutorial Manager *
-// Keep track of next turorial message to display.
+// Keep track of next tutorial message to display.
 // Persist between processes, for release builds only.
 // The next tutorial message to display is based on topics/achievements logic, 
 //  not on trigger volumes.
@@ -53,6 +54,7 @@ private:
 private:
   // Store the messages seen by the user.
   // Persist this in release builds.
+  // One set for each kind of first time type.
   std::array<std::set<int>, AMJU_FIRST_TIME_MAX> m_shown;
 };
 
