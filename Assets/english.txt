@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-90
+91
 1=Welcome to Amjula Music School!
 2=Swipe left and right to move along the corridor!
 3=Which clef?
@@ -92,3 +92,4 @@
 88=CANCEL
 89=HINT!
 90=Sure you want to quit?
+91=Same pitch
