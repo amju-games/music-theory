@@ -9,23 +9,63 @@
 
 gui-avatar
 avatar-comp
-5
+2
+
+gui-comp
+avatar-body
+1
+
+translate
+-.45, -.5
+colour
+000000
+scale
+3.,2
+.5,.5
+gui-sprite
+body
+0.,0
+.5, .5
+Image/avatar-sheet.png
+8,16
+19
+
+animation
+head-bob
+repeat
+2.5
+sine
+translate
+0, 0; 0, 0.05
+
+animation
+clean-anim
+const
+one
+
+gui-comp
+avatar-head-and-face
+6
 
 scale
-1,.8
+1,1
 .5,.5
 colour
 F9EBA9
-gui-image
+gui-sprite
 head
 -.5, .7
 1, 1
-// TODO special head image
-Image/gui-button-1.png
+// TODO special head images - shapes and maybe gradient
+Image/avatar-sheet.png
+// Num cells x, y
+8, 8
+// Cell
+11
 
 
 translate
-0.2, 0.1
+0.3, 0.1
 gui-comp
 right-eye
 1
@@ -33,7 +73,7 @@ include
 avatar-eye-simple.txt
 
 translate
--0.2, 0.1
+-0.1, 0.1
 gui-comp
 left-eye
 1
@@ -44,30 +84,51 @@ avatar-eye-simple.txt
 translate
 0, -.75
 scale
-.6, -1
+.6, .3
 .5, .5
 colour
 ff0000
-gui-image
+gui-sprite
 mouth
--.2, 0
+-.05, .8
 .4,.35
-Image/avatar-curve4.png
+Image/avatar-sheet.png
+// Num cells x, y
+8, 16
+// Cell
+0
 
 translate
-0, -0.2
+0, 0
 scale
-1.2,1.25
+1.75,1.5
 .5,.5
 colour
 //d0d0d0
 1030e0
-gui-image
+gui-sprite
 hair
--.75, 1.2
-1.5,1
-Image/avatar-hair3.png
+-.5, .8
+1, 1
+Image/avatar-sheet.png
+4,4
+12
+
+translate
+0, 0
+colour
+914625
+scale
+1.,1.5
+.5,.5
+gui-sprite
+nose
+0.01,0
+.25, .25
+Image/avatar-sheet.png
+8,8
+12
 
 
 // Avatar string: sets values on nodes in the avatar GUI tree
-colour;colour-head;F9EBA9|gui-image;hair;Image/avatar-hair2.png|colour;colour-hair;a0a0a0
+colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0

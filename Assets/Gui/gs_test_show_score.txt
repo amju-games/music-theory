@@ -14,8 +14,6 @@ score-comp
 // Num children
 2
 
-include
-avatar-eye-simple.txt
 
 animation
 cell-animation-test
@@ -33,11 +31,12 @@ Image/spritetest.png
 // Num cells in x and y
 2, 2
 // Cell (can be a range, e.g. 0, 7, inclusive)
-3
+0, 3
 
 
 scale
-0.4,0.4
+.25,.25
+// Pivot, unlikely to work here
 0.5,0.5
 include
 avatar.txt

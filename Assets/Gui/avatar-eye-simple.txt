@@ -2,7 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 // avatar eye
-// Test: draw avatar with layers of images (TODO sprites)
+// Test: draw avatar with layers of sprites
 
 // version
 1
@@ -14,12 +14,11 @@ translate
 
 gui-comp
 avatar-eye-simple
-2
+4
 
 // WHITE OF EYE
 colour
-//f0f0ff
-8080ff
+f0f0ff
 scale
 1.5, 1.5
 .5, .5
@@ -29,29 +28,39 @@ eye-white
 .2, .2
 Image/avatar-sheet.png
 // Num cells x, y
-8,8
+8, 8
 // Cell
-7
+11
+
+
+translate
+0,0
+
+gui-comp
+pupil-and-iris
+2
 
 // IRIS - not used for simple eye
-//colour
-//4040ff
-//scale
-//.5, .5
-//.5, .5
-//gui-image
-//eye-iris
-//0, 0
-//.2, .2
-//Image/gui-button-1.png
+colour
+4040ff
+scale
+.8, .8
+.5, .5
+gui-sprite
+eye-iris
+0, 0
+.2, .2
+Image/avatar-sheet.png
+// Num cells x, y
+8, 8
+// Cell
+11
 
 // PUPIL
 colour
 000000
-translate
-0,0
 scale
-.8, .8
+.6, .6
 .5, .5
 gui-sprite
 pupil
@@ -61,7 +70,7 @@ Image/avatar-sheet.png
 // Num cells x, y
 8, 8
 // Cell
-2
+11
 
 // HIGHLIGHT - not for simple eye?
 //colour
@@ -69,52 +78,78 @@ Image/avatar-sheet.png
 //scale
 //.25, .25
 //.5, .5
-//gui-image
+//gui-sprite
 //eye-highlight
 //0, 0.075
 //.2, .2
-//Image/circle.png
+//Image/avatar-sheet.png
+//// Num cells x, y
+//8, 8
+//// Cell
+//11
+
+// Eyelids: translation and scale should be the same, so the upper and
+//  lower match up
+
+//colour
+//00000000
+
+
+gui-comp
+eyelid-upper-and-lower
+2
+
+// Blinking: anim controller for upper eyelid cell
+animation
+blink
+const
+one
 
 // EYELID - UPPER
-translate
-0, -0.25
-scale
-2, 2
-.5, .5
 colour
 c08040
-gui-image
-eyelid1
--.05, .2
-.2,.35
-Image/avatar-curve.png
+scale
+1.5, 1.5
+.5, .5
+
+gui-sprite
+eyelid-upper
+0,0
+.2,.2
+Image/avatar-sheet.png
+8,8
+// Two adjacent cells, for blinking
+8,9
 
 
 // EYELID - LOWER
-translate
-0, -.45
-scale
-2, -1.5
-.5, .5
 colour
 c08040
-gui-image
-eyelid2
--.05, 0
-.2,.35
-Image/avatar-curve.png
+scale
+1.5, 1.5
+.5, .5
+
+gui-sprite
+eyelid-lower
+0,0
+.2,.2
+Image/avatar-sheet.png
+8,8
+10
 
 // EYEBROW
-translate
-0, 0
-scale
-1.5, -1
-.5, .5
 colour
 202000
-gui-image
+translate
+0, 0.25
+scale
+1.5, -.75
+.5, .5
+gui-sprite
 eyebrow
--.05, 0
-.2,.35
-Image/avatar-curve3.png
+0,0
+.2,.2
+Image/avatar-sheet.png
+8,16
+1
 

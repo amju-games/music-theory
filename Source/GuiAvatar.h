@@ -42,5 +42,7 @@ private:
   // Eye look dir: (0, 0) is dead ahead; (1, 0) is looking right, etc.
   Vec2f m_lookDir;
   Vec2f m_desiredLookDir;
+  float m_blinkTime = 0;
+  float m_blinkCheckTime = 0;
 };
 }

@@ -129,7 +129,9 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
     if (m_gui)
     {
       PrintGui(m_gui);
+      // TODO Split this across different keys!
       TheResourceManager::Instance()->DebugPrint();
+      AmjuGL::ReportState(std::cout);
     }
     else
     {

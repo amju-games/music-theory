@@ -1,11 +1,13 @@
 // * Amjula music theory *
 // (c) Copyright 2017-2018 Jason Colman
 
+#include <GuiDecAnimation.h>
 #include <GuiDecColour.h>
 #include <GuiDecScale.h>
 #include <GuiDecTranslate.h>
 #include <GuiFactory.h>
 #include <GuiImage.h>
+#include <Lerp.h>
 #include <LoadVec2.h>
 #include <ReportError.h>
 #include <StringUtils.h>
@@ -16,8 +18,12 @@ namespace
 {
 const char* RIGHT_EYE = "right-eye";
 const char* LEFT_EYE = "left-eye";
-const char* PUPIL = "translate-scale-pupil";
+const char* PUPIL_TRANSLATE = "translate-pupil-and-iris";
+const char* BLINK_ANIM = "blink";
 
+const float MAX_BLINK_TIME = 0.2f;
+const int BLINK_RATE = 5; // probability of blinking is 1 / this number
+const float MAX_BLINK_CHECK_TIME = 0.5f; // decide to blink at this freq
 } // anon namespace
 
 namespace Amju
@@ -30,7 +36,11 @@ AvatarMap s_avatarMap =
     GuiDecColour::NAME, 
     [](GuiElement* elem, const std::string& value)
     {
-      dynamic_cast<GuiDecColour*>(elem)->SetColour(FromHexString(value));
+      GuiDecColour* gc = dynamic_cast<GuiDecColour*>(elem);
+      Colour col = FromHexString(value);
+      gc->SetColour(col);
+      // set same colour again so no interpolation surprises
+      gc->SetColour(col, 1);
     }
   },
 
@@ -172,9 +182,45 @@ void GuiAvatar::Update()
 {
   GuiComposite::Update();
   float dt = TheTimer::Instance()->GetDt();
+
+  // TODO TEMP TEST
+  // Fixed sequence of look dirs - should be more intelligent
+  const Vec2f EYE_LOOK[4] = 
+  {
+    { 1, 0 }, { 0, 0 }, { -0.5f, 0.5f }, { 0.5f, 0 }
+  };
+  static float lookTime = 0;
+  lookTime += dt;
+  if (lookTime > 1.f)
+  {
+    lookTime = 0;
+    static int look = 0;
+    m_lookDir = EYE_LOOK[look];
+    look = (look + 1) % 4;
+  }
+
   // Get eyes, update them
-  // Move from current look dir to desired look dir?
-  m_lookDir = m_desiredLookDir;
+  // Blinking
+  bool yesBlink = m_blinkTime > 0;
+  if (yesBlink)
+  {
+    m_blinkTime -= dt;
+  }
+
+  // TODO Only check this after a fixed time, otherwise blinking
+  //  depends on frame rate
+  m_blinkCheckTime += dt;
+  if (m_blinkCheckTime > MAX_BLINK_CHECK_TIME)
+  {
+    m_blinkCheckTime = 0;
+    if (!yesBlink && ((rand() % BLINK_RATE) == 0))
+    {
+      m_blinkTime = MAX_BLINK_TIME;
+    }
+  }
+
+  // Move from current look dir to desired look dir
+  m_lookDir = Lerp(m_lookDir, m_desiredLookDir, dt);
   const float LOOK_DIR_SCALE = 0.05f;
   Vec2f pos(m_lookDir.x * LOOK_DIR_SCALE, m_lookDir.y * LOOK_DIR_SCALE);
   const char* EYE[2] = { RIGHT_EYE, LEFT_EYE };
@@ -182,9 +228,13 @@ void GuiAvatar::Update()
   {
     auto eye = GetElementByName(EYE[i]);
     Assert(eye);
-    auto pupil = dynamic_cast<GuiDecTranslate*>(eye->GetElementByName(PUPIL));
+    auto pupil = dynamic_cast<GuiDecTranslate*>(eye->GetElementByName(PUPIL_TRANSLATE));
     Assert(pupil);
     pupil->SetTranslation(pos);
+
+    auto blink = dynamic_cast<GuiDecAnimation*>(eye->GetElementByName(BLINK_ANIM));
+    Assert(blink);
+    blink->SetEaseType(yesBlink ? Animator::EaseType::EASE_TYPE_ONE : Animator::EaseType::EASE_TYPE_ZERO);
   }
 }
 
