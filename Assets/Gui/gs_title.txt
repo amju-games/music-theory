@@ -11,7 +11,7 @@ gui-comp
 // Name
 title-root
 // Num children
-2
+3
 
 include
 title-text.txt
@@ -21,9 +21,6 @@ title-text.txt
 //0.0, -2.0
 
 
-// TODO TEMP TEST
-//rotate
-//90.0
 
 //translate
 //-0.15, -0.6
@@ -44,4 +41,38 @@ Image/gui-button-2.png
 START
 // Font name, size
 dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+
+
+
+
+
+// TEST
+
+colour
+6EB127
+
+translate
+0.0, 0.0
+
+animation
+name-not-used
+mirror-repeat
+2.0
+linear
+
+// TODO TEMP TEST
+//rotate
+//30.0, 0.0
+
+scale
+0.1, 0.1 ; 1.0, 1.0
+// pivot point
+0.0, 0
+
+gui-image
+topic-button-2
+// pos (coords are -1..1)
+0.0, 0
+0.6, 0.3
+Image/leaf1.png
 

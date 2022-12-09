@@ -25,7 +25,6 @@ static void OnStart(GuiElement*)
 GSTopicStart::GSTopicStart()
 {
   m_guiFilename = "Gui/gs_topic_start.txt";
-
 }
 
 void GSTopicStart::OnActive()

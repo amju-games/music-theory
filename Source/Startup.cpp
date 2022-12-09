@@ -40,6 +40,7 @@
 #include "GSShowMusicScore.h"
 #include "GSTestShowScore.h"
 #include "GSTitle.h"
+#include "GSTopicEnd.h"
 #include "GSUserDrawSave.h"
 #include "GuiLineDrawing.h"
 #include "GuiMusicKb.h"
@@ -121,10 +122,11 @@ void StartUpAfterCreateWindow()
 //  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSPages::Instance());
 //    TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());
-//  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 
-  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
   
+//  TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
 }
 }
 

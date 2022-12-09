@@ -1,42 +1,75 @@
-TODO prototype tech unknowns
+Get to state of minimal, releasable app
+ * MVP * 
 
-Basic demo:
- - title state
- - some test cards
+iOS - load screen, icon, etc. 
+ - Using APZ organ image?
+ - Bulb is a Turnip in the ground?
+
+Net Send
+Back end DB
+ - Don't want to release without tracking
+
+Share - Ok, not MVP but very desirable
+ - No screenshots required? Or just baked images.
+
+Storing progress: config file should allow a map type, which is itself a config file - i.e. tree structure.
+Then we can add a map for terms seen, weak terms, each attempt if desired, etc.
+ - UNIT TEST
+
+Hint pig - it's a piggy bank.
+
+Get awarded different vegetables for each topic?
 
 
-Every game state can have multiple layouts - 4 currently.
- - Phone/tablet * landscape/portrait
+TopicEnd state - for musical terms, give score, retry button if score < some limit?
+Give hints if score > some limit
+(Store weak terms)
+(Retest weak terms? Like duolingo)
+
+Cosmetic improvements
+
+ - Music: title, menu, GSPages
+ - Sound fx: buttons, correct/incorrect etc
+
+ - Consistent CTAs: pulsing, colour change (white <-> green, say)
+ - Consistent colours, not just primary colours
+
+ - Fix/finish title/main menu
+
+ - GSPages: Periodically shake hint button if hints are available
+ - Grey out hint button if none available
+ 
+ - Fix rotate/scale decorator anchor
+
+ - Top bar: don't use rounded rect, aspect ratio is not same as for images. Use image so we can align elements.
+
+ - Piano Keyboard: proper shaped mesh for each white key. Fix bad curved corners.
+    (Not MVP, there is no keyboard yet!)
+
+ - Load time: this is probably the huge font pngs. 
+  - TODO Rearrange as a strip with minimal dead space.
+  - This is a big job, not for MVP. Automate it? 
+  - Subclass TextureSequence to allow variable widths. Reduce dead space on texture, improving load time/mem usage.
+  - Draw quad proportional to width [- this allows for a range of slur widths, etc.?? What?] 
+
+
+(Not MVP)
+Every game state can have multiple layouts - 4 currently:
+ - Phone landscape
+ - Phone portrait
+ - Tablet landscape
+ - Tablet portrait
+
 But the elements are always the same, with the same names. 
 So we can refer to Gui element names in Question/Hint/Answer definitions?
 Shouldn't need to.
-
-
-Learns/Tests are GUIs, so we have buttons, images, Elastics, etc.
-The tests are also GuiElements embedded in the Gui tree. We will want a base class like
-class MusicTest : public GuiElement or GuiComposite.
-
-No hang on, we want the tests to be defined independently of how they look.
-So a Music test references a gui.txt file, but is independent from it.
-But a MusicTest can be an event listener, so it gets events from Gui elements.
- - A music test is a GameState, right?? No, because you load it from a file. It's owned by a game state.
-
-Hmmm. Let's make Tests GameStates for now, and change it later if required.
-
 
 
 
 Gui decorators
  - Colour. Use this for piano dots
  - Swipe-able. Then use this for piano/kb, so we swipe the keys and the piano name.
-
- Animated GUI elements
- - We also want to animate scale of leaves, and it would be good to automate animations to some degree
- - Extend Elastic type
-
-  - Consistent CTAs: pulsing, colour change (white <-> green, say)
-
-  - Include file decorator - DONE   - So can reuse octaves? No, but can reuse the whole thing.
+   - Also for main menu (up/down)
 
 
 
@@ -79,9 +112,6 @@ Dr Memory: check for leaks. Dr Memory crashes on Windows 10? Maybe there is an u
 OK, version 1.11.0 works ok
 Results are suspiciously good. Continue to test.
 
-
-
-Fix composite bring child to front - OK
 
 
 Playable keyboard
@@ -127,9 +157,6 @@ Music notation: Important remaining unknowns:
  - Bar lines connecting multiple staves
  - Curly braces connecting staves: find a nice image, will have to stretch it.
  
-Refining music notation
- - Subclass TextureSequence to allow variable widths. Reduce dead space on texture, improving load time/mem usage.
- - Draw quad proportional to width - this allows for a range of slur widths, etc. - OK
 
 Next-level layer over GuiMusicScore
  - GuiMusicScore is the bottom level of a decent system. Look at Guido for how to better express music notation. 
@@ -138,10 +165,6 @@ Next-level layer over GuiMusicScore
  - MusicXML? Not important, right? Unless there is a load of music available in this format.
 
 Animated Drawing
- - A GUI element, right?
- - One texture, so derived from image?
- - Just a vec of points at first
- - Animated: override Update()
  - How to author? 
    - How about this: colour or grey scale image of line drawing, where the colour gets lighter with time. Animated drawing is just raising the threshold of pixels that get drawn. 
     - Grey scale gives 256 animation steps, but then we can also sweep through colours.
@@ -162,7 +185,7 @@ Alternate animated drawing
 
   - Special state where we save out control points from drawings.
   - Could be super advanced: click to place control points, drag them around. (Insert would be useful but harder to implement)
-
+    - May need this if we are doing a lot of drawing
 
 
 

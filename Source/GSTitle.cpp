@@ -2,15 +2,14 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <Game.h>
+#include "GSMainMenu.h"
 #include "GSTitle.h"
-#include "GSPages.h"
 
 namespace Amju
 {
 static void OnStart(GuiElement*)
 {
-  // TODO TEMP TEST
-  TheGame::Instance()->SetCurrentState(TheGSPages::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
 }
 
 GSTitle::GSTitle()
@@ -25,7 +24,6 @@ void GSTitle::OnActive()
   // Set button commands
   GuiElement* startButton = GetElementByName(m_gui, "start-button");
   startButton->SetCommand(OnStart);
-
 
   // Start animations
 }
