@@ -286,12 +286,8 @@
     <ClCompile Include="..\..\..\..\Source\MusicEvent.cpp" />
     <ClCompile Include="..\..\..\..\Source\Page.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageFactory.cpp" />
-    <ClCompile Include="..\..\..\..\Source\PageIntervalsMultiChoice.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageMultiChoice.cpp" />
-    <ClCompile Include="..\..\..\..\Source\PageMusicalSymbol.cpp" />
-    <ClCompile Include="..\..\..\..\Source\PageMusicalTerm.cpp" />
     <ClCompile Include="..\..\..\..\Source\PagePlayNotes.cpp" />
-    <ClCompile Include="..\..\..\..\Source\PageScoreMCQBase.cpp" />
     <ClCompile Include="..\..\..\..\Source\PrintGui.cpp" />
     <ClCompile Include="..\..\..\..\Source\Question.cpp" />
     <ClCompile Include="..\..\..\..\Source\ScoreBuilder.cpp" />
@@ -359,12 +355,8 @@
     <ClInclude Include="..\..\..\..\Source\Page.h" />
     <ClInclude Include="..\..\..\..\Source\PageDrawOnStave.h" />
     <ClInclude Include="..\..\..\..\Source\PageFactory.h" />
-    <ClInclude Include="..\..\..\..\Source\PageIntervalsMultiChoice.h" />
     <ClInclude Include="..\..\..\..\Source\PageMultiChoice.h" />
-    <ClInclude Include="..\..\..\..\Source\PageMusicalSymbol.h" />
-    <ClInclude Include="..\..\..\..\Source\PageMusicalTerm.h" />
     <ClInclude Include="..\..\..\..\Source\PagePlayNotes.h" />
-    <ClInclude Include="..\..\..\..\Source\PageScoreMCQBase.h" />
     <ClInclude Include="..\..\..\..\Source\PlayMidi.h" />
     <ClInclude Include="..\..\..\..\Source\Question.h" />
     <ClInclude Include="..\..\..\..\Source\ScoreBuilder.h" />

@@ -12,9 +12,6 @@ class Dictionary;
 class MusicalTermQuestion : public MultiChoiceQuestion
 {
 public:
-  // We get this from a shuffled list, which we get from a file
-  std::string GetMusicalTermText();
-
   virtual void MakeQuestion() override;
 
   void SetDictionary(Dictionary* dictionary);
@@ -26,8 +23,6 @@ protected:
   std::string MakeConfigKey() const;
 
 protected:
-  std::string m_musicalTerm;
-
   RCPtr<Dictionary> m_dictionary;
 };
 

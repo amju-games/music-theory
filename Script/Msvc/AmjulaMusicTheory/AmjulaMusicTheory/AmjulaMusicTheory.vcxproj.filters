@@ -96,9 +96,6 @@
     <ClCompile Include="..\..\..\..\Source\GSPages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\PageMusicalTerm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\GSUserDrawSave.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -159,16 +156,7 @@
     <ClCompile Include="..\..\..\..\Source\PageMultiChoice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\PageIntervalsMultiChoice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Dictionary.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\PageScoreMCQBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\PageMusicalSymbol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\PrintGui.cpp">
@@ -241,9 +229,6 @@
     <ClInclude Include="..\..\..\..\Source\GSPages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\PageMusicalTerm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GSUserDrawSave.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -292,16 +277,7 @@
     <ClInclude Include="..\..\..\..\Source\MusicEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\PageIntervalsMultiChoice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Dictionary.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\PageScoreMCQBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\PageMusicalSymbol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

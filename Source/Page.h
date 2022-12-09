@@ -41,6 +41,10 @@ public:
   // Pages present info stored in "dictionaries" - text files grouping pairs/tuples of strings.
   void SetDictionaryName(const std::string& dictionaryName);
 
+  // Allows us to set different GUIs for the same Page type, as many pages could be
+  //  essentially the same, just presented differently.
+  void SetGuiName(const std::string& guiName);
+
   GuiElement* GetGui();
 
   // Enable/disable buttons, for modal dialog like quit confirm 

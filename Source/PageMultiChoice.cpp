@@ -3,7 +3,11 @@
 
 #include <GuiButton.h>
 #include <GuiDecAnimation.h>
+#include <ReportError.h>
+#include "Dictionary.h"
 #include "GSPages.h"
+#include "GuiMusicScore.h"
+#include "MusicalTermQuestion.h"
 #include "PageMultiChoice.h"
 
 namespace Amju
@@ -23,8 +27,31 @@ struct ChoiceCommand : public GuiCommand
 
 void PageMultiChoice::OnActive()
 {
+  SetUpQuestion(); // decide on Q to ask, and real + false answers
+
   Page::OnActive();
 
+  SetUpButtons();
+
+  SetUpQuestionUI();
+}
+
+void PageMultiChoice::SetUpQuestionUI()
+{
+  // Hmm, switch on type, refactor as subclasses
+  switch (m_qType)
+  {
+  case QuestionType::QTYPE_SCORE:
+    SetQScore();
+    break;
+  case QuestionType::QTYPE_TEXT:
+    SetQText();
+    break;
+  }
+}
+
+void PageMultiChoice::SetUpButtons()
+{
   // Set button callbacks
   int numChoices = m_answers.GetNumAnswers();
   int correct = m_answers.GetCorrectAnswer();
@@ -133,6 +160,73 @@ void PageMultiChoice::ShowCorrectAnswer()
   {
     button->SetHasFocus(true); // pulsing glow
   }
+}
+
+void PageMultiChoice::SetQuestionType(QuestionType qt)
+{
+  m_qType = qt;
+}
+
+void PageMultiChoice::SetAnswerType(AnswerType at)
+{
+  m_aType = at;
+}
+
+void PageMultiChoice::SetUpQuestion()
+{
+  MusicalTermQuestion* q = new MusicalTermQuestion;
+  m_question = q;
+
+  // Get musical terms dictionary - this is a Resource.
+  Dictionary* dic = dynamic_cast<Dictionary*>(
+    TheResourceManager::Instance()->GetRes(m_dictionaryFilename));
+  Assert(dic);
+
+  q->SetDictionary(dic);
+  q->MakeQuestion();
+  m_answers = q->GetMultiChoiceAnswers();
+
+  // Seen this question before? If not we will give the correct answer.
+  bool seen = q->QuestionSeenBefore(m_config);
+  // Set flag for next time
+  q->SetQuestionSeenBefore(m_config);
+
+  m_canRemoveForHint.clear();
+}
+
+void PageMultiChoice::SetQText()
+{
+  IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "musical-term-text"));
+  Assert(text);
+  text->SetText(m_question->GetQuestionString());
+}
+
+void PageMultiChoice::SetQScore()
+{
+  // Set musical score display from question text
+  GuiMusicScore* ms = dynamic_cast<GuiMusicScore*>(GetElementByName(m_gui, "music-score"));
+  Assert(ms);
+  // Simple: multiple glyphs. TODO smart ScoreBuilder.
+  // Multiple glyphs split by ;
+  Strings strs = Split(m_question->GetQuestionString(), ';');
+  for (const std::string& s : strs)
+  {
+    if (!ms->AddGlyphFromString(s))
+    {
+      ReportError("Failed to set score glyph: " + s);
+    }
+  }
+
+  // TODO Ideally we would like to do this:
+  //ScoreBuilder sb;
+  //std::string error;
+  //bool ok = sb.SetFromString(q->GetQuestionString(), &error);
+  //if (!ok)
+  //{
+  //  std::cout << "Error in score string: " << error << "\n";
+  //  Assert(0);
+  //}
+  //sb.Write(*ms);
 }
 
 }

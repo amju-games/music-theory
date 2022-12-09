@@ -12,11 +12,6 @@
 
 namespace Amju
 {
-std::string MusicalTermQuestion::GetMusicalTermText()
-{
-  return m_musicalTerm;
-}
-
 void MusicalTermQuestion::MakeQuestion()
 {
   // Pick random terms from dictionary.
@@ -73,7 +68,7 @@ void MusicalTermQuestion::MakeQuestion()
   {
     std::swap(q, ans);
   }
-  m_musicalTerm = q;
+
   m_questionStrings = { q };
   m_answers.SetCorrectAnswer(correct);
 }
@@ -85,7 +80,8 @@ void MusicalTermQuestion::SetDictionary(Dictionary* dictionary)
 
 std::string MusicalTermQuestion::MakeConfigKey() const
 {
-  std::string key = m_musicalTerm;
+  Assert(m_questionStrings.size() == 1);
+  std::string key = m_questionStrings[0];
   if (m_qAndASwitched)
   {
     key = m_answers.GetAnswer(m_answers.GetCorrectAnswer());

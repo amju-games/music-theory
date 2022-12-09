@@ -24,6 +24,11 @@ void Page::SetDictionaryName(const std::string& dictionaryName)
   m_dictionaryFilename = dictionaryName;
 }
 
+void Page::SetGuiName(const std::string& guiName)
+{
+  m_guiName = guiName;
+}
+
 GuiButton* Page::GetHintButton() const
 {
   GuiElement* hint = GetElementByName(TheGSPages::Instance()->GetGui(), "hint-button");

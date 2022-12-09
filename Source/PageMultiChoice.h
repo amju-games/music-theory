@@ -9,6 +9,19 @@
 
 namespace Amju
 {
+// Types for question and answer panels
+enum class QuestionType
+{
+  QTYPE_TEXT,
+  QTYPE_SCORE
+};
+
+enum class AnswerType
+{
+  ATYPE_TEXT,
+  ATYPE_SCORE
+};
+
 // * PageMultiChoice *
 // User selects correct answer. How user selects (drag, button, etc) 
 //  does not affect the core Page definition, and could be randomised.
@@ -23,14 +36,25 @@ public:
   virtual void OnHint() override;
   virtual void ShowCorrectAnswer() override;
 
+  void SetQuestionType(QuestionType);
+  void SetAnswerType(AnswerType);
+
 protected:
+  void SetUpButtons();
   void HideChoiceButton(int n);
+  void SetUpQuestionUI();
+  void SetQText();
+  void SetQScore();
+  void SetUpQuestion();
 
 protected:
   MultiChoice m_answers;
 
   // Answer buttons we can remove when user requests a hint 
   std::vector<int> m_canRemoveForHint;
+
+  QuestionType m_qType = QuestionType::QTYPE_TEXT;
+  AnswerType m_aType = AnswerType::ATYPE_TEXT;
 };
 }
 
