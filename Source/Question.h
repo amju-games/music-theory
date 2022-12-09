@@ -35,13 +35,19 @@ namespace Amju
     Strings m_questionStrings; // typically, choose one of these at random - could be default impl of GetQString
   };
 
-  struct MultiChoice
+  class MultiChoice
   {
-    Strings m_answers;
-    int m_correctAnswer;
-
+  public:
     int GetCorrectAnswer(); // or index into answers
     bool IsAnswerCorrect(int n); // index into answers
+    void AddAnswer(const std::string& answer);
+    void SetCorrectAnswer(int correct);
+    int GetNumAnswers() const;
+    void Shuffle();
+
+  private:
+    Strings m_answers;
+    int m_correctAnswer = -1;
   };
 
   class MultiChoiceQuestion : public Question
@@ -64,7 +70,7 @@ namespace Amju
     bool Load(const std::string& filename);
     int GetNumTerms() const;
     void GetTerm(int i, std::string* english, std::string* foreign) const;
-	void AddTerm(const std::string& english, const std::string& foreign);
+    void AddTerm(const std::string& english, const std::string& foreign);
 
   private:
     std::vector<std::pair<std::string, std::string>> m_dictionary;

@@ -6,26 +6,58 @@
 
 using namespace Amju;
 
-TEST_CASE("Terms can be added and retrieved", "[MusicalTermsDictionary]") 
+TEST_CASE("Answers can be added and retrieved", "[MultiChoice]")
 {
-	MusicalTermsDictionary dic;
+  MultiChoice mc;
+  REQUIRE(mc.GetNumAnswers() == 0);
 
-	SECTION("Adding terms")
-	{
-		dic.AddTerm("Soft", "Piano");
-		dic.AddTerm("Loud", "Forte");
-		dic.AddTerm("Sweetly", "Dolce");
-		dic.AddTerm("Gracefully", "Grazioso");
+  SECTION("Add some answers")
+  {
+    const int CORRECT = 0;
 
-		REQUIRE(dic.GetNumTerms() == 4);
+    mc.AddAnswer("Red");
+    mc.AddAnswer("Green");
+    mc.AddAnswer("Blue");
+    mc.SetCorrectAnswer(CORRECT);
 
-		SECTION("Retrieving terms")
-		{
-			std::string english, foreign;
-			dic.GetTerm(0, &english, &foreign);
-			REQUIRE(english == "Soft");
+    REQUIRE(mc.GetNumAnswers() == 3);
 
-		}
-	}
+    SECTION("Check correct answer")
+    {
+      REQUIRE(mc.GetCorrectAnswer() == CORRECT);
+      REQUIRE(mc.IsAnswerCorrect(CORRECT));
+      REQUIRE_FALSE(mc.IsAnswerCorrect(CORRECT + 1));
+    }
+  }
+}
+
+TEST_CASE("Terms can be added and retrieved", "[MusicalTermsDictionary]")
+{
+  RCPtr<MusicalTermsDictionary> dic(new MusicalTermsDictionary);
+
+  SECTION("Adding terms")
+  {
+    dic->AddTerm("Soft", "Piano");
+    dic->AddTerm("Loud", "Forte");
+    dic->AddTerm("Sweetly", "Dolce");
+    dic->AddTerm("Gracefully", "Grazioso");
+
+    REQUIRE(dic->GetNumTerms() == 4);
+
+    SECTION("Retrieving terms")
+    {
+      std::string english, foreign;
+      dic->GetTerm(0, &english, &foreign);
+      REQUIRE(english == "Soft");
+    }
+
+    SECTION("Set up a question")
+    {
+      MusicalTermQuestion q;
+      q.SetDictionary(dic);
+      q.MakeQuestion();
+      MultiChoice mc = q.GetMultiChoiceAnswers();
+    }
+  }
 }
 

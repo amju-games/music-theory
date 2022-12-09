@@ -34,6 +34,11 @@ bool Question::Load(File* f)
   return true;
 }
 
+void MultiChoice::SetCorrectAnswer(int correct)
+{
+  m_correctAnswer = correct;
+}
+
 int MultiChoice::GetCorrectAnswer()
 {
   return m_correctAnswer;
@@ -42,6 +47,16 @@ int MultiChoice::GetCorrectAnswer()
 bool MultiChoice::IsAnswerCorrect(int n)
 {
   return n == m_correctAnswer;
+}
+
+void MultiChoice::AddAnswer(const std::string& answer)
+{
+  m_answers.push_back(answer);
+}
+
+int MultiChoice::GetNumAnswers() const
+{
+  return static_cast<int>(m_answers.size());
 }
 
 
