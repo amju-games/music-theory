@@ -81,8 +81,8 @@ bars-and-time-sigs
 // Topics unlocked by this one
 none
 // Pages
-1
-//page-symbol-text=Course/whats_the_time_sig.txt=@@@What is the time signature?
+2
+page-symbol-symbol=Course/missing_time_sig.txt=@@@What is the time signature?
 page-symbol-symbol=Course/missing_rest.txt=@@@What is the missing rest?
 //page-symbol-text=Course/time_sigs.txt=$$$99
 
