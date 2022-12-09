@@ -557,6 +557,7 @@ bool GuiMusicScore::Load(File* f)
 void GuiMusicScore::SetFgCol(const Colour& col)
 {
   m_fgCol = col;
+  RefreshColours();
 }
 
 void GuiMusicScore::MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris, const Colour& col)
