@@ -128,11 +128,10 @@ Image/bulb.png
 
 
 // Ground
-gui-image
-underground
--1.0, -2.2
-2.0, 1.2
-Image/underground3.png
+translate
+0, -2.
+include
+ground.txt
 
 // Top number. OK, "numerator"
 
