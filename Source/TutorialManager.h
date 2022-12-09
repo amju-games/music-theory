@@ -6,16 +6,11 @@
 #include <array>
 #include <set>
 #include <Singleton.h>
+#include <StringUtils.h>
 #include "LurkMsg.h"
 
 namespace Amju
 {
-// * Unique Message ID generator *
-// Generate a very-probably-unique ID from the sourse filename + line number.
-// Use this to create unique IDs for messages in the code.
-// TODO Use std::hash?
-#define UNIQUE_MSG_ID ((long int)(__FILE__) + __LINE__)
-
 // Specify if we mean 'first time this run' or 'first time ever'.
 enum FirstTimeType
 {

@@ -229,6 +229,7 @@
 		69A23A591F61E6970021BF88 /* Consts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Consts.cpp; path = ../../../../Source/Consts.cpp; sourceTree = "<group>"; };
 		69A23A5A1F61E6970021BF88 /* TutorialManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TutorialManager.cpp; path = ../../../../Source/TutorialManager.cpp; sourceTree = "<group>"; };
 		69A23A5B1F61E6970021BF88 /* TutorialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialManager.h; path = ../../../../Source/TutorialManager.h; sourceTree = "<group>"; };
+		69A23A5F1F631DE10021BF88 /* TutorialIds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialIds.h; path = ../../../../Source/TutorialIds.h; sourceTree = "<group>"; };
 		69AC402F1EB5331300F255A4 /* Dictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Dictionary.cpp; path = ../../../../Source/Dictionary.cpp; sourceTree = "<group>"; };
 		69AC40301EB5331300F255A4 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dictionary.h; path = ../../../../Source/Dictionary.h; sourceTree = "<group>"; };
 		69AC40311EB5331300F255A4 /* MusicEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MusicEvent.cpp; path = ../../../../Source/MusicEvent.cpp; sourceTree = "<group>"; };
@@ -569,6 +570,7 @@
 				6955431B1F3B526D007C23EA /* TappableZoomInfoLeaf.h */,
 				6959E2E81E97F6F800E251A9 /* Topic.cpp */,
 				6959E2E91E97F6F800E251A9 /* Topic.h */,
+				69A23A5F1F631DE10021BF88 /* TutorialIds.h */,
 				69A23A5A1F61E6970021BF88 /* TutorialManager.cpp */,
 				69A23A5B1F61E6970021BF88 /* TutorialManager.h */,
 				6959E2EA1E97F6F800E251A9 /* UserProfile.cpp */,

@@ -28,6 +28,7 @@
 #include "GSTitle.h"
 #include "MySceneGraph.h"
 #include "PlayWav.h"
+#include "TutorialIds.h"
 #include "TutorialManager.h"
 #include "UserProfile.h"
 
@@ -189,7 +190,7 @@ void GSMainCorridor::OnActive()
     AMJU_CENTRE);
 
   TheTutorialManager::Instance()->FirstTimeMsg(
-    UNIQUE_MSG_ID, lm, AMJU_FIRST_TIME_THIS_RUN);
+    TUTORIAL_HELLO, lm, AMJU_FIRST_TIME_THIS_RUN);
 }
 
 void GSMainCorridor::Draw2d()
