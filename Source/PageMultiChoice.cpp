@@ -64,6 +64,11 @@ void PageMultiChoice::OnActive()
   //correct->SetVisible(false);
 }
 
+void PageMultiChoice::SetCentreChoiceButtons(bool yesCentreChoiceButtons)
+{
+  m_yesCentreChoiceButtons = yesCentreChoiceButtons;
+}
+
 void PageMultiChoice::SetUpButtons()
 {
   // Set button callbacks
@@ -115,6 +120,18 @@ void PageMultiChoice::SetUpButtons()
       break;
     }
     button->SetVisible(false);
+  }
+
+  // Centre the visible buttons, if we want to (i.e. they are in one row)
+  if (m_yesCentreChoiceButtons)
+  {
+    // Get parent of all buttons, translate by number of invis buttons.
+    GuiElement* buttons = GetElementByName(m_gui, "centre-answer-buttons");
+    Assert(buttons);
+    const float BUTTON_W = 0.4f;
+    int numInvis = maxNumChoices - numChoices;
+    float x = static_cast<float>(numInvis) * .5f * BUTTON_W;
+    buttons->SetLocalPos(Vec2f(x, 0));
   }
 }
 

@@ -16,7 +16,8 @@ translate
 0, -0.15
 
 gui-comp
-buttons-and-correct-answer
+// This name is searched for in the code 
+centre-answer-buttons
 1
 
 // Fade out anim, off until triggered in code
@@ -53,7 +54,7 @@ gui-button
 // Element name
 button-choice-0
 // pos (coords are -1..1)
--0.725, 0.05
+-0.75, 0.05
 // size
 0.3,.3
 // Image 
@@ -65,7 +66,7 @@ dimbo, 1.0, fgcol=000000, bgcol=eeeeee
 
 music-score
 music-score-0
--0.65, -0.8
+-0.675, -0.8
 .3, .8
 000000
 // No glyphs yet

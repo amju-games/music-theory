@@ -43,6 +43,10 @@ public:
   // Invert choice, and hide all incorrect answers
   void HighlightCorrectAnswerButton();
 
+  // For buttons arranged in a single row, set this to true, and
+  //  we will centre the buttons if there are only 2 or 3 choices.
+  void SetCentreChoiceButtons(bool yesCentreChoiceButtons);
+
 protected:
   void SetUpButtons();
   void HideChoiceButton(int n);
@@ -57,6 +61,8 @@ protected:
 
 ////  QuestionType m_qType = QuestionType::QTYPE_TEXT;
   AnswerType m_aType = AnswerType::ATYPE_TEXT;
+
+  bool m_yesCentreChoiceButtons = false;
 };
 }
 
