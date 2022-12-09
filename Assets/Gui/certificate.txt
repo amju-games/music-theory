@@ -14,8 +14,8 @@ one
 animation
 certif-off-delay
 one-shot
-// Delay until we show certif
-5
+// Delay until we move certificate OFF screen
+8
 step
 
 // Move certificate off screen
@@ -38,7 +38,7 @@ animation
 certif-delay
 one-shot
 // Delay until we show certif
-3
+4
 step
 
 gui-comp
@@ -56,11 +56,45 @@ translate
 0, -2; 0, 0
 
 // Certificate
+
+gui-comp
+certif-paper-and-text-etc
+3
+
 gui-image
 pass-certificate
 -.7, .7
 1.4, 1.4
 Image/paper2.png, stretch
+
+// Text on the certificate
+
+// Element type
+gui-text
+// Element name
+cert-topic-name-text
+// pos (coords are -1..1)
+-.4, 0.55
+// size
+0.8, 0.4
+// Text
+TOPIC
+// Font name, size
+TEXT, 1.5, multi, fgcol=000000
+
+// Element type
+gui-text
+// Element name
+cert-mark
+// pos (coords are -1..1)
+-.4, 0.2
+// size
+0.8, 0.4
+// Text
+TOPIC
+// Font name, size
+dimbo, 3, fgcol=000000
+
 
 // Stamp
 
@@ -73,11 +107,10 @@ animation
 stamp-delay
 one-shot
 // Delay until we show stamp
-3.5
+4.5
 step
 
 // Don't show stamp until we start animating it
-// TODO Have a visibility decorator, this is killing fill rate!
 colour
 ffffff00, ffffffff
 

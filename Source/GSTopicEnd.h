@@ -38,6 +38,10 @@ private:
   // So we can show best ever score before and after
   int m_bestScore = 0;
 
+  // Play ascending midi notes as we increment score display
+  int m_midiNote = 0;
+
+  // TODO Currently not used
   float m_shakeTime = 0;
   bool m_isShakingCamera = false;
 };

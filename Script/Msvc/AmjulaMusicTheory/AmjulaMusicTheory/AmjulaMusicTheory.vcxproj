@@ -577,6 +577,7 @@
     <Text Include="..\..\..\..\Assets\en.txt" />
     <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt" />
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\certificate.txt" />
     <Text Include="..\..\..\..\Assets\Gui\compound_glyphs.txt" />
     <Text Include="..\..\..\..\Assets\Gui\corridor-shadow.txt" />
     <Text Include="..\..\..\..\Assets\Gui\corridor_mode_show_tappable.txt" />

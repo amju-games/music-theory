@@ -9,6 +9,7 @@
 #include "GSMainCorridor.h"
 #include "GSTopicEnd.h"
 #include "NumUpdate.h"
+#include "PlayMidi.h"
 #include "Topic.h"
 #include "UserProfile.h"
 
@@ -16,6 +17,12 @@ namespace Amju
 {
 namespace 
 {
+// We play an ascending scale as the score counter increments.
+// Start on this note
+const int MIDI_START_NOTE = 65;
+// Number of points to show until we play the next note
+const int POINTS_PER_NOTE = 8;
+
 void OnOK(GuiElement*)
 {
   TheMessageQueue::Instance()->Add(new FuncMsg(
@@ -38,6 +45,11 @@ GSTopicEnd::GSTopicEnd()
   m_sceneFilename = "Scene/topic_start_scene.txt";
 }
 
+void GSTopicEnd::Draw()
+{
+  GSBase3d::Draw();
+}
+
 void GSTopicEnd::SetBestScore(int best)
 {
   m_bestScore = best;
@@ -46,6 +58,8 @@ void GSTopicEnd::SetBestScore(int best)
 void GSTopicEnd::OnActive()
 {
   GSBase3d::OnActive();
+
+  m_midiNote = MIDI_START_NOTE;
 
   // Set button commands
   GuiElement* elem = GetElementByName(m_gui, "ok-button");
@@ -91,6 +105,14 @@ void GSTopicEnd::OnActive()
   text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "topic-name-text"));
   Assert(text);
   text->SetText(profile->GetCurrentTopicDisplayName());
+  // Also set topic name on certificate
+  text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "cert-topic-name-text"));
+  Assert(text);
+  text->SetText(profile->GetCurrentTopicDisplayName());
+  // Set percent mark on certificate
+  text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "cert-mark"));
+  Assert(text);
+  text->SetText(ToString(m_topicScore) + "%");
 
   // Get initial hints, animate additions
   m_hints = profile->GetHints(HintType::HINT_TYPE_HINT); // TODO
@@ -130,7 +152,7 @@ void GSTopicEnd::OnActive()
 
 std::string GSTopicEnd::GenerateScoreComment()
 {
-  std::string res = "Awesome";
+  std::string res = "@@@Awesome!";
 
   auto profile = TheUserProfile();
   Course* course = GetCourse();
@@ -140,27 +162,28 @@ std::string GSTopicEnd::GenerateScoreComment()
 
   bool passed = profile->IsTopicPassed(topic->GetId());
 
-  if (passed)
+  if (m_topicScore > 99)
   {
-    res = "You passe the test!";
+    res = "@@@Perfect score!";
+  }
+  else if (m_topicScore > m_bestScore)
+  {
+    res = "@@@Your new best score!";
+  }
+  else if (passed)
+  {
+    res = "@@@You passed the test!";
   }
   else
   {
-    res = "Oh no! Try again!";
+    res = "@@@Oh no! Try again!";
   }
 
-  if (m_topicScore > m_bestScore)
-  {
-    res = "Your new best score!";
-  }
   return res;
 }
 
 void GSTopicEnd::SetScoreNumbers()
 {
-  // ????
-  NumUpdate(m_gui, "topic-score-text" /* TODO CONST */, m_topicScore);
-
   NumUpdate(m_gui, "total-score-text" /* TODO CONST */, 
     ToString(m_totalScore) + "%");
 
@@ -170,7 +193,7 @@ void GSTopicEnd::SetScoreNumbers()
 
 void GSTopicEnd::SetHintNumbers()
 {
-  NumUpdate(m_gui, "hint-counter" /* TODO CONST */, m_hints);
+//  NumUpdate(m_gui, "hint-counter" /* TODO CONST */, m_hints);
 }
 
 void GSTopicEnd::UpdateNums()
@@ -180,14 +203,22 @@ void GSTopicEnd::UpdateNums()
 
   if (m_topicScore > 0)
   {
+    bool playNote = false;
+
     const int incr = 1;
     m_topicScore -= incr;
+    updateAgain = true;
     if (m_topicScore <= 0)
     {
       m_topicScore = 0;
       updateAgain = false;
+      playNote = true;
     }
     m_totalScore += incr;
+    if (m_totalScore % POINTS_PER_NOTE == 0)
+    {
+      playNote = true;
+    }
     if (m_totalScore > m_bestScore)
     {
       m_bestScore = m_totalScore;
@@ -195,7 +226,11 @@ void GSTopicEnd::UpdateNums()
 
     SetScoreNumbers();
 
-    updateAgain = true;
+    if (playNote)
+    {
+      PlayMidi(m_midiNote, MIDI_NOTE_MAX_VOLUME);
+      m_midiNote += 2; // ascending whole tone scale
+    }
   }
 
   // Hint counter
@@ -211,7 +246,12 @@ void GSTopicEnd::UpdateNums()
   // Only if nums are not showing their final values yet
   if (updateAgain)
   {
-    TheMessageQueue::Instance()->Add(new FuncMsg(::Amju::UpdateNums, SecondsFromNow(0.1f)));
+    // This calculation has the effect of whizzing very quickly though the low numbers, and slowing
+    //  down as we reach the 'target' number.
+    Assert(m_topicScore > 0);
+    const float NUM_UPDATE_TIME_CONST = .3f;
+    float timeToNextUpdate = NUM_UPDATE_TIME_CONST / m_topicScore;
+    TheMessageQueue::Instance()->Add(new FuncMsg(::Amju::UpdateNums, SecondsFromNow(timeToNextUpdate)));
   }
 }
 }

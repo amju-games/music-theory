@@ -1077,5 +1077,8 @@
     <Text Include="..\..\..\..\Assets\Gui\corridor-shadow.txt">
       <Filter>Assets\Scene</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\certificate.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>
