@@ -3,6 +3,7 @@
 
 #include <ConfigFile.h>
 #include <Directory.h>
+#include <ReportError.h>
 #include "UserProfile.h"
 
 namespace Amju
@@ -47,7 +48,7 @@ ConfigFile* UserProfile::GetConfigForTopic(const std::string& topicId)
 
   if (!cf->Load(filename, false))
   {
-    std::cout << "Failed to load topic config file " << filename << "\n";
+    ReportError("Failed to load topic config file " + filename);
   }
 
   return cf;
