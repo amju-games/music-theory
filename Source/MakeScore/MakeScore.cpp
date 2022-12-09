@@ -50,38 +50,6 @@ std::string LineEnd(bool oneLine)
   return (oneLine ? ";" : "\n");
 }
 
-// Get GuiMusicScore glyph string from short code
-std::string GetStr(std::string s)
-{
-  bool dot = Contains(s, '.');
-  Remove(s, '.');
-  bool rest = Contains(s, 'r');
-  Remove(s, 'r');
-
-  std::string out = "UNKNOWN";
-  if (s == INPUT_TOKEN_CROTCHET) out = "crotchet";
-  else if (s == INPUT_TOKEN_QUAVER) out = "quaver";
-  else if (s == INPUT_TOKEN_SEMIQUAVER) out = "semiquaver";
-  else if (s == INPUT_TOKEN_MINIM) out = "minim";
-  else if (s == INPUT_TOKEN_SEMIBREVE) out = "semibreve";
-
-  if (rest)
-  {
-    out = "rest-" + out;
-  }
-  else if (s != "sb")
-  {
-    out += "-up"; // TODO up/down flag
-  }
-
-  if (dot)
-  {
-    // TODO raised dot if glyph is on a line
-    out = "dotted-" + out + "-raised-dot";
-  }
-  return out;
-}
-
 void MakeScore::Preprocess()
 {
   //  std::cout << "Preprocessed input: " << m_input << "\n";

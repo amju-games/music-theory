@@ -159,6 +159,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\MakeScore\Bar.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Beam.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\Clef.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Consts.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Flag.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Glyph.h" />

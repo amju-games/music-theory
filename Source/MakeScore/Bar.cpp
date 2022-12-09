@@ -55,7 +55,7 @@ void Bar::SetScale(float scale)
   m_scale = scale;
 }
 
-// Get GuiMusicScore glyph string from short code
+// Get output GuiMusicScore glyph string from input token
 std::string Bar::GetStr(std::string s)
 {
   bool dot = Contains(s, '.');
@@ -91,13 +91,50 @@ std::string Bar::GetStr(std::string s)
   return out;
 }
 
+float Bar::CalcGlyphY(int pitch) const
+{
+  switch (m_staveType)
+  {
+  case StaveType::STAVE_TYPE_NONE:
+  case StaveType::STAVE_TYPE_RHYTHM:
+    return DEFAULT_HEIGHT;
+
+  case StaveType::STAVE_TYPE_SINGLE:
+  {
+    // TODO Calc depends on clef
+    // Treb clef
+    // Y-position for MIDI notes starting from MIDI 0, with C at y = 0
+    float Y_POS[12] = 
+    {
+      0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6
+    };
+    float y = Y_POS[pitch % 12] * 0.05f;
+    return y;
+  }
+  case StaveType::STAVE_TYPE_DOUBLE:
+    return 0; // TODO
+  }
+  return 0;
+}
+
 void Bar::AddGlyph(const std::string& s, int pitch)
 {
+  // TODO Split into note and rest glyph types?
+  bool rest = Contains(s, 'r');
+
   int order = static_cast<int>(m_glyphs.size());
 
   Glyph* gl = new Glyph(s, order);
   gl->SetScale(m_scale);
-  gl->SetPitch(pitch);
+
+  if (!rest)
+  {
+    gl->SetPitch(pitch);
+
+    // TODO Calc y, using current pitch, stave, and clef. 
+    // TODO Add accidental if required, by checking current key sig.
+    gl->y = CalcGlyphY(pitch);
+  }
 
   // Set duration for this musical symbol
   gl->SetTimeVal(GetTimeVal(s));

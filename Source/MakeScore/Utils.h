@@ -20,8 +20,6 @@ bool IsQuote(char c);
 // Like to_string, but chops trailing zeroes from floats
 template <typename T> std::string Str(T f);
 
-std::string GetStr(std::string s);
-
 std::string LineEnd(bool oneLine);
 
 // Str - convert given argument to a string

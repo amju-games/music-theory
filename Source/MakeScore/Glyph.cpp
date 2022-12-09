@@ -6,6 +6,54 @@
 
 #include "Glyph.h"
 
+// Generate GuiMusicScore glyph string from input token
+static std::string GetStr(std::string s)
+{
+  bool dot = Contains(s, '.');
+  Remove(s, '.');
+  bool rest = Contains(s, 'r');
+  Remove(s, 'r');
+
+  std::string out = "UNKNOWN";
+  if (s == INPUT_TOKEN_CROTCHET) out = "crotchet";
+  else if (s == INPUT_TOKEN_QUAVER) out = "quaver";
+  else if (s == INPUT_TOKEN_SEMIQUAVER) out = "semiquaver";
+  else if (s == INPUT_TOKEN_MINIM) out = "minim";
+  else if (s == INPUT_TOKEN_SEMIBREVE) out = "semibreve";
+
+  if (rest)
+  {
+    out = "rest-" + out;
+  }
+  else if (s != "sb")
+  {
+    out += "-up"; // TODO up/down flag
+  }
+
+  if (dot)
+  {
+    // TODO raised dot if glyph is on a line
+    out = "dotted-" + out + "-raised-dot";
+  }
+  return out;
+}
+
+Glyph::Glyph(const std::string& inputToken, int order_) :
+  displayGlyphName(GetStr(inputToken)), realGlyphName(inputToken),
+  order(order_)
+{
+  HandleStar();
+}
+
+void Glyph::SetDisplayNameForBeamedNote()
+{
+  // E.g. "q" or "qq" -> "crotchet-up" for a beamed quaver.
+  // Take dottedness into account.
+
+  bool dot = Contains(realGlyphName, '.');
+  displayGlyphName = GetStr(dot ? "c." : "c");
+}
+
 void Glyph::HandleStar()
 {
   if (Contains(realGlyphName, '*'))
@@ -21,8 +69,6 @@ std::string Glyph::ToString() const
   //  for animation and MIDI events. 
   std::string res = TimeBefore();
 
-  // TODO Calc y, using current pitch, stave, and clef. 
-  // TODO Add accidental if required, by checking current key sig.
   res += displayGlyphName + ", " + Str(x) + ", " + Str(y) +
     ", " + Str(scale) + ", " + Str(scale);
 
@@ -76,5 +122,3 @@ std::string Glyph::TimeAfter() const
   }
   return res;
 }
-
-

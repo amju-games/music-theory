@@ -95,5 +95,8 @@
     <ClInclude Include="..\..\..\..\Source\MakeScore\Pitch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MakeScore\Clef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -86,4 +86,7 @@ struct Bar
   // y is an offset added to the y-coord of each glyph (all the same for
   //  rhythm scores). 
   void SetPos(float x, float y);
+
+  // Calc y-position for glyph, given stave type, pitch and (TODO) clef
+  float CalcGlyphY(int pitch) const;
 };

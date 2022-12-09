@@ -12,16 +12,17 @@
 
 struct Tie;
 
+// * Glyph *
+// Note or rest glyph, corresponding to one input token, and one output
+//  (compound) glyph.
 struct Glyph : public IGlyph
 {
   Glyph() = default;
-  Glyph(const std::string& str_, int order_) :
-    displayGlyphName(GetStr(str_)), realGlyphName(str_),
-    order(order_)
-  {
-    HandleStar();
-  }
 
+  // Construct glyph from inpupt token and position in bar.
+  Glyph(const std::string& inputToken, int order);
+
+  // Replace display (output) glyph name with a star if required.
   void HandleStar();
 
   std::string TimeBefore() const;
@@ -36,14 +37,7 @@ struct Glyph : public IGlyph
 
   void SetTimeVal(float timeval_) { timeval = timeval_; }
 
-  void SetDisplayNameForBeamedNote()
-  {
-    // E.g. "q" or "qq" -> "crotchet-up" for a beamed quaver.
-    // Take dottedness into account.
-
-    bool dot = Contains(realGlyphName, '.');
-    displayGlyphName = GetStr(dot ? "c." : "c");
-  }
+  void SetDisplayNameForBeamedNote();
 
   // Call to set this glyph as the left hand side of the given tie
   void SetTieLeft(Tie* tie) { m_tieLeft = tie; }
@@ -55,7 +49,7 @@ struct Glyph : public IGlyph
 
   // Two glyph names. E.g. we have a quaver, but it's drawn using a 
   //  crotchet glyph because it's beamed. So its 'real' name is 'q',
-  //  but its display name is 'crotchet'.
+  //  (i.e. the input token) but its display name is 'crotchet'.
   // Also we can set the display name to "*" for questions like 'what is the note?'.
   std::string displayGlyphName;
   std::string realGlyphName;
