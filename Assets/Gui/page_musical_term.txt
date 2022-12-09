@@ -30,7 +30,7 @@ Image/gui-button-2.png
 // Text
 HINT!
 // Font name, size
-dimbo, 1.0, fgcol=ffffff
+dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
 
 
 
@@ -51,7 +51,7 @@ Image/gui-button-2.png
 // Text
 PAUSE
 // Font name, size
-dimbo, 1.0, fgcol=ffffff
+dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
 
 
 
@@ -110,7 +110,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=ffffff
+dimbo, 1.0, fgcol=ffffff, bgcol=258FFB
 
 // element type
 gui-button
@@ -125,7 +125,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=ffffff
+dimbo, 1.0, fgcol=ffffff, bgcol=258FFB
 
 // element type
 gui-button
@@ -140,7 +140,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=ffffff
+dimbo, 1.0, fgcol=ffffff, bgcol=258FFB
 
 // element type
 gui-button
@@ -155,7 +155,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=ffffff
+dimbo, 1.0, fgcol=ffffff, bgcol=258FFB
 
 
 gui-image

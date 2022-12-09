@@ -73,5 +73,5 @@ Image/gui-button-2.png
 // Text
 START
 // Font name, size
-dimbo, 1.0, fgcol=ffffff
+dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
 
