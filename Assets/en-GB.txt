@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-91
+104
 1=Welcome to Amjula Music School!
 2=Swipe left and right to move along the corridor!
 3=Which clef?
@@ -93,3 +93,16 @@
 89=HINT!
 90=Sure you want to quit?
 91=Same pitch
+92=Tap on the correct answer!
+93=Tap on the name of this note!
+94=Tap on the name of this scale!
+95=What's this tonic triad?
+96=Tap on the correct key signature!
+97=Play the note
+98=Play the note shown on the piano!
+99=Tap on the correct meaning!
+100=What is the name of this interval?
+101=Crotchet rest
+102=Quaver rest
+103=Semiquaver rest
+104=Minim rest

@@ -24,16 +24,16 @@ $$$3
 none
 // Pages
 10
-page-symbol-symbol=Course/which_clef.txt=@@@Which clef?
-page-symbol-symbol=Course/which_clef.txt=@@@Which clef?
-page-symbol-symbol=Course/which_clef.txt=@@@Which clef?
-page-symbol-symbol=Course/which_clef.txt=@@@Which clef?
-page-symbol-symbol=Course/which_clef.txt=@@@Which clef?
-page-symbol-symbol=Course/which_clef.txt=@@@Which clef?
-page-symbol-symbol=Course/which_clef.txt=@@@Which clef?
-page-symbol-symbol=Course/which_clef.txt=@@@Which clef?
-page-symbol-symbol=Course/which_clef.txt=@@@Which clef?
-page-symbol-symbol=Course/which_clef.txt=@@@Which clef?
+page-symbol-symbol=Course/which_clef.txt=$$$3
+page-symbol-symbol=Course/which_clef.txt=$$$3
+page-symbol-symbol=Course/which_clef.txt=$$$3
+page-symbol-symbol=Course/which_clef.txt=$$$3
+page-symbol-symbol=Course/which_clef.txt=$$$3
+page-symbol-symbol=Course/which_clef.txt=$$$3
+page-symbol-symbol=Course/which_clef.txt=$$$3
+page-symbol-symbol=Course/which_clef.txt=$$$3
+page-symbol-symbol=Course/which_clef.txt=$$$3
+page-symbol-symbol=Course/which_clef.txt=$$$3
 
 
 // Topic
@@ -49,16 +49,16 @@ $$$4
 none
 // Pages
 10
-page-symbol-text=Course/higher_or_lower.txt=@@@Tap on the correct answer!
-page-symbol-text=Course/higher_or_lower.txt=@@@Tap on the correct answer!
-page-symbol-text=Course/higher_or_lower.txt=@@@Tap on the correct answer!
-page-symbol-text=Course/higher_or_lower.txt=@@@Tap on the correct answer!
-page-symbol-text=Course/higher_or_lower.txt=@@@Tap on the correct answer!
-page-symbol-text=Course/higher_or_lower.txt=@@@Tap on the correct answer!
-page-symbol-text=Course/higher_or_lower.txt=@@@Tap on the correct answer!
-page-symbol-text=Course/higher_or_lower.txt=@@@Tap on the correct answer!
-page-symbol-text=Course/higher_or_lower.txt=@@@Tap on the correct answer!
-page-symbol-text=Course/higher_or_lower.txt=@@@Tap on the correct answer!
+page-symbol-text=Course/higher_or_lower.txt=$$$92
+page-symbol-text=Course/higher_or_lower.txt=$$$92
+page-symbol-text=Course/higher_or_lower.txt=$$$92
+page-symbol-text=Course/higher_or_lower.txt=$$$92
+page-symbol-text=Course/higher_or_lower.txt=$$$92
+page-symbol-text=Course/higher_or_lower.txt=$$$92
+page-symbol-text=Course/higher_or_lower.txt=$$$92
+page-symbol-text=Course/higher_or_lower.txt=$$$92
+page-symbol-text=Course/higher_or_lower.txt=$$$92
+page-symbol-text=Course/higher_or_lower.txt=$$$92
 
 
 // Topic
@@ -74,16 +74,16 @@ $$$5
 none
 // Pages
 10
-page-symbol-symbol=Course/name_the_note.txt=@@@Tap on the name of this note!
-page-symbol-symbol=Course/name_the_note.txt=@@@Tap on the name of this note!
-page-symbol-symbol=Course/name_the_note.txt=@@@Tap on the name of this note!
-page-symbol-symbol=Course/name_the_note.txt=@@@Tap on the name of this note!
-page-symbol-symbol=Course/name_the_note.txt=@@@Tap on the name of this note!
-page-symbol-symbol=Course/name_the_note.txt=@@@Tap on the name of this note!
-page-symbol-symbol=Course/name_the_note.txt=@@@Tap on the name of this note!
-page-symbol-symbol=Course/name_the_note.txt=@@@Tap on the name of this note!
-page-symbol-symbol=Course/name_the_note.txt=@@@Tap on the name of this note!
-page-symbol-symbol=Course/name_the_note.txt=@@@Tap on the name of this note!
+page-symbol-symbol=Course/name_the_note.txt=$$$93
+page-symbol-symbol=Course/name_the_note.txt=$$$93
+page-symbol-symbol=Course/name_the_note.txt=$$$93
+page-symbol-symbol=Course/name_the_note.txt=$$$93
+page-symbol-symbol=Course/name_the_note.txt=$$$93
+page-symbol-symbol=Course/name_the_note.txt=$$$93
+page-symbol-symbol=Course/name_the_note.txt=$$$93
+page-symbol-symbol=Course/name_the_note.txt=$$$93
+page-symbol-symbol=Course/name_the_note.txt=$$$93
+page-symbol-symbol=Course/name_the_note.txt=$$$93
 
 
 //// Topic
@@ -123,16 +123,16 @@ $$$6
 none
 // Pages
 10
-page-symbol-text=Course/whats_the_scale.txt=@@@Tap on the name of this scale!
-page-symbol-text=Course/whats_the_scale.txt=@@@Tap on the name of this scale!
-page-symbol-text=Course/whats_the_scale.txt=@@@Tap on the name of this scale!
-page-symbol-text=Course/whats_the_scale.txt=@@@Tap on the name of this scale!
-page-symbol-text=Course/whats_the_scale.txt=@@@Tap on the name of this scale!
-page-symbol-text=Course/whats_the_scale.txt=@@@Tap on the name of this scale!
-page-symbol-text=Course/whats_the_scale.txt=@@@Tap on the name of this scale!
-page-symbol-text=Course/whats_the_scale.txt=@@@Tap on the name of this scale!
-page-symbol-text=Course/whats_the_scale.txt=@@@Tap on the name of this scale!
-page-symbol-text=Course/whats_the_scale.txt=@@@Tap on the name of this scale!
+page-symbol-text=Course/whats_the_scale.txt=$$$94
+page-symbol-text=Course/whats_the_scale.txt=$$$94
+page-symbol-text=Course/whats_the_scale.txt=$$$94
+page-symbol-text=Course/whats_the_scale.txt=$$$94
+page-symbol-text=Course/whats_the_scale.txt=$$$94
+page-symbol-text=Course/whats_the_scale.txt=$$$94
+page-symbol-text=Course/whats_the_scale.txt=$$$94
+page-symbol-text=Course/whats_the_scale.txt=$$$94
+page-symbol-text=Course/whats_the_scale.txt=$$$94
+page-symbol-text=Course/whats_the_scale.txt=$$$94
 
 // Topic
 // ID
@@ -147,16 +147,16 @@ $$$7
 none
 // Pages
 10
-page-symbol-text=Course/whats_the_tonic_triad.txt=@@@What's this tonic triad?
-page-symbol-text=Course/whats_the_tonic_triad.txt=@@@What's this tonic triad?
-page-symbol-text=Course/whats_the_tonic_triad.txt=@@@What's this tonic triad?
-page-symbol-text=Course/whats_the_tonic_triad.txt=@@@What's this tonic triad?
-page-symbol-text=Course/whats_the_tonic_triad.txt=@@@What's this tonic triad?
-page-symbol-text=Course/whats_the_tonic_triad.txt=@@@What's this tonic triad?
-page-symbol-text=Course/whats_the_tonic_triad.txt=@@@What's this tonic triad?
-page-symbol-text=Course/whats_the_tonic_triad.txt=@@@What's this tonic triad?
-page-symbol-text=Course/whats_the_tonic_triad.txt=@@@What's this tonic triad?
-page-symbol-text=Course/whats_the_tonic_triad.txt=@@@What's this tonic triad?
+page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
+page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
+page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
+page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
+page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
+page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
+page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
+page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
+page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
+page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
 
 // Topic
 // ID
@@ -171,23 +171,24 @@ $$$8
 none
 // Pages
 10
-page-symbol-text=Course/whats_the_key_sig.txt=@@@Tap on the correct key signature!
-page-symbol-text=Course/whats_the_key_sig.txt=@@@Tap on the correct key signature!
-page-symbol-text=Course/whats_the_key_sig.txt=@@@Tap on the correct key signature!
-page-symbol-text=Course/whats_the_key_sig.txt=@@@Tap on the correct key signature!
-page-symbol-text=Course/whats_the_key_sig.txt=@@@Tap on the correct key signature!
-page-symbol-text=Course/whats_the_key_sig.txt=@@@Tap on the correct key signature!
-page-symbol-text=Course/whats_the_key_sig.txt=@@@Tap on the correct key signature!
-page-symbol-text=Course/whats_the_key_sig.txt=@@@Tap on the correct key signature!
-page-symbol-text=Course/whats_the_key_sig.txt=@@@Tap on the correct key signature!
-page-symbol-text=Course/whats_the_key_sig.txt=@@@Tap on the correct key signature!
+page-symbol-text=Course/whats_the_key_sig.txt=$$$96
+page-symbol-text=Course/whats_the_key_sig.txt=$$$96
+page-symbol-text=Course/whats_the_key_sig.txt=$$$96
+page-symbol-text=Course/whats_the_key_sig.txt=$$$96
+page-symbol-text=Course/whats_the_key_sig.txt=$$$96
+page-symbol-text=Course/whats_the_key_sig.txt=$$$96
+page-symbol-text=Course/whats_the_key_sig.txt=$$$96
+page-symbol-text=Course/whats_the_key_sig.txt=$$$96
+page-symbol-text=Course/whats_the_key_sig.txt=$$$96
+page-symbol-text=Course/whats_the_key_sig.txt=$$$96
 
 
 // Topic
 // ID
 play-the-note
 // Localised display name
-@@@Play the note
+// Play the note
+$$$97
 // Group
 4
 // Initially locked?
@@ -196,16 +197,16 @@ none
 // Pages
 10
 // 3rd param is x offset for keyboard=moving mid C close to left edge of screen
-page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=@@@Play the note shown on the piano!
-page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=@@@Play the note shown on the piano!
-page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=@@@Play the note shown on the piano!
-page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=@@@Play the note shown on the piano!
-page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=@@@Play the note shown on the piano!
-page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=@@@Play the note shown on the piano!
-page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=@@@Play the note shown on the piano!
-page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=@@@Play the note shown on the piano!
-page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=@@@Play the note shown on the piano!
-page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=@@@Play the note shown on the piano!
+page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
+page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
+page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
+page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
+page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
+page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
+page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
+page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
+page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
+page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
 
 
 
@@ -264,16 +265,16 @@ none
 // Pages
 // 10 * musical term pages -- TODO num repeats?
 10
-page-text-text=Course/musical_terms.txt=@@@Tap on the correct meaning!
-page-text-text=Course/musical_terms.txt=@@@Tap on the correct meaning!
-page-text-text=Course/musical_terms.txt=@@@Tap on the correct meaning!
-page-text-text=Course/musical_terms.txt=@@@Tap on the correct meaning!
-page-text-text=Course/musical_terms.txt=@@@Tap on the correct meaning!
-page-text-text=Course/musical_terms.txt=@@@Tap on the correct meaning!
-page-text-text=Course/musical_terms.txt=@@@Tap on the correct meaning!
-page-text-text=Course/musical_terms.txt=@@@Tap on the correct meaning!
-page-text-text=Course/musical_terms.txt=@@@Tap on the correct meaning!
-page-text-text=Course/musical_terms.txt=@@@Tap on the correct meaning!
+page-text-text=Course/musical_terms.txt=$$$99
+page-text-text=Course/musical_terms.txt=$$$99
+page-text-text=Course/musical_terms.txt=$$$99
+page-text-text=Course/musical_terms.txt=$$$99
+page-text-text=Course/musical_terms.txt=$$$99
+page-text-text=Course/musical_terms.txt=$$$99
+page-text-text=Course/musical_terms.txt=$$$99
+page-text-text=Course/musical_terms.txt=$$$99
+page-text-text=Course/musical_terms.txt=$$$99
+page-text-text=Course/musical_terms.txt=$$$99
 
 // Topic
 // ID
@@ -289,16 +290,16 @@ none
 // Pages
 // 10 * musical term pages -- TODO num repeats?
 10
-page-symbol-text=Course/musical_symbols.txt=@@@Tap on the correct meaning!
-page-symbol-text=Course/musical_symbols.txt=@@@Tap on the correct meaning!
-page-symbol-text=Course/musical_symbols.txt=@@@Tap on the correct meaning!
-page-symbol-text=Course/musical_symbols.txt=@@@Tap on the correct meaning!
-page-symbol-text=Course/musical_symbols.txt=@@@Tap on the correct meaning!
-page-symbol-text=Course/musical_symbols.txt=@@@Tap on the correct meaning!
-page-symbol-text=Course/musical_symbols.txt=@@@Tap on the correct meaning!
-page-symbol-text=Course/musical_symbols.txt=@@@Tap on the correct meaning!
-page-symbol-text=Course/musical_symbols.txt=@@@Tap on the correct meaning!
-page-symbol-text=Course/musical_symbols.txt=@@@Tap on the correct meaning!
+page-symbol-text=Course/musical_symbols.txt=$$$99
+page-symbol-text=Course/musical_symbols.txt=$$$99
+page-symbol-text=Course/musical_symbols.txt=$$$99
+page-symbol-text=Course/musical_symbols.txt=$$$99
+page-symbol-text=Course/musical_symbols.txt=$$$99
+page-symbol-text=Course/musical_symbols.txt=$$$99
+page-symbol-text=Course/musical_symbols.txt=$$$99
+page-symbol-text=Course/musical_symbols.txt=$$$99
+page-symbol-text=Course/musical_symbols.txt=$$$99
+page-symbol-text=Course/musical_symbols.txt=$$$99
 
 
 
@@ -315,15 +316,15 @@ $$$11
 none
 // Pages
 10
-page-symbol-text=Course/intervals.txt=@@@What is the name of this interval?
-page-symbol-text=Course/intervals.txt=@@@What is the name of this interval?
-page-symbol-text=Course/intervals.txt=@@@What is the name of this interval?
-page-symbol-text=Course/intervals.txt=@@@What is the name of this interval?
-page-symbol-text=Course/intervals.txt=@@@What is the name of this interval?
-page-symbol-text=Course/intervals.txt=@@@What is the name of this interval?
-page-symbol-text=Course/intervals.txt=@@@What is the name of this interval?
-page-symbol-text=Course/intervals.txt=@@@What is the name of this interval?
-page-symbol-text=Course/intervals.txt=@@@What is the name of this interval?
-page-symbol-text=Course/intervals.txt=@@@What is the name of this interval?
+page-symbol-text=Course/intervals.txt=$$$100
+page-symbol-text=Course/intervals.txt=$$$100
+page-symbol-text=Course/intervals.txt=$$$100
+page-symbol-text=Course/intervals.txt=$$$100
+page-symbol-text=Course/intervals.txt=$$$100
+page-symbol-text=Course/intervals.txt=$$$100
+page-symbol-text=Course/intervals.txt=$$$100
+page-symbol-text=Course/intervals.txt=$$$100
+page-symbol-text=Course/intervals.txt=$$$100
+page-symbol-text=Course/intervals.txt=$$$100
 
 
