@@ -35,6 +35,27 @@ music-score
 stave, -0.5, 0, 20, 1
 treble-clef, 0, 0
 
+crotchet, 0.6, 0
+., 0.875, 0.03
+// NOTE WITH STEMS
+note-minim, 1.0, 0
+tail, 1.0, 0
+
+// stem-down
+//quad, 1.02, 0.1,  1.02, 0.475,  1.0, 0.475,  1.0, 0.1
+// stem-up
+//quad, 1.205, 0.475,  1.205, 0.825,  1.185, 0.825,  1.185, 0.475
+
+
+// NOTE WITH STEMS
+note-full, 2.0, 0.05
+// stem-down
+quad, 2.02, 0.15,  2.02, 0.525,  2.0, 0.525,  2.0, 0.15
+// stem-up
+quad, 2.21, 0.525,  2.21, 0.895,  2.19, 0.895,  2.19, 0.525
+
+end
+
 // Beams etc tests
 // 4 points, defined in anti-clockwise (CCW) order
 quad, 0, 0,  1, 0.1,  1, 0.2,  0, 0.1
