@@ -4,15 +4,20 @@
 // version
 1
 
-// Hint counter and button
+// Hint buttons and counters
+
+// Colour for helpful buttons: 01D76B ?
 
 gui-comp
-hint-button-and-counter
+hint-buttons-and-counters
 // Num children
-2
+1
 
-colour
-ffffffff, ffffff20
+
+gui-comp
+the-hint-button
+// Button, and animated counter in circle
+2
 
 // Hint button
 gui-button
@@ -24,9 +29,107 @@ hint-button
 Image/gui-button-2.png
 // HINT!
 $$$89
-// TODO This colour is no good for hint
-dimbo, 2.0, fgcol=ffffff, bgcol=D80629
+dimbo, 2.0, fgcol=ffffff, bgcol=01D76B
 
-include
-hint-display-no-button.txt
+// Counter: animated number in circle
 
+// Animation
+animation
+name-not-used
+repeat
+0.4
+linear
+//
+// Jump up a bit
+translate
+0,0 ; 0, 0.005
+
+gui-comp
+circle-and-number
+2
+
+// Coloured circle behind counter
+colour
+// Same as score BG
+4D68F1
+//
+gui-image
+score-bg
+-.51, 0.09
+.12, .18
+Image/rough-circle.png, stretch
+
+
+// The number of hints
+//
+gui-text
+hint-counter
+// pos (coords are -1..1)
+-.5, 0.05 
+// size
+0.1, 0.1
+// Text
+NUM
+// Font name, size
+dimbo, 1, fgcol=ffffff
+
+// =============================================
+// Not used, TODO move here
+// Play button
+
+gui-comp
+play-button
+2
+
+
+gui-button
+play-button-button
+// pos (coords are -1..1)
+-0.075, 0.05
+// size
+0.15, 0.2
+Image/gui-button-1.png
+B
+icon, 2.5, fgcol=ffffff, bgcol=01D76B
+
+// Counter: animated number in circle
+
+// Animation
+animation
+name-not-used
+repeat
+0.4
+linear
+//
+// Jump up a bit
+translate
+0,0 ; 0, 0.005
+
+gui-comp
+circle-and-number
+2
+
+// Coloured circle behind counter
+colour
+// Same as score BG
+4D68F1
+//
+gui-image
+score-bg
+-.51, 0.09
+.12, .18
+Image/rough-circle.png, stretch
+
+
+// The number of hints
+//
+gui-text
+hint-counter
+// pos (coords are -1..1)
+-.5, 0.05 
+// size
+0.1, 0.1
+// Text
+NUM
+// Font name, size
+dimbo, 1, fgcol=ffffff

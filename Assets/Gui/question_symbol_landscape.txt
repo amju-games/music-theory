@@ -26,12 +26,12 @@ TEXT, 1.5, fgcol=ffffff
 gui-button
 play-button
 // pos (coords are -1..1)
--0.075, 0.05
+-0.1, 0.05
 // size
-0.15, 0.2
-Image/gui-button-1.png
+0.3, 0.15
+Image/gui-button-2.png
 B
-icon, 2.5, fgcol=ffffff, bgcol=4E69F4
+icon, 2.5, fgcol=ffffff, bgcol=01D76B
 
 
 animation

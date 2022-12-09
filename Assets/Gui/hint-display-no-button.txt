@@ -6,43 +6,12 @@
 
 // Hint counter and button
 
-gui-comp
-hint-button-and-counter
-// Num children
-1
-
-gui-comp
-hint-counter-comp
-3
-
-// 3D Basket
-3d-scene
-basket
--0.8, 0
-1, 1
-Scene/basket-scene.txt
-
 translate
-0.01, -0.01
-gui-text
-hint-counter-shadow
-// pos (coords are -1..1)
--1, -0.05 
-// size
-0.4, 0.1
-// Text
-NUM
-// Font name, size
-NUMERIC, 2.0, fgcol=0000ff
-
-gui-text
-hint-counter
-// pos (coords are -1..1)
--1, -0.05 
-// size
-0.4, 0.1
-// Text
-NUM
-// Font name, size
-NUMERIC, 2.0, fgcol=ffffff
+0, -0.75
+//
+colour
+ffffffc0
+//
+include
+hint-display.txt
 
