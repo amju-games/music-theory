@@ -25,10 +25,11 @@
 #include <BassSoundPlayer.h>
 #include <CursorManager.h>
 #include <Directory.h>
+#include <EventPoller.h>
 #include <Font.h>
 #include <Game.h>
 #include <GuiRect.h>
-#include <EventPoller.h>
+#include <Localise.h>
 #include <ObjMesh.h>
 #include <ResourceManager.h>
 #include <SoundManager.h>
@@ -106,6 +107,12 @@ void StartUpAfterCreateWindow()
 #if defined(WIN32) || defined(MACOSX)
   TheCursorManager::Instance()->Load(Vec2f(0.025f, -0.08f)); // hotspot position
 #endif
+
+  // TODO Other languages - preferences
+  if (!Localise::LoadStringTable("english.txt"))
+  {
+    ReportError("No localise string table.");
+  }
 
   // Set image used for rounded rectangles
   GuiRect::SetCornerImage("Image/corner.png");
