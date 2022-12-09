@@ -5,6 +5,13 @@ Basic demo:
  - some test cards
 
 
+Every game state can have multiple layouts - 4 currently.
+ - Phone/tablet * landscape/portrait
+But the elements are always the same, with the same names. 
+So we can refer to Gui element names in Question/Hint/Answer definitions?
+Shouldn't need to.
+
+
 Learns/Tests are GUIs, so we have buttons, images, Elastics, etc.
 The tests are also GuiElements embedded in the Gui tree. We will want a base class like
 class MusicTest : public GuiElement or GuiComposite.
@@ -33,13 +40,6 @@ Gui decorators
 
 
 
-Mac: drawing not working, although user draw is, strangely.
- - Perhaps due to control points, which I couldn't get to work with user drawing. Same problem?
-
-Mac: no midi notes. But more important is the **iOS build** and **tests**.
-
-iOS: add amjulib to project. 
-Add ortho projection to AmjUGL ES
 
 <Quick referesher or back to the story? Or always story, it's not very intrusive.
 
@@ -80,7 +80,6 @@ OK, version 1.11.0 works ok
 Results are suspiciously good. Continue to test.
 
 
-Reload images - so trash GL resources and re-upload
 
 Fix composite bring child to front - OK
 
