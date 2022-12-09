@@ -1,0 +1,53 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Start topic
+
+// version
+1
+
+// Direction control, like arrow keys on a keyboard
+
+scale
+1,1
+0, 0
+
+gui-comp
+direction-control
+4
+
+gui-button
+button-dir-left
+0, 0
+0.1, 0.1
+Image/gui-button-square.png
+A
+icon, 1.5, fgcol=ffffff, bgcol=4E69F4
+
+
+gui-button
+button-dir-right
+.2,0
+0.1, 0.1
+Image/gui-button-square.png
+B
+icon, 1.5, fgcol=ffffff, bgcol=4E69F4
+
+
+gui-button
+button-dir-up
+.1,.2
+0.1, 0.1
+Image/gui-button-square.png
+I
+icon, 1.5, fgcol=ffffff, bgcol=4E69F4
+
+
+gui-button
+button-dir-down
+.1,-.2
+0.1, 0.1
+Image/gui-button-square.png
+J
+icon, 1.5, fgcol=ffffff, bgcol=4E69F4
+

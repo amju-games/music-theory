@@ -51,6 +51,9 @@ clean-anim
 const
 one
 
+translate
+0,0
+
 gui-comp
 avatar-head-and-face
 6

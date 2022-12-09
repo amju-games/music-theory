@@ -1116,12 +1116,6 @@
     <Text Include="..\..\..\..\Assets\Gui\static-certificate.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar-eye-simple.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\composers.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
@@ -1133,6 +1127,27 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\modal-buttons.txt">
       <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-bg-and-tabs.txt">
+      <Filter>Assets\Gui\AvatarMod</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\colour-picker.txt">
+      <Filter>Assets\Gui\AvatarMod</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-head.txt">
+      <Filter>Assets\Gui\AvatarMod</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\direction-control.txt">
+      <Filter>Assets\Gui\AvatarMod</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs-avatar-mod.txt">
+      <Filter>Assets\Gui\AvatarMod</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\avatar.txt">
+      <Filter>Assets\Gui\AvatarMod</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\avatar-eye-simple.txt">
+      <Filter>Assets\Gui\AvatarMod</Filter>
     </Text>
   </ItemGroup>
 </Project>

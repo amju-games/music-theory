@@ -1,0 +1,88 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Start topic
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+gs-avatar-mod-root
+// Num children
+6
+
+// Avatar
+
+elastic
+-.05,0
+
+translate
+-.4 , .2
+scale
+.35,.35
+// Pivot, unlikely to work here
+0.5,0.5
+
+gui-avatar
+// Name
+avatar
+// Avatar string: sets values on nodes in the avatar GUI tree
+colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040
+
+include
+avatar.txt
+
+// Flush so buttons will overlap avatar
+flush
+
+// Quit button
+// element type
+gui-button
+// Element name
+cancel-button
+// pos (coords are -1..1)
+-0.96, 0.92
+// size
+0.12, 0.12
+// Image 
+Image/gui-button-1.png
+// Text
+// Quit "X"
+G
+// Font name, size
+icon, 1.5, fgcol=ffffff, bgcol=FF0949
+
+
+// OK button
+gui-button
+start-button
+-0.7, -0.4
+0.4, 0.15
+Image/gui-button-2.png
+OK!
+BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
+
+
+// Background
+include
+avatar-mod-bg-and-tabs.txt
+
+// Set this translation to set which page is on screen
+translate
+0,0
+
+// All pages - the current tab is used to set translation and so which page is
+//  on screen.
+gui-comp
+control-pages-root
+1
+
+// Controls
+translate
+0,0
+
+include 
+avatar-mod-head.txt
+

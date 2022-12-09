@@ -8,6 +8,7 @@
 #include <GuiDecAnimation.h>
 #include <ROConfig.h>
 #include "ComposerList.h"
+#include "GSAvatarMod.h"
 #include "GSBase.h"
 #include "LurkMsg.h"
 #include "Notebook.h" // TODO TEMP TEST for debugging
@@ -161,6 +162,18 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
     (ke.key == 'n' || ke.key == 'N'))
   {
     TheLurker::Instance()->Queue(new Notebook);
+  }
+
+  // Avatar mod
+  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
+     (ke.key == 'a' || ke.key == 'A'))
+  {
+    GSAvatarMod* a = TheGSAvatarMod::Instance();
+    if (a->GetPrevState() != this)
+    {
+      a->SetPrevState(this);
+    }
+    TheGame::Instance()->SetCurrentState(a);
   }
 
 #endif

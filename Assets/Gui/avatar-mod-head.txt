@@ -1,0 +1,22 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Avatar mod head
+
+// version
+1
+
+gui-comp
+avatar-mod-head
+2
+
+
+colour-picker
+colour-picker.txt
+
+
+translate
+0, -0.4
+
+include
+direction-control.txt
