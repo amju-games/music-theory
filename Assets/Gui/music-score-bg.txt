@@ -7,12 +7,104 @@
 1
 
 gui-comp
-score-bg-comp
-1
+music-score-bg-comp
+6
+
+// A
 
 gui-image
 score-white-bg
 -0.9, 0.75
 1.8, 0.6
-Image/paper2.png, stretch
+Image/paper2a.png, stretch
+
+
+// B
+
+animation
+name-not-used
+one-shot
+.1
+step
+
+colour
+ffffff00, ffffffff
+
+gui-image
+score-white-bg
+-0.9, 0.75
+1.8, 0.6
+Image/paper2b.png, stretch
+
+
+// C
+
+animation
+name-not-used
+one-shot
+.2
+step
+
+colour
+ffffff00, ffffffff
+
+gui-image
+score-white-bg
+-0.9, 0.75
+1.8, 0.6
+Image/paper2c.png, stretch
+
+
+// D
+
+animation
+name-not-used
+one-shot
+.3
+step
+
+colour
+ffffff00, ffffffff
+
+gui-image
+score-white-bg
+-0.9, 0.75
+1.8, 0.6
+Image/paper2d.png, stretch
+
+
+// E
+
+animation
+name-not-used
+one-shot
+.4
+step
+
+colour
+ffffff00, ffffffff
+
+gui-image
+score-white-bg
+-0.9, 0.75
+1.8, 0.6
+Image/paper2e.png, stretch
+
+
+// F
+
+animation
+delay
+one-shot
+.5
+step
+
+colour
+ffffff00, ffffffff
+
+gui-image
+score-white-bg
+-0.9, 0.75
+1.8, 0.6
+Image/paper2f.png, stretch
 

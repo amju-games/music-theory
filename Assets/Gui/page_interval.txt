@@ -65,6 +65,15 @@ score-root
 include
 music-score-bg.txt
 
+animation
+fade-in-music-score
+one-shot
+.6
+ease-in-out
+
+colour
+ffffff00, ffffffff
+
 music-score
 // Name, Position
 music-score
