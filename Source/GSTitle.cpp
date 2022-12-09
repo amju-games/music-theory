@@ -20,13 +20,13 @@ static void OnStart(GuiElement* elem)
   Assert(cf);
   if (true)//cf->Exists(KEY_USER_NAME))
   {
-    TheGSTitle::Instance()->HideButtons()->ScrollUp();
+//    TheGSTitle::Instance()->HideButtons()->ScrollUp();
     TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainMenu>, SecondsFromNow(1.5f)));
   }
   else
   {
     // No user profile yet. Go to first user state.
-    TheGSTitle::Instance()->HideButtons()->ScrollUp();
+//    TheGSTitle::Instance()->HideButtons()->ScrollUp();
     TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSFirstUser>, SecondsFromNow(1.5f)));
   }
 }
@@ -34,11 +34,12 @@ static void OnStart(GuiElement* elem)
 GSTitle::GSTitle()
 {
   m_guiFilename = "Gui/gs_title.txt";
+  m_sceneFilename = "Scene/schoolhouse-scene.txt";
 }
 
 void GSTitle::OnActive()
 {
-  GSBase::OnActive();
+  GSBase3d::OnActive();
 
   // Set button commands
   GuiElement* startButton = GetElementByName(m_gui, "start-button");

@@ -9,6 +9,7 @@
 #include <GuiDecColour.h>
 #include <GuiText.h>
 #include <MessageQueue.h>
+#include <SceneGraph.h>
 
 #include "Course.h"
 #include "GSMainMenu.h"
@@ -18,6 +19,7 @@
 #include "GSTopicEnd.h"
 #include "GuiLineDrawing.h"
 #include "Keys.h"
+#include "Md2SceneNode.h" // TODO promote to Amjulib
 #include "PrintGui.h"
 #include "Topic.h"
 #include "UserProfile.h"
@@ -65,6 +67,7 @@ static void GoToNextPage()
 GSPages::GSPages()
 {
   m_guiFilename = "Gui/gs_pages_landscape.txt";
+  m_sceneFilename = "Scene/room1-scene.txt";
 }
 
 void GSPages::StartTopic(int topicNum)
@@ -111,12 +114,34 @@ void GSPages::ReloadGui()
   ShowHints();
 }
 
+void GSPages::Reload3d()
+{
+  GSBase3d::Reload3d();
+
+  SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
+
+  // TEST
+  // TODO Use Avatar system to make a 'teacher' avatar
+  Md2SceneNode* md2node = new Md2SceneNode;
+  md2node->LoadMd2("md2/av1.md2");
+  SceneNodeMaterial* dinoMaterial = new SceneNodeMaterial;
+  PTexture dinoTex = (Texture*)TheResourceManager::Instance()->GetRes("md2/skin.png");
+  dinoMaterial->SetTexture(dinoTex);
+  md2node->SetMaterial(dinoMaterial);
+  md2node->SetLocalTransform(Matrix().Translate(Vec3f(30, -23, 30)));
+
+  SceneNode* camera = root->GetNodeByName("camera");
+  Assert(camera);
+  camera->AddChild(md2node);
+}
+
 void GSPages::OnActive()
 {
   // This WON'T be called if we resume from pause, there is a confirm dialog
   //  in this state.
 
-  GameState::OnActive();
+  GSBase3d::OnActive();
+
   ReloadGui();
   //PrintGui(m_gui);
 
@@ -128,8 +153,6 @@ void GSPages::OnActive()
 //  ShowHints(); // ? Done in ReloadGui
 
   NextPage();
-
-  Load3d();
 }
 
 void GSPages::OnDeactive()

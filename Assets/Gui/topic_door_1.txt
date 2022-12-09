@@ -10,22 +10,7 @@
 
 gui-comp
 topic-door-comp
-5
-
-// Corridor background
-gui-image
-bg-image
-0, -.4
-0.8, 0.4
-Image/corridor-floor-1.png
-
-
-// Corridor background
-gui-image
-bg-image
-0, 1
-0.8, 0.4
-Image/corridor-1.png
+3
 
 
 // Topic button

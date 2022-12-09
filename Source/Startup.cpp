@@ -152,7 +152,7 @@ void StartUpAfterCreateWindow()
 //  TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSFirstUser::Instance());
 
-  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 
 }
 }

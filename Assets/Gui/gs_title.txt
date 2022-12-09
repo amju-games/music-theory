@@ -11,47 +11,7 @@ gui-comp
 // Name
 title-root
 // Num children
-3
-
-// Child 1 - fixed
-// SKY
-colour
-798EEB
-gui-image
-sky
--2.0, 1.0
-4.0, 4.0
-Image/white.png
-
-
-// Child 2 - Sun etc, scrolls up
-animation
-scroll-up-trigger
-const
-zero
-
-animation
-up-scroll-anim
-one-shot
-1.0
-ease-in-out
-
-translate
-0,0 ; 0, 3
-
-
-animation
-clean-anim-value
-const
-one
-
-gui-comp
-scroll-up-root
-5
-
-// Sun colour
-colour
-F6D84C
+2
 
 
 // delay
@@ -59,96 +19,6 @@ animation
 name-not-used
 one-shot
 1.0
-step
-
-animation
-name-not-used
-one-shot
-2.0
-ease-in-out
-
-scale
-0.2, 0.2; 1.0, 1.0
-0, 0
-
-gui-image
-bulb
-0, 0
-1, 1
-Image/bulb.png
-
-
-// Pulse 1
-// delay
-animation
-name-not-used
-one-shot
-6.0
-step
-
-animation
-name-not-used
-repeat
-1.5
-linear
-
-colour
-F6D84C80, F6D84C00
-
-scale
-0.1, 0.1; 4.0, 4.0
-0, 0
-
-gui-image
-bulb
-0, 0
-1, 1
-Image/bulb.png
-
-
-// Pulse 2
-// delay
-animation
-name-not-used
-one-shot
-7.0
-step
-
-animation
-name-not-used
-repeat
-1.5
-linear
-
-colour
-F6D84C80, F6D84C00
-
-scale
-0.1, 0.1; 5.0, 5.0
-0, 0
-
-gui-image
-bulb
-0, 0
-1, 1
-Image/bulb.png
-
-translate
-0, -3
-include
-ground.txt
-
-
-
-// Title text
-translate
--0.03, .24
-
-// delay
-animation
-name-not-used
-one-shot
-4.0
 step
 
 animation
@@ -182,36 +52,4 @@ START
 dimbo, 1.5, fgcol=ffffff, bgcol=FF0949
 
 
-
-
-
-// TEST
-
-colour
-6EB127
-
-translate
-0.0, 0.0
-
-animation
-name-not-used
-mirror-repeat
-2.0
-linear
-
-// TODO TEMP TEST
-//rotate
-//30.0, 0.0
-
-scale
-0.1, 0.1 ; 1.0, 1.0
-// pivot point
-0.0, 0
-
-gui-image
-topic-button-2
-// pos (coords are -1..1)
-0.0, 0
-0.6, 0.3
-Image/leaf1.png
 

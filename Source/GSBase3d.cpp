@@ -3,15 +3,12 @@
 
 #include <LoadScene.h>
 #include <ResourceManager.h>
-#include <SceneGraph.h> // TODO TEMP TEST
+#include <SceneGraph.h>
 #include "GSBase3d.h"
-#include "Md2SceneNode.h" // TODO TEMP TEST
 
 namespace Amju
 {
-
-// TODO TEMP TEST
-static SceneGraph* GetSceneGraph()
+SceneGraph* GSBase3d::GetSceneGraph()
 {
   static SceneGraph* sg = nullptr;
   if (!sg)
@@ -21,37 +18,19 @@ static SceneGraph* GetSceneGraph()
   return sg;
 }
 
-// TODO TEMP TEST
-void GSBase3d::Load3d()
+void GSBase3d::Reload3d()
 {
   SceneGraph* sg = GetSceneGraph();
+  sg->Clear(); // for reload
 
-  // Load 3D scene. TODO Base class for corridor/menu state and this, in-classroom state.
-  // TODO TEMP TEST
-  PSceneNode node = LoadScene("obj/pz-fence.obj");
-  Assert(node);
-  node->SetIsLit(true);
-  //Matrix m;
-  //m.Scale(0.5f, 0.5f, 0.5f);
-  //m.TranslateKeepRotation(Vec3f(0, 0, -4)); // TODO TEMP TEST
-  //node->SetLocalTransform(m);
   SceneNode* root = new SceneNode;
   sg->SetRootNode(SceneGraph::AMJU_OPAQUE, root);
+
+  // Load 3D scene. TODO Base class for corridor/menu state and this, in-classroom state.
+  PSceneNode node = LoadScene(m_sceneFilename);
+  Assert(node);
+  node->SetIsLit(true);
   root->AddChild(node);
-
-  // TEST
-  Md2SceneNode* md2node = new Md2SceneNode;
-  md2node->LoadMd2("md2/dino.md2");
-  SceneNodeMaterial* dinoMaterial = new SceneNodeMaterial;
-  PTexture dinoTex = (Texture*)TheResourceManager::Instance()->GetRes("md2/dino2a.png");
-  dinoMaterial->SetTexture(dinoTex);
-  md2node->SetMaterial(dinoMaterial);
-  root->AddChild(md2node);
-
-  SceneNodeCamera* camera = new SceneNodeCamera;
-  camera->SetEyePos(Vec3f(110, 0, 130));
-  camera->SetLookAtPos(Vec3f(80, 0, 0));
-  sg->SetCamera(camera);
 }
 
 void GSBase3d::Draw()
@@ -86,11 +65,18 @@ void GSBase3d::Draw()
   AmjuGL::PopMatrix();
 }
 
-void DebugCamera(char key)
+void GSBase3d::DebugCamera(char key)
 {
   const float CAM_POS_CHANGE = 1.f; // change in camera position
 
-  auto cam = GetSceneGraph()->GetCamera();
+  auto root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
+  SceneNode* node = root->GetNodeByName("camera");
+  SceneNodeCamera* cam = dynamic_cast<SceneNodeCamera*>(node);
+  if (!cam)
+  {
+    return;
+  }
+
   Vec3f eye = cam->GetEyePos();
   switch (key)
   {
@@ -128,6 +114,13 @@ bool GSBase3d::OnKeyEvent(const KeyEvent& ke)
   if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR)
   {
     DebugCamera(ke.key);
+
+    switch (ke.key)
+    {
+    case '3':
+      Reload3d();
+      break;
+    }
   }
 #endif // _DEBUG
 
@@ -138,6 +131,12 @@ void GSBase3d::Update()
 {
   GSBase::Update();
   GetSceneGraph()->Update();
+}
+
+void GSBase3d::OnActive()
+{
+  GSBase::OnActive();
+  Reload3d();
 }
 
 }

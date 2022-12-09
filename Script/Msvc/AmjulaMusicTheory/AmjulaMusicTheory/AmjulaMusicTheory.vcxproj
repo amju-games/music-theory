@@ -123,6 +123,8 @@
 /I "../../../../../amjulib/Source/Main" 
 /I "../../../../../amjulib/Source/Network"  /I "../../../../../amjulib/Source/Thread"  %(AdditionalOptions)</AdditionalOptions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -165,6 +167,8 @@
 /I "../../../../../amjulib/Source/Main" 
 /I "../../../../../amjulib/Source/Network"  /I "../../../../../amjulib/Source/Thread"  %(AdditionalOptions)</AdditionalOptions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -208,6 +212,8 @@
 /I "../../../../../amjulib/Source/Main" 
 /I "../../../../../amjulib/Source/Network"  /I "../../../../../amjulib/Source/Thread"  %(AdditionalOptions)</AdditionalOptions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -251,6 +257,7 @@
 /I "../../../../amjulib/Source/Utils" 
 /I "../../../../amjulib/Source/Main" 
 /I "../../../../amjulib/Source/Network"  /I "../../../../amjulib/Source/Thread"  %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -441,8 +448,13 @@
     <Text Include="..\..\..\..\Assets\Gui\text_bg_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\title-text.txt" />
     <Text Include="..\..\..\..\Assets\Gui\topic_door_1.txt" />
+    <Text Include="..\..\..\..\Assets\Scene\corridor-scene.txt" />
+    <Text Include="..\..\..\..\Assets\Scene\room1-scene.txt" />
+    <Text Include="..\..\..\..\Assets\Scene\schoolhouse-scene.txt" />
     <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-frag.txt" />
     <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-vert.txt" />
+    <Text Include="..\..\..\..\Assets\Shaders\opengl\rotating-frag.txt" />
+    <Text Include="..\..\..\..\Assets\Shaders\opengl\rotating-vert.txt" />
     <Text Include="..\..\..\..\Docs\bugs.txt" />
     <Text Include="..\..\..\..\Docs\TODO.txt" />
   </ItemGroup>

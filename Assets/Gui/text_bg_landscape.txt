@@ -8,14 +8,14 @@
 
 gui-comp
 text-bg-comp
-3
+0
 
 // Blackboard 
-gui-image
-blackboard
--0.5, 1.1
-1.4, 0.7
-Image/blackboard2.png, stretch
+//gui-image
+//blackboard
+//-0.5, 1.1
+//1.4, 0.7
+///Image/blackboard2.png, stretch
 
 // Desk with book on it
 gui-image

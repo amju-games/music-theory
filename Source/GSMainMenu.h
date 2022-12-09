@@ -3,12 +3,12 @@
 
 #pragma once
 
-#include "GSBase.h"
+#include "GSBase3d.h"
 #include <Singleton.h>
 
 namespace Amju
 {
-class GSMainMenu : public GSBase
+class GSMainMenu : public GSBase3d
 {
 public:
   GSMainMenu();

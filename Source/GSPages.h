@@ -52,6 +52,9 @@ protected:
   void OnPlayerMadeChoice(); // common tasks for OnCorrect/OnIncorrect
   void HideTickAndCross();
 
+  // Load 3D and add 'teacher' avatar
+  virtual void Reload3d() override;
+
 protected:
   RCPtr<Page> m_page;
 

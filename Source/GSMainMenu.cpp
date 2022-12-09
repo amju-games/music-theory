@@ -19,23 +19,30 @@ namespace Amju
 {
 static void OnShare(GuiElement*)
 {
-  TheGSMainMenu::Instance()->HideButtons()->ScrollUp();
+//  TheGSMainMenu::Instance()->HideButtons()->ScrollUp();
 }
 
 static void OnNewUser(GuiElement*)
 {
-  TheGSMainMenu::Instance()->HideButtons()->ScrollDown();
+//  TheGSMainMenu::Instance()->HideButtons()->ScrollDown();
 }
 
 static void OnAbout(GuiElement*)
 {
-  TheGSMainMenu::Instance()->HideButtons()->ScrollDown();
+//  TheGSMainMenu::Instance()->HideButtons()->ScrollDown();
   TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSAbout>, SecondsFromNow(1.0f)));
 }
 
 static void OnBackToTitle(GuiElement*)
 {
   TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+}
+
+static void OnTopic(GuiElement*)
+{
+  // Topic button for all topics: the currently selected topic is the
+  //  one we go to.
+  TheGSMainMenu::Instance()->GoToTopic(0); // TODO TEMP TEST
 }
 
 class TopicCommand : public GuiCommand
@@ -55,6 +62,8 @@ private:
 GSMainMenu::GSMainMenu()
 {
   m_guiFilename = "Gui/gs_main_menu_corridor.txt";
+  m_sceneFilename = "Scene/corridor-scene.txt";
+
 }
 
 void GSMainMenu::OnActive()
@@ -62,82 +71,22 @@ void GSMainMenu::OnActive()
   // Load the GUI. The buttons here correspond to Topics in the Course, but
   //  we don't want to try to programatically add the buttons. So the GUI layout
   //  here is coupled to the Course definition.
-  GSBase::OnActive();
+  GSBase3d::OnActive();
 
   // Get user config, so we know which topics have been unlocked.
   ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
 
-  // Set button commands. For the buttons corresponding to Topics, the command
-  //  sends us to that topic.
-  // Get the course, loop over the topics in it.
-  Course* course = GetCourse();
-  Assert(course);
-  int numTopics = course->GetNumTopics();
+  // Just one topic button, which is fixed in the centre of the screen.
+  // The scene scrolls left and right, but sticks so each door is under the 
+  //  button.
+  GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "topic-button"));
+  Assert(button);
+  button->SetCommand(OnTopic); 
 
-  GuiComposite* leafParent = dynamic_cast<GuiComposite*>(GetElementByName(m_gui, "scrolling-part-of-scene"));
-  Assert(leafParent);
-
-  for (int i = 0; i < numTopics; i++)
-  {
-    Topic* topic = course->GetTopic(i);
-
-    bool unlocked = (i == 0) || config->Exists(KEY_TOPIC_UNLOCKED + ToString(i));
-
-    // Create button for topic
-    const char* LEAF_FILE[2] = 
-    {
-      "Gui/topic_door_1.txt",
-      // TODO more door types
-    };
-    PGuiElement topicRoot = LoadGui(LEAF_FILE[0], false);
-
-    Assert(topicRoot);
-    // Add to composite in gui
-    leafParent->AddChild(topicRoot);
-
-#ifdef YES_WAIT_FOR_TOPIC
-    // Set wait time: topic button becomes visible/active after this time
-    GuiDecAnimation* wait = dynamic_cast<GuiDecAnimation*>(GetElementByName(topicRoot, "wait"));
-#ifdef _DEBUG
-    // Temp: don't wait, for debug/dev
-    wait->SetCycleTime(0.1f); // TODO TEMP TEST
-#else
-    wait->SetCycleTime(float)i * 1.2f); // TODO TEMP TEST
-#endif
-#endif // YES_WAIT_FOR_TOPIC
-
-    // Set position of topic button and associated GUI
-    Vec2f pos(static_cast<float>(i) * 0.8f - 1.0f, 0); // position horizontally
-    topicRoot->SetLocalPos(pos);
-
-    // Find the button corresponding to this topic
-    GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(topicRoot, "topic-button"));
-    Assert(button);
-    button->SetCommand(new TopicCommand(i));
-
-    // Set name for button
-    IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(topicRoot, "topic-name-text"));
-    Assert(text);
-    text->SetText(topic->GetDisplayName());
-
-#ifdef YES_LOCK_TOPICS
-    if (unlocked)
-    {
-      // ?
-      GuiDecAnimation* pulseAnim = dynamic_cast<GuiDecAnimation*>(GetElementByName(topicRoot, "pulse-leaf"));
-      pulseAnim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
-    }
-    else
-    {
-      button->SetIsEnabled(false);
-      Colour c = button->GetButtonColour();
-      c.m_a = 0.5f;
-      button->SetButtonColour(c);
-      // TODO text colour, but IGuiText has very limited interface
-    }
-#endif // YES_LOCK_TOPICS
-
-  }
+  // Set topic name - do this dynamically as we scroll
+  IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "topic-name-text"));
+  Assert(text);
+  text->SetText("Topic name"); // topic->GetDisplayName());
 
   // Back to title 
   GuiElement* title = GetElementByName(m_gui, "title-button");
@@ -145,6 +94,80 @@ void GSMainMenu::OnActive()
 
   GuiElement* about = GetElementByName(m_gui, "about-button");
   about->SetCommand(OnAbout);
+
+//  // Set button commands. For the buttons corresponding to Topics, the command
+//  //  sends us to that topic.
+//  // Get the course, loop over the topics in it.
+//  Course* course = GetCourse();
+//  Assert(course);
+//  int numTopics = course->GetNumTopics();
+//
+//  GuiComposite* leafParent = dynamic_cast<GuiComposite*>(GetElementByName(m_gui, "scrolling-part-of-scene"));
+//  Assert(leafParent);
+//
+//  for (int i = 0; i < numTopics; i++)
+//  {
+//    Topic* topic = course->GetTopic(i);
+//
+//    bool unlocked = (i == 0) || config->Exists(KEY_TOPIC_UNLOCKED + ToString(i));
+//
+//    // Create button for topic
+//    const char* LEAF_FILE[2] = 
+//    {
+//      "Gui/topic_door_1.txt",
+//      // TODO more door types
+//    };
+//    PGuiElement topicRoot = LoadGui(LEAF_FILE[0], false);
+//
+//    Assert(topicRoot);
+//    // Add to composite in gui
+//    leafParent->AddChild(topicRoot);
+//
+//#ifdef YES_WAIT_FOR_TOPIC
+//    // Set wait time: topic button becomes visible/active after this time
+//    GuiDecAnimation* wait = dynamic_cast<GuiDecAnimation*>(GetElementByName(topicRoot, "wait"));
+//#ifdef _DEBUG
+//    // Temp: don't wait, for debug/dev
+//    wait->SetCycleTime(0.1f); // TODO TEMP TEST
+//#else
+//    wait->SetCycleTime(float)i * 1.2f); // TODO TEMP TEST
+//#endif
+//#endif // YES_WAIT_FOR_TOPIC
+//
+//    // Set position of topic button and associated GUI
+//    Vec2f pos(static_cast<float>(i) * 0.8f - 1.0f, 0); // position horizontally
+//    topicRoot->SetLocalPos(pos);
+//
+//    // Find the button corresponding to this topic
+//    GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "topic-button"));
+//    Assert(button);
+//    button->SetCommand(new TopicCommand(i));
+//
+//    // Set name for button
+//    IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "topic-name-text"));
+//    Assert(text);
+//    text->SetText(topic->GetDisplayName());
+//
+//#ifdef YES_LOCK_TOPICS
+//    if (unlocked)
+//    {
+//      // ?
+//      GuiDecAnimation* pulseAnim = dynamic_cast<GuiDecAnimation*>(GetElementByName(topicRoot, "pulse-leaf"));
+//      pulseAnim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+//    }
+//    else
+//    {
+//      button->SetIsEnabled(false);
+//      Colour c = button->GetButtonColour();
+//      c.m_a = 0.5f;
+//      button->SetButtonColour(c);
+//      // TODO text colour, but IGuiText has very limited interface
+//    }
+//#endif // YES_LOCK_TOPICS
+
+//  }
+
+
 
   // TODO
 
@@ -161,12 +184,13 @@ void GSMainMenu::GoToTopic(int topic)
   GSTopicStart* gs = TheGSTopicStart::Instance();
   gs->SetTopic(topic);
   gs->SetPrevState(this);
+  // Time delay so we get to see an animation, e.g. door opening
   TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSTopicStart>, SecondsFromNow(1.0f)));
 
   HideButtons();
 
   // Start animation
-  ScrollUp();
+//ScrollUp();
 }
 
 }

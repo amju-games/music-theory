@@ -55,6 +55,9 @@
     <Filter Include="Assets\Gui\PageLayout\Portrait">
       <UniqueIdentifier>{0f18077a-5e86-483b-89a9-501c6f5ee205}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Scene">
+      <UniqueIdentifier>{6a4d1c27-e555-42fe-a8ef-d86e7c96b50b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp">
@@ -518,6 +521,21 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\speech_bubble_landscape.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Scene\room1-scene.txt">
+      <Filter>Assets\Scene</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Scene\schoolhouse-scene.txt">
+      <Filter>Assets\Scene</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Scene\corridor-scene.txt">
+      <Filter>Assets\Scene</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Shaders\opengl\rotating-frag.txt">
+      <Filter>Assets\Shaders\opengl</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Shaders\opengl\rotating-vert.txt">
+      <Filter>Assets\Shaders\opengl</Filter>
     </Text>
   </ItemGroup>
 </Project>

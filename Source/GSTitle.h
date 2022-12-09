@@ -3,13 +3,13 @@
 
 #pragma once
 
-#include "GSBase.h"
+#include "GSBase3d.h"
 
 namespace Amju
 {
 // * GSTitle*
-// Show title, option buttons
-class GSTitle : public GSBase
+// Show title page
+class GSTitle : public GSBase3d
 {
 public:
   GSTitle();
