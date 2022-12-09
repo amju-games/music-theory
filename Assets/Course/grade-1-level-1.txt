@@ -15,7 +15,8 @@
 // ID
 notes-on-treb-clef-level1
 // Localised display name
-Notes on the Treble Clef
+// Notes on the Treble Clef 1
+$$$178
 // Initially locked?
 // Topics unlocked by this one
 notes-and-rests-level1
@@ -37,15 +38,15 @@ page-symbol-kb=Course/level1/play-note-treb-clef.txt=-0.9=$$$98
 // ID
 notes-and-rests-level1
 // Localised display name
-@@@Notes and Rests
+Note lengths 1
 // Initially locked?
 // Topics unlocked by this one
 notes-on-bass-clef-level1
 // Pages
 3
 // No rests in level 1, right?
-//page-symbol-symbol=Course/level1/rest-equivs.txt=@@@What has the same value?
-page-symbol-symbol=Course/level1/note-equivs.txt=@@@What has the same value?
+//page-symbol-symbol=Course/level1/rest-equivs.txt=$$$179
+page-symbol-symbol=Course/level1/note-equivs.txt=$$$179
 page-symbol-text=Course/level1/note-rest-names.txt=$$$92
 page-text-symbol=Course/level1/note-rest-symbols.txt=$$$92
 
@@ -53,7 +54,8 @@ page-text-symbol=Course/level1/note-rest-symbols.txt=$$$92
 // ID
 notes-on-bass-clef-level1
 // Localised display name
-Notes on the Bass Clef
+// Notes on the Bass Clef 1
+$$$180
 // Initially locked?
 // Topics unlocked by this one
 musical-terms-symbols-level1
@@ -72,8 +74,7 @@ page-symbol-kb=Course/level1/play-note-bass-clef.txt=0.8=$$$98
 // ID
 musical-terms-symbols-level1
 // Localised display name
-// Musical terms and Symbols
-$$$9
+Musical terms and Symbols 1
 // Initially locked?
 // Topics unlocked by this one
 $$$empty

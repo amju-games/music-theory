@@ -22,6 +22,7 @@ done-button
 // Image 
 Image/gui-button-2.png
 // Text
-@@@Done
+// Done
+$$$177
 // Font name, size
 dimbo, 2.0, fgcol=ffffff, bgcol=FF0949

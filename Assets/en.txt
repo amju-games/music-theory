@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-171
+203
 1=Welcome to Amjula Music School!
 2=Swipe left and right to move along the corridor!
 3=Which clef?
@@ -173,3 +173,35 @@
 169='Vivace' means 'Lively', or 'quickly'.
 170=Learning the Notes
 171=Keys and Scales
+172=Awesome!
+173=Perfect score!
+174=Your new best score!
+175=You passed the test!
+176=Oh no! Try again!
+177=Done
+178=Notes on the Treble Clef 1
+179=What has the same value?
+180=Notes on the Bass Clef 1
+181=Notes and Rests
+182=Bars and Time Sigs
+183=What is the time signature?
+184=What is the missing rest?
+185=The time signature tell us there are 2 crotchet beats in every bar. So we need a crotchet rest here to give one more beat.
+186=The time signature tell us there are 3 crotchet beats in every bar. So we need a crotchet rest here to give one more beat.
+187=The time signature tell us there are 4 crotchet beats in every bar. So we need a crotchet rest here to give one more beat.
+188=The time signature tell us there are 2 crotchet beats in every bar. We need a minim rest to fill the bar.
+189=The time signature tell us there are 3 crotchet beats in every bar. We need a minim rest here to give 2 more beats.
+190=The time signature tell us there are 4 crotchet beats in every bar. We need a minim rest here to give 2 more beats.
+191=There are two crotchet beats in each bar, so the time signature is 2/4.
+192=There are three crotchet beats in each bar, so the time signature is 3/4.
+193=There are four crotchet beats in each bar, so the time signature is 4/4.
+194=C
+195=D
+196=E
+197=F
+198=G
+199=A
+200=B
+201=Two crotchet beats in every bar
+202=Three crotchet beats in every bar
+203=Four crotchet beats in every bar

@@ -38,14 +38,15 @@ page-symbol-kb=Course/level3/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
 // ID
 notes-and-rests
 // Localised display name
-@@@Notes and Rests
+// Notes and Rests
+$$$181
 // Initially locked?
 // Topics unlocked by this one
 none
 // Pages
 4
-page-symbol-symbol=Course/level3/rest-equivs.txt=@@@What has the same value?
-page-symbol-symbol=Course/level3/note-equivs.txt=@@@What has the same value?
+page-symbol-symbol=Course/level3/rest-equivs.txt=$$$179
+page-symbol-symbol=Course/level3/note-equivs.txt=$$$179
 page-symbol-text=Course/level3/note-rest-names.txt=$$$92
 page-text-symbol=Course/level3/note-rest-symbols.txt=$$$92
 
@@ -69,13 +70,14 @@ page-symbol-text=Course/level3/intervals.txt=$$$100
 // ID
 bars-and-time-sigs
 // Localised display name
-@@@Bars and Time Sigs
+// Bars and Time Sigs
+$$$182
 // Topics unlocked by this one
 none
 // Pages
 2
-page-symbol-symbol=Course/level3/missing_time_sig.txt=@@@What is the time signature?
-page-symbol-symbol=Course/level3/missing_rest.txt=@@@What is the missing rest?
+page-symbol-symbol=Course/level3/missing_time_sig.txt=$$$183
+page-symbol-symbol=Course/level3/missing_rest.txt=$$$184
 //page-symbol-text=Course/level3/time_sigs.txt=$$$99
 
 // Topic

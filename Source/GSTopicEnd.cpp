@@ -157,7 +157,7 @@ void GSTopicEnd::OnActive()
 
 std::string GSTopicEnd::GenerateScoreComment()
 {
-  std::string res = "@@@Awesome!";
+  std::string res = "$$$172" /* Awesome! */;
 
   auto profile = TheUserProfile();
   Course* course = GetCourse();
@@ -169,19 +169,19 @@ std::string GSTopicEnd::GenerateScoreComment()
 
   if (m_topicScore > 99)
   {
-    res = "@@@Perfect score!";
+    res = "$$$173" /* Perfect score! */;
   }
   else if (m_topicScore > m_bestScore)
   {
-    res = "@@@Your new best score!";
+    res = "$$$174" /* Your new best score! */;
   }
   else if (passed)
   {
-    res = "@@@You passed the test!";
+    res = "$$$175" /* You passed the test! */;
   }
   else
   {
-    res = "@@@Oh no! Try again!";
+    res = "$$$176" /* Oh no! Try again! */;
   }
 
   return res;
