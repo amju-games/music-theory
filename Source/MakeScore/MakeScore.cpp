@@ -95,8 +95,10 @@ float GetTimeVal(std::string s)
 
 // Convenience functions
 
-// No trailing zeros
-std::string Str(float f)
+// Str - convert given argument to a string
+// For floats, this results in no trailing zeros, nice
+template <typename T>
+std::string Str(T f)
 {
   std::stringstream ss;
   ss << f;
@@ -195,7 +197,7 @@ std::string GetStr(std::string s)
   return out;
 }
 
-void MakeScore::Tie::SetPos()
+void Tie::SetPos()
 {
   assert(m_leftGlyph != nullptr);
   assert(m_rightGlyph != nullptr);
@@ -207,7 +209,7 @@ void MakeScore::Tie::SetPos()
   m_rightGlyph->SetTieRight(this);
 }
 
-std::string MakeScore::Glyph::TimeBefore() const
+std::string Glyph::TimeBefore() const
 {
   std::string res;
 
@@ -230,7 +232,7 @@ std::string MakeScore::Glyph::TimeBefore() const
   return res;
 }
 
-std::string MakeScore::Tie::ToString() const
+std::string Tie::ToString() const
 { 
   // Control points: start and end points in x; y value, depending
   //  on whether the tie is 'n' or 'u' shape. 
@@ -267,7 +269,7 @@ std::string MakeScore::Tie::ToString() const
   return res;
 }
 
-std::string MakeScore::Glyph::TimeAfter() const
+std::string Glyph::TimeAfter() const
 {
   std::string res;
 
