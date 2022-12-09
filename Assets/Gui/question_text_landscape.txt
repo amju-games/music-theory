@@ -21,7 +21,7 @@ instructions-text
 // Text
 INSTRUCTIONS
 // Font name, size
-TEXT, 1.0, fgcol=ffffff
+TEXT, 1.5, fgcol=ffffff
 
 animation
 fade-in-text
