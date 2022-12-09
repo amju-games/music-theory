@@ -40,9 +40,6 @@
     <Filter Include="Assets\Shaders\opengl">
       <UniqueIdentifier>{5f6a7a55-3c78-47d9-b0ef-5911e95f9135}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets\Course\Note lengths">
-      <UniqueIdentifier>{d9b8024f-5bf7-421a-b277-15e8356bd20e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Assets\Gui\GameStates">
       <UniqueIdentifier>{ffcfdbd7-f559-4dcd-a6d2-b5b1ac252b41}</UniqueIdentifier>
     </Filter>
@@ -531,9 +528,6 @@
     <Text Include="..\..\..\..\Assets\Gui\stroke-branch.txt">
       <Filter>Assets\Gui\Stroke</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Course\note_lengths.txt">
-      <Filter>Assets\Course\Note lengths</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
@@ -704,9 +698,6 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\keyboard-pink.txt">
       <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\note_types.txt">
-      <Filter>Assets\Course\Note lengths</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Course\rest_names.txt">
       <Filter>Assets\Course</Filter>
