@@ -1,0 +1,6 @@
+// * Amjula Music Theory *
+// (c) Copyright 2017 Jason Colman
+
+// version
+1
+

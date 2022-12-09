@@ -83,7 +83,8 @@ none
 // Pages
 1
 //page-symbol-text=Course/whats_the_time_sig.txt=@@@What is the time signature?
-page-symbol-text=Course/missing_rest.txt=@@@What is the missing rest?
+page-symbol-symbol=Course/missing_rest.txt=@@@What is the missing rest?
+//page-symbol-text=Course/time_sigs.txt=$$$99
 
 // Topic
 // ID
