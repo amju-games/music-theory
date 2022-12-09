@@ -24,6 +24,8 @@
 #include <string>
 #include <vector>
 
+static const int DEFAULT_PITCH = 69; // default pitch = A above middle C
+
 // Time values
 using TimeValue = float;
 static const float TIMEVAL_SEMIBREVE   = 1.f;
@@ -85,6 +87,11 @@ std::string Str(float f)
 bool IsBeam(const std::string& s)
 {
   return Contains(s, '-') || Contains(s, '=');
+}
+
+bool IsRest(const std::string& s)
+{
+  return Contains(s, 'r');
 }
 
 enum class BeamLevel
@@ -256,6 +263,12 @@ private:
       if (yesTime)
       {      
         res += "TIME, " + Str(startTime) + ", " + Str(timeval + startTime) + " ; ";
+
+        if (!IsRest(realGlyphName))
+        {
+          // Output MIDI note event
+          res += "NOTE_ON, " + Str(pitch) + ", " + Str(startTime) + " ; ";
+        }
       }
 
       res += displayGlyphName + ", " + Str(x) + ", " + Str(y) + 
@@ -263,7 +276,14 @@ private:
      
       if (yesTime)
       { 
-        // Cancel time
+        if (!IsRest(realGlyphName))
+        {
+          // Output MIDI note event
+          res += " ; NOTE_OFF, " + Str(pitch) + ", " + Str(timeval + startTime);
+        }
+
+        // Cancel time for subsequent glyphs (but postprocess to strip out
+        //  unnecessary cancellations)
         res += " ; TIME, -1, -1";
       }
 
@@ -294,6 +314,8 @@ private:
 
     // Start time is the accumulated time values of all preceding glyphs.
     TimeValue startTime = 0;
+
+    int pitch = DEFAULT_PITCH; 
   };
 
   // Time sigs are always left-aligned, no offset
