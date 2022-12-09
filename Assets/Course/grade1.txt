@@ -15,7 +15,7 @@
 // ID
 musical-terms-1
 // Localised display name
-Musical terms:\nDynamics
+Musical terms
 // Unlocks
 // Pages
 // ...
