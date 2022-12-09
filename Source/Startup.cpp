@@ -54,7 +54,8 @@
 namespace Amju
 {
 // Create global variable window info 
-Amju::AmjuGLWindowInfo w(320, 550, false, "iPhone 5");
+//Amju::AmjuGLWindowInfo w(320, 550, false, "iPhone 5");
+Amju::AmjuGLWindowInfo w(1136, 640, false, "Landscape iPhone 5");
 //Amju::AmjuGLWindowInfo w(480, 640, false, "Simplest");
 
 void ReportError(const std::string& str)

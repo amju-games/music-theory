@@ -54,7 +54,7 @@ private:
 
 GSMainMenu::GSMainMenu()
 {
-  m_guiFilename = "Gui/gs_main_menu.txt";
+  m_guiFilename = "Gui/gs_main_menu_corridor.txt";
 }
 
 void GSMainMenu::OnActive()
@@ -83,18 +83,20 @@ void GSMainMenu::OnActive()
 
     bool unlocked = (i == 0) || config->Exists(KEY_TOPIC_UNLOCKED + ToString(i));
 
-    // Create leaf button for topic
+    // Create button for topic
     const char* LEAF_FILE[2] = 
     {
-      "Gui/topic-leaf-left.txt",
-      "Gui/topic-leaf-right.txt"
+      "Gui/topic_door_1.txt",
+      // TODO more door types
     };
-    PGuiElement topicRoot = LoadGui(LEAF_FILE[i % 2], false);
+    PGuiElement topicRoot = LoadGui(LEAF_FILE[0], false);
+
     Assert(topicRoot);
     // Add to composite in gui
     leafParent->AddChild(topicRoot);
 
-    // Set wait time
+#ifdef YES_WAIT_FOR_TOPIC
+    // Set wait time: topic button becomes visible/active after this time
     GuiDecAnimation* wait = dynamic_cast<GuiDecAnimation*>(GetElementByName(topicRoot, "wait"));
 #ifdef _DEBUG
     // Temp: don't wait, for debug/dev
@@ -102,9 +104,11 @@ void GSMainMenu::OnActive()
 #else
     wait->SetCycleTime(float)i * 1.2f); // TODO TEMP TEST
 #endif
+#endif // YES_WAIT_FOR_TOPIC
 
-    // Set position
-    topicRoot->SetLocalPos(Vec2f(0, (float)i * 0.15f)); // TODO TEMP TEST
+    // Set position of topic button and associated GUI
+    Vec2f pos(static_cast<float>(i) * 0.8f - 1.0f, 0); // position horizontally
+    topicRoot->SetLocalPos(pos);
 
     // Find the button corresponding to this topic
     GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(topicRoot, "topic-button"));

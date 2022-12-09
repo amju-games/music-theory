@@ -1,0 +1,95 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Topic 
+// DOOR for a topic
+
+// v.
+1
+
+
+gui-comp
+topic-door-comp
+5
+
+// Corridor background
+gui-image
+bg-image
+0, -.4
+0.8, 0.4
+Image/corridor-floor-1.png
+
+
+// Corridor background
+gui-image
+bg-image
+0, 1
+0.8, 0.4
+Image/corridor-1.png
+
+
+// Topic button
+gui-button
+topic-button
+// pos (coords are -1..1)
+0.25, 0.6
+0.3, 1.0
+Image/door-1.png, stretch
+$$$empty
+dimbo, 1.0, fgcol=ffffff, bgcol=ffffff
+
+
+// 2nd child: Pulse leaf
+rotate
+-5
+
+animation
+pulse-leaf
+const
+zero
+
+animation
+grow-leaf
+repeat
+1.5
+linear
+
+colour
+ffff00c0, ffff0000
+
+scale
+0.0, 0.0; 1.5, 1.5
+0.7, 0.0
+
+gui-image
+pulsing-leaf-image
+-0.15, 0.18
+0.8, 0.4
+Image/leaf1.png
+
+// OPTION LEAF BUTTON TEXT (not using button text as we are scaling)
+
+animation
+fade-in-text
+one-shot
+0.0
+linear
+
+colour
+ffffff00, ffffffff
+
+gui-text
+topic-name-text
+// pos (coords are -1..1)
+0.0, 0.4
+// size
+1.0, 0.2
+// Text
+Topic name
+// Font name, size
+dimbo, 1.0, multi, fgcol=000000
+
+
+
+
+

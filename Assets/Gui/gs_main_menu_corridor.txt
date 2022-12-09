@@ -1,0 +1,270 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Main menu
+// Corridor version, like Big Brain Academy.
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+gs-main-menu-root
+// Num children
+3
+
+
+gui-scroll
+user-scroll-topics
+// Initial pos
+0, 0
+// Extent
+2, 0
+
+// SCROLL UP/DOWN
+
+animation
+scroll-up-trigger
+const
+zero
+
+animation
+up-scroll-anim
+one-shot
+.5
+linear
+
+translate
+0,0 ; 0, -2
+
+
+animation
+scroll-down-trigger
+const
+zero
+
+animation
+down-scroll-anim
+one-shot
+.5
+linear
+
+translate
+0,0 ; 0, 3
+
+
+gui-comp
+scrolls-up-and-down
+2
+
+
+
+// UNDERGROUND
+
+gui-comp
+underground-comp
+3
+
+include
+ground.txt
+
+translate
+0, -1
+include
+ground.txt
+
+gui-image
+underground-lava
+-1.0, -2.0
+2.0, 2.0
+Image/underground2.png, stretch
+
+
+// SCROLL LEFT/RIGHT
+
+// Horizontal scroll, off until turned on in code
+animation
+scroll-right-trigger
+const
+zero
+
+animation
+L-R-scroll-anim
+one-shot
+.5
+linear
+
+translate
+0,0 ; -2, 0
+
+
+// Horizontal scroll, off until turned on in code
+animation
+scroll-left-trigger
+const
+zero
+
+animation
+L-R-scroll-anim
+one-shot
+.5
+linear
+
+translate
+0,0 ; 2, 0
+
+
+animation
+clean-anim-value
+const
+one
+
+
+gui-comp
+scrolling-part-of-scene
+1
+
+
+// GROWING TOPIC LEAVES
+//include
+//topic-leaves.txt
+
+
+// TITLE TEXT
+gui-text
+grade-number-text
+// pos (coords are -1..1)
+-0.3, -0.35
+// size
+0.5, 0.5
+// Text
+HELLO
+// Font name, size
+dimbo, 3.0, multi, fgcol=ffffff
+
+
+// Back to Title state button
+gui-button
+title-button
+// pos (coords are -1..1)
+-0.95, 0.95
+// size
+0.3, 0.15
+// Image 
+Image/gui-button-2.png
+// Text
+<BACK
+// Font name, size
+dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
+
+
+
+
+// About, I'm new and Share buttons
+gui-button
+about-button
+// pos (coords are -1..1)
+-0.6, 0.95
+// size
+0.3, 0.15
+Image/gui-button-2.png
+About
+dimbo, 2.0, fgcol=ffffff, bgcol=BC003E
+
+
+
+// Topic button
+gui-button
+// Element name
+topic-button-0
+// pos (coords are -1..1)
+-0.15, .9
+// size
+0.6, 0.3
+// Image 
+Image/leaf1.png
+// Text
+Pitch
+// Font name, size
+dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
+
+
+
+// Topic button
+gui-button
+topic-button-2
+// pos (coords are -1..1)
+-0.15, .7
+0.6, 0.3
+Image/leaf1.png
+Key signatures
+dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
+
+
+
+
+gui-button
+new-button
+// pos (coords are -1..1)
+-0.5, -0.6
+0.7, .35
+Image/leaf1.png
+I'm new!
+dimbo, 1.3, fgcol=ffffff, bgcol=DC6A13
+
+gui-button
+share-button
+// pos (coords are -1..1)
+-0.3, -0.4
+0.6, .35
+Image/leaf1.png
+Share
+dimbo, 1.2, fgcol=ffffff, bgcol=F27C7C
+
+// TODO
+// About, I'm new and Share buttons
+gui-button
+topic-button-2
+// pos (coords are -1..1)
+-0.6, .1
+0.6, .35
+Image/leaf1.png
+Share2
+dimbo, 1.2, fgcol=ffffff, bgcol=2676BC
+
+
+rotate
+// Degs
+-6
+
+gui-button
+topic-button-2
+// pos (coords are -1..1)
+-0.8, .25
+0.6, .35
+Image/leaf1.png
+Share3
+dimbo, 1.2, fgcol=ffffff, bgcol=37B3F5
+
+
+
+
+
+
+// Colours
+//DC6A13
+
+// Greens
+//2AA955
+// 29A657
+// 96D159
+
+
+// Blues
+2676BC
+37B3F5
+
+// Yellow
+DDBA19
+

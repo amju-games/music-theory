@@ -389,6 +389,7 @@
     <Text Include="..\..\..\..\Assets\Gui\gs_about.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_main_menu.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\gs_main_menu_corridor.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_pages.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_play_notes.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_score.txt" />
@@ -423,6 +424,7 @@
     <Text Include="..\..\..\..\Assets\Gui\topic-leaf-right.txt" />
     <Text Include="..\..\..\..\Assets\Gui\topic-leaves.txt" />
     <Text Include="..\..\..\..\Assets\Gui\topic-tree.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\topic_door_1.txt" />
     <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-frag.txt" />
     <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-vert.txt" />
     <Text Include="..\..\..\..\Docs\bugs.txt" />

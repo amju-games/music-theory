@@ -453,5 +453,11 @@
     <Text Include="..\..\..\..\Assets\Gui\page_text_symbol_4.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_main_menu_corridor.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\topic_door_1.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>
