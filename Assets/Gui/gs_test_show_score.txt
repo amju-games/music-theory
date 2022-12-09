@@ -43,7 +43,7 @@ linear
 music-score
 // Name, Position, Size
 music-score
--0.25, 0
+-0.25, 0.5
 .25, .55
 // Colour
 000000
@@ -63,6 +63,12 @@ stave-line, 0, -1, 4, 2
 treble-clef, 0, -1, 2, 2
 crotchet-up, 0.5, -1, 2, 2
 rest-crotchet, 1.0, -1, 2, 2
+
+stave-line, -.25, -1, 4, 1
+treble-clef, -1, -1
+crotchet-up, -0.5, -1
+rest-crotchet, 0, -1
+
 end
 
 4/4, 0, 0, 0.6, 0.6
