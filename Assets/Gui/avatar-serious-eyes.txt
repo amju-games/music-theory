@@ -1,0 +1,69 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// avatar.txt
+// Test: draw avatar with layers of images (TODO sprites)
+
+// version
+1
+
+gui-avatar
+avatar-comp
+6
+
+colour
+c08040
+gui-image
+head
+-.5, .7
+1, 1
+Image/circle.png
+
+
+translate
+0.2, 0
+include 
+avatar-eye.txt
+
+translate
+-0.2, 0
+include
+avatar-eye.txt
+
+colour
+80ff20
+gui-image
+eyelid1
+-.4, .2
+.4,.35
+Image/avatar-curve.png
+
+translate
+0, -.55
+scale
+1, -1
+.5, .5
+colour
+80ff20
+gui-image
+eyelid1
+-.4, 0
+.4,.35
+Image/avatar-curve.png
+
+
+translate
+0, -.55
+scale
+1, -1
+.5, .5
+colour
+800000
+gui-image
+mouth
+-.2, 0
+.4,.35
+Image/avatar-curve.png
+
+// Avatar string: sets values on nodes in the avatar GUI tree
+colour;colour-head;80ff20

@@ -7,17 +7,25 @@
 // version
 1
 
+// Translate: compensate for size of eye, so we position their
+//  centres
+translate
+-.1, 0
+
 gui-comp
 avatar-eye
 4
 
 colour
 f0f0ff
+scale
+1.5, 1.5
+.5, .5
 gui-image
 eye-white
 0, 0
 .2, .2
-Image/circle.png
+Image/gui-button-1.png
 
 colour
 4040ff
@@ -28,7 +36,7 @@ gui-image
 eye-iris
 0, 0
 .2, .2
-Image/circle.png
+Image/gui-button-1.png
 
 colour
 000000

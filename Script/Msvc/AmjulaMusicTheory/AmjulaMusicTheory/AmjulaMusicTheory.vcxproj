@@ -287,6 +287,7 @@
     <ClCompile Include="..\..\..\..\Source\CorridorModeWait.cpp" />
     <ClCompile Include="..\..\..\..\Source\Course.cpp" />
     <ClCompile Include="..\..\..\..\Source\DictionaryPickQuestion.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GuiAvatar.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSAbout.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase3d.cpp" />
@@ -440,6 +441,7 @@
     <ClInclude Include="..\..\..\..\Source\GSUserDraw.h" />
     <ClInclude Include="..\..\..\..\Source\GSUserDrawSave.h" />
     <ClInclude Include="..\..\..\..\Source\Gui3dScene.h" />
+    <ClInclude Include="..\..\..\..\Source\GuiAvatar.h" />
     <ClInclude Include="..\..\..\..\Source\GuiLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
@@ -585,6 +587,8 @@
     <Text Include="..\..\..\..\Assets\Course\level4\whats_the_tonic_triad.txt" />
     <Text Include="..\..\..\..\Assets\Course\level4\which_clef.txt" />
     <Text Include="..\..\..\..\Assets\en.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\avatar-eye-simple.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\avatar.txt" />
     <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt" />
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt" />
     <Text Include="..\..\..\..\Assets\Gui\certificate.txt" />

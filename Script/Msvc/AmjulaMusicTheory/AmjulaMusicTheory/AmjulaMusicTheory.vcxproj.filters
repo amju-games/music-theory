@@ -333,6 +333,9 @@
     <ClCompile Include="..\..\..\..\Source\Tests\Localisation_catchtest.cpp">
       <Filter>CatchTests</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GuiAvatar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -572,6 +575,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\NetRequest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GuiAvatar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1087,6 +1093,12 @@
       <Filter>Assets\Gui</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\static-certificate.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\avatar.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\avatar-eye-simple.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
   </ItemGroup>

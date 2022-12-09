@@ -57,6 +57,7 @@
 #include "GSTopicEnd.h"
 #include "GSUserDrawSave.h"
 #include "Gui3dScene.h"
+#include "GuiAvatar.h"
 #include "GuiLineDrawing.h"
 #include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
@@ -305,6 +306,7 @@ static void SetUpGui()
   GuiRect::SetCornerImage("Image/corner.png");
 
   Gui3dScene::AddToFactory();
+  GuiAvatar::AddToFactory();
   GuiLineDrawing::AddToFactory();
   GuiMusicKb::AddToFactory();
   GuiMusicScore::AddToFactory();
@@ -326,11 +328,11 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSFirstUser::Instance());
 
-//  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 
 //  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
 
-  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 }
 
 static void LoadStringTableForPreferredLanguage()

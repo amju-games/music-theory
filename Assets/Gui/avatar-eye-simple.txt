@@ -1,0 +1,111 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// avatar eye
+// Test: draw avatar with layers of images (TODO sprites)
+
+// version
+1
+
+// Translate: compensate for size of eye, so we position their
+//  centres
+translate
+-.1, 0
+
+gui-comp
+avatar-eye-simple
+5
+
+// WHITE OF EYE
+colour
+f0f0ff
+scale
+1.5, 1.5
+.5, .5
+gui-image
+eye-white
+0, 0
+.2, .2
+Image/circle.png
+
+// IRIS - not used for simple eye
+//colour
+//4040ff
+//scale
+//.5, .5
+//.5, .5
+//gui-image
+//eye-iris
+//0, 0
+//.2, .2
+//Image/gui-button-1.png
+
+// PUPIL
+colour
+000000
+translate
+0,0
+scale
+.8, .8
+.5, .5
+gui-image
+pupil
+0, 0
+.2, .2
+Image/circle.png
+
+// HIGHLIGHT - not for simple eye?
+//colour
+//ffffff
+//scale
+//.25, .25
+//.5, .5
+//gui-image
+//eye-highlight
+//0, 0.075
+//.2, .2
+//Image/circle.png
+
+// EYELID - UPPER
+translate
+0, -0.25
+scale
+2, 2
+.5, .5
+colour
+c08040
+gui-image
+eyelid1
+-.05, .2
+.2,.35
+Image/avatar-curve.png
+
+
+// EYELID - LOWER
+translate
+0, -.45
+scale
+2, -1.5
+.5, .5
+colour
+c08040
+gui-image
+eyelid2
+-.05, 0
+.2,.35
+Image/avatar-curve.png
+
+// EYEBROW
+translate
+0, 0
+scale
+1.5, -1
+.5, .5
+colour
+202000
+gui-image
+eyebrow
+-.05, 0
+.2,.35
+Image/avatar-curve3.png
+
