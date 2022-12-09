@@ -897,6 +897,7 @@
 					_DEBUG,
 					AMJU_IOS,
 					AMJU_USE_ES2,
+					AMJU_USE_BASS,
 				);
 				HEADER_SEARCH_PATHS = "/Users/jay/projects/amjulib/Source/**";
 				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
@@ -926,6 +927,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					AMJU_IOS,
 					AMJU_USE_ES2,
+					AMJU_USE_BASS,
 				);
 				HEADER_SEARCH_PATHS = "/Users/jay/projects/amjulib/Source/**";
 				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
