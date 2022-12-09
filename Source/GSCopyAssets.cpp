@@ -147,7 +147,7 @@ void GSCopyAssets::Update()
   // Counter so we draw window before copying
   static int done = 0;
   done++;
-  if (done == 2)
+  if (done == 1)
   {
 #ifdef FILECOPY_DEBUG
     std::cout << "Copying files to Save Dir as required...\n";
@@ -176,9 +176,7 @@ void GSCopyAssets::Draw2d()
 void GSCopyAssets::OnActive()
 {
   GameState::OnActive();
-
-  // Before loading anything, copy the files necessary to show logo or 'please wait' indicator.
-  AmjuGL::SetClearColour(Colour(0, 0, 0, 1));
+  Update();
 }
 
 } // namespace

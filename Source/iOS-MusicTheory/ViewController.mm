@@ -120,6 +120,9 @@ static ViewController* s_theVc = NULL;
     std::cout << "Set AmjuGL impl...\n";
     
     Amju::AmjuGL::Init();
+    // Set app-specific clear colour
+    Amju::AmjuGL::SetClearColour(Amju::Colour(0.95f, 0.95f, 0.95f, 1.0f));
+  
     Amju::StartUpBeforeCreateWindow();
   
     // Set the screen size so we can set sizes of screen space elements correctly, etc.
