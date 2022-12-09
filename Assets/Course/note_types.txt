@@ -1,0 +1,20 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Note types: crotchet, minim, semibreve, etc
+
+// version
+1
+
+crotchet-up, 0.5, 0 ; crotchet-up,  1.25, 0 ; h-beam-up, 0.5, 0 ;  h-beam-up, 0.5, -0.075 =Semiquaver (sixteenth note)
+semiquaver-down, 0.9, 0.2  =Semiquaver (sixteenth note)
+semiquaver-up, 0.9, 0.0  =Semiquaver (sixteenth note)
+crotchet-up, 0.5, 0 ; crotchet-up,  1.25, 0 ; h-beam-up, 0.5, 0 =Quaver (eighth note)
+quaver-down, 0.9, 0.2  =Quaver (eighth note)
+quaver-up, 0.9, 0  =Quaver (eighth note)
+crotchet-down, 0.9, 0.2  =Crotchet (quarter note)
+minim-down, 0.9, 0.2 =Minim (half note)
+crotchet-up, 0.9, 0  =Crotchet (quarter note)
+minim-up, 0.9, 0 =Minim (half note)
+semibreve, 0.9, 0.2  =Semibreve (whole note)
+end

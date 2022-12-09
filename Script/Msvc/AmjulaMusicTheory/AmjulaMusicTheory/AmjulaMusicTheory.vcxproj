@@ -408,20 +408,15 @@
     <Library Include="..\..\..\..\Source\ThirdParty\googletest\msvc\gtest\Debug\gtestd.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\Assets\Course\crotchet.txt" />
-    <Text Include="..\..\..\..\Assets\Course\crotchet_minim.txt" />
-    <Text Include="..\..\..\..\Assets\Course\crotchet_minim_semibreve.txt" />
+    <Text Include="..\..\..\..\Assets\Course\note_types.txt" />
     <Text Include="..\..\..\..\Assets\Course\grade1.txt" />
     <Text Include="..\..\..\..\Assets\Course\intervals.txt" />
-    <Text Include="..\..\..\..\Assets\Course\minim.txt" />
-    <Text Include="..\..\..\..\Assets\Course\minim_length.txt" />
     <Text Include="..\..\..\..\Assets\Course\musical_symbols.txt" />
     <Text Include="..\..\..\..\Assets\Course\musical_terms.txt" />
     <Text Include="..\..\..\..\Assets\Course\notes_on_treble_clef.txt" />
     <Text Include="..\..\..\..\Assets\Course\notes_on_treble_clef_with_accidentals.txt" />
     <Text Include="..\..\..\..\Assets\Course\note_lengths.txt" />
-    <Text Include="..\..\..\..\Assets\Course\semibreve.txt" />
-    <Text Include="..\..\..\..\Assets\Course\semibreve_length.txt" />
+    <Text Include="..\..\..\..\Assets\Course\rest_names.txt" />
     <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt" />
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt" />
     <Text Include="..\..\..\..\Assets\Gui\compound_glyphs.txt" />

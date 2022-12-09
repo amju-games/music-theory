@@ -34,6 +34,14 @@ keysig-7flat-treble  = flat, 1.2, 0.05 ; keysig-6flat-treble, 0, 0
 stem-up = quad, 0.265, 0.495,  0.265, 0.825,  0.23, 0.825,  0.23, 0.475
 stem-down = quad, 0.09, 0.125,  0.09, 0.49,  0.06, 0.47,  0.06, 0.125
 
+semiquaver-up = note-solid, 0, 0 ; stem-up, 0, 0 ; tail-down-2, 0, 0.35
+dotted-semiquaver-up = semiquaver-up, 0, 0 ;  ., 0.275, 0.0
+dotted-semiquaver-up-raised-dot = semiquaver-up, 0, 0 ;  ., 0.275, 0.03
+
+semiquaver-down = note-solid, 0, 0 ; stem-down, 0, 0 ; tail-up-2, 0, -0.35
+dotted-semiquaver-down = semiquaver-down, 0, 0 ;  ., 0.275, 0.0
+dotted-semiquaver-down-raised-dot = semiquaver-down, 0, 0 ;  ., 0.275, 0.03
+
 quaver-up = note-solid, 0, 0 ; stem-up, 0, 0 ; tail-down-1, 0, 0.35
 dotted-quaver-up = quaver-up, 0, 0 ; ., 0.275, 0.00
 dotted-quaver-up-raised-dot = quaver-up, 0, 0 ; ., 0.275, 0.03
@@ -120,4 +128,5 @@ c#+ = treb-c#5-cr, 0, 0
 d+ = treb-d5-cr, 0, 0
 d#+ = treb-d#5-cr, 0, 0
 
-h-beam-up = quad, 1.0, 0.725,  1.0, 0.825,  0.265, 0.825,  0.265, 0.725
+// Horizontal beam
+h-beam-up = quad, 1.0, 0.775,  1.0, 0.825,  0.265, 0.825,  0.265, 0.775

@@ -159,7 +159,6 @@ piano-shadow
 1.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, 1, 0, 1
 obj/shadow-sq.obj
 0
-// TODO Action when tapped
 // Camera eye
 24.5, 42, -330
 // Cam target

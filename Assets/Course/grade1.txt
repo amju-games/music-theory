@@ -9,7 +9,7 @@
 1
 
 // Num topics
-9
+7
 
 
 // Topic
@@ -49,68 +49,18 @@ Note lengths
 dotted-notes
 // Pages
 10
-page-symbol-text, Course/crotchet.txt
-page-symbol-text, Course/minim.txt
-page-symbol-text, Course/crotchet_minim.txt
-page-symbol-text, Course/semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-text-text, Course/minim_length.txt
-page-text-text, Course/semibreve_length.txt
+page-symbol-text, Course/note_types.txt
+page-symbol-text, Course/note_types.txt
+page-symbol-text, Course/note_types.txt
+page-symbol-text, Course/note_types.txt
+page-symbol-text, Course/note_types.txt
+page-symbol-text, Course/note_types.txt
+page-text-text, Course/note_lengths.txt
+page-text-text, Course/note_lengths.txt
 page-text-text, Course/note_lengths.txt
 page-text-text, Course/note_lengths.txt
 
 
-
-// Topic
-// 1a+
-// ID
-dotted-notes
-// Localised display name
-Dotted notes
-// Group
-1
-// Adding a dot to a note or rest increases its length by a half.
-// Initially locked?
-// Topics unlocked by this one
-quavers-semiquavers, rests
-// Pages
-10
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-
-
-// Topic
-// 1a++
-// ID
-quavers-semiquavers
-// Localised display name
-Quavers and semiquavers
-// Group
-1
-// Initially locked?
-// Topics unlocked by this one
-none
-// Pages
-10
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-page-symbol-text, Course/crotchet_minim_semibreve.txt
 
 // Topic
 // 1b

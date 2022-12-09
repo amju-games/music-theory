@@ -465,27 +465,6 @@
     <Text Include="..\..\..\..\Assets\Course\note_lengths.txt">
       <Filter>Assets\Course\Note lengths</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Course\crotchet.txt">
-      <Filter>Assets\Course\Note lengths</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\crotchet_minim.txt">
-      <Filter>Assets\Course\Note lengths</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\crotchet_minim_semibreve.txt">
-      <Filter>Assets\Course\Note lengths</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\minim.txt">
-      <Filter>Assets\Course\Note lengths</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\minim_length.txt">
-      <Filter>Assets\Course\Note lengths</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\semibreve.txt">
-      <Filter>Assets\Course\Note lengths</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\semibreve_length.txt">
-      <Filter>Assets\Course\Note lengths</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
@@ -659,6 +638,12 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\keyboard-pink.txt">
       <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\note_types.txt">
+      <Filter>Assets\Course\Note lengths</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\rest_names.txt">
+      <Filter>Assets\Course</Filter>
     </Text>
   </ItemGroup>
 </Project>
