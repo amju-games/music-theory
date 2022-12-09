@@ -100,7 +100,7 @@ void CorridorModeWait::Drag(bool rightNotLeft)
     m_isScrolling = true;
     ShowTopicName(false);
 
-    PlayWav(rightNotLeft ? "ok1" : "ok2");
+    PlayWav(rightNotLeft ? WAV_SWIPE_RIGHT : WAV_SWIPE_LEFT);
   }
 }
 

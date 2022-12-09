@@ -32,4 +32,16 @@ static const float SCROLL_DECEL = 280.0f;
 #define DEFAULT_SHARE_TEXT_KEY "default_share_text"
 #define DEFAULT_SHARE_TEXT "I'm learning stuff at Amjula Music School! amjula.com #amjula"
 
+#define WAV_CORRECT "good1"
+#define WAV_INCORRECT "bad1"
+#define WAV_SWIPE_LEFT "ok2"
+#define WAV_SWIPE_RIGHT "ok1"
+#define WAV_ENTER_DOOR "doorcreak"
+#define WAV_START_BUTTON "good1"
+#define WAV_CANCEL "bad1"
+#define WAV_START_TOPIC "good1"
+#define WAV_BUTTON_CLICK "Sound/wav/click.wav"
+#define WAV_ENTER_TAPPABLE "wow1"
+#define WAV_EXIT_TAPPABLE "wow2"
+
 }

@@ -363,7 +363,7 @@ void GSPages::OnCorrect(const Vec2f& choicePos)
   ShowHints();
 
   // Happy sound
-  PlayWav("cashreg");
+  PlayWav(WAV_CORRECT);
 
   // Add to profile/score
   m_numCorrectThisSession++;
@@ -388,7 +388,7 @@ void GSPages::OnIncorrect(const Vec2f& choicePos)
   cross->SetLocalPos(choicePos);
 
   // Unhappy sound
-  PlayWav("anvil");
+  PlayWav(WAV_INCORRECT);
 
   m_numIncorrectThisSession++;
   SetPie(m_numPagesShown, Colour(1.f, 0.f, 0.f, 1.f));

@@ -126,7 +126,7 @@ void StartUpAfterCreateWindow()
     ReportError("No localise string table.");
   }
 
-  GuiButton::SetClickFilename("Sound/wav/click.wav");
+  GuiButton::SetClickFilename(WAV_BUTTON_CLICK);
 
   // Load the course which this app presents to the user: we only expect there to 
   //  be one instance. We could potentially load this depending on config/user choice.

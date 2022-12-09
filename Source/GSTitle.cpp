@@ -16,7 +16,7 @@ namespace Amju
 {
 static void OnStart(GuiElement* elem)
 {
-  PlayWav("good1");
+  PlayWav(WAV_START_BUTTON);
 
   // Is there a user yet?
   ConfigFile* cf = TheUserProfile()->GetConfigForTopic(KEY_GENERAL);

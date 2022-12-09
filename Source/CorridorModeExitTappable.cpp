@@ -2,9 +2,11 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <Timer.h>
+#include "Consts.h"
 #include "CorridorModeExitTappable.h"
 #include "CorridorModeWait.h"
 #include "GSMainCorridor.h"
+#include "PlayWav.h"
 
 namespace Amju
 {
@@ -32,6 +34,8 @@ void CorridorModeExitTappable::OnActive()
 {
   CorridorMode::OnActive();
   m_camLerpTime = 0;
+
+  PlayWav(WAV_EXIT_TAPPABLE);
 }
 
 }

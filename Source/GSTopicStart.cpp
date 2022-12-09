@@ -3,6 +3,7 @@
 
 #include <Game.h>
 #include <GuiText.h>
+#include "Consts.h"
 #include "Course.h"
 #include "GSMainCorridor.h"
 #include "GSPages.h"
@@ -14,7 +15,7 @@ namespace Amju
 {
 static void OnBack(GuiElement*)
 {
-  PlayWav("bad1");
+  PlayWav(WAV_CANCEL);
 
   // Back to main menu
   TheGame::Instance()->GetState()->GoBack();
@@ -22,7 +23,7 @@ static void OnBack(GuiElement*)
 
 static void OnStart(GuiElement*)
 {
-  PlayWav("good1");
+  PlayWav(WAV_START_TOPIC);
 
   GSPages* gs = TheGSPages::Instance();
   int topicNum = TheGSTopicStart::Instance()->GetTopic();

@@ -5,8 +5,10 @@
 #include <File.h>
 #include <LoadScene.h>
 #include <LoadVec3.h>
+#include "Consts.h"
 #include "CorridorModeEnterTappable.h"
 #include "GSMainCorridor.h"
+#include "PlayWav.h"
 #include "Tappable.h"
 
 namespace Amju
@@ -98,7 +100,8 @@ void Tappable::UpdateGui()
 void Tappable::OnTapped()
 {
   // Default behaviour
-  // TODO Get rid of this inflexible behaviour
   TheGSMainCorridor::Instance()->SetMode(CorridorModeEnterTappable::ID);
+
+  PlayWav(WAV_ENTER_TAPPABLE);
 }
 }
