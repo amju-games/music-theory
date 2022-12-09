@@ -620,20 +620,23 @@ bool GuiMusicScore::AddTextFromString(
     // Now we should have position and optional scale
     Assert(strs.size() == 2 || strs.size() == 4);
     Vec2f pos(ToFloat(strs[0]), ToFloat(strs[1]));
-    pos += pos_;
     Vec2f scale(1, 1);
     if (strs.size() == 4)
     {
       scale = Vec2f(ToFloat(strs[2]), ToFloat(strs[3]));
     }
     scale *= scale_;
+    pos = (pos + pos_) * scale;
 
     GuiText* t = new GuiText;
     Font* font = (Font*)TheResourceManager::Instance()->GetRes("font2d/times-font.font");
     t->SetFont(font);
     t->SetFgCol(m_fgCol);
-    t->SetFontSize(scale.y);
-    t->SetScaleX(scale.x / scale.y);
+    // Scale text to work with music glyphs
+    const float X_SCALE_MULT = 2.5f;
+    const float Y_SCALE_MULT = 3.f;
+    t->SetFontSize(scale.y * Y_SCALE_MULT);
+    t->SetScaleX(scale.x  * X_SCALE_MULT / scale.y);
     t->SetLocalPos(pos);
     t->SetSize(Vec2f(2, 2));
     t->SetJust(GuiText::AMJU_JUST_LEFT);

@@ -12,12 +12,9 @@
 
 std::string Attachment::ToString() const 
 {
-  // Cast away const to set x, not super necessary, but keeps x
-  //  consistent with this output.
-  const_cast<float&>(x) = 0;
   if (m_parent[LEFT])
   {
-    const_cast<float&>(x) = m_parent[LEFT]->x;
+    const_cast<float&>(x) += m_parent[LEFT]->x;
   }
 
   std::string res = m_glyphText + ", " + 

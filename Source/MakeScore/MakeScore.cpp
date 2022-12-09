@@ -55,10 +55,10 @@ static int s_switches[MAX_NUM_STAVES] = { 0, 0, 0, 0 };
 // Const set of performance directions, with relative widths
 static const std::map<std::string, float> DIRECTIONS = 
 {
-  { "f", 1 },
-  { "p", 1 },
-  { "ff", 2 },
-  { "pp", 2 },
+  { "f",  1.f },
+  { "p",  1.f },
+  { "ff", 2.f },
+  { "pp", 2.f },
   { "mp", 2.5f },
   { "mf", 2.5f }
 };
@@ -242,20 +242,29 @@ void MakeScore::AddDirection(const std::string& s)
   // Attach to most reccent glyph if there is one
   Attach(t);
 
-  // TODO Use width to offset x
+  // Use width to offset x. Set y = 0, which is below the stave.
+  float w = 1.f;
+  auto it = DIRECTIONS.find(s);
+  if (it != DIRECTIONS.end())
+  {
+    w = it->second;
+  }
+  const float DIRECTION_WIDTH_MULT = 0.15f;
+  w *= DIRECTION_WIDTH_MULT;
+  // Offset x by half width so we centre the glyph horizontally
+  t->SetPos(w * -0.5f, 0);
 
   m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(t));
 }
 
 void MakeScore::AddText(const std::string& s)
 {
-  std::cout << "// Text: '" << s << "'\n";
   Attachment* t = new Attachment;
   t->SetGlyphText("\"" + s + "\"");
-  const float TEXT_SCALE_X = 6.0f;
-  const float TEXT_SCALE_Y = 2.5f;
-  t->scaleX = TEXT_SCALE_X * m_scale; 
-  t->scaleY = TEXT_SCALE_Y * m_scale; 
+  t->SetScale(m_scale);
+  // Offset Y so text is above or below the current stave
+  const float Y_ABOVE = 2.0f;
+  t->SetPos(0, Y_ABOVE);
 
   // Attach to most reccent glyph if there is one
   Attach(t);
@@ -359,8 +368,8 @@ void MakeScore::CalcBarSizesAndPositions()
   int totalNumGlyphs = 0;
   for (auto& bar : m_bars)
   {
-    int gc = bar->GetRelativeWidth();
-    totalNumGlyphs += gc;
+    float w = bar->GetRelativeWidth();
+    totalNumGlyphs += static_cast<int>(w); // TODO use floats throughout
   }
 
   // Bar calculates its width as fraction of s_pageWidth 
@@ -445,14 +454,14 @@ void CommandLineParams(int argc, char** argv, MakeScore& ms)
     {
       i++; 
       // Normalised: i.e. page width of 1 means the default width.
-      s_pageWidth = atof(argv[i]) * s_pageWidth;
+      s_pageWidth = static_cast<float>(atof(argv[i])) * s_pageWidth;
     }
 
     if (param == "--scale")
     {
       i++;
       // Normalised: i.e. scale of 1 means the default scale.
-      s_scale = atof(argv[i]) * s_scale;
+      s_scale = static_cast<float>(atof(argv[i])) * s_scale;
     }
   }
 }

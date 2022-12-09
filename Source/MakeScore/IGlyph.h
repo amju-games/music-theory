@@ -16,6 +16,8 @@ struct IGlyph
 
   void SetScale(float s) { scaleX = scaleY = s; }
 
+  void SetPos(float x_, float y_) { x = x_; y = y_; }
+
   float x = 0;
   // Default height is on single middle stave line for rhythm
   float y = DEFAULT_HEIGHT;
