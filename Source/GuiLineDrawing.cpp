@@ -58,6 +58,9 @@ static Vec2f CatmullRomSpline(float t, Vec2f p1, Vec2f p2, Vec2f p3, Vec2f p4)
 void GuiLineDrawing::BuildTriList()
 {
   AmjuGL::Tris tris;
+
+  Vec2f p[4];
+
   for (int i = 1; i < m_index; i++)
   {
     const Vec2f& p0 = m_points[i - 1];
@@ -70,18 +73,30 @@ void GuiLineDrawing::BuildTriList()
     Vec2f perp(perp3.x, perp3.y);
 
     // Calc line width here: either linear interp between start and end...
-//    float d = static_cast<float>(i) / static_cast<float>(m_points.size());
+#define LINE_WIDTH_LINEAR
+#ifdef LINE_WIDTH_LINEAR
+    float d = static_cast<float>(i) / static_cast<float>(m_points.size());
+#else 
     // Or vary based on current direction, so a bit more like calligraphy?
     float d = fabs(DotProduct(dir3, Vec3f(1, 0, 0)));
+#endif
+
     float w = m_startWidth + (m_endWidth - m_startWidth) * d; 
 
-    Vec2f p[4] = 
-    {
-      p0 + perp * w,
-      p1 + perp * w,
-      p1 - perp * w,
-      p0 - perp * w
-    };
+	if (i == 1)
+	{
+		p[0] = p0 + perp * w;
+		p[1] = p1 + perp * w;
+		p[2] = p1 - perp * w;
+		p[3] = p0 - perp * w;
+	}
+	else
+	{
+		p[0] = p[1];
+		p[3] = p[2];
+		p[1] = p1 + perp * w;
+		p[2] = p1 - perp * w;
+	}
 
     AmjuGL::Tri t[2];
 
@@ -239,7 +254,9 @@ void GuiLineDrawing::MakeInBetweenPoints()
       v.x *= m_size.x;
       v.y *= m_size.y;
       m_points.push_back(v);
-      t += 0.04f; // TODO 
+
+t += 0.4f;
+//      t += 0.04f; // TODO 
     }
   }
 }
