@@ -134,10 +134,7 @@ void GSMainCorridor::Load3dForTopics()
     //  unlocked variety.
     PSceneNode node = LoadScene("Scene/corridor-one-door.txt");
     Assert(node);
-    node->GetNodeByName("floor-and-wall")->SetIsLit(true);
-
     PSceneNode door = node->GetNodeByName("door");
-    door->SetIsLit(true);
     m_doors.push_back(door);
 
     // Translate this node

@@ -35,7 +35,6 @@ void GSBase3d::Reload3d()
   // Load 3D scene. TODO Base class for corridor/menu state and this, in-classroom state.
   PSceneNode node = LoadScene(m_sceneFilename);
   Assert(node);
-  node->SetIsLit(true);
   root->AddChild(node);
 }
 
