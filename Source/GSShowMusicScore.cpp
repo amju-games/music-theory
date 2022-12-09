@@ -12,7 +12,7 @@ void GSShowMusicScore::Update()
 void GSShowMusicScore::OnActive()
 {
   GSBase::OnActive(); 
-  m_gui = LoadGui("c:/Users/Jason/projects/music-theory/Assets/Gui/gs_score.txt");
+  m_gui = LoadGui("Assets/Gui/gs_score.txt");
 }
 
 bool GSShowMusicScore::OnKeyEvent(const KeyEvent& ke)

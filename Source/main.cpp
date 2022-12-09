@@ -46,10 +46,12 @@ void StartUpBeforeCreateWindow()
 
 void StartUpAfterCreateWindow()
 {
+//  File::SetRoot("c:/users/jason/projects/music-theory/Assets/", "/");
+
   // Set sound player
   SoundManager* sm = TheSoundManager::Instance();
   BassSoundPlayer* bsp = new BassSoundPlayer;
-  bsp->MidiSetSoundFont("C:/Users/Jason/projects/music-theory/Assets/Sound/velocity_grand_piano.sf2");
+  bsp->MidiSetSoundFont("Assets/Sound/velocity_grand_piano.sf2");
   sm->SetImpl(bsp);
 
   GuiMusicScore::AddToFactory();

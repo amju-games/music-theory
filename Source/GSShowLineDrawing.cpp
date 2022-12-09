@@ -16,7 +16,7 @@ void GSShowLineDrawing::Update()
 void GSShowLineDrawing::OnActive()
 {
   GSBase::OnActive(); 
-  m_gui = LoadGui("c:/Users/Jason/projects/music-theory/Assets/Gui/gs_line_drawing.txt");
+  m_gui = LoadGui("Assets/Gui/gs_line_drawing.txt");
 }
 
 bool GSShowLineDrawing::OnKeyEvent(const KeyEvent& ke)
