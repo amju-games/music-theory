@@ -7,7 +7,10 @@ namespace Amju
 {
 void GSShowLineDrawing::Update()
 {
-  m_gui->Update();
+  if (m_gui)
+  {
+    m_gui->Update();
+  }
 }
 
 void GSShowLineDrawing::OnActive()
