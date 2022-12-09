@@ -14,19 +14,24 @@ translate
 
 gui-comp
 avatar-eye-simple
-5
+2
 
 // WHITE OF EYE
 colour
-f0f0ff
+//f0f0ff
+8080ff
 scale
 1.5, 1.5
 .5, .5
-gui-image
+gui-sprite
 eye-white
 0, 0
 .2, .2
-Image/circle.png
+Image/avatar-sheet.png
+// Num cells x, y
+8,8
+// Cell
+7
 
 // IRIS - not used for simple eye
 //colour
@@ -48,11 +53,15 @@ translate
 scale
 .8, .8
 .5, .5
-gui-image
+gui-sprite
 pupil
 0, 0
 .2, .2
-Image/circle.png
+Image/avatar-sheet.png
+// Num cells x, y
+8, 8
+// Cell
+2
 
 // HIGHLIGHT - not for simple eye?
 //colour
