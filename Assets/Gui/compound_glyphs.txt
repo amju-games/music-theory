@@ -100,7 +100,7 @@ dotted-minim-down-raised-dot = minim-down, 0, 0 ; ., 0.275, 0.03
 // Ledger line, same y pos as bottom line of stave
 ledger = quad, 0.31, 0.475,  0.31, 0.490,  0.01, 0.490,  0.01, 0.475
 // Wide ledger line, for semibreves
-ledger-w = quad, 0.37, 0.475,  0.37, 0.490,  -0.01, 0.490,  -0.01, 0.475
+ledger-w = quad, 0.38, 0.475,  0.38, 0.490,  -0.00, 0.490,  -0.00, 0.475
 
 // Common notes
 // c4 = middle C
@@ -172,21 +172,37 @@ bass-e2-cr = crotchet-up, 0, -0.10 ; ledger, 0, -0.10
 bass-d2-cr = crotchet-up, 0, -0.15 ; ledger, 0, -0.10
 bass-c2-cr = crotchet-up, 0, -0.20 ; ledger, 0, -0.10; ledger, 0, -0.20
 
+bass-d#4-cr = bass-d4-cr, 0, 0 ; sharp, -0.2, 0.55
 bass-c#4-cr = bass-c4-cr, 0, 0 ; sharp, -0.2, 0.50
+bass-b#4-cr = bass-b4-cr, 0, 0 ; sharp, -0.2, 0.45
 bass-a#4-cr = bass-a4-cr, 0, 0 ; sharp, -0.2, 0.40
 bass-g#3-cr = bass-g3-cr, 0, 0 ; sharp, -0.2, 0.35
 bass-f#3-cr = bass-f3-cr, 0, 0 ; sharp, -0.2, 0.30
+bass-e#3-cr = bass-e3-cr, 0, 0 ; sharp, -0.2, 0.25
 bass-d#3-cr = bass-d3-cr, 0, 0 ; sharp, -0.2, 0.20
 bass-c#3-cr = bass-c3-cr, 0, 0 ; sharp, -0.2, 0.15
+bass-b#3-cr = bass-b3-cr, 0, 0 ; sharp, -0.2, 0.10
+bass-a#3-cr = bass-a3-cr, 0, 0 ; sharp, -0.2, 0.05
+bass-g#2-cr = bass-g2-cr, 0, 0 ; sharp, -0.2, 0.00
+bass-f#2-cr = bass-f2-cr, 0, 0 ; sharp, -0.2, -0.05
 
+bass-db4-cr = bass-d4-cr, 0, 0 ; flat, -0.2, 0.55
+bass-cb4-cr = bass-c4-cr, 0, 0 ; flat, -0.2, 0.50
 bass-bb4-cr = bass-b4-cr, 0, 0 ; flat, -0.2, 0.45
 bass-ab4-cr = bass-a4-cr, 0, 0 ; flat, -0.2, 0.40
 bass-gb3-cr = bass-g3-cr, 0, 0 ; flat, -0.2, 0.35
+bass-fb3-cr = bass-f3-cr, 0, 0 ; flat, -0.2, 0.30
 bass-eb3-cr = bass-e3-cr, 0, 0 ; flat, -0.2, 0.25
 bass-db3-cr = bass-d3-cr, 0, 0 ; flat, -0.2, 0.20
+bass-cb3-cr = bass-c3-cr, 0, 0 ; flat, -0.2, 0.15
+bass-bb3-cr = bass-b3-cr, 0, 0 ; flat, -0.2, 0.10
+bass-ab3-cr = bass-a3-cr, 0, 0 ; flat, -0.2, 0.05
+bass-gb2-cr = bass-g2-cr, 0, 0 ; flat, -0.2, 0.00
+bass-fb2-cr = bass-f2-cr, 0, 0 ; flat, -0.2, -0.05
 
 // Semibreves
-treb-c4-sb = semibreve, 0, -0.1 ; ledger-w, 0, -0.1
+treb-b4-sb = semibreve, 0, -0.15 ; ledger-w, 0, -0.1
+treb-c4-sb = semibreve, 0, -0.10 ; ledger-w, 0, -0.1
 treb-d4-sb = semibreve, 0, -0.05
 treb-e4-sb = semibreve, 0, 0.0
 treb-f4-sb = semibreve, 0, 0.05 
@@ -215,6 +231,68 @@ bass-f2-sb = semibreve, 0, -0.05
 bass-e2-sb = semibreve, 0, -0.10 ; ledger-w, 0, -0.10
 bass-d2-sb = semibreve, 0, -0.15 ; ledger-w, 0, -0.10
 bass-c2-sb = semibreve, 0, -0.20 ; ledger-w, 0, -0.10; ledger-w, 0, -0.20
+
+// Sharps
+treb-b#4-sb = treb-b4-sb, 0, 0 ; sharp, -0.2, -0.15
+treb-c#4-sb = treb-c4-sb, 0, 0 ; sharp, -0.2, -0.1
+treb-d#4-sb = treb-d4-sb, 0, 0 ; sharp, -0.2, -0.05
+treb-e#4-sb = treb-e4-sb, 0, 0 ; sharp, -0.2, 0.00
+treb-f#4-sb = treb-f4-sb, 0, 0 ; sharp, -0.2, 0.05
+treb-g#4-sb = treb-g4-sb, 0, 0 ; sharp, -0.2, 0.1
+treb-a#5-sb = treb-a5-sb, 0, 0 ; sharp, -0.2, 0.15
+treb-b#5-sb = treb-b5-sb, 0, 0 ; sharp, -0.2, 0.20
+treb-c#5-sb = treb-c5-sb, 0, 0 ; sharp, -0.2, 0.25
+treb-d#5-sb = treb-d5-sb, 0, 0 ; sharp, -0.2, 0.30
+treb-e#5-sb = treb-e5-sb, 0, 0 ; sharp, -0.2, 0.35
+treb-f#5-sb = treb-f5-sb, 0, 0 ; sharp, -0.2, 0.40
+treb-g#5-sb = treb-g5-sb, 0, 0 ; sharp, -0.2, 0.45
+treb-a#6-sb = treb-a6-sb, 0, 0 ; sharp, -0.2, 0.50
+
+// Flats
+treb-bb4-sb = treb-b4-sb, 0, 0 ; flat, -0.2, -0.15
+treb-cb4-sb = treb-c4-sb, 0, 0 ; flat, -0.2, -0.10
+treb-db4-sb = treb-d4-sb, 0, 0 ; flat, -0.2, -0.05
+treb-eb4-sb = treb-e4-sb, 0, 0 ; flat, -0.2, 0
+treb-fb4-sb = treb-f4-sb, 0, 0 ; flat, -0.2, 0.05
+treb-gb4-sb = treb-g4-sb, 0, 0 ; flat, -0.2, 0.1
+treb-ab5-sb = treb-a5-sb, 0, 0 ; flat, -0.2, 0.15
+treb-bb5-sb = treb-b5-sb, 0, 0 ; flat, -0.2, 0.2
+treb-cb5-sb = treb-c5-sb, 0, 0 ; flat, -0.2, 0.25
+treb-db5-sb = treb-d5-sb, 0, 0 ; flat, -0.2, 0.30
+treb-eb5-sb = treb-e5-sb, 0, 0 ; flat, -0.2, 0.35
+treb-fb5-sb = treb-f5-sb, 0, 0 ; flat, -0.2, 0.40
+treb-gb5-sb = treb-g5-sb, 0, 0 ; flat, -0.2, 0.45
+treb-ab6-sb = treb-a6-sb, 0, 0 ; flat, -0.2, 0.50
+treb-bb6-sb = treb-b6-sb, 0, 0 ; flat, -0.2, 0.55
+
+bass-d#4-sb = bass-d4-sb, 0, 0 ; sharp, -0.2, 0.55
+bass-c#4-sb = bass-c4-sb, 0, 0 ; sharp, -0.2, 0.50
+bass-b#4-sb = bass-b4-sb, 0, 0 ; sharp, -0.2, 0.45
+bass-a#4-sb = bass-a4-sb, 0, 0 ; sharp, -0.2, 0.40
+bass-g#3-sb = bass-g3-sb, 0, 0 ; sharp, -0.2, 0.35
+bass-f#3-sb = bass-f3-sb, 0, 0 ; sharp, -0.2, 0.30
+bass-e#3-sb = bass-e3-sb, 0, 0 ; sharp, -0.2, 0.25
+bass-d#3-sb = bass-d3-sb, 0, 0 ; sharp, -0.2, 0.20
+bass-c#3-sb = bass-c3-sb, 0, 0 ; sharp, -0.2, 0.15
+bass-b#3-sb = bass-b3-sb, 0, 0 ; sharp, -0.2, 0.10
+bass-a#3-sb = bass-a3-sb, 0, 0 ; sharp, -0.2, 0.05
+bass-g#2-sb = bass-g2-sb, 0, 0 ; sharp, -0.2, 0.00
+bass-f#2-sb = bass-f2-sb, 0, 0 ; sharp, -0.2, -0.05
+
+bass-db4-sb = bass-d4-sb, 0, 0 ; flat, -0.2, 0.55
+bass-cb4-sb = bass-c4-sb, 0, 0 ; flat, -0.2, 0.50
+bass-bb4-sb = bass-b4-sb, 0, 0 ; flat, -0.2, 0.45
+bass-ab4-sb = bass-a4-sb, 0, 0 ; flat, -0.2, 0.40
+bass-gb3-sb = bass-g3-sb, 0, 0 ; flat, -0.2, 0.35
+bass-fb3-sb = bass-f3-sb, 0, 0 ; flat, -0.2, 0.30
+bass-eb3-sb = bass-e3-sb, 0, 0 ; flat, -0.2, 0.25
+bass-db3-sb = bass-d3-sb, 0, 0 ; flat, -0.2, 0.20
+bass-cb3-sb = bass-c3-sb, 0, 0 ; flat, -0.2, 0.15
+bass-bb3-sb = bass-b3-sb, 0, 0 ; flat, -0.2, 0.10
+bass-ab3-sb = bass-a3-sb, 0, 0 ; flat, -0.2, 0.05
+bass-gb2-sb = bass-g2-sb, 0, 0 ; flat, -0.2, 0.00
+bass-fb2-sb = bass-f2-sb, 0, 0 ; flat, -0.2, -0.05
+
 
 // Convenience short versions: treble clef, notes from middle C.
 c = treb-c4-cr, 0, 0
