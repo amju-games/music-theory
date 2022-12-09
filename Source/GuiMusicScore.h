@@ -5,6 +5,7 @@
 
 #include <Colour.h>
 #include <GuiElement.h>
+#include <StringUtils.h>
 #include <TextureSequence.h>
 #include <TriList.h>
 
@@ -26,7 +27,17 @@ public:
   void SetFgCol(const Colour& col);
 
   // Add glyph defined by a string.
-  bool AddGlyphFromString(const std::string line);
+  bool AddGlyphFromString(
+    const std::string& line,
+    const Vec2f& pos = Vec2f(0, 0),
+    const Vec2f& scale = Vec2f(1.f, 1.f));
+
+  // Add multiple glyphs, using ; as the delimiter.
+  // Each glyph position is offset by pos, and scaled by the given scale.
+  bool AddMultipleGlyphsFromString(
+    const std::string& line, 
+    const Vec2f& pos = Vec2f(0, 0), 
+    const Vec2f& scale = Vec2f(1.f, 1.f));
 
   // Used internally but may be used with AddGlyph()
   void BuildTriList();
@@ -85,14 +96,32 @@ protected:
   // Convenience function: set the colour attribs on all the verts in a quad
   static void SetQuadColour(AmjuGL::Tri t[2], const Colour& col);
 
+  // Expand out a "compound" glyph, adding the multiple result glyphs to m_glyphs, offset 
+  //  and scaled with the params of the compoung glyph. 
+  // E.g. a note head plus its tail, which are 2 different glyphs, but we want to treat 
+  //  as a single glyph when authoring glyph strings.
+  bool ExpandCompoundGlyph(const Strings& tokens, const Vec2f& pos, const Vec2f& scale);
+
+  // Returns true if given string is a "compound" glyph, in which case we expand it.
+  bool IsCompoundGlyphName(const std::string& glyphName) const;
+
+  // Create a Glyph from the given string.
+  bool ParseGlyph(const std::string& line, Glyph* result, const Vec2f& pos, const Vec2f& scale);
+
+  // Populate s_compoundGlyphs -- called once
+  static void LoadCompoundGlyphs();
+
 protected:
   RCPtr<TriList> m_triList; 
-  TextureSequence m_atlas;
+  TextureSequence m_atlas; // music font - actual image is a resource.
   Colour m_fgCol; // default colour for all glyphs
   Colour m_hightlightColour;
 
   using Glyphs = std::vector<Glyph>;
   Glyphs m_glyphs;
+
+  // Look up table from compound glyph name to multiple glyphs to which we should expand.
+  static std::map<std::string, std::string> s_compoundGlyphs;
 };
 }
 

@@ -447,5 +447,8 @@
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\compound_glyphs.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>

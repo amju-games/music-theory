@@ -26,20 +26,20 @@ linear
 music-score
 // Name, Position, Size
 music-score
--1.0, 0
+-0.0, 0
 .5, .5
 // Colour
 000000
 
 // Glyphs start here
-stave, -0.5, 0, 20, 1
-treble-clef, 0, 0
+stave, -0.5, 0, 20, .5
+//treble-clef, 0, 0,   0.5, 0.5
 
-crotchet, 0.6, 0
-., 0.875, 0.03
+//crotchet, 0.6, 0
+//., 0.875, 0.03
 // NOTE WITH STEMS
-note-minim, 1.0, 0
-tail, 1.0, 0
+//note-minim, 1.0, 0
+//tail, 1.0, 0
 
 // stem-down
 //quad, 1.02, 0.1,  1.02, 0.475,  1.0, 0.475,  1.0, 0.1
@@ -48,11 +48,19 @@ tail, 1.0, 0
 
 
 // NOTE WITH STEMS
-note-full, 2.0, 0.05
-// stem-down
-quad, 2.02, 0.15,  2.02, 0.525,  2.0, 0.525,  2.0, 0.15
-// stem-up
-quad, 2.21, 0.525,  2.21, 0.895,  2.19, 0.895,  2.19, 0.525
+
+note-minim-up, 1.0, -0.05,   0.5, 0.5
+note-minim-up, 1.5, 0.0 ,    0.5, 0.5
+note-minim-up, 2.0, 0.05 ,   0.5, 0.5
+note-minim-up, 2.5, 0.1 ,    0.5, 0.5
+note-minim-down, 3.0, 0.25,  0.5, 0.5
+
+note-minim, 0.0, 0.0
+//// stem-up
+quad, 0.205, 0.495,  0.205, 0.825,  0.175, 0.825,  0.175, 0.475
+
+//// stem-down
+quad, 0.03, 0.125,  0.03, 0.475,  0.0, 0.455,  0.0, 0.125
 
 end
 

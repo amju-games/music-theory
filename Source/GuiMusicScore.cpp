@@ -1,9 +1,11 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include <mutex> // call_once
 #include <unordered_map>
 #include <GuiFactory.h>
 #include <ReportError.h>
+#include <StringsFile.h>
 #include <StringUtils.h>
 #include "GuiMusicScore.h"
 
@@ -15,6 +17,8 @@ const char STAVE_CHAR = '=';
 // This non-printable character is used for quads, which are a special case.
 // Used for stave lines, bar lines, beams etc.
 const char* QUAD_NAME = "quad";
+
+std::map<std::string, std::string> GuiMusicScore::s_compoundGlyphs;
 
 static GuiElement* CreateMusicScore()
 {
@@ -140,13 +144,31 @@ static bool GlyphNameToCh(const std::string& s, char* ch)
   return false;
 }
 
+void GuiMusicScore::LoadCompoundGlyphs()
+{
+  Strings strs;
+  LoadStrings("Gui/compound_glyphs.txt", &strs);
+  // Each line is split by = sign
+  for (auto& s : strs)
+  {
+    Strings p = Split(s, '='); // pair, split by = sign
+    Assert(p.size() == 2);
+    s_compoundGlyphs.insert(std::make_pair(Trim(p[0]), Trim(p[1])));
+  }
+}
+
 GuiMusicScore::GuiMusicScore()
 {
   // Create texture atlas. TODO CONFIG
+  // Image is a resource, only loaded once.
   m_atlas.Load("font2d/Guido2/guido2-60pt.png", 16, 14, 1, 1);
 
   m_fgCol = Colour(0, 0, 0, 1); // default to black
   m_hightlightColour = Colour(1, 0, 0, 1); // TODO TEMP TEST, load it
+
+  // Compound glyphs: load from file. Just do it once for all Music Scores.
+  static std::once_flag flag;
+  std::call_once(flag, LoadCompoundGlyphs);
 }
 
 void GuiMusicScore::AddToFactory()
@@ -201,23 +223,81 @@ void GuiMusicScore::AddGlyph(const Glyph& g)
   m_glyphs.push_back(g);
 }
 
-bool GuiMusicScore::AddGlyphFromString(const std::string line)
+bool GuiMusicScore::IsCompoundGlyphName(const std::string& glyphName) const
+{
+  return s_compoundGlyphs.find(glyphName) != s_compoundGlyphs.end();
+}
+
+bool GuiMusicScore::ExpandCompoundGlyph(const Strings& strs, const Vec2f& pos_, const Vec2f& scale_)
+{
+  int n = strs.size();
+  if (n != 3 && n != 5)
+  {
+    ReportError("Unexpected compound glyph format");
+    return false;
+  }
+  // Look up the compound glyph string for this name, e.g. "minim-up" => "minim... ; quad..."
+  const std::string& compoundStr = s_compoundGlyphs[strs[0]];
+  // Get the position and scale, which we will apply to all expanded glyphs
+  Vec2f pos = Vec2f(ToFloat(strs[1]), ToFloat(strs[2])) + pos_;
+  Vec2f scale(scale_);
+  if (n == 5)
+  {
+    scale.x *= ToFloat(strs[3]);
+    scale.y *= ToFloat(strs[4]);
+  }
+  // Add the glyphs in the expanded string, applying the new pos and scale
+  AddMultipleGlyphsFromString(compoundStr, pos, scale);
+
+  return true;
+}
+
+bool GuiMusicScore::AddMultipleGlyphsFromString(const std::string& line, const Vec2f& pos, const Vec2f& scale)
+{
+  // Multiple glyphs split by ;
+  Strings strs = Split(line, ';');
+  for (const std::string& s : strs)
+  {
+    Strings tokens = Split(s, ',');
+    Assert(tokens.size() > 0);
+
+    // s is a single glyph string, or could be a "compound name".
+    // Check first string: it could be a "compound name", which expands out to multiple glyphs.
+    if (IsCompoundGlyphName(tokens[0]))
+    {
+      if (!ExpandCompoundGlyph(tokens, pos, scale))
+      {
+        ReportError("Failed to expand compound glyph: " + s);
+        return false;
+      }
+    }
+    else if (!AddGlyphFromString(s, pos, scale))
+    {
+      ReportError("Failed to set score glyph: " + s);
+      return false;
+    }
+  }
+  return true;
+}
+
+bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* result, const Vec2f& pos_, const Vec2f& scale_)
 {
   // Split line. Format OK? Has optional scale?
   Strings strs = Split(line, ',');
   int n = strs.size();
+
   // Quads are a special case
   if (n == 9 && strs[0] == QUAD_NAME)
   {
     // 4 corners
     Vec2f corners[4] =
     {
-      Vec2f(ToFloat(strs[1]), ToFloat(strs[2])),
-      Vec2f(ToFloat(strs[3]), ToFloat(strs[4])),
-      Vec2f(ToFloat(strs[5]), ToFloat(strs[6])),
-      Vec2f(ToFloat(strs[7]), ToFloat(strs[8]))
+      (Vec2f(ToFloat(strs[1]), ToFloat(strs[2])) + pos_) * scale_,
+      (Vec2f(ToFloat(strs[3]), ToFloat(strs[4])) + pos_) * scale_,
+      (Vec2f(ToFloat(strs[5]), ToFloat(strs[6])) + pos_) * scale_,
+      (Vec2f(ToFloat(strs[7]), ToFloat(strs[8])) + pos_) * scale_
     };
-    m_glyphs.push_back(Glyph(corners, m_fgCol));
+    *result = Glyph(corners, m_fgCol);
     return true;
   }
   else if (n == 3 || n == 5)
@@ -232,16 +312,30 @@ bool GuiMusicScore::AddGlyphFromString(const std::string line)
     Vec2f pos(ToFloat(strs[1]), ToFloat(strs[2]));
     if (n == 3)
     {
-      m_glyphs.push_back(Glyph(ch, pos, m_fgCol));
+      Vec2f p = (pos + pos_) * scale_;
+      *result = Glyph(ch, p, scale_, m_fgCol);
     }
     else
     {
-      Vec2f scale(ToFloat(strs[3]), ToFloat(strs[4]));
-      m_glyphs.push_back(Glyph(ch, pos, scale, m_fgCol));
+      Vec2f scale = Vec2f(ToFloat(strs[3]), ToFloat(strs[4])) * scale_;
+      Vec2f p = (pos + pos_) * scale;
+      *result = Glyph(ch, p, scale, m_fgCol);
     }
     return true;
   }
   return false;
+}
+
+bool GuiMusicScore::AddGlyphFromString(const std::string& line, const Vec2f& pos, const Vec2f& scale)
+{
+  Glyph g;
+  if (!ParseGlyph(line, &g, pos, scale))
+  {
+    return false;
+  }
+
+  m_glyphs.push_back(g);
+  return true;
 }
 
 bool GuiMusicScore::Load(File* f)
@@ -270,7 +364,7 @@ bool GuiMusicScore::Load(File* f)
   std::string line;
   while (f->GetDataLine(&line))
   {
-    if (!AddGlyphFromString(line))
+    if (!AddMultipleGlyphsFromString(line))
     {
       break;
     }
