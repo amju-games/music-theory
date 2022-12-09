@@ -23,6 +23,7 @@
 
 #include <AmjuGLWindowInfo.h>
 #include <BassSoundPlayer.h>
+#include <CursorManager.h>
 #include <Directory.h>
 #include <Font.h>
 #include <Game.h>
@@ -95,6 +96,10 @@ void StartUpAfterCreateWindow()
   sm->SetImpl(bsp); 
 #endif
 
+#if defined(WIN32) || defined(MACOSX)
+  TheCursorManager::Instance()->Load(Vec2f(0.025f, -0.08f)); // hotspot position
+#endif
+
   // Set image used for rounded rectangles
   GuiRect::SetCornerImage("Image/corner.png");
 
@@ -102,13 +107,13 @@ void StartUpAfterCreateWindow()
   GuiMusicKb::AddToFactory();
   GuiMusicScore::AddToFactory();
 
-//  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
   //TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
 
 //  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
-  TheGame::Instance()->SetCurrentState(TheGSPages::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSPages::Instance());
 }
 }
 

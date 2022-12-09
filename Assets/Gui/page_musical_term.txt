@@ -54,7 +54,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-arial, 1.0, sx=1.6, fgcol=ffffff
+dimbo, 1.0, sx=1.6, fgcol=ffffff
 
 // element type
 gui-button
@@ -69,7 +69,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-arial, 1.0, sx=1.6, fgcol=ffffff
+dimbo, 1.0, sx=1.6, fgcol=ffffff
 
 // element type
 gui-button
@@ -84,7 +84,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-arial, 1.0, sx=1.6, fgcol=ffffff
+dimbo, 1.0, sx=1.6, fgcol=ffffff
 
 // element type
 gui-button
@@ -99,7 +99,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-arial, 1.0, sx=1.6, fgcol=ffffff
+dimbo, 1.0, sx=1.6, fgcol=ffffff
 
 
 gui-image

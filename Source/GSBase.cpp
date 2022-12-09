@@ -2,6 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <AmjuGL.h>
+#include <CursorManager.h>
 #include "GSBase.h"
 
 namespace Amju
@@ -23,6 +24,10 @@ void GSBase::Draw2d()
   { 
     m_gui->Draw();
   }
+
+#ifdef GEKKO
+  TheCursorManager::Instance()->Draw();
+#endif
 }
 
 void GSBase::OnActive() 

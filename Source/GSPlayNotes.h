@@ -11,7 +11,7 @@ namespace Amju
 class GSPlayNotes : public GSBase
 {
 public:
-  virtual void OnActive() override;
+  GSPlayNotes();
   virtual void Update() override;
 };
 

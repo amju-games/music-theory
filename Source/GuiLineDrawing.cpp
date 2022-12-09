@@ -252,6 +252,11 @@ void GuiLineDrawing::Update()
     return;
   }
 
+  if (!IsVisible())
+  {
+    return;
+  }
+
   float dt = TheTimer::Instance()->GetDt();
 
   m_time += dt;

@@ -3,6 +3,7 @@
 
 #include <GuiButton.h>
 #include <ResourceManager.h>
+#include "GSPages.h"
 #include "PageMusicalTerm.h"
 
 namespace Amju
@@ -48,6 +49,14 @@ void PageMusicalTerm::OnActive()
     Assert(button);
     button->SetCommand(new ChoiceCommand(this, i));
     button->SetText(m_answers.GetAnswer(i));
+
+    // Set hint for questions we have not seen before.
+    // Also do this if user taps Hint button, which should affect score and add this Q
+    //  to the list that needs extra reinforcement.
+    if (m_answers.IsAnswerCorrect(i))
+    {
+      button->SetHasFocus(true); // pulsing glow
+    }
   }
   // TODO Hide any extra buttons?
 }
@@ -58,9 +67,8 @@ void PageMusicalTerm::OnChoice(int c)
   
   if (m_answers.IsAnswerCorrect(c))
   {
-    // Display tick
+    dynamic_cast<GSPages*>(m_gs)->OnCorrect();
 
-    // Happy sound
 
     // Increase score
 
@@ -68,9 +76,10 @@ void PageMusicalTerm::OnChoice(int c)
   }
   else
   {
+    dynamic_cast<GSPages*>(m_gs)->OnIncorrect();
+
     // Display cross
 
-    // Unhappy sound
 
     // Add to list of things we are weak at
 

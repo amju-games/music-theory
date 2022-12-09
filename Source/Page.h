@@ -9,6 +9,8 @@
 
 namespace Amju
 {
+class GameState;
+
 // * Page *
 // A page is one screenful of information, usually in the form of a "test" or question. 
 // E.g. rather than just present a musical term and its meaning, we pose it as a question,
@@ -33,6 +35,8 @@ public:
   virtual void Draw();
   virtual void Update();
 
+  void SetGameState(GameState* gs);
+
 //  void SetQuestion(Question* question); // ?
 
 protected:
@@ -45,5 +49,7 @@ protected:
   PGuiElement m_gui;
 
   RCPtr<Question> m_question;
+
+  GameState* m_gs = nullptr;
 };
 }

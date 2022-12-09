@@ -21,6 +21,9 @@ public:
 
   void AddPage(Page* p);
 
+  void OnCorrect();
+  void OnIncorrect();
+
 protected:
   std::vector<RCPtr<Page>> m_pages;
   int m_currentPage = 0;
