@@ -11,7 +11,39 @@ gui-comp
 // Name
 main-menu-comp
 // Num children
-2
+4
+
+
+
+gui-image
+bulb
+0, 0
+1.2, 1.2
+Image/bulb.png
+
+
+include
+title-text.txt
+
+
+// Decorator test
+
+
+// 2s delay
+animation
+3.0
+step
+one-shot
+
+// Triangle wave animation
+animation
+0.25
+linear
+mirror-repeat
+
+// Animation interpolates between these colours
+colour
+ff0000, 0000ff
 
 line-drawing
 // Name, Position, Size
@@ -23,11 +55,11 @@ line-drawing-test-1
 // Duration of drawing (s) (i.e. End time - start time)
 3.0
 // Start width
-0.1
+0.04
 // End width
-0.001
+0.08
 // Colour: (start colour, end colour?)
-6EB127
+6EB127c0
 // Points
 stroke-main-menu-1.txt
 

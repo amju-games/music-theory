@@ -2,6 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <GuiFactory.h>
+#include <ResourceManager.h>
 #include <StringUtils.h>
 #include <Timer.h>
 #include <Vec3.h>
@@ -83,32 +84,41 @@ void GuiLineDrawing::BuildTriList()
 
     float w = m_startWidth + (m_endWidth - m_startWidth) * d; 
 
-	if (i == 1)
-	{
-		p[0] = p0 + perp * w;
-		p[1] = p1 + perp * w;
-		p[2] = p1 - perp * w;
-		p[3] = p0 - perp * w;
-	}
-	else
-	{
-		p[0] = p[1];
-		p[3] = p[2];
-		p[1] = p1 + perp * w;
-		p[2] = p1 - perp * w;
-	}
+    float u0 = 0.5f;
+    float u1 = 0.5f;
+    float v0 = 0;
+    float v1 = 1;
+
+    if (i == 1)
+    {
+      u0 = 0;
+      p[0] = p0 + perp * w;
+      p[1] = p1 + perp * w;
+      p[2] = p1 - perp * w;
+      p[3] = p0 - perp * w;
+    }
+    else
+    {
+      p[0] = p[1];
+      p[3] = p[2];
+      p[1] = p1 + perp * w;
+      p[2] = p1 - perp * w;
+
+      if (i == (m_index - 1))
+      {
+        u1 = 1;
+      }
+    }
 
     AmjuGL::Tri t[2];
 
     const float Z = 0.5f;
-    float u = 0;
-    float v = 0;
     AmjuGL::Vert verts[4] =
     {
-      AmjuGL::Vert(p[0].x, p[0].y, Z, u, v, 0, 1.0f, 0),
-      AmjuGL::Vert(p[1].x, p[1].y, Z, u, v, 0, 1.0f, 0),
-      AmjuGL::Vert(p[2].x, p[2].y, Z, u, v, 0, 1.0f, 0),
-      AmjuGL::Vert(p[3].x, p[3].y, Z, u, v, 0, 1.0f, 0)
+      AmjuGL::Vert(p[0].x, p[0].y, Z, u0, v0, 0, 1.0f, 0),
+      AmjuGL::Vert(p[1].x, p[1].y, Z, u1, v0, 0, 1.0f, 0),
+      AmjuGL::Vert(p[2].x, p[2].y, Z, u1, v1, 0, 1.0f, 0),
+      AmjuGL::Vert(p[3].x, p[3].y, Z, u0, v1, 0, 1.0f, 0)
     };
 
     t[0].m_verts[0] = verts[0];
@@ -129,15 +139,15 @@ void GuiLineDrawing::Draw()
 {
   Vec2f pos = GetCombinedPos();
 
-  AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D); // for now
+  m_texture->UseThisTexture();
+
   AmjuGL::PushMatrix();
   PushColour();
-  AmjuGL::SetColour(m_fgCol);
+  MultColour(m_fgCol);
   AmjuGL::Translate(pos.x, pos.y, 0);
   AmjuGL::Draw(m_triList);
   PopColour();
   AmjuGL::PopMatrix();
-  AmjuGL::Enable(AmjuGL::AMJU_TEXTURE_2D);
 }
 
 bool GuiLineDrawing::Load(File* f)
@@ -202,7 +212,19 @@ bool GuiLineDrawing::Load(File* f)
     return false;
   }
 
-  return LoadPoints(&pointsFile);
+  if (!LoadPoints(&pointsFile))
+  {
+    return false;
+  }
+
+  m_texture = (Texture*)TheResourceManager::Instance()->GetRes("Image/corner.png");
+  if (!m_texture)
+  {
+    f->ReportError("Failed to load line drawing texture");
+    return false;
+  }
+
+  return true;
 }
 
 bool GuiLineDrawing::LoadPoints(File* f)
@@ -255,8 +277,8 @@ void GuiLineDrawing::MakeInBetweenPoints()
       v.y *= m_size.y;
       m_points.push_back(v);
 
-t += 0.4f;
-//      t += 0.04f; // TODO 
+//t += 0.2f;
+      t += 0.04f; // TODO 
     }
   }
 }

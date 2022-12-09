@@ -9,7 +9,7 @@ namespace Amju
 class GSShowLineDrawing : public GSBase
 {
 public:
-  virtual void OnActive() override;
+  GSShowLineDrawing();
 };
 
 typedef Singleton<GSShowLineDrawing> TheGSShowLineDrawing;

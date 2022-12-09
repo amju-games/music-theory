@@ -32,6 +32,7 @@
 #include <ObjMesh.h>
 #include <ResourceManager.h>
 #include <SoundManager.h>
+#include "GSMainMenu.h"
 #include "GSPages.h"
 #include "GSPlayNotes.h"
 #include "GSShowLineDrawing.h"
@@ -116,7 +117,10 @@ void StartUpAfterCreateWindow()
 //  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSPages::Instance());
 //    TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());
-  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+
+  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
+  
 }
 }
 

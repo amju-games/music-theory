@@ -5,11 +5,9 @@
 
 namespace Amju
 {
-void GSShowLineDrawing::OnActive()
+GSShowLineDrawing::GSShowLineDrawing()
 {
-  GSBase::OnActive(); 
-  m_gui = LoadGui("Gui/gs_line_drawing.txt");
+  m_guiFilename = "Gui/gs_line_drawing.txt";
 }
-
 }
 
