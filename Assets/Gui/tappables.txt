@@ -27,7 +27,7 @@ scene-mesh-material
 // Obj
 obj/just-frame1.obj
 // Material 
-obj/just-frame2.mtl
+obj/just-frame-1.mtl
 //
 // Child: picture
 scene-mesh-material
@@ -64,7 +64,7 @@ scene-mesh-material
 // Obj
 obj/just-frame3.obj
 // Material 
-obj/just-frame3.mtl
+obj/just-frame-gold.mtl
 //
 // Child: picture
 scene-mesh-material
@@ -100,7 +100,7 @@ obj/piano1.obj
 1
 mesh
 piano-shadow
-1.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, 1, 0, 1
+1.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, .1, 0, 1
 obj/shadow-sq.obj
 0
 // TODO Action when tapped
@@ -156,7 +156,7 @@ obj/piano2.obj
 1
 mesh
 piano-shadow
-1.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, 1, 0, 1
+1.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, .1, 0, 1
 obj/shadow-sq.obj
 0
 // Camera eye
