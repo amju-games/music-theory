@@ -25,7 +25,7 @@ topic-name-text
 TOPIC
 // Font name, size
 // TODO Bug: reveal doesn't work for multi-line.
-dimbo, 2.5, multi, fgcol=ffffff, reveal=0.1
+TEXT, 2.5, multi, fgcol=ffffff, reveal=0.1
 
 
 
@@ -45,7 +45,7 @@ Image/gui-button-2.png
 // CANCEL
 $$$88
 // Font name, size
-dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
+BUTTON, 2.0, fgcol=ffffff, bgcol=FF0949
 
 
 // Start button
@@ -56,5 +56,5 @@ start-button
 Image/gui-button-2.png
 // START
 $$$83
-dimbo, 2., fgcol=ffffff, bgcol=4E69F4
+BUTTON, 2., fgcol=ffffff, bgcol=4E69F4
 

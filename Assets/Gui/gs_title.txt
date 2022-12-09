@@ -29,7 +29,7 @@ start-button
 Image/gui-button-2.png
 // START
 $$$83
-dimbo, 2., fgcol=ffffff, bgcol=4E69F4
+BUTTON, 2., fgcol=ffffff, bgcol=4E69F4
 
 // delay
 animation

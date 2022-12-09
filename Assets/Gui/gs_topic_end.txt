@@ -19,7 +19,7 @@ topic-end-text1
 .5, 0.4
 // WOW!
 $$$84
-dimbo, 2.5, multi, fgcol=ffffff
+TEXT, 2.5, multi, fgcol=ffffff
 
 gui-text
 topic-end-text2
@@ -27,7 +27,7 @@ topic-end-text2
 .5, 0.4
 // You scored
 $$$85
-dimbo, 2.0, multi, fgcol=ffffff
+TEXT, 2.0, multi, fgcol=ffffff
 
 // Top number. OK, "numerator"
 
@@ -46,7 +46,7 @@ num-text
 0.1, 0.85
 0.2, 0.4
 NUM
-dimbo, 3.0, fgcol=ffffff
+TEXT, 3.0, fgcol=ffffff
 
 // Mid line: animated line drawing
 
@@ -93,7 +93,7 @@ denom-text
 0.1, 0.5
 0.2, 0.4
 10
-dimbo, 3.0, fgcol=ffffff
+TEXT, 3.0, fgcol=ffffff
 
 
 // TODO Delay?
@@ -107,7 +107,7 @@ ok-button
 Image/gui-button-2.png
 // OK
 $$$86
-dimbo, 3.0, fgcol=ffffff, bgcol=4E69F4
+BUTTON, 3.0, fgcol=ffffff, bgcol=4E69F4
 
 
 // Text about having some more hint tokens
