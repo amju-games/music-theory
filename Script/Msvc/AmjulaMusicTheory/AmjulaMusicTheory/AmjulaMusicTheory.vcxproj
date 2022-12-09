@@ -312,6 +312,7 @@
     <ClCompile Include="..\..\..\..\Source\PrintGui.cpp" />
     <ClCompile Include="..\..\..\..\Source\Question.cpp" />
     <ClCompile Include="..\..\..\..\Source\ScoreBuilder.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ShareManager.cpp" />
     <ClCompile Include="..\..\..\..\Source\Startup.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -381,7 +382,6 @@
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
     <ClInclude Include="..\..\..\..\Source\Hints.h" />
-    <ClInclude Include="..\..\..\..\Source\Keys.h" />
     <ClInclude Include="..\..\..\..\Source\Md2SceneNode.h" />
     <ClInclude Include="..\..\..\..\Source\MultiChoiceQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\MusicalTermQuestion.h" />
@@ -397,6 +397,7 @@
     <ClInclude Include="..\..\..\..\Source\PlayWav.h" />
     <ClInclude Include="..\..\..\..\Source\Question.h" />
     <ClInclude Include="..\..\..\..\Source\ScoreBuilder.h" />
+    <ClInclude Include="..\..\..\..\Source\ShareManager.h" />
     <ClInclude Include="..\..\..\..\Source\Tappable.h" />
     <ClInclude Include="..\..\..\..\Source\Topic.h" />
     <ClInclude Include="..\..\..\..\Source\UserProfile.h" />

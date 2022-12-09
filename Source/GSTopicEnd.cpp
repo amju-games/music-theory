@@ -6,12 +6,19 @@
 #include <MessageQueue.h>
 #include "GSMainCorridor.h"
 #include "GSTopicEnd.h"
+#include "ShareManager.h"
 
 namespace Amju
 {
 static void OnOK(GuiElement*)
 {
   TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainCorridor>, SecondsFromNow(1.0f)));
+}
+
+static void OnShare(GuiElement*)
+{
+
+  TheShareManager::Instance()->ShareTextAndScreenshot();
 }
 
 GSTopicEnd::GSTopicEnd()
