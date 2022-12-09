@@ -13,6 +13,8 @@ class GSMainMenu : public GSBase3d
 public:
   GSMainMenu();
   virtual void OnActive() override;
+  virtual void Update() override;
+ 
   void GoToTopic(int topic);
 
   // Detect swipes
@@ -21,6 +23,7 @@ public:
 
 protected:
   void Load3dForTopics();
+  void Drag(bool rightNotLeft);
 
 private:
   // To detect swipe left/right
@@ -29,7 +32,9 @@ private:
 
   bool m_isScrolling = false;
   float m_desiredXPos = 0;
-  int m_currentTopicScrolledTo = 0; 
+  float m_currentXPos = 0;
+  float m_scrollVel = 0;
+  int m_currentTopicScrolledTo = 0;
 };
 
 typedef Singleton<GSMainMenu> TheGSMainMenu;

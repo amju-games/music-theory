@@ -9,6 +9,7 @@
 #include <ResourceManager.h>
 #include <SceneGraph.h>
 #include <StringUtils.h>
+#include <Timer.h>
 #include "Course.h"
 #include "GSAbout.h"
 #include "GSMainMenu.h"
@@ -221,22 +222,73 @@ void GSMainMenu::GoToTopic(int topic)
 //ScrollUp();
 }
 
+void GSMainMenu::Drag(bool rightNotLeft)
+{
+  // Check for end of corridor
+  const float DISTANCE_BETWEEN_DOORS = 300.0f; // TODO TEMP TEST
+  m_isScrolling = true;
+
+  if (rightNotLeft)
+  {
+    m_currentTopicScrolledTo++;
+    m_desiredXPos += DISTANCE_BETWEEN_DOORS;
+    m_scrollVel = 1000.0f; // TODO TEMP TEST
+  }
+  else
+  {
+    m_currentTopicScrolledTo--;
+    m_desiredXPos -= DISTANCE_BETWEEN_DOORS;
+    m_scrollVel = -1000.0f; // TODO TEMP TEST
+  }
+}
+
+void GSMainMenu::Update()
+{
+  GSBase3d::Update();
+  
+  if (m_isScrolling)
+  {
+    float dt = TheTimer::Instance()->GetDt();
+    m_currentXPos += m_scrollVel * dt;
+    if (   (m_scrollVel > 0 && m_currentXPos > m_desiredXPos)
+        || (m_scrollVel < 0 && m_currentXPos < m_desiredXPos))
+    {
+      m_currentXPos = m_desiredXPos;
+      m_scrollVel = 0;
+      m_isScrolling = false;
+    }
+  
+    SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
+    SceneNodeCamera* camera = dynamic_cast<SceneNodeCamera*>(
+      root->GetNodeByName("camera"));
+    Assert(camera);
+    Vec3f eye = camera->GetEyePos();
+    Vec3f look = camera->GetLookAtPos();
+    eye.z = m_currentXPos;
+    look.z = m_currentXPos;
+    camera->SetEyePos(eye);
+    camera->SetLookAtPos(look);
+  }
+}
+
 bool GSMainMenu::OnCursorEvent(const CursorEvent& ce)
 {
   if (m_isDragging)
   {
     Vec2f pos = Vec2f(ce.x, ce.y);
-    Vec2f dragDist = pos - m_touchDown;
+    Vec2f dragDist = m_touchDown - pos;
     const float MIN_DRAG_DIST = 0.5f; // 1/4 of screen
     if (fabs(dragDist.x) > MIN_DRAG_DIST)
     {
       if (dragDist.x > 0)
       {
         std::cout << "Drag right!\n";
+        Drag(true);
       }
       else
       {
         std::cout << "Drag left!\n";
+        Drag(false);
       }
       m_touchDown = pos;
     }
