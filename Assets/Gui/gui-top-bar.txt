@@ -19,7 +19,31 @@ gui-comp
 // Name
 top-bar-elasticated
 // Num children
-5
+// TODO Most of bar hidden for now
+2
+
+
+include
+pie.txt
+
+// Player score
+// Element type
+gui-text
+// Element name
+num-pages-text
+// pos (coords are -1..1)
+0.10, 0.9
+// size
+0.3, 0.1
+// Text
+25600
+// Font name, size
+dimbo, 1.0, right, fgcol=000000
+
+// --------------------
+
+
+
 
 // Bar bg
 colour
@@ -54,20 +78,4 @@ Ella
 dimbo, 2.0,  fgcol=000000
 
 
-// Player score
-// Element type
-gui-text
-// Element name
-num-pages-text
-// pos (coords are -1..1)
-0.10, 0.9
-// size
-0.3, 0.1
-// Text
-25600
-// Font name, size
-dimbo, 1.0, right, fgcol=000000
-
-include
-pie.txt
 
