@@ -24,7 +24,7 @@ sky
 Image/white.png
 
 
-// Child 2 - Sun , scrolls up
+// Child 2 - Sun etc, scrolls up
 animation
 scroll-up-trigger
 const
@@ -34,10 +34,10 @@ animation
 up-scroll-anim
 one-shot
 1.0
-linear
+ease-in-out
 
 translate
-0,0 ; 0, 2.2
+0,0 ; 0, 3
 
 
 animation
@@ -46,17 +46,13 @@ const
 one
 
 gui-comp
-sun-root
-6
+scroll-up-root
+5
 
-// Small bulb
+// Sun colour
 colour
 F6D84C
-gui-image
-bulb
--0.15, 0.15
-0.3, 1.2
-Image/bulb.png
+
 
 // delay
 animation
@@ -68,22 +64,18 @@ step
 animation
 name-not-used
 one-shot
-3.0
-linear
+2.0
+ease-in-out
 
-line-drawing
-// Name, Position, Size
-line-drawing-test-1
+scale
+0.2, 0.2; 1.0, 1.0
+0, 0
+
+gui-image
+bulb
 0, 0
 1, 1
-// Start width
-0.08
-// End width
-0.04
-// Colour
-F6D84C
-// Points
-stroke-spiral-2.txt
+Image/bulb.png
 
 
 // Pulse 1
@@ -105,7 +97,7 @@ F6D84C80, F6D84C00
 
 scale
 0.1, 0.1; 4.0, 4.0
--0.05, 0
+0, 0
 
 gui-image
 bulb
@@ -133,13 +125,18 @@ F6D84C80, F6D84C00
 
 scale
 0.1, 0.1; 5.0, 5.0
--0.05, 0
+0, 0
 
 gui-image
 bulb
 0, 0
 1, 1
 Image/bulb.png
+
+translate
+0, -3
+include
+ground.txt
 
 
 
@@ -163,32 +160,8 @@ linear
 colour
 ffffff00, ffffffff
 
-gui-comp
-title-text-and-bg
-// Num children
-2
-
-// Solid bg, to hide any gaps in spiral
-colour
-F6D84C
-gui-image
-bulb
--0.5, 0.15
-1.1, 1.2
-Image/bulb.png
-
-
 include
 title-text.txt
-
-
-// Ground
-gui-image
-underground
--1.0, -2.2
-2.0, 1.2
-Image/underground3.png
-
 
 
 // Start button
@@ -197,16 +170,16 @@ gui-button
 // Element name
 start-button
 // pos (coords are -1..1)
--0.15, -0.6
+-0.25, -0.6
 // size
-0.3, 0.15
+0.5, 0.15
 // Image 
 Image/gui-button-2.png
 //Image/leaf1.png
 // Text
 START
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+dimbo, 1.5, fgcol=ffffff, bgcol=FF0949
 
 
 

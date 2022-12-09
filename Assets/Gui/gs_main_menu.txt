@@ -65,16 +65,18 @@ Image/white.png, stretch
 
 gui-comp
 underground-comp
-2
+3
+
+include
+ground.txt
+
+translate
+0, -1
+include
+ground.txt
 
 gui-image
-underground-1
--1.0, 0.0
-2.0, 2.0
-Image/underground3.png, stretch
-
-gui-image
-underground-3
+underground-lava
 -1.0, -2.0
 2.0, 2.0
 Image/underground2.png, stretch
@@ -122,7 +124,7 @@ one
 
 gui-comp
 scrolling-part-of-scene
-6
+7
 
 
 // GROWING SHOOT
@@ -163,11 +165,12 @@ stroke-main-menu-1.txt
 
 colour
 96D159
+//C001D7
 gui-image
 bulb
 -0.5, -0.15
 1.0, 1.2
-Image/bulb.png
+Image/bulb2.png
 
 
 // GROWING TOPIC LEAF
@@ -244,15 +247,27 @@ dimbo, 1.0, multi, fgcol=ffffff
 
 // TITLE TEXT
 
-translate
-0, -0.25
+gui-text
+grade-text
+// pos (coords are -1..1)
+-0.25, -0.25
+// size
+0.5, 0.5
+// Text
+GRADE
+// Font name, size
+dimbo, 1.0, multi, fgcol=ffffff
 
-colour
-ffffff
-include
-title-text.txt
-
-
+gui-text
+grade-number-text
+// pos (coords are -1..1)
+-0.3, -0.3
+// size
+0.5, 0.5
+// Text
+1
+// Font name, size
+dimbo, 4.0, multi, fgcol=ffffff
 
 
 // 2nd child of root!

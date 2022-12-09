@@ -328,5 +328,8 @@
     <Text Include="..\..\..\..\Assets\Gui\gs_about.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\ground.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>

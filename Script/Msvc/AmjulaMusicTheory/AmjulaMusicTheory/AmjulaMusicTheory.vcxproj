@@ -366,6 +366,7 @@
   <ItemGroup>
     <Text Include="..\..\..\..\Assets\Course\grade1.txt" />
     <Text Include="..\..\..\..\Assets\Course\musical_terms.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\ground.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_about.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_main_menu.txt" />
