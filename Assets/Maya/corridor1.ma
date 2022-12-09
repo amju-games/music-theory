@@ -1,6 +1,6 @@
 //Maya ASCII 2015 scene
 //Name: corridor1.ma
-//Last modified: Sat, Sep 23, 2017 08:15:01 PM
+//Last modified: Sun, Sep 24, 2017 08:43:00 PM
 //Codeset: 1252
 requires maya "2015";
 requires -nodeType "mentalrayFramebuffer" -nodeType "mentalrayOptions" -nodeType "mentalrayGlobals"
@@ -13,12 +13,12 @@ fileInfo "cutIdentifier" "201405190330-916664";
 fileInfo "osv" "Microsoft Windows 7 Business Edition, 64-bit Windows 7 Service Pack 1 (Build 7601)\n";
 fileInfo "license" "student";
 createNode transform -s -n "persp";
-	setAttr ".t" -type "double3" 179.50166874197558 52.539966426424748 65.051505358791204 ;
-	setAttr ".r" -type "double3" -3.9383527388225748 1529.8000000004517 0 ;
+	setAttr ".t" -type "double3" 212.47501255565021 61.258856143986918 -25.755445982536642 ;
+	setAttr ".r" -type "double3" -5.1383528589350842 1550.9999999996587 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v";
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 202.23100787694014;
+	setAttr ".coi" 252.43957730802327;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
