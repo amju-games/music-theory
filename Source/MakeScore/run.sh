@@ -10,7 +10,7 @@ pushd ../../Assets/Gui
 cp scoretest.txt gs_test_show_score.txt
 popd
 
-echo '4/4 clef-t key-f-7 <q> 60 62 64' | ./makescore --stave-single --oneline  > out.txt
+echo 'clef-t key-f-3 <c> 60 62 64 65 67 69 71 72' | ./makescore --stave-single --oneline  > out.txt
 
 # Check rhythm stave type works OK
 #echo '4/4 m c c' | ./makescore --oneline  > out.txt

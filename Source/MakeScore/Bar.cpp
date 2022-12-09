@@ -104,9 +104,12 @@ void Bar::CalcGlyphY(Glyph* gl, int pitch) const
   {
     // Y-position for MIDI notes starting from MIDI 0, with C at y = 0.
     // y = 0 corresponds to the bottom line of the stave.
-    const int Y_POS[12] = 
+    // Choose array depending on whether the current key sig uses 
+    //  sharps or flats.
+    const int Y_POS[2][12] = 
     {
-      0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6
+      { 0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6 }, // Sharp key sig
+      { 0, 1, 1, 2, 2, 3, 4, 4, 5, 5, 6, 6 }  // Flat key sig 
     };
 
     // Add this offset to the y position, setting y to the correct
@@ -121,7 +124,9 @@ void Bar::CalcGlyphY(Glyph* gl, int pitch) const
     };
     // Use last clef set for this stave
     int clef = static_cast<int>(m_currentClef[m_currentStave]);
-    int staveLine = Y_POS[pitch % 12] + CLEF_OFFSET[clef];
+    // Choose stave position depending on key sign type (sharp/flat)
+    int sharpOrFlat = (m_keySig >= KEYSIG_0_FLAT) ? 1 : 0;
+    int staveLine = Y_POS[sharpOrFlat][pitch % 12] + CLEF_OFFSET[clef];
     // Use the octave to shunt note up or down
     int octave = (pitch / 12 - 5) * 7; // so middle C is 0
     staveLine += octave;
@@ -149,6 +154,11 @@ void Bar::AddGlyph(const std::string& s, int pitch)
   if (!rest)
   {
     gl->SetPitch(pitch);
+
+    // Calc any accidental required for the given pitch in the 
+    //  current key. 
+    // TODO Not if we have overriden by specifying an accidental.
+    gl->CalcAccidental(m_keySig);
 
     // TODO Calc y, using current pitch, stave, and clef. 
     // TODO Add accidental if required, by checking current key sig.

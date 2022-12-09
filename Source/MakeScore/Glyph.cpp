@@ -6,6 +6,56 @@
 
 #include "Glyph.h"
 
+void Glyph::CalcAccidental(KeySig ks)
+{
+  // Is pitch in ks, or do we need an accidental?
+  // Get note 0..11, then look up note in the given key 
+  int note = pitch % 12;
+
+  const auto S = Accidental::ACCIDENTAL_SHARP;
+  const auto s = Accidental::ACCIDENTAL_SHARP_IN_KEY_SIG;
+  const auto F = Accidental::ACCIDENTAL_FLAT;
+  const auto f = Accidental::ACCIDENTAL_FLAT_IN_KEY_SIG;
+  const auto N = Accidental::ACCIDENTAL_NATURAL;
+  const auto _ = Accidental::ACCIDENTAL_NATURAL_IN_KEY_SIG;
+
+  // Array of accidental to apply to a given pitch, for each key  
+  const Accidental ACCS[16][12] = 
+  {  
+    //  Note -->
+    //  C  C# D  D# E  F  F# G  G# A  A# B    // MIDI Pitch
+    //  60 61 62 63 64 65 66 67 68 69 70 71   // E.g. from middle C
+
+    {   _, S, _, S, _, _, S, _, S, _, S, _ }, // key s0 (i.e. c maj)
+    {   _, S, _, S, _, N, s, _, S, _, S, _ }, // key s1 (g maj)
+    {   N, s, _, S, _, N, s, _, S, _, S, _ }, // key s2 (d maj)
+    {   N, s, _, S, _, N, s, N, s, _, S, _ }, // key s3
+    {   N, s, N, s, _, N, s, N, s, _, S, _ }, // key s4
+    {   N, s, N, s, _, N, s, N, s, N, s, _ }, // key s5
+    {   N, s, N, s, s, N, s, N, s, N, s, _ }, // key s6
+    {   N, s, N, s, s, N, s, N, s, N, s, s }, // key s7
+
+    //  C  Db D  Eb E  F  Gb G  Ab A  Bb B
+
+    {   _, F, _, F, _, _, F, _, F, _, F, _ }, // key f0 (i.e. c maj)
+    {   _, F, _, F, _, _, F, _, F, _, f, N }, // key f1 (i.e. f maj)
+    {   _, F, _, f, N, _, F, _, F, _, f, N }, // key f2
+    {   _, F, _, f, N, _, F, _, f, N, f, N }, // key f3
+    {   _, f, N, f, N, _, F, _, f, N, f, N }, // key f4
+    {   _, f, N, f, N, _, f, N, f, N, f, N }, // key f5
+    {   f, f, N, f, N, _, f, N, f, N, f, N }, // key f6
+    {   f, f, N, f, N, f, f, N, f, N, f, N }  // key f7
+  };
+
+  Accidental acc = ACCS[ks][note];
+
+  // TODO Accidental already in force for this bar?
+  if (acc == S || acc == F || acc == N)
+  {
+    m_accidental = acc;
+  }
+}
+
 std::string Glyph::GetGlyphOutputStr(std::string s) const
 {
   bool dot = Contains(s, '.');
@@ -71,6 +121,23 @@ void Glyph::HandleStar()
   }
 }
 
+std::string Glyph::GetAccidentalStr() const
+{
+  const std::string ACC_STR[] = 
+  {
+    "",
+    "natural",
+    "natural", // ?
+    "sharp",
+    "sharp",
+    "flat",
+    "flat",
+    "double-sharp",
+    "double-flat"
+  };
+  return ACC_STR[static_cast<int>(m_accidental)];
+}
+
 std::string Glyph::ToString() const
 {
   // If we haven't yet created the output text, do it now
@@ -86,7 +153,15 @@ std::string Glyph::ToString() const
 
   res += displayGlyphName + ", " + Str(x) + ", " + Str(y) +
     ", " + Str(scale) + ", " + Str(scale);
-  
+ 
+  if (m_accidental != Accidental::ACCIDENTAL_NONE)
+  {
+    const float ACC_X_OFFSET = -0.2f;
+    res += " ; " + GetAccidentalStr() + ", "  + 
+      Str(x + ACC_X_OFFSET) + ", " + Str(y) + 
+      ", " + Str(scale) + ", " + Str(scale);
+  }
+ 
   // Add ledger lines - below
   for (int s = m_staveLine; s < -1; s += 2)
   {

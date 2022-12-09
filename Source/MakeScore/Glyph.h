@@ -6,7 +6,9 @@
 
 #pragma once
 
+#include "Accidental.h"
 #include "IGlyph.h"
+#include "KeySig.h"
 #include "TimeValue.h"
 #include "Utils.h"
 
@@ -52,6 +54,11 @@ struct Glyph : public IGlyph
   // TODO Doesn't need param and can set displayGlyphName directly
   std::string GetGlyphOutputStr(std::string s) const;
 
+  // Calc accidental, given pitch and key sig
+  void CalcAccidental(KeySig ks);
+
+  std::string GetAccidentalStr() const;
+
   int order = 0; // horiz position in bar 
 
   // Two glyph names. E.g. we have a quaver, but it's drawn using a 
@@ -75,5 +82,9 @@ struct Glyph : public IGlyph
   // Points to tie - we are the RIGHT glyph of the tie
   Tie* m_tieRight = nullptr;
 
+  // Line within stave on which this glyph sits - 2 is the middle line.
   int m_staveLine = 2;
+
+  // Accidental, to be added to the left of the glyph
+  Accidental m_accidental = Accidental::ACCIDENTAL_NONE;
 };
