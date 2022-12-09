@@ -18,6 +18,8 @@ public:
   virtual bool Load(File*) override;
   virtual void Update() override;
 
+  void AddPoint(const Vec2f& p);
+
 protected:
   void Reset();
   void BuildTriList();
@@ -32,8 +34,9 @@ protected:
 
   float m_speed = 1.0f;
   float m_time = 0;
-  float m_startWidth = 0.1f;
-  float m_endWidth = 0.1f;
+  float m_maxTime = 1.0f; 
+  float m_startWidth = 0.03f;
+  float m_endWidth = 0.01f;
 
   // Where we are currently: interpolating between last 2 points
   Vec2f m_penPoint; 

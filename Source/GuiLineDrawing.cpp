@@ -52,7 +52,8 @@ void GuiLineDrawing::BuildTriList()
     Vec3f perp3 = CrossProduct(dir3, Vec3f(0, 0, 1));
     perp3.Normalise();
     Vec2f perp(perp3.x, perp3.y);
-    float w = 0.02f; // width
+    float d = static_cast<float>(i) / static_cast<float>(m_points.size());
+    float w = m_startWidth + (m_endWidth - m_startWidth) * d; // width
     Vec2f p[4] = 
     {
       p0 + perp * w,
@@ -66,10 +67,6 @@ void GuiLineDrawing::BuildTriList()
     const float Z = 0.5f;
     float u = 0;
     float v = 0;
-    //float x = p0.x;
-    //float y = p0.y;
-    //float sizeX = 0.01f;
-    //float sizeY = 0.01f;
     AmjuGL::Vert verts[4] =
     {
       AmjuGL::Vert(p[0].x, p[0].y, Z, u, v, 0, 1.0f, 0),
@@ -111,6 +108,26 @@ bool GuiLineDrawing::Load(File* f)
     return false;
   }
 
+  // Max time
+  if (!f->GetFloat(&m_maxTime))
+  {
+    f->ReportError("Expected max time for line drawing.");
+    return false;
+  }
+
+  // Width, which is interpolated over line
+  if (!f->GetFloat(&m_startWidth))
+  {
+    f->ReportError("Expected start width for line drawing.");
+    return false;
+  }
+
+  if (!f->GetFloat(&m_endWidth))
+  {
+    f->ReportError("Expected end width for line drawing.");
+    return false;
+  }
+
   // Load control points
   std::vector<Vec2f> points;
   std::string line;
@@ -145,6 +162,13 @@ bool GuiLineDrawing::Load(File* f)
   return true;
 }
 
+void GuiLineDrawing::AddPoint(const Vec2f& p)
+{
+  m_points.push_back(p);
+  m_index = m_points.size();
+  BuildTriList();
+}
+
 void GuiLineDrawing::Update()
 {
   float dt = TheTimer::Instance()->GetDt();
@@ -152,14 +176,13 @@ void GuiLineDrawing::Update()
   m_time += dt;
 
   // Final index into m_points
-  float maxTime = 4.0f;
-  float d = m_time / maxTime; // distance 0..1
+  float d = m_time / m_maxTime; // distance 0..1
   int oldIndex = m_index;
   m_index = static_cast<int>(static_cast<float>(m_points.size()) * d);
   if (m_index > static_cast<int>(m_points.size()))
   {
-    m_index = 0;
-    m_time = 0;
+    m_index = static_cast<int>(m_points.size());
+    m_time = m_maxTime;
   }
 
   if (oldIndex != m_index)
