@@ -9,15 +9,21 @@ Test on different devices/screen aspect ratios
 
 =============================================
 
+Rotate decorator: very broken. Need a state just to debug/fix it.
+
 Show ALL topics on BIG tree/plant - but they are disabled until unlocked.
 User can scroll up to see them all. Some at the top could be enabled (Zelda)
+
+Scroll decorator
+
+Drag decorator. Drag target? Or just any GuiElement can be set as a target?
 
 More topics
  - Next: musical symbols? Or identifying notes, this is a big one.
 
 PagePlayNotes:
  - Stave is white, could just be on mac/desktop GL (vertex colours)
-
+ - Desktop GL shader, so we can highlight notes etc
 
 More work on the code design for how we create new Pages. The current Topic
  generates them?
@@ -25,6 +31,11 @@ Page factory. Topic txt file has list of page type names.
 And how we interleave teaching pages with testing pages.
  - They are all pages, Topic has a list
  - But some pages we only show once? 
+
+ Have separate sections.
+ Pages within a section can be shuffled, be shown once, etc.
+ The order of the sections is fixed. So we can have intro, a bunch of shuffled stuff, then end section.
+
 
 NOT MVP
 Fix vertex colours on desktop GL
@@ -118,6 +129,7 @@ Cosmetic improvements
 
  - Piano Keyboard: proper shaped mesh for each white key. Fix bad curved corners.
     (Not MVP, there is no keyboard yet!)
+    OR switch to 2D, will be more controllable and fewer bugs.
 
  - Load time: this is probably the huge font pngs. 
   - TODO Rearrange as a strip with minimal dead space.
