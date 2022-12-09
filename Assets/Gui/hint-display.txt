@@ -128,7 +128,7 @@ hint-counter-bg
 // The number of hints
 //
 gui-text
-hint-counter
+play-counter
 // pos (coords are -1..1)
 0, 0.05 
 // size

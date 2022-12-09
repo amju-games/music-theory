@@ -83,15 +83,21 @@ void GSPages::StartTopic(int topicNum)
 
 void GSPages::ShowHints()
 {
-  // Init HUD
+  Assert(m_page);
+
+  // Set GUI to show numbers of hints available
+  // Regular Hints
   auto profile = TheUserProfile();
   int hints = profile->GetHints(HintType::HINT_TYPE_HINT);
   NumUpdate(m_gui, "hint-counter" /* TODO CONST */, hints);
-
   // Disable button if no hints available
-  Assert(m_page);
   bool enabled = (hints > 0 && m_page->CanGetHint());
   SetButtonEnabled("hint-button", enabled);
+
+  // Play button hints
+  hints = profile->GetHints(HintType::HINT_TYPE_PLAY);
+  NumUpdate(m_gui, "play-counter" /* TODO CONST */, hints);
+  SetButtonEnabled("play-button", hints > 0);
 }
 
 void GSPages::ReloadGui()

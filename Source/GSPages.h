@@ -49,9 +49,11 @@ public:
   // Get progress for the currently active page. 
   // (Progress keeps track of used/unused questions)
   QuestionProgress& GetProgress();
-   
-protected:
+
+  // Show number of hints for each hint type   
   void ShowHints();
+
+protected:
   void SetButtonEnabled(const std::string& buttonName, bool enabled);
   virtual void ReloadGui() override;
 

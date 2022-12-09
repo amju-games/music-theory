@@ -8,6 +8,7 @@
 #include "GuiMusicScore.h"
 #include "Page.h"
 #include "PageQuestion.h"
+#include "UserProfile.h"
 
 namespace Amju
 {
@@ -17,7 +18,12 @@ struct PlayCommand : public GuiCommand
 
   bool Do() override
   {
-std::cout << "Play button command: root node is: " << m_guiRoot->GetName() << "\n";
+    auto profile = TheUserProfile();
+    int numHints = profile->GetHints(HintType::HINT_TYPE_PLAY);
+    Assert(numHints > 0); // Button should be disabled if hints < 1
+    profile->AddHints(HintType::HINT_TYPE_PLAY, -1);
+    // Update the HUD
+    TheGSPages::Instance()->ShowHints();
 
     GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(
       m_guiRoot, "play-music-trigger"));
@@ -32,7 +38,6 @@ std::cout << "Play button command: root node is: " << m_guiRoot->GetName() << "\
     GuiButton* button = dynamic_cast<GuiButton*>(GetGuiElement());
     Assert(button);
     button->SetIsEnabled(false);
-    ////button->SetIsFocusButton(false);
 
     // Set callback to re-enable the play button when anim completes.
     // Animation node should be child of anim.
@@ -42,7 +47,6 @@ std::cout << "Play button command: root node is: " << m_guiRoot->GetName() << "\
       anim->SetOnCompleteCallback([button](Animator*) 
       { 
         button->SetIsEnabled(true); 
-        ////button->SetIsFocusButton(true); 
       });
     }
     return false; // Can't undo
@@ -86,9 +90,12 @@ void PageQuestionScore::SetUp()
 std::cout << "Found play button\n";
     if (ms->HasAnimation())
     {
+      // Check we have hints available
+      int hints = TheUserProfile()->GetHints(HintType::HINT_TYPE_PLAY);
+
 std::cout << "Score has animation, so setting play button command\n";
       playButton->SetVisible(true);
-      playButton->SetIsEnabled(true);
+      playButton->SetIsEnabled(hints > 0);
       //playButton->SetHasFocus(true);
       playButton->SetCommand(new PlayCommand(m_page->GetGui()));
     }
