@@ -1,7 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
-// Background for music score
+// Background for questions etc
 
 // v.
 1
@@ -10,8 +10,7 @@ gui-comp
 text-bg-comp
 3
 
-// Blackboard idea. (Make from edge pieces and centre, don't just use a single image).
-// Don't use a photo directly, make it blend in with other art, especially 3D assets.
+// Blackboard 
 gui-image
 blackboard
 -0.5, 1.1
@@ -32,17 +31,4 @@ book
 -0.9, 0.3
 1.8, 2.0
 Image/book1.png
-
-
-gui-rect
-white-bg
--0.5, 0.75
-1.4, 0.6
-// Colour
-ffffff
-// Radius
-0.05
-// Flags
-0
-
 

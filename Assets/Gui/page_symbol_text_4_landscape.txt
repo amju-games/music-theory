@@ -11,39 +11,13 @@ gui-comp
 // Name
 page
 // Num children
-2
-
-
-gui-comp
-// Name
-score-root
-// Num children
-2
+3
 
 include
-music_score_bg_landscape.txt
+text_bg_landscape.txt
 
-animation
-fade-in-music-score
-one-shot
-.6
-ease-in-out
-
-colour
-ffffff00, ffffffff
-
-music-score
-// Name, Position
-music-score
--0.15, 0.0
-// Scale - affects pos, TODO
-.35, .75
-// Colour
-// 1DA2FF
-000000
-// Glyphs start here
-// <no glyphs>
-end
+include
+question_symbol_landscape.txt
 
 include
 mcq_buttons_wide_landscape.txt

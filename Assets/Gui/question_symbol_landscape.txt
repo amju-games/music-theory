@@ -1,0 +1,31 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Question text, landscape
+
+// v.
+1
+
+animation
+fade-in-music-score
+one-shot
+.6
+ease-in-out
+
+colour
+ffffff00, ffffffff
+
+music-score
+// Name, Position
+music-score
+-0.15, 0.25
+// Scale - affects pos, TODO
+.35, .75
+// Colour: white, as drawn on blackboard
+ffffff
+// Glyphs start here
+// <no glyphs>
+end
+
+
+

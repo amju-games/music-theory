@@ -1,0 +1,32 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Question text, landscape
+
+// v.
+1
+
+animation
+fade-in-text
+one-shot
+1.
+ease-in-out
+
+colour
+ffffff00, ffffffff
+
+// Element type
+gui-text
+// Element name
+musical-term-text
+// pos (coords are -1..1)
+-1, 1.0
+// size
+2.4, 0.5
+// Text
+E.g. Alla marcia
+// Font name, size
+arial, 3.0, fgcol=ffffff
+
+
+

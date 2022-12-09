@@ -1,7 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
-// MCQ buttons - width of screen
+// MCQ buttons - landscape
 
 // version
 1
@@ -37,15 +37,15 @@ gui-button
 // Element name
 button-choice-0
 // pos (coords are -1..1)
--0.95, -0.2
+-0.7, 0.0
 // size
-0.9, 0.15
+0.7, 0.15
 // Image 
-Image/gui-button-8.png
+Image/gui-button-4-outline.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+dimbo, 2.0, fgcol=000000
 
 // 2nd child of button-0-group
 // Translate other buttons up
@@ -84,15 +84,15 @@ gui-button
 // Element name
 button-choice-1
 // pos (coords are -1..1)
-0.05, -0.2
+0.0, 0.0
 // size
-0.9, 0.15
+0.7, 0.15
 // Image 
-Image/gui-button-8.png
+Image/gui-button-4-outline.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+dimbo, 2.0, fgcol=000000
 
 translate
 0,0 ; 0, 0.2
@@ -128,15 +128,15 @@ gui-button
 // Element name
 button-choice-2
 // pos (coords are -1..1)
--0.95, -0.5
+-0.7, -0.35
 // size
-0.9, 0.15
+0.7, 0.15
 // Image 
-Image/gui-button-8.png
+Image/gui-button-4-outline.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+dimbo, 2.0, fgcol=000000
 
 translate
 0,0 ; 0, 0.2
@@ -171,14 +171,14 @@ gui-button
 // Element name
 button-choice-3
 // pos (coords are -1..1)
-0.05, -0.5
+0.0, -0.35
 // size
-0.9, 0.15
+0.7, 0.15
 // Image 
-Image/gui-button-8.png
+Image/gui-button-4-outline.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+dimbo, 2.0, fgcol=000000
 
 

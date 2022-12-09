@@ -16,28 +16,8 @@ page
 include
 text_bg_landscape.txt
 
-animation
-fade-in-text
-one-shot
-1.
-ease-in-out
-
-colour
-ffffff00, ffffffff
-
-// Element type
-gui-text
-// Element name
-musical-term-text
-// pos (coords are -1..1)
--1, 1.0
-// size
-2.4, 0.5
-// Text
-E.g. Alla marcia
-// Font name, size
-arial, 3.0, fgcol=ffffff
-
+include
+question_text_landscape.txt
 
 include
 mcq_buttons_square_symbol_landscape.txt
