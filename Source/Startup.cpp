@@ -11,7 +11,10 @@
 #if defined(WIN32) || defined(MACOSX)
 #define AMJU_USE_OPENGL
 #define AMJU_USE_GLUT
+#ifndef GTEST
+// Main function already exists for GTest build
 #include <main.h>
+#endif
 #endif
 
 #ifdef GEKKO
