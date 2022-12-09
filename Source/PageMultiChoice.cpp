@@ -4,6 +4,7 @@
 #include <GuiButton.h>
 #include <GuiDecAnimation.h>
 #include <ReportError.h>
+#include "Consts.h"
 #include "Dictionary.h"
 #include "GSPages.h"
 #include "GuiMusicScore.h"
@@ -109,13 +110,15 @@ void PageMultiChoice::OnChoice(int c)
   {
     GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(i)));
     button->SetIsEnabled(false);
-    // Change colour of selected choice
-    if (i == c)
-    {
-      button->SetButtonColour(Colour(0.f, 0.f, 0.f, 1.f));
-      button->SetTextColour(Colour(1.f, 1.f, 1.f, 1.f));
-      choicePos = button->GetCombinedPos();
-    }
+
+    // TODO This has no effect because buttons are transparent regions?!
+//    // Change colour of selected choice
+//    if (i == c)
+//    {
+//      button->SetButtonColour(Colour(0.f, 0.f, 0.f, 1.f));
+//      button->SetTextColour(Colour(1.f, 1.f, 1.f, 1.f));
+//      choicePos = button->GetCombinedPos();
+//    }
   }
 
   // Position offset for tick/cross
@@ -195,7 +198,10 @@ void PageMultiChoice::ShowCorrectAnswer()
   {
     // TODO Red BG ?
     // Don't go to next page until user dismisses this message 
-    LurkMsg lm(expl, Colour(1, 1, 1, 1), Colour(1, 0, 0, 1), AMJU_CENTRE);
+    LurkMsg lm(expl, 
+      GetColour(COLOUR_TEXT), 
+      GetColour(COLOUR_EXPLANATION),
+      AMJU_CENTRE);
     // Set completion function to go to next page
     lm.SetOkCommand(OnDismissedExplanation);
     TheLurker::Instance()->Queue(lm);

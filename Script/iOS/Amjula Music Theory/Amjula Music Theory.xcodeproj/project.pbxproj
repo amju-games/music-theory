@@ -51,6 +51,8 @@
 		699058D31E7D3BF500E528B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 699058D11E7D3BF500E528B4 /* LaunchScreen.storyboard */; };
 		699058DE1E7D3BF500E528B4 /* Amjula_Music_TheoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058DD1E7D3BF500E528B4 /* Amjula_Music_TheoryTests.m */; };
 		699058E91E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058E81E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m */; };
+		69A23A5C1F61E6970021BF88 /* Consts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69A23A591F61E6970021BF88 /* Consts.cpp */; };
+		69A23A5D1F61E6970021BF88 /* TutorialManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69A23A5A1F61E6970021BF88 /* TutorialManager.cpp */; };
 		69AC40361EB5331300F255A4 /* Dictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC402F1EB5331300F255A4 /* Dictionary.cpp */; };
 		69AC40371EB5331300F255A4 /* MusicEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC40311EB5331300F255A4 /* MusicEvent.cpp */; };
 		69AC40391EB5331300F255A4 /* PageMultiChoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC40351EB5331300F255A4 /* PageMultiChoice.cpp */; };
@@ -224,6 +226,9 @@
 		699058E41E7D3BF500E528B4 /* Amjula Music TheoryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Amjula Music TheoryUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		699058E81E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Amjula_Music_TheoryUITests.m; sourceTree = "<group>"; };
 		699058EA1E7D3BF500E528B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		69A23A591F61E6970021BF88 /* Consts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Consts.cpp; path = ../../../../Source/Consts.cpp; sourceTree = "<group>"; };
+		69A23A5A1F61E6970021BF88 /* TutorialManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TutorialManager.cpp; path = ../../../../Source/TutorialManager.cpp; sourceTree = "<group>"; };
+		69A23A5B1F61E6970021BF88 /* TutorialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialManager.h; path = ../../../../Source/TutorialManager.h; sourceTree = "<group>"; };
 		69AC402F1EB5331300F255A4 /* Dictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Dictionary.cpp; path = ../../../../Source/Dictionary.cpp; sourceTree = "<group>"; };
 		69AC40301EB5331300F255A4 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dictionary.h; path = ../../../../Source/Dictionary.h; sourceTree = "<group>"; };
 		69AC40311EB5331300F255A4 /* MusicEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MusicEvent.cpp; path = ../../../../Source/MusicEvent.cpp; sourceTree = "<group>"; };
@@ -440,16 +445,9 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				695E90761F5AB7260003901E /* LurkMsg.cpp */,
-				695E90771F5AB7260003901E /* LurkMsg.h */,
-				695E90781F5AB7260003901E /* NetSend.cpp */,
-				695E90791F5AB7260003901E /* NetSend.h */,
-				695E907A1F5AB7260003901E /* SerialReqManager.cpp */,
-				695E907B1F5AB7260003901E /* SerialReqManager.h */,
-				695E907C1F5AB7260003901E /* Version.cpp */,
-				695E907D1F5AB7260003901E /* Version.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
+				69A23A591F61E6970021BF88 /* Consts.cpp */,
 				69D732821F23DA28007B73C1 /* Consts.h */,
 				69D7329A1F250B58007B73C1 /* CorridorCamController.cpp */,
 				69D7329B1F250B58007B73C1 /* CorridorCamController.h */,
@@ -520,6 +518,8 @@
 				69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */,
 				695543211F3B52C6007C23EA /* iOSShare.h */,
 				695543221F3B52C6007C23EA /* iOSShare.mm */,
+				695E90761F5AB7260003901E /* LurkMsg.cpp */,
+				695E90771F5AB7260003901E /* LurkMsg.h */,
 				69D58E441E833741008A8D29 /* main.m */,
 				6951CF151F0B932300140095 /* Md2SceneNode.cpp */,
 				6951CF161F0B932300140095 /* Md2SceneNode.h */,
@@ -531,6 +531,8 @@
 				69AC40321EB5331300F255A4 /* MusicEvent.h */,
 				695543121F3B526D007C23EA /* MySceneGraph.cpp */,
 				695543131F3B526D007C23EA /* MySceneGraph.h */,
+				695E90781F5AB7260003901E /* NetSend.cpp */,
+				695E90791F5AB7260003901E /* NetSend.h */,
 				69D58E7E1E86A02B008A8D29 /* Page.cpp */,
 				69D58E7F1E86A02B008A8D29 /* Page.h */,
 				69D58E801E86A02B008A8D29 /* PageDrawOnStave.h */,
@@ -552,6 +554,8 @@
 				69F5E08C1E8C09C000E7BF93 /* Question.h */,
 				69D58E831E86A02B008A8D29 /* ScoreBuilder.cpp */,
 				69D58E841E86A02B008A8D29 /* ScoreBuilder.h */,
+				695E907A1F5AB7260003901E /* SerialReqManager.cpp */,
+				695E907B1F5AB7260003901E /* SerialReqManager.h */,
 				695543141F3B526D007C23EA /* ShareManager.cpp */,
 				695543151F3B526D007C23EA /* ShareManager.h */,
 				69D58E4D1E84836B008A8D29 /* Startup.cpp */,
@@ -565,8 +569,12 @@
 				6955431B1F3B526D007C23EA /* TappableZoomInfoLeaf.h */,
 				6959E2E81E97F6F800E251A9 /* Topic.cpp */,
 				6959E2E91E97F6F800E251A9 /* Topic.h */,
+				69A23A5A1F61E6970021BF88 /* TutorialManager.cpp */,
+				69A23A5B1F61E6970021BF88 /* TutorialManager.h */,
 				6959E2EA1E97F6F800E251A9 /* UserProfile.cpp */,
 				6959E2EB1E97F6F800E251A9 /* UserProfile.h */,
+				695E907C1F5AB7260003901E /* Version.cpp */,
+				695E907D1F5AB7260003901E /* Version.h */,
 				69D58E451E833741008A8D29 /* ViewController.h */,
 				69D58E461E833741008A8D29 /* ViewController.mm */,
 			);
@@ -751,6 +759,7 @@
 				69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */,
 				695E90731F4A13CA0003901E /* GSCopyAssets.cpp in Sources */,
 				6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */,
+				69A23A5D1F61E6970021BF88 /* TutorialManager.cpp in Sources */,
 				69D732911F23DA29007B73C1 /* CorridorMode.cpp in Sources */,
 				69C10CDE1F17877A009B6836 /* PageQuestion.cpp in Sources */,
 				6951CF191F0B932300140095 /* Md2SceneNode.cpp in Sources */,
@@ -782,6 +791,7 @@
 				6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */,
 				6976F4961F2F1DD300D1D51A /* GSMainCorridor.cpp in Sources */,
 				6959E2EE1E97F6F800E251A9 /* Topic.cpp in Sources */,
+				69A23A5C1F61E6970021BF88 /* Consts.cpp in Sources */,
 				695E90811F5AB7260003901E /* Version.cpp in Sources */,
 				697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */,
 				69D732921F23DA29007B73C1 /* CorridorModeEnterClassroom.cpp in Sources */,

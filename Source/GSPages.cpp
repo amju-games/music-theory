@@ -353,7 +353,7 @@ void GSPages::OnCorrect(const Vec2f& choicePos)
 
   // Add to profile/score
   m_numCorrectThisSession++;
-  SetPie(m_numPagesShown, Colour(0.f, 1.f, 0.f, 1.f));
+  SetPie(m_numPagesShown, GetColour(COLOUR_CORRECT));
 
   std::cout << "Correct: set pie slice " << m_numPagesShown << "\n";
 
@@ -362,7 +362,11 @@ void GSPages::OnCorrect(const Vec2f& choicePos)
   TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage,
     SecondsFromNow(NEXT_PAGE_TIME)));
 
-  LurkMsg lm(Lookup("Correct!"), Colour(1, 1, 1, 1), Colour(0, 1, 0.25f, 1), AMJU_TOP, PAGE_LURK_TIME);
+  LurkMsg lm(Lookup("Correct!"), 
+    GetColour(COLOUR_TEXT),
+    GetColour(COLOUR_CORRECT),
+    AMJU_TOP, PAGE_LURK_TIME);
+
   TheLurker::Instance()->Queue(lm);
 }
 
@@ -380,11 +384,14 @@ void GSPages::OnIncorrect(const Vec2f& choicePos)
   PlayWav(WAV_INCORRECT);
 
   m_numIncorrectThisSession++;
-  SetPie(m_numPagesShown, Colour(1.f, 0.f, 0.f, 1.f));
+  SetPie(m_numPagesShown, GetColour(COLOUR_INCORRECT));
 
   std::cout << "Incorrect: set pie slice " << m_numPagesShown << "\n";
 
-  LurkMsg lm(Lookup("Incorrect!"), Colour(1, 1, 1, 1), Colour(1, 0, 0, 1), AMJU_TOP, PAGE_LURK_TIME);
+  LurkMsg lm(Lookup("Incorrect!"), 
+    GetColour(COLOUR_TEXT),
+    GetColour(COLOUR_INCORRECT),
+    AMJU_TOP, PAGE_LURK_TIME);
   TheLurker::Instance()->Queue(lm);
 }
 

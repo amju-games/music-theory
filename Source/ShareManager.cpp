@@ -1,16 +1,16 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include <ROConfig.h>
 #include <Screen.h>
 #include <Timer.h>
 #include <Unproject.h>
 #include "Consts.h"
+
 #ifdef AMJU_IOS
 #include "iOSShare.h"
 #endif
-//#include "MySceneGraph.h"
-#include "ROConfig.h"
-//#include "Screenshot.h"
+
 #include "ShareManager.h"
 
 namespace Amju

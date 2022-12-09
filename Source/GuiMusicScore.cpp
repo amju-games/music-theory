@@ -7,6 +7,7 @@
 #include <ReportError.h>
 #include <StringsFile.h>
 #include <StringUtils.h>
+#include "Consts.h"
 #include "GuiMusicScore.h"
 #include "PlayMidi.h"
 
@@ -188,7 +189,9 @@ GuiMusicScore::GuiMusicScore()
   m_atlas.Load("font2d/Guido2/guido2-60pt.png", 16, 14, 1, 1);
 
   m_fgCol = Colour(0, 0, 0, 1); // default to black
-  m_highlightColour = Colour(1, 0, 0, 1); // TODO TEMP TEST, load it
+
+  // Default highlight colour
+  m_highlightColour = GetColour(COLOUR_MUSIC_HIGHLIGHT);
 
 #ifdef _DEBUG
   // We can do this just once to optimise; for development, we want to initialise every time.

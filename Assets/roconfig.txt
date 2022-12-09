@@ -10,4 +10,11 @@ lurk-font-y 2
 
 sound-new-lurkmsg bell_tinkle
 
+colour_tutorial    400040
+colour_incorrect   ff0000
+colour_correct     00ff00
+colour_text        ffffff
+colour_highlight   4E69F4
+// Explanation when wrong answer chosen
+colour_explanation ff0000
 

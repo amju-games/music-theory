@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <Colour.h>
+
 namespace Amju
 {
 // * Constants *
@@ -66,5 +68,19 @@ static const float DOOR_RECT_YMAX =  .6f;
 #define DEVICE_USER_NAME "device_user_name"
 #define CLIENT_VERSION "client_version"
 #define SESSION_ID "session_id"
+
+// * Colours *
+
+// GetColour
+// Looks up the given colour name in ROConfig
+Colour GetColour(const char* colourName);
+
+// Constants to pass into GetColour()
+#define COLOUR_TUTORIAL "colour_tutorial"
+#define COLOUR_INCORRECT "colour_incorrect"
+#define COLOUR_CORRECT "colour_correct"
+#define COLOUR_EXPLANATION "colour_explanation"
+#define COLOUR_TEXT "colour_text"
+#define COLOUR_MUSIC_HIGHLIGHT "colour_highlight"
 
 }
