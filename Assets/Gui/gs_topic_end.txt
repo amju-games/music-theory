@@ -11,7 +11,37 @@ gui-comp
 // Name
 topic-end-root
 // Num children
-7
+2
+
+// Child 1 - fixed
+// SKY
+colour
+798EEB
+gui-image
+sky
+-2.0, 1.0
+4.0, 4.0
+Image/white.png
+
+
+// Child 2 - Sun , scrolls up
+animation
+scroll-up-trigger
+const
+zero
+
+animation
+up-scroll-anim
+one-shot
+1.0
+linear
+
+translate
+0,0 ; 0, 2.2
+
+gui-comp
+everything-that-scrolls-up
+5
 
 gui-text
 topic-end-text1
@@ -124,5 +154,4 @@ comment-text
 2.0, 0.4
 Have some more hints!
 arial, 1.0, multi, fgcol=000000
-
 
