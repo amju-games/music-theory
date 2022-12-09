@@ -15,5 +15,5 @@ font2d/Icon/icon-font.png
 // start char = 'A'
 65
 
-// widths -- not used, can be any widths file
-font2d/Dimbo/dimbo-160pt-widths.txt
+// widths 
+font2d/Icon/icon-widths.txt
