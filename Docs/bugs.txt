@@ -1,0 +1,18 @@
+Serious
+
+
+
+Cosmetic
+
+4/23: White flash at end of about screen
+
+4/23: No need for hint button if we are pulsing the right answer!
+
+4/23: Show "New" to explain why we are pulsing the correct answer?
+
+4/23: Hint display (pig? or acorn? etc)
+
+4/23: Score display: required at all?
+
+
+

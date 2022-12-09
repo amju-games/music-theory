@@ -1,38 +1,46 @@
 Get to state of minimal, releasable app
  * MVP * 
 
-MVP?
-Load/save user config
- - Do we need this yet?
-
-Hide top bar
- - Rearrange pause and hint bts
- - Maybe top bar shows topic name, (hi score? etc)
-
 iOS - load screen, icon, etc. 
- - NOT Using APZ organ image
+ - NOT Using APZ organ image? But it's really appropriate! But is not congruent
+    with any of the rest of the design (leaves, growth, fruit, bulbs).
 
 Test on different devices/screen aspect ratios
 
 =============================================
 
+Show ALL topics on BIG tree/plant - but they are disabled until unlocked.
+User can scroll up to see them all. Some at the top could be enabled (Zelda)
+
 More topics
  - Next: musical symbols? Or identifying notes, this is a big one.
 
+PagePlayNotes:
+ - Stave is white, could just be on mac/desktop GL (vertex colours)
+
+
 More work on the code design for how we create new Pages. The current Topic
  generates them?
+Page factory. Topic txt file has list of page type names.
+And how we interleave teaching pages with testing pages.
+ - They are all pages, Topic has a list
+ - But some pages we only show once? 
 
+NOT MVP
 Fix vertex colours on desktop GL
 
+MVP?
+Load/save user config
+ - Do we need this yet?
+
+Topic start
+Should be more interesting - animations, e.g. growing leaves/shoots
 
 NOT MVP:
 Button focus image should be scaled according to screen aspect ratio (or image aspect ratio?) Scaling both x and y by same amount is not correct
 
 NOT MVP:
 (Topic: show best score so far)
-
-Top bar look/feel
- - Name and example avatar, creating more work. Get rid for now?
 
 Fix button sizes
  - They are a bit small
@@ -47,7 +55,6 @@ Next state should be achievements - if none, we go to main menu. Scroll back dow
 
 NOT MVP:
 Main menu: 
- - bulb should pop into view from zero size, for continuity with other states.
  - About button
  - Share button
  - I'm new: go to name entry. Should happen on first run.
@@ -59,6 +66,7 @@ NOT MVP:
 Pie slices: 
  - use rotate decorator, just one image
  - allow for 20, 30 slices
+ - Should be fruit segments to be congruent with rest of design??
 
 NOT MVP:
 Correct answer streaks: start at 3, say
@@ -163,13 +171,6 @@ If you want you can do a test to open it up.
 Or no bosses, you just go in?
 Boss tests are a bit like mock grade exams. They should cover all the material of the grade, at the appropriate level, right?
 >
-
-
-
-Unit title: e.g. "Pitch" appears in centre of screen.
-Moves up to top after a moment. 
-Explanation text, but minimal.
-Keep it as tests as far as possible. The first time we see a test, we are given the answer.
 
 
 
