@@ -651,5 +651,8 @@
     <Text Include="..\..\..\..\Assets\Gui\tap-picture-note-lengths-quavers.txt">
       <Filter>Assets\Gui\Tappables</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\hint-display.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>
