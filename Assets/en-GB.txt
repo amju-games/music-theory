@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-120
+169
 1=Welcome to Amjula Music School!
 2=Swipe left and right to move along the corridor!
 3=Which clef?
@@ -122,3 +122,52 @@
 118=This key signature is G Major, because there is one sharp.
 119=This key signature is D Major, because there are two sharps.
 120=This key signature is F Major, because there is one flat.
+121=Correct!
+122=Incorrect!
+123=Quit
+124=OK!
+125=Yes
+126=No
+127='A tempo' means 'Back to normal speed'.
+128='Accelerando' means 'Gradually faster'.
+129='Adagio' means 'Slowly' (like 'Lento').
+130='Allegro' means 'Lively', or 'quite fast'.
+131='Allegretto' means 'Nearly as fast as Allegro'.
+132='Andante' means 'Walking pace'.
+133='Andantino' means 'A bit faster or slower than Andante'.
+134='Cantabile' means 'Singing'.
+135='Con' means 'With'.
+136='Crescendo' (or 'cresc.' for short) means 'Gradually louder'.
+137='Da capo' (or 'D.C.' for short) means 'From the beginning'.
+138='Dal segno' (or 'D.S.' for short) means 'Repeat from the sign'.
+139='Decrescendo' means 'Gradually softer'.
+140='Dolce' means 'Sweetly'.
+141='Fine' means 'The end'.
+142='Forte' (f) means 'Loud'.
+143='Fortissimo' (ff) means 'Very loud'.
+144='Forzando' means 'With a strong accent'.
+145='Largo' means 'Slow and stately'.
+146='Legato' means 'Smoothly'.
+147='Leggiero' means 'Lightly'.
+148='Lento' means 'Slowly' (like 'Adagio').
+149='Maestoso' means 'Majestically'.
+150='Mezzo forte' (mf) means 'Moderately loud'.
+151='Mezzo piano' (mp) means 'Moderately soft'.
+152='Moderato' means 'Moderate pace'.
+153='Pesante' means 'Heavily'.
+154='Piano' (p) means 'Soft'.
+155='Pianissimo' (pp) means 'Very soft'.
+156='Poco' means 'A little'.
+157='Presto' means 'Very quick'.
+158='Prestissimo' means 'As fast as possible'.
+159='Rallentando' means 'Gradually slower' (like 'Ritardando').
+160='Ritardando' means 'Gradually slower' (like 'Rallentando').
+161='Ritenuto' means 'Slower at once'.
+162='Scherzo' means 'A joke'.
+163='Scherzando' means 'Playfully'.
+164='Sforzando' means 'With a sudden accent'.
+165='Staccato' means 'Short', or 'detached'.
+166='Subito' means 'Suddenly'.
+167='Tempo' means 'Speed'.
+168='Tranquillo' means 'Quietly'.
+169='Vivace' means 'Lively', or 'quickly'.

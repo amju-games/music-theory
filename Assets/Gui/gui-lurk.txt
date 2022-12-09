@@ -19,7 +19,8 @@ ok-button
 -0.1, -0.05
 0.2, 0.2
 Image/gui-button-2.png
-@@@OK!
+// OK!
+$$$124
 dimbo, 2.0, fgcol=ffffff, bgcol=4E69F4
 
 gui-button
@@ -27,7 +28,8 @@ yes-button
 0.15, -0.05
 0.4, 0.25
 Image/gui-button-2.png
-@@@Yes
+// Yes
+$$$125
 dimbo, 2.0
 
 gui-button
@@ -35,7 +37,8 @@ no-button
 -0.55, -0.05
 0.4, 0.25
 Image/gui-button-2.png
-@@@No
+// No
+$$$126
 dimbo, 2.0
 
 

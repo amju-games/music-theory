@@ -49,7 +49,8 @@ pause-button
 // Image 
 Image/gui-button-2.png
 // Text
-@@@Quit
+// Quit
+$$$123
 // Font name, size
 dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
 

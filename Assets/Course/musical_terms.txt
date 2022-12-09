@@ -6,49 +6,49 @@
 // version
 1
 
-A tempo=$$$35=@@@'A tempo' means 'Back to normal speed'.
-Accelerando=$$$36=@@@'Accelerando' means 'Gradually faster'.
-Adagio=$$$37=@@@'Adagio' means 'Slowly' (like 'Lento').
-Allegro=$$$38=@@@'Allegro' means 'Lively', or 'quite fast'.
-Allegretto=$$$39=@@@'Allegretto' means 'Nearly as fast as Allegro'.
-Andante=$$$40=@@@'Andante' means 'Walking pace'.
-Andantino=$$$41=@@@'Andantino' means 'A bit faster or slower than Andante'.
-Cantabile=$$$42=@@@'Cantabile' means 'Singing'.
-Con=$$$43=@@@'Con' means 'With'.
-Crescendo (cresc.)=$$$44=@@@'Crescendo' (or 'cresc.' for short) means 'Gradually louder'.
-Da capo (D.C.)=$$$45=@@@'Da capo' (or 'D.C.' for short) means 'From the beginning'.
+A tempo=$$$35=$$$127
+Accelerando=$$$36=$$$128
+Adagio=$$$37=$$$129
+Allegro=$$$38=$$$130
+Allegretto=$$$39=$$$131
+Andante=$$$40=$$$132
+Andantino=$$$41=$$$133
+Cantabile=$$$42=$$$134
+Con=$$$43=$$$135
+Crescendo (cresc.)=$$$44=$$$136
+Da capo (D.C.)=$$$45=$$$137
 // TODO add segno sign to font?
-Dal segno (D.S.)=$$$46=@@@'Dal segno' (or 'D.S.' for short) means 'Repeat from the sign'.
-Decrescendo (decresc.)=$$$47=@@@'Decrescendo' means 'Gradually softer'.
-Dolce=$$$48=@@@'Dolce' means 'Sweetly'.
-Fine=$$$49=@@@'Fine' means 'The end'.
-Forte (f)=$$$50=@@@'Forte' (f) means 'Loud'.
-Fortissimo (ff)=$$$51=@@@'Fortissimo' (ff) means 'Very loud'.
-Forzando (fz)=$$$52=@@@'Forzando' means 'With a strong accent'.
-Largo=$$$53=@@@'Largo' means 'Slow and stately'.
-Legato=$$$54=@@@'Legato' means 'Smoothly'.
-Leggiero=$$$55=@@@'Leggiero' means 'Lightly'.
-Lento=$$$37=@@@'Lento' means 'Slowly' (like 'Adagio').
-Maestoso=$$$56=@@@'Maestoso' means 'Majestically'.
-Mezzo forte (mf)=$$$29=@@@'Mezzo forte' (mf) means 'Moderately loud'.
-Mezzo piano (mp)=$$$28=@@@'Mezzo piano' (mp) means 'Moderately soft'.
-Moderato=$$$57=@@@'Moderato' means 'Moderate pace'.
-Pesante=$$$58=@@@'Pesante' means 'Heavily'.
-Piano (p)=$$$59=@@@'Piano' (p) means 'Soft'.
-Pianissimo (pp)=$$$60=@@@'Pianissimo' (pp) means 'Very soft'.
-Poco=$$$61=@@@'Poco' means 'A little'.
-Presto=$$$62=@@@'Presto' means 'Very quick'.
-Prestissimo=$$$63=@@@'Prestissimo' means 'As fast as possible'.
-Rallentando (rall.)=$$$64=@@@'Rallentando' means 'Gradually slower' (like 'Ritardando').
-Ritardando (ritard., rit.)=$$$64=@@@'Ritardando' means 'Gradually slower' (like 'Rallentando').
-Ritenuto (riten., rit)=$$$65=@@@'Ritenuto' means 'Slower at once'.
-Scherzo=$$$66=@@@'Scherzo' means 'A joke'.
-Scherzando=$$$67=@@@'Scherzando' means 'Playfully'.
-Sforzando (sf, sfz)=$$$68=@@@'Sforzando' means 'With a sudden accent'.
-Staccato=$$$69=@@@'Staccato' means 'Short', or 'detached'.
-Subito=$$$70=@@@'Subito' means 'Suddenly'.
-Tempo=$$$71=@@@'Tempo' means 'Speed'.
-Tranquillo=$$$72=@@@'Tranquillo' means 'Quietly'.
-Vivace=$$$73=@@@'Vivace' means 'Lively', or 'quickly'.
+Dal segno (D.S.)=$$$46=$$$138
+Decrescendo (decresc.)=$$$47=$$$139
+Dolce=$$$48=$$$140
+Fine=$$$49=$$$141
+Forte (f)=$$$50=$$$142
+Fortissimo (ff)=$$$51=$$$143
+Forzando (fz)=$$$52=$$$144
+Largo=$$$53=$$$145
+Legato=$$$54=$$$146
+Leggiero=$$$55=$$$147
+Lento=$$$37=$$$148
+Maestoso=$$$56=$$$149
+Mezzo forte (mf)=$$$29=$$$150
+Mezzo piano (mp)=$$$28=$$$151
+Moderato=$$$57=$$$152
+Pesante=$$$58=$$$153
+Piano (p)=$$$59=$$$154
+Pianissimo (pp)=$$$60=$$$155
+Poco=$$$61=$$$156
+Presto=$$$62=$$$157
+Prestissimo=$$$63=$$$158
+Rallentando (rall.)=$$$64=$$$159
+Ritardando (ritard., rit.)=$$$64=$$$160
+Ritenuto (riten., rit)=$$$65=$$$161
+Scherzo=$$$66=$$$162
+Scherzando=$$$67=$$$163
+Sforzando (sf, sfz)=$$$68=$$$164
+Staccato=$$$69=$$$165
+Subito=$$$70=$$$166
+Tempo=$$$71=$$$167
+Tranquillo=$$$72=$$$168
+Vivace=$$$73=$$$169
 end
 
