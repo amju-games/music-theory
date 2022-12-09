@@ -11,7 +11,7 @@ gui-comp
 // Name
 score-comp
 // Num children
-3
+2
 
 
 animation
@@ -30,7 +30,7 @@ translate
 
 gui-comp
 underground-comp
-4
+6
 
 
 // SKY
@@ -45,17 +45,24 @@ Image/white.png
 include
 ground.txt
 
+// 2 * Depth of ground 
 translate
 0, -1
 include
 ground.txt
 
+// The orange part, underneath
 gui-image
 underground-3
 -1.0, -2.0
 2.0, 2.0
 Image/underground2.png, stretch
 
+
+// Animated pulse + bubbles
+// ------------------------
+translate
+0, -2.5
 
 animation
 clean-anim-value
@@ -133,6 +140,21 @@ bulb
 Image/bulb.png
 
 
+// Element type
+gui-text
+// Element name
+about-text
+// pos (coords are -1..1)
+-1.0, -2.55555 
+// size
+2.0, 1.0 
+// Text
+Amjula Music Theory\n\nVersion 0.1
+// Font name, size
+dimbo, 1.0, multi, fgcol=000000
+
+
+
 
 
 // OK button
@@ -147,3 +169,5 @@ Image/gui-button-2.png
 OK
 // Font name, size
 dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+
+
