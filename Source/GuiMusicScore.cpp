@@ -7,6 +7,7 @@
 #include <BmFont.h>
 #include <DrawRect.h>
 #include <GuiFactory.h>
+#include <GuiText.h>
 #include <ReportError.h>
 #include <StringsFile.h>
 #include <StringUtils.h>
@@ -598,8 +599,52 @@ bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* re
 }
 
 bool GuiMusicScore::AddTextFromString(
-  const std::string& line, const Vec2f& pos, const Vec2f& scale)
+  const std::string& line, const Vec2f& pos_, const Vec2f& scale_)
 {
+  if (line.size() > 1 && line[0] == '"')
+  {
+    // Search from end of string to find terminating quote
+    int p = line.rfind('"');
+    Assert(p != std::string::npos);
+    std::string str = line.substr(1, p - 1);
+
+    // Parse remainder of line to get pos and scale
+    // Add 2 to p to skip end quote and hopefully following comma
+    Strings strs = Split(Trim(line.substr(p + 2)), ',');
+    Assert(!strs.empty());
+    // Remove empty string in case there were extra spaces between quote and comma
+    if (strs[0].empty())
+    {
+      strs.erase(strs.begin()); // "pop front"
+    }
+    // Now we should have position and optional scale
+    Assert(strs.size() == 2 || strs.size() == 4);
+    Vec2f pos(ToFloat(strs[0]), ToFloat(strs[1]));
+    pos += pos_;
+    Vec2f scale(1, 1);
+    if (strs.size() == 4)
+    {
+      scale = Vec2f(ToFloat(strs[2]), ToFloat(strs[3]));
+    }
+    scale *= scale_;
+
+    GuiText* t = new GuiText;
+    Font* font = (Font*)TheResourceManager::Instance()->GetRes("font2d/times-font.font");
+    t->SetFont(font);
+    t->SetFgCol(m_fgCol);
+    t->SetFontSize(scale.y);
+    t->SetScaleX(scale.x / scale.y);
+    t->SetLocalPos(pos);
+    t->SetSize(Vec2f(2, 2));
+    t->SetJust(GuiText::AMJU_JUST_LEFT);
+    t->SetText(str);
+    t->SizeToText();
+
+    m_children.push_back(t);
+
+    return true;
+  }
+
   return false;
 }
 
@@ -650,6 +695,11 @@ bool GuiMusicScore::AddGlyphFromString(const std::string& line, const Vec2f& pos
   if (AddCurveFromString(line, pos, scale))
   {
     // This 'glyph' is a curve, e.g. a tie
+    return true;
+  }
+
+  if (AddTextFromString(line, pos, scale))
+  {
     return true;
   }
 
@@ -863,6 +913,3 @@ Rect GuiMusicScore::CalcRect() const
 }
 
 }
-
-
-
