@@ -25,7 +25,9 @@
 #include <EventPoller.h>
 #include <BassSoundPlayer.h>
 #include "GSPlayNotes.h"
+#include "GSShowLineDrawing.h"
 #include "GSShowMusicScore.h"
+#include "GuiLineDrawing.h"
 #include "GuiMusicScore.h"
 
 namespace Amju
@@ -51,9 +53,11 @@ void StartUpAfterCreateWindow()
   sm->SetImpl(bsp);
 
   GuiMusicScore::AddToFactory();
+  GuiLineDrawing::AddToFactory();
 
 //  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
-  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
 }
 }
 

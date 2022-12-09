@@ -139,14 +139,18 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSShowLineDrawing.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSShowMusicScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GuiLineDrawing.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h" />
+    <ClInclude Include="..\..\..\..\Source\GSShowLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowMusicScore.h" />
+    <ClInclude Include="..\..\..\..\Source\GuiLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
   </ItemGroup>
   <ItemGroup>
