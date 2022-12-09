@@ -74,7 +74,7 @@ raised-dot = ., 0.275, 0.05
 
 semiquaver-up = note-solid, 0, 0 ; stem-up, 0, 0 ; tail-down-2, 0, 0.35
 dotted-semiquaver-up = semiquaver-up, 0, 0 ;  ., 0.275, 0.0
-dotted-semiquaver-up-raised-dot = semiquaver-up, 0, 0 ; raised-dot, 0, 0
+dotted-semiquaver-up-raised-dot = semiquaver-up, 0, 0 ; raised-dot, -0.02, 0
 
 semiquaver-down = note-solid, 0, 0 ; stem-down, 0, 0 ; tail-up-2, 0, -0.35
 dotted-semiquaver-down = semiquaver-down, 0, 0 ;  ., 0.275, 0.0
@@ -82,7 +82,7 @@ dotted-semiquaver-down-raised-dot = semiquaver-down, 0, 0 ; raised-dot, 0, 0
 
 quaver-up = note-solid, 0, 0 ; stem-up, 0, 0 ; tail-down-1, 0, 0.35
 dotted-quaver-up = quaver-up, 0, 0 ; ., 0.275, 0.00
-dotted-quaver-up-raised-dot = quaver-up, 0, 0 ; raised-dot, 0, 0
+dotted-quaver-up-raised-dot = quaver-up, 0, 0 ; raised-dot, -0.02, 0
 
 quaver-down = note-solid, 0, 0 ; stem-down, 0, 0 ; tail-up-1, 0, -0.35
 dotted-quaver-down = quaver-down, 0, 0 ; ., 0.275, 0.00
@@ -115,12 +115,18 @@ ledger-w = quad, 0.38, 0.475,  0.38, 0.490,  0.02, 0.490,  0.02, 0.475
 rest-quaver = rest-1, 0, 0
 rest-semiquaver = rest-2, 0, 0
 rest-semibreve = rest-minim, 0, 0.05
-// TODO Raised dot versions?
-dotted-rest-quaver = rest-quaver, 0, 0 ;  ., 0.25, -0.05
+
+dotted-rest-quaver =     rest-quaver,     0, 0 ;  ., 0.25, -0.05
 dotted-rest-semiquaver = rest-semiquaver, 0, 0 ;  ., 0.25, 0.0
-dotted-rest-crotchet = rest-crotchet, 0, 0 ;  ., 0.25, 0.0
-dotted-rest-minim = rest-minim, 0, 0 ;  ., 0.3, 0.05
-dotted-rest-semibreve = rest-semibreve, 0, 0 ;  ., 0.3, 0.0
+dotted-rest-crotchet =   rest-crotchet,   0, 0 ;  ., 0.25, 0.0
+dotted-rest-minim =      rest-minim,      0, 0 ;  ., 0.3, 0.05
+dotted-rest-semibreve =  rest-semibreve,  0, 0 ;  ., 0.3, 0.0
+
+dotted-rest-quaver-raised-dot =     rest-quaver,     0, 0 ;  ., 0.25, 0 
+dotted-rest-semiquaver-raised-dot = rest-semiquaver, 0, 0 ;  ., 0.25, 0.05
+dotted-rest-crotchet-raised-dot =   rest-crotchet,   0, 0 ;  ., 0.25, 0.05
+dotted-rest-minim-raised-dot =      rest-minim,      0, 0 ;  ., 0.3,  0.10
+dotted-rest-semibreve-raised-dot =  rest-semibreve,  0, 0 ;  ., 0.3,  0.05
 
 // Common notes
 // c4 = middle C

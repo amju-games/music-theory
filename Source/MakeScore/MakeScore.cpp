@@ -1,6 +1,7 @@
 // Sub project to convert easily-authorable music content
 //  into list of glyphs.
 // clang++ MakeScore.cpp -std=c++11
+// E.g. use: echo '4/4 c c mr' | ./a.out
 
 // Music score coords:
 //  +--------------------------+   0.4
@@ -19,6 +20,15 @@
 #include <vector>
 
 // Convenience functions
+
+// No trailing zeros
+std::string Str(float f)
+{
+  std::stringstream ss;
+  ss << f;
+  return ss.str();
+}
+
 bool Contains(const std::string& s, char c)
 {
   return std::find(s.begin(), s.end(), c) != s.end();
@@ -33,6 +43,18 @@ std::string Remove(std::string& s, char c)
 bool IsBeam(const std::string& s)
 {
   return Contains(s, '-') || Contains(s, '=');
+}
+
+enum class BeamLevel
+{
+  BEAM_LEVEL_1 = 0,
+  BEAM_LEVEL_2 = 1,
+};
+
+float GetHeight(BeamLevel bl)
+{
+  // Relies on the int values 0, 1...
+  return static_cast<float>(bl);
 }
 
 enum class TimeSig
@@ -148,8 +170,8 @@ private:
     std::string ToString() const override
     {
       // x-order for now, position after final pass allocates positions.
-      return str + ", " + std::to_string(x) + ", " + std::to_string(y) + 
-        ", " + std::to_string(scale) + ", " + std::to_string(scale);
+      return str + ", " + Str(x) + ", " + Str(y) + 
+        ", " + Str(scale) + ", " + Str(scale);
     }
 
     int order = 0; // horiz position in bar 
@@ -165,15 +187,82 @@ private:
   struct Beam : public IGlyph
   {
     Beam() = default;
-    Beam(int left_, int right_) : left(left_), right(right_) {}
+    Beam(BeamLevel level_, int left_, int right_) : 
+      level(level_), left(left_), right(right_) {}
+
+    static constexpr float BEAM_HEIGHT = 0.06f;
 
     std::string ToString() const override
     {
-      return ""; ////TODO//// "Beam, " + std::to_string(left) + " to " + std::to_string(right);
+      float ymin = y;
+      float xoff = 0;
+      if (upNotDown)
+      {
+        ymin -= BEAM_HEIGHT * 1.5f * GetHeight(level);
+        ymin += 0.7725f;
+        xoff = 0.25f; // move to right as stem is on right of note  
+      }
+      float ymax = ymin + BEAM_HEIGHT;
+
+      return "quad, " + 
+        Str((xmax + xoff) * scale) + ", " + Str(ymin * scale) + ", " + 
+        Str((xmax + xoff) * scale) + ", " + Str(ymax * scale) + ", " + 
+        Str((xmin + xoff) * scale) + ", " + Str(ymax * scale) + ", " + 
+        Str((xmin + xoff) * scale) + ", " + Str(ymin * scale);
     }
 
+    BeamLevel level = BeamLevel::BEAM_LEVEL_1;
     int left = 0;
     int right = 0;
+    float xmin = 0;
+    float xmax = 0;
+
+    // note type, so we know where to offset the quad corners
+    bool upNotDown = true; 
+  };
+
+  struct Flag : public Beam
+  {
+    Flag (BeamLevel level_, int left_, int right_, bool stemDir_) :
+      Beam(level_, left_, right_),
+      stemLeftNotRight(stemDir_)
+    {
+    }
+
+    std::string ToString() const override
+    {
+      float ymin = y;
+      float xoff = 0;
+      if (upNotDown)
+      {
+        ymin -= BEAM_HEIGHT * 1.5f * GetHeight(level);
+        ymin += 0.7725f;
+        xoff = 0.25f; // move to right as stem is on right of note  
+      }
+      float ymax = ymin + BEAM_HEIGHT;
+
+      float xmax_ = xmax;
+      float xmin_ = xmin;
+      const float FLAG_W = 0.25f; // flag is this proportion of full beam
+      if (stemLeftNotRight)
+      {
+        xmax_ = xmin + (xmax - xmin) * FLAG_W;
+      }
+      else
+      {
+        xmin_ = xmax - (xmax - xmin) * FLAG_W;      
+      }
+
+      return "quad, " + 
+        Str((xmax_ + xoff) * scale) + ", " + Str(ymin * scale) + ", " + 
+        Str((xmax_ + xoff) * scale) + ", " + Str(ymax * scale) + ", " + 
+        Str((xmin_ + xoff) * scale) + ", " + Str(ymax * scale) + ", " + 
+        Str((xmin_ + xoff) * scale) + ", " + Str(ymin * scale);
+    }
+
+    // Stem to which the flag is attached is on the left (true) or
+    //  right (false).
+    bool stemLeftNotRight = true;
   };
 
   struct Bar
@@ -191,9 +280,10 @@ private:
     // Optional time sig glyph, at left of bar after key sig, if there is one.
     std::unique_ptr<Glyph> m_timeSigGlyph;
 
-    // Beams connecting ordered glyphs; in fact this  could be anything where 
-    //  order is not important, e.g. ties too.
-    std::vector<std::unique_ptr<IGlyph>> m_beams; 
+    // Beams connecting ordered glyphs
+    std::vector<std::unique_ptr<Beam>> m_beams; 
+
+    // TODO Anything else where order is not important, e.g. ties too.
 
     float m_x = 0;
     float m_y = 0;
@@ -245,7 +335,7 @@ private:
       
       if (dot)
       {
-        out = "dotted-" + out;
+        out = "dotted-" + out + "-raised-dot";
       }
       return out;
     }
@@ -277,7 +367,8 @@ private:
       // Flags are attached to one glyph, and can go left or right.
       
       // TODO level, i.e. quaver/semi etc
-      m_beams.push_back(std::unique_ptr<IGlyph>(new Beam(n - 1, n)));
+      m_beams.push_back(std::unique_ptr<Beam>(
+        new Beam(BeamLevel::BEAM_LEVEL_1, n - 1, n)));
 
       if (s == "--" || s == "-")
       {
@@ -287,15 +378,20 @@ private:
       {
         // 2 semiquavers, add 2nd beam
         // TODO level, i.e. quaver/semi etc
-        m_beams.push_back(std::unique_ptr<IGlyph>(new Beam(n - 1, n)));
+        m_beams.push_back(std::unique_ptr<Beam>(
+          new Beam(BeamLevel::BEAM_LEVEL_2, n - 1, n)));
       }
       else if (s == "-=")
       {
-        // Semiq flag, on left of stem
+        // Semiq flag, attached to right stem
+        m_beams.push_back(std::unique_ptr<Beam>(
+          new Flag(BeamLevel::BEAM_LEVEL_2, n - 1, n, false)));
       }
       else if (s == "=-")
       {
-        // Semiq flag, on right of stem
+        // Semiq flag, attached to left stem
+        m_beams.push_back(std::unique_ptr<Beam>(
+          new Flag(BeamLevel::BEAM_LEVEL_2, n - 1, n, true)));
       }
     }
 
@@ -314,20 +410,21 @@ private:
         res += g->ToString() + LineEnd(oneLine);
       }
   
-      for (auto& g : m_beams)
+      for (auto& b : m_beams)
       {
-        res += g->ToString() + LineEnd(oneLine);
+        b->SetScale(m_scale); 
+        res += b->ToString() + LineEnd(oneLine);
       }
  
       // Bar lines
       res += 
-        "bar-line, " + std::to_string(m_x) + ", " + std::to_string(m_y) +
-        ", " + std::to_string(m_scale) + ", " + std::to_string(m_scale) + 
+        "bar-line, " + Str(m_x) + ", " + Str(m_y) +
+        ", " + Str(m_scale) + ", " + Str(m_scale) + 
         LineEnd(oneLine);
  
       res += 
-        "bar-line, " + std::to_string(m_x + m_width) + ", " + std::to_string(m_y) +
-        ", " + std::to_string(m_scale) + ", " + std::to_string(m_scale) + 
+        "bar-line, " + Str(m_x + m_width) + ", " + Str(m_y) +
+        ", " + Str(m_scale) + ", " + Str(m_scale) + 
         LineEnd(oneLine);
  
       return res;
@@ -381,7 +478,7 @@ private:
         if (m_timeSigGlyph)
         {
           const float TIME_SIG_WIDTH = 0.3f; // ?
-          ////w -= TIME_SIG_WIDTH; // reduce available width for other glyphs
+          // Reduce available width
           w = (m_width - TIME_SIG_WIDTH - 2 * xoff) / (numGlyphs - 2.0f);
           xoff += TIME_SIG_WIDTH; // move other glyphs to the right      
  
@@ -390,9 +487,9 @@ private:
         }
       }
 
-std::cout << "Num glyphs: " << numGlyphs << "\n";
-std::cout << "xoff: " << xoff << "\n";
-std::cout << "w:    " << w << "\n";
+//std::cout << "Num glyphs: " << numGlyphs << "\n";
+//std::cout << "xoff: " << xoff << "\n";
+//std::cout << "w:    " << w << "\n";
 
       // Set coord of each glyph
       // Compensate for glyph width, move to the left a bit
@@ -405,6 +502,14 @@ std::cout << "w:    " << w << "\n";
 
         g->y += y; // TODO Whether or not this is correct will become
                    //  apparent when we have multi-line scores.
+      }
+
+      // Set position of beam left and right ends
+      for (auto& b : m_beams)
+      {
+        b->xmin = x + w * static_cast<float>(b->left)  + xoff + xfudge;
+        b->xmax = x + w * static_cast<float>(b->right) + xoff + xfudge;
+        b->y += y;
       }
     }
   };
@@ -482,7 +587,7 @@ void MakeScore::MakeInternal()
 
   // Set (left, bottom) position of each bar
   float x = 0;
-  float y = -1.f; // SET_Y
+  float y = 0; // SET_Y
 
   int i = 1;
   for (auto& bar : m_bars)
@@ -505,8 +610,8 @@ std::string MakeScore::ToString()
   }
 
   // TODO Num lines 
-  res += "stave-line, 0, " + std::to_string(DEFAULT_HEIGHT) + ", " + 
-    std::to_string(PAGE_WIDTH) + ", " + std::to_string(m_scale) + 
+  res += "stave-line, 0, " + Str(DEFAULT_HEIGHT) + ", " + 
+    Str(PAGE_WIDTH) + ", " + Str(m_scale) + 
     LineEnd(m_outputOnOneLine);
 
   return res;
@@ -514,9 +619,10 @@ std::string MakeScore::ToString()
 
 int main()
 {
+  std::string input;
   //std::string input = "c | c c";
-  std::string input = "4/4 c c | 3/4 q -- q cr q. -= qq c";
-//  std::getline(std::cin, input);
+  //std::string input = "4/4 c c | 3/4 q -- q cr q. -= qq c";
+  std::getline(std::cin, input);
 
   std::cout << "Input: \"" << input << "\"\n";
 
@@ -531,10 +637,6 @@ int main()
 
   ms.MakeInternal();
 
-  // TODO
-  // Each bar has a default width, and a min and max. Expand/contract
-  //  adjacent bars.
-  
   std::cout << ms.ToString() << "\n";
 
   return 0;
