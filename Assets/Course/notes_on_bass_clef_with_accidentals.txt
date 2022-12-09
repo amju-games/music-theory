@@ -1,0 +1,23 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Notes on bass clef
+
+// version
+1
+
+// Map score of note on bass clef to midi note value
+
+stave, 0.2, 0, 1.5, 1 ; bass-clef, 0.5, 0 ; bass-c4-cr, 1.2, 0 =60
+stave, 0.2, 0, 1.5, 1 ; bass-clef, 0.5, 0 ; bass-b4-cr, 1.2, 0 =59
+stave, 0.2, 0, 1.5, 1 ; bass-clef, 0.5, 0 ; bass-a4-cr, 1.2, 0 =57
+stave, 0.2, 0, 1.5, 1 ; bass-clef, 0.5, 0 ; bass-g3-cr, 1.2, 0 =55
+stave, 0.2, 0, 1.5, 1 ; bass-clef, 0.5, 0 ; bass-f3-cr, 1.2, 0 =53
+stave, 0.2, 0, 1.5, 1 ; bass-clef, 0.5, 0 ; bass-e3-cr, 1.2, 0 =52
+stave, 0.2, 0, 1.5, 1 ; bass-clef, 0.5, 0 ; bass-d3-cr, 1.2, 0 =50
+stave, 0.2, 0, 1.5, 1 ; bass-clef, 0.5, 0 ; bass-c3-cr, 1.2, 0 =48
+end
+
+
+
+

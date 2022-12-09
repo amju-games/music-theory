@@ -89,21 +89,52 @@ treb-g5-cr = crotchet-down, 0, 0.45
 // (Sharps and flats are black keys only so far)
 // Sharps
 treb-c#4-cr = treb-c4-cr, 0, 0 ; sharp, -0.2, -0.1
-treb-d#4-cr = crotchet-up, 0, -0.05 ; sharp, -0.2, -0.05
-treb-f#4-cr = crotchet-up, 0, 0.05 ; sharp, -0.2, 0.05
-treb-g#4-cr = crotchet-up, 0, 0.1 ; sharp, -0.2, 0.1
-treb-a#4-cr = crotchet-up, 0, 0.15 ; sharp, -0.2, 0.15
-treb-c#5-cr = crotchet-down, 0, 0.25 ; sharp, -0.2, 0.25
-treb-d#5-cr = crotchet-down, 0, 0.30 ; sharp, -0.2, 0.30
-treb-f#5-cr = crotchet-down, 0, 0.40 ; sharp, -0.2, 0.40
-treb-g#5-cr = crotchet-down, 0, 0.45 ; sharp, -0.2, 0.45
+treb-d#4-cr = treb-d4-cr, 0, 0 ; sharp, -0.2, -0.05
+treb-f#4-cr = treb-f4-cr, 0, 0 ; sharp, -0.2, 0.05
+treb-g#4-cr = treb-g4-cr, 0, 0 ; sharp, -0.2, 0.1
+treb-a#5-cr = treb-a5-cr, 0, 0 ; sharp, -0.2, 0.15
+treb-c#5-cr = treb-c5-cr, 0, 0 ; sharp, -0.2, 0.25
+treb-d#5-cr = treb-d5-cr, 0, 0 ; sharp, -0.2, 0.30
+treb-f#5-cr = treb-f5-cr, 0, 0 ; sharp, -0.2, 0.40
+treb-g#5-cr = treb-g5-cr, 0, 0 ; sharp, -0.2, 0.45
 
 // Flats
-treb-db4-cr = crotchet-up, 0, -0.05 ; flat, -0.2, -0.05
-treb-eb4-cr = crotchet-up, 0, 0.0 ; flat, -0.2, 0
-treb-gb4-cr = crotchet-up, 0, 0.1 ; flat, -0.2, 0.1
-treb-ab4-cr = crotchet-up, 0, 0.15 ; flat, -0.2, 0.15
-treb-bb4-cr = crotchet-up, 0, 0.2 ; flat, -0.2, 0.2
+treb-db4-cr = treb-d4-cr, 0, 0 ; flat, -0.2, -0.05
+treb-eb4-cr = treb-e4-cr, 0, 0 ; flat, -0.2, 0
+treb-gb4-cr = treb-g4-cr, 0, 0 ; flat, -0.2, 0.1
+treb-ab5-cr = treb-a5-cr, 0, 0 ; flat, -0.2, 0.15
+treb-bb5-cr = treb-a5-cr, 0, 0 ; flat, -0.2, 0.2
+
+// Bass clef
+// c4 = middle C
+bass-c4-cr = crotchet-down, 0, 0.50 ; ledger, 0, 0.50
+bass-b4-cr = crotchet-down, 0, 0.45
+bass-a4-cr = crotchet-down, 0, 0.40
+bass-g3-cr = crotchet-down, 0, 0.35
+bass-f3-cr = crotchet-down, 0, 0.30
+bass-e3-cr = crotchet-down, 0, 0.25
+bass-d3-cr = crotchet-down, 0, 0.20
+bass-c3-cr = crotchet-up, 0, 0.15
+bass-b3-cr = crotchet-up, 0, 0.10
+bass-a3-cr = crotchet-up, 0, 0.05
+bass-g2-cr = crotchet-up, 0, 0.00
+bass-f2-cr = crotchet-up, 0, -0.05
+bass-e2-cr = crotchet-up, 0, -0.10 ; ledger, 0, -0.10
+bass-d2-cr = crotchet-up, 0, -0.15 ; ledger, 0, -0.10
+bass-c2-cr = crotchet-up, 0, -0.20 ; ledger, 0, -0.10; ledger, 0, -0.20
+
+bass-c#4-cr = bass-c4-cr, 0, 0 ; sharp, -0.2, 0.50
+bass-a#4-cr = bass-a4-cr, 0, 0 ; sharp, -0.2, 0.40
+bass-g#3-cr = bass-g3-cr, 0, 0 ; sharp, -0.2, 0.35
+bass-f#3-cr = bass-f3-cr, 0, 0 ; sharp, -0.2, 0.30
+bass-d#3-cr = bass-d3-cr, 0, 0 ; sharp, -0.2, 0.20
+bass-c#3-cr = bass-c3-cr, 0, 0 ; sharp, -0.2, 0.15
+
+bass-bb4-cr = bass-b4-cr, 0, 0 ; flat, -0.2, 0.45
+bass-ab4-cr = bass-a4-cr, 0, 0 ; flat, -0.2, 0.40
+bass-gb3-cr = bass-g3-cr, 0, 0 ; flat, -0.2, 0.35
+bass-eb3-cr = bass-e3-cr, 0, 0 ; flat, -0.2, 0.25
+bass-db3-cr = bass-d3-cr, 0, 0 ; flat, -0.2, 0.20
 
 // Convenience short versions: treble clef, notes from middle C.
 c = treb-c4-cr, 0, 0
@@ -113,17 +144,18 @@ d = treb-d4-cr, 0, 0
 d# = treb-d#4-cr, 0, 0
 eb = treb-eb4-cr, 0 , 0
 e = treb-e4-cr, 0, 0
-// So not confused with forte symbol
+// "f" is "f4" so not confused with forte symbol
 f4 = treb-f4-cr, 0, 0
 f# = treb-f#4-cr, 0, 0
 gb = treb-gb4-cr, 0, 0
 g = treb-g4-cr, 0, 0
 g# = treb-g#4-cr, 0, 0
-ab = treb-ab4-cr, 0 , 0
+ab = treb-ab5-cr, 0 , 0
 a = treb-a5-cr, 0, 0
 a# = treb-a#5-cr, 0, 0
-bb = treb-bb4-cr, 0, 0
+bb = treb-bb5-cr, 0, 0
 b = treb-b5-cr, 0, 0
+// Octave above middle C has '+'
 c+ = treb-c5-cr, 0, 0
 c#+ = treb-c#5-cr, 0, 0
 d+ = treb-d5-cr, 0, 0

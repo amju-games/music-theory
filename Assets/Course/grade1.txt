@@ -9,14 +9,14 @@
 1
 
 // Num topics
-7
+8
 
 
 // Topic
 // ID
 notes-treble
 // Localised display name
-Notes on the treble clef
+Treble clef
 // Group
 4
 // Initially locked?
@@ -34,6 +34,30 @@ page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
 page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
 page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
 page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
+
+
+// Topic
+// ID
+notes-bass
+// Localised display name
+Bass clef
+// Group
+4
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
+10
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
 
 
 // Topic
