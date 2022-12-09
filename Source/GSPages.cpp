@@ -8,6 +8,7 @@
 #include <GuiDecAnimation.h>
 #include <GuiDecColour.h>
 #include <GuiText.h>
+#include <Localise.h>
 #include <MessageQueue.h>
 
 #include "Consts.h"
@@ -19,6 +20,7 @@
 #include "GSTopicEnd.h"
 #include "GuiLineDrawing.h"
 #include "Hints.h"
+#include "LurkMsg.h"
 #include "Md2SceneNode.h" // TODO promote to Amjulib
 #include "MySceneGraph.h"
 #include "PlayWav.h"
@@ -29,7 +31,11 @@
 namespace Amju
 {
 // Delay before we go to next page (gives time to see blackboard erase)
-const float NEXT_PAGE_TIME = 2.2f;
+static const float NEXT_PAGE_TIME = 2.2f;
+
+// Time for which we show a Lurk Msg with auto-hide (i.e. no OK button) - this is
+//  to show "Correct" msg etc.
+static const float PAGE_LURK_TIME = 1.7f;
 
 static void OnQuitConfirmOK(GuiElement*)
 {
@@ -375,6 +381,9 @@ void GSPages::OnCorrect(const Vec2f& choicePos)
   //  the speech bubble, after a delay. (TODO balance delay)
   TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage,
     SecondsFromNow(NEXT_PAGE_TIME)));
+
+  LurkMsg lm(Lookup("Correct!"), Colour(1, 1, 1, 1), Colour(0, 1, 0.25f, 1), AMJU_TOP, PAGE_LURK_TIME);
+  TheLurker::Instance()->Queue(lm);
 }
 
 void GSPages::OnIncorrect(const Vec2f& choicePos)
@@ -397,6 +406,9 @@ void GSPages::OnIncorrect(const Vec2f& choicePos)
 
   TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage,
     SecondsFromNow(NEXT_PAGE_TIME)));
+
+  LurkMsg lm(Lookup("Incorrect!"), Colour(1, 1, 1, 1), Colour(1, 0, 0, 1), AMJU_TOP, PAGE_LURK_TIME);
+  TheLurker::Instance()->Queue(lm);
 }
 
 void GSPages::OnHint()
