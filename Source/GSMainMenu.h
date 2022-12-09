@@ -6,6 +6,7 @@
 #include <array>
 #include <SceneNode.h>
 #include <Singleton.h>
+#include "CorridorCamController.h"
 #include "CorridorMode.h"
 #include "GSBase3d.h"
 #include "Tappable.h"
@@ -40,6 +41,8 @@ public:
 
   SceneNodeCamera* GetCamera();
 
+  CorridorCamController& GetCameraController();
+
   // Set current mode: modeId is index into vector, one of the IDs in 
   //  the CorridorMode classes.
   void SetMode(int modeId);
@@ -65,6 +68,7 @@ public:
 protected:
   void Load3dForTopics();
   bool LoadTappables();
+  void ChangeMode();
 
 private:
   int m_currentTopic = 0; 
@@ -81,9 +85,12 @@ private:
   // Hold on to the camera scene node, it's useful
   RCPtr<SceneNodeCamera> m_camera;
 
+  CorridorCamController m_camController;
+
   // The different modes/states we can be in: State pattern
   std::array<RCPtr<CorridorMode>, 6> m_modes;
   RCPtr<CorridorMode> m_currentMode;
+  int m_newModeId = -1; // set to a valid index in m_modes when we want to change mode
 };
 
 typedef Singleton<GSMainMenu> TheGSMainMenu;

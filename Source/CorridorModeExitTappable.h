@@ -13,7 +13,11 @@ class CorridorModeExitTappable : public CorridorMode
 {
 public:
   static const int ID = 5;
+  virtual void OnActive() override;
   virtual void Update() override;
+
+private:
+  float m_camLerpTime = 0;
 };
 
 }

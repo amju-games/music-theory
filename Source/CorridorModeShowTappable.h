@@ -13,6 +13,7 @@ class CorridorModeShowTappable : public CorridorMode
 {
 public:
   static const int ID = 3;
+  CorridorModeShowTappable();
   virtual void OnActive() override;
   virtual void Update() override;
 };

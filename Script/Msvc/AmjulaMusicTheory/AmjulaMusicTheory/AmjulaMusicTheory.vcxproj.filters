@@ -225,6 +225,9 @@
     <ClCompile Include="..\..\..\..\Source\CorridorModeExitClassroom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\CorridorCamController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -386,6 +389,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\CorridorModeExitClassroom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\CorridorCamController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -634,6 +640,9 @@
       <Filter>Assets\Course</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\corridor_mode_wait.txt">
+      <Filter>Assets\Gui\CorridorModes</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\corridor_mode_show_tappable.txt">
       <Filter>Assets\Gui\CorridorModes</Filter>
     </Text>
   </ItemGroup>

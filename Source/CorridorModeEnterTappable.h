@@ -18,10 +18,6 @@ public:
   virtual void Update() override;
 
 private:
-  // Store camera info for when we interpolate to tappable camera
-  Vec3f m_origCamEye;
-  Vec3f m_origCamTarget;
-  bool m_isCamLerping = false;
   float m_camLerpTime = 0;
 };
 

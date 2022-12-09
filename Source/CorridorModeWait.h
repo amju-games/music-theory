@@ -28,6 +28,7 @@ private:
   void CheckTappables();
   void ShowTopicName(bool showNotHide);
   void SetCurrentTopic();
+  void SetCamera();
 
 private:
   // To detect swipe left/right, and taps on Tappables

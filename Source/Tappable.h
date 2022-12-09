@@ -5,6 +5,8 @@
 
 #include <GuiElement.h>
 #include <RCPtr.h>
+#include <SceneNode.h>
+#include <Vec3.h>
 
 namespace Amju
 {

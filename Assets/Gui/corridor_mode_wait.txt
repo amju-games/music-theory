@@ -9,9 +9,9 @@
 // Element type
 gui-comp
 // Name
-gs-main-menu-root
+corridor-mode-wait-root
 // Num children
-3
+2
 
 // Button with shader
 

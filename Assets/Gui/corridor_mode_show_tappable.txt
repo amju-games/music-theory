@@ -1,0 +1,27 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Corridor mode: show a tappable: provide exit button for user to go back to wait state
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+corridor-mode-show-tappable-root
+// Num children
+1
+
+gui-button
+done-button
+// pos (coords are -1..1)
+-0.95, 0.95
+// size
+0.3, 0.15
+// Image 
+Image/gui-button-2.png
+// Text
+DONE
+// Font name, size
+dimbo, 2.0, fgcol=ffffff, bgcol=FF0949

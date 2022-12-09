@@ -13,44 +13,24 @@ namespace Amju
 void CorridorModeEnterTappable::OnActive()
 {
   CorridorMode::OnActive();
-
-  m_isCamLerping = true;
+  m_gs->GetCameraController().SetTappable(m_gs->GetSelectedTappable());
   m_camLerpTime = 0;
-
-  SceneNodeCamera* cam = m_gs->GetCamera();
-  m_origCamEye = cam->GetEyePos();
-  m_origCamTarget = cam->GetLookAtPos();
 }
 
 void CorridorModeEnterTappable::Update()
 {
   CorridorMode::Update();
 
-  Tappable* tapped = m_gs->GetSelectedTappable();
-  Assert(tapped);
-  if (m_isCamLerping)
+  float dt = TheTimer::Instance()->GetDt();
+
+  // Moving towards tappable camera setting
+  m_camLerpTime += dt; // TODO speed
+  if (m_camLerpTime > 1)
   {
-    SceneNodeCamera* cam = m_gs->GetCamera();
-
-    float dt = TheTimer::Instance()->GetDt();
-
-    // Moving towards tappable camera setting
-    m_camLerpTime += dt; // TODO speed
-    if (m_camLerpTime > 1)
-    {
-      // Reached desired cam pos
-      // TODO change state
-      m_camLerpTime = 1;
-      tapped->ActivateGui();
-
-      m_gs->SetMode(CorridorModeShowTappable::ID);
-    }
-
-    Vec3f eye = Lerp(m_origCamEye, tapped->GetCameraEyePos(), m_camLerpTime);
-    Vec3f look = Lerp(m_origCamTarget, tapped->GetCameraTargetPos(), m_camLerpTime);
-
-    cam->SetEyePos(eye);
-    cam->SetLookAtPos(look);
+    // Reached desired cam pos
+    m_camLerpTime = 1;
+    m_gs->SetMode(CorridorModeShowTappable::ID);
   }
+  m_gs->GetCameraController().SetLerpT(m_camLerpTime);
 }
 }

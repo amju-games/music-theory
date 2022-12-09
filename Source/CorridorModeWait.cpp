@@ -121,13 +121,6 @@ void CorridorModeWait::CheckTappables()
       std::cout << "Tapped on " << m_tappedDown->GetName() << "\n";
 
       m_gs->OnTapped(m_tappedDown);
-
-      // Store current camera; interpolate to camera set for the tappable
-      /*auto cam = GetCamera();
-      m_camEye = cam->GetEyePos();
-      m_camTarget = cam->GetLookAtPos();
-      m_isCamLerping = true;
-      ShowTopicName(false);*/
     }
   }
 }
@@ -148,6 +141,19 @@ void CorridorModeWait::OnActive()
   m_isScrolling = false;
   m_scrollVel = 0;
   m_isDragging = false;
+
+  SetCamera();
+}
+
+void CorridorModeWait::SetCamera()
+{
+  SceneNodeCamera* cam = m_gs->GetCamera();
+  Vec3f eye = cam->GetEyePos();
+  Vec3f look = cam->GetLookAtPos();
+  eye.z = m_currentXPos;
+  look.z = m_currentXPos;
+  cam->SetEyePos(eye);
+  cam->SetLookAtPos(look);
 }
 
 void CorridorModeWait::Update()
@@ -172,13 +178,7 @@ void CorridorModeWait::Update()
       SetCurrentTopic();
     }
 
-    SceneNodeCamera* cam = m_gs->GetCamera();
-    Vec3f eye = cam->GetEyePos();
-    Vec3f look = cam->GetLookAtPos();
-    eye.z = m_currentXPos;
-    look.z = m_currentXPos;
-    cam->SetEyePos(eye);
-    cam->SetLookAtPos(look);
+    SetCamera();
   }
   else
   {

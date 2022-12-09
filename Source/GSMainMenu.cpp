@@ -73,6 +73,8 @@ GSMainMenu::GSMainMenu()
   {
     cm->SetGameState(this);
   }
+
+  SetMode(CorridorModeWait::ID);
 }
 
 bool GSMainMenu::LoadTappables()
@@ -108,7 +110,7 @@ bool GSMainMenu::LoadTappables()
 
 void GSMainMenu::Load3dForTopics()
 {
-  // Get root node for adding nodes - TODO camera?
+  // Get root node for adding nodes - TODO SHOULDN'T BE CAMERA
   SceneNode* root = GetCamera();
   Assert(root);
 
@@ -142,7 +144,6 @@ void GSMainMenu::Load3dForTopics()
     Matrix m;
     const float X_OFFSET = -DISTANCE_BETWEEN_DOORS * 0.5f;
 
-    //m.Scale(0.5f, 0.5f, 0.5f);
     // Camera is looking down the x axis, so we translate each piece of the 
     //  corridor in z... TODO make this translation automatically at
     //  right angles to view vec?
@@ -174,38 +175,12 @@ void GSMainMenu::OnActive()
     root->GetNodeByName("camera"));
   Assert(m_camera);
 
-  //// Back to title 
-  //GuiElement* title = GetElementByName(m_gui, "title-button");
-  //title->SetCommand(OnBackToTitle);
-
-  //GuiElement* about = GetElementByName(m_gui, "about-button");
-  //about->SetCommand(OnAbout);
-
+  // TODO We only need to do this once up front??
   Load3dForTopics();
-
-  // TODO We only need to do this once up front
   LoadTappables();
 
   SetMode(CorridorModeWait::ID);
-
-  //if (m_currentMode)
-  //{
-  //  // We have returned from a classroom, so set mode to exiting classroom.
-  //  m_currentMode = m_modes[CorridorModeWait::ID]; // TODO
-  //}
-  //else
-  //{
-  //  // First time in this state, so set mode to in corridor
-  //  m_currentMode = m_modes[CorridorModeWait::ID];
-  //}
-  //m_currentMode->OnActive();
-
-  // TODO
-  //GuiElement* share = GetElementByName(m_gui, "share-button");
-  //share->SetCommand(OnShare);
-
-  //GuiElement* newUser = GetElementByName(m_gui, "new-button");
-  //newUser->SetCommand(OnNewUser);
+  ChangeMode();
 }
 
 void GSMainMenu::Draw2d()
@@ -217,16 +192,24 @@ void GSMainMenu::Draw2d()
 
 void GSMainMenu::SetMode(int modeId)
 {
-  std::cout << "Setting mode: " << modeId << "\n";
+  // Don't change immediately, wait until Update.
+  m_newModeId = modeId;
+}
+
+void GSMainMenu::ChangeMode()
+{
+  if (m_newModeId < 0)
+  {
+    return;
+  }
 
   if (m_currentMode)
   {
-    std::cout << "Deactivating: " << typeid(m_currentMode).name() << "\n";
     m_currentMode->OnDeactive();
   }
-  m_currentMode = m_modes[modeId];
-  std::cout << "Activating: " << typeid(m_currentMode).name() << "\n";
+  m_currentMode = m_modes[m_newModeId];
   m_currentMode->OnActive();
+  m_newModeId = -1;
 }
 
 void GSMainMenu::GoToTopic()
@@ -274,10 +257,14 @@ void GSMainMenu::Update()
 {
   GSBase3d::Update();
 
+  ChangeMode(); // if new mode was requested
+
   if (m_currentMode)
   {
     m_currentMode->Update();
   }
+
+  m_camController.Update();
 }
 
 void GSMainMenu::OnTapped(Tappable* tapped)
@@ -339,5 +326,9 @@ bool GSMainMenu::OnMouseButtonEvent(const MouseButtonEvent& mbe)
   return m_currentMode->OnMouseButtonEvent(mbe);
 }
 
+CorridorCamController& GSMainMenu::GetCameraController()
+{
+  return m_camController;
+}
 }
 
