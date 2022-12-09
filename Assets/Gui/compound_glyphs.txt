@@ -192,7 +192,22 @@ bass-e2-cr = crotchet-up, 0, -0.10 ; ledger, 0, -0.10
 bass-d2-cr = crotchet-up, 0, -0.15 ; ledger, 0, -0.10
 bass-c2-cr = crotchet-up, 0, -0.20 ; ledger, 0, -0.10; ledger, 0, -0.20
 
-bass-d4-nat-cr = bass-d4-cr, 0, 0 ; natural, -0.15, 0.55
+bass-d4-nat-cr = bass-d4-cr, 0, 0 ; natural, -0.2,  0.55
+bass-c4-nat-cr = bass-c4-cr, 0, 0 ; natural, -0.2,  0.50
+bass-b4-nat-cr = bass-b4-cr, 0, 0 ; natural, -0.2,  0.45
+bass-a4-nat-cr = bass-a4-cr, 0, 0 ; natural, -0.2,  0.40
+bass-g3-nat-cr = bass-g3-cr, 0, 0 ; natural, -0.2,  0.35
+bass-f3-nat-cr = bass-f3-cr, 0, 0 ; natural, -0.2,  0.30
+bass-e3-nat-cr = bass-e3-cr, 0, 0 ; natural, -0.2,  0.25
+bass-d3-nat-cr = bass-d3-cr, 0, 0 ; natural, -0.2,  0.20
+bass-c3-nat-cr = bass-c3-cr, 0, 0 ; natural, -0.2,  0.15
+bass-b3-nat-cr = bass-b3-cr, 0, 0 ; natural, -0.2,  0.10
+bass-a3-nat-cr = bass-a3-cr, 0, 0 ; natural, -0.2,  0.05
+bass-g2-nat-cr = bass-g2-cr, 0, 0 ; natural, -0.2,  0.00
+bass-f2-nat-cr = bass-f2-cr, 0, 0 ; natural, -0.2, -0.05
+bass-e2-nat-cr = bass-e2-cr, 0, 0 ; natural, -0.2, -0.10
+bass-d2-nat-cr = bass-d2-cr, 0, 0 ; natural, -0.2, -0.15
+bass-c2-nat-cr = bass-c2-cr, 0, 0 ; natural, -0.2, -0.20
 
 bass-d#4-cr = bass-d4-cr, 0, 0 ; sharp, -0.2, 0.55
 bass-c#4-cr = bass-c4-cr, 0, 0 ; sharp, -0.2, 0.50
@@ -254,6 +269,22 @@ bass-e2-sb = semibreve, 0, -0.10 ; ledger-w, 0, -0.10
 bass-d2-sb = semibreve, 0, -0.15 ; ledger-w, 0, -0.10
 bass-c2-sb = semibreve, 0, -0.20 ; ledger-w, 0, -0.10; ledger-w, 0, -0.20
 
+// Naturals
+treb-b4-nat-sb = treb-b4-sb, 0, 0 ; natural, -0.2, -0.15
+treb-c4-nat-sb = treb-c4-sb, 0, 0 ; natural, -0.2, -0.10
+treb-d4-nat-sb = treb-d4-sb, 0, 0 ; natural, -0.2, -0.05
+treb-e4-nat-sb = treb-e4-sb, 0, 0 ; natural, -0.2,  0.00
+treb-f4-nat-sb = treb-f4-sb, 0, 0 ; natural, -0.2,  0.05
+treb-g4-nat-sb = treb-g4-sb, 0, 0 ; natural, -0.2,  0.10
+treb-a5-nat-sb = treb-a5-sb, 0, 0 ; natural, -0.2,  0.15
+treb-b5-nat-sb = treb-b5-sb, 0, 0 ; natural, -0.2,  0.20
+treb-c5-nat-sb = treb-c5-sb, 0, 0 ; natural, -0.2,  0.25
+treb-d5-nat-sb = treb-d5-sb, 0, 0 ; natural, -0.2,  0.30
+treb-e5-nat-sb = treb-e5-sb, 0, 0 ; natural, -0.2,  0.35
+treb-f5-nat-sb = treb-f5-sb, 0, 0 ; natural, -0.2,  0.40
+treb-g5-nat-sb = treb-g5-sb, 0, 0 ; natural, -0.2,  0.45
+treb-a6-nat-sb = treb-a6-sb, 0, 0 ; natural, -0.2,  0.50
+
 // Sharps
 treb-b#4-sb = treb-b4-sb, 0, 0 ; sharp, -0.2, -0.15
 treb-c#4-sb = treb-c4-sb, 0, 0 ; sharp, -0.2, -0.1
@@ -286,6 +317,23 @@ treb-fb5-sb = treb-f5-sb, 0, 0 ; flat, -0.2, 0.40
 treb-gb5-sb = treb-g5-sb, 0, 0 ; flat, -0.2, 0.45
 treb-ab6-sb = treb-a6-sb, 0, 0 ; flat, -0.2, 0.50
 treb-bb6-sb = treb-b6-sb, 0, 0 ; flat, -0.2, 0.55
+
+bass-d4-nat-sb = bass-d4-sb, 0, 0 ; natural, -0.2,  0.55
+bass-c4-nat-sb = bass-c4-sb, 0, 0 ; natural, -0.2,  0.50
+bass-b4-nat-sb = bass-b4-sb, 0, 0 ; natural, -0.2,  0.45
+bass-a4-nat-sb = bass-a4-sb, 0, 0 ; natural, -0.2,  0.40
+bass-g3-nat-sb = bass-g3-sb, 0, 0 ; natural, -0.2,  0.35
+bass-f3-nat-sb = bass-f3-sb, 0, 0 ; natural, -0.2,  0.30
+bass-e3-nat-sb = bass-e3-sb, 0, 0 ; natural, -0.2,  0.25
+bass-d3-nat-sb = bass-d3-sb, 0, 0 ; natural, -0.2,  0.20
+bass-c3-nat-sb = bass-c3-sb, 0, 0 ; natural, -0.2,  0.15
+bass-b3-nat-sb = bass-b3-sb, 0, 0 ; natural, -0.2,  0.10
+bass-a3-nat-sb = bass-a3-sb, 0, 0 ; natural, -0.2,  0.05
+bass-g2-nat-sb = bass-g2-sb, 0, 0 ; natural, -0.2,  0.00
+bass-f2-nat-sb = bass-f2-sb, 0, 0 ; natural, -0.2, -0.05
+bass-e2-nat-sb = bass-e2-sb, 0, 0 ; natural, -0.2, -0.10
+bass-d2-nat-sb = bass-d2-sb, 0, 0 ; natural, -0.2, -0.15
+bass-c2-nat-sb = bass-c2-sb, 0, 0 ; natural, -0.2, -0.20
 
 bass-d#4-sb = bass-d4-sb, 0, 0 ; sharp, -0.2, 0.55
 bass-c#4-sb = bass-c4-sb, 0, 0 ; sharp, -0.2, 0.50
