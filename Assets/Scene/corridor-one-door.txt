@@ -29,30 +29,9 @@ mesh
 // Name
 door
 // Matrix
-1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 87.5, 1
+1, 0, 0, 0,  0, 1.04, 0, 0,  0, 0, 1.05, 0,  1, 0, 88.5, 1
 // Obj mesh
-obj/door1.obj
+obj/door2.obj
 // Num children
-1
-// Node type
-comp
-// Name, matrix, children
-door-sign-root
-// Matrix
-1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  2, 20, -22, 1
-// Num children
-2
-// Child: frame
-scene-mesh-material
-// Obj
-obj/just-frame1.obj
-// Material 
-obj/just-frame-black.mtl
-//
-// Child: picture
-scene-mesh-material
-// Obj
-obj/just-picture.obj
-// Material 
-obj/material-white.mtl
-//
+0
+
