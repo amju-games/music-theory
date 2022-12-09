@@ -450,5 +450,8 @@
     <Text Include="..\..\..\..\Assets\Gui\compound_glyphs.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_text_symbol_4.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>

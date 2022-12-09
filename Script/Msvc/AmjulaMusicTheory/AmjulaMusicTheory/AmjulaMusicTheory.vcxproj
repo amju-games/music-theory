@@ -406,6 +406,7 @@
     <Text Include="..\..\..\..\Assets\Gui\page_musical_symbol.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_musical_term.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_play_notes.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\page_text_symbol_4.txt" />
     <Text Include="..\..\..\..\Assets\Gui\pie.txt" />
     <Text Include="..\..\..\..\Assets\Gui\quit-confirm.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-branch.txt" />
