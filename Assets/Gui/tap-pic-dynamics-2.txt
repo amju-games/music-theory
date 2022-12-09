@@ -1,0 +1,80 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// version
+1
+
+// Tappable: dynamics symbols 1
+
+// Element type
+gui-comp
+// Name
+tap-pic-dynamics-1
+// Num children
+6
+
+gui-image
+bg
+-.4, .8
+.8, 1.6
+Image/flower-border-1.png, stretch
+
+
+gui-text
+static-text
+// pos 
+-1.0, 1.2
+// size
+2.0, 1.0 
+// Text
+Dynamics
+// Font name, size
+dimbo, 2.0, multi, fgcol=000000
+
+music-score
+// Name, Position, Size
+music-score
+-.01, -.1 
+.4, .9 
+// Colour
+000000
+// Glyphs
+pp, -.26, 0 
+p,  -.21, -.45
+mp, -.29, -.9
+end
+
+
+gui-text
+static-text
+// pos 
+-1, .95 
+// size
+2.0, 1.5
+// Text
+Pianissimo - very soft!!!
+// Font name, size
+dimbo, 1.25, fgcol=000000
+
+gui-text
+static-text
+// pos 
+-1, .55
+// size
+2.0, 1.5
+// Text
+Piano - soft!!
+// Font name, size
+dimbo, 1.25, fgcol=000000
+
+gui-text
+static-text
+// pos 
+-1, .15
+// size
+2.0, 1.5
+// Text
+Mezzo piano - moderately soft!
+// Font name, size
+dimbo, 1.25, fgcol=000000
+

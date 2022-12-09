@@ -1,0 +1,167 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Bass clef notes #1
+// version
+1
+
+// Show picture with notes on bass clef 
+
+gui-comp
+// Name
+bass-clef-notes-comp
+// Num children
+5
+
+// Frame?
+gui-image
+bgframe
+-.95, 0.85
+1.9, 0.9
+obj/black-frame.png, stretch
+
+gui-image
+bg
+-.925, 0.8
+1.85, 0.8
+Image/white.png, stretch
+
+
+// Text
+
+gui-text
+static-text
+// pos 
+-1.0, 1.2
+// size
+2.0, 1.0 
+// Text
+Notes on the Bass Clef
+// Font name, size
+dimbo, 2.5, multi, fgcol=000000
+
+
+// THE NOTES ON STAVE
+
+translate
+0, -0.15
+
+music-score
+// Name, Position, Size
+music-score
+-.01, 0
+.25, .55
+// Colour
+000000
+// Glyphs
+stave, -.5, 0, 7, 1
+bass-clef, -3.5, 0
+bass-c4-cr,  3.1, 0
+bass-b4-cr,  2.5, 0
+bass-a4-cr,  1.6, 0
+bass-g3-cr,  0.7, 0
+bass-f3-cr, -0.2, 0
+bass-e3-cr, -1.0, 0
+bass-d3-cr, -1.9, 0
+bass-c3-cr, -2.8, 0
+end
+
+// Name of each note
+
+translate
+0, -0.05
+
+gui-comp
+// Name
+note-names-comp
+// Num children
+8
+
+gui-text
+static-text
+// pos 
+-.65, 1.05
+// size
+1, 1.0 
+// Text
+C
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+
+gui-text
+static-text
+// pos 
+-.45, 1.05
+// size
+1, 1.0 
+// Text
+D
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+
+gui-text
+static-text
+// pos 
+-.23, 1.05
+// size
+1, 1.0 
+// Text
+E
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+
+gui-text
+static-text
+// pos 
+-0.03, 1.05
+// size
+1, 1.0 
+// Text
+F
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+
+gui-text
+static-text
+// pos 
+.2, 1.05
+// size
+1, 1.0 
+// Text
+G
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+
+gui-text
+static-text
+// pos 
+.42, 1.05
+// size
+1, 1.0 
+// Text
+A
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+
+gui-text
+static-text
+// pos 
+.65, 1.05
+// size
+1, 1.0 
+// Text
+B
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+
+gui-text
+static-text
+// pos 
+.75, 1.05
+// size
+1, 1.0 
+// Text
+Middle C
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+

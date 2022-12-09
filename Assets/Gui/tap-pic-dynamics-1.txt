@@ -1,0 +1,82 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// version
+1
+
+// Tappable: dynamics symbols 1
+
+// Element type
+gui-comp
+// Name
+tap-pic-dynamics-1
+// Num children
+6
+
+gui-image
+bg
+-.4, .8
+.8, 1.6
+Image/flower-border-1.png, stretch
+
+
+gui-text
+static-text
+// pos 
+-1.0, 1.2
+// size
+2.0, 1.0 
+// Text
+Dynamics
+// Font name, size
+dimbo, 2.0, multi, fgcol=000000
+
+music-score
+// Name, Position, Size
+music-score
+-.01, -.1 
+.4, .9 
+// Colour
+000000
+// Glyphs
+ff, -.26, 0 
+f,  -.21, -.45
+mf, -.29, -.9
+end
+
+/////Fortissimo - very loud\n~\nForte - loud\n~\nMezzo forte - moderately loud\n~\nMezzo piano - moderately soft\n~\nPiano - soft\n~\nPianissimo - very soft
+
+
+gui-text
+static-text
+// pos 
+-1, .95 
+// size
+2.0, 1.5
+// Text
+Fortissimo - very loud!!!
+// Font name, size
+dimbo, 1.25, fgcol=000000
+
+gui-text
+static-text
+// pos 
+-1, .55
+// size
+2.0, 1.5
+// Text
+Forte - loud!!
+// Font name, size
+dimbo, 1.25, fgcol=000000
+
+gui-text
+static-text
+// pos 
+-1, .15
+// size
+2.0, 1.5
+// Text
+Mezzo forte - moderately loud!
+// Font name, size
+dimbo, 1.25, fgcol=000000
+

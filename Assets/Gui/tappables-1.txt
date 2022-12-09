@@ -7,12 +7,12 @@
 // Tappables: 3d objects which user can tap on to get info.
 
 // num tappables
-4
+7
 
-
+// ==========================================================================
 // Picture
 // Name
-picture 1
+picture treb clef 
 // First part is 3d node
 // Node type
 comp
@@ -33,7 +33,7 @@ obj/just-frame-black.mtl
 // Node type
 gui
 // Node name
-test-gui
+treb clef gui
 // GUI file name
 Gui/tap-picture-treb-clef.txt
 // Matrix
@@ -41,13 +41,11 @@ Gui/tap-picture-treb-clef.txt
 //     v           v                                      v       v      v
 0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
 //
-//
 // Camera eye
 28, 50, 45
 // Cam target
 0, 50, 45
 // GUI to display when we have been tapped
-//Gui/tap-picture-note-lengths.txt
 // No need as we draw the GUI in the picture frame anyway
 $$$empty
 // GUI to put in NOTEBOOK
@@ -57,9 +55,102 @@ Gui/tap-picture-treb-clef.txt
 // 1
 
 
+// ==========================================================================
+// Picture
+// Name
+picture dynamics 1 
+// First part is 3d node
+// Node type
+comp
+// Name, matrix, children
+picture-root
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  2, 80, -460, 1
+// Num children
+2
+// Child: frame
+scene-mesh-material
+// Obj
+obj/just-frame1.obj
+// Material 
+obj/just-frame-black.mtl
+//
+// Child: GUI
+// Node type
+gui
+// Node name
+treb clef gui
+// GUI file name
+Gui/tap-pic-dynamics-1.txt
+// Matrix
+//  x size        y size                                z pos   y pos   x pos
+//     v           v                                      v       v      v
+0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
+//
+// Camera eye
+28, 80, -460
+// Cam target
+0, 80, -460
+// GUI to display when we have been tapped
+// No need as we draw the GUI in the picture frame anyway
+$$$empty
+// GUI to put in NOTEBOOK
+Gui/tap-pic-dynamics-1.txt
+// Notebook page
+// TODO
+// 1
+
+
+// ==========================================================================
+// Picture
+// Name
+picture bass clef 
+// First part is 3d node
+// Node type
+comp
+// Name, matrix, children
+picture-root
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  2, 25, -230, 1
+// Num children
+2
+// Child: frame
+scene-mesh-material
+// Obj
+obj/just-frame1.obj
+// Material 
+obj/just-frame-black.mtl
+//
+// Child: GUI
+// Node type
+gui
+// Node name
+bass clef gui
+// GUI file name
+Gui/tap-picture-bass-clef.txt
+// Matrix
+//  x size        y size                                z pos   y pos   x pos
+//     v           v                                      v       v      v
+0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
+//
+// Camera eye
+28, 25, -230
+// Cam target
+0, 25, -230
+// GUI to display when we have been tapped
+// No need as we draw the GUI in the picture frame anyway
+$$$empty
+// GUI to put in NOTEBOOK
+Gui/tap-picture-bass-clef.txt
+// Notebook page
+// TODO
+// 1
+
+
+// ==========================================================================
 // Piano
 // Name
-pink piano
+treb clef piano
 // First part is 3d node
 // Node type
 mesh
@@ -102,8 +193,53 @@ Gui/keyboard-pink-with-treb-clef-1.txt
 Gui/keyboard.txt
 
 
+// ==========================================================================
+// Piano
+// Name
+bass clef piano
+// First part is 3d node
+// Node type
+mesh
+// Name
+tappable-piano
+// Matrix
+.4, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.2, 0,  15, 0, -330, 1
+// Obj mesh
+obj/piano1.obj
+// Num children
+2
+// Shadow under piano
+mesh
+piano-shadow
+1.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, .1, 0, 1
+obj/shadow-sq.obj
+// Children
+0
+// Test: picture on piano?
+// Node type
+gui
+// Node name
+test-gui
+// GUI file name
+Gui/tap-pic-notes-on-bass-clef-1.txt
+// Matrix
+//  x size        y size                                z pos   y pos   x pos
+//     v           v                                      v       v      v
+0, 0, -8, 0,   0, 4, 0, 0,   -48.95, 2.5, 22.48, -0.5,   4,    20.0,    -0.5,    0.5
+//
+//
+// TODO Action when tapped
+// Camera eye
+20, 32, -330
+// Cam target
+8, 0, -330
+// GUI to display when we have been tapped
+Gui/keyboard-with-bass-clef-1.txt
+// GUI to put in NOTEBOOK
+Gui/keyboard.txt
 
 
+// ==========================================================================
 // Picture: semibreve
 // Name
 picture 2
@@ -113,7 +249,7 @@ comp
 // Name, matrix, children
 picture-2-root
 // Matrix
-1, 0, 0, 0,  0, .4, 0, 0,  0, 0, .5, 0,  2, 50, -200, 1
+1, 0, 0, 0,  0, .4, 0, 0,  0, 0, .5, 0,  2, 50, -180, 1
 // Num children
 2
 // Child: frame
@@ -137,9 +273,9 @@ Gui/tap-picture-semibreve.txt
 //
 //
 // Camera eye
-28, 50, -200
+23, 50, -180
 // Cam target
-0, 50, -200
+0, 50, -180
 // GUI to display when we have been tapped
 //Gui/tap-picture-note-lengths.txt
 // No need as we draw the GUI in the picture frame anyway
@@ -151,8 +287,7 @@ Gui/tap-picture-semibreve.txt
 // 2
 
 
-
-
+// ==========================================================================
 // Picture: note lengths: semibreve, minim, crotchet
 // Name
 picture note lengths
@@ -162,7 +297,7 @@ comp
 // Name, matrix, children
 picture-root
 // Matrix
-1, 0, 0, 0,  0, .75, 0, 0,  0, 0, .95, 0,  2, 40, -330, 1
+1, 0, 0, 0,  0, .75, 0, 0,  0, 0, .95, 0,  2, 60, -210, 1
 // Num children
 2
 // Child: frame
@@ -186,9 +321,9 @@ Gui/tap-picture-note-lengths.txt
 //
 //
 // Camera eye
-32, 40, -330
+32, 60, -210
 // Cam target
-0, 40, -330
+0, 60, -210
 // GUI to display when we have been tapped
 $$$empty
 // GUI to put in NOTEBOOK
