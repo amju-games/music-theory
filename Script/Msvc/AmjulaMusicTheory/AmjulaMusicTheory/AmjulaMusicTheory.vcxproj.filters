@@ -330,6 +330,9 @@
     <ClCompile Include="..\..\..\..\Source\NetRequest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\Localisation_catchtest.cpp">
+      <Filter>CatchTests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
