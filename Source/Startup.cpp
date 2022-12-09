@@ -115,6 +115,11 @@ void StartUpAfterCreateWindow()
     ReportError("No localise string table.");
   }
 
+  // Load the course which this app presents to the user: we only expect there to 
+  //  be one instance. We could potentially load this depending on config/user choice.
+  Course* course = (Course*)TheResourceManager::Instance()->GetRes("Course/grade1.txt.course");
+  SetCourse(course);
+
   // Set image used for rounded rectangles
   GuiRect::SetCornerImage("Image/corner.png");
 

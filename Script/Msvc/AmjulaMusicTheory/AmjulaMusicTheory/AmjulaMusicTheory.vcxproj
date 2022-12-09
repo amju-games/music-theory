@@ -285,6 +285,7 @@
     <ClCompile Include="..\..\..\..\Source\MusicalTermQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\MusicalTermsDictionary.cpp" />
     <ClCompile Include="..\..\..\..\Source\Page.cpp" />
+    <ClCompile Include="..\..\..\..\Source\PageFactory.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageMusicalTerm.cpp" />
     <ClCompile Include="..\..\..\..\Source\Question.cpp" />
     <ClCompile Include="..\..\..\..\Source\ScoreBuilder.cpp" />
@@ -351,6 +352,7 @@
     <ClInclude Include="..\..\..\..\Source\MusicalTermsDictionary.h" />
     <ClInclude Include="..\..\..\..\Source\Page.h" />
     <ClInclude Include="..\..\..\..\Source\PageDrawOnStave.h" />
+    <ClInclude Include="..\..\..\..\Source\PageFactory.h" />
     <ClInclude Include="..\..\..\..\Source\PageMultiChoice.h" />
     <ClInclude Include="..\..\..\..\Source\PageMusicalTerm.h" />
     <ClInclude Include="..\..\..\..\Source\PagePlayNotes.h" />

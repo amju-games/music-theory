@@ -3,7 +3,6 @@
 
 #include <ConfigFile.h>
 #include <GameState.h>
-#include <GuiButton.h>
 #include <GuiDecAnimation.h>
 #include "GSPages.h"
 #include "Page.h"

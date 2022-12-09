@@ -78,4 +78,15 @@ Topic* Course::GetTopic(int i)
   return m_topics[i];
 }
 
+static Course* s_course = nullptr;
+
+void SetCourse(Course* course)
+{
+  s_course = course;
+}
+
+Course* GetCourse()
+{
+  return s_course;
+}
 }

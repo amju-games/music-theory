@@ -11,6 +11,8 @@
 
 namespace Amju
 {
+const char* PageMusicalTerm::NAME = "page-musical-term";
+
 struct ChoiceCommand : public GuiCommand
 {
   ChoiceCommand(PageMusicalTerm* page, int button) : m_page(page), m_button(button) {}
@@ -26,8 +28,6 @@ struct ChoiceCommand : public GuiCommand
 
 void PageMusicalTerm::OnActive()
 {
-//  Assert(m_question);
-
   m_question = new MusicalTermQuestion;
 
   // Get musical terms dictionary (TODO select grade)

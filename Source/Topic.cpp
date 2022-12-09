@@ -2,6 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <File.h>
+#include "PageFactory.h"
 #include "Topic.h"
 
 namespace Amju
@@ -52,7 +53,42 @@ bool Topic::Load(File* f)
     f->ReportError("Expected topic display name");
     return false;
   }
+
+  // Read pages
+  int numPages = 0;
+  if (!f->GetInteger(&numPages))
+  {
+    f->ReportError("Expected number of pages");
+    return false;
+  }
+  for (int i = 0; i < numPages; i++)
+  {
+    std::string line;
+    if (!f->GetDataLine(&line))
+    {
+      f->ReportError("Expected page type name");
+      return false;
+    }
+    // TODO Options, number of repeats, etc.
+    RCPtr<Page> page = ThePageFactory::Instance()->Create(line);
+    if (!page)
+    {
+      f->ReportError("Unexpected page name");
+      return false;
+    }
+    m_pages.push_back(page);
+  }
   return true;
+}
+
+int Topic::GetNumPages() const
+{
+  return m_pages.size();
+}
+
+Page* Topic::GetPage(int n)
+{
+  return m_pages[n];
 }
 
 }

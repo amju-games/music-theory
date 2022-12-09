@@ -18,6 +18,8 @@ public:
     m_guiName = "musical_term";
   }
 
+  static const char* NAME;
+
   virtual void OnActive() override;
   virtual void OnHint() override;
   virtual void ShowCorrectAnswer() override;

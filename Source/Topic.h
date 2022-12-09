@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <RCPtr.h>
+#include "Page.h"
 
 namespace Amju
 {
@@ -44,6 +45,9 @@ public:
   //  unlock other topics
   void OnCompleted();
 
+  int GetNumPages() const;
+  Page* GetPage(int n);
+
 protected:
   // The Course which owns this topic.
   // Weak ptr - Course has ref counted ptr to this topic.
@@ -56,5 +60,8 @@ protected:
 
   // IDs of topics which are unlocked when this topic is completed
   std::vector<int> m_unlocks;
+
+  // The pages which present this topic, one page at a time.
+  std::vector<RCPtr<Page>> m_pages;
 };
 }

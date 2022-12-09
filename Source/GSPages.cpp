@@ -9,14 +9,17 @@
 #include <GuiDecColour.h>
 #include <GuiText.h>
 #include <MessageQueue.h>
+#include "Course.h"
 #include "GSMainMenu.h"
 #include "GSPages.h"
 #include "GSPause.h"
+#include "GSTopicStart.h"
 #include "GSTopicEnd.h"
 #include "GuiLineDrawing.h"
 #include "Keys.h"
 #include "PageMusicalTerm.h"
 #include "PrintGui.h"
+#include "Topic.h"
 #include "UserProfile.h"
 
 namespace Amju
@@ -112,9 +115,8 @@ void GSPages::OnDeactive()
 
 void GSPages::NextPage()
 {
-  m_numPagesShown++;
   // Have we got more pages, or are we done?
-  if (m_numPagesShown > m_maxNumPagesThisSession)
+  if (m_numPagesShown >= m_maxNumPagesThisSession)
   {
     // Done, go to Topic successfully completed, or unsuccessfully completed.
     // (Can use the same state?)
@@ -124,15 +126,20 @@ void GSPages::NextPage()
     return;
   }
 
-  // TODO The current Topic should know what kind of page to create
-  //  (we might use separate factory?)
-  Page* page = new PageMusicalTerm;
-  ConfigFile* cf = TheUserProfile()->GetConfigForTopic("todo");
+  // The current Topic has sequence of Pages to display.
+  Course* course = GetCourse();
+  // This is a bit crap - get the current Topic num from prev state, which knows it.
+  Topic* topic = course->GetTopic(TheGSTopicStart::Instance()->GetTopic());
+  Page* page = topic->GetPage(m_numPagesShown);
+  // Page reads/writes config file to load/save user state
+  ConfigFile* cf = TheUserProfile()->GetConfigForTopic(topic->GetId());
   page->SetConfigFile(cf);
   AddPage(page);
   
   // Activate new page
   page->OnActive();
+
+  m_numPagesShown++;
 
   // Tick/cross 
   GuiElement* tick = GetElementByName(m_gui, "tick");

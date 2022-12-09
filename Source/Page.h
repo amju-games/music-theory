@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <GuiButton.h>
 #include <RCPtr.h>
 #include "Question.h"
 
@@ -10,8 +11,6 @@ namespace Amju
 {
 class ConfigFile;
 class GameState;
-class GuiButton;
-class GuiElement;
 
 // * Page *
 // A page is one screenful of information, usually in the form of a "test" or question. 

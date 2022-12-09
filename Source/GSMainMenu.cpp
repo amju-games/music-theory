@@ -65,7 +65,7 @@ void GSMainMenu::OnActive()
   //  sends us to that topic.
   // Get the course, loop over the topics in it.
   // A Course is a Resource.
-  Course* course = (Course*)TheResourceManager::Instance()->GetRes("Course/grade1.txt.course");
+  Course* course = GetCourse();
   Assert(course);
   int numTopics = course->GetNumTopics();
   for (int i = 0; i < numTopics; i++)
