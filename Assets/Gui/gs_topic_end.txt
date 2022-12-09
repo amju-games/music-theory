@@ -11,7 +11,23 @@ gui-comp
 // Name
 topic-end-root
 // Num children
-6
+9
+
+include
+hint-display.txt
+
+// Element type
+gui-text
+// Element name
+topic-name-text
+// pos (coords are -1..1)
+-0.5, 0.7
+// size
+1.0, 1.2
+// Text
+TOPIC
+// Font name, size
+TEXT, 2.5, multi, fgcol=ffffff
 
 gui-text
 topic-end-text1
@@ -41,12 +57,21 @@ step
 colour
 ffffff00, ffffffff
 
+// Player score for the topic we just played
 gui-text
 num-text
-0.1, 0.85
-0.2, 0.4
-NUM
-TEXT, 3.0, fgcol=ffffff
+-1, 0.65
+2, 0.2
+SCORE THIS TOPIC
+NUMERIC, 4.0, fgcol=ffffff
+
+// Player total persistent score
+gui-text
+num-text
+-1, 0.45
+2, 0.2
+TOTAL SCORE
+NUMERIC, 4.0, fgcol=ffffff
 
 
 // TODO Delay?
@@ -91,5 +116,5 @@ comment-text
 2.0, 0.4
 // Have some more hints!
 $$$87
-arial, 1.0, multi, fgcol=000000
+TEXT, 1.0, multi, fgcol=000000
 

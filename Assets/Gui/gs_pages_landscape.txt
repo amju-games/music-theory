@@ -24,9 +24,6 @@ blackboard_erase.txt
 elastic
 1.0, 0.0
 
-translate
--0.95, 0.3
-
 include
 hint-display.txt
 

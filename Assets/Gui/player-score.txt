@@ -1,0 +1,28 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// version
+1
+
+// Player score
+
+// Element type
+gui-comp
+// Name
+player-score-comp
+// Num children
+1
+
+// TODO animation, hi score
+
+gui-text
+// Element name
+score-text
+// pos (coords are -1..1)
+0.65, 0.5
+.3, .1
+// Text
+25600
+// Font name, size
+NUMERIC, 2, fgcol=ffffff, right
+

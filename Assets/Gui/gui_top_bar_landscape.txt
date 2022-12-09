@@ -17,30 +17,13 @@ gui-comp
 // Name
 top-bar-elasticated
 // Num children
-// TODO Most of bar hidden for now - in fact it's JUST THE PIE now
-4
+3
 
 include
 hearts.txt
 
-colour
-000000
-gui-image
-score-bg
-0.65, 0.6
-.3, .2
-Image/blank-button-2.png
-
-gui-text
-// Element name
-score-text
-// pos (coords are -1..1)
-0.65, 0.5
-.3, .1
-// Text
-25600
-// Font name, size
-dimbo, 2, fgcol=ffffff
+include
+player-score.txt
 
 include
 combo.txt

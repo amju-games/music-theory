@@ -6,51 +6,10 @@
 
 // Hint counter and button
 
-// Hide for now until look/feel and functionality is fixed
-translate
--2.0, 0
-
 gui-comp
 hint-button-and-counter
 // Num children
-6
-
-colour
-0000ff
-gui-image
-pie-bg
-0, 0
-0.2, 0.2
-Image/circle.png
-
-gui-rect
-rect1
-0.1, -0.175
-0.3, 0.27
-// Colour
-0000ff
-// Radius
-0.04
-// Flags
-0
-
-gui-image
-pie-bg
-0.01, -0.015
-0.18, 0.18
-Image/circle.png
-
-gui-rect
-rect2
-0.12, -0.195
-0.27, 0.23
-// Colour
-ffffff
-// Radius
-0.03
-// Flags
-0
-
+2
 
 colour
 ffffffff, ffffff20
@@ -59,22 +18,25 @@ ffffffff, ffffff20
 gui-button
 hint-button
 // pos (coords are -1..1)
-0.175, -0.21
+-0.75, 0.05 
 // size
-0.2, 0.15
+0.3, 0.15
 Image/gui-button-2.png
 // HINT!
 $$$89
+// TODO This colour is no good for hint
 dimbo, 2.0, fgcol=ffffff, bgcol=D80629
+
+// TODO Animation here to scale number
 
 gui-text
 hint-counter
 // pos (coords are -1..1)
--0.1, -0.15
+-0.95, -0.05 
 // size
-0.4, 0.1
+0.2, 0.1
 // Text
 NUM
 // Font name, size
-dimbo, 2.0, fgcol=000000
+NUMERIC, 2.0, fgcol=000000
 

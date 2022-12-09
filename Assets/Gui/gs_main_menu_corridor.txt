@@ -14,8 +14,6 @@ gs-main-menu-root
 // Num children
 2
 
-translate
--1., 0
 
 include
 hint-display.txt
