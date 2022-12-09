@@ -1,3 +1,8 @@
+// * Amjula Music Theory *
+// (c) Copyright Jason Colman 2017
+//
+// * MakeScore *
+//
 // Sub project to convert easily-authorable music content
 //  into list of glyphs.
 // clang++ MakeScore.cpp -std=c++11
@@ -19,15 +24,13 @@
 #include <string>
 #include <vector>
 
-// Convenience functions
-
-// No trailing zeros
-std::string Str(float f)
-{
-  std::stringstream ss;
-  ss << f;
-  return ss.str();
-}
+// Time values
+using TimeValue = float;
+static const float TIMEVAL_SEMIBREVE   = 1.f;
+static const float TIMEVAL_MINIM       = TIMEVAL_SEMIBREVE / 2.f;
+static const float TIMEVAL_CROTCHET    = TIMEVAL_MINIM / 2.f;
+static const float TIMEVAL_QUAVER      = TIMEVAL_CROTCHET / 2.f;
+static const float TIMEVAL_SEMIQUAVER  = TIMEVAL_QUAVER / 2.f;
 
 bool Contains(const std::string& s, char c)
 {
@@ -38,6 +41,45 @@ std::string Remove(std::string& s, char c)
 {
   s.erase(std::remove(s.begin(), s.end(), c), s.end()); 
   return s;
+}
+
+static const std::map<std::string, float> TIME_VAL_STRS =
+{
+  { "sb", TIMEVAL_SEMIBREVE },
+  { "m",  TIMEVAL_MINIM },
+  { "c",  TIMEVAL_CROTCHET },
+  { "q",  TIMEVAL_QUAVER },
+  { "qq", TIMEVAL_SEMIQUAVER },
+};
+
+float GetTimeVal(std::string s)
+{
+  Remove(s, 'r'); // rests and notes are treated the same
+
+  float dot = 1.f;
+  if (Contains(s, '.'))
+  {
+    dot = 1.5f;
+    Remove(s, '.');
+  }
+
+  auto it = TIME_VAL_STRS.find(s);
+  if (it == TIME_VAL_STRS.end())
+  {
+    return -1;
+  }
+
+  return dot * it->second;
+}
+
+// Convenience functions
+
+// No trailing zeros
+std::string Str(float f)
+{
+  std::stringstream ss;
+  ss << f;
+  return ss.str();
 }
 
 bool IsBeam(const std::string& s)
@@ -101,7 +143,7 @@ std::string GetStr(TimeSig ts)
 
 std::string LineEnd(bool oneLine)
 {
-  return (oneLine ? "; " : "\n");
+  return (oneLine ? ";" : "\n");
 }
 
 class MakeScore
@@ -133,6 +175,10 @@ private:
   {
     m_bars.back()->AddBeam(s);
   }
+
+  void AddTokens();
+  void CalcBarSizesAndPositions();
+  void CalcStartTimes();
 
 private:
   constexpr static const float PAGE_WIDTH = 4.0f;
@@ -169,13 +215,37 @@ private:
 
     std::string ToString() const override
     {
-      // x-order for now, position after final pass allocates positions.
-      return str + ", " + Str(x) + ", " + Str(y) + 
+      std::string res;
+
+      bool yesTime = (timeval > 0);
+
+      if (yesTime)
+      {      
+        res += "TIME, " + Str(startTime) + ", " + Str(timeval + startTime) + " ; ";
+      }
+
+      res += str + ", " + Str(x) + ", " + Str(y) + 
         ", " + Str(scale) + ", " + Str(scale);
+     
+      if (yesTime)
+      { 
+        // Cancel time
+        res += " ; TIME, -1, -1";
+      }
+
+      return res;
     }
+
+    void SetTimeVal(float timeval_) { timeval = timeval_; }
 
     int order = 0; // horiz position in bar 
     std::string str;
+
+    // Time value for this glyph, i.e. its duration.
+    TimeValue timeval = 0;
+
+    // Start time is the accumulated time values of all preceding glyphs.
+    TimeValue startTime = 0;
   };
 
   // Time sigs are always left-aligned, no offset
@@ -191,6 +261,7 @@ private:
       level(level_), left(left_), right(right_) {}
 
     static constexpr float BEAM_HEIGHT = 0.06f;
+    static constexpr float BEAM_Y_MIN = 0.770f;
 
     std::string ToString() const override
     {
@@ -198,8 +269,9 @@ private:
       float xoff = 0;
       if (upNotDown)
       {
+        // Gap between beams/flags is half beam height, so y offset is * 1.5
         ymin -= BEAM_HEIGHT * 1.5f * GetHeight(level);
-        ymin += 0.7725f;
+        ymin += BEAM_Y_MIN;
         xoff = 0.25f; // move to right as stem is on right of note  
       }
       float ymax = ymin + BEAM_HEIGHT;
@@ -236,7 +308,7 @@ private:
       if (upNotDown)
       {
         ymin -= BEAM_HEIGHT * 1.5f * GetHeight(level);
-        ymin += 0.7725f;
+        ymin += BEAM_Y_MIN;
         xoff = 0.25f; // move to right as stem is on right of note  
       }
       float ymax = ymin + BEAM_HEIGHT;
@@ -291,7 +363,8 @@ private:
     float m_scale = 1.0f;
 
     // Time sig: we can use this to check for errors, and do beams/groups
-    //  automatically.
+    //  automatically. Also, we can use it to set times for each glyph,
+    //  for animation and midi events.
     TimeSig m_timeSig = TimeSig::FOUR_FOUR;
 
     void SetTimeSig(TimeSig ts)
@@ -304,6 +377,38 @@ private:
       return m_timeSig;
     }
 
+    // Return the total time for the bar.
+    // The time val of all the glyph members should add up to this.
+    TimeValue GetDuration() const
+    {
+      switch (m_timeSig)
+      {
+      case TimeSig::COMMON:
+      case TimeSig::FOUR_FOUR:
+        return 4.f * TIMEVAL_CROTCHET;
+
+      case TimeSig::THREE_FOUR:
+        return 3.f * TIMEVAL_CROTCHET;
+
+      case TimeSig::CUT_COMMON:
+      case TimeSig::TWO_FOUR:
+        return 2.f * TIMEVAL_CROTCHET;
+      }
+      return 0; 
+    }
+
+    float CalcNormalisedTimes(float totalDuration, float start)
+    {
+      // Normalise glyph durations, and accumulate to get start times.
+      for (auto& g : m_glyphs)
+      {
+        g->timeval /= totalDuration;
+        g->startTime += start;
+        start += g->timeval;
+      } 
+      return start;
+    }
+ 
     void SetScale(float scale)
     {
       m_scale = scale;
@@ -335,6 +440,7 @@ private:
       
       if (dot)
       {
+        // TODO raised dot if glyph is on a line
         out = "dotted-" + out + "-raised-dot";
       }
       return out;
@@ -346,6 +452,12 @@ private:
      
       Glyph* gl = new Glyph(GetStr(s), order);
       gl->SetScale(m_scale); 
+
+std::cout << "Timeval for \"" << s << "\" is " << GetTimeVal(s) << "\n";
+ 
+      // Set duration for this musical symbol
+      gl->SetTimeVal(GetTimeVal(s));
+
       m_glyphs.push_back(std::unique_ptr<Glyph>(gl));
     }
 
@@ -366,7 +478,7 @@ private:
 
       // Flags are attached to one glyph, and can go left or right.
       
-      // TODO level, i.e. quaver/semi etc
+      // Level is quaver/semi etc
       m_beams.push_back(std::unique_ptr<Beam>(
         new Beam(BeamLevel::BEAM_LEVEL_1, n - 1, n)));
 
@@ -377,7 +489,6 @@ private:
       else if (s == "==" || s == "=")
       {
         // 2 semiquavers, add 2nd beam
-        // TODO level, i.e. quaver/semi etc
         m_beams.push_back(std::unique_ptr<Beam>(
           new Beam(BeamLevel::BEAM_LEVEL_2, n - 1, n)));
       }
@@ -432,7 +543,7 @@ private:
 
     // Get number of distinct glyphs horizontally
     // (e.g. a chord is only one 'glyph' as all the notes take up only 
-    //  one horizontal space)
+    //  one horizontal space/share the same stem)
     int GetGlyphCount() const
     {
       int glyphCount = static_cast<int>(m_glyphs.size());
@@ -449,8 +560,6 @@ private:
 
       m_width = static_cast<float>(glyphCount) /
         static_cast<float>(totalNumGlyphs) * pageWidth / m_scale;
-
-      std::cout << "Setting width of bar to " << m_width << "\n";
     }
  
     float GetWidth() const
@@ -487,14 +596,10 @@ private:
         }
       }
 
-//std::cout << "Num glyphs: " << numGlyphs << "\n";
-//std::cout << "xoff: " << xoff << "\n";
-//std::cout << "w:    " << w << "\n";
-
       // Set coord of each glyph
       // Compensate for glyph width, move to the left a bit
       // TODO depends on glyph type?, e.g. semibreve is slightly wider.
-      float xfudge = -0.2f; //? * m_scale;
+      float xfudge = -0.2f; 
 
       for (auto& g : m_glyphs)
       {
@@ -521,22 +626,19 @@ private:
 void MakeScore::Preprocess()
 {
 
-  std::cout << "Preprocessed input: " << m_input << "\n";
+//  std::cout << "Preprocessed input: " << m_input << "\n";
 }
 
-void MakeScore::MakeInternal()
+// Tokenise input string and add each token to internal representation.
+void MakeScore::AddTokens()
 {
   std::stringstream ss(m_input);
 
+  // Split space-separated input into a vector of strings.
   std::vector<std::string> strs {
     std::istream_iterator<std::string>{ss},
     std::istream_iterator<std::string>{}
   };
-
-  // Add first default bar
-  Bar* bar = new Bar;
-  bar->SetScale(m_scale);
-  m_bars.push_back(std::unique_ptr<Bar>(bar));
 
   int n = strs.size();
   for (int i = 0; i < n; i++)
@@ -566,7 +668,49 @@ void MakeScore::MakeInternal()
       AddGlyph(s);
     }
   }
+}
 
+void MakeScore::MakeInternal()
+{
+  // Add first default bar
+  Bar* bar = new Bar;
+  bar->SetScale(m_scale);
+  m_bars.push_back(std::unique_ptr<Bar>(bar));
+
+  // Tokenise input string and add each token to internal representation.
+  AddTokens();
+
+  CalcBarSizesAndPositions();
+
+  CalcStartTimes();
+}
+
+void MakeScore::CalcStartTimes()
+{
+  // First, get the total time duration for all bars.
+  // Then normalise, and acculumate time values of all glyphs to set the
+  //  starting time of each one.
+
+  float totalDuration = 0;
+  for (auto& bar : m_bars)
+  {
+    totalDuration += bar->GetDuration();
+  }
+
+  std::cout << "Total duration: " << totalDuration << "\n";
+
+  // Use totalDuration to normalise duration of each glyph, and cumulative
+  //  duration, so we set the start time of each glyph within 0..1
+ 
+  float acc = 0; 
+  for (auto& bar : m_bars)
+  {
+    acc = bar->CalcNormalisedTimes(totalDuration, acc);  
+  }
+}
+
+void MakeScore::CalcBarSizesAndPositions()
+{
   // Now loop over the bars. From the number of glyphs in each bar,
   //  work out the relative width of each bar.
   // For now, assume only one line.
@@ -574,8 +718,6 @@ void MakeScore::MakeInternal()
   for (auto& bar : m_bars)
   {
     int gc = bar->GetGlyphCount(); 
-   
-    std::cout << "Glyph count: " << gc << "\n";
     totalNumGlyphs += gc;
   }
 
@@ -589,12 +731,8 @@ void MakeScore::MakeInternal()
   float x = 0;
   float y = 0; // SET_Y
 
-  int i = 1;
   for (auto& bar : m_bars)
   {
-    std::cout << "// Bar " << i << "\n";
-    i++;
-
     bar->SetPos(x, y);
     x += bar->GetWidth();
   }
@@ -604,15 +742,16 @@ std::string MakeScore::ToString()
 {
   std::string res;
 
+  // First, output a stave. For rhythm only, it's a single line.
+  // TODO Multiple lines 
+  res += "stave-line, 0, " + Str(DEFAULT_HEIGHT) + ", " + 
+    Str(PAGE_WIDTH) + ", " + Str(m_scale) + 
+    LineEnd(m_outputOnOneLine);
+
   for (auto& b : m_bars)
   {
     res += b->ToString(m_outputOnOneLine);
   }
-
-  // TODO Num lines 
-  res += "stave-line, 0, " + Str(DEFAULT_HEIGHT) + ", " + 
-    Str(PAGE_WIDTH) + ", " + Str(m_scale) + 
-    LineEnd(m_outputOnOneLine);
 
   return res;
 }
@@ -620,14 +759,10 @@ std::string MakeScore::ToString()
 int main()
 {
   std::string input;
-  //std::string input = "c | c c";
-  //std::string input = "4/4 c c | 3/4 q -- q cr q. -= qq c";
   std::getline(std::cin, input);
 
-  std::cout << "Input: \"" << input << "\"\n";
-
   MakeScore ms(input);
-  ms.SetScale(0.5f);
+  ms.SetScale(0.6f);
 ////  ms.SetY(1.0f);
 
   // TODO Transform input:

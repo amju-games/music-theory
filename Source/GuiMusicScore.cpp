@@ -418,6 +418,12 @@ bool GuiMusicScore::AddMultipleGlyphsFromString(const std::string& line, const V
   Strings strs = Split(line, ';');
   for (const std::string& s : strs)
   {
+    // Allow empty string, so generating score content is simpler
+    if (Trim(s).empty())
+    {
+      continue;
+    }
+
     Strings tokens = Split(s, ',');
     Assert(tokens.size() > 0);
 
