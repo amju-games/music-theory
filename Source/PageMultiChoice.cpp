@@ -100,6 +100,15 @@ void PageMultiChoice::OnHint()
   int n = m_canRemoveForHint.back(); // the button to remove
 
   HideChoiceButton(n);
+
+  if (m_canRemoveForHint.empty())
+  {
+    // Pulse the only choice
+    int correct = m_answers.GetCorrectAnswer();
+    GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(correct)));
+    Assert(button);
+    button->SetHasFocus(true); // pulsing glow
+  }
 }
 
 void PageMultiChoice::HideChoiceButton(int n)
