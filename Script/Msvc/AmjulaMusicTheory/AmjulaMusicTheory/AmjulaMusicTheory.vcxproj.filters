@@ -61,6 +61,12 @@
     <Filter Include="Assets\Gui\CorridorModes">
       <UniqueIdentifier>{06975070-ae9d-4e45-8be1-65b1289afc63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Course\expl">
+      <UniqueIdentifier>{afc6d3ec-57f5-42f2-b999-77e7b9df283e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Course\expl\tonic-triads">
+      <UniqueIdentifier>{e11ce825-8bcc-42a8-90b2-20013a4fd2ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp">
@@ -716,6 +722,30 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Course\which_clef.txt">
       <Filter>Assets\Course</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-cmaj-treb.txt">
+      <Filter>Assets\Course\expl\tonic-triads</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-dmaj-treb.txt">
+      <Filter>Assets\Course\expl\tonic-triads</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-fmaj-treb.txt">
+      <Filter>Assets\Course\expl\tonic-triads</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-gmaj-treb.txt">
+      <Filter>Assets\Course\expl\tonic-triads</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-cmaj-bass.txt">
+      <Filter>Assets\Course\expl\tonic-triads</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-dmaj-bass.txt">
+      <Filter>Assets\Course\expl\tonic-triads</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-fmaj-bass.txt">
+      <Filter>Assets\Course\expl\tonic-triads</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-gmaj-bass.txt">
+      <Filter>Assets\Course\expl\tonic-triads</Filter>
     </Text>
   </ItemGroup>
 </Project>

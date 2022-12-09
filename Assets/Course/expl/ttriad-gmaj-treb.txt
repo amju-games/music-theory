@@ -1,0 +1,113 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Expl for tonic triad, G Major, on treble clef
+
+// v.
+1
+
+gui-comp
+// Name
+expl-comp
+// Num children
+4
+
+// With the scale and pos below, a music score of width 4.0 fits across the dialog.
+// So a long score can go from x=0 to x=4, a short one from x=1 to x=3, etc.
+// I.e.:
+//  +--------------------------+   0.4
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+   0.0
+//  0                          4
+
+music-score
+// Name, Position
+note-1
+0.25, -.7
+// Scale
+.2, .55
+// Colour
+ffffff
+// Glyphs start here
+stave, 0., 0, 4.0, 1
+treble-clef, .5, 0
+treb-g4-sb, 1.5, 0
+end
+
+
+animation
+note-2-anim-1
+const
+one
+
+animation
+note-2-anim-2
+one-shot
+1.0
+linear
+
+translate
+0, 0 ; 0.15, 0
+
+animation
+note-3-anim-3
+const
+zero
+
+music-score
+// Name, Position
+expl-music-score-1
+0.25, -.7
+// Scale
+.2, .55
+// Colour
+ffffff
+// Glyphs start here
+treb-b5-sb, 1.5, 0
+end
+
+
+
+
+animation
+note-3-anim-1
+const
+one
+
+animation
+note-3-anim-2
+one-shot
+2.0
+linear
+
+translate
+0, 0 ; 0.3, 0
+
+animation
+note-3-anim-3
+const
+zero
+
+music-score
+// Name, Position
+expl-music-score-1
+0.25, -.7
+// Scale
+.2, .55
+// Colour
+ffffff
+// Glyphs start here
+treb-d5-sb, 1.5, 0
+end
+
+
+
+gui-text
+expl-text
+0, -.6
+1.3, 0.3
+$$$114
+TEXT, 1.5, fgcol=ffffff, multi
+

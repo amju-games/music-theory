@@ -435,6 +435,14 @@
     <Library Include="..\..\..\..\Source\ThirdParty\googletest\msvc\gtest\Debug\gtestd.lib" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-cmaj-bass.txt" />
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-cmaj-treb.txt" />
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-dmaj-bass.txt" />
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-dmaj-treb.txt" />
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-fmaj-bass.txt" />
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-fmaj-treb.txt" />
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-gmaj-bass.txt" />
+    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-gmaj-treb.txt" />
     <Text Include="..\..\..\..\Assets\Course\higher_or_lower.txt" />
     <Text Include="..\..\..\..\Assets\Course\name_the_note.txt" />
     <Text Include="..\..\..\..\Assets\Course\notes_on_bass_clef_with_accidentals.txt" />
