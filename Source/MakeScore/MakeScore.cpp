@@ -72,6 +72,7 @@ static const std::map<std::string, float> TIME_VAL_STRS =
 float GetTimeVal(std::string s)
 {
   Remove(s, 'r'); // rests and notes are treated the same
+  Remove(s, '*'); // in case glyph is hidden
 
   float dot = 1.f;
   if (Contains(s, '.'))
@@ -139,14 +140,20 @@ static const std::map<std::string, TimeSig> TIME_SIG_STRS =
   { "cut-common", TimeSig::CUT_COMMON }, // TODO s/b compound glyph
 };
 
-bool IsTimeSig(const std::string& s)
+bool IsTimeSig(std::string s)
 {
+  // can be replaced with a star for 'what's the time sig' questions
+  Remove(s, '*'); 
+
   auto it = TIME_SIG_STRS.find(s); 
   return it != TIME_SIG_STRS.end();
 }
 
-TimeSig GetTimeSig(const std::string& s)
+TimeSig GetTimeSig(std::string s)
 {
+  // can be replaced with a star for 'what's the time sig' questions
+  Remove(s, '*'); 
+
   auto it = TIME_SIG_STRS.find(s); 
   return it->second;
 }
@@ -362,7 +369,19 @@ private:
     Glyph() = default;
     Glyph(const std::string& str_, int order_) : 
       displayGlyphName(GetStr(str_)), realGlyphName(str_),
-      order(order_) {}
+      order(order_) 
+    {
+      HandleStar();
+    }
+
+    void HandleStar()
+    {
+      if (Contains(realGlyphName, '*'))
+      {
+        Remove(realGlyphName, '*');
+        displayGlyphName = '*';
+      }
+    }
 
     std::string TimeBefore() const;
     std::string TimeAfter() const;
@@ -424,10 +443,12 @@ private:
   // Time sigs are always left-aligned, no offset
   struct TimeSigGlyph : public Glyph
   {
-    TimeSigGlyph(const std::string& s) : Glyph(s, 0) 
+    TimeSigGlyph(const std::string& s) : Glyph() 
     { 
+      realGlyphName = s;
       displayGlyphName = s;
       y = 0; 
+      HandleStar();
     }
   };
 
@@ -1060,7 +1081,10 @@ std::cout << "// " << input << "\n";
 
   ms.MakeInternal();
 
-  std::cout << ms.ToString() << "\n";
+  // Output final string.
+  // Don't append a newline char, so we can add more to this line, in
+  //  enclosing script.
+  std::cout << ms.ToString();
 
   return 0;
 }

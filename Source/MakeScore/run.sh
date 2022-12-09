@@ -7,7 +7,10 @@ pushd ../../Assets/Gui
 cp scoretest.txt gs_test_show_score.txt
 popd
 
-echo 'c t c t c' | ./a.out --oneline  > out.txt
+echo '3/4 *cr  c   c' | ./a.out --oneline  > out.txt
+
+# Shows that we can append answer etc to the same line
+#echo '=@@@Answer' >> out.txt
 
 cat out.txt >> ../../Assets/Gui/gs_test_show_score.txt
 cat out.txt
