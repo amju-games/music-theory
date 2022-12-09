@@ -10,38 +10,31 @@ Test on different devices/screen aspect ratios
 =============================================
 
 ** Show correct answer if you get it wrong!!!!! **
+ - hide buttons
+ - extend "paper" background downwards and show answer on the paper too
+ OR overlay, (like duolingo does)
 
+Intervals
+ - Highlight notes: glyphs need times in load string
+ - Sound notes: generally, send a message when we highlight a glyph: glyphs can optionally have message info, i.e. midi note data.
+ - Hint: play scale, showing number of notes
+ - In show answer ("learn") mode, do the hint
 
 Rotate decorator: very broken. Need a state just to debug/fix it.
 
 Show ALL topics on BIG tree/plant - but they are disabled until unlocked.
 User can scroll up to see them all. Some at the top could be enabled (Zelda)
 
-Scroll decorator
-
-Drag decorator. Drag target? Or just any GuiElement can be set as a target?
 
 More topics
  - Next: musical symbols? Or identifying notes, this is a big one.
 
-PagePlayNotes:
- - Stave is white, could just be on mac/desktop GL (vertex colours)
- - Desktop GL shader, so we can highlight notes etc
 
-More work on the code design for how we create new Pages. The current Topic
- generates them?
-Page factory. Topic txt file has list of page type names.
-And how we interleave teaching pages with testing pages.
- - They are all pages, Topic has a list
- - But some pages we only show once? 
 
  Have separate sections.
  Pages within a section can be shuffled, be shown once, etc.
  The order of the sections is fixed. So we can have intro, a bunch of shuffled stuff, then end section.
 
-
-NOT MVP
-Fix vertex colours on desktop GL
 
 MVP?
 Load/save user config
@@ -63,7 +56,7 @@ Fix button sizes
 NOT MVP:
 Topic end state:
 Look/feel, 
-text should be smart. - HIDE TEXT FOR MVP
+Smart comment text 
 Give hints, give stars etc
 Next state should be achievements - if none, we go to main menu. Scroll back down to the ground.
 
@@ -72,6 +65,7 @@ Main menu:
  - About button
  - Share button
  - I'm new: go to name entry. Should happen on first run.
+ - Show avatar
 
 NOT MVP:
 Avatar + user name
@@ -98,6 +92,9 @@ Back end DB
 
 Share - Ok, not MVP but very desirable
  - No screenshots required? Or just baked images.
+ - End of a topic
+ - Achievements
+ - Test scores
 
 Storing progress: config file should allow a map type, which is itself a config file - i.e. tree structure.
 Then we can add a map for terms seen, weak terms, each attempt if desired, etc.

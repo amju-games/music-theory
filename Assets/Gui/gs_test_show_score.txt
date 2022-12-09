@@ -29,7 +29,6 @@ music-score
 -1.0, 0
 .5, .5
 // Colour
-//1DA2FF
 000000
 
 // Glyphs start here

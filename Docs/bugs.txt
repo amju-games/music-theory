@@ -1,10 +1,5 @@
 Serious
 
-Intervals: sometimes right answer is marked as wrong, 3rds I think
-
-Musical term Page crash
- - Doesn't load dictionary, as no name is set
- - Base class does stuff we don't want to do, needs refactoring
 
 
 Cosmetic
