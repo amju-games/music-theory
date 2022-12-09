@@ -43,6 +43,7 @@ void CorridorModeShowTappable::OnActive()
 void CorridorModeShowTappable::OnDeactive()
 {
   CorridorMode::OnDeactive();
+  m_tapped->DeactivateGui();
   m_tapped = nullptr;
 }
 
