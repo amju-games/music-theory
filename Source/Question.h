@@ -5,14 +5,13 @@
 
 #include <string>
 #include <vector>
+#include <ConfigFile.h>
 #include <RCPtr.h>
 #include <StringUtils.h>
 #include "MusicalTermsDictionary.h"
 
 namespace Amju
 {
-  class ConfigFile;
-
   // There could be multiple ways to phrase the same question. E.g.
   //  What is the meaning of this Italian musical term
   //  What does this term mean? 

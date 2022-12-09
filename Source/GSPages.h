@@ -8,6 +8,8 @@
 
 namespace Amju
 {
+class Colour;
+  
 class GSPages : public GSBase
 {
 public:

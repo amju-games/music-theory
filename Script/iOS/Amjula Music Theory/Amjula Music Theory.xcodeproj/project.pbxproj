@@ -15,6 +15,8 @@
 		6959E2ED1E97F6F800E251A9 /* GSMainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2E61E97F6F800E251A9 /* GSMainMenu.cpp */; };
 		6959E2EE1E97F6F800E251A9 /* Topic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2E81E97F6F800E251A9 /* Topic.cpp */; };
 		6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2EA1E97F6F800E251A9 /* UserProfile.cpp */; };
+		6959E2F81E9ACE8A00E251A9 /* GSPause.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2F41E9ACE8A00E251A9 /* GSPause.cpp */; };
+		6959E2F91E9ACE8A00E251A9 /* GSTopicStart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2F61E9ACE8A00E251A9 /* GSTopicStart.cpp */; };
 		697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07EF1E82F19B0045CE54 /* GSBase.cpp */; };
 		697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */; };
 		697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */; };
@@ -113,6 +115,10 @@
 		6959E2E91E97F6F800E251A9 /* Topic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Topic.h; path = ../../../../Source/Topic.h; sourceTree = "<group>"; };
 		6959E2EA1E97F6F800E251A9 /* UserProfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UserProfile.cpp; path = ../../../../Source/UserProfile.cpp; sourceTree = "<group>"; };
 		6959E2EB1E97F6F800E251A9 /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserProfile.h; path = ../../../../Source/UserProfile.h; sourceTree = "<group>"; };
+		6959E2F41E9ACE8A00E251A9 /* GSPause.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSPause.cpp; path = ../../../../Source/GSPause.cpp; sourceTree = "<group>"; };
+		6959E2F51E9ACE8A00E251A9 /* GSPause.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSPause.h; path = ../../../../Source/GSPause.h; sourceTree = "<group>"; };
+		6959E2F61E9ACE8A00E251A9 /* GSTopicStart.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSTopicStart.cpp; path = ../../../../Source/GSTopicStart.cpp; sourceTree = "<group>"; };
+		6959E2F71E9ACE8A00E251A9 /* GSTopicStart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSTopicStart.h; path = ../../../../Source/GSTopicStart.h; sourceTree = "<group>"; };
 		697A07EF1E82F19B0045CE54 /* GSBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSBase.cpp; path = ../../../../Source/GSBase.cpp; sourceTree = "<group>"; };
 		697A07F01E82F19B0045CE54 /* GSBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSBase.h; path = ../../../../Source/GSBase.h; sourceTree = "<group>"; };
 		697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSPlayNotes.cpp; path = ../../../../Source/GSPlayNotes.cpp; sourceTree = "<group>"; };
@@ -317,6 +323,10 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				6959E2F41E9ACE8A00E251A9 /* GSPause.cpp */,
+				6959E2F51E9ACE8A00E251A9 /* GSPause.h */,
+				6959E2F61E9ACE8A00E251A9 /* GSTopicStart.cpp */,
+				6959E2F71E9ACE8A00E251A9 /* GSTopicStart.h */,
 				6959E2E41E97F6F800E251A9 /* Course.cpp */,
 				6959E2E51E97F6F800E251A9 /* Course.h */,
 				6959E2E61E97F6F800E251A9 /* GSMainMenu.cpp */,
@@ -535,8 +545,10 @@
 				6959E2D11E958C3C00E251A9 /* GSTitle.cpp in Sources */,
 				69D58E861E86A02B008A8D29 /* Page.cpp in Sources */,
 				6959E2D01E958C3C00E251A9 /* GSPages.cpp in Sources */,
+				6959E2F81E9ACE8A00E251A9 /* GSPause.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
 				697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */,
+				6959E2F91E9ACE8A00E251A9 /* GSTopicStart.cpp in Sources */,
 				69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */,
 				69F5E0921E8C09DF00E7BF93 /* GameViewController.m in Sources */,
 				69D58E851E86A02B008A8D29 /* GuiMusicKb.cpp in Sources */,
@@ -736,7 +748,7 @@
 					AMJU_IOS,
 					AMJU_USE_ES2,
 				);
-				HEADER_SEARCH_PATHS = "/Users/jay/projects/amjulib/Releases/amjulib-v.0.5-ios/include/";
+				HEADER_SEARCH_PATHS = "/Users/jay/projects/amjulib/Source/**";
 				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -763,7 +775,7 @@
 					AMJU_IOS,
 					AMJU_USE_ES2,
 				);
-				HEADER_SEARCH_PATHS = "/Users/jay/projects/amjulib/Releases/amjulib-v.0.5-ios/include/";
+				HEADER_SEARCH_PATHS = "/Users/jay/projects/amjulib/Source/**";
 				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
