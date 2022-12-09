@@ -29,7 +29,17 @@ Clef GetClef(const std::string& s)
   return CLEF_NAME[s];
 }
 
-std::string GetClefOutputString(Clef clef, int staveNumber)
+std::string GetClefOutputString(Clef clef, int staveNumber, float x, float y, float scale)
 {
-  return "treble-clef";
+  std::string CLEF_OUTPUT_STR[4] = 
+  {
+    "treble-clef",
+    "bass-clef",
+    "alto-clef",
+    "tenor-clef"
+  };
+  int c = static_cast<int>(clef);
+  return CLEF_OUTPUT_STR[c] + 
+    ", " + Str(x) + ", " + Str(y) + 
+    ", " + Str(scale) + ", " + Str(scale);
 }

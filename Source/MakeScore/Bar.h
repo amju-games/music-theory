@@ -9,6 +9,7 @@
 #include <memory>
 #include <vector>
 #include "Beam.h"
+#include "Clef.h"
 #include "Glyph.h"
 #include "Stave.h"
 #include "TimeSig.h"
@@ -16,38 +17,16 @@
 #include "TimeValue.h"
 #include "Utils.h"
 
-struct Bar
+using GlyphVec = std::vector<std::unique_ptr<Glyph>>;
+
+class Bar
 {
-  // Sequence of glyphs, left to right, in the bar, following any key sig
-  //  and time sig.
-  std::vector<std::unique_ptr<Glyph>> m_glyphs;
+public:
+  // Copy state which carries over from one bar to the next, e.g. 
+  //  time sig, key sig, etc.
+  void CopyState(const Bar& b);
 
-  // Optional key sig glyph for the bar, at left edge.
-  // TODO Handle 'naturalising' key sig before a new key sig, i.e. there
-  //  could be up to 2 key sig glyphs. Also, key sigs can be a lot wider
-  //  than other glyphs.
-  std::unique_ptr<Glyph> m_keySigGlyph;
-
-  // Optional time sig glyph, at left of bar after key sig, if there is one.
-  std::unique_ptr<Glyph> m_timeSigGlyph;
-
-  // Beams connecting ordered glyphs
-  std::vector<std::unique_ptr<Beam>> m_beams;
-
-  // Stave type for the bar (I would expect this to be the same for
-  //  all bars, at least in the same line).
-  StaveType m_staveType = StaveType::STAVE_TYPE_RHYTHM;
-
-  float m_x = 0;
-  float m_y = 0;
-  float m_width = 0;
-  float m_scale = 1.0f;
-  int m_currentStave = 0;
-  
-  // Time sig: we can use this to check for errors, and do beams/groups
-  //  automatically. Also, we can use it to set times for each glyph,
-  //  for animation and midi events.
-  TimeSig m_timeSig = TimeSig::FOUR_FOUR;
+  void SetIsFirstBarOfLine(bool first) { m_isFirstBarOfLine = first; }
 
   void SetTimeSig(TimeSig ts);
 
@@ -66,6 +45,8 @@ struct Bar
   void AddTimeSig(const std::string& s);
 
   void AddBeam(const std::string& s);
+
+  void SetClef(Clef clef);
 
   std::string ToString(bool oneLine);
 
@@ -88,4 +69,50 @@ struct Bar
   void CalcGlyphY(Glyph* gl, int pitch) const;
 
   void SetStaveType(StaveType st) { m_staveType = st; }
+
+  const GlyphVec& GetGlyphs() const { return m_glyphs; }
+
+private:
+  static const int MAX_NUM_STAVES = 4; // for SATB
+
+  // Sequence of glyphs, left to right, in the bar, following any key sig
+  //  and time sig.
+  GlyphVec m_glyphs;
+
+  // Optional key sig glyph for the bar, at left edge.
+  // TODO Handle 'naturalising' key sig before a new key sig, i.e. there
+  //  could be up to 2 key sig glyphs. Also, key sigs can be a lot wider
+  //  than other glyphs.
+  std::unique_ptr<Glyph> m_keySigGlyph;
+
+  // Optional time sig glyph, at left of bar after key sig, if there is one.
+  std::unique_ptr<Glyph> m_timeSigGlyph;
+
+  // Beams connecting ordered glyphs
+  std::vector<std::unique_ptr<Beam>> m_beams;
+
+  // Stave type for the bar (I would expect this to be the same for
+  //  all bars, at least in the same line).
+  StaveType m_staveType = StaveType::STAVE_TYPE_RHYTHM;
+
+  float m_x = 0;
+  float m_y = 0;
+  float m_width = 0;
+  float m_scale = 1.0f;
+
+  // Current stave to which we add glyphs, clef, etc.
+  int m_currentStave = 0;
+
+  // Time sig: we can use this to check for errors, and do beams/groups
+  //  automatically. Also, we can use it to set times for each glyph,
+  //  for animation and midi events.
+  TimeSig m_timeSig = TimeSig::FOUR_FOUR;
+
+  // Clef for each stave. Output clef at start of a new line, and a mini-clef
+  //  when the clef changes on a stave.
+  Clef m_currentClef[MAX_NUM_STAVES] = { Clef::CLEF_TREBLE };
+
+  bool m_isFirstBarOfLine = false;
+  // Output mini clef at end of bar if the clef changed
+  bool m_yesOutputMiniClef = false; 
 };

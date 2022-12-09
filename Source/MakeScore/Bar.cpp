@@ -8,6 +8,21 @@
 #include "Bar.h"
 #include "Flag.h"
 
+void Bar::CopyState(const Bar& b)
+{
+  SetStaveType(b.m_staveType);
+  SetScale(b.m_scale);
+  // Copy time sig over to next bar
+  SetTimeSig(b.GetTimeSig());
+  // TODO Copy key sig over
+  //  bar->SetKeySig(m_bars.back()->GetKeySig());
+  // Copy clefs over
+  for (int s = 0; s < MAX_NUM_STAVES; s++)
+  {
+    m_currentClef[s] = b.m_currentClef[s];
+  }
+}
+
 void Bar::SetTimeSig(TimeSig ts)
 {
   m_timeSig = ts;
@@ -83,7 +98,8 @@ void Bar::CalcGlyphY(Glyph* gl, int pitch) const
        4, // alto
        6, // tenor 
     };
-    int clef = 0; // TODO use last clef set for this stave
+    // Use last clef set for this stave
+    int clef = static_cast<int>(m_currentClef[m_currentStave]);
     int staveLine = Y_POS[pitch % 12] + CLEF_OFFSET[clef];
     // Use the octave to shunt note up or down
     int octave = (pitch / 12 - 5) * 7; // so middle C is 0
@@ -125,6 +141,19 @@ void Bar::AddGlyph(const std::string& s, int pitch)
   gl->SetTimeVal(GetTimeVal(s));
 
   m_glyphs.push_back(std::unique_ptr<Glyph>(gl));
+}
+
+void Bar::SetClef(Clef clef)
+{
+  // Has clef changed? If so, output a mini-clef at the end of the bar.
+  // Not if this is the first bar though???? Not sure about this - TODO
+  // I think we need to add the mini-clef to the PREVIOUS bar.
+  if (    clef != m_currentClef[m_currentStave]
+      && !m_isFirstBarOfLine) // ?
+  {
+    m_yesOutputMiniClef = true;
+  }
+  m_currentClef[m_currentStave] = clef;
 }
 
 void Bar::AddTimeSig(const std::string& s)
@@ -176,6 +205,19 @@ std::string Bar::ToString(bool oneLine)
 {
   std::string res;
 
+  // Clef for each stave, if first bar of line
+  if (m_isFirstBarOfLine)
+  {
+    int numStaves = 1; // TODO 
+    for (int s = 0; s < numStaves; s++)
+    {
+      float x = 0;
+      float y = 0.5f; // Hmm, why do we need to offset in y? 
+      y += s * DOUBLE_STAVE_DISTANCE;
+      res += GetClefOutputString(m_currentClef[s], s, x, y, m_scale) + LineEnd(oneLine);
+    }
+  }
+
   // Optional time sig
   if (m_timeSigGlyph)
   {
@@ -220,6 +262,10 @@ std::string Bar::ToString(bool oneLine)
 int Bar::GetGlyphCount() const
 {
   int glyphCount = static_cast<int>(m_glyphs.size());
+  if (m_isFirstBarOfLine)
+  {
+    glyphCount++; // clef
+  }
   if (m_timeSigGlyph)
   {
     glyphCount++;
@@ -254,13 +300,22 @@ void Bar::SetPos(float x, float y)
   float numGlyphs = static_cast<float>(GetGlyphCount());
   float xoff = m_width / (numGlyphs + 1.0f);
   float w = 0;
+
+  if (m_isFirstBarOfLine)
+  {
+    // Need space for clef, so shunt everything right
+    const float CLEF_WIDTH = 0.45f; // ?
+    x += CLEF_WIDTH;
+  }
+
   if (numGlyphs > 1)
   {
     w = (m_width - 2 * xoff) / (numGlyphs - 1.0f);
     if (m_timeSigGlyph)
     {
       const float TIME_SIG_WIDTH = 0.3f; // ?
-                                         // Reduce available width
+                                          
+      // Reduce available width
       if (numGlyphs > 2)
       {
         w = (m_width - TIME_SIG_WIDTH - 2 * xoff) / (numGlyphs - 2.0f);

@@ -25,4 +25,4 @@ Clef GetClef(const std::string& s);
 // Generate output string for the given clef type, on the stave numbered from 0
 //  and going down the page. So for a single stave, staveNumber is zero. For the
 //  lower stave of a double-stave score (e.g. piano music), staveNumber is 1, etc.
-std::string GetClefOutputString(Clef clef, int staveNumber = 0);
+std::string GetClefOutputString(Clef clef, int staveNumber, float x, float y, float scale);

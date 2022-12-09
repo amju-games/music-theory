@@ -75,13 +75,7 @@ void MakeScore::AddTokens()
     if (s == "|")
     {
       Bar* bar = new Bar;
-      bar->SetStaveType(m_staveType);
-      bar->SetScale(m_scale);
-      // Copy time sig over to next bar
-      bar->SetTimeSig(m_bars.back()->GetTimeSig());
-      // TODO Copy key sig over
-      //  bar->SetKeySig(m_bars.back()->GetKeySig());
-
+      bar->CopyState(*m_bars.back());
       m_bars.push_back(std::unique_ptr<Bar>(bar));
     }
     else if (s == "t")
@@ -131,7 +125,9 @@ void MakeScore::AddTokens()
 
 void MakeScore::AddClef(const std::string& s)
 {
-  // TODO Current stave number
+  // NB Bar already has Current stave number
+  
+  m_bars.back()->SetClef(GetClef(s));
 }
 
 void MakeScore::AddGlyph()
@@ -146,7 +142,7 @@ void MakeScore::AddGlyph()
     if (!tie->IsRhsSet())
     {
       assert(!m_bars.empty());
-      tie->SetRightGlyph(m_bars.back()->m_glyphs.back().get());
+      tie->SetRightGlyph(m_bars.back()->GetGlyphs().back().get());
     }
   }
 }
@@ -161,7 +157,7 @@ void MakeScore::AddTie()
   }
 
   Tie* tie = new Tie;
-  tie->SetLeftGlyph(m_bars.back()->m_glyphs.back().get());
+  tie->SetLeftGlyph(m_bars.back()->GetGlyphs().back().get());
 
   tie->SetScale(m_scale);
 
@@ -172,6 +168,7 @@ void MakeScore::MakeInternal()
 {
   // Add first default bar
   Bar* bar = new Bar;
+  bar->SetIsFirstBarOfLine(true); // first bar
   bar->SetStaveType(m_staveType);
   bar->SetScale(m_scale);
   m_bars.push_back(std::unique_ptr<Bar>(bar));
