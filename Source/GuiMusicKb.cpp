@@ -27,7 +27,7 @@
 //  keys accordingly.
 #define YES_GLISSANDO
 
-#define YES_ALLOW_SWIPE_TO_SCROLL
+//#define YES_ALLOW_SWIPE_TO_SCROLL
 
 namespace Amju
 {
