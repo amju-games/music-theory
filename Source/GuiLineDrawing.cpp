@@ -227,7 +227,7 @@ bool GuiLineDrawing::Load(File* f)
     return false;
   }
 
-  m_texture = (Texture*)TheResourceManager::Instance()->GetRes("Image/corner.png");
+  m_texture = (Texture*)TheResourceManager::Instance()->GetRes("Image/circle.png");
   if (!m_texture)
   {
     f->ReportError("Failed to load line drawing texture");
