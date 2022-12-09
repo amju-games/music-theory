@@ -104,9 +104,6 @@ void Page::OnActive()
   Assert(addComp);
   addComp->AddChild(pageGui);
 
-  // Adjust position so it sits under the top bar
-  m_gui->SetLocalPos(Vec2f(0, -0.2f));
-
   // Set command for common buttons
   GuiElement* hint = GetHintButton();
   if (hint)
