@@ -70,12 +70,24 @@ GSMainMenu::GSMainMenu()
 
 void GSMainMenu::Load3dForTopics()
 {
+  // Get user config, so we know which topics have been unlocked.
+  ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
+
+  Course* course = GetCourse();
+  Assert(course);
+  int numTopics = course->GetNumTopics();
+
   SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
   SceneNode* camera = root->GetNodeByName("camera");
   Assert(camera);
 
-  for (int i = 0; i < 2; i++)
+  for (int i = 0; i < numTopics; i++)
   {
+    Topic* topic = course->GetTopic(i);
+    bool unlocked = (i == 0) || config->Exists(KEY_TOPIC_UNLOCKED + ToString(i));
+
+    // TODO Load from a list of scene files; each one has a locked and
+    //  unlocked variety.
     PSceneNode node = LoadScene("Scene/corridor-one-door.txt");
     Assert(node);
     node->SetIsLit(true);
@@ -99,9 +111,6 @@ void GSMainMenu::OnActive()
   //  we don't want to try to programatically add the buttons. So the GUI layout
   //  here is coupled to the Course definition.
   GSBase3d::OnActive();
-
-  // Get user config, so we know which topics have been unlocked.
-  ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
 
   // Just one topic button, which is fixed in the centre of the screen.
   // The scene scrolls left and right, but sticks so each door is under the 
@@ -230,15 +239,25 @@ void GSMainMenu::Drag(bool rightNotLeft)
 
   if (rightNotLeft)
   {
-    m_currentTopicScrolledTo++;
-    m_desiredXPos += DISTANCE_BETWEEN_DOORS;
-    m_scrollVel = 1000.0f; // TODO TEMP TEST
+    if (m_currentTopicScrolledTo > 0)
+    {
+      m_currentTopicScrolledTo--;
+      m_desiredXPos -= DISTANCE_BETWEEN_DOORS;
+      m_scrollVel = -1000.0f; // TODO TEMP TEST
+    }
   }
-  else
+  else 
   {
-    m_currentTopicScrolledTo--;
-    m_desiredXPos -= DISTANCE_BETWEEN_DOORS;
-    m_scrollVel = -1000.0f; // TODO TEMP TEST
+    Course* course = GetCourse();
+    Assert(course);
+    int numTopics = course->GetNumTopics();
+
+    if (m_currentTopicScrolledTo < numTopics - 1)
+    {
+      m_currentTopicScrolledTo++;
+      m_desiredXPos += DISTANCE_BETWEEN_DOORS;
+      m_scrollVel = 1000.0f; // TODO TEMP TEST
+    }
   }
 }
 
@@ -256,6 +275,17 @@ void GSMainMenu::Update()
       m_currentXPos = m_desiredXPos;
       m_scrollVel = 0;
       m_isScrolling = false;
+
+      // Set topic name: get topic name...
+      Course* course = GetCourse();
+      Assert(course);
+      Topic* topic = course->GetTopic(m_currentTopicScrolledTo);
+
+      // ...now set the text on screen
+      IGuiText* text = dynamic_cast<IGuiText*>(
+        GetElementByName(m_gui, "topic-name-text"));
+      Assert(text);
+      text->SetText(topic->GetDisplayName());
     }
   
     SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
