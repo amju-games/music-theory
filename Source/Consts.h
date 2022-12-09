@@ -39,6 +39,7 @@ static const float DOOR_RECT_YMAX =  .6f;
 #define DEFAULT_SHARE_TEXT "I'm learning stuff at Amjula Music School! amjula.com #amjula"
 
 #define MIDI_SOUND_FONT "Grand Piano"
+// "Jv_drums"
 
 #define WAV_CORRECT "good1"
 #define WAV_INCORRECT "bad1"
