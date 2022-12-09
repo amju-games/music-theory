@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6929921F1E871E8700EAC244 /* iOSPlayMidi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6929921E1E871E8700EAC244 /* iOSPlayMidi.mm */; };
 		697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07EF1E82F19B0045CE54 /* GSBase.cpp */; };
 		697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */; };
 		697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */; };
@@ -44,6 +43,11 @@
 		69D58E871E86A02B008A8D29 /* ScoreBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E831E86A02B008A8D29 /* ScoreBuilder.cpp */; };
 		69D58E8C1E86E867008A8D29 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */; };
 		69D58E8D1E86E867008A8D29 /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69F5E0851E8C099A00E7BF93 /* GSMusicalTerms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0831E8C099A00E7BF93 /* GSMusicalTerms.cpp */; };
+		69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */; };
+		69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E08B1E8C09C000E7BF93 /* Question.cpp */; };
+		69F5E0921E8C09DF00E7BF93 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0901E8C09DF00E7BF93 /* GameViewController.m */; };
+		69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,8 +89,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6929921D1E871E8700EAC244 /* iOSPlayMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSPlayMidi.h; sourceTree = "<group>"; };
-		6929921E1E871E8700EAC244 /* iOSPlayMidi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = iOSPlayMidi.mm; sourceTree = "<group>"; };
 		697A07EF1E82F19B0045CE54 /* GSBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSBase.cpp; path = ../../../../Source/GSBase.cpp; sourceTree = "<group>"; };
 		697A07F01E82F19B0045CE54 /* GSBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSBase.h; path = ../../../../Source/GSBase.h; sourceTree = "<group>"; };
 		697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSPlayNotes.cpp; path = ../../../../Source/GSPlayNotes.cpp; sourceTree = "<group>"; };
@@ -140,11 +142,22 @@
 		69D58E7E1E86A02B008A8D29 /* Page.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Page.cpp; path = ../../../../Source/Page.cpp; sourceTree = "<group>"; };
 		69D58E7F1E86A02B008A8D29 /* Page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Page.h; path = ../../../../Source/Page.h; sourceTree = "<group>"; };
 		69D58E801E86A02B008A8D29 /* PageDrawOnStave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageDrawOnStave.h; path = ../../../../Source/PageDrawOnStave.h; sourceTree = "<group>"; };
-		69D58E811E86A02B008A8D29 /* PageMultiChoiceDrag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageMultiChoiceDrag.h; path = ../../../../Source/PageMultiChoiceDrag.h; sourceTree = "<group>"; };
 		69D58E821E86A02B008A8D29 /* PagePlayNotes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PagePlayNotes.h; path = ../../../../Source/PagePlayNotes.h; sourceTree = "<group>"; };
 		69D58E831E86A02B008A8D29 /* ScoreBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ScoreBuilder.cpp; path = ../../../../Source/ScoreBuilder.cpp; sourceTree = "<group>"; };
 		69D58E841E86A02B008A8D29 /* ScoreBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreBuilder.h; path = ../../../../Source/ScoreBuilder.h; sourceTree = "<group>"; };
 		69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MIKMIDI.framework; sourceTree = "<group>"; };
+		69F5E0831E8C099A00E7BF93 /* GSMusicalTerms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSMusicalTerms.cpp; path = ../../../../Source/GSMusicalTerms.cpp; sourceTree = "<group>"; };
+		69F5E0841E8C099A00E7BF93 /* GSMusicalTerms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSMusicalTerms.h; path = ../../../../Source/GSMusicalTerms.h; sourceTree = "<group>"; };
+		69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSTestShowScore.cpp; path = ../../../../Source/GSTestShowScore.cpp; sourceTree = "<group>"; };
+		69F5E0871E8C09C000E7BF93 /* GSTestShowScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSTestShowScore.h; path = ../../../../Source/GSTestShowScore.h; sourceTree = "<group>"; };
+		69F5E0881E8C09C000E7BF93 /* PageMultiChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageMultiChoice.h; path = ../../../../Source/PageMultiChoice.h; sourceTree = "<group>"; };
+		69F5E0891E8C09C000E7BF93 /* Panel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Panel.h; path = ../../../../Source/Panel.h; sourceTree = "<group>"; };
+		69F5E08A1E8C09C000E7BF93 /* PlayMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayMidi.h; path = ../../../../Source/PlayMidi.h; sourceTree = "<group>"; };
+		69F5E08B1E8C09C000E7BF93 /* Question.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Question.cpp; path = ../../../../Source/Question.cpp; sourceTree = "<group>"; };
+		69F5E08C1E8C09C000E7BF93 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = ../../../../Source/Question.h; sourceTree = "<group>"; };
+		69F5E08F1E8C09DF00E7BF93 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameViewController.h; path = "../../../../Source/iOS-MusicTheory/GameViewController.h"; sourceTree = "<group>"; };
+		69F5E0901E8C09DF00E7BF93 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameViewController.m; path = "../../../../Source/iOS-MusicTheory/GameViewController.m"; sourceTree = "<group>"; };
+		69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSPlayMidi.mm; path = "../../../../Source/iOS-MusicTheory/iOSPlayMidi.mm"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,8 +293,18 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				6929921D1E871E8700EAC244 /* iOSPlayMidi.h */,
-				6929921E1E871E8700EAC244 /* iOSPlayMidi.mm */,
+				69F5E08F1E8C09DF00E7BF93 /* GameViewController.h */,
+				69F5E0901E8C09DF00E7BF93 /* GameViewController.m */,
+				69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */,
+				69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */,
+				69F5E0871E8C09C000E7BF93 /* GSTestShowScore.h */,
+				69F5E0881E8C09C000E7BF93 /* PageMultiChoice.h */,
+				69F5E0891E8C09C000E7BF93 /* Panel.h */,
+				69F5E08A1E8C09C000E7BF93 /* PlayMidi.h */,
+				69F5E08B1E8C09C000E7BF93 /* Question.cpp */,
+				69F5E08C1E8C09C000E7BF93 /* Question.h */,
+				69F5E0831E8C099A00E7BF93 /* GSMusicalTerms.cpp */,
+				69F5E0841E8C099A00E7BF93 /* GSMusicalTerms.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				697A07EF1E82F19B0045CE54 /* GSBase.cpp */,
@@ -304,7 +327,6 @@
 				69D58E7E1E86A02B008A8D29 /* Page.cpp */,
 				69D58E7F1E86A02B008A8D29 /* Page.h */,
 				69D58E801E86A02B008A8D29 /* PageDrawOnStave.h */,
-				69D58E811E86A02B008A8D29 /* PageMultiChoiceDrag.h */,
 				69D58E821E86A02B008A8D29 /* PagePlayNotes.h */,
 				69D58E831E86A02B008A8D29 /* ScoreBuilder.cpp */,
 				69D58E841E86A02B008A8D29 /* ScoreBuilder.h */,
@@ -469,10 +491,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69F5E0851E8C099A00E7BF93 /* GSMusicalTerms.cpp in Sources */,
 				69D58E861E86A02B008A8D29 /* Page.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
 				697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */,
-				6929921F1E871E8700EAC244 /* iOSPlayMidi.mm in Sources */,
+				69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */,
+				69F5E0921E8C09DF00E7BF93 /* GameViewController.m in Sources */,
 				69D58E851E86A02B008A8D29 /* GuiMusicKb.cpp in Sources */,
 				69D58E491E833741008A8D29 /* ViewController.mm in Sources */,
 				69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */,
@@ -480,6 +504,8 @@
 				69D58E4E1E84836B008A8D29 /* Startup.cpp in Sources */,
 				69D58E871E86A02B008A8D29 /* ScoreBuilder.cpp in Sources */,
 				697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */,
+				69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */,
+				69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */,
 				697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */,
 				697A08001E82F19B0045CE54 /* GSShowMusicScore.cpp in Sources */,
 				69D58E481E833741008A8D29 /* main.m in Sources */,
@@ -661,7 +687,6 @@
 					_DEBUG,
 					AMJU_IOS,
 					AMJU_USE_ES2,
-					AMJU_USE_BASS,
 				);
 				HEADER_SEARCH_PATHS = "/Users/jay/projects/amjulib/Releases/amjulib-v.0.5-ios/include/";
 				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
@@ -689,7 +714,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					AMJU_IOS,
 					AMJU_USE_ES2,
-					AMJU_USE_BASS,
 				);
 				HEADER_SEARCH_PATHS = "/Users/jay/projects/amjulib/Releases/amjulib-v.0.5-ios/include/";
 				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";

@@ -32,6 +32,6 @@ void PlayMidi(int note, int vol)
     channel:0 
     timestamp:[NSDate date]];
 
-  Synthesizer()->handleMIDIMessages:@[noteOn]];
+  [Synthesizer() handleMIDIMessages:@[noteOn]];
 }
 

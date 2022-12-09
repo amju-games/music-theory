@@ -19,7 +19,6 @@
 #include <StartUp.h>
 //#include "iOSKeyboard.h"
 
-#include "iOSPlayMidi.h"
 
 // Accelerom poll freq - j.c. - http://www.appcoda.com/ios-maze-game-tutorial-accelerometer/
 // If frequency is too high, frame rate seems to get choppy.
