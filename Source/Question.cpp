@@ -94,22 +94,31 @@ void MusicalTermQuestion::MakeQuestion()
   // Clear answer
   m_answers = MultiChoice();
 
-  // Element zero in shuffled nums is the index of the correct (q, a) pair
-  //  in the dictionary. Elements 1 onwards are used to get fake answers.
-  std::string ans;
-  // TODO Allow switching english/foreign
-  m_dictionary->GetTerm(nums[0], &m_musicalTerm, &ans);
-  m_answers.AddAnswer(ans);
-  m_answers.SetCorrectAnswer(0);
+  // Allow switching english/foreign: decide whether to switch
+  bool english = (rand() & 1) != 0;
 
   // TODO set number of fake answers
-  int numFakes = 3;
-  numFakes = std::min(numFakes, n - 1); // make sure we can't overrun
-  for (int i = 1; i <= numFakes; i++)
+  int numAnswers = 4;
+  numAnswers = std::min(numAnswers, n - 1); // make sure we can't overrun
+  int correct = rand() % numAnswers;
+  m_answers.SetCorrectAnswer(correct);
+  for (int i = 0; i < numAnswers; i++)
   {
+    std::string ans;
     std::string q;
+
     m_dictionary->GetTerm(nums[i], &q, &ans);
+
+    if (english)
+    {
+      std::swap(q, ans);
+    }
+
     m_answers.AddAnswer(ans);
+    if (i == correct)
+    {
+      m_musicalTerm = q;
+    }
   }
 }
 

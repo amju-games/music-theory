@@ -45,7 +45,6 @@ namespace Amju
     void AddAnswer(const std::string& answer);
     void SetCorrectAnswer(int correct);
     int GetNumAnswers() const;
-    void Shuffle();
     const std::string& GetAnswer(int n) const;
 
   private:
@@ -73,7 +72,7 @@ namespace Amju
   class MusicalTermQuestion : public MultiChoiceQuestion
   {
   public:
-    // We get this from a shuffled list, which we get from a file, right? 
+    // We get this from a shuffled list, which we get from a file
     std::string GetMusicalTermText();
 
     virtual void MakeQuestion() override;
@@ -81,7 +80,7 @@ namespace Amju
     void SetDictionary(MusicalTermsDictionary* dictionary);
 
   protected:
-    std::string m_musicalTerm; // shown in different style I should think
+    std::string m_musicalTerm; 
 
     RCPtr<MusicalTermsDictionary> m_dictionary;
   };
