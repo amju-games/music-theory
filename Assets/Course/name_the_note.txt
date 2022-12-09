@@ -27,5 +27,32 @@ stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-f#5-cr, 2.0, 0  =letter-f
 stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-g5-cr, 2.0, 0  =letter-g, .3, .2, 0.5, 1
 stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-g#5-cr, 2.0, 0  =letter-g, .0.05, .2, 0.5, 1 ; #, .325, .35 
 stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-a6-cr, 2.0, 0  =letter-a, .3, .2, 0.5, 1
+
+//stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-c2-cr, 2.0, 0  =letter-c, .3, .2, 0.5, 1
+//stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-c#2-cr, 2.0, 0  =letter-c, .0.05, .2, 0.5, 1 ; #, .325, .35 
+//stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-d2-cr, 2.0, 0  =letter-d, .3, .2, 0.5, 1
+//stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-d#2-cr, 2.0, 0  =letter-d, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-e2-cr, 2.0, 0  =letter-e, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-f2-cr, 2.0, 0  =letter-f, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-f#2-cr, 2.0, 0  =letter-f, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-g2-cr, 2.0, 0  =letter-g, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-g#2-cr, 2.0, 0  =letter-g, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-a3-cr, 2.0, 0  =letter-a, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-bb3-cr, 2.0, 0  =letter-b, .0.05, .2, 0.5, 1 ; flat, .325, .3 
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-b3-cr, 2.0, 0  =letter-b, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-c3-cr, 2.0, 0  =letter-c, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-c#3-cr, 2.0, 0  =letter-c, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-d3-cr, 2.0, 0  =letter-d, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-d#3-cr, 2.0, 0  =letter-d, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-e3-cr, 2.0, 0  =letter-e, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-f3-cr, 2.0, 0  =letter-f, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-f#3-cr, 2.0, 0  =letter-f, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-g3-cr, 2.0, 0  =letter-g, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-g#3-cr, 2.0, 0  =letter-g, .0.05, .2, 0.5, 1 ; #, .325, .35 
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-a4-cr, 2.0, 0  =letter-a, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-bb4-cr, 2.0, 0  =letter-b, .0.05, .2, 0.5, 1 ; flat, .325, .3 
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-b4-cr, 2.0, 0  =letter-b, .3, .2, 0.5, 1
+stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ; bass-c4-cr, 2.0, 0  =letter-c, .3, .2, 0.5, 1
+
 end
 
