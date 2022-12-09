@@ -53,14 +53,6 @@ TEST_CASE("Terms can be added and retrieved", "[Dictionary]")
       REQUIRE(english == "Soft");
       REQUIRE(foreign == "Piano");
     }
-
-    SECTION("Set up a question")
-    {
-      MusicalTermQuestion q;
-      q.SetDictionary(dic);
-      q.MakeQuestion();
-      MultiChoice mc = q.GetMultiChoiceAnswers();
-    }
   }
 }
 

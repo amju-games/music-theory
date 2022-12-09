@@ -40,7 +40,7 @@ TEST_CASE("Get allowable questions", "MusicalTermQuestion")
   REQUIRE(unused == QuestionSet({ 2, 3 }));
 
 // TODO Make question, should use progress so we never duplicate Qs.
-//  mtq.MakeQuestion(qp);
+  mtq.MakeQuestion(qp);
 
 } 
 

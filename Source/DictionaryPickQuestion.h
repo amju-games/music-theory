@@ -13,7 +13,7 @@ namespace Amju
 class DictionaryPickQuestion : public Question
 {
 public:
-  virtual void MakeQuestion() override;
+  virtual void MakeQuestion(QuestionProgress& qp) override;
   virtual bool QuestionSeenBefore(ConfigFile*) const override;
   virtual void SetQuestionSeenBefore(ConfigFile*) const override;
 

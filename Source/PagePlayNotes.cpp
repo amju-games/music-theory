@@ -10,6 +10,7 @@
 #include "GuiMusicScore.h"
 #include "PagePlayNotes.h"
 #include "PlayMidi.h"
+#include "QuestionProgress.h"
 #include "ScoreBuilder.h"
 
 namespace Amju
@@ -68,7 +69,9 @@ void PagePlayNotes::OnActive()
   SetQuestion(q);
 
   q->SetDictionary(GetDictionary());
-  q->MakeQuestion(); // pick the random line
+
+  QuestionProgress qp;
+  q->MakeQuestion(qp); // pick the random line
 
   SetUpQuestionUI();
 

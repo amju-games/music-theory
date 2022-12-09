@@ -10,8 +10,10 @@ void DictionaryPickQuestion::SetDictionary(Dictionary* dictionary)
   m_dictionary = dictionary;
 }
 
-void DictionaryPickQuestion::MakeQuestion()
+void DictionaryPickQuestion::MakeQuestion(QuestionProgress& qp)
 {
+  // TODO Do we care about qp?
+
   Assert(m_dictionary);
 
   std::string s1, s2;

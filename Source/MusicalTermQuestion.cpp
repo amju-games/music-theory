@@ -12,7 +12,7 @@
 
 namespace Amju
 {
-void MusicalTermQuestion::MakeQuestion()
+void MusicalTermQuestion::MakeQuestion(QuestionProgress& qp)
 {
   // Pick random terms from dictionary.
   const int maxNumQs = m_dictionary->GetNumTerms();

@@ -15,6 +15,7 @@
 #include "MusicalTermQuestion.h"
 #include "PageMultiChoice.h"
 #include "PlayWav.h"
+#include "QuestionProgress.h"
 
 namespace Amju
 {
@@ -288,20 +289,23 @@ void PageMultiChoice::SetUpQuestion()
 
   q->SetDictionary(GetDictionary());
 
-  // Not great, but this stops us getting the same answer twice.
-  // A better solution to this is a bit of a rewrite :(
-  static std::string prevAnswer;
-  int loopCount = 0; // Break out if we keep generating Qs with the same answer
-  const int MAX_LOOPS = 10;
-  do
-  {
-    q->MakeQuestion();
-  } 
-  while (q->GetAnswerString() == prevAnswer && loopCount++ < MAX_LOOPS);
-  // Keep generating questions until we get a different answer to last time.
+  QuestionProgress qp;
+  q->MakeQuestion(qp);
+
+//  // Not great, but this stops us getting the same answer twice.
+//  // A better solution to this is a bit of a rewrite :(
+//  static std::string prevAnswer;
+//  int loopCount = 0; // Break out if we keep generating Qs with the same answer
+//  const int MAX_LOOPS = 10;
+//  do
+//  {
+//    q->MakeQuestion();
+//  } 
+//  while (q->GetAnswerString() == prevAnswer && loopCount++ < MAX_LOOPS);
+//  // Keep generating questions until we get a different answer to last time.
   
-  // Store the answer for next time.
-  prevAnswer = q->GetAnswerString();
+//  // Store the answer for next time.
+//  prevAnswer = q->GetAnswerString();
 
   m_answers = q->GetMultiChoiceAnswers();
 
