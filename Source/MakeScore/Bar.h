@@ -56,13 +56,16 @@ public:
 
   std::string ToString(bool oneLine);
 
-  // Get number of distinct glyphs horizontally
-  // (e.g. a chord is only one 'glyph' as all the notes take up only 
-  //  one horizontal space/share the same stem)
-  int GetGlyphCount() const;
+  // Get the rough width for the bar by adding up the sequential
+  //  glyphs, and adding extra for clefs, key sigs, time sigs.
+  // Used by MakeScore to set the width of each bar.
+  float GetRelativeWidth() const;
 
-  void SetWidth(int totalNumGlyphs, float pageWidth);
+  // Called by MakeScore. Work out width for this bar, given the total
+  //  number of glyphs on the line, and the page width.
+  void CalcWidth(int totalNumGlyphs, float pageWidth);
 
+  // Used by MakeScore to work out how much of the page width each bar gets
   float GetWidth() const;
 
   // x is the left edge of the bar.
@@ -71,11 +74,14 @@ public:
   //  rhythm scores). 
   void SetPos(float x, float y);
 
-  // Calc y-position for glyph, given stave type, pitch and (TODO) clef
+  // Calc y-position for glyph, given stave type and pitch. (We then offset
+  //  this later on, depending on the clef.)
   void CalcGlyphY(Glyph* gl, int pitch) const;
 
   void SetStaveType(StaveType st) { m_staveType = st; }
 
+  // Only required to get final glyph, for Ties. TODO replace with
+  //   GetFinalGlyph
   const GlyphVec& GetGlyphs() const { return m_glyphs; }
 
 private:

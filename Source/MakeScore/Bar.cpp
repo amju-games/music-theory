@@ -317,29 +317,27 @@ bool Bar::YesShowClefAtFrontOfBar() const
           m_staveType != StaveType::STAVE_TYPE_RHYTHM);
 }
 
-// Get number of distinct glyphs horizontally
-// (e.g. a chord is only one 'glyph' as all the notes take up only 
-//  one horizontal space/share the same stem)
-int Bar::GetGlyphCount() const
+float Bar::GetRelativeWidth() const
 {
-  int glyphCount = static_cast<int>(m_glyphs.size());
+  float w = static_cast<float>(m_glyphs.size());
   if (YesShowClefAtFrontOfBar())
   {
-    glyphCount++; // clef
+    w += 1; // clef
+    // TODO Key sig width
+    //w += GetKeySigWidth() * 5.0f; // scale up key sig width so it's about right
   }
   if (m_timeSigGlyph)
   {
-    glyphCount++;
+    w += 1;
   }
-  return glyphCount;
+  return w;
 }
 
-void Bar::SetWidth(int totalNumGlyphs, float pageWidth)
+void Bar::CalcWidth(int totalNumGlyphs, float pageWidth)
 {
-  int glyphCount = GetGlyphCount();
+  float relW = GetRelativeWidth();
 
-  m_width = static_cast<float>(glyphCount) /
-    static_cast<float>(totalNumGlyphs) * pageWidth / m_scale;
+  m_width = relW / static_cast<float>(totalNumGlyphs) * pageWidth / m_scale;
 }
 
 float Bar::GetWidth() const
@@ -368,13 +366,12 @@ float Bar::GetKeySigWidth() const
 //  rhythm scores). 
 void Bar::SetPos(float x, float y)
 {
-  m_x = x;
+  m_x = x; // Remember for bar lines
   m_y = y;
 
-  // xoff is distance from left bar line to first glyph, and also distance
-  //  from last glyph to right bar line.
-  float numGlyphs = static_cast<float>(GetGlyphCount());
-  float xoff = m_width / (numGlyphs + 1.0f);
+  float numGlyphs = static_cast<float>(m_glyphs.size());
+
+  // w is the width between glyphs
   float w = 0;
 
   // Reduce available bar width when we have time sig, key sig, clef.
@@ -385,36 +382,37 @@ void Bar::SetPos(float x, float y)
   {
     // Need space for clef, so shunt everything right
     const float CLEF_WIDTH = 0.45f; // ?
-    x += CLEF_WIDTH;
+    float clefW = CLEF_WIDTH;
 
     // Also we must be outputting key sig
-    x += GetKeySigWidth();
+    clefW += GetKeySigWidth();
 
     // Add a bit extra so there is a small space before the time sig
     const float EXTRA_SPACE = 0.1f;
-    x += EXTRA_SPACE;
+    clefW += EXTRA_SPACE;
 
-    reduction += x;
+    reduction += clefW;
+    x += clefW;
   }
 
-  if (numGlyphs > 1)
+  if (m_timeSigGlyph)
   {
-    w = (m_width - 2 * xoff) / (numGlyphs - 1.0f);
-    if (m_timeSigGlyph)
-    {
-      const float TIME_SIG_WIDTH = 0.3f; 
-      reduction += TIME_SIG_WIDTH;
-      m_timeSigGlyph->x = x; // plus some extra?
-      m_timeSigGlyph->y += y;
-    }
+    const float TIME_SIG_WIDTH = 0.3f; 
+    reduction += TIME_SIG_WIDTH;
+    m_timeSigGlyph->x = x; // plus some extra?
+    m_timeSigGlyph->y += y;
+    x += TIME_SIG_WIDTH;
   }
 
-  // Reduce width
-  if (numGlyphs > 2)
-  {
-    w = (m_width - reduction - 2 * xoff) / (numGlyphs - 2.0f);
-  }
-  xoff += reduction; // move other glyphs to the right      
+  // xoff is distance from left edge to first glyph, and also distance
+  //  from last glyph to right bar line.
+  // 'Edge' is the left bar line, OR right side of clef, keysig, timesig,
+  //   whichever is most to the right.
+  float xoff = (m_width - reduction) / (numGlyphs + 1.0f);
+
+  // Reduce total width, and divide this by the number of glyphs to get 
+  //  the distance between each glyph.
+  w = (m_width - reduction - 2 * xoff) / (numGlyphs - 1.0f);
 
   // Set coord of each glyph
   // Compensate for glyph width, move to the left a bit

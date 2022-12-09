@@ -222,14 +222,14 @@ void MakeScore::CalcBarSizesAndPositions()
   int totalNumGlyphs = 0;
   for (auto& bar : m_bars)
   {
-    int gc = bar->GetGlyphCount(); 
+    int gc = bar->GetRelativeWidth();
     totalNumGlyphs += gc;
   }
 
   // Bar calculates its width as fraction of PAGE_WIDTH
   for (auto& bar : m_bars)
   {
-    bar->SetWidth(totalNumGlyphs, PAGE_WIDTH);
+    bar->CalcWidth(totalNumGlyphs, PAGE_WIDTH);
   }
 
   // Set (left, bottom) position of each bar
