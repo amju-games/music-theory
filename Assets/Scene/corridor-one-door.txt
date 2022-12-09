@@ -11,12 +11,12 @@ one-door
 // Matrix
 I
 // Num children
-1
+2
 
 // Node type
 mesh
 // Name
-door-mesh
+floor-and-wall
 // Matrix
 I
 // Obj mesh
@@ -24,3 +24,13 @@ obj/corridor1.obj
 // Num children
 0
 
+// Node type
+mesh
+// Name
+door
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 87.5, 1
+// Obj mesh
+obj/door1.obj
+// Num children
+0

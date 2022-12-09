@@ -98,13 +98,13 @@ dimbo, 3.0, fgcol=ffffff
 // OK button
 gui-button
 ok-button
--0.15, -0.7
+-0.15, -0.3
 // size
 0.3, 0.15
 // Image 
 Image/gui-button-2.png
 OK
-dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
 
 
 // Text about having some more hint tokens

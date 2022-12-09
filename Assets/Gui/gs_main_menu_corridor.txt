@@ -12,7 +12,7 @@ gui-comp
 // Name
 gs-main-menu-root
 // Num children
-4
+5
 
 // Button with shader
 
@@ -31,7 +31,7 @@ uAngle
 gui-button
 topic-button
 // pos (coords are -1..1)
--0.25, 0.25
+-0.25, 0.6
 // size
 .5, 1.0
 // Image 
@@ -41,24 +41,30 @@ $$$empty
 // Font name, size
 dimbo, 3.0, fgcol=ffffff, bgcol=000000
 
+gui-image
+nameplate
+-0.8, 1.92
+1.6, 0.4
+Image/sign-8.png
+
 // Topic name
 gui-text
 topic-name-text
 // pos (coords are -1..1)
--0.3, -0.35
+-0.4, 0.2
 // size
-0.5, 0.5
+0.8, 1.0
 // Text
 HELLO
 // Font name, size
-dimbo, 3.0, multi, fgcol=ffffff
+dimbo, 2.0, multi, fgcol=ffffff
 
 
 // Back to Title state button
 gui-button
 title-button
 // pos (coords are -1..1)
--0.95, 0.95
+-1.95, 0.95
 // size
 0.3, 0.15
 // Image 
@@ -73,7 +79,7 @@ dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
 gui-button
 about-button
 // pos (coords are -1..1)
--0.6, 0.95
+-1.6, 0.95
 // size
 0.3, 0.15
 Image/gui-button-2.png
