@@ -21,7 +21,7 @@ LIBS	:= \
 	-lstdc++ -lm 
 
 include $(AMJULIB_MAC_SCRIPT_PATH)/GenMakefile
-CFLAGS += -D_DEBUG -DAMJU_USE_BASS
+CFLAGS += -D_DEBUG -DAMJU_USE_BASS -Wno-deprecated-declarations
 
 run:
 	$(TARGET)
