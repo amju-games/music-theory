@@ -24,15 +24,15 @@ public:
   LurkMsg();
   // Optional function which is called when message has been displayed and has now gone away
   LurkMsg(const std::string& text, const Colour& fgCol, const Colour& bgCol, LurkPos lp, 
-    CommandFunc onFinished = 0);
+    float maxTime = DEFAULT_MAX_LURK_TIME, CommandFunc onFinished = 0);
 
   void Draw();
   void Update();
   void Set(const std::string& text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
-    CommandFunc onFinished = 0);
+    float maxTime, CommandFunc onFinished = 0);
 
   void Set(GuiText* text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
-    CommandFunc onFinished = 0);
+    float maxTime, CommandFunc onFinished = 0);
 
   bool IsFinished() const;
 
@@ -43,6 +43,8 @@ public:
   void DoOk();
   void DoYes();
   void DoNo();
+
+  static const float DEFAULT_MAX_LURK_TIME;
 
 private:
   RCPtr<GuiText> m_text;
@@ -55,6 +57,7 @@ private:
   float m_scale; // for centre msgs which scale up and down
 
   float m_timer;
+  float m_maxTime;
   
   enum State { LURK_NEW, LURK_SHOWN, LURK_SHOWING, LURK_HIDDEN, LURK_HIDING, LURK_FINISHED };
   State m_state;

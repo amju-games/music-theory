@@ -17,7 +17,7 @@ namespace Amju
 {
 static const char* LURK_GUI_FILENAME = "Gui/gui-lurk.txt";
 
-static const float LURK_MAX_TIME = 3.0f;
+const float LurkMsg::DEFAULT_MAX_LURK_TIME = 3.0f;
 
 // Extra border around text
 static const Vec2f EXTRA(0.1f, 0.05f); // TODO CONFIG
@@ -35,14 +35,14 @@ LurkMsg::LurkMsg()
 }
 
 LurkMsg::LurkMsg(const std::string& text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
-  CommandFunc onOk)
+  float maxTime, CommandFunc onOk)
 {
   m_onOk = 0;
   m_onYes = 0;
   m_onNo = 0;
 
   m_scale = 1.0f;
-  Set(text, fgCol, bgCol, lp, onOk);
+  Set(text, fgCol, bgCol, lp, maxTime, onOk);
 }
 
 bool LurkMsg::IsFinished() const
@@ -83,7 +83,7 @@ void LurkMsg::Update()
     if (m_lurkPos != AMJU_CENTRE) // wait for button click. TODO allow timed CENTRE msgs
     {
       m_timer += dt;
-      if (m_timer > LURK_MAX_TIME)
+      if (m_timer > m_maxTime)
       {
         m_state = LURK_HIDING;
       }
@@ -201,7 +201,7 @@ void LurkMsg::DoNo()
 }
 
 void LurkMsg::Set(const std::string& str, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
-  CommandFunc onFinished)
+  float maxTime, CommandFunc onFinished)
 {
   GuiText* text = new GuiText;
   if (lp == AMJU_CENTRE)
@@ -220,11 +220,11 @@ void LurkMsg::Set(const std::string& str, const Colour& fgCol, const Colour& bgC
   text->SizeToText();
   text->SetFgCol(fgCol);
 
-  Set(text, fgCol, bgCol, lp, onFinished);
+  Set(text, fgCol, bgCol, lp, maxTime, onFinished);
 }
 
 void LurkMsg::Set(GuiText* text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
-  CommandFunc onOk)
+  float maxTime, CommandFunc onOk)
 {
   m_text = text;
 
@@ -235,6 +235,7 @@ void LurkMsg::Set(GuiText* text, const Colour& fgCol, const Colour& bgCol, LurkP
 
   m_lurkPos = lp;
   m_timer = 0;
+  m_maxTime = maxTime;
   m_state = LURK_NEW;
   m_onOk = onOk;
 
