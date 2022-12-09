@@ -67,7 +67,7 @@ TEST_CASE("QuestionPicker populate StringIndexVec", "QuestionPicker")
 
 TEST_CASE("QuestionPicker get Just Indices", "QuestionPicker")
 {
-  std::vector<int> inds = { 2, 3, 6, 8, 9, 10 };
+  std::vector<int> inds = { 2, 3, 6, 8, 9, 10 }; // any random numbers
   StringIndexVec siVec = {
     { "a", inds[0] },
     { "b", inds[1] },

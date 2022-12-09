@@ -46,6 +46,8 @@ public:
 
   void ShowGuiElement(const std::string& elemName, bool showNotHide = true);
 
+  // Get progress for the currently active page. 
+  // (Progress keeps track of used/unused questions)
   QuestionProgress& GetProgress();
    
 protected:
@@ -58,15 +60,24 @@ protected:
 
   void UpdateHud();
 
+  // Increment num pages until we find a page with unused questions. If all the 
+  //  pages have all questions used, return false. 
+  bool FindPageWithUnusedQuestions();
+
 protected:
   RCPtr<Page> m_page;
 
   // For this test attempt, keep track of questions asked, so we don't
-  //  ask the same question repeatedly. 
-  RCPtr<QuestionProgress> m_progress;
+  //  ask the same question repeatedly.
+  // We keep track of questions asked FOR EACH PAGE.
+  std::vector<RCPtr<QuestionProgress>> m_progress;
 
   // Number of pages shown in this topic session
   int m_numPagesShown = 0;
+
+  // Current page to show player - this cycles through all pages for the topic,
+  //  skipping pages where all questions are used.
+  int m_currentPage = 0;
 
   int m_numCorrectThisSession = 0;
   int m_numIncorrectThisSession = 0;

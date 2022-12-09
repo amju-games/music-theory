@@ -14,6 +14,7 @@
 #include "CentreMsg.h"
 #include "Consts.h"
 #include "Course.h"
+#include "Dictionary.h"
 #include "GSMainCorridor.h"
 #include "GSPages.h"
 #include "GSPause.h"
@@ -55,7 +56,8 @@ GSPages::GSPages()
 
 QuestionProgress& GSPages::GetProgress()
 {
-  return *m_progress;
+  Assert(m_currentPage < static_cast<int>(m_progress.size()));
+  return *(m_progress[m_currentPage]);
 }
 
 void GSPages::ShowGuiElement(const std::string& elemName, bool showNotHide)
@@ -68,6 +70,7 @@ void GSPages::ShowGuiElement(const std::string& elemName, bool showNotHide)
 void GSPages::StartTopic(int topicNum)
 {
   m_numPagesShown = 0;
+  m_currentPage = 0;
   m_numCorrectThisSession = 0;
   m_numIncorrectThisSession = 0;
   m_scoreThisSession = 0;
@@ -137,8 +140,27 @@ void GSPages::OnActive()
   // Get general user config, just a convenience, it lives in the User Profile.
   m_userConfig = TheUserProfile()->GetConfigForTopic(KEY_GENERAL);
 
-  // Create a new, empty container of questions asked so far this attempt.
-  m_progress = new QuestionProgress;
+  Course* course = GetCourse();
+  Assert(course);
+  Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
+  Assert(topic);
+  m_maxNumPagesThisSession = topic->GetNumPages();
+
+  // Create a new, empty container of progress objects.
+  // We create one progress object for each page.
+  m_progress.clear();
+  m_progress.reserve(m_maxNumPagesThisSession);
+  for (int i = 0; i < m_maxNumPagesThisSession; i++)
+  {
+    Page* page = topic->GetPage(i);
+    Assert(page);
+    const Dictionary* dic = page->GetDictionary();
+    Assert(dic);
+    const int numTerms = dic->GetNumTerms();
+    QuestionProgress* qp = new QuestionProgress;
+    qp->SetMaxQuestions(numTerms);
+    m_progress.push_back(qp);
+  }
 
   NextPage();
 }
@@ -158,35 +180,51 @@ void GSPages::OnDeactive()
 void GSPages::UpdateHud()
 {
   // Score
-  //IGuiText* scoreText = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "score-text"));
-  //Assert(scoreText);
-  //// Show number of pages or number of correct answers?
-  //std::string s = ToString(m_scoreThisSession);
-  //scoreText->SetText(s);
   NumUpdate(m_gui, "score-text", m_scoreThisSession);
 
   // Lives
-  //IGuiText* livesText = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "num-lives-text"));
-  //Assert(livesText);
-  //// Show number of pages or number of correct answers?
-  //s = ToString(m_livesThisSession);
-  //livesText->SetText(s);
   NumUpdate(m_gui, "num-lives-text", m_livesThisSession);
 
-  // TODO Combo
+  // TODO Combo???
+}
+
+bool GSPages::FindPageWithUnusedQuestions()
+{
+  m_currentPage = (m_currentPage + 1) % m_maxNumPagesThisSession;
+  int cp = m_currentPage;
+  // How is the progress for that page - are there any unused questions?
+  Assert(m_currentPage < static_cast<int>(m_progress.size()));
+
+  QuestionProgress* qp = m_progress[m_currentPage];
+  while (qp->AllQuestionsUsed())
+  {
+    m_currentPage = (m_currentPage + 1) % m_maxNumPagesThisSession;
+    if (m_currentPage == cp)
+    {
+      // We have cycled through all the pages, and none have unused questions
+      return false;
+    }
+    qp = m_progress[m_currentPage];
+  }
+  return true;
 }
 
 void GSPages::NextPage()
 {
-  // Have we got more pages, or are we done?
+  // Have we run out of lives?
   if (m_livesThisSession < 1) ////m_numPagesShown >= m_maxNumPagesThisSession)
   {
     // Done, go to Topic successfully completed, or unsuccessfully completed.
     // (Can use the same state?)
-    GSTopicEnd* gs = TheGSTopicEnd::Instance();
-    TheUserProfile()->SetTopicScore(m_scoreThisSession);
+    TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
+    return;
+  }
 
-    TheGame::Instance()->SetCurrentState(gs);
+  // Rotate pages in topic, until we run out of unused questions.
+  // Skip pages for which all questions are used.
+  if (!FindPageWithUnusedQuestions())
+  {
+    TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
     return;
   }
 
@@ -195,12 +233,8 @@ void GSPages::NextPage()
   Assert(course);
   Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
   Assert(topic);
-  m_maxNumPagesThisSession = topic->GetNumPages();
 
-  // Rotate pages in topic, until we run out of lives.
-  int pageNum = m_numPagesShown % m_maxNumPagesThisSession;
-
-  Page* page = topic->GetPage(pageNum);
+  Page* page = topic->GetPage(m_currentPage);
   // Page reads/writes config file to load/save user state
   ConfigFile* cf = TheUserProfile()->GetConfigForTopic(topic->GetId());
   page->SetConfigFile(cf);
@@ -221,8 +255,11 @@ void GSPages::NextPage()
 
 void GSPages::Draw2d()
 {
-  UseVertexColourShader();
-  m_page->Draw();
+  if (m_page)
+  {
+    UseVertexColourShader();
+    m_page->Draw();
+  }
 
   // Common GUI goes on top or under? We want tick/cross to go on top.
   GSBase3d::Draw2d();
@@ -231,7 +268,10 @@ void GSPages::Draw2d()
 void GSPages::Update()
 {
   GSBase3d::Update();
-  m_page->Update();
+  if (m_page)
+  {
+    m_page->Update();
+  }
 }
 
 // Load list of pages from file?
@@ -297,6 +337,8 @@ void GSPages::OnCorrect()
   m_numCorrectThisSession++;
 
   m_scoreThisSession += m_scoreMultiplier;
+  TheUserProfile()->SetTopicScore(m_scoreThisSession);
+
   // TODO score anim
   UpdateHud();
 

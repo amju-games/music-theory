@@ -77,9 +77,12 @@ std::vector<int> QuestionPicker::RemoveDuplicates(
   std::vector<int> result(indices);
 
   // Check the indices for Dictionary entries which have the same Q or A.
-  StringIndexVec siVec = PopulateStringIndexVecFromDictionary(result, dic, 0);
-  siVec = RemoveDuplicatesInStringIndexVec(siVec); 
-  result = JustIndices(siVec);
+  for (int i = 0; i < 2; i++)
+  {
+    StringIndexVec siVec = PopulateStringIndexVecFromDictionary(result, dic, i);
+    siVec = RemoveDuplicatesInStringIndexVec(siVec);
+    result = JustIndices(siVec);
+  }
 
   return result;
 }
@@ -91,6 +94,11 @@ void Shuffle(std::vector<int>&)
 std::vector<int> QuestionPicker::GetNFakes(
   int n, int correct, const Dictionary& dic) 
 {
+  // Get the correct answer, to make sure we don't include any fakes with the
+  //  same answer.
+  std::string question, ans, correctAns;
+  dic.GetTerm(correct, &question, &correctAns);
+
   // Create vec of indices into dictionary, but remove the correct index.
   std::vector<int> indices(dic.GetNumTerms());
   std::iota(indices.begin(), indices.end(), 0);
@@ -98,14 +106,39 @@ std::vector<int> QuestionPicker::GetNFakes(
 
   // Remove indices which have duplicate answers (or questions, if we
   //  flip Q/A).
+  // TODO MAKE SURE NONE OF THE ANSWERS ARE THE SAME AS THE ANSWER FOR THE 'CORRECT' INDEX!!!
   indices = RemoveDuplicates(indices, dic);
 
   // Shuffle and return top n
   Shuffle(indices);
 
+  // Copy only, at most, the first n
   std::vector<int> result;
   result.reserve(n);
-  std::copy(indices.begin(), indices.begin() + n, std::back_inserter(result));
+  int c = 0;
+  for (int i = 0; i < n; i++)
+  {
+    // Check the answer for indices[i] is not the same as the correct answer.
+    // If it is, skip to the next.
+    if (c == indices.size())
+    {
+      break; // no more fakes
+    }
+    int r = indices[c];
+    dic.GetTerm(r, &question, &ans);
+    c++;
+    if (ans == correctAns)
+    {
+      continue;
+    }
+    // r is ok, not the same as correct answer
+    result.push_back(r);
+  }
+
+  // Previously: does not check for inclusion of a fake with the correct answer.
+  // Copy at most n -- not more than the number of indices!
+  //std::copy(indices.begin(), indices.begin() + std::min(n, static_cast<int>(indices.size())), std::back_inserter(result));
+
   return result;
 }
 }
