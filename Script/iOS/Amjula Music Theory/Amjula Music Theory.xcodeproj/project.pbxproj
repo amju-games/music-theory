@@ -78,6 +78,7 @@
 		69D732951F23DA29007B73C1 /* CorridorModeExitTappable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D7328B1F23DA28007B73C1 /* CorridorModeExitTappable.cpp */; };
 		69D732961F23DA29007B73C1 /* CorridorModeShowTappable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D7328D1F23DA29007B73C1 /* CorridorModeShowTappable.cpp */; };
 		69D732971F23DA29007B73C1 /* CorridorModeWait.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D7328F1F23DA29007B73C1 /* CorridorModeWait.cpp */; };
+		69D7329C1F250B58007B73C1 /* CorridorCamController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D7329A1F250B58007B73C1 /* CorridorCamController.cpp */; };
 		69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */; };
 		69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E08B1E8C09C000E7BF93 /* Question.cpp */; };
 		69F5E0921E8C09DF00E7BF93 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0901E8C09DF00E7BF93 /* GameViewController.m */; };
@@ -250,6 +251,8 @@
 		69D7328E1F23DA29007B73C1 /* CorridorModeShowTappable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorModeShowTappable.h; path = ../../../../Source/CorridorModeShowTappable.h; sourceTree = "<group>"; };
 		69D7328F1F23DA29007B73C1 /* CorridorModeWait.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CorridorModeWait.cpp; path = ../../../../Source/CorridorModeWait.cpp; sourceTree = "<group>"; };
 		69D732901F23DA29007B73C1 /* CorridorModeWait.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorModeWait.h; path = ../../../../Source/CorridorModeWait.h; sourceTree = "<group>"; };
+		69D7329A1F250B58007B73C1 /* CorridorCamController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CorridorCamController.cpp; path = ../../../../Source/CorridorCamController.cpp; sourceTree = "<group>"; };
+		69D7329B1F250B58007B73C1 /* CorridorCamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorCamController.h; path = ../../../../Source/CorridorCamController.h; sourceTree = "<group>"; };
 		69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSTestShowScore.cpp; path = ../../../../Source/GSTestShowScore.cpp; sourceTree = "<group>"; };
 		69F5E0871E8C09C000E7BF93 /* GSTestShowScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSTestShowScore.h; path = ../../../../Source/GSTestShowScore.h; sourceTree = "<group>"; };
 		69F5E0881E8C09C000E7BF93 /* PageMultiChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageMultiChoice.h; path = ../../../../Source/PageMultiChoice.h; sourceTree = "<group>"; };
@@ -395,6 +398,8 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				69D7329A1F250B58007B73C1 /* CorridorCamController.cpp */,
+				69D7329B1F250B58007B73C1 /* CorridorCamController.h */,
 				69D732821F23DA28007B73C1 /* Consts.h */,
 				69D732831F23DA28007B73C1 /* CorridorMode.cpp */,
 				69D732841F23DA28007B73C1 /* CorridorMode.h */,
@@ -672,6 +677,7 @@
 				6959E2F81E9ACE8A00E251A9 /* GSPause.cpp in Sources */,
 				69D732931F23DA29007B73C1 /* CorridorModeEnterTappable.cpp in Sources */,
 				6959E3061EA1091500E251A9 /* MusicalTermQuestion.cpp in Sources */,
+				69D7329C1F250B58007B73C1 /* CorridorCamController.cpp in Sources */,
 				69D732951F23DA29007B73C1 /* CorridorModeExitTappable.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
 				697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */,
