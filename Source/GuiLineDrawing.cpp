@@ -60,13 +60,24 @@ void GuiLineDrawing::BuildTriList()
 {
   AmjuGL::Tris tris;
 
+  // Points of rectangle for segment, declared here so we shift the points, joining
+  //  all the rectangles.
   Vec2f p[4];
+  // UV coords, also shifted. 
+  float u0 = 0.f;
+  float u1 = 0.f;
+  const float v0 = 0;
+  const float v1 = 1;
+  float totalLength = 0;
 
   for (int i = 1; i < m_index; i++)
   {
+    // Get direction for this segment, and perpendicular direction, so we can make an 
+    //  oriented rectangle (actually trapezium, as width can vary).
     const Vec2f& p0 = m_points[i - 1];
     const Vec2f& p1 = m_points[i];
     Vec2f dir = p1 - p0;
+    float segLength = sqrtf(dir.SqLen());
     Vec3f dir3(dir.x, dir.y, 0);
     dir3.Normalise();
     Vec3f perp3 = CrossProduct(dir3, Vec3f(0, 0, 1));
@@ -76,6 +87,7 @@ void GuiLineDrawing::BuildTriList()
     // Calc line width here: either linear interp between start and end...
 #define LINE_WIDTH_LINEAR
 #ifdef LINE_WIDTH_LINEAR
+    // d is proportion of length covered, 0..1
     float d = static_cast<float>(i) / static_cast<float>(m_points.size());
 #else 
     // Or vary based on current direction, so a bit more like calligraphy?
@@ -84,31 +96,33 @@ void GuiLineDrawing::BuildTriList()
 
     float w = m_startWidth + (m_endWidth - m_startWidth) * d; 
 
-    float u0 = 0.5f;
-    float u1 = 0.5f;
-    float v0 = 0;
-    float v1 = 1;
-
     if (i == 1)
     {
-      u0 = 0;
+      // First segment, calc all 4 points
       p[0] = p0 + perp * w;
       p[1] = p1 + perp * w;
       p[2] = p1 - perp * w;
       p[3] = p0 - perp * w;
+      // Right U: up to half way across texture
     }
     else
     {
+      // Next segment: shift previous points and calc 2 new ones
       p[0] = p[1];
       p[3] = p[2];
       p[1] = p1 + perp * w;
       p[2] = p1 - perp * w;
+      // Shift and calc new U coord
+      u0 = u1;
 
       if (i == (m_index - 1))
       {
         u1 = 1;
       }
     }
+    totalLength += segLength;
+    // Calculate next u-coord
+    u1 = std::min(0.5f, totalLength / w * 0.33f);
 
     AmjuGL::Tri t[2];
 
@@ -223,6 +237,7 @@ bool GuiLineDrawing::Load(File* f)
     f->ReportError("Failed to load line drawing texture");
     return false;
   }
+  m_texture->SetWrapMode(AmjuGL::AMJU_TEXTURE_CLAMP); 
 
   return true;
 }
