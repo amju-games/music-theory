@@ -46,10 +46,17 @@ void GSTopicEnd::OnActive()
   // Set comment about score etc
   text = (GuiText*)GetElementByName(m_gui, "comment-text");
   Assert(text);
-  text->SetText("You suck!");
+  text->SetText(GenerateScoreComment());
 
   // Add to hints (TODO animate additions)
 
 }
+
+std::string GSTopicEnd::GenerateScoreComment()
+{
+  std::string res;
+  return res;
+}
+
 }
 
