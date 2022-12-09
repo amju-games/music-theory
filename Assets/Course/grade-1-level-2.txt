@@ -9,7 +9,7 @@
 1
 
 // Num topics
-5
+3
 
 // Topic
 // ID
@@ -28,13 +28,13 @@ none
 // 1. base name for page gui filename
 // 2. Dictionary defining Questions
 // 3. Instructions text
-page-symbol-symbol-2=Course/which_clef.txt=$$$3
-page-symbol-text=Course/higher_or_lower.txt=$$$92
-page-symbol-symbol=Course/name_the_note.txt=$$$93
+page-symbol-symbol-2=Course/level2/which_clef.txt=$$$3
+page-symbol-text=Course/level2/higher_or_lower.txt=$$$92
+page-symbol-symbol=Course/level2/name_the_note.txt=$$$93
 // Special case page:
 // 3rd param is x offset for keyboard=moving mid C close to left edge of screen
-page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
-page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
+page-symbol-kb=Course/level2/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
+page-symbol-kb=Course/level2/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
 
 // Topic
 // ID
@@ -48,10 +48,10 @@ notes-and-rests
 none
 // Pages
 4
-page-symbol-symbol=Course/rest-equivs.txt=@@@What has the same value?
-page-symbol-symbol=Course/note-equivs.txt=@@@What has the same value?
-page-symbol-text=Course/note-rest-names.txt=$$$92
-page-text-symbol=Course/note-rest-symbols.txt=$$$92
+page-symbol-symbol=Course/level2/rest-equivs.txt=@@@What has the same value?
+page-symbol-symbol=Course/level2/note-equivs.txt=@@@What has the same value?
+page-symbol-text=Course/level2/note-rest-names.txt=$$$92
+page-text-symbol=Course/level2/note-rest-symbols.txt=$$$92
 
 // Topic
 // ID
@@ -66,10 +66,10 @@ $$$171
 none
 // Pages
 4
-page-symbol-text=Course/whats_the_scale.txt=$$$94
-page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
-page-symbol-text=Course/whats_the_key_sig.txt=$$$96
-page-symbol-text=Course/intervals.txt=$$$100
+page-symbol-text=Course/level2/whats_the_scale.txt=$$$94
+page-symbol-text=Course/level2/whats_the_tonic_triad.txt=$$$95
+page-symbol-text=Course/level2/whats_the_key_sig.txt=$$$96
+page-symbol-text=Course/level2/intervals.txt=$$$100
 
 // Topic
 // ID
@@ -82,9 +82,9 @@ bars-and-time-sigs
 none
 // Pages
 2
-page-symbol-symbol=Course/missing_time_sig.txt=@@@What is the time signature?
-page-symbol-symbol=Course/missing_rest.txt=@@@What is the missing rest?
-//page-symbol-text=Course/time_sigs.txt=$$$99
+page-symbol-symbol=Course/level2/missing_time_sig.txt=@@@What is the time signature?
+page-symbol-symbol=Course/level2/missing_rest.txt=@@@What is the missing rest?
+//page-symbol-text=Course/level2/time_sigs.txt=$$$99
 
 // Topic
 // ID
@@ -99,7 +99,7 @@ $$$9
 none
 // Pages
 2
-page-text-text=Course/musical_terms.txt=$$$99
-page-symbol-text=Course/musical_symbols.txt=$$$99
+page-text-text=Course/level2/musical_terms.txt=$$$99
+page-symbol-text=Course/level2/musical_symbols.txt=$$$99
 
 

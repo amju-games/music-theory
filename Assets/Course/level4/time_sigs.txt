@@ -1,0 +1,12 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Time sig meanings
+
+// version
+1
+
+2/2, 1.9, 0=@@@Two crotchet beats in every bar
+3/4, 1.9, 0=@@@Three crotchet beats in every bar
+4/4, 1.9, 0=@@@Four crotchet beats in every bar
+

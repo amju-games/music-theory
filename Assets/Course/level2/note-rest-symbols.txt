@@ -1,0 +1,21 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Note and rest names, in "reverse" format
+
+// version
+1
+
+Crotchet=   stave, 0.0, 0.8, .5, .5 ; crotchet-up,   .35, 1.0,   .5, .5
+Minim=      stave, 0.0, 0.8, .5, .5 ; minim-up,      .35, 1.0,   .5, .5
+Quaver=     stave, 0.0, 0.8, .5, .5 ; quaver-up,     .35, 1.0,   .5, .5
+Semiquaver= stave, 0.0, 0.8, .5, .5 ; semiquaver-up, .35, 1.0,   .5, .5
+Semibreve=  stave, 0.0, 0.8, .5, .5 ; semibreve,     .35, 1.0,   .5, .5
+
+Crotchet rest=    stave, 0.0, 0.8, .5, .5 ; rest-crotchet,  .35, 1.0,   .5, .5
+Quaver rest=      stave, 0.0, 0.8, .5, .5 ; rest-1,         .35, 1.05,   .5, .5
+Semiquaver rest=  stave, 0.0, 0.8, .5, .5 ; rest-2,         .35, 1.0,   .5, .5
+Minim rest=       stave, 0.0, 0.8, .5, .5 ; rest-minim,     .35, 1.0,  .5, .5
+Semibreve rest =  stave, 0.0, 0.8, .5, .5 ; rest-semibreve, .35, 1.0,  .5, .5
+
+

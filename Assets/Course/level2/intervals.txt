@@ -1,0 +1,118 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Intervals for grade 1
+// For grade 1, intervals are not major or minor, just 2nd, 3rd... up to 8ve.
+// TODO Do we need to have key sigs/accidentals?
+
+// version
+1
+
+// Music score coords:
+//  +--------------------------+   0.4
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+   0.0
+// 1.0                        3.0 (short stave)
+
+// NB Stave x coord is 0.5, scaled to 1.0
+
+NOTE_ON, 40, 0.01 ; NOTE_ON, 41, 0.25 ; NOTE_OFF, 40, 0.25 ; NOTE_OFF, 41, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-e2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-f2-sb, 2.4, 0    =$$$14
+NOTE_ON, 40, 0.01 ; NOTE_ON, 43, 0.25 ; NOTE_OFF, 40, 0.25 ; NOTE_OFF, 43, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-e2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-g2-sb, 2.4, 0    =$$$15
+NOTE_ON, 40, 0.01 ; NOTE_ON, 45, 0.25 ; NOTE_OFF, 40, 0.25 ; NOTE_OFF, 45, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-e2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-a3-sb, 2.4, 0    =$$$16
+NOTE_ON, 40, 0.01 ; NOTE_ON, 47, 0.25 ; NOTE_OFF, 40, 0.25 ; NOTE_OFF, 47, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-e2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-b3-sb, 2.4, 0    =$$$17
+NOTE_ON, 40, 0.01 ; NOTE_ON, 48, 0.25 ; NOTE_OFF, 40, 0.25 ; NOTE_OFF, 48, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-e2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-c3-sb, 2.4, 0    =$$$18
+NOTE_ON, 40, 0.01 ; NOTE_ON, 50, 0.25 ; NOTE_OFF, 40, 0.25 ; NOTE_OFF, 50, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-e2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-d3-sb, 2.4, 0    =$$$19
+NOTE_ON, 40, 0.01 ; NOTE_ON, 52, 0.25 ; NOTE_OFF, 40, 0.25 ; NOTE_OFF, 52, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-e2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-e3-sb, 2.4, 0    =$$$20
+
+NOTE_ON, 41, 0.01 ; NOTE_ON, 43, 0.25 ; NOTE_OFF, 41, 0.25 ; NOTE_OFF, 43, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-f2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-g2-sb, 2.4, 0    =$$$14
+NOTE_ON, 41, 0.01 ; NOTE_ON, 45, 0.25 ; NOTE_OFF, 41, 0.25 ; NOTE_OFF, 45, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-f2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-a3-sb, 2.4, 0    =$$$15
+NOTE_ON, 41, 0.01 ; NOTE_ON, 47, 0.25 ; NOTE_OFF, 41, 0.25 ; NOTE_OFF, 47, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-f2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-b3-sb, 2.4, 0    =$$$16
+NOTE_ON, 41, 0.01 ; NOTE_ON, 48, 0.25 ; NOTE_OFF, 41, 0.25 ; NOTE_OFF, 48, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-f2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-c3-sb, 2.4, 0    =$$$17
+NOTE_ON, 41, 0.01 ; NOTE_ON, 50, 0.25 ; NOTE_OFF, 41, 0.25 ; NOTE_OFF, 50, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-f2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-d3-sb, 2.4, 0    =$$$18
+NOTE_ON, 41, 0.01 ; NOTE_ON, 52, 0.25 ; NOTE_OFF, 41, 0.25 ; NOTE_OFF, 52, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-f2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-e3-sb, 2.4, 0    =$$$19
+NOTE_ON, 41, 0.01 ; NOTE_ON, 53, 0.25 ; NOTE_OFF, 41, 0.25 ; NOTE_OFF, 53, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-f2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-f3-sb, 2.4, 0    =$$$20
+
+NOTE_ON, 43, 0.01 ; NOTE_ON, 45, 0.25 ; NOTE_OFF, 43, 0.25 ; NOTE_OFF, 45, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-g2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-a3-sb, 2.4, 0    =$$$14
+NOTE_ON, 43, 0.01 ; NOTE_ON, 47, 0.25 ; NOTE_OFF, 43, 0.25 ; NOTE_OFF, 47, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-g2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-b3-sb, 2.4, 0    =$$$15
+NOTE_ON, 43, 0.01 ; NOTE_ON, 48, 0.25 ; NOTE_OFF, 43, 0.25 ; NOTE_OFF, 48, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-g2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-c3-sb, 2.4, 0    =$$$16
+NOTE_ON, 43, 0.01 ; NOTE_ON, 50, 0.25 ; NOTE_OFF, 43, 0.25 ; NOTE_OFF, 50, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-g2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-d3-sb, 2.4, 0    =$$$17
+NOTE_ON, 43, 0.01 ; NOTE_ON, 52, 0.25 ; NOTE_OFF, 43, 0.25 ; NOTE_OFF, 52, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-g2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-e3-sb, 2.4, 0    =$$$18
+NOTE_ON, 43, 0.01 ; NOTE_ON, 53, 0.25 ; NOTE_OFF, 43, 0.25 ; NOTE_OFF, 53, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-g2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-f3-sb, 2.4, 0    =$$$19
+NOTE_ON, 43, 0.01 ; NOTE_ON, 55, 0.25 ; NOTE_OFF, 43, 0.25 ; NOTE_OFF, 55, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-g2-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-g3-sb, 2.4, 0    =$$$20
+
+NOTE_ON, 45, 0.01 ; NOTE_ON, 47, 0.25 ; NOTE_OFF, 45, 0.25 ; NOTE_OFF, 47, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-a3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-b3-sb, 2.4, 0    =$$$14
+NOTE_ON, 45, 0.01 ; NOTE_ON, 48, 0.25 ; NOTE_OFF, 45, 0.25 ; NOTE_OFF, 48, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-a3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-c3-sb, 2.4, 0    =$$$15
+NOTE_ON, 45, 0.01 ; NOTE_ON, 50, 0.25 ; NOTE_OFF, 45, 0.25 ; NOTE_OFF, 50, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-a3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-d3-sb, 2.4, 0    =$$$16
+NOTE_ON, 45, 0.01 ; NOTE_ON, 52, 0.25 ; NOTE_OFF, 45, 0.25 ; NOTE_OFF, 52, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-a3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-e3-sb, 2.4, 0    =$$$17
+NOTE_ON, 45, 0.01 ; NOTE_ON, 53, 0.25 ; NOTE_OFF, 45, 0.25 ; NOTE_OFF, 53, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-a3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-f3-sb, 2.4, 0    =$$$18
+NOTE_ON, 45, 0.01 ; NOTE_ON, 55, 0.25 ; NOTE_OFF, 45, 0.25 ; NOTE_OFF, 55, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-a3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-g3-sb, 2.4, 0    =$$$19
+NOTE_ON, 45, 0.01 ; NOTE_ON, 57, 0.25 ; NOTE_OFF, 45, 0.25 ; NOTE_OFF, 57, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-a3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-a4-sb, 2.4, 0    =$$$20
+
+NOTE_ON, 47, 0.01 ; NOTE_ON, 48, 0.25 ; NOTE_OFF, 47, 0.25 ; NOTE_OFF, 48, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-b3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-c3-sb, 2.4, 0    =$$$14
+NOTE_ON, 47, 0.01 ; NOTE_ON, 50, 0.25 ; NOTE_OFF, 47, 0.25 ; NOTE_OFF, 50, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-b3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-d3-sb, 2.4, 0    =$$$15
+NOTE_ON, 47, 0.01 ; NOTE_ON, 52, 0.25 ; NOTE_OFF, 47, 0.25 ; NOTE_OFF, 52, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-b3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-e3-sb, 2.4, 0    =$$$16
+NOTE_ON, 47, 0.01 ; NOTE_ON, 53, 0.25 ; NOTE_OFF, 47, 0.25 ; NOTE_OFF, 53, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-b3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-f3-sb, 2.4, 0    =$$$17
+NOTE_ON, 47, 0.01 ; NOTE_ON, 55, 0.25 ; NOTE_OFF, 47, 0.25 ; NOTE_OFF, 55, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-b3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-g3-sb, 2.4, 0    =$$$18
+NOTE_ON, 47, 0.01 ; NOTE_ON, 57, 0.25 ; NOTE_OFF, 47, 0.25 ; NOTE_OFF, 57, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-b3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-a4-sb, 2.4, 0    =$$$19
+NOTE_ON, 47, 0.01 ; NOTE_ON, 59, 0.25 ; NOTE_OFF, 47, 0.25 ; NOTE_OFF, 59, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-b3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-b4-sb, 2.4, 0    =$$$20
+
+NOTE_ON, 48, 0.01 ; NOTE_ON, 50, 0.25 ; NOTE_OFF, 48, 0.25 ; NOTE_OFF, 50, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-c3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-d3-sb, 2.4, 0    =$$$14
+NOTE_ON, 48, 0.01 ; NOTE_ON, 52, 0.25 ; NOTE_OFF, 48, 0.25 ; NOTE_OFF, 52, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-c3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-e3-sb, 2.4, 0    =$$$15
+NOTE_ON, 48, 0.01 ; NOTE_ON, 53, 0.25 ; NOTE_OFF, 48, 0.25 ; NOTE_OFF, 53, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-c3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-f3-sb, 2.4, 0    =$$$16
+NOTE_ON, 48, 0.01 ; NOTE_ON, 55, 0.25 ; NOTE_OFF, 48, 0.25 ; NOTE_OFF, 55, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-c3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-g3-sb, 2.4, 0    =$$$17
+NOTE_ON, 48, 0.01 ; NOTE_ON, 57, 0.25 ; NOTE_OFF, 48, 0.25 ; NOTE_OFF, 57, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-c3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-a4-sb, 2.4, 0    =$$$18
+NOTE_ON, 48, 0.01 ; NOTE_ON, 59, 0.25 ; NOTE_OFF, 48, 0.25 ; NOTE_OFF, 59, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-c3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-b4-sb, 2.4, 0    =$$$19
+NOTE_ON, 48, 0.01 ; NOTE_ON, 60, 0.25 ; NOTE_OFF, 48, 0.25 ; NOTE_OFF, 60, 0.6 ; stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0; TIME, 0.01, 0.25 ; bass-c3-sb, 1.9, 0; TIME, 0.25, 0.5 ; bass-c4-sb, 2.4, 0    =$$$20
+
+NOTE_ON, 60, 0.01 ; NOTE_ON, 62, 0.25 ; NOTE_OFF, 60, 0.25 ; NOTE_OFF, 62, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-c4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-d4-sb, 2.4, 0    =$$$14
+NOTE_ON, 60, 0.01 ; NOTE_ON, 64, 0.25 ; NOTE_OFF, 60, 0.25 ; NOTE_OFF, 64, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-c4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-e4-sb, 2.4, 0    =$$$15
+NOTE_ON, 60, 0.01 ; NOTE_ON, 65, 0.25 ; NOTE_OFF, 60, 0.25 ; NOTE_OFF, 65, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-c4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-f4-sb, 2.4, 0    =$$$16
+NOTE_ON, 60, 0.01 ; NOTE_ON, 67, 0.25 ; NOTE_OFF, 60, 0.25 ; NOTE_OFF, 67, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-c4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-g4-sb, 2.4, 0    =$$$17
+NOTE_ON, 60, 0.01 ; NOTE_ON, 69, 0.25 ; NOTE_OFF, 60, 0.25 ; NOTE_OFF, 69, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-c4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-a5-sb, 2.4, 0    =$$$18
+NOTE_ON, 60, 0.01 ; NOTE_ON, 71, 0.25 ; NOTE_OFF, 60, 0.25 ; NOTE_OFF, 71, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-c4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-b5-sb, 2.4, 0    =$$$19
+NOTE_ON, 60, 0.01 ; NOTE_ON, 72, 0.25 ; NOTE_OFF, 60, 0.25 ; NOTE_OFF, 72, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-c4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-c5-sb, 2.4, 0    =$$$20
+
+NOTE_ON, 62, 0.01 ; NOTE_ON, 64, 0.25 ; NOTE_OFF, 62, 0.25 ; NOTE_OFF, 64, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-d4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-e4-sb, 2.4, 0    =$$$14
+NOTE_ON, 62, 0.01 ; NOTE_ON, 65, 0.25 ; NOTE_OFF, 62, 0.25 ; NOTE_OFF, 65, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-d4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-f4-sb, 2.4, 0    =$$$15
+NOTE_ON, 62, 0.01 ; NOTE_ON, 67, 0.25 ; NOTE_OFF, 62, 0.25 ; NOTE_OFF, 67, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-d4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-g4-sb, 2.4, 0    =$$$16
+NOTE_ON, 62, 0.01 ; NOTE_ON, 69, 0.25 ; NOTE_OFF, 62, 0.25 ; NOTE_OFF, 69, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-d4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-a5-sb, 2.4, 0    =$$$17
+NOTE_ON, 62, 0.01 ; NOTE_ON, 71, 0.25 ; NOTE_OFF, 62, 0.25 ; NOTE_OFF, 71, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-d4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-b5-sb, 2.4, 0    =$$$18
+NOTE_ON, 62, 0.01 ; NOTE_ON, 72, 0.25 ; NOTE_OFF, 62, 0.25 ; NOTE_OFF, 72, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-d4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-c5-sb, 2.4, 0    =$$$19
+NOTE_ON, 62, 0.01 ; NOTE_ON, 74, 0.25 ; NOTE_OFF, 62, 0.25 ; NOTE_OFF, 74, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-d4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-d5-sb, 2.4, 0    =$$$20
+
+NOTE_ON, 64, 0.01 ; NOTE_ON, 65, 0.25 ; NOTE_OFF, 64, 0.25 ; NOTE_OFF, 65, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-e4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-f4-sb, 2.4, 0    =$$$14
+NOTE_ON, 64, 0.01 ; NOTE_ON, 67, 0.25 ; NOTE_OFF, 64, 0.25 ; NOTE_OFF, 67, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-e4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-g4-sb, 2.4, 0    =$$$15
+NOTE_ON, 64, 0.01 ; NOTE_ON, 69, 0.25 ; NOTE_OFF, 64, 0.25 ; NOTE_OFF, 69, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-e4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-a5-sb, 2.4, 0    =$$$16
+NOTE_ON, 64, 0.01 ; NOTE_ON, 71, 0.25 ; NOTE_OFF, 64, 0.25 ; NOTE_OFF, 71, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-e4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-b5-sb, 2.4, 0    =$$$17
+NOTE_ON, 64, 0.01 ; NOTE_ON, 72, 0.25 ; NOTE_OFF, 64, 0.25 ; NOTE_OFF, 72, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-e4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-c5-sb, 2.4, 0    =$$$18
+NOTE_ON, 64, 0.01 ; NOTE_ON, 74, 0.25 ; NOTE_OFF, 64, 0.25 ; NOTE_OFF, 74, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-e4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-d5-sb, 2.4, 0    =$$$19
+NOTE_ON, 64, 0.01 ; NOTE_ON, 76, 0.25 ; NOTE_OFF, 64, 0.25 ; NOTE_OFF, 76, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-e4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-e5-sb, 2.4, 0    =$$$20
+
+NOTE_ON, 65, 0.01 ; NOTE_ON, 67, 0.25 ; NOTE_OFF, 65, 0.25 ; NOTE_OFF, 67, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-f4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-g4-sb, 2.4, 0    =$$$14
+NOTE_ON, 65, 0.01 ; NOTE_ON, 69, 0.25 ; NOTE_OFF, 65, 0.25 ; NOTE_OFF, 69, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-f4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-a5-sb, 2.4, 0    =$$$15
+NOTE_ON, 65, 0.01 ; NOTE_ON, 71, 0.25 ; NOTE_OFF, 65, 0.25 ; NOTE_OFF, 71, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-f4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-b5-sb, 2.4, 0    =$$$16
+NOTE_ON, 65, 0.01 ; NOTE_ON, 72, 0.25 ; NOTE_OFF, 65, 0.25 ; NOTE_OFF, 72, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-f4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-c5-sb, 2.4, 0    =$$$17
+NOTE_ON, 65, 0.01 ; NOTE_ON, 74, 0.25 ; NOTE_OFF, 65, 0.25 ; NOTE_OFF, 74, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-f4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-d5-sb, 2.4, 0    =$$$18
+NOTE_ON, 65, 0.01 ; NOTE_ON, 76, 0.25 ; NOTE_OFF, 65, 0.25 ; NOTE_OFF, 76, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-f4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-e5-sb, 2.4, 0    =$$$19
+NOTE_ON, 65, 0.01 ; NOTE_ON, 77, 0.25 ; NOTE_OFF, 65, 0.25 ; NOTE_OFF, 77, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-f4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-f5-sb, 2.4, 0    =$$$20
+
+NOTE_ON, 67, 0.01 ; NOTE_ON, 69, 0.25 ; NOTE_OFF, 67, 0.25 ; NOTE_OFF, 69, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-g4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-a5-sb, 2.4, 0    =$$$14
+NOTE_ON, 67, 0.01 ; NOTE_ON, 71, 0.25 ; NOTE_OFF, 67, 0.25 ; NOTE_OFF, 71, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-g4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-b5-sb, 2.4, 0    =$$$15
+NOTE_ON, 67, 0.01 ; NOTE_ON, 72, 0.25 ; NOTE_OFF, 67, 0.25 ; NOTE_OFF, 72, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-g4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-c5-sb, 2.4, 0    =$$$16
+NOTE_ON, 67, 0.01 ; NOTE_ON, 74, 0.25 ; NOTE_OFF, 67, 0.25 ; NOTE_OFF, 74, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-g4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-d5-sb, 2.4, 0    =$$$17
+NOTE_ON, 67, 0.01 ; NOTE_ON, 76, 0.25 ; NOTE_OFF, 67, 0.25 ; NOTE_OFF, 76, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-g4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-e5-sb, 2.4, 0    =$$$18
+NOTE_ON, 67, 0.01 ; NOTE_ON, 77, 0.25 ; NOTE_OFF, 67, 0.25 ; NOTE_OFF, 77, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-g4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-f5-sb, 2.4, 0    =$$$19
+NOTE_ON, 67, 0.01 ; NOTE_ON, 79, 0.25 ; NOTE_OFF, 67, 0.25 ; NOTE_OFF, 79, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-g4-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-g5-sb, 2.4, 0    =$$$20
+
+NOTE_ON, 69, 0.01 ; NOTE_ON, 71, 0.25 ; NOTE_OFF, 69, 0.25 ; NOTE_OFF, 71, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-a5-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-b5-sb, 2.4, 0    =$$$14
+NOTE_ON, 69, 0.01 ; NOTE_ON, 72, 0.25 ; NOTE_OFF, 69, 0.25 ; NOTE_OFF, 72, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-a5-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-c5-sb, 2.4, 0    =$$$15
+NOTE_ON, 69, 0.01 ; NOTE_ON, 74, 0.25 ; NOTE_OFF, 69, 0.25 ; NOTE_OFF, 74, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-a5-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-d5-sb, 2.4, 0    =$$$16
+NOTE_ON, 69, 0.01 ; NOTE_ON, 76, 0.25 ; NOTE_OFF, 69, 0.25 ; NOTE_OFF, 76, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-a5-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-e5-sb, 2.4, 0    =$$$17
+NOTE_ON, 69, 0.01 ; NOTE_ON, 77, 0.25 ; NOTE_OFF, 69, 0.25 ; NOTE_OFF, 77, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-a5-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-f5-sb, 2.4, 0    =$$$18
+NOTE_ON, 69, 0.01 ; NOTE_ON, 79, 0.25 ; NOTE_OFF, 69, 0.25 ; NOTE_OFF, 79, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-a5-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-g5-sb, 2.4, 0    =$$$19
+NOTE_ON, 69, 0.01 ; NOTE_ON, 81, 0.25 ; NOTE_OFF, 69, 0.25 ; NOTE_OFF, 81, 0.6 ; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0; TIME, 0.01, 0.25 ; treb-a5-sb, 1.9, 0; TIME, 0.25, 0.5 ; treb-a6-sb, 2.4, 0    =$$$20
+end
+
+

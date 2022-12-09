@@ -1,0 +1,26 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Rest value equivalences
+
+// version
+1
+
+// Quaver = 2 semiqs
+rest-quaver, 2, 0.3 = rest-semiquaver,     .05, 1,   .5, .5;rest-semiquaver,     .7, 1,   .5, .5
+
+// Dotted quaver = 3 semiqs
+dotted-rest-quaver, 2, 0.3 = rest-semiquaver, -.15, 1, .5, .5;rest-semiquaver, .35, 1, .5, .5; rest-semiquaver, .85, 1, .5, .5
+
+// Crotchet = 2 quavers
+rest-crotchet, 2, 0.2 = rest-quaver,     .05, 1,   .5, .5;rest-quaver,     .7, 1,   .5, .5
+
+// Dotted crotchet = 3 quavers
+dotted-rest-crotchet, 2, 0.2 = rest-quaver, -.15, 1, .5, .5;rest-quaver, .35, 1, .5, .5; rest-quaver, .85, 1, .5, .5
+
+// Minim = 2 crotchets
+stave-line, .5, 0.1, 2, 1 ; rest-minim, 1.85, 0.1 = rest-crotchet,     .05, 1,   .5, .5;rest-crotchet,     .7, 1, .5, .5
+
+// Dotted minim = 3 crotchets
+stave-line, .5, 0.1, 2, 1 ; dotted-rest-minim, 1.85, 0.1 = rest-crotchet, -.15, 1, .5, .5;rest-crotchet, .35, 1, .5, .5; rest-crotchet, .85, 1, .5, .5
+
