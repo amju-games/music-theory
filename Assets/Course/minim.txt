@@ -6,5 +6,5 @@
 // version
 1
 
-note-minim, 1.0, 0 ; quad, 1.205, 0.475,  1.205, 0.825,  1.185, 0.825,  1.185, 0.475  =Minim (half note)
+minim-up, 1.0, 0 =Minim (half note)
 end

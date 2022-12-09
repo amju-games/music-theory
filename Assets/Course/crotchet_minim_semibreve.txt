@@ -6,7 +6,7 @@
 // version
 1
 
-crotchet, 0.9, 0  =Crotchet (quarter note)
-note-minim, 0.9, 0 ; tail, 0.9, 0  =Minim (half note)
+crotchet-up, 0.9, 0  =Crotchet (quarter note)
+minim-up, 0.9, 0 =Minim (half note)
 semibreve, 0.9, 0  =Semibreve (whole note)
 end

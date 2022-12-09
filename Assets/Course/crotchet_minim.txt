@@ -6,6 +6,6 @@
 // version
 1
 
-note-full, 1.0, 0  ; quad, 1.205, 0.475,  1.205, 0.825,  1.185, 0.825,  1.185, 0.475 =Crotchet (quarter note)
-note-minim, 1.0, 0 ; quad, 1.205, 0.475,  1.205, 0.825,  1.185, 0.825,  1.185, 0.475 =Minim (half note)
+crotchet-up, 1.0, 0 =Crotchet (quarter note)
+minim-up, 1.0, 0  =Minim (half note)
 end
