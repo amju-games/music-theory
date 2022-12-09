@@ -15,16 +15,37 @@
 picture 1
 // First part is 3d node
 // Node type
-mesh
-// Name
-picture-1
+comp
+// Name, matrix, children
+picture-1-root
 // Matrix
 1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  2, 50, 45, 1
-// Obj mesh
-obj/picture-frame1.obj
 // Num children
-0
-// TODO Action when tapped
+2
+// Child: frame
+scene-mesh-material
+// Obj
+obj/just-frame1.obj
+// Material 
+obj/just-frame2.mtl
+//
+// Child: picture
+scene-mesh-material
+// Obj
+obj/just-picture.obj
+// Material 
+obj/just-picture-note-lengths-1.mtl
+
+////mesh
+////// Name
+////picture-1
+////// Matrix
+////1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  2, 50, 45, 1
+////// Obj mesh
+////obj/picture-frame1.obj
+////// Num children
+////0
+// TODO Action when tapped?
 // Camera eye
 28, 50, 45
 // Cam target
