@@ -7,6 +7,8 @@
 
 namespace Amju
 {
+const char* PagePlayNotes::NAME = "page-play-notes";
+
 PagePlayNotes::PagePlayNotes()
 {
   m_guiName = "play_notes";

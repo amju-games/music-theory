@@ -287,6 +287,7 @@
     <ClCompile Include="..\..\..\..\Source\Page.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageFactory.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageMusicalTerm.cpp" />
+    <ClCompile Include="..\..\..\..\Source\PagePlayNotes.cpp" />
     <ClCompile Include="..\..\..\..\Source\Question.cpp" />
     <ClCompile Include="..\..\..\..\Source\ScoreBuilder.cpp" />
     <ClCompile Include="..\..\..\..\Source\Startup.cpp">

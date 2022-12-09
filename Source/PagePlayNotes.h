@@ -14,6 +14,8 @@ class PagePlayNotes : public Page
 public:
   PagePlayNotes();
 
+  static const char* NAME;
+
   virtual void OnActive() override;
   virtual void OnHint() override;
   virtual void ShowCorrectAnswer() override;

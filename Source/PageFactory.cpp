@@ -3,6 +3,7 @@
 
 #include "PageFactory.h"
 #include "PageMusicalTerm.h"
+#include "PagePlayNotes.h"
 
 namespace Amju
 {
@@ -12,6 +13,7 @@ Page* CreateT() { return new T; }
 PageFactory::PageFactory()
 {
   Add(PageMusicalTerm::NAME, &CreateT<PageMusicalTerm>);
+  Add(PagePlayNotes::NAME, &CreateT<PagePlayNotes>);
 }
 }
 
