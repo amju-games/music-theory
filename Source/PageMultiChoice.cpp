@@ -59,10 +59,23 @@ void PageMultiChoice::SetUpButtons()
 
   for (int i = 0; i < numChoices; i++)
   {
-    GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(i)));
+    std::string istr = ToString(i);
+    GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + istr));
     Assert(button);
     button->SetCommand(new ChoiceCommand(this, i));
-    button->SetText(m_answers.GetAnswer(i));
+
+    // TODO TEMP TEST
+    const std::string& answerStr = m_answers.GetAnswer(i);
+    if (m_aType == AnswerType::ATYPE_SCORE)
+    {
+      GuiMusicScore* ms = dynamic_cast<GuiMusicScore*>(GetElementByName(m_gui, "music-score-" + istr));
+      Assert(ms);
+      ms->AddMultipleGlyphsFromString(answerStr);
+    }
+    else if (m_aType == AnswerType::ATYPE_TEXT)
+    {
+      button->SetText(answerStr);
+    }
 
     // Store buttons we can remove to give a hint
     if (i != correct)
@@ -211,9 +224,10 @@ void PageMultiChoice::SetQScore()
   Strings strs = Split(m_question->GetQuestionString(), ';');
   for (const std::string& s : strs)
   {
-    if (!ms->AddGlyphFromString(s))
+    if (!ms->AddMultipleGlyphsFromString(s))
     {
       ReportError("Failed to set score glyph: " + s);
+      Assert(0);
     }
   }
 
