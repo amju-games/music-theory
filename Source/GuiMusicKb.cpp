@@ -13,6 +13,10 @@
 #include "MusicEvent.h"
 #include "PlayMidi.h"
 
+// If defined, we allow the user to drag across the keyboard, pressing and releasing
+//  keys accordingly.
+#define YES_GLISSANDO
+
 namespace Amju
 {
 static GuiElement* CreateMusicKb()
