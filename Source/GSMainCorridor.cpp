@@ -364,30 +364,34 @@ std::cout << "Change Mode: changing to new mode ID " << m_newModeId << "\n";
 
 void GSMainCorridor::GoToTopic()
 {
-  if (!IsTopicUnlocked())
-  {
-    return;
-  }
+  //if (!IsTopicUnlocked())
+  //{
+  //  return;
+  //}
 
   SetMode(CorridorModeEnterClassroom::ID);
 }
 
-bool GSMainCorridor::IsTopicUnlocked() const
+bool GSMainCorridor::IsTopicUnlocked(int topicNum) const
 {
   // TODO for dev
 ////  return true;
 
   auto profile = TheUserProfile();
   ConfigFile* config = profile->GetConfigForTopic(KEY_TOPICS);
-  int currentTopic = profile->GetCurrentTopic();
 
   Course* course = GetCourse();
   Assert(course);
-  Topic* topic = course->GetTopic(currentTopic);
+  if (topicNum >= course->GetNumTopics())
+  {
+    return false;
+  }
+
+  Topic* topic = course->GetTopic(topicNum);
   Assert(topic);
 
   bool unlocked = 
-    (currentTopic == 0) ||
+    (topicNum == 0) ||
     config->Exists(KEY_TOPIC_UNLOCKED + topic->GetId());
 
   return unlocked;

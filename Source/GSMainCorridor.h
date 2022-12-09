@@ -44,9 +44,9 @@ public:
   //  the CorridorMode classes.
   void SetMode(int modeId);
 
-  // Return true if user has unlocked the current topic
+  // Return true if user has unlocked the given topic (int index, not string ID)
   // TODO Move to UserProfile??
-  bool IsTopicUnlocked() const;
+  bool IsTopicUnlocked(int topicNum) const;
 
   // Returns true if the current level has all Topics passed.
   bool IsLevelPassed() const;

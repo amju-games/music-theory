@@ -116,10 +116,10 @@ std::cout << "At highest level, so not going up.\n";
   // If current topic is in range of topics (displayed in this level),
   //  go to Topic Start state.
   if (   TheGame::Instance()->GetState() == gsmc
-      && !gsmc->IsTopicUnlocked())
+      && !gsmc->IsTopicUnlocked(m_currentTopicScrolledTo))
   {
-    std::cout << "Topic locked!\n";
-    return;
+std::cout << "Topic locked!\n";
+return;
   }
 
   // Not locked, so go inside the classroom and change state to Topic Start.
@@ -153,8 +153,8 @@ void CorridorModeWait::SetCurrentTopic()
   Assert(course);
   int numTopics = course->GetNumTopics();
 
-  if (   m_currentTopicScrolledTo < 0 
-      || m_currentTopicScrolledTo >= numTopics)
+  if (m_currentTopicScrolledTo < 0
+    || m_currentTopicScrolledTo >= numTopics)
   {
     // Past end of Topic doors
     ShowTopicName(false);
@@ -189,11 +189,13 @@ void CorridorModeWait::SetCurrentTopic()
     rect->SetLocalPos(pos);
   }
 
-  ShowTopicName(m_gs->IsTopicUnlocked());
+  ShowTopicName(true); // ? m_gs->IsTopicUnlocked(m_currentTopicScrolledTo));
 }
 
 void CorridorModeWait::Drag(bool rightNotLeft)
 {
+  static auto gsmc = TheGSMainCorridor::Instance();
+
   if (m_isScrolling)
   {
     return;
@@ -207,9 +209,28 @@ void CorridorModeWait::Drag(bool rightNotLeft)
 
   // Check for end of corridor
   // We can scroll 1 position to the left and right of the doors, so we can
-  //  tap on stairs..?
-  if (   ( rightNotLeft && (m_currentTopicScrolledTo >= 0))
-      || (!rightNotLeft && (m_currentTopicScrolledTo < numTopics)))
+  //  tap on stairs.
+  // We can't scroll past locked topics.
+  bool canSwipe = false;
+  // We can scroll left (player swiped RIGHT though) if there is a door or
+  //  stairwell/arch to the left.
+  if (rightNotLeft && (m_currentTopicScrolledTo >= 0))
+  {
+    canSwipe = true;
+  }
+  // We can scroll right if there is an door to the right...
+  if (!rightNotLeft && (m_currentTopicScrolledTo < numTopics))
+  {
+    // ...and it's unlocked...
+    if (gsmc->IsTopicUnlocked(m_currentTopicScrolledTo + 1))
+    {
+      canSwipe = true;
+    }
+    // ...or ALL the topics are unlocked
+    // TODO
+  }
+
+  if (canSwipe)
   {
     m_currentTopicScrolledTo -= dir;
     m_desiredXPos += DISTANCE_BETWEEN_DOORS * dir;
