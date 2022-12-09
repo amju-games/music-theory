@@ -792,9 +792,6 @@
     <Text Include="..\..\..\..\Assets\Gui\hint-display-no-button.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Scene\basket-scene.txt">
-      <Filter>Assets\Scene</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Scene\corridor-one-door-1.txt">
       <Filter>Assets\Scene</Filter>
     </Text>
@@ -1076,6 +1073,12 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\tap-picture-semibreve.txt">
       <Filter>Assets\Gui\Tappables</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\hearts.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\corridor-shadow.txt">
+      <Filter>Assets\Scene</Filter>
     </Text>
   </ItemGroup>
 </Project>

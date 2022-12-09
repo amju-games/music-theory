@@ -577,6 +577,7 @@
     <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt" />
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt" />
     <Text Include="..\..\..\..\Assets\Gui\compound_glyphs.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\corridor-shadow.txt" />
     <Text Include="..\..\..\..\Assets\Gui\corridor_mode_show_tappable.txt" />
     <Text Include="..\..\..\..\Assets\Gui\corridor_mode_wait.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs-first-user.txt" />
@@ -595,6 +596,7 @@
     <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gui-top-bar.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gui_top_bar_landscape.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\hearts.txt" />
     <Text Include="..\..\..\..\Assets\Gui\hint-display-no-button.txt" />
     <Text Include="..\..\..\..\Assets\Gui\hint-display.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard-black.txt" />
@@ -636,7 +638,6 @@
     <Text Include="..\..\..\..\Assets\Gui\tappables-2.txt" />
     <Text Include="..\..\..\..\Assets\Gui\text_bg_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\title-text.txt" />
-    <Text Include="..\..\..\..\Assets\Scene\basket-scene.txt" />
     <Text Include="..\..\..\..\Assets\Scene\corridor-one-door-1.txt" />
     <Text Include="..\..\..\..\Assets\Scene\corridor-one-door-2.txt" />
     <Text Include="..\..\..\..\Assets\Scene\corridor-scene-1.txt" />
