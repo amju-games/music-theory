@@ -15,6 +15,8 @@
 
 namespace Amju
 {
+static bool reload = false;
+
 void OnShare(GuiElement*)
 {
   TheShareManager::Instance()->ShareTextAndScreenshot();
@@ -44,6 +46,15 @@ GSBase* GSBase::HideButtons()
 
 void GSBase::Update()
 {
+#ifdef _DEBUG
+  if (reload)
+  {
+    reload = false;
+    ReloadROConfig();
+    ReloadGui();
+  }
+#endif
+
   if (m_gui)
   {
     m_gui->Update();
@@ -114,8 +125,7 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
     (ke.key == 'r' || ke.key == 'R'))
   {
     std::cout << "Reloading\n";
-    ReloadROConfig();
-    ReloadGui();
+    reload = true;
     return true;
   }
 
