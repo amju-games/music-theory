@@ -47,10 +47,8 @@ public:
 
 protected:
   void ShowHints();
-  void SetPie(int n, const Colour& c);
   void SetButtonEnabled(const std::string& buttonName, bool enabled);
   virtual void ReloadGui() override;
-///  void HideTickAndCross();
 
   // Load 3D and add 'teacher' avatar
   virtual void Reload3d() override;

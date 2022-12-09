@@ -23,17 +23,9 @@ $$$3
 // Topics unlocked by this one
 none
 // Pages
-10
+1
 page-symbol-symbol-2=Course/which_clef.txt=$$$3
-page-symbol-symbol-2=Course/which_clef.txt=$$$3
-page-symbol-symbol-2=Course/which_clef.txt=$$$3
-page-symbol-symbol-2=Course/which_clef.txt=$$$3
-page-symbol-symbol-2=Course/which_clef.txt=$$$3
-page-symbol-symbol-2=Course/which_clef.txt=$$$3
-page-symbol-symbol-2=Course/which_clef.txt=$$$3
-page-symbol-symbol-2=Course/which_clef.txt=$$$3
-page-symbol-symbol-2=Course/which_clef.txt=$$$3
-page-symbol-symbol-2=Course/which_clef.txt=$$$3
+
 
 
 // Topic
@@ -48,17 +40,9 @@ $$$4
 // Topics unlocked by this one
 none
 // Pages
-10
+1
 page-symbol-text=Course/higher_or_lower.txt=$$$92
-page-symbol-text=Course/higher_or_lower.txt=$$$92
-page-symbol-text=Course/higher_or_lower.txt=$$$92
-page-symbol-text=Course/higher_or_lower.txt=$$$92
-page-symbol-text=Course/higher_or_lower.txt=$$$92
-page-symbol-text=Course/higher_or_lower.txt=$$$92
-page-symbol-text=Course/higher_or_lower.txt=$$$92
-page-symbol-text=Course/higher_or_lower.txt=$$$92
-page-symbol-text=Course/higher_or_lower.txt=$$$92
-page-symbol-text=Course/higher_or_lower.txt=$$$92
+
 
 
 // Topic
@@ -73,17 +57,9 @@ $$$5
 // Topics unlocked by this one
 none
 // Pages
-10
+1
 page-symbol-symbol=Course/name_the_note.txt=$$$93
-page-symbol-symbol=Course/name_the_note.txt=$$$93
-page-symbol-symbol=Course/name_the_note.txt=$$$93
-page-symbol-symbol=Course/name_the_note.txt=$$$93
-page-symbol-symbol=Course/name_the_note.txt=$$$93
-page-symbol-symbol=Course/name_the_note.txt=$$$93
-page-symbol-symbol=Course/name_the_note.txt=$$$93
-page-symbol-symbol=Course/name_the_note.txt=$$$93
-page-symbol-symbol=Course/name_the_note.txt=$$$93
-page-symbol-symbol=Course/name_the_note.txt=$$$93
+
 
 
 //// Topic
@@ -97,17 +73,9 @@ page-symbol-symbol=Course/name_the_note.txt=$$$93
 //// Topics unlocked by this one
 //none
 //// Pages
-//10
+//1
 //page-symbol-symbol=Course/whats_the_time_sig.txt
-//page-symbol-symbol=Course/whats_the_time_sig.txt
-//page-symbol-symbol=Course/whats_the_time_sig.txt
-//page-symbol-symbol=Course/whats_the_time_sig.txt
-//page-symbol-symbol=Course/whats_the_time_sig.txt
-//page-symbol-symbol=Course/whats_the_time_sig.txt
-//page-symbol-symbol=Course/whats_the_time_sig.txt
-//page-symbol-symbol=Course/whats_the_time_sig.txt
-//page-symbol-symbol=Course/whats_the_time_sig.txt
-//page-symbol-symbol=Course/whats_the_time_sig.txt
+
 
 
 // Topic
@@ -122,17 +90,9 @@ $$$6
 // Topics unlocked by this one
 none
 // Pages
-10
+1
 page-symbol-text=Course/whats_the_scale.txt=$$$94
-page-symbol-text=Course/whats_the_scale.txt=$$$94
-page-symbol-text=Course/whats_the_scale.txt=$$$94
-page-symbol-text=Course/whats_the_scale.txt=$$$94
-page-symbol-text=Course/whats_the_scale.txt=$$$94
-page-symbol-text=Course/whats_the_scale.txt=$$$94
-page-symbol-text=Course/whats_the_scale.txt=$$$94
-page-symbol-text=Course/whats_the_scale.txt=$$$94
-page-symbol-text=Course/whats_the_scale.txt=$$$94
-page-symbol-text=Course/whats_the_scale.txt=$$$94
+
 
 // Topic
 // ID
@@ -146,17 +106,9 @@ $$$7
 // Topics unlocked by this one
 none
 // Pages
-10
+1
 page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
-page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
-page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
-page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
-page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
-page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
-page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
-page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
-page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
-page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
+
 
 // Topic
 // ID
@@ -170,17 +122,9 @@ $$$8
 // Topics unlocked by this one
 none
 // Pages
-10
+1
 page-symbol-text=Course/whats_the_key_sig.txt=$$$96
-page-symbol-text=Course/whats_the_key_sig.txt=$$$96
-page-symbol-text=Course/whats_the_key_sig.txt=$$$96
-page-symbol-text=Course/whats_the_key_sig.txt=$$$96
-page-symbol-text=Course/whats_the_key_sig.txt=$$$96
-page-symbol-text=Course/whats_the_key_sig.txt=$$$96
-page-symbol-text=Course/whats_the_key_sig.txt=$$$96
-page-symbol-text=Course/whats_the_key_sig.txt=$$$96
-page-symbol-text=Course/whats_the_key_sig.txt=$$$96
-page-symbol-text=Course/whats_the_key_sig.txt=$$$96
+
 
 
 // Topic
@@ -195,17 +139,9 @@ $$$97
 // Topics unlocked by this one
 none
 // Pages
-10
+2
 // 3rd param is x offset for keyboard=moving mid C close to left edge of screen
 page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
-page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
-page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
-page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
-page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
-page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
-page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
-page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
-page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
 page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
 
 
@@ -239,17 +175,10 @@ $$$9
 none
 // Pages
 // 10 * musical term pages -- TODO num repeats?
-10
+2
 page-text-text=Course/musical_terms.txt=$$$99
-page-text-text=Course/musical_terms.txt=$$$99
-page-text-text=Course/musical_terms.txt=$$$99
-page-text-text=Course/musical_terms.txt=$$$99
-page-text-text=Course/musical_terms.txt=$$$99
-page-text-text=Course/musical_terms.txt=$$$99
-page-text-text=Course/musical_terms.txt=$$$99
-page-text-text=Course/musical_terms.txt=$$$99
-page-text-text=Course/musical_terms.txt=$$$99
-page-text-text=Course/musical_terms.txt=$$$99
+page-symbol-text=Course/musical_symbols.txt=$$$99
+
 
 // Topic
 // ID
@@ -264,19 +193,8 @@ $$$10
 none
 // Pages
 // 10 * musical term pages -- TODO num repeats?
-10
+1
 page-symbol-text=Course/musical_symbols.txt=$$$99
-page-symbol-text=Course/musical_symbols.txt=$$$99
-page-symbol-text=Course/musical_symbols.txt=$$$99
-page-symbol-text=Course/musical_symbols.txt=$$$99
-page-symbol-text=Course/musical_symbols.txt=$$$99
-page-symbol-text=Course/musical_symbols.txt=$$$99
-page-symbol-text=Course/musical_symbols.txt=$$$99
-page-symbol-text=Course/musical_symbols.txt=$$$99
-page-symbol-text=Course/musical_symbols.txt=$$$99
-page-symbol-text=Course/musical_symbols.txt=$$$99
-
-
 
 
 // Topic
@@ -290,16 +208,8 @@ $$$11
 // Unlocks
 none
 // Pages
-10
+1
 page-symbol-text=Course/intervals.txt=$$$100
-page-symbol-text=Course/intervals.txt=$$$100
-page-symbol-text=Course/intervals.txt=$$$100
-page-symbol-text=Course/intervals.txt=$$$100
-page-symbol-text=Course/intervals.txt=$$$100
-page-symbol-text=Course/intervals.txt=$$$100
-page-symbol-text=Course/intervals.txt=$$$100
-page-symbol-text=Course/intervals.txt=$$$100
-page-symbol-text=Course/intervals.txt=$$$100
-page-symbol-text=Course/intervals.txt=$$$100
+
 
 

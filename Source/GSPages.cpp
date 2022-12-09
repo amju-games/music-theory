@@ -128,8 +128,6 @@ void GSPages::OnActive()
   // Get general user config, just a convenience, it lives in the User Profile.
   m_userConfig = TheUserProfile()->GetConfigForTopic(KEY_GENERAL);
 
-  std::cout << "OnActive calling NextPage...\n";
-
   NextPage();
 }
 
@@ -144,16 +142,6 @@ void GSPages::OnDeactive()
   // Just in case we switch users or something happens to invalidate this
   m_userConfig = nullptr;
 }
-
-//void GSPages::HideTickAndCross()
-//{
-//  GuiElement* tick = GetElementByName(m_gui, "tick");
-//  GuiElement* cross = GetElementByName(m_gui, "cross");
-//  tick->ResetAnimation();
-//  cross->ResetAnimation();
-//  tick->SetVisible(false);
-//  cross->SetVisible(false);
-//}
 
 void GSPages::UpdateHud()
 {
@@ -176,16 +164,6 @@ void GSPages::UpdateHud()
 
 void GSPages::NextPage()
 {
-  std::cout << "NextPage\n";
-
-  // The current Topic has sequence of Pages to display.
-  Course* course = GetCourse();
-  Assert(course);
-  // This is a bit crap - get the current Topic num from prev state, which knows it.
-  Topic* topic = course->GetTopic(TheGSTopicStart::Instance()->GetTopic());
-  Assert(topic);
-  m_maxNumPagesThisSession = topic->GetNumPages();
-
   // Have we got more pages, or are we done?
   if (m_livesThisSession < 1) ////m_numPagesShown >= m_maxNumPagesThisSession)
   {
@@ -199,16 +177,24 @@ void GSPages::NextPage()
     return;
   }
 
-  Page* page = topic->GetPage(m_numPagesShown);
+  // The current Topic has sequence of Pages to display.
+  Course* course = GetCourse();
+  Assert(course);
+  // This is a bit crap - get the current Topic num from prev state, which knows it.
+  Topic* topic = course->GetTopic(TheGSTopicStart::Instance()->GetTopic());
+  Assert(topic);
+  m_maxNumPagesThisSession = topic->GetNumPages();
+
+  // Rotate pages in topic, until we run out of lives.
+  int pageNum = m_numPagesShown % m_maxNumPagesThisSession;
+
+  Page* page = topic->GetPage(pageNum);
   // Page reads/writes config file to load/save user state
   ConfigFile* cf = TheUserProfile()->GetConfigForTopic(topic->GetId());
   page->SetConfigFile(cf);
   SetPage(page);
   
   m_numPagesShown++;
-  std::cout << "Increased m_numPagesShown to: " << m_numPagesShown << "\n";
-
-///  HideTickAndCross();
 
   // Rub out blackboard - reset anim
   GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
@@ -216,37 +202,9 @@ void GSPages::NextPage()
   ruboutAnim->SetVisible(false);
   ruboutAnim->ResetAnimation();
 
-  //// Show number of pages, num correct, num incorrect, etc. These GUI elements
-  ////  should be in the top bar.
-  //IGuiText* numPagesText = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "score-text"));
-  //Assert(numPagesText);
-  //// Show number of pages or number of correct answers?
-  //std::string s = ToString(m_numCorrectThisSession);
-  //numPagesText->SetText(s);
-
   UpdateHud();
 
-  //// Start pie slice colour anim
-  //GuiDecAnimation* sliceColourAnim = dynamic_cast<GuiDecAnimation*>(
-  //  GetElementByName(m_gui, "anim-pie-colour-" + ToString(m_numPagesShown)));
-  //sliceColourAnim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
-
   ShowHints();
-}
-
-void GSPages::SetPie(int n, const Colour& col)
-{
-  // No pie
-
-  //// Stop anim
-  //GuiDecAnimation* sliceColourAnim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "anim-pie-colour-" + ToString(n)));
-  //sliceColourAnim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ZERO);
-
-  //// Set slice colour
-  //GuiDecColour* sliceColour = dynamic_cast<GuiDecColour*>(GetElementByName(m_gui, "colour-pie" + ToString(n)));
-  //Assert(sliceColour);
-  //sliceColour->SetColour(col, 0); // set both colours, anim value is between 0..1 
-  //sliceColour->SetColour(col, 1);
 }
 
 void GSPages::Draw2d()
@@ -321,14 +279,10 @@ void GSPages::SetPage(Page* p)
 
 void GSPages::OnCorrect()
 {
-  //GuiElement* tick = GetElementByName(m_gui, "tick");
-  //tick->SetVisible(true);
-  //tick->SetLocalPos(choicePos);
-
   // Rub out blackboard? - OK as answer correct?
-  GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
-  Assert(ruboutAnim);
-  ruboutAnim->SetVisible(true);
+  //GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
+  //Assert(ruboutAnim);
+  //ruboutAnim->SetVisible(true);
 
   // TODO TEMP TEST
   // Increase hint count, this is until we have a better balanced system
@@ -340,7 +294,6 @@ void GSPages::OnCorrect()
 
   // Add to profile/score
   m_numCorrectThisSession++;
-//  SetPie(m_numPagesShown, GetColour(COLOUR_CORRECT));
 
   m_scoreThisSession += m_scoreMultiplier;
   // TODO score anim
@@ -360,15 +313,10 @@ void GSPages::OnIncorrect()
 {
   m_page->ShowCorrectAnswer();
 
-  //GuiElement* cross = GetElementByName(m_gui, "cross");
-  //cross->SetVisible(true);
-  //cross->SetLocalPos(choicePos);
-
   // Unhappy sound
   PlayWav(WAV_INCORRECT);
 
   m_numIncorrectThisSession++;
-  ///SetPie(m_numPagesShown, GetColour(COLOUR_INCORRECT));
 
   m_livesThisSession--;
   UpdateHud();
