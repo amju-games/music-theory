@@ -7,34 +7,10 @@
 #include <ResourceManager.h>
 #include "GSPages.h"
 #include "PageMusicalTerm.h"
+#include "PrintGui.h"
 
 namespace Amju
 {
-// TODO put somewhere else
-// Print GUI tree, useful for finding gui file errors
-void PrintGui(GuiElement* gui, int depth)
-{
-  std::string spaces(2 * depth, ' ');
-  //std::string type = typeid(gui).name();
-  std::cout << spaces << gui->GetName(); // << " (" << type << ")";
-  GuiComposite* comp = dynamic_cast<GuiComposite*>(gui);
-  if (comp)
-  {
-    int n = comp->GetNumChildren();
-
-    std::cout << " " << n << (n > 1 ? " children" : " child") << ":\n";
-
-    for (int i = 0; i < n; i++)
-    {
-      PrintGui(comp->GetChild(i), depth + 1);
-    }
-  }
-  else
-  {
-    std::cout << "\n";
-  }
-}
-
 struct ChoiceCommand : public GuiCommand
 {
   ChoiceCommand(PageMusicalTerm* page, int button) : m_page(page), m_button(button) {}
@@ -44,8 +20,8 @@ struct ChoiceCommand : public GuiCommand
     return false;
   }
 
-  int m_button = -1;
   PageMusicalTerm* m_page;
+  int m_button = -1;
 };
 
 void PageMusicalTerm::OnActive()
@@ -72,7 +48,7 @@ void PageMusicalTerm::OnActive()
 
   PageMultiChoice::OnActive();
 
-//  PrintGui(m_gui, 0);
+//  PrintGui(m_gui);
 
   IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "musical-term-text"));
   text->SetText(m_question->GetMusicalTermText());
