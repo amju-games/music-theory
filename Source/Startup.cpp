@@ -37,6 +37,7 @@
 #include "GSShowLineDrawing.h"
 #include "GSShowMusicScore.h"
 #include "GSTestShowScore.h"
+#include "GSTitle.h"
 #include "GSUserDrawSave.h"
 #include "GuiLineDrawing.h"
 #include "GuiMusicKb.h"
@@ -113,8 +114,9 @@ void StartUpAfterCreateWindow()
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
 
 //  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
-  TheGame::Instance()->SetCurrentState(TheGSPages::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSPages::Instance());
 //    TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 }
 }
 

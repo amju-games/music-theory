@@ -268,6 +268,7 @@
     <ClCompile Include="..\..\..\..\Source\GSShowLineDrawing.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSShowMusicScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSTestShowScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSTitle.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSUserDraw.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSUserDrawSave.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiLineDrawing.cpp" />
@@ -302,6 +303,7 @@
     <ClInclude Include="..\..\..\..\Source\GSShowLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowMusicScore.h" />
     <ClInclude Include="..\..\..\..\Source\GSTestShowScore.h" />
+    <ClInclude Include="..\..\..\..\Source\GSTitle.h" />
     <ClInclude Include="..\..\..\..\Source\GSUserDraw.h" />
     <ClInclude Include="..\..\..\..\Source\GSUserDrawSave.h" />
     <ClInclude Include="..\..\..\..\Source\GuiLineDrawing.h" />
