@@ -23,6 +23,8 @@ const char* QUAD_NAME = "quad";
 // This is for setting the min/max time for subsequent glyphs
 const char* TIME_NAME = "TIME";
 
+const char* CURVE_NAME = "curve";
+
 // Note on/note off 'meta glyphs'
 const char* NOTE_ON_NAME  = "NOTE_ON";
 const char* NOTE_OFF_NAME = "NOTE_OFF";
@@ -325,6 +327,8 @@ void GuiMusicScore::Draw()
   AmjuGL::Scale(size.x, size.y, 1);
   AmjuGL::Draw(m_triList);
 
+  DrawCurves();
+
 #ifdef DEBUG_DRAW_BOUNDING_RECT
   AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
   AmjuGL::SetColour(Colour(1, 1, 0, 1));
@@ -338,6 +342,14 @@ void GuiMusicScore::Draw()
   rtt->End();
   m_fullscreenRenderer.DrawFullScreenQuad();
 #endif
+}
+
+void GuiMusicScore::DrawCurves()
+{
+  for (auto curve : m_curves)
+  {
+    curve->Draw();
+  }
 }
 
 void GuiMusicScore::AddGlyph(const Glyph& cg)
@@ -363,7 +375,8 @@ bool GuiMusicScore::ExpandCompoundGlyph(const Strings& strs, const Vec2f& pos_, 
     ReportError("Unexpected compound glyph format (missing position?)");
     return false;
   }
-  // Look up the compound glyph string for this name, e.g. "minim-up" => "minim... ; quad..."
+  // Look up the compound glyph string for this name, 
+  //  e.g. "minim-up" => "minim... ; quad..."
   const std::string& compoundStr = s_compoundGlyphs[strs[0]];
   // Get the position and scale, which we will apply to all expanded glyphs
   Vec2f pos = Vec2f(ToFloat(strs[1]), ToFloat(strs[2])) + pos_;
@@ -528,8 +541,41 @@ bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* re
   return false;
 }
 
+bool GuiMusicScore::AddCurveFromString(
+  const std::string& line, const Vec2f& pos, const Vec2f& scale)
+{
+  Strings strs = Split(line, ',');
+  int n = strs.size();
+
+  if (strs[0] == CURVE_NAME)
+  {
+    // Following strings should be vec2 control points, i.e. in pairs.
+    if (n % 2 != 1)
+    {
+      ReportError("Bad curve, expected even number of params");
+      Assert(0);
+    }
+    GuiLineDrawing* curve = new GuiLineDrawing;
+    for (int i = 1; i < n; i += 2)
+    {
+      Vec2f v(ToFloat(strs[i]), ToFloat(strs[i + 1]));
+      curve->AddPoint(v);  // TODO WITHOUT REBUILDING TRI LIST EACH TIME
+    }
+    m_curves.push_back(curve);
+    return true;
+  }
+ 
+  return false;
+}
+
 bool GuiMusicScore::AddGlyphFromString(const std::string& line, const Vec2f& pos, const Vec2f& scale)
 {
+  if (AddCurveFromString(line, pos, scale))
+  {
+    // This 'glyph' is a curve, e.g. a tie
+    return true;
+  }
+
   Glyph g;
   if (!ParseGlyph(line, &g, pos, scale))
   {

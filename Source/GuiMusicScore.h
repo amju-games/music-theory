@@ -3,12 +3,14 @@
 
 #pragma once
 
+#include <set>
 #include <Colour.h>
 #include <FullScreenPostProcess.h> // Render larger, to improve quality
 #include <GuiElement.h>
 #include <StringUtils.h>
 #include <TextureSequence.h>
 #include <TriList.h>
+#include "GuiLineDrawing.h"
 
 namespace Amju
 {
@@ -41,6 +43,12 @@ public:
   bool AddMultipleGlyphsFromString(
     const std::string& line, 
     const Vec2f& pos = Vec2f(0, 0), 
+    const Vec2f& scale = Vec2f(1.f, 1.f));
+
+  // Add a curve from a string.
+  bool AddCurveFromString(
+    const std::string& line,
+    const Vec2f& pos = Vec2f(0, 0),
     const Vec2f& scale = Vec2f(1.f, 1.f));
 
   // Used internally but may be used with AddGlyph()
@@ -91,6 +99,8 @@ public:
   bool HasAnimation() const { return m_hasAnimation; }
   
 protected:
+
+  void DrawCurves();
 
   // Add one quad (2 triangles) to the given vec of tris, made from the
   //  4 corners supplied. I.e. can be any quad shape.
@@ -187,6 +197,9 @@ protected:
 
   // Bounding rect of all glyphs, without scale and position applied
   Rect m_rect;
+
+  // Curves, use for ties, slurs, etc.
+  std::vector<RCPtr<GuiLineDrawing>> m_curves;
 };
 }
 
