@@ -24,16 +24,17 @@ Treble clef
 none
 // Pages
 10
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
+// 3rd param is x offset for keyboard, moving mid C close to left edge of screen
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
 
 
 // Topic
@@ -48,16 +49,17 @@ Bass clef
 none
 // Pages
 10
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt
+// 3rd param is x offset for keyboard, moving mid C close to right edge of screen
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
+page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
 
 
 // Topic

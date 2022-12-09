@@ -11,7 +11,7 @@ gui-comp
 // Name
 keyboard-pink
 // Num children
-4
+3
 
 colour
 FA5C90
@@ -37,10 +37,4 @@ kb-fg
 2, 0.1
 Image/white.png, stretch
 
-// Dot to show mid C
-gui-image
-kb-dot1
--0.675, -0.02
-0.05, 0.04
-Image/circle.png
 

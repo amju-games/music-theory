@@ -18,6 +18,7 @@ public:
 
   static const char* NAME;
 
+  virtual bool Load(const Strings& strs) override;
   virtual void OnActive() override;
   virtual void OnHint() override;
   virtual bool CanGetHint() override;
@@ -27,6 +28,10 @@ public:
 private:
   GuiMusicKb* GetKb();
 
+  // Set initial x position of keyboard, so it's showing the notes above 
+  //  middle C, or below.
+  void SetKbPos(const Vec2f& posOffset);
+
 private:
   // Player only gets to play one note per page
   bool m_playerHasHitNote = false;
@@ -35,5 +40,8 @@ private:
   // This obviously excludes the correct note. As we highlight incorrect
   //  notes, we remove them from this set.
   std::vector<int> m_hintNotes;
+
+  // Position offset for piano keyboard
+  Vec2f m_kbPos;
 };
 }

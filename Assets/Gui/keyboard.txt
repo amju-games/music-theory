@@ -20,56 +20,116 @@ kb-bg
 2, 0.74
 Image/black.png
 
+gui-comp
+kb-comp
+1
+
+translate
+-4.8, 0
+
+gui-comp
+kb-and-dots
+2
+
 // The keyboard
 music-kb
 kb
 // Pos
--3.4, -1.4
+0, 0
 // Scale
-1.4, 0.5
-//1, 1
+1, 1
 // Keys
 // First key midi value (60=middle C)
-48
+24
 // Mesh, isBlack, xPos
 
-obj/key-white.obj, 0, 1.1
-obj/key-black.obj, 1, 0.55
-obj/key-white.obj, 0, 0.55
-obj/key-black.obj, 1, 0.55
-obj/key-white.obj, 0, 0.55
-obj/key-white.obj, 0, 1.1
-obj/key-black.obj, 1, 0.55
-obj/key-white.obj, 0, 0.55
-obj/key-black.obj, 1, 0.55
-obj/key-white.obj, 0, 0.55
-obj/key-black.obj, 1, 0.55
-obj/key-white.obj, 0, 0.55
+obj/key-white.obj, 0, .22
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-white.obj, 0, .22
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
 
-obj/key-white.obj, 0, 1.1
-obj/key-black.obj, 1, 0.55
-obj/key-white.obj, 0, 0.55
-obj/key-black.obj, 1, 0.55
-obj/key-white.obj, 0, 0.55
-obj/key-white.obj, 0, 1.1
-obj/key-black.obj, 1, 0.55
-obj/key-white.obj, 0, 0.55
-obj/key-black.obj, 1, 0.55
-obj/key-white.obj, 0, 0.55
-obj/key-black.obj, 1, 0.55
-obj/key-white.obj, 0, 0.55
+obj/key-white.obj, 0, .22
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-white.obj, 0, .22
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
 
-obj/key-white.obj, 0, 1.1
-obj/key-black.obj, 1, .55
-obj/key-white.obj, 0, .55
-obj/key-black.obj, 1, .55
-obj/key-white.obj, 0, .55
-obj/key-white.obj, 0, 1.1
-obj/key-black.obj, 1, .55
-obj/key-white.obj, 0, .55
-obj/key-black.obj, 1, .55
-obj/key-white.obj, 0, .55
-obj/key-black.obj, 1, .55
-obj/key-white.obj, 0, .55
+obj/key-white.obj, 0, .22
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-white.obj, 0, .22
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+
+// Mid C
+obj/key-white.obj, 0, .22
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-white.obj, 0, .22
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+
+obj/key-white.obj, 0, .22
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-white.obj, 0, .22
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+
+obj/key-white.obj, 0, .22
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-white.obj, 0, .22
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+obj/key-black.obj, 1, .11
+obj/key-white.obj, 0, .11
+
 end
 
+
+// Dot to show mid C
+colour
+4E69F4
+gui-image
+kb-dot1
+4.825, -0.65
+0.025, 0.025
+Image/circle.png

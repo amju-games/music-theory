@@ -19,7 +19,7 @@ PagePlayNotes::PagePlayNotes()
 {
   m_guiName = "play_notes";
 }
-  
+
 GuiMusicKb* PagePlayNotes::GetKb()
 {
   auto kb = dynamic_cast<GuiMusicKb*>(GetElementByName(m_gui, "kb"));
@@ -27,9 +27,32 @@ GuiMusicKb* PagePlayNotes::GetKb()
   return kb;
 }
 
+void PagePlayNotes::SetKbPos(const Vec2f& p)
+{
+  auto kb = GetElementByName(m_gui, "kb-comp");
+  Assert(kb);
+  Vec2f pos = kb->GetLocalPos();
+  pos += p;
+  kb->SetLocalPos(pos);
+}
+
+bool PagePlayNotes::Load(const Strings& strs)
+{
+  if (!Page::Load(strs))
+  {
+    return false;
+  }
+  Assert(strs.size() > 2);
+  float kbXPos = ToFloat(strs[2]);
+  m_kbPos = Vec2f(kbXPos, 0);
+  return true;
+}
+
 void PagePlayNotes::OnActive()
 {
   Page::OnActive();
+
+  SetKbPos(m_kbPos);
 
   // Set the question type: we pick a line at random from a dictionary.
   DictionaryPickQuestion* q = new DictionaryPickQuestion;
