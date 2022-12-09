@@ -191,6 +191,7 @@ GuiMusicScore::GuiMusicScore()
   std::call_once(flag, OneTimeInit);
 #endif
 
+#ifdef USE_RTT
   // TODO Share for all Music Scores
   m_fullscreenRenderer.InitFullScreenQuad();
   RenderToTexture* rtt = dynamic_cast<RenderToTexture*>(AmjuGL::Create(RenderToTexture::DRAWABLE_TYPE_ID));
@@ -203,6 +204,7 @@ GuiMusicScore::GuiMusicScore()
   rtt->Init();
 
   m_fullscreenRenderer.SetRenderTarget(rtt);
+#endif // USE_RTT
 }
 
 void GuiMusicScore::AddToFactory()
@@ -244,8 +246,10 @@ void GuiMusicScore::Draw()
   Vec2f pos = GetCombinedPos();
   Vec2f size = GetSize();
 
+#ifdef USE_RTT
   RenderToTexture* rtt = m_fullscreenRenderer.GetRenderTarget();
   rtt->Begin();
+#endif
 
   m_atlas.Bind();
   AmjuGL::PushMatrix();
@@ -254,9 +258,10 @@ void GuiMusicScore::Draw()
   AmjuGL::Draw(m_triList);
   AmjuGL::PopMatrix();
 
+#ifdef USE_RTT
   rtt->End();
-
   m_fullscreenRenderer.DrawFullScreenQuad();
+#endif
 }
 
 void GuiMusicScore::AddGlyph(const Glyph& g)
