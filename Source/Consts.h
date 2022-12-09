@@ -32,6 +32,8 @@ static const float SCROLL_DECEL = 280.0f;
 #define DEFAULT_SHARE_TEXT_KEY "default_share_text"
 #define DEFAULT_SHARE_TEXT "I'm learning stuff at Amjula Music School! amjula.com #amjula"
 
+#define MIDI_SOUND_FONT "Grand Piano"
+
 #define WAV_CORRECT "good1"
 #define WAV_INCORRECT "bad1"
 #define WAV_SWIPE_LEFT "ok2"

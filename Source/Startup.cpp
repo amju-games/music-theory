@@ -29,8 +29,10 @@
 #include <CursorManager.h>
 #include <Directory.h>
 #include <EventPoller.h>
+#include <FileImplGlue.h>
 #include <Font.h>
 #include <Game.h>
+#include <GlueFileMem.h>
 #include <GuiRect.h>
 #include <Localise.h>
 #include <ObjMesh.h>
@@ -54,7 +56,26 @@
 #include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
 
-#define SOUND_FONT "Grand Piano"
+#ifdef AMJU_IOS
+#define YES_GLUE_FILE
+#define YES_BINARY_OBJ_FILES
+#define GLUE_FILE "data-iOS.glue"
+#define MUSIC_GLUE_FILE "music-iOS.glue"
+#endif
+
+#ifdef MACOSX
+#define YES_GLUE_FILE
+#define YES_BINARY_OBJ_FILES
+#define GLUE_FILE "data-iOS.glue"
+#define MUSIC_GLUE_FILE "music-iOS.glue"
+#endif
+
+#ifdef WIN32
+#define YES_GLUE_FILE
+#define YES_BINARY_OBJ_FILES
+#define GLUE_FILE "data-win.glue"
+#define MUSIC_GLUE_FILE "music-win.glue"
+#endif
 
 namespace Amju
 {
@@ -72,7 +93,7 @@ void ReportError(const std::string& str)
   std::cout << str << "\n";
 }
 
-void StartUpBeforeCreateWindow()
+static void SetUpRootDir()
 {
 #ifdef AMJU_IOS
   std::string dir = GetDataDir();
@@ -81,14 +102,52 @@ void StartUpBeforeCreateWindow()
 #endif
 
 #ifdef MACOSX
+#ifdef YES_GLUE_FILE
+  std::string dir = "/Users/jay/projects/music-theory/Build/CompiledAssets/";
+#else
   std::string dir = "/Users/jay/projects/music-theory/Assets/";
-  File::SetRoot(dir, "/");
 #endif
+  File::SetRoot(dir, "/");
+#endif // MACOSX
+}
 
+static void SetUpGlueFile()
+{
+#ifdef YES_GLUE_FILE
+
+  GlueFileMem* gfm = new GlueFileMem;
+  if (FileImplGlue::OpenGlueFile(GLUE_FILE, gfm))
+  { 
+    std::cout << "Opened glue file " << GLUE_FILE << "\n";
+  }
+  else
+  {
+    ReportError("Failed to open data glue file");
+  }
+
+  SoundManager* sm = TheSoundManager::Instance();
+
+  GlueFile* pMusicGlueFile = new GlueFileMem;
+  if (pMusicGlueFile->OpenGlueFile(MUSIC_GLUE_FILE, true /* read only */))
+  {
+    sm->SetGlueFile(pMusicGlueFile);
+  }
+  else
+  {
+    ReportError("Failed to open music glue file");
+  }
+
+#endif // YES_GLUE_FILE
+
+}
+
+void StartUpBeforeCreateWindow()
+{
+  SetUpRootDir();
   SetROConfigFilename("roconfig.txt");
 }
 
-void StartUpAfterCreateWindow()
+static void SetUpResourceLoaders()
 {
   // Add resource loaders
   ResourceManager* rm = TheResourceManager::Instance();
@@ -105,33 +164,31 @@ void StartUpAfterCreateWindow()
 
   // Course 
   rm->AddLoader("course", CourseLoader);
+}
 
+static void SetUpSound()
+{
 #ifdef AMJU_USE_BASS
+
   // Set sound player
   SoundManager* sm = TheSoundManager::Instance();
   BassSoundPlayer* bsp = new BassSoundPlayer;
-#ifdef AMJU_USE_BASS_MIDI
-  bsp->MidiSetSoundFont((File::GetRoot() + "Sound/" + SOUND_FONT + ".sf2").c_str());
-#endif // AMJU_USE_BASS_MIDI
-  sm->SetImpl(bsp); 
-#endif
 
+#ifdef AMJU_USE_BASS_MIDI
+  bsp->MidiSetSoundFont((File::GetRoot() + "Sound/" + MIDI_SOUND_FONT + ".sf2").c_str());
+#endif // AMJU_USE_BASS_MIDI
+
+  sm->SetImpl(bsp); 
+#endif // AMJU_USE_BASS
+}
+
+static void SetUpGui()
+{
 #if defined(WIN32) || defined(MACOSX)
   TheCursorManager::Instance()->Load("Image/hand.png", Vec2f(0.025f, -0.08f)); // hotspot position
 #endif
 
-  // TODO Other languages - preferences
-  if (!Localise::LoadStringTable("english.txt"))
-  {
-    ReportError("No localise string table.");
-  }
-
   GuiButton::SetClickFilename(WAV_BUTTON_CLICK);
-
-  // Load the course which this app presents to the user: we only expect there to 
-  //  be one instance. We could potentially load this depending on config/user choice.
-  Course* course = (Course*)TheResourceManager::Instance()->GetRes("Course/grade1.txt.course");
-  SetCourse(course);
 
   // Set image used for rounded rectangles
   GuiRect::SetCornerImage("Image/corner.png");
@@ -139,7 +196,10 @@ void StartUpAfterCreateWindow()
   GuiLineDrawing::AddToFactory();
   GuiMusicKb::AddToFactory();
   GuiMusicScore::AddToFactory();
+}
 
+static void SetInitialState()
+{
 //  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
@@ -152,6 +212,31 @@ void StartUpAfterCreateWindow()
 
 //  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
   TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+}
+
+void StartUpAfterCreateWindow()
+{
+  SetUpResourceLoaders();
+
+  SetUpSound();
+
+  SetUpGlueFile();
+
+  // TODO Other languages - preferences
+  if (!Localise::LoadStringTable("english.txt"))
+  {
+    ReportError("No localise string table.");
+  }
+
+  SetUpGui();
+
+  // Load the course which this app presents to the user: we only expect there to 
+  //  be one instance. We could potentially load this depending on config/user choice.
+  Course* course = (Course*)TheResourceManager::Instance()->GetRes("Course/grade1.txt.course");
+  SetCourse(course);
+
+  SetInitialState();
+
 }
 }
 
