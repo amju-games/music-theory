@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AmjulaMusicTheory", "AmjulaMusicTheory\AmjulaMusicTheory.vcxproj", "{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}"
+	ProjectSection(ProjectDependencies) = postProject
+		{93920D98-6C4D-43A6-8579-AA7200EC11D0} = {93920D98-6C4D-43A6-8579-AA7200EC11D0}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AmjuLibMsvc", "..\..\..\..\amjulib\Script\AmjuLibMsvc\AmjuLibMsvc\AmjuLibMsvc.vcxproj", "{93920D98-6C4D-43A6-8579-AA7200EC11D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		DebugAssetTest|Win32 = DebugAssetTest|Win32
+		ES2Debug|Win32 = ES2Debug|Win32
+		Release|Win32 = Release|Win32
+		ReleaseAssetTest|Win32 = ReleaseAssetTest|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.Debug|Win32.Build.0 = Debug|Win32
+		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.DebugAssetTest|Win32.ActiveCfg = Debug|Win32
+		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.DebugAssetTest|Win32.Build.0 = Debug|Win32
+		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.ES2Debug|Win32.ActiveCfg = Debug|Win32
+		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.ES2Debug|Win32.Build.0 = Debug|Win32
+		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.Release|Win32.ActiveCfg = Release|Win32
+		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.Release|Win32.Build.0 = Release|Win32
+		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.ReleaseAssetTest|Win32.ActiveCfg = Release|Win32
+		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.ReleaseAssetTest|Win32.Build.0 = Release|Win32
+		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.Debug|Win32.Build.0 = Debug|Win32
+		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.DebugAssetTest|Win32.ActiveCfg = DebugAssetTest|Win32
+		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.DebugAssetTest|Win32.Build.0 = DebugAssetTest|Win32
+		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.ES2Debug|Win32.ActiveCfg = ES2Debug|Win32
+		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.ES2Debug|Win32.Build.0 = ES2Debug|Win32
+		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.Release|Win32.ActiveCfg = Release|Win32
+		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.Release|Win32.Build.0 = Release|Win32
+		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.ReleaseAssetTest|Win32.ActiveCfg = ReleaseAssetTest|Win32
+		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.ReleaseAssetTest|Win32.Build.0 = ReleaseAssetTest|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
