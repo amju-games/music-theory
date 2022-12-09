@@ -32,8 +32,8 @@ protected:
   TextureSequence m_atlas;
   Colour m_fgCol;
 
-  // Internal representation: vec of glyphs, each having position and scale
-  //  (scale for stave and bar lines primarily)
+  // Internal representation: vec of glyphs, each having position and scale.
+  // A glyph can also be an arbitrary shaped filled quad, for beams and lines.
   struct Glyph
   {
     Glyph() = default;
@@ -41,9 +41,14 @@ protected:
     Glyph(char ch, const Vec2f& pos, const Vec2f& scale = Vec2f(1.f, 1.f)) :
       m_char(ch), m_pos(pos), m_scale(scale) {}
 
+    Glyph(const Vec2f corners[4]);
+
     char m_char = 'q';
     Vec2f m_pos;
     Vec2f m_scale;
+
+    // For quads, store the 4 corners 
+    Vec2f m_corner[4];
   };
   using Glyphs = std::vector<Glyph>;
   Glyphs m_glyphs;

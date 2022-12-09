@@ -12,16 +12,28 @@ score-comp
 music-score
 // Name, Position, Size
 music notation test
--0.9, -0.5
+-0.8, -0.3
 .6, .6
 // Colour
-1DA2FF
+// 1DA2FF
+000000
 
 // Glyphs start here
+
+// Beams etc tests
+quad, 0, 0,  1, 0.1,  1, 0.2,  0, 0.1
+
 stave, -0.1, 0
 stave, .6, 0, 8, 1
 treble-clef, 0, 0
 bass-clef, 0.6, 0
+
+// Beamed note test
+q, 2.0, .4 
+q, 2.5, .45 
+quad, 2.18, 1.2,  2.704, 1.25,  2.704, 1.3,  2.18, 1.25
+
+
 // Mid c
 semibreve, 1, -0.1
 _, 0.975, -0.1
@@ -49,6 +61,7 @@ fff, 1.2, 1
 rest-5, 1.6, 1
 rest-5, 2.0, 1
 bass-clef, 2.4, 1
+
 
 // Smaller, e.g. change clef
 stave, 1, -0.5, 3.0, 0.5

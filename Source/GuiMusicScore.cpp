@@ -8,9 +8,23 @@
 
 namespace Amju
 {
+const char QUAD_CHAR = 0;
+
+// This non-printable character is used for quads, which are a special case.
+// Used for stave lines, bar lines, beams etc.
+const char* QUAD_NAME = "quad";
+
 static GuiElement* CreateMusicScore()
 {
   return new GuiMusicScore;
+}
+
+GuiMusicScore::Glyph::Glyph(const Vec2f corner[4]) : m_char(QUAD_CHAR)
+{
+  for (int i = 0; i < 4; i++)
+  {
+    m_corner[i] = corner[i];
+  }
 }
 
 // Look up character in font from human-readable name
@@ -25,6 +39,7 @@ static bool GlyphNameToCh(const std::string& s, char* ch)
 
   static const std::unordered_map<std::string, char> NAMES = 
   {
+    { "quad", QUAD_CHAR }, // special (non-printable) character to represent a quad
     { "triplet", '!' },
     { "sharp", '#' },
     { "segno", '%' },
@@ -124,7 +139,7 @@ static bool GlyphNameToCh(const std::string& s, char* ch)
 GuiMusicScore::GuiMusicScore()
 {
   // Create texture atlas. TODO CONFIG
-  m_atlas.Load("c:/Users/Jason/projects/music-theory/Assets/Fonts/Guido2/guido2-120pt.png", 16, 14, 1, 1);
+  m_atlas.Load("Assets/Fonts/Guido2/guido2-60pt.png", 16, 14, 1, 1);
 
   m_fgCol = Colour(0, 0, 0, 1); // default to black
 }
@@ -182,11 +197,22 @@ bool GuiMusicScore::Load(File* f)
     // Split line. Format OK? Has optional scale?
     Strings strs = Split(line, ',');
     int n = strs.size();
-    if (n == 3 || n == 5)
+    // Quads are a special case
+    if (n == 9 && strs[0] == QUAD_NAME)
+    {
+      // 4 corners
+      Vec2f corners[4] = 
+      {
+        Vec2f(ToFloat(strs[1]), ToFloat(strs[2])),
+        Vec2f(ToFloat(strs[3]), ToFloat(strs[4])),
+        Vec2f(ToFloat(strs[5]), ToFloat(strs[6])),
+        Vec2f(ToFloat(strs[7]), ToFloat(strs[8]))
+      };
+      m_glyphs.push_back(Glyph(corners));
+    }
+    else if (n == 3 || n == 5)
     {
       char ch;
-
-      // TODO take care of special case names here, e.g. bars
 
       if (!GlyphNameToCh(strs[0], &ch))
       {
@@ -207,8 +233,6 @@ bool GuiMusicScore::Load(File* f)
     else
     {
       break;
-      //f->ReportError("Unexpected format for music glyph: " + line);
-      //return false;
     }
   }
   return true;
@@ -226,8 +250,34 @@ void GuiMusicScore::BuildTriList()
   for (const Glyph& g : m_glyphs)
   {
     AmjuGL::Tri t[2];
-    m_atlas.SetSize(g.m_scale.x, g.m_scale.y);
-    m_atlas.MakeTris(g.m_char - ' ', 1.f, t, g.m_pos.x, g.m_pos.y);
+
+    if (g.m_char == QUAD_CHAR)
+    {
+      // Special case: make a quad from the 4 coords
+      const float Z = 0.5f;
+      float u = .999f;
+      float v = .001f; // TODO texture atlas should be opaque at this (u, v)
+      AmjuGL::Vert verts[4] =
+      {
+        AmjuGL::Vert(g.m_corner[0].x, g.m_corner[0].y, Z, u, v, 0, 1.0f, 0),
+        AmjuGL::Vert(g.m_corner[1].x, g.m_corner[1].y, Z, u, v, 0, 1.0f, 0),
+        AmjuGL::Vert(g.m_corner[2].x, g.m_corner[2].y, Z, u, v, 0, 1.0f, 0),
+        AmjuGL::Vert(g.m_corner[3].x, g.m_corner[3].y, Z, u, v, 0, 1.0f, 0)
+      };
+
+      t[0].m_verts[0] = verts[0];
+      t[0].m_verts[1] = verts[1];
+      t[0].m_verts[2] = verts[2];
+
+      t[1].m_verts[0] = verts[0];
+      t[1].m_verts[1] = verts[2];
+      t[1].m_verts[2] = verts[3];
+    }
+    else
+    {
+      m_atlas.SetSize(g.m_scale.x, g.m_scale.y);
+      m_atlas.MakeTris(g.m_char - ' ', 1.f, t, g.m_pos.x, g.m_pos.y);
+    }
     tris.push_back(t[0]);
     tris.push_back(t[1]);
   }
