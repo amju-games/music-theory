@@ -12,76 +12,11 @@ gui-comp
 // Name
 gs-main-menu-root
 // Num children
-0
-
-// ------------------------------------------------------------------
+1
 
 
-// Button with shader
+translate
+-1., 0
 
-animation
-anim-angle
-repeat
-1.0
-linear
-
-shader
-// Shader filename prefix
-rotating
-// Uniform name
-uAngle
-
-gui-button
-topic-button
-// pos (coords are -1..1)
--0.25, 0.6
-// size
-.5, 1.0
-// Image 
-Image/gui-button-outline-square.png
-// Text
-$$$empty
-// Font name, size
-dimbo, 3.0, fgcol=ffffff, bgcol=000000
-
-// Topic name
-gui-text
-topic-name-text
-// pos (coords are -1..1)
--0.4, 0.2
-// size
-0.8, 1.0
-// Text
-HELLO
-// Font name, size
-dimbo, 2.0, multi, fgcol=ffffff
-
-// ------------------------------------------------------------------
-
-// Back to Title state button
-gui-button
-title-button
-// pos (coords are -1..1)
--0.95, 0.95
-// size
-0.3, 0.15
-// Image 
-Image/gui-button-2.png
-// Text
-BACK
-// Font name, size
-dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
-
-
-// About, I'm new and Share buttons
-gui-button
-about-button
-// pos (coords are -1..1)
--1.6, 0.95
-// size
-0.3, 0.15
-Image/gui-button-2.png
-About
-dimbo, 2.0, fgcol=ffffff, bgcol=BC003E
-
-
+include
+hint-display.txt
