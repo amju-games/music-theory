@@ -47,6 +47,7 @@ void GSTopicStart::OnActive()
 
   elem = GetElementByName(m_gui, "start-button");
   elem->SetCommand(OnStart);
+  elem->SetHasFocus(true);
   
   // Set topic display name
   // TODO Pass the course in
