@@ -5,14 +5,14 @@
 
 namespace Amju
 {
-class GSSimplest : public GameState
+class GSPlayNotes : public GameState
 {
 public:
   virtual void Draw() override;
   virtual void Draw2d() override {}
-  virtual void Update() override {}
+  virtual void Update() override;
 };
 
-typedef Singleton<GSSimplest> TheGSSimplest;
+typedef Singleton<GSPlayNotes> TheGSPlayNotes;
 }
 

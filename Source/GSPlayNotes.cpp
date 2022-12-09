@@ -1,11 +1,14 @@
 #include <AmjuGL.h>
 #include <Timer.h>
 #include <Teapot.h>
-#include "GSSimplest.h"
+#include "GSPlayNotes.h"
+
+// Play midi note
+#include <SoundManager.h>
 
 namespace Amju
 {
-void GSSimplest::Draw()
+  void GSPlayNotes::Draw()
 {
   AmjuGL::SetMatrixMode(AmjuGL::AMJU_PROJECTION_MATRIX);
   AmjuGL::SetIdentity();
@@ -33,5 +36,43 @@ void GSSimplest::Draw()
 
   tp.Draw();
 }
+
+void GSPlayNotes::Update()
+{
+  static float t = 0;
+  static bool isOn = false;
+  float dt = TheTimer::Instance()->GetDt();
+  t += dt;
+  const float NOTE_TIME = 0.2f;
+  static int note = 0;
+  static int oldNote = note;
+  static float noteTime = 0;
+  noteTime += dt * 0.25f;
+
+  bool yesSustain = false;
+
+  if (t > NOTE_TIME)
+  {
+    if (yesSustain)
+    {
+      TheSoundManager::Instance()->MidiNoteOff(oldNote);
+    }
+    else
+    {
+      TheSoundManager::Instance()->MidiNoteOff(note);
+    }
+    t = 0;
+    isOn = false;
+  }
+  else if (t > 0 && !isOn)
+  {
+    oldNote = note;
+    note = (int)(30 * sin(noteTime));
+
+    TheSoundManager::Instance()->MidiNoteOn(note);
+    isOn = true;
+  }
+}
+
 }
 

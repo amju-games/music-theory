@@ -1,0 +1,35 @@
+TODO prototype tech unknowns
+
+Playable keyboard
+ - Link Bass midi 
+ - sound font asset
+ - Just play a sound at start up/periodically for first proof
+
+
+Drawing
+ - A GUI element, right?
+ - One texture, so derived from image?
+ - Just a vec of points at first
+ - We also want to animate scale of leaves
+ - Extend Elastic type
+
+
+User draws on screen
+ - Specialised version of above drawing type
+
+
+Music notation
+ - Specialised Text GUI: all one draw command, all one texture atlas
+ - Except differently coloured elements
+
+
+Game state: drag choice to destination rectangle
+ - user-draggable GUI type - decorator like Elastic, right?
+
+
+Assets
+ - Buttons in various dimensions
+ - Leaves
+ - Fruit
+
+

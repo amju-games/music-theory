@@ -137,13 +137,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Source\GSSimplest.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp" />
     <ClCompile Include="..\..\..\..\Source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Source\GSSimplest.h" />
+    <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib" />
+    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bassmidi.lib" />
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\GLUT\glut32.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

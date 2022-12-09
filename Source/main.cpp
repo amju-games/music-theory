@@ -23,7 +23,8 @@
 #include <AmjuGLWindowInfo.h>
 #include <Game.h>
 #include <EventPoller.h>
-#include "GSSimplest.h"
+#include <BassSoundPlayer.h>
+#include "GSPlayNotes.h"
 
 namespace Amju
 {
@@ -41,9 +42,15 @@ void StartUpBeforeCreateWindow()
 
 void StartUpAfterCreateWindow()
 {
-  TheGame::Instance()->SetCurrentState(TheGSSimplest::Instance());
+  // Set sound player
+  SoundManager* sm = TheSoundManager::Instance();
+  BassSoundPlayer* bsp = new BassSoundPlayer;
+  bsp->MidiSetSoundFont("C:/Users/Jason/projects/music-theory/Assets/Sound/velocity_grand_piano.sf2");
+  sm->SetImpl(bsp);
+
+  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
 }
 }
 
-#endif // IPHONE
+#endif // AMJU_IOS
 
