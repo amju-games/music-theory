@@ -6,8 +6,45 @@
 // version
 1
 
-stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; crotchet-up, 0.2, 0.2 ; crotchet-up, 0.6, 0.2 ; minim-up, 2.1, 0.2; bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =2/4, .15, .2
+// Music score coords:
+//  +--------------------------+   0.4
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+   0.0
+// 0.0                        4.0
+
+// . means deleted note at this position. ( ) are beams.
+
+// From example: (q q) . (sq sq sq sq) . cr | (q sq sq) (sq sq sq sq) cr .
+//
+stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; crotchet-up, 0.24, 0.88, 0.5, 0.5 ; crotchet-up, 0.6, 0.88, 0.5, 0.5 ;  h-beam-up-half, 0.21, 0.88, 0.5, 0.5 ;       crotchet-up, 1.44, 0.88, 0.5, 0.5; crotchet-up, 1.8, 0.88, 0.5, 0.5 ; crotchet-up, 2.2, 0.88, 0.5, 0.5 ;crotchet-up, 2.54, 0.88, 0.5, 0.5 ;  h-beam-up, 1.41, 0.88, 0.5, 0.5 ; h-beam-up, 1.41, 0.80, 0.5, 0.5 ; h-beam-up-half, 2.14, 0.88, 0.5, 0.5 ; h-beam-up-half, 2.14, 0.80, 0.5, 0.5 ;   crotchet-up, 3.36, 0.88, 0.5, 0.5  ;         crotchet-up, 4.24, 0.88, 0.5, 0.5 ; crotchet-up, 4.6, 0.88, 0.5, 0.5 ; crotchet-up, 4.96, 0.88, 0.5, 0.5 ; h-beam-up, 4.21, 0.88, 0.5, 0.5 ;     crotchet-up, 5.44, 0.88, 0.5, 0.5; crotchet-up, 5.8, 0.88, 0.5, 0.5 ; crotchet-up, 6.16, 0.88, 0.5, 0.5 ;crotchet-up, 6.64, 0.88, 0.5, 0.5 ;crotchet-up, 7.0, 0.88, 0.5, 0.5 ;crotchet-up, 7.36, 0.88, 0.5, 0.5  ;      bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
 end
 
-stave-line, 0, 0.2 ; crotchet, 0.2, 0.2 ; crotchet, 0.6, 0.2 ; crotchet, 1.0, 0.2 =3/4, .15, .2
+
+// Template: 9 notes in each bar
+stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; dotted-crotchet-up-raised-dot, 0.24, 0.88, 0.5, 0.5 ; crotchet-up, 0.6, 0.88, 0.5, 0.5 ; crotchet-up, 0.96, 0.88, 0.5, 0.5 ;      crotchet-up, 1.44, 0.88, 0.5, 0.5; crotchet-up, 1.8, 0.88, 0.5, 0.5 ; crotchet-up, 2.16, 0.88, 0.5, 0.5 ;crotchet-up, 2.64, 0.88, 0.5, 0.5 ;crotchet-up, 3.0, 0.88, 0.5, 0.5 ;crotchet-up, 3.36, 0.88, 0.5, 0.5  ;         dotted-crotchet-up-raised-dot, 4.24, 0.88, 0.5, 0.5 ; crotchet-up, 4.6, 0.88, 0.5, 0.5 ; crotchet-up, 4.96, 0.88, 0.5, 0.5 ;      crotchet-up, 5.44, 0.88, 0.5, 0.5; crotchet-up, 5.8, 0.88, 0.5, 0.5 ; crotchet-up, 6.16, 0.88, 0.5, 0.5 ;crotchet-up, 6.64, 0.88, 0.5, 0.5 ;crotchet-up, 7.0, 0.88, 0.5, 0.5 ;crotchet-up, 7.36, 0.88, 0.5, 0.5  ;      bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
+end
+
+// Bar 2, 9 notes: x-coords are first bar + 4.0
+h-beam-up-quarter, 1.41, 0.80, 0.5, 0.5 ; h-beam-up-half, 0.21, 0.80, 0.5, 0.5 ; h-beam-up, 1.41, 0.88, 0.5, 0.5 ; h-beam-up, 0.21, 0.88, 0.5, 0.5 ; stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; dotted-crotchet-up-raised-dot, 4.24, 0.88, 0.5, 0.5 ; crotchet-up, 4.6, 0.88, 0.5, 0.5 ; crotchet-up, 4.96, 0.88, 0.5, 0.5 ;      crotchet-up, 5.44, 0.88, 0.5, 0.5; crotchet-up, 5.8, 0.88, 0.5, 0.5 ; crotchet-up, 6.16, 0.88, 0.5, 0.5 ;crotchet-up, 6.64, 0.88, 0.5, 0.5 ;crotchet-up, 7.0, 0.88, 0.5, 0.5 ;crotchet-up, 7.36, 0.88, 0.5, 0.5  ;      bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
+end
+
+// Bar 1, 9 notes, with some beams.
+h-beam-up-quarter, 1.41, 0.80, 0.5, 0.5 ; h-beam-up-half, 0.21, 0.80, 0.5, 0.5 ; h-beam-up, 1.41, 0.88, 0.5, 0.5 ; h-beam-up, 0.21, 0.88, 0.5, 0.5 ; stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; dotted-crotchet-up-raised-dot, 0.24, 0.88, 0.5, 0.5 ; crotchet-up, 0.6, 0.88, 0.5, 0.5 ; crotchet-up, 0.96, 0.88, 0.5, 0.5 ;      crotchet-up, 1.44, 0.88, 0.5, 0.5; crotchet-up, 1.8, 0.88, 0.5, 0.5 ; crotchet-up, 2.16, 0.88, 0.5, 0.5 ;crotchet-up, 2.64, 0.88, 0.5, 0.5 ;crotchet-up, 3.0, 0.88, 0.5, 0.5 ;crotchet-up, 3.36, 0.88, 0.5, 0.5  ;      bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
+end
+
+
+
+stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; rest-crotchet, 0.3, 0.2 ; crotchet-up, 0.85, 0.2 ; crotchet-up, 1.4, 0.2 ; crotchet-up, 2.3, 0.2 ; crotchet-up, 2.85, 0.2; crotchet-up, 3.4, 0.2 ; bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
+
+stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; rest-crotchet, 0.3, 0.2 ; crotchet-up, 0.85, 0.2 ; crotchet-up, 1.4, 0.2 ; crotchet-up, 2.3, 0.2 ; crotchet-up, 2.85, 0.2; crotchet-up, 3.4, 0.2 ; bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
+
+stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; rest-crotchet, 0.3, 0.2 ; crotchet-up, 0.85, 0.2 ; crotchet-up, 1.4, 0.2 ; dotted-minim-up-raised-dot, 2.8, 0.2; bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
+
+stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; crotchet-up, 0.3, 0.2 ; crotchet-up, 0.85, 0.2 ; crotchet-up, 1.4, 0.2 ; dotted-minim-up-raised-dot, 2.8, 0.2; bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
+
+stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; crotchet-up, 0.5, 0.2 ; crotchet-up, 1.2, 0.2 ; minim-up, 2.8, 0.2; bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =2/4, .15, .2
+end
+
 
