@@ -250,15 +250,15 @@ void GuiMusicKb::Key::CalcRect()
   m_mesh->GetAABB().GetCorners(corners);
 
   // Project each corner, and enlarge the rectangle to enclose each one
-  const float BIG = 99999.9f;
-  Rect r(BIG, -BIG, BIG, -BIG);
-  for (int i = 0; i < 8; i++)
-  {
-    Vec2f p = _project(corners[i]);
-    r.SetIf(p.x, p.y);
-  }
+const float BIG = 99999.9f;
+Rect r(BIG, -BIG, BIG, -BIG);
+for (int i = 0; i < 8; i++)
+{
+  Vec2f p = _project(corners[i]);
+  r.SetIf(p.x, p.y);
+}
 
-  m_projectedRect = r;
+m_projectedRect = r;
 }
 
 void GuiMusicKb::Key::Press()
@@ -270,14 +270,16 @@ void GuiMusicKb::Key::Press()
 
   m_isPressed = true;
   m_desiredAngle = 5.0f;
-  
+
   PlayMidi(m_midiNote, MIDI_NOTE_MAX_VOLUME); // ?
 
   TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, true)));
 
+#ifdef MUSIC_KB_DEBUG
   std::cout << "Playing note: " << m_midiNote << "\n";
+#endif
 }
-  
+
 void GuiMusicKb::Key::Release()
 {
   if (!m_isPressed)
@@ -287,12 +289,14 @@ void GuiMusicKb::Key::Release()
 
   m_isPressed = false;
   m_desiredAngle = 0.0f;
-  
+
   PlayMidi(m_midiNote, 0); // ?
 
   TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, false)));
 
+#ifdef MUSIC_KB_DEBUG
   std::cout << "Releasing note: " << m_midiNote << "\n";
+#endif
 }
 
 void GuiMusicKb::ReleaseKey(Key* key)
@@ -339,7 +343,35 @@ void GuiMusicKb::ReleaseAllKeys()
     pkey->Release();
   }
 }
-  
+
+int GuiMusicKb::GetMinKey() const
+{
+  Assert(!m_keys.empty());
+  int minKey = m_keys[0]->m_midiNote;
+  return minKey;
+}
+
+int GuiMusicKb::GetMaxKey() const
+{
+  Assert(!m_keys.empty());
+  int maxKey = m_keys.back()->m_midiNote;
+  return maxKey;
+}
+
+GuiMusicKb::PKey GuiMusicKb::GetKey(int midiNote)
+{
+  auto it = std::lower_bound(m_keys.begin(), m_keys.end(), midiNote,
+    [](const PKey& k1, int m) { return k1->m_midiNote < m; }
+  );
+  if (it == m_keys.end())
+  {
+    return 0;
+  }
+  PKey key = *it;
+  Assert(key->m_midiNote == midiNote);
+  return key;
+}
+
 void GuiMusicKb::Update()
 {
   // Scroll keyboard left/right if swiped

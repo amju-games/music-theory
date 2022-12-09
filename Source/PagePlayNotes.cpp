@@ -4,6 +4,7 @@
 #include "Dictionary.h"
 #include "DictionaryPickQuestion.h"
 #include "GSPages.h"
+#include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
 #include "PagePlayNotes.h"
 #include "PlayMidi.h"
@@ -37,10 +38,29 @@ void PagePlayNotes::OnActive()
   // TODO Timed message to stop the note? Or just let it decay.
 
   m_playerHasHitNote = false;
+
+  // Set up hint notes
+  m_hintNotes.clear();
+  // TODO Fill up m_hintNotes with all midi note values in range, except the
+  //  correct note, then shuffle.
+  //std::iota()
 }
 
 void PagePlayNotes::OnHint()
 {
+  // Get GUI keyboard
+  GuiMusicKb* kb = dynamic_cast<GuiMusicKb*>(GetElementByName(m_gui, "kb"));
+  if (!kb)
+  {
+    return;
+  }
+
+  static int s = 60;
+  GuiMusicKb::PKey key = kb->GetKey(s++);
+  if (key)
+  {
+    key->m_colour = Colour(1, 0, 0, 1);
+  }
 }
 
 void PagePlayNotes::ShowCorrectAnswer()

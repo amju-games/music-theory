@@ -69,6 +69,8 @@ static void GoToNextPage()
   // Sanity check: this only makes sense if GSPages is active
   if (TheGame::Instance()->GetState() == pages)
   {
+    std::cout << "GoToNextPage calling NextPage...\n";
+
     pages->NextPage();
   }
 }
@@ -162,6 +164,8 @@ void GSPages::OnActive()
   // Get general user config, just a convenience, it lives in the User Profile.
   m_userConfig = TheUserProfile()->GetConfigForTopic(KEY_GENERAL);
 
+  std::cout << "OnActive calling NextPage...\n";
+
   NextPage();
 }
 
@@ -189,6 +193,8 @@ void GSPages::HideTickAndCross()
 
 void GSPages::NextPage()
 {
+  std::cout << "NextPage\n";
+
   // The current Topic has sequence of Pages to display.
   Course* course = GetCourse();
   Assert(course);
@@ -215,6 +221,7 @@ void GSPages::NextPage()
   SetPage(page);
   
   m_numPagesShown++;
+  std::cout << "Increased m_numPagesShown to: " << m_numPagesShown << "\n";
 
   HideTickAndCross();
 
@@ -362,9 +369,11 @@ void GSPages::OnCorrect(const Vec2f& choicePos)
   m_numCorrectThisSession++;
   SetPie(m_numPagesShown, Colour(0.f, 1.f, 0.f, 1.f));
 
+  std::cout << "Correct: set pie slice " << m_numPagesShown << "\n";
+
   // Send message to do what we do when we click the OK button on
   //  the speech bubble, after a delay. (TODO balance delay)
-  TheMessageQueue::Instance()->Add(new FuncMsg(SpeechBubbleOK, 
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage,
     SecondsFromNow(NEXT_PAGE_TIME)));
 }
 
@@ -384,7 +393,9 @@ void GSPages::OnIncorrect(const Vec2f& choicePos)
   m_numIncorrectThisSession++;
   SetPie(m_numPagesShown, Colour(1.f, 0.f, 0.f, 1.f));
 
-  TheMessageQueue::Instance()->Add(new FuncMsg(SpeechBubbleOK,
+  std::cout << "Incorrect: set pie slice " << m_numPagesShown << "\n";
+
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage,
     SecondsFromNow(NEXT_PAGE_TIME)));
 }
 
@@ -446,6 +457,8 @@ void GSPages::OnPause()
  
 void GSPages::OnSpeechBubbleOK()
 {
+  std::cout << "OnSpeechBubbleOK\n";
+
   // Hide speech bubble
   GuiElement* speechBubble = GetElementByName(m_gui, "speech-bubble");
   speechBubble->SetVisible(false);

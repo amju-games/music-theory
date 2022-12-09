@@ -28,8 +28,6 @@ public:
   // TODO Operations on keys: press, release, highlight, etc.
   // Use the unique name for the key? Or perhaps use the midi value as the unique ID?
 
-private:
-
   struct Key : public RefCounted
   {
     // Unique ID. E.g. A1, A#1 etc
@@ -57,6 +55,14 @@ private:
     void Release();
   };
   using PKey = RCPtr<Key>;
+
+  // Get key: midi note is unique ID
+  PKey GetKey(int midiNote);
+  // Get range of midi notes covered by this keyboard
+  int GetMinKey() const;
+  int GetMaxKey() const;
+
+private:
 
   // Find key picked by user
   PKey PickKey(const Vec2f& pos);
