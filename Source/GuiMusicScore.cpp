@@ -8,6 +8,7 @@
 #include <StringsFile.h>
 #include <StringUtils.h>
 #include "GuiMusicScore.h"
+#include "PlayMidi.h"
 
 namespace Amju
 {
@@ -19,7 +20,11 @@ const char* QUAD_NAME = "quad";
 
 // This is for setting the min/max time for subsequent glyphs
 const char* TIME_NAME = "TIME";
-  
+
+// Note on/note off 'meta glyphs'
+const char* NOTE_ON_NAME  = "NOTE_ON";
+const char* NOTE_OFF_NAME = "NOTE_OFF";
+
 const char* END_TOKEN = "end";
 
 std::map<std::string, std::string> GuiMusicScore::s_compoundGlyphs;
@@ -215,6 +220,47 @@ void GuiMusicScore::AddToFactory()
   TheGuiFactory::Instance()->Add("music-score", CreateMusicScore);
 }
 
+void GuiMusicScore::SendNoteEvent(const NoteEvent& ne)
+{
+  if (ne.m_onNotOff)
+  {
+    // TODO better MIDI API
+    PlayMidi(ne.m_note, MIDI_NOTE_MAX_VOLUME);
+  }
+  else
+  {
+    PlayMidi(ne.m_note, 0);
+  }
+}
+
+void GuiMusicScore::UpdateNoteEvents(float animValue)
+{
+  if (m_noteEvents.empty())
+  {
+    return;
+  }
+
+  if (m_nextNoteEvent >= static_cast<int>(m_noteEvents.size()))
+  {
+    return; // we have exhausted all note events - reset in ResetAnimation()
+  }
+
+  const NoteEvent* ne = &m_noteEvents[m_nextNoteEvent];
+  while (   m_nextNoteEvent < static_cast<int>(m_noteEvents.size()) 
+         && ne->m_time <= animValue)
+  {
+    // Fire off this event!
+    SendNoteEvent(*ne);
+    m_nextNoteEvent++;
+    ne++;
+  }
+}
+
+void GuiMusicScore::OnResetAnimation()
+{
+  m_nextNoteEvent = 0;
+}
+
 void GuiMusicScore::Animate(float animValue)
 {
   for (Glyph& g : m_glyphs)
@@ -230,9 +276,8 @@ void GuiMusicScore::Animate(float animValue)
     g.m_colour = col;
   }
 
-  // Compare new highlighted set with old set.
-  // For new notes, send a note event, right? And for absent notes, send a note off event.
-  // TODO
+  // Send MIDI note events
+  UpdateNoteEvents(animValue);
 
   // If highlight set has changed, refresh colours
   // TODO only if required
@@ -359,6 +404,30 @@ bool GuiMusicScore::ParseTime(const Strings& strs)
   return true;
 }
 
+bool GuiMusicScore::ParseNoteEvent(const Strings& strs, bool onNotOff)
+{
+  if (strs.size() != 3)
+  {
+    ReportError("Bad number of params for note on event.");
+    return false;
+  }
+  int note = ToInt(strs[1]);
+  float time = ToFloat(strs[2]);
+  m_noteEvents.push_back(NoteEvent(note, time, onNotOff));
+
+  return true;
+}
+
+bool GuiMusicScore::ParseNoteOn(const Strings& strs)
+{
+  return ParseNoteEvent(strs, true);
+}
+
+bool GuiMusicScore::ParseNoteOff(const Strings& strs)
+{
+  return ParseNoteEvent(strs, false);
+}
+
 bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* result, const Vec2f& pos_, const Vec2f& scale_)
 {
   // Split line. Format OK? Has optional scale?
@@ -369,6 +438,14 @@ bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* re
   if (strs[0] == TIME_NAME)
   {
     return ParseTime(strs);
+  }
+  else if (strs[0] == NOTE_ON_NAME)
+  {
+    return ParseNoteOn(strs);
+  }
+  else if (strs[0] == NOTE_OFF_NAME)
+  {
+    return ParseNoteOff(strs);
   }
   else if (strs[0] == QUAD_NAME)
   {

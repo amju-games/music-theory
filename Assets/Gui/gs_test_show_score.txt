@@ -41,13 +41,23 @@ treble-clef, -0.8, 0.6
 
 //ledger, 0, 0.6
 TIME, 0.0, 0.2
+NOTE_ON, 60, 0.0
+NOTE_OFF, 60, 0.2
 c, 0,   0.6
 TIME, 0.2, 0.4
+NOTE_ON, 64, 0.2
+NOTE_OFF, 64, 0.4
 e, 0.6, 0.6
 TIME, 0.6, 0.8
+NOTE_ON, 67, 0.6
+NOTE_OFF, 67, 0.8
 g, 1.2, 0.6
 TIME, 0.8, 1.0
+NOTE_ON, 72, 0.8
+NOTE_OFF, 72, 1.0
 c+, 1.8, 0.6
+// Cancel min/max time for subsequent glyphs
+TIME, -1, -1
 
 // Time sigs
 12/8, 0, 0.6
