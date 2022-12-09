@@ -5,11 +5,11 @@
 // 
 // To build on Mac:
 //
-//  clang++ *.cpp -DCATCH -std=c++11
+//  clang++ *.cpp ../*cpp -DCATCH -std=c++11
 
 
 #include "catch.hpp"
-#include "../MakeScore.cpp" // ! There is no .h file at present!
+#include "../MakeScore.h" 
 
 TEST_CASE("Test MakeScore", "MakeScore")
 {
