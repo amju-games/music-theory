@@ -35,7 +35,11 @@ void GSBase::OnActive()
   GameState::OnActive();
 
   m_gui = LoadGui(m_guiFilename);
+}
 
+GuiElement* GSBase::GetGui()
+{
+  return m_gui;
 }
 
 void GSBase::OnDeactive()

@@ -22,7 +22,7 @@ void Page::OnActive()
   m_gui->SetLocalPos(Vec2f(0, -0.2f));
 
   // Set command for common buttons
-  GuiElement* hint = GetElementByName(m_gui, "hint-button");
+  GuiElement* hint = GetElementByName(TheGSPages::Instance()->GetGui(), "hint-button");
   if (hint)
   {
     hint->SetCommand(Amju::OnHint);

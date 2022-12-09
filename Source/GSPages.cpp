@@ -3,10 +3,12 @@
 
 #include <AmjuGL.h>
 #include <Game.h>
+#include <GuiText.h>
 #include <MessageQueue.h>
-#include "GuiLineDrawing.h"
+#include "GSMainMenu.h"
 #include "GSPages.h"
 #include "GSPause.h"
+#include "GuiLineDrawing.h"
 #include "PageMusicalTerm.h"
 
 namespace Amju
@@ -29,6 +31,16 @@ GSPages::GSPages()
   m_guiFilename = "Gui/gs_pages.txt";
 }
 
+void GSPages::StartTopic(int topicNum)
+{
+  m_numPagesShown = 0;
+  m_numCorrectThisSession = 0;
+  m_numIncorrectThisSession = 0;
+
+  // TODO Get this from Topic. 
+  m_maxNumPagesThisSession = 10;
+}
+
 void GSPages::OnActive()
 {
   // This could be a resume from pause, so we don't reset the topic progress here.
@@ -42,8 +54,29 @@ void GSPages::OnActive()
   NextPage();
 }
 
+void GSPages::OnDeactive()
+{
+  GSBase::OnDeactive();
+  m_pages.clear();
+}
+
 void GSPages::NextPage()
 {
+  m_numPagesShown++;
+  // Have we got more pages, or are we done?
+  if (m_numPagesShown > m_maxNumPagesThisSession)
+  {
+    // Done, go to Topic successfully completed, or unsuccessfully completed.
+    // (Can use the same state?)
+
+    // TODO TEMP TEST
+    TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
+    return;
+  }
+
+
+  // TODO The current Topic should know what kind of page to create
+  //  (we might use separate factory?)
   AddPage(new PageMusicalTerm);
   m_currentPage = 0;
 
@@ -57,6 +90,14 @@ void GSPages::NextPage()
   cross->ResetAnimation();
   tick->SetVisible(false);
   cross->SetVisible(false);
+
+  // Show number of pages, num correct, num incorrect, etc. These GUI elements
+  //  should be in the top bar.
+  GuiText* numPagesText = (GuiText*)GetElementByName(m_gui, "num-pages-text");
+  Assert(numPagesText);
+  // Show number of pages or number of correct answers?
+  std::string s = ToString(m_numCorrectThisSession) + "/" + ToString(m_maxNumPagesThisSession);
+  numPagesText->SetText(s);
 }
 
 void GSPages::Draw2d()
@@ -97,6 +138,9 @@ void GSPages::OnCorrect()
   // Happy sound
   // TODO
 
+  // Add to profile/score
+  m_numCorrectThisSession++;
+
   TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(1.0f)));
 }
 
@@ -107,6 +151,8 @@ void GSPages::OnIncorrect()
 
   // Unhappy sound
   // TODO
+
+  m_numIncorrectThisSession++;
 
   TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(1.0f)));
 }

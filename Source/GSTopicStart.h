@@ -20,6 +20,7 @@ public:
   virtual void OnActive() override;
 
   void SetTopic(int topicNum);
+  int GetTopic() const;
 
 private:
   int m_topicNum = -1;

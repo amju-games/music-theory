@@ -22,6 +22,8 @@ public:
   // Reload
   virtual bool OnKeyEvent(const KeyEvent&) override;
 
+  GuiElement* GetGui();
+
 protected: 
   // GUI - this is a 2D app
   PGuiElement m_gui;

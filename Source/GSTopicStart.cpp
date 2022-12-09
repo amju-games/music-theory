@@ -16,7 +16,10 @@ static void OnBack(GuiElement*)
 
 static void OnStart(GuiElement*)
 {
-  TheGame::Instance()->SetCurrentState(TheGSPages::Instance());
+  GSPages* gs = TheGSPages::Instance();
+  int topicNum = TheGSTopicStart::Instance()->GetTopic();
+  gs->StartTopic(topicNum);
+  TheGame::Instance()->SetCurrentState(gs);
 }
 
 GSTopicStart::GSTopicStart()
@@ -40,6 +43,11 @@ void GSTopicStart::OnActive()
 void GSTopicStart::SetTopic(int topicNum)
 {
   m_topicNum = topicNum;
+}
+
+int GSTopicStart::GetTopic() const
+{
+  return m_topicNum;
 }
 }
 
