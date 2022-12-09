@@ -1,0 +1,20 @@
+MAKE SCORE TODO LIST
+
+Add tied note support
+
+Preprocess:
+Automatically add beam codes, using rules for groups.
+
+Postprocess:
+Use vec<string> for intermediate output. 
+
+Postprocess output vec to remove redundant TIME directives: where there
+ are two consecutive TIMEs, remove the first.
+
+
+Extend to full stave, adding pitch
+
+Then 2-stave lines (piano), and 4-staves for SATB
+
+
+
