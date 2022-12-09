@@ -11,6 +11,7 @@
 #include <MessageQueue.h>
 #include <SceneGraph.h>
 
+#include "Consts.h"
 #include "Course.h"
 #include "GSMainCorridor.h"
 #include "GSPages.h"
@@ -19,7 +20,6 @@
 #include "GSTopicEnd.h"
 #include "GuiLineDrawing.h"
 #include "Hints.h"
-#include "Keys.h"
 #include "Md2SceneNode.h" // TODO promote to Amjulib
 #include "PlayWav.h"
 #include "PrintGui.h"

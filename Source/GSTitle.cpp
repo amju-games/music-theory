@@ -5,10 +5,10 @@
 #include <Game.h>
 #include <GuiDecAnimation.h>
 #include <MessageQueue.h>
+#include "Consts.h"
 #include "GSFirstUser.h"
 #include "GSMainCorridor.h"
 #include "GSTitle.h"
-#include "Keys.h"
 #include "UserProfile.h"
 
 namespace Amju
