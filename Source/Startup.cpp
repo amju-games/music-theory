@@ -61,6 +61,7 @@
 #include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
 #include "NetSend.h"
+#include "ParticleFx.h"
 #include "SceneNodeGui.h"
 
 #ifdef AMJU_IOS
@@ -274,6 +275,7 @@ static void SetUpGui()
   GuiLineDrawing::AddToFactory();
   GuiMusicKb::AddToFactory();
   GuiMusicScore::AddToFactory();
+  ParticleFx::AddToFactory();
 
   TheSceneNodeFactory::Instance()->Add(
     SceneNodeGui::NAME, 

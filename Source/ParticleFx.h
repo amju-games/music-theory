@@ -18,6 +18,7 @@ public:
 
   Vec3f NewVel() const override;
   Vec3f NewAcc() const override;
+  float NewRotVel() const override;
 };
 }
 
