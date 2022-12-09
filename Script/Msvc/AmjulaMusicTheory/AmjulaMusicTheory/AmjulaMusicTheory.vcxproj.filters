@@ -96,6 +96,24 @@
     <ClCompile Include="..\..\..\..\Source\GSMainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Topic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UserProfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\Topic_catchtest.cpp">
+      <Filter>CatchTests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\UserProfile_catchtest.cpp">
+      <Filter>CatchTests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\Course_catchtest.cpp">
+      <Filter>CatchTests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Course.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -181,6 +199,15 @@
     <ClInclude Include="..\..\..\..\Source\GSMainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Topic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\UserProfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Course.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Docs\TODO.txt" />
@@ -221,6 +248,12 @@
       <Filter>Assets\Gui</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\stroke-tick-1.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_main_menu.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_title.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
   </ItemGroup>

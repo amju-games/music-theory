@@ -261,6 +261,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\BassPlayMidi.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Course.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSMainMenu.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSMusicalTerms.cpp" />
@@ -283,6 +284,12 @@
     <ClCompile Include="..\..\..\..\Source\Startup.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\Course_catchtest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Catch|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Tests\Question_catchtest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
@@ -295,8 +302,23 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\Topic_catchtest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Catch|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\UserProfile_catchtest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Catch|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Topic.cpp" />
+    <ClCompile Include="..\..\..\..\Source\UserProfile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Source\Course.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
     <ClInclude Include="..\..\..\..\Source\GSMainMenu.h" />
     <ClInclude Include="..\..\..\..\Source\GSMusicalTerms.h" />
@@ -320,6 +342,8 @@
     <ClInclude Include="..\..\..\..\Source\PlayMidi.h" />
     <ClInclude Include="..\..\..\..\Source\Question.h" />
     <ClInclude Include="..\..\..\..\Source\ScoreBuilder.h" />
+    <ClInclude Include="..\..\..\..\Source\Topic.h" />
+    <ClInclude Include="..\..\..\..\Source\UserProfile.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib" />
@@ -329,10 +353,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\gs_main_menu.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_pages.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_play_notes.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_score.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_test_show_score.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\gs_title.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_musical_term.txt" />
