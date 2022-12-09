@@ -1,0 +1,68 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// version
+1
+
+// Topic start scene - show blackboard front and centre
+
+// Node type
+comp
+// Name
+root
+// Matrix
+I
+// Num children
+1
+
+// TODO Interpolating camera type
+
+// Node type
+camera-persp
+// Name
+camera
+// Eye pos
+100, 65, 80
+// Look at pos
+100, 62, 0
+// Up vector
+0, 1, 0
+// FovY, aspect, near, far
+60, 1.3, 1, 1000
+// Num children
+3
+
+// Node type
+mesh
+// Name
+room
+// Matrix
+I
+// Obj mesh
+obj/room1.obj
+// Num children
+0
+
+// Node type
+mesh
+// Name
+blackboard
+// Matrix
+1,0,0,0,  0,1,0,0,  0,0,1,0,  100,0,0,1
+// Obj mesh
+obj/bboard1.obj
+// Num children
+0
+
+
+// Node type
+mesh
+// Name
+desk1
+// Matrix
+1,0,0,0,  0,1,0,0,  0,0,1,0,  80,-10,80,1
+// Obj mesh
+obj/desk1.obj
+// Num children
+0
+
