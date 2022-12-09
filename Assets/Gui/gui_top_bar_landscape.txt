@@ -20,13 +20,19 @@ gui-comp
 top-bar-elasticated
 // Num children
 // TODO Most of bar hidden for now
-2
+3
 
-// Hide pie for now
-translate
-0.0, 0
 include
 pie.txt
+
+// Num pages count bg
+colour
+FFD669
+gui-image
+counter-bg
+.7, .55
+.3, .2
+Image/gui-button-2.png, stretch
 
 // Player score
 // Element type
@@ -34,13 +40,13 @@ gui-text
 // Element name
 num-pages-text
 // pos (coords are -1..1)
-0.175, 0.775
+0.7, 0.5
 // size
 0.3, 0.1
 // Text
 25600
 // Font name, size
-dimbo, 1.0, right, fgcol=000000
+dimbo, 1.7, fgcol=000000
 
 
 

@@ -4,8 +4,9 @@
 // version
 1
 
-// TODO Scale does not percolate down - this is a general problem
-//  with amjulib gui.
+translate
+1.0, 1.0
+
 scale
 // scale
 0.5, 0.5
@@ -19,8 +20,8 @@ pie
 
 gui-image
 pie-bg
-0.5, 0.95
-0.45, 0.3
+0.475, 1
+0.5, 0.3
 Image/pie-bg.png
 
 
