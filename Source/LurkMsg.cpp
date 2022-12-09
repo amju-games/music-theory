@@ -93,6 +93,13 @@ void LurkMsg::Update()
 {
   float dt = TheTimer::Instance()->GetDt();
 
+  // Update GUIs
+  m_text->Update();
+  if (m_gui)
+  {
+    m_gui->Update();
+  }
+
   switch (m_state)
   {
   case LURK_NEW:

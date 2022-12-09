@@ -26,6 +26,8 @@ public:
   virtual void Animate(float animValue) override;
   virtual void OnResetAnimation() override;
 
+  virtual Rect CalcRect() const override;
+
   void SetFgCol(const Colour& col);
 
   // Add glyph defined by a string.
@@ -137,6 +139,11 @@ protected:
   using Glyphs = std::vector<Glyph>;
   Glyphs m_glyphs;
 
+  // Set of glyphs which were highlighted last frame - so we only refresh colours when
+  //  necessary. The ints are indices into m_glyphs.
+  using HighlightedSet = std::set<int>;
+  HighlightedSet m_highlightedSet;
+
   // Look up table from compound glyph name to multiple glyphs to which we should expand.
   static std::map<std::string, std::string> s_compoundGlyphs;
 
@@ -177,6 +184,9 @@ protected:
   // Index into m_noteEvents. This is the next note event to be played, when the
   //  animation value reaches the time of the event
   int m_nextNoteEvent = 0;
+
+  // Bounding rect of all glyphs, without scale and position applied
+  Rect m_rect;
 };
 }
 

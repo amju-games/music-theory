@@ -2,7 +2,8 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <mutex> // call_once
-#include <unordered_map>
+#include <unordered_map> // map glyph names to ascii codes
+#include <DrawRect.h>
 #include <GuiFactory.h>
 #include <ReportError.h>
 #include <StringsFile.h>
@@ -184,6 +185,8 @@ void GuiMusicScore::OneTimeInit()
 
 GuiMusicScore::GuiMusicScore()
 {
+  m_rect = EmptyRect();
+
   // Create texture atlas. TODO CONFIG
   // Image is a resource, only loaded once.
   m_atlas.Load("font2d/Guido2/guido2-60pt.png", 16, 14, 1, 1);
@@ -271,8 +274,13 @@ void GuiMusicScore::OnResetAnimation()
 
 void GuiMusicScore::Animate(float animValue)
 {
-  for (Glyph& g : m_glyphs)
+  // Keep track of glyphs we highlight, and compare with previous frame
+  HighlightedSet thisHighlightedSet;
+
+  int numGlyphs = m_glyphs.size();
+  for (int i = 0; i < numGlyphs; i++)
   {
+    Glyph& g = m_glyphs[i];
     Colour col = m_fgCol;
     if (g.m_timeMinMax.x <= animValue && g.m_timeMinMax.y > animValue)
     {
@@ -280,6 +288,7 @@ void GuiMusicScore::Animate(float animValue)
 
       // Set glyph colour to highlight colour
       col = m_highlightColour;
+      thisHighlightedSet.insert(i);
     }
     g.m_colour = col;
   }
@@ -288,8 +297,11 @@ void GuiMusicScore::Animate(float animValue)
   UpdateNoteEvents(animValue);
 
   // If highlight set has changed, refresh colours
-  // TODO only if required
-  RefreshColours();
+  if (m_highlightedSet != thisHighlightedSet)
+  {
+    RefreshColours();
+    m_highlightedSet = thisHighlightedSet;
+  }
 }
 
 void GuiMusicScore::Draw()
@@ -312,6 +324,14 @@ void GuiMusicScore::Draw()
   AmjuGL::Translate(pos.x, pos.y, 0);
   AmjuGL::Scale(size.x, size.y, 1);
   AmjuGL::Draw(m_triList);
+
+#ifdef DEBUG_DRAW_BOUNDING_RECT
+  AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
+  AmjuGL::SetColour(Colour(1, 1, 0, 1));
+  AmjuGL::UseShader(nullptr);
+  DrawRect(m_rect);
+#endif // DEBUG_DRAW_BOUNDING_RECT
+
   AmjuGL::PopMatrix();
 
 #ifdef USE_RTT
@@ -591,6 +611,7 @@ void GuiMusicScore::MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris, const C
 
 void GuiMusicScore::BuildTriList()
 {
+  m_rect = EmptyRect();
   AmjuGL::Tris tris;
 
   for (const Glyph& g : m_glyphs)
@@ -612,6 +633,23 @@ void GuiMusicScore::BuildTriList()
       tris.push_back(t[0]);
       tris.push_back(t[1]);
     }
+
+    // Keep track of bounding rect.
+    // Add bounding box of the last two tris to the overall bounding rect
+    Assert(tris.size() >= 2);
+    AmjuGL::Vert verts[4] = 
+    {
+      tris[tris.size() - 2].m_verts[0],
+      tris[tris.size() - 2].m_verts[1], // the other two verts are duplicates of these
+      tris[tris.size() - 2].m_verts[2], // the other two verts are duplicates of these
+      tris[tris.size() - 1].m_verts[2],
+    };
+    Rect r = EmptyRect();
+    for (int i = 0; i < 4; i++)
+    {
+      r.SetIf(verts[i].m_x, verts[i].m_y);
+    }
+    m_rect.Union(r);
   }
   m_triList = Amju::MakeTriList(tris);
 }
@@ -657,6 +695,23 @@ GuiMusicScore::Glyph& GuiMusicScore::GetGlyph(int i)
 {
   Assert(i < static_cast<int>(m_glyphs.size()));
   return m_glyphs[i];
+}
+
+Rect GuiMusicScore::CalcRect() const
+{
+  // Argh. We have to build the tri list to know how big the bounding box is.
+  // TODO We can separate bbox and tri list.
+  if (!m_triList)
+  {
+    const_cast<GuiMusicScore*>(this)->BuildTriList();
+  }
+
+  Rect r(m_rect);
+  Vec2f pos = GetCombinedPos();
+  Vec2f size = GetSize();
+  r.Translate(pos.x, pos.y);
+  r.Scale(size.x, size.y);
+  return r;
 }
 
 }

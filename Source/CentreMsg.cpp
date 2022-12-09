@@ -21,6 +21,9 @@ static const char* MODAL_BUTTON_GUI_FILENAME = "Gui/modal-buttons.txt";
 // Extra border around text
 static const Vec2f EXTRA(0.1f, 0.05f); // TODO CONFIG
 
+// Lowest position of GUI buttons, so they don't go off screen.
+static const float MIN_BUTTON_Y = -0.6f;
+
 CentreMsg::CentreMsg()
 {
   m_lurkPos = AMJU_CENTRE;
@@ -72,6 +75,13 @@ void CentreMsg::Update()
 
   float dt = TheTimer::Instance()->GetDt();
 
+  // Update GUIs
+  m_text->Update();
+  if (m_gui)
+  {
+    m_gui->Update();
+  }
+
   switch (m_state)
   {
   case LURK_NEW:
@@ -113,6 +123,7 @@ void CentreMsg::Update()
       Vec2f pos = m_rect->GetLocalPos(); 
       pos += Vec2f(0, -m_rect->GetSize().y);
       pos.x = 0;
+      pos.y = std::max(pos.y, MIN_BUTTON_Y);
       m_gui->SetLocalPos(pos);
 
 #ifdef TEXT_TO_SPEECH
@@ -213,7 +224,8 @@ void CentreMsg::SetCentred(PGuiElement text, const Colour& fgCol, const Colour& 
   m_text = text;
 
   m_rect = new GuiRect;
-  m_rect->SetSize(m_text->GetSize() + EXTRA);
+  Vec2f size = text->CalcRect().GetSize();
+  m_rect->SetSize(size + EXTRA);
   m_rect->SetColour(bgCol);
   m_rect->SetCornerRadius(LURK_MSG_CORNER_RADIUS);
 
@@ -222,8 +234,8 @@ void CentreMsg::SetCentred(PGuiElement text, const Colour& fgCol, const Colour& 
   m_state = LURK_NEW;
   m_onOk = onOk;
 
-  float h = m_text->GetSize().y;
-  float w = m_text->GetSize().x;
+  float h = size.y;
+  float w = size.x;
 
   float yOffset = 0;
 

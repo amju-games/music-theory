@@ -18,7 +18,7 @@ colour_correct     00ff00
 colour_text        ffffff
 colour_highlight   4E69F4
 // Explanation when wrong answer chosen
-colour_explanation ff0000
+colour_explanation 4E69F4
 
 colour_confirm_quit 4E69F4
 

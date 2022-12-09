@@ -10,9 +10,9 @@ gui-comp
 // Name
 expl-comp
 // Num children
-2
+4
 
-// With the scale and pos below, a music score of width 4.0 fits across the blackboard.
+// With the scale and pos below, a music score of width 4.0 fits across the dialog.
 // So a long score can go from x=0 to x=4, a short one from x=1 to x=3, etc.
 // I.e.:
 //  +--------------------------+   0.4
@@ -20,28 +20,94 @@ expl-comp
 //  +--------------------------+
 //  +--------------------------+
 //  +--------------------------+   0.0
-//  ???
+//  0                          4
 
 music-score
 // Name, Position
-expl-music-score
-0.1, -1.
-// Scale - affects pos, TODO
-.3, .8
+note-1
+0.25, -.7
+// Scale
+.2, .55
 // Colour
 ffffff
 // Glyphs start here
-stave, 0.5, 0, 2.0, 1
-treble-clef, 1.2, 0
-treb-c4-sb, 2.2, 0 
-treb-e4-sb, 2.2, 0
-treb-g4-sb, 2.2, 0
+stave, 0., 0, 4.0, 1
+treble-clef, .5, 0
+treb-c4-sb, 1.5, 0
 end
+
+
+animation
+note-2-anim-1
+const
+one
+
+animation
+note-2-anim-2
+one-shot
+1.0
+linear
+
+translate
+0, 0 ; 0.15, 0
+
+animation
+note-3-anim-3
+const
+zero
+
+music-score
+// Name, Position
+expl-music-score-1
+0.25, -.7
+// Scale
+.2, .55
+// Colour
+ffffff
+// Glyphs start here
+treb-e4-sb, 1.5, 0
+end
+
+
+
+
+animation
+note-3-anim-1
+const
+one
+
+animation
+note-3-anim-2
+one-shot
+2.0
+linear
+
+translate
+0, 0 ; 0.3, 0
+
+animation
+note-3-anim-3
+const
+zero
+
+music-score
+// Name, Position
+expl-music-score-1
+0.25, -.7
+// Scale
+.2, .55
+// Colour
+ffffff
+// Glyphs start here
+treb-g4-sb, 1.5, 0
+end
+
+
 
 gui-text
 expl-text
-0, -.8
-1.3, 0.7
+0, -.6
+1.3, 0.3
 $$$113
-TEXT, 2.0, fgcol=ffffff, multi
+TEXT, 1.5, fgcol=ffffff, multi
 
