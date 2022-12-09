@@ -1,0 +1,93 @@
+// Page Play Notes
+// v.
+1
+
+// Stave with random note, keyboard
+
+// Element type
+gui-comp
+// Name
+page-play-notes-root
+// Num children
+2
+
+// Blue background
+colour
+798EEB
+
+gui-image
+screen-bg
+-1, 1.2
+2, 2
+Image/white.png, stretch
+
+elastic
+0, -2.0
+
+
+// Use this to fade the page contents
+// Fade out anim, off until triggered in code
+animation
+fade-out-whole-page
+const
+zero
+
+animation
+anim-colour-fade-whole-page
+one-shot
+0.3
+linear
+
+colour
+ffffffff, ffffff20
+
+
+animation
+clean-anim
+const
+one
+
+gui-comp
+// Name
+page
+// Num children
+3
+
+
+// Element type
+gui-text
+// Element name
+help-text
+// pos (coords are -1..1)
+-0.9, 0.9
+// size
+1.8, 0.2
+// Text
+Play the note!
+// Font name, size
+dimbo, 1.0, multi, fgcol=000000
+
+
+include
+keyboard.txt
+
+
+music-score
+// Name, Position
+score
+-1, -0.1
+// Scale - affects pos, TODO
+1, 1
+// Colour
+// 1DA2FF
+000000
+
+// Glyphs start here
+stave, 0.25, 0, 1.5, 1
+treble-clef, 0.3, 0
+end
+
+
+
+
+
