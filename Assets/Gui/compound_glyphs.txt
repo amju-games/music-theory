@@ -113,7 +113,8 @@ d = treb-d4-cr, 0, 0
 d# = treb-d#4-cr, 0, 0
 eb = treb-eb4-cr, 0 , 0
 e = treb-e4-cr, 0, 0
-f = treb-f4-cr, 0, 0
+// So not confused with forte symbol
+f4 = treb-f4-cr, 0, 0
 f# = treb-f#4-cr, 0, 0
 gb = treb-gb4-cr, 0, 0
 g = treb-g4-cr, 0, 0
