@@ -108,7 +108,18 @@ ledger = quad, 0.31, 0.475,  0.31, 0.490,  0.01, 0.490,  0.01, 0.475
 // Wide ledger line, for semibreves
 ledger-w = quad, 0.38, 0.475,  0.38, 0.490,  0.02, 0.490,  0.02, 0.475
 
+// RESTS
+// rest-crotchet is a simple glyph
+// rest-minim is a simple glyph
+rest-quaver = rest-1, 0, 0
+rest-semiquaver = rest-2, 0, 0
 rest-semibreve = rest-minim, 0, 0.05
+// TODO Raised dot versions?
+dotted-rest-quaver = rest-quaver, 0, 0 ;  ., 0.25, -0.05
+dotted-rest-semiquaver = rest-semiquaver, 0, 0 ;  ., 0.25, 0.0
+dotted-rest-crotchet = rest-crotchet, 0, 0 ;  ., 0.25, 0.0
+dotted-rest-minim = rest-minim, 0, 0 ;  ., 0.3, 0.05
+dotted-rest-semibreve = rest-semibreve, 0, 0 ;  ., 0.3, 0.0
 
 // Common notes
 // c4 = middle C
