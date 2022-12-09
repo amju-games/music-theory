@@ -24,16 +24,16 @@ $$$3
 none
 // Pages
 10
-page-symbol-symbol=Course/which_clef.txt=$$$3
-page-symbol-symbol=Course/which_clef.txt=$$$3
-page-symbol-symbol=Course/which_clef.txt=$$$3
-page-symbol-symbol=Course/which_clef.txt=$$$3
-page-symbol-symbol=Course/which_clef.txt=$$$3
-page-symbol-symbol=Course/which_clef.txt=$$$3
-page-symbol-symbol=Course/which_clef.txt=$$$3
-page-symbol-symbol=Course/which_clef.txt=$$$3
-page-symbol-symbol=Course/which_clef.txt=$$$3
-page-symbol-symbol=Course/which_clef.txt=$$$3
+page-symbol-symbol-2=Course/which_clef.txt=$$$3
+page-symbol-symbol-2=Course/which_clef.txt=$$$3
+page-symbol-symbol-2=Course/which_clef.txt=$$$3
+page-symbol-symbol-2=Course/which_clef.txt=$$$3
+page-symbol-symbol-2=Course/which_clef.txt=$$$3
+page-symbol-symbol-2=Course/which_clef.txt=$$$3
+page-symbol-symbol-2=Course/which_clef.txt=$$$3
+page-symbol-symbol-2=Course/which_clef.txt=$$$3
+page-symbol-symbol-2=Course/which_clef.txt=$$$3
+page-symbol-symbol-2=Course/which_clef.txt=$$$3
 
 
 // Topic

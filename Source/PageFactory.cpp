@@ -19,6 +19,14 @@ Page* CreatePageSymbolSymbol()
   return page;
 }
 
+// 2 possible answers instead of 4
+Page* CreatePageSymbolSymbol2()
+{
+  Page* page = CreatePageSymbolSymbol();
+  page->SetGuiName("symbol_symbol_2"); // page_*.txt
+  return page;
+}
+
 Page* CreatePageSymbolText()
 {
   PageMultiChoice* page = new PageMultiChoice;
@@ -62,6 +70,7 @@ PageFactory::PageFactory()
   Add("page-text-symbol", CreatePageTextSymbol);
   Add("page-text-text", CreatePageTextText);
   Add("page-symbol-symbol", CreatePageSymbolSymbol);
+  Add("page-symbol-symbol-2", CreatePageSymbolSymbol2);
   Add("page-symbol-text", CreatePageSymbolText);
   Add("page-symbol-kb", CreatePageSymbolKb);
 }
