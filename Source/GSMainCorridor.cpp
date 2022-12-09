@@ -59,6 +59,15 @@ GSMainCorridor::GSMainCorridor()
   SetMode(CorridorModeWait::ID);
 }
 
+void GSMainCorridor::LoadCourse()
+{
+  // Load the course which this app presents to the user: we only expect there to
+  //  be one instance. We could potentially load this depending on config/user choice.
+  std::string courseFile = "Course/grade-1-level-" + ToString(m_levelNum) + ".txt.course";
+  Course* course = (Course*)TheResourceManager::Instance()->GetRes(courseFile);
+  SetCourse(course);
+}
+
 bool GSMainCorridor::LoadTappables()
 {
   // Get root node for adding tappables - TODO camera?
@@ -210,6 +219,7 @@ void GSMainCorridor::SetLevel(int levelNum)
   m_levelNum = levelNum;
 
   // Load course for this level
+  LoadCourse();
 
   // Load 3D for this level
   // Load classroom doors for each Topic in this level

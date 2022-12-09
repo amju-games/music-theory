@@ -75,6 +75,7 @@ protected:
   bool LoadTappables();
   void ChangeMode();
   void SetCameraForNewLevel(bool wentUpNotDown);
+  void LoadCourse();
 
 private:
   // Each topic has a door. We open the door for the chosen topic.

@@ -1,0 +1,105 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Grade1 course definition
+// A course is defined by a series of topics. Each topic has 'pages' of learning materials.
+// When a topic is completed, it unlocks further topics in the course.
+
+// file version
+1
+
+// Num topics
+5
+
+// Topic
+// ID
+learning-the-notes
+// Localised display name
+// Learning the Notes TODO Maybe 'Pitch' ?
+$$$170
+// Group
+4
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
+5
+// Normally, pages are defined as a vec of strings:
+// 1. base name for page gui filename
+// 2. Dictionary defining Questions
+// 3. Instructions text
+page-symbol-symbol-2=Course/which_clef.txt=$$$3
+page-symbol-text=Course/higher_or_lower.txt=$$$92
+page-symbol-symbol=Course/name_the_note.txt=$$$93
+// Special case page:
+// 3rd param is x offset for keyboard=moving mid C close to left edge of screen
+page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
+page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
+
+// Topic
+// ID
+notes-and-rests
+// Localised display name
+@@@Notes and Rests
+// Group
+4
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
+4
+page-symbol-symbol=Course/rest-equivs.txt=@@@What has the same value?
+page-symbol-symbol=Course/note-equivs.txt=@@@What has the same value?
+page-symbol-text=Course/note-rest-names.txt=$$$92
+page-text-symbol=Course/note-rest-symbols.txt=$$$92
+
+// Topic
+// ID
+keys-and-scales
+// Localised display name
+// Keys and Scales
+$$$171
+// Group
+4
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
+4
+page-symbol-text=Course/whats_the_scale.txt=$$$94
+page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
+page-symbol-text=Course/whats_the_key_sig.txt=$$$96
+page-symbol-text=Course/intervals.txt=$$$100
+
+// Topic
+// ID
+bars-and-time-sigs
+// Localised display name
+@@@Bars and Time Sigs
+// Group
+1
+// Topics unlocked by this one
+none
+// Pages
+2
+page-symbol-symbol=Course/missing_time_sig.txt=@@@What is the time signature?
+page-symbol-symbol=Course/missing_rest.txt=@@@What is the missing rest?
+//page-symbol-text=Course/time_sigs.txt=$$$99
+
+// Topic
+// ID
+musical-terms-symbols-1
+// Localised display name
+// Musical terms and Symbols
+$$$9
+// Group
+3
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
+2
+page-text-text=Course/musical_terms.txt=$$$99
+page-symbol-text=Course/musical_symbols.txt=$$$99
+
+
