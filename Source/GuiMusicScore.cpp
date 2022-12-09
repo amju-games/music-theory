@@ -3,6 +3,8 @@
 
 #include <mutex> // call_once
 #include <unordered_map> // map glyph names to ascii codes
+
+#include <BmFont.h>
 #include <DrawRect.h>
 #include <GuiFactory.h>
 #include <ReportError.h>
@@ -18,9 +20,15 @@
 // Draw bounding rect of every glyph
 //#define DEBUG_DRAW_GLYPH_RECTS
 
+#define USE_BM_FONT
+
 namespace Amju
 {
+#ifdef USE_BM_FONT
+const char* FONT_FILE_NAME = "font2d/Guido2compressed/guido2_0.png";
+#else
 const char* FONT_FILE_NAME = "font2d/Guido2/guido2-60pt.png";
+#endif
 
 #ifdef DEBUG_DRAW_GLYPH_RECTS
 static std::vector<Rect> glyphRects;
@@ -203,7 +211,20 @@ GuiMusicScore::GuiMusicScore()
 
   // Create texture atlas. TODO CONFIG
   // Image is a resource, only loaded once.
-  m_atlas.Load(FONT_FILE_NAME, 16, 14, 1, 1);
+#ifdef USE_BM_FONT
+  static BmFontTextureSequence* bm = nullptr; 
+  if (!bm)
+  {
+    bm = new BmFontTextureSequence;
+    Texture* tex = (Texture*)TheResourceManager::Instance()->GetRes(FONT_FILE_NAME);
+    bm->Set(tex, 1, 1, 1, 1);
+    bm->LoadBmFont("font2d/Guido2compressed/guido2.fnt");
+  }
+  m_atlas = bm;
+#else
+  m_atlas = new TextureSequence;
+  m_atlas->Load(FONT_FILE_NAME, 16, 14, 1, 1);
+#endif
 
   m_fgCol = Colour(0, 0, 0, 1); // default to black
 
@@ -333,7 +354,7 @@ void GuiMusicScore::Draw()
   rtt->Begin();
 #endif
 
-  m_atlas.Bind();
+  m_atlas->Bind();
   AmjuGL::PushMatrix();
   AmjuGL::Translate(pos.x, pos.y, 0);
   AmjuGL::Scale(size.x, size.y, 1);
@@ -729,8 +750,12 @@ void GuiMusicScore::BuildTriList()
     {
       AmjuGL::Tri t[2];
 
-      m_atlas.SetSize(g.m_scale.x, g.m_scale.y);
-      m_atlas.MakeTris(g.m_char - ' ', 1.f, t, g.m_pos.x, g.m_pos.y);
+      m_atlas->SetSize(g.m_scale.x, g.m_scale.y);
+#ifdef USE_BM_FONT
+      m_atlas->MakeTris(g.m_char, 1.f, t, g.m_pos.x, g.m_pos.y);
+#else
+      m_atlas->MakeTris(g.m_char - ' ', 1.f, t, g.m_pos.x, g.m_pos.y);
+#endif
 
       SetQuadColour(t, g.m_colour);
 

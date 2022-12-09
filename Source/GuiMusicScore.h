@@ -142,7 +142,7 @@ protected:
 
 protected:
   RCPtr<TriList> m_triList; 
-  TextureSequence m_atlas; // music font - actual image is a resource.
+  RCPtr<TextureSequence> m_atlas; // music font - actual image is a resource.
   Colour m_fgCol; // default colour for all glyphs
   Colour m_highlightColour;
 
