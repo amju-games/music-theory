@@ -40,7 +40,7 @@ elastic
 colour
 ffffffff, ffffff20
 
-// Pause button
+// Quit button
 // element type
 gui-button
 // Element name
@@ -48,13 +48,13 @@ pause-button
 // pos (coords are -1..1)
 -0.9, 0.9
 // size
-0.2, 0.15
+0.15, 0.15
 // Image 
-Image/gui-button-2.png
+Image/gui-button-1.png
 // Text
-QUIT
+G
 // Font name, size
-dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
+icon, 2.0, fgcol=ffffff, bgcol=FF0949
 
 
 gui-comp

@@ -1,0 +1,19 @@
+// font
+// version
+1
+// size
+0.5
+
+// bitmap + alpha
+font2d/Icon/icon-font.png
+
+// no of chars in x
+4
+// no of chars in y
+4
+
+// start char = 'A'
+65
+
+// widths -- not used, can be any widths file
+font2d/Dimbo/dimbo-160pt-widths.txt

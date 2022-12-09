@@ -19,8 +19,8 @@ play-button
 // size
 0.1, 0.1
 Image/gui-button-1.png
->
-arial, 2.0, fgcol=ffffff, bgcol=4E69F4
+B
+icon, 2.0, fgcol=ffffff, bgcol=4E69F4
 
 
 animation
