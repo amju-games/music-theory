@@ -3,6 +3,7 @@
 
 #include <Game.h>
 #include <GuiText.h>
+#include <MessageQueue.h>
 #include "GSMainMenu.h"
 #include "GSTopicEnd.h"
 
@@ -10,7 +11,8 @@ namespace Amju
 {
 static void OnOK(GuiElement*)
 {
-  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
+  TheGSTopicEnd::Instance()->ScrollUp();
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainMenu>, SecondsFromNow(1.0f)));
 }
 
 GSTopicEnd::GSTopicEnd()

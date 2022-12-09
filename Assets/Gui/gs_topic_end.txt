@@ -39,23 +39,100 @@ linear
 translate
 0,0 ; 0, 2.2
 
+animation
+clean-anim
+const
+one
+
+
 gui-comp
 everything-that-scrolls-up
-5
+11
 
 gui-text
 topic-end-text1
--1.0, 0.9
+-1.0, 0.7
 2.0, 0.4
 WOW!
 dimbo, 1.5, multi, fgcol=000000
 
 gui-text
 topic-end-text2
--1.0, 0.7
+-1.0, 0.5
 2.0, 0.4
 You scored
 arial, 1.0, multi, fgcol=000000
+
+// Pulse 1
+
+animation
+name-not-used
+repeat
+1.5
+linear
+
+colour
+F6D84C80, F6D84C00
+
+scale
+0.1, 0.1; 4.0, 4.0
+-0.05, 0
+
+gui-image
+bulb
+0, 0
+1, 1
+Image/bulb.png
+
+
+
+// Pulse 2
+// delay
+animation
+name-not-used
+one-shot
+1.0
+step
+
+animation
+name-not-used
+repeat
+1.5
+linear
+
+colour
+F6D84C80, F6D84C00
+
+scale
+0.1, 0.1; 5.0, 5.0
+-0.05, 0
+
+gui-image
+bulb
+0, 0
+1, 1
+Image/bulb.png
+
+
+// Sun
+colour
+F6D84C
+scale
+1.0, 1.0
+-0.05, 0
+gui-image
+bulb
+0, 0
+1, 1
+Image/bulb.png
+
+
+// Ground
+gui-image
+underground
+-1.0, -2.2
+2.0, 1.2
+Image/underground3.png
 
 // Top number. OK, "numerator"
 
@@ -71,29 +148,29 @@ ffffff00, ffffffff
 
 gui-text
 num-text
--1.0, 0.55
+-1.0, 0.3
 2.0, 0.4
 NUM
-dimbo, 4.0, multi, fgcol=000000
+dimbo, 3.0, multi, fgcol=000000
 
 // Mid line: animated line drawing
 
 animation
 name-not-used
 one-shot
-1.5
+1.2
 step
 
 animation
 name-not-used
 one-shot
-0.7
+0.3
 linear
 
 line-drawing
 // Name, Position, Size
 line-drawing-mid-line
-0, 0.2
+0, 0.0
 1, 1
 // Start width
 0.01
@@ -110,7 +187,7 @@ stroke-mid-line.txt
 animation
 name-not-used
 one-shot
-3.0
+1.8
 step
 
 colour
@@ -118,10 +195,10 @@ ffffff00, ffffffff
 
 gui-text
 denom-text
--1.0, 0.2
+-1.0, 0.0
 2.0, 0.4
 10
-dimbo, 4.0, multi, fgcol=000000
+dimbo, 3.0, multi, fgcol=000000
 
 
 // TODO Delay?
@@ -150,7 +227,7 @@ ffffff00, ffffffff
 
 gui-text
 comment-text
--1.0, -0.2
+-1.0, -0.4
 2.0, 0.4
 Have some more hints!
 arial, 1.0, multi, fgcol=000000
