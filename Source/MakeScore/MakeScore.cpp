@@ -193,6 +193,7 @@ public:
   std::string ToString();
   void MakeInternal();
   void SetScale(float scale) { m_scale = scale; }
+  void SetY(float y) { m_y = y; }
 
   // Add beam groupings
   // Replace beamed quaver/semiquaver glyphs with crotchet glyphs
@@ -227,10 +228,12 @@ private:
   
   // If true, all glyphs on one line, separated by ';'
   // Else each is on a separate line.
-  bool m_outputOnOneLine = false;
+  bool m_outputOnOneLine = true;
 
   // Scale of all glyphs
   float m_scale = 1.0f;
+
+  float m_y = 0;
 
   std::string m_input;
 
@@ -261,8 +264,13 @@ private:
       bool yesTime = (timeval > 0);
 
       if (yesTime)
-      {      
-        res += "TIME, " + Str(startTime) + ", " + Str(timeval + startTime) + " ; ";
+      { 
+        float start = startTime;
+        if (start == 0)
+        {
+          start = 0.01f; // so first glyph is not highlighted until anim starts
+        }     
+        res += "TIME, " + Str(start) + ", " + Str(timeval + startTime) + " ; ";
 
         if (!IsRest(realGlyphName))
         {
@@ -531,8 +539,6 @@ private:
       Glyph* gl = new Glyph(s, order);
       gl->SetScale(m_scale); 
 
-std::cout << "Timeval for \"" << s << "\" is " << GetTimeVal(s) << "\n";
- 
       // Set duration for this musical symbol
       gl->SetTimeVal(GetTimeVal(s));
 
@@ -673,7 +679,10 @@ std::cout << "Timeval for \"" << s << "\" is " << GetTimeVal(s) << "\n";
         {
           const float TIME_SIG_WIDTH = 0.3f; // ?
           // Reduce available width
-          w = (m_width - TIME_SIG_WIDTH - 2 * xoff) / (numGlyphs - 2.0f);
+          if (numGlyphs > 2)
+          {
+            w = (m_width - TIME_SIG_WIDTH - 2 * xoff) / (numGlyphs - 2.0f);
+          }
           xoff += TIME_SIG_WIDTH; // move other glyphs to the right      
  
           m_timeSigGlyph->x = x; // plus some extra?
@@ -782,8 +791,6 @@ void MakeScore::CalcStartTimes()
     totalDuration += bar->GetDuration();
   }
 
-  std::cout << "Total duration: " << totalDuration << "\n";
-
   // Use totalDuration to normalise duration of each glyph, and cumulative
   //  duration, so we set the start time of each glyph within 0..1
  
@@ -814,7 +821,7 @@ void MakeScore::CalcBarSizesAndPositions()
 
   // Set (left, bottom) position of each bar
   float x = 0;
-  float y = 0; // SET_Y
+  float y = m_y;
 
   for (auto& bar : m_bars)
   {
@@ -829,7 +836,7 @@ std::string MakeScore::ToString()
 
   // First, output a stave. For rhythm only, it's a single line.
   // TODO Multiple lines 
-  res += "stave-line, 0, " + Str(DEFAULT_HEIGHT) + ", " + 
+  res += "stave-line, 0, " + Str(DEFAULT_HEIGHT + m_y) + ", " + 
     Str(PAGE_WIDTH) + ", " + Str(m_scale) + 
     LineEnd(m_outputOnOneLine);
 
@@ -846,9 +853,14 @@ int main()
   std::string input;
   std::getline(std::cin, input);
 
+std::cout << "// " << input << "\n"; 
+
   MakeScore ms(input);
   ms.SetScale(0.6f);
-////  ms.SetY(1.0f);
+
+  // For single line rhythm, centre vertically
+  // TODO Auto centre 1 or more lines
+  ms.SetY(0.5f);
 
   // TODO Transform input:
   // Add beam groupings
