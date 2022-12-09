@@ -1,0 +1,175 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Start topic
+
+// version
+1
+
+// Colour picker
+
+scale
+1,1
+0, 0
+
+gui-comp
+colour-picker-root
+4
+
+gui-comp
+colour-picker-row-0
+4
+
+gui-button
+button-colour-0
+0, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=000000
+
+gui-button
+button-colour-1
+0.1, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=404040
+
+gui-button
+button-colour-2
+0.2, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=808080
+
+gui-button
+button-colour-3
+0.3, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=e0e0e0
+
+
+translate
+0, .2
+
+gui-comp
+colour-picker-row-1
+4
+
+gui-button
+button-colour-4
+0, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=800000
+
+gui-button
+button-colour-5
+0.1, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=ff0000
+
+gui-button
+button-colour-6
+0.2, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=e04000
+
+gui-button
+button-colour-7
+0.3, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=e0e000
+
+
+translate
+0, .4
+
+gui-comp
+colour-picker-row-2
+4
+
+gui-button
+button-colour-8
+0, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=000080
+
+gui-button
+button-colour-9
+0.1, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=0000f0
+
+gui-button
+button-colour-10
+0.2, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=0040f0
+
+gui-button
+button-colour-11
+0.3, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=00f0f0
+
+
+translate
+0, .6
+
+gui-comp
+colour-picker-row-3
+4
+
+gui-button
+button-colour-12
+0, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=008000
+
+gui-button
+button-colour-13
+0.1, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=00f000
+
+gui-button
+button-colour-14
+0.2, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=00f040
+
+gui-button
+button-colour-15
+0.3, 0
+0.1, 0.1
+Image/gui-button-square.png
+$$$empty
+BUTTON, 3., fgcol=ffffff, bgcol=00f0f0
+
+

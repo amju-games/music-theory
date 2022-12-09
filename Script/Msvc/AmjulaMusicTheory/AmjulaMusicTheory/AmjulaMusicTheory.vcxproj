@@ -273,6 +273,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\BassPlayMidi.cpp" />
     <ClCompile Include="..\..\..\..\Source\CentreMsg.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ColourPicker.cpp" />
     <ClCompile Include="..\..\..\..\Source\ComposerList.cpp" />
     <ClCompile Include="..\..\..\..\Source\Consts.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorCamController.cpp" />
@@ -412,6 +413,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\CentreMsg.h" />
+    <ClInclude Include="..\..\..\..\Source\ColourPicker.h" />
     <ClInclude Include="..\..\..\..\Source\ComposerList.h" />
     <ClInclude Include="..\..\..\..\Source\Consts.h" />
     <ClInclude Include="..\..\..\..\Source\CorridorCamController.h" />
