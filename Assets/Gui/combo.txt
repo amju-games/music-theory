@@ -6,9 +6,15 @@
 
 // Combo display
 
+// HIDE FOR NOW
+translate
+1, 0
+
+
 gui-comp
 combo-comp
 3
+
 
 animation
 name-not-used
