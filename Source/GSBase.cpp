@@ -10,6 +10,7 @@
 #include "ComposerList.h"
 #include "GSBase.h"
 #include "LurkMsg.h"
+#include "Notebook.h" // TODO TEMP TEST for debugging
 #include "PrintGui.h"
 #include "SerialReqManager.h"
 #include "ShareManager.h"
@@ -153,6 +154,13 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
     {
       std::cout << "Null GUI!\n";
     }
+  }
+
+  // Show notebook
+  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
+    (ke.key == 'n' || ke.key == 'N'))
+  {
+    TheLurker::Instance()->Queue(new Notebook);
   }
 
 #endif

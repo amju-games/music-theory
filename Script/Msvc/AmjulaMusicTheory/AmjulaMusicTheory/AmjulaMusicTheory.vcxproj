@@ -320,6 +320,7 @@
     <ClCompile Include="..\..\..\..\Source\MySceneGraph.cpp" />
     <ClCompile Include="..\..\..\..\Source\NetRequest.cpp" />
     <ClCompile Include="..\..\..\..\Source\NetSend.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Notebook.cpp" />
     <ClCompile Include="..\..\..\..\Source\NumUpdate.cpp" />
     <ClCompile Include="..\..\..\..\Source\Page.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageFactory.cpp" />
@@ -458,6 +459,7 @@
     <ClInclude Include="..\..\..\..\Source\MySceneGraph.h" />
     <ClInclude Include="..\..\..\..\Source\NetRequest.h" />
     <ClInclude Include="..\..\..\..\Source\NetSend.h" />
+    <ClInclude Include="..\..\..\..\Source\Notebook.h" />
     <ClInclude Include="..\..\..\..\Source\NumUpdate.h" />
     <ClInclude Include="..\..\..\..\Source\Page.h" />
     <ClInclude Include="..\..\..\..\Source\PageDrawOnStave.h" />

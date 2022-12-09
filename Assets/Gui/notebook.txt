@@ -1,0 +1,98 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// notebook.txt
+// version
+1
+
+// Element type
+gui-comp
+// Name
+notebook
+// Num children
+5
+
+// Quit button
+// element type
+gui-button
+// Element name
+quit-button
+// pos (coords are -1..1)
+-0.96, 0.92
+// size
+0.12, 0.12
+// Image 
+Image/gui-button-1.png
+// Text
+// Quit "X"
+G
+// Font name, size
+icon, 1.5, fgcol=ffffff, bgcol=FF0949
+
+
+
+elastic
+0, -2
+
+gui-comp
+// Name
+notebook-pages
+// Num children
+2
+
+// Background image of pages
+gui-image
+notebook-bg
+// Pos, size
+-1.0, 0.8
+2, 2
+Image/grave/book1.png
+
+gui-comp
+// name
+page-anchor
+0
+
+// Page back to page 1 button
+gui-button
+page-1-button
+// pos (coords are -1..1)
+-0.96, 0.1
+// size
+0.12, 0.12
+// Image 
+Image/gui-button-1.png
+// Text - icon << arrow
+C
+// Font name, size
+icon, 1.5, fgcol=ffffff, bgcol=4E69F4
+
+// Page left button
+gui-button
+left-button
+// pos (coords are -1..1)
+-0.82, 0.1
+// size
+0.12, 0.12
+// Image 
+Image/gui-button-1.png
+// Text - icon left arrow
+A
+// Font name, size
+icon, 1.5, fgcol=ffffff, bgcol=4E69F4
+
+// Page right button
+gui-button
+right-button
+// pos (coords are -1..1)
+.82, 0.1
+// size
+0.12, 0.12
+// Image 
+Image/gui-button-1.png
+// Text - icon right arrow
+B
+// Font name, size
+icon, 1.5, fgcol=ffffff, bgcol=4E69F4
+
+
