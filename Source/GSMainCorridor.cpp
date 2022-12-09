@@ -11,7 +11,6 @@
 #include <LoadScene.h>
 #include <MessageQueue.h>
 #include <ResourceManager.h>
-#include <SceneGraph.h>
 #include <Sign.h>
 #include <StringUtils.h>
 #include <Timer.h>
@@ -27,6 +26,7 @@
 #include "GSAbout.h"
 #include "GSMainCorridor.h"
 #include "GSTitle.h"
+#include "MySceneGraph.h"
 #include "PlayWav.h"
 #include "UserProfile.h"
 

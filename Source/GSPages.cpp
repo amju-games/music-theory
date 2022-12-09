@@ -9,7 +9,6 @@
 #include <GuiDecColour.h>
 #include <GuiText.h>
 #include <MessageQueue.h>
-#include <SceneGraph.h>
 
 #include "Consts.h"
 #include "Course.h"
@@ -21,6 +20,7 @@
 #include "GuiLineDrawing.h"
 #include "Hints.h"
 #include "Md2SceneNode.h" // TODO promote to Amjulib
+#include "MySceneGraph.h"
 #include "PlayWav.h"
 #include "PrintGui.h"
 #include "Topic.h"

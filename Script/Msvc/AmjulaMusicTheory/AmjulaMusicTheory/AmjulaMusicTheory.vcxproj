@@ -303,6 +303,7 @@
     <ClCompile Include="..\..\..\..\Source\MusicalTermQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\Dictionary.cpp" />
     <ClCompile Include="..\..\..\..\Source\MusicEvent.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MySceneGraph.cpp" />
     <ClCompile Include="..\..\..\..\Source\Page.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageFactory.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageMultiChoice.cpp" />
@@ -389,6 +390,7 @@
     <ClInclude Include="..\..\..\..\Source\MusicalTermQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\Dictionary.h" />
     <ClInclude Include="..\..\..\..\Source\MusicEvent.h" />
+    <ClInclude Include="..\..\..\..\Source\MySceneGraph.h" />
     <ClInclude Include="..\..\..\..\Source\Page.h" />
     <ClInclude Include="..\..\..\..\Source\PageDrawOnStave.h" />
     <ClInclude Include="..\..\..\..\Source\PageFactory.h" />

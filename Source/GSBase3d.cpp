@@ -4,8 +4,8 @@
 #include <AmjuGL.h>
 #include <LoadScene.h>
 #include <ResourceManager.h>
-#include <SceneGraph.h>
 #include "GSBase3d.h"
+#include "MySceneGraph.h"
 
 namespace Amju
 {
