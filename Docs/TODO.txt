@@ -9,6 +9,9 @@ Test on different devices/screen aspect ratios
 
 =============================================
 
+** Show correct answer if you get it wrong!!!!! **
+
+
 Rotate decorator: very broken. Need a state just to debug/fix it.
 
 Show ALL topics on BIG tree/plant - but they are disabled until unlocked.
