@@ -23,9 +23,18 @@ bool QuestionProgress::AllQuestionsUsed() const
 
 void QuestionProgress::SetQuestionUsed(int q)
 {
+  // Should not already be a member of m_questionsUsed
+  Assert(std::find(m_questionsUsed.begin(), m_questionsUsed.end(), q) == 
+    m_questionsUsed.end());
+
   int numQs = m_questionsUsed.size();
   Assert(numQs < m_maxNumQuestions);
-  m_questionsUsed.insert(q);
+  m_questionsUsed.push_back(q);
+
+  // Sort - required for set_symmetric_difference below, and for testing,
+  //  we want to compare vectors pretending to be sets.
+  std::sort(m_questionsUsed.begin(), m_questionsUsed.end());
+
   Assert(m_questionsUsed.size() == numQs + 1);
 }
 
@@ -41,11 +50,13 @@ QuestionSet QuestionProgress::GetUnusedSet() const
   std::iota(nums.begin(), nums.end(), 0);
   QuestionSet result;
 
+  // m_questionsUsed is sorted, so set_symmetric_difference is ok here.
   std::set_symmetric_difference(
     m_questionsUsed.begin(), m_questionsUsed.end(),
     nums.begin(), nums.end(),
-    std::inserter(result, result.end())
+    std::back_inserter(result)
   );
+
   return result;
 }
 

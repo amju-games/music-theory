@@ -36,6 +36,8 @@ TEST_CASE("QuestionProgress get used set", "QuestionProgress")
 
   qp.SetQuestionUsed(0);
   REQUIRE(qp.GetUsedSet() == QuestionSet({ 0 })); 
+
+  // NB the sets on the rhs here should be sorted
   REQUIRE(qp.GetUnusedSet() == QuestionSet({ 1, 2, 3 })); 
 
   qp.SetQuestionUsed(2);

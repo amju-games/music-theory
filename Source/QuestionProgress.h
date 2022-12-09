@@ -3,13 +3,15 @@
 
 #pragma once
 
-#include <set>
+#include <vector>
 
 namespace Amju
 {
 // Set of indices into a Dictionary, used to represent questions which
 //  hae been used, or not used.
-using QuestionSet = std::set<int>;
+// No duplicates, but we use vector so we can pick an element at random,
+//  (and for general cache-friendliness).
+using QuestionSet = std::vector<int>;
 
 // * QuestionProgress *
 // Stores progress through a dictionary of questions. This is used to
