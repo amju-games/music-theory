@@ -55,6 +55,7 @@
 #include "GSTitle.h"
 #include "GSTopicEnd.h"
 #include "GSUserDrawSave.h"
+#include "Gui3dScene.h"
 #include "GuiLineDrawing.h"
 #include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
@@ -267,6 +268,7 @@ static void SetUpGui()
   // Set image used for rounded rectangles
   GuiRect::SetCornerImage("Image/corner.png");
 
+  Gui3dScene::AddToFactory();
   GuiLineDrawing::AddToFactory();
   GuiMusicKb::AddToFactory();
   GuiMusicScore::AddToFactory();
