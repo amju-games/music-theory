@@ -83,7 +83,7 @@ protected:
 
   // Load the dictionary (it's a resource in release mode, but we reload it in
   //  debug mode).
-  Dictionary* Page::LoadDictionary();
+  Dictionary* LoadDictionary();
 
 protected:
   // Base gui file name - we append current orientation 
