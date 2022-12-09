@@ -205,8 +205,9 @@ std::string Bar::ToString(bool oneLine)
 {
   std::string res;
 
-  // Clef for each stave, if first bar of line
-  if (m_isFirstBarOfLine)
+  // Clef for each stave, if first bar of line, and single or double
+  //  stave - not if no stave or just rhythm line
+  if (YesShowClefAtFrontOfBar())
   {
     int numStaves = 1; // TODO 
     for (int s = 0; s < numStaves; s++)
@@ -256,13 +257,20 @@ std::string Bar::ToString(bool oneLine)
   return res;
 }
 
+bool Bar::YesShowClefAtFrontOfBar() const
+{
+  return (m_isFirstBarOfLine &&
+          m_staveType != StaveType::STAVE_TYPE_NONE &&
+          m_staveType != StaveType::STAVE_TYPE_RHYTHM);
+}
+
 // Get number of distinct glyphs horizontally
 // (e.g. a chord is only one 'glyph' as all the notes take up only 
 //  one horizontal space/share the same stem)
 int Bar::GetGlyphCount() const
 {
   int glyphCount = static_cast<int>(m_glyphs.size());
-  if (m_isFirstBarOfLine)
+  if (YesShowClefAtFrontOfBar())
   {
     glyphCount++; // clef
   }
@@ -301,7 +309,8 @@ void Bar::SetPos(float x, float y)
   float xoff = m_width / (numGlyphs + 1.0f);
   float w = 0;
 
-  if (m_isFirstBarOfLine)
+  // Displaying clef at front of this bar?
+  if (YesShowClefAtFrontOfBar())
   {
     // Need space for clef, so shunt everything right
     const float CLEF_WIDTH = 0.45f; // ?
