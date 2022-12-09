@@ -139,7 +139,7 @@ static bool GlyphNameToCh(const std::string& s, char* ch)
 GuiMusicScore::GuiMusicScore()
 {
   // Create texture atlas. TODO CONFIG
-  m_atlas.Load("Fonts/Guido2/guido2-60pt.png", 16, 14, 1, 1);
+  m_atlas.Load("font2d/Guido2/guido2-60pt.png", 16, 14, 1, 1);
 
   m_fgCol = Colour(0, 0, 0, 1); // default to black
 }
