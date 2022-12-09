@@ -46,6 +46,11 @@ static void OnPause(GuiElement*)
   TheGSPages::Instance()->OnPause();
 }
 
+static void OnSpeechBubbleOK(GuiElement*)
+{
+  TheGSPages::Instance()->OnSpeechBubbleOK();
+}
+
 // Called from timed FuncMessage
 static void GoToNextPage()
 {
@@ -95,6 +100,14 @@ void GSPages::ReloadGui()
   Assert(elem);
   elem->SetCommand(Amju::OnQuitConfirmCancel);
 
+  elem = GetElementByName(m_gui, "speech-bubble-ok-button");
+  Assert(elem);
+  elem->SetCommand(Amju::OnSpeechBubbleOK);
+
+  // Hide speech bubble initially
+  GuiElement* speechBubble = GetElementByName(m_gui, "speech-bubble");
+  speechBubble->SetVisible(false);
+
   ShowHints();
 }
 
@@ -112,7 +125,7 @@ void GSPages::OnActive()
   // How many Hints are available?
   m_numHintsAvailable = m_userConfig->GetInt(HINTS_AVAILABLE_KEY, DEFAULT_HINTS_AVAIL);
 
-  ShowHints();
+//  ShowHints(); // ? Done in ReloadGui
 
   NextPage();
 
@@ -129,6 +142,16 @@ void GSPages::OnDeactive()
   TheUserProfile()->Save();
   // Just in case we switch users or something happens to invalidate this
   m_userConfig = nullptr;
+}
+
+void GSPages::HideTickAndCross()
+{
+  GuiElement* tick = GetElementByName(m_gui, "tick");
+  GuiElement* cross = GetElementByName(m_gui, "cross");
+  tick->ResetAnimation();
+  cross->ResetAnimation();
+  tick->SetVisible(false);
+  cross->SetVisible(false);
 }
 
 void GSPages::NextPage()
@@ -163,13 +186,7 @@ void GSPages::NextPage()
 
   m_numPagesShown++;
 
-  // Tick/cross 
-  GuiElement* tick = GetElementByName(m_gui, "tick");
-  GuiElement* cross = GetElementByName(m_gui, "cross");
-  tick->ResetAnimation();
-  cross->ResetAnimation();
-  tick->SetVisible(false);
-  cross->SetVisible(false);
+  HideTickAndCross();
 
   // Rub out blackboard
   GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
@@ -262,15 +279,23 @@ void GSPages::AddPage(Page* p)
   m_page = p;
 }
 
+void GSPages::OnPlayerMadeChoice()
+{
+  GuiElement* speechBubble = GetElementByName(m_gui, "speech-bubble");
+  speechBubble->SetVisible(true);
+
+  // Disable everything except the speech bubble OK button
+  SetButtonEnabled("pause-button", false);
+  SetButtonEnabled("hint-button", false);
+  m_page->SetIsEnabled(false);
+}
+
 void GSPages::OnCorrect()
 {
+  OnPlayerMadeChoice();
+
   GuiElement* tick = GetElementByName(m_gui, "tick");
   tick->SetVisible(true);
-
-  // Rub out blackboard
-  GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
-  Assert(ruboutAnim);
-  ruboutAnim->SetVisible(true);
 
   // Happy sound
   // TODO
@@ -278,25 +303,20 @@ void GSPages::OnCorrect()
   // Add to profile/score
   m_numCorrectThisSession++;
   SetPie(m_numPagesShown, Colour(0.f, 1.f, 0.f, 1.f));
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(NEXT_PAGE_TIME)));
 }
 
 void GSPages::OnIncorrect()
 {
+  OnPlayerMadeChoice();
+
   GuiElement* cross = GetElementByName(m_gui, "cross");
   cross->SetVisible(true);
-
-  // Rub out blackboard
-  GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
-  Assert(ruboutAnim);
-  ruboutAnim->SetVisible(true);
 
   // Unhappy sound
   // TODO
 
   m_numIncorrectThisSession++;
   SetPie(m_numPagesShown, Colour(1.f, 0.f, 0.f, 1.f));
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(NEXT_PAGE_TIME)));
 }
 
 void GSPages::OnHint()
@@ -349,7 +369,30 @@ void GSPages::OnPause()
   // Disable page contents
   m_page->SetIsEnabled(false); 
 }
-  
+ 
+void GSPages::OnSpeechBubbleOK()
+{
+  // Hide speech bubble
+  GuiElement* speechBubble = GetElementByName(m_gui, "speech-bubble");
+  speechBubble->SetVisible(false);
+
+  HideTickAndCross();
+
+  SetButtonEnabled("pause-button", true);
+  SetButtonEnabled("hint-button", true);
+
+  m_page->SetIsEnabled(true);
+
+  // Rub out blackboard
+  GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
+  Assert(ruboutAnim);
+  ruboutAnim->SetVisible(true);
+
+  // Go to next page (or end of state), after a delay to show the board
+  //  getting rubbed out.
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(NEXT_PAGE_TIME)));
+}
+
 void GSPages::OnQuitConfirmCancel()
 {
   // Swipe off confirm dialog

@@ -39,7 +39,8 @@ public:
   void OnHint();
   void OnPause();
   void OnQuitConfirmCancel();
-  
+  void OnSpeechBubbleOK();
+
   // Start showing pages for the given topic (topic number as for Course)
   void StartTopic(int topicNum);
 
@@ -48,11 +49,10 @@ protected:
   void SetPie(int n, const Colour& c);
   void SetButtonEnabled(const std::string& buttonName, bool enabled);
   virtual void ReloadGui() override;
+  void OnPlayerMadeChoice(); // common tasks for OnCorrect/OnIncorrect
+  void HideTickAndCross();
 
 protected:
-  //std::vector<RCPtr<Page>> m_pages;
-  //int m_currentPage = 0;
-  
   RCPtr<Page> m_page;
 
   // Number of pages shown in this topic session
