@@ -12,7 +12,7 @@ namespace Amju
 class CorridorModeExitClassroom : public CorridorMode
 {
 public:
-  static const int ID = 2;
+  static const int ID;
   virtual void Update() override;
 };
 }

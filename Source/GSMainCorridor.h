@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <array>
+#include <map>
 #include <SceneNodeCamera.h>
 #include <Singleton.h>
 #include "CorridorCamController.h"
@@ -91,7 +91,8 @@ private:
   CorridorCamController m_camController;
 
   // The different modes/states we can be in: State pattern
-  std::array<RCPtr<CorridorMode>, 6> m_modes;
+  // The int key is a unique ID for each CorridorMode type.
+  std::map<int, RCPtr<CorridorMode>> m_modes;
   RCPtr<CorridorMode> m_currentMode;
   int m_newModeId = -1; // set to a valid index in m_modes when we want to change mode
 

@@ -46,8 +46,9 @@ GSMainCorridor::GSMainCorridor()
   m_modes[CorridorModeShowTappable::ID] = new CorridorModeShowTappable;
   m_modes[CorridorModeWait::ID] = new CorridorModeWait;
 
-  for (CorridorMode* cm : m_modes)
+  for (auto p : m_modes)
   {
+    CorridorMode* cm = p.second;
     cm->SetGameState(this);
   }
 

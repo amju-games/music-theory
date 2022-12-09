@@ -10,6 +10,8 @@
 
 namespace Amju
 {
+const int CorridorModeExitTappable::ID = 5;
+
 void CorridorModeExitTappable::Update()
 {
   CorridorMode::Update();

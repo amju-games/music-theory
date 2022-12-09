@@ -22,6 +22,8 @@ void OnDone(GuiElement*)
 }
 } // anon namespace
 
+const int CorridorModeShowTappable::ID = 3;
+
 CorridorModeShowTappable::CorridorModeShowTappable()
 {
   m_guiFilename = "Gui/corridor_mode_show_tappable.txt";

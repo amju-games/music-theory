@@ -5,6 +5,8 @@
 
 namespace Amju
 {
+const int CorridorModeExitClassroom::ID = 2;
+
 void CorridorModeExitClassroom::Update()
 {
   CorridorMode::Update();

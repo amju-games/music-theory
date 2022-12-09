@@ -19,6 +19,8 @@ static const float MAX_DOOR_ANGLE = 2.0f;
 static const float CAMERA_START = 100.0f;
 static const float CAM_ZOOM_MULT = 25.0f;
 
+const int CorridorModeEnterClassroom::ID = 1;
+
 void CorridorModeEnterClassroom::UpdateOpeningDoor()
 {
   if (m_doorIsOpening)

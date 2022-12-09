@@ -13,7 +13,7 @@ namespace Amju
 class CorridorModeShowTappable : public CorridorMode
 {
 public:
-  static const int ID = 3;
+  static const int ID;
   CorridorModeShowTappable();
   virtual void OnActive() override;
   virtual void OnDeactive() override;

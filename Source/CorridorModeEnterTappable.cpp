@@ -10,6 +10,8 @@
 
 namespace Amju
 {
+const int CorridorModeEnterTappable::ID = 4;
+
 void CorridorModeEnterTappable::OnActive()
 {
   CorridorMode::OnActive();

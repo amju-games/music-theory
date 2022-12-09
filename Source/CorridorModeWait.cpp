@@ -26,6 +26,8 @@ static const float MIN_DRAG_DIST = 0.25f; // 1/8 of screen
  
 } // anon namespace
 
+const int CorridorModeWait::ID = 0;
+
 CorridorModeWait::CorridorModeWait()
 {
   m_guiFilename = "Gui/corridor_mode_wait.txt";

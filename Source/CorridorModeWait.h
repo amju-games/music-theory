@@ -15,7 +15,7 @@ class Tappable;
 class CorridorModeWait : public CorridorMode
 {
 public:
-  static const int ID = 0;
+  static const int ID;
   CorridorModeWait();
   virtual void OnActive() override;
   virtual void Update() override;
