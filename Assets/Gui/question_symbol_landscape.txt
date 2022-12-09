@@ -6,6 +6,23 @@
 // v.
 1
 
+gui-comp
+// Name
+button-and-music-symbols
+// Num children
+2
+
+gui-button
+play-button
+// pos (coords are -1..1)
+0.6, 0.55
+// size
+0.1, 0.1
+Image/gui-button-1.png
+>
+arial, 2.0, fgcol=ffffff, bgcol=4E69F4
+
+
 animation
 fade-in-music-score
 one-shot
@@ -18,13 +35,13 @@ ffffff00, ffffffff
 // Clean anim and animate from 0 to 1 linearly, to animate highlighted
 //  glyphs on music score
 animation
-clean-anim
+play-music-trigger
 const
-one
+zero
 
 animation
-highlight-glyphs-anim
-repeat
+play-music-anim
+one-shot
 4.0
 linear
 
