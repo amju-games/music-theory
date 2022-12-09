@@ -190,10 +190,18 @@ void PageMultiChoice::SetUpQuestion()
   MusicalTermQuestion* q = new MusicalTermQuestion;
   m_question = q;
 
+#ifdef _DEBUG
+  // Not a resource, so we can eaily reload
+  Dictionary* dic = new Dictionary;
+  // Strip off traliing ".dictionary", as we are not going through resource loader
+  bool loaded = dic->Load(m_dictionaryFilename);
+  Assert(loaded);
+#else
   // Get musical terms dictionary - this is a Resource.
   Dictionary* dic = dynamic_cast<Dictionary*>(
-    TheResourceManager::Instance()->GetRes(m_dictionaryFilename));
+    TheResourceManager::Instance()->GetRes(m_dictionaryFilename + ".dictionary"));
   Assert(dic);
+#endif
 
   q->SetDictionary(dic);
   q->MakeQuestion();

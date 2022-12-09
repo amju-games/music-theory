@@ -22,16 +22,16 @@ Note lengths
 dotted-notes
 // Pages
 10
-page-symbol-text, Course/crotchet.txt.dictionary
-page-symbol-text, Course/minim.txt.dictionary
-page-symbol-text, Course/crotchet_minim.txt.dictionary
-page-symbol-text, Course/semibreve.txt.dictionary
-page-symbol-text, Course/crotchet_minim_semibreve.txt.dictionary
-page-symbol-text, Course/crotchet_minim_semibreve.txt.dictionary
-page-text-text, Course/minim_length.txt.dictionary
-page-text-text, Course/semibreve_length.txt.dictionary
-page-text-text, Course/note_lengths.txt.dictionary
-page-text-text, Course/note_lengths.txt.dictionary
+page-symbol-text, Course/crotchet.txt
+page-symbol-text, Course/minim.txt
+page-symbol-text, Course/crotchet_minim.txt
+page-symbol-text, Course/semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-text-text, Course/minim_length.txt
+page-text-text, Course/semibreve_length.txt
+page-text-text, Course/note_lengths.txt
+page-text-text, Course/note_lengths.txt
 
 
 
@@ -91,8 +91,17 @@ Rests
 // Topics unlocked by this one
 bar-lines
 // Pages
-1
-page-symbol-text
+10
+page-text-symbol, Course/rest_names.txt
+page-text-symbol, Course/rest_names.txt
+page-text-symbol, Course/rest_names.txt
+page-text-symbol, Course/rest_names.txt
+page-text-symbol, Course/rest_names.txt
+page-text-symbol, Course/rest_names.txt
+page-text-symbol, Course/rest_names.txt
+page-text-symbol, Course/rest_names.txt
+page-text-symbol, Course/rest_names.txt
+page-text-symbol, Course/rest_names.txt
 
 // Topic
 // 2a
@@ -120,16 +129,16 @@ none
 // Pages
 // 10 * musical term pages -- TODO num repeats?
 10
-page-text-text
-page-text-text
-page-text-text
-page-text-text
-page-text-text
-page-text-text
-page-text-text
-page-text-text
-page-text-text
-page-text-text
+page-text-text, Course/musical_terms.txt
+page-text-text, Course/musical_terms.txt
+page-text-text, Course/musical_terms.txt
+page-text-text, Course/musical_terms.txt
+page-text-text, Course/musical_terms.txt
+page-text-text, Course/musical_terms.txt
+page-text-text, Course/musical_terms.txt
+page-text-text, Course/musical_terms.txt
+page-text-text, Course/musical_terms.txt
+page-text-text, Course/musical_terms.txt
 
 // Topic
 // ID
@@ -141,8 +150,17 @@ Musical symbols
 none
 // Pages
 // 10 * musical term pages -- TODO num repeats?
-1
-page-symbol-text
+10
+page-symbol-text, Course/musical_symbols.txt
+page-symbol-text, Course/musical_symbols.txt
+page-symbol-text, Course/musical_symbols.txt
+page-symbol-text, Course/musical_symbols.txt
+page-symbol-text, Course/musical_symbols.txt
+page-symbol-text, Course/musical_symbols.txt
+page-symbol-text, Course/musical_symbols.txt
+page-symbol-text, Course/musical_symbols.txt
+page-symbol-text, Course/musical_symbols.txt
+page-symbol-text, Course/musical_symbols.txt
 
 
 // Topic
@@ -167,7 +185,16 @@ Intervals
 // Unlocks
 none
 // Pages
-1
-//page-intervals-multi-choice
-page-symbol-text
+10
+page-symbol-text, Course/intervals.txt
+page-symbol-text, Course/intervals.txt
+page-symbol-text, Course/intervals.txt
+page-symbol-text, Course/intervals.txt
+page-symbol-text, Course/intervals.txt
+page-symbol-text, Course/intervals.txt
+page-symbol-text, Course/intervals.txt
+page-symbol-text, Course/intervals.txt
+page-symbol-text, Course/intervals.txt
+page-symbol-text, Course/intervals.txt
+
 
