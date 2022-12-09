@@ -45,9 +45,10 @@ void GSTopicEnd::OnActive()
   Assert(text);
   text->SetText(ToString(m_num));
 
-  text = (GuiText*)GetElementByName(m_gui, "denom-text");
-  Assert(text);
-  text->SetText(ToString(m_denom));
+  // No denom, as you play until you run out of lives
+//  text = (GuiText*)GetElementByName(m_gui, "denom-text");
+//  Assert(text);
+//  text->SetText(ToString(m_denom));
 
   // Set comment about score etc
   text = (GuiText*)GetElementByName(m_gui, "comment-text");
