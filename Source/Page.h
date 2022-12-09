@@ -65,11 +65,6 @@ public:
   // Called when user taps piano keyboard
   virtual void OnMusicKbEvent(const MusicKbEvent&) {}
 
-  // Sigh, there is a difference in behaviour if we are showing something new, so
-  //  set this flag if user is learning a new thing.
-  void SetIsLearnMode(bool learn);
-  bool IsLearnMode() const;
-
   // Set the page question, which displays questions using UI
   void SetPageQuestion(PageQuestion*);
 
@@ -100,8 +95,6 @@ protected:
   // The game state which owns this page 
   // TODO This will always be GSPages, no?
   GameState* m_gs = nullptr;
-
-  bool m_isLearnMode = false;
 
   // Config file to save any state we want to remember about this page/topic
   RCPtr<ConfigFile> m_config;

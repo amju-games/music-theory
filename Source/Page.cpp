@@ -198,15 +198,5 @@ void Page::SetGameState(GameState* gs)
 {
   m_gs = gs;
 }
-
-void Page::SetIsLearnMode(bool learn)
-{
-  m_isLearnMode = learn;
-}
-
-bool Page::IsLearnMode() const
-{
-  return m_isLearnMode;
-}
-}
+} // namespace
 
