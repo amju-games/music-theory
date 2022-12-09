@@ -51,7 +51,6 @@
 
 #define SOUND_FONT "Grand Piano"
 
-
 namespace Amju
 {
 // Create global variable window info 
@@ -128,6 +127,19 @@ void StartUpAfterCreateWindow()
   GuiMusicKb::AddToFactory();
   GuiMusicScore::AddToFactory();
 
+#if defined(WIN32) || defined(MACOSX)
+  // Set shader for desktop GL - fixed function doesn't seem to treat vertex colours the
+  //  way we want (i.e. multiply by currently active colour)
+  Shader* sh = AmjuGL::LoadShader("Shaders/" + AmjuGL::GetShaderDir() + "/gui");
+  if (!sh)
+  {
+    ReportError("Failed to load GUI shader.");
+    Assert(0);
+  }
+  std::cout << "Loaded GUI shader OK!\n";
+  AmjuGL::UseShader(sh);
+#endif
+
 //  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
@@ -140,7 +152,7 @@ void StartUpAfterCreateWindow()
 //  TheGame::Instance()->SetCurrentState(TheGSFirstUser::Instance());
 
   TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
-  
+
 }
 }
 
