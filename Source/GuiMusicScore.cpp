@@ -20,6 +20,8 @@
 
 namespace Amju
 {
+const char* FONT_FILE_NAME = "font2d/Guido2/guido2-60pt.png";
+
 #ifdef DEBUG_DRAW_GLYPH_RECTS
 static std::vector<Rect> glyphRects;
 #endif
@@ -201,7 +203,7 @@ GuiMusicScore::GuiMusicScore()
 
   // Create texture atlas. TODO CONFIG
   // Image is a resource, only loaded once.
-  m_atlas.Load("font2d/Guido2/guido2-60pt.png", 16, 14, 1, 1);
+  m_atlas.Load(FONT_FILE_NAME, 16, 14, 1, 1);
 
   m_fgCol = Colour(0, 0, 0, 1); // default to black
 
