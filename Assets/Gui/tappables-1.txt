@@ -1,0 +1,197 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// v
+1
+
+// Tappables: 3d objects which user can tap on to get info.
+
+// num tappables
+2
+
+
+// Picture
+// Name
+picture 1
+// First part is 3d node
+// Node type
+comp
+// Name, matrix, children
+picture-1-root
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  2, 50, 45, 1
+// Num children
+2
+// Child: frame
+scene-mesh-material
+// Obj
+obj/just-frame1.obj
+// Material 
+obj/just-frame-1.mtl
+//
+// Child: picture
+scene-mesh-material
+// Obj
+obj/just-picture.obj
+// Material 
+obj/just-picture-note-lengths-1.mtl
+//
+// Camera eye
+28, 50, 45
+// Cam target
+0, 50, 45
+// GUI to display when we have been tapped
+Gui/tap-picture-note-lengths.txt
+// GUI to put in NOTEBOOK
+Gui/tap-picture-note-lengths.txt
+
+
+
+// Picture
+// Name
+picture 2
+// First part is 3d node
+// Node type
+comp
+// Name, matrix, children
+picture-2-root
+// Matrix
+.5, 0, 0, 0,  0, .5, 0, 0,  0, 0, .5, 0,  2, 20, 45, 1
+// Num children
+2
+// Child: frame
+scene-mesh-material
+// Obj
+obj/just-frame3.obj
+// Material 
+obj/just-frame-gold.mtl
+//
+// Child: picture
+scene-mesh-material
+// Obj
+obj/just-picture.obj
+// Material 
+obj/just-picture-note-lengths-1.mtl
+//
+// Camera eye
+18, 20, 45
+// Cam target
+0, 20, 45
+// GUI to display when we have been tapped
+Gui/tap-picture-note-lengths-quavers.txt
+// GUI to put in NOTEBOOK
+Gui/tap-picture-note-length-quavers.txt
+
+
+
+// Piano
+// Name
+pink piano
+// First part is 3d node
+// Node type
+mesh
+// Name
+tappable-piano
+// Matrix
+.4, 0, 0, 0,  0, 1, 0, 0,  0, 0, .75, 0,  15, 0, -60, 1
+// Obj mesh
+obj/piano1.obj
+// Num children
+1
+mesh
+piano-shadow
+1.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, .1, 0, 1
+obj/shadow-sq.obj
+0
+// TODO Action when tapped
+// Camera eye
+24.5, 42, -60
+// Cam target
+21, 0, -60
+// GUI to display when we have been tapped
+Gui/keyboard-pink.txt
+// GUI to put in NOTEBOOK
+Gui/keyboard.txt
+
+
+
+// Bookshelf
+bookshelf
+// Node type
+mesh
+// Name
+bookshelf1
+// Matrix
+.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, .5, 0,  15, 0, -200, 1
+// Obj mesh
+obj/shelf5.obj
+// Num children
+1
+mesh
+shelf-shadow
+.75, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, .1, 0, 1
+obj/shadow-sq.obj
+0
+// Camera eye
+30, 30, -200
+// Cam target
+0,  30, -200
+// GUI to display when we have been tapped
+Gui/no_gui.txt
+// GUI to put in NOTEBOOK
+Gui/no_gui.txt
+
+
+
+// Test box, make it a book
+// Name
+book
+// First part is 3d node
+// Node type
+mesh
+// Name
+tappable-book
+// Matrix
+.02, 0, 0, 0,  0, .10, 0, 0,  0, 0, .02, 0,  15, 70, -200, 1
+// Obj mesh
+obj/cube_0.5.obj
+// Num children
+0
+// TODO Action when tapped
+// Camera eye
+30, 60, -200
+// Cam target
+0,  60, -200
+// GUI to display when we have been tapped
+Gui/no_gui.txt
+// GUI to put in NOTEBOOK
+Gui/no_gui.txt
+
+
+// Orange Piano
+// Name
+orange piano
+// First part is 3d node
+// Node type
+mesh
+// Name
+tappable-orange-piano
+// Matrix
+.4, 0, 0, 0,  0, 1, 0, 0,  0, 0, .75, 0,  15, 0, -330, 1
+// Obj mesh
+obj/piano2.obj
+// Num children
+1
+mesh
+piano-shadow
+1.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, .1, 0, 1
+obj/shadow-sq.obj
+0
+// Camera eye
+24.5, 42, -330
+// Cam target
+21, 0, -330
+// GUI to display when we have been tapped
+Gui/keyboard-pink.txt
+// GUI to put in NOTEBOOK
+Gui/keyboard.txt
