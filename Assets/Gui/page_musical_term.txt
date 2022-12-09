@@ -9,7 +9,63 @@ gui-comp
 // Name
 root
 // Num children
+3
+
+
+
+elastic
+1.0, 0.0
+
+// Hint button
+// element type
+gui-button
+// Element name
+hint-button
+// pos (coords are -1..1)
+0.5, 0.2
+// size
+0.3, 0.15
+// Image 
+Image/gui-button-2.png
+// Text
+HINT!
+// Font name, size
+dimbo, 1.0, fgcol=ffffff
+
+
+
+elastic
+-1.5, 0.0
+
+// Hint button
+// element type
+gui-button
+// Element name
+pause-button
+// pos (coords are -1..1)
+-0.5, 0.2
+// size
+0.3, 0.15
+// Image 
+Image/gui-button-2.png
+// Text
+PAUSE
+// Font name, size
+dimbo, 1.0, fgcol=ffffff
+
+
+
+
+
+elastic
+0, -2.0
+
+gui-comp
+// Name
+elasticated
+// Num children
 6
+
 
 // Element type
 gui-text

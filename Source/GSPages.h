@@ -23,6 +23,8 @@ public:
 
   void OnCorrect();
   void OnIncorrect();
+  void NextPage();
+  void OnHint();
 
 protected:
   std::vector<RCPtr<Page>> m_pages;

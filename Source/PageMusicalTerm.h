@@ -18,7 +18,9 @@ public:
   }
 
   virtual void OnActive() override;
+  virtual void OnHint() override;
 
+  // Called when user makes a choice
   void OnChoice(int c);
 
   void SetMusicalTermQuestion(MusicalTermQuestion* q);

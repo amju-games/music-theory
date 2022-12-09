@@ -12,62 +12,11 @@ gui-comp
 // Name
 top-bar-root
 // Num children
-6
+3
 
-// Top bar with player avatar, name, score, etc
+include
+gui-top-bar.txt
 
-// Bar bg
-// Element type
-gui-rect
-// Element name
-bar-bg
-// pos (coords are -1..1)
--0.95, 0.95
-// size
-1.9, 0.2
-// colour
-F5D1F5
-// corner radius
-0.125
-// Corner flags 0 = all rounded
-0
-
-// Avatar in Circle
-gui-image
-pencil
--0.9, 0.925
-0.2, 0.2
-Image/avatar-example1.png
-
-
-// Player name
-// Element type
-gui-text
-// Element name
-player-name
-// pos (coords are -1..1)
--0.65, 0.95
-// size
-1.0, 0.2
-// Text
-Ella
-// Font name, size
-dimbo, 2.0,  fgcol=000000
-
-
-// Player score
-// Element type
-gui-text
-// Element name
-player-score
-// pos (coords are -1..1)
-0.50, 0.9
-// size
-0.4, 0.1
-// Text
-25600
-// Font name, size
-berlin_numeric, 1.0, right, fgcol=000000
 
 // Tick for when user gets question correct
 line-drawing
@@ -120,7 +69,7 @@ stroke-cross-1.txt
 
 line-drawing
 // Name
-cross-1
+cross-2
 // Pos
 0.5, 0
 // Size

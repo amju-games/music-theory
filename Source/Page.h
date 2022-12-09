@@ -37,7 +37,13 @@ public:
 
   void SetGameState(GameState* gs);
 
-//  void SetQuestion(Question* question); // ?
+  // Called when user taps Hint button -- show page-specific hint.
+  virtual void Page::OnHint() {}
+
+  // Sigh, there is a difference in behaviour if we are showing something new, so
+  //  set this flag if user is learning a new thing.
+  void SetIsLearnMode(bool learn);
+  bool IsLearnMode() const;
 
 protected:
 //?  virtual bool LoadQuestion() = 0;
@@ -51,5 +57,7 @@ protected:
   RCPtr<Question> m_question;
 
   GameState* m_gs = nullptr;
+
+  bool m_isLearnMode = false;
 };
 }

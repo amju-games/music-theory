@@ -50,15 +50,26 @@ void PageMusicalTerm::OnActive()
     button->SetCommand(new ChoiceCommand(this, i));
     button->SetText(m_answers.GetAnswer(i));
 
+//    OnHint(); // if Q not seen before
     // Set hint for questions we have not seen before.
     // Also do this if user taps Hint button, which should affect score and add this Q
     //  to the list that needs extra reinforcement.
-    if (m_answers.IsAnswerCorrect(i))
-    {
-      button->SetHasFocus(true); // pulsing glow
-    }
+    //if (m_answers.IsAnswerCorrect(i))
+    //{
+    //  button->SetHasFocus(true); // pulsing glow
+    //}
   }
   // TODO Hide any extra buttons?
+}
+
+void PageMusicalTerm::OnHint()
+{
+  int i = m_answers.GetCorrectAnswer();
+  GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(i)));
+  if (button)
+  {
+    button->SetHasFocus(true); // pulsing glow
+  }
 }
 
 void PageMusicalTerm::OnChoice(int c)

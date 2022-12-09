@@ -11,7 +11,7 @@ namespace Amju
 {
 void GoToNextPage()
 {
-  TheGSPages::Instance()->OnActive();
+  TheGSPages::Instance()->NextPage();
 }
 
 GSPages::GSPages()
@@ -22,6 +22,12 @@ GSPages::GSPages()
 void GSPages::OnActive()
 {
   GSBase::OnActive();
+
+  NextPage();
+}
+
+void GSPages::NextPage()
+{
   AddPage(new PageMusicalTerm);
   m_currentPage = 0;
 
@@ -84,5 +90,13 @@ void GSPages::OnIncorrect()
 
   TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(1.0f)));
 }
+
+void GSPages::OnHint()
+{
+  // Decrement hints left
+
+  m_pages[m_currentPage]->OnHint(); // show context-sensitive hint
+}
+
 }
 
