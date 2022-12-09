@@ -103,7 +103,7 @@ treb-db4-cr = treb-d4-cr, 0, 0 ; flat, -0.2, -0.05
 treb-eb4-cr = treb-e4-cr, 0, 0 ; flat, -0.2, 0
 treb-gb4-cr = treb-g4-cr, 0, 0 ; flat, -0.2, 0.1
 treb-ab5-cr = treb-a5-cr, 0, 0 ; flat, -0.2, 0.15
-treb-bb5-cr = treb-a5-cr, 0, 0 ; flat, -0.2, 0.2
+treb-bb5-cr = treb-b5-cr, 0, 0 ; flat, -0.2, 0.2
 
 // Bass clef
 // c4 = middle C
