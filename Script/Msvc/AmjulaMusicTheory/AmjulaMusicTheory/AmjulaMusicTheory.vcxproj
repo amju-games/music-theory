@@ -419,6 +419,8 @@
     <Library Include="..\..\..\..\Source\ThirdParty\googletest\msvc\gtest\Debug\gtestd.lib" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="..\..\..\..\Assets\Course\higher_or_lower.txt" />
+    <Text Include="..\..\..\..\Assets\Course\name_the_note.txt" />
     <Text Include="..\..\..\..\Assets\Course\notes_on_bass_clef_with_accidentals.txt" />
     <Text Include="..\..\..\..\Assets\Course\note_types.txt" />
     <Text Include="..\..\..\..\Assets\Course\grade1.txt" />

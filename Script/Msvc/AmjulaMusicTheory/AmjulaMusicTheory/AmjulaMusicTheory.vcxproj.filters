@@ -699,5 +699,11 @@
     <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_square_symbol_4_landscape.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Course\higher_or_lower.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\name_the_note.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
   </ItemGroup>
 </Project>
