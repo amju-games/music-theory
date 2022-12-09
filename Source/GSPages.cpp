@@ -293,9 +293,9 @@ void GSPages::SetPage(Page* p)
 
 void GSPages::OnCorrect(const Vec2f& choicePos)
 {
-  GuiElement* tick = GetElementByName(m_gui, "tick");
-  tick->SetVisible(true);
-  tick->SetLocalPos(choicePos);
+  //GuiElement* tick = GetElementByName(m_gui, "tick");
+  //tick->SetVisible(true);
+  //tick->SetLocalPos(choicePos);
 
   // Rub out blackboard? - OK as answer correct?
   GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
@@ -328,9 +328,9 @@ void GSPages::OnIncorrect(const Vec2f& choicePos)
 {
   m_page->ShowCorrectAnswer();
 
-  GuiElement* cross = GetElementByName(m_gui, "cross");
-  cross->SetVisible(true);
-  cross->SetLocalPos(choicePos);
+  //GuiElement* cross = GetElementByName(m_gui, "cross");
+  //cross->SetVisible(true);
+  //cross->SetLocalPos(choicePos);
 
   // Unhappy sound
   PlayWav(WAV_INCORRECT);
