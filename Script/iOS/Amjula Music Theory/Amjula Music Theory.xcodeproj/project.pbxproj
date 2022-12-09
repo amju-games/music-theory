@@ -66,6 +66,7 @@
 		697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F91E82F19B0045CE54 /* GuiLineDrawing.cpp */; };
 		697A08031E82F19B0045CE54 /* GuiMusicScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07FB1E82F19B0045CE54 /* GuiMusicScore.cpp */; };
 		697A080D1E8307590045CE54 /* libAmjulib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 697A080B1E82F3990045CE54 /* libAmjulib.a */; };
+		697F64852051BC7100365E68 /* Notebook.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697F64822051BC7000365E68 /* Notebook.cpp */; };
 		699058CE1E7D3BF500E528B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 699058CC1E7D3BF500E528B4 /* Main.storyboard */; };
 		699058D01E7D3BF500E528B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 699058CF1E7D3BF500E528B4 /* Assets.xcassets */; };
 		699058D31E7D3BF500E528B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 699058D11E7D3BF500E528B4 /* LaunchScreen.storyboard */; };
@@ -271,6 +272,8 @@
 		697A07FB1E82F19B0045CE54 /* GuiMusicScore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiMusicScore.cpp; path = ../../../../Source/GuiMusicScore.cpp; sourceTree = "<group>"; };
 		697A07FC1E82F19B0045CE54 /* GuiMusicScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiMusicScore.h; path = ../../../../Source/GuiMusicScore.h; sourceTree = "<group>"; };
 		697A08061E82F3980045CE54 /* Amjulib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Amjulib.xcodeproj; path = ../../../../amjulib/Script/iOSAmjulibXCode/Amjulib/Amjulib.xcodeproj; sourceTree = "<group>"; };
+		697F64822051BC7000365E68 /* Notebook.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Notebook.cpp; path = ../../../../Source/Notebook.cpp; sourceTree = "<group>"; };
+		697F64842051BC7100365E68 /* Notebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notebook.h; path = ../../../../Source/Notebook.h; sourceTree = "<group>"; };
 		699058BC1E7D3BF400E528B4 /* Amjula Music Theory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Amjula Music Theory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		699058CD1E7D3BF500E528B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		699058CF1E7D3BF500E528B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -512,6 +515,8 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				697F64822051BC7000365E68 /* Notebook.cpp */,
+				697F64842051BC7100365E68 /* Notebook.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				69EA9D4B1F7CE5630080089A /* CentreMsg.cpp */,
@@ -892,6 +897,7 @@
 				6945194E2017368F001C188B /* CorridorModeLerpCam.cpp in Sources */,
 				69C10CD61F122197009B6836 /* PlayWav.cpp in Sources */,
 				6959E30B1EA7CFF200E251A9 /* GSFirstUser.cpp in Sources */,
+				697F64852051BC7100365E68 /* Notebook.cpp in Sources */,
 				69AC40361EB5331300F255A4 /* Dictionary.cpp in Sources */,
 				6955431E1F3B526D007C23EA /* TappableFactory.cpp in Sources */,
 				69D58E871E86A02B008A8D29 /* ScoreBuilder.cpp in Sources */,
