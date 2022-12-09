@@ -64,6 +64,7 @@ void CorridorModeEnterClassroom::OnActive()
   m_doorAngleRads = 0;
   m_doorIsOpening = true;
   PlayWav(WAV_ENTER_DOOR);
+  PlayWav(WAV_DOOR_OPEN);
 
   // Go the the topic start state.
   GSTopicStart* gs = TheGSTopicStart::Instance();
