@@ -114,19 +114,32 @@ void ReportError(const std::string& str)
   std::cout << str << "\n";
 }
 
+namespace
+{
+bool MyFileExists(const std::string& filename)
+{
+#ifdef YES_GLUE_FILE
+  GlueFile* gf = FileImplGlue::GetGlueFile();
+  Assert(gf);
+  return gf->FileExists(filename);
+#else
+  return FileExists(filename);
+#endif
+}
+
 // Filename for the writable game config file, not the read-only config.
-static std::string ConfigFilename()
+std::string ConfigFilename()
 {
   std::string filename = GetSaveDir(APPNAME) + "config.txt";
 
 #ifdef _DEBUG
-std::cout << "Config file: " << filename << "\n";
+  std::cout << "Config file: " << filename << "\n";
 #endif
 
   return filename;
 }
 
-static void SetUpRootDir()
+void SetUpRootDir()
 {
 #ifdef AMJU_IOS
   std::string dir = GetDataDir();
@@ -139,24 +152,24 @@ static void SetUpRootDir()
 #endif
 
 #ifdef MACOSX
-  
+
 #ifdef YES_GLUE_FILE
   std::string dir = "/Users/jay/projects/music-theory/Build/CompiledAssets/";
 #else
   std::string dir = "/Users/jay/projects/music-theory/Assets/";
 #endif
-  
+
   File::SetRoot(dir, "/");
 #endif // MACOSX
 }
 
-static void SetUpGlueFile()
+void SetUpGlueFile()
 {
 #ifdef YES_GLUE_FILE
 
   GlueFileMem* gfm = new GlueFileMem;
   if (FileImplGlue::OpenGlueFile(GLUE_FILE, gfm))
-  { 
+  {
     std::cout << "Opened glue file " << GLUE_FILE << "\n";
   }
   else
@@ -178,11 +191,10 @@ static void SetUpGlueFile()
   }
 
 #endif // YES_GLUE_FILE
-
 }
 
 // Send info about this device to the server.
-static void SendDeviceInfo(bool isFirstTime)
+void SendDeviceInfo(bool isFirstTime)
 {
   if (isFirstTime)
   {
@@ -198,7 +210,7 @@ static void SendDeviceInfo(bool isFirstTime)
 
 // Load the Game Config File, which is writable, so used to persist 
 //  game-wide info.
-static void LoadWritableConfig()
+void LoadWritableConfig()
 {
   GameConfigFile* gcf = TheGameConfigFile::Instance();
   std::string filename = ConfigFilename();
@@ -215,7 +227,7 @@ static void LoadWritableConfig()
 
       if (gcf->Exists(DEVICE_ID))
       {
-        std::cout << "Device ID exists in config file: " << 
+        std::cout << "Device ID exists in config file: " <<
           gcf->GetValue(DEVICE_ID) << "\n";
         isFirstTime = false; // we have run before!
       }
@@ -224,6 +236,7 @@ static void LoadWritableConfig()
 
   SendDeviceInfo(isFirstTime);
 }
+} // anon namespace
 
 void StartUpBeforeCreateWindow()
 {
@@ -334,21 +347,47 @@ static void LoadStringTableForPreferredLanguage()
   
   // Use the preferred language code to load the appropriate string table
   std::string stringTableFile = language + ".txt";
-  if (Localise::LoadStringTable(stringTableFile))
+  if (MyFileExists(stringTableFile))
   {
-    return;
+    if (Localise::LoadStringTable(stringTableFile))
+    {
+      std::cout << "Loaded preferred string table file " << stringTableFile << "\n";
+      return;
+    }
+    else
+    {
+      ReportError("String table file " + stringTableFile + " exists but load failed!");
+      // AMJU_TRACKING
+    }
+  }
+  else
+  {
+    std::cout << "Preferred language is " << language << " but no string table.\n";
   }
 
   // No exact match. We want to get the closest match we have.
   // Try chopping off anything after the 2-char country code
   // (TODO Is this a good strategy?)
   stringTableFile = language.substr(0, 2) + ".txt";
-  if (Localise::LoadStringTable(stringTableFile))
+  if (MyFileExists(stringTableFile))
   {
-    return;
+    if (Localise::LoadStringTable(stringTableFile))
+    {
+      std::cout << "Loaded fallback string table file " << stringTableFile << "\n";
+      return;
+    }
+    else
+    {
+      ReportError("String table file " + stringTableFile + " exists but load failed!");
+      // AMJU_TRACKING
+    }
+  }
+  else
+  {
+    std::cout << "Fallback language is " << language << " but no string table.\n";
   }
 
-  std::cout << "Failed to load any string table!\n";
+  std::cout << "Failed to load any string table, defaulting to 'en'.\n";
   // AMJU_TRACKING
 
   // Default to en.txt if all else failed
