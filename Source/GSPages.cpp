@@ -85,7 +85,7 @@ void GSPages::ShowHints()
 {
   // Init HUD
   auto profile = TheUserProfile();
-  int hints = profile->GetHints();
+  int hints = profile->GetHints(HintType::HINT_TYPE_HINT);
   NumUpdate(m_gui, "hint-counter" /* TODO CONST */, hints);
 
   // Disable button if no hints available
@@ -400,7 +400,7 @@ void GSPages::OnHint()
 {
   // Decrement hints left
   auto profile = TheUserProfile();
-  if (profile->GetHints() < 1)
+  if (profile->GetHints(HintType::HINT_TYPE_HINT) < 1) // TODO
   {
     // No hints sound/anim?
     // TODO
@@ -413,7 +413,7 @@ void GSPages::OnHint()
     return;
   }
 
-  profile->AddHints(-1);
+  profile->AddHints(HintType::HINT_TYPE_HINT, -1); // TODO
   ShowHints();
 
   m_page->OnHint(); // show context-sensitive hint

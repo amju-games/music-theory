@@ -115,23 +115,25 @@ std::string UserProfile::GetCurrentTopicDisplayName() const
   return topic->GetDisplayName();
 }
 
-int UserProfile::GetHints()
+int UserProfile::GetHints(HintType ht)
 {
   auto userConfig = GetConfigFile();
-  return userConfig->GetInt(HINTS_AVAILABLE_KEY, DEFAULT_HINTS_AVAIL);
+  const std::string key = HINTS_AVAILABLE_KEY + ToString(static_cast<int>(ht));
+  return userConfig->GetInt(key, DEFAULT_HINTS_AVAIL);
 }
 
-void UserProfile::AddHints(int add)
+void UserProfile::AddHints(HintType ht, int add)
 {
   auto userConfig = GetConfigFile();
-  int hints = userConfig->GetInt(HINTS_AVAILABLE_KEY, DEFAULT_HINTS_AVAIL);
+  const std::string key = HINTS_AVAILABLE_KEY + ToString(static_cast<int>(ht));
+  int hints = userConfig->GetInt(key, DEFAULT_HINTS_AVAIL);
   hints += add;
   if (hints < 0)
   {
     Assert(0); // -ve hints not allowed
     hints = 0;
   }
-  userConfig->SetInt(HINTS_AVAILABLE_KEY, hints);
+  userConfig->SetInt(key, hints);
   Save();
 }
 

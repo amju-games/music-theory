@@ -6,6 +6,7 @@
 #include <map>
 #include <ConfigFile.h>
 #include <RCPtr.h>
+#include "HintType.h"
 
 namespace Amju
 {
@@ -50,9 +51,13 @@ public:
   void UnlockTopic(const std::string& topicId);
 
   // Get/Inc/Dec persistent hint count
-  int GetHints(); // not const, may load config file
+  int GetHints(HintType ht); // not const, may load config file
   // Add to persistent hint count: can be negative.
-  void AddHints(int addition);
+  void AddHints(HintType ht, int addition);
+
+  // Get persistent 'Play' button count (plays music in question)
+  int GetPlays();
+  void AddPlays(int addition);
 
 private:
   RCPtr<ConfigFile> m_configFile;

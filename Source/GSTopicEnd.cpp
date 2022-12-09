@@ -102,12 +102,12 @@ void GSTopicEnd::OnActive()
   text->SetText(profile->GetCurrentTopicDisplayName());
 
   // Get initial hints, animate additions
-  m_hints = profile->GetHints();
+  m_hints = profile->GetHints(HintType::HINT_TYPE_HINT); // TODO
 
   // Add hints now
   int addHints = m_topicScore; // TODO calc num hints to add
   m_finalHints = m_hints + addHints;
-  profile->AddHints(addHints); 
+  profile->AddHints(HintType::HINT_TYPE_HINT, addHints);  // TODO
 
   SetScoreNumbers();
   SetHintNumbers();
