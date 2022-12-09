@@ -3,9 +3,10 @@
 
 #pragma once
 
-#include "GSBase3d.h"
 #include <SceneNode.h>
 #include <Singleton.h>
+#include "GSBase3d.h"
+#include "Tappable.h"
 
 namespace Amju
 {
@@ -13,6 +14,8 @@ namespace Amju
 // Main menu game state. 
 // Displays a scrollable corridor, with doors which lead to individual
 //  topics.
+// In the corridor are tappable 3D objects, which present the user with 
+//  more info.
 class GSMainMenu : public GSBase3d
 {
 public:
@@ -29,6 +32,7 @@ public:
 
 protected:
   void Load3dForTopics();
+  bool LoadTappables();
   void Drag(bool rightNotLeft);
   void SetCurrentTopicName();
   void ShowTopicName(bool showNotHide);
@@ -52,6 +56,8 @@ private:
   std::vector<PSceneNode> m_doors;
   bool m_doorIsOpening = false;
   float m_doorAngleRads = 0; 
+
+  std::vector<RCPtr<Tappable>> m_tappables;
 };
 
 typedef Singleton<GSMainMenu> TheGSMainMenu;

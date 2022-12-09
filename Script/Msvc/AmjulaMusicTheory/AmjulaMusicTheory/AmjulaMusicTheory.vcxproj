@@ -307,6 +307,7 @@
     <ClCompile Include="..\..\..\..\Source\Startup.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tappable.cpp" />
     <ClCompile Include="..\..\..\..\Source\Tests\Course_catchtest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
@@ -379,6 +380,7 @@
     <ClInclude Include="..\..\..\..\Source\PlayWav.h" />
     <ClInclude Include="..\..\..\..\Source\Question.h" />
     <ClInclude Include="..\..\..\..\Source\ScoreBuilder.h" />
+    <ClInclude Include="..\..\..\..\Source\Tappable.h" />
     <ClInclude Include="..\..\..\..\Source\Topic.h" />
     <ClInclude Include="..\..\..\..\Source\UserProfile.h" />
   </ItemGroup>

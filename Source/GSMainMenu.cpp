@@ -2,6 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <cmath>
+#include <File.h>
 #include <Game.h>
 #include <GuiButton.h>
 #include <GuiDecAnimation.h>
@@ -66,6 +67,38 @@ GSMainMenu::GSMainMenu()
 {
   m_guiFilename = "Gui/gs_main_menu_corridor.txt";
   m_sceneFilename = "Scene/corridor-scene.txt";
+}
+
+bool GSMainMenu::LoadTappables()
+{
+  // Get root node for adding tappables - this is temporary, doesn't feel right
+  SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
+  SceneNode* camera = root->GetNodeByName("camera");
+  Assert(camera);
+
+  File f;
+  if (!f.OpenRead("Gui/tappables.txt"))
+  {
+    return false;
+  }
+  int num = 0;
+  if (!f.GetInteger(&num))
+  {
+    f.ReportError("Expected num tappables");
+    return false;
+  }
+  m_tappables.clear();
+  for (int i = 0; i < num; i++)
+  {
+    RCPtr<Tappable> t = new Tappable;
+    if (!t->Load(&f))
+    {
+      return false;
+    }
+    m_tappables.push_back(t);
+    camera->AddChild(t->GetSceneNode());
+  }
+  return true;
 }
 
 void GSMainMenu::Load3dForTopics()
@@ -143,6 +176,8 @@ void GSMainMenu::OnActive()
 
   m_doorIsOpening = false;
   m_doorAngleRads = 0;
+
+  LoadTappables();
 
   // TODO
   //GuiElement* share = GetElementByName(m_gui, "share-button");
@@ -346,6 +381,14 @@ bool GSMainMenu::OnCursorEvent(const CursorEvent& ce)
 
 bool GSMainMenu::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 {
+  // Check tappables
+  for (auto t : m_tappables)
+  {
+    // Get pick ray from mbe coord and camera
+
+    // Intersect ray and AABB
+  }
+
   m_isDragging = mbe.isDown;
   if (mbe.isDown)
   {

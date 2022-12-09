@@ -1,0 +1,27 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// v
+1
+
+// Tappables: 3d objects which user can tap on to get info.
+
+// num tappables
+1
+
+// 1 - piano
+// First part is 3d node
+// Node type
+mesh
+// Name
+tappable-piano
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  15, 0, -60, 1
+// Obj mesh
+obj/piano1.obj
+// Num children
+0
+
+// TODO Action when tapped
+
+// GUI to display when we have been tapped
