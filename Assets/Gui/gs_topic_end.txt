@@ -11,7 +11,7 @@ gui-comp
 // Name
 topic-end-root
 // Num children
-7
+8
 
 // Best so far display
 translate
@@ -80,7 +80,7 @@ dimbo, 4.0, fgcol=ffffff
 // OK button
 gui-button
 ok-button
-.1, -0.4
+.1, -0.2
 // size
 0.4, 0.15
 // Image 
@@ -92,7 +92,7 @@ BUTTON, 3.0, fgcol=ffffff, bgcol=4E69F4
 // Share button
 gui-button
 share-button
--0.5, -.4
+-0.5, -.2
 0.4, 0.2
 Image/gui-button-2.png
 // SHARE
@@ -118,6 +118,14 @@ comment-text
 // Have some more hints!
 $$$87
 TEXT, 1.5, multi, fgcol=ffffff
+
+// ---------------------------------------------------------------------
+elastic
+1.0, 0.0
+
+include
+hint-display.txt
+// ---------------------------------------------------------------------
 
 
 include

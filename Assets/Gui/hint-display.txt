@@ -56,7 +56,27 @@ linear
 //
 // Jump up a bit
 translate
-0,0 ; 0, 0.005
+0,0 ; 0, 0.01
+
+// Move to right of button
+translate
+.25,0
+
+animation
+hint-counter-anim-trigger
+const
+one
+
+animation
+name-not-used
+one-shot
+0.3
+linear
+
+scale
+1.5, 1.5; 1,1
+// Pivot
+0.5, 0.5
 
 gui-comp
 circle-and-number
@@ -69,7 +89,7 @@ colour
 4D68F1
 gui-image
 hint-counter-bg
-0.25, 0.09
+0, 0.09
 .12, .12
 Image/gui-button-1.png
 
@@ -79,7 +99,7 @@ Image/gui-button-1.png
 gui-text
 hint-counter
 // pos (coords are -1..1)
-0.25, 0.03 
+0.0, 0.03 
 // size
 0.1, 0.1
 // Text
@@ -124,7 +144,27 @@ linear
 //
 // Jump up a bit
 translate
-0,0 ; 0, 0.005
+0,0 ; 0, 0.01
+
+// Move to right of button
+translate
+.25,0
+
+animation
+play-counter-anim-trigger
+const
+one
+
+animation
+name-not-used
+one-shot
+0.3
+linear
+
+scale
+1.5, 1.5; 1,1
+// Pivot
+0.5, 0.5
 
 gui-comp
 play-counter-and-bg
@@ -136,7 +176,7 @@ colour
 
 gui-image
 hint-counter-bg
-0.25, 0.09
+0, 0.09
 .12, .18
 Image/gui-button-1.png
 
@@ -145,7 +185,7 @@ Image/gui-button-1.png
 gui-text
 play-counter
 // pos (coords are -1..1)
-0.25, 0.03
+0, 0.03
 // size
 0.1, 0.1
 // Text

@@ -225,7 +225,13 @@ void GSTopicEnd::SetScoreNumbers()
 
 void GSTopicEnd::SetHintNumbers()
 {
-//  NumUpdate(m_gui, "hint-counter" /* TODO CONST */, m_hints);
+  auto profile = TheUserProfile();
+
+  int hints = profile->GetHints(HintType::HINT_TYPE_HINT);
+  NumUpdate(m_gui, "hint-counter" /* TODO CONST */, hints);
+
+  hints = profile->GetHints(HintType::HINT_TYPE_PLAY);
+  NumUpdate(m_gui, "play-counter" /* TODO CONST */, hints);
 }
 
 void GSTopicEnd::UpdateNums()
@@ -259,12 +265,14 @@ void GSTopicEnd::UpdateNums()
     {
       profile->AddHints(HintType::HINT_TYPE_HINT, 1);
       PlayWav("waterdrop");
+      SetHintNumbers();
     }
 
     if (m_totalScore % POINTS_PER_HINT_PLAY == 0)
     {
       profile->AddHints(HintType::HINT_TYPE_PLAY, 1);
       PlayWav("waterdrop");
+      SetHintNumbers();
     }
 
     if (m_totalScore > m_bestScore)
