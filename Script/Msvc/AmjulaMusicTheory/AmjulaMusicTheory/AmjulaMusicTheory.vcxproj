@@ -318,11 +318,13 @@
     <ClCompile Include="..\..\..\..\Source\PageMultiChoice.cpp" />
     <ClCompile Include="..\..\..\..\Source\PagePlayNotes.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageQuestion.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ParticleFx.cpp" />
     <ClCompile Include="..\..\..\..\Source\PlayWav.cpp" />
     <ClCompile Include="..\..\..\..\Source\PrintGui.cpp" />
     <ClCompile Include="..\..\..\..\Source\Question.cpp" />
     <ClCompile Include="..\..\..\..\Source\QuestionPicker.cpp" />
     <ClCompile Include="..\..\..\..\Source\QuestionProgress.cpp" />
+    <ClCompile Include="..\..\..\..\Source\SceneNodeGui.cpp" />
     <ClCompile Include="..\..\..\..\Source\ScoreBuilder.cpp" />
     <ClCompile Include="..\..\..\..\Source\SerialReqManager.cpp" />
     <ClCompile Include="..\..\..\..\Source\ShareManager.cpp" />
@@ -444,11 +446,13 @@
     <ClInclude Include="..\..\..\..\Source\PageMultiChoice.h" />
     <ClInclude Include="..\..\..\..\Source\PagePlayNotes.h" />
     <ClInclude Include="..\..\..\..\Source\PageQuestion.h" />
+    <ClInclude Include="..\..\..\..\Source\ParticleFx.h" />
     <ClInclude Include="..\..\..\..\Source\PlayMidi.h" />
     <ClInclude Include="..\..\..\..\Source\PlayWav.h" />
     <ClInclude Include="..\..\..\..\Source\Question.h" />
     <ClInclude Include="..\..\..\..\Source\QuestionPicker.h" />
     <ClInclude Include="..\..\..\..\Source\QuestionProgress.h" />
+    <ClInclude Include="..\..\..\..\Source\SceneNodeGui.h" />
     <ClInclude Include="..\..\..\..\Source\ScoreBuilder.h" />
     <ClInclude Include="..\..\..\..\Source\SerialReqManager.h" />
     <ClInclude Include="..\..\..\..\Source\ShareManager.h" />
