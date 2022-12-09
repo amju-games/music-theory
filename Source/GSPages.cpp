@@ -122,6 +122,13 @@ void GSPages::ReloadGui()
   GuiElement* elem = GetElementByName(m_gui, "pause-button");
   Assert(elem);
   elem->SetCommand(Amju::OnQuitButton);
+
+  if (m_page)
+  {
+    // Reload the page GUI
+    m_page->OnDeactive();
+    m_page->OnActive();
+  }
 }
 
 void GSPages::Reload3d()
