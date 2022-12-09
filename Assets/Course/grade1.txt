@@ -9,7 +9,31 @@
 1
 
 // Num topics
-13
+14
+
+// Topic
+// ID
+higher-or-lower
+// Localised display name
+Higher or lower?
+// Group
+4
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
+10
+page-symbol-text, Course/higher_or_lower.txt
+page-symbol-text, Course/higher_or_lower.txt
+page-symbol-text, Course/higher_or_lower.txt
+page-symbol-text, Course/higher_or_lower.txt
+page-symbol-text, Course/higher_or_lower.txt
+page-symbol-text, Course/higher_or_lower.txt
+page-symbol-text, Course/higher_or_lower.txt
+page-symbol-text, Course/higher_or_lower.txt
+page-symbol-text, Course/higher_or_lower.txt
+page-symbol-text, Course/higher_or_lower.txt
+
 
 // Topic
 // ID

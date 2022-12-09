@@ -1,0 +1,15 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Higher or lower ?
+
+// version
+1
+
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-c4-sb, 2.0, 0 ; treb-c#4-sb, 2.5, 0  =Note 1 is lower
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-c#4-sb, 2.0, 0 ; treb-c4-sb, 2.5, 0  =Note 2 is lower
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-c4-sb, 2.0, 0 ; treb-c4-sb, 2.5, 0  =Same pitch
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-b4-sb, 2.0, 0 ; treb-bb4-sb, 2.5, 0  =Note 2 is lower
+stave, 0.5, 0.0, 2.0, 1 ; treble-clef, 1.2, 0.0 ; treb-bb4-sb, 2.0, 0 ; treb-b4-sb, 2.5, 0  =Note 1 is lower
+end
+
