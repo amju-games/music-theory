@@ -14,9 +14,8 @@ const int CorridorModeEnterTappable::ID = 4;
 
 void CorridorModeEnterTappable::OnActive()
 {
-  CorridorMode::OnActive();
+  CorridorModeLerpCam::OnActive();
   m_gs->GetCameraController().SetTappable(m_gs->GetSelectedTappable());
-  m_camLerpTime = 0;
 
   // TODO Seen this tappable before?
   // If not, play a "new tappable found" sound effect
@@ -24,20 +23,13 @@ void CorridorModeEnterTappable::OnActive()
   // Add to score if there is one, or other rewards
 }
 
+void CorridorModeEnterTappable::OnFinishedLerp()
+{
+  m_gs->SetMode(CorridorModeShowTappable::ID);
+}
+
 void CorridorModeEnterTappable::Update()
 {
-  CorridorMode::Update();
-
-  float dt = TheTimer::Instance()->GetDt();
-
-  // Moving towards tappable camera setting
-  m_camLerpTime += dt; // TODO speed
-  if (m_camLerpTime > 1)
-  {
-    // Reached desired cam pos
-    m_camLerpTime = 1;
-    m_gs->SetMode(CorridorModeShowTappable::ID);
-  }
-  m_gs->GetCameraController().SetLerpT(m_camLerpTime);
+  CorridorModeLerpCam::Update();
 }
 }
