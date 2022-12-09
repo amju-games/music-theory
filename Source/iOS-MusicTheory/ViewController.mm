@@ -125,13 +125,11 @@ static ViewController* s_theVc = NULL;
   
     Amju::StartUpBeforeCreateWindow();
   
-    // Set the screen size so we can set sizes of screen space elements correctly, etc.
-    GLKView *view = (GLKView *)self.view;
-    [view bindDrawable];
-    int w = view.drawableWidth;
-    int h = view.drawableHeight;
-    // NB swap w and h because this app is LANDSCAPE only
-    Amju::Screen::SetSize(h, w);
+    // Set the screen size
+    float s = self.view.contentScaleFactor;
+    int w = s * [[UIScreen mainScreen] bounds].size.width;
+    int h = s * [[UIScreen mainScreen] bounds].size.height;
+    Amju::Screen::SetSize(w, h);
   
     Amju::StartUpAfterCreateWindow();
   
