@@ -26,9 +26,7 @@ public:
 
 protected:
   std::string m_sceneFilename;
-  // TODO TEMP - SceneGraph s/b RefCounted
-  //RCPtr<SceneGraph> m_sceneGraph;
-  SceneGraph* m_sceneGraph = nullptr;
+  RCPtr<SceneGraph> m_sceneGraph;
 };
 }
 
