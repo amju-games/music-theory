@@ -1,5 +1,68 @@
 TODO prototype tech unknowns
 
+Basic demo:
+ - title state
+ - some test cards
+
+
+Learns/Tests are GUIs, so we have buttons, images, Elastics, etc.
+The tests are also GuiElements embedded in the Gui tree. We will want a base class like
+class MusicTest : public GuiElement or GuiComposite.
+
+No hang on, we want the tests to be defined independently of how they look.
+So a Music test references a gui.txt file, but is independent from it.
+But a MusicTest can be an event listener, so it gets events from Gui elements.
+ - A music test is a GameState, right?? No, because you load it from a file. It's owned by a game state.
+
+Hmmm. Let's make Tests GameStates for now, and change it later if required.
+
+
+
+
+
+
+Mac: drawing not working, although user draw is, strangely.
+ - Perhaps due to control points, which I couldn't get to work with user drawing. Same problem?
+
+Mac: no midi notes. But more important is the **iOS build** and **tests**.
+
+iOS: add amjulib to project. 
+Add ortho projection to AmjUGL ES
+
+<Quick referesher or back to the story? Or always story, it's not very intrusive.
+
+*Story* state
+Hello, I'm Amjula. What's your name?
+<User enter name>
+Oh, hi <name>!
+Let's have a look at you!
+<Avatar mod state>
+Tap on anything you want to change. Tap on Done to finish. You can always come back to this later!
+<Done: pulses?>
+<Hair, face etc are tappable and can be edited>
+<Done>
+<Avatar appears in home position, top left.>
+<Pulse avatar, shows what to do>
+Just tap if you want to change how you look!
+<OK button>
+<Stop pulsing avatar>
+
+
+< Here we want something to do with the grade bosses (trolls, dragons etc) who are blocking the entrance to all the grades.
+If you want you can do a test to open it up.
+Or no bosses, you just go in?
+Boss tests are a bit like mock grade exams. They should cover all the material of the grade, at the appropriate level, right?
+>
+
+
+
+Unit title: e.g. "Pitch" appears in centre of screen.
+Moves up to top after a moment. 
+Explanation text, but minimal.
+Keep it as tests as far as possible. The first time we see a test, we are given the answer.
+
+
+
 Dr Memory: check for leaks. Dr Memory crashes on Windows 10? Maybe there is an updated version?
 OK, version 1.11.0 works ok
 Results are suspiciously good. Continue to test.
@@ -16,6 +79,28 @@ Playable keyboard
  - Just play a sound at start up/periodically for first proof
  - Works for Windows
 
+  - KB element: trying 3D. Alisaing looks bad, 2D may be best.
+    In theory 3D could look very nice, needs more work. Use sphere map for refls, render to texture to reduce aliasing.
+    And shadows!
+    Reflections of the keys in shiny rect behind keys! 
+    Improve meshes, add textures to bake ambient occlusion.
+
+    KB responds to music key press events, showing the state of the notes.
+    Other events would be note colours, perhaps pulsing, etc.
+    Something else generates the key press events?
+    OR it all happens internally. We still want to generate events (to play the midi note), and
+     respond to events (to show playing music).
+
+
+If we are going to have some 3D, we can use the Organ MD2, or make something better.
+
+What about 3D avatars? And full on gamification?
+ - On the one hand, this could be a massive time suck, but on the other, we want to put a huge distance
+   between this and other music theory apps.
+
+ - Can we reuse animals + dinosaurs?
+ Dinosaurs are the Grade bosses?
+ Amjula could be a cat.
  
 Music notation
  - Specialised Text GUI: all one draw command, all one texture atlas
@@ -57,15 +142,22 @@ User Drawing
  - Vec of points/segments. Points won't be contiguous, so we connect them with segments.
  - Rotatable 9-patch (3-patch really, but 9-patch would be more reusable)
 
+ - Fix peculiarities.
+     - Test harness where we add coords programmatically
+
 Alternate animated drawing
  - Similar to user drawing, much closer in code terms. Traverse a sequence of line segs, building up a tri list.
  - Problem is how to author this, but each authored glyph can be reused: we could have a library of animated glyphs.
+
+  - Special state where we save out control points from drawings.
+  - Could be super advanced: click to place control points, drag them around. (Insert would be useful but harder to implement)
 
 
 Animated GUI elements
  - We also want to animate scale of leaves, and it would be good to automate animations to some degree
  - Extend Elastic type
 
+  - Consistent CTAs: pulsing, colour change (white <-> green, say)
 
 
 

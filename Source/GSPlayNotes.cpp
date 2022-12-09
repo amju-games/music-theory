@@ -9,12 +9,6 @@
 
 namespace Amju
 {
-void GSPlayNotes::Draw()
-{
-  AmjuGL::SetClearColour(Colour(.5f, .5f, .5f, 1.f));
-
-}
-
 //  AmjuGL::SetMatrixMode(AmjuGL::AMJU_PROJECTION_MATRIX);
 //  AmjuGL::SetIdentity();
 //  AmjuGL::SetPerspectiveProjection(45, 1, 1, 100);
@@ -44,6 +38,8 @@ void GSPlayNotes::Draw()
 
 void GSPlayNotes::Update()
 {
+  return;
+
   static float t = 0;
   static bool isOn = false;
   float dt = TheTimer::Instance()->GetDt();

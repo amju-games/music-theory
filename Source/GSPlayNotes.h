@@ -12,7 +12,6 @@ class GSPlayNotes : public GSBase
 {
 public:
   virtual void OnActive() override;
-  virtual void Draw() override;
   virtual void Update() override;
 };
 

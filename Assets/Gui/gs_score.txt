@@ -12,25 +12,89 @@ gui-comp
 // Name
 score-comp
 // Num children
-1
+2
+
+
+// Element type
+gui-comp
+// Name
+keyboard
+// Num children
+3
+
+// Background to kb
+gui-image
+kb-bg
+-1.0, 0.0
+2, 1
+Image/black.png
+
+music-kb
+kb
+// Pos
+-4, -2.0
+// Scale
+.6, .6
+//1, 1
+// Keys
+key-white.obj, D9D9D9, 0
+key-black.obj, 444444, 0.55
+key-white.obj, D9D9D9, 0.55
+key-black.obj, 444444, 0.55
+key-white.obj, D9D9D9, 0.55
+key-white.obj, D9D9D9, 1.1
+key-black.obj, 444444, 0.55
+key-white.obj, D9D9D9, 0.55
+key-black.obj, 444444, 0.55
+key-white.obj, 80ff80, 0.55
+key-black.obj, 444444, 0.55
+key-white.obj, D9D9D9, 0.55
+
+key-white.obj, D9D9D9, 1.1
+key-black.obj, 444444, .55
+key-white.obj, D9D9D9, .55
+key-black.obj, 80ff80, .55
+key-white.obj, D9D9D9, .55
+key-white.obj, D9D9D9, 1.1
+key-black.obj, 444444, .55
+key-white.obj, D9D9D9, .55
+key-black.obj, 444444, .55
+key-white.obj, D9D9D9, .55
+key-black.obj, 444444, .55
+key-white.obj, D9D9D9, .55
+end
+
+// Front of kb
+gui-image
+kb-fg
+-1.0, -0.975
+2, 2
+Image/black.png
+
+
+
+
 
 music-score
 // Name, Position, Size
-music notation test
--0.8, -0.3
-.6, .6
+music-score
+0.5, 0
+.8, .8
 // Colour
 // 1DA2FF
 000000
 
 // Glyphs start here
+stave, -0.5, 0, 20, 1
+treble-clef, 0, 0
+end
+
 
 // Beams etc tests
 quad, 0, 0,  1, 0.1,  1, 0.2,  0, 0.1
 
 stave, -0.1, 0
 stave, .6, 0, 8, 1
-treble-clef, 0, 0
 bass-clef, 0.6, 0
 
 // Beamed note test

@@ -169,6 +169,11 @@ void GuiMusicScore::Draw()
   AmjuGL::PopMatrix();
 }
 
+void GuiMusicScore::AddGlyph(const Glyph& g)
+{
+  m_glyphs.push_back(g);
+}
+
 bool GuiMusicScore::Load(File* f)
 {
   // Get name, pos, size

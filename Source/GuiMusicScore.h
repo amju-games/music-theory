@@ -24,23 +24,10 @@ public:
 
   void SetFgCol(const Colour& col);
 
-protected:
+  // Used internally but may be used with AddGlyph()
   void BuildTriList();
 
-  // Add one quad (2 triangles) to the given vec of tris, made from the
-  //  4 corners supplied. I.e. can be any quad shape.
-  void MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris);
-
-  // Make a stave from 5 quads: better quality than stretching a glyph
-  struct Glyph;
-  void MakeStave(const Glyph& g, AmjuGL::Tris& tris);
-
-protected:
-  RCPtr<TriList> m_triList; 
-  TextureSequence m_atlas;
-  Colour m_fgCol;
-
-  // Internal representation: vec of glyphs, each having position and scale.
+  // One glyph: has character, position and scale.
   // A glyph can also be an arbitrary shaped filled quad, for beams and lines.
   struct Glyph
   {
@@ -58,6 +45,24 @@ protected:
     // For quads, store the 4 corners 
     Vec2f m_corner[4];
   };
+
+  // Add a Glyph: when all required Glyphs have been added, call BuildTriList().
+  void AddGlyph(const Glyph& g);
+
+protected:
+
+  // Add one quad (2 triangles) to the given vec of tris, made from the
+  //  4 corners supplied. I.e. can be any quad shape.
+  void MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris);
+
+  // Make a stave from 5 quads: better quality than stretching a glyph
+  void MakeStave(const Glyph& g, AmjuGL::Tris& tris);
+
+protected:
+  RCPtr<TriList> m_triList; 
+  TextureSequence m_atlas;
+  Colour m_fgCol;
+
   using Glyphs = std::vector<Glyph>;
   Glyphs m_glyphs;
 };

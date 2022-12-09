@@ -39,6 +39,7 @@ namespace Amju
 {
 // Create global variable window info 
 Amju::AmjuGLWindowInfo w(480, 640, false, "Simplest");
+//Amju::AmjuGLWindowInfo w(640, 480, false, "Simplest");
 
 void ReportError(const std::string& str)
 {
@@ -73,8 +74,8 @@ void StartUpAfterCreateWindow()
   GuiMusicKb::AddToFactory();
   GuiMusicScore::AddToFactory();
 
-  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
-//  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
 }

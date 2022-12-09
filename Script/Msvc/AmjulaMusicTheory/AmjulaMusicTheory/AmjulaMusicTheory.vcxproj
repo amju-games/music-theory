@@ -146,6 +146,8 @@
     <ClCompile Include="..\..\..\..\Source\GuiMusicKb.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\main.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Page.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ScoreBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
@@ -156,6 +158,11 @@
     <ClInclude Include="..\..\..\..\Source\GuiLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
+    <ClInclude Include="..\..\..\..\Source\Page.h" />
+    <ClInclude Include="..\..\..\..\Source\PageDrawOnStave.h" />
+    <ClInclude Include="..\..\..\..\Source\PageMultiChoiceDrag.h" />
+    <ClInclude Include="..\..\..\..\Source\PagePlayNotes.h" />
+    <ClInclude Include="..\..\..\..\Source\ScoreBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib" />
