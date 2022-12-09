@@ -336,6 +336,9 @@
     <ClCompile Include="..\..\..\..\Source\GuiAvatar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ComposerList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -578,6 +581,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GuiAvatar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\ComposerList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1108,6 +1114,9 @@
       <Filter>Assets\Gui</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\modal-grey-out.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\modal-buttons.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
   </ItemGroup>

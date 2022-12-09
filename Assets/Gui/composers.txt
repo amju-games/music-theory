@@ -12,14 +12,25 @@
 // version
 1
 
+// Num composers
+1
+
 // ID
 j-s-bach
+// Topic
+notes-on-treb-clef-level1
 // Display Name... Hmm, does this need to be localised?
+// I don't think so. NB We can use escape sequences or utf-8 to get accents etc.
 J. S. Bach
 // Avatar string: sets values on nodes in the avatar GUI tree
 colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0|cell;nose;12
-// Text for yes, no, quit confirm, etc
-Nein!
-Ja!
-You wish to leave?
+// Text for correct
+Ja! That is correct!|Correct again!|Once again, you are correct!|Wunderbar! You are correct again!
+// Text for incorrect - explanation is appended
+Nein!|Nein!!
+// TODO Quit confirm
+//You wish to leave?
+// Year of birth, death
+1685,1750
 // Biographical info 
+@@@Guten tag! I am Johan Sebastian Bach, but you can call me J.S. for short!

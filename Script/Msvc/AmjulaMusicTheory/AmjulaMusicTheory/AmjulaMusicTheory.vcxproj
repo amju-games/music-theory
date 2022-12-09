@@ -273,6 +273,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\BassPlayMidi.cpp" />
     <ClCompile Include="..\..\..\..\Source\CentreMsg.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ComposerList.cpp" />
     <ClCompile Include="..\..\..\..\Source\Consts.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorCamController.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorMode.cpp" />
@@ -409,6 +410,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\CentreMsg.h" />
+    <ClInclude Include="..\..\..\..\Source\ComposerList.h" />
     <ClInclude Include="..\..\..\..\Source\Consts.h" />
     <ClInclude Include="..\..\..\..\Source\CorridorCamController.h" />
     <ClInclude Include="..\..\..\..\Source\CorridorMode.h" />
@@ -624,6 +626,7 @@
     <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-wide.txt" />
     <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_square_symbol_4_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_wide_landscape.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\modal-buttons.txt" />
     <Text Include="..\..\..\..\Assets\Gui\modal-grey-out.txt" />
     <Text Include="..\..\..\..\Assets\Gui\tutorial.txt" />
     <Text Include="..\..\..\..\Assets\Gui\music-score-bg.txt" />

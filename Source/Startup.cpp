@@ -42,6 +42,7 @@
 #include <ROConfig.h>
 #include <SceneNodeFactory.h>
 #include <SoundManager.h>
+#include "ComposerList.h"
 #include "Consts.h"
 #include "Course.h"
 #include "Dictionary.h"
@@ -419,6 +420,9 @@ void StartUpAfterCreateWindow()
 #endif
 
   SetInitialState();
+
+  // Load this file one time only
+  GetComposerList().Load("Gui/composers.txt");
 }
 }
 
