@@ -10,7 +10,7 @@
 6=Name the Scale
 7=Tonic Triads
 8=What's the key signature?
-9=Musical terms
+9=Musical terms and symbols
 10=Musical symbols
 11=Intervals
 12=Note 1 is lower

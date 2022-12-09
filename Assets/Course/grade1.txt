@@ -164,7 +164,7 @@ page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
 
 // Topic
 // ID
-musical-terms-1
+musical-terms-symbols-1
 // Localised display name
 // Musical terms
 $$$9
@@ -174,26 +174,8 @@ $$$9
 // Topics unlocked by this one
 none
 // Pages
-// 10 * musical term pages -- TODO num repeats?
 2
 page-text-text=Course/musical_terms.txt=$$$99
-page-symbol-text=Course/musical_symbols.txt=$$$99
-
-
-// Topic
-// ID
-musical-symbols-1
-// Localised display name
-// Musical symbols
-$$$10
-// Group
-3
-// Initially locked?
-// Topics unlocked by this one
-none
-// Pages
-// 10 * musical term pages -- TODO num repeats?
-1
 page-symbol-text=Course/musical_symbols.txt=$$$99
 
 
