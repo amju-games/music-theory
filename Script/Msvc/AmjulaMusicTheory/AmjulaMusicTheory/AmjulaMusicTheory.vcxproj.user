@@ -8,4 +8,8 @@
     <LocalDebuggerWorkingDirectory>..\..\..\..\Assets\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">
+    <LocalDebuggerWorkingDirectory>..\..\..\..\Assets\</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
 </Project>

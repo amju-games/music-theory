@@ -5,6 +5,10 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="GTest|Win32">
+      <Configuration>GTest</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -17,6 +21,12 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
@@ -35,6 +45,9 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -44,12 +57,60 @@
     <OutDir>..\..\..\..\Build\$(Configuration)\</OutDir>
     <IntDir>..\..\..\..\Build\$(Configuration)\</IntDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\..\..\Build\$(Configuration)\</OutDir>
+    <IntDir>..\..\..\..\Build\$(Configuration)\</IntDir>
+    <IncludePath>..\..\..\..\Source;..\..\..\..\Source\ThirdParty\googletest\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\..\..\</OutDir>
     <IntDir>..\..\..\..\Build\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>USE_BASS_MIDI;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/I "../../../../../amjulib/Source/Events" 
+/I "../../../../../amjulib/Source/EventsWin32" 
+/I "../../../../../amjulib/Source/EventsSDL" 
+/I "../../../../../amjulib/Source/FileUtils" 
+/I "../../../../../amjulib/Source/Localise" 
+/I "../../../../../amjulib/Source/AmjuGL" 
+/I "../../../../../amjulib/Source/AmjuGLOpenGL" 
+/I "../../../../../amjulib/Source/AmjuGLDX9" /I "../../../../amjulib/Source/AmjuGLDX11" 
+/I "../../../../../amjulib/Source/Mem" 
+/I "../../../../../amjulib/Source/Md2" 
+/I "../../../../../amjulib/Source/Image" 
+/I "../../../../../amjulib/Source/Geom" 
+/I "../../../../../amjulib/Source/Strings" 
+/I "../../../../../amjulib/Source/TimeUtils" 
+/I "../../../../../amjulib/Source/Game" 
+/I "../../../../../amjulib/Source/Resource" 
+/I "../../../../../amjulib/Source/Scene" 
+/I "../../../../../amjulib/Source/Obj"  
+/I "../../../../../amjulib/Source/Collision" 
+/I "../../../../../amjulib/Source/Gui" 
+/I "../../../../../amjulib/Source/Font" 
+/I "../../../../../amjulib/Source/Sound" 
+/I "../../../../../amjulib/Source/SoundBass" 
+/I "../../../../../amjulib/Source/GeomLoad" 
+/I "../../../../../amjulib/Source/GeomDraw"
+/I "../../../../../amjulib/Source/Utils" 
+/I "../../../../../amjulib/Source/Main" 
+/I "../../../../../amjulib/Source/Network"  /I "../../../../../amjulib/Source/Thread"  %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
@@ -142,28 +203,42 @@
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSShowLineDrawing.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSShowMusicScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSTestShowScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSUserDraw.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiLineDrawing.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicKb.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\Page.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Question.cpp" />
     <ClCompile Include="..\..\..\..\Source\ScoreBuilder.cpp" />
     <ClCompile Include="..\..\..\..\Source\Startup.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Tests\QuestionTests.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\TestMain.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowMusicScore.h" />
+    <ClInclude Include="..\..\..\..\Source\GSTestShowScore.h" />
     <ClInclude Include="..\..\..\..\Source\GSUserDraw.h" />
     <ClInclude Include="..\..\..\..\Source\GuiLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
     <ClInclude Include="..\..\..\..\Source\Page.h" />
     <ClInclude Include="..\..\..\..\Source\PageDrawOnStave.h" />
-    <ClInclude Include="..\..\..\..\Source\PageMultiChoiceDrag.h" />
+    <ClInclude Include="..\..\..\..\Source\PageMultiChoice.h" />
     <ClInclude Include="..\..\..\..\Source\PagePlayNotes.h" />
     <ClInclude Include="..\..\..\..\Source\PlayMidi.h" />
+    <ClInclude Include="..\..\..\..\Source\Question.h" />
     <ClInclude Include="..\..\..\..\Source\ScoreBuilder.h" />
   </ItemGroup>
   <ItemGroup>
