@@ -33,7 +33,8 @@ private:
   void SetKbPos(const Vec2f& posOffset);
 
 private:
-  // Player only gets to play one note per page
+  // Player only gets to play one note per page?
+  // Rename to playHasFinished - set when we stop allowing KB input.  
   bool m_playerHasHitNote = false;
 
   // Set of midi note values which we can show is NOT the correct answer.
@@ -43,5 +44,14 @@ private:
 
   // Position offset for piano keyboard
   Vec2f m_kbPos;
+
+  // Allow a sequence of notes rather than just one.
+  // m_correctSequence is the sequence of MIDI note values we expect
+  //  for a correct answer.
+  // m_correctSequenceCurrentPos is where we are currently in the
+  //  sequence (or, how many correct notes from the sequence the player
+  //  has played so far).
+  std::vector<int> m_correctSequence;
+  int m_correctSequenceCurrentPos = 0;
 };
 }
