@@ -2,6 +2,8 @@
 // (c) Copyright 2017 Jason Colman
 
 #include "DictionaryPickQuestion.h"
+#include "QuestionPicker.h"
+#include "QuestionProgress.h"
 
 namespace Amju
 {
@@ -12,13 +14,16 @@ void DictionaryPickQuestion::SetDictionary(Dictionary* dictionary)
 
 void DictionaryPickQuestion::MakeQuestion(QuestionProgress& qp)
 {
-  // TODO Do we care about qp?
-
   Assert(m_dictionary);
+  const int maxNumQs = m_dictionary->GetNumTerms();
+  Assert(maxNumQs == qp.GetMaxQuestions());
+
+  QuestionPicker picker;
+  // Pick a number at random from the unused questions in the progress object.
+  // This marks this number as used in qp from now on.
+  int r = picker.PickCorrect(qp);
 
   std::string s1, s2;
-  int num = m_dictionary->GetNumTerms();
-  int r = rand() % num;
   m_dictionary->GetTerm(r, &s1, &s2);
 
   m_questionString = s1;
