@@ -375,6 +375,7 @@ bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* re
     }
     return true;
   }
+  ReportError("Failed to parse line " + line);
   return false;
 }
 

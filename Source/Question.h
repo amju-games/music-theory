@@ -23,8 +23,6 @@ public:
   // TODO what about testing
   virtual std::string GetQuestionString();
 
-  void AddQuestionString(const std::string& qs);
-
   virtual void MakeQuestion() = 0;
 
   // Get/set flag in config file, so we know if a question has been seen before.
@@ -32,8 +30,11 @@ public:
   virtual bool QuestionSeenBefore(ConfigFile*) const = 0;
   virtual void SetQuestionSeenBefore(ConfigFile*) const = 0;
 
+  virtual std::string GetAnswerString();
+
 protected:
   Strings m_questionStrings; // typically, choose one of these at random - could be default impl of GetQString
+  std::string m_answerString;
 };
 }
 

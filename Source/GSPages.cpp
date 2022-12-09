@@ -168,7 +168,7 @@ void GSPages::OnDeactive()
 {
   GSBase3d::OnDeactive();
   
-  m_page = nullptr;
+  SetPage(nullptr);
   
   // Save changes to user profile (questions seen, etc)
   TheUserProfile()->Save();
@@ -211,11 +211,8 @@ void GSPages::NextPage()
   // Page reads/writes config file to load/save user state
   ConfigFile* cf = TheUserProfile()->GetConfigForTopic(topic->GetId());
   page->SetConfigFile(cf);
-  AddPage(page);
+  SetPage(page);
   
-  // Activate new page
-  page->OnActive();
-
   m_numPagesShown++;
 
   HideTickAndCross();
@@ -307,10 +304,21 @@ bool GSPages::OnKeyEvent(const KeyEvent& ke)
   return false;
 }
 
-void GSPages::AddPage(Page* p)
+void GSPages::SetPage(Page* p)
 {
-  p->SetGameState(this);
+  if (m_page)
+  {
+    m_page->OnDeactive();
+  }
+
   m_page = p;
+
+  if (m_page)
+  {
+    m_page->SetGameState(this);
+    // Activate new page
+    m_page->OnActive();
+  }
 }
 
 void GSPages::OnPlayerMadeChoice()

@@ -58,3 +58,36 @@ minim-down = note-minim, 0, 0 ; stem-down, 0, 0
 dotted-minim-down = minim-down, 0, 0 ; ., 0.275, 0.0
 dotted-minim-down-raised-dot = minim-down, 0, 0 ; ., 0.275, 0.03
 
+// Ledger line, same y pos as bottom line of stave
+ledger = quad, 0.25, 0.475,  0.25, 0.490,  -0.05, 0.490,  -0.05, 0.475
+
+// Common notes
+// c4 = middle C
+treb-c4-cr = crotchet-up, 0, -0.1 ; ledger, 0, -0.1
+treb-c#4-cr = treb-c4-cr, 0, 0 ; sharp, -0.2, -0.1
+treb-d4-cr = crotchet-up, 0, -0.05
+treb-d#4-cr = crotchet-up, 0, -0.05 ; sharp, -0.2, -0.05
+treb-e4-cr = crotchet-up, 0, 0.0
+treb-f4-cr = crotchet-up, 0, 0.05 
+treb-f#4-cr = crotchet-up, 0, 0.05 ; sharp, -0.2, 0.05
+treb-g4-cr = crotchet-up, 0, 0.1 
+treb-g#4-cr = crotchet-up, 0, 0.1 ; sharp, -0.2, 0.1
+treb-a5-cr = crotchet-up, 0, 0.15
+treb-a#4-cr = crotchet-up, 0, 0.15 ; sharp, -0.2, 0.15
+treb-b5-cr = crotchet-up, 0, 0.2
+treb-c5-cr = crotchet-down, 0, 0.25
+
+// Convenience short versions: treble clef, notes from middle C.
+c = treb-c4-cr, 0, 0
+c# = treb-c#4-cr, 0, 0
+d = treb-d4-cr, 0, 0
+d# = treb-d#4-cr, 0, 0
+e = treb-e4-cr, 0, 0
+f = treb-f4-cr, 0, 0
+f# = treb-f#4-cr, 0, 0
+g = treb-g4-cr, 0, 0
+g# = treb-g#4-cr, 0, 0
+a = treb-a5-cr, 0, 0
+a# = treb-a#5-cr, 0, 0
+b = treb-b5-cr, 0, 0
+c' = treb-c5-cr, 0, 0

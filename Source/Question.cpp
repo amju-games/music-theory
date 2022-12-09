@@ -11,11 +11,10 @@ std::string Question::GetQuestionString()
   return m_questionStrings[0]; // TODO TEMP TEST
 }
 
-void Question::AddQuestionString(const std::string& qs)
+std::string Question::GetAnswerString()
 {
-  m_questionStrings.push_back(qs);
+  return m_answerString;
 }
-
 }
 
 

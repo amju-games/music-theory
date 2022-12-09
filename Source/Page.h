@@ -36,6 +36,7 @@ class Page : public RefCounted
 public:
   // Load GUI, and question info independently?
   virtual void OnActive();
+  virtual void OnDeactive();
   virtual void Draw();
   virtual void Update();
   virtual bool Load(File*) { return true; }

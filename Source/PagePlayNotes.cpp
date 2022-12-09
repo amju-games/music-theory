@@ -6,6 +6,7 @@
 #include "GSPages.h"
 #include "GuiMusicScore.h"
 #include "PagePlayNotes.h"
+#include "PlayMidi.h"
 #include "ScoreBuilder.h"
 
 namespace Amju
@@ -21,37 +22,19 @@ void PagePlayNotes::OnActive()
 {
   Page::OnActive();
 
+  // Set the question type: we pick a line at random from a dictionary.
   DictionaryPickQuestion* q = new DictionaryPickQuestion;
   SetQuestion(q);
 
   q->SetDictionary(GetDictionary());
-  q->MakeQuestion();
+  q->MakeQuestion(); // pick the random line
 
   SetUpQuestionUI();
 
-  // Create "question" - this should be external, right?
-  // Pick clef
-  // Pick note - how to display it, e.g. octave, enharmonic?
-
-  // Add the chosen note to the stave already set up in gui file
-  //ScoreBuilder sb;
-
-  //// Choose pitch depending on if we are testing accidentals etc?
-  //int pitch = 0; // TODO
-  //int x = 192; // TODO
-  //int y = rand() % 12 - 6; // TODO
-  //int bar = 1;
-  //Note note(pitch, x, y, Note::SEMIBREVE, bar);
-  //sb.Add(note);
-
-  //// Tell ScoreBuilder which clef to use, and the pitch, then 
-  ////  it works out the y-pos. So clef not hard coded in gui layout?
-
-  //// Tell S.B. the key sig?? (Guido has +/- number of sharps/flats)
-
-  //GuiMusicScore* score = dynamic_cast<GuiMusicScore*>(GetElementByName(m_gui, "music-score"));
-  //Assert(score);
-  //sb.Write(*score);
+  // Play the note
+  int note = ToInt(GetQuestion()->GetAnswerString());
+  PlayMidi(note, MIDI_NOTE_MAX_VOLUME);
+  // TODO Timed message to stop the note? Or just let it decay.
 }
 
 void PagePlayNotes::OnHint()
@@ -65,9 +48,18 @@ void PagePlayNotes::ShowCorrectAnswer()
 void PagePlayNotes::OnMusicKbEvent(const MusicKbEvent& event)
 {
   // Check note
-  if (!event.m_on)
+  if (event.m_on) // note down
   {
-//    dynamic_cast<GSPages*>(m_gs)->OnCorrect(Vec2f(0, 0));
+    // Check note against answer string
+    int correctNote = ToInt(GetQuestion()->GetAnswerString());
+    if (correctNote == event.m_note)
+    {
+      dynamic_cast<GSPages*>(m_gs)->OnCorrect(Vec2f(0, 0));
+    }
+    else
+    {
+      dynamic_cast<GSPages*>(m_gs)->OnIncorrect(Vec2f(0, 0));
+    }
   }
 }
 }

@@ -149,11 +149,12 @@ void StartUpAfterCreateWindow()
 //  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
-//  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSPages::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSFirstUser::Instance());
+
+//  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 
   TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
 }

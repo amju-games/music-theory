@@ -2,6 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <ConfigFile.h>
+#include <EventPoller.h>
 #include <GameState.h>
 #include <GuiDecAnimation.h>
 #include "Dictionary.h"
@@ -77,6 +78,16 @@ void Page::SetIsEnabled(bool enabled)
       GetElementByName(m_gui, "anim-colour-fade-whole-page"));
     Assert(anim);
     anim->SetIsReversed(false);
+  }
+}
+
+void Page::OnDeactive()
+{
+  if (m_gui)
+  {
+    // Delete old GUI: listener ref prevents its deletion
+    TheEventPoller::Instance()->RemoveListener(m_gui);
+    m_gui = nullptr;
   }
 }
 

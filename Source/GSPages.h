@@ -31,7 +31,7 @@ public:
   // Load list of pages from file?
   bool Load(const std::string& filename);
 
-  void AddPage(Page* p);
+  void SetPage(Page* p);
 
   void OnCorrect(const Vec2f& choicePos);
   void OnIncorrect(const Vec2f& choicePos);

@@ -15,8 +15,6 @@
 
 namespace Amju
 {
-const int MIDI_NOTE_MAX_VOLUME = 127;
-  
 static GuiElement* CreateMusicKb()
 {
   return new GuiMusicKb;
@@ -272,16 +270,25 @@ void GuiMusicKb::Key::Press()
   PlayMidi(m_midiNote, MIDI_NOTE_MAX_VOLUME); // ?
 
   TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, true)));
+
+  std::cout << "Playing note: " << m_midiNote << "\n";
 }
   
 void GuiMusicKb::Key::Release()
 {
+  if (!m_isPressed)
+  {
+    return;
+  }
+
   m_isPressed = false;
   m_desiredAngle = 0.0f;
   
   PlayMidi(m_midiNote, 0); // ?
 
   TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, false)));
+
+  std::cout << "Releasing note: " << m_midiNote << "\n";
 }
 
 void GuiMusicKb::ReleaseKey(Key* key)
@@ -404,6 +411,7 @@ bool GuiMusicKb::OnCursorEvent(const CursorEvent& ce)
   }
 #endif // YES_ALLOW_SWIPE_TO_SCROLL
 
+#ifdef YES_GLISSANDO
   // Glissando
   if (m_tapDown)
   {
@@ -411,6 +419,7 @@ bool GuiMusicKb::OnCursorEvent(const CursorEvent& ce)
     Key* key = PickKey(m_tapDownPos);
     PressKey(key);
   }
+#endif // YES_GLISSANDO
 
   return false;
 }
