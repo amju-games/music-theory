@@ -192,7 +192,11 @@ bool NetSendUpdateDeviceInfo()
   //  ran the program and saved in the config file. This is just in case the
   //  device ID is not constant over time.
   GetDeviceInfo(&devId, &deviceUserName, &deviceModel, &deviceOsVersion);
+#elif defined(WIN32)
+  std::string deviceIdIgnore;
+  GetDeviceInfo(&deviceIdIgnore, &deviceUserName, &deviceModel, &deviceOsVersion);
 #endif // AMJU_IOS
+
 
   // Handle empty device ID, which you get upgrading from v.1.0
   std::string deviceId = gcf->GetValue(DEVICE_ID);
