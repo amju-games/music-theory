@@ -1,0 +1,101 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Certificate
+
+// version
+1
+
+animation
+clean-anim
+const
+one
+
+animation
+certif-off-delay
+one-shot
+// Delay until we show certif
+5
+step
+
+// Move certificate off screen
+animation
+name-not-used
+one-shot
+0.3
+linear
+
+translate
+0, 0; 0, -2
+
+// Move certif on screen
+animation
+clean-anim
+const
+one
+
+animation
+certif-delay
+one-shot
+// Delay until we show certif
+3
+step
+
+gui-comp
+certif-and-stamp
+2
+
+// Move certificate onto screen
+animation
+name-not-used
+one-shot
+0.3
+linear
+
+translate
+0, -2; 0, 0
+
+// Certificate
+gui-image
+pass-certificate
+-.7, .7
+1.4, 1.4
+Image/paper2.png, stretch
+
+// Stamp
+
+animation
+clean-anim
+const
+one
+
+animation
+stamp-delay
+one-shot
+// Delay until we show stamp
+3.5
+step
+
+// Don't show stamp until we start animating it
+// TODO Have a visibility decorator, this is killing fill rate!
+colour
+ffffff00, ffffffff
+
+animation
+name-not-used
+one-shot
+0.3
+linear
+
+
+scale
+4, 4 ; 1, 1
+0, 0
+
+gui-image
+pass-stamp
+-.5, .5
+1, 1
+Image/heart.png, stretch
+
+
