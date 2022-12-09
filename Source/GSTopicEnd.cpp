@@ -11,8 +11,10 @@ namespace Amju
 {
 static void OnOK(GuiElement*)
 {
-  TheGSTopicEnd::Instance()->ScrollUp();
+  //TheGSTopicEnd::Instance()->ScrollUp();
+  // TODO fade out?
   TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainMenu>, SecondsFromNow(1.0f)));
+  //GoTo<TheGSMainMenu>();
 }
 
 GSTopicEnd::GSTopicEnd()
@@ -28,6 +30,7 @@ void GSTopicEnd::SetScore(int num, int denom)
 
 void GSTopicEnd::OnActive()
 {
+  // This works well because it skips loading scene again in GSBase3d::OnActive
   GSBase::OnActive();
 
   // Set button commands

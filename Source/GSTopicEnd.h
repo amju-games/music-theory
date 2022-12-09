@@ -3,15 +3,15 @@
 
 #pragma once
 
-#include "GSBase.h"
 #include <Singleton.h>
+#include "GSBase3d.h"
 
 namespace Amju
 {
 // * GSTopicEnd *
 // Shown when we finish a topic.
 // Show score, rating, give hints, etc.
-class GSTopicEnd : public GSBase
+class GSTopicEnd : public GSBase3d
 {
 public:
   GSTopicEnd();
