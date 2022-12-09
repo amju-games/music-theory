@@ -26,7 +26,9 @@ public:
   void DrawGui();
 
   void ActivateGui();
-//  void DeactivateGui();
+  void DeactivateGui();
+
+  void UpdateGui();
 
 protected:
   std::string m_name;

@@ -27,11 +27,6 @@ CorridorModeShowTappable::CorridorModeShowTappable()
   m_guiFilename = "Gui/corridor_mode_show_tappable.txt";
 }
 
-void CorridorModeShowTappable::Update()
-{
-  CorridorMode::Update();
-}
-
 void CorridorModeShowTappable::OnActive()
 {
   CorridorMode::OnActive();
@@ -40,16 +35,28 @@ void CorridorModeShowTappable::OnActive()
   Assert(button);
   button->SetCommand(OnDone);
 
-  Tappable* tapped = m_gs->GetSelectedTappable();
-  Assert(tapped);
-  tapped->ActivateGui();
+  m_tapped = m_gs->GetSelectedTappable();
+  Assert(m_tapped);
+  m_tapped->ActivateGui();
+}
+
+void CorridorModeShowTappable::OnDeactive()
+{
+  CorridorMode::OnDeactive();
+  m_tapped = nullptr;
 }
 
 void CorridorModeShowTappable::Draw2d()
 {
   CorridorMode::Draw2d();
-  Tappable* tapped = m_gs->GetSelectedTappable();
-  Assert(tapped);
-  tapped->DrawGui();
+
+  m_tapped->DrawGui();
+}
+
+void CorridorModeShowTappable::Update()
+{
+  CorridorMode::Update();
+
+  m_tapped->UpdateGui();
 }
 }

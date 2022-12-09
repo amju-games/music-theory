@@ -4,6 +4,7 @@
 #pragma once
 
 #include "CorridorMode.h"
+#include "Tappable.h"
 
 namespace Amju
 {
@@ -15,8 +16,12 @@ public:
   static const int ID = 3;
   CorridorModeShowTappable();
   virtual void OnActive() override;
+  virtual void OnDeactive() override;
   virtual void Update() override;
   virtual void Draw2d() override;
+
+private:
+  RCPtr<Tappable> m_tapped;
 };
 
 }
