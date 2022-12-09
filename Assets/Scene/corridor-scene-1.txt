@@ -11,7 +11,7 @@ root
 // Matrix
 I
 // Num children
-8
+6
 
 // Node type
 camera-persp
@@ -53,17 +53,6 @@ obj/end1.obj
 0
 
 
-// Node type
-mesh
-// Name
-right-end
-// Matrix
-1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, -860, 1
-// Obj mesh
-obj/end1.obj
-// Num children
-0
-
 
 // Node type
 mesh
@@ -75,7 +64,7 @@ right-arch
 obj/arch1.obj
 //obj/end1.obj
 // Num children
-1
+3
 
 // Node type
 mesh
@@ -87,6 +76,45 @@ right-stairs-up
 obj/stairs-up.obj
 // Num children
 0
+
+// Node type
+mesh
+// Name
+right-end
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, -120, 1
+// Obj mesh
+obj/end1.obj
+// Num children
+0
+
+
+// Sign showing stairs up to next level
+// Node type
+comp
+// Name, matrix, children
+picture-1-root
+// Matrix
+1.2, 0, 0, 0,  0, 0.8, 0, 0,  0, 0, 1, 0,  2, 50, 120, 1
+// Num children
+2
+// Child: frame
+scene-mesh-material
+// Obj
+obj/just-frame1.obj
+// Material 
+obj/just-frame-black.mtl
+//
+// Child: GUI
+// Node type
+gui
+// Node name
+level-sign-gui
+// GUI file name
+Gui/sign-up-to-level-2.txt
+// Matrix
+0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
+
 
 // Sign showing current level
 // Node type
@@ -114,32 +142,6 @@ Gui/sign-level-1.txt
 // Matrix
 0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
 
-
-// Sign showing stairs up to next level
-// Node type
-comp
-// Name, matrix, children
-picture-1-root
-// Matrix
-1.2, 0, 0, 0,  0, 0.8, 0, 0,  0, 0, 1, 0,  2, 50, -630, 1
-// Num children
-2
-// Child: frame
-scene-mesh-material
-// Obj
-obj/just-frame1.obj
-// Material 
-obj/just-frame-black.mtl
-//
-// Child: GUI
-// Node type
-gui
-// Node name
-level-sign-gui
-// GUI file name
-Gui/sign-up-to-level-2.txt
-// Matrix
-0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
 
 
 // Shadow - shows locked doors to the right 
