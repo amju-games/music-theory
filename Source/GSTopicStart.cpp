@@ -28,11 +28,12 @@ static void OnStart(GuiElement*)
 GSTopicStart::GSTopicStart()
 {
   m_guiFilename = "Gui/gs_topic_start.txt";
+  m_sceneFilename = "Scene/room1-scene.txt";
 }
 
 void GSTopicStart::OnActive()
 {
-  GSBase::OnActive();
+  GSBase3d::OnActive();
 
   // Set button commands
   GuiElement* elem = GetElementByName(m_gui, "cancel-button");

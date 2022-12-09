@@ -11,40 +11,20 @@ gui-comp
 // Name
 main-menu-comp
 // Num children
-4
-
-// BG
-colour
-798EEB
-gui-image
-sky-bg
--2.0, 1.0
-4.0, 4.0
-Image/white.png
-
-
-animation
-name-not-used
-one-shot
-2.0
-linear
-
-colour
-ffffff00, ffffffff
-
+3
 
 // Element type
 gui-text
 // Element name
 topic-name-text
 // pos (coords are -1..1)
--1.0, 0.1
+0.0, 0.8
 // size
-2.0, 0.4
+0.45, 1.0
 // Text
 TOPIC
 // Font name, size
-dimbo, 1.5, multi, fgcol=ffffff
+arial, 3.0, multi, fgcol=ffffff, reveal=0.1
 
 
 
@@ -63,7 +43,7 @@ Image/gui-button-2.png
 // Text
 CANCEL
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
 
 
 // OK, go forward button
@@ -81,5 +61,5 @@ Image/gui-button-2.png
 // Text
 START
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
 
