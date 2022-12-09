@@ -4,6 +4,7 @@
 #include <Lerp.h>
 #include <SceneNodeCamera.h>
 #include <Timer.h>
+#include "Consts.h"
 #include "CorridorModeEnterStairs.h"
 #include "CorridorModeExitStairs.h"
 #include "CorridorModeWait.h"
@@ -13,8 +14,6 @@ namespace Amju
 {
 static int s_newLevel = -1;
 const int CorridorModeEnterStairs::ID = 6;
-
-static const float ZOOM_DIST = -50.f;
 
 void CorridorModeEnterStairs::SetNewLevel(int newLevel)
 {
@@ -28,7 +27,7 @@ void CorridorModeEnterStairs::OnActive()
   CorridorModeLerpCam::OnActive();
 
   auto cam = m_gs->GetCamera();
-  Vec3f camChange(ZOOM_DIST, 0, 0);
+  Vec3f camChange(STAIRS_ZOOM_DIST, 0, 0);
   Vec3f eye = cam->GetEyePos() + camChange;
   Vec3f target = cam->GetLookAtPos() + camChange;
 

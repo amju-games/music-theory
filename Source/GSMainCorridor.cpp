@@ -192,11 +192,7 @@ void GSMainCorridor::SetCameraForNewLevel(bool wentUpNotDown)
   // Set the controller: we will lerp backwards from 1..0, so desired positions are
   //  the new camera positions, with the zoom applied.
 
-  // TODO TEMP TEST this is duplicated in CorridorModeEnterStairs - move to
-  //  Consts.
-  static const float ZOOM_DIST = -50.f;
-
-  Vec3f camChange(ZOOM_DIST, 0, 0);
+  Vec3f camChange(STAIRS_ZOOM_DIST, 0, 0);
   GetCameraController().SetDesired(eye + camChange, target + camChange);
 
   // Set camera pos and current topic in CorridorModeWait

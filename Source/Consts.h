@@ -29,6 +29,9 @@ static const float DOOR_RECT_XMAX =  .25f;
 static const float DOOR_RECT_YMIN = -.6f;
 static const float DOOR_RECT_YMAX =  .6f;
 
+// Camera zoom distance when we go into stairs archway to change level
+static const float STAIRS_ZOOM_DIST = -100.f;
+
 // Keys for map/config file lookups etc
 
 #define APPNAME  "amjula-mt"
