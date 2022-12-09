@@ -30,7 +30,9 @@ static PGuiElement MakeExplGui(const std::string& expl)
   }
   else
   {
-    gui = CentreMsg::MakeGuiText(expl, GetColour(COLOUR_TEXT), CentreMsg::MESSAGE_FONT);
+    gui = CentreMsg::MakeGuiText(expl, 
+      Colour(0, 0, 0, 1), // fg col
+      CentreMsg::MESSAGE_FONT);
   }
   Assert(gui);
   return gui;
@@ -285,8 +287,8 @@ void PageMultiChoice::ShowCorrectAnswer()
     CentreMsg* msg = new CentreMsg;
     msg->SetCentred(
       explGui, 
-      GetColour(COLOUR_TEXT), 
-      GetColour(COLOUR_EXPLANATION),
+      Colour(0, 0, 0, 1), // text colour,
+      Colour(1, 1, 1, 1), // bg colour,
       AMJU_LURK_NO_TIMER,
       okFunc);
 

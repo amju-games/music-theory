@@ -152,6 +152,8 @@ void GSPages::OnActive()
 
   NetSendMarkAttemptStart(topic->GetId());
 
+  m_composer = GetComposerList().GetComposerForTopic(topic->GetId());
+
   // Create a new, empty container of progress objects.
   // We create one progress object for each page.
   m_maxMark = 0; // calc max mark while we're here
@@ -183,6 +185,8 @@ void GSPages::OnDeactive()
   TheUserProfile()->Save();
   // Just in case we switch users or something happens to invalidate this
   m_userConfig = nullptr;
+
+  m_composer = nullptr;
 }
 
 void GSPages::UpdateHud()
@@ -403,8 +407,8 @@ void GSPages::OnCorrect()
 
   Page::SendNextPageMessage();
 
-  // TODO Customise the message depending on the Composer for this Topic
-  PLurkMsg lm = new CentreMsg("Ja, that is correct!", //Lookup("$$$121" /* Correct! */),
+  // Customise the message depending on the Composer for this Topic
+  PLurkMsg lm = new CentreMsg(m_composer->GetCorrectStr(m_correctStreak),
     Colour(0, 0, 0, 1), // text colour,
     Colour(1, 1, 1, 1), // bg colour,
     1.0f); // TODO CONFIG
@@ -424,7 +428,6 @@ void GSPages::OnIncorrect()
 
   m_livesThisSession--;
   UpdateHud();
-
 
   // Do this in m_page->ShowCorrectAnswer() if required
   //LurkMsg lm(Lookup("Incorrect!"), 
@@ -474,6 +477,8 @@ void GSPages::OnQuitButton()
 {
   // Lurk messages are modal, so no need to diable page
   ShowYesNo(
+    // TODO Get this string from the current Composer, e.g.
+    //   m_composer->GetConfirmStr()
     Lookup("$$$90") /* Sure you want to quit? */,
     GetColour(COLOUR_TEXT),
     GetColour(COLOUR_CONFIRM_QUIT),
@@ -508,5 +513,10 @@ void GSPages::OnMusicKbEvent(const MusicKbEvent& e)
   }
 }
 
+const std::string& GSPages::GetIncorrectStr() const
+{
+  Assert(m_composer);
+  return m_composer->GetIncorrectStr(m_incorrectStreak);
+}
 }
 

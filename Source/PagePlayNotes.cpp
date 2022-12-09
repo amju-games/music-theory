@@ -223,13 +223,13 @@ std::cout << "Note " << m_correctSequenceCurrentPos << " incorrect!\n";
 
 void PagePlayNotes::ShowExplanation(int correctNote, int badNote)
 {
-  // TODO Composer-specific text, then 
-  // TODO Explanation - "you played an A, but you should have played a C"
-  std::string composerNo = "NEIN!"; // TODO Composer Manager?
+  // Composer-specific text, then 
+  // explanation - "you played an A, but you should have played a C"
+  std::string composerNo = GetPagesState()->GetIncorrectStr();
   const int BUF_SIZE = 1000;
   const std::string NOTES[] =
   {
-    "a C", // TODO LOC
+    Lookup("@@@a C"), // TODO LOCALISE ALL
     "a C sharp",
     "a D",
     "a D sharp",
@@ -245,8 +245,11 @@ void PagePlayNotes::ShowExplanation(int correctNote, int badNote)
   std::string badNoteStr = NOTES[badNote % 12];
   std::string goodNoteStr = NOTES[correctNote % 12];
   char buf[BUF_SIZE];
-  sprintf(buf, " You played %s but you should have played %s!",
-    badNoteStr.c_str(), goodNoteStr.c_str());
+  // Add space between composer No string and explanation string.
+  std::string formatStr = " " + Lookup("@@@You played %s but you should have played %s!");
+  // Looked-up string should contain two %s, first for bad note, second for good note.
+  // TODO Allow %s1, %s2, so we can flip them if reuqired by the current language.
+  sprintf(buf, formatStr.c_str(), badNoteStr.c_str(), goodNoteStr.c_str());
   std::string expl = composerNo + buf;
 
   PLurkMsg lm = new CentreMsg(expl,

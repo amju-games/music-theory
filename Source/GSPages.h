@@ -4,6 +4,7 @@
 #pragma once
 
 #include <Colour.h>
+#include "ComposerList.h"
 #include "GSBase3d.h"
 #include "MusicEvent.h"
 #include "Page.h"
@@ -55,6 +56,9 @@ public:
   // Show number of hints for each hint type   
   void ShowHints();
 
+  // Get a string to tell the player that he or she gave an incorrect answer.
+  const std::string& GetIncorrectStr() const;
+
 protected:
   void SetButtonEnabled(const std::string& buttonName, bool enabled);
   virtual void ReloadGui() override;
@@ -96,6 +100,13 @@ protected:
   // User config file, for things like number of hints available/used etc.
   // Weak, owned by UserProfile
   ConfigFile* m_userConfig = nullptr;
+
+  // Each topic/classroom has a Composer, who asks the questions and
+  //  explains answers, etc.
+  RCPtr<const Composer> m_composer;
+  // Count consecutive correct or incorrect answers
+  int m_correctStreak = 0;
+  int m_incorrectStreak = 0;
 };
 
 typedef Singleton<GSPages> TheGSPages;
