@@ -14,37 +14,8 @@
 //  +--------------------------+   0.0
 // 0.0                        4.0
 
-// . means deleted note at this position. ( ) are beams.
-
-// From example: (q q) . (sq sq sq sq) . cr | (q sq sq) (sq sq sq sq) cr .
-//
-stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; crotchet-up, 0.24, 0.88, 0.5, 0.5 ; crotchet-up, 0.6, 0.88, 0.5, 0.5 ;  h-beam-up-half, 0.21, 0.88, 0.5, 0.5 ;       crotchet-up, 1.44, 0.88, 0.5, 0.5; crotchet-up, 1.8, 0.88, 0.5, 0.5 ; crotchet-up, 2.2, 0.88, 0.5, 0.5 ;crotchet-up, 2.54, 0.88, 0.5, 0.5 ;  h-beam-up, 1.41, 0.88, 0.5, 0.5 ; h-beam-up, 1.41, 0.80, 0.5, 0.5 ; h-beam-up-half, 2.14, 0.88, 0.5, 0.5 ; h-beam-up-half, 2.14, 0.80, 0.5, 0.5 ;   crotchet-up, 3.36, 0.88, 0.5, 0.5  ;         crotchet-up, 4.24, 0.88, 0.5, 0.5 ; crotchet-up, 4.6, 0.88, 0.5, 0.5 ; crotchet-up, 4.96, 0.88, 0.5, 0.5 ; h-beam-up, 4.21, 0.88, 0.5, 0.5 ;     crotchet-up, 5.44, 0.88, 0.5, 0.5; crotchet-up, 5.8, 0.88, 0.5, 0.5 ; crotchet-up, 6.16, 0.88, 0.5, 0.5 ;crotchet-up, 6.64, 0.88, 0.5, 0.5 ;crotchet-up, 7.0, 0.88, 0.5, 0.5 ;crotchet-up, 7.36, 0.88, 0.5, 0.5  ;      bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
-end
-
-
-// Template: 9 notes in each bar
-stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; dotted-crotchet-up-raised-dot, 0.24, 0.88, 0.5, 0.5 ; crotchet-up, 0.6, 0.88, 0.5, 0.5 ; crotchet-up, 0.96, 0.88, 0.5, 0.5 ;      crotchet-up, 1.44, 0.88, 0.5, 0.5; crotchet-up, 1.8, 0.88, 0.5, 0.5 ; crotchet-up, 2.16, 0.88, 0.5, 0.5 ;crotchet-up, 2.64, 0.88, 0.5, 0.5 ;crotchet-up, 3.0, 0.88, 0.5, 0.5 ;crotchet-up, 3.36, 0.88, 0.5, 0.5  ;         dotted-crotchet-up-raised-dot, 4.24, 0.88, 0.5, 0.5 ; crotchet-up, 4.6, 0.88, 0.5, 0.5 ; crotchet-up, 4.96, 0.88, 0.5, 0.5 ;      crotchet-up, 5.44, 0.88, 0.5, 0.5; crotchet-up, 5.8, 0.88, 0.5, 0.5 ; crotchet-up, 6.16, 0.88, 0.5, 0.5 ;crotchet-up, 6.64, 0.88, 0.5, 0.5 ;crotchet-up, 7.0, 0.88, 0.5, 0.5 ;crotchet-up, 7.36, 0.88, 0.5, 0.5  ;      bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
-end
-
-// Bar 2, 9 notes: x-coords are first bar + 4.0
-h-beam-up-quarter, 1.41, 0.80, 0.5, 0.5 ; h-beam-up-half, 0.21, 0.80, 0.5, 0.5 ; h-beam-up, 1.41, 0.88, 0.5, 0.5 ; h-beam-up, 0.21, 0.88, 0.5, 0.5 ; stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; dotted-crotchet-up-raised-dot, 4.24, 0.88, 0.5, 0.5 ; crotchet-up, 4.6, 0.88, 0.5, 0.5 ; crotchet-up, 4.96, 0.88, 0.5, 0.5 ;      crotchet-up, 5.44, 0.88, 0.5, 0.5; crotchet-up, 5.8, 0.88, 0.5, 0.5 ; crotchet-up, 6.16, 0.88, 0.5, 0.5 ;crotchet-up, 6.64, 0.88, 0.5, 0.5 ;crotchet-up, 7.0, 0.88, 0.5, 0.5 ;crotchet-up, 7.36, 0.88, 0.5, 0.5  ;      bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
-end
-
-// Bar 1, 9 notes, with some beams.
-h-beam-up-quarter, 1.41, 0.80, 0.5, 0.5 ; h-beam-up-half, 0.21, 0.80, 0.5, 0.5 ; h-beam-up, 1.41, 0.88, 0.5, 0.5 ; h-beam-up, 0.21, 0.88, 0.5, 0.5 ; stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; dotted-crotchet-up-raised-dot, 0.24, 0.88, 0.5, 0.5 ; crotchet-up, 0.6, 0.88, 0.5, 0.5 ; crotchet-up, 0.96, 0.88, 0.5, 0.5 ;      crotchet-up, 1.44, 0.88, 0.5, 0.5; crotchet-up, 1.8, 0.88, 0.5, 0.5 ; crotchet-up, 2.16, 0.88, 0.5, 0.5 ;crotchet-up, 2.64, 0.88, 0.5, 0.5 ;crotchet-up, 3.0, 0.88, 0.5, 0.5 ;crotchet-up, 3.36, 0.88, 0.5, 0.5  ;      bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
-end
-
-
-
-stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; rest-crotchet, 0.3, 0.2 ; crotchet-up, 0.85, 0.2 ; crotchet-up, 1.4, 0.2 ; crotchet-up, 2.3, 0.2 ; crotchet-up, 2.85, 0.2; crotchet-up, 3.4, 0.2 ; bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
-
-stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; rest-crotchet, 0.3, 0.2 ; crotchet-up, 0.85, 0.2 ; crotchet-up, 1.4, 0.2 ; crotchet-up, 2.3, 0.2 ; crotchet-up, 2.85, 0.2; crotchet-up, 3.4, 0.2 ; bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
-
-stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; rest-crotchet, 0.3, 0.2 ; crotchet-up, 0.85, 0.2 ; crotchet-up, 1.4, 0.2 ; dotted-minim-up-raised-dot, 2.8, 0.2; bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
-
-stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; crotchet-up, 0.3, 0.2 ; crotchet-up, 0.85, 0.2 ; crotchet-up, 1.4, 0.2 ; dotted-minim-up-raised-dot, 2.8, 0.2; bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =3/4, .15, .2
-
-stave-line, 0, 0.2, 4.0, 1 ; bar-line, 0, 0.0 ; crotchet-up, 0.5, 0.2 ; crotchet-up, 1.2, 0.2 ; minim-up, 2.8, 0.2; bar-line, 2.0, 0.0 ; bar-line, 4.0, 0.0  =2/4, .15, .2
-end
-
-
+// 4/4 q -- q -- q -- q c cr | q -- q -- q -- q cr c
+stave-line, 0, 0.7, 4, 0.6;4/4, 0, 0.5, 0.6, 0.6;TIME, 0, 0.0625 ; NOTE_ON, 69, 0 ; crotchet-up, 0.548718, 0.7, 0.6, 0.6 ; NOTE_OFF, 69, 0.0625 ; TIME, -1, -1;TIME, 0.0625, 0.125 ; NOTE_ON, 69, 0.0625 ; crotchet-up, 1.02718, 0.7, 0.6, 0.6 ; NOTE_OFF, 69, 0.125 ; TIME, -1, -1;TIME, 0.125, 0.1875 ; NOTE_ON, 69, 0.125 ; crotchet-up, 1.50564, 0.7, 0.6, 0.6 ; NOTE_OFF, 69, 0.1875 ; TIME, -1, -1;TIME, 0.1875, 0.25 ; NOTE_ON, 69, 0.1875 ; crotchet-up, 1.9841, 0.7, 0.6, 0.6 ; NOTE_OFF, 69, 0.25 ; TIME, -1, -1;TIME, 0.25, 0.375 ; NOTE_ON, 69, 0.25 ; crotchet-up, 2.46256, 0.7, 0.6, 0.6 ; NOTE_OFF, 69, 0.375 ; TIME, -1, -1;TIME, 0.375, 0.5 ; rest-crotchet, 2.94103, 0.7, 0.6, 0.6 ; TIME, -1, -1;quad, 0.766308, 0.882, 0.766308, 0.918, 0.479231, 0.918, 0.479231, 0.882;quad, 1.05338, 0.882, 1.05338, 0.918, 0.766308, 0.918, 0.766308, 0.882;quad, 1.34046, 0.882, 1.34046, 0.918, 1.05338, 0.918, 1.05338, 0.882;bar-line, 0, 0.5, 0.6, 0.6;bar-line, 3.58974, 0.5, 0.6, 0.6;TIME, 0.5, 0.5625 ; NOTE_ON, 69, 0.5 ; crotchet-up, 3.8293, 0.7, 0.6, 0.6 ; NOTE_OFF, 69, 0.5625 ; TIME, -1, -1;TIME, 0.5625, 0.625 ; NOTE_ON, 69, 0.5625 ; crotchet-up, 4.26886, 0.7, 0.6, 0.6 ; NOTE_OFF, 69, 0.625 ; TIME, -1, -1;TIME, 0.625, 0.6875 ; NOTE_ON, 69, 0.625 ; crotchet-up, 4.70843, 0.7, 0.6, 0.6 ; NOTE_OFF, 69, 0.6875 ; TIME, -1, -1;TIME, 0.6875, 0.75 ; NOTE_ON, 69, 0.6875 ; crotchet-up, 5.14799, 0.7, 0.6, 0.6 ; NOTE_OFF, 69, 0.75 ; TIME, -1, -1;TIME, 0.75, 0.875 ; rest-crotchet, 5.58755, 0.7, 0.6, 0.6 ; TIME, -1, -1;TIME, 0.875, 1 ; NOTE_ON, 69, 0.875 ; crotchet-up, 6.02711, 0.7, 0.6, 0.6 ; NOTE_OFF, 69, 1 ; TIME, -1, -1;quad, 2.71132, 0.882, 2.71132, 0.918, 2.44758, 0.918, 2.44758, 0.882;quad, 2.97506, 0.882, 2.97506, 0.918, 2.71132, 0.918, 2.71132, 0.882;quad, 3.23879, 0.882, 3.23879, 0.918, 2.97506, 0.918, 2.97506, 0.882;bar-line, 3.58974, 0.5, 0.6, 0.6;bar-line, 6.66667, 0.5, 0.6, 0.6;=@@@4/4
+ 
+// 4/4 c c mr | c cr c cr
+stave-line, 0, 0.7, 4, 0.6;4/4, 0, 0.5, 0.6, 0.6;TIME, 0, 0.125 ; NOTE_ON, 69, 0 ; crotchet-up, 0.766667, 0.7, 0.6, 0.6 ; NOTE_OFF, 69, 0.125 ; TIME, -1, -1;TIME, 0.125, 0.25 ; NOTE_ON, 69, 0.125 ; crotchet-up, 1.61667, 0.7, 0.6, 0.6 ; NOTE_OFF, 69, 0.25 ; TIME, -1, -1;TIME, 0.25, 0.5 ; rest-minim, 2.46667, 0.7, 0.6, 0.6 ; TIME, -1, -1;bar-line, 0, 0.5, 0.6, 0.6;bar-line, 3.33333, 0.5, 0.6, 0.6;TIME, 0.5, 0.625 ; NOTE_ON, 69, 0.5 ; crotchet-up, 3.8, 0.7, 0.6, 0.6 ; NOTE_OFF, 69, 0.625 ; TIME, -1, -1;TIME, 0.625, 0.75 ; rest-crotchet, 4.46667, 0.7, 0.6, 0.6 ; TIME, -1, -1;TIME, 0.75, 0.875 ; NOTE_ON, 69, 0.75 ; crotchet-up, 5.13333, 0.7, 0.6, 0.6 ; NOTE_OFF, 69, 0.875 ; TIME, -1, -1;TIME, 0.875, 1 ; rest-crotchet, 5.8, 0.7, 0.6, 0.6 ; TIME, -1, -1;bar-line, 3.33333, 0.5, 0.6, 0.6;bar-line, 6.66667, 0.5, 0.6, 0.6;=@@@3/4

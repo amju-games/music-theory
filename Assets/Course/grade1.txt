@@ -82,8 +82,8 @@ bars-and-time-sigs
 none
 // Pages
 1
-// TODO PLACEHOLDER
-page-text-text=Course/musical_terms.txt=$$$99
+//page-symbol-text=Course/whats_the_time_sig.txt=@@@What is the time signature?
+page-symbol-text=Course/missing_rest.txt=@@@What is the missing rest?
 
 // Topic
 // ID

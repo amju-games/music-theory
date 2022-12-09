@@ -581,12 +581,22 @@ bool GuiMusicScore::AddCurveFromString(
       ReportError("Bad curve, expected even number of params");
       Assert(0);
     }
+
     GuiLineDrawing* curve = new GuiLineDrawing;
+    // Set rounded texture
+    PTexture tex = (Texture*)TheResourceManager::Instance()->GetRes("Image/corner.png");
+    curve->SetTexture(tex);
+    tex->SetWrapMode(AmjuGL::AMJU_TEXTURE_CLAMP);
+
+    curve->SetColour(m_fgCol);
+
     for (int i = 1; i < n; i += 2)
     {
       Vec2f v(ToFloat(strs[i]), ToFloat(strs[i + 1]));
-      curve->AddPoint(v);  // TODO WITHOUT REBUILDING TRI LIST EACH TIME
+      curve->AddControlPoint(v); 
     }
+    curve->CreateFromControlPoints(); // create full shape from control points
+
     m_curves.push_back(curve);
     return true;
   }

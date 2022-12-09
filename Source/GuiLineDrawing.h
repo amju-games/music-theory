@@ -24,6 +24,8 @@ public:
 
   void AddPoint(const Vec2f& p);
 
+  void AddControlPoint(const Vec2f& p);
+
   void SetColour(const Colour& col);
 
   // Load sequence of points from a file. This lets us make up a reusable library of strokes. 
@@ -31,6 +33,11 @@ public:
 
   // Save points to the given file so they can be reloaded
   bool SavePoints(File*);
+
+  void SetTexture(PTexture tex);
+
+  // Call after adding control points (with AddControlPoint)
+  void CreateFromControlPoints();
 
 protected:
   void Reset();

@@ -31,6 +31,11 @@ void GuiLineDrawing::SetColour(const Colour& col)
   m_fgCol = col;
 }
 
+void GuiLineDrawing::SetTexture(PTexture tex)
+{
+  m_texture = tex;
+}
+
 static Vec2f CatmullRomSpline(float t, Vec2f p1, Vec2f p2, Vec2f p3, Vec2f p4)
 {
   float t2 = t*t;
@@ -46,6 +51,8 @@ static Vec2f CatmullRomSpline(float t, Vec2f p1, Vec2f p2, Vec2f p3, Vec2f p4)
 
 void GuiLineDrawing::BuildTriList()
 {
+std::cout << "BuildTriList, index: " << m_index << "\n";
+
   AmjuGL::Tris tris;
 
   // Points of rectangle for segment, declared here so we shift the points, joining
@@ -137,6 +144,8 @@ void GuiLineDrawing::BuildTriList()
     tris.push_back(t[1]);
   }
   m_triList = Amju::MakeTriList(tris);
+
+std::cout << "Num tris: " << tris.size() << "\n";
 }
 
 void GuiLineDrawing::Draw()
@@ -285,6 +294,24 @@ void GuiLineDrawing::MakeInBetweenPoints()
       t += 0.04f; // TODO 
     }
   }
+}
+
+void GuiLineDrawing::AddControlPoint(const Vec2f& p)
+{
+  m_controlPoints.push_back(p);
+}
+
+void GuiLineDrawing::CreateFromControlPoints()
+{
+  MakeInBetweenPoints();
+  m_index = m_points.size();
+
+#ifdef _DEBUG
+  std::cout << "Create from control points: index: " << m_index << "\n";
+  std::cout << "Num control points: " << m_controlPoints.size() << " num points: " << m_points.size() << "\n";
+#endif
+
+  BuildTriList();
 }
 
 void GuiLineDrawing::AddPoint(const Vec2f& p)

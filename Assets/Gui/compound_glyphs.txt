@@ -112,8 +112,8 @@ ledger-w = quad, 0.38, 0.475,  0.38, 0.490,  0.02, 0.490,  0.02, 0.475
 // RESTS
 // rest-crotchet is a simple glyph
 // rest-minim is a simple glyph
-rest-quaver = rest-1, 0, 0
-rest-semiquaver = rest-2, 0, 0
+rest-quaver = rest-1, 0, 0.05
+rest-semiquaver = rest-2, 0, 0.05
 rest-semibreve = rest-minim, 0, 0.05
 
 dotted-rest-quaver =     rest-quaver,     0, 0 ;  ., 0.25, -0.05
