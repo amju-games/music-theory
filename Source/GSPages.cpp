@@ -4,12 +4,13 @@
 #include <AmjuGL.h>
 #include <ConfigFile.h>
 #include <Game.h>
+#include <GuiDecAnimation.h>
 #include <GuiDecColour.h>
 #include <GuiText.h>
 #include <MessageQueue.h>
-#include "GSMainMenu.h"
 #include "GSPages.h"
 #include "GSPause.h"
+#include "GSTopicEnd.h"
 #include "GuiLineDrawing.h"
 #include "PageMusicalTerm.h"
 #include "UserProfile.h"
@@ -93,9 +94,9 @@ void GSPages::NextPage()
   {
     // Done, go to Topic successfully completed, or unsuccessfully completed.
     // (Can use the same state?)
-
-    // TODO TEMP TEST
-    TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
+    GSTopicEnd* gs = TheGSTopicEnd::Instance();
+    gs->SetScore(m_numCorrectThisSession, m_maxNumPagesThisSession);
+    TheGame::Instance()->SetCurrentState(gs);
     return;
   }
 

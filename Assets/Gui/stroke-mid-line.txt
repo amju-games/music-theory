@@ -1,0 +1,13 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Topic end mid line stroke
+
+// version
+1
+
+-0.3, 0
+-0.3, 0
+0.4, 0
+0.4, 0
+end

@@ -126,6 +126,15 @@
     <ClCompile Include="..\..\..\..\Source\GSPause.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GSTopicEnd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MultiChoiceQuestion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MusicalTermQuestion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -226,6 +235,15 @@
     <ClInclude Include="..\..\..\..\Source\GSPause.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GSTopicEnd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MusicalTermQuestion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MultiChoiceQuestion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Docs\TODO.txt" />
@@ -291,6 +309,15 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Course\musical_terms.txt">
       <Filter>Assets\Course</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_topic_end.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\stroke-mid-line.txt">
+      <Filter>Assets\Gui\Stroke</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\pie.txt">
+      <Filter>Assets\Gui</Filter>
     </Text>
   </ItemGroup>
 </Project>

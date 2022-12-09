@@ -1,0 +1,128 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// End of topic
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+topic-end-root
+// Num children
+7
+
+gui-text
+topic-end-text1
+-1.0, 0.9
+2.0, 0.4
+WOW!
+dimbo, 1.5, multi, fgcol=000000
+
+gui-text
+topic-end-text2
+-1.0, 0.7
+2.0, 0.4
+You scored
+arial, 1.0, multi, fgcol=000000
+
+// Top number. OK, "numerator"
+
+// Delay
+animation
+name-not-used
+one-shot
+1.0
+step
+
+colour
+ffffff00, ffffffff
+
+gui-text
+num-text
+-1.0, 0.55
+2.0, 0.4
+NUM
+dimbo, 4.0, multi, fgcol=000000
+
+// Mid line: animated line drawing
+
+animation
+name-not-used
+one-shot
+1.5
+step
+
+animation
+name-not-used
+one-shot
+0.7
+linear
+
+line-drawing
+// Name, Position, Size
+line-drawing-mid-line
+0, 0.2
+1, 1
+// Start width
+0.01
+// End width
+0.01
+// Colour: (start colour, end colour?)
+000000
+// Points
+stroke-mid-line.txt
+
+// Denominator
+
+// Delay
+animation
+name-not-used
+one-shot
+3.0
+step
+
+colour
+ffffff00, ffffffff
+
+gui-text
+denom-text
+-1.0, 0.2
+2.0, 0.4
+10
+dimbo, 4.0, multi, fgcol=000000
+
+
+// TODO Delay?
+// OK button
+gui-button
+ok-button
+-0.15, -0.7
+// size
+0.3, 0.15
+// Image 
+Image/gui-button-2.png
+OK
+dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+
+
+// Text about having some more hint tokens
+// Delay
+animation
+name-not-used
+one-shot
+3.2
+step
+
+colour
+ffffff00, ffffffff
+
+gui-text
+comment-text
+-1.0, -0.2
+2.0, 0.4
+Have some more hints!
+arial, 1.0, multi, fgcol=000000
+
+
