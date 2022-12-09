@@ -40,6 +40,7 @@
 #include <ObjMesh.h>
 #include <ResourceManager.h>
 #include <ROConfig.h>
+#include <SceneNodeFactory.h>
 #include <SoundManager.h>
 #include "Consts.h"
 #include "Course.h"
@@ -60,6 +61,7 @@
 #include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
 #include "NetSend.h"
+#include "SceneNodeGui.h"
 
 #ifdef AMJU_IOS
 #define YES_GLUE_FILE
@@ -272,6 +274,11 @@ static void SetUpGui()
   GuiLineDrawing::AddToFactory();
   GuiMusicKb::AddToFactory();
   GuiMusicScore::AddToFactory();
+
+  TheSceneNodeFactory::Instance()->Add(
+    SceneNodeGui::NAME, 
+    []()->SceneNode* { return new SceneNodeGui; } 
+  );
 }
 
 static void SetInitialState()

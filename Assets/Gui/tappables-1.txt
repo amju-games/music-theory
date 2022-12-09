@@ -7,7 +7,7 @@
 // Tappables: 3d objects which user can tap on to get info.
 
 // num tappables
-2
+1
 
 
 // Picture
@@ -29,12 +29,22 @@ obj/just-frame1.obj
 // Material 
 obj/just-frame-1.mtl
 //
-// Child: picture
-scene-mesh-material
-// Obj
-obj/just-picture.obj
-// Material 
-obj/just-picture-note-lengths-1.mtl
+//// Child: picture
+//scene-mesh-material
+//// Obj
+//obj/just-picture.obj
+//// Material 
+//obj/just-picture-note-lengths-1.mtl
+// Child: GUI
+// Node type
+gui
+// Node name
+test-gui
+// GUI file name
+Gui/tap-picture-note-lengths-quavers.txt
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  1, 0, 0, 1
+
 //
 // Camera eye
 28, 50, 45
