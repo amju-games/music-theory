@@ -1,0 +1,33 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// avatar.txt
+// Test: draw avatar with layers of images (TODO sprites)
+
+// version
+1
+
+gui-comp
+avatar-comp
+3
+
+colour
+c08040
+gui-image
+head
+-.5, .5
+1, 1
+Image/circle.png
+
+scale
+2, 2
+0, 0
+translate
+0.4, 0
+include 
+avatar-eye.txt
+
+include
+avatar-eye.txt
+
+
