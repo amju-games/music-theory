@@ -34,3 +34,6 @@ Nein!|Nein!!
 1685,1750
 // Biographical info 
 @@@Guten tag! I am Johan Sebastian Bach, but you can call me J.S. for short!
+
+// TODO Message when you enter classroom for the first time
+@@@This classroom is haunted by the ghostly presence of J.S. Bach!
