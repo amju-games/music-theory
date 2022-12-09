@@ -9,6 +9,9 @@
 // Multi choice buttons
 // Each button can be faded out, and the buttons under it translated up to fill the gap.
 
+elastic
+0, -1
+
 translate
 0, -0.04
 
