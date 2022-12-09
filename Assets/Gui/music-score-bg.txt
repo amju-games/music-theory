@@ -1,0 +1,18 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Background for music score
+
+// v.
+1
+
+gui-comp
+score-bg-comp
+1
+
+gui-image
+score-white-bg
+-0.75, 0.7
+1.5, 0.5
+Image/white.png, stretch
+

@@ -1,3 +1,6 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
 // Page Play Notes
 // v.
 1
@@ -53,11 +56,8 @@ page
 // Num children
 3
 
-gui-image
-score-white-bg
--0.75, 0.7
-1.5, 0.5
-Image/white.png, stretch
+include
+music-score-bg.txt
 
 music-score
 // Name, Position
@@ -68,7 +68,6 @@ score
 // Colour
 // 1DA2FF
 000000
-
 // Glyphs start here
 stave, 0, 0, 2.0, 1
 treble-clef, 0.25, 0
