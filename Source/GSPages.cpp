@@ -30,13 +30,6 @@
 
 namespace Amju
 {
-// Delay before we go to next page (gives time to see blackboard erase)
-static const float NEXT_PAGE_TIME = 2.2f;
-
-// Time for which we show a Lurk Msg with auto-hide (i.e. no OK button) - this is
-//  to show "Correct" msg etc.
-static const float PAGE_LURK_TIME = 1.7f;
-
 static void OnQuitConfirmOK(GuiElement*)
 {
   TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
@@ -66,19 +59,6 @@ static void SpeechBubbleOK()
 static void OnSpeechBubbleOK(GuiElement*)
 {
   SpeechBubbleOK();
-}
-
-// Called from timed FuncMessage
-static void GoToNextPage()
-{
-  GSPages* pages = TheGSPages::Instance();
-  // Sanity check: this only makes sense if GSPages is active
-  if (TheGame::Instance()->GetState() == pages)
-  {
-    std::cout << "GoToNextPage calling NextPage...\n";
-
-    pages->NextPage();
-  }
 }
 
 GSPages::GSPages()
@@ -403,9 +383,6 @@ void GSPages::OnIncorrect(const Vec2f& choicePos)
   SetPie(m_numPagesShown, Colour(1.f, 0.f, 0.f, 1.f));
 
   std::cout << "Incorrect: set pie slice " << m_numPagesShown << "\n";
-
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage,
-    SecondsFromNow(NEXT_PAGE_TIME)));
 
   LurkMsg lm(Lookup("Incorrect!"), Colour(1, 1, 1, 1), Colour(1, 0, 0, 1), AMJU_TOP, PAGE_LURK_TIME);
   TheLurker::Instance()->Queue(lm);

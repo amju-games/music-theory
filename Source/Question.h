@@ -20,8 +20,8 @@ public:
   virtual ~Question() = default;
 
   virtual std::string GetQuestionString() const;
-
   virtual std::string GetAnswerString() const;
+  virtual std::string GetExplanationString() const;
 
   virtual void MakeQuestion() = 0;
 
@@ -33,6 +33,7 @@ public:
 protected:
   std::string m_questionString;
   std::string m_answerString;
+  std::string m_explanationString;
 };
 }
 

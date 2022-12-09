@@ -20,7 +20,10 @@ class Dictionary : public Resource
 public:
   bool Load(const std::string& filename);
   int GetNumTerms() const;
-  void GetTerm(int i, std::string* english, std::string* foreign) const;
+
+  // Get a pair of strings with optional third (explanation) string
+  void GetTerm(int i, std::string* english, std::string* foreign, std::string* expl = nullptr) const;
+
   void AddTerm(const Strings& strs);
 
 private:

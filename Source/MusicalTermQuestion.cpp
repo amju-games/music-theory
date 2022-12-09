@@ -20,7 +20,7 @@ void MusicalTermQuestion::MakeQuestion()
   // Fill with ints 0..n
   std::iota(nums.begin(), nums.end(), 0);
   // Randomise
-  std::shuffle(nums.begin(), nums.end(), std::mt19937{ std::random_device{}() });
+  std::random_shuffle(nums.begin(), nums.end()); // , std::mt19937{ std::random_device{}() });
 
   // Clear answer
   m_answers = MultiChoice();
@@ -63,7 +63,8 @@ void MusicalTermQuestion::MakeQuestion()
 
   // Now choose the correct answer
   int correct = rand() % numsNoDuplicateAnswers.size();
-  m_dictionary->GetTerm(numsNoDuplicateAnswers[correct], &q, &ans);
+  std::string expl;
+  m_dictionary->GetTerm(numsNoDuplicateAnswers[correct], &q, &ans, &expl);
   if (m_qAndASwitched)
   {
     std::swap(q, ans);
@@ -71,6 +72,7 @@ void MusicalTermQuestion::MakeQuestion()
 
   m_questionString = q;
   m_answers.SetCorrectAnswer(correct);
+  m_explanationString = expl;
 }
 
 void MusicalTermQuestion::SetDictionary(Dictionary* dictionary)

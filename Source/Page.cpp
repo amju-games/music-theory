@@ -5,6 +5,7 @@
 #include <EventPoller.h>
 #include <GameState.h>
 #include <GuiDecAnimation.h>
+#include "Consts.h"
 #include "Dictionary.h"
 #include "GSPages.h"
 #include "Page.h"
@@ -14,6 +15,25 @@ namespace Amju
 static void OnHint(GuiElement* hintButton)
 {
   TheGSPages::Instance()->OnHint();
+}
+
+// Called from timed FuncMessage
+void GoToNextPage()
+{
+  GSPages* pages = TheGSPages::Instance();
+  // Sanity check: this only makes sense if GSPages is active
+  if (TheGame::Instance()->GetState() == pages)
+  {
+    std::cout << "GoToNextPage calling NextPage...\n";
+
+    pages->NextPage();
+  }
+}
+
+void Page::SendNextPageMessage()
+{
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage,
+    SecondsFromNow(NEXT_PAGE_TIME)));
 }
 
 void Page::SetConfigFile(ConfigFile* cf)

@@ -7,6 +7,13 @@ namespace Amju
 {
 // * Constants *
 
+// Delay before we go to next page (gives time to see blackboard erase)
+static const float NEXT_PAGE_TIME = 2.2f;
+
+// Time for which we show a Lurk Msg with auto-hide (i.e. no OK button) - this is
+//  to show "Correct" msg etc.
+static const float PAGE_LURK_TIME = 1.7f;
+
 // Distance between doors in corridor
 static const float DISTANCE_BETWEEN_DOORS = 135;
 

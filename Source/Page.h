@@ -16,6 +16,9 @@ class Dictionary;
 class GameState;
 struct MusicKbEvent;
 
+// Call to load a new page, assuming the current game state is GSPages.
+void GoToNextPage();
+
 // * Page *
 // A page is one screenful of information, usually in the form of a "test" or question. 
 class Page : public RefCounted
@@ -75,6 +78,9 @@ protected:
 
   // Use the page question to show the question to the user
   void SetUpQuestionUI();
+
+  // Send timed Message to go to next page
+  void SendNextPageMessage();
 
 protected:
   // Base gui file name - we append current orientation and reload if the orientation changes.

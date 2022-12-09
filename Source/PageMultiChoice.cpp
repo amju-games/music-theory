@@ -7,11 +7,18 @@
 #include "Dictionary.h"
 #include "GSPages.h"
 #include "GuiMusicScore.h"
+#include "LurkMsg.h"
 #include "MusicalTermQuestion.h"
 #include "PageMultiChoice.h"
 
 namespace Amju
 {
+// Called when we dismiss the explanation for an incorrect answer
+static void OnDismissedExplanation(GuiElement*)
+{
+  GoToNextPage();
+}
+
 struct ChoiceCommand : public GuiCommand
 {
   ChoiceCommand(PageMultiChoice* page, int button) : m_page(page), m_button(button) {}
@@ -177,6 +184,22 @@ void PageMultiChoice::ShowCorrectAnswer()
   GuiElement* correct = GetElementByName(m_gui, "animate-correct");
   correct->SetLocalPos(button->GetLocalPos());
   correct->SetVisible(true);
+
+  // Show Lurk message with explanation, if there is one.
+  std::string expl = GetQuestion()->GetExplanationString();
+  if (expl.empty())
+  {
+    SendNextPageMessage();
+  }
+  else
+  {
+    // TODO Red BG ?
+    // Don't go to next page until user dismisses this message 
+    LurkMsg lm(expl, Colour(1, 1, 1, 1), Colour(1, 0, 0, 1), AMJU_CENTRE);
+    // Set completion function to go to next page
+    lm.SetOkCommand(OnDismissedExplanation);
+    TheLurker::Instance()->Queue(lm);
+  }
 }
 
 void PageMultiChoice::SetAnswerType(AnswerType at)

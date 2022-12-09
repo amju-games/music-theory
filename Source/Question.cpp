@@ -14,6 +14,12 @@ std::string Question::GetAnswerString() const
 {
   return m_answerString;
 }
+
+std::string Question::GetExplanationString() const
+{
+  return m_explanationString;
+}
+
 }
 
 
