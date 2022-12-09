@@ -1,0 +1,16 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// GUI frag shader
+
+varying vec2 vUV;
+varying vec4 colorVarying;
+
+uniform sampler2D diffuseMap;
+
+void main()
+{
+  vec4 diffuseColour = texture2D(diffuseMap, vUV);
+  gl_FragColor = diffuseColour * colorVarying;
+}
+

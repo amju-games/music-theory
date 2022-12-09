@@ -31,6 +31,15 @@
     <Filter Include="Assets\Course">
       <UniqueIdentifier>{1852cf61-39d7-446d-ad98-d2ea2fd0ea31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Docs">
+      <UniqueIdentifier>{389502a0-4ed0-4cea-a477-3e3400506ecb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Shaders">
+      <UniqueIdentifier>{13e147ae-fa40-4ad6-bc88-c5260cbab2c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Shaders\opengl">
+      <UniqueIdentifier>{5f6a7a55-3c78-47d9-b0ef-5911e95f9135}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp">
@@ -291,7 +300,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\Docs\TODO.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
@@ -408,6 +416,18 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\topic-leaf-left.txt">
       <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Docs\TODO.txt">
+      <Filter>Docs</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Docs\bugs.txt">
+      <Filter>Docs</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-frag.txt">
+      <Filter>Assets\Shaders\opengl</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-vert.txt">
+      <Filter>Assets\Shaders\opengl</Filter>
     </Text>
   </ItemGroup>
 </Project>

@@ -416,6 +416,9 @@
     <Text Include="..\..\..\..\Assets\Gui\topic-leaf-left.txt" />
     <Text Include="..\..\..\..\Assets\Gui\topic-leaf-right.txt" />
     <Text Include="..\..\..\..\Assets\Gui\topic-leaves.txt" />
+    <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-frag.txt" />
+    <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-vert.txt" />
+    <Text Include="..\..\..\..\Docs\bugs.txt" />
     <Text Include="..\..\..\..\Docs\TODO.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

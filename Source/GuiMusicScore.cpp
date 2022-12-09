@@ -190,11 +190,6 @@ void GuiMusicScore::Draw()
 
   m_atlas.Bind();
   AmjuGL::PushMatrix();
-  // Use vertex colours 
-#if defined(WIN32) || defined(MACOSX)
-  // Desktop GL: need shader to combine global and vertex colours
-  AmjuGL::SetColour(m_fgCol);
-#endif
   AmjuGL::Translate(pos.x, pos.y, 0);
   AmjuGL::Scale(size.x, size.y, 1);
   AmjuGL::Draw(m_triList);

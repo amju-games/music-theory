@@ -1,0 +1,22 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// GUI vertex shader
+
+attribute vec4 position;
+attribute vec2 uv;
+attribute vec4 colour;
+
+varying vec2 vUV;
+varying vec4 colorVarying;
+
+uniform mat4 modelViewProjectionMatrix;
+uniform vec4 colourUniform;
+
+void main()
+{
+  gl_Position = modelViewProjectionMatrix * position;
+  vUV = uv;
+  colorVarying = colourUniform * colour;
+}
+
