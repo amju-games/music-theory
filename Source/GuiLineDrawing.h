@@ -15,7 +15,7 @@ namespace Amju
 class GuiLineDrawing : public GuiElement
 {
 public:
-  static void AddToFactory();
+  static const char* NAME;
 
   virtual void Draw() override;
   virtual bool Load(File*) override;

@@ -16,7 +16,6 @@ class Gui3dScene : public GuiElement
 {
 public:
   static const char* NAME;
-  static void AddToFactory();
 
   void Draw() override;
   void Update() override;

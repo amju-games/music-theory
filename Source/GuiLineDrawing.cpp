@@ -14,15 +14,7 @@
 
 namespace Amju
 {
-static GuiElement* CreateLineDrawing()
-{
-  return new GuiLineDrawing;
-}
-
-void GuiLineDrawing::AddToFactory()
-{
-  TheGuiFactory::Instance()->Add("line-drawing", CreateLineDrawing);
-}
+const char* GuiLineDrawing::NAME = "line-drawing";
 
 void GuiLineDrawing::Reset()
 {

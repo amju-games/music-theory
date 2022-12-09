@@ -34,6 +34,7 @@
 #include <Font.h>
 #include <Game.h>
 #include <GlueFileMem.h>
+#include <GuiFactory.h>
 #include <GuiRect.h>
 #include <iOSUtils.h>
 #include <Localise.h>
@@ -42,6 +43,7 @@
 #include <ROConfig.h>
 #include <SceneNodeFactory.h>
 #include <SoundManager.h>
+#include "ColourPicker.h"
 #include "ComposerList.h"
 #include "Consts.h"
 #include "Course.h"
@@ -295,6 +297,12 @@ static void SetUpSound()
 #endif // AMJU_USE_BASS
 }
 
+template <class T>
+static void AddToGuiFactory()
+{
+  TheGuiFactory::Instance()->Add(T::NAME, []()->GuiElement* { return new T; });
+}
+
 static void SetUpGui()
 {
 #if defined(WIN32) || defined(MACOSX)
@@ -306,11 +314,15 @@ static void SetUpGui()
   // Set image used for rounded rectangles
   GuiRect::SetCornerImage("Image/circle.png");
 
-  Gui3dScene::AddToFactory();
-  GuiAvatar::AddToFactory();
-  GuiLineDrawing::AddToFactory();
-  GuiMusicKb::AddToFactory();
-  GuiMusicScore::AddToFactory();
+  // Add game-specific types to Gui factory
+  AddToGuiFactory<ColourPicker>();
+  AddToGuiFactory<Gui3dScene>();
+  AddToGuiFactory<GuiAvatar>();
+  AddToGuiFactory<GuiLineDrawing>();
+  AddToGuiFactory<GuiMusicKb>();
+  AddToGuiFactory<GuiMusicScore>();
+
+  //Add game-specific types to Scene node factory
   ParticleFx::AddToFactory();
 
   TheSceneNodeFactory::Instance()->Add(

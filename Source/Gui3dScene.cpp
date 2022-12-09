@@ -15,11 +15,6 @@ static GuiElement* CreateGui3dScene()
   return new Gui3dScene;
 }
 
-void Gui3dScene::AddToFactory()
-{
-  TheGuiFactory::Instance()->Add(NAME, CreateGui3dScene);
-}
-
 SceneGraph* Gui3dScene::GetSceneGraph()
 {
   return m_sceneGraph;

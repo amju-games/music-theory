@@ -33,15 +33,7 @@
 
 namespace Amju
 {
-static GuiElement* CreateMusicKb()
-{
-  return new GuiMusicKb;
-}
-
-void GuiMusicKb::AddToFactory()
-{
-  TheGuiFactory::Instance()->Add("music-kb", CreateMusicKb);
-}
+const char* GuiMusicKb::NAME = "music-kb";
 
 GuiMusicKb::~GuiMusicKb()
 {

@@ -61,10 +61,7 @@ const char* END_TOKEN = "end";
 
 std::map<std::string, std::string> GuiMusicScore::s_compoundGlyphs;
 
-static GuiElement* CreateMusicScore()
-{
-  return new GuiMusicScore;
-}
+const char* GuiMusicScore::NAME = "music-score";
 
 GuiMusicScore::Glyph::Glyph(const Vec2f corner[4], const Colour& col) : 
   m_char(QUAD_CHAR),
@@ -262,11 +259,6 @@ GuiMusicScore::GuiMusicScore()
 
   m_fullscreenRenderer.SetRenderTarget(rtt);
 #endif // USE_RTT
-}
-
-void GuiMusicScore::AddToFactory()
-{
-  TheGuiFactory::Instance()->Add("music-score", CreateMusicScore);
 }
 
 void GuiMusicScore::SendNoteEvent(const NoteEvent& ne)

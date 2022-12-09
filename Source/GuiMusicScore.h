@@ -18,7 +18,7 @@ namespace Amju
 class GuiMusicScore : public GuiElement
 {
 public:
-  static void AddToFactory();
+  static const char* NAME;
 
   GuiMusicScore();
  

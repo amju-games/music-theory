@@ -13,7 +13,7 @@ namespace Amju
 class GuiMusicKb : public GuiComposite
 {
 public:
-  static void AddToFactory();
+  static const char* NAME;
   
   // Make sure all keys which were pressed send final key up events
   virtual ~GuiMusicKb();

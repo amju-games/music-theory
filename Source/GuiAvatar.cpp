@@ -29,6 +29,8 @@ const float MAX_BLINK_CHECK_TIME = 0.5f; // decide to blink at this freq
 
 namespace Amju
 {
+const char* GuiAvatar::NAME = "gui-avatar";
+
 using AvatarFunc = std::function<void(GuiElement*, const std::string&)>;
 using AvatarMap = std::map<std::string, AvatarFunc>;
 
@@ -133,14 +135,6 @@ AvatarMap s_avatarMap =
     }
   }
 };
-
-void GuiAvatar::AddToFactory()
-{
-  TheGuiFactory::Instance()->Add("gui-avatar", []()->GuiElement*
-  {
-    return new GuiAvatar;
-  });
-}
 
 bool GuiAvatar::Load(File* f)
 {

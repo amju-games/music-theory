@@ -14,7 +14,7 @@ namespace Amju
 class GuiAvatar : public GuiDecorator
 {
 public:
-  static void AddToFactory();
+  static const char* NAME;
 
   bool Load(File*) override;
 
