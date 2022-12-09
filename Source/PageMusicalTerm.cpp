@@ -33,7 +33,7 @@ void PageMusicalTerm::OnActive()
   m_canRemoveForHint.clear();
 
   // Load gui, set button callbacks
-  PageMultiChoice::OnActive();
+  PageScoreMCQBase::OnActive();
 
   IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "musical-term-text"));
   text->SetText(q->GetMusicalTermText());

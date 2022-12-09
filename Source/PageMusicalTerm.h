@@ -4,13 +4,13 @@
 #pragma once
 
 #include "MusicalTermQuestion.h"
-#include "PageMultiChoice.h"
+#include "PageScoreMCQBase.h"
 
 namespace Amju
 {
 // * PageMusicalTerm *
 // Displays a page which tests the user on musical terms, using multi-choice buttons.
-class PageMusicalTerm : public PageMultiChoice
+class PageMusicalTerm : public PageScoreMCQBase
 {
 public:
   PageMusicalTerm()
