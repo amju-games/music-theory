@@ -21,6 +21,7 @@
 #include "Hints.h"
 #include "Keys.h"
 #include "Md2SceneNode.h" // TODO promote to Amjulib
+#include "PlayWav.h"
 #include "PrintGui.h"
 #include "Topic.h"
 #include "UserProfile.h"
@@ -354,7 +355,8 @@ void GSPages::OnCorrect(const Vec2f& choicePos)
   Hints::Inc();
   ShowHints();
 
-  // TODO Happy sound
+  // Happy sound
+  PlayWav("cashreg");
 
   // Add to profile/score
   m_numCorrectThisSession++;
@@ -377,7 +379,7 @@ void GSPages::OnIncorrect(const Vec2f& choicePos)
   cross->SetLocalPos(choicePos);
 
   // Unhappy sound
-  // TODO
+  PlayWav("anvil");
 
   m_numIncorrectThisSession++;
   SetPie(m_numPagesShown, Colour(1.f, 0.f, 0.f, 1.f));
