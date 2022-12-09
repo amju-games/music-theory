@@ -104,7 +104,7 @@ void ShareManager::SetShareText(const std::string& text)
 
 void ShareManager::SetShareTextToDefault()
 {
-  m_text = ROConfig()->GetValue(DEFAULT_SHARE_TEXT_KEY, DEFAULT_SHARE_TEXT);
+  m_text = DEFAULT_SHARE_TEXT;
 }
 }
 

@@ -37,6 +37,13 @@
 
 @implementation ViewController
 
+static ViewController* s_theVc = NULL;
+
++ (ViewController*) GetVC
+{
+  return s_theVc;
+}
+
 - (void)dealloc
 {
     [self tearDownGL];
@@ -52,6 +59,8 @@
 
 - (void)viewDidLoad
 {
+    s_theVc = self;
+  
     [super viewDidLoad];
     
     self.context = [[[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2] autorelease];

@@ -17,4 +17,6 @@
 @property (strong, nonatomic) CMMotionManager  *motionManager;
 @property (strong, nonatomic) NSOperationQueue *queue;
 
++ (ViewController*) GetVC;
+
 @end
