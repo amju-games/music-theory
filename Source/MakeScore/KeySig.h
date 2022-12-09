@@ -45,3 +45,7 @@ KeySig GetKeySig(const std::string& s);
 std::string GetKeySigOutputString(KeySig ks, Clef clef, 
   int staveNumber, float x, float y, float scale);
 
+// Return new key sig, which is original key sig, tranposed by 
+//  tr semitones.
+KeySig TransposeKeySig(KeySig ks, int tr);
+

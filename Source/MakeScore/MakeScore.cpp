@@ -41,6 +41,8 @@
 #include "TimeValue.h"
 #include "Utils.h"
 
+static int s_transpose = 0;
+
 float GetHeight(BeamLevel bl)
 {
   // Relies on the int values 0, 1...
@@ -102,11 +104,11 @@ void MakeScore::AddTokens()
     }
     else if (IsDeferredPitch(s))
     {
-      m_lastPitch = GetPitch(s);
+      m_lastPitch = GetPitch(s) + s_transpose;
     }
     else if (IsImmediatePitch(s))
     {
-      m_lastPitch = GetPitch(s);
+      m_lastPitch = GetPitch(s) + s_transpose;
       AddGlyph();
     }
     else if (IsDeferredTimeVal(s))
@@ -131,7 +133,9 @@ void MakeScore::AddTokens()
 
 void MakeScore::AddKeySig(const std::string& s)
 {
-  m_bars.back()->SetKeySig(GetKeySig(s));
+  KeySig ks = GetKeySig(s);
+  ks = TransposeKeySig(ks, s_transpose);
+  m_bars.back()->SetKeySig(ks);
 }
 
 void MakeScore::AddClef(const std::string& s)
@@ -289,6 +293,13 @@ void CommandLineParams(int argc, char** argv, MakeScore& ms)
     if (param == "--stave-single")
     {
       ms.SetStaveType(StaveType::STAVE_TYPE_SINGLE);
+    }
+
+    if (param == "--transpose")
+    {
+      i++;
+      s_transpose = atoi(argv[i]);
+      std::cout << "// Transpose: " << s_transpose << "\n";
     }
   }
 }

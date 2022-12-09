@@ -91,3 +91,59 @@ std::string GetKeySigOutputString(KeySig ks, Clef clef,
   return res;
 }
 
+KeySig TransposeKeySig(KeySig ks, int tr)
+{
+  // TODO Choose to favour sharp or flat key sigs
+
+  // These are the key sigs for each tonic in sequence, i.e. the key sig
+  //  for C major, then for C#/Db major, then D major, etc.
+  const KeySig KEYS[] = 
+  {
+    KEYSIG_0_SHARP, // C   Also KEYSIG_0_FLAT
+    KEYSIG_5_FLAT,  // Db  Also KEYSIG_7_SHARP (C#)
+    KEYSIG_2_SHARP, // D
+    KEYSIG_3_FLAT,  // Eb
+    KEYSIG_4_SHARP, // E
+    KEYSIG_1_FLAT,  // F
+    KEYSIG_6_FLAT,  // Gb  Also KEYSIG_6_SHARP (F#)
+    KEYSIG_1_SHARP, // G
+    KEYSIG_4_FLAT,  // Ab
+    KEYSIG_3_SHARP, // A
+    KEYSIG_2_FLAT,  // Bb
+    KEYSIG_5_SHARP, // B   Also KEYSIG_7_FLAT (Cb)
+
+    // Same series, but with alternative key sigs. Only those elements
+    //  matter, so the rest are set to -1.
+    KEYSIG_0_FLAT,
+    KEYSIG_7_SHARP,
+    (KeySig)-1, 
+    (KeySig)-1,
+    (KeySig)-1,
+    (KeySig)-1,
+    KEYSIG_6_SHARP,
+    (KeySig)-1,
+    (KeySig)-1,
+    (KeySig)-1,
+    (KeySig)-1,
+    KEYSIG_7_FLAT
+  };
+
+  // To transpose a key sig, we find it in the above array, then add
+  //  tr to the index to get the index of the new key, using 
+  //  modulo-12 addition.
+  int i = 0;
+  while (KEYS[i] != ks && i < 24)
+  {
+    i++;
+  }
+  i %= 12;
+  i += tr;
+  while (i < 0)
+  {
+    i += 12;
+  }
+  i %= 12;
+  KeySig newKs = KEYS[i];
+  return newKs;
+}
+
