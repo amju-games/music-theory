@@ -717,9 +717,6 @@
     <Text Include="..\..\..\..\Assets\Gui\page_symbol_kb_landscape.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\tappables.txt">
-      <Filter>Assets\Gui\Tappables</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Course\notes_on_treble_clef.txt">
       <Filter>Assets\Course</Filter>
     </Text>
@@ -854,6 +851,12 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Scene\corridor-scene-2.txt">
       <Filter>Assets\Scene</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\tappables-1.txt">
+      <Filter>Assets\Gui\Tappables</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\tappables-2.txt">
+      <Filter>Assets\Gui\Tappables</Filter>
     </Text>
   </ItemGroup>
 </Project>

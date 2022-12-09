@@ -563,7 +563,8 @@
     <Text Include="..\..\..\..\Assets\Gui\stroke-rubout.txt" />
     <Text Include="..\..\..\..\Assets\Gui\tap-picture-note-lengths.txt" />
     <Text Include="..\..\..\..\Assets\Gui\tap-picture-note-lengths-quavers.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\tappables.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\tappables-1.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\tappables-2.txt" />
     <Text Include="..\..\..\..\Assets\Gui\text_bg_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\title-text.txt" />
     <Text Include="..\..\..\..\Assets\Scene\basket-scene.txt" />

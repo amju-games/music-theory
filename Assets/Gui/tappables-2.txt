@@ -29,19 +29,25 @@ obj/just-frame1.obj
 // Material 
 obj/just-frame-1.mtl
 //
-// Child: picture
-scene-mesh-material
-// Obj
-obj/just-picture.obj
-// Material 
-obj/just-picture-note-lengths-1.mtl
+// Child: GUI
+// Node type
+gui
+// Node name
+test-gui
+// GUI file name
+Gui/tap-picture-note-lengths-quavers.txt
+// Matrix
+//  x size        y size                                z pos   y pos   x pos
+//     v           v                                      v       v      v
+0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
+//
 //
 // Camera eye
 28, 50, 45
 // Cam target
 0, 50, 45
 // GUI to display when we have been tapped
-Gui/tap-picture-note-lengths.txt
+$$$empty
 // GUI to put in NOTEBOOK
 Gui/tap-picture-note-lengths.txt
 
@@ -56,7 +62,7 @@ comp
 // Name, matrix, children
 picture-2-root
 // Matrix
-.5, 0, 0, 0,  0, .5, 0, 0,  0, 0, .5, 0,  2, 20, 45, 1
+.5, 0, 0, 0,  0, .5, 0, 0,  0, 0, .5, 0,  2, 20, 55, 1
 // Num children
 2
 // Child: frame
@@ -66,19 +72,25 @@ obj/just-frame3.obj
 // Material 
 obj/just-frame-gold.mtl
 //
-// Child: picture
-scene-mesh-material
-// Obj
-obj/just-picture.obj
-// Material 
-obj/just-picture-note-lengths-1.mtl
+// Child: GUI
+// Node type
+gui
+// Node name
+test-gui
+// GUI file name
+Gui/tap-picture-note-lengths-quavers.txt
+// Matrix
+//  x size        y size                                z pos   y pos   x pos
+//     v           v                                      v       v      v
+0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
+//
 //
 // Camera eye
-18, 20, 45
+18, 20, 55
 // Cam target
-0, 20, 45
+0, 20, 55
 // GUI to display when we have been tapped
-Gui/tap-picture-note-lengths-quavers.txt
+$$$empty
 // GUI to put in NOTEBOOK
 Gui/tap-picture-note-length-quavers.txt
 

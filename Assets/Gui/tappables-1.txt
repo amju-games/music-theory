@@ -29,12 +29,6 @@ obj/just-frame1.obj
 // Material 
 obj/just-frame-1.mtl
 //
-//// Child: picture
-//scene-mesh-material
-//// Obj
-//obj/just-picture.obj
-//// Material 
-//obj/just-picture-note-lengths-1.mtl
 // Child: GUI
 // Node type
 gui
