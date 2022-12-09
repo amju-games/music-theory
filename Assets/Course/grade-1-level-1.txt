@@ -28,7 +28,7 @@ notes-and-rests-level1
 // TODO - higher or lower, no sharps or flats, so super easy
 //page-symbol-symbol-2=Course/level1/which_clef.txt=$$$3
 //page-symbol-text=Course/level1/higher_or_lower.txt=$$$92
-page-symbol-symbol=Course/level1/name-the-note-treb-clef.txt=$$$93
+page-symbol-text=Course/level1/name-the-note-treb-clef.txt=$$$93
 // Special case page:
 // 3rd param is x offset for keyboard=moving mid C close to left edge of screen
 page-symbol-kb=Course/level1/play-note-treb-clef.txt=-0.9=$$$98
