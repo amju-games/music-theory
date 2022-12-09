@@ -14,49 +14,49 @@
 //  +--------------------------+   0.0
 // 0.0                        4.0
 
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-c5-nat-sb, 1.5, 0 ; treb-c#5-sb,     3.0, 0  =@@@Note 1 is lower
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-c#5-sb,    1.5, 0 ; treb-c5-nat-sb,  3.0, 0  =@@@Note 2 is lower
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-b5-nat-sb, 1.5, 0 ; treb-bb5-sb,     3.0, 0  =@@@Note 2 is lower
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-bb5-sb,    1.5, 0 ; treb-b5-nat-sb,  3.0, 0  =@@@Note 1 is lower
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-c5-nat-sb, 1.5, 0 ; treb-c#5-sb,     3.0, 0  =$$$12
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-c#5-sb,    1.5, 0 ; treb-c5-nat-sb,  3.0, 0  =$$$13
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-b5-nat-sb, 1.5, 0 ; treb-bb5-sb,     3.0, 0  =$$$13
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-bb5-sb,    1.5, 0 ; treb-b5-nat-sb,  3.0, 0  =$$$12
 stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-bb5-sb,    1.5, 0 ; treb-a#5-sb,     3.0, 0  =Same pitch
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-a5-nat-sb, 1.5, 0 ; treb-a#5-sb,     3.0, 0  =@@@Note 1 is lower
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-a#5-sb,    1.5, 0 ; treb-a5-nat-sb,  3.0, 0  =@@@Note 2 is lower
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-a5-nat-sb, 1.5, 0 ; treb-a#5-sb,     3.0, 0  =$$$12
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-a#5-sb,    1.5, 0 ; treb-a5-nat-sb,  3.0, 0  =$$$13
 stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-ab5-sb,    1.5, 0 ; treb-g#4-sb,     3.0, 0  =Same pitch
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-g4-nat-sb, 1.5, 0 ; treb-g#4-sb,     3.0, 0  =@@@Note 1 is lower
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-g#4-sb,    1.5, 0 ; treb-g4-nat-sb,  3.0, 0  =@@@Note 2 is lower
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-g4-nat-sb, 1.5, 0 ; treb-g#4-sb,     3.0, 0  =$$$12
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-g#4-sb,    1.5, 0 ; treb-g4-nat-sb,  3.0, 0  =$$$13
 stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-gb4-sb,    1.5, 0 ; treb-f#4-sb,     3.0, 0  =Same pitch
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-f4-nat-sb, 1.5, 0 ; treb-f#4-sb,     3.0, 0  =@@@Note 1 is lower
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-f#4-sb,    1.5, 0 ; treb-f4-nat-sb,  3.0, 0  =@@@Note 2 is lower
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-f4-nat-sb, 1.5, 0 ; treb-f#4-sb,     3.0, 0  =$$$12
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-f#4-sb,    1.5, 0 ; treb-f4-nat-sb,  3.0, 0  =$$$13
 stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-eb4-sb,    1.5, 0 ; treb-d#4-sb,     3.0, 0  =Same pitch
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-e4-nat-sb, 1.5, 0 ; treb-eb4-sb,     3.0, 0  =@@@Note 2 is lower
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-eb4-sb,    1.5, 0 ; treb-e4-nat-sb,  3.0, 0  =@@@Note 1 is lower
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-e4-nat-sb, 1.5, 0 ; treb-eb4-sb,     3.0, 0  =$$$13
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-eb4-sb,    1.5, 0 ; treb-e4-nat-sb,  3.0, 0  =$$$12
 stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-db4-sb,    1.5, 0 ; treb-c#4-sb,     3.0, 0  =Same pitch
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-d4-nat-sb, 1.5, 0 ; treb-d#4-sb,     3.0, 0  =@@@Note 1 is lower
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-d#4-sb,    1.5, 0 ; treb-d4-nat-sb,  3.0, 0  =@@@Note 2 is lower
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-c4-nat-sb, 1.5, 0 ; treb-c#4-sb,     3.0, 0  =@@@Note 1 is lower
-stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-c#4-sb,    1.5, 0 ; treb-c4-nat-sb,  3.0, 0  =@@@Note 2 is lower
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-d4-nat-sb, 1.5, 0 ; treb-d#4-sb,     3.0, 0  =$$$12
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-d#4-sb,    1.5, 0 ; treb-d4-nat-sb,  3.0, 0  =$$$13
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-c4-nat-sb, 1.5, 0 ; treb-c#4-sb,     3.0, 0  =$$$12
+stave, 0.0, 0.0, 4.0, 1 ; treble-clef, 0.2, 0.0 ; treb-c#4-sb,    1.5, 0 ; treb-c4-nat-sb,  3.0, 0  =$$$13
 
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-c4-nat-sb, 1.5, 0 ; bass-c#4-sb,     3.0, 0  =@@@Note 1 is lower
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-c#4-sb,    1.5, 0 ; bass-c4-nat-sb,  3.0, 0  =@@@Note 2 is lower
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-b4-nat-sb, 1.5, 0 ; bass-bb4-sb,     3.0, 0  =@@@Note 2 is lower
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-bb4-sb,    1.5, 0 ; bass-b4-nat-sb,  3.0, 0  =@@@Note 1 is lower
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-c4-nat-sb, 1.5, 0 ; bass-c#4-sb,     3.0, 0  =$$$12
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-c#4-sb,    1.5, 0 ; bass-c4-nat-sb,  3.0, 0  =$$$13
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-b4-nat-sb, 1.5, 0 ; bass-bb4-sb,     3.0, 0  =$$$13
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-bb4-sb,    1.5, 0 ; bass-b4-nat-sb,  3.0, 0  =$$$12
 stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-bb4-sb,    1.5, 0 ; bass-a#4-sb,     3.0, 0  =Same pitch
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-a4-nat-sb, 1.5, 0 ; bass-a#4-sb,     3.0, 0  =@@@Note 1 is lower
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-a#4-sb,    1.5, 0 ; bass-a4-nat-sb,  3.0, 0  =@@@Note 2 is lower
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-a4-nat-sb, 1.5, 0 ; bass-a#4-sb,     3.0, 0  =$$$12
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-a#4-sb,    1.5, 0 ; bass-a4-nat-sb,  3.0, 0  =$$$13
 stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-ab4-sb,    1.5, 0 ; bass-g#3-sb,     3.0, 0  =Same pitch
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-g3-nat-sb, 1.5, 0 ; bass-g#3-sb,     3.0, 0  =@@@Note 1 is lower
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-g#3-sb,    1.5, 0 ; bass-g3-nat-sb,  3.0, 0  =@@@Note 2 is lower
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-g3-nat-sb, 1.5, 0 ; bass-g#3-sb,     3.0, 0  =$$$12
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-g#3-sb,    1.5, 0 ; bass-g3-nat-sb,  3.0, 0  =$$$13
 stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-gb3-sb,    1.5, 0 ; bass-f#3-sb,     3.0, 0  =Same pitch
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-f3-nat-sb, 1.5, 0 ; bass-f#3-sb,     3.0, 0  =@@@Note 1 is lower
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-f#3-sb,    1.5, 0 ; bass-f3-nat-sb,  3.0, 0  =@@@Note 2 is lower
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-f3-nat-sb, 1.5, 0 ; bass-f#3-sb,     3.0, 0  =$$$12
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-f#3-sb,    1.5, 0 ; bass-f3-nat-sb,  3.0, 0  =$$$13
 stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-eb3-sb,    1.5, 0 ; bass-d#3-sb,     3.0, 0  =Same pitch
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-e3-nat-sb, 1.5, 0 ; bass-eb3-sb,     3.0, 0  =@@@Note 2 is lower
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-eb3-sb,    1.5, 0 ; bass-e3-nat-sb,  3.0, 0  =@@@Note 1 is lower
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-e3-nat-sb, 1.5, 0 ; bass-eb3-sb,     3.0, 0  =$$$13
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-eb3-sb,    1.5, 0 ; bass-e3-nat-sb,  3.0, 0  =$$$12
 stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-db3-sb,    1.5, 0 ; bass-c#3-sb,     3.0, 0  =Same pitch
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-d3-nat-sb, 1.5, 0 ; bass-d#3-sb,     3.0, 0  =@@@Note 1 is lower
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-d#3-sb,    1.5, 0 ; bass-d3-nat-sb,  3.0, 0  =@@@Note 2 is lower
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-c3-nat-sb, 1.5, 0 ; bass-c#3-sb,     3.0, 0  =@@@Note 1 is lower
-stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-c#3-sb,    1.5, 0 ; bass-c3-nat-sb,  3.0, 0  =@@@Note 2 is lower
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-d3-nat-sb, 1.5, 0 ; bass-d#3-sb,     3.0, 0  =$$$12
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-d#3-sb,    1.5, 0 ; bass-d3-nat-sb,  3.0, 0  =$$$13
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-c3-nat-sb, 1.5, 0 ; bass-c#3-sb,     3.0, 0  =$$$12
+stave, 0.0, 0.0, 4.0, 1 ; bass-clef, 0.2, 0.0 ; bass-c#3-sb,    1.5, 0 ; bass-c3-nat-sb,  3.0, 0  =$$$13
 
 end
 
