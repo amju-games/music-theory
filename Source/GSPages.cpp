@@ -120,6 +120,14 @@ void GSPages::OnDeactive()
 
 void GSPages::NextPage()
 {
+  // The current Topic has sequence of Pages to display.
+  Course* course = GetCourse();
+  Assert(course);
+  // This is a bit crap - get the current Topic num from prev state, which knows it.
+  Topic* topic = course->GetTopic(TheGSTopicStart::Instance()->GetTopic());
+  Assert(topic);
+  m_maxNumPagesThisSession = topic->GetNumPages();
+
   // Have we got more pages, or are we done?
   if (m_numPagesShown >= m_maxNumPagesThisSession)
   {
@@ -131,10 +139,6 @@ void GSPages::NextPage()
     return;
   }
 
-  // The current Topic has sequence of Pages to display.
-  Course* course = GetCourse();
-  // This is a bit crap - get the current Topic num from prev state, which knows it.
-  Topic* topic = course->GetTopic(TheGSTopicStart::Instance()->GetTopic());
   Page* page = topic->GetPage(m_numPagesShown);
   // Page reads/writes config file to load/save user state
   ConfigFile* cf = TheUserProfile()->GetConfigForTopic(topic->GetId());
