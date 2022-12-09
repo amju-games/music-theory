@@ -7,19 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		699058C11E7D3BF400E528B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058C01E7D3BF400E528B4 /* main.m */; };
-		699058C41E7D3BF400E528B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058C31E7D3BF400E528B4 /* AppDelegate.m */; };
-		699058C61E7D3BF400E528B4 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 699058C51E7D3BF400E528B4 /* Shader.fsh */; };
-		699058C81E7D3BF400E528B4 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 699058C71E7D3BF400E528B4 /* Shader.vsh */; };
-		699058CB1E7D3BF500E528B4 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058CA1E7D3BF400E528B4 /* GameViewController.m */; };
+		697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07EF1E82F19B0045CE54 /* GSBase.cpp */; };
+		697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */; };
+		697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */; };
+		697A08001E82F19B0045CE54 /* GSShowMusicScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F51E82F19B0045CE54 /* GSShowMusicScore.cpp */; };
+		697A08011E82F19B0045CE54 /* GSUserDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F71E82F19B0045CE54 /* GSUserDraw.cpp */; };
+		697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F91E82F19B0045CE54 /* GuiLineDrawing.cpp */; };
+		697A08031E82F19B0045CE54 /* GuiMusicScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07FB1E82F19B0045CE54 /* GuiMusicScore.cpp */; };
+		697A080D1E8307590045CE54 /* libAmjulib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 697A080B1E82F3990045CE54 /* libAmjulib.a */; };
 		699058CE1E7D3BF500E528B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 699058CC1E7D3BF500E528B4 /* Main.storyboard */; };
 		699058D01E7D3BF500E528B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 699058CF1E7D3BF500E528B4 /* Assets.xcassets */; };
 		699058D31E7D3BF500E528B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 699058D11E7D3BF500E528B4 /* LaunchScreen.storyboard */; };
 		699058DE1E7D3BF500E528B4 /* Amjula_Music_TheoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058DD1E7D3BF500E528B4 /* Amjula_Music_TheoryTests.m */; };
 		699058E91E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058E81E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m */; };
+		69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E431E833741008A8D29 /* AppDelegate.mm */; };
+		69D58E481E833741008A8D29 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E441E833741008A8D29 /* main.m */; };
+		69D58E491E833741008A8D29 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E461E833741008A8D29 /* ViewController.mm */; };
+		69D58E4C1E848318008A8D29 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E4B1E848318008A8D29 /* GLKit.framework */; };
+		69D58E4E1E84836B008A8D29 /* Startup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E4D1E84836B008A8D29 /* Startup.cpp */; };
+		69D58E501E848439008A8D29 /* libbassmidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E4F1E848439008A8D29 /* libbassmidi.a */; };
+		69D58E521E84844F008A8D29 /* libbass.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E511E84844F008A8D29 /* libbass.a */; };
+		69D58E551E8484EA008A8D29 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E541E8484EA008A8D29 /* OpenGLES.framework */; };
+		69D58E571E848642008A8D29 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E561E848642008A8D29 /* CFNetwork.framework */; };
+		69D58E591E84864F008A8D29 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E581E84864F008A8D29 /* AudioToolbox.framework */; };
+		69D58E5D1E848679008A8D29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E5C1E848679008A8D29 /* Foundation.framework */; };
+		69D58E5F1E84869F008A8D29 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E5E1E84869F008A8D29 /* SystemConfiguration.framework */; };
+		69D58E611E84873C008A8D29 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E601E84873C008A8D29 /* CoreMIDI.framework */; };
+		69D58E631E84878A008A8D29 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E621E84878A008A8D29 /* CoreMotion.framework */; };
+		69D58E671E8488E3008A8D29 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E661E8488E3008A8D29 /* Accelerate.framework */; };
+		69D58E6C1E848A0E008A8D29 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D58E681E848A0E008A8D29 /* ViewController_iPad.xib */; };
+		69D58E6D1E848A0E008A8D29 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D58E6A1E848A0E008A8D29 /* ViewController_iPhone.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		697A080A1E82F3990045CE54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 697A08061E82F3980045CE54 /* Amjulib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = Amjulib;
+		};
 		699058DA1E7D3BF500E528B4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 699058B41E7D3BF400E528B4 /* Project object */;
@@ -37,14 +64,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		697A07EF1E82F19B0045CE54 /* GSBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSBase.cpp; path = ../../../../Source/GSBase.cpp; sourceTree = "<group>"; };
+		697A07F01E82F19B0045CE54 /* GSBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSBase.h; path = ../../../../Source/GSBase.h; sourceTree = "<group>"; };
+		697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSPlayNotes.cpp; path = ../../../../Source/GSPlayNotes.cpp; sourceTree = "<group>"; };
+		697A07F21E82F19B0045CE54 /* GSPlayNotes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSPlayNotes.h; path = ../../../../Source/GSPlayNotes.h; sourceTree = "<group>"; };
+		697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSShowLineDrawing.cpp; path = ../../../../Source/GSShowLineDrawing.cpp; sourceTree = "<group>"; };
+		697A07F41E82F19B0045CE54 /* GSShowLineDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSShowLineDrawing.h; path = ../../../../Source/GSShowLineDrawing.h; sourceTree = "<group>"; };
+		697A07F51E82F19B0045CE54 /* GSShowMusicScore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSShowMusicScore.cpp; path = ../../../../Source/GSShowMusicScore.cpp; sourceTree = "<group>"; };
+		697A07F61E82F19B0045CE54 /* GSShowMusicScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSShowMusicScore.h; path = ../../../../Source/GSShowMusicScore.h; sourceTree = "<group>"; };
+		697A07F71E82F19B0045CE54 /* GSUserDraw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSUserDraw.cpp; path = ../../../../Source/GSUserDraw.cpp; sourceTree = "<group>"; };
+		697A07F81E82F19B0045CE54 /* GSUserDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSUserDraw.h; path = ../../../../Source/GSUserDraw.h; sourceTree = "<group>"; };
+		697A07F91E82F19B0045CE54 /* GuiLineDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiLineDrawing.cpp; path = ../../../../Source/GuiLineDrawing.cpp; sourceTree = "<group>"; };
+		697A07FA1E82F19B0045CE54 /* GuiLineDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiLineDrawing.h; path = ../../../../Source/GuiLineDrawing.h; sourceTree = "<group>"; };
+		697A07FB1E82F19B0045CE54 /* GuiMusicScore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiMusicScore.cpp; path = ../../../../Source/GuiMusicScore.cpp; sourceTree = "<group>"; };
+		697A07FC1E82F19B0045CE54 /* GuiMusicScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiMusicScore.h; path = ../../../../Source/GuiMusicScore.h; sourceTree = "<group>"; };
+		697A08061E82F3980045CE54 /* Amjulib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Amjulib.xcodeproj; path = ../../../../amjulib/Script/iOSAmjulibXCode/Amjulib/Amjulib.xcodeproj; sourceTree = "<group>"; };
 		699058BC1E7D3BF400E528B4 /* Amjula Music Theory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Amjula Music Theory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		699058C01E7D3BF400E528B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		699058C21E7D3BF400E528B4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		699058C31E7D3BF400E528B4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		699058C51E7D3BF400E528B4 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
-		699058C71E7D3BF400E528B4 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
-		699058C91E7D3BF400E528B4 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		699058CA1E7D3BF400E528B4 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		699058CD1E7D3BF500E528B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		699058CF1E7D3BF500E528B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		699058D21E7D3BF500E528B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -55,6 +90,27 @@
 		699058E41E7D3BF500E528B4 /* Amjula Music TheoryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Amjula Music TheoryUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		699058E81E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Amjula_Music_TheoryUITests.m; sourceTree = "<group>"; };
 		699058EA1E7D3BF500E528B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		69D58E421E833741008A8D29 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "../../../../Source/iOS-MusicTheory/AppDelegate.h"; sourceTree = "<group>"; };
+		69D58E431E833741008A8D29 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = "../../../../Source/iOS-MusicTheory/AppDelegate.mm"; sourceTree = "<group>"; };
+		69D58E441E833741008A8D29 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "../../../../Source/iOS-MusicTheory/main.m"; sourceTree = "<group>"; };
+		69D58E451E833741008A8D29 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = "../../../../Source/iOS-MusicTheory/ViewController.h"; sourceTree = "<group>"; };
+		69D58E461E833741008A8D29 /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ViewController.mm; path = "../../../../Source/iOS-MusicTheory/ViewController.mm"; sourceTree = "<group>"; };
+		69D58E4B1E848318008A8D29 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		69D58E4D1E84836B008A8D29 /* Startup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Startup.cpp; path = ../../../../Source/Startup.cpp; sourceTree = "<group>"; };
+		69D58E4F1E848439008A8D29 /* libbassmidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbassmidi.a; path = ../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/libbassmidi.a; sourceTree = "<group>"; };
+		69D58E511E84844F008A8D29 /* libbass.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbass.a; path = "../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free/libbass.a"; sourceTree = "<group>"; };
+		69D58E541E8484EA008A8D29 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		69D58E561E848642008A8D29 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		69D58E581E84864F008A8D29 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		69D58E5A1E848660008A8D29 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		69D58E5C1E848679008A8D29 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		69D58E5E1E84869F008A8D29 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		69D58E601E84873C008A8D29 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
+		69D58E621E84878A008A8D29 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		69D58E641E84884E008A8D29 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
+		69D58E661E8488E3008A8D29 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		69D58E691E848A0E008A8D29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		69D58E6B1E848A0E008A8D29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +118,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				697A080D1E8307590045CE54 /* libAmjulib.a in Frameworks */,
+				69D58E521E84844F008A8D29 /* libbass.a in Frameworks */,
+				69D58E501E848439008A8D29 /* libbassmidi.a in Frameworks */,
+				69D58E671E8488E3008A8D29 /* Accelerate.framework in Frameworks */,
+				69D58E611E84873C008A8D29 /* CoreMIDI.framework in Frameworks */,
+				69D58E571E848642008A8D29 /* CFNetwork.framework in Frameworks */,
+				69D58E591E84864F008A8D29 /* AudioToolbox.framework in Frameworks */,
+				69D58E5F1E84869F008A8D29 /* SystemConfiguration.framework in Frameworks */,
+				69D58E551E8484EA008A8D29 /* OpenGLES.framework in Frameworks */,
+				69D58E4C1E848318008A8D29 /* GLKit.framework in Frameworks */,
+				69D58E631E84878A008A8D29 /* CoreMotion.framework in Frameworks */,
+				69D58E5D1E848679008A8D29 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,13 +150,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		697A08071E82F3980045CE54 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				697A080B1E82F3990045CE54 /* libAmjulib.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		699058B31E7D3BF400E528B4 = {
 			isa = PBXGroup;
 			children = (
+				697A08061E82F3980045CE54 /* Amjulib.xcodeproj */,
 				699058BE1E7D3BF400E528B4 /* Amjula Music Theory */,
 				699058DC1E7D3BF500E528B4 /* Amjula Music TheoryTests */,
 				699058E71E7D3BF500E528B4 /* Amjula Music TheoryUITests */,
 				699058BD1E7D3BF400E528B4 /* Products */,
+				69D58E4A1E848318008A8D29 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,12 +183,28 @@
 		699058BE1E7D3BF400E528B4 /* Amjula Music Theory */ = {
 			isa = PBXGroup;
 			children = (
-				699058C21E7D3BF400E528B4 /* AppDelegate.h */,
-				699058C31E7D3BF400E528B4 /* AppDelegate.m */,
-				699058C51E7D3BF400E528B4 /* Shader.fsh */,
-				699058C71E7D3BF400E528B4 /* Shader.vsh */,
-				699058C91E7D3BF400E528B4 /* GameViewController.h */,
-				699058CA1E7D3BF400E528B4 /* GameViewController.m */,
+				69D58E681E848A0E008A8D29 /* ViewController_iPad.xib */,
+				69D58E6A1E848A0E008A8D29 /* ViewController_iPhone.xib */,
+				69D58E4D1E84836B008A8D29 /* Startup.cpp */,
+				69D58E421E833741008A8D29 /* AppDelegate.h */,
+				69D58E431E833741008A8D29 /* AppDelegate.mm */,
+				69D58E441E833741008A8D29 /* main.m */,
+				69D58E451E833741008A8D29 /* ViewController.h */,
+				69D58E461E833741008A8D29 /* ViewController.mm */,
+				697A07EF1E82F19B0045CE54 /* GSBase.cpp */,
+				697A07F01E82F19B0045CE54 /* GSBase.h */,
+				697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */,
+				697A07F21E82F19B0045CE54 /* GSPlayNotes.h */,
+				697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */,
+				697A07F41E82F19B0045CE54 /* GSShowLineDrawing.h */,
+				697A07F51E82F19B0045CE54 /* GSShowMusicScore.cpp */,
+				697A07F61E82F19B0045CE54 /* GSShowMusicScore.h */,
+				697A07F71E82F19B0045CE54 /* GSUserDraw.cpp */,
+				697A07F81E82F19B0045CE54 /* GSUserDraw.h */,
+				697A07F91E82F19B0045CE54 /* GuiLineDrawing.cpp */,
+				697A07FA1E82F19B0045CE54 /* GuiLineDrawing.h */,
+				697A07FB1E82F19B0045CE54 /* GuiMusicScore.cpp */,
+				697A07FC1E82F19B0045CE54 /* GuiMusicScore.h */,
 				699058CC1E7D3BF500E528B4 /* Main.storyboard */,
 				699058CF1E7D3BF500E528B4 /* Assets.xcassets */,
 				699058D11E7D3BF500E528B4 /* LaunchScreen.storyboard */,
@@ -123,7 +217,6 @@
 		699058BF1E7D3BF400E528B4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				699058C01E7D3BF400E528B4 /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -144,6 +237,26 @@
 				699058EA1E7D3BF500E528B4 /* Info.plist */,
 			);
 			path = "Amjula Music TheoryUITests";
+			sourceTree = "<group>";
+		};
+		69D58E4A1E848318008A8D29 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				69D58E661E8488E3008A8D29 /* Accelerate.framework */,
+				69D58E641E84884E008A8D29 /* CoreAudioKit.framework */,
+				69D58E621E84878A008A8D29 /* CoreMotion.framework */,
+				69D58E601E84873C008A8D29 /* CoreMIDI.framework */,
+				69D58E5E1E84869F008A8D29 /* SystemConfiguration.framework */,
+				69D58E5C1E848679008A8D29 /* Foundation.framework */,
+				69D58E5A1E848660008A8D29 /* CoreFoundation.framework */,
+				69D58E581E84864F008A8D29 /* AudioToolbox.framework */,
+				69D58E561E848642008A8D29 /* CFNetwork.framework */,
+				69D58E541E8484EA008A8D29 /* OpenGLES.framework */,
+				69D58E511E84844F008A8D29 /* libbass.a */,
+				69D58E4F1E848439008A8D29 /* libbassmidi.a */,
+				69D58E4B1E848318008A8D29 /* GLKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +326,7 @@
 				TargetAttributes = {
 					699058BB1E7D3BF400E528B4 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = SDLRPX9288;
 						ProvisioningStyle = Automatic;
 					};
 					699058D81E7D3BF500E528B4 = {
@@ -238,6 +352,12 @@
 			mainGroup = 699058B31E7D3BF400E528B4;
 			productRefGroup = 699058BD1E7D3BF400E528B4 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 697A08071E82F3980045CE54 /* Products */;
+					ProjectRef = 697A08061E82F3980045CE54 /* Amjulib.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				699058BB1E7D3BF400E528B4 /* Amjula Music Theory */,
@@ -247,16 +367,26 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		697A080B1E82F3990045CE54 /* libAmjulib.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAmjulib.a;
+			remoteRef = 697A080A1E82F3990045CE54 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		699058BA1E7D3BF400E528B4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69D58E6C1E848A0E008A8D29 /* ViewController_iPad.xib in Resources */,
 				699058CE1E7D3BF500E528B4 /* Main.storyboard in Resources */,
-				699058C81E7D3BF400E528B4 /* Shader.vsh in Resources */,
 				699058D01E7D3BF500E528B4 /* Assets.xcassets in Resources */,
 				699058D31E7D3BF500E528B4 /* LaunchScreen.storyboard in Resources */,
-				699058C61E7D3BF400E528B4 /* Shader.fsh in Resources */,
+				69D58E6D1E848A0E008A8D29 /* ViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,9 +411,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				699058C41E7D3BF400E528B4 /* AppDelegate.m in Sources */,
-				699058CB1E7D3BF500E528B4 /* GameViewController.m in Sources */,
-				699058C11E7D3BF400E528B4 /* main.m in Sources */,
+				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
+				697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */,
+				69D58E491E833741008A8D29 /* ViewController.mm in Sources */,
+				69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */,
+				697A08031E82F19B0045CE54 /* GuiMusicScore.cpp in Sources */,
+				69D58E4E1E84836B008A8D29 /* Startup.cpp in Sources */,
+				697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */,
+				697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */,
+				697A08001E82F19B0045CE54 /* GSShowMusicScore.cpp in Sources */,
+				69D58E481E833741008A8D29 /* main.m in Sources */,
+				697A08011E82F19B0045CE54 /* GSUserDraw.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,6 +471,22 @@
 				699058D21E7D3BF500E528B4 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		69D58E681E848A0E008A8D29 /* ViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69D58E691E848A0E008A8D29 /* Base */,
+			);
+			name = ViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		69D58E6A1E848A0E008A8D29 /* ViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69D58E6B1E848A0E008A8D29 /* Base */,
+			);
+			name = ViewController_iPhone.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -432,8 +586,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				DEVELOPMENT_TEAM = SDLRPX9288;
+				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					_DEBUG,
+					AMJU_IOS,
+					AMJU_USE_ES2,
+					AMJU_USE_BASS,
+				);
+				HEADER_SEARCH_PATHS = "/Users/jay/projects/amjulib/Releases/amjulib-v.0.5-ios/include/";
 				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					/Users/jay/projects/amjulib/Source/SoundBass/Bass2.4/iPhone,
+					"/Users/jay/projects/amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -443,8 +613,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				DEVELOPMENT_TEAM = SDLRPX9288;
+				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					AMJU_IOS,
+					AMJU_USE_ES2,
+					AMJU_USE_BASS,
+				);
+				HEADER_SEARCH_PATHS = "/Users/jay/projects/amjulib/Releases/amjulib-v.0.5-ios/include/";
 				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					/Users/jay/projects/amjulib/Source/SoundBass/Bass2.4/iPhone,
+					"/Users/jay/projects/amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -515,6 +698,7 @@
 				699058EF1E7D3BF500E528B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		699058F01E7D3BF500E528B4 /* Build configuration list for PBXNativeTarget "Amjula Music TheoryTests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +707,7 @@
 				699058F21E7D3BF500E528B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		699058F31E7D3BF500E528B4 /* Build configuration list for PBXNativeTarget "Amjula Music TheoryUITests" */ = {
 			isa = XCConfigurationList;
@@ -531,6 +716,7 @@
 				699058F51E7D3BF500E528B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

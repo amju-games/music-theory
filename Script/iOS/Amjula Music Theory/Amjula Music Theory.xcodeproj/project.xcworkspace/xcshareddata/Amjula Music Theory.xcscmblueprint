@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "369758CAE09BA84843EA158142154B66F2F6BF3D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "369758CAE09BA84843EA158142154B66F2F6BF3D" : 9223372036854775807,
+    "4F655A2FD53CE5E81FFDACE64121456E5EBE98FA" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F99FB8C6-E309-4BE8-BFC6-DECA38F736BF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "369758CAE09BA84843EA158142154B66F2F6BF3D" : "music-theory\/",
+    "4F655A2FD53CE5E81FFDACE64121456E5EBE98FA" : "amjulib\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Amjula Music Theory",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Script\/iOS\/Amjula Music Theory\/Amjula Music Theory.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jason-amju\/music-theory.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "369758CAE09BA84843EA158142154B66F2F6BF3D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jason-amju\/amjulib.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4F655A2FD53CE5E81FFDACE64121456E5EBE98FA"
+    }
+  ]
+}

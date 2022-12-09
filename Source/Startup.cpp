@@ -1,5 +1,3 @@
-#ifndef AMJU_IOS
-
 #ifdef WIN32
 #if defined(_DEBUG)
 #pragma comment(lib, "../../../../../amjulib/Build/Debug/AmjuLibMsvc.lib")
@@ -27,6 +25,7 @@
 #include <EventPoller.h>
 #include <ObjMesh.h>
 #include <ResourceManager.h>
+#include <SoundManager.h>
 #include "GSPlayNotes.h"
 #include "GSShowLineDrawing.h"
 #include "GSShowMusicScore.h"
@@ -80,6 +79,4 @@ void StartUpAfterCreateWindow()
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
 }
 }
-
-#endif // AMJU_IOS
 

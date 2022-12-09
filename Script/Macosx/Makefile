@@ -3,7 +3,7 @@ $(error "Please set AMJULIB_MAC_SCRIPT_PATH in your environment.")
 endif
 
 AMJULIB		:=	$(AMJULIB_MAC_SCRIPT_PATH)/../../
-RUNDIR		:=	../../Build/CompiledAssets
+RUNDIR		:=	../../Assets/
 BUILD		:=	../../Build/Mac
 TARGET		:=	$(BUILD)/macgame
 LIBDIRS   	:= 	$(AMJULIB)/Releases/amjulib-v.0.5-macosx
