@@ -20,8 +20,8 @@ std::string Beam::ToString() const
   float ymax = ymin + BEAM_HEIGHT;
 
   return "quad, " +
-    Str((xmax + xoff) * scale) + ", " + Str(ymin * scale) + ", " +
-    Str((xmax + xoff) * scale) + ", " + Str(ymax * scale) + ", " +
-    Str((xmin + xoff) * scale) + ", " + Str(ymax * scale) + ", " +
-    Str((xmin + xoff) * scale) + ", " + Str(ymin * scale);
+    Str((xmax + xoff) * scaleX) + ", " + Str(ymin * scaleY) + ", " +
+    Str((xmax + xoff) * scaleX) + ", " + Str(ymax * scaleY) + ", " +
+    Str((xmin + xoff) * scaleX) + ", " + Str(ymax * scaleY) + ", " +
+    Str((xmin + xoff) * scaleX) + ", " + Str(ymin * scaleY);
 }

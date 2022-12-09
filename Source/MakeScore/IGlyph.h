@@ -14,10 +14,11 @@ struct IGlyph
   virtual ~IGlyph() = default;
   virtual std::string ToString() const = 0;
 
-  void SetScale(float s) { scale = s; }
+  void SetScale(float s) { scaleX = scaleY = s; }
 
   float x = 0;
   // Default height is on single middle stave line for rhythm
   float y = DEFAULT_HEIGHT;
-  float scale = 1.0f;
+  float scaleX = 1.0f;
+  float scaleY = 1.0f;
 };

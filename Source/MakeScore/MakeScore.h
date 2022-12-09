@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 
+#include "Attachment.h"
 #include "Bar.h"
 #include "Glyph.h"
 #include "Stave.h"
@@ -48,6 +49,16 @@ public:
   }
 
 private:
+
+  // Attach t to the last glyph added, if there is one; set left or
+  //  right parent.
+  void Attach(Attachment* t, int leftOrRight = 0);
+
+  // Add a performance direction attachment
+  void AddDirection(const std::string& s);
+
+  // Add a text string attachment
+  void AddText(const std::string& s);
 
   void AddTimeSig(const std::string& s)
   {
@@ -91,7 +102,10 @@ private:
 
   // Ties connect glyphs which can be in different bars, so ties are not
   //  per-bar.
+  // TODO Absorb this into m_otherGlyphs
   std::vector<std::unique_ptr<Tie>> m_ties;
+
+  std::vector<std::unique_ptr<IGlyph>> m_otherGlyphs;
 
   StaveType m_staveType = StaveType::STAVE_TYPE_RHYTHM;
 

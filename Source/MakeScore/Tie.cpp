@@ -51,9 +51,10 @@ std::string Tie::ToString() const
 
   std::string res = "curve, ";
   int n = coords.size();
-  for (int i = 0; i < n; i++)
+  for (int i = 0; i < n; i += 2)
   {
-    res += Str(coords[i] * scale) + (i < (n - 1) ? ", " : "");
+    res += Str(coords[i]     * scaleX) + ",";
+    res += Str(coords[i + 1] * scaleY) + (i < (n - 2) ? ", " : "");
   }
   return res;
 }

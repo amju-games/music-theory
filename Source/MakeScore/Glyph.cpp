@@ -199,7 +199,7 @@ std::string Glyph::GetStaccatoStr() const
    
     // Dot glyph name is just '.' 
     res = " ; ., " + Str(staccX) + ", " + Str(staccY) + 
-      ", " + Str(scale) + ", " + Str(scale);
+      ", " + Str(scaleX) + ", " + Str(scaleY);
   }
   return res;
 }
@@ -218,14 +218,14 @@ std::string Glyph::ToString() const
   std::string res = TimeBefore();
 
   res += displayGlyphName + ", " + Str(x) + ", " + Str(y) +
-    ", " + Str(scale) + ", " + Str(scale);
+    ", " + Str(scaleX) + ", " + Str(scaleY);
  
   if (m_accidental != Accidental::ACCIDENTAL_NONE)
   {
     const float ACC_X_OFFSET = -0.2f;
     res += " ; " + GetAccidentalStr() + ", "  + 
       Str(x + ACC_X_OFFSET) + ", " + Str(y) + 
-      ", " + Str(scale) + ", " + Str(scale);
+      ", " + Str(scaleX) + ", " + Str(scaleY);
   }
  
   // Add ledger lines - below
@@ -233,14 +233,14 @@ std::string Glyph::ToString() const
   {
     float ledgerY = y - (s + 2) * 0.05f;
     res += " ; ledger-w, " + Str(x) + ", " + Str(ledgerY) +
-      ", " + Str(scale) + ", " + Str(scale);
+      ", " + Str(scaleX) + ", " + Str(scaleY);
   }
   // Above
   for (int s = m_staveLine; s > 9; s -= 2)
   {
     float ledgerY = y - (s - 10) * 0.05f;
     res += " ; ledger-w, " + Str(x) + ", " + Str(ledgerY) +
-      ", " + Str(scale) + ", " + Str(scale);
+      ", " + Str(scaleX) + ", " + Str(scaleY);
   }
 
   // Add staccato dot

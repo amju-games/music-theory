@@ -6,13 +6,10 @@
 // Sub project to convert easily-authorable music content
 //  into list of glyphs.
 //
-// To build:
-//    (Mac) clang++ *.cpp -std=c++11
-//    (Win) cl *.cpp
-//
 // E.g. use: 
-//    (Mac) echo '4/4 c c mr' | ./a.out
-// Same for Win, although we need double quotes and internally we need to strip off the quotes:
+//    (Mac) echo "4/4 c c mr" | ./makescore 
+// Same for Win, although we need double quotes and internally we need to 
+// strip off the quotes:
 //    (Win) echo "4/4 c c mr" | MakeScore.exe
 
 
@@ -54,6 +51,22 @@ static int s_stave = 0;
 
 // Bit field for staccato, accent, pause, etc., per stave
 static int s_switches[MAX_NUM_STAVES] = { 0, 0, 0, 0 };
+
+// Const set of performance directions, with relative widths
+static const std::map<std::string, float> DIRECTIONS = 
+{
+  { "f", 1 },
+  { "p", 1 },
+  { "ff", 2 },
+  { "pp", 2 },
+  { "mp", 2.5f },
+  { "mf", 2.5f }
+};
+
+bool IsDirection(const std::string& s)
+{
+  return DIRECTIONS.find(s) != DIRECTIONS.end();
+}
 
 float GetHeight(BeamLevel bl)
 {
@@ -101,9 +114,13 @@ void MakeScore::AddTokens()
   };
 
   int n = strs.size();
+
+  bool isText = false;
+  std::string text;
+
   for (int i = 0; i < n; i++)
   {
-    const std::string& s = strs[i];
+    std::string s = strs[i]; // copy so we can strip quotes off
 
     if (s == "|")
     {
@@ -119,6 +136,10 @@ void MakeScore::AddTokens()
     else if (IsSwitch(s))
     {
       // Nothing to do, if it's a switch, we flip a value
+    }
+    else if (IsDirection(s))
+    {
+      AddDirection(s);
     }
     else if (IsBeam(s))
     {
@@ -156,13 +177,90 @@ void MakeScore::AddTokens()
       m_lastTimeValToken = s;
       AddGlyph();
     }
-    else
+    else if (s[0] == TEXT_QUOTE_OPEN)
+    {
+      // First token of some text
+      // text = s.substr(1);
+      isText = true;
+      s = s.substr(1);
+    }
+    else if (!isText)
     {
       std::cout << "// *ERROR* Unrecognised: " << s << "\n"; 
       // REPORT ERROR TODO
       // ? return;
     }
+
+    // Text - add to string and check for final quote
+    if (isText)
+    {
+      if (!text.empty())
+      {
+        text += " ";
+      }
+      if (s.back() == TEXT_QUOTE_CLOSE)
+      {
+        text += s.substr(0, s.size() - 1);
+        AddText(text);
+        isText = false;
+        text.clear();
+      }
+      else
+      {
+        text += s;
+      }
+    }
   }
+}
+
+void MakeScore::Attach(Attachment* t, int leftOrRight)
+{
+  auto& b = m_bars.back();
+  auto& g = b->GetGlyphs();
+  if (g.empty())
+  {
+    // Try prev bar
+    if (m_bars.size() > 1)
+    {
+      auto& b = m_bars[m_bars.size() - 2];
+      auto& g = b->GetGlyphs();
+      t->SetParent(g.back().get(), leftOrRight);
+    }
+  }
+  else
+  {
+    t->SetParent(g.back().get(), leftOrRight);
+  }
+}
+
+void MakeScore::AddDirection(const std::string& s)
+{
+  Attachment* t = new Attachment;
+  t->SetGlyphText(s);
+  t->SetScale(m_scale);
+
+  // Attach to most reccent glyph if there is one
+  Attach(t);
+
+  // TODO Use width to offset x
+
+  m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(t));
+}
+
+void MakeScore::AddText(const std::string& s)
+{
+  std::cout << "// Text: '" << s << "'\n";
+  Attachment* t = new Attachment;
+  t->SetGlyphText("\"" + s + "\"");
+  const float TEXT_SCALE_X = 6.0f;
+  const float TEXT_SCALE_Y = 2.5f;
+  t->scaleX = TEXT_SCALE_X * m_scale; 
+  t->scaleY = TEXT_SCALE_Y * m_scale; 
+
+  // Attach to most reccent glyph if there is one
+  Attach(t);
+
+  m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(t));
 }
 
 void MakeScore::AddKeySig(const std::string& s)
@@ -310,6 +408,12 @@ std::string MakeScore::ToString()
     res += LineEnd(m_outputOnOneLine);
   }
 
+  for (auto& g : m_otherGlyphs)
+  {
+    res += g->ToString();
+    res += LineEnd(m_outputOnOneLine);
+  }
+
   return res;
 }
 
@@ -342,7 +446,6 @@ void CommandLineParams(int argc, char** argv, MakeScore& ms)
       i++; 
       // Normalised: i.e. page width of 1 means the default width.
       s_pageWidth = atof(argv[i]) * s_pageWidth;
-      std::cout << "// Page width: " << s_pageWidth << "\n";
     }
 
     if (param == "--scale")
@@ -350,7 +453,6 @@ void CommandLineParams(int argc, char** argv, MakeScore& ms)
       i++;
       // Normalised: i.e. scale of 1 means the default scale.
       s_scale = atof(argv[i]) * s_scale;
-      std::cout << "// Scale: " << s_scale << "\n";
     }
   }
 }

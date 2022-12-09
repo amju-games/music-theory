@@ -19,6 +19,7 @@ CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11 -g -O0
 LDFLAGS=
 
 SOURCES=\
+Attachment.cpp \
 Bar.cpp \
 Beam.cpp \
 Clef.cpp \

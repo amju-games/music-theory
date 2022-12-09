@@ -31,8 +31,8 @@ std::string Flag::ToString() const
   }
 
   return "quad, " +
-    Str((xmax_ + xoff) * scale) + ", " + Str(ymin * scale) + ", " +
-    Str((xmax_ + xoff) * scale) + ", " + Str(ymax * scale) + ", " +
-    Str((xmin_ + xoff) * scale) + ", " + Str(ymax * scale) + ", " +
-    Str((xmin_ + xoff) * scale) + ", " + Str(ymin * scale);
+    Str((xmax_ + xoff) * scaleX) + ", " + Str(ymin * scaleY) + ", " +
+    Str((xmax_ + xoff) * scaleX) + ", " + Str(ymax * scaleY) + ", " +
+    Str((xmin_ + xoff) * scaleX) + ", " + Str(ymax * scaleY) + ", " +
+    Str((xmin_ + xoff) * scaleX) + ", " + Str(ymin * scaleY);
 }
