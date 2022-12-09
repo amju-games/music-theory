@@ -14,7 +14,7 @@ I
 1
 
 // Node type
-camera
+camera-persp
 // Name
 camera
 // Eye pos
