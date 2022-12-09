@@ -1,0 +1,538 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		699058C11E7D3BF400E528B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058C01E7D3BF400E528B4 /* main.m */; };
+		699058C41E7D3BF400E528B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058C31E7D3BF400E528B4 /* AppDelegate.m */; };
+		699058C61E7D3BF400E528B4 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 699058C51E7D3BF400E528B4 /* Shader.fsh */; };
+		699058C81E7D3BF400E528B4 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 699058C71E7D3BF400E528B4 /* Shader.vsh */; };
+		699058CB1E7D3BF500E528B4 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058CA1E7D3BF400E528B4 /* GameViewController.m */; };
+		699058CE1E7D3BF500E528B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 699058CC1E7D3BF500E528B4 /* Main.storyboard */; };
+		699058D01E7D3BF500E528B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 699058CF1E7D3BF500E528B4 /* Assets.xcassets */; };
+		699058D31E7D3BF500E528B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 699058D11E7D3BF500E528B4 /* LaunchScreen.storyboard */; };
+		699058DE1E7D3BF500E528B4 /* Amjula_Music_TheoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058DD1E7D3BF500E528B4 /* Amjula_Music_TheoryTests.m */; };
+		699058E91E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058E81E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		699058DA1E7D3BF500E528B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 699058B41E7D3BF400E528B4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 699058BB1E7D3BF400E528B4;
+			remoteInfo = "Amjula Music Theory";
+		};
+		699058E51E7D3BF500E528B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 699058B41E7D3BF400E528B4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 699058BB1E7D3BF400E528B4;
+			remoteInfo = "Amjula Music Theory";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		699058BC1E7D3BF400E528B4 /* Amjula Music Theory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Amjula Music Theory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		699058C01E7D3BF400E528B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		699058C21E7D3BF400E528B4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		699058C31E7D3BF400E528B4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		699058C51E7D3BF400E528B4 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		699058C71E7D3BF400E528B4 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		699058C91E7D3BF400E528B4 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		699058CA1E7D3BF400E528B4 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		699058CD1E7D3BF500E528B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		699058CF1E7D3BF500E528B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		699058D21E7D3BF500E528B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		699058D41E7D3BF500E528B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		699058D91E7D3BF500E528B4 /* Amjula Music TheoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Amjula Music TheoryTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		699058DD1E7D3BF500E528B4 /* Amjula_Music_TheoryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Amjula_Music_TheoryTests.m; sourceTree = "<group>"; };
+		699058DF1E7D3BF500E528B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		699058E41E7D3BF500E528B4 /* Amjula Music TheoryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Amjula Music TheoryUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		699058E81E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Amjula_Music_TheoryUITests.m; sourceTree = "<group>"; };
+		699058EA1E7D3BF500E528B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		699058B91E7D3BF400E528B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		699058D61E7D3BF500E528B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		699058E11E7D3BF500E528B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		699058B31E7D3BF400E528B4 = {
+			isa = PBXGroup;
+			children = (
+				699058BE1E7D3BF400E528B4 /* Amjula Music Theory */,
+				699058DC1E7D3BF500E528B4 /* Amjula Music TheoryTests */,
+				699058E71E7D3BF500E528B4 /* Amjula Music TheoryUITests */,
+				699058BD1E7D3BF400E528B4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		699058BD1E7D3BF400E528B4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				699058BC1E7D3BF400E528B4 /* Amjula Music Theory.app */,
+				699058D91E7D3BF500E528B4 /* Amjula Music TheoryTests.xctest */,
+				699058E41E7D3BF500E528B4 /* Amjula Music TheoryUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		699058BE1E7D3BF400E528B4 /* Amjula Music Theory */ = {
+			isa = PBXGroup;
+			children = (
+				699058C21E7D3BF400E528B4 /* AppDelegate.h */,
+				699058C31E7D3BF400E528B4 /* AppDelegate.m */,
+				699058C51E7D3BF400E528B4 /* Shader.fsh */,
+				699058C71E7D3BF400E528B4 /* Shader.vsh */,
+				699058C91E7D3BF400E528B4 /* GameViewController.h */,
+				699058CA1E7D3BF400E528B4 /* GameViewController.m */,
+				699058CC1E7D3BF500E528B4 /* Main.storyboard */,
+				699058CF1E7D3BF500E528B4 /* Assets.xcassets */,
+				699058D11E7D3BF500E528B4 /* LaunchScreen.storyboard */,
+				699058D41E7D3BF500E528B4 /* Info.plist */,
+				699058BF1E7D3BF400E528B4 /* Supporting Files */,
+			);
+			path = "Amjula Music Theory";
+			sourceTree = "<group>";
+		};
+		699058BF1E7D3BF400E528B4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				699058C01E7D3BF400E528B4 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		699058DC1E7D3BF500E528B4 /* Amjula Music TheoryTests */ = {
+			isa = PBXGroup;
+			children = (
+				699058DD1E7D3BF500E528B4 /* Amjula_Music_TheoryTests.m */,
+				699058DF1E7D3BF500E528B4 /* Info.plist */,
+			);
+			path = "Amjula Music TheoryTests";
+			sourceTree = "<group>";
+		};
+		699058E71E7D3BF500E528B4 /* Amjula Music TheoryUITests */ = {
+			isa = PBXGroup;
+			children = (
+				699058E81E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m */,
+				699058EA1E7D3BF500E528B4 /* Info.plist */,
+			);
+			path = "Amjula Music TheoryUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		699058BB1E7D3BF400E528B4 /* Amjula Music Theory */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 699058ED1E7D3BF500E528B4 /* Build configuration list for PBXNativeTarget "Amjula Music Theory" */;
+			buildPhases = (
+				699058B81E7D3BF400E528B4 /* Sources */,
+				699058B91E7D3BF400E528B4 /* Frameworks */,
+				699058BA1E7D3BF400E528B4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Amjula Music Theory";
+			productName = "Amjula Music Theory";
+			productReference = 699058BC1E7D3BF400E528B4 /* Amjula Music Theory.app */;
+			productType = "com.apple.product-type.application";
+		};
+		699058D81E7D3BF500E528B4 /* Amjula Music TheoryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 699058F01E7D3BF500E528B4 /* Build configuration list for PBXNativeTarget "Amjula Music TheoryTests" */;
+			buildPhases = (
+				699058D51E7D3BF500E528B4 /* Sources */,
+				699058D61E7D3BF500E528B4 /* Frameworks */,
+				699058D71E7D3BF500E528B4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				699058DB1E7D3BF500E528B4 /* PBXTargetDependency */,
+			);
+			name = "Amjula Music TheoryTests";
+			productName = "Amjula Music TheoryTests";
+			productReference = 699058D91E7D3BF500E528B4 /* Amjula Music TheoryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		699058E31E7D3BF500E528B4 /* Amjula Music TheoryUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 699058F31E7D3BF500E528B4 /* Build configuration list for PBXNativeTarget "Amjula Music TheoryUITests" */;
+			buildPhases = (
+				699058E01E7D3BF500E528B4 /* Sources */,
+				699058E11E7D3BF500E528B4 /* Frameworks */,
+				699058E21E7D3BF500E528B4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				699058E61E7D3BF500E528B4 /* PBXTargetDependency */,
+			);
+			name = "Amjula Music TheoryUITests";
+			productName = "Amjula Music TheoryUITests";
+			productReference = 699058E41E7D3BF500E528B4 /* Amjula Music TheoryUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		699058B41E7D3BF400E528B4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = Amju;
+				TargetAttributes = {
+					699058BB1E7D3BF400E528B4 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+					699058D81E7D3BF500E528B4 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 699058BB1E7D3BF400E528B4;
+					};
+					699058E31E7D3BF500E528B4 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 699058BB1E7D3BF400E528B4;
+					};
+				};
+			};
+			buildConfigurationList = 699058B71E7D3BF400E528B4 /* Build configuration list for PBXProject "Amjula Music Theory" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 699058B31E7D3BF400E528B4;
+			productRefGroup = 699058BD1E7D3BF400E528B4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				699058BB1E7D3BF400E528B4 /* Amjula Music Theory */,
+				699058D81E7D3BF500E528B4 /* Amjula Music TheoryTests */,
+				699058E31E7D3BF500E528B4 /* Amjula Music TheoryUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		699058BA1E7D3BF400E528B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				699058CE1E7D3BF500E528B4 /* Main.storyboard in Resources */,
+				699058C81E7D3BF400E528B4 /* Shader.vsh in Resources */,
+				699058D01E7D3BF500E528B4 /* Assets.xcassets in Resources */,
+				699058D31E7D3BF500E528B4 /* LaunchScreen.storyboard in Resources */,
+				699058C61E7D3BF400E528B4 /* Shader.fsh in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		699058D71E7D3BF500E528B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		699058E21E7D3BF500E528B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		699058B81E7D3BF400E528B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				699058C41E7D3BF400E528B4 /* AppDelegate.m in Sources */,
+				699058CB1E7D3BF500E528B4 /* GameViewController.m in Sources */,
+				699058C11E7D3BF400E528B4 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		699058D51E7D3BF500E528B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				699058DE1E7D3BF500E528B4 /* Amjula_Music_TheoryTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		699058E01E7D3BF500E528B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				699058E91E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		699058DB1E7D3BF500E528B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 699058BB1E7D3BF400E528B4 /* Amjula Music Theory */;
+			targetProxy = 699058DA1E7D3BF500E528B4 /* PBXContainerItemProxy */;
+		};
+		699058E61E7D3BF500E528B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 699058BB1E7D3BF400E528B4 /* Amjula Music Theory */;
+			targetProxy = 699058E51E7D3BF500E528B4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		699058CC1E7D3BF500E528B4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				699058CD1E7D3BF500E528B4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		699058D11E7D3BF500E528B4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				699058D21E7D3BF500E528B4 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		699058EB1E7D3BF500E528B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		699058EC1E7D3BF500E528B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		699058EE1E7D3BF500E528B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		699058EF1E7D3BF500E528B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		699058F11E7D3BF500E528B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Amjula Music TheoryTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-TheoryTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Amjula Music Theory.app/Amjula Music Theory";
+			};
+			name = Debug;
+		};
+		699058F21E7D3BF500E528B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Amjula Music TheoryTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-TheoryTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Amjula Music Theory.app/Amjula Music Theory";
+			};
+			name = Release;
+		};
+		699058F41E7D3BF500E528B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Amjula Music TheoryUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-TheoryUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Amjula Music Theory";
+			};
+			name = Debug;
+		};
+		699058F51E7D3BF500E528B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Amjula Music TheoryUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-TheoryUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Amjula Music Theory";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		699058B71E7D3BF400E528B4 /* Build configuration list for PBXProject "Amjula Music Theory" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				699058EB1E7D3BF500E528B4 /* Debug */,
+				699058EC1E7D3BF500E528B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		699058ED1E7D3BF500E528B4 /* Build configuration list for PBXNativeTarget "Amjula Music Theory" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				699058EE1E7D3BF500E528B4 /* Debug */,
+				699058EF1E7D3BF500E528B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		699058F01E7D3BF500E528B4 /* Build configuration list for PBXNativeTarget "Amjula Music TheoryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				699058F11E7D3BF500E528B4 /* Debug */,
+				699058F21E7D3BF500E528B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		699058F31E7D3BF500E528B4 /* Build configuration list for PBXNativeTarget "Amjula Music TheoryUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				699058F41E7D3BF500E528B4 /* Debug */,
+				699058F51E7D3BF500E528B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 699058B41E7D3BF400E528B4 /* Project object */;
+}
