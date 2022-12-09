@@ -1,0 +1,34 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Notes on bass clef
+// Level 1 - just white notes in octave down from middle C
+
+// version
+1
+
+// Music score coords:
+//  +--------------------------+   0.4
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+
+//  +--------------------------+   0.0
+// 1.0                        3.0 (short stave)
+
+// NB Stave x coord is 0.5, scaled to 1.0
+
+// Map score of note on bass clef to midi note value
+
+stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0 ; bass-c4-cr,  2.0, 0 =60
+stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0 ; bass-b4-cr,  2.0, 0 =59
+stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0 ; bass-a4-cr,  2.0, 0 =57
+stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0 ; bass-g3-cr,  2.0, 0 =55
+stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0 ; bass-f3-cr,  2.0, 0 =53
+stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0 ; bass-e3-cr,  2.0, 0 =52
+stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0 ; bass-d3-cr,  2.0, 0 =50
+stave, 0.5, 0, 2.0, 1 ; bass-clef, 1.2, 0 ; bass-c3-cr,  2.0, 0 =48
+end
+
+
+
+

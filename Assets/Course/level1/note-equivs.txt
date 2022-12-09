@@ -2,27 +2,13 @@
 // (c) Copyright 2017 Jason Colman
 
 // Note value equivalences
+// Level 1
 
 // version
 1
 
-// Quaver = 2 semiqs
-quaver-up, 2, 0.1 = semiquaver-up,     .0, .8,   .5, .5;semiquaver-up,     .6, .8,   .5, .5
-
-// Dotted quaver = 3 semiqs
-dotted-quaver-up, 2, 0.1 = semiquaver-up, -.2, .8, .5, .5;semiquaver-up, .3, .8, .5, .5; semiquaver-up, .8, .8, .5, .5
-
-// Crotchet = 2 quavers
-crotchet-up, 2, 0.1 = quaver-up,     .0, .8,   .5, .5;quaver-up,     .6, .8,   .5, .5
-
-// Dotted crotchet = 3 quavers
-dotted-crotchet-up, 2, 0.1 = quaver-up, -.2, .8, .5, .5;quaver-up, .3, .8, .5, .5; quaver-up, .8, .8, .5, .5
-
 // Minim = 2 crotchets
 minim-up, 2, 0.1 = crotchet-up,     .0, .8,   .5, .5;crotchet-up,     .6, .8,   .5, .5
-
-// Dotted minim = 3 crotchets
-dotted-minim-up, 2, 0.1 = crotchet-up, -.2, .8, .5, .5;crotchet-up, .3, .8, .5, .5; crotchet-up, .8, .8, .5, .5
 
 // Semibreve = 2 minims
 semibreve, 2, 0.2 = minim-up,     .0, .8,   .5, .5;minim-up,     .6, .8,   .5, .5

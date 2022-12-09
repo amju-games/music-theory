@@ -1,7 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
-// Grade1 course definition
+// Grade 1, level 1 course definition
 // A course is defined by a series of topics. Each topic has 'pages' of learning materials.
 // When a topic is completed, it unlocks further topics in the course.
 
@@ -9,86 +9,74 @@
 1
 
 // Num topics
-5
+4
 
 // Topic
 // ID
-notes-on-treb-clef
+notes-on-treb-clef-level1
 // Localised display name
-// Learning the Notes TODO Maybe 'Pitch' ?
 Notes on the Treble Clef
 // Group
 4
 // Initially locked?
 // Topics unlocked by this one
-notes-and-rests
+notes-and-rests-level1
 // Pages
 2
 // Normally, pages are defined as a vec of strings:
 // 1. base name for page gui filename
 // 2. Dictionary defining Questions
 // 3. Instructions text
+// TODO - higher or lower, no sharps or flats, so super easy
 //page-symbol-symbol-2=Course/level1/which_clef.txt=$$$3
 //page-symbol-text=Course/level1/higher_or_lower.txt=$$$92
 page-symbol-symbol=Course/level1/name-the-note-treb-clef.txt=$$$93
 // Special case page:
 // 3rd param is x offset for keyboard=moving mid C close to left edge of screen
-page-symbol-kb=Course/level1/notes-on-treble-clef.txt=-0.9=$$$98
-//page-symbol-kb=Course/level1/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
+page-symbol-kb=Course/level1/play-note-treb-clef.txt=-0.9=$$$98
 
 // Topic
 // ID
-notes-and-rests
+notes-and-rests-level1
 // Localised display name
 @@@Notes and Rests
 // Group
 4
 // Initially locked?
 // Topics unlocked by this one
-none
+notes-on-bass-clef-level1
 // Pages
-4
-page-symbol-symbol=Course/level1/rest-equivs.txt=@@@What has the same value?
+3
+// No rests in level 1, right?
+//page-symbol-symbol=Course/level1/rest-equivs.txt=@@@What has the same value?
 page-symbol-symbol=Course/level1/note-equivs.txt=@@@What has the same value?
 page-symbol-text=Course/level1/note-rest-names.txt=$$$92
 page-text-symbol=Course/level1/note-rest-symbols.txt=$$$92
 
 // Topic
 // ID
-keys-and-scales
+notes-on-bass-clef-level1
 // Localised display name
-// Keys and Scales
-$$$171
+Notes on the Bass Clef
 // Group
 4
 // Initially locked?
 // Topics unlocked by this one
-none
-// Pages
-4
-page-symbol-text=Course/level1/whats_the_scale.txt=$$$94
-page-symbol-text=Course/level1/whats_the_tonic_triad.txt=$$$95
-page-symbol-text=Course/level1/whats_the_key_sig.txt=$$$96
-page-symbol-text=Course/level1/intervals.txt=$$$100
-
-// Topic
-// ID
-bars-and-time-sigs
-// Localised display name
-@@@Bars and Time Sigs
-// Group
-1
-// Topics unlocked by this one
-none
+musical-terms-symbols-level1
 // Pages
 2
-page-symbol-symbol=Course/level1/missing_time_sig.txt=@@@What is the time signature?
-page-symbol-symbol=Course/level1/missing_rest.txt=@@@What is the missing rest?
-//page-symbol-text=Course/level1/time_sigs.txt=$$$99
+page-symbol-symbol=Course/level1/name-the-note-bass-clef.txt=$$$93
+// Special case page:
+// 3rd param is x offset for keyboard=moving mid C close to left edge of screen
+page-symbol-kb=Course/level1/play-note-bass-clef.txt=0.8=$$$98
+//page-symbol-text=Course/level1/whats_the_scale.txt=$$$94
+//page-symbol-text=Course/level1/whats_the_tonic_triad.txt=$$$95
+//page-symbol-text=Course/level1/whats_the_key_sig.txt=$$$96
+//page-symbol-text=Course/level1/intervals.txt=$$$100
 
 // Topic
 // ID
-musical-terms-symbols-1
+musical-terms-symbols-level1
 // Localised display name
 // Musical terms and Symbols
 $$$9
