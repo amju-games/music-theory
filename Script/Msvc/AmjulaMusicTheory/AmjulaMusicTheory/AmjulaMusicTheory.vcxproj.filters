@@ -67,6 +67,18 @@
     <Filter Include="Assets\Course\expl\tonic-triads">
       <UniqueIdentifier>{e11ce825-8bcc-42a8-90b2-20013a4fd2ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Course\Level1">
+      <UniqueIdentifier>{f432f62c-1746-45bf-8aaf-cc2e3cb99236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Course\Level2">
+      <UniqueIdentifier>{5590a80d-0bdb-4ee5-98ca-0638115ad242}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Course\Level3">
+      <UniqueIdentifier>{d661259d-39c4-489e-a3d7-bd1da5567a3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Course\Level4">
+      <UniqueIdentifier>{4675da55-540f-44ff-9112-5ba0f2661ab5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp">
@@ -561,23 +573,11 @@
     <Text Include="..\..\..\..\Assets\Gui\title-text.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Course\grade1.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\musical_terms.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\stroke-mid-line.txt">
       <Filter>Assets\Gui\Stroke</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\pie.txt">
       <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\intervals.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\musical_symbols.txt">
-      <Filter>Assets\Course</Filter>
     </Text>
     <Text Include="..\..\..\..\Docs\TODO.txt">
       <Filter>Docs</Filter>
@@ -717,12 +717,6 @@
     <Text Include="..\..\..\..\Assets\Gui\page_symbol_kb_landscape.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Course\notes_on_treble_clef.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\notes_on_treble_clef_with_accidentals.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\corridor_mode_wait.txt">
       <Filter>Assets\Gui\CorridorModes</Filter>
     </Text>
@@ -756,32 +750,8 @@
     <Text Include="..\..\..\..\Assets\Gui\page_interval.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Course\notes_on_bass_clef_with_accidentals.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\whats_the_key_sig.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\whats_the_tonic_triad.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\whats_the_scale.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\whats_the_time_sig.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_square_symbol_4_landscape.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\higher_or_lower.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\name_the_note.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\which_clef.txt">
-      <Filter>Assets\Course</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Course\expl\ttriad-cmaj-treb.txt">
       <Filter>Assets\Course\expl\tonic-triads</Filter>
@@ -819,21 +789,6 @@
     <Text Include="..\..\..\..\Assets\Gui\page_symbol_symbol_2_landscape.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Course\note_lengths.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\note-rest-names.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\note-rest-symbols.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\note-equivs.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\rest-equivs.txt">
-      <Filter>Assets\Course</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\hint-display-no-button.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
@@ -857,6 +812,258 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\tappables-2.txt">
       <Filter>Assets\Gui\Tappables</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\grade-1-level-1.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\grade-1-level-2.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\grade-1-level-3.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\grade-1-level-4.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\higher_or_lower.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\intervals.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\missing_rest.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\missing_time_sig.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\musical_symbols.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\musical_terms.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\name_the_note.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\note_lengths.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\note-equivs.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\note-rest-names.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\note-rest-symbols.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\notes_on_bass_clef_with_accidentals.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\notes_on_treble_clef.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\notes_on_treble_clef_with_accidentals.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\rest-equivs.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\time_sigs.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\whats_the_key_sig.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\whats_the_scale.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\whats_the_tonic_triad.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\which_clef.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\higher_or_lower.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\intervals.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\missing_rest.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\missing_time_sig.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\musical_symbols.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\musical_terms.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\name_the_note.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\note_lengths.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\note-equivs.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\note-rest-names.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\note-rest-symbols.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\notes_on_bass_clef_with_accidentals.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\notes_on_treble_clef.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\notes_on_treble_clef_with_accidentals.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\rest-equivs.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\time_sigs.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\whats_the_key_sig.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\whats_the_scale.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\whats_the_tonic_triad.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level2\which_clef.txt">
+      <Filter>Assets\Course\Level2</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\higher_or_lower.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\intervals.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\missing_rest.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\missing_time_sig.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\musical_symbols.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\musical_terms.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\name_the_note.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\note_lengths.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\note-equivs.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\note-rest-names.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\note-rest-symbols.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\notes_on_bass_clef_with_accidentals.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\notes_on_treble_clef.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\notes_on_treble_clef_with_accidentals.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\rest-equivs.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\time_sigs.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\whats_the_key_sig.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\whats_the_scale.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\whats_the_tonic_triad.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level3\which_clef.txt">
+      <Filter>Assets\Course\Level3</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\higher_or_lower.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\intervals.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\missing_rest.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\missing_time_sig.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\musical_symbols.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\musical_terms.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\name_the_note.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\note_lengths.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\note-equivs.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\note-rest-names.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\note-rest-symbols.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\notes_on_bass_clef_with_accidentals.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\notes_on_treble_clef.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\notes_on_treble_clef_with_accidentals.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\rest-equivs.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\time_sigs.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\whats_the_key_sig.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\whats_the_scale.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\whats_the_tonic_triad.txt">
+      <Filter>Assets\Course\Level4</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level4\which_clef.txt">
+      <Filter>Assets\Course\Level4</Filter>
     </Text>
   </ItemGroup>
 </Project>
