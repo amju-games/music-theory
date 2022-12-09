@@ -12,7 +12,7 @@ score-bg-comp
 
 gui-image
 score-white-bg
--0.75, 0.7
-1.5, 0.5
-Image/white.png, stretch
+-0.9, 0.75
+1.8, 0.6
+Image/paper2.png, stretch
 
