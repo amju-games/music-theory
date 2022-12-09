@@ -3,6 +3,7 @@
 
 #include <GuiButton.h>
 #include <GuiDecAnimation.h>
+#include <GuiDecColour.h>
 #include <Localise.h>
 #include <ReportError.h>
 #include "Consts.h"
@@ -102,6 +103,39 @@ void PageMultiChoice::SetUpButtons()
   }
 }
 
+void PageMultiChoice::InvertChoice(int c)
+{
+  // TODO All GuiElements should have SetFgCol(), these are overrides
+  // TODO TEMP TEST colour
+  Colour fg(1, 1, 1, 1);
+  Colour bg(0, 0, 0, 1);
+
+  GuiText* text = dynamic_cast<GuiText*>(m_gui->GetElementByName("text-choice-" + ToString(c)));
+  if (text)
+  {
+    text->SetFgCol(fg);
+  }
+  else
+  {
+    // Set music score colour
+    GuiMusicScore* score = dynamic_cast<GuiMusicScore*>(GetElementByName(m_gui, "music-score-" + ToString(c)));
+    Assert(score);
+    score->SetFgCol(fg);
+  }
+
+  // Bg image colour
+/*
+  GuiDecColour* bgCol = dynamic_cast<GuiDecColour*>(
+    m_gui->GetElementByName("colour-button-choice-" + ToString(c)));
+  Assert(bgCol);
+  bgCol->SetColour(bg);
+*/
+  GuiButton* button = dynamic_cast<GuiButton*>(
+    m_gui->GetElementByName("button-choice-" + ToString(c)));
+  Assert(button);
+  button->SetButtonColour(bg);
+}
+
 void PageMultiChoice::OnChoice(int c)
 {
   // Disable all buttons. Get position of choice.
@@ -113,6 +147,7 @@ void PageMultiChoice::OnChoice(int c)
     button->SetIsEnabled(false);
 
     // TODO This has no effect because buttons are transparent regions?!
+    // But we DO want to invert choices, when we reveal correct answer.
 //    // Change colour of selected choice
 //    if (i == c)
 //    {
@@ -179,11 +214,15 @@ void PageMultiChoice::HideChoiceButton(int n)
 
 void PageMultiChoice::ShowCorrectAnswer()
 {
-  // TODO TEMP TEST - fade all except correct
+  // Fade all except correct
   while (CanGetHint())
   {
-    OnHint();
+    OnHint(); 
   }
+
+  // Highlight correct choice
+  int correct = m_answers.GetCorrectAnswer();
+  InvertChoice(correct);
 
   // Show Lurk message with explanation, if there is one.
   std::string expl = GetQuestion()->GetExplanationString();

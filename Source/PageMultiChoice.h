@@ -47,6 +47,7 @@ protected:
 //  void SetQText();
 //  void SetQScore();
   void SetUpQuestion();
+  void InvertChoice(int c);
 
 protected:
   MultiChoice m_answers;

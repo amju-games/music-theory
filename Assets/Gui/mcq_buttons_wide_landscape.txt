@@ -56,11 +56,30 @@ linear
 // Composite: the button to fade, and the other buttons, which we move
 gui-comp
 button-group-0
-3
+2
 
 // Animated colour
 colour
 ffffffff, ffffff00
+
+gui-comp
+button-and-text-comp
+2
+
+// element type
+gui-button
+// Element name
+button-choice-0
+// pos (coords are -1..1)
+-0.75, 0.0
+// size
+0.7, 0.2
+// Image 
+Image/white.png, stretch
+// Text
+$$$empty
+// Font name, size
+TEXT, 1.5, fgcol=000000
 
 gui-text
 // Element name
@@ -73,21 +92,6 @@ text-choice-0
 $$$empty
 // Font name, size
 TEXT, 1.5, left, multi, fgcol=000000
-
-// element type
-gui-button
-// Element name
-button-choice-0
-// pos (coords are -1..1)
--0.75, 0.0
-// size
-0.7, 0.2
-// Image 
-Image/transparent.png, stretch
-// Text
-$$$empty
-// Font name, size
-TEXT, 1.5, fgcol=000000
 
 gui-comp
 buttons-1-3
@@ -110,11 +114,30 @@ linear
 // Composite: the button to fade, and the other buttons, which we move
 gui-comp
 button-group-1
-3
+2
 
 // Animated colour
 colour
 ffffffff, ffffff00
+
+// element type
+gui-comp
+button-and-text-comp
+2
+
+gui-button
+// Element name
+button-choice-1
+// pos (coords are -1..1)
+0.1, 0.0
+// size
+0.7, 0.2
+// Image 
+Image/white.png, stretch
+// Text
+$$$empty
+// Font name, size
+TEXT, 1.5, fgcol=000000
 
 gui-text
 // Element name
@@ -127,21 +150,6 @@ text-choice-1
 $$$empty
 // Font name, size
 TEXT, 1.5, left, multi, fgcol=000000
-
-// element type
-gui-button
-// Element name
-button-choice-1
-// pos (coords are -1..1)
-0.1, 0.0
-// size
-0.7, 0.2
-// Image 
-Image/transparent.png, stretch
-// Text
-$$$empty
-// Font name, size
-TEXT, 1.5, fgcol=000000
 
 gui-comp
 buttons-2-3
@@ -163,11 +171,30 @@ linear
 // Composite: the button to fade, and the other buttons, which we move
 gui-comp
 button-group-2
-3
+2
 
 // Animated colour
 colour
 ffffffff, ffffff00
+
+// element type
+gui-comp
+button-and-text-comp
+2
+
+gui-button
+// Element name
+button-choice-2
+// pos (coords are -1..1)
+-0.75, -0.35
+// size
+0.7, 0.2
+// Image 
+Image/white.png, stretch
+// Text
+$$$empty
+// Font name, size
+TEXT, 1.5, fgcol=000000
 
 gui-text
 // Element name
@@ -180,21 +207,6 @@ text-choice-2
 $$$empty
 // Font name, size
 TEXT, 1.5, left, multi, fgcol=000000
-
-// element type
-gui-button
-// Element name
-button-choice-2
-// pos (coords are -1..1)
--0.75, -0.35
-// size
-0.7, 0.2
-// Image 
-Image/transparent.png, stretch
-// Text
-$$$empty
-// Font name, size
-TEXT, 1.5, fgcol=000000
 
 gui-comp
 buttons-3
@@ -215,11 +227,29 @@ linear
 // Composite: the button to fade, and the other buttons, which we move
 gui-comp
 button-group-3
-2
+1
 
 // Animated colour
 colour
 ffffffff, ffffff00
+
+gui-comp
+button-and-text-comp
+2
+
+gui-button
+// Element name
+button-choice-3
+// pos (coords are -1..1)
+0.1, -0.35
+// size
+0.7, 0.2
+// Image 
+Image/white.png, stretch
+// Text
+$$$empty
+// Font name, size
+TEXT, 1.5, fgcol=000000
 
 gui-text
 // Element name
@@ -232,20 +262,5 @@ text-choice-3
 $$$empty
 // Font name, size
 TEXT, 1.5, left, multi, fgcol=000000
-
-// element type
-gui-button
-// Element name
-button-choice-3
-// pos (coords are -1..1)
-0.1, -0.35
-// size
-0.7, 0.2
-// Image 
-Image/transparent.png, stretch
-// Text
-$$$empty
-// Font name, size
-TEXT, 1.5, fgcol=000000
 
 
