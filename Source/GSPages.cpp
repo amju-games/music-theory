@@ -18,6 +18,7 @@
 #include "GSTopicStart.h"
 #include "GSTopicEnd.h"
 #include "GuiLineDrawing.h"
+#include "Hints.h"
 #include "Keys.h"
 #include "Md2SceneNode.h" // TODO promote to Amjulib
 #include "PrintGui.h"
@@ -26,10 +27,6 @@
 
 namespace Amju
 {
-static const char* HINTS_AVAILABLE_KEY = "hints_avail";
-// Start life with 3 hints
-const int DEFAULT_HINTS_AVAIL = 3;
-
 // Delay before we go to next page (gives time to see blackboard erase)
 const float NEXT_PAGE_TIME = 2.2f;
 
@@ -48,9 +45,20 @@ static void OnPause(GuiElement*)
   TheGSPages::Instance()->OnPause();
 }
 
+// Called from timed FuncMessage
+static void SpeechBubbleOK()
+{
+  GSPages* pages = TheGSPages::Instance();
+  // Sanity check: this only makes sense if GSPages is active
+  if (TheGame::Instance()->GetState() == pages)
+  {
+    pages->OnSpeechBubbleOK();
+  }
+}
+
 static void OnSpeechBubbleOK(GuiElement*)
 {
-  TheGSPages::Instance()->OnSpeechBubbleOK();
+  SpeechBubbleOK();
 }
 
 // Called from timed FuncMessage
@@ -84,7 +92,11 @@ void GSPages::ShowHints()
 {
   IGuiText* hintCounter = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "hint-counter"));
   Assert(hintCounter);
-  hintCounter->SetText(ToString(m_numHintsAvailable));
+  int hints = Hints::Get();
+  hintCounter->SetText(ToString(hints));
+
+  // Disable button if no hints available
+  SetButtonEnabled("hint-button", hints > 0);
 }
 
 void GSPages::ReloadGui()
@@ -132,7 +144,8 @@ void GSPages::Reload3d()
 
   SceneNode* camera = root->GetNodeByName("camera");
   Assert(camera);
-  camera->AddChild(md2node);
+  // TODO turned off for now
+//  camera->AddChild(md2node);
 }
 
 void GSPages::OnActive()
@@ -147,10 +160,6 @@ void GSPages::OnActive()
 
   // Get general user config, just a convenience, it lives in the User Profile.
   m_userConfig = TheUserProfile()->GetConfigForTopic(KEY_GENERAL);
-  // How many Hints are available?
-  m_numHintsAvailable = m_userConfig->GetInt(HINTS_AVAILABLE_KEY, DEFAULT_HINTS_AVAIL);
-
-//  ShowHints(); // ? Done in ReloadGui
 
   NextPage();
 }
@@ -315,17 +324,29 @@ void GSPages::OnPlayerMadeChoice()
 
 void GSPages::OnCorrect()
 {
-  OnPlayerMadeChoice();
+  //OnPlayerMadeChoice();
+//  SetButtonEnabled("pause-button", false);
+//  SetButtonEnabled("hint-button", false);
+//  m_page->SetIsEnabled(false);
 
   GuiElement* tick = GetElementByName(m_gui, "tick");
   tick->SetVisible(true);
 
-  // Happy sound
-  // TODO
+  // TODO TEMP TEST
+  // Increase hint count, this is until we have a better balanced system
+  Hints::Inc();
+  ShowHints();
+
+  // TODO Happy sound
 
   // Add to profile/score
   m_numCorrectThisSession++;
   SetPie(m_numPagesShown, Colour(0.f, 1.f, 0.f, 1.f));
+
+  // Send message to do what we do when we click the OK button on
+  //  the speech bubble, after a delay. (TODO balance delay)
+  TheMessageQueue::Instance()->Add(new FuncMsg(SpeechBubbleOK, 
+    SecondsFromNow(NEXT_PAGE_TIME)));
 }
 
 void GSPages::OnIncorrect()
@@ -345,15 +366,14 @@ void GSPages::OnIncorrect()
 void GSPages::OnHint()
 {
   // Decrement hints left
-  if (m_numHintsAvailable < 1)
+  if (Hints::Get() < 1)
   {
     // No hints sound/anim?
     // TODO
 
     return;
   }
-  m_numHintsAvailable--;
-  m_userConfig->SetInt(HINTS_AVAILABLE_KEY, m_numHintsAvailable);
+  Hints::Dec();
   ShowHints();
 
   m_page->OnHint(); // show context-sensitive hint

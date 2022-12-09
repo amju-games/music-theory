@@ -68,8 +68,6 @@ protected:
   // User config file, for things like number of hints available/used etc.
   // Weak, owned by UserProfile
   ConfigFile* m_userConfig = nullptr;
-
-  int m_numHintsAvailable = 0;
 };
 
 typedef Singleton<GSPages> TheGSPages;

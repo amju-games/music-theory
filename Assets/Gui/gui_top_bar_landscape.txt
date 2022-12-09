@@ -24,7 +24,7 @@ top-bar-elasticated
 
 // Hide pie for now
 translate
-3.0, 0
+0.0, 0
 include
 pie.txt
 

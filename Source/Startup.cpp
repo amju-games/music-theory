@@ -1,3 +1,6 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
 #ifdef WIN32
 #if defined(_DEBUG)
 #pragma comment(lib, "../../../../../amjulib/Build/Debug/AmjuLibMsvc.lib")
@@ -152,8 +155,7 @@ void StartUpAfterCreateWindow()
 //  TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSFirstUser::Instance());
 
-  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
-
+  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
 }
 }
 

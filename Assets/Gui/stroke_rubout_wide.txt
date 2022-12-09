@@ -1,4 +1,6 @@
-// Stroke file - test
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
 // version
 1
 

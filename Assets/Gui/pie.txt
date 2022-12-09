@@ -4,6 +4,14 @@
 // version
 1
 
+// TODO Scale does not percolate down - this is a general problem
+//  with amjulib gui.
+scale
+// scale
+0.5, 0.5
+// pivot point
+0, 0
+
 // Pie
 gui-comp
 pie

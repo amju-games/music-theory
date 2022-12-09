@@ -8,7 +8,7 @@
 
 gui-comp
 text-bg-comp
-0
+1
 
 // Blackboard 
 //gui-image
@@ -17,12 +17,12 @@ text-bg-comp
 //1.4, 0.7
 ///Image/blackboard2.png, stretch
 
-// Desk with book on it
-gui-image
-desk
--1.1, 0.3
-2.2, 2.0
-Image/desk2.png
+//// Desk with book on it
+//gui-image
+//desk
+//-1.1, 0.3
+//2.2, 2.0
+//Image/desk2.png
 
 elastic
 0, -2
