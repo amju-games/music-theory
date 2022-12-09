@@ -35,6 +35,7 @@
 #include <Game.h>
 #include <GlueFileMem.h>
 #include <GuiRect.h>
+#include <iOSUtils.h>
 #include <Localise.h>
 #include <ObjMesh.h>
 #include <ResourceManager.h>
@@ -287,6 +288,40 @@ static void SetInitialState()
   TheGame::Instance()->SetCurrentState(TheGSCopyAssets::Instance());
 }
 
+static void LoadStringTableForPreferredLanguage()
+{
+  std::string language = "en-GB";
+  
+#ifdef AMJU_IOS
+  language = GetDevicePreferredLanguage();
+  std::cout << "Preferred language: " << language << "\n";
+  if (language.empty())
+  {
+    // TODO We should send this info back to Amju HQ
+    std::cout << "No preferred language found! Report this interesting finding!\n";
+    language = "en-GB";
+  }
+#endif // AMJU_IOS
+  
+  // Use the preferred language code to load the appropriate string table
+  std::string stringTableFile = language + ".txt";
+  if (Localise::LoadStringTable(stringTableFile))
+  {
+    return;
+  }
+
+  // No exact match. We want to get the closest match we have.
+  // Try chopping off anything after the 2-char country code
+  // (TODO Is this a good strategy?)
+  stringTableFile = language.substr(0, 2) + ".txt";
+  if (Localise::LoadStringTable(stringTableFile))
+  {
+    return;
+  }
+
+  std::cout << "Failed to load any string table!\n";
+}
+  
 void StartUpAfterCreateWindow()
 {
   SetUpResourceLoaders();
@@ -295,11 +330,7 @@ void StartUpAfterCreateWindow()
 
   SetUpGlueFile();
 
-  // TODO Other languages - preferences
-  if (!Localise::LoadStringTable("english.txt"))
-  {
-    ReportError("No localise string table.");
-  }
+  LoadStringTableForPreferredLanguage();
 
   SetUpGui();
 
