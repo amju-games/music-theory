@@ -25,6 +25,10 @@ camera
 //80, 300, 300
 // Look at pos
 80, 30, 0
+// Up vector
+0, 1, 0
+// FovY, aspect, near, far
+60, 1.3, 1, 1000
 // Num children
 3
 
