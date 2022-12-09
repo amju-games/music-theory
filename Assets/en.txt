@@ -27,7 +27,7 @@
 23=Repeat from the beginning
 24=Treble clef
 25=Bass clef
-26=D.S. means repeat from this sign
+26=D.S. means repeat from the \xc2\x86 sign
 27=Pause
 28=Moderately soft
 29=Moderately loud
