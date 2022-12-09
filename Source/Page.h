@@ -43,7 +43,7 @@ public:
   // Pages present info stored in "dictionaries" - text files grouping pairs/tuples of strings.
   void SetDictionaryName(const std::string& dictionaryName);
 
-  Dictionary* Page::GetDictionary();
+  Dictionary* GetDictionary();
 
   // Allows us to set different GUIs for the same Page type, as many pages could be
   //  essentially the same, just presented differently.
