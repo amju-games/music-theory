@@ -499,13 +499,13 @@
     <Text Include="..\..\..\..\Assets\Course\level1\missing_time_sig.txt" />
     <Text Include="..\..\..\..\Assets\Course\level1\musical_symbols.txt" />
     <Text Include="..\..\..\..\Assets\Course\level1\musical_terms.txt" />
-    <Text Include="..\..\..\..\Assets\Course\level1\name_the_note.txt" />
+    <Text Include="..\..\..\..\Assets\Course\level1\name-the-note-bass-clef.txt" />
+    <Text Include="..\..\..\..\Assets\Course\level1\name-the-note-treb-clef.txt" />
     <Text Include="..\..\..\..\Assets\Course\level1\note-equivs.txt" />
     <Text Include="..\..\..\..\Assets\Course\level1\note-rest-names.txt" />
     <Text Include="..\..\..\..\Assets\Course\level1\note-rest-symbols.txt" />
     <Text Include="..\..\..\..\Assets\Course\level1\notes_on_bass_clef_with_accidentals.txt" />
-    <Text Include="..\..\..\..\Assets\Course\level1\notes_on_treble_clef.txt" />
-    <Text Include="..\..\..\..\Assets\Course\level1\notes_on_treble_clef_with_accidentals.txt" />
+    <Text Include="..\..\..\..\Assets\Course\level1\notes-on-treble-clef.txt" />
     <Text Include="..\..\..\..\Assets\Course\level1\note_lengths.txt" />
     <Text Include="..\..\..\..\Assets\Course\level1\rest-equivs.txt" />
     <Text Include="..\..\..\..\Assets\Course\level1\time_sigs.txt" />
@@ -598,6 +598,7 @@
     <Text Include="..\..\..\..\Assets\Gui\hint-display-no-button.txt" />
     <Text Include="..\..\..\..\Assets\Gui\hint-display.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard-black.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\keyboard-pink-with-treb-clef-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard-pink.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt" />
     <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-square-symbol.txt" />
@@ -626,8 +627,10 @@
     <Text Include="..\..\..\..\Assets\Gui\speech_bubble_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-mid-line.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-rubout.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\tap-pic-notes-on-treb-clef-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\tap-picture-note-lengths.txt" />
     <Text Include="..\..\..\..\Assets\Gui\tap-picture-note-lengths-quavers.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\tap-picture-semibreve.txt" />
     <Text Include="..\..\..\..\Assets\Gui\tap-picture-treb-clef.txt" />
     <Text Include="..\..\..\..\Assets\Gui\tappables-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\tappables-2.txt" />

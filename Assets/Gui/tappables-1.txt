@@ -7,7 +7,7 @@
 // Tappables: 3d objects which user can tap on to get info.
 
 // num tappables
-2
+4
 
 
 // Picture
@@ -66,7 +66,7 @@ mesh
 // Name
 tappable-piano
 // Matrix
-.4, 0, 0, 0,  0, 1, 0, 0,  0, 0, .75, 0,  15, 0, -60, 1
+.4, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.2, 0,  15, 0, -69, 1
 // Obj mesh
 obj/piano1.obj
 // Num children
@@ -93,9 +93,9 @@ Gui/tap-pic-notes-on-treb-clef-1.txt
 //
 // TODO Action when tapped
 // Camera eye
-20, 32, -60
+20, 32, -69
 // Cam target
-8, 0, -60
+8, 0, -69
 // GUI to display when we have been tapped
 Gui/keyboard-pink-with-treb-clef-1.txt
 // GUI to put in NOTEBOOK
@@ -103,7 +103,8 @@ Gui/keyboard.txt
 
 
 
-// Picture
+
+// Picture: semibreve
 // Name
 picture 2
 // First part is 3d node
@@ -112,7 +113,56 @@ comp
 // Name, matrix, children
 picture-2-root
 // Matrix
-.5, 0, 0, 0,  0, .5, 0, 0,  0, 0, .5, 0,  2, 20, 45, 1
+1, 0, 0, 0,  0, .4, 0, 0,  0, 0, .5, 0,  2, 50, -200, 1
+// Num children
+2
+// Child: frame
+scene-mesh-material
+// Obj
+obj/just-frame1.obj
+// Material 
+obj/just-frame-black.mtl
+//
+// Child: GUI
+// Node type
+gui
+// Node name
+test-gui
+// GUI file name
+Gui/tap-picture-semibreve.txt
+// Matrix
+//  x size        y size                                z pos   y pos   x pos
+//     v           v                                      v       v      v
+0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
+//
+//
+// Camera eye
+28, 50, -200
+// Cam target
+0, 50, -200
+// GUI to display when we have been tapped
+//Gui/tap-picture-note-lengths.txt
+// No need as we draw the GUI in the picture frame anyway
+$$$empty
+// GUI to put in NOTEBOOK
+Gui/tap-picture-semibreve.txt
+// Notebook page
+// TODO
+// 2
+
+
+
+
+// Picture: note lengths: semibreve, minim, crotchet
+// Name
+picture note lengths
+// First part is 3d node
+// Node type
+comp
+// Name, matrix, children
+picture-root
+// Matrix
+1, 0, 0, 0,  0, .75, 0, 0,  0, 0, .95, 0,  2, 40, -330, 1
 // Num children
 2
 // Child: frame
@@ -120,24 +170,32 @@ scene-mesh-material
 // Obj
 obj/just-frame3.obj
 // Material 
-obj/just-frame-gold.mtl
+obj/just-frame-1.mtl
 //
-// Child: picture
-scene-mesh-material
-// Obj
-obj/just-picture.obj
-// Material 
-obj/just-picture-note-lengths-1.mtl
+// Child: GUI
+// Node type
+gui
+// Node name
+test-gui
+// GUI file name
+Gui/tap-picture-note-lengths.txt
+// Matrix
+//  x size        y size                                z pos   y pos   x pos
+//     v           v                                      v       v      v
+0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1.25,    -0.0,    0,    0.5
+//
 //
 // Camera eye
-18, 20, 45
+32, 40, -330
 // Cam target
-0, 20, 45
+0, 40, -330
 // GUI to display when we have been tapped
-Gui/tap-picture-note-lengths-quavers.txt
+$$$empty
 // GUI to put in NOTEBOOK
-Gui/tap-picture-note-length-quavers.txt
-
+Gui/tap-picture-note-lengths.txt
+// Notebook Page
+// TODO
+//3
 
 
 // Piano

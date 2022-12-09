@@ -102,7 +102,7 @@ scene-mesh-material
 // Obj
 obj/just-frame1.obj
 // Material 
-obj/material-white.mtl
+obj/just-frame-1.mtl
 //
 // Child: GUI
 // Node type

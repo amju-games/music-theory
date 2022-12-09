@@ -843,9 +843,6 @@
     <Text Include="..\..\..\..\Assets\Course\level1\musical_terms.txt">
       <Filter>Assets\Course\Level1</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\name_the_note.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Course\level1\note_lengths.txt">
       <Filter>Assets\Course\Level1</Filter>
     </Text>
@@ -859,12 +856,6 @@
       <Filter>Assets\Course\Level1</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Course\level1\notes_on_bass_clef_with_accidentals.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\notes_on_treble_clef.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\notes_on_treble_clef_with_accidentals.txt">
       <Filter>Assets\Course\Level1</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Course\level1\rest-equivs.txt">
@@ -1066,6 +1057,24 @@
       <Filter>Assets\Course\Level4</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\tap-picture-treb-clef.txt">
+      <Filter>Assets\Gui\Tappables</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\keyboard-pink-with-treb-clef-1.txt">
+      <Filter>Assets\Gui\Tappables</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\tap-pic-notes-on-treb-clef-1.txt">
+      <Filter>Assets\Gui\Tappables</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\name-the-note-treb-clef.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\name-the-note-bass-clef.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\level1\notes-on-treble-clef.txt">
+      <Filter>Assets\Course\Level1</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\tap-picture-semibreve.txt">
       <Filter>Assets\Gui\Tappables</Filter>
     </Text>
   </ItemGroup>

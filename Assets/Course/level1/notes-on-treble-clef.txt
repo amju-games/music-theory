@@ -2,6 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 // Notes on treble clef
+// Level 1 - just white notes in octave from middle C
 
 // version
 1
@@ -17,25 +18,14 @@
 // NB Stave x coord is 0.5, scaled to 1.0
 
 // Map score of note on treble clef to midi note value
-//stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; treb-bb4-cr, 2.0, 0 =58
-//stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; treb-b4-cr, 2.0, 0 =59
 stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; c,   2.0, 0 =60
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; c#,  2.0, 0 =61
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; db,  2.0, 0 =61
 stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; d,   2.0, 0 =62
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; d#,  2.0, 0 =63
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; eb,  2.0, 0 =63
 stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; e,   2.0, 0 =64
 stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; f4,  2.0, 0 =65
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; f#,  2.0, 0 =66
 stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; g,   2.0, 0 =67
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; g#,  2.0, 0 =68
 stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; a,   2.0, 0 =69
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; bb,  2.0, 0 =70
 stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; b,   2.0, 0 =71
 stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; c+,  2.0, 0 =72
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; c#+, 2.0, 0 =73
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; d+,  2.0, 0 =74
 end
 
 

@@ -56,14 +56,14 @@ music-score
 // Glyphs
 stave, -.5, 0, 7, 1
 treble-clef, -3.5, 0
-treb-c4-sb, -2.8, 0
-treb-d4-sb, -1.9, 0
-treb-e4-sb, -1.0, 0
-treb-f4-sb, -0.2, 0
-treb-g4-sb,  0.7, 0
-treb-a5-sb,  1.6, 0
-treb-b5-sb,  2.5, 0
-treb-c5-sb,  3.1, 0
+treb-c4-cr, -2.8, 0
+treb-d4-cr, -1.9, 0
+treb-e4-cr, -1.0, 0
+treb-f4-cr, -0.2, 0
+treb-g4-cr,  0.7, 0
+treb-a5-cr,  1.6, 0
+treb-b5-cr,  2.5, 0
+treb-c5-cr,  3.1, 0
 end
 
 // Name of each note

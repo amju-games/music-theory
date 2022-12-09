@@ -1,0 +1,18 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Name the note - bass clef, level 1
+
+// version
+1
+
+NOTE_ON, 48, 0.01; NOTE_OFF, 48, 0.5; stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ;   TIME, 0.01, 0.5 ; bass-c3-cr, 2.0, 0   =letter-c, .3, .2, 0.5, 1
+NOTE_ON, 50, 0.01; NOTE_OFF, 50, 0.5; stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ;   TIME, 0.01, 0.5 ; bass-d3-cr, 2.0, 0   =letter-d, .3, .2, 0.5, 1
+NOTE_ON, 52, 0.01; NOTE_OFF, 52, 0.5; stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ;   TIME, 0.01, 0.5 ; bass-e3-cr, 2.0, 0   =letter-e, .3, .2, 0.5, 1
+NOTE_ON, 53, 0.01; NOTE_OFF, 53, 0.5; stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ;   TIME, 0.01, 0.5 ; bass-f3-cr, 2.0, 0   =letter-f, .3, .2, 0.5, 1
+NOTE_ON, 55, 0.01; NOTE_OFF, 55, 0.5; stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ;   TIME, 0.01, 0.5 ; bass-g3-cr, 2.0, 0   =letter-g, .3, .2, 0.5, 1
+NOTE_ON, 57, 0.01; NOTE_OFF, 57, 0.5; stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ;   TIME, 0.01, 0.5 ; bass-a4-cr, 2.0, 0   =letter-a, .3, .2, 0.5, 1
+NOTE_ON, 59, 0.01; NOTE_OFF, 59, 0.5; stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ;   TIME, 0.01, 0.5 ; bass-b4-cr, 2.0, 0   =letter-b, .3, .2, 0.5, 1
+NOTE_ON, 60, 0.01; NOTE_OFF, 60, 0.5; stave, 0.5, 0.0, 2.0, 1 ; bass-clef, 1.2, 0.0 ;   TIME, 0.01, 0.5 ; bass-c4-cr, 2.0, 0   =letter-c, .3, .2, 0.5, 1
+end
+
