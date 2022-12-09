@@ -13,6 +13,7 @@
 #include "GSPause.h"
 #include "GSTopicEnd.h"
 #include "GuiLineDrawing.h"
+#include "Keys.h"
 #include "PageMusicalTerm.h"
 #include "UserProfile.h"
 
@@ -84,7 +85,7 @@ void GSPages::OnActive()
   elem->SetCommand(Amju::OnQuitConfirmCancel);
   
   // Get general user config, just a convenience, it lives in the User Profile.
-  m_userConfig = TheUserProfile()->GetConfigForTopic("general");
+  m_userConfig = TheUserProfile()->GetConfigForTopic(KEY_GENERAL);
   // How many Hints are available?
   m_numHintsAvailable = m_userConfig->GetInt(HINTS_AVAILABLE_KEY, DEFAULT_HINTS_AVAIL);
 

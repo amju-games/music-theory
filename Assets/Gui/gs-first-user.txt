@@ -1,0 +1,102 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// GSFirstUser
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+first-user-root
+// Num children
+4
+
+// Child 1 - fixed
+// SKY
+colour
+798EEB
+gui-image
+sky
+-2.0, 1.0
+4.0, 4.0
+Image/white.png
+
+
+gui-text
+grade-number-text
+// pos (coords are -1..1)
+-1, 0.5
+// size
+2, 0.5
+// Text
+Hello! What's your name?
+// Font name, size
+dimbo, 1.0, multi, fgcol=ffffff
+
+// Text edit box
+// Element type
+gui-text-edit
+// Element name
+edit-user-name
+// pos (coords are -1..1)
+-0.5, 0.3
+// size
+1.0, 0.1
+// Text
+$$$empty
+// Font name, size
+dimbo, 1.0, bgcol=ffffff, fgcol=000000
+
+// Start button
+// element type
+gui-button
+// Element name
+start-button
+// pos (coords are -1..1)
+-0.25, -0.6
+// size
+0.5, 0.15
+// Image 
+Image/gui-button-2.png
+//Image/leaf1.png
+// Text
+START
+// Font name, size
+dimbo, 1.5, fgcol=ffffff, bgcol=FF0949
+
+
+
+
+
+// TEST
+
+colour
+6EB127
+
+translate
+0.0, 0.0
+
+animation
+name-not-used
+mirror-repeat
+2.0
+linear
+
+// TODO TEMP TEST
+//rotate
+//30.0, 0.0
+
+scale
+0.1, 0.1 ; 1.0, 1.0
+// pivot point
+0.0, 0
+
+gui-image
+topic-button-2
+// pos (coords are -1..1)
+0.0, 0
+0.6, 0.3
+Image/leaf1.png
+

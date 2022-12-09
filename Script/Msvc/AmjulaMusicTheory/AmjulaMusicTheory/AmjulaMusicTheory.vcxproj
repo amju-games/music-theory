@@ -264,6 +264,7 @@
     <ClCompile Include="..\..\..\..\Source\Course.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSAbout.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSFirstUser.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSMainMenu.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSMusicalTerms.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPages.cpp" />
@@ -327,6 +328,7 @@
     <ClInclude Include="..\..\..\..\Source\Course.h" />
     <ClInclude Include="..\..\..\..\Source\GSAbout.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
+    <ClInclude Include="..\..\..\..\Source\GSFirstUser.h" />
     <ClInclude Include="..\..\..\..\Source\GSMainMenu.h" />
     <ClInclude Include="..\..\..\..\Source\GSMusicalTerms.h" />
     <ClInclude Include="..\..\..\..\Source\GSPages.h" />
@@ -343,6 +345,7 @@
     <ClInclude Include="..\..\..\..\Source\GuiLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
+    <ClInclude Include="..\..\..\..\Source\Keys.h" />
     <ClInclude Include="..\..\..\..\Source\MultiChoiceQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\MusicalTermQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\MusicalTermsDictionary.h" />
@@ -367,6 +370,7 @@
     <Text Include="..\..\..\..\Assets\Course\grade1.txt" />
     <Text Include="..\..\..\..\Assets\Course\musical_terms.txt" />
     <Text Include="..\..\..\..\Assets\Gui\ground.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\gs-first-user.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_about.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_main_menu.txt" />
@@ -385,6 +389,7 @@
     <Text Include="..\..\..\..\Assets\Gui\quit-confirm.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-cross-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-cross-2.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\stroke-main-menu-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-mid-line.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-spiral-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-1.txt" />

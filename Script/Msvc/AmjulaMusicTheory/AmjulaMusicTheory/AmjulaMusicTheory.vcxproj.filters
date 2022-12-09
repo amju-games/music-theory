@@ -138,6 +138,9 @@
     <ClCompile Include="..\..\..\..\Source\GSAbout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GSFirstUser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -250,6 +253,12 @@
     <ClInclude Include="..\..\..\..\Source\GSAbout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Keys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GSFirstUser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Docs\TODO.txt" />
@@ -333,6 +342,12 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\quit-confirm.txt">
       <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs-first-user.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\stroke-main-menu-1.txt">
+      <Filter>Assets\Gui\Stroke</Filter>
     </Text>
   </ItemGroup>
 </Project>

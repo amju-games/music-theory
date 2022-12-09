@@ -34,6 +34,7 @@
 #include <ResourceManager.h>
 #include <SoundManager.h>
 #include "Course.h"
+#include "GSFirstUser.h"
 #include "GSMainMenu.h"
 #include "GSPages.h"
 #include "GSPlayNotes.h"
@@ -53,8 +54,8 @@
 namespace Amju
 {
 // Create global variable window info 
-//Amju::AmjuGLWindowInfo w(320, 550, false, "Amjula");
-Amju::AmjuGLWindowInfo w(480, 640, false, "Simplest");
+Amju::AmjuGLWindowInfo w(320, 550, false, "iPhone 5");
+//Amju::AmjuGLWindowInfo w(480, 640, false, "Simplest");
 
 void ReportError(const std::string& str)
 {
@@ -122,18 +123,18 @@ void StartUpAfterCreateWindow()
   GuiMusicScore::AddToFactory();
 
 //  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
-  //TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
-
 //  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSPages::Instance());
-//    TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());
-  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
-
+//  TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
-  
 //  TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSFirstUser::Instance());
+
+  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+  
 }
 }
 
