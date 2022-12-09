@@ -795,9 +795,6 @@
     <Text Include="..\..\..\..\Assets\en.txt">
       <Filter>Assets</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_symbol_symbol_2_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\hint-display-no-button.txt">
       <Filter>Assets\Gui</Filter>
     </Text>

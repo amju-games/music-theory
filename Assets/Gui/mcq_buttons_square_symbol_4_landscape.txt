@@ -224,7 +224,7 @@ gui-button
 // Element name
 button-choice-3
 // pos (coords are -1..1)
-0.425, 0.05
+0.45, 0.05
 // size
 0.3,.3
 // Image 
@@ -236,7 +236,7 @@ dimbo, 1.0, fgcol=000000, bgcol=eeeeee
 
 music-score
 music-score-3
-0.5, -0.8
+0.525, -0.8
 .3, .8
 000000
 // No glyphs yet
