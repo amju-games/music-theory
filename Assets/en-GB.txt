@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-112
+120
 1=Welcome to Amjula Music School!
 2=Swipe left and right to move along the corridor!
 3=Which clef?
@@ -114,3 +114,11 @@
 110=Crotchet (quarter note)
 111=Minim (half note)
 112=Semibreve (whole note)
+113=The lowest note is C, then E, and the highest note is G. This is the C Major tonic triad!
+114=The lowest note is G, then B, and the highest note is D. This is the G Major tonic triad!
+115=The lowest note is D, then F sharp, and the highest note is A. This is the D Major tonic triad!
+116=The lowest note is F, then A, and the highest note is C. This is the F Major tonic triad!
+117=This key signature is C Major, because there are no sharps or flats.
+118=This key signature is G Major, because there is one sharp.
+119=This key signature is D Major, because there are two sharps.
+120=This key signature is F Major, because there is one flat.

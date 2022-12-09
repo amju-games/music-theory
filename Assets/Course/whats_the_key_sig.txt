@@ -16,14 +16,14 @@
 
 // NB Stave x coord is 0.5, scaled to 1.0
 
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0  =$$$74
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; keysig-1sharp-treble, 2.0, 0 =$$$75
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; keysig-2sharp-treble, 2.0, 0 =$$$76
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; keysig-1flat-treble,  2.0, 0 =$$$77
-stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0  =$$$74
-stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; keysig-1sharp-bass,   2.0, 0 =$$$75
-stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; keysig-2sharp-bass,   2.0, 0 =$$$76
-stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; keysig-1flat-bass,    2.0, 0 =$$$77
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0  =$$$74=$$$117
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; keysig-1sharp-treble, 2.0, 0 =$$$75=$$$118
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; keysig-2sharp-treble, 2.0, 0 =$$$76=$$$119
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; keysig-1flat-treble,  2.0, 0 =$$$77=$$$120
+stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0  =$$$74=$$$117
+stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; keysig-1sharp-bass,   2.0, 0 =$$$75=$$$118
+stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; keysig-2sharp-bass,   2.0, 0 =$$$76=$$$119
+stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; keysig-1flat-bass,    2.0, 0 =$$$77=$$$120
 end
 
 
