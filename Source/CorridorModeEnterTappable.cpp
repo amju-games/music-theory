@@ -15,6 +15,11 @@ void CorridorModeEnterTappable::OnActive()
   CorridorMode::OnActive();
   m_gs->GetCameraController().SetTappable(m_gs->GetSelectedTappable());
   m_camLerpTime = 0;
+
+  // TODO Seen this tappable before?
+  // If not, play a "new tappable found" sound effect
+  // Maybe add a hint
+  // Add to score if there is one, or other rewards
 }
 
 void CorridorModeEnterTappable::Update()

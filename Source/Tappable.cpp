@@ -33,16 +33,19 @@ bool Tappable::Load(File* f)
     return false;
   }
 
-  // Load GUI
-  std::string gui;
-  if (!f->GetDataLine(&gui))
+  // Load "on-screen" GUI
+  if (!f->GetDataLine(&m_screenGuiFilename))
   {
-    f->ReportError("Expected GUI for tappable");
+    f->ReportError("Expected screen GUI for tappable");
     return false;
   }
 
-  //m_gui = LoadGui(gui, false /* don't listen to events yet */);
-  //m_gui->SetVisible(false);
+  // Load GUI we display in notebook (use includes to share as much as poss)
+  if (!f->GetDataLine(&m_notebookGuiFilename))
+  {
+    f->ReportError("Expected notebook GUI for tappable");
+    return false;
+  }
 
   return true;
 }
@@ -71,10 +74,13 @@ void Tappable::ActivateGui()
 {
   //TheEventPoller::Instance()->AddListener(m_gui);
   //m_gui->SetVisible(true);
+
+  m_gui = LoadGui(m_screenGuiFilename);
 }
 
 void Tappable::DrawGui()
 {
-  //m_gui->Draw();
+  Assert(m_gui);
+  m_gui->Draw();
 }
 }

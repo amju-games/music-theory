@@ -12,10 +12,15 @@ namespace
 {
 void OnDone(GuiElement*)
 {
+  // If this tappable had not been seen before, add it to the user's NOTEBOOK.
+  // Show a message: "You added <topic name> to your notebook!"
+  // Play a sound effect. Give hints/other currency as reward?
+  // ** Unlock topics if all relevant tappables have been seen? **
+
+  // If we already saw this tappable, just exit out to the corridor again.
   TheGSMainMenu::Instance()->SetMode(CorridorModeExitTappable::ID);
 }
 } // anon namespace
-
 
 CorridorModeShowTappable::CorridorModeShowTappable()
 {
@@ -25,7 +30,6 @@ CorridorModeShowTappable::CorridorModeShowTappable()
 void CorridorModeShowTappable::Update()
 {
   CorridorMode::Update();
-
 }
 
 void CorridorModeShowTappable::OnActive()
@@ -41,4 +45,11 @@ void CorridorModeShowTappable::OnActive()
   tapped->ActivateGui();
 }
 
+void CorridorModeShowTappable::Draw2d()
+{
+  CorridorMode::Draw2d();
+  Tappable* tapped = m_gs->GetSelectedTappable();
+  Assert(tapped);
+  tapped->DrawGui();
+}
 }

@@ -8,7 +8,5 @@ namespace Amju
 void CorridorModeExitClassroom::Update()
 {
   CorridorMode::Update();
-
-
 }
 }

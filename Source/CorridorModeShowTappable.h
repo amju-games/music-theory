@@ -16,6 +16,7 @@ public:
   CorridorModeShowTappable();
   virtual void OnActive() override;
   virtual void Update() override;
+  virtual void Draw2d() override;
 };
 
 }

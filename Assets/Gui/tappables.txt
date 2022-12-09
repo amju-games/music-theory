@@ -30,7 +30,9 @@ obj/picture-frame1.obj
 // Cam target
 0, 50, 45
 // GUI to display when we have been tapped
-Gui/keyboard.txt
+Gui/tap-picture-note-lengths.txt
+// GUI to put in NOTEBOOK
+Gui/tap-picture-note-lengths.txt
 
 
 // Piano
@@ -53,6 +55,8 @@ obj/piano1.obj
 // Cam target
 22, 0, -60
 // GUI to display when we have been tapped
+Gui/keyboard.txt
+// GUI to put in NOTEBOOK
 Gui/keyboard.txt
 
 

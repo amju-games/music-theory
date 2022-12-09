@@ -61,12 +61,9 @@ void CorridorModeEnterClassroom::OnActive()
 
   CorridorMode::OnActive();
 
-//  m_gs->HideButtons();
-
   m_doorAngleRads = 0;
   m_doorIsOpening = true;
   PlayWav("doorcreak");
-
 
   // Go the the topic start state.
   GSTopicStart* gs = TheGSTopicStart::Instance();
@@ -74,8 +71,5 @@ void CorridorModeEnterClassroom::OnActive()
   gs->SetPrevState(m_gs);
   // Time delay so we get to see an animation, e.g. door opening
   TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSTopicStart>, SecondsFromNow(2.0f)));
-
-  std::cout << "Exited CorridorModeEnterClassroom::OnActive OK\n";
-
 }
 }

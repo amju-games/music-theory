@@ -37,6 +37,9 @@ protected:
   Vec3f m_camEye;
   Vec3f m_camTarget;
 
+  std::string m_screenGuiFilename;
+  std::string m_notebookGuiFilename;
+
   PGuiElement m_gui;
 };
 }

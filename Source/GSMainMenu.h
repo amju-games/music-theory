@@ -35,7 +35,7 @@ public:
 
   // Conceptually private: button commands
   void GoToTopic();
-  void ExitTappableMode();
+//  void ExitTappableMode();
 
   SceneNodeCamera* GetCamera();
 

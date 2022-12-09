@@ -27,8 +27,6 @@ void OnTopic(GuiElement*)
     return;
   }
 
-  std::cout << "OnTopic..\n";
-
   TheGSMainMenu::Instance()->SetMode(CorridorModeEnterClassroom::ID);
 }
 } // anon namespace
@@ -198,12 +196,10 @@ bool CorridorModeWait::OnCursorEvent(const CursorEvent& ce)
     {
       if (dragDist.x < 0)
       {
-        std::cout << "Drag right!\n";
         Drag(true);
       }
       else
       {
-        std::cout << "Drag left!\n";
         Drag(false);
       }
       // Reset touch down coord so we don't now start to scroll on every tiny movement
