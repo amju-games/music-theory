@@ -11,17 +11,17 @@ gui-comp
 // Name
 page-root
 // Num children
-2
+1
 
 // Blue background
-colour
-798EEB
+//colour
+//798EEB
 
-gui-image
-screen-bg
--1, 1.2
-2, 2
-Image/white.png, stretch
+//gui-image
+//screen-bg
+//-1, 1.2
+//2, 2
+//Image/white.png, stretch
 
 // Child 2
 

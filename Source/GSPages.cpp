@@ -9,6 +9,7 @@
 #include <GuiDecColour.h>
 #include <GuiText.h>
 #include <MessageQueue.h>
+
 #include "Course.h"
 #include "GSMainMenu.h"
 #include "GSPages.h"
@@ -114,13 +115,14 @@ void GSPages::OnActive()
   ShowHints();
 
   NextPage();
+
+  Load3d();
 }
 
 void GSPages::OnDeactive()
 {
-  GSBase::OnDeactive();
+  GSBase3d::OnDeactive();
   
-  //m_pages.clear();
   m_page = nullptr;
   
   // Save changes to user profile (questions seen, etc)
@@ -204,19 +206,15 @@ void GSPages::SetPie(int n, const Colour& col)
 
 void GSPages::Draw2d()
 {
-  AmjuGL::PushMatrix();
-  // Bad idea douchebag, fucks up coords for clicking
-  //AmjuGL::Translate(0, -0.2f, 0);
   m_page->Draw();
-  AmjuGL::PopMatrix();
 
   // Common GUI goes on top or under? We want tick/cross to go on top.
-  GSBase::Draw2d();
+  GSBase3d::Draw2d();
 }
 
 void GSPages::Update()
 {
-  GSBase::Update();
+  GSBase3d::Update();
   m_page->Update();
 }
 
@@ -228,25 +226,31 @@ bool GSPages::Load(const std::string& filename)
 
 bool GSPages::OnKeyEvent(const KeyEvent& ke)
 {
-  if (GSBase::OnKeyEvent(ke))
+  if (GSBase3d::OnKeyEvent(ke))
   {
     return true;
   }
 
 #ifdef _DEBUG
-  // Show page GUI tree
-  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
-    (ke.key == 'p' || ke.key == 'P'))
+  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR)
   {
-    if (m_page && m_page->GetGui())
+    switch (ke.key)
     {
-      PrintGui(m_page->GetGui());
-    }
-    else
-    {
-      std::cout << "Null page GUI!\n";
-    }
-  }
+      case 'p':
+      {
+        // Show page GUI tree
+        if (m_page && m_page->GetGui())
+        {
+          PrintGui(m_page->GetGui());
+        }
+        else
+        {
+          std::cout << "Null page GUI!\n";
+        }
+        break;
+      } // case
+    } // switch
+  } // if
 
 #endif
   return false;

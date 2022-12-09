@@ -264,6 +264,7 @@
     <ClCompile Include="..\..\..\..\Source\Course.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSAbout.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSBase3d.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSFirstUser.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSMainMenu.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPages.cpp" />
@@ -280,6 +281,7 @@
     <ClCompile Include="..\..\..\..\Source\GuiLineDrawing.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicKb.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Md2SceneNode.cpp" />
     <ClCompile Include="..\..\..\..\Source\MultiChoiceQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\MusicalTermQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\Dictionary.cpp" />
@@ -331,6 +333,7 @@
     <ClInclude Include="..\..\..\..\Source\Course.h" />
     <ClInclude Include="..\..\..\..\Source\GSAbout.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
+    <ClInclude Include="..\..\..\..\Source\GSBase3d.h" />
     <ClInclude Include="..\..\..\..\Source\GSFirstUser.h" />
     <ClInclude Include="..\..\..\..\Source\GSMainMenu.h" />
     <ClInclude Include="..\..\..\..\Source\GSPages.h" />
@@ -348,6 +351,7 @@
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
     <ClInclude Include="..\..\..\..\Source\Keys.h" />
+    <ClInclude Include="..\..\..\..\Source\Md2SceneNode.h" />
     <ClInclude Include="..\..\..\..\Source\MultiChoiceQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\MusicalTermQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\Dictionary.h" />
