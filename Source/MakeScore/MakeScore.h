@@ -60,6 +60,8 @@ private:
 
   void AddClef(const std::string& s);
 
+  void AddKeySig(const std::string& s);
+
   void AddBeam(const std::string& s)
   {
     m_bars.back()->AddBeam(s);

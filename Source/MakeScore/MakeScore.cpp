@@ -34,6 +34,7 @@
 #include <string>
 #include <vector>
 #include "Clef.h"
+#include "KeySig.h"
 #include "MakeScore.h"
 #include "Pitch.h"
 #include "TimeSig.h"
@@ -95,6 +96,10 @@ void MakeScore::AddTokens()
     {
       AddTimeSig(s);
     }
+    else if (IsKeySig(s))
+    {
+      AddKeySig(s);
+    }
     else if (IsDeferredPitch(s))
     {
       m_lastPitch = GetPitch(s);
@@ -117,10 +122,16 @@ void MakeScore::AddTokens()
     }
     else
     {
-      std::cout << "Unrecognised: " << s << "\n"; // REPORT ERROR TODO
+      std::cout << "// *ERROR* Unrecognised: " << s << "\n"; 
+      // REPORT ERROR TODO
       return;
     }
   }
+}
+
+void MakeScore::AddKeySig(const std::string& s)
+{
+  m_bars.back()->SetKeySig(GetKeySig(s));
 }
 
 void MakeScore::AddClef(const std::string& s)

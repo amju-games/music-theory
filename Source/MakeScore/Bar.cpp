@@ -14,13 +14,23 @@ void Bar::CopyState(const Bar& b)
   SetScale(b.m_scale);
   // Copy time sig over to next bar
   SetTimeSig(b.GetTimeSig());
-  // TODO Copy key sig over
-  //  bar->SetKeySig(m_bars.back()->GetKeySig());
+  // Copy key sig over
+  SetKeySig(b.GetKeySig());
   // Copy clefs over
   for (int s = 0; s < MAX_NUM_STAVES; s++)
   {
     m_currentClef[s] = b.m_currentClef[s];
   }
+}
+
+void Bar::SetKeySig(KeySig ks)
+{
+  m_keySig = ks;
+}
+
+KeySig Bar::GetKeySig() const
+{
+  return m_keySig;
 }
 
 void Bar::SetTimeSig(TimeSig ts)
@@ -104,9 +114,6 @@ void Bar::CalcGlyphY(Glyph* gl, int pitch) const
     // Use the octave to shunt note up or down
     int octave = (pitch / 12 - 5) * 7; // so middle C is 0
     staveLine += octave;
-    // TODO create ledger lines if staveLine is < -1 or > 9
-    // TODO decide if stem should be up or down, (unless beamed, which
-    //  overrides this decision)
     float y = static_cast<float>(staveLine) * 0.05f;
     // TODO Offset y for stave > 1
     gl->y = y;

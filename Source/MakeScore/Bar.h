@@ -11,6 +11,7 @@
 #include "Beam.h"
 #include "Clef.h"
 #include "Glyph.h"
+#include "KeySig.h"
 #include "Stave.h"
 #include "TimeSig.h"
 #include "TimeSigGlyph.h"
@@ -31,6 +32,10 @@ public:
   void SetTimeSig(TimeSig ts);
 
   TimeSig GetTimeSig() const;
+
+  void SetKeySig(KeySig ks);
+
+  KeySig GetKeySig() const;
 
   // Return the total time for the bar.
   // The time val of all the glyph members should add up to this.
@@ -118,4 +123,6 @@ private:
   bool m_isFirstBarOfLine = false;
   // Output mini clef at end of bar if the clef changed
   bool m_yesOutputMiniClef = false; 
+
+  KeySig m_keySig = KEYSIG_0_SHARP;
 };

@@ -25,6 +25,7 @@ Clef.cpp \
 Consts.cpp \
 Flag.cpp \
 Glyph.cpp \
+KeySig.cpp \
 MakeScore.cpp \
 Pitch.cpp \
 Stave.cpp \
