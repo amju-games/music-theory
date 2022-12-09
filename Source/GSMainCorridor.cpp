@@ -152,12 +152,60 @@ void GSMainCorridor::OnDeactive()
   m_currentMode = nullptr;
 }
 
+void GSMainCorridor::SetCameraForNewLevel(bool wentUpNotDown)
+{
+  // Reset the camera, so when we pull out of the zoom, we are at a different
+  //  position in the new corridor.
+  // If we went up, camera moves to the left end of the new upstairs corridor.
+  // If we went down, camera moves to right-hand end of the new downstairs corridor.
+
+  // TODO TEMP TEST
+  // These distances should be calculated per-level because they depend on num topics
+  float leftEnd = 60.f + DISTANCE_BETWEEN_DOORS / 2;
+  float rightEnd = -740.f + DISTANCE_BETWEEN_DOORS / 2;
+
+  float newZ = wentUpNotDown ? leftEnd : rightEnd;
+
+  auto cam = GetCamera();
+  Vec3f eye = cam->GetEyePos(); // Currently the camera does not have the zoom distance added
+  Vec3f target = cam->GetLookAtPos();
+  eye.z = newZ;
+  target.z = newZ;
+  // Set new camera positions
+  cam->SetEyePos(eye);
+  cam->SetLookAtPos(target);
+
+  // Set the controller: we will lerp backwards from 1..0, so desired positions are
+  //  the new camera positions, with the zoom applied.
+
+  // TODO TEMP TEST this is duplicated in CorridorModeEnterStairs - move to
+  //  Consts.
+  static const float ZOOM_DIST = -50.f;
+
+  Vec3f camChange(ZOOM_DIST, 0, 0);
+  GetCameraController().SetDesired(eye + camChange, target + camChange);
+
+  // Set camera pos and current topic in CorridorModeWait
+  // TODO The camera stuff should just live in CameraController.
+  // TODO Also the currently selected topic should just live in here?
+
+  // TODO Yuck, better to have a member var (if we don't scrap this)
+  CorridorModeWait* cmw = dynamic_cast<CorridorModeWait*>(
+    m_modes[CorridorModeWait::ID].GetPtr());
+
+  Assert(cmw);
+  int newTopic = -1; // TODO or final topic in prev level
+  cmw->SetCurrentPosAndTopic(newZ, newTopic);
+}
+
 void GSMainCorridor::SetLevel(int levelNum)
 {
   if (levelNum == m_levelNum)
   {
     return;
   }
+
+  bool wentUpNotDown = (levelNum > m_levelNum);
 
   m_levelNum = levelNum;
 
@@ -176,6 +224,8 @@ void GSMainCorridor::SetLevel(int levelNum)
   Load3dForTopics();
 
   LoadTappables();
+
+  SetCameraForNewLevel(wentUpNotDown);
 }
 
 int GSMainCorridor::GetLevel() const

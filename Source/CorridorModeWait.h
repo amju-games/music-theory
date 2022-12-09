@@ -23,6 +23,9 @@ public:
   virtual bool OnMouseButtonEvent(const MouseButtonEvent&) override;
   virtual void Reset() override; 
 
+  // Called when we activate this mode
+  void SetCurrentPosAndTopic(float xPos, int topic);
+
 private:
   void Drag(bool rightNotLeft);
   void DecelerateScrolling();

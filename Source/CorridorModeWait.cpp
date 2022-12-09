@@ -34,8 +34,17 @@ CorridorModeWait::CorridorModeWait()
   m_guiFilename = "Gui/corridor_mode_wait.txt";
 }
 
+void CorridorModeWait::SetCurrentPosAndTopic(float xPos, int topic)
+{
+  m_desiredXPos = xPos;
+  m_currentXPos = xPos; 
+  m_currentTopicScrolledTo = topic;
+}
+
 void CorridorModeWait::Reset()
 {
+std::cout << "Call to CorridorModeWait::Reset(), trashing camera!!!\n";
+
   m_isScrolling = false;
   m_scrollVel = 0;
   m_isDragging = false;

@@ -74,6 +74,7 @@ protected:
   void Load3dForTopics();
   bool LoadTappables();
   void ChangeMode();
+  void SetCameraForNewLevel(bool wentUpNotDown);
 
 private:
   // Each topic has a door. We open the door for the chosen topic.
