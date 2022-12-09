@@ -44,6 +44,7 @@ void GSTitle::OnActive()
   // Set button commands
   GuiElement* startButton = GetElementByName(m_gui, "start-button");
   startButton->SetCommand(OnStart);
+  startButton->SetHasFocus(true);
 }
 
 }
