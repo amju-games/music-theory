@@ -19,7 +19,7 @@ topic-end-text1
 1.0, 0.4
 // WOW!
 $$$84
-dimbo, 1.5, multi, fgcol=000000
+dimbo, 1.5, multi, fgcol=ffffff
 
 gui-text
 topic-end-text2
@@ -27,7 +27,7 @@ topic-end-text2
 1.0, 0.4
 // You scored
 $$$85
-arial, 1.0, multi, fgcol=000000
+arial, 1.0, multi, fgcol=ffffff
 
 // Top number. OK, "numerator"
 
