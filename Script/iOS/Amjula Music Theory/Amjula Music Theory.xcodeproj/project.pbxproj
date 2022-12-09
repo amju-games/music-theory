@@ -15,7 +15,6 @@
 		6959E2D01E958C3C00E251A9 /* GSPages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2C81E958C3C00E251A9 /* GSPages.cpp */; };
 		6959E2D11E958C3C00E251A9 /* GSTitle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2CA1E958C3C00E251A9 /* GSTitle.cpp */; };
 		6959E2EC1E97F6F800E251A9 /* Course.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2E41E97F6F800E251A9 /* Course.cpp */; };
-		6959E2ED1E97F6F800E251A9 /* GSMainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2E61E97F6F800E251A9 /* GSMainMenu.cpp */; };
 		6959E2EE1E97F6F800E251A9 /* Topic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2E81E97F6F800E251A9 /* Topic.cpp */; };
 		6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2EA1E97F6F800E251A9 /* UserProfile.cpp */; };
 		6959E2F81E9ACE8A00E251A9 /* GSPause.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2F41E9ACE8A00E251A9 /* GSPause.cpp */; };
@@ -28,6 +27,7 @@
 		6959E3191EA7F44600E251A9 /* GuiTextEditIos.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3161EA7F44600E251A9 /* GuiTextEditIos.mm */; };
 		6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */; };
 		6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E31C1EAB5BA500E251A9 /* PrintGui.cpp */; };
+		6976F4961F2F1DD300D1D51A /* GSMainCorridor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6976F4941F2F1DD300D1D51A /* GSMainCorridor.cpp */; };
 		697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07EF1E82F19B0045CE54 /* GSBase.cpp */; };
 		697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */; };
 		697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */; };
@@ -139,8 +139,6 @@
 		6959E2CB1E958C3C00E251A9 /* GSTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSTitle.h; path = ../../../../Source/GSTitle.h; sourceTree = "<group>"; };
 		6959E2E41E97F6F800E251A9 /* Course.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Course.cpp; path = ../../../../Source/Course.cpp; sourceTree = "<group>"; };
 		6959E2E51E97F6F800E251A9 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Course.h; path = ../../../../Source/Course.h; sourceTree = "<group>"; };
-		6959E2E61E97F6F800E251A9 /* GSMainMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSMainMenu.cpp; path = ../../../../Source/GSMainMenu.cpp; sourceTree = "<group>"; };
-		6959E2E71E97F6F800E251A9 /* GSMainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSMainMenu.h; path = ../../../../Source/GSMainMenu.h; sourceTree = "<group>"; };
 		6959E2E81E97F6F800E251A9 /* Topic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Topic.cpp; path = ../../../../Source/Topic.cpp; sourceTree = "<group>"; };
 		6959E2E91E97F6F800E251A9 /* Topic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Topic.h; path = ../../../../Source/Topic.h; sourceTree = "<group>"; };
 		6959E2EA1E97F6F800E251A9 /* UserProfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UserProfile.cpp; path = ../../../../Source/UserProfile.cpp; sourceTree = "<group>"; };
@@ -166,6 +164,8 @@
 		6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSKeyboard.mm; path = "../../../../Source/iOS-MusicTheory/iOSKeyboard.mm"; sourceTree = "<group>"; };
 		6959E31C1EAB5BA500E251A9 /* PrintGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintGui.cpp; path = ../../../../Source/PrintGui.cpp; sourceTree = "<group>"; };
 		6959E31D1EAB5BA500E251A9 /* PrintGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintGui.h; path = ../../../../Source/PrintGui.h; sourceTree = "<group>"; };
+		6976F4941F2F1DD300D1D51A /* GSMainCorridor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSMainCorridor.cpp; path = ../../../../Source/GSMainCorridor.cpp; sourceTree = "<group>"; };
+		6976F4951F2F1DD300D1D51A /* GSMainCorridor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSMainCorridor.h; path = ../../../../Source/GSMainCorridor.h; sourceTree = "<group>"; };
 		697A07EF1E82F19B0045CE54 /* GSBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSBase.cpp; path = ../../../../Source/GSBase.cpp; sourceTree = "<group>"; };
 		697A07F01E82F19B0045CE54 /* GSBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSBase.h; path = ../../../../Source/GSBase.h; sourceTree = "<group>"; };
 		697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSPlayNotes.cpp; path = ../../../../Source/GSPlayNotes.cpp; sourceTree = "<group>"; };
@@ -398,9 +398,11 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				69D58E421E833741008A8D29 /* AppDelegate.h */,
+				69D58E431E833741008A8D29 /* AppDelegate.mm */,
+				69D732821F23DA28007B73C1 /* Consts.h */,
 				69D7329A1F250B58007B73C1 /* CorridorCamController.cpp */,
 				69D7329B1F250B58007B73C1 /* CorridorCamController.h */,
-				69D732821F23DA28007B73C1 /* Consts.h */,
 				69D732831F23DA28007B73C1 /* CorridorMode.cpp */,
 				69D732841F23DA28007B73C1 /* CorridorMode.h */,
 				69D732851F23DA28007B73C1 /* CorridorModeEnterClassroom.cpp */,
@@ -415,10 +417,6 @@
 				69D7328E1F23DA29007B73C1 /* CorridorModeShowTappable.h */,
 				69D7328F1F23DA29007B73C1 /* CorridorModeWait.cpp */,
 				69D732901F23DA29007B73C1 /* CorridorModeWait.h */,
-				69C10CE01F1A2586009B6836 /* Tappable.cpp */,
-				69C10CE11F1A2586009B6836 /* Tappable.h */,
-				69D58E421E833741008A8D29 /* AppDelegate.h */,
-				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				6959E2E41E97F6F800E251A9 /* Course.cpp */,
 				6959E2E51E97F6F800E251A9 /* Course.h */,
 				69AC402F1EB5331300F255A4 /* Dictionary.cpp */,
@@ -435,8 +433,8 @@
 				6951CF121F0B932300140095 /* GSBase3d.h */,
 				6959E3081EA7CFF200E251A9 /* GSFirstUser.cpp */,
 				6959E3091EA7CFF200E251A9 /* GSFirstUser.h */,
-				6959E2E61E97F6F800E251A9 /* GSMainMenu.cpp */,
-				6959E2E71E97F6F800E251A9 /* GSMainMenu.h */,
+				6976F4941F2F1DD300D1D51A /* GSMainCorridor.cpp */,
+				6976F4951F2F1DD300D1D51A /* GSMainCorridor.h */,
 				6959E2C81E958C3C00E251A9 /* GSPages.cpp */,
 				6959E2C91E958C3C00E251A9 /* GSPages.h */,
 				6959E2F41E9ACE8A00E251A9 /* GSPause.cpp */,
@@ -502,6 +500,8 @@
 				69D58E831E86A02B008A8D29 /* ScoreBuilder.cpp */,
 				69D58E841E86A02B008A8D29 /* ScoreBuilder.h */,
 				69D58E4D1E84836B008A8D29 /* Startup.cpp */,
+				69C10CE01F1A2586009B6836 /* Tappable.cpp */,
+				69C10CE11F1A2586009B6836 /* Tappable.h */,
 				6959E2E81E97F6F800E251A9 /* Topic.cpp */,
 				6959E2E91E97F6F800E251A9 /* Topic.h */,
 				6959E2EA1E97F6F800E251A9 /* UserProfile.cpp */,
@@ -689,7 +689,6 @@
 				69C10CDE1F17877A009B6836 /* PageQuestion.cpp in Sources */,
 				6951CF191F0B932300140095 /* Md2SceneNode.cpp in Sources */,
 				69D58E851E86A02B008A8D29 /* GuiMusicKb.cpp in Sources */,
-				6959E2ED1E97F6F800E251A9 /* GSMainMenu.cpp in Sources */,
 				69D58E491E833741008A8D29 /* ViewController.mm in Sources */,
 				69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */,
 				69D732941F23DA29007B73C1 /* CorridorModeExitClassroom.cpp in Sources */,
@@ -711,6 +710,7 @@
 				692BF74B1EAE5E2B00DB6CE7 /* PageFactory.cpp in Sources */,
 				6959E3051EA1091500E251A9 /* MultiChoiceQuestion.cpp in Sources */,
 				6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */,
+				6976F4961F2F1DD300D1D51A /* GSMainCorridor.cpp in Sources */,
 				6959E2EE1E97F6F800E251A9 /* Topic.cpp in Sources */,
 				697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */,
 				69D732921F23DA29007B73C1 /* CorridorModeEnterClassroom.cpp in Sources */,
