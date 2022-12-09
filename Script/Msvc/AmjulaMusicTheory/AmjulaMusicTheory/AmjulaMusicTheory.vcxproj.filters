@@ -645,5 +645,11 @@
     <Text Include="..\..\..\..\Assets\Gui\corridor_mode_show_tappable.txt">
       <Filter>Assets\Gui\CorridorModes</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\tap-picture-note-lengths.txt">
+      <Filter>Assets\Gui\Tappables</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\tap-picture-note-lengths-quavers.txt">
+      <Filter>Assets\Gui\Tappables</Filter>
+    </Text>
   </ItemGroup>
 </Project>

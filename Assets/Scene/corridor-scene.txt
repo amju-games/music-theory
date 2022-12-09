@@ -26,7 +26,31 @@ camera
 // FovY, aspect, near, far
 70, 1.5, 1, 1000
 // Num children
+1
+
+// Furniture for tappables to sit on
+//
+// Node type
+comp
+// Name
+furniture-root
+// Matrix
+I
+// Num children
+1
+
+// Bookshelf
+// Node type
+mesh
+// Name
+bookshelf1
+// Matrix
+.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, .5, 0,  15, 0, -200, 1
+// Obj mesh
+obj/shelf5.obj
+// Num children
 0
+
 
 // ----------------------------------------------------------------------------
 // Not used, here in case we want to go back to ortho
