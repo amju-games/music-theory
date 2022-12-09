@@ -153,7 +153,13 @@ bool GuiMusicKb::Load(File* f)
     return false;
   }
 
-  int i = 50; // TODO TEMP TEST
+  int midiNote = 0;
+  if (!f->GetInteger(&midiNote))
+  {
+    f->ReportError("Expected midi value for leftmost note.");
+    return false;
+  }
+
   std::string line;
   while (f->GetDataLine(&line))
   {
@@ -169,7 +175,8 @@ bool GuiMusicKb::Load(File* f)
       return false;
     }
     
-    key->m_midiNote = i++; // TODO TEMP TEST
+    key->m_midiNote = midiNote;
+    midiNote++; 
 
     m_keys.push_back(key);
   }
@@ -188,8 +195,20 @@ bool GuiMusicKb::Key::LoadFromString(const std::string& s)
     return false;
   }
 
+  // Is black? 1 or 0
+  int isBlack = ToInt(strs[1]);
+  Assert(isBlack == 0 || isBlack == 1);
+  m_isBlack = (isBlack != 0);
   // Colour (black key or white, which we then override to highlight a key, etc)
-  m_colour = FromHexString(strs[1]);
+  float WHITE_VAL = .85f;
+  float BLACK_VAL = .267f;
+  Colour KEY_COLOUR[2] = 
+  {
+    Colour(WHITE_VAL, WHITE_VAL, WHITE_VAL, 1.f),
+    Colour(BLACK_VAL, BLACK_VAL, BLACK_VAL, 1.f)
+  };
+  m_colour = KEY_COLOUR[isBlack]; ////FromHexString(strs[1]);
+  m_naturalColour = m_colour;
 
   // x position
   m_x = ToFloat(strs[2]);

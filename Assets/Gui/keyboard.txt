@@ -33,31 +33,34 @@ kb
 .6, .6
 //1, 1
 // Keys
-key-white.obj, D9D9D9, 0
-key-black.obj, 444444, 0.55
-key-white.obj, D9D9D9, 0.55
-key-black.obj, 444444, 0.55
-key-white.obj, D9D9D9, 0.55
-key-white.obj, D9D9D9, 1.1
-key-black.obj, 444444, 0.55
-key-white.obj, D9D9D9, 0.55
-key-black.obj, 444444, 0.55
-key-white.obj, D9D9D9, 0.55
-key-black.obj, 444444, 0.55
-key-white.obj, D9D9D9, 0.55
+// First key midi value (60=middle C)
+60
+// Mesh, isBlack, xPos
+key-white.obj, 0, 0.00
+key-black.obj, 1, 0.55
+key-white.obj, 0, 0.55
+key-black.obj, 1, 0.55
+key-white.obj, 0, 0.55
+key-white.obj, 0, 1.1
+key-black.obj, 1, 0.55
+key-white.obj, 0, 0.55
+key-black.obj, 1, 0.55
+key-white.obj, 0, 0.55
+key-black.obj, 1, 0.55
+key-white.obj, 0, 0.55
 
-key-white.obj, D9D9D9, 1.1
-key-black.obj, 444444, .55
-key-white.obj, D9D9D9, .55
-key-black.obj, 444444, .55
-key-white.obj, D9D9D9, .55
-key-white.obj, D9D9D9, 1.1
-key-black.obj, 444444, .55
-key-white.obj, D9D9D9, .55
-key-black.obj, 444444, .55
-key-white.obj, D9D9D9, .55
-key-black.obj, 444444, .55
-key-white.obj, D9D9D9, .55
+key-white.obj, 0, 1.1
+key-black.obj, 1, .55
+key-white.obj, 0, .55
+key-black.obj, 1, .55
+key-white.obj, 0, .55
+key-white.obj, 0, 1.1
+key-black.obj, 1, .55
+key-white.obj, 0, .55
+key-black.obj, 1, .55
+key-white.obj, 0, .55
+key-black.obj, 1, .55
+key-white.obj, 0, .55
 end
 
 // Front of kb: black bg with dots

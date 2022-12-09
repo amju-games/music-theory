@@ -23,11 +23,15 @@ public:
   virtual bool OnMouseButtonEvent(const MouseButtonEvent&) override;
   virtual bool OnCursorEvent(const CursorEvent&) override;
 
+  // TODO Operations on keys: press, release, highlight, etc.
+  // Use the unique name for the key? Or perhaps use the midi value as the unique ID?
+
 private:
 
   struct Key : public RefCounted
   {
     // Unique ID. E.g. A1, A#1 etc
+    // Any need for this? The midi value is also unique and is a nice int.
     std::string m_name;
 
     // Name displayed to user. A#, Bb for B flat?
@@ -38,6 +42,7 @@ private:
     float m_angle = 0; // keys rotate when pressed: angle should be between 0 and 5 (degrees)
     float m_desiredAngle = 0;
     Colour m_colour; // for black, white, and also highlighted etc
+    Colour m_naturalColour; // m_colour restores to this colour
     PObjMesh m_mesh;
     float m_x = 0; // x-position relative to key to the left
     Rect m_projectedRect; // Rectangle enclosing the projection of the AABB into screen space
