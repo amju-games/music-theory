@@ -10,7 +10,7 @@
 // Each button can be faded out, and the buttons under it translated up to fill the gap.
 
 translate
-0, -0.3
+0, -0.04
 
 gui-comp
 buttons-and-correct-answer

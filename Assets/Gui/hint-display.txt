@@ -11,8 +11,19 @@
 gui-comp
 hint-buttons-and-counters
 // Num children
-2
+1
 
+
+gui-comp
+all-hint-buttons
+1
+
+translate
+0, -.775
+
+gui-comp
+two-buttons
+2
 
 gui-comp
 the-hint-button

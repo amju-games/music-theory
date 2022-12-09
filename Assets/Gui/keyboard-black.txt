@@ -16,11 +16,12 @@ keyboard-black
 
 gui-image
 kb-fg2
--1.0, 0.0
-2, 0.26
+-1.0, 0
+2, 0.06
 Image/black.png, stretch
 
-
+translate
+0, 0.25
 // Base keyboard, same for all piano colours
 include
 keyboard.txt
@@ -29,7 +30,7 @@ keyboard.txt
 // Child 1: bg
 gui-image
 kb-fg
--1.0, -0.9
+-1.0, -0.7
 2, 2
 Image/black.png
 
