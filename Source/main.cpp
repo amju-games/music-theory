@@ -21,9 +21,11 @@
 #endif
 
 #include <AmjuGLWindowInfo.h>
+#include <BassSoundPlayer.h>
+#include <Font.h>
 #include <Game.h>
 #include <EventPoller.h>
-#include <BassSoundPlayer.h>
+#include <ResourceManager.h>
 #include "GSPlayNotes.h"
 #include "GSShowLineDrawing.h"
 #include "GSShowMusicScore.h"
@@ -48,6 +50,10 @@ void StartUpBeforeCreateWindow()
 void StartUpAfterCreateWindow()
 {
 //  File::SetRoot("c:/users/jason/projects/music-theory/Assets/", "/");
+
+  // Add resource loaders
+  ResourceManager* rm = TheResourceManager::Instance();
+  rm->AddLoader("font", FontLoader);
 
   // Set sound player
   SoundManager* sm = TheSoundManager::Instance();
