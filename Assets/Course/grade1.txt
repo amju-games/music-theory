@@ -9,164 +9,51 @@
 1
 
 // Num topics
-9
+3
 
 // Topic
 // ID
-which-clef
+learning-the-notes
 // Localised display name
-// Which clef?
-$$$3
+// Learning the Notes
+$$$170
 // Group
 4
 // Initially locked?
 // Topics unlocked by this one
 none
 // Pages
-1
+5
 page-symbol-symbol-2=Course/which_clef.txt=$$$3
-
-
-
-// Topic
-// ID
-higher-or-lower
-// Localised display name
-// Higher or lower?
-$$$4
-// Group
-4
-// Initially locked?
-// Topics unlocked by this one
-none
-// Pages
-1
 page-symbol-text=Course/higher_or_lower.txt=$$$92
-
-
-
-// Topic
-// ID
-name-the-note
-// Localised display name
-// Name the note
-$$$5
-// Group
-4
-// Initially locked?
-// Topics unlocked by this one
-none
-// Pages
-1
 page-symbol-symbol=Course/name_the_note.txt=$$$93
-
-
-
-//// Topic
-//// ID
-//whats-the-time-sig
-//// Localised display name
-//Time Signatures
-//// Group
-//4
-//// Initially locked?
-//// Topics unlocked by this one
-//none
-//// Pages
-//1
-//page-symbol-symbol=Course/whats_the_time_sig.txt
-
-
-
-// Topic
-// ID
-name-the-scale
-// Localised display name
-// Name the Scale
-$$$6
-// Group
-4
-// Initially locked?
-// Topics unlocked by this one
-none
-// Pages
-1
-page-symbol-text=Course/whats_the_scale.txt=$$$94
-
-
-// Topic
-// ID
-whats-the-tonic-triad
-// Localised display name
-// Tonic Triads
-$$$7
-// Group
-4
-// Initially locked?
-// Topics unlocked by this one
-none
-// Pages
-1
-page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
-
-
-// Topic
-// ID
-whats-the-key-sig
-// Localised display name
-// What's the key signature?
-$$$8
-// Group
-4
-// Initially locked?
-// Topics unlocked by this one
-none
-// Pages
-1
-page-symbol-text=Course/whats_the_key_sig.txt=$$$96
-
-
-
-// Topic
-// ID
-play-the-note
-// Localised display name
-// Play the note
-$$$97
-// Group
-4
-// Initially locked?
-// Topics unlocked by this one
-none
-// Pages
-2
 // 3rd param is x offset for keyboard=moving mid C close to left edge of screen
 page-symbol-kb=Course/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
 page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
 
-
-//// Topic
-//// 2a
-//// ID
-//bar-lines
-//// Localised display name
-//Bar lines
-//// Group
-//2
-//// Initially locked?
-//// Topics unlocked by this one
-//none
-//// Pages
-//1
-//page-symbol-text=Course/crotchet_minim_semibreve.txt
-
-
+// Topic
+// ID
+keys-and-scales
+// Localised display name
+// Keys and Scales
+$$$171
+// Group
+4
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
+4
+page-symbol-text=Course/whats_the_scale.txt=$$$94
+page-symbol-text=Course/whats_the_tonic_triad.txt=$$$95
+page-symbol-text=Course/whats_the_key_sig.txt=$$$96
+page-symbol-text=Course/intervals.txt=$$$100
 
 // Topic
 // ID
 musical-terms-symbols-1
 // Localised display name
-// Musical terms
+// Musical terms and Symbols
 $$$9
 // Group
 3
@@ -177,21 +64,5 @@ none
 2
 page-text-text=Course/musical_terms.txt=$$$99
 page-symbol-text=Course/musical_symbols.txt=$$$99
-
-
-// Topic
-// ID
-intervals
-// Localised display name
-// Intervals
-$$$11
-// Group
-4
-// Unlocks
-none
-// Pages
-1
-page-symbol-text=Course/intervals.txt=$$$100
-
 
 
