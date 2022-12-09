@@ -8,6 +8,7 @@
 #include "GSMainCorridor.h"
 #include "GSPages.h"
 #include "GSTopicStart.h"
+#include "NumUpdate.h"
 #include "PlayWav.h"
 #include "Topic.h"
 #include "UserProfile.h"
@@ -54,6 +55,10 @@ void GSTopicStart::OnActive()
   IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "topic-name-text"));
   Assert(text);
   text->SetText(TheUserProfile()->GetCurrentTopicDisplayName());
+
+  auto profile = TheUserProfile();
+  int numHints = profile->GetHints();
+  NumUpdate(m_gui, "hint-counter" /* TODO CONST */, numHints);
 }
 }
 

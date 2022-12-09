@@ -9,9 +9,12 @@
 // Element type
 gui-comp
 // Name
-main-menu-comp
+topic-start-comp
 // Num children
-3
+4
+
+include
+hint-display-no-button.txt
 
 // Element type
 gui-text

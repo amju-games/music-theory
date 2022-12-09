@@ -27,33 +27,6 @@ $$$89
 // TODO This colour is no good for hint
 dimbo, 2.0, fgcol=ffffff, bgcol=D80629
 
-// TODO Animation here to scale number
-
-gui-comp
-hint-counter-comp
-2
-
-translate
-0.01, -0.01
-gui-text
-hint-counter-shadow
-// pos (coords are -1..1)
--0.95, -0.05 
-// size
-0.2, 0.1
-// Text
-NUM
-// Font name, size
-NUMERIC, 2.0, fgcol=0000ff
-
-gui-text
-hint-counter
-// pos (coords are -1..1)
--0.95, -0.05 
-// size
-0.2, 0.1
-// Text
-NUM
-// Font name, size
-NUMERIC, 2.0, fgcol=ffffff
+include
+hint-display-no-button.txt
 

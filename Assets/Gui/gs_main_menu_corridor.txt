@@ -16,7 +16,7 @@ gs-main-menu-root
 
 
 include
-hint-display.txt
+hint-display-no-button.txt
 
 
 // Share button

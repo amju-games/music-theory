@@ -14,7 +14,7 @@ topic-end-root
 7
 
 include
-hint-display.txt
+hint-display-no-button.txt
 
 // Element type
 gui-text
