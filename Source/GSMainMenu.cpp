@@ -86,6 +86,8 @@ void GSMainMenu::Load3dForTopics()
   for (int i = 0; i < numTopics; i++)
   {
     Topic* topic = course->GetTopic(i);
+
+    // TODO add something to locked topics so we can see it's locked
     bool unlocked = (i == 0) || config->Exists(KEY_TOPIC_UNLOCKED + ToString(i));
 
     // TODO Load from a list of scene files; each one has a locked and
@@ -176,6 +178,11 @@ void GSMainMenu::UpdateOpeningDoor()
 
 void GSMainMenu::GoToTopic()
 {
+  if (!IsTopicUnlocked())
+  {
+    return;
+  }
+
   m_doorIsOpening = true;
   PlayWav("doorcreak");
 
@@ -221,6 +228,17 @@ void GSMainMenu::ShowTopicName(bool showNotHide)
   text->SetVisible(showNotHide);
 }
 
+bool GSMainMenu::IsTopicUnlocked() const
+{
+  ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
+
+  bool unlocked = 
+    (m_currentTopicScrolledTo == 0) || 
+    config->Exists(KEY_TOPIC_UNLOCKED + ToString(m_currentTopicScrolledTo));
+
+  return unlocked;
+}
+
 void GSMainMenu::SetCurrentTopicName()
 {
   // Set topic name: get topic name...
@@ -232,9 +250,10 @@ void GSMainMenu::SetCurrentTopicName()
   IGuiText* text = dynamic_cast<IGuiText*>(
     GetElementByName(m_gui, "topic-name-text"));
   Assert(text);
+
   text->SetText(topic->GetDisplayName());
 
-  ShowTopicName(true);
+  ShowTopicName(IsTopicUnlocked());
 }
 
 void GSMainMenu::DecelerateScrolling()

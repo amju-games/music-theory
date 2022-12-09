@@ -30,6 +30,7 @@ protected:
   void DecelerateScrolling();
   void UpdateCamera();
   void UpdateOpeningDoor();
+  bool IsTopicUnlocked() const;
 
 private:
   // To detect swipe left/right
