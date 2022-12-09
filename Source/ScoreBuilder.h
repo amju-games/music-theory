@@ -50,8 +50,9 @@ public:
   // Write the score elements to the given GuiMusicScore object.
   void Write(GuiMusicScore&);
 
-  // Create notes etc from given string
-  void SetFromString(const std::string& s);
+  // Create notes etc from given string.
+  // Returns true if successful; if not, returns false and sets error string.
+  bool SetFromString(const std::string& s, std::string* error);
 
   void Add(const Note& note, int stave = 0);
 

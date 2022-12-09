@@ -1,6 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include <StringUtils.h>
 #include "GuiMusicScore.h"
 #include "ScoreBuilder.h"
 
@@ -66,5 +67,47 @@ void ScoreBuilder::AddBar(int barNum1Based)
   m_bars.resize(barNum1Based);
 }
 
+// Function called to parse a section in a Score Bui8lder string, e.g. "bar-time=128".
+// First arg is the string on the rhs of the equals sign.
+using ScoreParseFunc = void(*)(const std::string&, ScoreBuilder*);
 
+void ParseBarTime(const std::string& s, ScoreBuilder* sb)
+{
+}
+
+void ParseSymbol(const std::string& s, ScoreBuilder* sb)
+{
+}
+
+static const std::map<std::string, ScoreParseFunc> PARSE_FUNCTION_MAP = 
+{
+  { "bar-time", ParseBarTime },
+  { "symbol", ParseSymbol }
+};
+
+bool ScoreBuilder::SetFromString(const std::string& scoreStr, std::string* error)
+{
+  Strings strs = Split(scoreStr, ';');
+  for (const std::string& section : strs)
+  {
+    // Each section has form "a=b" ?
+    Strings eq = Split(section, '=');
+    if (eq.size() == 2)
+    {
+      // Section is in form "a=b"
+      // Look up parse function for lhs of section
+      auto it = PARSE_FUNCTION_MAP.find(eq[0]);
+      if (it == PARSE_FUNCTION_MAP.end())
+      {
+        *error = "Unexpected section: " + eq[0];
+        return false;
+      }
+      // Call function we looked up
+      ScoreParseFunc fn = it->second;
+      Assert(fn);
+      fn(eq[1], this);
+    }
+  }
+  return true;
+}
 }

@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <GuiFactory.h>
+#include <ReportError.h>
 #include <StringUtils.h>
 #include "GuiMusicScore.h"
 
@@ -205,6 +206,49 @@ void GuiMusicScore::AddGlyph(const Glyph& g)
   m_glyphs.push_back(g);
 }
 
+bool GuiMusicScore::AddGlyphFromString(const std::string line)
+{
+  // Split line. Format OK? Has optional scale?
+  Strings strs = Split(line, ',');
+  int n = strs.size();
+  // Quads are a special case
+  if (n == 9 && strs[0] == QUAD_NAME)
+  {
+    // 4 corners
+    Vec2f corners[4] =
+    {
+      Vec2f(ToFloat(strs[1]), ToFloat(strs[2])),
+      Vec2f(ToFloat(strs[3]), ToFloat(strs[4])),
+      Vec2f(ToFloat(strs[5]), ToFloat(strs[6])),
+      Vec2f(ToFloat(strs[7]), ToFloat(strs[8]))
+    };
+    m_glyphs.push_back(Glyph(corners, m_fgCol));
+    return true;
+  }
+  else if (n == 3 || n == 5)
+  {
+    char ch;
+
+    if (!GlyphNameToCh(strs[0], &ch))
+    {
+      ReportError("Unexpected music glyph name: " + strs[0]);
+      return false;
+    }
+    Vec2f pos(ToFloat(strs[1]), ToFloat(strs[2]));
+    if (n == 3)
+    {
+      m_glyphs.push_back(Glyph(ch, pos, m_fgCol));
+    }
+    else
+    {
+      Vec2f scale(ToFloat(strs[3]), ToFloat(strs[4]));
+      m_glyphs.push_back(Glyph(ch, pos, scale, m_fgCol));
+    }
+    return true;
+  }
+  return false;
+}
+
 bool GuiMusicScore::Load(File* f)
 {
   // Get name, pos, size
@@ -231,43 +275,7 @@ bool GuiMusicScore::Load(File* f)
   std::string line;
   while (f->GetDataLine(&line))
   {
-    // Split line. Format OK? Has optional scale?
-    Strings strs = Split(line, ',');
-    int n = strs.size();
-    // Quads are a special case
-    if (n == 9 && strs[0] == QUAD_NAME)
-    {
-      // 4 corners
-      Vec2f corners[4] = 
-      {
-        Vec2f(ToFloat(strs[1]), ToFloat(strs[2])),
-        Vec2f(ToFloat(strs[3]), ToFloat(strs[4])),
-        Vec2f(ToFloat(strs[5]), ToFloat(strs[6])),
-        Vec2f(ToFloat(strs[7]), ToFloat(strs[8]))
-      };
-      m_glyphs.push_back(Glyph(corners, m_fgCol));
-    }
-    else if (n == 3 || n == 5)
-    {
-      char ch;
-
-      if (!GlyphNameToCh(strs[0], &ch))
-      {
-        f->ReportError("Unexpected music glyph name: " + strs[0]);
-        return false;
-      }
-      Vec2f pos(ToFloat(strs[1]), ToFloat(strs[2]));
-      if (n == 3)
-      {
-        m_glyphs.push_back(Glyph(ch, pos, m_fgCol));
-      }
-      else
-      {
-        Vec2f scale(ToFloat(strs[3]), ToFloat(strs[4]));
-        m_glyphs.push_back(Glyph(ch, pos, scale, m_fgCol));
-      }
-    }
-    else
+    if (!AddGlyphFromString(line))
     {
       break;
     }

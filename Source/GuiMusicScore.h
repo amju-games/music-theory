@@ -25,6 +25,9 @@ public:
 
   void SetFgCol(const Colour& col);
 
+  // Add glyph defined by a string.
+  bool AddGlyphFromString(const std::string line);
+
   // Used internally but may be used with AddGlyph()
   void BuildTriList();
 
