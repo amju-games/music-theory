@@ -29,6 +29,9 @@ public:
   //     so again a factory could be the best way.
   bool SetFromString(const std::string&);
 
+  // Get string describing avatar, which can be passed in to SetFromString()
+  std::string GetString() const;
+
   void Update() override;
 
   // Call this to set a value on one descendant node. This is used when we set
@@ -44,6 +47,12 @@ public:
   void SetLookDir(const Vec2f& lookDir);
 
 private:
+  // Map of strings set with SetFromString() and SetOneDescendant(). Map so we
+  //  only store the last string set for a given type + name.
+  // We use this map so we can report it out in GetString() - so only needed if
+  //  this is used, i.e. for avatar editing.
+  std::map<std::string, std::string> m_values;
+
   Vec2f m_lookDir;
   Vec2f m_desiredLookDir;
   float m_blinkTime = 0;

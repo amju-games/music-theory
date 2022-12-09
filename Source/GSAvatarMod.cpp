@@ -57,7 +57,7 @@ void GSAvatarMod::SetString()
 {
   GuiText* text = dynamic_cast<GuiText*>(GetElementByName(m_gui, "avatar-string"));
   Assert(text);
-  text->SetText("Hi!");
+  text->SetText(m_avatar->GetString());
 }
 
 void GSAvatarMod::SetColourPicker(GuiElement* elem, const std::string& avatarColourElementName)

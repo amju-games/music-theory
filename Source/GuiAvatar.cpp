@@ -169,7 +169,7 @@ bool GuiAvatar::Load(File* f)
 
 // Set Avatar from string.
 // We set descendant nodes from a string like this:
-// "colour; iris - colour; 005678 | scale; head - scale; 1.0, 1.2 | ... "
+// "colour; iris-colour; 005678 | scale; head-scale; 1.0, 1.2 | ... "
 //  1. Split using |
 //  2. This gives 3 strings separated with ;
 //  3. First is type, so we know what to dynamic_cast to (or could use a factory ?)
@@ -187,6 +187,20 @@ bool GuiAvatar::SetFromString(const std::string& cs)
     }
   }
   return true;
+}
+
+std::string GuiAvatar::GetString() const
+{
+  std::string result;
+  for (auto it = m_values.begin(); it != m_values.end(); ++it)
+  {
+    result += it->first + ";" + it->second;
+    if (std::distance(it, m_values.end()) > 1)
+    {
+      result += "|";
+    }
+  }
+  return result;
 }
 
 bool GuiAvatar::SetOneDescendant(const std::string& cs)
@@ -209,6 +223,10 @@ bool GuiAvatar::SetOneDescendant(const std::string& cs)
   {
     return false;
   }
+
+  // Store so we can report out the strings in GetString()
+  m_values[type + ";" + name] = value;
+
   AvatarFunc func = it->second;
   Assert(func);
   // For symmetrical features (currently just eyes), we need to find the left
