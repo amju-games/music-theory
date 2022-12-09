@@ -32,6 +32,9 @@ private:
   //  middle C, or below.
   void SetKbPos(const Vec2f& posOffset);
 
+  // Show message naming good note and bad note
+  void ShowExplanation(int correctNote, int badNote);
+
 private:
   // Player only gets to play one note per page?
   // Rename to playHasFinished - set when we stop allowing KB input.  

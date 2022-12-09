@@ -3,6 +3,7 @@
 
 #include <numeric> // iota()
 #include <Localise.h>
+#include "CentreMsg.h"
 #include "Dictionary.h"
 #include "DictionaryPickQuestion.h"
 #include "GSPages.h"
@@ -167,9 +168,6 @@ void PagePlayNotes::ShowCorrectAnswer()
     // TODO Colour black and white keys separately
     key->m_colour = Colour(0, 1, 0, 1);
   }
-
-  // TODO Explanation? E.g. show "F-A-C-E" etc??
-  SendNextPageMessage();
 }
 
 void PagePlayNotes::OnMusicKbEvent(const MusicKbEvent& event)
@@ -218,8 +216,47 @@ std::cout << "Note " << m_correctSequenceCurrentPos << " incorrect!\n";
       m_playerHasHitNote = true;
       key->m_colour = Colour(1, 0, 0, 1);
       GetPagesState()->OnIncorrect();
+      ShowExplanation(correctNote, event.m_note);
     }
   }
+}
+
+void PagePlayNotes::ShowExplanation(int correctNote, int badNote)
+{
+  // TODO Composer-specific text, then 
+  // TODO Explanation - "you played an A, but you should have played a C"
+  std::string composerNo = "NEIN!"; // TODO Composer Manager?
+  const int BUF_SIZE = 1000;
+  const std::string NOTES[] =
+  {
+    "a C", // TODO LOC
+    "a C sharp",
+    "a D",
+    "a D sharp",
+    "an E",
+    "an F",
+    "an F sharp",
+    "a G",
+    "a G sharp",
+    "an A",
+    "a B flat",
+    "a B"
+  };
+  std::string badNoteStr = NOTES[badNote % 12];
+  std::string goodNoteStr = NOTES[correctNote % 12];
+  char buf[BUF_SIZE];
+  sprintf(buf, " You played %s but you should have played %s!",
+    badNoteStr.c_str(), goodNoteStr.c_str());
+  std::string expl = composerNo + buf;
+
+  PLurkMsg lm = new CentreMsg(expl,
+    Colour(0, 0, 0, 1), // text colour,
+    Colour(1, 1, 1, 1), // bg colour,
+    AMJU_LURK_NO_TIMER,
+    [](GuiElement*) { SendNextPageMessage(); } // go to next page when player clicks OK
+  );
+    // TODO Speech bubble arrow flag/enum
+  TheLurker::Instance()->Queue(lm);
 }
 }
 
