@@ -35,7 +35,9 @@
 #include <Localise.h>
 #include <ObjMesh.h>
 #include <ResourceManager.h>
+#include <ROConfig.h>
 #include <SoundManager.h>
+#include "Consts.h"
 #include "Course.h"
 #include "Dictionary.h"
 #include "GSFirstUser.h"
@@ -83,6 +85,7 @@ void StartUpBeforeCreateWindow()
   File::SetRoot(dir, "/");
 #endif
 
+  SetROConfigFilename(GetSaveDir(APPNAME) + "roconfig.txt");
 }
 
 void StartUpAfterCreateWindow()
