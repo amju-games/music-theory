@@ -316,7 +316,7 @@ void GSPages::OnCorrect(const Vec2f& choicePos)
 
   Page::SendNextPageMessage();
 
-  LurkMsg lm(Lookup("@@@Correct!"), 
+  LurkMsg lm(Lookup("$$$121" /* Correct! */), 
     GetColour(COLOUR_TEXT),
     GetColour(COLOUR_CORRECT),
     AMJU_TOP, PAGE_LURK_TIME);

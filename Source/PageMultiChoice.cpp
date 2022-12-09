@@ -193,7 +193,7 @@ void PageMultiChoice::ShowCorrectAnswer()
   std::string expl = GetQuestion()->GetExplanationString();
   if (expl.empty())
   {
-    LurkMsg lm(Lookup("@@@Incorrect!"), 
+    LurkMsg lm(Lookup("$$$122" /* Incorrect! */), 
       GetColour(COLOUR_TEXT),
       GetColour(COLOUR_INCORRECT),
       AMJU_TOP, PAGE_LURK_TIME);
