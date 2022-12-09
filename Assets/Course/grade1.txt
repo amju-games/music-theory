@@ -13,6 +13,30 @@
 
 // Topic
 // ID
+which-clef
+// Localised display name
+Which clef?
+// Group
+4
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
+10
+page-symbol-symbol, Course/which_clef.txt
+page-symbol-symbol, Course/which_clef.txt
+page-symbol-symbol, Course/which_clef.txt
+page-symbol-symbol, Course/which_clef.txt
+page-symbol-symbol, Course/which_clef.txt
+page-symbol-symbol, Course/which_clef.txt
+page-symbol-symbol, Course/which_clef.txt
+page-symbol-symbol, Course/which_clef.txt
+page-symbol-symbol, Course/which_clef.txt
+page-symbol-symbol, Course/which_clef.txt
+
+
+// Topic
+// ID
 higher-or-lower
 // Localised display name
 Higher or lower?
@@ -155,9 +179,9 @@ page-symbol-text, Course/whats_the_key_sig.txt
 
 // Topic
 // ID
-notes-treble
+play-the-note
 // Localised display name
-Notes on the treble clef
+Play the note
 // Group
 4
 // Initially locked?
@@ -171,31 +195,6 @@ page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
 page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
 page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
 page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
-page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
-
-
-// Topic
-// ID
-notes-bass
-// Localised display name
-Notes on the bass clef
-// Group
-4
-// Initially locked?
-// Topics unlocked by this one
-none
-// Pages
-10
-// 3rd param is x offset for keyboard, moving mid C close to right edge of screen
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
-page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
 page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
 page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
 page-symbol-kb, Course/notes_on_bass_clef_with_accidentals.txt, 0.8
