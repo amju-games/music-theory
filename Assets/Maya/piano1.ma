@@ -1,6 +1,6 @@
 //Maya ASCII 2015 scene
 //Name: piano1.ma
-//Last modified: Sat, Aug 05, 2017 05:42:57 PM
+//Last modified: Sat, Aug 05, 2017 09:06:00 PM
 //Codeset: 1252
 requires maya "2015";
 currentUnit -l centimeter -a degree -t film;
@@ -11,8 +11,8 @@ fileInfo "cutIdentifier" "201405190330-916664";
 fileInfo "osv" "Microsoft Windows 7 Business Edition, 64-bit Windows 7 Service Pack 1 (Build 7601)\n";
 fileInfo "license" "student";
 createNode transform -s -n "persp";
-	setAttr ".t" -type "double3" -35.074266406617021 16.252074772433438 -101.74662079573058 ;
-	setAttr ".r" -type "double3" 9.2616472703457049 205.80000000000146 0 ;
+	setAttr ".t" -type "double3" 110.63187567062887 42.926282202842842 48.641877612766024 ;
+	setAttr ".r" -type "double3" -4.538352729656415 62.199999999997445 -8.5244580525112612e-016 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v";
 	setAttr ".fl" 34.999999999999993;
@@ -12289,11 +12289,11 @@ createNode mesh -n "piano1:pCube16Shape" -p "piano1:pCube16";
 	setAttr -s 2 ".iog[0].og";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
-	setAttr ".pv" -type "double2" 0.46770049259066582 0.4105873741209507 ;
+	setAttr ".pv" -type "double2" 0.51517949253320694 0.40783900581300259 ;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
 	setAttr ".cuvs" -type "string" "map1";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
-	setAttr ".pt[6]" -type "float3"  0 -4.9241257 0;
+	setAttr -s 2 ".pt[6:7]" -type "float3"  0 -4.9241257 0 0 0 0;
 createNode mesh -n "piano1:polySurfaceShape1" -p "piano1:pCube16";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
