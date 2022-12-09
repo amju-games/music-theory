@@ -58,6 +58,12 @@
     <Filter Include="Assets\Scene">
       <UniqueIdentifier>{6a4d1c27-e555-42fe-a8ef-d86e7c96b50b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Gui\Tappables">
+      <UniqueIdentifier>{8dc2b9af-840b-409a-bf8f-cf3466b0f258}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Gui\CorridorModes">
+      <UniqueIdentifier>{06975070-ae9d-4e45-8be1-65b1289afc63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp">
@@ -198,6 +204,27 @@
     <ClCompile Include="..\..\..\..\Source\Tappable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\CorridorMode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\CorridorModeWait.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\CorridorModeEnterClassroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\CorridorModeShowTappable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\CorridorModeEnterTappable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\CorridorModeExitTappable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\CorridorModeExitClassroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -335,6 +362,30 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Tappable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\CorridorMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\CorridorModeWait.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\CorridorModeEnterClassroom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Consts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\CorridorModeShowTappable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\CorridorModeEnterTappable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\CorridorModeExitTappable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\CorridorModeExitClassroom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -574,7 +625,16 @@
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\tappables.txt">
-      <Filter>Assets\Gui</Filter>
+      <Filter>Assets\Gui\Tappables</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\notes_on_treble_clef.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\notes_on_treble_clef_with_accidentals.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\corridor_mode_wait.txt">
+      <Filter>Assets\Gui\CorridorModes</Filter>
     </Text>
   </ItemGroup>
 </Project>

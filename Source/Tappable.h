@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <GuiElement.h>
 #include <RCPtr.h>
 
 namespace Amju
@@ -20,6 +21,10 @@ public:
   const std::string& GetName() const;
   const Vec3f& GetCameraEyePos() const;
   const Vec3f& GetCameraTargetPos() const;
+  void DrawGui();
+
+  void ActivateGui();
+//  void DeactivateGui();
 
 protected:
   std::string m_name;
@@ -29,5 +34,7 @@ protected:
 
   Vec3f m_camEye;
   Vec3f m_camTarget;
+
+  PGuiElement m_gui;
 };
 }

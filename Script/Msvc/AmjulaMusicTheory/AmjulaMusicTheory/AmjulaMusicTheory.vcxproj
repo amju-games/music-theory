@@ -268,6 +268,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\BassPlayMidi.cpp" />
+    <ClCompile Include="..\..\..\..\Source\CorridorMode.cpp" />
+    <ClCompile Include="..\..\..\..\Source\CorridorModeEnterClassroom.cpp" />
+    <ClCompile Include="..\..\..\..\Source\CorridorModeEnterTappable.cpp" />
+    <ClCompile Include="..\..\..\..\Source\CorridorModeExitClassroom.cpp" />
+    <ClCompile Include="..\..\..\..\Source\CorridorModeExitTappable.cpp" />
+    <ClCompile Include="..\..\..\..\Source\CorridorModeShowTappable.cpp" />
+    <ClCompile Include="..\..\..\..\Source\CorridorModeWait.cpp" />
     <ClCompile Include="..\..\..\..\Source\Course.cpp" />
     <ClCompile Include="..\..\..\..\Source\DictionaryPickQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSAbout.cpp" />
@@ -342,6 +349,14 @@
     <ClCompile Include="..\..\..\..\Source\UserProfile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Source\Consts.h" />
+    <ClInclude Include="..\..\..\..\Source\CorridorMode.h" />
+    <ClInclude Include="..\..\..\..\Source\CorridorModeEnterClassroom.h" />
+    <ClInclude Include="..\..\..\..\Source\CorridorModeEnterTappable.h" />
+    <ClInclude Include="..\..\..\..\Source\CorridorModeExitClassroom.h" />
+    <ClInclude Include="..\..\..\..\Source\CorridorModeExitTappable.h" />
+    <ClInclude Include="..\..\..\..\Source\CorridorModeShowTappable.h" />
+    <ClInclude Include="..\..\..\..\Source\CorridorModeWait.h" />
     <ClInclude Include="..\..\..\..\Source\Course.h" />
     <ClInclude Include="..\..\..\..\Source\DictionaryPickQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\GSAbout.h" />
@@ -400,12 +415,15 @@
     <Text Include="..\..\..\..\Assets\Course\minim_length.txt" />
     <Text Include="..\..\..\..\Assets\Course\musical_symbols.txt" />
     <Text Include="..\..\..\..\Assets\Course\musical_terms.txt" />
+    <Text Include="..\..\..\..\Assets\Course\notes_on_treble_clef.txt" />
+    <Text Include="..\..\..\..\Assets\Course\notes_on_treble_clef_with_accidentals.txt" />
     <Text Include="..\..\..\..\Assets\Course\note_lengths.txt" />
     <Text Include="..\..\..\..\Assets\Course\semibreve.txt" />
     <Text Include="..\..\..\..\Assets\Course\semibreve_length.txt" />
     <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt" />
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt" />
     <Text Include="..\..\..\..\Assets\Gui\compound_glyphs.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\corridor_mode_wait.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs-first-user.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_about.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt" />

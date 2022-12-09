@@ -64,30 +64,56 @@ ledger = quad, 0.25, 0.475,  0.25, 0.490,  -0.05, 0.490,  -0.05, 0.475
 // Common notes
 // c4 = middle C
 treb-c4-cr = crotchet-up, 0, -0.1 ; ledger, 0, -0.1
-treb-c#4-cr = treb-c4-cr, 0, 0 ; sharp, -0.2, -0.1
 treb-d4-cr = crotchet-up, 0, -0.05
-treb-d#4-cr = crotchet-up, 0, -0.05 ; sharp, -0.2, -0.05
 treb-e4-cr = crotchet-up, 0, 0.0
 treb-f4-cr = crotchet-up, 0, 0.05 
-treb-f#4-cr = crotchet-up, 0, 0.05 ; sharp, -0.2, 0.05
 treb-g4-cr = crotchet-up, 0, 0.1 
-treb-g#4-cr = crotchet-up, 0, 0.1 ; sharp, -0.2, 0.1
 treb-a5-cr = crotchet-up, 0, 0.15
-treb-a#4-cr = crotchet-up, 0, 0.15 ; sharp, -0.2, 0.15
 treb-b5-cr = crotchet-up, 0, 0.2
 treb-c5-cr = crotchet-down, 0, 0.25
+treb-d5-cr = crotchet-down, 0, 0.3
+treb-e5-cr = crotchet-down, 0, 0.35
+treb-f5-cr = crotchet-down, 0, 0.4
+treb-g5-cr = crotchet-down, 0, 0.45
+
+// (Sharps and flats are black keys only so far)
+// Sharps
+treb-c#4-cr = treb-c4-cr, 0, 0 ; sharp, -0.2, -0.1
+treb-d#4-cr = crotchet-up, 0, -0.05 ; sharp, -0.2, -0.05
+treb-f#4-cr = crotchet-up, 0, 0.05 ; sharp, -0.2, 0.05
+treb-g#4-cr = crotchet-up, 0, 0.1 ; sharp, -0.2, 0.1
+treb-a#4-cr = crotchet-up, 0, 0.15 ; sharp, -0.2, 0.15
+treb-c#5-cr = crotchet-down, 0, 0.25 ; sharp, -0.2, 0.25
+treb-d#5-cr = crotchet-down, 0, 0.30 ; sharp, -0.2, 0.30
+treb-f#5-cr = crotchet-down, 0, 0.40 ; sharp, -0.2, 0.40
+treb-g#5-cr = crotchet-down, 0, 0.45 ; sharp, -0.2, 0.45
+
+// Flats
+treb-db4-cr = crotchet-up, 0, -0.05 ; flat, -0.2, -0.05
+treb-eb4-cr = crotchet-up, 0, 0.0 ; flat, -0.2, 0
+treb-gb4-cr = crotchet-up, 0, 0.1 ; flat, -0.2, 0.1
+treb-ab4-cr = crotchet-up, 0, 0.15 ; flat, -0.2, 0.15
+treb-bb4-cr = crotchet-up, 0, 0.2 ; flat, -0.2, 0.2
 
 // Convenience short versions: treble clef, notes from middle C.
 c = treb-c4-cr, 0, 0
 c# = treb-c#4-cr, 0, 0
+db = treb-db4-cr, 0, 0
 d = treb-d4-cr, 0, 0
 d# = treb-d#4-cr, 0, 0
+eb = treb-eb4-cr, 0 , 0
 e = treb-e4-cr, 0, 0
 f = treb-f4-cr, 0, 0
 f# = treb-f#4-cr, 0, 0
+gb = treb-gb4-cr, 0, 0
 g = treb-g4-cr, 0, 0
 g# = treb-g#4-cr, 0, 0
+ab = treb-ab4-cr, 0 , 0
 a = treb-a5-cr, 0, 0
 a# = treb-a#5-cr, 0, 0
+bb = treb-bb4-cr, 0, 0
 b = treb-b5-cr, 0, 0
-c' = treb-c5-cr, 0, 0
+c+ = treb-c5-cr, 0, 0
+c#+ = treb-c#5-cr, 0, 0
+d+ = treb-d5-cr, 0, 0
+d#+ = treb-d#5-cr, 0, 0

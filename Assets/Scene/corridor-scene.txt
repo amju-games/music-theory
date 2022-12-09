@@ -36,12 +36,12 @@ camera-ortho
 // Name
 camera
 // Eye pos
-148280, 150, 0
+100, 20, 0
 // Look at pos
-80, 30, 0
+80, 10, 0
 // Up vector
 0, 1, 0
 // Ortho: l, r, t, b, n, f
--120, 120, 110, -20, 1, 3000
+-100, 100, 110, -10, 0.1, 1000
 // Num children
 0

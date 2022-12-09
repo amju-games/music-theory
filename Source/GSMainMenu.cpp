@@ -16,11 +16,17 @@
 #include <StringUtils.h>
 #include <Timer.h>
 #include <Unproject.h>
+#include "Consts.h"
+#include "CorridorModeEnterClassroom.h"
+#include "CorridorModeEnterTappable.h"
+#include "CorridorModeExitClassroom.h"
+#include "CorridorModeExitTappable.h"
+#include "CorridorModeShowTappable.h"
+#include "CorridorModeWait.h"
 #include "Course.h"
 #include "GSAbout.h"
 #include "GSMainMenu.h"
 #include "GSTitle.h"
-#include "GSTopicStart.h"
 #include "Keys.h"
 #include "PlayWav.h"
 #include "UserProfile.h"
@@ -29,14 +35,6 @@ namespace Amju
 {
 namespace
 {
-const float DISTANCE_BETWEEN_DOORS = 135;
-const float MAX_SCROLL_VEL = 300.0f;
-const float SCROLL_DECEL = 280.0f;
-const float DOOR_OPEN_ROT_VEL = 1.0f; // rad/sec
-const float MAX_DOOR_ANGLE = 2.0f;
-const float CAMERA_START = 100.0f; 
-const float CAM_ZOOM_MULT = 20.0f;
-
 void OnShare(GuiElement*)
 {
   //  TheGSMainMenu::Instance()->HideButtons()->ScrollUp();
@@ -57,19 +55,24 @@ void OnBackToTitle(GuiElement*)
 {
   TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 }
-
-void OnTopic(GuiElement*)
-{
-  // Topic button for all topics: the currently selected topic is the
-  //  one we go to.
-  TheGSMainMenu::Instance()->GoToTopic();
-}
 }
 
 GSMainMenu::GSMainMenu()
 {
   m_guiFilename = "Gui/gs_main_menu_corridor.txt";
   m_sceneFilename = "Scene/corridor-scene.txt";
+
+  m_modes[CorridorModeEnterClassroom::ID] = new CorridorModeEnterClassroom;
+  m_modes[CorridorModeEnterTappable::ID] = new CorridorModeEnterTappable;
+  m_modes[CorridorModeExitClassroom::ID] = new CorridorModeExitClassroom;
+  m_modes[CorridorModeExitTappable::ID] = new CorridorModeExitTappable;
+  m_modes[CorridorModeShowTappable::ID] = new CorridorModeShowTappable;
+  m_modes[CorridorModeWait::ID] = new CorridorModeWait;
+
+  for (CorridorMode* cm : m_modes)
+  {
+    cm->SetGameState(this);
+  }
 }
 
 bool GSMainMenu::LoadTappables()
@@ -151,11 +154,19 @@ void GSMainMenu::Load3dForTopics()
   }
 }
 
+void GSMainMenu::OnDeactive()
+{
+  GSBase3d::OnDeactive();
+
+  if (m_currentMode)
+  {
+    m_currentMode->OnDeactive();
+  }
+  m_currentMode = nullptr;
+}
+
 void GSMainMenu::OnActive()
 {
-  // Load the GUI. The buttons here correspond to Topics in the Course, but
-  //  we don't want to try to programatically add the buttons. So the GUI layout
-  //  here is coupled to the Course definition.
   GSBase3d::OnActive();
 
   SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
@@ -163,32 +174,31 @@ void GSMainMenu::OnActive()
     root->GetNodeByName("camera"));
   Assert(m_camera);
 
-  // Just one topic button, which is fixed in the centre of the screen.
-  // The scene scrolls left and right, but sticks so each door is under the 
-  //  button.
-  GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "topic-button"));
-  Assert(button);
-  button->SetCommand(OnTopic); 
+  //// Back to title 
+  //GuiElement* title = GetElementByName(m_gui, "title-button");
+  //title->SetCommand(OnBackToTitle);
 
-  // Back to title 
-  GuiElement* title = GetElementByName(m_gui, "title-button");
-  title->SetCommand(OnBackToTitle);
-
-  GuiElement* about = GetElementByName(m_gui, "about-button");
-  about->SetCommand(OnAbout);
+  //GuiElement* about = GetElementByName(m_gui, "about-button");
+  //about->SetCommand(OnAbout);
 
   Load3dForTopics();
 
-  SetCurrentTopicName();
-
-  m_doorIsOpening = false;
-  m_doorAngleRads = 0;
-
-  // TODO We only need to do this once?
+  // TODO We only need to do this once up front
   LoadTappables();
 
-  m_isCamLerping = false;
-  m_camLerpTime = 0;
+  SetMode(CorridorModeWait::ID);
+
+  //if (m_currentMode)
+  //{
+  //  // We have returned from a classroom, so set mode to exiting classroom.
+  //  m_currentMode = m_modes[CorridorModeWait::ID]; // TODO
+  //}
+  //else
+  //{
+  //  // First time in this state, so set mode to in corridor
+  //  m_currentMode = m_modes[CorridorModeWait::ID];
+  //}
+  //m_currentMode->OnActive();
 
   // TODO
   //GuiElement* share = GetElementByName(m_gui, "share-button");
@@ -198,28 +208,25 @@ void GSMainMenu::OnActive()
   //newUser->SetCommand(OnNewUser);
 }
 
-void GSMainMenu::UpdateOpeningDoor()
+void GSMainMenu::Draw2d()
 {
-  if (m_doorIsOpening)
+  GSBase3d::Draw2d();
+
+  m_currentMode->Draw2d();
+}
+
+void GSMainMenu::SetMode(int modeId)
+{
+  std::cout << "Setting mode: " << modeId << "\n";
+
+  if (m_currentMode)
   {
-    float dt = TheTimer::Instance()->GetDt();
-    float rot = DOOR_OPEN_ROT_VEL * dt;
-
-    Assert(m_currentTopicScrolledTo >= 0);
-    Assert(m_currentTopicScrolledTo < static_cast<int>(m_doors.size()));
-    PSceneNode door = m_doors[m_currentTopicScrolledTo];
-    Matrix tr = door->GetLocalTransform();
-    Matrix m;
-    m.RotateY(rot);
-    door->SetLocalTransform(m * tr);
-
-    m_doorAngleRads += rot;
-    if (m_doorAngleRads > MAX_DOOR_ANGLE)
-    {
-      m_doorAngleRads = MAX_DOOR_ANGLE;
-      m_doorIsOpening = false;
-    }
+    std::cout << "Deactivating: " << typeid(m_currentMode).name() << "\n";
+    m_currentMode->OnDeactive();
   }
+  m_currentMode = m_modes[modeId];
+  std::cout << "Activating: " << typeid(m_currentMode).name() << "\n";
+  m_currentMode->OnActive();
 }
 
 void GSMainMenu::GoToTopic()
@@ -229,49 +236,7 @@ void GSMainMenu::GoToTopic()
     return;
   }
 
-  m_doorIsOpening = true;
-  PlayWav("doorcreak");
-
-  // Go the the topic start state.
-  GSTopicStart* gs = TheGSTopicStart::Instance();
-  gs->SetTopic(m_currentTopicScrolledTo);
-  gs->SetPrevState(this);
-  // Time delay so we get to see an animation, e.g. door opening
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSTopicStart>, SecondsFromNow(2.0f)));
-
-  HideButtons();
-}
-
-void GSMainMenu::Drag(bool rightNotLeft)
-{
-  if (m_isScrolling)
-  {
-    return;
-  }
-
-  Course* course = GetCourse();
-  Assert(course);
-  int numTopics = course->GetNumTopics();
-
-  int dir = rightNotLeft ? 1 : -1; // direction
-
-  // Check for end of corridor
-  if (   ( rightNotLeft && (m_currentTopicScrolledTo > 0))
-      || (!rightNotLeft && (m_currentTopicScrolledTo < numTopics - 1)))
-  {
-    m_currentTopicScrolledTo -= dir;
-    m_desiredXPos += DISTANCE_BETWEEN_DOORS * dir;
-    m_scrollVel = MAX_SCROLL_VEL * dir;
-    m_isScrolling = true;
-    ShowTopicName(false);
-  }
-}
-
-void GSMainMenu::ShowTopicName(bool showNotHide)
-{
-  GuiElement* text = GetElementByName(m_gui, "topic-name-text");
-  Assert(text);
-  text->SetVisible(showNotHide);
+  SetMode(CorridorModeEnterClassroom::ID);
 }
 
 bool GSMainMenu::IsTopicUnlocked() const
@@ -282,116 +247,59 @@ bool GSMainMenu::IsTopicUnlocked() const
   ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
 
   bool unlocked = 
-    (m_currentTopicScrolledTo == 0) || 
-    config->Exists(KEY_TOPIC_UNLOCKED + ToString(m_currentTopicScrolledTo));
+    (m_currentTopic == 0) ||
+    config->Exists(KEY_TOPIC_UNLOCKED + ToString(m_currentTopic));
 
   return unlocked;
 }
 
-void GSMainMenu::SetCurrentTopicName()
+void GSMainMenu::SetCurrentTopic(int topicId)
 {
-  // Set topic name: get topic name...
-  Course* course = GetCourse();
-  Assert(course);
-  Topic* topic = course->GetTopic(m_currentTopicScrolledTo);
-
-  // ...now set the text on screen
-  IGuiText* text = dynamic_cast<IGuiText*>(
-    GetElementByName(m_gui, "topic-name-text"));
-  Assert(text);
-
-  text->SetText(topic->GetDisplayName());
-
-  ShowTopicName(IsTopicUnlocked());
+  m_currentTopic = topicId;
 }
 
-void GSMainMenu::DecelerateScrolling()
+int GSMainMenu::GetCurrentTopic() const
 {
-  float dt = TheTimer::Instance()->GetDt();
-
-  float sign = Sign(m_scrollVel);
-  float origScrollVel = m_scrollVel;
-  m_scrollVel -= SCROLL_DECEL * sign * dt;
-  if (Sign(m_scrollVel) != sign)
-  {
-    // Sign changed! We don't want to reverse direction, so restore old value.
-    m_scrollVel = origScrollVel;
-  }
+  return m_currentTopic;
 }
 
-void GSMainMenu::UpdateCamera()
+PSceneNode GSMainMenu::GetDoor()
 {
-  float dt = TheTimer::Instance()->GetDt();
-
-  Vec3f eye = GetCamera()->GetEyePos();
-  Vec3f look = GetCamera()->GetLookAtPos();
-
-  if (m_isCamLerping && m_tappedDown)
-  {
-    // Moving towards tappable camera setting
-    m_camLerpTime += dt;
-    if (m_camLerpTime > 1)
-    {
-      // Reached desired cam pos
-      // TODO change state
-      m_camLerpTime = 1;
-    }
-    eye = Lerp(m_camEye, m_tappedDown->GetCameraEyePos(), m_camLerpTime);
-    look = Lerp(m_camTarget, m_tappedDown->GetCameraTargetPos(), m_camLerpTime);
-  }
-  else
-  {
-    eye.z = m_currentXPos;
-    look.z = m_currentXPos;
-
-    if (m_doorAngleRads != 0)
-    {
-      eye.x = CAMERA_START - m_doorAngleRads * m_doorAngleRads * CAM_ZOOM_MULT;
-      look.x = eye.x - 10.0f;
-    }
-  }
-
-  GetCamera()->SetEyePos(eye);
-  GetCamera()->SetLookAtPos(look);
+  Assert(m_currentTopic >= 0);
+  Assert(m_currentTopic< static_cast<int>(m_doors.size()));
+  return m_doors[m_currentTopic];
 }
 
 void GSMainMenu::Update()
 {
   GSBase3d::Update();
-  
-  if (m_isScrolling)
+
+  if (m_currentMode)
   {
-    DecelerateScrolling();
-
-    float dt = TheTimer::Instance()->GetDt();
-    m_currentXPos += m_scrollVel * dt;
-
-    if (   (m_scrollVel > 0 && m_currentXPos > m_desiredXPos)
-        || (m_scrollVel < 0 && m_currentXPos < m_desiredXPos))
-    {
-      // We have reached the desired position
-      m_currentXPos = m_desiredXPos;
-      m_scrollVel = 0;
-      m_isScrolling = false;
-
-      SetCurrentTopicName();
-    }
+    m_currentMode->Update();
   }
-
-  UpdateCamera();
-
-  UpdateOpeningDoor();
 }
 
-Tappable* GSMainMenu::GetTapped()
+void GSMainMenu::OnTapped(Tappable* tapped)
+{
+  m_tapped = tapped;
+  SetMode(CorridorModeEnterTappable::ID);
+}
+
+Tappable* GSMainMenu::GetSelectedTappable()
+{
+  return m_tapped;
+}
+
+Tappable* GSMainMenu::TappablePickTest(const Vec2f& touchCoord)
 {
   // Set up camera matrices for Unproject
   GetCamera()->Draw();
 
   // Get 3D coord at near and far plane for the mouse (touch) coord
   Vec3f nearCoord, farCoord;
-  if (Unproject(m_touchDown, 0, &nearCoord)
-    && Unproject(m_touchDown, 1, &farCoord))
+  if (   Unproject(touchCoord, 0, &nearCoord)
+      && Unproject(touchCoord, 1, &farCoord))
   {
     LineSeg seg(nearCoord, farCoord);
 
@@ -410,38 +318,9 @@ Tappable* GSMainMenu::GetTapped()
   return nullptr;
 }
 
-void GSMainMenu::CheckTappables()
-{
-  if (m_touchDownThisFrame)
-  {
-    m_touchDownThisFrame = false;
-    m_tappedDown = GetTapped();
-  }
-
-  if (m_touchUpThisFrame)
-  {
-    m_touchUpThisFrame = false;
-    // Check if we picked a Tappable.
-    if (m_tappedDown && m_tappedDown == GetTapped())
-    {
-      // Touched down and up on the same Tappable - activate it.
-      std::cout << "Tapped on " << m_tappedDown->GetName() << "\n";
-
-      // Store current camera; interpolate to camera set for the tappable
-      auto cam = GetCamera();
-      m_camEye = cam->GetEyePos();
-      m_camTarget = cam->GetLookAtPos();
-      m_isCamLerping = true;
-      ShowTopicName(false);
-    }
-  }
-}
-
 void GSMainMenu::Draw()
 {
   GSBase3d::Draw();
-
-  CheckTappables();
 }
 
 SceneNodeCamera* GSMainMenu::GetCamera()
@@ -452,40 +331,12 @@ SceneNodeCamera* GSMainMenu::GetCamera()
 
 bool GSMainMenu::OnCursorEvent(const CursorEvent& ce)
 {
-  if (m_isDragging)
-  {
-    Vec2f pos = Vec2f(ce.x, ce.y);
-    Vec2f dragDist = m_touchDown - pos;
-    const float MIN_DRAG_DIST = 0.5f; // 1/4 of screen
-    if (fabs(dragDist.x) > MIN_DRAG_DIST)
-    {
-      if (dragDist.x < 0)
-      {
-        std::cout << "Drag right!\n";
-        Drag(true);
-      }
-      else
-      {
-        std::cout << "Drag left!\n";
-        Drag(false);
-      }
-      m_touchDown = pos;
-    }
-  }
-  return false;
+  return m_currentMode->OnCursorEvent(ce);
 }
 
 bool GSMainMenu::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 {
-  m_isDragging = mbe.isDown;
-  m_touchDownThisFrame = mbe.isDown;
-  m_touchUpThisFrame = !mbe.isDown;
-
-  if (mbe.isDown)
-  {
-    m_touchDown = Vec2f(mbe.x, mbe.y);
-  }
-  return false;
+  return m_currentMode->OnMouseButtonEvent(mbe);
 }
 
 }

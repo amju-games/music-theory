@@ -25,8 +25,9 @@ obj/piano1.obj
 0
 // TODO Action when tapped
 // Camera eye
-28, 40, -60
+25, 45, -60
 // Cam target
-20, 0, -60
+22, 0, -60
 
 // GUI to display when we have been tapped
+Gui/keyboard.txt

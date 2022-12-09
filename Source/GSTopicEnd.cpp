@@ -11,10 +11,7 @@ namespace Amju
 {
 static void OnOK(GuiElement*)
 {
-  //TheGSTopicEnd::Instance()->ScrollUp();
-  // TODO fade out?
   TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainMenu>, SecondsFromNow(1.0f)));
-  //GoTo<TheGSMainMenu>();
 }
 
 GSTopicEnd::GSTopicEnd()

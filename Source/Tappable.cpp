@@ -1,6 +1,7 @@
 // * Amjulib *
 // (c) Copyright 2000-2017 Jason Colman
 
+#include <EventPoller.h>
 #include <File.h>
 #include <LoadScene.h>
 #include <LoadVec3.h>
@@ -32,6 +33,17 @@ bool Tappable::Load(File* f)
     return false;
   }
 
+  // Load GUI
+  std::string gui;
+  if (!f->GetDataLine(&gui))
+  {
+    f->ReportError("Expected GUI for tappable");
+    return false;
+  }
+
+  //m_gui = LoadGui(gui, false /* don't listen to events yet */);
+  //m_gui->SetVisible(false);
+
   return true;
 }
 
@@ -53,5 +65,16 @@ const Vec3f& Tappable::GetCameraEyePos() const
 const Vec3f& Tappable::GetCameraTargetPos() const
 {
   return m_camTarget;
+}
+
+void Tappable::ActivateGui()
+{
+  //TheEventPoller::Instance()->AddListener(m_gui);
+  //m_gui->SetVisible(true);
+}
+
+void Tappable::DrawGui()
+{
+  //m_gui->Draw();
 }
 }

@@ -1,8 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
-// Main menu
-// Corridor version, like Big Brain Academy.
+// Corridor mode: wait for user to choose a classroom or tap on a tappable
 
 // version
 1
@@ -12,10 +11,7 @@ gui-comp
 // Name
 gs-main-menu-root
 // Num children
-0
-
-// ------------------------------------------------------------------
-
+3
 
 // Button with shader
 

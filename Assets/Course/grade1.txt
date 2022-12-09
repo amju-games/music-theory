@@ -24,16 +24,16 @@ Notes on the treble clef
 none
 // Pages
 10
-page-symbol-kb, Course/notes_on_treble_clef.txt
-page-symbol-kb, Course/notes_on_treble_clef.txt
-page-symbol-kb, Course/notes_on_treble_clef.txt
-page-symbol-kb, Course/notes_on_treble_clef.txt
-page-symbol-kb, Course/notes_on_treble_clef.txt
-page-symbol-kb, Course/notes_on_treble_clef.txt
-page-symbol-kb, Course/notes_on_treble_clef.txt
-page-symbol-kb, Course/notes_on_treble_clef.txt
-page-symbol-kb, Course/notes_on_treble_clef.txt
-page-symbol-kb, Course/notes_on_treble_clef.txt
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
+page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt
 
 
 // Topic
