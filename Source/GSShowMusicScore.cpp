@@ -9,6 +9,11 @@
 
 namespace Amju
 {
+GSShowMusicScore::GSShowMusicScore()
+{
+  m_guiFilename = "Gui/gs_score.txt";
+}
+
 void GSShowMusicScore::Update()
 {
   GSBase::Update();

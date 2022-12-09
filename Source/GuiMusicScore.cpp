@@ -20,7 +20,9 @@ static GuiElement* CreateMusicScore()
   return new GuiMusicScore;
 }
 
-GuiMusicScore::Glyph::Glyph(const Vec2f corner[4]) : m_char(QUAD_CHAR)
+GuiMusicScore::Glyph::Glyph(const Vec2f corner[4], const Colour& col) : 
+  m_char(QUAD_CHAR),
+  m_colour(col)
 {
   for (int i = 0; i < 4; i++)
   {
@@ -162,7 +164,7 @@ void GuiMusicScore::Draw()
 
   m_atlas.Bind();
   AmjuGL::PushMatrix();
-  AmjuGL::SetColour(m_fgCol);
+  //// Use vertex colours //AmjuGL::SetColour(m_fgCol);
   AmjuGL::Translate(pos.x, pos.y, 0);
   AmjuGL::Scale(size.x, size.y, 1);
   AmjuGL::Draw(m_triList);
@@ -186,7 +188,7 @@ bool GuiMusicScore::Load(File* f)
   std::string colour;
   if (!f->GetDataLine(&colour))
   {
-    f->ReportError("Expected gui rect colour");
+    f->ReportError("Expected music score colour");
     return false;
   }
   m_fgCol = FromHexString(colour);
@@ -214,7 +216,7 @@ bool GuiMusicScore::Load(File* f)
         Vec2f(ToFloat(strs[5]), ToFloat(strs[6])),
         Vec2f(ToFloat(strs[7]), ToFloat(strs[8]))
       };
-      m_glyphs.push_back(Glyph(corners));
+      m_glyphs.push_back(Glyph(corners, m_fgCol));
     }
     else if (n == 3 || n == 5)
     {
@@ -228,12 +230,12 @@ bool GuiMusicScore::Load(File* f)
       Vec2f pos(ToFloat(strs[1]), ToFloat(strs[2]));
       if (n == 3)
       {
-        m_glyphs.push_back(Glyph(ch, pos));
+        m_glyphs.push_back(Glyph(ch, pos, m_fgCol));
       }
       else
       {
         Vec2f scale(ToFloat(strs[3]), ToFloat(strs[4]));
-        m_glyphs.push_back(Glyph(ch, pos, scale));
+        m_glyphs.push_back(Glyph(ch, pos, scale, m_fgCol));
       }
     }
     else
@@ -249,7 +251,7 @@ void GuiMusicScore::SetFgCol(const Colour& col)
   m_fgCol = col;
 }
 
-void GuiMusicScore::MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris)
+void GuiMusicScore::MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris, const Colour& col)
 {
   AmjuGL::Tri t[2];
 
@@ -272,11 +274,13 @@ void GuiMusicScore::MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris)
   t[1].m_verts[1] = verts[2];
   t[1].m_verts[2] = verts[3];
 
+  SetQuadColour(t, col);
+
   tris.push_back(t[0]);
   tris.push_back(t[1]);
 }
 
-void GuiMusicScore::MakeStave(const Glyph& g, AmjuGL::Tris& tris)
+void GuiMusicScore::MakeStave(const Glyph& g, AmjuGL::Tris& tris, const Colour& col)
 {
   const float Y_OFFSET = 4.75f;
   float h = g.m_scale.y * 0.01f;
@@ -293,7 +297,7 @@ void GuiMusicScore::MakeStave(const Glyph& g, AmjuGL::Tris& tris)
       Vec2f(g.m_pos.x,     y + h),
     };
 
-    MakeQuad(corners, tris);
+    MakeQuad(corners, tris, col);
   }
 }
 
@@ -305,12 +309,12 @@ void GuiMusicScore::BuildTriList()
   {
     if (g.m_char == STAVE_CHAR)
     {
-      MakeStave(g, tris);
+      MakeStave(g, tris, g.m_colour);
     }
     else if (g.m_char == QUAD_CHAR)
     {
       // Special case: make a quad from the 4 coords
-      MakeQuad(g.m_corner, tris);
+      MakeQuad(g.m_corner, tris, g.m_colour);
     }
     else
     {
@@ -319,11 +323,33 @@ void GuiMusicScore::BuildTriList()
       m_atlas.SetSize(g.m_scale.x, g.m_scale.y);
       m_atlas.MakeTris(g.m_char - ' ', 1.f, t, g.m_pos.x, g.m_pos.y);
 
+      SetQuadColour(t, g.m_colour);
+
       tris.push_back(t[0]);
       tris.push_back(t[1]);
     }
   }
   m_triList = Amju::MakeTriList(tris);
+}
+
+void GuiMusicScore::SetQuadColour(AmjuGL::Tri t[2], const Colour& col)
+{
+  for (int i = 0; i < 2; i++)
+  {
+    for (int j = 0; j < 3; j++)
+    {
+      AmjuGL::Vert& v = t[i].m_verts[j];
+      v.SetColour(col.m_r, col.m_g, col.m_b, col.m_a);
+    }
+  }
+}
+
+void GuiMusicScore::RefreshColours()
+{
+  // TODO TEMP TEST
+  // We can do a lot better than this. We just need to update the colours
+  //  on the verts for each glyph.
+  BuildTriList();
 }
 
 }
