@@ -15,12 +15,14 @@ lurk-comp
 
 gui-button
 ok-button
--0.2, 0
-0.4, 0.2
-Image/gui-button-2.png
+-0.075, 0
+0.15, 0.2
+Image/gui-button-1.png
 // OK!
-$$$124
-BUTTON, 3.0, fgcol=ffffff, bgcol=4E69F4
+//$$$124
+// "play" triangle
+B
+icon, 2.0, fgcol=ffffff, bgcol=4E69F4
 
 gui-button
 yes-button
