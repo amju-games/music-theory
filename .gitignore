@@ -4,3 +4,7 @@ Script/Msvc/AmjulaMusicTheory/AmjulaMusicTheory.v12.suo
 Build/
 UserInterfaceState.xcuserstate
 Breakpoints_v2.xcbkptlist
+Source/ThirdParty/googletest/msvc/gtest/Debug/
+Source/ThirdParty/googletest/msvc/gtest.opensdf
+Source/ThirdParty/googletest/msvc/gtest.sdf
+Source/ThirdParty/googletest/msvc/gtest.v12.suo
