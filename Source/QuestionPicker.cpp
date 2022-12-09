@@ -12,7 +12,12 @@ int QuestionPicker::PickCorrect(QuestionProgress& prog) const
 {
   QuestionSet unused = prog.GetUnusedSet();
   Assert(!unused.empty());
-  int q = unused[0]; // TODO just pick first unused for now
+
+  // TODO Control randomisation
+  int n = unused.size();
+  int r = rand() % n;
+  int q = unused[r];
+
   prog.SetQuestionUsed(q);
   return q;
 }
@@ -87,8 +92,9 @@ std::vector<int> QuestionPicker::RemoveDuplicates(
   return result;
 }
 
-void Shuffle(std::vector<int>&)
+static void Shuffle(std::vector<int>& vec)
 {
+  std::random_shuffle(vec.begin(), vec.end()); // TODO contol randomisation
 }
 
 std::vector<int> QuestionPicker::GetNFakes(
@@ -104,9 +110,7 @@ std::vector<int> QuestionPicker::GetNFakes(
   std::iota(indices.begin(), indices.end(), 0);
   indices.erase(std::remove(indices.begin(), indices.end(), correct), indices.end());
 
-  // Remove indices which have duplicate answers (or questions, if we
-  //  flip Q/A).
-  // TODO MAKE SURE NONE OF THE ANSWERS ARE THE SAME AS THE ANSWER FOR THE 'CORRECT' INDEX!!!
+  // Remove indices which have duplicate answers 
   indices = RemoveDuplicates(indices, dic);
 
   // Shuffle and return top n
@@ -118,12 +122,13 @@ std::vector<int> QuestionPicker::GetNFakes(
   int c = 0;
   for (int i = 0; i < n; i++)
   {
-    // Check the answer for indices[i] is not the same as the correct answer.
-    // If it is, skip to the next.
     if (c == indices.size())
     {
       break; // no more fakes
     }
+
+    // Check the answer for indices[i] is not the same as the correct answer.
+    // If it is, skip to the next.
     int r = indices[c];
     dic.GetTerm(r, &question, &ans);
     c++;
@@ -134,10 +139,6 @@ std::vector<int> QuestionPicker::GetNFakes(
     // r is ok, not the same as correct answer
     result.push_back(r);
   }
-
-  // Previously: does not check for inclusion of a fake with the correct answer.
-  // Copy at most n -- not more than the number of indices!
-  //std::copy(indices.begin(), indices.begin() + std::min(n, static_cast<int>(indices.size())), std::back_inserter(result));
 
   return result;
 }

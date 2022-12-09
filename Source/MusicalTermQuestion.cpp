@@ -24,8 +24,8 @@ void MusicalTermQuestion::MakeQuestion(QuestionProgress& qp)
   // Pick a number at random from the unused questions in the progress object.
   // This marks this number as used in qp from now on.
   int correct = picker.PickCorrect(qp);
-  // Pick fake, wrong answers ('distractors'). We need the dictionary to make sure 
-  //  all the answers are unique.
+  // Pick fake, wrong answers ('distractors'). We need the dictionary to 
+  //  make sure all the answers are unique.
   const int MAX_NUM_FAKES = 3; // TODO should be configurable
   std::vector<int> fakes = picker.GetNFakes(MAX_NUM_FAKES, correct, *m_dictionary);
   // TODO currently not using m_canSwapQAndA
@@ -49,64 +49,6 @@ void MusicalTermQuestion::MakeQuestion(QuestionProgress& qp)
     m_dictionary->GetTerm(fakes[i], &questionStr, &ans);
     m_answers.AddAnswer(ans);
   }
-
-  //std::vector<int> nums(maxNumQs);
-  //// Fill with ints 0..n
-  //std::iota(nums.begin(), nums.end(), 0);
-  //// Randomise
-  //std::random_shuffle(nums.begin(), nums.end()); // , std::mt19937{ std::random_device{}() });
-
-  //// Clear answer
-  //m_answers = MultiChoice();
-
-  //// Allow switching english/foreign: decide whether to switch
-  //if (m_canSwapQAndA)
-  //{
-  //  m_qAndASwitched = (rand() & 1) != 0;
-  //}
-
-  //// TODO set number of fake answers
-  //int numAnswers = 4;
-  //numAnswers = std::min(numAnswers, maxNumQs); // make sure we can't overrun
-  //// Store the indices we use once we eliminate any duplicate answers
-  //std::vector<int> numsNoDuplicateAnswers;
-  //std::string ans;
-  //std::string q;
-  //
-  //for (int i = 0; i < numAnswers && numAnswers <= maxNumQs; i++)
-  //{
-  //  m_dictionary->GetTerm(nums[i], &q, &ans);
-
-  //  if (m_qAndASwitched)
-  //  {
-  //    std::swap(q, ans);
-  //  }
-
-  //  // If this answer already exists, move to next. This is to deal with multiple different 
-  //  //  questions which have the same answer.
-  //  if (m_answers.IsAnAnswer(ans))
-  //  {
-  //    // We need one more 
-  //    numAnswers++;
-  //    continue;
-  //  }
-
-  //  m_answers.AddAnswer(ans);
-  //  numsNoDuplicateAnswers.push_back(nums[i]);
-  //}
-
-  //// Now choose the correct answer
-  //int correct = rand() % numsNoDuplicateAnswers.size();
-  //std::string expl;
-  //m_dictionary->GetTerm(numsNoDuplicateAnswers[correct], &q, &ans, &expl);
-  //if (m_qAndASwitched)
-  //{
-  //  std::swap(q, ans);
-  //}
-
-  //m_questionString = q;
-  //m_answers.SetCorrectAnswer(correct);
-  //m_explanationString = expl;
 }
 
 void MusicalTermQuestion::SetDictionary(Dictionary* dictionary)

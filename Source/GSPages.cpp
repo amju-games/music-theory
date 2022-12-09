@@ -77,8 +77,8 @@ void GSPages::StartTopic(int topicNum)
   m_scoreMultiplier = 1;
   m_livesThisSession = 3;
 
-  // TODO Get this from Topic. 
-  m_maxNumPagesThisSession = 10;
+  // We get this from Topic later. 
+  m_maxNumPagesThisSession = 0;
 
   TheUserProfile()->SetTopicScore(0);
 }
@@ -190,9 +190,12 @@ void GSPages::UpdateHud()
 
 bool GSPages::FindPageWithUnusedQuestions()
 {
+  // Find the next page which has unused questions. If there is no page
+  //  with unused questions, return false.
+
   m_currentPage = (m_currentPage + 1) % m_maxNumPagesThisSession;
-  int cp = m_currentPage;
-  // How is the progress for that page - are there any unused questions?
+  int cp = m_currentPage; // store so we can detect cycle
+
   Assert(m_currentPage < static_cast<int>(m_progress.size()));
 
   QuestionProgress* qp = m_progress[m_currentPage];
@@ -206,13 +209,18 @@ bool GSPages::FindPageWithUnusedQuestions()
     }
     qp = m_progress[m_currentPage];
   }
+
+  std::cout << "Page: " << m_currentPage 
+    << " - this page has " << qp->GetNumQuestionsUsed() 
+    << " questions used of " << qp->GetMaxQuestions() << "\n";
+
   return true;
 }
 
 void GSPages::NextPage()
 {
   // Have we run out of lives?
-  if (m_livesThisSession < 1) ////m_numPagesShown >= m_maxNumPagesThisSession)
+  if (m_livesThisSession < 1) 
   {
     // Done, go to Topic successfully completed, or unsuccessfully completed.
     // (Can use the same state?)
@@ -224,6 +232,7 @@ void GSPages::NextPage()
   // Skip pages for which all questions are used.
   if (!FindPageWithUnusedQuestions())
   {
+    // No more unused questions
     TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
     return;
   }
