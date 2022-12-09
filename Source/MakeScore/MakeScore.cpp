@@ -146,6 +146,38 @@ std::string LineEnd(bool oneLine)
   return (oneLine ? ";" : "\n");
 }
 
+// Get GuiMusicScore glyph string from short code
+static std::string GetStr(std::string s)
+{
+  bool dot = Contains(s, '.');
+  Remove(s, '.');
+  bool rest = Contains(s, 'r');
+  Remove(s, 'r');
+
+  std::string out = "UNKNOWN";
+  if (s == "c") out = "crotchet";
+  else if (s == "q") out = "quaver";
+  else if (s == "qq") out = "semiquaver";
+  else if (s == "m") out = "minim";
+  else if (s == "sb") out = "semibreve";
+
+  if (rest)
+  {
+    out = "rest-" + out;
+  }
+  else if (s != "sb")
+  {
+    out += "-up"; // TODO up/down flag
+  }
+
+  if (dot)
+  {
+    // TODO raised dot if glyph is on a line
+    out = "dotted-" + out + "-raised-dot";
+  }
+  return out;
+}
+
 class MakeScore
 {
 public:
@@ -211,7 +243,9 @@ private:
   struct Glyph : public IGlyph
   {
     Glyph() = default;
-    Glyph(const std::string& str_, int order_) : order(order_), str(str_) {}
+    Glyph(const std::string& str_, int order_) : 
+      displayGlyphName(GetStr(str_)), realGlyphName(str_),
+      order(order_) {}
 
     std::string ToString() const override
     {
@@ -224,7 +258,7 @@ private:
         res += "TIME, " + Str(startTime) + ", " + Str(timeval + startTime) + " ; ";
       }
 
-      res += str + ", " + Str(x) + ", " + Str(y) + 
+      res += displayGlyphName + ", " + Str(x) + ", " + Str(y) + 
         ", " + Str(scale) + ", " + Str(scale);
      
       if (yesTime)
@@ -238,8 +272,22 @@ private:
 
     void SetTimeVal(float timeval_) { timeval = timeval_; }
 
+    void SetDisplayName()
+    {
+      // E.g. "q" or "qq" -> "crotchet-up" for a beamed quaver.
+      // Take dottedness into account.
+
+      bool dot = Contains(realGlyphName, '.'); 
+      displayGlyphName = GetStr(dot ? "c." : "c");
+    }
+
     int order = 0; // horiz position in bar 
-    std::string str;
+
+    // Two glyph names. E.g. we have a quaver, but it's drawn using a 
+    //  crotchet glyph because it's beamed. So its 'real' name is 'q',
+    //  but its display name is 'crotchet'.
+    std::string displayGlyphName;
+    std::string realGlyphName;
 
     // Time value for this glyph, i.e. its duration.
     TimeValue timeval = 0;
@@ -251,7 +299,11 @@ private:
   // Time sigs are always left-aligned, no offset
   struct TimeSigGlyph : public Glyph
   {
-    TimeSigGlyph(const std::string& s) : Glyph(s, 0) { y = 0; }
+    TimeSigGlyph(const std::string& s) : Glyph(s, 0) 
+    { 
+      displayGlyphName = s;
+      y = 0; 
+    }
   };
 
   struct Beam : public IGlyph
@@ -315,7 +367,7 @@ private:
 
       float xmax_ = xmax;
       float xmin_ = xmin;
-      const float FLAG_W = 0.25f; // flag is this proportion of full beam
+      const float FLAG_W = 0.2f; // flag is this proportion of full beam
       if (stemLeftNotRight)
       {
         xmax_ = xmin + (xmax - xmin) * FLAG_W;
@@ -428,7 +480,11 @@ private:
       else if (s == "qq") out = "semiquaver";
       else if (s == "m") out = "minim";
       else if (s == "sb") out = "semibreve";
-      
+      else 
+      {
+        std::cout << "Trying to look up glyph for " << s << "\n";
+      }
+ 
       if (rest)
       {
         out = "rest-" + out;
@@ -450,7 +506,7 @@ private:
     {
       float order = static_cast<int>(m_glyphs.size());
      
-      Glyph* gl = new Glyph(GetStr(s), order);
+      Glyph* gl = new Glyph(s, order);
       gl->SetScale(m_scale); 
 
 std::cout << "Timeval for \"" << s << "\" is " << GetTimeVal(s) << "\n";
@@ -514,6 +570,13 @@ std::cout << "Timeval for \"" << s << "\" is " << GetTimeVal(s) << "\n";
       if (m_timeSigGlyph)
       {
         res += m_timeSigGlyph->ToString() + LineEnd(oneLine);
+      }
+
+      // Set display names for beamed (semi)quavers etc. 
+      for (auto& b : m_beams)
+      {
+        m_glyphs[b->left]->SetDisplayName();
+        m_glyphs[b->right]->SetDisplayName();
       }
 
       for (auto& g : m_glyphs)
