@@ -11,46 +11,45 @@ gui-comp
 // Name
 topic-start-comp
 // Num children
-4
+5
 
 // Best so far display
-translate
-0.625, 0.3
+
 gui-comp
 best-so-far
-3
+2
 
-gui-image
-best-so-far-bg
--0.15, -0.1
-0.3, 0.5
-Image/cert-bg.png, stretch
+//gui-image
+//best-so-far-bg
+//-0.15, -0.1
+//0.3, 0.5
+//Image/cert-bg.png, stretch
 
 // Element type
 gui-text
 // Element name
 best-so-far-text
 // pos (coords are -1..1)
--0.2, -0.2
+-0.5, -0.2
 // size
-0.4, 0.1
+1, 0.1
 // Text
-Best so far
+Best so far:
 // Font name, size
-dimbo, 1., fgcol=000000
+TEXT, 2., fgcol=ffffff, right
 
 // Element type
 gui-text
 // Element name
 best-so-far-num
 // pos (coords are -1..1)
--0.2, -.35
+0.125, -.2
 // size
 0.4, 0.1
 // Text
 16%
 // Font name, size
-dimbo, 2., fgcol=000000
+TEXT, 2., fgcol=ffffff, left
 
 // Just a test
 //include
@@ -61,7 +60,7 @@ gui-text
 // Element name
 topic-name-text
 // pos (coords are -1..1)
--0.5, 0.7
+-0.5, 0.8
 // size
 1.0, 1.2
 // Text
@@ -72,23 +71,22 @@ TEXT, 2.5, multi, fgcol=ffffff, reveal=0.1
 
 
 
-// Cancel button
+// Quit button
 // element type
 gui-button
 // Element name
 cancel-button
 // pos (coords are -1..1)
--0.95, 0.95
+-0.96, 0.92
 // size
-0.4, 0.25
+0.12, 0.12
 // Image 
-Image/gui-button-2.png
-//Image/leaf1.png
+Image/gui-button-1.png
 // Text
-// CANCEL
-$$$88
+// Quit "X"
+G
 // Font name, size
-BUTTON, 3.0, fgcol=ffffff, bgcol=FF0949
+icon, 1.5, fgcol=ffffff, bgcol=FF0949
 
 
 // Start button
@@ -101,3 +99,21 @@ Image/gui-button-2.png
 $$$83
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
+// Composer avatar
+
+elastic
+-.05,0
+
+translate
+-.7, -.1
+scale
+.35,.35
+// Pivot, unlikely to work here
+0.5,0.5
+
+gui-avatar
+// Avatar string: sets values on nodes in the avatar GUI tree
+colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040
+
+include
+avatar.txt
