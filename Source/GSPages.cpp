@@ -28,6 +28,7 @@
 #include "PrintGui.h"
 #include "Topic.h"
 #include "UserProfile.h"
+#include "UseVertexColourShader.h"
 
 namespace Amju
 {

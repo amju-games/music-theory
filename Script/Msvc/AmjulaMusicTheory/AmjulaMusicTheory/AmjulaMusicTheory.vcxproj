@@ -392,6 +392,7 @@
     <ClCompile Include="..\..\..\..\Source\TutorialIds.cpp" />
     <ClCompile Include="..\..\..\..\Source\TutorialManager.cpp" />
     <ClCompile Include="..\..\..\..\Source\UserProfile.cpp" />
+    <ClCompile Include="..\..\..\..\Source\UseVertexColourShader.cpp" />
     <ClCompile Include="..\..\..\..\Source\Version.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -469,6 +470,7 @@
     <ClInclude Include="..\..\..\..\Source\TutorialIds.h" />
     <ClInclude Include="..\..\..\..\Source\TutorialManager.h" />
     <ClInclude Include="..\..\..\..\Source\UserProfile.h" />
+    <ClInclude Include="..\..\..\..\Source\UseVertexColourShader.h" />
     <ClInclude Include="..\..\..\..\Source\Version.h" />
   </ItemGroup>
   <ItemGroup>

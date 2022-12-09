@@ -50,7 +50,7 @@ GuiMusicKb::~GuiMusicKb()
 void GuiMusicKb::Draw()
 {
   Shader* shader = AmjuGL::GetCurrentShader();
-  AmjuGL::UseShader(0);
+  AmjuGL::UseShader(nullptr);
 
   AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
   PushColour();

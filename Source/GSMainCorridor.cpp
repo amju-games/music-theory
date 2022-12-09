@@ -33,6 +33,7 @@
 #include "NumUpdate.h"
 #include "PlayWav.h"
 #include "UserProfile.h"
+#include "UseVertexColourShader.h"
 
 // TODO TEMP TEST
 #include "Gui3dScene.h"

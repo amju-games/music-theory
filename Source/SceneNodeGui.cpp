@@ -1,5 +1,6 @@
 #include <AmjuGL.h>
 #include "SceneNodeGui.h"
+#include "UseVertexColourShader.h"
 
 namespace Amju
 {
@@ -13,29 +14,24 @@ void SceneNodeGui::Update()
 void SceneNodeGui::Draw() 
 {
   AmjuGL::PushAttrib(AmjuGL::AMJU_LIGHTING | AmjuGL::AMJU_DEPTH_READ | AmjuGL::AMJU_BLEND);
-
   AmjuGL::Enable(AmjuGL::AMJU_BLEND);
   AmjuGL::Disable(AmjuGL::AMJU_LIGHTING);
   AmjuGL::Disable(AmjuGL::AMJU_DEPTH_READ);
-
-  AmjuGL::SetMatrixMode(AmjuGL::AMJU_PROJECTION_MATRIX);
   AmjuGL::PushMatrix();
-  AmjuGL::SetIdentity();
-
-  AmjuGL::SetMatrixMode(AmjuGL::AMJU_MODELVIEW_MATRIX);
-  AmjuGL::PushMatrix();
-//  AmjuGL::SetIdentity();
-
   AmjuGL::MultMatrix(m_local);
+
+#if defined(WIN32) || defined(MACOSX)
+  UseVertexColourShader(); // Bah, for desktop OpenGL
+#endif
+
   m_gui->Draw();
+
+#if defined(WIN32) || defined(MACOSX)
+  AmjuGL::UseShader(nullptr); // ?
+#endif
+
   AmjuGL::PopMatrix();
-
-  AmjuGL::SetMatrixMode(AmjuGL::AMJU_PROJECTION_MATRIX);
-  AmjuGL::PopMatrix();
-
-  AmjuGL::SetMatrixMode(AmjuGL::AMJU_MODELVIEW_MATRIX);
-
-  AmjuGL::PopAttrib();  
+  AmjuGL::PopAttrib();
 }
 
 bool SceneNodeGui::Load(File* f) 

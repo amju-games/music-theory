@@ -11,7 +11,7 @@ root
 // Matrix
 I
 // Num children
-6
+5
 
 // Node type
 camera-persp
@@ -89,20 +89,20 @@ obj/stairs-up.obj
 0
 
 
-// ----------------------------------------------------------------------------
-// Not used, here in case we want to go back to ortho
-// Ortho cam:
-// Node type
-camera-ortho
-// Name
-camera
-// Eye pos
-100, 20, 0
-// Look at pos
-80, 10, 0
-// Up vector
-0, 1, 0
-// Ortho: l, r, t, b, n, f
--100, 100, 110, -10, 0.1, 1000
-// Num children
-0
+//// ----------------------------------------------------------------------------
+//// Not used, here in case we want to go back to ortho
+//// Ortho cam:
+//// Node type
+//camera-ortho
+//// Name
+//camera
+//// Eye pos
+//100, 20, 0
+//// Look at pos
+//80, 10, 0
+//// Up vector
+//0, 1, 0
+//// Ortho: l, r, t, b, n, f
+//-100, 100, 110, -10, 0.1, 1000
+//// Num children
+//0

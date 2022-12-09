@@ -77,7 +77,10 @@ const Vec3f& Tappable::GetCameraTargetPos() const
 
 void Tappable::ActivateGui()
 {
-  m_gui = LoadGui(m_screenGuiFilename);
+  if (!m_screenGuiFilename.empty())
+  {
+    m_gui = LoadGui(m_screenGuiFilename);
+  }
 }
 
 void Tappable::DeactivateGui()
@@ -87,14 +90,18 @@ void Tappable::DeactivateGui()
 
 void Tappable::DrawGui()
 {
-  Assert(m_gui);
-  m_gui->Draw();
+  if (m_gui)
+  {
+    m_gui->Draw();
+  }
 }
 
 void Tappable::UpdateGui()
 {
-  Assert(m_gui);
-  m_gui->Update();
+  if (m_gui)
+  {
+    m_gui->Update();
+  }
 }
 
 void Tappable::OnTapped()

@@ -12,6 +12,7 @@
 #include "PrintGui.h"
 #include "SerialReqManager.h"
 #include "ShareManager.h"
+#include "UseVertexColourShader.h"
 
 namespace Amju
 {
@@ -63,17 +64,6 @@ void GSBase::Update()
   TheLurker::Instance()->Update();
 
   TheSerialReqManager::Instance()->Update();
-}
-
-void GSBase::UseVertexColourShader()
-{
-#if defined(WIN32) || defined(MACOSX)
-  // Set shader for desktop GL - fixed function doesn't seem to treat vertex colours the
-  //  way we want (i.e. multiply by currently active colour)
-  static Shader* sh = AmjuGL::LoadShader("Shaders/" + AmjuGL::GetShaderDir() + "/gui");
-  Assert(sh);
-  AmjuGL::UseShader(sh);
-#endif
 }
 
 void GSBase::Draw2d() 

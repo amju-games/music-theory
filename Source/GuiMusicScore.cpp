@@ -683,7 +683,7 @@ void GuiMusicScore::MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris, const C
 {
   AmjuGL::Tri t[2];
 
-  const float Z = 0.5f;
+  const float Z = 0.0f;
   float u = .999f;
   float v = .001f; // TODO texture atlas should be opaque at this (u, v)
   AmjuGL::Vert verts[4] =

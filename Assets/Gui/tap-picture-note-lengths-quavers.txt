@@ -22,7 +22,7 @@ Image/flower-border-1.png, stretch
 gui-text
 static-text
 // pos 
--1.0, .7
+-1.0, 1.2
 // size
 2.0, 1.0 
 // Text
@@ -49,7 +49,7 @@ end
 gui-text
 static-text
 // pos 
--1.0, .34
+-1.0, .74
 // size
 2.0, 1.0 
 // Text
@@ -60,7 +60,7 @@ dimbo, 1.5, multi, fgcol=000000
 gui-text
 static-text
 // pos 
--1.0, -0.1
+-1.0, .3
 // size
 2.0, 1.0 
 // Text
@@ -71,7 +71,7 @@ dimbo, 1.5, multi, fgcol=000000
 gui-text
 static-text
 // pos 
--1.0, -.55
+-1.0, -.1
 // size
 2.0, 1.0 
 // Text
