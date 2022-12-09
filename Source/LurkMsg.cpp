@@ -89,7 +89,7 @@ void LurkMsg::DrawModalBg()
 {
   if (m_isModal)
   {
-    PGuiElement bg;
+    static PGuiElement bg;
     if (!bg)
     {
       bg = ::Amju::LoadGui(s_modalBgFilename, false);
