@@ -15,7 +15,7 @@
 // ID
 whats-the-time-sig
 // Localised display name
-What's the Time Sig
+Time Signatures
 // Group
 4
 // Initially locked?
@@ -85,7 +85,7 @@ page-symbol-text, Course/whats_the_tonic_triad.txt
 // ID
 whats-the-key-sig
 // Localised display name
-What's the key sig
+What's the key signature?
 // Group
 4
 // Initially locked?
@@ -109,7 +109,7 @@ page-symbol-text, Course/whats_the_key_sig.txt
 // ID
 notes-treble
 // Localised display name
-Treble clef
+Notes on the treble clef
 // Group
 4
 // Initially locked?
@@ -134,7 +134,7 @@ page-symbol-kb, Course/notes_on_treble_clef_with_accidentals.txt, -0.9
 // ID
 notes-bass
 // Localised display name
-Bass clef
+Notes on the bass clef
 // Group
 4
 // Initially locked?
