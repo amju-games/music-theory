@@ -187,7 +187,7 @@ gui-image
 bulb
 0, -0.25
 1.0, 1.2
-Image/bulb2.png
+Image/bulb4.png
 
 
 // GROWING TOPIC LEAVES

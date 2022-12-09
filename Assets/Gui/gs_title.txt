@@ -75,7 +75,7 @@ gui-image
 bulb
 0, 0
 1, 1
-Image/bulb.png
+Image/bulb3.png
 
 
 // Pulse 1
