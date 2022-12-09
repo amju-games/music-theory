@@ -38,6 +38,9 @@ public:
   virtual void Update();
   virtual bool Load(File*) { return true; }
 
+  // Pages present info stored in "dictionaries" - text files grouping pairs/tuples of strings.
+  void SetDictionaryName(const std::string& dictionaryName);
+
   GuiElement* GetGui();
 
   // Enable/disable buttons, for modal dialog like quit confirm 
@@ -67,8 +70,13 @@ protected:
   // Base gui file name - we append current orientation and reload if the orientation changes.
   std::string m_guiName;
 
+  // Dictionary to load: question selects an entry from this.
+  std::string m_dictionaryFilename;
+
+  // Layout of question, etc.
   PGuiElement m_gui;
 
+  // Non-graphical representation of the question presented
   RCPtr<Question> m_question;
 
   // The game state which owns this page 

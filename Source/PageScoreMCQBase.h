@@ -16,9 +16,6 @@ class PageScoreMCQBase : public PageMultiChoice
 {
 public:
   virtual void OnActive() override;
-
-protected:
-  std::string m_dictionaryFilename;
 };
 }
 

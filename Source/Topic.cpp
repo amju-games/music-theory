@@ -80,14 +80,23 @@ bool Topic::Load(File* f)
     return false;
   }
 
+  Strings strs = Split(line, ',');
+  // Allow single string, for page type name;
+  // 2nd string = dictionary for page to load
+
   for (int i = 0; i < numPages; i++)
   {
     // TODO Options, number of repeats, etc.
-    RCPtr<Page> page = ThePageFactory::Instance()->Create(line);
+    RCPtr<Page> page = ThePageFactory::Instance()->Create(strs[0]);
     if (!page)
     {
       f->ReportError("Unexpected page name");
       return false;
+    }
+    if (strs.size() > 1)
+    {
+      // 2nd string is dictionary for the page
+      page->SetDictionaryName(strs[1]);
     }
     m_pages.push_back(page);
   }
