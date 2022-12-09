@@ -583,6 +583,11 @@ bool GuiMusicScore::AddCurveFromString(
     }
 
     GuiLineDrawing* curve = new GuiLineDrawing;
+    curve->SetSize(GetSize()); // ?
+
+    // Set thickness at ends and in middle
+    curve->SetWidths(0.006f, 0.012f);
+    
     // Set rounded texture
     PTexture tex = (Texture*)TheResourceManager::Instance()->GetRes("Image/corner.png");
     curve->SetTexture(tex);

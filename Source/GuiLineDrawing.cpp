@@ -1,6 +1,10 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#ifdef WIN32
+#define _USE_MATH_DEFINES
+#endif
+#include <cmath>
 #include <GuiFactory.h>
 #include <ResourceManager.h>
 #include <StringUtils.h>
@@ -51,8 +55,6 @@ static Vec2f CatmullRomSpline(float t, Vec2f p1, Vec2f p2, Vec2f p3, Vec2f p4)
 
 void GuiLineDrawing::BuildTriList()
 {
-std::cout << "BuildTriList, index: " << m_index << "\n";
-
   AmjuGL::Tris tris;
 
   // Points of rectangle for segment, declared here so we shift the points, joining
@@ -80,14 +82,15 @@ std::cout << "BuildTriList, index: " << m_index << "\n";
     Vec2f perp(perp3.x, perp3.y);
 
     // Calc line width here: either linear interp between start and end...
-#define LINE_WIDTH_LINEAR
 #ifdef LINE_WIDTH_LINEAR
     // d is proportion of length covered, 0..1
     float d = static_cast<float>(i) / static_cast<float>(m_points.size());
-#else 
-    // Or vary based on current direction, so a bit more like calligraphy?
-    float d = fabs(DotProduct(dir3, Vec3f(1, 0, 0)));
 #endif
+
+    // For music score curves, thickest in middle. So d varies from 0 at the ends to
+    //  1 half way.
+    float d = sin(static_cast<float>(i) / static_cast<float>(m_points.size()) * static_cast<float>(M_PI));
+    d *= d;
 
     float w = m_startWidth + (m_endWidth - m_startWidth) * d; 
 
@@ -144,8 +147,12 @@ std::cout << "BuildTriList, index: " << m_index << "\n";
     tris.push_back(t[1]);
   }
   m_triList = Amju::MakeTriList(tris);
+}
 
-std::cout << "Num tris: " << tris.size() << "\n";
+void GuiLineDrawing::SetWidths(float w1, float w2)
+{
+  m_startWidth = w1;
+  m_endWidth = w2;
 }
 
 void GuiLineDrawing::Draw()
@@ -290,7 +297,6 @@ void GuiLineDrawing::MakeInBetweenPoints()
 
       m_points.push_back(v);
 
-//t += 0.2f;
       t += 0.04f; // TODO 
     }
   }
@@ -304,28 +310,15 @@ void GuiLineDrawing::AddControlPoint(const Vec2f& p)
 void GuiLineDrawing::CreateFromControlPoints()
 {
   MakeInBetweenPoints();
-  m_index = m_points.size();
-
-#ifdef _DEBUG
-  std::cout << "Create from control points: index: " << m_index << "\n";
-  std::cout << "Num control points: " << m_controlPoints.size() << " num points: " << m_points.size() << "\n";
-#endif
-
+  m_index = m_points.size(); // build the entire line
   BuildTriList();
 }
 
 void GuiLineDrawing::AddPoint(const Vec2f& p)
 {
-//  m_controlPoints.push_back(p);
-//  MakeInBetweenPoints();
-
   m_points.push_back(p);
   m_index = m_points.size();
   BuildTriList();
-
-#ifdef _DEBUG
-  std::cout << "Num control points: " << m_controlPoints.size() << " num points: " << m_points.size() << "\n";
-#endif
 }
 
 void GuiLineDrawing::Animate(float d)

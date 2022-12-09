@@ -39,6 +39,8 @@ public:
   // Call after adding control points (with AddControlPoint)
   void CreateFromControlPoints();
 
+  void SetWidths(float w1, float w2);
+
 protected:
   void Reset();
   void BuildTriList();
