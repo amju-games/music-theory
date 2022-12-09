@@ -86,6 +86,8 @@ public:
   int GetNumGlyphs() const;
   Glyph& GetGlyph(int);
 
+  bool HasAnimation() const { return m_hasAnimation; }
+  
 protected:
 
   // Add one quad (2 triangles) to the given vec of tris, made from the
@@ -143,6 +145,10 @@ protected:
   // Current min/max time, which we set for all subsequently added glyphs.
   // This can be set with a special glyph name.
   Vec2f m_timeMinMax = Vec2f(-1.f, -1.f);
+  
+  // Set to true if above time range is set between 0..1, as this means we will
+  //  animate some glyphs.
+  bool m_hasAnimation = false;
 
   // Note on/off events, which we load along with glyphs. This makes it easier to
   //  add midi note events to a score.

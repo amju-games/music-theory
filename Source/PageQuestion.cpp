@@ -42,14 +42,6 @@ void PageQuestionScore::SetUp()
 {
   Assert(m_page);
 
-  // Hook up play button
-  // TODO Hide if nothing to play
-  GuiButton* playButton = dynamic_cast<GuiButton*>(
-    GetElementByName(m_page->GetGui(), "play-button"));
-  Assert(playButton);
-  playButton->SetHasFocus(true);
-  playButton->SetCommand(OnPlayButton);
-
   // Set musical score display from question text
   GuiMusicScore* ms = dynamic_cast<GuiMusicScore*>(
     GetElementByName(m_page->GetGui(), "music-score"));
@@ -64,6 +56,20 @@ void PageQuestionScore::SetUp()
       ReportError("Failed to set score glyph: " + s);
       Assert(0);
     }
+  }
+  
+  // Hook up play button -- hide if nothing to play
+  GuiButton* playButton = dynamic_cast<GuiButton*>(
+    GetElementByName(m_page->GetGui(), "play-button"));
+  Assert(playButton);
+  if (ms->HasAnimation())
+  {
+    playButton->SetHasFocus(true);
+    playButton->SetCommand(OnPlayButton);
+  }
+  else
+  {
+    playButton->SetVisible(false);
   }
 }
 

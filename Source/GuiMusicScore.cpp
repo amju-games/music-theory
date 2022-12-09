@@ -405,6 +405,13 @@ bool GuiMusicScore::ParseTime(const Strings& strs)
     return false;
   }
   
+  // If the time for a glyph is between 0 and 1, then this Score is animated.
+  if (   (t1 > 0 && t1 < 1)
+      || (t2 > 0 && t2 < 1))
+  {
+    m_hasAnimation = true;
+  }
+  
   m_timeMinMax = Vec2f(t1, t2);
   return true;
 }
