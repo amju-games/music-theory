@@ -1,7 +1,9 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include "Consts.h"
 #include "LurkMsg.h"
+#include "TutorialIds.h"
 #include "TutorialManager.h"
 
 namespace Amju
@@ -48,6 +50,20 @@ bool TutorialManager::Load()
 bool TutorialManager::Save()
 {
   return true;
+}
+
+void QueueFirstTimeMsgs(const std::vector<int> ids, FirstTimeType ftt)
+{
+  for (int id : ids)
+  {
+    LurkMsg lm(
+      LookupTutorialString(id),
+      GetColour(COLOUR_TEXT),
+      GetColour(COLOUR_TUTORIAL),
+      AMJU_CENTRE);
+
+    TheTutorialManager::Instance()->FirstTimeMsg(id, lm, ftt);
+  }
 }
 
 };

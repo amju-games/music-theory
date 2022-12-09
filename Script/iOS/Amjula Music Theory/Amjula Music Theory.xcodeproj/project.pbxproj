@@ -53,6 +53,7 @@
 		699058E91E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058E81E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m */; };
 		69A23A5C1F61E6970021BF88 /* Consts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69A23A591F61E6970021BF88 /* Consts.cpp */; };
 		69A23A5D1F61E6970021BF88 /* TutorialManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69A23A5A1F61E6970021BF88 /* TutorialManager.cpp */; };
+		69A23A611F641AA40021BF88 /* TutorialIds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69A23A601F641AA40021BF88 /* TutorialIds.cpp */; };
 		69AC40361EB5331300F255A4 /* Dictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC402F1EB5331300F255A4 /* Dictionary.cpp */; };
 		69AC40371EB5331300F255A4 /* MusicEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC40311EB5331300F255A4 /* MusicEvent.cpp */; };
 		69AC40391EB5331300F255A4 /* PageMultiChoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC40351EB5331300F255A4 /* PageMultiChoice.cpp */; };
@@ -230,6 +231,7 @@
 		69A23A5A1F61E6970021BF88 /* TutorialManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TutorialManager.cpp; path = ../../../../Source/TutorialManager.cpp; sourceTree = "<group>"; };
 		69A23A5B1F61E6970021BF88 /* TutorialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialManager.h; path = ../../../../Source/TutorialManager.h; sourceTree = "<group>"; };
 		69A23A5F1F631DE10021BF88 /* TutorialIds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialIds.h; path = ../../../../Source/TutorialIds.h; sourceTree = "<group>"; };
+		69A23A601F641AA40021BF88 /* TutorialIds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TutorialIds.cpp; path = ../../../../Source/TutorialIds.cpp; sourceTree = "<group>"; };
 		69AC402F1EB5331300F255A4 /* Dictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Dictionary.cpp; path = ../../../../Source/Dictionary.cpp; sourceTree = "<group>"; };
 		69AC40301EB5331300F255A4 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dictionary.h; path = ../../../../Source/Dictionary.h; sourceTree = "<group>"; };
 		69AC40311EB5331300F255A4 /* MusicEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MusicEvent.cpp; path = ../../../../Source/MusicEvent.cpp; sourceTree = "<group>"; };
@@ -446,6 +448,7 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				69A23A601F641AA40021BF88 /* TutorialIds.cpp */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				69A23A591F61E6970021BF88 /* Consts.cpp */,
@@ -777,6 +780,7 @@
 				69C10CDD1F17877A009B6836 /* DictionaryPickQuestion.cpp in Sources */,
 				6955431D1F3B526D007C23EA /* ShareManager.cpp in Sources */,
 				6955431C1F3B526D007C23EA /* MySceneGraph.cpp in Sources */,
+				69A23A611F641AA40021BF88 /* TutorialIds.cpp in Sources */,
 				69C10CE21F1A2586009B6836 /* Tappable.cpp in Sources */,
 				69C10CD61F122197009B6836 /* PlayWav.cpp in Sources */,
 				6959E30B1EA7CFF200E251A9 /* GSFirstUser.cpp in Sources */,

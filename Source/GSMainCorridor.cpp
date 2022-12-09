@@ -184,13 +184,7 @@ void GSMainCorridor::OnActive()
   Assert(shareButton);
   shareButton->SetCommand(Amju::OnShare);
 
-  LurkMsg lm("Hello!", 
-    GetColour(COLOUR_TEXT), 
-    GetColour(COLOUR_TUTORIAL), 
-    AMJU_CENTRE);
-
-  TheTutorialManager::Instance()->FirstTimeMsg(
-    TUTORIAL_HELLO, lm, AMJU_FIRST_TIME_THIS_RUN);
+  QueueFirstTimeMsgs( { TUTORIAL_HELLO, TUTORIAL_SWIPE }, AMJU_FIRST_TIME_THIS_RUN);
 }
 
 void GSMainCorridor::Draw2d()

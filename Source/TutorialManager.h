@@ -57,5 +57,9 @@ private:
 };
 
 using TheTutorialManager = Singleton<TutorialManager>;
+
+// Convenience function to show one or more first time msgs
+void QueueFirstTimeMsgs(const std::vector<int> ids, FirstTimeType ftt);
+
 }
 
