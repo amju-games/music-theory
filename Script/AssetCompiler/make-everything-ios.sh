@@ -9,7 +9,7 @@ export DEST_DIR=$COMPILED_ASSETS/$PLATFORM/
 mkdir -p $COMPILED_ASSETS
 mkdir -p $DEST_DIR
 
-rm -rf $DEST_DIR/*
+rm -rf $DEST_DIR
 
 . makeobjsbin-ios.sh
 

@@ -15,6 +15,7 @@ mkdir $DEST_DIR/Course
 mkdir $DEST_DIR/font2d
 mkdir $DEST_DIR/Gui
 mkdir $DEST_DIR/Image
+mkdir $DEST_DIR/obj
 mkdir $DEST_DIR/Scene
 mkdir -p $DEST_DIR/Shaders/gles
 # Not required for iOS but lets us use the same glue file for iOS, Mac and Win
