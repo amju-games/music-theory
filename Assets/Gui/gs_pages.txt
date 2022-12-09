@@ -1,0 +1,70 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// GSPages
+// Shell around Pages 
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+top-bar-root
+// Num children
+4
+
+// Top bar with player avatar, name, score, etc
+
+// Bar bg
+// Element type
+gui-rect
+// Element name
+bar-bg
+// pos (coords are -1..1)
+-0.95, 0.95
+// size
+1.9, 0.2
+// colour
+F5D1F5
+// corner radius
+0.125
+// Corner flags 0 = all rounded
+0
+
+// Avatar in Circle
+gui-image
+pencil
+-0.9, 0.925
+0.2, 0.2
+Image/avatar-example1.png
+
+
+// Player name
+// Element type
+gui-text
+// Element name
+player-name
+// pos (coords are -1..1)
+-0.65, 0.95
+// size
+1.0, 0.2
+// Text
+Ella
+// Font name, size
+arial, 2.0,  fgcol=000000
+
+
+// Player score
+// Element type
+gui-text
+// Element name
+player-score
+// pos (coords are -1..1)
+0.60, 0.9
+// size
+0.3, 0.1
+// Text
+25600
+// Font name, size
+arial, 1.0, right, fgcol=000000

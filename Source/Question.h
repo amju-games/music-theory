@@ -7,7 +7,7 @@
 #include <vector>
 #include <RCPtr.h>
 #include <StringUtils.h>
-#include "Page.h"
+#include "MusicalTermsDictionary.h"
 
 namespace Amju
 {
@@ -27,7 +27,9 @@ namespace Amju
     // TODO what about testing
     virtual std::string GetQuestionString();
 
-    virtual bool Load(File*); // load question strings
+    //virtual bool Load(File*); // load question strings
+
+    void AddQuestionString(const std::string& qs);
 
     virtual void MakeQuestion() = 0;
 
@@ -38,12 +40,13 @@ namespace Amju
   class MultiChoice
   {
   public:
-    int GetCorrectAnswer(); // or index into answers
-    bool IsAnswerCorrect(int n); // index into answers
+    int GetCorrectAnswer() const; // or index into answers
+    bool IsAnswerCorrect(int n) const; // index into answers
     void AddAnswer(const std::string& answer);
     void SetCorrectAnswer(int correct);
     int GetNumAnswers() const;
     void Shuffle();
+    const std::string& GetAnswer(int n) const;
 
   private:
     Strings m_answers;
@@ -65,17 +68,7 @@ namespace Amju
   };
 
   // TODO split into files
-  class MusicalTermsDictionary : public RefCounted
-  {
-  public:
-    bool Load(const std::string& filename);
-    int GetNumTerms() const;
-    void GetTerm(int i, std::string* english, std::string* foreign) const;
-    void AddTerm(const std::string& english, const std::string& foreign);
 
-  private:
-    std::vector<std::pair<std::string, std::string>> m_dictionary;
-  };
 
   class MusicalTermQuestion : public MultiChoiceQuestion
   {

@@ -5,7 +5,7 @@
 
 #include <GuiElement.h>
 #include <RCPtr.h>
-#include "GSBase.h"
+#include "Question.h"
 
 namespace Amju
 {
@@ -18,20 +18,32 @@ namespace Amju
 // TODO Decouple from GUI:
 // Pages talk to a GUI, but don't own it or load it directly. This is to keep the pages
 //  separate from how they look, so we can present them differently, and unit test them.
+// OK, QUESTION is the non-GUI question, Page presents a question in a GUI.
 
+// Maybe have a "GuiMaker" which makes the Gui for a given question type
 
-// Just for now, make Pages derived from GSBase
-class Page : public GSBase
+// We want to display one page, then another, with some transition between them, e.g.
+//  swipe old page off screen.
+
+class Page : public RefCounted
 {
 public:
   // Load GUI, and question info independently?
-  virtual void OnActive() override;
+  virtual void OnActive();
+  virtual void Draw();
+  virtual void Update();
+
+//  void SetQuestion(Question* question); // ?
 
 protected:
-  virtual bool LoadQuestion() = 0;
+//?  virtual bool LoadQuestion() = 0;
 
 protected:
   // Base gui file name - we append current orientation and reload if the orientation changes.
   std::string m_guiName;
+
+  PGuiElement m_gui;
+
+  RCPtr<Question> m_question;
 };
 }

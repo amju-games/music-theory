@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <numeric> // iota()
 #include <random>
+#include <File.h>
 #include "Question.h"
 
 namespace Amju
@@ -14,6 +15,12 @@ std::string Question::GetQuestionString()
   return m_questionStrings[0]; // TODO TEMP TEST
 }
 
+void Question::AddQuestionString(const std::string& qs)
+{
+  m_questionStrings.push_back(qs);
+}
+
+/*
 bool Question::Load(File* f)
 {
   int numQs = 0;
@@ -36,18 +43,24 @@ bool Question::Load(File* f)
 
   return true;
 }
+*/
+
+const std::string& MultiChoice::GetAnswer(int n) const
+{
+  return m_answers[n];
+}
 
 void MultiChoice::SetCorrectAnswer(int correct)
 {
   m_correctAnswer = correct;
 }
 
-int MultiChoice::GetCorrectAnswer()
+int MultiChoice::GetCorrectAnswer() const
 {
   return m_correctAnswer;
 }
 
-bool MultiChoice::IsAnswerCorrect(int n)
+bool MultiChoice::IsAnswerCorrect(int n) const
 {
   return n == m_correctAnswer;
 }
@@ -62,46 +75,6 @@ int MultiChoice::GetNumAnswers() const
   return static_cast<int>(m_answers.size());
 }
 
-
-bool MusicalTermsDictionary::Load(const std::string& filename)
-{
-  File f;
-  if (!f.OpenRead(filename))
-  {
-    return false;
-  }
-  std::string line;
-  while (f.GetDataLine(&line))
-  {
-    // Split English/foreign strings 
-    Strings strs = Split(line, '=');
-    if (strs.size() != 2)
-    {
-      // Not sure whether to make this an error
-      f.ReportError("Finished loading dictionary: " + line);
-      break;
-    }
-	AddTerm(strs[0], strs[1]);
-  }
-  return true;
-}
-
-void MusicalTermsDictionary::AddTerm(const std::string& english, const std::string& foreign)
-{
-	m_dictionary.push_back(std::make_pair(english, foreign));
-}
-
-int MusicalTermsDictionary::GetNumTerms() const
-{
-  return m_dictionary.size();
-}
-
-void MusicalTermsDictionary::GetTerm(int i, std::string* english, std::string* foreign) const
-{
-  const auto& p = m_dictionary[i];
-  *english = p.first;
-  *foreign = p.second;
-}
 
 std::string MusicalTermQuestion::GetMusicalTermText()
 {
@@ -149,7 +122,6 @@ MultiChoice MultiChoiceQuestion::GetMultiChoiceAnswers()
 {
   return m_answers;
 }
-
 
 }
 

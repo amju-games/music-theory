@@ -78,6 +78,15 @@
     <ClCompile Include="..\..\..\..\Source\Tests\CatchTestMain.cpp">
       <Filter>CatchTests</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GSPages.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\PageMusicalTerm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MusicalTermsDictionary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -145,6 +154,15 @@
     <ClInclude Include="..\..\..\..\Source\GSMusicalTerms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GSPages.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\PageMusicalTerm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MusicalTermsDictionary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Docs\TODO.txt" />
@@ -170,6 +188,12 @@
       <Filter>Assets\Gui</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-2.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_pages.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_musical_term.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
   </ItemGroup>

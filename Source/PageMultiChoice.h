@@ -36,17 +36,5 @@ namespace Amju
   protected:
 
   };
-
-
-  // TODO TEMP TEST
-  // Sketching out how this would work
-  class PageMusicalTerm : public PageMultiChoice
-  {
-  public:
-    
-
-  protected:
-
-  };
 }
 

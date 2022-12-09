@@ -7,10 +7,19 @@ namespace Amju
 {
 void Page::OnActive()
 {
-  GSBase::OnActive();
   // TODO append orientation to gui name
-  m_gui = LoadGui("Gui/" + m_guiName + ".txt");
+  m_gui = LoadGui("Gui/page_" + m_guiName + ".txt");
 
+}
+
+void Page::Draw()
+{
+  m_gui->Draw();
+}
+
+void Page::Update()
+{
+  m_gui->Update();
 }
 }
 

@@ -1,0 +1,13 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Musical terms
+// version
+1
+
+Sweetly=Dolce
+Loud=Forte
+Soft=Piano
+In the style of a march=Alla marcia
+Walking pace=Andante
+

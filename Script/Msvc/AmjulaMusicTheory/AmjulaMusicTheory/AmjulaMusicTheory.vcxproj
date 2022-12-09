@@ -263,6 +263,7 @@
     <ClCompile Include="..\..\..\..\Source\BassPlayMidi.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSMusicalTerms.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSPages.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSShowLineDrawing.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSShowMusicScore.cpp" />
@@ -271,7 +272,9 @@
     <ClCompile Include="..\..\..\..\Source\GuiLineDrawing.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicKb.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MusicalTermsDictionary.cpp" />
     <ClCompile Include="..\..\..\..\Source\Page.cpp" />
+    <ClCompile Include="..\..\..\..\Source\PageMusicalTerm.cpp" />
     <ClCompile Include="..\..\..\..\Source\Question.cpp" />
     <ClCompile Include="..\..\..\..\Source\ScoreBuilder.cpp" />
     <ClCompile Include="..\..\..\..\Source\Startup.cpp">
@@ -293,6 +296,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
     <ClInclude Include="..\..\..\..\Source\GSMusicalTerms.h" />
+    <ClInclude Include="..\..\..\..\Source\GSPages.h" />
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowMusicScore.h" />
@@ -301,9 +305,11 @@
     <ClInclude Include="..\..\..\..\Source\GuiLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
+    <ClInclude Include="..\..\..\..\Source\MusicalTermsDictionary.h" />
     <ClInclude Include="..\..\..\..\Source\Page.h" />
     <ClInclude Include="..\..\..\..\Source\PageDrawOnStave.h" />
     <ClInclude Include="..\..\..\..\Source\PageMultiChoice.h" />
+    <ClInclude Include="..\..\..\..\Source\PageMusicalTerm.h" />
     <ClInclude Include="..\..\..\..\Source\PagePlayNotes.h" />
     <ClInclude Include="..\..\..\..\Source\PlayMidi.h" />
     <ClInclude Include="..\..\..\..\Source\Question.h" />
@@ -317,11 +323,13 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\gs_pages.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_play_notes.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_score.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_test_show_score.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\page_musical_term.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-2.txt" />
     <Text Include="..\..\..\..\Docs\TODO.txt" />

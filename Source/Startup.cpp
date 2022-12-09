@@ -26,10 +26,12 @@
 #include <Directory.h>
 #include <Font.h>
 #include <Game.h>
+#include <GuiRect.h>
 #include <EventPoller.h>
 #include <ObjMesh.h>
 #include <ResourceManager.h>
 #include <SoundManager.h>
+#include "GSPages.h"
 #include "GSPlayNotes.h"
 #include "GSShowLineDrawing.h"
 #include "GSShowMusicScore.h"
@@ -45,8 +47,8 @@
 namespace Amju
 {
 // Create global variable window info 
+//Amju::AmjuGLWindowInfo w(320, 550, false, "Amjula");
 Amju::AmjuGLWindowInfo w(480, 640, false, "Simplest");
-//Amju::AmjuGLWindowInfo w(640, 480, false, "Simplest");
 
 void ReportError(const std::string& str)
 {
@@ -80,6 +82,9 @@ void StartUpAfterCreateWindow()
   rm->AddLoader("obj", TextObjLoader);
 #endif
 
+  // Musical terms dictionary 
+  rm->AddLoader("dictionary", DictionaryLoader);
+
 #ifdef AMJU_USE_BASS
   // Set sound player
   SoundManager* sm = TheSoundManager::Instance();
@@ -90,6 +95,9 @@ void StartUpAfterCreateWindow()
   sm->SetImpl(bsp); 
 #endif
 
+  // Set image used for rounded rectangles
+  GuiRect::SetCornerImage("Image/corner.png");
+
   GuiLineDrawing::AddToFactory();
   GuiMusicKb::AddToFactory();
   GuiMusicScore::AddToFactory();
@@ -99,8 +107,8 @@ void StartUpAfterCreateWindow()
 //  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
 
-  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
-  
+//  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSPages::Instance());
 }
 }
 
