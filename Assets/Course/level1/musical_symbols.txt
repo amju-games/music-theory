@@ -1,7 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
-// Musical symbols for grade 1
+// Musical symbols, grade 1 level 1
 
 // version
 1
@@ -22,17 +22,17 @@
 // Slur
 // 8va/ 8vb
 
-crotchet-down,   1.9, 0.2  =$$$110
-minim-down,      1.9, 0.2  =$$$111
-crotchet-up,     1.9, 0    =$$$110
-minim-up,        1.9, 0    =$$$111
-semibreve,       1.9, 0.2  =$$$112
-treble-clef, 1.75, 0   =$$$24
-bass-clef, 1.85, 0     =$$$25
-mp, 1.8, 0.2    =$$$28
-mf, 1.8, 0.2    =$$$29
-f,  1.9, 0.2    =$$$30
-ff, 1.8, 0.2    =$$$31
-pp, 1.8, 0.2    =$$$33
-p,  1.9, 0.2    =$$$34
+crotchet-down,   1.9, 0.2  =$$$110=@@@This is called a crotchet!
+minim-down,      1.9, 0.2  =$$$111=@@@This is called a minim!
+crotchet-up,     1.9, 0    =$$$110=@@@This is a crotchet!
+minim-up,        1.9, 0    =$$$111=@@@This is a minim!
+semibreve,       1.9, 0.2  =$$$112=@@@This is a semibreve!
+treble-clef, 1.75, 0   =$$$24=@@@This is a treble clef!
+bass-clef, 1.85, 0     =$$$25=@@@This is a bass clef!
+mp, 1.8, 0.2    =$$$28=@@@This means <i>mezzo piano</i> -- moderately soft!
+mf, 1.8, 0.2    =$$$29=@@@This means <i>mezzo forte</i> -- moderately loud!
+f,  1.9, 0.2    =$$$30=@@@This means <i>forte</i> -- loud!
+ff, 1.8, 0.2    =$$$31=@@@This means <i>fortissimo</i> -- very loud!
+pp, 1.8, 0.2    =$$$33=@@@This means <i>pianissimo</i> -- very soft!
+p,  1.9, 0.2    =$$$34=@@@This means <i>piano</i> -- soft!
 

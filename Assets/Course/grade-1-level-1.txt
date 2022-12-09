@@ -39,7 +39,7 @@ page-symbol-kb=Course/level1/play-note-treb-clef.txt=-0.9=$$$98
 // ID
 notes-and-rests-level1
 // Localised display name
-Note lengths 1
+@@@Note Lengths 1
 // Initially locked?
 // Topics unlocked by this one
 notes-on-bass-clef-level1
@@ -75,7 +75,7 @@ page-symbol-kb=Course/level1/play-note-bass-clef.txt=0.8=$$$98
 // ID
 musical-terms-symbols-level1
 // Localised display name
-Musical terms and Symbols 1
+@@@Musical Terms and Symbols 1
 // Initially locked?
 // Topics unlocked by this one
 $$$empty
