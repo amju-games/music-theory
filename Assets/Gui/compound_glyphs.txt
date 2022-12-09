@@ -5,7 +5,19 @@
 
 // (No version number for this file type)
 
-note-minim-up = note-minim, 0, 0 ; quad, 0.205, 0.495,  0.205, 0.825,  0.17, 0.825,  0.17, 0.475
+crotchet-up = note-solid, 0, 0 ; quad, 0.205, 0.495,  0.205, 0.825,  0.17, 0.825,  0.17, 0.475
+dotted-crotchet-up = note-solid, 0, 0 ; quad, 0.205, 0.495,  0.205, 0.825,  0.17, 0.825,  0.17, 0.475 ; ., 0.275, 0.00
+dotted-crotchet-up-raised-dot = note-solid, 0, 0 ; quad, 0.205, 0.495,  0.205, 0.825,  0.17, 0.825,  0.17, 0.475 ; ., 0.275, 0.03
 
-note-minim-down = note-minim, 0, 0 ; quad, 0.03, 0.125,  0.03, 0.475,  0.0, 0.455,  0.0, 0.125
+crotchet-down = note-solid, 0, 0 ; quad, 0.03, 0.125,  0.03, 0.475,  0.0, 0.455,  0.0, 0.125
+dotted-crotchet-down = note-solid, 0, 0 ; quad, 0.03, 0.125,  0.03, 0.475,  0.0, 0.455,  0.0, 0.125 ; ., 0.275, 0.00
+dotted-crotchet-down-raised-dot = note-solid, 0, 0 ; quad, 0.03, 0.125,  0.03, 0.475,  0.0, 0.455,  0.0, 0.125 ; ., 0.275, 0.03
+
+minim-up = note-minim, 0, 0 ; quad, 0.205, 0.495,  0.205, 0.825,  0.17, 0.825,  0.17, 0.475
+dotted-minim-up = note-minim, 0, 0 ; quad, 0.205, 0.495,  0.205, 0.825,  0.17, 0.825,  0.17, 0.475 ; ., 0.275, 0.00
+dotted-minim-up-raised-dot = note-minim, 0, 0 ; quad, 0.205, 0.495,  0.205, 0.825,  0.17, 0.825,  0.17, 0.475 ; ., 0.275, 0.03
+
+minim-down = note-minim, 0, 0 ; quad, 0.03, 0.125,  0.03, 0.475,  0.0, 0.455,  0.0, 0.125
+dotted-minim-down = note-minim, 0, 0 ; quad, 0.03, 0.125,  0.03, 0.475,  0.0, 0.455,  0.0, 0.125 ; ., 0.275, 0.0
+dotted-minim-down-raised-dot = note-minim, 0, 0 ; quad, 0.03, 0.125,  0.03, 0.475,  0.0, 0.455,  0.0, 0.125 ; ., 0.275, 0.03
 

@@ -26,8 +26,8 @@ linear
 music-score
 // Name, Position, Size
 music-score
--0.0, 0
-.5, .5
+-0.5, 0
+.75, .75
 // Colour
 000000
 
@@ -35,8 +35,8 @@ music-score
 stave, -0.5, 0, 20, .5
 //treble-clef, 0, 0,   0.5, 0.5
 
-//crotchet, 0.6, 0
-//., 0.875, 0.03
+crotchet, 0.6, 0
+., 0.875, 0.03
 // NOTE WITH STEMS
 //note-minim, 1.0, 0
 //tail, 1.0, 0
@@ -49,11 +49,13 @@ stave, -0.5, 0, 20, .5
 
 // NOTE WITH STEMS
 
-note-minim-up, 1.0, -0.05,   0.5, 0.5
-note-minim-up, 1.5, 0.0 ,    0.5, 0.5
-note-minim-up, 2.0, 0.05 ,   0.5, 0.5
-note-minim-up, 2.5, 0.1 ,    0.5, 0.5
-note-minim-down, 3.0, 0.25,  0.5, 0.5
+minim-up, 1.0, -0.05,   0.5, 0.5
+dotted-minim-up-raised-dot, 1.5, 0.0 ,    0.5, 0.5
+dotted-minim-up, 2.0, 0.05 ,   0.5, 0.5
+minim-up, 2.5, 0.1 ,    0.5, 0.5
+dotted-crotchet-down, 3.0, 0.25,  0.5, 0.5
+dotted-minim-down, 3.5, 0.25,  0.5, 0.5
+dotted-minim-down-raised-dot, 4.0, 0.25,  0.5, 0.5
 
 note-minim, 0.0, 0.0
 //// stem-up
@@ -62,7 +64,7 @@ quad, 0.205, 0.495,  0.205, 0.825,  0.175, 0.825,  0.175, 0.475
 //// stem-down
 quad, 0.03, 0.125,  0.03, 0.475,  0.0, 0.455,  0.0, 0.125
 
-end
+//end
 
 // Beams etc tests
 // 4 points, defined in anti-clockwise (CCW) order
