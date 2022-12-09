@@ -43,8 +43,8 @@ public:
 
   // Get/Inc/Dec persistent hint count
   int GetHints(); // not const, may load config file
-  void IncHints();
-  void DecHints();
+  // Add to persistent hint count: can be negative.
+  void AddHints(int addition);
 
 private:
   std::map<std::string, RCPtr<ConfigFile>> m_configFiles;

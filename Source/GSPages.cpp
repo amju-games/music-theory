@@ -337,7 +337,7 @@ void GSPages::OnHint()
     return;
   }
 
-  profile->DecHints();
+  profile->AddHints(-1);
   ShowHints();
 
   m_page->OnHint(); // show context-sensitive hint

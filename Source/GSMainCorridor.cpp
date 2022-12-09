@@ -91,7 +91,8 @@ void GSMainCorridor::Load3dForTopics()
   Assert(root);
 
   // Get user config, so we know which topics have been unlocked.
-  ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
+  // TODO
+  //ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
 
   Course* course = GetCourse();
   Assert(course);

@@ -117,21 +117,18 @@ int UserProfile::GetHints()
   return userConfig->GetInt(HINTS_AVAILABLE_KEY, DEFAULT_HINTS_AVAIL);
 }
 
-void UserProfile::IncHints()
+void UserProfile::AddHints(int add)
 {
   auto userConfig = GetConfigForTopic(KEY_GENERAL);
   int hints = userConfig->GetInt(HINTS_AVAILABLE_KEY, DEFAULT_HINTS_AVAIL);
-  hints++;
+  hints += add;
+  if (hints < 0)
+  {
+    Assert(0); // -ve hints not allowed
+    hints = 0;
+  }
   userConfig->SetInt(HINTS_AVAILABLE_KEY, hints);
   Save();
 }
 
-void UserProfile::DecHints()
-{
-  auto userConfig = GetConfigForTopic(KEY_GENERAL);
-  int hints = userConfig->GetInt(HINTS_AVAILABLE_KEY, DEFAULT_HINTS_AVAIL);
-  hints--;
-  userConfig->SetInt(HINTS_AVAILABLE_KEY, hints);
-  Save();
-}
 }
