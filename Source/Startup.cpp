@@ -351,9 +351,12 @@ void StartUpAfterCreateWindow()
 
   SetUpGui();
 
-  // Load the course which this app presents to the user: we only expect there to 
-  //  be one instance. We could potentially load this depending on config/user choice.
-  Course* course = (Course*)TheResourceManager::Instance()->GetRes("Course/grade-1-level-1.txt.course");
+  // Load the course which this app presents to the user: we only expect 
+  //  there to be one instance. But we load different course data depending
+  //  on the player's level.
+  // TODO Better if Course is not a Resource then?
+  Course* course = (Course*)TheResourceManager::Instance()->GetRes(
+    "Course/grade-1-level-1.txt.course"); // TODO Const
   SetCourse(course);
 
   SetInitialState();
