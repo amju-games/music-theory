@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\MakeScore\Bar.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Beam.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\Clef.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Consts.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Flag.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Glyph.cpp" />

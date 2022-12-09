@@ -33,6 +33,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "Clef.h"
 #include "MakeScore.h"
 #include "Pitch.h"
 #include "TimeSig.h"
@@ -92,6 +93,10 @@ void MakeScore::AddTokens()
     {
       AddBeam(s);
     }
+    else if (IsClef(s))
+    {
+      AddClef(s);
+    }
     else if (IsTimeSig(s))
     {
       AddTimeSig(s);
@@ -116,7 +121,17 @@ void MakeScore::AddTokens()
       m_lastTimeValToken = s;
       AddGlyph();
     }
+    else
+    {
+      std::cout << "Unrecognised: " << s << "\n"; // REPORT ERROR TODO
+      return;
+    }
   }
+}
+
+void MakeScore::AddClef(const std::string& s)
+{
+  // TODO Current stave number
 }
 
 void MakeScore::AddGlyph()

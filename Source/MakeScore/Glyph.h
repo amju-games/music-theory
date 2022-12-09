@@ -35,7 +35,8 @@ struct Glyph : public IGlyph
     pitch = pitch_;
   }
 
-  void SetStemUp(bool upNotDown) { m_stemUp = upNotDown; }
+  // Set stave line for this glyph (notes only)
+  void SetStaveLine(int staveLine) { m_staveLine = staveLine; }
 
   void SetTimeVal(float timeval_) { timeval = timeval_; }
 
@@ -74,7 +75,5 @@ struct Glyph : public IGlyph
   // Points to tie - we are the RIGHT glyph of the tie
   Tie* m_tieRight = nullptr;
 
-  // Stem direction, which is based on stave position, but overridden for 
-  //  beamed notes.
-  bool m_stemUp = false;
+  int m_staveLine = 2;
 };

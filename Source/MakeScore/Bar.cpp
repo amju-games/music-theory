@@ -94,10 +94,7 @@ void Bar::CalcGlyphY(Glyph* gl, int pitch) const
     float y = static_cast<float>(staveLine) * 0.05f;
     // TODO Offset y for stave > 1
     gl->y = y;
-    // Stem dir: TODO Override for beamed notes. For middle stave line, 
-    //  stick with last choice?
-    bool stemUp = (staveLine < 5);
-    gl->SetStemUp(stemUp);
+    gl->SetStaveLine(staveLine);
     break;
   }
   case StaveType::STAVE_TYPE_DOUBLE:

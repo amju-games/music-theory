@@ -10,14 +10,19 @@
 #include <string>
 
 void Trim(std::string& s);
+
 bool Contains(const std::string& s, char c);
+
+bool Contains(const std::string& containing, const std::string& substr);
+
 std::string Remove(std::string& s, char c);
 
 // Strip " char from beginning and end of string
 void StripQuotes(std::string& s);
 
 bool IsQuote(char c);
-// Like to_string, but chops trailing zeroes from floats
+
+// Like to_string(), but chops trailing zeroes from floats
 template <typename T> std::string Str(T f);
 
 std::string LineEnd(bool oneLine);

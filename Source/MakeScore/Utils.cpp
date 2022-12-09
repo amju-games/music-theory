@@ -14,7 +14,7 @@ float Interp(float f0, float f1, float t)
 
 bool IsBeam(const std::string& s)
 {
-  return Contains(s, '-') || Contains(s, '=');
+  return s == "-" || s == "=" || s == "--" || s == "==" | s == "-=" || s == "=-";
 }
 
 bool IsRest(const std::string& s)
@@ -37,6 +37,11 @@ void Trim(std::string& s)
 bool Contains(const std::string& s, char c)
 {
   return std::find(s.begin(), s.end(), c) != s.end();
+}
+
+bool Contains(const std::string& containing, const std::string& substr)
+{
+  return containing.find(substr) != std::string::npos;
 }
 
 std::string Remove(std::string& s, char c)

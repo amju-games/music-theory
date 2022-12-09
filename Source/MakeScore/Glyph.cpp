@@ -26,13 +26,19 @@ std::string Glyph::GetGlyphOutputStr(std::string s) const
   }
   else if (s != "sb")
   {
-    out += (m_stemUp ? "-up" : "-down");
+    bool stemUp = (m_staveLine < 5);
+    out += (stemUp ? "-up" : "-down");
   }
 
   if (dot)
   {
-    // TODO raised dot if glyph is on a line
-    out = "dotted-" + out + "-raised-dot";
+    out = "dotted-" + out;
+    // Raised dot if glyph is on a line
+    bool onLine = (m_staveLine % 2 == 0);
+    if (onLine)
+    {
+      out += "-raised-dot";
+    }
   }
   return out;
 }
@@ -80,6 +86,21 @@ std::string Glyph::ToString() const
 
   res += displayGlyphName + ", " + Str(x) + ", " + Str(y) +
     ", " + Str(scale) + ", " + Str(scale);
+  
+  // Add ledger lines - below
+  for (int s = m_staveLine; s < -1; s += 2)
+  {
+    float ledgerY = y - (s + 2) * 0.05f;
+    res += " ; ledger-w, " + Str(x) + ", " + Str(ledgerY) +
+      ", " + Str(scale) + ", " + Str(scale);
+  }
+  // Above
+  for (int s = m_staveLine; s > 9; s -= 2)
+  {
+    float ledgerY = y - (s - 10) * 0.05f;
+    res += " ; ledger-w, " + Str(x) + ", " + Str(ledgerY) +
+      ", " + Str(scale) + ", " + Str(scale);
+  }
 
   res += TimeAfter();
 
