@@ -153,6 +153,9 @@
     <ClCompile Include="..\..\..\..\Source\Dictionary.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\PageScoreMCQBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -277,6 +280,9 @@
     <ClInclude Include="..\..\..\..\Source\Dictionary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\PageScoreMCQBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Docs\TODO.txt" />
@@ -381,6 +387,9 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\music-score-bg.txt">
       <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\intervals.txt">
+      <Filter>Assets\Course</Filter>
     </Text>
   </ItemGroup>
 </Project>

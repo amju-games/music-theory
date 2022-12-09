@@ -57,6 +57,7 @@ void MusicalTermQuestion::MakeQuestion()
     if (i == correct)
     {
       m_musicalTerm = q;
+      m_questionStrings = { q };
     }
   }
 }

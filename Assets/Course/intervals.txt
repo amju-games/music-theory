@@ -6,10 +6,10 @@
 // version
 1
 
-123=Major 3rd
-456=Perfect 5th
-789=Major 7th
-abc=Major 2nd
+treble-clef, 0.25, 0;semibreve, 1.0, -0.05;semibreve, 1.5, 0.05=Major 3rd
+bass-clef, 0.25, 0;semibreve, 1.0, -0.05;semibreve, 1.5, 0.05=Perfect 5th
+treble-clef, 0.25, 0;semibreve, 1.0, -0.05;semibreve, 1.5, 0.05=Major 7th
+bass-clef, 0.25, 0;semibreve, 1.0, -0.05;semibreve, 1.5, 0.05=Major 2nd
 
 
 

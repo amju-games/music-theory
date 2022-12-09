@@ -67,7 +67,7 @@ music-score-bg.txt
 
 music-score
 // Name, Position
-score
+music-score
 -0.5, 0.1
 // Scale - affects pos, TODO
 .5, .5
@@ -76,7 +76,6 @@ score
 000000
 // Glyphs start here
 stave, 0, 0, 2.0, 1
-treble-clef, 0.25, 0
 bar-line, 0, 0
 bar-line, 1.98, 0
 end

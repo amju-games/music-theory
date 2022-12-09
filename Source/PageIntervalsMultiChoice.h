@@ -3,16 +3,18 @@
 
 #pragma once
 
-#include "PageMultiChoice.h"
+#include "PageScoreMCQBase.h"
 
 namespace Amju
 {
-class PageIntervalsMultiChoice : public PageMultiChoice
+// * PageIntervalsMultiChoice *
+// Show/play interval to user, who then picks the correct multi-choice button.
+// Hint should count the degrees, so quite different to other score/MCQ pages.
+class PageIntervalsMultiChoice : public PageScoreMCQBase
 {
 public:
   PageIntervalsMultiChoice();
   static const char* NAME;
-  virtual void OnActive() override;
 };
 }
 
