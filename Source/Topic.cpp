@@ -73,19 +73,19 @@ bool Topic::Load(File* f)
     return false;
   }
 
-  std::string line;
-  if (!f->GetDataLine(&line))
-  {
-    f->ReportError("Expected page type name");
-    return false;
-  }
-
-  Strings strs = Split(line, ',');
-  // Allow single string, for page type name;
-  // 2nd string = dictionary for page to load
-
   for (int i = 0; i < numPages; i++)
   {
+    std::string line;
+    if (!f->GetDataLine(&line))
+    {
+      f->ReportError("Expected page type name");
+      return false;
+    }
+
+    Strings strs = Split(line, ',');
+    // Allow single string, for page type name;
+    // 2nd string = dictionary for page to load
+
     // TODO Options, number of repeats, etc.
     RCPtr<Page> page = ThePageFactory::Instance()->Create(strs[0]);
     if (!page)
