@@ -27,7 +27,7 @@ line-drawing-zig-zag
 // End width
 0.1
 // Colour: (start colour, end colour?)
-808080
+4E525A
 // Points
 stroke-rubout.txt
 
