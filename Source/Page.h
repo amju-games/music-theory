@@ -79,7 +79,8 @@ protected:
   void SetUpQuestionUI();
 
 protected:
-  // Base gui file name - we append current orientation and reload if the orientation changes.
+  // Base gui file name - we append current orientation 
+  //  and reload if the orientation changes.
   std::string m_guiName;
 
   // Dictionary to load: question selects an entry from this.

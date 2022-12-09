@@ -12,7 +12,7 @@ namespace Amju
 class MultiChoice
 {
 public:
-  int GetCorrectAnswer() const; // or index into answers
+  int GetCorrectAnswer() const; // index into answers
   bool IsAnswerCorrect(int n) const; // index into answers
   void AddAnswer(const std::string& answer);
   void SetCorrectAnswer(int correct);

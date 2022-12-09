@@ -11,9 +11,8 @@
 
 namespace Amju
 {
-// Base class for questions, the logical, non-presentation representation of questions
-//  we ask the user. So should be completely testable... right?
-
+// Base class for questions, the logical, non-presentation representation 
+//  of questions we ask the user. So should be completely testable... right?
 class Question : public RefCounted
 {
 public:
