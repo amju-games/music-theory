@@ -93,12 +93,12 @@ bool Topic::Load(File* f)
       f->ReportError("Unexpected page name");
       return false;
     }
-    if (strs.size() > 1)
-    {
-      // 2nd string is dictionary for the page
-      page->SetDictionaryName(strs[1]);
-    }
-    m_pages.push_back(page);
+	// Topic pages must specify the dictionary to use, as it's no longer hard coded anywhere.
+	Assert(strs.size() > 1);
+	// 2nd string is dictionary for the page
+    page->SetDictionaryName(strs[1]);
+
+	m_pages.push_back(page);
   }
   return true;
 }

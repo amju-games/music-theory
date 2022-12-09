@@ -47,16 +47,16 @@ Dotted notes
 quavers-semiquavers, rests
 // Pages
 10
-page-symbol-text
-page-symbol-text
-page-symbol-text
-page-symbol-text
-page-symbol-text
-page-symbol-text
-page-symbol-text
-page-symbol-text
-page-symbol-text
-page-symbol-text
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
 
 
 // Topic
@@ -70,16 +70,16 @@ Quavers and semiquavers
 none
 // Pages
 10
-page-symbol-text
-page-symbol-text
-page-symbol-text
-page-symbol-text
-page-symbol-text
-page-symbol-text
-page-symbol-text
-page-symbol-text
-page-symbol-text
-page-symbol-text
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
+page-symbol-text, Course/crotchet_minim_semibreve.txt
 
 // Topic
 // 1b
@@ -114,7 +114,7 @@ Bar lines
 none
 // Pages
 1
-page-symbol-text
+page-symbol-text, Course/crotchet_minim_semibreve.txt
 
 
 
@@ -173,7 +173,7 @@ Notes on the treble clef
 none
 // Pages
 1
-page-symbol-text
+page-symbol-text, Course/crotchet_minim_semibreve.txt
 //page-play-notes
 
 
