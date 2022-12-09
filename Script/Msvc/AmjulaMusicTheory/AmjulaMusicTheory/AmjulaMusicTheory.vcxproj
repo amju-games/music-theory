@@ -269,6 +269,7 @@
     <ClCompile Include="..\..\..\..\Source\GSShowMusicScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSTestShowScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSUserDraw.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSUserDrawSave.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiLineDrawing.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicKb.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
@@ -302,6 +303,7 @@
     <ClInclude Include="..\..\..\..\Source\GSShowMusicScore.h" />
     <ClInclude Include="..\..\..\..\Source\GSTestShowScore.h" />
     <ClInclude Include="..\..\..\..\Source\GSUserDraw.h" />
+    <ClInclude Include="..\..\..\..\Source\GSUserDrawSave.h" />
     <ClInclude Include="..\..\..\..\Source\GuiLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
@@ -330,8 +332,11 @@
     <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_musical_term.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\stroke-cross-1.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\stroke-cross-2.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-2.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\stroke-tick-1.txt" />
     <Text Include="..\..\..\..\Docs\TODO.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
