@@ -40,10 +40,18 @@
 #include "SceneGraph.h"
 #include "ParticleEffect2d.h"
 
+namespace
+{
+const char* LEVEL_KEY = "level";
+}
+
 namespace Amju
 {
 GSMainCorridor::GSMainCorridor()
 {
+  m_levelNum = TheGameConfigFile::Instance()->GetInt(LEVEL_KEY, 1);
+  LoadCourse();
+
   m_guiFilename = "Gui/gs_main_menu_corridor.txt";
   m_sceneFilename = "Scene/corridor-scene-" + ToString(m_levelNum) + ".txt";
 
@@ -272,6 +280,11 @@ void GSMainCorridor::SetLevel(int levelNum)
   bool wentUpNotDown = (levelNum > m_levelNum);
 
   m_levelNum = levelNum;
+
+  // Persist level number
+  auto gcf = TheGameConfigFile::Instance();
+  gcf->SetInt(LEVEL_KEY, m_levelNum);
+  gcf->Save();
 
   // Load course for this level
   LoadCourse();
