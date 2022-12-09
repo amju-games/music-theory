@@ -21,7 +21,7 @@ Notes on the Treble Clef
 4
 // Initially locked?
 // Topics unlocked by this one
-none
+notes-and-rests
 // Pages
 2
 // Normally, pages are defined as a vec of strings:

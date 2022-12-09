@@ -64,6 +64,8 @@ protected:
   //  pages have all questions used, return false. 
   bool FindPageWithUnusedQuestions();
 
+  void SetFinalScore();
+
 protected:
   RCPtr<Page> m_page;
 

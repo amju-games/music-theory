@@ -110,13 +110,14 @@ bool GSMainCorridor::LoadTappables()
 
 void GSMainCorridor::Load3dForTopics()
 {
+  const float X_OFFSET = -DISTANCE_BETWEEN_DOORS * 0.5f;
+
   // Get root node for adding nodes - TODO SHOULDN'T BE CAMERA
   SceneNode* root = GetCamera();
   Assert(root);
 
   // Get user config, so we know which topics have been unlocked.
-  // TODO
-  //ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
+  ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
 
   Course* course = GetCourse();
   Assert(course);
@@ -124,12 +125,25 @@ void GSMainCorridor::Load3dForTopics()
 
   m_doors.clear();
 
+  // Find the last locked door, so we can put it in shadow.
+  int lastUnlocked = 0;
+  bool allUnlocked = true;
+
   for (int i = 0; i < numTopics; i++)
   {
-    //Topic* topic = course->GetTopic(i);
+    Topic* topic = course->GetTopic(i);
+    Assert(topic);
 
     // TODO add something to locked topics so we can see it's locked
-    //bool unlocked = (i == 0) || config->Exists(KEY_TOPIC_UNLOCKED + ToString(i));
+    bool unlocked = (i == 0) || config->Exists(KEY_TOPIC_UNLOCKED + topic->GetId());
+    if (unlocked)
+    {
+      lastUnlocked = i;
+    }
+
+    // Why can't we do this?
+    //   allUnlocked &&= unlocked;
+    allUnlocked = allUnlocked && unlocked;
 
     // TODO Load from a list of scene files; each one has a locked and
     //  unlocked variety.
@@ -143,7 +157,6 @@ void GSMainCorridor::Load3dForTopics()
 
     // Translate this node
     Matrix m;
-    const float X_OFFSET = -DISTANCE_BETWEEN_DOORS * 0.5f;
 
     // Camera is looking down the x axis, so we translate each piece of the 
     //  corridor in z... TODO make this translation automatically at
@@ -154,6 +167,20 @@ void GSMainCorridor::Load3dForTopics()
 
     root->AddChild(node);
   }
+
+  // Position shadow to the right of the last unlocked door.
+  // If all unlocked, allow player to go up the stairs.
+  PSceneNode shadow = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE)->GetNodeByName("corridor-shadow");
+  Assert(shadow);
+  Matrix m;
+  m.Translate(Vec3f(0, 0, X_OFFSET + lastUnlocked * -DISTANCE_BETWEEN_DOORS));
+  m *= shadow->GetLocalTransform();
+  shadow->SetLocalTransform(m);
+}
+
+bool GSMainCorridor::IsLevelPassed() const
+{
+  return true;
 }
 
 void GSMainCorridor::OnDeactive()
@@ -348,15 +375,20 @@ void GSMainCorridor::GoToTopic()
 bool GSMainCorridor::IsTopicUnlocked() const
 {
   // TODO for dev
-  return true;
+////  return true;
 
   auto profile = TheUserProfile();
   ConfigFile* config = profile->GetConfigForTopic(KEY_TOPICS);
   int currentTopic = profile->GetCurrentTopic();
 
+  Course* course = GetCourse();
+  Assert(course);
+  Topic* topic = course->GetTopic(currentTopic);
+  Assert(topic);
+
   bool unlocked = 
     (currentTopic == 0) ||
-    config->Exists(KEY_TOPIC_UNLOCKED + ToString(currentTopic));
+    config->Exists(KEY_TOPIC_UNLOCKED + topic->GetId());
 
   return unlocked;
 }

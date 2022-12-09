@@ -41,6 +41,8 @@ public:
 
   void AddTopicThisUnlocks(const std::string& unlocks);
 
+  const std::vector<std::string>& GetTopicsThisUnlocks() const;
+
   // Called when user successfully completes this topic - which we expect will 
   //  unlock other topics
   void OnCompleted();

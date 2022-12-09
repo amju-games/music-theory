@@ -36,10 +36,9 @@ public:
   void AddToScore(int addition);
 
   // Set score for the current topic.
-  // Not persistent, is added once to persistent score.
   void SetTopicScore(int topicScore);
-  int GetTopicScore() const;
-  void AddTopicScoreToPersistentScore();
+  int GetCurrentTopicScore() const;
+  int GetBestTopicScore(const std::string& topicId) const;
 
   // Get/Inc/Dec persistent hint count
   int GetHints(); // not const, may load config file

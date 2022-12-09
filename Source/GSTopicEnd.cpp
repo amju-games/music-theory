@@ -4,9 +4,12 @@
 #include <Game.h>
 #include <GuiText.h>
 #include <MessageQueue.h>
+#include "Consts.h"
+#include "Course.h"
 #include "GSMainCorridor.h"
 #include "GSTopicEnd.h"
 #include "NumUpdate.h"
+#include "Topic.h"
 #include "UserProfile.h"
 
 namespace Amju
@@ -51,8 +54,27 @@ void GSTopicEnd::OnActive()
   
   auto profile = TheUserProfile();
 
-  m_topicScore = profile->GetTopicScore();
-  m_totalScore = profile->GetScore();
+  m_topicScore = profile->GetCurrentTopicScore();
+
+  // Unlock next topics if this topic has been passed.
+  const int PASS_MARK = 66; // TODO TEMP TEST
+  if (m_topicScore > PASS_MARK)
+  {
+    Course* course = GetCourse();
+    Assert(course);
+    Topic* topic = course->GetTopic(profile->GetCurrentTopic());
+    Assert(topic);
+    const std::vector<std::string>& unlocks = topic->GetTopicsThisUnlocks();
+    int n = unlocks.size();
+    for (int i = 0; i < n; i++)
+    {
+      std::string id = unlocks[i];
+      profile->GetConfigForTopic(KEY_TOPICS)->SetInt(KEY_TOPIC_UNLOCKED + id, 1);
+    }
+    profile->Save();
+  }
+
+  m_totalScore = 0; // profile->GetScore();
 
   // Set comment about score etc
   IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "comment-text"));
@@ -66,7 +88,7 @@ void GSTopicEnd::OnActive()
 
   // Add topic score to persistent total score now, but animate the
   //  transfer of numbers, and add to hints over time.
-  profile->AddTopicScoreToPersistentScore();
+//////  profile->AddTopicScoreToPersistentScore();
 
   // Get initial hints, animate additions
   m_hints = profile->GetHints();

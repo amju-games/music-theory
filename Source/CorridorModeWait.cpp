@@ -91,7 +91,8 @@ std::cout << "At lowest level, so not going down.\n";
     return;
   }
 
-  if (m_currentTopicScrolledTo >= numTopics)
+  if (   m_currentTopicScrolledTo >= numTopics
+      && gsmc->IsLevelPassed())
   {
     // Go to next level
     int level = gsmc->GetLevel();

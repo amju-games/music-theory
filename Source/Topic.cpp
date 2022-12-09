@@ -108,6 +108,11 @@ bool Topic::Load(File* f)
   return true;
 }
 
+const std::vector<std::string>& Topic::GetTopicsThisUnlocks() const
+{
+  return m_unlocks;
+}
+
 int Topic::GetNumPages() const
 {
   return m_pages.size();

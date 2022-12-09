@@ -81,15 +81,9 @@ void UserProfile::SetTopicScore(int topicScore)
   m_topicScore = topicScore;
 }
 
-int UserProfile::GetTopicScore() const
+int UserProfile::GetCurrentTopicScore() const
 {
   return m_topicScore;
-}
-
-void UserProfile::AddTopicScoreToPersistentScore()
-{
-  AddToScore(m_topicScore);
-  SetTopicScore(0);
 }
 
 void UserProfile::SetCurrentTopic(int topicId)

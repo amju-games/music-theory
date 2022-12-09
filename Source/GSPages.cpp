@@ -221,6 +221,13 @@ bool GSPages::FindPageWithUnusedQuestions()
   return true;
 }
 
+void GSPages::SetFinalScore()
+{
+  float percent = static_cast<float>(m_scoreThisSession) / static_cast<float>(m_maxMark) * 100.f;
+  int s = static_cast<int>(percent);
+  TheUserProfile()->SetTopicScore(s);
+}
+
 void GSPages::NextPage()
 {
   // Have we run out of lives?
@@ -228,6 +235,7 @@ void GSPages::NextPage()
   {
     // Done, go to Topic successfully completed, or unsuccessfully completed.
     // (Can use the same state?)
+    SetFinalScore();
     TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
     return;
   }
@@ -237,6 +245,7 @@ void GSPages::NextPage()
   if (!FindPageWithUnusedQuestions())
   {
     // No more unused questions
+    SetFinalScore();
     TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
     return;
   }
@@ -350,9 +359,7 @@ void GSPages::OnCorrect()
   m_numCorrectThisSession++;
 
   m_scoreThisSession += m_scoreMultiplier;
-  TheUserProfile()->SetTopicScore(m_scoreThisSession);
 
-  // TODO score anim
   UpdateHud();
 
   Page::SendNextPageMessage();

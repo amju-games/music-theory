@@ -48,6 +48,9 @@ public:
   // TODO Move to UserProfile??
   bool IsTopicUnlocked() const;
 
+  // Returns true if the current level has all Topics passed.
+  bool IsLevelPassed() const;
+
   // Test each tappable to see if it has been picked
   Tappable* TappablePickTest(const Vec2f& touchCoord);
 
