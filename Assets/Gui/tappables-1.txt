@@ -7,7 +7,7 @@
 // Tappables: 3d objects which user can tap on to get info.
 
 // num tappables
-1
+2
 
 
 // Picture
@@ -35,7 +35,7 @@ gui
 // Node name
 test-gui
 // GUI file name
-Gui/tap-picture-note-lengths-quavers.txt
+Gui/tap-picture-treb-clef.txt
 // Matrix
 //  x size        y size                                z pos   y pos   x pos
 //     v           v                                      v       v      v
@@ -51,7 +51,55 @@ Gui/tap-picture-note-lengths-quavers.txt
 // No need as we draw the GUI in the picture frame anyway
 $$$empty
 // GUI to put in NOTEBOOK
-Gui/tap-picture-note-lengths.txt
+Gui/tap-picture-treb-clef.txt
+// Notebook page
+// TODO
+// 1
+
+
+// Piano
+// Name
+pink piano
+// First part is 3d node
+// Node type
+mesh
+// Name
+tappable-piano
+// Matrix
+.4, 0, 0, 0,  0, 1, 0, 0,  0, 0, .75, 0,  15, 0, -60, 1
+// Obj mesh
+obj/piano1.obj
+// Num children
+2
+// Shadow under piano
+mesh
+piano-shadow
+1.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, .1, 0, 1
+obj/shadow-sq.obj
+// Children
+0
+// Test: picture on piano?
+// Node type
+gui
+// Node name
+test-gui
+// GUI file name
+Gui/tap-pic-notes-on-treb-clef-1.txt
+// Matrix
+//  x size        y size                                z pos   y pos   x pos
+//     v           v                                      v       v      v
+0, 0, -8, 0,   0, 4, 0, 0,   -48.95, 2.5, 22.48, -0.5,   4,    20.0,    -0.5,    0.5
+//
+//
+// TODO Action when tapped
+// Camera eye
+20, 32, -60
+// Cam target
+8, 0, -60
+// GUI to display when we have been tapped
+Gui/keyboard-pink-with-treb-clef-1.txt
+// GUI to put in NOTEBOOK
+Gui/keyboard.txt
 
 
 

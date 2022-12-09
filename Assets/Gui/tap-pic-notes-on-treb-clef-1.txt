@@ -1,0 +1,167 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// treble clef notes #1
+// version
+1
+
+// Show picture with notes on treb clef 
+
+gui-comp
+// Name
+treb-clef-notes-comp
+// Num children
+5
+
+// Frame?
+gui-image
+bgframe
+-.95, 0.85
+1.9, 0.9
+obj/black-frame.png, stretch
+
+gui-image
+bg
+-.925, 0.8
+1.85, 0.8
+Image/white.png, stretch
+
+
+// Text
+
+gui-text
+static-text
+// pos 
+-1.0, 1.2
+// size
+2.0, 1.0 
+// Text
+Notes on the Treble Clef
+// Font name, size
+dimbo, 2.5, multi, fgcol=000000
+
+
+// THE NOTES ON STAVE
+
+translate
+0, -0.15
+
+music-score
+// Name, Position, Size
+music-score
+-.01, 0
+.25, .55
+// Colour
+000000
+// Glyphs
+stave, -.5, 0, 7, 1
+treble-clef, -3.5, 0
+treb-c4-sb, -2.8, 0
+treb-d4-sb, -1.9, 0
+treb-e4-sb, -1.0, 0
+treb-f4-sb, -0.2, 0
+treb-g4-sb,  0.7, 0
+treb-a5-sb,  1.6, 0
+treb-b5-sb,  2.5, 0
+treb-c5-sb,  3.1, 0
+end
+
+// Name of each note
+
+translate
+0, -0.05
+
+gui-comp
+// Name
+note-names-comp
+// Num children
+8
+
+gui-text
+static-text
+// pos 
+-.75, 1.0
+// size
+1, 1.0 
+// Text
+Middle C
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+
+gui-text
+static-text
+// pos 
+-.45, 1.0
+// size
+1, 1.0 
+// Text
+D
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+
+gui-text
+static-text
+// pos 
+-.23, 1.0
+// size
+1, 1.0 
+// Text
+E
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+
+gui-text
+static-text
+// pos 
+-0.03, 1.0
+// size
+1, 1.0 
+// Text
+F
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+
+gui-text
+static-text
+// pos 
+.2, 1.0
+// size
+1, 1.0 
+// Text
+G
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+
+gui-text
+static-text
+// pos 
+.42, 1.0
+// size
+1, 1.0 
+// Text
+A
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+
+gui-text
+static-text
+// pos 
+.65, 1.0
+// size
+1, 1.0 
+// Text
+B
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+
+gui-text
+static-text
+// pos 
+.75, 1.0
+// size
+1, 1.0 
+// Text
+C again
+// Font name, size
+dimbo, 1.0, left, fgcol=000000
+

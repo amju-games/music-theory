@@ -51,9 +51,8 @@ void CorridorModeShowTappable::OnDeactive()
 
 void CorridorModeShowTappable::Draw2d()
 {
-  CorridorMode::Draw2d();
-
   m_tapped->DrawGui();
+  CorridorMode::Draw2d(); // on top, right?
 }
 
 void CorridorModeShowTappable::Update()

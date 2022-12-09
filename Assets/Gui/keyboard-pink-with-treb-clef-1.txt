@@ -1,0 +1,25 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// key board with treble clef notes #1
+// version
+1
+
+// Element type
+gui-comp
+// Name
+keyboard-pink-with-treb-clef-1-comp
+// Num children
+2
+
+// Keyboard
+// Shift keyboard so middle C is to the left
+translate
+-0.7, 0
+include
+keyboard-pink.txt
+
+// Show picture with notes on treb clef above each note
+include
+tap-pic-notes-on-treb-clef-1.txt
+
