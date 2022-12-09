@@ -25,8 +25,8 @@ struct Glyph : public IGlyph
   void HandleStar();
 
   // Generate TIME special glyphs, (for animation)
-  virtual std::string TimeBefore() const { return ""; } 
-  virtual std::string TimeAfter() const { return ""; }
+  virtual std::string TimeBefore() const;
+  virtual std::string TimeAfter() const;
 
   std::string ToString() const override;
 
@@ -45,8 +45,10 @@ struct Glyph : public IGlyph
   void SetSwitches(int switches) { m_switches = switches; }
 
   // Use input token and state to generate output text for this glyph.
-  // TODO Doesn't need param and can set displayGlyphName directly
-  virtual std::string GetGlyphOutputStr(std::string s) const = 0;
+  // This is used by note and rest glyphs to output full string of glyphs -- not
+  //  used for e.g. time sigs, so there should be another base class -- TODO
+  // TODO Doesn't need param and can set displayGlyphName directly.
+  virtual std::string GetGlyphOutputStr(std::string s) const;
 
   int order = 0; // horiz position in bar 
 

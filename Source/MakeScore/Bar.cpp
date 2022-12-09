@@ -288,11 +288,12 @@ std::string Bar::ToString(bool oneLine)
   }
 
   // Set display names for beamed (semi)quavers etc. 
-  for (auto& b : m_beams)
-  {
-    m_glyphs[b->left]->SetDisplayNameForBeamedNote();
-    m_glyphs[b->right]->SetDisplayNameForBeamedNote();
-  }
+  // TODO Replace with BeamGroups
+  //for (auto& b : m_beams)
+  //{
+  //  m_glyphs[b->left]->SetDisplayNameForBeamedNote();
+  //  m_glyphs[b->right]->SetDisplayNameForBeamedNote();
+  //}
 
   for (auto& g : m_glyphs)
   {

@@ -146,6 +146,7 @@
     <ClCompile Include="..\..\..\..\Source\MakeScore\Attachment.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Bar.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Beam.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\BeamGroup.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Clef.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Consts.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Curve.cpp" />
@@ -155,7 +156,9 @@
     <ClCompile Include="..\..\..\..\Source\MakeScore\KeySig.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Main.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\MakeScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\NoteGlyph.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Pitch.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\RestGlyph.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Stave.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Switch.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Tie.cpp" />
@@ -168,6 +171,7 @@
     <ClInclude Include="..\..\..\..\Source\MakeScore\Attachment.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Bar.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Beam.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\BeamGroup.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Clef.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Consts.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Curve.h" />
@@ -177,7 +181,9 @@
     <ClInclude Include="..\..\..\..\Source\MakeScore\IGlyph.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\KeySig.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\MakeScore.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\NoteGlyph.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Pitch.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\RestGlyph.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Stave.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Switch.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Tie.h" />

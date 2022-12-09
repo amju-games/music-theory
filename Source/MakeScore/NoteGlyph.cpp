@@ -4,6 +4,7 @@
 // * MakeScore *
 // Sub-project for human-friendly authoring of musical notation.
 
+#include <cassert>
 #include "NoteGlyph.h"
 #include "Switch.h"
 
@@ -90,38 +91,19 @@ void NoteGlyph::CalcAccidental(KeySig ks)
 
 std::string NoteGlyph::GetGlyphOutputStr(std::string s) const
 {
+  std::string out = Glyph::GetGlyphOutputStr(s);
+
   bool dot = Contains(s, '.');
   Remove(s, '.');
   bool rest = Contains(s, 'r');
-  Remove(s, 'r');
+  assert(!rest);
 
-  std::string out = "UNKNOWN";
-  if (s == INPUT_TOKEN_CROTCHET) out = "crotchet";
-  else if (s == INPUT_TOKEN_QUAVER) out = "quaver";
-  else if (s == INPUT_TOKEN_SEMIQUAVER) out = "semiquaver";
-  else if (s == INPUT_TOKEN_MINIM) out = "minim";
-  else if (s == INPUT_TOKEN_SEMIBREVE) out = "semibreve";
-
-  if (rest)
-  {
-    out = "rest-" + out;
-  }
-  else if (s != "sb")
+  if (s != "sb")
   {
     bool stemUp = (m_staveLine < 5);
     out += (stemUp ? "-up" : "-down");
   }
 
-  if (dot)
-  {
-    out = "dotted-" + out;
-    // Raised dot if glyph is on a line
-    bool onLine = (m_staveLine % 2 == 0);
-    if (onLine)
-    {
-      out += "-raised-dot";
-    }
-  }
   return out;
 }
 
