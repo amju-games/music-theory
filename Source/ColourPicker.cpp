@@ -21,6 +21,7 @@ bool ColourPicker::Load(File* f)
   {
     GuiButton* button = dynamic_cast<GuiButton*>(elem);
     Assert(button);
+    Assert(m_onColourPickFunc); // pick callback not set up!
     m_onColourPickFunc(button->GetButtonColour());
   };
 

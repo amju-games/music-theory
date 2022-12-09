@@ -597,6 +597,10 @@
     <Text Include="..\..\..\..\Assets\en.txt" />
     <Text Include="..\..\..\..\Assets\Gui\avatar-eye-simple.txt" />
     <Text Include="..\..\..\..\Assets\Gui\avatar-mod-bg-and-tabs.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-body.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-eye.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-eyebrow.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-hair.txt" />
     <Text Include="..\..\..\..\Assets\Gui\avatar-mod-head.txt" />
     <Text Include="..\..\..\..\Assets\Gui\avatar.txt" />
     <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt" />

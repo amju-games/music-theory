@@ -1,7 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
-// Start topic
+// Modify Avatar game state
 
 // version
 1
@@ -11,7 +11,19 @@ gui-comp
 // Name
 gs-avatar-mod-root
 // Num children
-6
+7
+
+// Text edit box showing string defining avatar appearance
+gui-text-edit
+avatar-string
+// pos
+-.95, -0.83
+// size
+0.9, 0.1
+// Text
+Avatar text
+// Font
+arial, 1.0, fgcol=000000, bgcol=ffffff
 
 // Avatar
 
@@ -21,7 +33,7 @@ elastic
 translate
 -.4 , .2
 scale
-.35,.35
+.5,.5
 // Pivot, unlikely to work here
 0.5,0.5
 
@@ -29,7 +41,7 @@ gui-avatar
 // Name
 avatar
 // Avatar string: sets values on nodes in the avatar GUI tree
-colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040
+colour;colour-head;F9EBA9|colour;colour-scale-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040
 
 include
 avatar.txt
@@ -58,14 +70,14 @@ icon, 1.5, fgcol=ffffff, bgcol=FF0949
 // OK button
 gui-button
 start-button
--0.7, -0.4
-0.4, 0.15
+-0.75, .915
+0.24, 0.1
 Image/gui-button-2.png
 OK!
-BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
+BUTTON, 2., fgcol=ffffff, bgcol=4E69F4
 
 
-// Background
+// Control palette background and tab buttons
 include
 avatar-mod-bg-and-tabs.txt
 
@@ -77,12 +89,31 @@ translate
 //  on screen.
 gui-comp
 control-pages-root
-1
+5
 
 // Controls
 translate
 0,0
-
 include 
 avatar-mod-head.txt
+
+translate
+0,-2
+include 
+avatar-mod-body.txt
+
+translate
+0,-4
+include 
+avatar-mod-hair.txt
+
+translate
+0,-6
+include 
+avatar-mod-eyebrow.txt
+
+translate
+0,-8
+include 
+avatar-mod-eye.txt
 

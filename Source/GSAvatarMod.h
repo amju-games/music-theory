@@ -15,8 +15,19 @@ public:
   virtual void OnActive() override;
 
 private:
+  // Set the text string defining the avatar appearance, so we can copy it
+  //  to, say, the composers file.
+  void SetString();
+
+  // Set y-translation to select one page of controls
+  void SetControlPage(float page);
+
   // Set up buttons for each page
   void SetUpModHead(GuiElement* gui);
+  void SetUpModBody(GuiElement* gui);
+  void SetUpModHair(GuiElement* gui);
+  void SetUpModEyebrow(GuiElement* gui);
+  void SetUpModEye(GuiElement* gui);
 
   // Util functions
   void SetColourPicker(GuiElement* elem, const std::string& avatarColourElementName);

@@ -111,12 +111,11 @@ Image/avatar-sheet.png
 
 translate
 0, 0
+colour
+1030e0
 scale
 1.75,1.5
 .5,.5
-colour
-//d0d0d0
-1030e0
 gui-sprite
 hair
 -.5, .8

@@ -10,138 +10,80 @@
 
 gui-comp
 control-bg-and-tabs
-9
+8
 
 // BG
 gui-rect
-white-bg
+bg
 -0.02, 0.93
 .84, 1.86
 // Colour
-000000
+ffffff
 // Radius
 0.07
 // Flags
 0
 
-// BG
-gui-rect
-white-bg
-0, 0.9
-.8, 1.8
-// Colour
-ffffff
-// Radius
-0.05
-// Flags
-0
 
-// Tabs, possibly tab scroll up + down buttons
-
-scale
-1, 1
-0.65, 0
-
-gui-comp
-tab-comp
-2
-
-gui-rect
-tab-outline
-0.8, 0.725
-.15, .25
-// Colour
-000000
-// Radius
-0.05
-// Flags
-3
-
-gui-rect
-tab-inner
-0.8, 0.70
-.135, .2
-// Colour
-ffffff
-// Radius
-0.03
-// Flags
-3
-
-scale
-0.8, 1
-0.65, 0
-
-gui-rect
-white-bg
-0.8, 0.425
-.15, .25
-// Colour
-ff00ff
-// Radius
-0.05
-// Flags
-3
-
-scale
-.8, 1
-0.65, 0
-
-gui-rect
-white-bg
-0.8, 0.125
-.15, .25
-// Colour
-ff00ff
-// Radius
-0.05
-// Flags
-3
-
-
-scale
-.8, 1
-0.65, 0
-
-gui-rect
-white-bg
-0.8, -.175
-.15, .25
-// Colour
-ff00ff
-// Radius
-0.05
-// Flags
-3
-
-scale
-.8, 1
-0.65, 0
-
-gui-rect
-white-bg
-0.8, -.475
-.15, .25
-// Colour
-ff00ff
-// Radius
-0.05
-// Flags
-3
+// Tabs
 
 gui-button
-button-tabs-up
-.85,.95
-0.1, 0.1
-Image/gui-button-1.png
-I
-icon, 1.75, fgcol=ffffff, bgcol=4E69F4
+tab-1
+.8,.8
+0.2, 0.13
+Image/tab.png, stretch
+Head
+BUTTON, 1.2, fgcol=000000, bgcol=ffffff
 
 gui-button
-button-tabs-down
-.85, -.775
-0.1, 0.1
-Image/gui-button-1.png
-J
-icon, 1.75, fgcol=ffffff, bgcol=4E69F4
+tab-2
+.8,.65
+0.2, 0.13
+Image/tab.png, stretch
+Body
+BUTTON, 1.2, fgcol=000000, bgcol=ffffff
+
+gui-button
+tab-3
+.8,.50
+0.2, 0.13
+Image/tab.png, stretch
+Hair
+BUTTON, 1.2, fgcol=000000, bgcol=ffffff
+
+gui-button
+tab-4
+.8,.35
+0.2, 0.13
+Image/tab.png, stretch
+Eyebrow
+BUTTON, 1.2, fgcol=000000, bgcol=ffffff, sx=0.9
+
+gui-button
+tab-5
+.8,.20
+0.2, 0.13
+Image/tab.png, stretch
+Eye
+BUTTON, 1.2, fgcol=000000, bgcol=ffffff
+
+gui-button
+tab-6
+.8,.05
+0.2, 0.13
+Image/tab.png, stretch
+Upper lid
+BUTTON, 1.2, fgcol=000000, bgcol=ffffff, sx=0.8
+
+gui-button
+tab-7
+.8,-0.1
+0.2, 0.13
+Image/tab.png, stretch
+Lower lid
+BUTTON, 1.2, fgcol=000000, bgcol=ffffff, sx=0.8
+
+
+
+
 
