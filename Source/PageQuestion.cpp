@@ -4,52 +4,52 @@
 #include <GuiDecAnimation.h>
 #include <GuiText.h>
 #include <ReportError.h>
+#include "GSPages.h"
 #include "GuiMusicScore.h"
 #include "Page.h"
 #include "PageQuestion.h"
 
 namespace Amju
 {
-namespace
+struct PlayCommand : public GuiCommand
 {
-void OnPlayButton(GuiElement* elem)
-{
-  // Trigger animation, by setting ease type to 'one'
-  // First, find the anim
-  GuiElement* root = elem->GetParent();
-  if (!root)
+  PlayCommand(GuiElement* guiRoot) : m_guiRoot(guiRoot) {}
+
+  bool Do() override
   {
-    return;
+std::cout << "Play button command: root node is: " << m_guiRoot->GetName() << "\n";
+
+    GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(
+      m_guiRoot, "play-music-trigger"));
+    if (!anim)
+    {
+      return false;
+    }
+    anim->ResetAnimation();
+    anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+
+    // Disable play button so we can't spam it
+    GuiButton* button = dynamic_cast<GuiButton*>(GetGuiElement());
+    Assert(button);
+    button->SetIsEnabled(false);
+    ////button->SetIsFocusButton(false);
+
+    // Set callback to re-enable the play button when anim completes.
+    // Animation node should be child of anim.
+    anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(anim, "play-music-anim"));
+    if (anim)
+    {
+      anim->SetOnCompleteCallback([button](Animator*) 
+      { 
+        button->SetIsEnabled(true); 
+        ////button->SetIsFocusButton(true); 
+      });
+    }
+    return false; // Can't undo
   }
 
-  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(root, "play-music-trigger"));
-  if (!anim)
-  {
-    return;
-  }
-  anim->ResetAnimation();
-  anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
-
-  // Disable play button so we can't spam it
-  GuiButton* button = dynamic_cast<GuiButton*>(elem);
-  Assert(button);
-  button->SetIsEnabled(false);
-  button->SetIsFocusButton(false);
-
-  // Set callback to re-enable the play button when anim completes.
-  // Animation node should be child of anim.
-  anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(anim, "play-music-anim"));
-  if (anim)
-  {
-    anim->SetOnCompleteCallback([button](Animator*) 
-    { 
-      button->SetIsEnabled(true); 
-      button->SetIsFocusButton(true); 
-    });
-  }
-}
-
-} // anon namespace
+  PGuiElement m_guiRoot;
+}; 
 
 void PageQuestion::SetPage(Page* page)
 {
@@ -77,27 +77,42 @@ void PageQuestionScore::SetUp()
   }
   
   // Hook up play button -- hide if nothing to play
+  PGuiElement guiRoot = TheGSPages::Instance()->GetGui();
   GuiButton* playButton = dynamic_cast<GuiButton*>(
-    GetElementByName(m_page->GetGui(), "play-button"));
-  Assert(playButton);
-  if (ms->HasAnimation())
+    GetElementByName(guiRoot, "play-button"));
+
+  if (playButton)
   {
-    playButton->SetHasFocus(true);
-    playButton->SetCommand(OnPlayButton);
+std::cout << "Found play button\n";
+    if (ms->HasAnimation())
+    {
+std::cout << "Score has animation, so setting play button command\n";
+      playButton->SetVisible(true);
+      playButton->SetIsEnabled(true);
+      //playButton->SetHasFocus(true);
+      playButton->SetCommand(new PlayCommand(m_page->GetGui()));
+    }
+    else
+    {
+std::cout << "Score has no animation, so hiding play button\n";
+      playButton->SetVisible(false);
+    }
   }
   else
   {
-    playButton->SetVisible(false);
+std::cout << "No play button found.\n";
   }
 }
 
 void PageQuestionScore::OnPlayerChoice()
 {
-  // Hide Play button once player has answered
+  // Disable Play button once player has answered
   GuiButton* playButton = dynamic_cast<GuiButton*>(
-    GetElementByName(m_page->GetGui(), "play-button"));
-  Assert(playButton);
-  playButton->SetVisible(false);
+    GetElementByName(TheGSPages::Instance()->GetGui(), "play-button"));
+  if (playButton)
+  {
+    playButton->SetIsEnabled(false);
+  }
 }
 
 void PageQuestionText::SetUp()

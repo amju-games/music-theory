@@ -11,7 +11,7 @@
 gui-comp
 hint-buttons-and-counters
 // Num children
-1
+2
 
 
 gui-comp
@@ -49,15 +49,18 @@ circle-and-number
 2
 
 // Coloured circle behind counter
-colour
-// Same as score BG
-4D68F1
 //
-gui-image
-score-bg
+gui-rect
+hint-counter-bg
 -.51, 0.09
 .12, .18
-Image/rough-circle.png, stretch
+// colour - same as score BG
+4D68F1
+// Radius
+0.058
+// Flags
+0
+
 
 
 // The number of hints
@@ -71,19 +74,20 @@ hint-counter
 // Text
 NUM
 // Font name, size
-dimbo, 1, fgcol=ffffff
+dimbo, 1.25, fgcol=ffffff
+
+
 
 // =============================================
-// Not used, TODO move here
 // Play button
 
 gui-comp
-play-button
+play-button-comp
 2
 
 
 gui-button
-play-button-button
+play-button
 // pos (coords are -1..1)
 -0.075, 0.05
 // size
@@ -109,16 +113,16 @@ gui-comp
 circle-and-number
 2
 
-// Coloured circle behind counter
-colour
-// Same as score BG
-4D68F1
-//
-gui-image
-score-bg
--.51, 0.09
+gui-rect
+hint-counter-bg
+0, 0.09
 .12, .18
-Image/rough-circle.png, stretch
+// colour - same as score BG
+4D68F1
+// Radius
+0.058
+// Flags
+0
 
 
 // The number of hints
@@ -126,10 +130,12 @@ Image/rough-circle.png, stretch
 gui-text
 hint-counter
 // pos (coords are -1..1)
--.5, 0.05 
+0, 0.05 
 // size
 0.1, 0.1
 // Text
 NUM
 // Font name, size
 dimbo, 1, fgcol=ffffff
+
+

@@ -10,7 +10,7 @@ gui-comp
 // Name
 button-and-music-symbols
 // Num children
-3
+2
 
 gui-text
 instructions-text
@@ -22,16 +22,6 @@ instructions-text
 INSTRUCTIONS
 // Font name, size
 TEXT, 1.5, fgcol=ffffff
-
-gui-button
-play-button
-// pos (coords are -1..1)
--0.1, 0.05
-// size
-0.3, 0.15
-Image/gui-button-2.png
-B
-icon, 2.5, fgcol=ffffff, bgcol=01D76B
 
 
 animation
