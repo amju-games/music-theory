@@ -17,6 +17,10 @@
 		6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2EA1E97F6F800E251A9 /* UserProfile.cpp */; };
 		6959E2F81E9ACE8A00E251A9 /* GSPause.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2F41E9ACE8A00E251A9 /* GSPause.cpp */; };
 		6959E2F91E9ACE8A00E251A9 /* GSTopicStart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2F61E9ACE8A00E251A9 /* GSTopicStart.cpp */; };
+		6959E3031EA1091500E251A9 /* GSAbout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2FB1EA1091500E251A9 /* GSAbout.cpp */; };
+		6959E3041EA1091500E251A9 /* GSTopicEnd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2FD1EA1091500E251A9 /* GSTopicEnd.cpp */; };
+		6959E3051EA1091500E251A9 /* MultiChoiceQuestion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2FF1EA1091500E251A9 /* MultiChoiceQuestion.cpp */; };
+		6959E3061EA1091500E251A9 /* MusicalTermQuestion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3011EA1091500E251A9 /* MusicalTermQuestion.cpp */; };
 		697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07EF1E82F19B0045CE54 /* GSBase.cpp */; };
 		697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */; };
 		697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */; };
@@ -119,6 +123,14 @@
 		6959E2F51E9ACE8A00E251A9 /* GSPause.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSPause.h; path = ../../../../Source/GSPause.h; sourceTree = "<group>"; };
 		6959E2F61E9ACE8A00E251A9 /* GSTopicStart.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSTopicStart.cpp; path = ../../../../Source/GSTopicStart.cpp; sourceTree = "<group>"; };
 		6959E2F71E9ACE8A00E251A9 /* GSTopicStart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSTopicStart.h; path = ../../../../Source/GSTopicStart.h; sourceTree = "<group>"; };
+		6959E2FB1EA1091500E251A9 /* GSAbout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSAbout.cpp; path = ../../../../Source/GSAbout.cpp; sourceTree = "<group>"; };
+		6959E2FC1EA1091500E251A9 /* GSAbout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSAbout.h; path = ../../../../Source/GSAbout.h; sourceTree = "<group>"; };
+		6959E2FD1EA1091500E251A9 /* GSTopicEnd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSTopicEnd.cpp; path = ../../../../Source/GSTopicEnd.cpp; sourceTree = "<group>"; };
+		6959E2FE1EA1091500E251A9 /* GSTopicEnd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSTopicEnd.h; path = ../../../../Source/GSTopicEnd.h; sourceTree = "<group>"; };
+		6959E2FF1EA1091500E251A9 /* MultiChoiceQuestion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MultiChoiceQuestion.cpp; path = ../../../../Source/MultiChoiceQuestion.cpp; sourceTree = "<group>"; };
+		6959E3001EA1091500E251A9 /* MultiChoiceQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiChoiceQuestion.h; path = ../../../../Source/MultiChoiceQuestion.h; sourceTree = "<group>"; };
+		6959E3011EA1091500E251A9 /* MusicalTermQuestion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MusicalTermQuestion.cpp; path = ../../../../Source/MusicalTermQuestion.cpp; sourceTree = "<group>"; };
+		6959E3021EA1091500E251A9 /* MusicalTermQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicalTermQuestion.h; path = ../../../../Source/MusicalTermQuestion.h; sourceTree = "<group>"; };
 		697A07EF1E82F19B0045CE54 /* GSBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSBase.cpp; path = ../../../../Source/GSBase.cpp; sourceTree = "<group>"; };
 		697A07F01E82F19B0045CE54 /* GSBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSBase.h; path = ../../../../Source/GSBase.h; sourceTree = "<group>"; };
 		697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSPlayNotes.cpp; path = ../../../../Source/GSPlayNotes.cpp; sourceTree = "<group>"; };
@@ -323,6 +335,14 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				6959E2FB1EA1091500E251A9 /* GSAbout.cpp */,
+				6959E2FC1EA1091500E251A9 /* GSAbout.h */,
+				6959E2FD1EA1091500E251A9 /* GSTopicEnd.cpp */,
+				6959E2FE1EA1091500E251A9 /* GSTopicEnd.h */,
+				6959E2FF1EA1091500E251A9 /* MultiChoiceQuestion.cpp */,
+				6959E3001EA1091500E251A9 /* MultiChoiceQuestion.h */,
+				6959E3011EA1091500E251A9 /* MusicalTermQuestion.cpp */,
+				6959E3021EA1091500E251A9 /* MusicalTermQuestion.h */,
 				6959E2F41E9ACE8A00E251A9 /* GSPause.cpp */,
 				6959E2F51E9ACE8A00E251A9 /* GSPause.h */,
 				6959E2F61E9ACE8A00E251A9 /* GSTopicStart.cpp */,
@@ -544,8 +564,10 @@
 				69F5E0851E8C099A00E7BF93 /* GSMusicalTerms.cpp in Sources */,
 				6959E2D11E958C3C00E251A9 /* GSTitle.cpp in Sources */,
 				69D58E861E86A02B008A8D29 /* Page.cpp in Sources */,
+				6959E3031EA1091500E251A9 /* GSAbout.cpp in Sources */,
 				6959E2D01E958C3C00E251A9 /* GSPages.cpp in Sources */,
 				6959E2F81E9ACE8A00E251A9 /* GSPause.cpp in Sources */,
+				6959E3061EA1091500E251A9 /* MusicalTermQuestion.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
 				697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */,
 				6959E2F91E9ACE8A00E251A9 /* GSTopicStart.cpp in Sources */,
@@ -562,6 +584,7 @@
 				697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */,
 				69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */,
 				69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */,
+				6959E3051EA1091500E251A9 /* MultiChoiceQuestion.cpp in Sources */,
 				6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */,
 				6959E2EE1E97F6F800E251A9 /* Topic.cpp in Sources */,
 				697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */,
@@ -570,6 +593,7 @@
 				697A08001E82F19B0045CE54 /* GSShowMusicScore.cpp in Sources */,
 				69D58E481E833741008A8D29 /* main.m in Sources */,
 				697A08011E82F19B0045CE54 /* GSUserDraw.cpp in Sources */,
+				6959E3041EA1091500E251A9 /* GSTopicEnd.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
