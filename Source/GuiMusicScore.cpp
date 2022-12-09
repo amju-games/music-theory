@@ -12,7 +12,6 @@
 namespace Amju
 {
 const char QUAD_CHAR = 0;
-const char STAVE_CHAR = '=';
 
 // This non-printable character is used for quads, which are a special case.
 // Used for stave lines, bar lines, beams etc.
@@ -54,7 +53,6 @@ static bool GlyphNameToCh(const std::string& s, char* ch)
     { "treble-clef", '&' },
     { "fff", '\'' },
     { "rest-5", '/' }, // come back to naming these
-    { "stave", '=' }, // but stave is special case, we make from quads in BuildTriList
     { "bass-clef", '?' },
     { "rest-2", '@' },
     { "alto-clef", 'B' }, // or is that tenor clef in relation to stave?
@@ -437,38 +435,13 @@ void GuiMusicScore::MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris, const C
   tris.push_back(t[1]);
 }
 
-void GuiMusicScore::MakeStave(const Glyph& g, AmjuGL::Tris& tris, const Colour& col)
-{
-  const float Y_OFFSET = 4.75f;
-  float h = g.m_scale.y * 0.01f;
-  float w = g.m_scale.x;
-  // Make stave from 5 quads
-  for (int i = 0; i < 5; i++)
-  {
-    float y = g.m_pos.y + (static_cast<float>(i) + Y_OFFSET) * 0.1f * g.m_scale.y;
-    Vec2f corners[4] =
-    {
-      Vec2f(g.m_pos.x,     y),
-      Vec2f(g.m_pos.x + w, y),
-      Vec2f(g.m_pos.x + w, y + h),
-      Vec2f(g.m_pos.x,     y + h),
-    };
-
-    MakeQuad(corners, tris, col);
-  }
-}
-
 void GuiMusicScore::BuildTriList()
 {
   AmjuGL::Tris tris;
 
   for (const Glyph& g : m_glyphs)
   {
-    if (g.m_char == STAVE_CHAR)
-    {
-      MakeStave(g, tris, g.m_colour);
-    }
-    else if (g.m_char == QUAD_CHAR)
+    if (g.m_char == QUAD_CHAR)
     {
       // Special case: make a quad from the 4 coords
       MakeQuad(g.m_corner, tris, g.m_colour);

@@ -91,14 +91,11 @@ protected:
   //  4 corners supplied. I.e. can be any quad shape.
   void MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris, const Colour& col);
 
-  // Make a stave from 5 quads: better quality than stretching a glyph
-  void MakeStave(const Glyph& g, AmjuGL::Tris& tris, const Colour& col);
-
   // Convenience function: set the colour attribs on all the verts in a quad
   static void SetQuadColour(AmjuGL::Tri t[2], const Colour& col);
 
   // Expand out a "compound" glyph, adding the multiple result glyphs to m_glyphs, offset 
-  //  and scaled with the params of the compoung glyph. 
+  //  and scaled with the params of the compound glyph. 
   // E.g. a note head plus its tail, which are 2 different glyphs, but we want to treat 
   //  as a single glyph when authoring glyph strings.
   bool ExpandCompoundGlyph(const Strings& tokens, const Vec2f& pos, const Vec2f& scale);

@@ -27,31 +27,47 @@ music-score
 // Name, Position, Size
 music-score
 -0.5, 0
-.6, .6
+.55, .55
 // Colour
 000000
 
 // Glyphs start here
+// Stave 1
+stave, -0.5, 0.6, 20, 1
+//stave, 0, 0
+//end
+
+treble-clef, -0.8, 0.6
+// Time sigs
+12/8, 0, 0.6
+2/4, 0.5, 0.6
+3/4, 1.0, 0.6
+4/4, 1.5, 0.6
+
+// Stave 2
 stave, -0.5, 0, 20, 1
-treble-clef, -0.8, 0
+bass-clef, -0.8, 0
 
-// Time sig
-12/8, 0, 0
+// NOTES WITH STEMS
 
-// Key sig
-keysig-7flat-treble, 0.6, 0
+dotted-quaver-up, 0.0, -0.05
+dotted-quaver-up-raised-dot, 0.5, 0.0
+dotted-quaver-up, 1.0, 0.05
+minim-up, 1.5, 0.1
+dotted-crotchet-down, 2.0, 0.25
+dotted-minim-down, 2.5, 0.25
+dotted-minim-down-raised-dot, 3.0, 0.25
 
-// NOTE WITH STEMS
+// Stave 3
+stave, -0.5, -0.6, 20, 1
+treble-clef, -0.8, -0.6
+// Key sigs
+keysig-7flat-treble, -0.25, -0.6
+keysig-7sharp-treble, 1.2, -0.6
 
-dotted-quaver-down, 1.0, -0.05
-
-dotted-quaver-up-raised-dot, 1.5, 0.0
-dotted-quaver-up, 2.0, 0.05
-minim-up, 2.5, 0.1
-dotted-crotchet-down, 3.0, 0.25
-dotted-minim-down, 3.5, 0.25
-dotted-minim-down-raised-dot, 4.0, 0.25
-
+// Stave 4
+stave, -0.5, -1.2, 20, 1
+bass-clef, -0.8, -1.2
 
 end
 
