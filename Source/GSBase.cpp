@@ -104,16 +104,32 @@ void GSBase::OnDeactive()
 void GSBase::ReloadGui()
 {
   OnDeactive();
-
-  TheResourceManager::Instance()->Reload();
-
   OnActive();
 }
 
 bool GSBase::OnKeyEvent(const KeyEvent& ke)
 {
 #ifdef _DEBUG
-  // Reload score
+  // Reload all resources: slow
+  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
+    (ke.key == 't' || ke.key == 'T'))
+  {
+    TheResourceManager::Instance()->Reload();
+    return true;
+  }
+
+  // Report state of resources and AmjuGL
+  // TODO Split this across different keys?
+  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
+    (ke.key == 'y' || ke.key == 'Y'))
+  {
+    TheResourceManager::Instance()->DebugPrint();
+    AmjuGL::ReportState(std::cout);
+
+    return true;
+  }
+
+  // Reload GUI
   if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
     (ke.key == 'r' || ke.key == 'R'))
   {
@@ -129,9 +145,6 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
     if (m_gui)
     {
       PrintGui(m_gui);
-      // TODO Split this across different keys!
-      TheResourceManager::Instance()->DebugPrint();
-      AmjuGL::ReportState(std::cout);
     }
     else
     {
