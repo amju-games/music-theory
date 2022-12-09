@@ -118,8 +118,11 @@ float Bar::CalcGlyphY(int pitch) const
        4, // alto
        6, // tenor 
     };
-    int clef = 0; // TODO use last clef set for this stave
+    int clef = 1; // TODO use last clef set for this stave
     int staveLine = Y_POS[pitch % 12] + CLEF_OFFSET[clef];
+    // Use the octave to shunt note up or down
+    int octave = (pitch / 12 - 5) * 7; // so middle C is 0
+    staveLine += octave;
     // TODO create ledger lines if staveLine is < -1 or > 9
     // TODO decide if stem should be up or down, (unless beamed, which
     //  overrides this decision)
