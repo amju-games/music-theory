@@ -43,10 +43,8 @@ void CorridorCamController::SetDesired(const Vec3f& eye, const Vec3f& target)
 
 void CorridorCamController::SetDesiredFromTappable(RCPtr<Tappable> tappable)
 {
-  if (tappable)
-  {
-    SetDesired(tappable->GetCameraEyePos(), tappable->GetCameraTargetPos());
-  }
+  Assert(tappable);
+  SetDesired(tappable->GetCameraEyePos(), tappable->GetCameraTargetPos());
 }
 
 void CorridorCamController::SetLerpT(float t)

@@ -23,10 +23,10 @@ public:
   // Set camera desired pos and target from a tappable 
   void SetDesiredFromTappable(RCPtr<Tappable> tappable);
 
-  // Set lerp value, 0..1: 0 means corridor view, 1 means tappable view
+  // Set lerp value, 0..1: 0 means original view, 1 means desired view
   void SetLerpT(float t);
 
-  // Call to stop lerping camera
+  // Call to stop updating the camera
   void SetNoLerp();
 
 private:
@@ -38,10 +38,9 @@ private:
   Vec3f m_desiredCamTarget;
 
   bool m_isCamLerping = false;
-  float m_camLerpT = 0;
 
-  // Shouldn't need this
-  // TODO
-//  RCPtr<Tappable> m_tappable;
+  // As this value varies from 0..1 we lerp between the original
+  //  and desired camera eye/target coords.
+  float m_camLerpT = 0;
 };
 }
