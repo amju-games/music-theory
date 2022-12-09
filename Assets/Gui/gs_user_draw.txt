@@ -1,0 +1,16 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Line drawing test
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+score-comp
+// Num children
+1
+
+

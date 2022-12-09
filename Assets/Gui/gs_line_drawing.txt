@@ -1,4 +1,8 @@
-// gs_score.txt
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Line drawing test
+
 // version
 1
 
@@ -11,7 +15,7 @@ score-comp
 
 line-drawing
 // Name, Position, Size
-line drawing test
+line-drawing-test-1
 0.5, 0
 1, 1
 // Start time (s)
@@ -30,7 +34,7 @@ stroke-test-1.txt
 
 line-drawing
 // Name, Position, Size
-line drawing test 2
+line-drawing-test-2
 -0.5, 0
 0.5, 0.5
 // Start time (s)

@@ -27,6 +27,7 @@
 #include "GSPlayNotes.h"
 #include "GSShowLineDrawing.h"
 #include "GSShowMusicScore.h"
+#include "GSUserDraw.h"
 #include "GuiLineDrawing.h"
 #include "GuiMusicScore.h"
 
@@ -59,7 +60,8 @@ void StartUpAfterCreateWindow()
 
 //  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
-  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
 }
 }
 
