@@ -1,13 +1,52 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
-// Musical terms
+// Musical terms for grade 1
+
 // version
 1
 
-Sweetly=Dolce
-Loud=Forte
-Soft=Piano
-In the style of a march=Alla marcia
-Walking pace=Andante
-
+A tempo=Back to normal speed
+Accelerando=Gradually faster
+Adagio=Slowly
+Allegro=Lively, quite fast
+Allegretto=Nearly as fast as Allegro
+Andante=Walking pace
+Andantino=A bit faster or slower than andante
+Cantabile=Singing
+Con=With
+Crescendo (cresc.)=Gradually louder
+Da capo (D.C.)=From the beginning
+// TODO add segno sign to font?
+Dal segno (D.S.)=Repeat from the sign
+Decrescendo (decresc.)=Gradually softer
+Dolce=Sweetly
+Fine=The end
+Forte (f)=Loud
+Fortissimo (ff)=Very loud
+Forzando (fz)=With a strong accent
+Largo=Slow and stately
+Legato=Smoothly
+Leggiero=Lightly
+Lento=Slowly
+Maestoso=Majestically
+Mezzo forte (mf)=Moderately loud
+Mezzo piano (mp)=Moderately soft
+Moderato=Moderate pace
+Pesante=Heavily
+Piano (p)=Soft
+Pianissimo (pp)=Very soft
+Poco=A little
+Presto=Very quick
+Prestissimo=As fast as possible
+Rallentando (rall.)=Gradually slower
+Ritardando (ritard., rit.)=Gradually slower
+Ritenuto (riten., rit)=Slower at once
+Scherzo=A joke
+Scherzando=Playfully
+Sforzando (sf, sfz)=With a sudden accent
+Staccato=Short, detached
+Subito=Suddenly
+Tempo=Speed
+Tranquillo=Quietly
+Vivace=Lively, quickly
