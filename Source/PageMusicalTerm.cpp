@@ -10,6 +10,11 @@ namespace Amju
 {
 const char* PageMusicalTerm::NAME = "page-musical-term";
 
+PageMusicalTerm::PageMusicalTerm()
+{
+  m_guiName = "musical_term";
+}
+
 void PageMusicalTerm::OnActive()
 {
   MusicalTermQuestion* q = new MusicalTermQuestion;
@@ -33,7 +38,7 @@ void PageMusicalTerm::OnActive()
   m_canRemoveForHint.clear();
 
   // Load gui, set button callbacks
-  PageScoreMCQBase::OnActive();
+  PageMultiChoice::OnActive();
 
   IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "musical-term-text"));
   text->SetText(q->GetMusicalTermText());
