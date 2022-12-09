@@ -4,6 +4,7 @@
 #pragma once
 
 #include <Colour.h>
+#include <FullScreenPostProcess.h> // Render larger, to improve quality
 #include <GuiElement.h>
 #include <StringUtils.h>
 #include <TextureSequence.h>
@@ -111,6 +112,8 @@ protected:
   // Populate s_compoundGlyphs -- called once
   static void LoadCompoundGlyphs();
 
+  static void OneTimeInit();
+
 protected:
   RCPtr<TriList> m_triList; 
   TextureSequence m_atlas; // music font - actual image is a resource.
@@ -122,6 +125,8 @@ protected:
 
   // Look up table from compound glyph name to multiple glyphs to which we should expand.
   static std::map<std::string, std::string> s_compoundGlyphs;
+
+  FullScreenPostProcess m_fullscreenRenderer;
 };
 }
 

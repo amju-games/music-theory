@@ -146,6 +146,7 @@ static bool GlyphNameToCh(const std::string& s, char* ch)
 
 void GuiMusicScore::LoadCompoundGlyphs()
 {
+  s_compoundGlyphs.clear();
   Strings strs;
   LoadStrings("Gui/compound_glyphs.txt", &strs);
   // Each line is split by = sign
@@ -157,6 +158,12 @@ void GuiMusicScore::LoadCompoundGlyphs()
   }
 }
 
+void GuiMusicScore::OneTimeInit()
+{
+  // Compound glyphs: load from file. 
+  LoadCompoundGlyphs();
+}
+
 GuiMusicScore::GuiMusicScore()
 {
   // Create texture atlas. TODO CONFIG
@@ -166,9 +173,26 @@ GuiMusicScore::GuiMusicScore()
   m_fgCol = Colour(0, 0, 0, 1); // default to black
   m_hightlightColour = Colour(1, 0, 0, 1); // TODO TEMP TEST, load it
 
-  // Compound glyphs: load from file. Just do it once for all Music Scores.
+#ifdef _DEBUG
+  // We can do this just once to optimise; for development, we want to initialise every time.
+  OneTimeInit();
+#else
+  // One time init for all Music Scores.
   static std::once_flag flag;
-  std::call_once(flag, LoadCompoundGlyphs);
+  std::call_once(flag, OneTimeInit);
+#endif
+
+  // TODO Share for all Music Scores
+  m_fullscreenRenderer.InitFullScreenQuad();
+  RenderToTexture* rtt = dynamic_cast<RenderToTexture*>(AmjuGL::Create(RenderToTexture::DRAWABLE_TYPE_ID));
+  Assert(rtt);
+
+  rtt->SetRenderFlags(RenderToTexture::AMJU_RENDER_COLOUR_WITH_ALPHA);
+  //rtt->SetSize(128, 128); // // TODO TEMP TEST - shold be multiple of screen resolution?
+  rtt->SetSize(1024, 1024);
+  rtt->Init();
+
+  m_fullscreenRenderer.SetRenderTarget(rtt);
 }
 
 void GuiMusicScore::AddToFactory()
@@ -210,12 +234,19 @@ void GuiMusicScore::Draw()
   Vec2f pos = GetCombinedPos();
   Vec2f size = GetSize();
 
+  RenderToTexture* rtt = m_fullscreenRenderer.GetRenderTarget();
+  rtt->Begin();
+
   m_atlas.Bind();
   AmjuGL::PushMatrix();
   AmjuGL::Translate(pos.x, pos.y, 0);
   AmjuGL::Scale(size.x, size.y, 1);
   AmjuGL::Draw(m_triList);
   AmjuGL::PopMatrix();
+
+  rtt->End();
+
+  m_fullscreenRenderer.DrawFullScreenQuad();
 }
 
 void GuiMusicScore::AddGlyph(const Glyph& g)
@@ -233,7 +264,7 @@ bool GuiMusicScore::ExpandCompoundGlyph(const Strings& strs, const Vec2f& pos_, 
   int n = strs.size();
   if (n != 3 && n != 5)
   {
-    ReportError("Unexpected compound glyph format");
+    ReportError("Unexpected compound glyph format (missing position?)");
     return false;
   }
   // Look up the compound glyph string for this name, e.g. "minim-up" => "minim... ; quad..."
