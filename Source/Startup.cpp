@@ -79,6 +79,14 @@
 #endif
 
 #ifdef WIN32
+
+#ifdef _DEBUG
+// MSVC memory debugging
+#define _CRTDBG_MAP_ALLOC  
+#include <stdlib.h>  
+#include <crtdbg.h>  
+#endif
+
 #ifdef NDEBUG
 #define YES_GLUE_FILE
 #define YES_BINARY_OBJ_FILES
@@ -216,6 +224,11 @@ static void LoadWritableConfig()
 
 void StartUpBeforeCreateWindow()
 {
+#if defined(WIN32) && defined(_DEBUG)
+  // Set up MSVC mem leak reporting
+  _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
+
   Amju::Randomise();
   
   SetUpRootDir();
