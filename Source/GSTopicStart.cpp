@@ -7,18 +7,23 @@
 #include "GSMainCorridor.h"
 #include "GSPages.h"
 #include "GSTopicStart.h"
+#include "PlayWav.h"
 #include "Topic.h"
 
 namespace Amju
 {
 static void OnBack(GuiElement*)
 {
+  PlayWav("bad1");
+
   // Back to main menu
   TheGame::Instance()->GetState()->GoBack();
 }
 
 static void OnStart(GuiElement*)
 {
+  PlayWav("good1");
+
   GSPages* gs = TheGSPages::Instance();
   int topicNum = TheGSTopicStart::Instance()->GetTopic();
   gs->StartTopic(topicNum);

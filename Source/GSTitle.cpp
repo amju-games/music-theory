@@ -9,12 +9,15 @@
 #include "GSFirstUser.h"
 #include "GSMainCorridor.h"
 #include "GSTitle.h"
+#include "PlayWav.h"
 #include "UserProfile.h"
 
 namespace Amju
 {
 static void OnStart(GuiElement* elem)
 {
+  PlayWav("good1");
+
   // Is there a user yet?
   ConfigFile* cf = TheUserProfile()->GetConfigForTopic(KEY_GENERAL);
   Assert(cf);

@@ -9,6 +9,7 @@
 #include "CorridorModeEnterClassroom.h"
 #include "Course.h"
 #include "GSMainCorridor.h"
+#include "PlayWav.h"
 #include "Tappable.h"
 
 namespace Amju
@@ -98,6 +99,8 @@ void CorridorModeWait::Drag(bool rightNotLeft)
     m_scrollVel = MAX_SCROLL_VEL * dir;
     m_isScrolling = true;
     ShowTopicName(false);
+
+    PlayWav(rightNotLeft ? "ok1" : "ok2");
   }
 }
 
