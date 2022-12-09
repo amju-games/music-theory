@@ -18,7 +18,7 @@ public:
   virtual bool OnMouseButtonEvent(const MouseButtonEvent&) override;
   virtual bool OnDoubleClickEvent(const DoubleClickEvent&) override;
 
-private:
+protected:
   bool m_isDrawing = false;
   GuiLineDrawing* m_drawing = nullptr;
   GuiElement* m_pencil = nullptr;

@@ -212,6 +212,19 @@ bool GuiLineDrawing::LoadPoints(File* f)
   return true;
 }
 
+bool GuiLineDrawing::SavePoints(File* f)
+{
+  // Save points, not control points
+  for (const Vec2f& p : m_points)
+  {
+    if (!f->Write(ToString(p.x) + ", " + ToString(p.y)))
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
 void GuiLineDrawing::MakeInBetweenPoints()
 {
   // Make in between points from control points

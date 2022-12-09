@@ -27,6 +27,9 @@ public:
   // Load sequence of points from a file. This lets us make up a reusable library of strokes. 
   bool LoadPoints(File*);
 
+  // Save points to the given file so they can be reloaded
+  bool SavePoints(File*);
+
 protected:
   void Reset();
   void BuildTriList();
