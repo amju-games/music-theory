@@ -70,10 +70,20 @@ void GSMainMenu::OnActive()
   int numTopics = course->GetNumTopics();
   for (int i = 0; i < numTopics; i++)
   {
+    Topic* topic = course->GetTopic(i);
+
+    // Find the subtree for topic i
+    GuiElement* topicRoot = GetElementByName(m_gui, "leaf-" + ToString(i));
+
     // Find the button corresponding to this topic, should be named "topic-button-<n>"
-    GuiButton* elem = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "topic-button-" + ToString(i)));
+    GuiButton* elem = dynamic_cast<GuiButton*>(GetElementByName(topicRoot, "topic-button"));
     Assert(elem);
     elem->SetCommand(new TopicCommand(i));
+
+    // Name for button
+    IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(topicRoot, "topic-name-text"));
+    Assert(text);
+    text->SetText(topic->GetDisplayName());
   }
 
   // Back to title 

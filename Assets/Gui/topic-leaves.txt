@@ -1,0 +1,36 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Topic leaves
+// All topic leaves
+
+// v.
+1
+
+gui-comp
+topic-leaves-comp
+2
+
+gui-comp
+leaf-0
+1
+colour
+ffffffff
+translate
+0, -0.3
+include
+topic-leaf-right.txt
+
+
+gui-comp
+leaf-1
+1
+colour
+ffffffff
+translate
+0, 0.3
+include
+topic-leaf-right.txt
+
+
+

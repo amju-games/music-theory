@@ -358,5 +358,11 @@
     <Text Include="..\..\..\..\Assets\Gui\stroke-main-menu-1.txt">
       <Filter>Assets\Gui\Stroke</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\topic-leaf-right.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\topic-leaves.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>

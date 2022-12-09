@@ -399,6 +399,8 @@
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-2.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-tick-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\title-text.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\topic-leaf-right.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\topic-leaves.txt" />
     <Text Include="..\..\..\..\Docs\TODO.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

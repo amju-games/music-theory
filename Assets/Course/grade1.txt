@@ -9,7 +9,7 @@
 1
 
 // Num topics
-1
+2
 
 // Topic
 // ID
@@ -35,12 +35,22 @@ page-musical-term
 
 // Topic
 // ID
-rhythm1
+notes-1
 // Localised display name
-Rhythm
+Notes
 // Unlocks
 // Pages
-// ...
+10
+page-play-notes
+page-play-notes
+page-play-notes
+page-play-notes
+page-play-notes
+page-play-notes
+page-play-notes
+page-play-notes
+page-play-notes
+page-play-notes
 
 // Topic
 // ID

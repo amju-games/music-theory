@@ -124,7 +124,7 @@ one
 
 gui-comp
 scrolling-part-of-scene
-6
+5
 
 
 // GROWING SHOOT
@@ -132,7 +132,6 @@ scrolling-part-of-scene
 translate
 -0.1, -0.4
 
-// Decorator test
 // delay
 animation
 name-not-used
@@ -191,104 +190,9 @@ bulb
 Image/bulb2.png
 
 
-// GROWING TOPIC LEAF
-
-animation
-clean-anim-value
-const
-one
-
-animation
-wait
-one-shot
-// TODO Wait until shoot grown
-2.
-step
-
-gui-comp
-leaf-comp
-2
-
-animation
-grow-leaf
-one-shot
-1.5
-linear
-
-rotate
-5
-
-scale
-0.0, 0.0; 1.0, 1.0
--0.7, 0.0
-
-// Topic button
-gui-button
-topic-button-0
-// pos (coords are -1..1)
-0.03, 0.18
-0.8, 0.4
-Image/leaf1.png
-$$$empty
-dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
-
-
-// 2nd child of leaf-comp: Pulse leaf
-rotate
-5
-
-animation
-grow-leaf
-repeat
-1.5
-linear
-
-colour
-ffff00c0, ffff0000
-
-scale
-0.0, 0.0; 1.5, 1.5
--0.7, 0.0
-
-gui-image
-bulb
-0.03, 0.18
-0.8, 0.4
-Image/leaf1.png
-
-// OPTION LEAF BUTTON TEXT (not using button text as we are scaling)
-
-animation
-clean-anim-value
-const
-one
-
-animation
-delay
-one-shot
-3.5
-step
-
-animation
-fade-in-text
-one-shot
-1.5
-linear
-
-colour
-ffffff00, ffffffff
-
-gui-text
-topic-0-name-text
-// pos (coords are -1..1)
-0.0, 0.4
-// size
-1.0, 0.1
-// Text
-Musical terms
-// Font name, size
-dimbo, 1.0, multi, fgcol=ffffff
-
+// GROWING TOPIC LEAVES
+include
+topic-leaves.txt
 
 
 // TITLE TEXT
