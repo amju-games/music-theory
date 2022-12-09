@@ -17,6 +17,13 @@
 		6955431E1F3B526D007C23EA /* TappableFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695543161F3B526D007C23EA /* TappableFactory.cpp */; };
 		6955431F1F3B526D007C23EA /* TappableHint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695543181F3B526D007C23EA /* TappableHint.cpp */; };
 		695543231F3B52C6007C23EA /* iOSShare.mm in Sources */ = {isa = PBXBuildFile; fileRef = 695543221F3B52C6007C23EA /* iOSShare.mm */; };
+		69568DB01F706B6100F1B528 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69568DA91F706B6100F1B528 /* Default-568h@2x.png */; };
+		69568DB11F706B6100F1B528 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 69568DAA1F706B6100F1B528 /* Default-Landscape@2x~ipad.png */; };
+		69568DB21F706B6100F1B528 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 69568DAB1F706B6100F1B528 /* Default-Landscape~ipad.png */; };
+		69568DB31F706B6100F1B528 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 69568DAC1F706B6100F1B528 /* Default-Portrait@2x~ipad.png */; };
+		69568DB41F706B6100F1B528 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 69568DAD1F706B6100F1B528 /* Default.png */; };
+		69568DB51F706B6100F1B528 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69568DAE1F706B6100F1B528 /* Default@2x.png */; };
+		69568DB61F706B6100F1B528 /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 69568DAF1F706B6100F1B528 /* Default~ipad.png */; };
 		6959E2D01E958C3C00E251A9 /* GSPages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2C81E958C3C00E251A9 /* GSPages.cpp */; };
 		6959E2D11E958C3C00E251A9 /* GSTitle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2CA1E958C3C00E251A9 /* GSTitle.cpp */; };
 		6959E2EC1E97F6F800E251A9 /* Course.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2E41E97F6F800E251A9 /* Course.cpp */; };
@@ -159,6 +166,13 @@
 		6955431B1F3B526D007C23EA /* TappableZoomInfoLeaf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TappableZoomInfoLeaf.h; path = ../../../../Source/TappableZoomInfoLeaf.h; sourceTree = "<group>"; };
 		695543211F3B52C6007C23EA /* iOSShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iOSShare.h; path = "../../../../Source/iOS-MusicTheory/iOSShare.h"; sourceTree = "<group>"; };
 		695543221F3B52C6007C23EA /* iOSShare.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSShare.mm; path = "../../../../Source/iOS-MusicTheory/iOSShare.mm"; sourceTree = "<group>"; };
+		69568DA91F706B6100F1B528 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../../../Assets/iOS/Launch-Landscape/Default-568h@2x.png"; sourceTree = "<group>"; };
+		69568DAA1F706B6100F1B528 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "../../../Assets/iOS/Launch-Landscape/Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
+		69568DAB1F706B6100F1B528 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../../../Assets/iOS/Launch-Landscape/Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		69568DAC1F706B6100F1B528 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait@2x~ipad.png"; path = "../../../Assets/iOS/Launch-Landscape/Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
+		69568DAD1F706B6100F1B528 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = "../../../Assets/iOS/Launch-Landscape/Default.png"; sourceTree = "<group>"; };
+		69568DAE1F706B6100F1B528 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../../../Assets/iOS/Launch-Landscape/Default@2x.png"; sourceTree = "<group>"; };
+		69568DAF1F706B6100F1B528 /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default~ipad.png"; path = "../../../Assets/iOS/Launch-Landscape/Default~ipad.png"; sourceTree = "<group>"; };
 		6959E2C81E958C3C00E251A9 /* GSPages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSPages.cpp; path = ../../../../Source/GSPages.cpp; sourceTree = "<group>"; };
 		6959E2C91E958C3C00E251A9 /* GSPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSPages.h; path = ../../../../Source/GSPages.h; sourceTree = "<group>"; };
 		6959E2CA1E958C3C00E251A9 /* GSTitle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSTitle.cpp; path = ../../../../Source/GSTitle.cpp; sourceTree = "<group>"; };
@@ -354,6 +368,13 @@
 		699058B31E7D3BF400E528B4 = {
 			isa = PBXGroup;
 			children = (
+				69568DA91F706B6100F1B528 /* Default-568h@2x.png */,
+				69568DAA1F706B6100F1B528 /* Default-Landscape@2x~ipad.png */,
+				69568DAB1F706B6100F1B528 /* Default-Landscape~ipad.png */,
+				69568DAC1F706B6100F1B528 /* Default-Portrait@2x~ipad.png */,
+				69568DAD1F706B6100F1B528 /* Default.png */,
+				69568DAE1F706B6100F1B528 /* Default@2x.png */,
+				69568DAF1F706B6100F1B528 /* Default~ipad.png */,
 				69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */,
 				697A08061E82F3980045CE54 /* Amjulib.xcodeproj */,
 				699058BE1E7D3BF400E528B4 /* Amjula Music Theory */,
@@ -710,13 +731,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69568DB31F706B6100F1B528 /* Default-Portrait@2x~ipad.png in Resources */,
+				69568DB61F706B6100F1B528 /* Default~ipad.png in Resources */,
 				69D58E6C1E848A0E008A8D29 /* ViewController_iPad.xib in Resources */,
+				69568DB21F706B6100F1B528 /* Default-Landscape~ipad.png in Resources */,
 				69D10FED1F43957F00F18EF1 /* music-iOS.glue in Resources */,
+				69568DB01F706B6100F1B528 /* Default-568h@2x.png in Resources */,
 				699058CE1E7D3BF500E528B4 /* Main.storyboard in Resources */,
 				69A23A631F686C010021BF88 /* Grand Piano.sf2 in Resources */,
+				69568DB41F706B6100F1B528 /* Default.png in Resources */,
+				69568DB11F706B6100F1B528 /* Default-Landscape@2x~ipad.png in Resources */,
 				699058D01E7D3BF500E528B4 /* Assets.xcassets in Resources */,
 				699058D31E7D3BF500E528B4 /* LaunchScreen.storyboard in Resources */,
 				69D10FEC1F43957F00F18EF1 /* data-iOS.glue in Resources */,
+				69568DB51F706B6100F1B528 /* Default@2x.png in Resources */,
 				69D58E6D1E848A0E008A8D29 /* ViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
