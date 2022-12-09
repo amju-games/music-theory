@@ -34,6 +34,7 @@ public:
   void OnChoice(int c);
 
   virtual void OnHint() override;
+  virtual bool CanGetHint() override;
   virtual void ShowCorrectAnswer() override;
 
   void SetQuestionType(QuestionType);

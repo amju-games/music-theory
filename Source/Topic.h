@@ -18,8 +18,8 @@ class File;
 //  short, taking a few minutes to complete).
 // The topic contains details of what is to be learned, but not its presentation - 
 //  this is handled by Pages.
-// The user's progress through the topic is not represented here either. This is
-//  'const' data, not the dynamic state.
+// The user's progress through the topic is not represented here either. In
+//  other words, the Topic is 'const' data, not the dynamic state.
 class Topic : public RefCounted
 {
 public:
@@ -51,10 +51,6 @@ public:
   const std::string& GetGroup() const;
 
 protected:
-  // The Course which owns this topic.
-  // Weak ptr - Course has ref counted ptr to this topic.
-  Course* m_userProfile = nullptr;
-
   std::string m_id; // Unique ID
 
   // Localised name user sees

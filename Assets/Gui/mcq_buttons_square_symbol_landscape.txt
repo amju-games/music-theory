@@ -9,6 +9,35 @@
 // Multi choice buttons
 // Each button can be faded out.
 
+gui-comp
+buttons-and-correct-answer
+2
+
+
+// Animate when triggered
+animation
+animate-correct
+one-shot
+1.0
+linear
+
+// Line drawing, used to show correct answer
+line-drawing
+// Name
+correct
+// Pos
+0, -0.5
+// Size
+1, 1
+// Start width
+0.01
+// End width
+0.01
+// Colour: (start colour, end colour?)
+ff0000
+// Points
+stroke-correct-symbol.txt
+
 
 // Fade out anim, off until triggered in code
 animation

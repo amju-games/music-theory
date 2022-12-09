@@ -357,9 +357,6 @@
     <Text Include="..\..\..\..\Assets\Gui\pie.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\ground.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\stroke-main-menu-1.txt">
       <Filter>Assets\Gui\Stroke</Filter>
     </Text>
@@ -418,9 +415,6 @@
       <Filter>Assets\Gui</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\compound_glyphs.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\topic_door_1.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\gs_about.txt">
@@ -551,6 +545,12 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Scene\corridor-one-door.txt">
       <Filter>Assets\Scene</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\stroke-correct-symbol.txt">
+      <Filter>Assets\Gui\Stroke</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\stroke-correct-wide.txt">
+      <Filter>Assets\Gui\Stroke</Filter>
     </Text>
   </ItemGroup>
 </Project>

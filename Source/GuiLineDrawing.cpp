@@ -141,6 +141,11 @@ void GuiLineDrawing::BuildTriList()
 
 void GuiLineDrawing::Draw()
 {
+  if (!IsVisible())
+  {
+    return;
+  }
+
   Vec2f pos = GetCombinedPos();
 
   m_texture->UseThisTexture();

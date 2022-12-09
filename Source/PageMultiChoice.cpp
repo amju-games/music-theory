@@ -34,6 +34,9 @@ void PageMultiChoice::OnActive()
   SetUpButtons();
 
   SetUpQuestionUI();
+
+  GuiElement* correct = GetElementByName(m_gui, "animate-correct");
+  correct->SetVisible(false);
 }
 
 void PageMultiChoice::SetUpQuestionUI()
@@ -135,9 +138,14 @@ void PageMultiChoice::OnChoice(int c)
   }
 }
 
+bool PageMultiChoice::CanGetHint()
+{
+  return !m_canRemoveForHint.empty();
+}
+
 void PageMultiChoice::OnHint()
 {
-  // Fade out an incorrect answer. Shunt the buttons underneath up to fill the gap.
+  // Fade out an incorrect answer.
   if (m_canRemoveForHint.size() < 1)
   {
     return;
@@ -164,7 +172,7 @@ void PageMultiChoice::HideChoiceButton(int n)
 
   std::string fadeAnimName = "fade-button-" + ToString(n);
   GuiDecAnimation* fadeAnim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, fadeAnimName));
-  // Change value of this anim from zero to one, enabling desendant animations
+  // Change value of this anim from zero to one, enabling descendant animations
   fadeAnim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
 
   // Disable the button
@@ -175,11 +183,29 @@ void PageMultiChoice::HideChoiceButton(int n)
 void PageMultiChoice::ShowCorrectAnswer()
 {
   int i = m_answers.GetCorrectAnswer();
+
+  // Show a circular line drawing which fits the button for this choice.
   GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(i)));
-  if (button)
-  {
-    button->SetHasFocus(true); // pulsing glow
-  }
+  Assert(button);
+
+  GuiElement* correct = GetElementByName(m_gui, "animate-correct");
+  correct->SetLocalPos(button->GetLocalPos());
+  correct->SetVisible(true);
+
+
+  //std::string istr = ToString(i);
+  //GuiText* text = dynamic_cast<GuiText*>(GetElementByName(m_gui, "text-choice-" + istr));
+  //if (text)
+  //{
+  //  text->SetBgCol(Colour(1, 1, 0, 1)); // yellow highlight
+  //  text->SetDrawBg(true);
+  //}
+
+  //GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(i)));
+  //if (button)
+  //{
+  //  button->SetHasFocus(true); // pulsing glow
+  //}
 }
 
 void PageMultiChoice::SetQuestionType(QuestionType qt)

@@ -57,6 +57,7 @@ public:
 
   // Called when user taps Hint button -- show page-specific hint.
   virtual void OnHint() {}
+  virtual bool CanGetHint() { return true; }
   virtual void ShowCorrectAnswer() {}
 
   // Called when user taps piano keyboard

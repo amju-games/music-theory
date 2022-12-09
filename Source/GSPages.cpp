@@ -96,7 +96,9 @@ void GSPages::ShowHints()
   hintCounter->SetText(ToString(hints));
 
   // Disable button if no hints available
-  SetButtonEnabled("hint-button", hints > 0);
+  Assert(m_page);
+  bool enabled = (hints > 0 && m_page->CanGetHint());
+  SetButtonEnabled("hint-button", enabled);
 }
 
 void GSPages::ReloadGui()
@@ -122,8 +124,6 @@ void GSPages::ReloadGui()
   // Hide speech bubble initially
   GuiElement* speechBubble = GetElementByName(m_gui, "speech-bubble");
   speechBubble->SetVisible(false);
-
-  ShowHints();
 }
 
 void GSPages::Reload3d()
@@ -238,6 +238,8 @@ void GSPages::NextPage()
   GuiDecAnimation* sliceColourAnim = dynamic_cast<GuiDecAnimation*>(
     GetElementByName(m_gui, "anim-pie-colour-" + ToString(m_numPagesShown)));
   sliceColourAnim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+
+  ShowHints();
 }
 
 void GSPages::SetPie(int n, const Colour& col)
@@ -359,6 +361,8 @@ void GSPages::OnIncorrect(const Vec2f& choicePos)
 {
   //OnPlayerMadeChoice();
 
+  m_page->ShowCorrectAnswer();
+
   GuiElement* cross = GetElementByName(m_gui, "cross");
   cross->SetVisible(true);
   cross->SetLocalPos(choicePos);
@@ -383,6 +387,12 @@ void GSPages::OnHint()
 
     return;
   }
+
+  if (!m_page->CanGetHint())
+  {
+    return;
+  }
+
   Hints::Dec();
   ShowHints();
 
