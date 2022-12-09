@@ -75,25 +75,34 @@ void GSPages::ShowHints()
   hintCounter->SetText(ToString(m_numHintsAvailable));
 }
 
-void GSPages::OnActive()
+void GSPages::ReloadGui()
 {
-  // This could be a resume from pause, so we don't reset the topic progress here.
-
-  GSBase::OnActive();
-  //PrintGui(m_gui);
+  m_gui = LoadGui(m_guiFilename);
 
   GuiElement* elem = GetElementByName(m_gui, "pause-button");
   Assert(elem);
   elem->SetCommand(Amju::OnPause);
-  
+
   elem = GetElementByName(m_gui, "quit-confirm-ok");
   Assert(elem);
   elem->SetCommand(Amju::OnQuitConfirmOK);
-  
+
   elem = GetElementByName(m_gui, "quit-confirm-cancel");
   Assert(elem);
   elem->SetCommand(Amju::OnQuitConfirmCancel);
-  
+
+  ShowHints();
+}
+
+void GSPages::OnActive()
+{
+  // This WON'T be called if we resume from pause, there is a confirm dialog
+  //  in this state.
+
+  GameState::OnActive();
+  ReloadGui();
+  //PrintGui(m_gui);
+
   // Get general user config, just a convenience, it lives in the User Profile.
   m_userConfig = TheUserProfile()->GetConfigForTopic(KEY_GENERAL);
   // How many Hints are available?

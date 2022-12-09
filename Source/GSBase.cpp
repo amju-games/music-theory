@@ -74,6 +74,12 @@ void GSBase::OnDeactive()
   m_gui = nullptr;
 }
 
+void GSBase::ReloadGui()
+{
+  OnDeactive();
+  OnActive();
+}
+
 bool GSBase::OnKeyEvent(const KeyEvent& ke)
 {
 #ifdef _DEBUG
@@ -82,8 +88,7 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
     (ke.key == 'r' || ke.key == 'R'))
   {
     std::cout << "Reloading\n";
-    OnDeactive();
-    OnActive(); 
+    ReloadGui();
     return true;
   }
 

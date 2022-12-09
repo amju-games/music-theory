@@ -42,6 +42,11 @@ public:
 protected:
   void HideButtons(GuiElement*);
 
+  // For dev/debugging, or when landscape/portrait orientation changes.
+  // Default impl is to call OnDeactive() then OnActive, so reloading everything
+  //  for the state. (This could have unwanted effects.)
+  virtual void ReloadGui();
+
 protected: 
   // GUI - this is a 2D app
   PGuiElement m_gui;

@@ -495,5 +495,8 @@
     <Text Include="..\..\..\..\Assets\Gui\question_text_landscape.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\question_symbol_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -43,6 +43,7 @@ protected:
   void ShowHints();
   void SetPie(int n, const Colour& c);
   void SetButtonEnabled(const std::string& buttonName, bool enabled);
+  virtual void ReloadGui() override;
 
 protected:
   //std::vector<RCPtr<Page>> m_pages;
