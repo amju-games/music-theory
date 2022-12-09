@@ -44,7 +44,14 @@ void GSBase::Update()
 void GSBase::Draw2d() 
 {
   AmjuGL::SetClearColour(Colour(.95f, .95f, .95f, 1.f));
-//  AmjuGL::SetClearColour(Colour(.1f, .1f, .1f, 1.f));
+  
+#if defined(WIN32) || defined(MACOSX)
+  // Set shader for desktop GL - fixed function doesn't seem to treat vertex colours the
+  //  way we want (i.e. multiply by currently active colour)
+  static Shader* sh = AmjuGL::LoadShader("Shaders/" + AmjuGL::GetShaderDir() + "/gui");
+  Assert(sh);
+  AmjuGL::UseShader(sh);
+#endif
 
   if (m_gui)
   { 
