@@ -625,7 +625,7 @@ bool GuiMusicScore::AddCurveFromString(
     curve->SetWidths(0.006f, 0.012f);
     
     // Set rounded texture
-    PTexture tex = (Texture*)TheResourceManager::Instance()->GetRes("Image/corner.png");
+    PTexture tex = (Texture*)TheResourceManager::Instance()->GetRes("Image/circle.png");
     curve->SetTexture(tex);
     tex->SetWrapMode(AmjuGL::AMJU_TEXTURE_CLAMP);
 
