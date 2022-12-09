@@ -332,6 +332,13 @@ void GuiMusicScore::BuildTriList()
   m_triList = Amju::MakeTriList(tris);
 }
 
+#ifdef VERTEX_COLOUR_TEST
+static float rnd()
+{
+  return (float)rand() / (float)RAND_MAX;
+}
+#endif // VERTEX_COLOUR_TEST
+  
 void GuiMusicScore::SetQuadColour(AmjuGL::Tri t[2], const Colour& col)
 {
   for (int i = 0; i < 2; i++)
@@ -339,7 +346,12 @@ void GuiMusicScore::SetQuadColour(AmjuGL::Tri t[2], const Colour& col)
     for (int j = 0; j < 3; j++)
     {
       AmjuGL::Vert& v = t[i].m_verts[j];
+
       v.SetColour(col.m_r, col.m_g, col.m_b, col.m_a);
+
+#ifdef VERTEX_COLOUR_TEST
+      v.SetColour(rnd(), rnd(), rnd(), 1.0f); 
+#endif // VERTEX_COLOUR_TEST
     }
   }
 }
