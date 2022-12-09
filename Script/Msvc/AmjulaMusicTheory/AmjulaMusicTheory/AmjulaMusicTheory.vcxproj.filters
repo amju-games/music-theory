@@ -156,6 +156,9 @@
     <ClCompile Include="..\..\..\..\Source\PageScoreMCQBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\PageMusicalSymbol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -283,6 +286,9 @@
     <ClInclude Include="..\..\..\..\Source\PageScoreMCQBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\PageMusicalSymbol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Docs\TODO.txt" />
@@ -389,6 +395,12 @@
       <Filter>Assets\Gui</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Course\intervals.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_musical_symbol.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\musical_symbols.txt">
       <Filter>Assets\Course</Filter>
     </Text>
   </ItemGroup>

@@ -1,0 +1,14 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Musical symbols for grade 1
+
+// version
+1
+
+treble-clef, 0.5, 0  =Treble clef
+bass-clef, 0.5, 0  =Bass clef
+segno, 0.5, 0  =Segno
+pause, 0.5, 0  =Pause
+pause-above, 0.5, 0  =Pause
+

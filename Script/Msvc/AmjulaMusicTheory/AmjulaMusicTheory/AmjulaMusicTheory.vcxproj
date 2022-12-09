@@ -288,6 +288,7 @@
     <ClCompile Include="..\..\..\..\Source\PageFactory.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageIntervalsMultiChoice.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageMultiChoice.cpp" />
+    <ClCompile Include="..\..\..\..\Source\PageMusicalSymbol.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageMusicalTerm.cpp" />
     <ClCompile Include="..\..\..\..\Source\PagePlayNotes.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageScoreMCQBase.cpp" />
@@ -359,6 +360,7 @@
     <ClInclude Include="..\..\..\..\Source\PageFactory.h" />
     <ClInclude Include="..\..\..\..\Source\PageIntervalsMultiChoice.h" />
     <ClInclude Include="..\..\..\..\Source\PageMultiChoice.h" />
+    <ClInclude Include="..\..\..\..\Source\PageMusicalSymbol.h" />
     <ClInclude Include="..\..\..\..\Source\PageMusicalTerm.h" />
     <ClInclude Include="..\..\..\..\Source\PagePlayNotes.h" />
     <ClInclude Include="..\..\..\..\Source\PageScoreMCQBase.h" />
@@ -377,6 +379,7 @@
   <ItemGroup>
     <Text Include="..\..\..\..\Assets\Course\grade1.txt" />
     <Text Include="..\..\..\..\Assets\Course\intervals.txt" />
+    <Text Include="..\..\..\..\Assets\Course\musical_symbols.txt" />
     <Text Include="..\..\..\..\Assets\Course\musical_terms.txt" />
     <Text Include="..\..\..\..\Assets\Gui\ground.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs-first-user.txt" />
@@ -395,6 +398,7 @@
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt" />
     <Text Include="..\..\..\..\Assets\Gui\music-score-bg.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_interval.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\page_musical_symbol.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_musical_term.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_play_notes.txt" />
     <Text Include="..\..\..\..\Assets\Gui\pie.txt" />
