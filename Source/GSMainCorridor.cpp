@@ -35,11 +35,6 @@ namespace Amju
 {
 namespace
 {
-void OnShare(GuiElement*)
-{
-  //  TheGSMainCorridor::Instance()->HideButtons()->ScrollUp();
-}
-
 void OnNewUser(GuiElement*)
 {
   //  TheGSMainCorridor::Instance()->HideButtons()->ScrollDown();

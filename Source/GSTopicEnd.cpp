@@ -35,6 +35,11 @@ void GSTopicEnd::OnActive()
   elem->SetCommand(OnOK);
   elem->SetHasFocus(true);
 
+  GuiElement* shareButton = GetElementByName(m_gui, "share-button");
+  Assert(shareButton);
+  shareButton->SetCommand(Amju::OnShare);
+  // TODO Set message and image
+  
   // Set score number text
   GuiText* text = (GuiText*)GetElementByName(m_gui, "num-text");
   Assert(text);
