@@ -44,6 +44,7 @@
 		69AC40361EB5331300F255A4 /* Dictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC402F1EB5331300F255A4 /* Dictionary.cpp */; };
 		69AC40371EB5331300F255A4 /* MusicEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC40311EB5331300F255A4 /* MusicEvent.cpp */; };
 		69AC40391EB5331300F255A4 /* PageMultiChoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC40351EB5331300F255A4 /* PageMultiChoice.cpp */; };
+		69C10CD61F122197009B6836 /* PlayWav.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69C10CD41F122197009B6836 /* PlayWav.cpp */; };
 		69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E431E833741008A8D29 /* AppDelegate.mm */; };
 		69D58E481E833741008A8D29 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E441E833741008A8D29 /* main.m */; };
 		69D58E491E833741008A8D29 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E461E833741008A8D29 /* ViewController.mm */; };
@@ -185,6 +186,8 @@
 		69AC40311EB5331300F255A4 /* MusicEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MusicEvent.cpp; path = ../../../../Source/MusicEvent.cpp; sourceTree = "<group>"; };
 		69AC40321EB5331300F255A4 /* MusicEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicEvent.h; path = ../../../../Source/MusicEvent.h; sourceTree = "<group>"; };
 		69AC40351EB5331300F255A4 /* PageMultiChoice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PageMultiChoice.cpp; path = ../../../../Source/PageMultiChoice.cpp; sourceTree = "<group>"; };
+		69C10CD41F122197009B6836 /* PlayWav.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlayWav.cpp; path = ../../../../Source/PlayWav.cpp; sourceTree = "<group>"; };
+		69C10CD51F122197009B6836 /* PlayWav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayWav.h; path = ../../../../Source/PlayWav.h; sourceTree = "<group>"; };
 		69D58E421E833741008A8D29 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "../../../../Source/iOS-MusicTheory/AppDelegate.h"; sourceTree = "<group>"; };
 		69D58E431E833741008A8D29 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = "../../../../Source/iOS-MusicTheory/AppDelegate.mm"; sourceTree = "<group>"; };
 		69D58E441E833741008A8D29 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "../../../../Source/iOS-MusicTheory/main.m"; sourceTree = "<group>"; };
@@ -361,6 +364,8 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				69C10CD41F122197009B6836 /* PlayWav.cpp */,
+				69C10CD51F122197009B6836 /* PlayWav.h */,
 				6951CF111F0B932300140095 /* GSBase3d.cpp */,
 				6951CF121F0B932300140095 /* GSBase3d.h */,
 				6951CF131F0B932300140095 /* Hints.cpp */,
@@ -628,6 +633,7 @@
 				69D58E4E1E84836B008A8D29 /* Startup.cpp in Sources */,
 				6951CF181F0B932300140095 /* Hints.cpp in Sources */,
 				69AC40391EB5331300F255A4 /* PageMultiChoice.cpp in Sources */,
+				69C10CD61F122197009B6836 /* PlayWav.cpp in Sources */,
 				6959E30B1EA7CFF200E251A9 /* GSFirstUser.cpp in Sources */,
 				69AC40361EB5331300F255A4 /* Dictionary.cpp in Sources */,
 				69D58E871E86A02B008A8D29 /* ScoreBuilder.cpp in Sources */,
