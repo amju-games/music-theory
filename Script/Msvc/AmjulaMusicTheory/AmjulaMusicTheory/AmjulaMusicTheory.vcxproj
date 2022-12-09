@@ -388,6 +388,7 @@
     <Text Include="..\..\..\..\Assets\Gui\gui-top-bar.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_musical_term.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\page_play_notes.txt" />
     <Text Include="..\..\..\..\Assets\Gui\pie.txt" />
     <Text Include="..\..\..\..\Assets\Gui\quit-confirm.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-cross-1.txt" />

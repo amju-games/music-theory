@@ -24,12 +24,19 @@ void PagePlayNotes::OnActive()
 
   // Add the chosen note to the stave already set up in gui file
   ScoreBuilder sb;
+
+  // Choose pitch depending on if we are testing accidentals etc?
   int pitch = 0; // TODO
-  int x = 128; // TODO
-  int y = 0; // TODO
+  int x = 192; // TODO
+  int y = rand() % 12 - 6; // TODO
   int bar = 1;
   Note note(pitch, x, y, Note::SEMIBREVE, bar);
   sb.Add(note);
+
+  // Tell ScoreBuilder which clef to use, and the pitch, then 
+  //  it works out the y-pos. So clef not hard coded in gui layout?
+
+  // Tell S.B. the key sig?? (Guido has +/- number of sharps/flats)
 
   GuiMusicScore* score = dynamic_cast<GuiMusicScore*>(GetElementByName(m_gui, "score"));
   Assert(score);

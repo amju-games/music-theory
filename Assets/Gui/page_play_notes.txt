@@ -53,6 +53,34 @@ page
 // Num children
 3
 
+gui-image
+score-white-bg
+-0.75, 0.7
+1.5, 0.5
+Image/white.png, stretch
+
+music-score
+// Name, Position
+score
+-0.5, 0.1
+// Scale - affects pos, TODO
+.5, .5
+// Colour
+// 1DA2FF
+000000
+
+// Glyphs start here
+stave, 0, 0, 2.0, 1
+treble-clef, 0.25, 0
+bar-line, 0, 0
+bar-line, 1.98, 0
+end
+
+include
+keyboard.txt
+
+
+//===============================
 
 // Element type
 gui-text
@@ -66,28 +94,3 @@ help-text
 Play the note!
 // Font name, size
 dimbo, 1.0, multi, fgcol=000000
-
-
-include
-keyboard.txt
-
-
-music-score
-// Name, Position
-score
--1, -0.1
-// Scale - affects pos, TODO
-1, 1
-// Colour
-// 1DA2FF
-000000
-
-// Glyphs start here
-stave, 0.25, 0, 1.5, 1
-treble-clef, 0.3, 0
-end
-
-
-
-
-

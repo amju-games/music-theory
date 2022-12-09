@@ -3,6 +3,7 @@
 
 #include <DrawAABB.h>
 #include <DrawRect.h>
+#include <EventPoller.h>
 #include <GuiFactory.h>
 #include <Matrix.h>
 #include <ResourceManager.h>
@@ -23,6 +24,17 @@ static GuiElement* CreateMusicKb()
 void GuiMusicKb::AddToFactory()
 {
   TheGuiFactory::Instance()->Add("music-kb", CreateMusicKb);
+}
+
+bool MusicKbEvent::UpdateListener(EventListener* listener)
+{
+  MusicEventListener* mel = dynamic_cast<MusicEventListener*>(listener);
+  if (mel)
+  {
+    mel->OnMusicKbEvent(this);
+    return true;
+  }
+  return false;
 }
 
 GuiMusicKb::~GuiMusicKb()
@@ -59,8 +71,9 @@ void GuiMusicKb::Draw()
   AmjuGL::SetIdentity();
   AmjuGL::LookAt(0, 6, 10,   0, 0, 0,   0, 1, 0);
 
-  float s = GetSize().x;
-  float x = GetLocalPos().x; 
+  float sx = GetSize().x;
+  float sy = GetSize().y;
+  float x = GetLocalPos().x;
 
   for (PKey pkey: m_keys)
   {
@@ -70,11 +83,11 @@ void GuiMusicKb::Draw()
 
     AmjuGL::RotateX(key.m_angle);
 
-    AmjuGL::Scale(s, s, s);
+    AmjuGL::Scale(sx, 1, sy);
     x += key.m_x;
 
     Vec2f pos = GetCombinedPos();
-    AmjuGL::Translate(pos.x / s + x, pos.y / s, 0);
+    AmjuGL::Translate(pos.x / sx + x, pos.y / sy, 0);
 
     AmjuGL::SetColour(key.m_colour);
 
@@ -257,7 +270,9 @@ void GuiMusicKb::Key::Press()
   m_isPressed = false;
   m_desiredAngle = 5.0f;
   
-  PlayMidi(m_midiNote, MIDI_NOTE_MAX_VOLUME);
+  PlayMidi(m_midiNote, MIDI_NOTE_MAX_VOLUME); // ?
+
+  TheEventPoller::Instance()->GetImpl()->QueueEvent(new MusicKbEvent(m_midiNote, true));
 }
   
 void GuiMusicKb::Key::Release()
@@ -265,7 +280,9 @@ void GuiMusicKb::Key::Release()
   m_isPressed = false;
   m_desiredAngle = 0.0f;
   
-  PlayMidi(m_midiNote, 0);
+  PlayMidi(m_midiNote, 0); // ?
+
+  TheEventPoller::Instance()->GetImpl()->QueueEvent(new MusicKbEvent(m_midiNote, false));
 }
 
 void GuiMusicKb::ReleaseAllKeys()

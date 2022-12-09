@@ -11,7 +11,7 @@ gui-comp
 // Name
 keyboard
 // Num children
-4
+3
 
 // Background to kb
 gui-image
@@ -20,20 +20,20 @@ kb-bg
 2, 1
 Image/black.png
 
-// Piano Name, giving cue for middle C position
-gui-image
-kb-piano-name-mask
--0.5, 0.2
-1.0, 0.1
-Image/piano-name.png
+//// Piano Name, giving cue for middle C position
+//gui-image
+//kb-piano-name-mask
+//-0.5, 0.2
+//1.0, 0.1
+//Image/piano-name.png
 
 // The keyboard
 music-kb
 kb
 // Pos
--4, -2.0
+-4, -1.4
 // Scale
-.6, .6
+0.9, 0.5
 //1, 1
 // Keys
 // First key midi value (60=middle C)
@@ -53,17 +53,17 @@ key-black.obj, 1, 0.55
 key-white.obj, 0, 0.55
 
 key-white.obj, 0, 1.1
-key-black.obj, 1, .55
-key-white.obj, 0, .55
-key-black.obj, 1, .55
-key-white.obj, 0, .55
-key-white.obj, 0, 1.1
-key-black.obj, 1, .55
-key-white.obj, 0, .55
-key-black.obj, 1, .55
-key-white.obj, 0, .55
-key-black.obj, 1, .55
-key-white.obj, 0, .55
+//key-black.obj, 1, .55
+//key-white.obj, 0, .55
+//key-black.obj, 1, .55
+//key-white.obj, 0, .55
+//key-white.obj, 0, 1.1
+//key-black.obj, 1, .55
+//key-white.obj, 0, .55
+//key-black.obj, 1, .55
+//key-white.obj, 0, .55
+//key-black.obj, 1, .55
+//key-white.obj, 0, .55
 end
 
 // Front of kb: black bg with dots

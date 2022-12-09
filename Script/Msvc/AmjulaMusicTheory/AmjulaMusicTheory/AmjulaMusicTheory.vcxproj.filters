@@ -364,5 +364,8 @@
     <Text Include="..\..\..\..\Assets\Gui\topic-leaves.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_play_notes.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>

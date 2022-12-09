@@ -16,7 +16,8 @@
 musical-terms-1
 // Localised display name
 Musical terms
-// Unlocks
+// Initially locked?
+// Topics unlocked by this one
 // Pages
 // 10 * musical term pages -- TODO num repeats?
 10
@@ -38,7 +39,8 @@ page-musical-term
 notes-1
 // Localised display name
 Notes
-// Unlocks
+// Initially locked?
+// Topics unlocked by this one
 // Pages
 10
 page-play-notes
