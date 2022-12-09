@@ -25,6 +25,7 @@
 #endif
 
 #include <AmjuGLWindowInfo.h>
+#include <AmjuRand.h>
 #include <BassSoundPlayer.h>
 #include <CursorManager.h>
 #include <Directory.h>
@@ -64,8 +65,8 @@
 #endif
 
 #ifdef MACOSX
-#define YES_GLUE_FILE
-#define YES_BINARY_OBJ_FILES
+//#define YES_GLUE_FILE
+//#define YES_BINARY_OBJ_FILES
 #define GLUE_FILE "data-iOS.glue"
 #define MUSIC_GLUE_FILE "music-iOS.glue"
 #endif
@@ -152,7 +153,10 @@ static void SetUpGlueFile()
 
 void StartUpBeforeCreateWindow()
 {
+  Amju::Randomise();
+  
   SetUpRootDir();
+  
   SetROConfigFilename("roconfig.txt");
 }
 
@@ -168,7 +172,7 @@ static void SetUpResourceLoaders()
   rm->AddLoader("obj", TextObjLoader);
 #endif
 
-  // Musical terms dictionary 
+  // To load dictionaries for tests 
   rm->AddLoader("dictionary", DictionaryLoader);
 
   // Course 
