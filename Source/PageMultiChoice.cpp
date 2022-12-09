@@ -41,8 +41,8 @@ void PageMultiChoice::OnActive()
 
   SetUpQuestionUI();
 
-  GuiElement* correct = GetElementByName(m_gui, "animate-correct");
-  correct->SetVisible(false);
+  //GuiElement* correct = GetElementByName(m_gui, "animate-correct");
+  //correct->SetVisible(false);
 }
 
 void PageMultiChoice::SetUpButtons()

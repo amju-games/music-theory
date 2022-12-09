@@ -14,31 +14,7 @@ translate
 
 gui-comp
 buttons-and-correct-answer
-2
-
-// Animate when triggered
-animation
-animate-correct
-one-shot
-1.0
-linear
-
-// Line drawing, used to show correct answer
-line-drawing
-// Name
-correct
-// Pos
--0.05, -0.2
-// Size
-1, 1
-// Start width
-0.01
-// End width
-0.01
-// Colour: (start colour, end colour?)
-ff0000
-// Points
-stroke-correct-wide.txt
+1
 
 // Fade out anim, off until triggered in code
 animation
@@ -91,7 +67,7 @@ text-choice-0
 // Text
 $$$empty
 // Font name, size
-TEXT, 1.5, left, multi, fgcol=000000
+TEXT, 1.5, centre, multi, fgcol=000000
 
 gui-comp
 buttons-1-3
@@ -149,7 +125,7 @@ text-choice-1
 // Text
 $$$empty
 // Font name, size
-TEXT, 1.5, left, multi, fgcol=000000
+TEXT, 1.5, centre, multi, fgcol=000000
 
 gui-comp
 buttons-2-3
@@ -206,7 +182,7 @@ text-choice-2
 // Text
 $$$empty
 // Font name, size
-TEXT, 1.5, left, multi, fgcol=000000
+TEXT, 1.5, centre, multi, fgcol=000000
 
 gui-comp
 buttons-3
@@ -261,6 +237,6 @@ text-choice-3
 // Text
 $$$empty
 // Font name, size
-TEXT, 1.5, left, multi, fgcol=000000
+TEXT, 1.5, centre, multi, fgcol=000000
 
 
