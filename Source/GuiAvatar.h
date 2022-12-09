@@ -3,11 +3,15 @@
 
 #pragma once
 
-#include <GuiComposite.h>
+#include <GuiDecorator.h>
 
 namespace Amju
 {
-class GuiAvatar : public GuiComposite
+// * GuiAvatar *
+// Decorator which sets attributes on descendant nodes.
+// This is so we can customise the look of a standard tree of sprites, but
+//  could perhaps be used for other things too.
+class GuiAvatar : public GuiDecorator
 {
 public:
   static void AddToFactory();
@@ -36,10 +40,10 @@ public:
   // Value depends on the type, e.g. for a colour, it's a hex rgb[a] value.
   bool SetOneDescendant(const std::string&);
 
+  // Eye look direction: (0, 0) is dead ahead; (1, 0) is looking right, etc.
   void SetLookDir(const Vec2f& lookDir);
 
 private:
-  // Eye look dir: (0, 0) is dead ahead; (1, 0) is looking right, etc.
   Vec2f m_lookDir;
   Vec2f m_desiredLookDir;
   float m_blinkTime = 0;

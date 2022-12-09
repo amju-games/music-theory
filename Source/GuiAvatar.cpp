@@ -3,6 +3,7 @@
 
 #include <GuiDecAnimation.h>
 #include <GuiDecColour.h>
+#include <GuiDecRotate.h>
 #include <GuiDecScale.h>
 #include <GuiDecTranslate.h>
 #include <GuiFactory.h>
@@ -30,6 +31,10 @@ namespace Amju
 {
 using AvatarFunc = std::function<void(GuiElement*, const std::string&)>;
 using AvatarMap = std::map<std::string, AvatarFunc>;
+
+// Map of gui type names to functions which set the attribute of that type.
+// E.g. the string "colour" is mapped to a function which sets the value
+//  of a GuiDecColour.
 AvatarMap s_avatarMap = 
 {
   { 
@@ -71,7 +76,23 @@ AvatarMap s_avatarMap =
         ReportError("Bad pivot value for " + elem->GetName());
         Assert(false);
       }
-      dynamic_cast<GuiDecScale*>(elem)->SetPivot(pivot);
+      GuiDecScale* scale = dynamic_cast<GuiDecScale*>(elem);
+      if (scale)
+      {
+        scale->SetPivot(pivot);
+      }
+      else
+      {
+        GuiDecRotate* rot = dynamic_cast<GuiDecRotate*>(elem);
+        if (rot)
+        {
+          rot->SetPivot(pivot);
+        }
+        else
+        {
+          ReportError("Can't set pivot on node: " + elem->GetName());
+        }
+      }
     }
   },
 
@@ -123,21 +144,26 @@ void GuiAvatar::AddToFactory()
 
 bool GuiAvatar::Load(File* f)
 {
-  if (!GuiComposite::Load(f))
-  {
-    return false;
-  }
   std::string s;
   if (!f->GetDataLine(&s))
   {
     f->ReportError("Expected avatar string.");
     return false;
   }
+
+  // Load descendants, which should contain the nodes named up at the top of 
+  //  this file, e.g. LEFT_EYE etc.
+  if (!GuiDecorator::Load(f))
+  {
+    return false;
+  }
+
   if (!SetFromString(s))
   {
     f->ReportError("Bad avatar string.");
     return false;
   }
+
   return true;
 }
 

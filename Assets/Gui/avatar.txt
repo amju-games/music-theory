@@ -2,12 +2,12 @@
 // (c) Copyright 2017 Jason Colman
 
 // avatar.txt
-// Test: draw avatar with layers of images (TODO sprites)
+// Draw avatar with layers of sprites
 
 // version
 1
 
-gui-avatar
+gui-comp
 avatar-comp
 2
 
@@ -131,6 +131,10 @@ Image/avatar-sheet.png
 // Same for hair, etc.
 12, 13
 
-
+// --------------------------------------------------------------------------------------
+// This is how to decorate an avatar tree to set attributes
+gui-avatar
 // Avatar string: sets values on nodes in the avatar GUI tree
 colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040
+//
+// ... include avatar.txt under here
