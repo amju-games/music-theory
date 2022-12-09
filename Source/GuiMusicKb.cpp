@@ -218,7 +218,7 @@ bool GuiMusicKb::Load(File* f)
     return false;
   }
 
-  QueueFirstTimeMsgs({ TUTORIAL_KB_MIDDLE_C, TUTORIAL_KB_SWIPE }, AMJU_FIRST_TIME_THIS_USER);
+//  QueueFirstTimeMsgs({ TUTORIAL_KB_MIDDLE_C, TUTORIAL_KB_SWIPE }, AMJU_FIRST_TIME_THIS_USER);
 
   return true;
 }
