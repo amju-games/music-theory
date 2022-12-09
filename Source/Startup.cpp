@@ -57,6 +57,7 @@
 #include "GuiLineDrawing.h"
 #include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
+#include "NetSend.h"
 
 #ifdef AMJU_IOS
 #define YES_GLUE_FILE
@@ -95,6 +96,18 @@ Amju::AmjuGLWindowInfo w(1136, 640, false, "Landscape iPhone 5");
 void ReportError(const std::string& str)
 {
   std::cout << str << "\n";
+}
+
+// Filename for the writable game config file, not the read-only config.
+static std::string ConfigFilename()
+{
+  std::string filename = GetSaveDir(APPNAME) + "config.txt";
+
+#ifdef _DEBUG
+std::cout << "Config file: " << filename << "\n";
+#endif
+
+  return filename;
 }
 
 static void SetUpRootDir()
@@ -152,13 +165,59 @@ static void SetUpGlueFile()
 
 }
 
+// Send info about this device to the server.
+static void SendDeviceInfo(bool isFirstTime)
+{
+  if (isFirstTime)
+  {
+    std::cout << "Sending device info, first time ever.\n";
+    NetSendDeviceInfoFirstRunEver();
+  }
+  else
+  {
+    std::cout << "Sending updated device info, NOT first time ever.\n";
+    NetSendUpdateDeviceInfo();
+  }
+}
+
+// Load the Game Config File, which is writable, so used to persist 
+//  game-wide info.
+static void LoadWritableConfig()
+{
+  GameConfigFile* gcf = TheGameConfigFile::Instance();
+  std::string filename = ConfigFilename();
+  gcf->SetFilePath(filename);
+
+  bool isFirstTime = true;
+  if (FileExists(filename))
+  {
+    std::cout << "Game config file exists: " << filename << "\n";
+    if (gcf->Load())
+    {
+      std::cout << "Loaded game config file OK: " << filename << "\n";
+      // Send updated device info if anything has changed since we last sent.
+
+      if (gcf->Exists(DEVICE_ID))
+      {
+        std::cout << "Device ID exists in config file: " << 
+          gcf->GetValue(DEVICE_ID) << "\n";
+        isFirstTime = false; // we have run before!
+      }
+    }
+  }
+
+  SendDeviceInfo(isFirstTime);
+}
+
 void StartUpBeforeCreateWindow()
 {
   Amju::Randomise();
   
   SetUpRootDir();
   
-  SetROConfigFilename("roconfig.txt");
+  SetROConfigFilename(GetSaveDir(APPNAME) + "/roconfig.txt");
+
+  LoadWritableConfig();
 }
 
 static void SetUpResourceLoaders()

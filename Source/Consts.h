@@ -54,4 +54,10 @@ static const float DOOR_RECT_YMAX =  .6f;
 #define WAV_ENTER_TAPPABLE "wow1"
 #define WAV_EXIT_TAPPABLE "wow2"
 
+#define DEVICE_ID "device_id"
+#define DEVICE_OS_VERSION "device_os_version"
+#define DEVICE_USER_NAME "device_user_name"
+#define CLIENT_VERSION "client_version"
+#define SESSION_ID "session_id"
+
 }

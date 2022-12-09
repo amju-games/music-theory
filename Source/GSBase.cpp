@@ -8,6 +8,7 @@
 #include <GuiDecAnimation.h>
 #include "GSBase.h"
 #include "PrintGui.h"
+#include "SerialReqManager.h"
 #include "ShareManager.h"
 
 namespace Amju
@@ -45,6 +46,8 @@ void GSBase::Update()
   {
     m_gui->Update();
   }
+
+  TheSerialReqManager::Instance()->Update();
 }
 
 void GSBase::UseVertexColourShader()
