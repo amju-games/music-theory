@@ -23,7 +23,10 @@ namespace
 {
 // Proportion of screen user must drag to trigger a swipe left/right along
 //  the corridor
-static const float MIN_DRAG_DIST = 0.25f; // 1/8 of screen
+const float MIN_DRAG_DIST = 0.25f; // 1/8 of screen
+
+// TODO Get this dynamically
+const int MAX_NUM_LEVELS = 4;
  
 } // anon namespace
 
@@ -92,7 +95,7 @@ std::cout << "At lowest level, so not going down.\n";
     // Go to next level
     int level = gsmc->GetLevel();
     // TODO Max num levels??
-    if (level < 2) // TODO
+    if (level < MAX_NUM_LEVELS)
     {
       level++; 
 std::cout << "Go UP to level " << level << "\n";
