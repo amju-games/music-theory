@@ -273,9 +273,12 @@
     <ClCompile Include="..\..\..\..\Source\CorridorCamController.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorMode.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorModeEnterClassroom.cpp" />
+    <ClCompile Include="..\..\..\..\Source\CorridorModeEnterStairs.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorModeEnterTappable.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorModeExitClassroom.cpp" />
+    <ClCompile Include="..\..\..\..\Source\CorridorModeExitStairs.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorModeExitTappable.cpp" />
+    <ClCompile Include="..\..\..\..\Source\CorridorModeLerpCam.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorModeShowTappable.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorModeWait.cpp" />
     <ClCompile Include="..\..\..\..\Source\Course.cpp" />
@@ -297,6 +300,7 @@
     <ClCompile Include="..\..\..\..\Source\GSTopicStart.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSUserDraw.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSUserDrawSave.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Gui3dScene.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiLineDrawing.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicKb.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
@@ -368,9 +372,12 @@
     <ClInclude Include="..\..\..\..\Source\CorridorCamController.h" />
     <ClInclude Include="..\..\..\..\Source\CorridorMode.h" />
     <ClInclude Include="..\..\..\..\Source\CorridorModeEnterClassroom.h" />
+    <ClInclude Include="..\..\..\..\Source\CorridorModeEnterStairs.h" />
     <ClInclude Include="..\..\..\..\Source\CorridorModeEnterTappable.h" />
     <ClInclude Include="..\..\..\..\Source\CorridorModeExitClassroom.h" />
+    <ClInclude Include="..\..\..\..\Source\CorridorModeExitStairs.h" />
     <ClInclude Include="..\..\..\..\Source\CorridorModeExitTappable.h" />
+    <ClInclude Include="..\..\..\..\Source\CorridorModeLerpCam.h" />
     <ClInclude Include="..\..\..\..\Source\CorridorModeShowTappable.h" />
     <ClInclude Include="..\..\..\..\Source\CorridorModeWait.h" />
     <ClInclude Include="..\..\..\..\Source\Course.h" />
@@ -392,6 +399,7 @@
     <ClInclude Include="..\..\..\..\Source\GSTopicStart.h" />
     <ClInclude Include="..\..\..\..\Source\GSUserDraw.h" />
     <ClInclude Include="..\..\..\..\Source\GSUserDrawSave.h" />
+    <ClInclude Include="..\..\..\..\Source\Gui3dScene.h" />
     <ClInclude Include="..\..\..\..\Source\GuiLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
@@ -484,6 +492,7 @@
     <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gui-top-bar.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gui_top_bar_landscape.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\hint-display-no-button.txt" />
     <Text Include="..\..\..\..\Assets\Gui\hint-display.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard-black.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard-pink.txt" />
@@ -519,6 +528,7 @@
     <Text Include="..\..\..\..\Assets\Gui\tappables.txt" />
     <Text Include="..\..\..\..\Assets\Gui\text_bg_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\title-text.txt" />
+    <Text Include="..\..\..\..\Assets\Scene\basket-scene.txt" />
     <Text Include="..\..\..\..\Assets\Scene\corridor-one-door.txt" />
     <Text Include="..\..\..\..\Assets\Scene\corridor-scene.txt" />
     <Text Include="..\..\..\..\Assets\Scene\room1-scene.txt" />
