@@ -58,8 +58,8 @@ void GSTopicStart::OnActive()
   text->SetText(TheUserProfile()->GetCurrentTopicDisplayName());
 
   auto profile = TheUserProfile();
-  int numHints = profile->GetHints(HintType::HINT_TYPE_HINT); // TODO
-  NumUpdate(m_gui, "hint-counter" /* TODO CONST */, numHints);
+//  int numHints = profile->GetHints(HintType::HINT_TYPE_HINT); // TODO
+//  NumUpdate(m_gui, "hint-counter" /* TODO CONST */, numHints);
 
   // Set best so far %
   Course* course = GetCourse();

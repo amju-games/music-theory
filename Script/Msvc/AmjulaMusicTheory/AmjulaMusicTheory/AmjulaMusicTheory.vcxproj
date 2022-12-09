@@ -629,6 +629,7 @@
     <Text Include="..\..\..\..\Assets\Gui\question_text_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\quit-confirm.txt" />
     <Text Include="..\..\..\..\Assets\Gui\speech_bubble_landscape.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\static-certificate.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-mid-line.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-rubout.txt" />
     <Text Include="..\..\..\..\Assets\Gui\tap-pic-notes-on-treb-clef-1.txt" />

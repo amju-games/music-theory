@@ -1,0 +1,113 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Static certificate
+
+// version
+1
+
+
+gui-comp
+certif-paper-and-text-etc
+4
+
+gui-image
+pass-certificate
+-.7, .7
+1.4, 1.4
+Image/cert-bg.png, stretch
+
+colour
+808080
+// Border
+gui-comp
+entire-border
+2
+
+
+gui-comp
+top-strip
+4
+
+gui-image
+border
+-.6, .64
+1.2, 0.02
+Image/white.png, stretch
+
+gui-image
+border
+-.6, .6
+0.4, 0.1
+Image/cert-hearts.png, stretch
+
+gui-image
+border
+-.2, .6
+0.4, 0.1
+Image/cert-hearts.png, stretch
+
+gui-image
+border
+.2, .6
+0.4, 0.1
+Image/cert-hearts.png, stretch
+
+gui-comp
+bottom-strip
+4
+
+gui-image
+border
+-.6, -.64
+1.2, 0.02
+Image/white.png, stretch
+
+gui-image
+border
+-.6, -.52
+0.4, 0.1
+Image/cert-hearts.png, stretch
+
+gui-image
+border
+-.2, -.52
+0.4, 0.1
+Image/cert-hearts.png, stretch
+
+gui-image
+border
+.2, -.52
+0.4, 0.1
+Image/cert-hearts.png, stretch
+
+
+
+// Text on the certificate
+
+// Element type
+gui-text
+// Element name
+cert-topic-name-text
+// pos (coords are -1..1)
+-.4, 0.45
+// size
+0.8, 0.4
+// Text
+Topic Name which could be quite long
+// Font name, size
+TEXT, 1.5, multi, fgcol=000000
+
+// Element type
+gui-text
+// Element name
+cert-mark
+// pos (coords are -1..1)
+-.4, 0.1
+// size
+0.8, 0.4
+// Text
+100%
+// Font name, size
+dimbo, 3, fgcol=000000
+

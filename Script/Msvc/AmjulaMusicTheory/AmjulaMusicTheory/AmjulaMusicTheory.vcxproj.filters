@@ -1080,5 +1080,8 @@
     <Text Include="..\..\..\..\Assets\Gui\certificate.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
+    <Text Include="..\..\..\..\Assets\Gui\static-certificate.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -60,45 +60,8 @@ translate
 0, -2; 0, 0
 
 // Certificate
-
-gui-comp
-certif-paper-and-text-etc
-3
-
-gui-image
-pass-certificate
--.7, .7
-1.4, 1.4
-Image/paper2.png, stretch
-
-// Text on the certificate
-
-// Element type
-gui-text
-// Element name
-cert-topic-name-text
-// pos (coords are -1..1)
--.4, 0.55
-// size
-0.8, 0.4
-// Text
-TOPIC
-// Font name, size
-TEXT, 1.5, multi, fgcol=000000
-
-// Element type
-gui-text
-// Element name
-cert-mark
-// pos (coords are -1..1)
--.4, 0.2
-// size
-0.8, 0.4
-// Text
-TOPIC
-// Font name, size
-dimbo, 3, fgcol=000000
-
+include
+static-certificate.txt
 
 // Stamp
 
@@ -121,18 +84,25 @@ ffffff00, ffffffff
 animation
 name-not-used
 one-shot
-0.3
+0.2
 linear
 
 
+translate
+.35, -.2
+
 scale
-4, 4 ; 1, 1
+8, 8 ; 1, 1
 0, 0
+
+gui-comp
+pass-stamp-and-text
+1
 
 gui-image
 pass-stamp
--.5, .5
-1, 1
+-.25, .25
+.5, .5
 Image/heart.png, stretch
 
 

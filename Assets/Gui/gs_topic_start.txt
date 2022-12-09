@@ -52,13 +52,9 @@ best-so-far-num
 // Font name, size
 dimbo, 2., fgcol=000000
 
-
-// Hide hint buttons until we know what to do with them here
-translate
-0, 10
-
+// Just a test
 include
-hint-display-no-button.txt
+static-certificate.txt
 
 // Element type
 gui-text
