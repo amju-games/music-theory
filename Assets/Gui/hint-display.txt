@@ -6,6 +6,9 @@
 
 // Hint counter and button
 
+// Hide for now until look/feel and functionality is fixed
+translate
+-2.0, 0
 
 gui-comp
 hint-button-and-counter
