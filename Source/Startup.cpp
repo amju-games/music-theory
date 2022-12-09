@@ -122,9 +122,13 @@ bool MyFileExists(const std::string& filename)
   GlueFile* gf = FileImplGlue::GetGlueFile();
   Assert(gf);
   return gf->FileExists(filename);
-#else
+#else // YES_GLUE_FILE
+#ifdef MACOSX
+  return FileExists(File::GetRoot() + filename);
+#else // MACOSX
   return FileExists(filename);
-#endif
+#endif // MACOSX
+#endif // YES_GLUE_FILE
 }
 
 // Filename for the writable game config file, not the read-only config.
@@ -384,7 +388,7 @@ static void LoadStringTableForPreferredLanguage()
   }
   else
   {
-    std::cout << "Fallback language is " << language << " but no string table.\n";
+    std::cout << "Fallback string table is " << stringTableFile << " but doesn't exist.\n";
   }
 
   std::cout << "Failed to load any string table, defaulting to 'en'.\n";
