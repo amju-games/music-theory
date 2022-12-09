@@ -54,6 +54,10 @@ public:
 
 private:
 
+  bool IsSlur(const std::string& s);
+
+  bool IsSwitch(const std::string& s);
+
   // Attach t to the last glyph added, if there is one; set left or
   //  right parent.
   void Attach(Attachment* t, int leftOrRight = 0);
@@ -123,9 +127,15 @@ private:
 
   float m_pageWidth = DEFAULT_PAGE_WIDTH;
 
-  // Last attachment created, for setting the second (right hand)
-  //  parent, if required (e.g. slurs need two parents, one for each
+  // Last slur attachment created, for setting the second (right hand)
+  //  parent, if required (slurs need two parents, one for each
   //  end of the curve).
-  Attachment* m_lastAttachment = nullptr;
+  Attachment* m_lastSlur = nullptr;
+
+  // Current stave
+  int m_stave = 0;
+
+  // Bit field for staccato, accent, pause, etc., per stave
+  int m_switches[MAX_NUM_STAVES] = { 0, 0, 0, 0 };
 };
 

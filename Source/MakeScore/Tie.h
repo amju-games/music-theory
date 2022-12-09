@@ -14,7 +14,7 @@ struct Tie : public IGlyph
 {
   virtual std::string ToString() const;
 
-  void SetPos();
+  void CalcPos();
 
   bool IsRhsSet() const { return m_rightGlyph != nullptr; }
 

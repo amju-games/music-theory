@@ -148,6 +148,7 @@
     <ClCompile Include="..\..\..\..\Source\MakeScore\Beam.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Clef.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Consts.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\Curve.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Flag.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Glyph.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\KeySig.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="..\..\..\..\Source\MakeScore\Beam.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Clef.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Consts.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\Curve.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Flag.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Glyph.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\IGlyph.h" />

@@ -9,7 +9,7 @@
 #include "Glyph.h"
 #include "Tie.h"
 
-void Tie::SetPos()
+void Tie::CalcPos()
 {
   assert(m_leftGlyph != nullptr);
   assert(m_rightGlyph != nullptr);

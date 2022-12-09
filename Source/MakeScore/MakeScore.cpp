@@ -26,6 +26,7 @@
 #include <vector>
 #include "Clef.h"
 #include "Consts.h"
+#include "Curve.h"
 #include "KeySig.h"
 #include "MakeScore.h"
 #include "Pitch.h"
@@ -33,12 +34,6 @@
 #include "TimeSig.h"
 #include "TimeValue.h"
 #include "Utils.h"
-
-// Current stave
-static int s_stave = 0;
-
-// Bit field for staccato, accent, pause, etc., per stave
-static int s_switches[MAX_NUM_STAVES] = { 0, 0, 0, 0 };
 
 // Const set of performance directions, with relative widths
 static const std::map<std::string, float> DIRECTIONS = 
@@ -67,15 +62,39 @@ std::string LineEnd(bool oneLine)
   return (oneLine ? ";" : "\n");
 }
 
-bool IsSwitch(const std::string& s)
+bool MakeScore::IsSlur(const std::string& s)
+{
+  if (s == "<slur>")
+  {
+    Curve* c = new Curve;
+    m_lastSlur = c;
+    c->SetScale(m_scale);
+
+    // Attach to most reccent glyph if there is one
+    Attach(c, Attachment::LEFT);
+
+    m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(c));
+  }
+  else if (s == "</slur>")
+  {
+    Attach(m_lastSlur, Attachment::RIGHT);
+  }
+  else
+  {
+    return false;
+  }
+  return true;
+}
+
+bool MakeScore::IsSwitch(const std::string& s)
 {
   if (s == "<stacc>")
   {
-    SetSwitch(s_switches[s_stave], SW_STACCATO);
+    SetSwitch(m_switches[m_stave], SW_STACCATO);
   }
   else if (s == "</stacc>")
   {
-    ClearSwitch(s_switches[s_stave], SW_STACCATO);
+    ClearSwitch(m_switches[m_stave], SW_STACCATO);
   }
   else
   {
@@ -124,6 +143,10 @@ void MakeScore::AddTokens()
     else if (IsSwitch(s))
     {
       // Nothing to do, if it's a switch, we flip a value
+    }
+    else if (IsSlur(s))
+    {
+      // Nothing to do
     }
     else if (IsDirection(s))
     {
@@ -277,7 +300,7 @@ void MakeScore::AddClef(const std::string& s)
 void MakeScore::AddGlyph()
 {
   m_bars.back()->AddGlyph(
-    m_lastTimeValToken, m_lastPitch, s_switches[s_stave]);
+    m_lastTimeValToken, m_lastPitch, m_switches[m_stave]);
 
   // If last tie has no right connection, connect it now to the
   //  glyph we just added.
