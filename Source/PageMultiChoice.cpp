@@ -30,12 +30,13 @@ static PGuiElement MakeExplGui(const std::string& expl)
   }
   else
   {
-    gui = CentreMsg::MakeGuiText(expl, 
+    std::string composerNo = GetPagesState()->GetIncorrectStr();
+
+    gui = CentreMsg::MakeGuiText(composerNo + " " + expl,
       Colour(0, 0, 0, 1), // fg col
       CentreMsg::MESSAGE_FONT);
   }
   Assert(gui);
-  return gui;
   return gui;
 }
 
