@@ -212,7 +212,7 @@ GuiMusicScore::GuiMusicScore()
   // Create texture atlas. TODO CONFIG
   // Image is a resource, only loaded once.
 #ifdef USE_BM_FONT
-  static BmFontTextureSequence* bm = nullptr; 
+  static RCPtr<BmFontTextureSequence> bm;
   if (!bm)
   {
     bm = new BmFontTextureSequence;
@@ -220,7 +220,7 @@ GuiMusicScore::GuiMusicScore()
     bm->Set(tex, 1, 1, 1, 1);
     bm->LoadBmFont("font2d/Guido2compressed/guido2.fnt");
   }
-  m_atlas = bm;
+  m_atlas = bm.GetPtr();
 #else
   m_atlas = new TextureSequence;
   m_atlas->Load(FONT_FILE_NAME, 16, 14, 1, 1);
