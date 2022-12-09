@@ -32,6 +32,8 @@
 #include "MySceneGraph.h"
 #include "NumUpdate.h"
 #include "PlayWav.h"
+#include "TutorialIds.h"
+#include "TutorialManager.h"
 #include "UserProfile.h"
 #include "UseVertexColourShader.h"
 
@@ -330,6 +332,12 @@ void GSMainCorridor::OnActive()
   GuiButton* shareButton = (GuiButton*)GetElementByName(m_gui, "share-button");
   Assert(shareButton);
   shareButton->SetCommand(Amju::OnShare);
+
+  // First time tutorial message
+  // TODO If we need to, subclass this so we can do specific tutorial stuff.
+  // Or maybe a special Corridor Mode type would be better.
+  // TODO TEMP TEST
+  QueueFirstTimeMsgs({ TUTORIAL_HELLO }, AMJU_EVERY_TIME);
 
   // Init HUD
 //  auto profile = TheUserProfile();
