@@ -17,9 +17,17 @@ class Tappable : public RefCounted
 public:
   bool Load(File*);
   SceneNode* GetSceneNode();
+  const std::string& GetName() const;
+  const Vec3f& GetCameraEyePos() const;
+  const Vec3f& GetCameraTargetPos() const;
 
 protected:
+  std::string m_name;
+
   // 3D scene node
   PSceneNode m_node;
+
+  Vec3f m_camEye;
+  Vec3f m_camTarget;
 };
 }

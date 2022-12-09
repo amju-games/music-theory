@@ -7,6 +7,7 @@
 #include <Game.h>
 #include <GuiButton.h>
 #include <GuiDecAnimation.h>
+#include <Lerp.h>
 #include <LoadScene.h>
 #include <MessageQueue.h>
 #include <ResourceManager.h>
@@ -183,7 +184,11 @@ void GSMainMenu::OnActive()
   m_doorIsOpening = false;
   m_doorAngleRads = 0;
 
+  // TODO We only need to do this once?
   LoadTappables();
+
+  m_isCamLerping = false;
+  m_camLerpTime = 0;
 
   // TODO
   //GuiElement* share = GetElementByName(m_gui, "share-button");
@@ -316,13 +321,35 @@ void GSMainMenu::DecelerateScrolling()
 
 void GSMainMenu::UpdateCamera()
 {
+  float dt = TheTimer::Instance()->GetDt();
+
   Vec3f eye = GetCamera()->GetEyePos();
   Vec3f look = GetCamera()->GetLookAtPos();
-  eye.z = m_currentXPos;
-  look.z = m_currentXPos;
 
-  eye.x = CAMERA_START - m_doorAngleRads * m_doorAngleRads * CAM_ZOOM_MULT;
-  look.x = eye.x - 10.0f;
+  if (m_isCamLerping && m_tappedDown)
+  {
+    // Moving towards tappable camera setting
+    m_camLerpTime += dt;
+    if (m_camLerpTime > 1)
+    {
+      // Reached desired cam pos
+      // TODO change state
+      m_camLerpTime = 1;
+    }
+    eye = Lerp(m_camEye, m_tappedDown->GetCameraEyePos(), m_camLerpTime);
+    look = Lerp(m_camTarget, m_tappedDown->GetCameraTargetPos(), m_camLerpTime);
+  }
+  else
+  {
+    eye.z = m_currentXPos;
+    look.z = m_currentXPos;
+
+    if (m_doorAngleRads != 0)
+    {
+      eye.x = CAMERA_START - m_doorAngleRads * m_doorAngleRads * CAM_ZOOM_MULT;
+      look.x = eye.x - 10.0f;
+    }
+  }
 
   GetCamera()->SetEyePos(eye);
   GetCamera()->SetLookAtPos(look);
@@ -356,41 +383,65 @@ void GSMainMenu::Update()
   UpdateOpeningDoor();
 }
 
+Tappable* GSMainMenu::GetTapped()
+{
+  // Set up camera matrices for Unproject
+  GetCamera()->Draw();
+
+  // Get 3D coord at near and far plane for the mouse (touch) coord
+  Vec3f nearCoord, farCoord;
+  if (Unproject(m_touchDown, 0, &nearCoord)
+    && Unproject(m_touchDown, 1, &farCoord))
+  {
+    LineSeg seg(nearCoord, farCoord);
+
+    // Check tappables
+    for (auto t : m_tappables)
+    {
+      // Intersect ray and AABB
+      const AABB& aabb = *(t->GetSceneNode()->GetAABB());
+
+      if (Clip(seg, aabb))
+      {
+        return t;
+      }
+    }
+  }
+  return nullptr;
+}
+
+void GSMainMenu::CheckTappables()
+{
+  if (m_touchDownThisFrame)
+  {
+    m_touchDownThisFrame = false;
+    m_tappedDown = GetTapped();
+  }
+
+  if (m_touchUpThisFrame)
+  {
+    m_touchUpThisFrame = false;
+    // Check if we picked a Tappable.
+    if (m_tappedDown && m_tappedDown == GetTapped())
+    {
+      // Touched down and up on the same Tappable - activate it.
+      std::cout << "Tapped on " << m_tappedDown->GetName() << "\n";
+
+      // Store current camera; interpolate to camera set for the tappable
+      auto cam = GetCamera();
+      m_camEye = cam->GetEyePos();
+      m_camTarget = cam->GetLookAtPos();
+      m_isCamLerping = true;
+      ShowTopicName(false);
+    }
+  }
+}
+
 void GSMainMenu::Draw()
 {
   GSBase3d::Draw();
 
-  if (m_isDragging)
-  {
-    // Check if we picked a Tappable.
-    // Get 3D coord at near and far plane for the mouse (touch) coord
-
-    // Set up camera matrices for Unproject
-    GetCamera()->Draw();
-
-    Vec3f nearCoord, farCoord;
-    if (   Unproject(m_touchDown, 0, &nearCoord)
-        && Unproject(m_touchDown, 1, &farCoord))
-    {
-      LineSeg seg(nearCoord, farCoord);
-
-      AmjuGL::DrawLine(
-        AmjuGL::Vec3(nearCoord.x, nearCoord.y, nearCoord.z),
-        AmjuGL::Vec3(farCoord.x, farCoord.y, farCoord.z));
-
-      // Check tappables
-      for (auto t : m_tappables)
-      {
-        // Intersect ray and AABB
-        const AABB& aabb = *(t->GetSceneNode()->GetAABB());
-
-        if (Clip(seg, aabb))
-        {
-          std::cout << "Tapped on this: " /*<< t->GetName() */<< "\n";
-        }
-      }
-    }
-  }
+  CheckTappables();
 }
 
 SceneNodeCamera* GSMainMenu::GetCamera()
@@ -427,6 +478,9 @@ bool GSMainMenu::OnCursorEvent(const CursorEvent& ce)
 bool GSMainMenu::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 {
   m_isDragging = mbe.isDown;
+  m_touchDownThisFrame = mbe.isDown;
+  m_touchUpThisFrame = !mbe.isDown;
+
   if (mbe.isDown)
   {
     m_touchDown = Vec2f(mbe.x, mbe.y);

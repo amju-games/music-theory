@@ -10,6 +10,8 @@
 1
 
 // 1 - piano
+// Name
+pink piano
 // First part is 3d node
 // Node type
 mesh
@@ -21,7 +23,10 @@ tappable-piano
 obj/piano1.obj
 // Num children
 0
-
 // TODO Action when tapped
+// Camera eye
+28, 40, -60
+// Cam target
+20, 0, -60
 
 // GUI to display when we have been tapped

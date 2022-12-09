@@ -45,11 +45,15 @@ protected:
   void UpdateCamera();
   void UpdateOpeningDoor();
   bool IsTopicUnlocked() const;
+  Tappable* GetTapped();
+  void CheckTappables();
 
 private:
-  // To detect swipe left/right
+  // To detect swipe left/right, and taps on Tappables
   Vec2f m_touchDown;
   bool m_isDragging = false;
+  bool m_touchDownThisFrame = false;
+  bool m_touchUpThisFrame = false;
 
   bool m_isScrolling = false;
   float m_desiredXPos = 0;
@@ -62,10 +66,17 @@ private:
   bool m_doorIsOpening = false;
   float m_doorAngleRads = 0; 
 
+  // Items which respond to being tapped, to show some kind of info.
   std::vector<RCPtr<Tappable>> m_tappables;
+  Tappable* m_tappedDown = nullptr; // item we tapped down on, or nullptr
 
   // Hold on to the camera scene node, it's useful
   RCPtr<SceneNodeCamera> m_camera;
+  // Store camera info for when we interpolate to tappable camera
+  Vec3f m_camEye;
+  Vec3f m_camTarget;
+  bool m_isCamLerping = false;
+  float m_camLerpTime = 0;
 };
 
 typedef Singleton<GSMainMenu> TheGSMainMenu;
