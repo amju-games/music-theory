@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-107
+112
 1=Welcome to Amjula Music School!
 2=Swipe left and right to move along the corridor!
 3=Which clef?
@@ -109,3 +109,8 @@
 105=The note with the blue dot is Middle C.
 106=Swipe left and right above the keys to change the range of notes you can see.
 107=Tap on a door to go inside!
+108=Semiquaver (sixteenth note)
+109=Quaver (eighth note)
+110=Crotchet (quarter note)
+111=Minim (half note)
+112=Semibreve (whole note)

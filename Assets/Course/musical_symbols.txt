@@ -21,8 +21,18 @@
 // Metronome mark
 // Slur
 // 8va/ 8vb
-//note, 0.75, 0 ; dot, 0.75, 0.2    =$$$21
 
+crotchet-up,     1.5, 0 ; crotchet-up,  2.25, 0 ; h-beam-up, 1.5, 0 ;  h-beam-up, 1.5, -0.075 =$$$108
+crotchet-up,     1.5, 0 ; crotchet-up,  2.25, 0 ; h-beam-up, 1.5, 0 =$$$109
+semiquaver-down, 1.9, 0.2  =$$$108
+semiquaver-up,   1.9, 0.0  =$$$108
+quaver-down,     1.9, 0.2  =$$$109
+quaver-up,       1.9, 0    =$$$109
+crotchet-down,   1.9, 0.2  =$$$110
+minim-down,      1.9, 0.2  =$$$111
+crotchet-up,     1.9, 0    =$$$110
+minim-up,        1.9, 0    =$$$111
+semibreve,       1.9, 0.2  =$$$112
 stave, .5, 0, 2, 1; rest-crotchet, 1.9, .2  =$$$101
 stave, .5, 0, 2, 1; rest-1, 1.9, .25  =$$$102
 stave, .5, 0, 2, 1; rest-2, 1.9, .175  =$$$103
