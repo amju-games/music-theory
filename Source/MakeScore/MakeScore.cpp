@@ -115,6 +115,7 @@ private:
 private:
   constexpr static const float PAGE_WIDTH = 4.0f;
 
+  // Height of stave line and glyphs on it, relative to bottom of bar lines.
   constexpr static const float DEFAULT_HEIGHT = 0.2f;
   
   // If true, all glyphs on one line, separated by ';'
@@ -168,7 +169,7 @@ private:
 
     std::string ToString() const override
     {
-      return "Beam, " + std::to_string(left) + " to " + std::to_string(right);
+      return ""; ////TODO//// "Beam, " + std::to_string(left) + " to " + std::to_string(right);
     }
 
     int left = 0;
@@ -177,8 +178,18 @@ private:
 
   struct Bar
   {
-    // Sequence of glyphs, left to right, in the bar.
+    // Sequence of glyphs, left to right, in the bar, following any key sig
+    //  and time sig.
     std::vector<std::unique_ptr<Glyph>> m_glyphs;
+
+    // Optional key sig glyph for the bar, at left edge.
+    // TODO Handle 'naturalising' key sig before a new key sig, i.e. there
+    //  could be up to 2 key sig glyphs. Also, key sigs can be a lot wider
+    //  than other glyphs.
+    std::unique_ptr<Glyph> m_keySigGlyph;
+
+    // Optional time sig glyph, at left of bar after key sig, if there is one.
+    std::unique_ptr<Glyph> m_timeSigGlyph;
 
     // Beams connecting ordered glyphs; in fact this  could be anything where 
     //  order is not important, e.g. ties too.
@@ -254,7 +265,7 @@ private:
 
       Glyph* gl = new TimeSigGlyph(s);
       gl->SetScale(m_scale); 
-      m_glyphs.push_back(std::unique_ptr<Glyph>(gl));
+      m_timeSigGlyph = std::unique_ptr<Glyph>(gl);
     }
 
     void AddBeam(const std::string& s)
@@ -292,6 +303,12 @@ private:
     {
       std::string res;
 
+      // Optional time sig
+      if (m_timeSigGlyph)
+      {
+        res += m_timeSigGlyph->ToString() + LineEnd(oneLine);
+      }
+
       for (auto& g : m_glyphs)
       {
         res += g->ToString() + LineEnd(oneLine);
@@ -321,16 +338,22 @@ private:
     //  one horizontal space)
     int GetGlyphCount() const
     {
-      return static_cast<int>(m_glyphs.size());
+      int glyphCount = static_cast<int>(m_glyphs.size());
+      if (m_timeSigGlyph)
+      {  
+        glyphCount++;
+      }
+      return glyphCount; 
     }
   
     void SetWidth(int totalNumGlyphs, float pageWidth)
     {
-      m_width = static_cast<float>(GetGlyphCount()) /
+      int glyphCount = GetGlyphCount();
+
+      m_width = static_cast<float>(glyphCount) /
         static_cast<float>(totalNumGlyphs) * pageWidth / m_scale;
 
-      // Now we can set the x-coord of each glyph in the bar (relative to
-      //  bar start)
+      std::cout << "Setting width of bar to " << m_width << "\n";
     }
  
     float GetWidth() const
@@ -350,11 +373,21 @@ private:
       // xoff is distance from left bar line to first glyph, and also distance
       //  from last glyph to right bar line.
       float numGlyphs = static_cast<float>(GetGlyphCount());
-      const float xoff = m_width / (numGlyphs + 1.0f);
+      float xoff = m_width / (numGlyphs + 1.0f);
       float w = 0;
       if (numGlyphs > 1)
       {
         w = (m_width - 2 * xoff) / (numGlyphs - 1.0f);
+        if (m_timeSigGlyph)
+        {
+          const float TIME_SIG_WIDTH = 0.3f; // ?
+          ////w -= TIME_SIG_WIDTH; // reduce available width for other glyphs
+          w = (m_width - TIME_SIG_WIDTH - 2 * xoff) / (numGlyphs - 2.0f);
+          xoff += TIME_SIG_WIDTH; // move other glyphs to the right      
+ 
+          m_timeSigGlyph->x = x; // plus some extra?
+          m_timeSigGlyph->y += y;
+        }
       }
 
 std::cout << "Num glyphs: " << numGlyphs << "\n";
@@ -363,7 +396,7 @@ std::cout << "w:    " << w << "\n";
 
       // Set coord of each glyph
       // Compensate for glyph width, move to the left a bit
-      // TODO depends on glyph type, e.g. semibreve is slightly wider.
+      // TODO depends on glyph type?, e.g. semibreve is slightly wider.
       float xfudge = -0.2f; //? * m_scale;
 
       for (auto& g : m_glyphs)
@@ -435,7 +468,10 @@ void MakeScore::MakeInternal()
   int totalNumGlyphs = 0;
   for (auto& bar : m_bars)
   {
-    totalNumGlyphs += bar->GetGlyphCount(); 
+    int gc = bar->GetGlyphCount(); 
+   
+    std::cout << "Glyph count: " << gc << "\n";
+    totalNumGlyphs += gc;
   }
 
   // Bar calculates its width as fraction of PAGE_WIDTH
@@ -446,7 +482,7 @@ void MakeScore::MakeInternal()
 
   // Set (left, bottom) position of each bar
   float x = 0;
-  float y = 0;
+  float y = -1.f; // SET_Y
 
   int i = 1;
   for (auto& bar : m_bars)
@@ -479,13 +515,14 @@ std::string MakeScore::ToString()
 int main()
 {
   //std::string input = "c | c c";
-  std::string input = "4/4 c c | q -- q cr q. -= qq c";
+  std::string input = "4/4 c c | 3/4 q -- q cr q. -= qq c";
 //  std::getline(std::cin, input);
 
   std::cout << "Input: \"" << input << "\"\n";
 
   MakeScore ms(input);
   ms.SetScale(0.5f);
+////  ms.SetY(1.0f);
 
   // TODO Transform input:
   // Add beam groupings
