@@ -98,13 +98,20 @@ void GSPages::ReloadGui()
   Assert(elem);
   elem->SetCommand(Amju::OnPause);
 
-  elem = GetElementByName(m_gui, "speech-bubble-ok-button");
-  Assert(elem);
-  elem->SetCommand(Amju::OnSpeechBubbleOK);
+//  elem = GetElementByName(m_gui, "speech-bubble-ok-button");
+//  Assert(elem);
+//  elem->SetCommand(Amju::OnSpeechBubbleOK);
 
   // Hide speech bubble initially
-  GuiElement* speechBubble = GetElementByName(m_gui, "speech-bubble");
-  speechBubble->SetVisible(false);
+  //GuiElement* speechBubble = GetElementByName(m_gui, "speech-bubble");
+  //speechBubble->SetVisible(false);
+  if (m_page)
+  {
+    IGuiText* instr = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "speech-bubble-text"));
+    Assert(instr);
+    Assert(m_page);
+    instr->SetText(m_page->GetInstructionText());
+  }
 }
 
 void GSPages::Reload3d()
@@ -305,6 +312,11 @@ void GSPages::SetPage(Page* p)
     m_page->SetGameState(this);
     // Activate new page
     m_page->OnActive();
+
+    IGuiText* instr = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "speech-bubble-text"));
+    Assert(instr);
+    Assert(m_page);
+    instr->SetText(m_page->GetInstructionText());
   }
 }
 

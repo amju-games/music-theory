@@ -42,9 +42,17 @@ bool PagePlayNotes::Load(const Strings& strs)
   {
     return false;
   }
+
+  // For this page type, the 3rd string is the keyboard x-offset, i.e. the
+  //  screen position of middle C.
   Assert(strs.size() > 2);
   float kbXPos = ToFloat(strs[2]);
   m_kbPos = Vec2f(kbXPos, 0);
+
+  // 4th string is instruction text for this Page type
+  Assert(strs.size() > 3);
+  m_instructionText = strs[3];
+
   return true;
 }
 

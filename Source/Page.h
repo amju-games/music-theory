@@ -50,6 +50,8 @@ public:
   // Get non-graphical question, i.e. what we ask the user to do
   Question* GetQuestion();
 
+  const std::string& GetInstructionText() const { return m_instructionText; }
+
   // Set config file to save any state we want to remember about this page/topic
   void SetConfigFile(ConfigFile* cf);
 
@@ -103,5 +105,9 @@ protected:
 
   // Config file to save any state we want to remember about this page/topic
   RCPtr<ConfigFile> m_config;
+
+  // (Localised) text to display to the player to give instructions for 
+  //  the page - e.g. "Tap on the correct answer!"
+  std::string m_instructionText;
 };
 }

@@ -108,8 +108,14 @@ bool Page::Load(const Strings& strs)
 {
   // Topic pages must specify the dictionary to use, as it's no longer hard coded anywhere.
   Assert(strs.size() > 1);
+
   // 2nd string is dictionary for the page
   SetDictionaryName(strs[1]);
+
+  // 3rd string is the instruction text
+  Assert(strs.size() > 2);
+  m_instructionText = strs[2];
+
   return true;
 }
 

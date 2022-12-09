@@ -6,19 +6,22 @@
 
 // Speech bubble for correct/incorrect + answer
 
+elastic
+0, -2.0
+
 // Element type
 gui-comp
 // Name
 speech-bubble
 // Num children
 // TODO Most of bar hidden for now
-3
+2
 
 // speech bubble
 gui-rect
 white-bg
--0.4, 0.8
-1.2, 1.6
+-0.6, 0.1
+1.2, 0.2
 // Colour
 ffffff
 // Radius
@@ -26,79 +29,16 @@ ffffff
 // Flags
 0
 
-gui-image
-speech-bubble-tail
--0.5, 0.4
-0.15, 0.15
-Image/speech-tail-left.png
-
-// OK button
-gui-button
-speech-bubble-ok-button
-// pos (coords are -1..1)
-0.1, -0.55
-// size
-0.2, 0.15
-Image/gui-button-2.png
-OK
-dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
-
-
 
 gui-text
 // Element name
 speech-bubble-text
 // pos (coords are -1..1)
--0.55, 0.97
+-0.6, 0.1
 // size
-0.4, 0.2
+1.2, 0.2
 // Text
 Tap the...
 // Font name, size
-dimbo, 1.5, fgcol=000000, sx=1.2
-
-// TODO Also space for a music score.
-
-
-
-
-
-// --------------------
-
-
-
-
-// Bar bg
-colour
-FFD669
-
-gui-image
-pencil
--0.95, 0.95
-1.4, 0.2
-Image/gui-button-8.png, stretch
-
-// Avatar in Circle
-gui-image
-avatar-example
--0.9, 0.925
-0.2, 0.2
-Image/avatar-example1.png
-
-
-// Player name
-// Element type
-gui-text
-// Element name
-player-name
-// pos (coords are -1..1)
--0.65, 0.95
-// size
-1.0, 0.2
-// Text
-Ella
-// Font name, size
-dimbo, 2.0,  fgcol=000000
-
-
+dimbo, 1.5, centre, fgcol=000000, sx=1.2
 

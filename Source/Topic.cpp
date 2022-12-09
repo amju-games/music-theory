@@ -88,7 +88,7 @@ bool Topic::Load(File* f)
       return false;
     }
 
-    Strings strs = Split(line, ',');
+    Strings strs = Split(line, '=');
     // Allow single string, for page type name;
     // 2nd string = dictionary for page to load
 
