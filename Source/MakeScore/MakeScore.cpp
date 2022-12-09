@@ -34,7 +34,9 @@
 #include <string>
 #include <vector>
 #include "MakeScore.h"
+#include "Pitch.h"
 #include "TimeSig.h"
+#include "TimeValue.h"
 #include "Utils.h"
 
 float GetHeight(BeamLevel bl)
@@ -57,11 +59,11 @@ std::string GetStr(std::string s)
   Remove(s, 'r');
 
   std::string out = "UNKNOWN";
-  if (s == "c") out = "crotchet";
-  else if (s == "q") out = "quaver";
-  else if (s == "qq") out = "semiquaver";
-  else if (s == "m") out = "minim";
-  else if (s == "sb") out = "semibreve";
+  if (s == INPUT_TOKEN_CROTCHET) out = "crotchet";
+  else if (s == INPUT_TOKEN_QUAVER) out = "quaver";
+  else if (s == INPUT_TOKEN_SEMIQUAVER) out = "semiquaver";
+  else if (s == INPUT_TOKEN_MINIM) out = "minim";
+  else if (s == INPUT_TOKEN_SEMIBREVE) out = "semibreve";
 
   if (rest)
   {
@@ -82,8 +84,7 @@ std::string GetStr(std::string s)
 
 void MakeScore::Preprocess()
 {
-
-//  std::cout << "Preprocessed input: " << m_input << "\n";
+  //  std::cout << "Preprocessed input: " << m_input << "\n";
 }
 
 // Tokenise input string and add each token to internal representation.
@@ -92,7 +93,7 @@ void MakeScore::AddTokens()
   std::stringstream ss(m_input);
 
   // Split space-separated input into a vector of strings.
-  std::vector<std::string> strs {
+  std::vector<std::string> strs{
     std::istream_iterator<std::string>{ss},
     std::istream_iterator<std::string>{}
   };
@@ -109,12 +110,13 @@ void MakeScore::AddTokens()
       // Copy time sig over to next bar
       bar->SetTimeSig(m_bars.back()->GetTimeSig());
       // TODO Copy key sig over
+      //  bar->SetKeySig(m_bars.back()->GetKeySig());
 
       m_bars.push_back(std::unique_ptr<Bar>(bar));
     }
-    else if (s == "t") 
+    else if (s == "t")
     {
-      // Tie next 2 notes? Or prev and next - we can get position of prev.
+      // Tie prev and next notes - we can get position of prev.
       AddTie();
     }
     else if (IsBeam(s))
@@ -125,11 +127,61 @@ void MakeScore::AddTokens()
     {
       AddTimeSig(s);
     }
-    else 
+    else if (IsDeferredPitch(s))
     {
-      AddGlyph(s);
+      m_lastPitch = GetPitch(s);
+    }
+    else if (IsImmediatePitch(s))
+    {
+      m_lastPitch = GetPitch(s);
+      AddGlyph();
+    }
+    else if (IsDeferredTimeVal(s))
+    {
+      // Store time val token for subsequent notes
+      assert(s.size() > 2);
+      m_lastTimeValToken = s.substr(1, s.size() - 2);
+    }
+    else if (IsImmediateTimeVal(s))
+    {
+      m_lastTimeValToken = s;
+      AddGlyph();
     }
   }
+}
+
+void MakeScore::AddGlyph()
+{
+  m_bars.back()->AddGlyph(m_lastTimeValToken, m_lastPitch);
+
+  // If last tie has no right connection, connect it now to the
+  //  glyph we just added.
+  if (!m_ties.empty())
+  {
+    Tie* tie = m_ties.back().get();
+    if (!tie->IsRhsSet())
+    {
+      assert(!m_bars.empty());
+      tie->SetRightGlyph(m_bars.back()->m_glyphs.back().get());
+    }
+  }
+}
+
+void MakeScore::AddTie()
+{
+  // Set bar and position of the left glyph of the tie
+  if (m_bars.empty())
+  {
+    std::cout << "// *** Error, no left glyph for tie to refer to.\n";
+    return;
+  }
+
+  Tie* tie = new Tie;
+  tie->SetLeftGlyph(m_bars.back()->m_glyphs.back().get());
+
+  tie->SetScale(m_scale);
+
+  m_ties.push_back(std::unique_ptr<Tie>(tie));
 }
 
 void MakeScore::MakeInternal()

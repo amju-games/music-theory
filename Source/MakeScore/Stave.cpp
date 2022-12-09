@@ -23,9 +23,14 @@ std::string GetStaveString(StaveType st, float x, float y, float scaleX, float s
     break;
 
   case StaveType::STAVE_TYPE_SINGLE:
-    res += "stave, " + Str(x) + ", " + Str(y) + ", " +
-      Str(scaleX) + ", " + Str(scaleY);
+    res += "stave, " + Str(x) + ", " + Str(y) + ", " + Str(scaleX) + ", " + Str(scaleY);
     break;
+
+  case StaveType::STAVE_TYPE_DOUBLE:
+    res += "stave, " + Str(x) + ", " + Str(y) + ", " + Str(scaleX) + ", " + Str(scaleY);
+    res += ";";
+    res += "stave, " + Str(x) + ", " + Str(DOUBLE_STAVE_DISTANCE + y) + ", " +
+      Str(scaleX) + ", " + Str(scaleY);
   }
 
   return res;

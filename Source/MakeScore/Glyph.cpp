@@ -15,6 +15,22 @@ void Glyph::HandleStar()
   }
 }
 
+std::string Glyph::ToString() const
+{
+  // Add special glyphs for timing before and after - this is
+  //  for animation and MIDI events. 
+  std::string res = TimeBefore();
+
+  // TODO Calc y, using current pitch, stave, and clef. 
+  // TODO Add accidental if required, by checking current key sig.
+  res += displayGlyphName + ", " + Str(x) + ", " + Str(y) +
+    ", " + Str(scale) + ", " + Str(scale);
+
+  res += TimeAfter();
+
+  return res;
+}
+
 std::string Glyph::TimeBefore() const
 {
   std::string res;

@@ -54,44 +54,17 @@ private:
     m_bars.back()->AddTimeSig(s);
   }
 
-  void AddGlyph(const std::string& s)
-  {
-    m_bars.back()->AddGlyph(s);
-
-    // If last tie has no right connection, connect it now to the
-    //  glyph we just added.
-    if (!m_ties.empty())
-    {
-      Tie* tie = m_ties.back().get();
-      if (!tie->IsRhsSet())
-      {
-        assert(!m_bars.empty());
-        tie->SetRightGlyph(m_bars.back()->m_glyphs.back().get());
-      }
-    }
-  }
+  // Use most recently set note (time) value and pitch to add a new Glyph
+  //  to the current Bar.
+  void AddGlyph();
 
   void AddBeam(const std::string& s)
   {
     m_bars.back()->AddBeam(s);
   }
 
-  void AddTie()
-  {
-    // Set bar and position of the left glyph of the tie
-    if (m_bars.empty())
-    {
-      std::cout << "// *** Error, no left glyph for tie to refer to.\n";
-      return;
-    }
- 
-    Tie* tie = new Tie;
-    tie->SetLeftGlyph(m_bars.back()->m_glyphs.back().get());
-
-    tie->SetScale(m_scale);
-
-    m_ties.push_back(std::unique_ptr<Tie>(tie));
-  }
+  // Create a new Tie, setting the left glyph to the most recently added glyph.
+  void AddTie();
 
   void AddTokens();
   void CalcBarSizesAndPositions();
@@ -117,5 +90,11 @@ private:
   std::vector<std::unique_ptr<Tie>> m_ties;
 
   StaveType m_staveType = StaveType::STAVE_TYPE_RHYTHM;
+
+  // Most recently set note (time) value
+  std::string m_lastTimeValToken = INPUT_TOKEN_CROTCHET;
+
+  // Most recently set pitch, which is a MIDI note value.
+  int m_lastPitch = DEFAULT_PITCH;
 };
 

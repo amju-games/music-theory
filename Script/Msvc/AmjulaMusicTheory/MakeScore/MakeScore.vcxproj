@@ -145,9 +145,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\MakeScore\Bar.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Beam.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\Consts.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Flag.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Glyph.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\MakeScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\Pitch.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Stave.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Tie.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\TimeSig.cpp" />
@@ -162,6 +164,7 @@
     <ClInclude Include="..\..\..\..\Source\MakeScore\Glyph.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\IGlyph.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\MakeScore.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\Pitch.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Stave.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Tie.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\TimeSig.h" />

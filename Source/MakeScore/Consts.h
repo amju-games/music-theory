@@ -15,3 +15,14 @@ constexpr static const float PAGE_WIDTH = 4.0f;
 // Height of stave line and glyphs on it, relative to bottom of bar lines.
 constexpr static const float DEFAULT_HEIGHT = 0.2f;
 
+// For double stave layout, this is the distance between the top stave line in
+//  the first and second staves (in fact, between any two corresponding
+//  stave lines, of course).
+static const float DOUBLE_STAVE_DISTANCE = -0.9f;
+
+extern const char* INPUT_TOKEN_SEMIQUAVER;
+extern const char* INPUT_TOKEN_QUAVER;
+extern const char* INPUT_TOKEN_CROTCHET;
+extern const char* INPUT_TOKEN_MINIM;
+extern const char* INPUT_TOKEN_SEMIBREVE;
+

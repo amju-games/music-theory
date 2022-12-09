@@ -27,18 +27,11 @@ struct Glyph : public IGlyph
   std::string TimeBefore() const;
   std::string TimeAfter() const;
 
-  std::string ToString() const override
+  std::string ToString() const override;
+
+  void SetPitch(int pitch_)
   {
-    // Add special glyphs for timing before and after - this is
-    //  for animation and MIDI events. 
-    std::string res = TimeBefore();
-
-    res += displayGlyphName + ", " + Str(x) + ", " + Str(y) +
-      ", " + Str(scale) + ", " + Str(scale);
-
-    res += TimeAfter();
-
-    return res;
+    pitch = pitch_;
   }
 
   void SetTimeVal(float timeval_) { timeval = timeval_; }
@@ -60,9 +53,10 @@ struct Glyph : public IGlyph
 
   int order = 0; // horiz position in bar 
 
-                 // Two glyph names. E.g. we have a quaver, but it's drawn using a 
-                 //  crotchet glyph because it's beamed. So its 'real' name is 'q',
-                 //  but its display name is 'crotchet'.
+  // Two glyph names. E.g. we have a quaver, but it's drawn using a 
+  //  crotchet glyph because it's beamed. So its 'real' name is 'q',
+  //  but its display name is 'crotchet'.
+  // Also we can set the display name to "*" for questions like 'what is the note?'.
   std::string displayGlyphName;
   std::string realGlyphName;
 

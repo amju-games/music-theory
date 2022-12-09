@@ -91,12 +91,13 @@ std::string Bar::GetStr(std::string s)
   return out;
 }
 
-void Bar::AddGlyph(const std::string& s)
+void Bar::AddGlyph(const std::string& s, int pitch)
 {
   int order = static_cast<int>(m_glyphs.size());
 
   Glyph* gl = new Glyph(s, order);
   gl->SetScale(m_scale);
+  gl->SetPitch(pitch);
 
   // Set duration for this musical symbol
   gl->SetTimeVal(GetTimeVal(s));
