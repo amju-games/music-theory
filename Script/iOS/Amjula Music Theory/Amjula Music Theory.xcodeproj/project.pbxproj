@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		691D91B91F9E5F1D004D6CED /* NumUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 691D91B71F9E5F1D004D6CED /* NumUpdate.cpp */; };
 		692BF7471EAE50BD00DB6CE7 /* PagePlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 692BF7461EAE50BD00DB6CE7 /* PagePlayNotes.cpp */; };
 		692BF74B1EAE5E2B00DB6CE7 /* PageFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 692BF7491EAE5E2B00DB6CE7 /* PageFactory.cpp */; };
 		6951CF171F0B932300140095 /* GSBase3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6951CF111F0B932300140095 /* GSBase3d.cpp */; };
@@ -146,6 +147,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		691D91B71F9E5F1D004D6CED /* NumUpdate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NumUpdate.cpp; path = ../../../../Source/NumUpdate.cpp; sourceTree = "<group>"; };
+		691D91B81F9E5F1D004D6CED /* NumUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NumUpdate.h; path = ../../../../Source/NumUpdate.h; sourceTree = "<group>"; };
 		692BF7461EAE50BD00DB6CE7 /* PagePlayNotes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PagePlayNotes.cpp; path = ../../../../Source/PagePlayNotes.cpp; sourceTree = "<group>"; };
 		692BF7491EAE5E2B00DB6CE7 /* PageFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PageFactory.cpp; path = ../../../../Source/PageFactory.cpp; sourceTree = "<group>"; };
 		692BF74A1EAE5E2B00DB6CE7 /* PageFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageFactory.h; path = ../../../../Source/PageFactory.h; sourceTree = "<group>"; };
@@ -472,10 +475,10 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				69EA9D4B1F7CE5630080089A /* CentreMsg.cpp */,
-				69EA9D4C1F7CE5630080089A /* CentreMsg.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
+				69EA9D4B1F7CE5630080089A /* CentreMsg.cpp */,
+				69EA9D4C1F7CE5630080089A /* CentreMsg.h */,
 				69A23A591F61E6970021BF88 /* Consts.cpp */,
 				69D732821F23DA28007B73C1 /* Consts.h */,
 				69D7329A1F250B58007B73C1 /* CorridorCamController.cpp */,
@@ -562,6 +565,8 @@
 				695543131F3B526D007C23EA /* MySceneGraph.h */,
 				695E90781F5AB7260003901E /* NetSend.cpp */,
 				695E90791F5AB7260003901E /* NetSend.h */,
+				691D91B71F9E5F1D004D6CED /* NumUpdate.cpp */,
+				691D91B81F9E5F1D004D6CED /* NumUpdate.h */,
 				69D58E7E1E86A02B008A8D29 /* Page.cpp */,
 				69D58E7F1E86A02B008A8D29 /* Page.h */,
 				69D58E801E86A02B008A8D29 /* PageDrawOnStave.h */,
@@ -788,6 +793,7 @@
 				69D732931F23DA29007B73C1 /* CorridorModeEnterTappable.cpp in Sources */,
 				6959E3061EA1091500E251A9 /* MusicalTermQuestion.cpp in Sources */,
 				69D7329C1F250B58007B73C1 /* CorridorCamController.cpp in Sources */,
+				691D91B91F9E5F1D004D6CED /* NumUpdate.cpp in Sources */,
 				69D732951F23DA29007B73C1 /* CorridorModeExitTappable.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
 				697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */,
