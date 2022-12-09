@@ -2,14 +2,21 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <Game.h>
+#include "GSMainMenu.h"
 #include "GSPause.h"
 
 namespace Amju
 {
 static void OnResume(GuiElement*)
 {
-  // Back to main menu
   TheGame::Instance()->GetState()->GoBack();
+}
+
+static void OnQuitTopic(GuiElement*)
+{
+  // Back to main menu
+  // TODO Quit confirm
+  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
 }
 
 GSPause::GSPause()
@@ -24,5 +31,9 @@ void GSPause::OnActive()
   GuiElement* elem = GetElementByName(m_gui, "resume-button");
   Assert(elem);
   elem->SetCommand(OnResume);
+
+  elem = GetElementByName(m_gui, "quit-topic-button");
+  Assert(elem);
+  elem->SetCommand(OnQuitTopic);
 }
 };
