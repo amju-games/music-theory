@@ -2,7 +2,8 @@
 // (c) Copyright 2017 Jason Colman
 
 // Grade 1, level 1 course definition
-// A course is defined by a series of topics. Each topic has 'pages' of learning materials.
+// A course is defined by a series of topics.
+// Each topic has 'pages' of learning materials.
 // When a topic is completed, it unlocks further topics in the course.
 
 // file version

@@ -35,10 +35,11 @@ dimbo, 2.0, multi, fgcol=000000
 gui-text
 static-text
 // pos 
--0.3, .95 
+-0.35, .95 
 // size
 2.0, 1.5
 // Text
+// TODO Add to string table, but don't translate
 A tempo\nAccelerando\nAdagio\nAllegro
 // Font name, size
 dimbo, 1.25, multi, left, fgcol=000000
@@ -46,11 +47,11 @@ dimbo, 1.25, multi, left, fgcol=000000
 gui-text
 static-text
 // pos 
--.1, .95 
+-.35, .95 
 // size
-2.0, 1.5
+.7, 1.5
 // Text
 $$$35\n$$$36\n$$$37\n$$$38
 // Font name, size
-dimbo, 1.25, multi, left, fgcol=000000
+dimbo, 1.25, multi, right, fgcol=000000
 
