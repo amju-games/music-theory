@@ -101,6 +101,8 @@ void CorridorModeWait::Drag(bool rightNotLeft)
     ShowTopicName(false);
 
     PlayWav(rightNotLeft ? WAV_SWIPE_RIGHT : WAV_SWIPE_LEFT);
+    
+    SetTopicButton(nullptr); // can't select topic button when scrolling
   }
 }
 
@@ -126,6 +128,13 @@ void CorridorModeWait::CheckTappables()
   }
 }
 
+void CorridorModeWait::SetTopicButton(CommandFunc fn)
+{
+  GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "topic-button"));
+  Assert(button);
+  button->SetCommand(fn);
+}
+  
 void CorridorModeWait::OnActive()
 {
   CorridorMode::OnActive();
@@ -133,9 +142,7 @@ void CorridorModeWait::OnActive()
   // Just one topic button, which is fixed in the centre of the screen.
   // The scene scrolls left and right, but sticks so each door is under the 
   //  button.
-  GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "topic-button"));
-  Assert(button);
-  button->SetCommand(OnTopic);
+  SetTopicButton(Amju::OnTopic);
 
   SetCurrentTopic();
 
@@ -177,6 +184,8 @@ void CorridorModeWait::Update()
       m_isScrolling = false;
 
       SetCurrentTopic();
+      
+      SetTopicButton(Amju::OnTopic); // can choose topic now we have stopped
     }
 
     SetCamera();
@@ -214,9 +223,13 @@ bool CorridorModeWait::OnCursorEvent(const CursorEvent& ce)
 
 bool CorridorModeWait::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 {
+  if (!m_isScrolling)
+  {
+    m_touchDownThisFrame = mbe.isDown;
+    m_touchUpThisFrame = !mbe.isDown;
+  }
+  
   m_isDragging = mbe.isDown;
-  m_touchDownThisFrame = mbe.isDown;
-  m_touchUpThisFrame = !mbe.isDown;
 
   if (mbe.isDown)
   {

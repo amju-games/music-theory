@@ -29,7 +29,8 @@ private:
   void ShowTopicName(bool showNotHide);
   void SetCurrentTopic();
   void SetCamera();
-
+  void SetTopicButton(CommandFunc fn);
+  
 private:
   // To detect swipe left/right, and taps on Tappables
   Vec2f m_touchDownCoord;
