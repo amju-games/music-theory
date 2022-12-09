@@ -246,7 +246,7 @@ void PagePlayNotes::ShowExplanation(int correctNote, int badNote)
   std::string goodNoteStr = NOTES[correctNote % 12];
   char buf[BUF_SIZE];
   // Add space between composer No string and explanation string.
-  std::string formatStr = " " + Lookup("@@@You played %s but you should have played %s!");
+  std::string formatStr = " " + Lookup("@@@You played %s, but you should have played %s!");
   // Looked-up string should contain two %s, first for bad note, second for good note.
   // TODO Allow %s1, %s2, so we can flip them if reuqired by the current language.
   snprintf(buf, BUF_SIZE -1, formatStr.c_str(), badNoteStr.c_str(), goodNoteStr.c_str());
