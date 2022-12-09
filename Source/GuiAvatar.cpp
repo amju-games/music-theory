@@ -291,6 +291,12 @@ void GuiAvatar::Update()
     Assert(eye);
     auto pupil = dynamic_cast<GuiDecTranslate*>(eye->GetElementByName(PUPIL_TRANSLATE));
     Assert(pupil);
+    // Compensate for scale of -1 in x for left eye (this is there so eye
+    //  x-coords are symmetrical about centre line of face).
+    if (i == 1)
+    {
+      pos = Vec2f(-pos.x, pos.y);
+    }
     pupil->SetTranslation(pos);
 
     auto blink = dynamic_cast<GuiDecAnimation*>(eye->GetElementByName(BLINK_ANIM));

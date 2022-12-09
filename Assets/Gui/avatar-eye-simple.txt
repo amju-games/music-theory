@@ -7,6 +7,10 @@
 // version
 1
 
+scale
+1,1
+0,0
+
 // Translate: compensate for size of eye, so we position their
 //  centres
 translate
@@ -40,7 +44,7 @@ gui-comp
 pupil-and-iris
 2
 
-// IRIS - not used for simple eye
+// IRIS 
 colour
 4040ff
 scale
@@ -60,7 +64,7 @@ Image/avatar-sheet.png
 colour
 000000
 scale
-.6, .6
+.4, .4
 .5, .5
 gui-sprite
 pupil
@@ -72,11 +76,11 @@ Image/avatar-sheet.png
 // Cell
 11
 
-// HIGHLIGHT - not for simple eye?
+//// HIGHLIGHT - not for simple eye?
 //colour
 //ffffff
 //scale
-//.25, .25
+//.15, .15
 //.5, .5
 //gui-sprite
 //eye-highlight
@@ -90,10 +94,6 @@ Image/avatar-sheet.png
 
 // Eyelids: translation and scale should be the same, so the upper and
 //  lower match up
-
-//colour
-//00000000
-
 
 gui-comp
 eyelid-upper-and-lower

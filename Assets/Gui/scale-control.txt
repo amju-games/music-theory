@@ -4,49 +4,49 @@
 // version
 1
 
-// Direction control, like arrow keys on a keyboard
+// Scale control
 
 scale
 1,1
 0, 0
 
 gui-comp
-direction-control
+scale-control
 5
 
 gui-button
-button-dir-left
+button-scale-left
 0, 0
 0.1, 0.1
 Image/gui-button-square.png
-A
+N
 icon, 1.5, fgcol=ffffff, bgcol=4E69F4
 
 
 gui-button
-button-dir-right
+button-scale-right
 .2,0
 0.1, 0.1
 Image/gui-button-square.png
-B
+M
 icon, 1.5, fgcol=ffffff, bgcol=4E69F4
 
 
 gui-button
-button-dir-up
+button-scale-up
 .1,.2
 0.1, 0.1
 Image/gui-button-square.png
-I
+O
 icon, 1.5, fgcol=ffffff, bgcol=4E69F4
 
 
 gui-button
-button-dir-down
+button-scale-down
 .1,0
 0.1, 0.1
 Image/gui-button-square.png
-J
+P
 icon, 1.5, fgcol=ffffff, bgcol=4E69F4
 
 gui-text
@@ -56,6 +56,6 @@ static-text
 // size
 .3, .1 
 // Text
-Pos
+Scale
 // Font name, size
 dimbo, 1.5, fgcol=000000

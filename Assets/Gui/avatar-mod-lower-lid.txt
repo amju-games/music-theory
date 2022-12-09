@@ -1,14 +1,14 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
-// Avatar mod head
+// Avatar mod
 
 // version
 1
 
 gui-comp
-avatar-mod-head
-4
+avatar-mod-lower-lid
+2
 
 gui-text
 static-text
@@ -17,9 +17,10 @@ static-text
 // size
 1., .1 
 // Text
-Head
+Lower lid
 // Font name, size
 dimbo, 2.0, fgcol=000000, left
+
 
 translate
 0, 0.25
@@ -28,25 +29,7 @@ scale
 .5,.5
 0, 0
 
+
 colour-picker
 colour-picker.txt
 
-
-translate
-0, -0.15
-
-include
-direction-control.txt
-
-translate
-0.4, -0.15
-
-include
-scale-control.txt
-
-
-translate
-0, -0.55
-
-include
-cell-control.txt

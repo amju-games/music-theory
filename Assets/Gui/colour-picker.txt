@@ -8,10 +8,6 @@
 
 // Colour picker
 
-scale
-1,1
-0, 0
-
 gui-comp
 colour-picker-root
 4

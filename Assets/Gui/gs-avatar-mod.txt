@@ -41,7 +41,7 @@ gui-avatar
 // Name
 avatar
 // Avatar string: sets values on nodes in the avatar GUI tree
-colour;colour-head;F9EBA9|colour;colour-scale-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040
+colour;colour-scale-head;F9EBA9|colour;colour-scale-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040
 
 include
 avatar.txt
@@ -89,7 +89,7 @@ translate
 //  on screen.
 gui-comp
 control-pages-root
-5
+10
 
 // Controls
 translate
@@ -117,3 +117,27 @@ translate
 include 
 avatar-mod-eye.txt
 
+translate
+0,-10
+include 
+avatar-mod-upper-lid.txt
+
+translate
+0,-12
+include 
+avatar-mod-lower-lid.txt
+
+translate
+0,-14
+include 
+avatar-mod-nose.txt
+
+translate
+0,-16
+include 
+avatar-mod-mouth.txt
+
+translate
+0,-18
+include 
+avatar-mod-glasses.txt

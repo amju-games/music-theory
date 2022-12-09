@@ -10,7 +10,7 @@
 
 gui-comp
 control-bg-and-tabs
-8
+2
 
 // BG
 gui-rect
@@ -26,6 +26,10 @@ ffffff
 
 
 // Tabs
+
+gui-comp
+tabs
+12
 
 gui-button
 tab-1
@@ -83,7 +87,42 @@ Image/tab.png, stretch
 Lower lid
 BUTTON, 1.2, fgcol=000000, bgcol=ffffff, sx=0.8
 
+gui-button
+tab-8
+.8,-0.25
+0.2, 0.13
+Image/tab.png, stretch
+Nose
+BUTTON, 1.2, fgcol=000000, bgcol=ffffff
 
+gui-button
+tab-9
+.8,-0.4
+0.2, 0.13
+Image/tab.png, stretch
+Mouth
+BUTTON, 1.2, fgcol=000000, bgcol=ffffff
 
+gui-button
+tab-10
+.8,-0.55
+0.2, 0.13
+Image/tab.png, stretch
+Glasses
+BUTTON, 1.2, fgcol=000000, bgcol=ffffff
 
+gui-button
+tab-11
+.8,-0.70
+0.2, 0.13
+Image/tab.png, stretch
+Moustache
+BUTTON, 1.2, fgcol=000000, bgcol=ffffff, sx=0.8
 
+gui-button
+tab-12
+.8,-0.85
+0.2, 0.13
+Image/tab.png, stretch
+Beard
+BUTTON, 1.2, fgcol=000000, bgcol=ffffff

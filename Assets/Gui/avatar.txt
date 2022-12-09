@@ -58,11 +58,11 @@ gui-comp
 avatar-head-and-face
 6
 
+colour
+F9EBA9
 scale
 1,1
 .5,.5
-colour
-F9EBA9
 gui-sprite
 head
 -.5, .7
@@ -83,6 +83,11 @@ right-eye
 include
 avatar-eye-simple.txt
 
+// Scale by -1 in x so changing eye position gives symmetrical positions
+//  about the face centre line.
+scale
+-1, 1
+0, 0
 translate
 -0.1, 0.1
 gui-comp
@@ -93,12 +98,12 @@ avatar-eye-simple.txt
 
 
 translate
-0, -.75
+0, -1
+colour
+ff0000
 scale
 .6, .3
 .5, .5
-colour
-ff0000
 gui-sprite
 mouth
 -.05, .8
