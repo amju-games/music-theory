@@ -852,9 +852,6 @@
     <Text Include="..\..\..\..\Assets\Course\level1\note-rest-symbols.txt">
       <Filter>Assets\Course\Level1</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\notes_on_bass_clef_with_accidentals.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Course\level1\rest-equivs.txt">
       <Filter>Assets\Course\Level1</Filter>
     </Text>
