@@ -1,7 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
-// Musical Symbol page
+// Page with symbol Q and symbols answers buttons: answer buttons are offset so first 2 are centred.
 
 // version
 1
