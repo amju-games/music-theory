@@ -46,7 +46,12 @@ static void OnPause(GuiElement*)
 // Called from timed FuncMessage
 static void GoToNextPage()
 {
-  TheGSPages::Instance()->NextPage();
+  GSPages* pages = TheGSPages::Instance();
+  // Sanity check: this only makes sense if GSPages is active
+  if (TheGame::Instance()->GetState() == pages)
+  {
+    pages->NextPage();
+  }
 }
 
 GSPages::GSPages()

@@ -36,6 +36,7 @@ public:
   virtual void OnActive();
   virtual void Draw();
   virtual void Update();
+  virtual bool Load(File*) { return true; }
 
   GuiElement* GetGui();
 

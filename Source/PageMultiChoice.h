@@ -3,38 +3,31 @@
 
 #pragma once
 
-#include <string>
 #include <vector>
-#include <RCPtr.h>
-#include <StringUtils.h>
+#include "MultiChoiceQuestion.h"
 #include "Page.h"
 
 namespace Amju
 {
+// * PageMultiChoice *
+// User selects correct answer. How user selects (drag, button, etc) 
+//  does not affect the core Page definition, and could be randomised.
+class PageMultiChoice : public Page
+{
+public:
+  virtual void OnActive() override;
 
+  // Called when user makes a choice
+  void OnChoice(int c);
 
-  // HINTS are intensely GUI-based, animations/behaviour rather than 
-  //  just data like strings. So an active Hint takes over the GUI, and
-  //  can load its own GUI, which it displays in addition to the 
-  //  standard GUI.
-  // Multi coloured highlighting: this will be much easier if vertices
-  //  have colours. Then we don't have multiple scores, say, or snippets
-  //  of text. It's all the same tri list, just with different vertex
-  //  colours. OK MAKE IT SO.
+  virtual void OnHint() override;
+  virtual void ShowCorrectAnswer() override;
 
+protected:
+  MultiChoice m_answers;
 
-
-
-  // * PageMultiChoice *
-  // User selects correct answer. How user selects (drag, button, etc) 
-  //  does not affect the core Page definition, and could be randomised.
-  class PageMultiChoice : public Page
-  {
-  public:
-
-
-  protected:
-
-  };
+  // Answer buttons we can remove when user requests a hint 
+  std::vector<int> m_canRemoveForHint;
+};
 }
 
