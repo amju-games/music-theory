@@ -52,7 +52,7 @@ player-name
 // Text
 Ella
 // Font name, size
-arial, 2.0,  fgcol=000000
+dimbo, 2.0,  fgcol=000000
 
 
 // Player score
@@ -67,7 +67,7 @@ player-score
 // Text
 25600
 // Font name, size
-arial, 1.0, right, fgcol=000000
+dimbo, 1.0, right, fgcol=000000
 
 // Tick for when user gets question correct
 line-drawing

@@ -22,7 +22,7 @@ question-text
 // Text
 Question, e.g. what does this musical term mean?
 // Font name, size
-arial, 1.0, multi, sx=1.5, fgcol=000000
+dimbo, 1.0, multi, fgcol=000000
 
 
 // Element type
@@ -36,7 +36,7 @@ musical-term-text
 // Text
 Alla marcia
 // Font name, size
-arial, 2.0, multi, sx=1.5, fgcol=000000
+dimbo, 1.5, multi, fgcol=000000
 
 
 // Multi choice buttons
@@ -54,7 +54,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, sx=1.6, fgcol=ffffff
+dimbo, 1.0, fgcol=ffffff
 
 // element type
 gui-button
@@ -69,7 +69,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, sx=1.6, fgcol=ffffff
+dimbo, 1.0, fgcol=ffffff
 
 // element type
 gui-button
@@ -84,7 +84,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, sx=1.6, fgcol=ffffff
+dimbo, 1.0, fgcol=ffffff
 
 // element type
 gui-button
@@ -99,7 +99,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, sx=1.6, fgcol=ffffff
+dimbo, 1.0, fgcol=ffffff
 
 
 gui-image
