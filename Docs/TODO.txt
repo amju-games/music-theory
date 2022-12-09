@@ -1,6 +1,34 @@
 Get to state of minimal, releasable app
  * MVP * 
 
+MVP?
+Load/save user config
+ - Do we need this yet?
+
+Hide top bar
+ - Rearrange pause and hint bts
+ - Maybe top bar shows topic name, (hi score? etc)
+
+iOS - load screen, icon, etc. 
+ - NOT Using APZ organ image
+
+Test on different devices/screen aspect ratios
+
+=============================================
+
+More topics
+ - Next: musical symbols? Or identifying notes, this is a big one.
+
+More work on the code design for how we create new Pages. The current Topic
+ generates them?
+
+Fix vertex colours on desktop GL
+
+
+NOT MVP:
+Button focus image should be scaled according to screen aspect ratio (or image aspect ratio?) Scaling both x and y by same amount is not correct
+
+NOT MVP:
 (Topic: show best score so far)
 
 Top bar look/feel
@@ -8,36 +36,39 @@ Top bar look/feel
 
 Fix button sizes
  - They are a bit small
+ - NOT MVP
 
+NOT MVP:
 Topic end state:
 Look/feel, 
-text should be smart.
+text should be smart. - HIDE TEXT FOR MVP
 Give hints, give stars etc
 Next state should be achievements - if none, we go to main menu. Scroll back down to the ground.
 
-
+NOT MVP:
 Main menu: 
  - bulb should pop into view from zero size, for continuity with other states.
  - About button
  - Share button
  - I'm new: go to name entry. Should happen on first run.
 
+NOT MVP:
 Avatar + user name
 
+NOT MVP:
 Pie slices: 
- - use rotate decorator, justone image
+ - use rotate decorator, just one image
  - allow for 20, 30 slices
 
+NOT MVP:
 Correct answer streaks: start at 3, say
 
+NOT MVP:
 Trophies or stars for each topic
 
+NOT MVP:
 Break up musical terms into smaller topics. Split up by type: timing, dynamics, etc.
 
-
-iOS - load screen, icon, etc. 
- - Using APZ organ image?
- - Bulb is a Turnip in the ground?
 
 Net Send
 Back end DB
