@@ -47,8 +47,13 @@ public:
   // Persistent config for each topic
   int GetBestTopicScore(const std::string& topicId);
   bool IsTopicUnlocked(const std::string& topicId);
-  bool IsTopicPassed(const std::string& topicId);
   void UnlockTopic(const std::string& topicId);
+
+  // Check persistent best score for the given topic
+  bool WasTopicEverPassed(const std::string& topicId);
+
+  // Check if the current topic score is a pass
+  bool IsCurrentTopicPassed() const;
 
   // Get/Inc/Dec persistent hint count
   int GetHints(HintType ht); // not const, may load config file

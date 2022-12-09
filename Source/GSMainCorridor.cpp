@@ -403,7 +403,7 @@ bool GSMainCorridor::AllTopicsPassed() const
     Topic* topic = course->GetTopic(i);
     Assert(topic);
 
-    if (!profile->IsTopicPassed(topic->GetId()))
+    if (!profile->WasTopicEverPassed(topic->GetId()))
     {
       return false;
     }

@@ -81,7 +81,7 @@ void GSTopicEnd::OnActive()
   m_topicScore = profile->GetCurrentTopicScore();
 
   // Unlock next topics if this topic has been passed.
-  bool passed = profile->IsTopicPassed(topic->GetId());
+  bool passed = profile->IsCurrentTopicPassed();
   if (passed)
   {
     // Passed this topic, unlock more topics
@@ -165,7 +165,7 @@ std::string GSTopicEnd::GenerateScoreComment()
   Topic* topic = course->GetTopic(profile->GetCurrentTopic());
   Assert(topic);
 
-  bool passed = profile->IsTopicPassed(topic->GetId());
+  bool passed = profile->IsCurrentTopicPassed();
 
   if (m_topicScore > 99)
   {
