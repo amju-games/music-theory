@@ -5,23 +5,23 @@
 
 namespace Amju
 {
-  GSMusicalTerms::GSMusicalTerms()
+GSMusicalTerms::GSMusicalTerms()
+{
+  m_guiFilename = "Gui/gs_musical_terms.txt";
+}
+
+void GSMusicalTerms::OnActive()
+{
+  // Load dictionary of terms
+  m_dictionary = new MusicalTermsDictionary;
+  if (!m_dictionary->Load("musical_terms_test.txt"))
   {
-    m_guiFilename = "Gui/gs_musical_terms.txt";
+    std::cout << "Failed to load musical terms.\n";
+    Assert(false);
   }
 
-  void GSMusicalTerms::OnActive()
-  {
-    // Load dictionary of terms
-    m_dictionary = new MusicalTermsDictionary;
-    if (!m_dictionary->Load("musical_terms_test.txt"))
-    {
-      std::cout << "Failed to load musical terms.\n";
-      Assert(false);
-    }
-
-    m_question.SetDictionary(m_dictionary);
-  }
+  m_question.SetDictionary(m_dictionary);
+}
 
 }
 
