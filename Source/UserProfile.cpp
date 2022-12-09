@@ -5,8 +5,14 @@
 
 namespace Amju
 {
-  bool UserProfile::Load(const std::string& userName)
-  {
-    return false;
-  }
+bool UserProfile::Load()
+{
+  return false;
+}
+
+bool UserProfile::Save()
+{
+  return false;
+}
+
 }

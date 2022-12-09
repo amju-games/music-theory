@@ -9,7 +9,7 @@
 // Element type
 gui-comp
 // Name
-score-comp
+gs-line-drawing-root
 // Num children
 2
 

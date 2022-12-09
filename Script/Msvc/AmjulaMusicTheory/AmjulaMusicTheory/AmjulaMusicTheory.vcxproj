@@ -266,11 +266,13 @@
     <ClCompile Include="..\..\..\..\Source\GSMainMenu.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSMusicalTerms.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPages.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSPause.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSShowLineDrawing.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSShowMusicScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSTestShowScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSTitle.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSTopicStart.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSUserDraw.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSUserDrawSave.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiLineDrawing.cpp" />
@@ -323,11 +325,13 @@
     <ClInclude Include="..\..\..\..\Source\GSMainMenu.h" />
     <ClInclude Include="..\..\..\..\Source\GSMusicalTerms.h" />
     <ClInclude Include="..\..\..\..\Source\GSPages.h" />
+    <ClInclude Include="..\..\..\..\Source\GSPause.h" />
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowMusicScore.h" />
     <ClInclude Include="..\..\..\..\Source\GSTestShowScore.h" />
     <ClInclude Include="..\..\..\..\Source\GSTitle.h" />
+    <ClInclude Include="..\..\..\..\Source\GSTopicStart.h" />
     <ClInclude Include="..\..\..\..\Source\GSUserDraw.h" />
     <ClInclude Include="..\..\..\..\Source\GSUserDrawSave.h" />
     <ClInclude Include="..\..\..\..\Source\GuiLineDrawing.h" />
@@ -352,6 +356,7 @@
     <Library Include="..\..\..\..\Source\ThirdParty\googletest\msvc\gtest\Debug\gtestd.lib" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="..\..\..\..\Assets\Course\grade1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_main_menu.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_pages.txt" />
@@ -359,7 +364,9 @@
     <Text Include="..\..\..\..\Assets\Gui\gs_score.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_test_show_score.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_title.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\gs_topic_start.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\gui-top-bar.txt" />
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_musical_term.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-cross-1.txt" />
@@ -368,6 +375,7 @@
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-2.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-tick-1.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\title-text.txt" />
     <Text Include="..\..\..\..\Docs\TODO.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -9,9 +9,9 @@
 // Element type
 gui-comp
 // Name
-main-menu-comp
+gs-main-menu-root
 // Num children
-4
+6
 
 
 
@@ -64,11 +64,10 @@ line-drawing-test-1
 stroke-main-menu-1.txt
 
 
-// Choice button
-// element type
+// Topic button
 gui-button
 // Element name
-pitch-button
+topic-button-0
 // pos (coords are -1..1)
 -0.15, -0.6
 // size
@@ -79,4 +78,25 @@ Image/leaf1.png
 Pitch
 // Font name, size
 dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
+
+// Topic button
+gui-button
+topic-button-1
+// pos (coords are -1..1)
+-0.15, -0.3
+0.6, 0.3
+Image/leaf1.png
+Time signatures
+dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
+
+// Topic button
+gui-button
+topic-button-2
+// pos (coords are -1..1)
+-0.15, -0.1
+0.6, 0.3
+Image/leaf1.png
+Key signatures
+dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
+
 

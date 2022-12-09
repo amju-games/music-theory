@@ -1,0 +1,64 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Start topic
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+main-menu-comp
+// Num children
+3
+
+// Element type
+gui-text
+// Element name
+topic-name-text
+// pos (coords are -1..1)
+-1.0, 0.7
+// size
+2.0, 0.4
+// Text
+TOPIC
+// Font name, size
+dimbo, 1.5, multi, fgcol=000000
+
+
+// Cancel button
+// element type
+gui-button
+// Element name
+cancel-button
+// pos (coords are -1..1)
+-0.5, -0.6
+// size
+0.3, 0.15
+// Image 
+Image/gui-button-2.png
+//Image/leaf1.png
+// Text
+CANCEL
+// Font name, size
+dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+
+
+// OK, go forward button
+// element type
+gui-button
+// Element name
+start-button
+// pos (coords are -1..1)
+0.5, -0.6
+// size
+0.3, 0.15
+// Image 
+Image/gui-button-2.png
+//Image/leaf1.png
+// Text
+START
+// Font name, size
+dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+

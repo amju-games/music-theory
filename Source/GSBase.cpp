@@ -41,6 +41,7 @@ void GSBase::OnActive()
 void GSBase::OnDeactive()
 {
   GameState::OnDeactive();
+  m_gui = nullptr;
 }
 
 bool GSBase::OnKeyEvent(const KeyEvent& ke)

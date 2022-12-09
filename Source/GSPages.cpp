@@ -2,14 +2,24 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <AmjuGL.h>
+#include <Game.h>
 #include <MessageQueue.h>
 #include "GuiLineDrawing.h"
 #include "GSPages.h"
+#include "GSPause.h"
 #include "PageMusicalTerm.h"
 
 namespace Amju
 {
-void GoToNextPage()
+static void OnPause(GuiElement*)
+{
+  GSPause* gs = TheGSPause::Instance();
+  gs->SetPrevState(TheGSPages::Instance());
+  TheGame::Instance()->SetCurrentState(gs);
+}
+
+// Called from timed FuncMessage
+static void GoToNextPage()
 {
   TheGSPages::Instance()->NextPage();
 }
@@ -21,7 +31,13 @@ GSPages::GSPages()
 
 void GSPages::OnActive()
 {
+  // This could be a resume from pause, so we don't reset the topic progress here.
+
   GSBase::OnActive();
+
+  GuiElement* elem = GetElementByName(m_gui, "pause-button");
+  Assert(elem);
+  elem->SetCommand(OnPause);
 
   NextPage();
 }
@@ -77,6 +93,7 @@ void GSPages::OnCorrect()
   tick->SetVisible(true);
 
   // Happy sound
+  // TODO
 
   TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(1.0f)));
 }
@@ -87,6 +104,7 @@ void GSPages::OnIncorrect()
   cross->SetVisible(true);
 
   // Unhappy sound
+  // TODO
 
   TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(1.0f)));
 }

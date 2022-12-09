@@ -9,7 +9,7 @@
 // Element type
 gui-comp
 // Name
-root
+gs-play-notes-root
 // Num children
 2
 
