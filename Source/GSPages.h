@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <Colour.h>
 #include "GSBase.h"
 #include "Page.h"
 

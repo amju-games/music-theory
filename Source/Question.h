@@ -43,81 +43,31 @@ namespace Amju
     Strings m_questionStrings; // typically, choose one of these at random - could be default impl of GetQString
   };
 
-  class MultiChoice
-  {
-  public:
-    int GetCorrectAnswer() const; // or index into answers
-    bool IsAnswerCorrect(int n) const; // index into answers
-    void AddAnswer(const std::string& answer);
-    void SetCorrectAnswer(int correct);
-    int GetNumAnswers() const;
-    const std::string& GetAnswer(int n) const;
-
-  private:
-    Strings m_answers;
-    int m_correctAnswer = -1;
-  };
-
-  class MultiChoiceQuestion : public Question
-  {
-  public:
-    // The answer is tightly coupled to the question, NOT a separate object.
-
-    // Get (randomised?) answers to present to user, who then chooses one
-    //  of them.
-    // Get non-shuffled for testing
-    MultiChoice GetMultiChoiceAnswers();
-
-  protected:
-    MultiChoice m_answers;
-
-    // Set if we swap the question and answer strings for variety
-    bool m_qAndASwitched = false;
-  };
-
   // TODO split into files
 
 
-  class MusicalTermQuestion : public MultiChoiceQuestion
-  {
-  public:
-    // We get this from a shuffled list, which we get from a file
-    std::string GetMusicalTermText();
 
-    virtual void MakeQuestion() override;
+  //class Music;
 
-    void SetDictionary(MusicalTermsDictionary* dictionary);
+  //// Ask user to pick interval from a list, 
+  //// OR PLAY IT? No, but the HINT could show notes on a keyboard.
+  //class IntervalQuestion : public MultiChoiceQuestion
+  //{
+  //  // qString will be { "What is this interval?", "Name the interval".. etc
 
-    virtual bool QuestionSeenBefore(ConfigFile*) const override;
-    virtual void SetQuestionSeenBefore(ConfigFile*) const override;
+  //  // We need a type which represents musical score/notation
+  //  const Music& GetIntervalAsMusic(); // to display interval as a score. 
 
-  protected:
-    std::string m_musicalTerm; 
+  //};
 
-    RCPtr<MusicalTermsDictionary> m_dictionary;
-  };
+  //class PlayKeyboardQuestion : public Question
+  //{
 
-  class Music;
+  //};
 
-  // Ask user to pick interval from a list, 
-  // OR PLAY IT? No, but the HINT could show notes on a keyboard.
-  class IntervalQuestion : public MultiChoiceQuestion
-  {
-    // qString will be { "What is this interval?", "Name the interval".. etc
-
-    // We need a type which represents musical score/notation
-    const Music& GetIntervalAsMusic(); // to display interval as a score. 
-
-  };
-
-  class PlayKeyboardQuestion : public Question
-  {
-
-  };
-
-  class PlayTheNotesQuestion : public PlayKeyboardQuestion
-  {
-  };
+  //class PlayTheNotesQuestion : public PlayKeyboardQuestion
+  //{
+  //};
 
 }
 

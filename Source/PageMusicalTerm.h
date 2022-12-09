@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "MusicalTermQuestion.h"
 #include "PageMultiChoice.h"
 
 namespace Amju

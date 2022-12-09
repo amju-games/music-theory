@@ -4,7 +4,7 @@
 #pragma once
 
 #include "GSBase.h"
-#include "Question.h"
+#include "MusicalTermQuestion.h"
 
 namespace Amju
 {
