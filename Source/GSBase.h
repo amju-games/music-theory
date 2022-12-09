@@ -63,6 +63,10 @@ void GoTo()
 {
   TheGame::Instance()->SetCurrentState(T::Instance());
 }
-}
+
+// Command for "Share" buttons for Twitter etc
+void OnShare(GuiElement*);
+
+} // namespace
 
 

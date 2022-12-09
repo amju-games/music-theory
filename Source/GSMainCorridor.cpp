@@ -177,6 +177,10 @@ void GSMainCorridor::OnActive()
 
   SetMode(CorridorModeWait::ID);
   ChangeMode();
+
+  GuiButton* shareButton = (GuiButton*)GetElementByName(m_gui, "share-button");
+  Assert(shareButton);
+  shareButton->SetCommand(Amju::OnShare);
 }
 
 void GSMainCorridor::Draw2d()

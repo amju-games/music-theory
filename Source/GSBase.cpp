@@ -8,9 +8,15 @@
 #include <GuiDecAnimation.h>
 #include "GSBase.h"
 #include "PrintGui.h"
+#include "ShareManager.h"
 
 namespace Amju
 {
+void OnShare(GuiElement*)
+{
+  TheShareManager::Instance()->ShareTextAndScreenshot();
+}
+
 void GSBase::HideButtons(GuiElement* elem)
 {
   if (dynamic_cast<GuiButton*>(elem))

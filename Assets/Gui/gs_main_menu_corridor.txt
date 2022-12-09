@@ -12,11 +12,21 @@ gui-comp
 // Name
 gs-main-menu-root
 // Num children
-1
-
+2
 
 translate
 -1., 0
 
 include
 hint-display.txt
+
+
+// Share button
+gui-button
+share-button
+0.65, 0.95
+0.3, 0.15
+Image/gui-button-2.png
+Share
+dimbo, 2., fgcol=ffffff, bgcol=4E69F4
+
