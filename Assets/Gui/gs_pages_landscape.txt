@@ -12,13 +12,14 @@ gui-comp
 // Name
 gs-pages-root
 // Num children
-6
+7
 
 
 include
 gui_top_bar_landscape.txt
 
-
+include
+blackboard_erase.txt
 
 elastic
 1.0, 0.0

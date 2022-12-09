@@ -27,6 +27,9 @@ static const char* HINTS_AVAILABLE_KEY = "hints_avail";
 // Start life with 3 hints
 const int DEFAULT_HINTS_AVAIL = 3;
 
+// Delay before we go to next page (gives time to see blackboard erase)
+const float NEXT_PAGE_TIME = 2.2f;
+
 static void OnQuitConfirmOK(GuiElement*)
 {
   TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
@@ -166,6 +169,12 @@ void GSPages::NextPage()
   tick->SetVisible(false);
   cross->SetVisible(false);
 
+  // Rub out blackboard
+  GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
+  Assert(ruboutAnim);
+  ruboutAnim->SetVisible(false);
+  ruboutAnim->ResetAnimation();
+
   // Show number of pages, num correct, num incorrect, etc. These GUI elements
   //  should be in the top bar.
   IGuiText* numPagesText = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "num-pages-text"));
@@ -254,13 +263,18 @@ void GSPages::OnCorrect()
   GuiElement* tick = GetElementByName(m_gui, "tick");
   tick->SetVisible(true);
 
+  // Rub out blackboard
+  GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
+  Assert(ruboutAnim);
+  ruboutAnim->SetVisible(true);
+
   // Happy sound
   // TODO
 
   // Add to profile/score
   m_numCorrectThisSession++;
   SetPie(m_numPagesShown, Colour(0.f, 1.f, 0.f, 1.f));
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(1.0f)));
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(NEXT_PAGE_TIME)));
 }
 
 void GSPages::OnIncorrect()
@@ -268,12 +282,17 @@ void GSPages::OnIncorrect()
   GuiElement* cross = GetElementByName(m_gui, "cross");
   cross->SetVisible(true);
 
+  // Rub out blackboard
+  GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
+  Assert(ruboutAnim);
+  ruboutAnim->SetVisible(true);
+
   // Unhappy sound
   // TODO
 
   m_numIncorrectThisSession++;
   SetPie(m_numPagesShown, Colour(1.f, 0.f, 0.f, 1.f));
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(1.0f)));
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(NEXT_PAGE_TIME)));
 }
 
 void GSPages::OnHint()
