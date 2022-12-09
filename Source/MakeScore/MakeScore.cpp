@@ -5,8 +5,14 @@
 //
 // Sub project to convert easily-authorable music content
 //  into list of glyphs.
-// clang++ MakeScore.cpp -std=c++11
-// E.g. use: echo '4/4 c c mr' | ./a.out
+//
+// To build:
+//    (Mac) clang++ *.cpp -std=c++11
+//    (Win) cl *.cpp
+//
+// E.g. use: 
+//    (Mac) echo '4/4 c c mr' | ./a.out
+
 
 // Music score coords:
 //  +--------------------------+   0.4
@@ -19,6 +25,7 @@
 #include <algorithm>
 #include <cassert>
 #include <iostream>
+#include <iterator>
 #include <map>
 #include <memory>
 #include <sstream>
