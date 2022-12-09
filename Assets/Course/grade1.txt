@@ -209,31 +209,6 @@ page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
 page-symbol-kb=Course/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
 
 
-
-//// Topic
-//// 1b
-//// ID
-//rests
-//// Localised display name
-//Rests
-//// Group
-//1
-//// Initially locked?
-//// Topics unlocked by this one
-//bar-lines
-//// Pages
-//10
-//page-text-symbol=Course/rest_names.txt
-//page-text-symbol=Course/rest_names.txt
-//page-text-symbol=Course/rest_names.txt
-//page-text-symbol=Course/rest_names.txt
-//page-text-symbol=Course/rest_names.txt
-//page-text-symbol=Course/rest_names.txt
-//page-text-symbol=Course/rest_names.txt
-//page-text-symbol=Course/rest_names.txt
-//page-text-symbol=Course/rest_names.txt
-//page-text-symbol=Course/rest_names.txt
-
 //// Topic
 //// 2a
 //// ID
