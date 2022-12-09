@@ -26,6 +26,11 @@
 
 static const int DEFAULT_PITCH = 69; // default pitch = A above middle C
 
+float Interp(float f0, float f1, float t)
+{
+  return f0 + (f1 - f0) * t;
+}
+
 // Time values
 using TimeValue = float;
 static const float TIMEVAL_SEMIBREVE   = 1.f;
@@ -209,11 +214,37 @@ private:
   void AddGlyph(const std::string& s)
   {
     m_bars.back()->AddGlyph(s);
+
+    // If last tie has no right connection, connect it now to the
+    //  glyph we just added.
+    if (!m_ties.empty())
+    {
+      Tie* tie = m_ties.back().get();
+      if (!tie->rhsSet)
+      {
+        tie->rightBarGlyph = std::make_pair(
+          m_bars.size() - 1,  // bar glyph is in
+          m_bars.back()->GetGlyphCount()); // position of glyph
+
+        tie->rhsSet = true;
+      }
+    }
   }
 
   void AddBeam(const std::string& s)
   {
     m_bars.back()->AddBeam(s);
+  }
+
+  void AddTie()
+  {
+    // Set bar and position of the left glyph of the tie
+    Tie* tie = new Tie;
+    tie->leftBarGlyph = std::make_pair(
+      m_bars.size() - 1,  // bar left glyph is in
+      m_bars.back()->GetGlyphCount()); // position of left glyph
+
+    m_ties.push_back(std::unique_ptr<Tie>(tie));
   }
 
   void AddTokens();
@@ -248,6 +279,56 @@ private:
     // Default height is on single middle stave line for rhythm
     float y = DEFAULT_HEIGHT;
     float scale = 1.0f;
+  };
+
+  struct Bar;
+  struct Tie : public IGlyph
+  {
+    virtual std::string ToString() const 
+    {
+      // Control points: start and end points in x; y value, depending
+      //  on whether the tie is 'n' or 'u' shape. 
+      // Inner control points: centre, and one near each end to give
+      //  desired shape.
+      float y = 1.f; // for 'n' shape
+      float w = rightX - leftX;
+      const float TIE_ASPECT_RATIO = 8.f;
+      float h = w / TIE_ASPECT_RATIO;
+ 
+      std::vector<float> coords = 
+      {
+        leftX,  y,
+        leftX,  y,
+        Interp(leftX, rightX, 0.125f), y + (h * 0.8f), // give shape
+        Interp(leftX, rightX, .5f), y + h, // centre
+        Interp(leftX, rightX, 0.875f), y + (h * 0.8f), // give shape
+        rightX, y,
+        rightX, y,
+      }; 
+
+      std::string res = "curve, "; 
+      int n = coords.size();
+      for (int i = 0; i < n; i++)
+      {
+        res += std::to_string(coords[i]) + (i < (n - 1) ? ", " : ""); 
+      }
+      return res;
+    }
+ 
+    void SetPos(const std::vector<std::unique_ptr<Bar>>& bars);
+ 
+    // When we create Tie, we only know the bar number and position of
+    //  the left end.
+    std::pair<int, int> leftBarGlyph;
+    // Do a search later to find the next note, then we have the bar and 
+    //  pos of the right end.
+    std::pair<int, int> rightBarGlyph;
+
+    // Set left and right x-coords once positions of all glyphs have been
+    //  set.
+    float leftX = 0;
+    float rightX = 0;
+    bool rhsSet = false; 
   };
 
   struct Glyph : public IGlyph
@@ -300,7 +381,7 @@ private:
 
     void SetTimeVal(float timeval_) { timeval = timeval_; }
 
-    void SetDisplayName()
+    void SetDisplayNameForBeamedNote()
     {
       // E.g. "q" or "qq" -> "crotchet-up" for a beamed quaver.
       // Take dottedness into account.
@@ -436,8 +517,6 @@ private:
 
     // Beams connecting ordered glyphs
     std::vector<std::unique_ptr<Beam>> m_beams; 
-
-    // TODO Anything else where order is not important, e.g. ties too.
 
     float m_x = 0;
     float m_y = 0;
@@ -603,8 +682,8 @@ private:
       // Set display names for beamed (semi)quavers etc. 
       for (auto& b : m_beams)
       {
-        m_glyphs[b->left]->SetDisplayName();
-        m_glyphs[b->right]->SetDisplayName();
+        m_glyphs[b->left]->SetDisplayNameForBeamedNote();
+        m_glyphs[b->right]->SetDisplayNameForBeamedNote();
       }
 
       for (auto& g : m_glyphs)
@@ -713,9 +792,24 @@ private:
     }
   };
 
+  // Ordered sequence of bars in the score.
   std::vector<std::unique_ptr<Bar>> m_bars;
 
+  // Ties connect glyphs which can be in different bars, so ties are not
+  //  per-bar.
+  std::vector<std::unique_ptr<Tie>> m_ties;
+
 };
+
+void MakeScore::Tie::SetPos(
+  const std::vector<std::unique_ptr<MakeScore::Bar>>& bars)
+{
+  leftX  = bars[leftBarGlyph.first]->m_glyphs[leftBarGlyph.second]->x;
+  rightX = bars[rightBarGlyph.first]->m_glyphs[rightBarGlyph.second]->x;
+
+std::cout << "Setting tie leftX:  " << leftX << "\n"; 
+std::cout << "Setting tie rightX: " << rightX << "\n"; 
+}
 
 void MakeScore::Preprocess()
 {
@@ -748,6 +842,11 @@ void MakeScore::AddTokens()
       // TODO Copy key sig over
 
       m_bars.push_back(std::unique_ptr<Bar>(bar));
+    }
+    else if (s == "t") 
+    {
+      // Tie next 2 notes? Or prev and next - we can get position of prev.
+      AddTie();
     }
     else if (IsBeam(s))
     {
@@ -828,6 +927,13 @@ void MakeScore::CalcBarSizesAndPositions()
     bar->SetPos(x, y);
     x += bar->GetWidth();
   }
+
+  // Set left and right positions of ties
+  for (auto& tie : m_ties) 
+  {
+    // Look up positions of glyphs the tie connects
+    tie->SetPos(m_bars); 
+  }
 }
 
 std::string MakeScore::ToString()
@@ -843,6 +949,12 @@ std::string MakeScore::ToString()
   for (auto& b : m_bars)
   {
     res += b->ToString(m_outputOnOneLine);
+  }
+
+  for (auto& t : m_ties)
+  {
+    res += t->ToString();
+    res += LineEnd(m_outputOnOneLine);
   }
 
   return res;
