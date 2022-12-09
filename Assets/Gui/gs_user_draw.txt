@@ -11,7 +11,7 @@ gui-comp
 // Name
 root
 // Num children
-1
+2
 
 // Element type
 gui-text
@@ -26,3 +26,8 @@ Hello! Draw something!
 // Font name, size
 arial, 1.0, multi, fgcol=000000
 
+gui-image
+pencil
+0, 0
+0.32, 0.24
+Image/pencil-right.png

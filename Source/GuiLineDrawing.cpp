@@ -116,10 +116,13 @@ void GuiLineDrawing::Draw()
 
   AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D); // for now
   AmjuGL::PushMatrix();
+  PushColour();
   AmjuGL::SetColour(m_fgCol);
   AmjuGL::Translate(pos.x, pos.y, 0);
   AmjuGL::Draw(m_triList);
+  PopColour();
   AmjuGL::PopMatrix();
+  AmjuGL::Enable(AmjuGL::AMJU_TEXTURE_2D);
 }
 
 bool GuiLineDrawing::Load(File* f)

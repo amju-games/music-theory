@@ -8,7 +8,7 @@ namespace Amju
 {
 void GSBase::Draw2d() 
 {
-  AmjuGL::SetClearColour(Colour(.5f, .5f, .5f, 1.f));
+  AmjuGL::SetClearColour(Colour(.95f, .95f, .95f, 1.f));
 
   if (m_gui)
   { 

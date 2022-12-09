@@ -15,13 +15,25 @@ void GSUserDraw::OnActive()
 {
   m_gui = LoadGui("Gui/gs_user_draw.txt");
   //m_drawing = dynamic_cast<GuiLineDrawing*>(GetElementByName(m_gui, "line-drawing-test-1"));
+
+  // TODO Left handed pencil option
+  m_pencil = GetElementByName(m_gui, "pencil");
 }
 
 bool GSUserDraw::OnCursorEvent(const CursorEvent& ce) 
 {
-  if (m_isDrawing)
+  // TODO TEMP TEST CONFIG
+  // Offset so we can see the pencil tip
+  Vec2f pos = Vec2f(ce.x, ce.y) + Vec2f(-0.3f, 0.3f);
+
+  if (m_pencil)
   {
-    m_drawing->AddPoint(Vec2f(ce.x, ce.y));
+    m_pencil->SetLocalPos(pos);
+  }
+
+  if (m_isDrawing && m_drawing)
+  {
+    m_drawing->AddPoint(pos);
     return true;
   }
   return false;
@@ -39,6 +51,7 @@ bool GSUserDraw::OnMouseButtonEvent(const MouseButtonEvent& mbe)
     m_drawing->SetColour(Colour(0, 0, 0, 1));
     GuiComposite* comp = dynamic_cast<GuiComposite*>(GetElementByName(m_gui, "root"));
     comp->AddChild(m_drawing);
+    comp->BringChildToFront(m_pencil);
   }
 
   return true;

@@ -1,5 +1,8 @@
 TODO prototype tech unknowns
 
+Reload images - so trash GL resources and re-upload
+
+
 Playable keyboard
  - Link Bass midi 
  - sound font asset - find a better piano sound font

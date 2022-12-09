@@ -21,6 +21,7 @@ public:
 private:
   bool m_isDrawing = false;
   GuiLineDrawing* m_drawing = nullptr;
+  GuiElement* m_pencil = nullptr;
 };
 
 typedef Singleton<GSUserDraw> TheGSUserDraw;
