@@ -11,7 +11,7 @@ root
 // Matrix
 I
 // Num children
-1
+4
 
 // Node type
 camera-persp
@@ -25,6 +25,41 @@ camera
 0, 1, 0
 // FovY, aspect, near, far
 70, 2.0, 1, 1000
+// Num children
+0
+
+// Node type
+mesh
+// Name
+left-end
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 40, 1
+// Obj mesh
+//obj/end1.obj
+obj/arch1.obj
+// Num children
+0
+
+
+// Node type
+mesh
+// Name
+right-stairs-up
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  20, 0, -440, 1
+// Obj mesh
+obj/stairs-up.obj
+// Num children
+0
+
+// Node type
+mesh
+// Name
+right-arch
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, -440, 1
+// Obj mesh
+obj/arch1.obj
 // Num children
 0
 
