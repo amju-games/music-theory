@@ -11,6 +11,7 @@ namespace Amju
 {
 class ConfigFile;
 class GameState;
+struct MusicKbEvent;
 
 // * Page *
 // A page is one screenful of information, usually in the form of a "test" or question. 
@@ -40,7 +41,7 @@ public:
 
   // Enable/disable buttons, for modal dialog like quit confirm 
   virtual void SetIsEnabled(bool enabled);
- 
+
   // Set config file to save any state we want to remember about this page/topic
   void SetConfigFile(ConfigFile* cf);
 
@@ -49,6 +50,9 @@ public:
   // Called when user taps Hint button -- show page-specific hint.
   virtual void OnHint() {}
   virtual void ShowCorrectAnswer() {}
+
+  // Called when user taps piano keyboard
+  virtual void OnMusicKbEvent(const MusicKbEvent&) {}
 
   // Sigh, there is a difference in behaviour if we are showing something new, so
   //  set this flag if user is learning a new thing.
@@ -66,6 +70,8 @@ protected:
 
   RCPtr<Question> m_question;
 
+  // The game state which owns this page 
+  // TODO This will always be GSPages, no?
   GameState* m_gs = nullptr;
 
   bool m_isLearnMode = false;

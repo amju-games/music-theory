@@ -3,30 +3,11 @@
 
 #pragma once
 
-#include <EventTypes.h>
 #include <GuiElement.h>
 #include <ObjMesh.h>
 
 namespace Amju
 {
-struct MusicKbEvent;
-struct MusicEventListener
-{
-  virtual ~MusicEventListener() = default;
-  virtual void OnMusicKbEvent(MusicKbEvent*) = 0;
-};
-
-// Event fired when we key up or down. Classes derived from MusicEventListener 
-//  can get the event.
-struct MusicKbEvent : public Event
-{
-  MusicKbEvent() = default;
-  MusicKbEvent(int note, bool on) : m_note(note), m_on(on) {}
-  virtual bool UpdateListener(EventListener*) override;
-  int m_note = 0;
-  bool m_on = true;
-};
-
 class GuiMusicKb : public GuiElement
 {
 public:

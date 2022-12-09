@@ -112,8 +112,6 @@ void PageMusicalTerm::ShowCorrectAnswer()
 
 void PageMusicalTerm::OnChoice(int c)
 {
-  std::cout << "Choice " << c << " which is " << (m_answers.IsAnswerCorrect(c) ? "CORRECT!" : "incorrect :(") << "\n";
-  
   // Disable all buttons
   int numChoices = m_answers.GetNumAnswers();
   for (int i = 0; i < numChoices; i++)

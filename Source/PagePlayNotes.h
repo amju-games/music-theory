@@ -19,6 +19,7 @@ public:
   virtual void OnActive() override;
   virtual void OnHint() override;
   virtual void ShowCorrectAnswer() override;
+  virtual void OnMusicKbEvent(const MusicKbEvent&) override;
 
 };
 }

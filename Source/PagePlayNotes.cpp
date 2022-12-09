@@ -1,6 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include "GSPages.h"
 #include "GuiMusicScore.h"
 #include "PagePlayNotes.h"
 #include "ScoreBuilder.h"
@@ -14,7 +15,7 @@ PagePlayNotes::PagePlayNotes()
   m_guiName = "play_notes";
 }
 
-void PagePlayNotes::OnActive() 
+void PagePlayNotes::OnActive()
 {
   Page::OnActive();
 
@@ -43,13 +44,21 @@ void PagePlayNotes::OnActive()
   sb.Write(*score);
 }
 
-void PagePlayNotes::OnHint() 
+void PagePlayNotes::OnHint()
 {
 }
 
-void PagePlayNotes::ShowCorrectAnswer() 
+void PagePlayNotes::ShowCorrectAnswer()
 {
 }
 
+void PagePlayNotes::OnMusicKbEvent(const MusicKbEvent& event)
+{
+  // Check note
+  if (!event.m_on)
+  {
+    dynamic_cast<GSPages*>(m_gs)->OnCorrect();
+  }
+}
 }
 

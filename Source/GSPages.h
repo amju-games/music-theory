@@ -5,6 +5,7 @@
 
 #include <Colour.h>
 #include "GSBase.h"
+#include "MusicEvent.h"
 #include "Page.h"
 
 namespace Amju
@@ -19,6 +20,8 @@ public:
   virtual void OnDeactive() override;
   virtual void Draw2d() override;
   virtual void Update() override;
+
+  void OnMusicKbEvent(const MusicKbEvent&);
 
   // Load list of pages from file?
   bool Load(const std::string& filename);
@@ -38,6 +41,7 @@ public:
 protected:
   void ShowHints();
   void SetPie(int n, const Colour& c);
+  void SetButtonEnabled(const std::string& buttonName, bool enabled);
 
 protected:
   //std::vector<RCPtr<Page>> m_pages;
@@ -60,5 +64,4 @@ protected:
 };
 
 typedef Singleton<GSPages> TheGSPages;
-
 }

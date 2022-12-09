@@ -3,13 +3,14 @@
 
 #include <DrawAABB.h>
 #include <DrawRect.h>
-#include <EventPoller.h>
 #include <GuiFactory.h>
 #include <Matrix.h>
+#include <MessageQueue.h>
 #include <ResourceManager.h>
 #include <StringUtils.h>
 #include <Timer.h>
 #include "GuiMusicKb.h"
+#include "MusicEvent.h"
 #include "PlayMidi.h"
 
 namespace Amju
@@ -24,17 +25,6 @@ static GuiElement* CreateMusicKb()
 void GuiMusicKb::AddToFactory()
 {
   TheGuiFactory::Instance()->Add("music-kb", CreateMusicKb);
-}
-
-bool MusicKbEvent::UpdateListener(EventListener* listener)
-{
-  MusicEventListener* mel = dynamic_cast<MusicEventListener*>(listener);
-  if (mel)
-  {
-    mel->OnMusicKbEvent(this);
-    return true;
-  }
-  return false;
 }
 
 GuiMusicKb::~GuiMusicKb()
@@ -272,7 +262,7 @@ void GuiMusicKb::Key::Press()
   
   PlayMidi(m_midiNote, MIDI_NOTE_MAX_VOLUME); // ?
 
-  TheEventPoller::Instance()->GetImpl()->QueueEvent(new MusicKbEvent(m_midiNote, true));
+  TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, true)));
 }
   
 void GuiMusicKb::Key::Release()
@@ -282,7 +272,7 @@ void GuiMusicKb::Key::Release()
   
   PlayMidi(m_midiNote, 0); // ?
 
-  TheEventPoller::Instance()->GetImpl()->QueueEvent(new MusicKbEvent(m_midiNote, false));
+  TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, false)));
 }
 
 void GuiMusicKb::ReleaseAllKeys()

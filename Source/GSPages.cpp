@@ -250,6 +250,18 @@ void GSPages::OnHint()
   m_page->OnHint(); // show context-sensitive hint
 }
 
+void GSPages::SetButtonEnabled(const std::string& buttonName, bool enabled)
+{
+  GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, buttonName));
+  Assert(button);
+  button->SetIsEnabled(enabled);
+
+  // Set colour (assumes immediate parent is colour decorator)
+  GuiElement* col = button->GetParent();
+  Assert(col);
+  col->Animate(enabled ? 0.f : 1.f); // i.e. enabled = first colour, disabled = 2nd colour
+}
+
 void GSPages::OnPause()
 {
   // Bring on pause dialog
@@ -265,22 +277,9 @@ void GSPages::OnPause()
   anim->SetIsReversed(false);
   
   // Disable pause and hint buttons
-  GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "pause-button"));
-  Assert(button);
-  button->SetIsEnabled(false);
-  // Set colour of decorator
-  GuiElement* col = (GetElementByName(m_gui, "colour-pause-button"));
-  Assert(col);
-  col->Animate(1.0f); // i.e. choose 2nd colour
+  SetButtonEnabled("pause-button", false);
+  SetButtonEnabled("hint-button", false);
 
-  button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "hint-button"));
-  Assert(button);
-  button->SetIsEnabled(false);
-  // Set colour of decorator
-  col = (GetElementByName(m_gui, "colour-hint-button"));
-  Assert(col);
-  col->Animate(1.0f); // i.e. choose 2nd colour
- 
   // Disable page contents
   m_page->SetIsEnabled(false); 
 }
@@ -294,24 +293,20 @@ void GSPages::OnQuitConfirmCancel()
   anim->ResetAnimation();
   anim->SetIsReversed(true);
 
-  GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "pause-button"));
-  Assert(button);
-  button->SetIsEnabled(true);
-  // Set colour of decorator
-  GuiElement* col = (GetElementByName(m_gui, "colour-pause-button"));
-  Assert(col);
-  col->Animate(0.0f); // i.e. choose 1st colour
- 
-  button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "hint-button"));
-  Assert(button);
-  button->SetIsEnabled(true);
-  // Set colour of decorator
-  col = (GetElementByName(m_gui, "colour-hint-button"));
-  Assert(col);
-  col->Animate(0.0f); // i.e. choose 1st colour
- 
+  SetButtonEnabled("pause-button", true);
+  SetButtonEnabled("hint-button", true);
+
   // Re-enable page contents
   m_page->SetIsEnabled(true); 
 }
+
+void GSPages::OnMusicKbEvent(const MusicKbEvent& e)
+{
+  if (m_page)
+  {
+    m_page->OnMusicKbEvent(e);
+  }
+}
+
 }
 

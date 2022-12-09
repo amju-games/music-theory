@@ -284,6 +284,7 @@
     <ClCompile Include="..\..\..\..\Source\MultiChoiceQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\MusicalTermQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\MusicalTermsDictionary.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MusicEvent.cpp" />
     <ClCompile Include="..\..\..\..\Source\Page.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageFactory.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageMusicalTerm.cpp" />
@@ -351,6 +352,7 @@
     <ClInclude Include="..\..\..\..\Source\MultiChoiceQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\MusicalTermQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\MusicalTermsDictionary.h" />
+    <ClInclude Include="..\..\..\..\Source\MusicEvent.h" />
     <ClInclude Include="..\..\..\..\Source\Page.h" />
     <ClInclude Include="..\..\..\..\Source\PageDrawOnStave.h" />
     <ClInclude Include="..\..\..\..\Source\PageFactory.h" />
