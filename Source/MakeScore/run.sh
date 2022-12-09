@@ -7,7 +7,7 @@ pushd ../../Assets/Gui
 cp scoretest.txt gs_test_show_score.txt
 popd
 
-echo '3/4 q -- q c  c t | c c cr' | ./a.out  > out.txt
+echo 'c t c t c' | ./a.out --oneline  > out.txt
 
 cat out.txt >> ../../Assets/Gui/gs_test_show_score.txt
 cat out.txt
