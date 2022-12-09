@@ -10,8 +10,8 @@ namespace Amju
 std::string LookupTutorialString(int id)
 {
   static const std::string STRS[] = {
-    "@@@welcome to amjula music school!",
-    "@@@swipe left and right to move along the corridor",
+    "$$$1" /* welcome to amjula music school! */,
+    "$$$2" /* swipe left and right to move along the corridor */,
   };
   return Lookup(STRS[id]); 
 }

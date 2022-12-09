@@ -1,0 +1,6 @@
+// version
+1
+// number of strings
+2
+1=welcome to amjula music school!
+2=swipe left and right to move along the corridor
