@@ -1,0 +1,57 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Boilerplate for every page
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+page-root
+// Num children
+2
+
+// Blue background
+colour
+798EEB
+
+gui-image
+screen-bg
+-1, 1.2
+2, 2
+Image/white.png, stretch
+
+// Child 2
+
+elastic
+0, -2.0
+
+// Use this to fade the page contents
+// Fade out anim, off until triggered in code
+animation
+fade-out-whole-page
+const
+zero
+
+animation
+anim-colour-fade-whole-page
+one-shot
+0.3
+linear
+
+colour
+ffffffff, ffffff20
+
+
+animation
+clean-anim
+const
+one
+
+
+gui-comp
+add-page-to-me
+0
+

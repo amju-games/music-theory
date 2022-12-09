@@ -1,0 +1,184 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// MCQ buttons - width of screen
+
+// version
+1
+
+// Multi choice buttons
+// Each button can be faded out, and the buttons under it translated up to fill the gap.
+
+
+// Fade out anim, off until triggered in code
+animation
+fade-button-0
+const
+zero
+
+// Animate when triggered
+animation
+name-not-used
+one-shot
+1.0
+linear
+
+// Composite: the button to fade, and the other buttons, which we move
+gui-comp
+button-group-0
+2
+
+// Animated colour
+colour
+ffffffff, ffffff00
+
+// element type
+gui-button
+// Element name
+button-choice-0
+// pos (coords are -1..1)
+-0.9, 0.1
+// size
+1.8, 0.15
+// Image 
+Image/gui-button-8.png
+// Text
+choice-text
+// Font name, size
+dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+
+// 2nd child of button-0-group
+// Translate other buttons up
+translate
+0,0 ; 0, 0.2
+
+gui-comp
+buttons-1-3
+1
+
+// Child 1: fade anim for button 1
+// Fade out anim, off until triggered in code
+animation
+fade-button-1
+const
+zero
+
+// Animate when triggered
+animation
+name-not-used
+one-shot
+1.0
+linear
+
+// Composite: the button to fade, and the other buttons, which we move
+gui-comp
+button-group-1
+2
+
+// Animated colour
+colour
+ffffffff, ffffff00
+
+// element type
+gui-button
+// Element name
+button-choice-1
+// pos (coords are -1..1)
+-0.9, -0.1
+// size
+1.8, 0.15
+// Image 
+Image/gui-button-8.png
+// Text
+choice-text
+// Font name, size
+dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+
+translate
+0,0 ; 0, 0.2
+
+gui-comp
+buttons-2-3
+1
+
+// Fade out anim, off until triggered in code
+animation
+fade-button-2
+const
+zero
+
+// Animate when triggered
+animation
+name-not-used
+one-shot
+1.0
+linear
+
+// Composite: the button to fade, and the other buttons, which we move
+gui-comp
+button-group-2
+2
+
+// Animated colour
+colour
+ffffffff, ffffff00
+
+// element type
+gui-button
+// Element name
+button-choice-2
+// pos (coords are -1..1)
+-0.9, -0.3
+// size
+1.8, 0.15
+// Image 
+Image/gui-button-8.png
+// Text
+choice-text
+// Font name, size
+dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+
+translate
+0,0 ; 0, 0.2
+
+gui-comp
+buttons-3
+1
+
+animation
+fade-button-3
+const
+zero
+
+// Animate when triggered
+animation
+name-not-used
+one-shot
+1.0
+linear
+
+// Composite: the button to fade, and the other buttons, which we move
+gui-comp
+button-group-3
+1
+
+// Animated colour
+colour
+ffffffff, ffffff00
+
+// element type
+gui-button
+// Element name
+button-choice-3
+// pos (coords are -1..1)
+-0.9, -0.5
+// size
+1.8, 0.15
+// Image 
+Image/gui-button-8.png
+// Text
+choice-text
+// Font name, size
+dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+
+

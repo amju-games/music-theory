@@ -60,8 +60,15 @@ void Page::SetIsEnabled(bool enabled)
 
 void Page::OnActive()
 {
-  // TODO append orientation to gui name
-  m_gui = LoadGui("Gui/page_" + m_guiName + ".txt");
+  m_gui = LoadGui("Gui/boilerplate.txt");
+
+  // Load page-specific gui and join it to the boilerplate
+  PGuiElement pageGui = LoadGui("Gui/page_" + m_guiName + ".txt", false);
+  Assert(pageGui);
+
+  GuiComposite* addComp = dynamic_cast<GuiComposite*>(GetElementByName(m_gui, "add-page-to-me"));
+  Assert(addComp);
+  addComp->AddChild(pageGui);
 
   // Adjust position so it sits under the top bar
   m_gui->SetLocalPos(Vec2f(0, -0.2f));
