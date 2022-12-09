@@ -70,12 +70,18 @@ void LurkMsg::Update()
   {
   case LURK_NEW:
     {
-    static std::string soundfx = ROConfig()->GetValue("sound-new-lurkmsg");
-    PlayWav(soundfx);
+      static std::string soundfx = ROConfig()->GetValue("sound-new-lurkmsg");
+      PlayWav(soundfx);
 
-    m_state = LURK_SHOWING;
-    m_rect->SetVisible(true);
-    m_text->SetVisible(true);
+      m_state = LURK_SHOWING;
+      m_rect->SetVisible(true);
+      m_text->SetVisible(true);
+
+      // If centred (with button[s]), make this the modal listener.
+      if (m_lurkPos == AMJU_CENTRE) 
+      {
+        TheLurker::Instance()->SetAsListener(true);
+      }
     }
     break;
 
@@ -139,6 +145,12 @@ void LurkMsg::Update()
     {
       m_state = LURK_FINISHED;
       m_scale = 0;
+
+      // Release modal listener status
+      if (m_lurkPos == AMJU_CENTRE)
+      {
+        TheLurker::Instance()->SetAsListener(false);
+      }
     }
     else
     {
@@ -158,6 +170,11 @@ void LurkMsg::Update()
     m_rect->SetVisible(false);
     m_text->SetVisible(false);
     break;
+
+  case LURK_HIDDEN:
+    // Do nothing
+    break;
+
   }
 }
 
@@ -269,12 +286,18 @@ void LurkMsg::Set(GuiText* text, const Colour& fgCol, const Colour& bgCol, LurkP
     break;
 
   case AMJU_CENTRE:
-    float yOffset = 0;
+    {
+      float yOffset = 0;
 
-    m_showPos = Vec2f(-w * 0.5f, h * 0.5f + yOffset); 
-    m_hidePos = m_showPos;
-    m_rect->SetRoundCorners(0); 
-    m_scale = 0.5f;
+      m_showPos = Vec2f(-w * 0.5f, h * 0.5f + yOffset); 
+      m_hidePos = m_showPos;
+      m_rect->SetRoundCorners(0); 
+      m_scale = 0.5f;
+    }
+    break;
+
+  case AMJU_NONE:
+    Assert(0);
     break;
   }
 
@@ -463,39 +486,15 @@ void Lurker::SetAsListener(bool listen)
 {
   static EventPoller* ep = TheEventPoller::Instance();
 
+  // Set Lurk Msg as modal, so we can't do anything else until we tap OK
   if (listen)
   {
-    if (ep->HasListener(m_gui))
-    {
-std::cout << "Lurk gui already a listener\n";
-    }
-    else
-    {
-      ep->AddListener(m_gui);
-    }
+    ep->SetModalListener(m_gui);
   }
   else
   {
-    if (ep->HasListener(m_gui))
-    {
-      ep->RemoveListener(m_gui);
-    }
-    else
-    {
-std::cout << "Lurk gui not a listener, can't remove\n";
-    }
+    ep->SetModalListener(nullptr);
   }
 }
-
-//void Lurker::TextToSpeech(const std::string& text)
-//{
-//  if (!text.empty())
-//  {
-//    Amju::TextToSpeech(text);
-//  }
-//}
-
-}
-
-
+} // namespace 
 
