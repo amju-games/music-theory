@@ -15,7 +15,7 @@ button-and-music-symbols
 gui-button
 play-button
 // pos (coords are -1..1)
-0.5, 0.15
+-0.075, 0.15
 // size
 0.15, 0.2
 Image/gui-button-1.png

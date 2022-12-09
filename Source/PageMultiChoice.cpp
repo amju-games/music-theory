@@ -136,6 +136,9 @@ void PageMultiChoice::OnChoice(int c)
     button->SetIsEnabled(false);
   }
 
+  // Notify Question GUI player has chosen
+  m_pageQuestion->OnPlayerChoice();
+
   // Do this whether we were correct or incorrect
   HighlightCorrectAnswerButton();
 
@@ -208,14 +211,15 @@ void PageMultiChoice::ShowCorrectAnswer()
 {
   int correct = m_answers.GetCorrectAnswer();
   GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(correct)));
-  button->SetIsEnabled(true);
-  // Player must then hit the remaining, correct, answer
-  // Change button command - unusual, zap the previous command
-  button->SetCommand(PGuiCommand(nullptr));
-  button->SetCommand([](GuiElement*)
-  {
-    PlayWav(WAV_CORRECT); Page::SendNextPageMessage();
-  });
+  button->SetIsEnabled(false);
+
+  //// Player must then hit the remaining, correct, answer
+  //// Change button command - unusual, zap the previous command
+  //button->SetCommand(PGuiCommand(nullptr));
+  //button->SetCommand([](GuiElement*)
+  //{
+  //  PlayWav(WAV_CORRECT); Page::SendNextPageMessage();
+  //});
 
   // Show Lurk message with explanation, if there is one.
   std::string expl = GetQuestion()->GetExplanationString();
@@ -226,6 +230,8 @@ void PageMultiChoice::ShowCorrectAnswer()
       GetColour(COLOUR_INCORRECT),
       AMJU_TOP, PAGE_LURK_TIME);
     TheLurker::Instance()->Queue(lm);
+
+    Page::SendNextPageMessage();
   }
   else
   {
@@ -238,7 +244,11 @@ void PageMultiChoice::ShowCorrectAnswer()
 
     // Set function to set correct answer button to have focus - lurk msg took
     //  focus away.
-    std::function<void(GuiElement*)> fn = [button](GuiElement*) { button->SetIsFocusButton(true); };
+    std::function<void(GuiElement*)> fn = [button](GuiElement*) 
+    { 
+      button->SetIsFocusButton(true); 
+      Page::SendNextPageMessage();
+    };
     lm.SetOkCommand(fn);
     TheLurker::Instance()->Queue(lm);
   }

@@ -12,7 +12,7 @@ gui-comp
 // Name
 gs-pages-root
 // Num children
-6
+4
 
 
 include
@@ -55,96 +55,5 @@ $$$123
 dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
 
 
-gui-comp
-// Name
-tick
-// Num children
-1
-
-// Linear animation
-animation
-name-not-used
-one-shot
-.4
-linear
-
-// Tick for when user gets question correct
-line-drawing
-// Name
-tick-stroke
-// Pos
-0, 0
-// Size
-1, 1
-// Start width
-0.01
-// End width
-0.01
-// Colour: (start colour, end colour?)
-00ff00
-// Points
-stroke-tick-1.txt
-
-// Cross, made of 2 strokes
-// Element type
-gui-comp
-// Name
-cross
-// Num children
-2
-
-// Linear animation
-animation
-name-not-used
-one-shot
-.2
-linear
-
-line-drawing
-// Name
-cross-1
-// Pos
-0.0, 0
-// Size
-1, 1
-// Start width
-0.01
-// End width
-0.01
-// Colour: (start colour, end colour?)
-ff0000
-// Points
-stroke-cross-1.txt
-
-
-// Delay
-animation
-name-not-used
-one-shot
-0.21
-step
-
-// Linear animation
-animation
-name-not-used
-one-shot
-.2
-linear
-
-line-drawing
-// Name
-cross-2
-// Pos
-0.0, 0
-// Size
-1, 1
-// Start width
-0.01
-// End width
-0.01
-// Colour: (start colour, end colour?)
-ff0000
-// Points
-stroke-cross-2.txt
 
 

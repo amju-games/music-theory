@@ -73,6 +73,15 @@ void PageQuestionScore::SetUp()
   }
 }
 
+void PageQuestionScore::OnPlayerChoice()
+{
+  // Hide Play button once player has answered
+  GuiButton* playButton = dynamic_cast<GuiButton*>(
+    GetElementByName(m_page->GetGui(), "play-button"));
+  Assert(playButton);
+  playButton->SetVisible(false);
+}
+
 void PageQuestionText::SetUp()
 {
   Assert(m_page);

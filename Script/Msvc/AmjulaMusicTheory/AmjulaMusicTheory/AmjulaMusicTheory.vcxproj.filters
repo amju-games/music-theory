@@ -471,24 +471,6 @@
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\stroke-cross-1.txt">
-      <Filter>Assets\Gui\Stroke</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\stroke-cross-2.txt">
-      <Filter>Assets\Gui\Stroke</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\stroke-spiral-1.txt">
-      <Filter>Assets\Gui\Stroke</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\stroke-test-1.txt">
-      <Filter>Assets\Gui\Stroke</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\stroke-test-2.txt">
-      <Filter>Assets\Gui\Stroke</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\stroke-tick-1.txt">
-      <Filter>Assets\Gui\Stroke</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\title-text.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
@@ -503,9 +485,6 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\pie.txt">
       <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\stroke-main-menu-1.txt">
-      <Filter>Assets\Gui\Stroke</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Course\intervals.txt">
       <Filter>Assets\Course</Filter>
@@ -524,9 +503,6 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-vert.txt">
       <Filter>Assets\Shaders\opengl</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\stroke-branch.txt">
-      <Filter>Assets\Gui\Stroke</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt">
       <Filter>Assets\Gui</Filter>
@@ -659,12 +635,6 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Scene\corridor-one-door.txt">
       <Filter>Assets\Scene</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\stroke-correct-symbol.txt">
-      <Filter>Assets\Gui\Stroke</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\stroke-correct-wide.txt">
-      <Filter>Assets\Gui\Stroke</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\page_symbol_kb_landscape.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
