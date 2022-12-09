@@ -212,30 +212,23 @@ bool GSMainCorridor::IsTopicUnlocked() const
   // TODO for dev
   return true;
 
-  ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
+  auto profile = TheUserProfile();
+  ConfigFile* config = profile->GetConfigForTopic(KEY_TOPICS);
+  int currentTopic = profile->GetCurrentTopic();
 
   bool unlocked = 
-    (m_currentTopic == 0) ||
-    config->Exists(KEY_TOPIC_UNLOCKED + ToString(m_currentTopic));
+    (currentTopic == 0) ||
+    config->Exists(KEY_TOPIC_UNLOCKED + ToString(currentTopic));
 
   return unlocked;
 }
 
-void GSMainCorridor::SetCurrentTopic(int topicId)
-{
-  m_currentTopic = topicId;
-}
-
-int GSMainCorridor::GetCurrentTopic() const
-{
-  return m_currentTopic;
-}
-
 PSceneNode GSMainCorridor::GetDoor()
 {
-  Assert(m_currentTopic >= 0);
-  Assert(m_currentTopic< static_cast<int>(m_doors.size()));
-  return m_doors[m_currentTopic];
+  int currentTopic = TheUserProfile()->GetCurrentTopic();
+  Assert(currentTopic >= 0);
+  Assert(currentTopic< static_cast<int>(m_doors.size()));
+  return m_doors[currentTopic];
 }
 
 void GSMainCorridor::Update()

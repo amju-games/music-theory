@@ -20,7 +20,6 @@
 #include "GSTopicStart.h"
 #include "GSTopicEnd.h"
 #include "GuiLineDrawing.h"
-#include "Hints.h"
 #include "LurkMsg.h"
 #include "Md2SceneNode.h" // TODO promote to Amjulib
 #include "MySceneGraph.h"
@@ -70,13 +69,15 @@ void GSPages::StartTopic(int topicNum)
 
   // TODO Get this from Topic. 
   m_maxNumPagesThisSession = 10;
+
+  TheUserProfile()->SetTopicScore(0);
 }
 
 void GSPages::ShowHints()
 {
   IGuiText* hintCounter = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "hint-counter"));
   Assert(hintCounter);
-  int hints = Hints::Get();
+  int hints = TheUserProfile()->GetHints();
   hintCounter->SetText(ToString(hints));
 
   // Disable button if no hints available
@@ -171,8 +172,7 @@ void GSPages::NextPage()
     // Done, go to Topic successfully completed, or unsuccessfully completed.
     // (Can use the same state?)
     GSTopicEnd* gs = TheGSTopicEnd::Instance();
-    gs->SetScore(m_numCorrectThisSession, m_maxNumPagesThisSession);
-    // TODO m_scoreThisSession
+    TheUserProfile()->SetTopicScore(m_scoreThisSession);
 
     TheGame::Instance()->SetCurrentState(gs);
     return;
@@ -181,8 +181,7 @@ void GSPages::NextPage()
   // The current Topic has sequence of Pages to display.
   Course* course = GetCourse();
   Assert(course);
-  // This is a bit crap - get the current Topic num from prev state, which knows it.
-  Topic* topic = course->GetTopic(TheGSTopicStart::Instance()->GetTopic());
+  Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
   Assert(topic);
   m_maxNumPagesThisSession = topic->GetNumPages();
 
@@ -280,16 +279,6 @@ void GSPages::SetPage(Page* p)
 
 void GSPages::OnCorrect()
 {
-  // Rub out blackboard? - OK as answer correct?
-  //GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
-  //Assert(ruboutAnim);
-  //ruboutAnim->SetVisible(true);
-
-  // TODO TEMP TEST
-  // Increase hint count, this is until we have a better balanced system
-  Hints::Inc();
-  ShowHints();
-
   // Happy sound
   PlayWav(WAV_CORRECT);
 
@@ -334,7 +323,8 @@ void GSPages::OnIncorrect()
 void GSPages::OnHint()
 {
   // Decrement hints left
-  if (Hints::Get() < 1)
+  auto profile = TheUserProfile();
+  if (profile->GetHints() < 1)
   {
     // No hints sound/anim?
     // TODO
@@ -347,7 +337,7 @@ void GSPages::OnHint()
     return;
   }
 
-  Hints::Dec();
+  profile->DecHints();
   ShowHints();
 
   m_page->OnHint(); // show context-sensitive hint

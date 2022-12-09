@@ -18,12 +18,6 @@ class GSTopicStart : public GSBase3d
 public:
   GSTopicStart();
   virtual void OnActive() override;
-
-  void SetTopic(int topicNum);
-  int GetTopic() const;
-
-private:
-  int m_topicNum = -1;
 };
 
 typedef Singleton<GSTopicStart> TheGSTopicStart;

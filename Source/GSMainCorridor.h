@@ -45,10 +45,8 @@ public:
   //  the CorridorMode classes.
   void SetMode(int modeId);
 
-  // Get/set topic: index from 0..num topics - 1
-  void SetCurrentTopic(int topic);
-  int GetCurrentTopic() const;
   // Return true if user has unlocked the current topic
+  // TODO Move to UserProfile??
   bool IsTopicUnlocked() const;
 
   // Test each tappable to see if it has been picked
@@ -69,8 +67,6 @@ protected:
   void ChangeMode();
 
 private:
-  int m_currentTopic = 0; 
-
   // Each topic has a door. We open the door for the chosen topic.
   std::vector<PSceneNode> m_doors;
 

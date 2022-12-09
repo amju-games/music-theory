@@ -17,14 +17,8 @@ public:
   GSTopicEnd();
   virtual void OnActive() override;
 
-  void SetScore(int num, int denom);
-
 protected:
   std::string GenerateScoreComment();
-
-private:
-  int m_num = 0;
-  int m_denom = 0;
 };
 
 typedef Singleton<GSTopicEnd> TheGSTopicEnd;

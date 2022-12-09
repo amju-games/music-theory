@@ -14,6 +14,7 @@
 #include "Tappable.h"
 #include "TutorialIds.h"
 #include "TutorialManager.h"
+#include "UserProfile.h"
 
 namespace Amju
 {
@@ -63,7 +64,7 @@ void CorridorModeWait::ShowTopicName(bool showNotHide)
 
 void CorridorModeWait::SetCurrentTopic()
 {
-  m_gs->SetCurrentTopic(m_currentTopicScrolledTo);
+  TheUserProfile()->SetCurrentTopic(m_currentTopicScrolledTo);
 
   // Set topic name: get topic name...
   Course* course = GetCourse();

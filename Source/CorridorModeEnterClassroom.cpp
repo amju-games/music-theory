@@ -9,6 +9,7 @@
 #include "GSMainCorridor.h"
 #include "GSTopicStart.h"
 #include "PlayWav.h"
+#include "UserProfile.h"
 
 namespace Amju
 {
@@ -74,7 +75,6 @@ void CorridorModeEnterClassroom::OnActive()
 
   // Go the the topic start state.
   GSTopicStart* gs = TheGSTopicStart::Instance();
-  gs->SetTopic(m_gs->GetCurrentTopic());
   gs->SetPrevState(m_gs);
   // Time delay so we get to see an animation, e.g. door opening
   TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSTopicStart>, SecondsFromNow(2.0f)));

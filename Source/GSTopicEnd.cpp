@@ -6,6 +6,7 @@
 #include <MessageQueue.h>
 #include "GSMainCorridor.h"
 #include "GSTopicEnd.h"
+#include "UserProfile.h"
 
 namespace Amju
 {
@@ -17,12 +18,6 @@ static void OnOK(GuiElement*)
 GSTopicEnd::GSTopicEnd()
 {
   m_guiFilename = "Gui/gs_topic_end.txt";
-}
-
-void GSTopicEnd::SetScore(int num, int denom)
-{
-  m_num = num;
-  m_denom = denom;
 }
 
 void GSTopicEnd::OnActive()
@@ -40,28 +35,30 @@ void GSTopicEnd::OnActive()
   shareButton->SetCommand(Amju::OnShare);
   // TODO Set message and image
   
-  // Set score number text
-  GuiText* text = (GuiText*)GetElementByName(m_gui, "num-text");
-  Assert(text);
-  text->SetText(ToString(m_num));
+  auto profile = TheUserProfile();
 
-  // No denom, as you play until you run out of lives
-//  text = (GuiText*)GetElementByName(m_gui, "denom-text");
-//  Assert(text);
-//  text->SetText(ToString(m_denom));
+  // Set score number text
+  IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "num-text"));
+  Assert(text);
+  int score = profile->GetTopicScore();
+  text->SetText(ToString(score));
 
   // Set comment about score etc
-  text = (GuiText*)GetElementByName(m_gui, "comment-text");
+  text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "comment-text"));
   Assert(text);
   text->SetText(GenerateScoreComment());
 
-  // Add to hints (TODO animate additions)
+  // Set topic display name
+  text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "topic-name-text"));
+  Assert(text);
+  text->SetText(profile->GetCurrentTopicDisplayName());
 
+  // Add to hints (TODO animate additions)
 }
 
 std::string GSTopicEnd::GenerateScoreComment()
 {
-  std::string res;
+  std::string res = "Awesome";
   return res;
 }
 

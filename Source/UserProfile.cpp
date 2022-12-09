@@ -4,11 +4,18 @@
 #include <ConfigFile.h>
 #include <Directory.h>
 #include <ReportError.h>
+#include "Consts.h"
+#include "Course.h"
 #include "UserProfile.h"
 
 namespace Amju
 {
-static const char* APP_NAME = "amjula-music-theory";
+static const char* HINTS_AVAILABLE_KEY = "hints_avail";
+
+// Start life with 3 hints
+const int DEFAULT_HINTS_AVAIL = 3;
+
+static const char* PLAYER_SCORE_KEY = "score";
 
 UserProfile* TheUserProfile()
 {
@@ -22,7 +29,7 @@ bool UserProfile::Save()
   for (auto p : m_configFiles)
   {
     // TODO user name?
-    std::string filename = GetSaveDir(APP_NAME) + p.first + ".txt";
+    std::string filename = GetSaveDir(APPNAME) + p.first + ".txt";
     if (!p.second->Save(filename, false))
     {
       return false;
@@ -44,7 +51,7 @@ ConfigFile* UserProfile::GetConfigForTopic(const std::string& topicId)
   ConfigFile* cf = new ConfigFile;
   m_configFiles[topicId] = cf;
   // If load fails, we assume first time getting config for this topic
-  std::string filename = GetSaveDir(APP_NAME) + topicId + ".txt";
+  std::string filename = GetSaveDir(APPNAME) + topicId + ".txt";
 
   if (!cf->Load(filename, false))
   {
@@ -54,4 +61,77 @@ ConfigFile* UserProfile::GetConfigForTopic(const std::string& topicId)
   return cf;
 }
 
+int UserProfile::GetScore() 
+{
+  auto userConfig = GetConfigForTopic(KEY_GENERAL);
+  return userConfig->GetInt(PLAYER_SCORE_KEY, 0);
+}
+
+void UserProfile::AddToScore(int add)
+{
+  auto userConfig = GetConfigForTopic(KEY_GENERAL);
+  int score = userConfig->GetInt(PLAYER_SCORE_KEY, 0);
+  score += add;
+  userConfig->SetInt(PLAYER_SCORE_KEY, score);
+  Save();
+}
+
+void UserProfile::SetTopicScore(int topicScore)
+{
+  m_topicScore = topicScore;
+}
+
+int UserProfile::GetTopicScore() const
+{
+  return m_topicScore;
+}
+
+void UserProfile::AddTopicScoreToPersistentScore()
+{
+  AddToScore(m_topicScore);
+  SetTopicScore(0);
+}
+
+void UserProfile::SetCurrentTopic(int topicId)
+{ 
+  m_currentTopic = topicId;
+}
+
+int UserProfile::GetCurrentTopic() const
+{
+  return m_currentTopic;
+}
+
+std::string UserProfile::GetCurrentTopicDisplayName()
+{
+  Course* course = (Course*)TheResourceManager::Instance()->GetRes("Course/grade1.txt.course");
+  Assert(course);
+  Topic* topic = course->GetTopic(m_currentTopic);
+  Assert(topic);
+  return topic->GetDisplayName();
+}
+
+int UserProfile::GetHints()
+{
+  auto userConfig = GetConfigForTopic(KEY_GENERAL);
+  return userConfig->GetInt(HINTS_AVAILABLE_KEY, DEFAULT_HINTS_AVAIL);
+}
+
+void UserProfile::IncHints()
+{
+  auto userConfig = GetConfigForTopic(KEY_GENERAL);
+  int hints = userConfig->GetInt(HINTS_AVAILABLE_KEY, DEFAULT_HINTS_AVAIL);
+  hints++;
+  userConfig->SetInt(HINTS_AVAILABLE_KEY, hints);
+  Save();
+}
+
+void UserProfile::DecHints()
+{
+  auto userConfig = GetConfigForTopic(KEY_GENERAL);
+  int hints = userConfig->GetInt(HINTS_AVAILABLE_KEY, DEFAULT_HINTS_AVAIL);
+  hints--;
+  userConfig->SetInt(HINTS_AVAILABLE_KEY, hints);
+  Save();
+}
 }

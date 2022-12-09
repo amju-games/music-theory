@@ -10,6 +10,7 @@
 #include "GSTopicStart.h"
 #include "PlayWav.h"
 #include "Topic.h"
+#include "UserProfile.h"
 
 namespace Amju
 {
@@ -26,7 +27,7 @@ static void OnStart(GuiElement*)
   PlayWav(WAV_START_TOPIC);
 
   GSPages* gs = TheGSPages::Instance();
-  int topicNum = TheGSTopicStart::Instance()->GetTopic();
+  int topicNum = TheUserProfile()->GetCurrentTopic();
   gs->StartTopic(topicNum);
   TheGame::Instance()->SetCurrentState(gs);
 }
@@ -50,24 +51,9 @@ void GSTopicStart::OnActive()
   elem->SetHasFocus(true);
   
   // Set topic display name
-  // TODO Pass the course in
-  Course* course = (Course*)TheResourceManager::Instance()->GetRes("Course/grade1.txt.course");
-  Assert(course);
   IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "topic-name-text"));
   Assert(text);
-  Topic* topic = course->GetTopic(m_topicNum);
-  Assert(topic);
-  text->SetText(topic->GetDisplayName());
-}
-
-void GSTopicStart::SetTopic(int topicNum)
-{
-  m_topicNum = topicNum;
-}
-
-int GSTopicStart::GetTopic() const
-{
-  return m_topicNum;
+  text->SetText(TheUserProfile()->GetCurrentTopicDisplayName());
 }
 }
 
