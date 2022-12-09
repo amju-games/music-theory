@@ -35,6 +35,8 @@ struct Glyph : public IGlyph
     pitch = pitch_;
   }
 
+  void SetStemUp(bool upNotDown) { m_stemUp = upNotDown; }
+
   void SetTimeVal(float timeval_) { timeval = timeval_; }
 
   void SetDisplayNameForBeamedNote();
@@ -44,6 +46,10 @@ struct Glyph : public IGlyph
 
   // Set this glyph as the right hand side of the given tie
   void SetTieRight(Tie* tie) { m_tieRight = tie; }
+
+  // Use input token and state to generate output text for this glyph.
+  // TODO Doesn't need param and can set displayGlyphName directly
+  std::string GetGlyphOutputStr(std::string s) const;
 
   int order = 0; // horiz position in bar 
 
@@ -67,4 +73,8 @@ struct Glyph : public IGlyph
 
   // Points to tie - we are the RIGHT glyph of the tie
   Tie* m_tieRight = nullptr;
+
+  // Stem direction, which is based on stave position, but overridden for 
+  //  beamed notes.
+  bool m_stemUp = false;
 };

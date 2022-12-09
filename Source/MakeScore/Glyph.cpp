@@ -6,8 +6,7 @@
 
 #include "Glyph.h"
 
-// Generate GuiMusicScore glyph string from input token
-static std::string GetStr(std::string s)
+std::string Glyph::GetGlyphOutputStr(std::string s) const
 {
   bool dot = Contains(s, '.');
   Remove(s, '.');
@@ -27,7 +26,7 @@ static std::string GetStr(std::string s)
   }
   else if (s != "sb")
   {
-    out += "-up"; // TODO up/down flag
+    out += (m_stemUp ? "-up" : "-down");
   }
 
   if (dot)
@@ -39,9 +38,11 @@ static std::string GetStr(std::string s)
 }
 
 Glyph::Glyph(const std::string& inputToken, int order_) :
-  displayGlyphName(GetStr(inputToken)), realGlyphName(inputToken),
+  realGlyphName(inputToken),
   order(order_)
 {
+  // Calc output (display) text later, but if we want to hide this glyph
+  //  for a question (e.g. 'what is this note?'), do it now.
   HandleStar();
 }
 
@@ -50,8 +51,9 @@ void Glyph::SetDisplayNameForBeamedNote()
   // E.g. "q" or "qq" -> "crotchet-up" for a beamed quaver.
   // Take dottedness into account.
 
+  // TODO set stem to fit other notes connected by same beams
   bool dot = Contains(realGlyphName, '.');
-  displayGlyphName = GetStr(dot ? "c." : "c");
+  displayGlyphName = GetGlyphOutputStr(dot ? "c." : "c");
 }
 
 void Glyph::HandleStar()
@@ -65,6 +67,13 @@ void Glyph::HandleStar()
 
 std::string Glyph::ToString() const
 {
+  // If we haven't yet created the output text, do it now
+  if (displayGlyphName.empty())
+  {
+    // Argh, cast away constness
+    const_cast<std::string&>(displayGlyphName) = GetGlyphOutputStr(realGlyphName);
+  }
+
   // Add special glyphs for timing before and after - this is
   //  for animation and MIDI events. 
   std::string res = TimeBefore();

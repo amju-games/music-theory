@@ -55,49 +55,14 @@ void Bar::SetScale(float scale)
   m_scale = scale;
 }
 
-// Get output GuiMusicScore glyph string from input token
-std::string Bar::GetStr(std::string s)
-{
-  bool dot = Contains(s, '.');
-  Remove(s, '.');
-  bool rest = Contains(s, 'r');
-  Remove(s, 'r');
-
-  std::string out = "UNKNOWN";
-  if (s == "c") out = "crotchet";
-  else if (s == "q") out = "quaver";
-  else if (s == "qq") out = "semiquaver";
-  else if (s == "m") out = "minim";
-  else if (s == "sb") out = "semibreve";
-  else
-  {
-    std::cout << "// *** Failed Trying to look up glyph for " << s << "\n";
-  }
-
-  if (rest)
-  {
-    out = "rest-" + out;
-  }
-  else if (s != "sb")
-  {
-    out += "-up"; // TODO up/down flag
-  }
-
-  if (dot)
-  {
-    // TODO raised dot if glyph is on a line
-    out = "dotted-" + out + "-raised-dot";
-  }
-  return out;
-}
-
-float Bar::CalcGlyphY(int pitch) const
+void Bar::CalcGlyphY(Glyph* gl, int pitch) const
 {
   switch (m_staveType)
   {
   case StaveType::STAVE_TYPE_NONE:
   case StaveType::STAVE_TYPE_RHYTHM:
-    return DEFAULT_HEIGHT;
+    gl->y = DEFAULT_HEIGHT;
+    break;
 
   case StaveType::STAVE_TYPE_SINGLE:
   {
@@ -118,7 +83,7 @@ float Bar::CalcGlyphY(int pitch) const
        4, // alto
        6, // tenor 
     };
-    int clef = 1; // TODO use last clef set for this stave
+    int clef = 0; // TODO use last clef set for this stave
     int staveLine = Y_POS[pitch % 12] + CLEF_OFFSET[clef];
     // Use the octave to shunt note up or down
     int octave = (pitch / 12 - 5) * 7; // so middle C is 0
@@ -127,12 +92,17 @@ float Bar::CalcGlyphY(int pitch) const
     // TODO decide if stem should be up or down, (unless beamed, which
     //  overrides this decision)
     float y = static_cast<float>(staveLine) * 0.05f;
-    return y;
+    // TODO Offset y for stave > 1
+    gl->y = y;
+    // Stem dir: TODO Override for beamed notes. For middle stave line, 
+    //  stick with last choice?
+    bool stemUp = (staveLine < 5);
+    gl->SetStemUp(stemUp);
+    break;
   }
   case StaveType::STAVE_TYPE_DOUBLE:
-    return 0; // TODO
+    break; // TODO
   }
-  return 0;
 }
 
 void Bar::AddGlyph(const std::string& s, int pitch)
@@ -151,7 +121,7 @@ void Bar::AddGlyph(const std::string& s, int pitch)
 
     // TODO Calc y, using current pitch, stave, and clef. 
     // TODO Add accidental if required, by checking current key sig.
-    gl->y = CalcGlyphY(pitch);
+    CalcGlyphY(gl, pitch);
   }
 
   // Set duration for this musical symbol

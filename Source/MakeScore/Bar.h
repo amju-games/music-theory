@@ -61,9 +61,6 @@ struct Bar
 
   void SetScale(float scale);
 
-  // Get GuiMusicScore glyph string from short code
-  static std::string GetStr(std::string s);
-
   void AddGlyph(const std::string& s, int pitch);
 
   void AddTimeSig(const std::string& s);
@@ -88,7 +85,7 @@ struct Bar
   void SetPos(float x, float y);
 
   // Calc y-position for glyph, given stave type, pitch and (TODO) clef
-  float CalcGlyphY(int pitch) const;
+  void CalcGlyphY(Glyph* gl, int pitch) const;
 
   void SetStaveType(StaveType st) { m_staveType = st; }
 };
