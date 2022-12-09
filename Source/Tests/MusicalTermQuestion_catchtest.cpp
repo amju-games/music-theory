@@ -2,26 +2,11 @@
 // (c) Copyright 2017 Jason Colman
 
 #include "catch.hpp"
-#include "Dictionary.h"
+#include "CreateDictionary.h"
 #include "MusicalTermQuestion.h"
 #include "QuestionProgress.h"
 
 using namespace Amju;
-
-namespace
-{
-Dictionary* CreateDic()
-{
-  Dictionary* dic = new Dictionary;
-
-  dic->AddTerm({ "Soft", "Piano" });
-  dic->AddTerm({ "Loud", "Forte" });
-  dic->AddTerm({ "Sweetly", "Dolce" });
-  dic->AddTerm({ "Gracefully", "Grazioso" });
-
-  return dic;
-}
-}
 
 TEST_CASE("Get allowable questions", "MusicalTermQuestion")
 {
