@@ -124,23 +124,6 @@ void GSPages::ReloadGui()
 void GSPages::Reload3d()
 {
   GSBase3d::Reload3d();
-
-  SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
-
-  // TEST
-  // TODO Use Avatar system to make a 'teacher' avatar
-  Md2SceneNode* md2node = new Md2SceneNode;
-  md2node->LoadMd2("md2/av1.md2");
-  //SceneNodeMaterial* dinoMaterial = new SceneNodeMaterial;
-  //PTexture dinoTex = (Texture*)TheResourceManager::Instance()->GetRes("md2/skin.png");
-  //dinoMaterial->SetTexture(dinoTex);
-  //md2node->SetMaterial(dinoMaterial);
-  md2node->SetLocalTransform(Matrix().Translate(Vec3f(30, -23, 30)));
-
-  SceneNode* camera = root->GetNodeByName("camera");
-  Assert(camera);
-  // TODO turned off for now
-//  camera->AddChild(md2node);
 }
 
 void GSPages::OnActive()
@@ -274,7 +257,7 @@ void GSPages::NextPage()
     SetFinalScore();
     TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
     float percent = static_cast<float>(m_scoreThisSession) / static_cast<float>(m_maxMark) * 100.f;
-    NetSendAttempt(topic->GetId(), NET_SEND_ATTEMPT_NO_LIVES_LEFT, percent, 0);
+    NetSendAttempt(topic->GetId(), NET_SEND_ATTEMPT_NO_LIVES_LEFT, static_cast<int>(percent), 0);
     return;
   }
 
@@ -286,7 +269,7 @@ void GSPages::NextPage()
     SetFinalScore();
     TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
     float percent = static_cast<float>(m_scoreThisSession) / static_cast<float>(m_maxMark) * 100.f;
-    NetSendAttempt(topic->GetId(), NET_SEND_ATTEMPT_COMPLETE, percent, m_livesThisSession);
+    NetSendAttempt(topic->GetId(), NET_SEND_ATTEMPT_COMPLETE, static_cast<int>(percent), m_livesThisSession);
     return;
   }
 
@@ -371,7 +354,7 @@ bool GSPages::OnKeyEvent(const KeyEvent& ke)
         Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
         Assert(topic);
 
-        NetSendAttempt(topic->GetId(), NET_SEND_ATTEMPT_CHEAT, percent, m_livesThisSession);
+        NetSendAttempt(topic->GetId(), NET_SEND_ATTEMPT_CHEAT, static_cast<int>(percent), m_livesThisSession);
         break;
       }
 
@@ -420,10 +403,12 @@ void GSPages::OnCorrect()
 
   Page::SendNextPageMessage();
 
-  PLurkMsg lm = new LurkMsg(Lookup("$$$121" /* Correct! */), 
-    GetColour(COLOUR_TEXT),
-    GetColour(COLOUR_CORRECT),
-    AMJU_TOP, PAGE_LURK_TIME);
+  // TODO Customise the message depending on the Composer for this Topic
+  PLurkMsg lm = new CentreMsg("Ja, that is correct!", //Lookup("$$$121" /* Correct! */),
+    Colour(0, 0, 0, 1), // text colour,
+    Colour(1, 1, 1, 1), // bg colour,
+    1.0f); // TODO CONFIG
+    // TODO Speech bubble arrow flag/enum
 
   TheLurker::Instance()->Queue(lm);
 }
