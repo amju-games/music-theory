@@ -243,6 +243,18 @@
     <ClCompile Include="..\..\..\..\Source\GSCopyAssets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\LurkMsg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\NetSend.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\SerialReqManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Version.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -255,6 +267,9 @@
       <Filter>Libs</Filter>
     </Library>
     <Library Include="..\..\..\..\Source\ThirdParty\googletest\msvc\gtest\Debug\gtestd.lib">
+      <Filter>Libs</Filter>
+    </Library>
+    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Curl\Win32\lib\libcurl.lib">
       <Filter>Libs</Filter>
     </Library>
   </ItemGroup>
@@ -425,6 +440,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GSCopyAssets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\LurkMsg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\NetSend.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\SerialReqManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -703,6 +730,9 @@
       <Filter>Assets\Course</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Course\name_the_note.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\which_clef.txt">
       <Filter>Assets\Course</Filter>
     </Text>
   </ItemGroup>
