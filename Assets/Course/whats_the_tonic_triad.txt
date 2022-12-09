@@ -16,27 +16,28 @@
 
 // NB Stave x coord is 0.5, scaled to 1.0
 
-// With key sigs
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ;                                treb-c4-sb, 2.2, 0 ; treb-e4-sb, 2.2, 0 ; treb-g4-sb, 2.2, 0  =C Major
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; keysig-1sharp-treble, 1.8, 0 ; treb-g4-sb, 2.3, 0 ; treb-b5-sb, 2.3, 0 ; treb-d5-sb, 2.3, 0  =G Major
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; keysig-2sharp-treble, 1.8, 0 ; treb-d4-sb, 2.3, 0 ; treb-f4-sb, 2.3, 0 ; treb-a5-sb, 2.3, 0  =D Major
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; keysig-1flat-treble,  1.8, 0 ; treb-f4-sb, 2.3, 0 ; treb-a5-sb, 2.3, 0 ; treb-c5-sb, 2.3, 0  =F Major
-stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ;                                bass-c3-sb, 2.2, 0 ; bass-e3-sb, 2.2, 0 ; bass-g3-sb, 2.2, 0  =C Major
-stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; keysig-1sharp-bass, 1.8, 0 ;   bass-g3-sb, 2.3, 0 ; bass-b4-sb, 2.3, 0 ; bass-d4-sb, 2.3, 0  =G Major
-stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; keysig-2sharp-bass, 1.8, 0 ;   bass-d3-sb, 2.3, 0 ; bass-f3-sb, 2.3, 0 ; bass-a4-sb, 2.3, 0  =D Major
-stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; keysig-1flat-bass,  1.8, 0 ;   bass-f3-sb, 2.3, 0 ; bass-a4-sb, 2.3, 0 ; bass-c4-sb, 2.3, 0  =F Major
-
 // No key sigs
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; treb-c4-sb, 2.2, 0 ; treb-e4-sb,  2.2, 0 ; treb-g4-sb, 2.2, 0  =C Major
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; treb-g4-sb, 2.3, 0 ; treb-b5-sb,  2.3, 0 ; treb-d5-sb, 2.3, 0  =G Major
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; treb-d4-sb, 2.3, 0 ; treb-f#4-sb, 2.3, 0 ; treb-a5-sb, 2.3, 0  =D Major
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; treb-f4-sb, 2.3, 0 ; treb-a5-sb,  2.3, 0 ; treb-c5-sb, 2.3, 0  =F Major
-stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; bass-c3-sb, 2.2, 0 ; bass-e3-sb,  2.2, 0 ; bass-g3-sb, 2.2, 0  =C Major
-stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; bass-g3-sb, 2.3, 0 ; bass-b4-sb,  2.3, 0 ; bass-d4-sb, 2.3, 0  =G Major
-stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; bass-d3-sb, 2.3, 0 ; bass-f#3-sb, 2.3, 0 ; bass-a4-sb, 2.3, 0  =D Major
-stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; bass-f3-sb, 2.3, 0 ; bass-a4-sb,  2.3, 0 ; bass-c4-sb, 2.3, 0  =F Major
+NOTE_ON, 60, 0.01; NOTE_ON, 64, 0.05; NOTE_ON, 67, 0.1; NOTE_OFF, 60, 0.5; NOTE_OFF, 64, 0.5; NOTE_OFF, 67, 0.5; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; TIME, 0.01, 0.5 ; treb-c4-sb, 2.2, 0 ; TIME, 0.05, 0.5 ; treb-e4-sb,  2.2, 0 ; TIME, 0.1, 0.5; treb-g4-sb, 2.2, 0  =C Major
+NOTE_ON, 67, 0.01; NOTE_ON, 71, 0.05; NOTE_ON, 74, 0.1; NOTE_OFF, 67, 0.5; NOTE_OFF, 71, 0.5; NOTE_OFF, 74, 0.5; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; TIME, 0.01, 0.5 ; treb-g4-sb, 2.3, 0 ; TIME, 0.05, 0.5 ; treb-b5-sb,  2.3, 0 ; TIME, 0.1, 0.5; treb-d5-sb, 2.3, 0  =G Major
+NOTE_ON, 62, 0.01; NOTE_ON, 66, 0.05; NOTE_ON, 69, 0.1; NOTE_OFF, 62, 0.5; NOTE_OFF, 66, 0.5; NOTE_OFF, 69, 0.5; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; TIME, 0.01, 0.5 ; treb-d4-sb, 2.3, 0 ; TIME, 0.05, 0.5 ; treb-f#4-sb, 2.3, 0 ; TIME, 0.1, 0.5; treb-a5-sb, 2.3, 0  =D Major
+NOTE_ON, 65, 0.01; NOTE_ON, 69, 0.05; NOTE_ON, 72, 0.1; NOTE_OFF, 65, 0.5; NOTE_OFF, 69, 0.5; NOTE_OFF, 72, 0.5; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; TIME, 0.01, 0.5 ; treb-f4-sb, 2.3, 0 ; TIME, 0.05, 0.5 ; treb-a5-sb,  2.3, 0 ; TIME, 0.1, 0.5; treb-c5-sb, 2.3, 0  =F Major
+NOTE_ON, 48, 0.01; NOTE_ON, 52, 0.05; NOTE_ON, 55, 0.1; NOTE_OFF, 48, 0.5; NOTE_OFF, 52, 0.5; NOTE_OFF, 55, 0.5; stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; TIME, 0.01, 0.5 ; bass-c3-sb, 2.2, 0 ; TIME, 0.05, 0.5 ; bass-e3-sb,  2.2, 0 ; TIME, 0.1, 0.5; bass-g3-sb, 2.2, 0  =C Major
+NOTE_ON, 55, 0.01; NOTE_ON, 59, 0.05; NOTE_ON, 62, 0.1; NOTE_OFF, 55, 0.5; NOTE_OFF, 59, 0.5; NOTE_OFF, 62, 0.5; stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; TIME, 0.01, 0.5 ; bass-g3-sb, 2.3, 0 ; TIME, 0.05, 0.5 ; bass-b4-sb,  2.3, 0 ; TIME, 0.1, 0.5; bass-d4-sb, 2.3, 0  =G Major
+NOTE_ON, 50, 0.01; NOTE_ON, 54, 0.05; NOTE_ON, 57, 0.1; NOTE_OFF, 50, 0.5; NOTE_OFF, 54, 0.5; NOTE_OFF, 57, 0.5; stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; TIME, 0.01, 0.5 ; bass-d3-sb, 2.3, 0 ; TIME, 0.05, 0.5 ; bass-f#3-sb, 2.3, 0 ; TIME, 0.1, 0.5; bass-a4-sb, 2.3, 0  =D Major
+NOTE_ON, 53, 0.01; NOTE_ON, 57, 0.05; NOTE_ON, 60, 0.1; NOTE_OFF, 53, 0.5; NOTE_OFF, 57, 0.5; NOTE_OFF, 60, 0.5; stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; TIME, 0.01, 0.5 ; bass-f3-sb, 2.3, 0 ; TIME, 0.05, 0.5 ; bass-a4-sb,  2.3, 0 ; TIME, 0.1, 0.5; bass-c4-sb, 2.3, 0  =F Major
+
+// With key sigs
+NOTE_ON, 60, 0.01; NOTE_ON, 64, 0.05; NOTE_ON, 67, 0.1; NOTE_OFF, 60, 0.5; NOTE_OFF, 64, 0.5; NOTE_OFF, 67, 0.5; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; TIME, 0.01, 0.5 ; treb-c4-sb, 2.2, 0 ; TIME, 0.05, 0.5 ; treb-e4-sb, 2.2, 0 ; TIME, 0.1, 0.5; treb-g4-sb, 2.2, 0                                               =C Major
+NOTE_ON, 67, 0.01; NOTE_ON, 71, 0.05; NOTE_ON, 74, 0.1; NOTE_OFF, 67, 0.5; NOTE_OFF, 71, 0.5; NOTE_OFF, 74, 0.5; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; TIME, 0.01, 0.5 ; treb-g4-sb, 2.3, 0 ; TIME, 0.05, 0.5 ; treb-b5-sb, 2.3, 0 ; TIME, 0.1, 0.5; treb-d5-sb, 2.3, 0 ; TIME, -1, -1 ; keysig-1sharp-treble, 1.8, 0 =G Major
+NOTE_ON, 62, 0.01; NOTE_ON, 66, 0.05; NOTE_ON, 69, 0.1; NOTE_OFF, 62, 0.5; NOTE_OFF, 66, 0.5; NOTE_OFF, 69, 0.5; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; TIME, 0.01, 0.5 ; treb-d4-sb, 2.3, 0 ; TIME, 0.05, 0.5 ; treb-f4-sb, 2.3, 0 ; TIME, 0.1, 0.5; treb-a5-sb, 2.3, 0 ; TIME, -1, -1 ; keysig-2sharp-treble, 1.8, 0 =D Major
+NOTE_ON, 65, 0.01; NOTE_ON, 69, 0.05; NOTE_ON, 72, 0.1; NOTE_OFF, 65, 0.5; NOTE_OFF, 69, 0.5; NOTE_OFF, 72, 0.5; stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; TIME, 0.01, 0.5 ; treb-f4-sb, 2.3, 0 ; TIME, 0.05, 0.5 ; treb-a5-sb, 2.3, 0 ; TIME, 0.1, 0.5; treb-c5-sb, 2.3, 0 ; TIME, -1, -1 ; keysig-1flat-treble,  1.8, 0 =F Major
+NOTE_ON, 48, 0.01; NOTE_ON, 52, 0.05; NOTE_ON, 55, 0.1; NOTE_OFF, 48, 0.5; NOTE_OFF, 52, 0.5; NOTE_OFF, 55, 0.5; stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; TIME, 0.01, 0.5 ; bass-c3-sb, 2.2, 0 ; TIME, 0.05, 0.5 ; bass-e3-sb, 2.2, 0 ; TIME, 0.1, 0.5; bass-g3-sb, 2.2, 0                                               =C Major
+NOTE_ON, 55, 0.01; NOTE_ON, 59, 0.05; NOTE_ON, 62, 0.1; NOTE_OFF, 55, 0.5; NOTE_OFF, 59, 0.5; NOTE_OFF, 62, 0.5; stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; TIME, 0.01, 0.5 ; bass-g3-sb, 2.3, 0 ; TIME, 0.05, 0.5 ; bass-b4-sb, 2.3, 0 ; TIME, 0.1, 0.5; bass-d4-sb, 2.3, 0 ; TIME, -1, -1 ; keysig-1sharp-bass,   1.8, 0 =G Major
+NOTE_ON, 50, 0.01; NOTE_ON, 54, 0.05; NOTE_ON, 57, 0.1; NOTE_OFF, 50, 0.5; NOTE_OFF, 54, 0.5; NOTE_OFF, 57, 0.5; stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; TIME, 0.01, 0.5 ; bass-d3-sb, 2.3, 0 ; TIME, 0.05, 0.5 ; bass-f3-sb, 2.3, 0 ; TIME, 0.1, 0.5; bass-a4-sb, 2.3, 0 ; TIME, -1, -1 ; keysig-2sharp-bass,   1.8, 0 =D Major
+NOTE_ON, 53, 0.01; NOTE_ON, 57, 0.05; NOTE_ON, 60, 0.1; NOTE_OFF, 53, 0.5; NOTE_OFF, 57, 0.5; NOTE_OFF, 60, 0.5; stave, 0.5, 0, 2.0, 1 ; bass-clef,   1.2, 0 ; TIME, 0.01, 0.5 ; bass-f3-sb, 2.3, 0 ; TIME, 0.05, 0.5 ; bass-a4-sb, 2.3, 0 ; TIME, 0.1, 0.5; bass-c4-sb, 2.3, 0 ; TIME, -1, -1 ; keysig-1flat-bass,    1.8, 0 =F Major
 
 end
+
 
 
 
