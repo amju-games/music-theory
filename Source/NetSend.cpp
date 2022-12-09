@@ -56,7 +56,7 @@ public:
       // We got a response of some kind. That doesn't mean it succeeded though!
       // Check the HTTP response code.
       int httpCode = res.GetHttpResponseCode();
-      std::cout << "HTTP response code " << httpCode << "\n";
+      std::cout << "Net send: got response for request '" << GetName() << "': HTTP response code " << httpCode << "\n";
       if (httpCode == 200) // i.e. OK
       {
         // We can save device info to config file, which means we won't send again
