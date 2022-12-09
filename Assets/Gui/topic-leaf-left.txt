@@ -47,7 +47,8 @@ topic-button
 // pos (coords are -1..1)
 -0.15, 0.18
 0.8, 0.4
-Image/leaf2.png
+//Image/leaf2.png
+Image/leaf1.png
 $$$empty
 dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
 
