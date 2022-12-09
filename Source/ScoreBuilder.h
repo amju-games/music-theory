@@ -50,7 +50,17 @@ public:
   // Write the score elements to the given GuiMusicScore object.
   void Write(GuiMusicScore&);
 
+  // Create notes etc from given string
+  void SetFromString(const std::string& s);
+
   void Add(const Note& note, int stave = 0);
+
+  // At start up, set the number of bars we expect to create.
+  // Do we need this?
+  void SetNumBars(int numBars);
+
+  // Do we need something like this?
+  void SetKeySig();
 
 private:
   // Very simple for now

@@ -145,11 +145,36 @@ GuiMusicScore::GuiMusicScore()
   m_atlas.Load("font2d/Guido2/guido2-60pt.png", 16, 14, 1, 1);
 
   m_fgCol = Colour(0, 0, 0, 1); // default to black
+  m_hightlightColour = Colour(1, 0, 0, 1); // TODO TEMP TEST, load it
 }
 
 void GuiMusicScore::AddToFactory()
 {
   TheGuiFactory::Instance()->Add("music-score", CreateMusicScore);
+}
+
+void GuiMusicScore::Animate(float animValue)
+{
+  for (Glyph& g : m_glyphs)
+  {
+    Colour col = m_fgCol;
+    if (g.m_timeMinMax.x <= animValue && g.m_timeMinMax.y > animValue)
+    {
+      // Add this glyph to highlighted set
+
+      // Set glyph colour to highlight colour
+      col = m_hightlightColour;
+    }
+    g.m_colour = col;
+  }
+
+  // Compare new highlighted set with old set.
+  // For new notes, send a note event, right? And for absent notes, send a note off event.
+  // TODO
+
+  // If highlight set has changed, refresh colours
+  // TODO only if required
+  RefreshColours();
 }
 
 void GuiMusicScore::Draw()
@@ -165,7 +190,7 @@ void GuiMusicScore::Draw()
   m_atlas.Bind();
   AmjuGL::PushMatrix();
   // Use vertex colours 
-#ifdef WIN32
+#if defined(WIN32) || defined(MACOSX)
   // Desktop GL: need shader to combine global and vertex colours
   AmjuGL::SetColour(m_fgCol);
 #endif
@@ -366,6 +391,17 @@ void GuiMusicScore::RefreshColours()
   // We can do a lot better than this. We just need to update the colours
   //  on the verts for each glyph.
   BuildTriList();
+}
+
+int GuiMusicScore::GetNumGlyphs() const
+{
+  return m_glyphs.size();
+}
+
+GuiMusicScore::Glyph& GuiMusicScore::GetGlyph(int i)
+{
+  Assert(i < static_cast<int>(m_glyphs.size()));
+  return m_glyphs[i];
 }
 
 }

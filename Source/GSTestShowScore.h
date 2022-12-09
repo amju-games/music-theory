@@ -16,6 +16,7 @@ class GSTestShowScore : public GSBase
 {
 public:
   GSTestShowScore();
+  virtual void OnActive() override;
 };
 
 typedef Singleton<GSTestShowScore> TheGSTestShowScore;

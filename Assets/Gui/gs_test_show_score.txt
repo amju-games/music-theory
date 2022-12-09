@@ -15,6 +15,14 @@ score-comp
 1
 
 
+// Animate the score: the anim value is used to highlight glyphs.
+// (TODO And play note values?!)
+animation
+play-score
+repeat
+3.0
+linear
+
 music-score
 // Name, Position, Size
 music-score

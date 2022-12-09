@@ -21,6 +21,7 @@ public:
  
   virtual void Draw() override;
   virtual bool Load(File*) override;
+  virtual void Animate(float animValue) override;
 
   void SetFgCol(const Colour& col);
 
@@ -44,9 +45,15 @@ public:
 
     Glyph(const Vec2f corners[4], const Colour& col);
 
+    void SetTimeMinMax(const Vec2f& tmm) { m_timeMinMax = tmm; }
+
     char m_char = 'q';
     Vec2f m_pos;
     Vec2f m_scale = Vec2f(1.f, 1.f);
+
+    // This is used to highlight glyphs as the owning GuiMusicScore is animated.
+    // This glyph is highlighted while the animation value is within this range.
+    Vec2f m_timeMinMax = Vec2f(-1.f, -1.f);
 
     // Glyph colour: usually we would expect this to be black, but we can highlight 
     //  or pulse symbols etc.
@@ -58,6 +65,10 @@ public:
 
   // Add a Glyph: when all required Glyphs have been added, call BuildTriList().
   void AddGlyph(const Glyph& g);
+
+  // For testing, unlikely to be useful otherwise?
+  int GetNumGlyphs() const;
+  Glyph& GetGlyph(int);
 
 protected:
 
@@ -74,7 +85,8 @@ protected:
 protected:
   RCPtr<TriList> m_triList; 
   TextureSequence m_atlas;
-  Colour m_fgCol;
+  Colour m_fgCol; // default colour for all glyphs
+  Colour m_hightlightColour;
 
   using Glyphs = std::vector<Glyph>;
   Glyphs m_glyphs;
