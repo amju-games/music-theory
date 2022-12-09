@@ -7,7 +7,7 @@
 // Tappables: 3d objects which user can tap on to get info.
 
 // num tappables
-4
+5
 
 
 // Picture
@@ -93,10 +93,15 @@ mesh
 // Name
 tappable-piano
 // Matrix
-.4, 0, 0, 0,  0, 1, 0, 0,  0, 0, .5, 0,  15, 0, -60, 1
+.4, 0, 0, 0,  0, 1, 0, 0,  0, 0, .75, 0,  15, 0, -60, 1
 // Obj mesh
 obj/piano1.obj
 // Num children
+1
+mesh
+piano-shadow
+1.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, 1, 0, 1
+obj/shadow-sq.obj
 0
 // TODO Action when tapped
 // Camera eye
@@ -134,3 +139,32 @@ Gui/keyboard.txt
 // GUI to put in NOTEBOOK
 Gui/keyboard.txt
 
+
+// Orange Piano
+// Name
+orange piano
+// First part is 3d node
+// Node type
+mesh
+// Name
+tappable-orange-piano
+// Matrix
+.4, 0, 0, 0,  0, 1, 0, 0,  0, 0, .75, 0,  15, 0, -330, 1
+// Obj mesh
+obj/piano2.obj
+// Num children
+1
+mesh
+piano-shadow
+1.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, 1, 0, 1
+obj/shadow-sq.obj
+0
+// TODO Action when tapped
+// Camera eye
+24.5, 42, -330
+// Cam target
+21, 0, -330
+// GUI to display when we have been tapped
+Gui/keyboard-pink.txt
+// GUI to put in NOTEBOOK
+Gui/keyboard.txt
