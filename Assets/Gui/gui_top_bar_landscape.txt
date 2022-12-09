@@ -27,12 +27,12 @@ pie.txt
 
 // Num pages count bg
 colour
-FFD669
+ffffff
 gui-image
 counter-bg
 .7, .55
 .3, .2
-Image/gui-button-2.png, stretch
+Image/white.png, stretch
 
 // Player score
 // Element type
