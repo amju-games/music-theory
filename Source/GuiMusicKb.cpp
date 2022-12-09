@@ -58,13 +58,15 @@ void GuiMusicKb::Draw()
   AmjuGL::PushMatrix();
   AmjuGL::SetIdentity();
   // Ortho view
-  float W = 4.f;
-  AmjuGL::SetOrthoProjection(-2 * W, 2 * W, W, -W, 0.1f, 100);
+  AmjuGL::SetOrthoProjection(-1.f, 1.f, 1.f, -1.f, 0.1f, 100);
   
   AmjuGL::SetMatrixMode(AmjuGL::AMJU_MODELVIEW_MATRIX);
   AmjuGL::PushMatrix();
   AmjuGL::SetIdentity();
-  AmjuGL::LookAt(0, 6, 10,   0, 0, 0,   0, 1, 0);
+  // Look down on keys - TODO CONFIG
+  const float EYE_Y = 9.f;
+  const float TARGET_Z = -0.55f;
+  AmjuGL::LookAt(0, EYE_Y, 10,   0, 0, TARGET_Z,   0, 1, 0);
 
   float sx = GetSize().x;
   float sy = GetSize().y;
