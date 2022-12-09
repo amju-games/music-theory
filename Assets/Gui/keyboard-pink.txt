@@ -16,10 +16,11 @@ keyboard-pink
 colour
 FA5C90
 
+// Cover wider range than just the width of the screen, so we can translate the KB.
 gui-image
 kb-fg2
--1.0, 0.0
-2, 0.26
+-4.0, 0.0
+8, 0.26
 Image/white.png, stretch
 
 // Base keyboard, same for all piano colours
@@ -31,10 +32,11 @@ keyboard.txt
 colour
 FA5C90
 
+// Cover wider range than just the width of the screen, so we can translate the KB.
 gui-image
 kb-fg
--1.0, -0.9
-2, 0.1
+-4.0, -0.92
+8, 0.1
 Image/white.png, stretch
 
 

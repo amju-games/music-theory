@@ -14,10 +14,11 @@ keyboard
 2
 
 // Background to kb
+// Cover wider range than just the width of the screen, so we can translate the KB.
 gui-image
 kb-bg
--1.0, -0.26
-2, 0.74
+-4.0, -0.26
+8, 0.74
 Image/black.png
 
 gui-comp

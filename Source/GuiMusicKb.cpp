@@ -240,7 +240,7 @@ bool GuiMusicKb::Key::LoadFromString(const std::string& s)
   m_isBlack = (isBlack != 0);
   // Colour (black key or white, which we then override to highlight a key, etc)
   float WHITE_VAL = .85f;
-  float BLACK_VAL = .267f;
+  float BLACK_VAL = .1f; // 267f;
   Colour KEY_COLOUR[2] = 
   {
     Colour(WHITE_VAL, WHITE_VAL, WHITE_VAL, 1.f),
