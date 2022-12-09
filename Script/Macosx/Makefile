@@ -6,7 +6,7 @@ AMJULIB		:=	$(AMJULIB_MAC_SCRIPT_PATH)/../../
 RUNDIR		:=	../../Assets/
 BUILD		:=	../../Build/Mac
 TARGET		:=	$(BUILD)/macgame
-LIBDIRS   	:= 	$(AMJULIB)/Releases/amjulib-v.0.5-macosx
+LIBDIRS   	:= 	$(AMJULIB)/Build/Releases/amjulib-v.0.5-macosx
 SOURCES		:=	../../Source 
 BASSPATH	:=	$(AMJULIB)/Source/SoundBass/Bass2.4/Macosx
 
