@@ -37,23 +37,19 @@ one-shot
 
 // Triangle wave animation
 animation
-0.25
+2
 linear
-mirror-repeat
+repeat
 
-// Animation interpolates between these colours
-colour
-ff0000, 0000ff
+//// Animation interpolates between these colours
+//colour
+//ff0000, 0000ff
 
 line-drawing
 // Name, Position, Size
 line-drawing-test-1
 0.0, 0
 1, 1
-// Start time (s)
-0.0
-// Duration of drawing (s) (i.e. End time - start time)
-3.0
 // Start width
 0.04
 // End width

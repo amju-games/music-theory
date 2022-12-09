@@ -53,6 +53,8 @@ void GSPages::NextPage()
   // Tick/cross 
   GuiElement* tick = GetElementByName(m_gui, "tick");
   GuiElement* cross = GetElementByName(m_gui, "cross");
+  tick->ResetAnimation();
+  cross->ResetAnimation();
   tick->SetVisible(false);
   cross->SetVisible(false);
 }

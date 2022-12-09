@@ -13,15 +13,23 @@ gs-line-drawing-root
 // Num children
 2
 
+// 2s delay
+animation
+2.0
+step
+one-shot
+
+// Saw tooth wave animation
+animation
+2
+linear
+repeat
+
 line-drawing
 // Name, Position, Size
 line-drawing-test-1
 0.5, 0
 1, 1
-// Start time (s)
-2.0
-// Duration of drawing (s) (i.e. End time - start time)
-3.0
 // Start width
 0.05
 // End width
@@ -32,15 +40,24 @@ line-drawing-test-1
 stroke-test-1.txt
 
 
+// Delay
+animation
+0.0
+step
+one-shot
+
+// Saw tooth wave animation
+animation
+5
+linear
+repeat
+
+
 line-drawing
 // Name, Position, Size
 line-drawing-test-2
 -0.5, 0
 0.5, 0.5
-// Start time (s)
-0.0
-// Duration of drawing (s) (i.e. End time - start time)
-2.0
 // Start width
 0.05
 // End width

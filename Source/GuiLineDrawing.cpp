@@ -20,22 +20,10 @@ void GuiLineDrawing::AddToFactory()
   TheGuiFactory::Instance()->Add("line-drawing", CreateLineDrawing);
 }
 
-float GuiLineDrawing::GetTime() const
-{
-  return m_time;
-}
-
-void GuiLineDrawing::SetIsPaused(bool isPaused)
-{
-  m_isPaused = isPaused;
-}
-
 void GuiLineDrawing::Reset()
 {
   m_triList = nullptr;
   m_index = 0;
-  m_time = -m_startTime;
-  m_isPaused = false;
 }
 
 void GuiLineDrawing::SetColour(const Colour& col)
@@ -174,21 +162,6 @@ bool GuiLineDrawing::Load(File* f)
     return false;
   }
 
-  // Start time
-  if (!f->GetFloat(&m_startTime))
-  {
-    f->ReportError("Expected start time for line drawing.");
-    return false;
-  }
-  m_time = -m_startTime;
-
-  // Max time
-  if (!f->GetFloat(&m_maxTime))
-  {
-    f->ReportError("Expected max time for line drawing.");
-    return false;
-  }
-
   // Width, which is interpolated over line
   if (!f->GetFloat(&m_startWidth))
   {
@@ -323,30 +296,13 @@ void GuiLineDrawing::AddPoint(const Vec2f& p)
 #endif
 }
 
-void GuiLineDrawing::Update()
+void GuiLineDrawing::Animate(float d)
 {
-  if (m_isPaused)
-  {
-    return;
-  }
-
-  if (!IsVisible())
-  {
-    return;
-  }
-
-  float dt = TheTimer::Instance()->GetDt();
-
-  m_time += dt;
-
-  // Final index into m_points
-  float d = m_time / m_maxTime; // distance 0..1
   int oldIndex = m_index;
   m_index = static_cast<int>(static_cast<float>(m_points.size()) * d);
   if (m_index > static_cast<int>(m_points.size()))
   {
     m_index = static_cast<int>(m_points.size());
-    m_time = m_maxTime;
   }
 
   if (oldIndex != m_index)

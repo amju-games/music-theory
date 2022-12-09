@@ -39,19 +39,26 @@ PAUSE
 dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
 
 
+gui-comp
+// Name
+tick
+// Num children
+1
+
+// Linear animation
+animation
+.4
+linear
+one-shot
 
 // Tick for when user gets question correct
 line-drawing
 // Name
-tick
+tick-stroke
 // Pos
 0.5, 0
 // Size
 1, 1
-// Start time (not counting time when invisible/paused)
-0.0
-// Duration of drawing (s) (i.e. End time - start time)
-0.5
 // Start width
 0.05
 // End width
@@ -69,6 +76,12 @@ cross
 // Num children
 2
 
+// Linear animation
+animation
+.2
+linear
+one-shot
+
 line-drawing
 // Name
 cross-1
@@ -76,18 +89,27 @@ cross-1
 0.5, 0
 // Size
 1, 1
-// Start time (not counting time when invisible/paused)
-0.0
-// Duration of drawing (s) (i.e. End time - start time)
-0.5
 // Start width
 0.05
 // End width
-0.01
+0.05
 // Colour: (start colour, end colour?)
 ff0000
 // Points
 stroke-cross-1.txt
+
+
+// Delay
+animation
+0.21
+step
+one-shot
+
+// Linear animation
+animation
+.2
+linear
+one-shot
 
 line-drawing
 // Name
@@ -96,14 +118,10 @@ cross-2
 0.5, 0
 // Size
 1, 1
-// Start time (not counting time when invisible/paused)
-0.5
-// Duration of drawing (s) (i.e. End time - start time)
-0.5
 // Start width
 0.05
 // End width
-0.01
+0.05
 // Colour: (start colour, end colour?)
 ff0000
 // Points
