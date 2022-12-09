@@ -32,19 +32,19 @@ bool Dictionary::Load(const std::string& filename)
   {
     // Split English/foreign strings 
     Strings strs = Split(line, '=');
-    if (strs.size() != 2)
+    if (strs.size() < 2)
     {
       // Not an error, the end of the dictionary
       break;
     }
-    AddTerm(strs[0], strs[1]);
+    AddTerm(strs);
   }
   return true;
 }
 
-void Dictionary::AddTerm(const std::string& english, const std::string& foreign)
+void Dictionary::AddTerm(const Strings& strs)
 {
-  m_dictionary.push_back(std::make_pair(english, foreign));
+  m_dictionary.push_back(strs);
 }
 
 int Dictionary::GetNumTerms() const
@@ -54,9 +54,10 @@ int Dictionary::GetNumTerms() const
 
 void Dictionary::GetTerm(int i, std::string* english, std::string* foreign) const
 {
-  const auto& p = m_dictionary[i];
-  *english = p.first;
-  *foreign = p.second;
+  const Strings& strs = m_dictionary[i];
+  Assert(strs.size() >= 2);
+  *english = strs[0];
+  *foreign = strs[1];
 }
 }
 

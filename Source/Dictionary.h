@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <ResourceManager.h>
+#include <StringUtils.h>
 
 namespace Amju
 {
@@ -20,10 +21,10 @@ public:
   bool Load(const std::string& filename);
   int GetNumTerms() const;
   void GetTerm(int i, std::string* english, std::string* foreign) const;
-  void AddTerm(const std::string& english, const std::string& foreign);
+  void AddTerm(const Strings& strs);
 
 private:
-  std::vector<std::pair<std::string, std::string>> m_dictionary;
+  std::vector<Strings> m_dictionary;
 };
 
 Resource* DictionaryLoader(const std::string& resName);
