@@ -1,0 +1,25 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// List of Composers
+// -----------------
+// One composer occupies each classroom, so for this we need display name,
+//  and avatar settings. Also we can customise the text for correct/incorrect/
+//  explanations/score comment.
+//
+// We could add each composer's details to our Composers Chart in future.
+
+// version
+1
+
+// ID
+j-s-bach
+// Display Name... Hmm, does this need to be localised?
+J. S. Bach
+// Avatar string: sets values on nodes in the avatar GUI tree
+colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0|cell;nose;12
+// Text for yes, no, quit confirm, etc
+Nein!
+Ja!
+You wish to leave?
+// Biographical info 
