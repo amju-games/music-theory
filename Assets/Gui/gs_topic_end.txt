@@ -31,17 +31,7 @@ TEXT, 1.5, fgcol=ffffff
 
 gui-comp
 topic-score-comp
-2
-
-translate
-0.01, -0.01
-// Player score for the topic we just played
-gui-text
-topic-score-text-shadow
--10, 0.65
-2, 0.2
-SCORE THIS TOPIC
-NUMERIC, 4.0, fgcol=0000ff
+1
 
 // Player score for the topic we just played
 gui-text
@@ -49,21 +39,11 @@ topic-score-text
 -10, 0.65
 2, 0.2
 SCORE THIS TOPIC
-NUMERIC, 4.0, fgcol=ffffff
+dimbo, 4.0, fgcol=ffffff
 
 gui-comp
 total-score-comp
-2
-
-translate
-0.01, -0.01
-// Player total persistent score
-gui-text
-total-score-text-shadow
--1, 0.45
-2, 0.2
-TOTAL SCORE
-NUMERIC, 4.0, fgcol=0000ff
+1
 
 // Player total persistent score
 gui-text
@@ -71,7 +51,7 @@ total-score-text
 -1, 0.45
 2, 0.2
 TOTAL SCORE
-NUMERIC, 4.0, fgcol=ffffff
+dimbo, 4.0, fgcol=ffffff
 
 
 // TODO Delay?
