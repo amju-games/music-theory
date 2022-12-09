@@ -126,7 +126,8 @@ std::string GSTopicEnd::GenerateScoreComment()
 void GSTopicEnd::SetScoreNumbers()
 {
   NumUpdate(m_gui, "topic-score-text" /* TODO CONST */, m_topicScore);
-  NumUpdate(m_gui, "total-score-text" /* TODO CONST */, m_totalScore);
+  NumUpdate(m_gui, "total-score-text" /* TODO CONST */, 
+    ToString(m_totalScore) + "%");
 }
 
 void GSTopicEnd::SetHintNumbers()
@@ -141,7 +142,7 @@ void GSTopicEnd::UpdateNums()
 
   if (m_topicScore > 0)
   {
-    const int incr = 10;
+    const int incr = 1;
     m_topicScore -= incr;
     if (m_topicScore <= 0)
     {
