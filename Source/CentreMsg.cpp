@@ -27,6 +27,7 @@ static const float MIN_BUTTON_Y = -0.6f;
 CentreMsg::CentreMsg()
 {
   m_lurkPos = AMJU_CENTRE;
+  m_isModal = true;
 }
 
 CentreMsg::CentreMsg(const std::string& text, const Colour& fgCol, const Colour& bgCol, 
@@ -37,6 +38,8 @@ CentreMsg::CentreMsg(const std::string& text, const Colour& fgCol, const Colour&
 
 void CentreMsg::Draw()
 {
+  DrawModalBg();
+
   AmjuGL::PushMatrix();
   AmjuGL::Scale(m_scale, m_scale, 1.0f);
   m_rect->Draw();

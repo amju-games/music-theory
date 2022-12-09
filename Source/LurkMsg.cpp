@@ -15,6 +15,8 @@
 
 namespace Amju
 {
+std::string LurkMsg::s_modalBgFilename = "Gui/modal-grey-out.txt";
+
 const char* LurkMsg::MESSAGE_FONT = "font2d/TEXT-font.font";
 
 const float LurkMsg::DEFAULT_MAX_LURK_TIME = 3.0f;
@@ -83,8 +85,23 @@ bool LurkMsg::LoadGui(const std::string& guiFilename)
   return true;
 }
 
+void LurkMsg::DrawModalBg()
+{
+  if (m_isModal)
+  {
+    PGuiElement bg;
+    if (!bg)
+    {
+      bg = ::Amju::LoadGui(s_modalBgFilename, false);
+    }
+    bg->Draw();
+  }
+}
+
 void LurkMsg::Draw()
 {
+  DrawModalBg();
+
   m_rect->Draw();
   m_text->Draw();
 }

@@ -54,6 +54,9 @@ public:
   static const char* MESSAGE_FONT;
 
 protected:
+  void DrawModalBg();
+
+protected:
   PGuiElement m_text;
   RCPtr<GuiRect> m_rect;
 
@@ -82,6 +85,9 @@ protected:
   CommandFunc m_onOk = nullptr;
   CommandFunc m_onYes = nullptr;
   CommandFunc m_onNo = nullptr;
+
+  bool m_isModal = false;
+  static std::string s_modalBgFilename;
 };
 
 using PLurkMsg = RCPtr<LurkMsg>;
