@@ -301,6 +301,7 @@ static void LoadStringTableForPreferredLanguage()
   if (language.empty())
   {
     // TODO We should send this info back to Amju HQ
+    // AMJU_TRACKING
     std::cout << "No preferred language found! Report this interesting finding!\n";
     language = "en-GB";
   }
@@ -323,6 +324,10 @@ static void LoadStringTableForPreferredLanguage()
   }
 
   std::cout << "Failed to load any string table!\n";
+  // AMJU_TRACKING
+
+  // Default to en.txt if all else failed
+  Localise::LoadStringTable("en.txt");
 }
   
 void StartUpAfterCreateWindow()
