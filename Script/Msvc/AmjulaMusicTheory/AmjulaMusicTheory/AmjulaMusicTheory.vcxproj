@@ -200,6 +200,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\BassPlayMidi.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSMusicalTerms.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSShowLineDrawing.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSShowMusicScore.cpp" />
@@ -225,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
+    <ClInclude Include="..\..\..\..\Source\GSMusicalTerms.h" />
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowLineDrawing.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowMusicScore.h" />
@@ -247,6 +249,14 @@
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\GLUT\glut32.lib" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\gs_play_notes.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\gs_score.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\gs_test_show_score.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\keyboard.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\stroke-test-1.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\stroke-test-2.txt" />
     <Text Include="..\..\..\..\Docs\TODO.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -19,6 +19,12 @@
     <Filter Include="Libs">
       <UniqueIdentifier>{9f54667e-733b-4866-a04d-9d5f4f3d57eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{a70f4905-5465-4dd6-aafb-ec9a060d5786}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Gui">
+      <UniqueIdentifier>{e4acba82-f939-4a6b-b369-4ad0b58c684f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp">
@@ -67,6 +73,9 @@
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\GSTestShowScore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GSMusicalTerms.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -130,8 +139,35 @@
     <ClInclude Include="..\..\..\..\Source\GSTestShowScore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GSMusicalTerms.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Docs\TODO.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_play_notes.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_score.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_test_show_score.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\keyboard.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\stroke-test-1.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\stroke-test-2.txt">
+      <Filter>Assets\Gui</Filter>
+    </Text>
   </ItemGroup>
 </Project>
