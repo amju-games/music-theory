@@ -76,8 +76,8 @@ void GSMainCorridor::LoadCourse()
 
 bool GSMainCorridor::LoadTappables()
 {
-  // Get root node for adding tappables - TODO camera?
-  SceneNode* root = GetCamera();
+  // Get root node for adding tappables 
+  PSceneNode root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE)->GetNodeByName("tappable-root");
   Assert(root);
 
   File f;

@@ -11,7 +11,7 @@ root
 // Matrix
 I
 // Num children
-5
+6
 
 // Node type
 camera-persp
@@ -59,7 +59,7 @@ mesh
 // Name
 right-arch
 // Matrix
-1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, -740, 1
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, -800, 1
 // Obj mesh
 obj/arch1.obj
 //obj/end1.obj
@@ -142,6 +142,16 @@ Gui/sign-level-1.txt
 // Matrix
 0, 0, -12, 0,   0, 8, 0, 0,   -48.95, 2.5, 22.48, -0.5,   1,    -0.0,    0,    0.5
 
+// ----------------------------------------------------------------------------
+// LAST ONE - root node for tappables
+// Node type
+comp
+// Name, matrix, children
+tappable-root
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 0, 1
+// Num children
+0
 
 //// ----------------------------------------------------------------------------
 // Not used, doesn't work when camera moves around.

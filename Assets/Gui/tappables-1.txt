@@ -79,7 +79,7 @@ obj/just-frame-black.mtl
 // Node type
 gui
 // Node name
-treb clef gui
+dynamics gui
 // GUI file name
 Gui/tap-pic-dynamics-1.txt
 // Matrix
