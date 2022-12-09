@@ -17,7 +17,7 @@
 #include <EventPoller.h>
 #include <Game.h>
 #include <StartUp.h>
-//#include "iOSKeyboard.h"
+#include "iOSKeyboard.h"
 
 
 // Accelerom poll freq - j.c. - http://www.appcoda.com/ios-maze-game-tutorial-accelerometer/
@@ -79,7 +79,7 @@
      }];
  
     // j.c. Initialise iOS-specific text edit boxes and keyboard
-//    Amju::GuiTextEditIos::SetViewController(self);
+    Amju::iOSTextSetViewController(self);
 }
 
 - (void)didReceiveMemoryWarning

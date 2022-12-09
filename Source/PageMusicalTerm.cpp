@@ -74,7 +74,7 @@ void PageMusicalTerm::OnActive()
 
 //  PrintGui(m_gui, 0);
 
-  GuiText* text = dynamic_cast<GuiText*>(GetElementByName(m_gui, "musical-term-text"));
+  IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "musical-term-text"));
   text->SetText(m_question->GetMusicalTermText());
 
   // Set button callbacks

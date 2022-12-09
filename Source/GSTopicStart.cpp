@@ -45,7 +45,7 @@ void GSTopicStart::OnActive()
   // TODO Pass the course in
   Course* course = (Course*)TheResourceManager::Instance()->GetRes("Course/grade1.txt.course");
   Assert(course);
-  GuiText* text = dynamic_cast<GuiText*>(GetElementByName(m_gui, "topic-name-text"));
+  IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "topic-name-text"));
   Assert(text);
   Topic* topic = course->GetTopic(m_topicNum);
   Assert(topic);

@@ -61,7 +61,7 @@ void GSPages::StartTopic(int topicNum)
 
 void GSPages::ShowHints()
 {
-  GuiText* hintCounter = dynamic_cast<GuiText*>(GetElementByName(m_gui, "hint-counter"));
+  IGuiText* hintCounter = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "hint-counter"));
   Assert(hintCounter);
   hintCounter->SetText(ToString(m_numHintsAvailable));
 }
@@ -141,7 +141,7 @@ void GSPages::NextPage()
 
   // Show number of pages, num correct, num incorrect, etc. These GUI elements
   //  should be in the top bar.
-  GuiText* numPagesText = (GuiText*)GetElementByName(m_gui, "num-pages-text");
+  IGuiText* numPagesText = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "num-pages-text"));
   Assert(numPagesText);
   // Show number of pages or number of correct answers?
   std::string s = ToString(m_numCorrectThisSession) + "/" + ToString(m_maxNumPagesThisSession);
