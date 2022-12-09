@@ -4,23 +4,28 @@ Playable keyboard
  - Link Bass midi 
  - sound font asset
  - Just play a sound at start up/periodically for first proof
+ - Works for Windows
 
-
-Drawing
+Animated Drawing
  - A GUI element, right?
  - One texture, so derived from image?
  - Just a vec of points at first
- - We also want to animate scale of leaves
- - Extend Elastic type
+ - Animated: override Update()
+ - Vec of points/segments. We grow segments from start to end. As we also want to turn through angles, and change width, (colour?) as we go, we subdivide a user-specified segment into multiple segments.
 
-
-User draws on screen
+User Drawing
  - Specialised version of above drawing type
+ - Segments from user cursor positions
+
+
+Animated GUI elements
+ - We also want to animate scale of leaves, and it would be good to automate animations to some degree
+ - Extend Elastic type
 
 
 Music notation
  - Specialised Text GUI: all one draw command, all one texture atlas
- - Except differently coloured elements
+ - Except differently coloured elements; these are another GuiMusicScore object?
 
 
 Game state: drag choice to destination rectangle

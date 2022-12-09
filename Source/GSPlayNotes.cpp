@@ -1,10 +1,11 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
 #include <AmjuGL.h>
+#include <SoundManager.h>
 #include <Timer.h>
 #include <Teapot.h>
 #include "GSPlayNotes.h"
-
-// Play midi note
-#include <SoundManager.h>
 
 namespace Amju
 {

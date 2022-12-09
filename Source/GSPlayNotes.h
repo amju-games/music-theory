@@ -1,11 +1,14 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
 #pragma once
 
-#include <GameState.h>
+#include "GSBase.h"
 #include <Singleton.h>
 
 namespace Amju
 {
-class GSPlayNotes : public GameState
+class GSPlayNotes : public GSBase
 {
 public:
   virtual void Draw() override;
