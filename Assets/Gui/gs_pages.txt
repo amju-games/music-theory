@@ -28,6 +28,9 @@ hint-button-and-counter
 // Num children
 2
 
+colour
+ffffffff, ffffff20
+
 // Hint button
 gui-button
 hint-button
@@ -54,6 +57,9 @@ dimbo, 1.0, right, fgcol=000000
 
 elastic
 -1.5, 0.0
+
+colour
+ffffffff, ffffff20
 
 // Pause button
 // element type
