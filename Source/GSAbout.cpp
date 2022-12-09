@@ -6,11 +6,14 @@
 #include <MessageQueue.h>
 #include "GSAbout.h"
 #include "GSMainMenu.h"
+#include "PrintGui.h"
 
 namespace Amju
 {
-static void OnOK(GuiElement*)
+static void OnOK(GuiElement* elem)
 {
+  TheGSAbout::Instance()->HideButtons();
+
   TheGSAbout::Instance()->ScrollUp();
   TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainMenu>, SecondsFromNow(0.5f)));
   // TODO Also stop underground anims?
@@ -24,6 +27,8 @@ GSAbout::GSAbout()
 void GSAbout::OnActive()
 {
   GSBase::OnActive();
+
+  PrintGui(m_gui);
 
   // Set button commands
   GuiElement* startButton = GetElementByName(m_gui, "ok-button");

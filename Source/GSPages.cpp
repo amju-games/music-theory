@@ -15,6 +15,7 @@
 #include "GuiLineDrawing.h"
 #include "Keys.h"
 #include "PageMusicalTerm.h"
+#include "PrintGui.h"
 #include "UserProfile.h"
 
 namespace Amju
@@ -71,6 +72,7 @@ void GSPages::OnActive()
   // This could be a resume from pause, so we don't reset the topic progress here.
 
   GSBase::OnActive();
+  PrintGui(m_gui);
 
   GuiElement* elem = GetElementByName(m_gui, "pause-button");
   Assert(elem);
