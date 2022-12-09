@@ -14,6 +14,7 @@
 #include "LurkMsg.h"
 #include "MusicalTermQuestion.h"
 #include "PageMultiChoice.h"
+#include "PlayWav.h"
 
 namespace Amju
 {
@@ -215,7 +216,10 @@ void PageMultiChoice::ShowCorrectAnswer()
   // Player must then hit the remaining, correct, answer
   // Change button command - unusual, zap the previous command
   button->SetCommand(PGuiCommand(nullptr));
-  button->SetCommand([](GuiElement*) { Page::SendNextPageMessage(); });
+  button->SetCommand([](GuiElement*)
+  {
+    PlayWav(WAV_CORRECT); Page::SendNextPageMessage();
+  });
 
   // Show Lurk message with explanation, if there is one.
   std::string expl = GetQuestion()->GetExplanationString();
