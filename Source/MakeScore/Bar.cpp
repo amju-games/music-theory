@@ -321,7 +321,7 @@ float Bar::GetWidth() const
 
 float Bar::GetKeySigWidth() const
 {
-  const float AW = 0.2f; // TODO width of one accidental glyph
+  const float AW = 0.15f; // width of one accidental glyph
   if (m_keySig >= KEYSIG_0_FLAT)
   {
     // Flat
@@ -358,6 +358,10 @@ void Bar::SetPos(float x, float y)
 
     // Also we must be outputting key sig
     x += GetKeySigWidth();
+
+    // Add a bit extra so there is a small space before the time sig
+    const float EXTRA_SPACE = 0.1f;
+    x += EXTRA_SPACE;
   }
 
   // Add more for keysig

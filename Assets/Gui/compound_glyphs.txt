@@ -36,36 +36,36 @@ bar-line = quad, 0.025, 0.470,  0.025, 0.8825,  0, 0.8825,  0, 0.470
 // Key sigs
 
 keysig-1sharp-treble = sharp, 0, 0.4
-keysig-2sharp-treble = keysig-1sharp-treble, 0, 0 ; sharp, 0.2, 0.25
-keysig-3sharp-treble = keysig-2sharp-treble, 0, 0 ; sharp, 0.4, 0.45
-keysig-4sharp-treble = keysig-3sharp-treble, 0, 0 ; sharp, 0.6, 0.30
-keysig-5sharp-treble = keysig-4sharp-treble, 0, 0 ; sharp, 0.8, 0.15
-keysig-6sharp-treble = keysig-5sharp-treble, 0, 0 ; sharp, 1.0, 0.35
-keysig-7sharp-treble = keysig-6sharp-treble, 0, 0 ; sharp, 1.2, 0.20
+keysig-2sharp-treble = keysig-1sharp-treble, 0, 0 ; sharp, 0.15, 0.25
+keysig-3sharp-treble = keysig-2sharp-treble, 0, 0 ; sharp, 0.30, 0.45
+keysig-4sharp-treble = keysig-3sharp-treble, 0, 0 ; sharp, 0.45, 0.30
+keysig-5sharp-treble = keysig-4sharp-treble, 0, 0 ; sharp, 0.60, 0.15
+keysig-6sharp-treble = keysig-5sharp-treble, 0, 0 ; sharp, 0.75, 0.35
+keysig-7sharp-treble = keysig-6sharp-treble, 0, 0 ; sharp, 0.90, 0.20
 
 keysig-1sharp-bass = sharp, 0, 0.3
-keysig-2sharp-bass = keysig-1sharp-bass, 0, 0 ; sharp, 0.2, 0.15
-keysig-3sharp-bass = keysig-2sharp-bass, 0, 0 ; sharp, 0.4, 0.35
-keysig-4sharp-bass = keysig-3sharp-bass, 0, 0 ; sharp, 0.6, 0.20
-keysig-5sharp-bass = keysig-4sharp-bass, 0, 0 ; sharp, 0.8, 0.05
-keysig-6sharp-bass = keysig-5sharp-bass, 0, 0 ; sharp, 1.0, 0.25
-keysig-7sharp-bass = keysig-6sharp-bass, 0, 0 ; sharp, 1.2, 0.10
+keysig-2sharp-bass = keysig-1sharp-bass, 0, 0 ; sharp, 0.15, 0.15
+keysig-3sharp-bass = keysig-2sharp-bass, 0, 0 ; sharp, 0.30, 0.35
+keysig-4sharp-bass = keysig-3sharp-bass, 0, 0 ; sharp, 0.45, 0.20
+keysig-5sharp-bass = keysig-4sharp-bass, 0, 0 ; sharp, 0.60, 0.05
+keysig-6sharp-bass = keysig-5sharp-bass, 0, 0 ; sharp, 0.75, 0.25
+keysig-7sharp-bass = keysig-6sharp-bass, 0, 0 ; sharp, 0.90, 0.10
 
 keysig-1flat-treble  = flat, 0.0, 0.19
-keysig-2flat-treble  = flat, 0.2, 0.35 ; keysig-1flat-treble, 0, 0
-keysig-3flat-treble  = flat, 0.4, 0.15 ; keysig-2flat-treble, 0, 0
-keysig-4flat-treble  = flat, 0.6, 0.29 ; keysig-3flat-treble, 0, 0
-keysig-5flat-treble  = flat, 0.8, 0.09 ; keysig-4flat-treble, 0, 0
-keysig-6flat-treble  = flat, 1.0, 0.25 ; keysig-5flat-treble, 0, 0
-keysig-7flat-treble  = flat, 1.2, 0.05 ; keysig-6flat-treble, 0, 0
+keysig-2flat-treble  = flat, 0.15, 0.35 ; keysig-1flat-treble, 0, 0
+keysig-3flat-treble  = flat, 0.30, 0.15 ; keysig-2flat-treble, 0, 0
+keysig-4flat-treble  = flat, 0.45, 0.29 ; keysig-3flat-treble, 0, 0
+keysig-5flat-treble  = flat, 0.60, 0.09 ; keysig-4flat-treble, 0, 0
+keysig-6flat-treble  = flat, 0.75, 0.25 ; keysig-5flat-treble, 0, 0
+keysig-7flat-treble  = flat, 0.90, 0.05 ; keysig-6flat-treble, 0, 0
 
 keysig-1flat-bass  = flat, 0.0, 0.09
-keysig-2flat-bass  = flat, 0.2, 0.25 ; keysig-1flat-bass, 0, 0
-keysig-3flat-bass  = flat, 0.4, 0.05 ; keysig-2flat-bass, 0, 0
-keysig-4flat-bass  = flat, 0.6, 0.19 ; keysig-3flat-bass, 0, 0
-keysig-5flat-bass  = flat, 0.8, -0.01 ; keysig-4flat-bass, 0, 0
-keysig-6flat-bass  = flat, 1.0, 0.15 ; keysig-5flat-bass, 0, 0
-keysig-7flat-bass  = flat, 1.2, -0.05 ; keysig-6flat-bass, 0, 0
+keysig-2flat-bass  = flat, 0.15, 0.25 ; keysig-1flat-bass, 0, 0
+keysig-3flat-bass  = flat, 0.30, 0.05 ; keysig-2flat-bass, 0, 0
+keysig-4flat-bass  = flat, 0.45, 0.19 ; keysig-3flat-bass, 0, 0
+keysig-5flat-bass  = flat, 0.60, -0.01 ; keysig-4flat-bass, 0, 0
+keysig-6flat-bass  = flat, 0.75, 0.15 ; keysig-5flat-bass, 0, 0
+keysig-7flat-bass  = flat, 0.90, -0.05 ; keysig-6flat-bass, 0, 0
 
 stem-up = quad, 0.263, 0.495,  0.263, 0.825,  0.234, 0.825,  0.234, 0.475
 stem-down = quad, 0.09, 0.125,  0.09, 0.49,  0.06, 0.47,  0.06, 0.125
