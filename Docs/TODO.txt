@@ -1,18 +1,17 @@
 Get to state of minimal, releasable app
  * MVP * 
 
-Bug: fix resume in GSPages.
-
-Fix look and feel of "Pause menu" - should it be a separate state?
- - Just hide page contents, not separate state.
-
-Topic: show best score so far
+(Topic: show best score so far)
 
 Top bar look/feel
+ - Name and example avatar, creating more work. Get rid for now?
+
 Fix button sizes
+ - They are a bit small
 
 Topic end state:
-Look/feel, text should be smart.
+Look/feel, 
+text should be smart.
 Give hints, give stars etc
 Next state should be achievements - if none, we go to main menu. Scroll back down to the ground.
 
