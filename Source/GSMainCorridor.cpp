@@ -203,7 +203,9 @@ void GSMainCorridor::SetCameraForNewLevel(bool wentUpNotDown)
     m_modes[CorridorModeWait::ID].GetPtr());
 
   Assert(cmw);
-  int newTopic = -1; // TODO or final topic in prev level
+  // If we go up, we are on left, so at topic -1. Else we went down,
+  //  and so we are at the right end, so at the last topic + 1.
+  int newTopic = wentUpNotDown ? -1 : GetCourse()->GetNumTopics();
   cmw->SetCurrentPosAndTopic(newZ, newTopic);
 }
 
