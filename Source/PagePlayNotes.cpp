@@ -102,7 +102,8 @@ void PagePlayNotes::OnActive()
 
 bool PagePlayNotes::CanGetHint()
 {
-  return !m_hintNotes.empty();
+  return false;
+//  return !m_hintNotes.empty();
 }
 
 void PagePlayNotes::OnHint()
