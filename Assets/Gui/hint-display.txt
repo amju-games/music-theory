@@ -13,11 +13,7 @@ hint-buttons-and-counters
 // Num children
 1
 
-
-gui-comp
-all-hint-buttons
-1
-
+// Move to bottom of screen
 translate
 0, -.775
 
@@ -29,6 +25,10 @@ gui-comp
 the-hint-button
 // Button, and animated counter in circle
 2
+
+// Used to fade when disabled
+colour
+ffffffff, ffffff40
 
 // Hint button
 gui-button
@@ -96,6 +96,9 @@ gui-comp
 play-button-comp
 2
 
+// Used to fade when disabled
+colour
+ffffffff, ffffff40
 
 gui-button
 play-button
