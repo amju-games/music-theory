@@ -71,6 +71,13 @@
 		69D58E871E86A02B008A8D29 /* ScoreBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E831E86A02B008A8D29 /* ScoreBuilder.cpp */; };
 		69D58E8C1E86E867008A8D29 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */; };
 		69D58E8D1E86E867008A8D29 /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69D732911F23DA29007B73C1 /* CorridorMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D732831F23DA28007B73C1 /* CorridorMode.cpp */; };
+		69D732921F23DA29007B73C1 /* CorridorModeEnterClassroom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D732851F23DA28007B73C1 /* CorridorModeEnterClassroom.cpp */; };
+		69D732931F23DA29007B73C1 /* CorridorModeEnterTappable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D732871F23DA28007B73C1 /* CorridorModeEnterTappable.cpp */; };
+		69D732941F23DA29007B73C1 /* CorridorModeExitClassroom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D732891F23DA28007B73C1 /* CorridorModeExitClassroom.cpp */; };
+		69D732951F23DA29007B73C1 /* CorridorModeExitTappable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D7328B1F23DA28007B73C1 /* CorridorModeExitTappable.cpp */; };
+		69D732961F23DA29007B73C1 /* CorridorModeShowTappable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D7328D1F23DA29007B73C1 /* CorridorModeShowTappable.cpp */; };
+		69D732971F23DA29007B73C1 /* CorridorModeWait.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D7328F1F23DA29007B73C1 /* CorridorModeWait.cpp */; };
 		69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */; };
 		69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E08B1E8C09C000E7BF93 /* Question.cpp */; };
 		69F5E0921E8C09DF00E7BF93 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0901E8C09DF00E7BF93 /* GameViewController.m */; };
@@ -228,6 +235,21 @@
 		69D58E831E86A02B008A8D29 /* ScoreBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ScoreBuilder.cpp; path = ../../../../Source/ScoreBuilder.cpp; sourceTree = "<group>"; };
 		69D58E841E86A02B008A8D29 /* ScoreBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreBuilder.h; path = ../../../../Source/ScoreBuilder.h; sourceTree = "<group>"; };
 		69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MIKMIDI.framework; sourceTree = "<group>"; };
+		69D732821F23DA28007B73C1 /* Consts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Consts.h; path = ../../../../Source/Consts.h; sourceTree = "<group>"; };
+		69D732831F23DA28007B73C1 /* CorridorMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CorridorMode.cpp; path = ../../../../Source/CorridorMode.cpp; sourceTree = "<group>"; };
+		69D732841F23DA28007B73C1 /* CorridorMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorMode.h; path = ../../../../Source/CorridorMode.h; sourceTree = "<group>"; };
+		69D732851F23DA28007B73C1 /* CorridorModeEnterClassroom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CorridorModeEnterClassroom.cpp; path = ../../../../Source/CorridorModeEnterClassroom.cpp; sourceTree = "<group>"; };
+		69D732861F23DA28007B73C1 /* CorridorModeEnterClassroom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorModeEnterClassroom.h; path = ../../../../Source/CorridorModeEnterClassroom.h; sourceTree = "<group>"; };
+		69D732871F23DA28007B73C1 /* CorridorModeEnterTappable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CorridorModeEnterTappable.cpp; path = ../../../../Source/CorridorModeEnterTappable.cpp; sourceTree = "<group>"; };
+		69D732881F23DA28007B73C1 /* CorridorModeEnterTappable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorModeEnterTappable.h; path = ../../../../Source/CorridorModeEnterTappable.h; sourceTree = "<group>"; };
+		69D732891F23DA28007B73C1 /* CorridorModeExitClassroom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CorridorModeExitClassroom.cpp; path = ../../../../Source/CorridorModeExitClassroom.cpp; sourceTree = "<group>"; };
+		69D7328A1F23DA28007B73C1 /* CorridorModeExitClassroom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorModeExitClassroom.h; path = ../../../../Source/CorridorModeExitClassroom.h; sourceTree = "<group>"; };
+		69D7328B1F23DA28007B73C1 /* CorridorModeExitTappable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CorridorModeExitTappable.cpp; path = ../../../../Source/CorridorModeExitTappable.cpp; sourceTree = "<group>"; };
+		69D7328C1F23DA28007B73C1 /* CorridorModeExitTappable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorModeExitTappable.h; path = ../../../../Source/CorridorModeExitTappable.h; sourceTree = "<group>"; };
+		69D7328D1F23DA29007B73C1 /* CorridorModeShowTappable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CorridorModeShowTappable.cpp; path = ../../../../Source/CorridorModeShowTappable.cpp; sourceTree = "<group>"; };
+		69D7328E1F23DA29007B73C1 /* CorridorModeShowTappable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorModeShowTappable.h; path = ../../../../Source/CorridorModeShowTappable.h; sourceTree = "<group>"; };
+		69D7328F1F23DA29007B73C1 /* CorridorModeWait.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CorridorModeWait.cpp; path = ../../../../Source/CorridorModeWait.cpp; sourceTree = "<group>"; };
+		69D732901F23DA29007B73C1 /* CorridorModeWait.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorridorModeWait.h; path = ../../../../Source/CorridorModeWait.h; sourceTree = "<group>"; };
 		69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSTestShowScore.cpp; path = ../../../../Source/GSTestShowScore.cpp; sourceTree = "<group>"; };
 		69F5E0871E8C09C000E7BF93 /* GSTestShowScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSTestShowScore.h; path = ../../../../Source/GSTestShowScore.h; sourceTree = "<group>"; };
 		69F5E0881E8C09C000E7BF93 /* PageMultiChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageMultiChoice.h; path = ../../../../Source/PageMultiChoice.h; sourceTree = "<group>"; };
@@ -373,6 +395,21 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				69D732821F23DA28007B73C1 /* Consts.h */,
+				69D732831F23DA28007B73C1 /* CorridorMode.cpp */,
+				69D732841F23DA28007B73C1 /* CorridorMode.h */,
+				69D732851F23DA28007B73C1 /* CorridorModeEnterClassroom.cpp */,
+				69D732861F23DA28007B73C1 /* CorridorModeEnterClassroom.h */,
+				69D732871F23DA28007B73C1 /* CorridorModeEnterTappable.cpp */,
+				69D732881F23DA28007B73C1 /* CorridorModeEnterTappable.h */,
+				69D732891F23DA28007B73C1 /* CorridorModeExitClassroom.cpp */,
+				69D7328A1F23DA28007B73C1 /* CorridorModeExitClassroom.h */,
+				69D7328B1F23DA28007B73C1 /* CorridorModeExitTappable.cpp */,
+				69D7328C1F23DA28007B73C1 /* CorridorModeExitTappable.h */,
+				69D7328D1F23DA29007B73C1 /* CorridorModeShowTappable.cpp */,
+				69D7328E1F23DA29007B73C1 /* CorridorModeShowTappable.h */,
+				69D7328F1F23DA29007B73C1 /* CorridorModeWait.cpp */,
+				69D732901F23DA29007B73C1 /* CorridorModeWait.h */,
 				69C10CE01F1A2586009B6836 /* Tappable.cpp */,
 				69C10CE11F1A2586009B6836 /* Tappable.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
@@ -628,22 +665,28 @@
 				69AC40371EB5331300F255A4 /* MusicEvent.cpp in Sources */,
 				692BF7471EAE50BD00DB6CE7 /* PagePlayNotes.cpp in Sources */,
 				69D58E861E86A02B008A8D29 /* Page.cpp in Sources */,
+				69D732961F23DA29007B73C1 /* CorridorModeShowTappable.cpp in Sources */,
 				6959E3031EA1091500E251A9 /* GSAbout.cpp in Sources */,
+				69D732971F23DA29007B73C1 /* CorridorModeWait.cpp in Sources */,
 				6959E2D01E958C3C00E251A9 /* GSPages.cpp in Sources */,
 				6959E2F81E9ACE8A00E251A9 /* GSPause.cpp in Sources */,
+				69D732931F23DA29007B73C1 /* CorridorModeEnterTappable.cpp in Sources */,
 				6959E3061EA1091500E251A9 /* MusicalTermQuestion.cpp in Sources */,
+				69D732951F23DA29007B73C1 /* CorridorModeExitTappable.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
 				697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */,
 				6959E2F91E9ACE8A00E251A9 /* GSTopicStart.cpp in Sources */,
 				69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */,
 				6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */,
 				69F5E0921E8C09DF00E7BF93 /* GameViewController.m in Sources */,
+				69D732911F23DA29007B73C1 /* CorridorMode.cpp in Sources */,
 				69C10CDE1F17877A009B6836 /* PageQuestion.cpp in Sources */,
 				6951CF191F0B932300140095 /* Md2SceneNode.cpp in Sources */,
 				69D58E851E86A02B008A8D29 /* GuiMusicKb.cpp in Sources */,
 				6959E2ED1E97F6F800E251A9 /* GSMainMenu.cpp in Sources */,
 				69D58E491E833741008A8D29 /* ViewController.mm in Sources */,
 				69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */,
+				69D732941F23DA29007B73C1 /* CorridorModeExitClassroom.cpp in Sources */,
 				6959E3191EA7F44600E251A9 /* GuiTextEditIos.mm in Sources */,
 				697A08031E82F19B0045CE54 /* GuiMusicScore.cpp in Sources */,
 				69D58E4E1E84836B008A8D29 /* Startup.cpp in Sources */,
@@ -664,6 +707,7 @@
 				6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */,
 				6959E2EE1E97F6F800E251A9 /* Topic.cpp in Sources */,
 				697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */,
+				69D732921F23DA29007B73C1 /* CorridorModeEnterClassroom.cpp in Sources */,
 				6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */,
 				6959E2EC1E97F6F800E251A9 /* Course.cpp in Sources */,
 				697A08001E82F19B0045CE54 /* GSShowMusicScore.cpp in Sources */,

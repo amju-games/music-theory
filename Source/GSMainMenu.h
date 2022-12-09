@@ -4,7 +4,7 @@
 #pragma once
 
 #include <array>
-#include <SceneNode.h>
+#include <SceneNodeCamera.h>
 #include <Singleton.h>
 #include "CorridorCamController.h"
 #include "CorridorMode.h"
@@ -13,8 +13,6 @@
 
 namespace Amju
 {
-class SceneNodeCamera;
-
 // * GSMainMenu *
 // Main menu game state. 
 // Displays a scrollable corridor, with doors which lead to individual
