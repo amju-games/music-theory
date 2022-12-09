@@ -14,20 +14,29 @@ score-comp
 // Num children
 2
 
-
 animation
 cell-animation-test
 repeat
 2.0
 linear
 
+rotate
+0,360
+0.5,.5
+
+//animation
+//cell-animation-test
+//repeat
+//2.0
+//linear
+
 // Sprite test
 gui-sprite
 test-sprite
 // Pos, size
--1, 1 
+-.5, .5 
 .25,.25
-Image/spritetest.png
+Image/spritetest.png,stretch
 // Num cells in x and y
 2, 2
 // Cell (can be a range, e.g. 0, 7, inclusive)
@@ -35,9 +44,14 @@ Image/spritetest.png
 
 
 scale
-.25,.25
+-.25,.25
 // Pivot, unlikely to work here
 0.5,0.5
+
+gui-avatar
+// Avatar string: sets values on nodes in the avatar GUI tree
+colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040
+
 include
 avatar.txt
 
