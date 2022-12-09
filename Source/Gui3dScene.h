@@ -26,7 +26,8 @@ public:
 
 protected:
   std::string m_sceneFilename;
-  RCPtr<SceneGraph> m_sceneGraph;
+  //RCPtr<SceneGraph> m_sceneGraph;
+  SceneGraph* m_sceneGraph = nullptr;
 };
 }
 
