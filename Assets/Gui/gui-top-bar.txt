@@ -16,7 +16,7 @@ gui-comp
 // Name
 top-bar-elasticated
 // Num children
-4
+5
 
 // Bar bg
 // Element type
@@ -26,7 +26,7 @@ bar-bg
 // pos (coords are -1..1)
 -0.95, 0.95
 // size
-1.9, 0.2
+1.4, 0.2
 // colour
 F5D1F5
 // corner radius
@@ -63,13 +63,105 @@ gui-text
 // Element name
 num-pages-text
 // pos (coords are -1..1)
-0.50, 0.9
+0.10, 0.9
 // size
-0.4, 0.1
+0.3, 0.1
 // Text
 25600
 // Font name, size
 dimbo, 1.0, right, fgcol=000000
 
+
+// Pie
+gui-comp
+pie
+11
+
+gui-image
+pie-bg
+0.5, 0.95
+0.45, 0.3
+Image/pie-bg.png
+
+
+colour
+258FFB
+gui-image
+pie1
+0.5, 0.95
+0.45, 0.3
+Image/pie1.png
+
+colour
+258FFB
+gui-image
+pie2
+0.5, 0.95
+0.45, 0.3
+Image/pie2.png
+
+colour
+258FFB
+gui-image
+pie3
+0.5, 0.95
+0.45, 0.3
+Image/pie3.png
+
+colour
+258FFB
+gui-image
+pie4
+0.5, 0.95
+0.45, 0.3
+Image/pie4.png
+
+colour
+258FFB
+gui-image
+pie5
+0.5, 0.95
+0.45, 0.3
+Image/pie5.png
+
+colour
+258FFB
+gui-image
+pie6
+0.5, 0.95
+0.45, 0.3
+Image/pie6.png
+
+colour
+258FFB
+gui-image
+pie7
+0.5, 0.95
+0.45, 0.3
+Image/pie7.png
+
+colour
+258FFB
+gui-image
+pie8
+0.5, 0.95
+0.45, 0.3
+Image/pie8.png
+
+colour
+258FFB
+gui-image
+pie9
+0.5, 0.95
+0.45, 0.3
+Image/pie9.png
+
+colour
+258FFB
+gui-image
+pie10
+0.5, 0.95
+0.45, 0.3
+Image/pie10.png
 
 

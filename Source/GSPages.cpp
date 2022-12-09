@@ -4,6 +4,7 @@
 #include <AmjuGL.h>
 #include <ConfigFile.h>
 #include <Game.h>
+#include <GuiDecColour.h>
 #include <GuiText.h>
 #include <MessageQueue.h>
 #include "GSMainMenu.h"
@@ -126,6 +127,13 @@ void GSPages::NextPage()
   numPagesText->SetText(s);
 }
 
+void GSPages::SetPie(int n, const Colour& col)
+{
+  GuiDecColour* sliceColour = dynamic_cast<GuiDecColour*>(GetElementByName(m_gui, "colour-pie" + ToString(n)));
+  Assert(sliceColour);
+  sliceColour->SetColour(col);
+}
+
 void GSPages::Draw2d()
 {
   AmjuGL::PushMatrix();
@@ -166,7 +174,7 @@ void GSPages::OnCorrect()
 
   // Add to profile/score
   m_numCorrectThisSession++;
-
+  SetPie(m_numPagesShown, Colour(0.f, 1.f, 0.f, 1.f));
   TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(1.0f)));
 }
 
@@ -179,7 +187,7 @@ void GSPages::OnIncorrect()
   // TODO
 
   m_numIncorrectThisSession++;
-
+  SetPie(m_numPagesShown, Colour(1.f, 0.f, 0.f, 1.f));
   TheMessageQueue::Instance()->Add(new FuncMsg(GoToNextPage, SecondsFromNow(1.0f)));
 }
 

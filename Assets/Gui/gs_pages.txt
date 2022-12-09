@@ -28,25 +28,20 @@ hint-button-and-counter
 2
 
 // Hint button
-// element type
 gui-button
-// Element name
 hint-button
 // pos (coords are -1..1)
-0.5, 0.7
+0.15, 0.7
 // size
 0.3, 0.15
-// Image 
 Image/gui-button-2.png
-// Text
 HINT!
-// Font name, size
 dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
 
 gui-text
 hint-counter
 // pos (coords are -1..1)
-0.0, 0.7
+-0.3, 0.7
 // size
 0.4, 0.1
 // Text

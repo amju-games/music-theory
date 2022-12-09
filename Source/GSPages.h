@@ -32,6 +32,7 @@ public:
 
 protected:
   void ShowHints();
+  void SetPie(int n, const Colour& c);
 
 protected:
   std::vector<RCPtr<Page>> m_pages;
