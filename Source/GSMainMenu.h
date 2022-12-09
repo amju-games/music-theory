@@ -9,6 +9,10 @@
 
 namespace Amju
 {
+// * GSMainMenu *
+// Main menu game state. 
+// Displays a scrollable corridor, with doors which lead to individual
+//  topics.
 class GSMainMenu : public GSBase3d
 {
 public:
@@ -16,11 +20,12 @@ public:
   virtual void OnActive() override;
   virtual void Update() override;
  
-  void GoToTopic();
-
   // Detect swipes
   virtual bool OnCursorEvent(const CursorEvent&) override;
   virtual bool OnMouseButtonEvent(const MouseButtonEvent&) override;
+
+  // Conceptually private
+  void GoToTopic();
 
 protected:
   void Load3dForTopics();

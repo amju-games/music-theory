@@ -8,6 +8,8 @@
 
 namespace Amju
 {
+// * GuiMusicKb *
+// Musical piano keyboard, which responds to touch events and plays notes.
 class GuiMusicKb : public GuiElement
 {
 public:

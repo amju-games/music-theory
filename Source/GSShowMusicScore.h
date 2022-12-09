@@ -10,6 +10,8 @@ namespace Amju
 {
 class GuiMusicScore;
 
+// * GSShowMusicScore *
+// Show a musical score on screen.
 class GSShowMusicScore : public GSBase
 {
 public:

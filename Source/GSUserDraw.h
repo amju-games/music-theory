@@ -10,6 +10,8 @@ namespace Amju
 {
 class GuiLineDrawing;
 
+// * GSUserDraw *
+// User can draw on screen.
 class GSUserDraw : public GSBase
 {
 public:

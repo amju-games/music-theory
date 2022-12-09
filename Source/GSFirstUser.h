@@ -7,6 +7,9 @@
 
 namespace Amju
 {
+// * GSFirstUser *
+// Go to this state soon after start up when there has not been a user
+//  previously. 
 class GSFirstUser : public GSBase
 {
 public:
@@ -15,6 +18,5 @@ public:
 };
 
 using TheGSFirstUser = Singleton<GSFirstUser>;
-
 }
 

@@ -48,12 +48,12 @@ protected:
   virtual void ReloadGui();
 
 protected: 
-  // GUI - this is a 2D app
+  // 2D GUI
   PGuiElement m_gui;
-  std::string m_guiFilename; // used to load m_gui - set this in ctor etc.
+  std::string m_guiFilename; // used to load m_gui - set this in ctor 
 };
 
-// Useful function for timed messages
+// Useful function for timed messages: go to Game State T.
 template<class T>
 void GoTo()
 {

@@ -9,6 +9,9 @@
 
 namespace Amju
 {
+// * GuiLineDrawing *
+// Line drawing, which can be animated. The line passes through a vector
+//  of control points (Catmull-Rom spline).
 class GuiLineDrawing : public GuiElement
 {
 public:

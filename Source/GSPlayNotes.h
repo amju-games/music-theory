@@ -8,6 +8,8 @@
 
 namespace Amju
 {
+// * GSPlayNotes *
+// Test game state: plays midi notes
 class GSPlayNotes : public GSBase
 {
 public:

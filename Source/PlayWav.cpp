@@ -1,6 +1,9 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
 #include <iostream>
-#include "PlayWav.h"
 #include <SoundManager.h>
+#include "PlayWav.h"
 
 //#define DEBUG_SOUND
 

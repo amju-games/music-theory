@@ -351,7 +351,7 @@ void GSPages::OnCorrect()
 
 void GSPages::OnIncorrect()
 {
-  OnPlayerMadeChoice();
+  //OnPlayerMadeChoice();
 
   GuiElement* cross = GetElementByName(m_gui, "cross");
   cross->SetVisible(true);
@@ -361,6 +361,9 @@ void GSPages::OnIncorrect()
 
   m_numIncorrectThisSession++;
   SetPie(m_numPagesShown, Colour(1.f, 0.f, 0.f, 1.f));
+
+  TheMessageQueue::Instance()->Add(new FuncMsg(SpeechBubbleOK,
+    SecondsFromNow(NEXT_PAGE_TIME)));
 }
 
 void GSPages::OnHint()

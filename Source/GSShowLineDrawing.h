@@ -8,6 +8,8 @@
 
 namespace Amju
 {
+// * GSShowLineDrawing *
+// Test game state: shows line drawing
 class GSShowLineDrawing : public GSBase
 {
 public:
