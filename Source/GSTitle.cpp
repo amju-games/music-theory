@@ -2,6 +2,8 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <Game.h>
+#include <GuiDecAnimation.h>
+#include <MessageQueue.h>
 #include "GSMainMenu.h"
 #include "GSTitle.h"
 
@@ -9,7 +11,10 @@ namespace Amju
 {
 static void OnStart(GuiElement*)
 {
-  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
+  TheGSTitle::Instance()->ScrollUp();
+//  TheGame::Instance()->SetCurrentState(TheGSMainMenu::Instance());
+
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainMenu>, SecondsFromNow(1.5f)));
 }
 
 GSTitle::GSTitle()
@@ -27,6 +32,7 @@ void GSTitle::OnActive()
 
   // Start animations
 }
+
 }
 
 

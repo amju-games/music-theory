@@ -1,0 +1,106 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// About page
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+score-comp
+// Num children
+3
+
+
+animation
+scroll-up-trigger
+const
+zero
+
+animation
+up-scroll-anim
+one-shot
+0.5
+linear
+
+translate
+0,3.0 ; 0, 0
+
+gui-comp
+underground-comp
+4
+
+
+// SKY
+colour
+798EEB
+gui-image
+sky
+-2.0, 3
+4.0, 4
+Image/white.png
+
+gui-image
+underground-1
+-1.0, 0.0
+2.0, 2.0
+Image/underground3.png, stretch
+
+gui-image
+underground-2
+-1.0, -2
+2.0, 0.31
+Image/underground1.png, stretch
+
+gui-image
+underground-3
+-1.0, -2.3
+2.0, 2.0
+Image/underground2.png, stretch
+
+
+// Pulse
+animation
+clean-anim-value
+const
+one
+
+animation
+name-not-used
+repeat
+1.5
+linear
+
+translate
+0, -2
+
+colour
+F6D84C80, F6D84C00
+
+scale
+1.0, 1.0; 8.0, 8.0
+-0.05, 0
+
+gui-image
+bulb
+0, 0
+1, 1
+Image/bulb.png
+
+
+
+
+// OK button
+gui-button
+ok-button
+// pos (coords are -1..1)
+-0.15, -0.6
+// size
+0.3, 0.15
+// Image 
+Image/gui-button-2.png
+OK
+// Font name, size
+dimbo, 1.0, fgcol=ffffff, bgcol=FF0949

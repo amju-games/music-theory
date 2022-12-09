@@ -11,8 +11,130 @@ gui-comp
 // Name
 gs-main-menu-root
 // Num children
-6
+2
 
+// SCROLL UP/DOWN
+
+animation
+scroll-up-trigger
+const
+zero
+
+animation
+up-scroll-anim
+one-shot
+.5
+linear
+
+translate
+0,0 ; 0, -2
+
+
+animation
+scroll-down-trigger
+const
+zero
+
+animation
+down-scroll-anim
+one-shot
+.5
+linear
+
+translate
+0,0 ; 0, 3
+
+
+gui-comp
+scrolls-up-and-down
+3
+
+
+// SKY
+
+colour
+798EEB
+gui-image
+sky
+-2.0, 3
+4.0, 4
+Image/white.png
+
+
+// UNDERGROUND
+
+gui-comp
+underground-comp
+3
+
+gui-image
+underground-1
+-1.0, 0.0
+2.0, 2.0
+Image/underground3.png, stretch
+
+gui-image
+underground-2
+-1.0, -2
+2.0, 0.31
+Image/underground1.png, stretch
+
+gui-image
+underground-3
+-1.0, -2.3
+2.0, 2.0
+Image/underground2.png, stretch
+
+
+// SCROLL LEFT/RIGHT
+
+// Horizontal scroll, off until turned on in code
+animation
+scroll-right-trigger
+const
+zero
+
+animation
+L-R-scroll-anim
+one-shot
+.5
+linear
+
+translate
+0,0 ; -2, 0
+
+
+// Horizontal scroll, off until turned on in code
+animation
+scroll-left-trigger
+const
+zero
+
+animation
+L-R-scroll-anim
+one-shot
+.5
+linear
+
+translate
+0,0 ; 2, 0
+
+
+animation
+clean-anim-value
+const
+one
+
+
+gui-comp
+scrolling-part-of-scene
+5
+
+
+// GROWING SHOOT
+
+translate
+-0.1, -0.4
 
 // Decorator test
 // delay
@@ -22,52 +144,115 @@ one-shot
 0.5
 step
 
-// Triangle wave animation
 animation
 name-not-used
 one-shot
-//repeat
 2.0
 linear
 
-//// Animation interpolates between these colours
-//colour
-//ff0000, 0000ff
-
 line-drawing
 // Name, Position, Size
-line-drawing-test-1
+line-drawing-main-shoot
 0.0, 0
 1, 1
 // Start width
 0.1
 // End width
 0.01
-// Colour: (start colour, end colour?)
-6EB127c0
+// Colour
+6EB127
 // Points
 stroke-main-menu-1.txt
 
 
-colour
-DDBA19
+// Bulb
 
+colour
+96D159
 gui-image
 bulb
--0.5, 0.15
+-0.5, -0.15
 1.0, 1.2
 Image/bulb.png
 
 
+// GROWING TOPIC LEAF
+
 animation
-name-not-used
-mirror-repeat
-2.0
+clean-anim-value
+const
+one
+
+animation
+wait
+one-shot
+// TODO Wait until shoot grown
+2.
+step
+
+animation
+grow-leaf
+one-shot
+1.5
 linear
 
 scale
-0.9, 0.9; 1.0, 1.0
-0, 0
+0.0, 0.0; 1.0, 1.0
+-0.8, 0.0
+
+// Topic button
+gui-button
+topic-button-0
+// pos (coords are -1..1)
+0, 0.18
+0.8, 0.4
+Image/leaf1.png
+$$$empty
+dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
+
+
+// TITLE TEXT
+
+translate
+0, -0.25
+
+colour
+ffffff
+include
+title-text.txt
+
+
+
+
+// 2nd child of root!
+// Back to Title state button
+gui-button
+title-button
+// pos (coords are -1..1)
+-0.95, 0.95
+// size
+0.3, 0.15
+// Image 
+Image/gui-button-2.png
+// Text
+<BACK
+// Font name, size
+dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+
+
+
+
+// About, I'm new and Share buttons
+gui-button
+about-button
+// pos (coords are -1..1)
+0.2, -0.6
+0.5, .35
+Image/leaf1.png
+About
+dimbo, 1.0, fgcol=ffffff, bgcol=BC003E
+
+
 
 // Topic button
 gui-button
@@ -84,15 +269,7 @@ Pitch
 // Font name, size
 dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
 
-// Topic button
-gui-button
-topic-button-1
-// pos (coords are -1..1)
--0.15, .5
-0.6, 0.3
-Image/leaf1.png
-Time signatures
-dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
+
 
 // Topic button
 gui-button
@@ -104,12 +281,70 @@ Image/leaf1.png
 Key signatures
 dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
 
-colour
-//000000
-ffffff
-
-include
-title-text.txt
 
 
+
+gui-button
+new-button
+// pos (coords are -1..1)
+-0.5, -0.6
+0.7, .35
+Image/leaf1.png
+I'm new!
+dimbo, 1.3, fgcol=ffffff, bgcol=DC6A13
+
+gui-button
+share-button
+// pos (coords are -1..1)
+-0.3, -0.4
+0.6, .35
+Image/leaf1.png
+Share
+dimbo, 1.2, fgcol=ffffff, bgcol=F27C7C
+
+// TODO
+// About, I'm new and Share buttons
+gui-button
+topic-button-2
+// pos (coords are -1..1)
+-0.6, .1
+0.6, .35
+Image/leaf1.png
+Share2
+dimbo, 1.2, fgcol=ffffff, bgcol=2676BC
+
+
+rotate
+// Degs
+-6
+
+gui-button
+topic-button-2
+// pos (coords are -1..1)
+-0.8, .25
+0.6, .35
+Image/leaf1.png
+Share3
+dimbo, 1.2, fgcol=ffffff, bgcol=37B3F5
+
+
+
+
+
+
+// Colours
+//DC6A13
+
+// Greens
+//2AA955
+// 29A657
+// 96D159
+
+
+// Blues
+2676BC
+37B3F5
+
+// Yellow
+DDBA19
 

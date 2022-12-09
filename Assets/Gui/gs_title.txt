@@ -13,17 +13,183 @@ title-root
 // Num children
 3
 
+// Child 1 - fixed
+// SKY
+colour
+798EEB
+gui-image
+sky
+-2.0, 1.0
+4.0, 4.0
+Image/white.png
+
+
+// Child 2 - Sun , scrolls up
+animation
+scroll-up-trigger
+const
+zero
+
+animation
+up-scroll-anim
+one-shot
+1.0
+linear
+
+translate
+0,0 ; 0, 2.2
+
+
+animation
+clean-anim-value
+const
+one
+
+gui-comp
+sun-root
+6
+
+// Small bulb
+colour
+F6D84C
+gui-image
+bulb
+-0.15, 0.15
+0.3, 1.2
+Image/bulb.png
+
+// delay
+animation
+name-not-used
+one-shot
+1.0
+step
+
+animation
+name-not-used
+one-shot
+3.0
+linear
+
+line-drawing
+// Name, Position, Size
+line-drawing-test-1
+0, 0
+1, 1
+// Start width
+0.08
+// End width
+0.04
+// Colour
+F6D84C
+// Points
+stroke-spiral-2.txt
+
+
+// Pulse 1
+// delay
+animation
+name-not-used
+one-shot
+6.0
+step
+
+animation
+name-not-used
+repeat
+1.5
+linear
+
+colour
+F6D84C80, F6D84C00
+
+scale
+0.1, 0.1; 4.0, 4.0
+-0.05, 0
+
+gui-image
+bulb
+0, 0
+1, 1
+Image/bulb.png
+
+
+// Pulse 2
+// delay
+animation
+name-not-used
+one-shot
+7.0
+step
+
+animation
+name-not-used
+repeat
+1.5
+linear
+
+colour
+F6D84C80, F6D84C00
+
+scale
+0.1, 0.1; 5.0, 5.0
+-0.05, 0
+
+gui-image
+bulb
+0, 0
+1, 1
+Image/bulb.png
+
+
+
+// Title text
+translate
+-0.03, .24
+
+// delay
+animation
+name-not-used
+one-shot
+4.0
+step
+
+animation
+name-not-used
+one-shot
+1.0
+linear
+
+colour
+ffffff00, ffffffff
+
+gui-comp
+title-text-and-bg
+// Num children
+2
+
+// Solid bg, to hide any gaps in spiral
+colour
+F6D84C
+gui-image
+bulb
+-0.5, 0.15
+1.1, 1.2
+Image/bulb.png
+
+
 include
 title-text.txt
 
 
-//elastic
-//0.0, -2.0
+// Ground
+gui-image
+underground
+-1.0, -2.2
+2.0, 1.2
+Image/underground3.png
 
 
-
-//translate
-//-0.15, -0.6
 
 // Start button
 // element type

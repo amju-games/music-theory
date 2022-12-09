@@ -262,6 +262,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\BassPlayMidi.cpp" />
     <ClCompile Include="..\..\..\..\Source\Course.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSAbout.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSMainMenu.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSMusicalTerms.cpp" />
@@ -324,6 +325,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\Course.h" />
+    <ClInclude Include="..\..\..\..\Source\GSAbout.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
     <ClInclude Include="..\..\..\..\Source\GSMainMenu.h" />
     <ClInclude Include="..\..\..\..\Source\GSMusicalTerms.h" />
@@ -364,6 +366,7 @@
   <ItemGroup>
     <Text Include="..\..\..\..\Assets\Course\grade1.txt" />
     <Text Include="..\..\..\..\Assets\Course\musical_terms.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\gs_about.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_main_menu.txt" />
     <Text Include="..\..\..\..\Assets\Gui\gs_pages.txt" />

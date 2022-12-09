@@ -11,7 +11,16 @@ gui-comp
 // Name
 main-menu-comp
 // Num children
-4
+5
+
+// BG
+colour
+798EEB
+gui-image
+sky-bg
+-2.0, 1.0
+4.0, 4.0
+Image/white.png
 
 
 // Animate topic title up to top of screen after a delay

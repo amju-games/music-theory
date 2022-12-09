@@ -2,26 +2,45 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <Game.h>
+#include <MessageQueue.h>
 #include <ResourceManager.h>
 #include <StringUtils.h>
 #include "Course.h"
+#include "GSAbout.h"
 #include "GSMainMenu.h"
+#include "GSTitle.h"
 #include "GSTopicStart.h"
 
 namespace Amju
 {
+static void OnShare(GuiElement*)
+{
+  TheGSMainMenu::Instance()->ScrollUp();
+}
+
+static void OnNewUser(GuiElement*)
+{
+  TheGSMainMenu::Instance()->ScrollDown();
+}
+
+static void OnAbout(GuiElement*)
+{
+  TheGSMainMenu::Instance()->ScrollDown();
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSAbout>, SecondsFromNow(1.0f)));
+}
+
+static void OnBackToTitle(GuiElement*)
+{
+  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+}
+
 class TopicCommand : public GuiCommand
 {
 public:
   TopicCommand(int topicNum) : m_topicNum(topicNum) {}
   virtual bool Do() override
   {
-    // Go the the topic start state.
-    GSTopicStart* gs = TheGSTopicStart::Instance();
-    gs->SetTopic(m_topicNum);
-    gs->SetPrevState(TheGSMainMenu::Instance());
-    TheGame::Instance()->SetCurrentState(gs);
-
+    TheGSMainMenu::Instance()->GoToTopic(m_topicNum);
     return false; // no undo
   }
 
@@ -55,6 +74,31 @@ void GSMainMenu::OnActive()
     Assert(elem);
     elem->SetCommand(new TopicCommand(i));
   }
+
+  // Back to title 
+  GuiElement* title = GetElementByName(m_gui, "title-button");
+  title->SetCommand(OnBackToTitle);
+
+  //GuiElement* about = GetElementByName(m_gui, "about-button");
+  //about->SetCommand(OnAbout);
+
+  //GuiElement* share = GetElementByName(m_gui, "share-button");
+  //share->SetCommand(OnShare);
+
+  //GuiElement* newUser = GetElementByName(m_gui, "new-button");
+  //newUser->SetCommand(OnNewUser);
+}
+
+void GSMainMenu::GoToTopic(int topic)
+{
+  // Go the the topic start state.
+  GSTopicStart* gs = TheGSTopicStart::Instance();
+  gs->SetTopic(topic);
+  gs->SetPrevState(this);
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSTopicStart>, SecondsFromNow(1.0f)));
+
+  // Start animation
+  ScrollUp();
 }
 
 }

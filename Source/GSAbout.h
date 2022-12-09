@@ -4,18 +4,17 @@
 #pragma once
 
 #include "GSBase.h"
-#include <Singleton.h>
 
 namespace Amju
 {
-class GSMainMenu : public GSBase
+// * GSAbout*
+// About page, with button which returns you to prev state
+class GSAbout : public GSBase
 {
 public:
-  GSMainMenu();
+  GSAbout();
   virtual void OnActive() override;
-  void GoToTopic(int topic);
 };
 
-typedef Singleton<GSMainMenu> TheGSMainMenu;
+typedef Singleton<GSAbout> TheGSAbout;
 }
-

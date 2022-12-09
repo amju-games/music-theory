@@ -24,11 +24,26 @@ public:
 
   GuiElement* GetGui();
 
+  // Scroll screen in given direction, using animation + translation decorators.
+  // Assumes the gui page has the correctly named animation element.
+  // This must be "scroll-up-trigger", "scroll-left-trigger", etc.
+  void ScrollLeft();
+  void ScrollRight();
+  void ScrollUp();
+  void ScrollDown();
+
 protected: 
   // GUI - this is a 2D app
   PGuiElement m_gui;
   std::string m_guiFilename; // used to load m_gui - set this in ctor etc.
 };
+
+// Useful function for timed messages
+template<class T>
+void GoTo()
+{
+  TheGame::Instance()->SetCurrentState(T::Instance());
+}
 }
 
 

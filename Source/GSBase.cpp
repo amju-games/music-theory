@@ -3,6 +3,7 @@
 
 #include <AmjuGL.h>
 #include <CursorManager.h>
+#include <GuiDecAnimation.h>
 #include "GSBase.h"
 
 namespace Amju
@@ -63,5 +64,28 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
   return false;
 }
 
+void GSBase::ScrollRight()
+{
+  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "scroll-right-trigger"));
+  anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+}
+
+void GSBase::ScrollLeft()
+{
+  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "scroll-left-trigger"));
+  anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+}
+
+void GSBase::ScrollUp()
+{
+  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "scroll-up-trigger"));
+  anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+}
+
+void GSBase::ScrollDown()
+{
+  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "scroll-down-trigger"));
+  anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+}
 }
 
