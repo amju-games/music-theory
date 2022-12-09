@@ -16,7 +16,7 @@ static bool s_wentUpNotDown = false;
 
 const int CorridorModeEnterStairs::ID = 6;
 
-static const float ZOOM_DIST = -150.f;
+static const float ZOOM_DIST = -50.f;
 
 void CorridorModeEnterStairs::SetNewLevel(int newLevel)
 {
@@ -54,7 +54,9 @@ std::cout << "CMES::OnFinished!\n";
 
   // TODO TEMP TEST
   // These distances should be calculated per-level because they depend on num topics
-  float newZ = s_wentUpNotDown ? -740.f : 60.f;
+  float leftEnd = 60.f;
+  float rightEnd = -740.f;
+  float newZ = s_wentUpNotDown ? leftEnd : rightEnd;
 
   auto cam = m_gs->GetCamera();
   Vec3f eye = cam->GetEyePos(); // Currently the camera does not have the zoom distance added
