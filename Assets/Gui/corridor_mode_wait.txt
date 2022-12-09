@@ -11,34 +11,7 @@ gui-comp
 // Name
 corridor-mode-wait-root
 // Num children
-2
-
-// Button with shader
-
-animation
-anim-angle
-repeat
-1.0
-linear
-
-shader
-// Shader filename prefix
-rotating
-// Uniform name
-uAngle
-
-gui-button
-topic-button
-// pos (coords are -1..1)
--0.25, 0.6
-// size
-.5, 1.2
-// Image 
-Image/gui-button-outline-square.png, stretch
-// Text
-$$$empty
-// Font name, size
-dimbo, 3.0, fgcol=ffffff, bgcol=000000
+1
 
 // Topic name
 gui-text

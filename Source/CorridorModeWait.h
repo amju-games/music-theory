@@ -29,16 +29,17 @@ private:
   void ShowTopicName(bool showNotHide);
   void SetCurrentTopic();
   void SetCamera();
-  void SetTopicButton(CommandFunc fn);
   
 private:
   // To detect swipe left/right, and taps on Tappables
-  Vec2f m_touchDownCoord;
+  Vec2f m_touchDownCoord, m_touchUpCoord;
   bool m_isDragging = false;
   bool m_touchDownThisFrame = false;
   bool m_touchUpThisFrame = false;
+  bool m_touchDownOnDoor = false;
 
   bool m_isScrolling = false;
+  bool m_didScroll = false; // true if we scrolled between touch down and touch up
   float m_desiredXPos = 0;
   float m_currentXPos = 0;
   float m_scrollVel = 0;

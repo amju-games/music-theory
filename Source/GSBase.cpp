@@ -21,7 +21,7 @@ void GSBase::HideButtons(GuiElement* elem)
 {
   if (dynamic_cast<GuiButton*>(elem))
   {
-    elem->SetVisible(false);     
+    elem->SetVisible(false);
   }
   else if (GuiComposite* comp = dynamic_cast<GuiComposite*>(elem))
   {

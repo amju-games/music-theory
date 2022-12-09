@@ -18,10 +18,6 @@ namespace
 {
 void OnTopic(GuiElement*)
 {
-  // Topic button for all topics: the currently selected topic is the
-  //  one we go to.
-//  TheGSMainCorridor::Instance()->GoToTopic();
-
   if (!TheGSMainCorridor::Instance()->IsTopicUnlocked())
   {
     std::cout << "Topic locked!\n";
@@ -98,11 +94,10 @@ void CorridorModeWait::Drag(bool rightNotLeft)
     m_desiredXPos += DISTANCE_BETWEEN_DOORS * dir;
     m_scrollVel = MAX_SCROLL_VEL * dir;
     m_isScrolling = true;
+    m_didScroll = true;
     ShowTopicName(false);
 
     PlayWav(rightNotLeft ? WAV_SWIPE_RIGHT : WAV_SWIPE_LEFT);
-    
-    SetTopicButton(nullptr); // can't select topic button when scrolling
   }
 }
 
@@ -112,37 +107,28 @@ void CorridorModeWait::CheckTappables()
   {
     m_touchDownThisFrame = false;
     m_tappedDown = m_gs->TappablePickTest(m_touchDownCoord);
+    std::cout << "Tapped down on: " << (m_tappedDown ? m_tappedDown->GetName() : "nothing") << "\n";
   }
-
-  if (m_touchUpThisFrame)
+  else if (m_touchUpThisFrame && !m_didScroll)
   {
     m_touchUpThisFrame = false;
     // Check if we picked a Tappable.
-    if (m_tappedDown && m_tappedDown == m_gs->TappablePickTest(m_touchDownCoord))
+    auto tappedUp = m_gs->TappablePickTest(m_touchUpCoord);
+    std::cout << "Tapped up on: " << (tappedUp ? tappedUp->GetName() : "nothing") << "\n";
+
+    if (m_tappedDown && m_tappedDown == tappedUp)
     {
       // Touched down and up on the same Tappable - activate it.
-      std::cout << "Tapped on " << m_tappedDown->GetName() << "\n";
+      std::cout << "Chosen: " << m_tappedDown->GetName() << "\n";
 
       m_gs->OnTapped(m_tappedDown);
     }
   }
 }
 
-void CorridorModeWait::SetTopicButton(CommandFunc fn)
-{
-  GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "topic-button"));
-  Assert(button);
-  button->SetCommand(fn);
-}
-  
 void CorridorModeWait::OnActive()
 {
   CorridorMode::OnActive();
-
-  // Just one topic button, which is fixed in the centre of the screen.
-  // The scene scrolls left and right, but sticks so each door is under the 
-  //  button.
-  SetTopicButton(Amju::OnTopic);
 
   SetCurrentTopic();
 
@@ -184,8 +170,6 @@ void CorridorModeWait::Update()
       m_isScrolling = false;
 
       SetCurrentTopic();
-      
-      SetTopicButton(Amju::OnTopic); // can choose topic now we have stopped
     }
 
     SetCamera();
@@ -223,8 +207,24 @@ bool CorridorModeWait::OnCursorEvent(const CursorEvent& ce)
 
 bool CorridorModeWait::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 {
-  if (!m_isScrolling)
+  // Rectangle for tapping door in centre of screen
+  const Rect rect(
+    DOOR_RECT_XMIN,
+    DOOR_RECT_XMAX,
+    DOOR_RECT_YMIN,
+    DOOR_RECT_YMAX);
+
+  std::cout << "Mouse " << (mbe.isDown ? "DOWN" : "UP") << " event\n";
+
+  if (m_isScrolling)
   {
+    std::cout << "Scrolling\n";
+    m_touchDownThisFrame = false;
+    m_touchUpThisFrame = false;
+  }
+  else
+  {
+    std::cout << "NOT Scrolling\n";
     m_touchDownThisFrame = mbe.isDown;
     m_touchUpThisFrame = !mbe.isDown;
   }
@@ -234,6 +234,19 @@ bool CorridorModeWait::OnMouseButtonEvent(const MouseButtonEvent& mbe)
   if (mbe.isDown)
   {
     m_touchDownCoord = Vec2f(mbe.x, mbe.y);
+    m_didScroll = false;
+    m_touchDownOnDoor = rect.IsPointIn(m_touchDownCoord);
+  }
+  else
+  {
+    m_touchUpCoord = Vec2f(mbe.x, mbe.y);
+
+    // Check for tap down and up on the door area
+    bool touchUpOnDoor = rect.IsPointIn(m_touchUpCoord);
+    if (m_touchDownOnDoor && touchUpOnDoor && !m_isScrolling)
+    {
+      OnTopic(nullptr); // replaces GuiButton
+    }
   }
   return false;
 }

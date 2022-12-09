@@ -20,6 +20,12 @@ static const float CAM_ZOOM_MULT = 20.0f;
 static const float MAX_SCROLL_VEL = 300.0f;
 static const float SCROLL_DECEL = 280.0f;
 
+// Door rectangle in corridor wait mode
+static const float DOOR_RECT_XMIN = -.25f;
+static const float DOOR_RECT_XMAX =  .25f;
+static const float DOOR_RECT_YMIN = -.6f;
+static const float DOOR_RECT_YMAX =  .6f;
+
 // Keys for map/config file lookups etc
 
 #define APPNAME  "amjula-mt"
