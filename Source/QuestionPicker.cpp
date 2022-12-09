@@ -120,7 +120,8 @@ std::vector<int> QuestionPicker::GetNFakes(
   std::vector<int> result;
   result.reserve(n);
   int c = 0;
-  for (int i = 0; i < n; i++)
+  // TODO Can just use c, no need for i?
+  for (int i = 0; i < n; /* Don't imcrement here in case we skip */ )
   {
     if (c == indices.size())
     {
@@ -138,6 +139,7 @@ std::vector<int> QuestionPicker::GetNFakes(
     }
     // r is ok, not the same as correct answer
     result.push_back(r);
+    i++; // here, not in the for(;;)
   }
 
   return result;
