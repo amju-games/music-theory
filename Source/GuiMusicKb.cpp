@@ -49,11 +49,15 @@ void GuiMusicKb::Draw()
 
   AmjuGL::Enable(AmjuGL::AMJU_LIGHTING);
 
+  const float G_AMB = 0.2f;
+  const float AMB = 0.6f;
+  const float DIFF = 1.0f;
+  const float SPEC = 1.0f;
   AmjuGL::DrawLighting(
-    AmjuGL::LightColour(0.2f, 0.2f, 0.2f),
-    AmjuGL::LightColour(0.3f, 0.3f, 0.3f),
-    AmjuGL::LightColour(0.7f, 0.7f, 0.7f),
-    AmjuGL::LightColour(1.0f, 1.0f, 1.0f),
+    AmjuGL::LightColour(G_AMB, G_AMB, G_AMB), // g ambient
+    AmjuGL::LightColour(AMB,   AMB,   AMB), // ambient
+    AmjuGL::LightColour(DIFF,  DIFF,  DIFF), // diffuse
+    AmjuGL::LightColour(SPEC,  SPEC,  SPEC), // spec
     AmjuGL::Vec3(0, 1, 1));
 
   AmjuGL::SetMatrixMode(AmjuGL::AMJU_PROJECTION_MATRIX);
@@ -72,7 +76,7 @@ void GuiMusicKb::Draw()
 
   float sx = GetSize().x;
   float sy = GetSize().y;
-  float x = GetLocalPos().x;
+  float x = 0;
 
   for (PKey pkey: m_keys)
   {
@@ -123,6 +127,9 @@ void GuiMusicKb::Draw()
 
   PopColour();
   AmjuGL::UseShader(shader);
+  
+  // Draw descendants
+  GuiComposite::Draw();
 }
 
 GuiMusicKb::PKey GuiMusicKb::PickKey(const Vec2f& pos)
@@ -194,7 +201,7 @@ bool GuiMusicKb::Load(File* f)
     m_keys.push_back(key);
   }
 
-  return true;
+  return LoadChildren(f);
 }
 
 bool GuiMusicKb::Key::LoadFromString(const std::string& s)
@@ -254,15 +261,15 @@ void GuiMusicKb::Key::CalcRect()
   m_mesh->GetAABB().GetCorners(corners);
 
   // Project each corner, and enlarge the rectangle to enclose each one
-const float BIG = 99999.9f;
-Rect r(BIG, -BIG, BIG, -BIG);
-for (int i = 0; i < 8; i++)
-{
-  Vec2f p = _project(corners[i]);
-  r.SetIf(p.x, p.y);
-}
+  const float BIG = 99999.9f;
+  Rect r(BIG, -BIG, BIG, -BIG);
+  for (int i = 0; i < 8; i++)
+  {
+    Vec2f p = _project(corners[i]);
+    r.SetIf(p.x, p.y);
+  }
 
-m_projectedRect = r;
+  m_projectedRect = r;
 }
 
 void GuiMusicKb::Key::Press()
@@ -421,6 +428,9 @@ void GuiMusicKb::Update()
       }
     }
   }
+  
+  // Update descendants
+  GuiComposite::Update();
 }
 
 bool GuiMusicKb::OnCursorEvent(const CursorEvent& ce)
@@ -431,7 +441,7 @@ bool GuiMusicKb::OnCursorEvent(const CursorEvent& ce)
   {
     // Detect swipe
     const float SWIPE_LIMIT = 0.05f; // TODO CONFIG
-    const float SPEED_MULT = 4.0f;
+    const float SPEED_MULT = 16.0f;
     const float OCTAVE_WIDTH = 0.7f;
 
     float currentX = GetLocalPos().x;

@@ -27,10 +27,6 @@ kb-comp
 translate
 -4.8, 0
 
-gui-comp
-kb-and-dots
-2
-
 // The keyboard
 music-kb
 kb
@@ -123,8 +119,10 @@ obj/key-black.obj, 1, .11
 obj/key-white.obj, 0, .11
 
 end
+// Num children
+1
 
-
+// Child
 // Dot to show mid C
 colour
 4E69F4
@@ -133,3 +131,4 @@ kb-dot1
 4.825, -0.65
 0.025, 0.025
 Image/circle.png
+

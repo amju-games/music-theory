@@ -3,14 +3,14 @@
 
 #pragma once
 
-#include <GuiElement.h>
+#include <GuiComposite.h>
 #include <ObjMesh.h>
 
 namespace Amju
 {
 // * GuiMusicKb *
 // Musical piano keyboard, which responds to touch events and plays notes.
-class GuiMusicKb : public GuiElement
+class GuiMusicKb : public GuiComposite
 {
 public:
   static void AddToFactory();
