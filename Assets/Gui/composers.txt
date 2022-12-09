@@ -25,15 +25,15 @@ J. S. Bach
 // Avatar string: sets values on nodes in the avatar GUI tree
 colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0|cell;nose;12
 // Text for correct
-Ja! That is correct!|Correct again!|Once again, you are correct!|Wunderbar! You are correct again!
+<i>Ja</i>! That is correct!|Correct again!|Once again, you are correct!|<i>Wunderbar</i>! You are correct again!
 // Text for incorrect - explanation is appended
-Nein!|Nein!!
+<i>Nein</i>!|<i>Nein</i>!!
 // TODO Quit confirm
 //You wish to leave?
 // Year of birth, death
 1685,1750
 // Biographical info 
-@@@Guten tag! I am Johan Sebastian Bach, but you can call me J.S. for short!
+@@@<i>Guten tag</i>! I am Johan Sebastian Bach, but you can call me J.S. for short!
 
 // TODO Message when you enter classroom for the first time
 @@@This classroom is haunted by the ghostly presence of J.S. Bach!
