@@ -7,7 +7,7 @@
 
 namespace Amju
 {
-const std::string WAV_CORRECT = "good1";
+const std::string WAV_CORRECT = "bell_tinkle";
 const std::string WAV_INCORRECT = "anvil";//"bad1";
 const std::string WAV_SWIPE_LEFT = "ok2";
 const std::string WAV_SWIPE_RIGHT = "ok2";
