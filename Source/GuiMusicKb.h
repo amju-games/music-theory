@@ -85,7 +85,8 @@ private:
   Vec2f m_tapDownPos; // position when we tapped down
   Vec2f m_vel; // swipe velocity
   bool m_tapDown = false; // true when we are touching within kb area
-
+  bool m_tapDownScroll = false; // true when we have touched down to drag KB left or right
+  
   int m_octave; // the currently active octave (1 octave is visible in portrait mode)
 
   PKey m_lastKey; // last key pressed

@@ -17,6 +17,8 @@
 //  keys accordingly.
 #define YES_GLISSANDO
 
+#define YES_ALLOW_SWIPE_TO_SCROLL
+
 namespace Amju
 {
 static GuiElement* CreateMusicKb()
@@ -425,12 +427,12 @@ bool GuiMusicKb::OnCursorEvent(const CursorEvent& ce)
 {
 #ifdef YES_ALLOW_SWIPE_TO_SCROLL
 
-  if (m_tapDown)
+  if (m_tapDownScroll)
   {
     // Detect swipe
-    const float SWIPE_LIMIT = 0.1f; // TODO CONFIG
-    const float SPEED_MULT = 20.0f;
-    const float OCTAVE_WIDTH = 2.5f;
+    const float SWIPE_LIMIT = 0.05f; // TODO CONFIG
+    const float SPEED_MULT = 4.0f;
+    const float OCTAVE_WIDTH = 0.7f;
 
     float currentX = GetLocalPos().x;
     float dx = ce.dx; 
@@ -473,34 +475,35 @@ bool GuiMusicKb::OnCursorEvent(const CursorEvent& ce)
 bool GuiMusicKb::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 {
   // TODO CONFIG
-  // Anything below this line is treated as a tap or swipe on the keyboard
-  const float KEYBOARD_TOP_Y_COORD = -0.0f;
+  // Anything below this line is treated as a tap on the keyboard.
+  // Above this, we use to scroll L/R
+  const float KEYBOARD_TOP_Y_COORD = -0.2f;
 
-  if (mbe.button == AMJU_BUTTON_MOUSE_LEFT)
+  if (mbe.button != AMJU_BUTTON_MOUSE_LEFT)
   {
-    // Find key we pressed or released
-
-    if (mbe.isDown && mbe.y < KEYBOARD_TOP_Y_COORD)
-    {
-      m_tapDown = true;
-
-      m_tapDownPos = Vec2f(mbe.x, mbe.y);
-      Key* key = PickKey(m_tapDownPos);
-      PressKey(key);
-    }
-    else
-    {
-      m_tapDown = false;
-      ReleaseAllKeys(); // safety net
+    return false;
+  }
   
-      // For polyphonic kb
-//      Key* key = PickKey(Vec2f(mbe.x, mbe.y));
-//      if (key)
-//      {
-//        key->Release();
-//        // Send key up event
-//      }
-    }
+  // Find key we pressed or released
+  
+  // Touch down on key or in scroll area?
+  if (mbe.isDown && mbe.y >= KEYBOARD_TOP_Y_COORD)
+  {
+    m_tapDownScroll = true;
+  }
+  else if (mbe.isDown && mbe.y < KEYBOARD_TOP_Y_COORD)
+  {
+    m_tapDown = true;
+
+    m_tapDownPos = Vec2f(mbe.x, mbe.y);
+    Key* key = PickKey(m_tapDownPos);
+    PressKey(key);
+  }
+  else
+  {
+    m_tapDown = false;
+    m_tapDownScroll = false;
+    ReleaseAllKeys(); // safety net
   }
 
   return false;
