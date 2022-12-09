@@ -30,7 +30,7 @@ static PGuiElement MakeExplGui(const std::string& expl)
   }
   else
   {
-    gui = CentreMsg::MakeGuiText(expl, GetColour(COLOUR_TEXT));
+    gui = CentreMsg::MakeGuiText(expl, GetColour(COLOUR_TEXT), CentreMsg::MESSAGE_FONT);
   }
   Assert(gui);
   return gui;

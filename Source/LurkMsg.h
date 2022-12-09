@@ -88,6 +88,8 @@ protected:
 
   bool m_isModal = false;
   static std::string s_modalBgFilename;
+
+  std::string m_fontName;
 };
 
 using PLurkMsg = RCPtr<LurkMsg>;

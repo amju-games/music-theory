@@ -17,7 +17,7 @@ namespace Amju
 {
 std::string LurkMsg::s_modalBgFilename = "Gui/modal-grey-out.txt";
 
-const char* LurkMsg::MESSAGE_FONT = "font2d/TEXT-font.font";
+const char* LurkMsg::MESSAGE_FONT = "font2d/times-font.font";
 
 const float LurkMsg::DEFAULT_MAX_LURK_TIME = 3.0f;
 
@@ -48,6 +48,8 @@ LurkMsg::LurkMsg()
   m_onOk = 0;
   m_onYes = 0;
   m_onNo = 0;
+
+  m_fontName = MESSAGE_FONT;
 }
 
 LurkMsg::LurkMsg(const std::string& text, const Colour& fgCol, const Colour& bgCol, LurkPos lp,
@@ -56,6 +58,8 @@ LurkMsg::LurkMsg(const std::string& text, const Colour& fgCol, const Colour& bgC
   m_onOk = 0;
   m_onYes = 0;
   m_onNo = 0;
+
+  m_fontName = MESSAGE_FONT;
 
   Set(text, fgCol, bgCol, lp, maxTime, onOk);
 }
@@ -245,7 +249,7 @@ void LurkMsg::Set(const std::string& str, const Colour& fgCol, const Colour& bgC
   static const float fontY = ROConfig()->GetFloat("lurk-font-y");
 
   text->SetFont(nullptr); // cancel default font - obvs should not be required
-  text->SetFont(MESSAGE_FONT);
+  text->SetFont(m_fontName);
   text->SetFontSize(fontY);
   text->SetScaleX(fontX);
 

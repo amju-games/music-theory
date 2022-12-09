@@ -14,16 +14,19 @@
 
 //#define TEXT_TO_SPEECH
 
-namespace Amju
+namespace
 {
-static const char* MODAL_BUTTON_GUI_FILENAME = "Gui/modal-buttons.txt";
+const char* MODAL_BUTTON_GUI_FILENAME = "Gui/modal-buttons.txt";
 
 // Extra border around text
-static const Vec2f EXTRA(0.1f, 0.05f); // TODO CONFIG
+const Amju::Vec2f EXTRA(0.1f, 0.05f); // TODO CONFIG
 
 // Lowest position of GUI buttons, so they don't go off screen.
-static const float MIN_BUTTON_Y = -0.6f;
+const float MIN_BUTTON_Y = -0.6f;
+} // anon namespace
 
+namespace Amju
+{
 CentreMsg::CentreMsg()
 {
   m_lurkPos = AMJU_CENTRE;
@@ -31,9 +34,22 @@ CentreMsg::CentreMsg()
 }
 
 CentreMsg::CentreMsg(const std::string& text, const Colour& fgCol, const Colour& bgCol, 
-  float maxTime, CommandFunc onOk) : CentreMsg()
+  float maxTime, CommandFunc onOk, const std::string& fontName) : CentreMsg()
 {
+  m_fontName = fontName;
   SetCentred(text, fgCol, bgCol, maxTime, onOk);
+}
+
+void CentreMsg::SetAvatarFilename(const std::string& avatarFilename)
+{
+  m_avatarFilename = avatarFilename;
+
+  // Load avatar GUI
+  if (!m_avatarFilename.empty())
+  {
+    m_avatarGui = ::Amju::LoadGui(m_avatarFilename, false /* don't listen for events */);
+    Assert(m_avatarGui);
+  }
 }
 
 void CentreMsg::Draw()
@@ -67,6 +83,11 @@ void CentreMsg::Draw()
       m_gui->Draw();
     }
   }
+
+  if (m_avatarGui)
+  {
+    m_avatarGui->Draw();
+  }
 }
 
 void CentreMsg::Update()
@@ -83,6 +104,11 @@ void CentreMsg::Update()
   if (m_gui)
   {
     m_gui->Update();
+  }
+
+  if (m_avatarGui)
+  {
+    m_avatarGui->Update();
   }
 
   switch (m_state)
@@ -184,11 +210,11 @@ void CentreMsg::SetCentred(
   const std::string& str, const Colour& fgCol, const Colour& bgCol, 
   float maxTime, CommandFunc onFinished)
 {
-  GuiText* text = MakeGuiText(str, fgCol); 
+  GuiText* text = MakeGuiText(str, fgCol, m_fontName); 
   SetCentred(text, fgCol, bgCol, maxTime, onFinished);
 }
 
-GuiText* CentreMsg::MakeGuiText(const std::string& str, const Colour& fgCol)
+GuiText* CentreMsg::MakeGuiText(const std::string& str, const Colour& fgCol, const std::string& fontName)
 {
   const float LURK_MSG_WIDTH = 1.5f;
   
@@ -199,7 +225,7 @@ GuiText* CentreMsg::MakeGuiText(const std::string& str, const Colour& fgCol)
   static const float fontY = ROConfig()->GetFloat("lurk-font-y");
 
   text->SetFont(nullptr); // cancel default font - obvs should not be required
-  text->SetFont(MESSAGE_FONT);
+  text->SetFont(fontName);
   text->SetFontSize(fontY);
   text->SetScaleX(fontX);
 
