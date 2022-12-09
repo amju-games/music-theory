@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include <map>
 #include <memory>
 #include <vector>
 #include "Beam.h"
@@ -128,4 +129,9 @@ private:
   bool m_yesOutputMiniClef = false; 
 
   KeySig m_keySig = KEYSIG_0_SHARP;
+
+  // Last Accidental used for each stave position (an int, can go negative
+  //  with ledger lines). We can use this so we don't repeat accidentals
+  //  unnecessarily, know when to cancel, etc.
+  std::map<int, Accidental> m_accidentals; 
 };

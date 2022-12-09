@@ -155,14 +155,21 @@ void Bar::AddGlyph(const std::string& s, int pitch)
   {
     gl->SetPitch(pitch);
 
+    // Calc y, using current pitch, stave, and clef. 
+    CalcGlyphY(gl, pitch);
+
     // Calc any accidental required for the given pitch in the 
     //  current key. 
     // TODO Not if we have overriden by specifying an accidental.
     gl->CalcAccidental(m_keySig);
 
-    // TODO Calc y, using current pitch, stave, and clef. 
-    // TODO Add accidental if required, by checking current key sig.
-    CalcGlyphY(gl, pitch);
+    // Accidental 2nd pass: adjust based on previous accidental
+    //  for the stave line for this note
+    Accidental prev = m_accidentals[gl->m_staveLine];
+    gl->AdjustAccidental(prev);
+
+    // Store most recent acc for the stave line of this note
+    m_accidentals[gl->m_staveLine] = gl->m_accidental;
   }
 
   // Set duration for this musical symbol
@@ -370,6 +377,9 @@ void Bar::SetPos(float x, float y)
   float xoff = m_width / (numGlyphs + 1.0f);
   float w = 0;
 
+  // Reduce available bar width when we have time sig, key sig, clef.
+  float reduction = 0;
+
   // Displaying clef at front of this bar?
   if (YesShowClefAtFrontOfBar())
   {
@@ -383,29 +393,28 @@ void Bar::SetPos(float x, float y)
     // Add a bit extra so there is a small space before the time sig
     const float EXTRA_SPACE = 0.1f;
     x += EXTRA_SPACE;
-  }
 
-  // Add more for keysig
-  // TODO
+    reduction += x;
+  }
 
   if (numGlyphs > 1)
   {
     w = (m_width - 2 * xoff) / (numGlyphs - 1.0f);
     if (m_timeSigGlyph)
     {
-      const float TIME_SIG_WIDTH = 0.3f; // ?
-                                          
-      // Reduce available width
-      if (numGlyphs > 2)
-      {
-        w = (m_width - TIME_SIG_WIDTH - 2 * xoff) / (numGlyphs - 2.0f);
-      }
-      xoff += TIME_SIG_WIDTH; // move other glyphs to the right      
-
+      const float TIME_SIG_WIDTH = 0.3f; 
+      reduction += TIME_SIG_WIDTH;
       m_timeSigGlyph->x = x; // plus some extra?
       m_timeSigGlyph->y += y;
     }
   }
+
+  // Reduce width
+  if (numGlyphs > 2)
+  {
+    w = (m_width - reduction - 2 * xoff) / (numGlyphs - 2.0f);
+  }
+  xoff += reduction; // move other glyphs to the right      
 
   // Set coord of each glyph
   // Compensate for glyph width, move to the left a bit
