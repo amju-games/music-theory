@@ -142,13 +142,8 @@ void GuiLineDrawing::BuildTriList()
       AmjuGL::Vert(p[3].x, p[3].y, Z, u0, v1, 0, 1.0f, 0)
     };
 
-    t[0].m_verts[0] = verts[0];
-    t[0].m_verts[1] = verts[1];
-    t[0].m_verts[2] = verts[2];
-
-    t[1].m_verts[0] = verts[0];
-    t[1].m_verts[1] = verts[2];
-    t[1].m_verts[2] = verts[3];
+    t[0].Set(verts[0], verts[1], verts[2]);
+    t[1].Set(verts[0], verts[2], verts[3]);
 
     tris.push_back(t[0]);
     tris.push_back(t[1]);
