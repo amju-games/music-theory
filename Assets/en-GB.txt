@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-104
+106
 1=Welcome to Amjula Music School!
 2=Swipe left and right to move along the corridor!
 3=Which clef?
@@ -83,14 +83,14 @@
 79=There's one sharp, and we begin and end on G, so this is the G Major scale.
 80=There's one flat, and we begin and end on F, so this is the F Major scale.
 81=There are two sharps, and we begin and end on D, so this is the D Major scale.
-82=SHARE
-83=START
+82=Share
+83=Start
 84=WOW!
 85=You scored
 86=OK
 87=Have some more hints!
-88=CANCEL
-89=HINT!
+88=Cancel
+89=Hint!
 90=Sure you want to quit?
 91=Same pitch
 92=Tap on the correct answer!
@@ -106,3 +106,5 @@
 102=Quaver rest
 103=Semiquaver rest
 104=Minim rest
+105=The note with the blue dot is Middle C.
+106=Swipe left and right above the keys to change the range of notes you can see.

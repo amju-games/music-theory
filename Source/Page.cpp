@@ -5,6 +5,7 @@
 #include <EventPoller.h>
 #include <GameState.h>
 #include <GuiDecAnimation.h>
+#include <Localise.h>
 #include "Consts.h"
 #include "Dictionary.h"
 #include "GSPages.h"
@@ -114,7 +115,7 @@ bool Page::Load(const Strings& strs)
 
   // 3rd string is the instruction text
   Assert(strs.size() > 2);
-  m_instructionText = strs[2];
+  m_instructionText = Lookup(strs[2]);
 
   return true;
 }

@@ -2,6 +2,7 @@
 // (c) Copyright 2017 Jason Colman
 
 #include <numeric> // iota()
+#include <Localise.h>
 #include "Dictionary.h"
 #include "DictionaryPickQuestion.h"
 #include "GSPages.h"
@@ -51,7 +52,7 @@ bool PagePlayNotes::Load(const Strings& strs)
 
   // 4th string is instruction text for this Page type
   Assert(strs.size() > 3);
-  m_instructionText = strs[3];
+  m_instructionText = Lookup(strs[3]);
 
   return true;
 }
