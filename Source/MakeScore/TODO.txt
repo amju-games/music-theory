@@ -14,5 +14,11 @@ Extend to full stave, adding pitch
 
 Then 2-stave lines (piano), and 4-staves for SATB
 
+Could even have mini-stave, for, e.g. flute + piano accomp.
 
+E.g. 
+L - one line, for rhythm only
+S - one stave
+SS - two staves
+MSS - mini stave and two full staves
 
