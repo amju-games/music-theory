@@ -55,7 +55,7 @@ void MusicalTermQuestion::MakeQuestion()
 
     // If this answer already exists, move to next. This is to deal with multiple different 
     //  questions which have the same answer.
-    if (m_answers.IsAnAnswer(ans))
+    if (m_answers.IsAnAnswer(ans) && numAnswers < maxNumQs)
     {
       // We need one more 
       numAnswers++;
