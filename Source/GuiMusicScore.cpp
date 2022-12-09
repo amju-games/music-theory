@@ -9,6 +9,7 @@
 namespace Amju
 {
 const char QUAD_CHAR = 0;
+const char STAVE_CHAR = '=';
 
 // This non-printable character is used for quads, which are a special case.
 // Used for stave lines, bar lines, beams etc.
@@ -46,7 +47,7 @@ static bool GlyphNameToCh(const std::string& s, char* ch)
     { "treble-clef", '&' },
     { "fff", '\'' },
     { "rest-5", '/' }, // come back to naming these
-    { "stave", '=' },
+    { "stave", '=' }, // but stave is special case, we make from quads in BuildTriList
     { "bass-clef", '?' },
     { "rest-2", '@' },
     { "alto-clef", 'B' }, // or is that tenor clef in relation to stave?
@@ -243,43 +244,79 @@ void GuiMusicScore::SetFgCol(const Colour& col)
   m_fgCol = col;
 }
 
+void GuiMusicScore::MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris)
+{
+  AmjuGL::Tri t[2];
+
+  const float Z = 0.5f;
+  float u = .999f;
+  float v = .001f; // TODO texture atlas should be opaque at this (u, v)
+  AmjuGL::Vert verts[4] =
+  {
+    AmjuGL::Vert(corners[0].x, corners[0].y, Z, u, v, 0, 1.0f, 0),
+    AmjuGL::Vert(corners[1].x, corners[1].y, Z, u, v, 0, 1.0f, 0),
+    AmjuGL::Vert(corners[2].x, corners[2].y, Z, u, v, 0, 1.0f, 0),
+    AmjuGL::Vert(corners[3].x, corners[3].y, Z, u, v, 0, 1.0f, 0)
+  };
+
+  t[0].m_verts[0] = verts[0];
+  t[0].m_verts[1] = verts[1];
+  t[0].m_verts[2] = verts[2];
+
+  t[1].m_verts[0] = verts[0];
+  t[1].m_verts[1] = verts[2];
+  t[1].m_verts[2] = verts[3];
+
+  tris.push_back(t[0]);
+  tris.push_back(t[1]);
+}
+
+void GuiMusicScore::MakeStave(const Glyph& g, AmjuGL::Tris& tris)
+{
+  const float Y_OFFSET = 4.75f;
+  float h = g.m_scale.y * 0.01f;
+  float w = g.m_scale.x;
+  // Make stave from 5 quads
+  for (int i = 0; i < 5; i++)
+  {
+    float y = g.m_pos.y + (static_cast<float>(i) + Y_OFFSET) * 0.1f * g.m_scale.y;
+    Vec2f corners[4] =
+    {
+      Vec2f(g.m_pos.x,     y),
+      Vec2f(g.m_pos.x + w, y),
+      Vec2f(g.m_pos.x + w, y + h),
+      Vec2f(g.m_pos.x,     y + h),
+    };
+
+    MakeQuad(corners, tris);
+  }
+}
+
 void GuiMusicScore::BuildTriList()
 {
   AmjuGL::Tris tris;
 
   for (const Glyph& g : m_glyphs)
   {
-    AmjuGL::Tri t[2];
-
-    if (g.m_char == QUAD_CHAR)
+    if (g.m_char == STAVE_CHAR)
+    {
+      MakeStave(g, tris);
+    }
+    else if (g.m_char == QUAD_CHAR)
     {
       // Special case: make a quad from the 4 coords
-      const float Z = 0.5f;
-      float u = .999f;
-      float v = .001f; // TODO texture atlas should be opaque at this (u, v)
-      AmjuGL::Vert verts[4] =
-      {
-        AmjuGL::Vert(g.m_corner[0].x, g.m_corner[0].y, Z, u, v, 0, 1.0f, 0),
-        AmjuGL::Vert(g.m_corner[1].x, g.m_corner[1].y, Z, u, v, 0, 1.0f, 0),
-        AmjuGL::Vert(g.m_corner[2].x, g.m_corner[2].y, Z, u, v, 0, 1.0f, 0),
-        AmjuGL::Vert(g.m_corner[3].x, g.m_corner[3].y, Z, u, v, 0, 1.0f, 0)
-      };
-
-      t[0].m_verts[0] = verts[0];
-      t[0].m_verts[1] = verts[1];
-      t[0].m_verts[2] = verts[2];
-
-      t[1].m_verts[0] = verts[0];
-      t[1].m_verts[1] = verts[2];
-      t[1].m_verts[2] = verts[3];
+      MakeQuad(g.m_corner, tris);
     }
     else
     {
+      AmjuGL::Tri t[2];
+
       m_atlas.SetSize(g.m_scale.x, g.m_scale.y);
       m_atlas.MakeTris(g.m_char - ' ', 1.f, t, g.m_pos.x, g.m_pos.y);
+
+      tris.push_back(t[0]);
+      tris.push_back(t[1]);
     }
-    tris.push_back(t[0]);
-    tris.push_back(t[1]);
   }
   m_triList = Amju::MakeTriList(tris);
 }
