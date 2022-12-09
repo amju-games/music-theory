@@ -34,130 +34,13 @@
 #include <string>
 #include <vector>
 #include "MakeScore.h"
-
-float Interp(float f0, float f1, float t)
-{
-  return f0 + (f1 - f0) * t;
-}
-
-void Trim(std::string& s)
-{
-  while (!s.empty() && (s[0] == ' ' || s[0] == '\r' || s[0] == '\n'))
-  {
-    s = s.substr(1);
-  }
-  while (!s.empty() && (s[s.size() - 1] == ' ' || s[s.size() - 1] == '\r' || s[s.size() - 1] == '\n'))
-  {
-    s = s.substr(0, s.size() - 1);
-  }
-}
-
-bool Contains(const std::string& s, char c)
-{
-  return std::find(s.begin(), s.end(), c) != s.end();
-}
-
-std::string Remove(std::string& s, char c)
-{
-  s.erase(std::remove(s.begin(), s.end(), c), s.end()); 
-  return s;
-}
-
-static const std::map<std::string, float> TIME_VAL_STRS =
-{
-  { "sb", TIMEVAL_SEMIBREVE },
-  { "m",  TIMEVAL_MINIM },
-  { "c",  TIMEVAL_CROTCHET },
-  { "q",  TIMEVAL_QUAVER },
-  { "qq", TIMEVAL_SEMIQUAVER },
-};
-
-float GetTimeVal(std::string s)
-{
-  Remove(s, 'r'); // rests and notes are treated the same
-  Remove(s, '*'); // in case glyph is hidden
-
-  float dot = 1.f;
-  if (Contains(s, '.'))
-  {
-    dot = 1.5f;
-    Remove(s, '.');
-  }
-
-  auto it = TIME_VAL_STRS.find(s);
-  if (it == TIME_VAL_STRS.end())
-  {
-    return -1;
-  }
-
-  return dot * it->second;
-}
-
-// Convenience functions
-
-// Str - convert given argument to a string
-// For floats, this results in no trailing zeros, nice
-template <typename T>
-std::string Str(T f)
-{
-  std::stringstream ss;
-  ss << f;
-  return ss.str();
-}
-
-bool IsBeam(const std::string& s)
-{
-  return Contains(s, '-') || Contains(s, '=');
-}
-
-bool IsRest(const std::string& s)
-{
-  return Contains(s, 'r');
-}
+#include "TimeSig.h"
+#include "Utils.h"
 
 float GetHeight(BeamLevel bl)
 {
   // Relies on the int values 0, 1...
   return static_cast<float>(bl);
-}
-
-static const std::map<std::string, TimeSig> TIME_SIG_STRS = 
-{
-  { "2/4", TimeSig::TWO_FOUR },
-  { "3/4", TimeSig::THREE_FOUR },
-  { "4/4", TimeSig::FOUR_FOUR },
-  { "common", TimeSig::COMMON },
-  { "cut-common", TimeSig::CUT_COMMON }, // TODO s/b compound glyph
-};
-
-bool IsTimeSig(std::string s)
-{
-  // can be replaced with a star for 'what's the time sig' questions
-  Remove(s, '*'); 
-
-  auto it = TIME_SIG_STRS.find(s); 
-  return it != TIME_SIG_STRS.end();
-}
-
-TimeSig GetTimeSig(std::string s)
-{
-  // can be replaced with a star for 'what's the time sig' questions
-  Remove(s, '*'); 
-
-  auto it = TIME_SIG_STRS.find(s); 
-  return it->second;
-}
-
-std::string GetStr(TimeSig ts)
-{
-  for (auto it = TIME_SIG_STRS.begin(); it != TIME_SIG_STRS.end(); ++it)
-  {
-    if (it->second == ts)
-    {
-      return it->first;
-    }
-  }
-  return "";
 }
 
 std::string LineEnd(bool oneLine)
@@ -195,101 +78,6 @@ std::string GetStr(std::string s)
     out = "dotted-" + out + "-raised-dot";
   }
   return out;
-}
-
-void Tie::SetPos()
-{
-  assert(m_leftGlyph != nullptr);
-  assert(m_rightGlyph != nullptr);
-
-  m_leftX  = m_leftGlyph->x;
-  m_leftGlyph->SetTieLeft(this);
-
-  m_rightX = m_rightGlyph->x;
-  m_rightGlyph->SetTieRight(this);
-}
-
-std::string Glyph::TimeBefore() const
-{
-  std::string res;
-
-  bool yesTime = (timeval > 0);
-  if (yesTime)
-  { 
-    float start = startTime;
-    if (start == 0)
-    {
-      start = 0.01f; // so first glyph is not highlighted until anim starts
-    }     
-    res += "TIME, " + Str(start) + ", " + Str(timeval + startTime) + " ; ";
-
-    if (!IsRest(realGlyphName) && !m_tieRight)
-    {
-      // Output MIDI note event, unless on RHS of a tie
-      res += "NOTE_ON, " + Str(pitch) + ", " + Str(start) + " ; ";
-    }
-  }
-  return res;
-}
-
-std::string Tie::ToString() const
-{ 
-  // Control points: start and end points in x; y value, depending
-  //  on whether the tie is 'n' or 'u' shape. 
-  // Inner control points: centre, and one near each end to give
-  //  desired shape.
-  float y = 1.f; // for 'n' shape -- TODO
-  // If U shape
-  y = 1.1f; 
-  float w = m_rightX - m_leftX;
-  const float TIE_ASPECT_RATIO = 8.f;
-  float h = w / TIE_ASPECT_RATIO;
-  // if u shape
-  h = -h;
-  float xoff = X_OFFSET_RIGHT * .6f;
-  
-  const float CP = 0.18f; // control point, for shape
-  std::vector<float> coords =
-  { 
-    m_leftX + xoff,  y, // we need to duplicate the first for spline calc
-    m_leftX + xoff,  y,
-    Interp(m_leftX, m_rightX, CP) + xoff, y + (h * 0.8f), // give shape
-    Interp(m_leftX, m_rightX, .5f) + xoff, y + h, // centre
-    Interp(m_leftX, m_rightX, (1.f - CP)) + xoff, y + (h * 0.8f), // give shape
-    m_rightX + xoff, y, 
-    m_rightX + xoff, y, // TODO do we need this last one?
-  };
-  
-  std::string res = "curve, ";
-  int n = coords.size(); 
-  for (int i = 0; i < n; i++)
-  { 
-    res += Str(coords[i] * scale) + (i < (n - 1) ? ", " : "");
-  }
-  return res;
-}
-
-std::string Glyph::TimeAfter() const
-{
-  std::string res;
-
-  bool yesTime = (timeval > 0);
-  if (yesTime)
-  { 
-    if (!IsRest(realGlyphName) && !m_tieLeft)
-    {
-      // Output MIDI note off event, unless the note is on LHS of a tie,
-      //  in which case it will last longer.
-      // Follow chain of ties back to start of tie, to get total length.
-      // TODO 
-      res += " ; NOTE_OFF, " + Str(pitch) + ", " + Str(timeval + startTime);
-    }
-
-    // Cancel time for subsequent glyphs (but postprocess to strip out
-    //  unnecessary cancellations)
-    res += " ; TIME, -1, -1";
-  }
-  return res;
 }
 
 void MakeScore::Preprocess()
@@ -452,24 +240,6 @@ void CommandLineParams(int argc, char** argv, MakeScore& ms)
       // All on one line
       ms.SetOutputOneLine(true);
     }
-  }
-}
-
-bool IsQuote(char c)
-{
-  return c == '"';
-}
-
-// Strip " char from beginning and end of string
-void StripQuotes(std::string& s)
-{
-  if (s.size() < 2)
-  {
-    return;
-  }
-  if (IsQuote(s[0]))
-  {
-    s = s.substr(1, s.size() - 2);
   }
 }
 

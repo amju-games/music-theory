@@ -20,3 +20,5 @@ enum class TimeSig
 TimeSig GetTimeSig(std::string s);
 
 std::string GetStr(TimeSig ts);
+
+bool IsTimeSig(std::string s);

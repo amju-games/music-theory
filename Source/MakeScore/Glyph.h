@@ -22,14 +22,7 @@ struct Glyph : public IGlyph
     HandleStar();
   }
 
-  void HandleStar()
-  {
-    if (Contains(realGlyphName, '*'))
-    {
-      Remove(realGlyphName, '*');
-      displayGlyphName = '*';
-    }
-  }
+  void HandleStar();
 
   std::string TimeBefore() const;
   std::string TimeAfter() const;

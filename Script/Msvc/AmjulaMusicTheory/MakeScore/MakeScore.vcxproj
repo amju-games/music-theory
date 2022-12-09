@@ -143,12 +143,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\MakeScore\Bar.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\Beam.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\Flag.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\Glyph.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\MakeScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\Tie.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\TimeSig.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\TimeValue.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\MakeScore\Bar.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Beam.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Consts.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\Flag.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Glyph.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\IGlyph.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\MakeScore.h" />
