@@ -407,7 +407,7 @@ void GSPages::OnPause()
 {
   // Lurk messages are modal, so no need to diable page
   TheLurker::Instance()->ShowYesNo(
-    "@@@Sure you want to quit?",
+    "$$$90" /* Sure you want to quit? */,
     GetColour(COLOUR_TEXT),
     GetColour(COLOUR_CONFIRM_QUIT),
     Amju::OnQuitConfirmCancel,
