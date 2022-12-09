@@ -1,6 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Jason Colman
 
+#include <functional>
 #include <GuiButton.h>
 #include <GuiDecAnimation.h>
 #include <GuiDecColour.h>
@@ -16,12 +17,6 @@
 
 namespace Amju
 {
-// Called when we dismiss the explanation for an incorrect answer
-static void OnDismissedExplanation(GuiElement*)
-{
-  Page::SendNextPageMessage();
-}
-
 struct ChoiceCommand : public GuiCommand
 {
   ChoiceCommand(PageMultiChoice* page, int button) : m_page(page), m_button(button) {}
@@ -124,12 +119,6 @@ void PageMultiChoice::InvertChoice(int c)
   }
 
   // Bg image colour
-/*
-  GuiDecColour* bgCol = dynamic_cast<GuiDecColour*>(
-    m_gui->GetElementByName("colour-button-choice-" + ToString(c)));
-  Assert(bgCol);
-  bgCol->SetColour(bg);
-*/
   GuiButton* button = dynamic_cast<GuiButton*>(
     m_gui->GetElementByName("button-choice-" + ToString(c)));
   Assert(button);
@@ -145,17 +134,10 @@ void PageMultiChoice::OnChoice(int c)
   {
     GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(i)));
     button->SetIsEnabled(false);
-
-    // TODO This has no effect because buttons are transparent regions?!
-    // But we DO want to invert choices, when we reveal correct answer.
-//    // Change colour of selected choice
-//    if (i == c)
-//    {
-//      button->SetButtonColour(Colour(0.f, 0.f, 0.f, 1.f));
-//      button->SetTextColour(Colour(1.f, 1.f, 1.f, 1.f));
-//      choicePos = button->GetCombinedPos();
-//    }
   }
+
+  // Do this whether we were correct or incorrect
+  HighlightCorrectAnswerButton();
 
   // Position offset for tick/cross
   const Vec2f OFFSET(-0.03f, -0.15f);
@@ -212,17 +194,28 @@ void PageMultiChoice::HideChoiceButton(int n)
   button->SetIsEnabled(false);
 }
 
-void PageMultiChoice::ShowCorrectAnswer()
+void PageMultiChoice::HighlightCorrectAnswerButton()
 {
   // Fade all except correct
   while (CanGetHint())
   {
-    OnHint(); 
+    OnHint();
   }
 
   // Highlight correct choice
   int correct = m_answers.GetCorrectAnswer();
   InvertChoice(correct);
+}
+
+void PageMultiChoice::ShowCorrectAnswer()
+{
+  int correct = m_answers.GetCorrectAnswer();
+  GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(correct)));
+  button->SetIsEnabled(true);
+  // Player must then hit the remaining, correct, answer
+  // Change button command - unusual, zap the previous command
+  button->SetCommand(PGuiCommand(nullptr));
+  button->SetCommand([](GuiElement*) { Page::SendNextPageMessage(); });
 
   // Show Lurk message with explanation, if there is one.
   std::string expl = GetQuestion()->GetExplanationString();
@@ -233,8 +226,6 @@ void PageMultiChoice::ShowCorrectAnswer()
       GetColour(COLOUR_INCORRECT),
       AMJU_TOP, PAGE_LURK_TIME);
     TheLurker::Instance()->Queue(lm);
-
-    SendNextPageMessage();
   }
   else
   {
@@ -245,8 +236,10 @@ void PageMultiChoice::ShowCorrectAnswer()
       AMJU_CENTRE,
       AMJU_LURK_NO_TIMER);
 
-    // Set completion function to go to next page
-    lm.SetOkCommand(OnDismissedExplanation);
+    // Set function to set correct answer button to have focus - lurk msg took
+    //  focus away.
+    std::function<void(GuiElement*)> fn = [button](GuiElement*) { button->SetIsFocusButton(true); };
+    lm.SetOkCommand(fn);
     TheLurker::Instance()->Queue(lm);
   }
 }

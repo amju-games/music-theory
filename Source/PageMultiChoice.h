@@ -40,12 +40,12 @@ public:
 ////  void SetQuestionType(QuestionType);
   void SetAnswerType(AnswerType);
 
+  // Invert choice, and hide all incorrect answers
+  void HighlightCorrectAnswerButton();
+
 protected:
   void SetUpButtons();
   void HideChoiceButton(int n);
-//  void SetUpQuestionUI();
-//  void SetQText();
-//  void SetQScore();
   void SetUpQuestion();
   void InvertChoice(int c);
 
