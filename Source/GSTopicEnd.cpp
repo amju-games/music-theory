@@ -20,7 +20,11 @@ void OnOK(GuiElement*)
 
 void UpdateNums()
 {
-  TheGSTopicEnd::Instance()->UpdateNums();
+  GSTopicEnd* gte = TheGSTopicEnd::Instance();
+  if (TheGame::Instance()->GetState() == gte)
+  {
+    TheGSTopicEnd::Instance()->UpdateNums();
+  }
 }
 } // anon namespace
 
@@ -71,6 +75,9 @@ void GSTopicEnd::OnActive()
   m_finalHints = m_hints + addHints;
   profile->AddHints(addHints); 
 
+  SetScoreNumbers();
+  SetHintNumbers();
+
   // Send a timed message to do a number animation
   // First msg is delayed longer than subsequent msgs.
   TheMessageQueue::Instance()->Add(new FuncMsg(::Amju::UpdateNums, SecondsFromNow(1.0f)));
@@ -82,38 +89,57 @@ std::string GSTopicEnd::GenerateScoreComment()
   return res;
 }
 
+void GSTopicEnd::SetScoreNumbers()
+{
+  IGuiText* text = dynamic_cast<IGuiText*>(
+    GetElementByName(m_gui, "topic-score-text"));
+  Assert(text);
+  text->SetText(ToString(m_topicScore));
+
+  text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "total-score-text"));
+  Assert(text);
+  text->SetText(ToString(m_totalScore));
+}
+
+void GSTopicEnd::SetHintNumbers()
+{
+  IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "hint-counter"));
+  Assert(text);
+  text->SetText(ToString(m_hints));
+}
+
 void GSTopicEnd::UpdateNums()
 {
+  // Set this to true if we need to do another update after this one
+  bool updateAgain = false;
+
   if (m_topicScore > 0)
   {
     const int incr = 1;
     m_topicScore -= incr;
     m_totalScore += incr;
 
-    // Set score number text
-    IGuiText* text = dynamic_cast<IGuiText*>(
-      GetElementByName(m_gui, "topic-score-text"));
-    Assert(text);
-    text->SetText(ToString(m_topicScore));
-
-    text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "total-score-text"));
-    Assert(text);
-    text->SetText(ToString(m_totalScore));
+    SetScoreNumbers();
+    updateAgain = true;
   }
 
-  IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "hint-counter"));
-  Assert(text);
-  // TODO Update hints up front, and just change a temp visible copy, like
-  //  for scores.
+  // Hint counter
   if (m_hints < m_finalHints)
   {
     // TODO && we pass some multiple, e.g. every 100 points
     m_hints++;
+
+    SetHintNumbers();
+
+    updateAgain = true;
   }
-  text->SetText(ToString(m_hints));
 
   // Send a timed message to do this again soon
-  TheMessageQueue::Instance()->Add(new FuncMsg(::Amju::UpdateNums, SecondsFromNow(0.2f)));
+  // Only if nums are not showing their final values yet
+  if (updateAgain)
+  {
+    TheMessageQueue::Instance()->Add(new FuncMsg(::Amju::UpdateNums, SecondsFromNow(0.2f)));
+  }
 }
 }
 

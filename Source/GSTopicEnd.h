@@ -22,6 +22,8 @@ public:
 
 private:
   std::string GenerateScoreComment();
+  void SetScoreNumbers();
+  void SetHintNumbers();
 
 private:
   // Temp copies of player score etc, used to update GuiTexts

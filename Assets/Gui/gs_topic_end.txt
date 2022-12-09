@@ -11,7 +11,7 @@ gui-comp
 // Name
 topic-end-root
 // Num children
-9
+7
 
 include
 hint-display.txt
@@ -21,46 +21,18 @@ gui-text
 // Element name
 topic-name-text
 // pos (coords are -1..1)
--0.5, 0.7
+-1, 0.8
 // size
-1.0, 1.2
+2.0, 0.1
 // Text
 TOPIC
 // Font name, size
-TEXT, 2.5, multi, fgcol=ffffff
-
-gui-text
-topic-end-text1
--.5, 0.7
-.5, 0.4
-// WOW!
-$$$84
-TEXT, 2.5, multi, fgcol=ffffff
-
-gui-text
-topic-end-text2
--.5, 0.5
-.5, 0.4
-// You scored
-$$$85
-TEXT, 2.0, multi, fgcol=ffffff
-
-// Top number. OK, "numerator"
-
-// Delay
-animation
-name-not-used
-one-shot
-1.0
-step
-
-colour
-ffffff00, ffffffff
+TEXT, 1.5, fgcol=ffffff
 
 // Player score for the topic we just played
 gui-text
 topic-score-text
--1, 0.65
+-10, 0.65
 2, 0.2
 SCORE THIS TOPIC
 NUMERIC, 4.0, fgcol=ffffff
