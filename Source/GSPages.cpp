@@ -95,9 +95,23 @@ void GSPages::ShowHints()
   SetButtonEnabled("hint-button", enabled);
 
   // Play button hints
-  hints = profile->GetHints(HintType::HINT_TYPE_PLAY);
-  NumUpdate(m_gui, "play-counter" /* TODO CONST */, hints);
-  SetButtonEnabled("play-button", hints > 0);
+  // Set play counter visibility to same as play button
+  auto playButton = GetElementByName(m_gui, "play-button");
+  auto playCounter = GetElementByName(m_gui, "play-counter-and-bg");
+  if (playButton->IsVisible())
+  {
+    hints = profile->GetHints(HintType::HINT_TYPE_PLAY);
+    NumUpdate(m_gui, "play-counter" /* TODO CONST */, hints);
+    SetButtonEnabled("play-button", hints > 0);
+    playCounter->SetVisible(true);
+  }
+  else
+  {
+    playCounter->SetVisible(false);
+  }
+
+  // Make sure play button is shown...?
+////  ShowGuiElement("play-button", true);
 }
 
 void GSPages::ReloadGui()

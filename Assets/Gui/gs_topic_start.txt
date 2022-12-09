@@ -13,6 +13,10 @@ topic-start-comp
 // Num children
 4
 
+// Hide hint buttons until we know what to do with them here
+translate
+0, 10
+
 include
 hint-display-no-button.txt
 

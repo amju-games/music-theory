@@ -110,7 +110,7 @@ translate
 0,0 ; 0, 0.005
 
 gui-comp
-circle-and-number
+play-counter-and-bg
 2
 
 gui-rect
