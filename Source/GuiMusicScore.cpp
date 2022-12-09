@@ -235,6 +235,11 @@ void GuiMusicScore::SendNoteEvent(const NoteEvent& ne)
 
 void GuiMusicScore::UpdateNoteEvents(float animValue)
 {
+  if (!IsVisible())
+  {
+    return;
+  }
+
   if (m_noteEvents.empty())
   {
     return;
