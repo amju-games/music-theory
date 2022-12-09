@@ -13,14 +13,13 @@ void DictionaryPickQuestion::SetDictionary(Dictionary* dictionary)
 void DictionaryPickQuestion::MakeQuestion()
 {
   Assert(m_dictionary);
-  m_questionStrings.clear();
 
   std::string s1, s2;
   int num = m_dictionary->GetNumTerms();
   int r = rand() % num;
   m_dictionary->GetTerm(r, &s1, &s2);
 
-  m_questionStrings.push_back(s1); // TODO
+  m_questionString = s1;
   m_answerString = s2;
 }
 

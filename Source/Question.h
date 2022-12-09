@@ -19,9 +19,9 @@ class Question : public RefCounted
 public:
   virtual ~Question() = default;
 
-  // Get a question string at random
-  // TODO what about testing
-  virtual std::string GetQuestionString();
+  virtual std::string GetQuestionString() const;
+
+  virtual std::string GetAnswerString() const;
 
   virtual void MakeQuestion() = 0;
 
@@ -30,10 +30,8 @@ public:
   virtual bool QuestionSeenBefore(ConfigFile*) const = 0;
   virtual void SetQuestionSeenBefore(ConfigFile*) const = 0;
 
-  virtual std::string GetAnswerString();
-
 protected:
-  Strings m_questionStrings; // typically, choose one of these at random - could be default impl of GetQString
+  std::string m_questionString;
   std::string m_answerString;
 };
 }

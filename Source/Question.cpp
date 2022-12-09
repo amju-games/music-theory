@@ -5,13 +5,12 @@
 
 namespace Amju
 {
-std::string Question::GetQuestionString()
+std::string Question::GetQuestionString() const
 {
-  Assert(!m_questionStrings.empty());
-  return m_questionStrings[0]; // TODO TEMP TEST
+  return m_questionString;
 }
 
-std::string Question::GetAnswerString()
+std::string Question::GetAnswerString() const
 {
   return m_answerString;
 }
