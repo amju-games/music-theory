@@ -342,9 +342,6 @@
     <Text Include="..\..\..\..\Assets\Gui\page_interval.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Gui\music-score-bg.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Course\intervals.txt">
       <Filter>Assets\Course</Filter>
     </Text>
@@ -485,6 +482,12 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\gs_pages.txt">
       <Filter>Assets\Gui\PageLayout\Portrait</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\music-score-bg.txt">
+      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\music_score_bg_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
   </ItemGroup>
 </Project>

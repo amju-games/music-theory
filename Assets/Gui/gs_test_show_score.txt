@@ -26,8 +26,8 @@ linear
 music-score
 // Name, Position, Size
 music-score
--0.5, 0
-.55, .55
+-0.25, 0
+.25, .55
 // Colour
 000000
 
