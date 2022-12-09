@@ -23,7 +23,7 @@ mkdir -p $DEST_DIR/Shaders/opengl
 mkdir -p $DEST_DIR/Sound/wav
 
 cp $SRC_DIR/*.txt $DEST_DIR
-cp $SRC_DIR/Course/*.txt $DEST_DIR/Course/
+cp -R $SRC_DIR/Course/* $DEST_DIR/Course/
 cp -R $SRC_DIR/font2d/* $DEST_DIR/font2d
 cp $SRC_DIR/Gui/*.txt $DEST_DIR/Gui
 
@@ -48,7 +48,7 @@ cd $DEST_DIR
 # Create empty glue file
 $GLUE_EXE -c $GLUE_FILE
 
-for f in *.txt *.png Course/*.txt Image/*.png obj/*.obj obj/*.mtl obj/*.png Gui/*.txt Scene/*.txt font2d/*.txt font2d/RixPinkRibbon/* font2d/ArialRound/* font2d/Dimbo/* font2d/Guido2/* font2d/Icon/* Shaders/gles/*.txt Shaders/opengl/*.txt
+for f in *.txt *.png Course/*.txt Course/expl/*.txt Image/*.png obj/*.obj obj/*.mtl obj/*.png Gui/*.txt Scene/*.txt font2d/*.txt font2d/RixPinkRibbon/* font2d/ArialRound/* font2d/Dimbo/* font2d/Guido2/* font2d/Icon/* Shaders/gles/*.txt Shaders/opengl/*.txt
 do
     echo "Adding file: " $f
     $GLUE_EXE -a $GLUE_FILE $f
