@@ -7,7 +7,7 @@
 // Tappables: 3d objects which user can tap on to get info.
 
 // num tappables
-6
+0
 
 
 // Picture
