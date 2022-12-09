@@ -5,6 +5,38 @@
 
 // (No version number for this file type)
 
+2/4 = 2, 0, 0.3 ; 4, 0, 0.1
+3/4 = 3, 0, 0.3 ; 4, 0, 0.1
+4/4 = 4, 0, 0.3 ; 4, 0, 0.1
+6/8 = 6, 0, 0.3 ; 8, 0, 0.1
+9/8 = 9, 0, 0.3 ; 8, 0, 0.1
+12/8 = 1, -0.1, 0.3 ; 2, 0.1, 0.3; 8, 0, 0.1
+
+keysig-1sharp-treble = sharp, 0, 0.4
+keysig-2sharp-treble = keysig-1sharp-treble, 0, 0 ; sharp, 0.2, 0.25
+keysig-3sharp-treble = keysig-2sharp-treble, 0, 0 ; sharp, 0.4, 0.45
+keysig-4sharp-treble = keysig-3sharp-treble, 0, 0 ; sharp, 0.6, 0.30
+keysig-5sharp-treble = keysig-4sharp-treble, 0, 0 ; sharp, 0.8, 0.15
+keysig-6sharp-treble = keysig-5sharp-treble, 0, 0 ; sharp, 1.0, 0.35
+keysig-7sharp-treble = keysig-6sharp-treble, 0, 0 ; sharp, 1.2, 0.20
+
+keysig-1flat-treble  = flat, 0.0, 0.19
+keysig-2flat-treble  = flat, 0.2, 0.35 ; keysig-1flat-treble, 0, 0
+keysig-3flat-treble  = flat, 0.4, 0.15 ; keysig-2flat-treble, 0, 0
+keysig-4flat-treble  = flat, 0.6, 0.29 ; keysig-3flat-treble, 0, 0
+keysig-5flat-treble  = flat, 0.8, 0.09 ; keysig-4flat-treble, 0, 0
+keysig-6flat-treble  = flat, 1.0, 0.25 ; keysig-5flat-treble, 0, 0
+keysig-7flat-treble  = flat, 1.2, 0.05 ; keysig-6flat-treble, 0, 0
+
+
+quaver-up = note-solid, 0, 0 ; quad, 0.205, 0.495,  0.205, 0.825,  0.17, 0.825,  0.17, 0.475 ; tail-down-1, 0, 0.35
+dotted-quaver-up = quaver-up, 0, 0 ; ., 0.275, 0.00
+dotted-quaver-up-raised-dot = quaver-up, 0, 0 ; ., 0.275, 0.03
+
+quaver-down = note-solid, 0, 0 ; quad, 0.03, 0.125,  0.03, 0.475,  0.0, 0.455,  0.0, 0.125 ; tail-up-1, 0, -0.35
+dotted-quaver-down = quaver-down, 0, 0 ; ., 0.275, 0.00
+dotted-quaver-down-raised-dot = quaver-down, 0, 0 ; ., 0.275, 0.03
+
 crotchet-up = note-solid, 0, 0 ; quad, 0.205, 0.495,  0.205, 0.825,  0.17, 0.825,  0.17, 0.475
 dotted-crotchet-up = note-solid, 0, 0 ; quad, 0.205, 0.495,  0.205, 0.825,  0.17, 0.825,  0.17, 0.475 ; ., 0.275, 0.00
 dotted-crotchet-up-raised-dot = note-solid, 0, 0 ; quad, 0.205, 0.495,  0.205, 0.825,  0.17, 0.825,  0.17, 0.475 ; ., 0.275, 0.03
