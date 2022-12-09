@@ -151,6 +151,7 @@
     <ClCompile Include="..\..\..\..\Source\MakeScore\Curve.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Flag.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Glyph.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\Hairpin.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\KeySig.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Main.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\MakeScore.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="..\..\..\..\Source\MakeScore\Curve.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Flag.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Glyph.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\Hairpin.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\IGlyph.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\KeySig.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\MakeScore.h" />

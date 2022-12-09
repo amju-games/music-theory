@@ -29,7 +29,7 @@ std::string Curve::ToString() const
   
   float w = m_rightX - m_leftX;
   const float ASPECT_RATIO = 5.f;
-  const float MAX_H = 0.4f;
+  const float MAX_H = 0.5f;
   float h = std::min(w / ASPECT_RATIO, MAX_H);
 
   // If U shape

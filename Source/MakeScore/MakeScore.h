@@ -54,6 +54,8 @@ public:
 
 private:
 
+  bool IsHairpin(const std::string& s);
+
   bool IsSlur(const std::string& s);
 
   bool IsSwitch(const std::string& s);
@@ -131,6 +133,9 @@ private:
   //  parent, if required (slurs need two parents, one for each
   //  end of the curve).
   Attachment* m_lastSlur = nullptr;
+
+  // Last hairpin created, also so we can set right hand parent
+  Attachment* m_lastHairpin = nullptr;
 
   // Current stave
   int m_stave = 0;

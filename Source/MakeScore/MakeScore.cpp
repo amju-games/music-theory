@@ -27,6 +27,7 @@
 #include "Clef.h"
 #include "Consts.h"
 #include "Curve.h"
+#include "Hairpin.h"
 #include "KeySig.h"
 #include "MakeScore.h"
 #include "Pitch.h"
@@ -78,6 +79,31 @@ bool MakeScore::IsSlur(const std::string& s)
   else if (s == "</slur>")
   {
     Attach(m_lastSlur, Attachment::RIGHT);
+  }
+  else
+  {
+    return false;
+  }
+  return true;
+}
+
+bool MakeScore::IsHairpin(const std::string& s)
+{
+  if (s == "<" || s == ">")
+  {
+    Hairpin* hp = new Hairpin;
+    m_lastHairpin = hp;
+    hp->SetScale(m_scale);
+    hp->SetCrescendo(s == "<");
+
+    // Attach to most reccent glyph if there is one
+    Attach(hp, Attachment::LEFT);
+
+    m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(hp));
+  }
+  else if (s == "/<" || s == "/>")
+  {
+    Attach(m_lastHairpin, Attachment::RIGHT);
   }
   else
   {
@@ -145,6 +171,10 @@ void MakeScore::AddTokens()
       // Nothing to do, if it's a switch, we flip a value
     }
     else if (IsSlur(s))
+    {
+      // Nothing to do
+    }
+    else if (IsHairpin(s))
     {
       // Nothing to do
     }
