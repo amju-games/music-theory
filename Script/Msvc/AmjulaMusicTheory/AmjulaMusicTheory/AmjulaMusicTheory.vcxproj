@@ -292,6 +292,7 @@
     <ClCompile Include="..\..\..\..\Source\PageMusicalTerm.cpp" />
     <ClCompile Include="..\..\..\..\Source\PagePlayNotes.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageScoreMCQBase.cpp" />
+    <ClCompile Include="..\..\..\..\Source\PrintGui.cpp" />
     <ClCompile Include="..\..\..\..\Source\Question.cpp" />
     <ClCompile Include="..\..\..\..\Source\ScoreBuilder.cpp" />
     <ClCompile Include="..\..\..\..\Source\Startup.cpp">

@@ -7,6 +7,7 @@
 #include <GuiComposite.h>
 #include <GuiDecAnimation.h>
 #include "GSBase.h"
+#include "PrintGui.h"
 
 namespace Amju
 {
@@ -84,6 +85,21 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
     OnActive(); // or factor out score loading
     return true;
   }
+
+  // Show GUI tree
+  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
+    (ke.key == 'g' || ke.key == 'G'))
+  {
+    if (m_gui)
+    {
+      PrintGui(m_gui);
+    }
+    else
+    {
+      std::cout << "Null GUI!\n";
+    }
+  }
+
 #endif
   return false;
 }

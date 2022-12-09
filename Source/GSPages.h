@@ -20,6 +20,7 @@ public:
   virtual void OnDeactive() override;
   virtual void Draw2d() override;
   virtual void Update() override;
+  virtual bool OnKeyEvent(const KeyEvent& ke) override;
 
   void OnMusicKbEvent(const MusicKbEvent&);
 

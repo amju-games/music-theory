@@ -205,6 +205,27 @@ bool GSPages::Load(const std::string& filename)
   return true;
 }
 
+bool GSPages::OnKeyEvent(const KeyEvent& ke)
+{
+#ifdef _DEBUG
+  // Show page GUI tree
+  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
+    (ke.key == 'p' || ke.key == 'P'))
+  {
+    if (m_page && m_page->GetGui())
+    {
+      PrintGui(m_page->GetGui());
+    }
+    else
+    {
+      std::cout << "Null page GUI!\n";
+    }
+  }
+
+#endif
+  return false;
+}
+
 void GSPages::AddPage(Page* p)
 {
   p->SetGameState(this);
