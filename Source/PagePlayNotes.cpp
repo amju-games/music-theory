@@ -75,9 +75,10 @@ void PagePlayNotes::OnActive()
 
   SetUpQuestionUI();
 
-  // Play the note
   int correctNote = ToInt(GetQuestion()->GetAnswerString());
-  PlayMidi(correctNote, MIDI_NOTE_MAX_VOLUME);
+
+  // Don't play the note - player can play it if they would like to.
+  //PlayMidi(correctNote, MIDI_NOTE_MAX_VOLUME);
   // TODO Timed message to stop the note? Or just let it decay.
 
   m_playerHasHitNote = false;
@@ -164,6 +165,8 @@ void PagePlayNotes::OnMusicKbEvent(const MusicKbEvent& event)
     int correctNote = ToInt(GetQuestion()->GetAnswerString());
     if (correctNote == event.m_note)
     {
+      // Would be good to delay these calls for ~.5s, so we first hear the note the
+      //  player played, before we hear the good/bad sound.
       GetPagesState()->OnCorrect();
     }
     else
