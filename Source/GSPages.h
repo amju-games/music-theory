@@ -33,8 +33,8 @@ public:
 
   void SetPage(Page* p);
 
-  void OnCorrect(const Vec2f& choicePos);
-  void OnIncorrect(const Vec2f& choicePos);
+  void OnCorrect();
+  void OnIncorrect();
   void NextPage();
   void OnHint();
   void OnPause();
@@ -50,10 +50,12 @@ protected:
   void SetPie(int n, const Colour& c);
   void SetButtonEnabled(const std::string& buttonName, bool enabled);
   virtual void ReloadGui() override;
-  void HideTickAndCross();
+///  void HideTickAndCross();
 
   // Load 3D and add 'teacher' avatar
   virtual void Reload3d() override;
+
+  void UpdateHud();
 
 protected:
   RCPtr<Page> m_page;
@@ -64,6 +66,9 @@ protected:
   int m_numCorrectThisSession = 0;
   int m_numIncorrectThisSession = 0;
   int m_maxNumPagesThisSession = 10;
+  int m_scoreThisSession = 0;
+  int m_livesThisSession = 0;
+  int m_scoreMultiplier = 1;
 
   // User config file, for things like number of hints available/used etc.
   // Weak, owned by UserProfile

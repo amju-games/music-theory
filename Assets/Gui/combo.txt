@@ -1,0 +1,54 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// version
+1
+
+// Combo display
+
+gui-comp
+combo-comp
+3
+
+animation
+name-not-used
+repeat
+1.
+linear
+
+scale
+.9, .9; 2., 2.
+.81, .11
+
+colour
+ffffffff, ffffff00
+colour
+00ff30
+gui-image
+combo-bg
+0.735, 0.225
+.15, .2
+Image/circle.png
+
+
+// Combo/multiplier
+// Solid circle
+colour
+00ff30
+gui-image
+combo-bg
+0.735, 0.225
+.15, .2
+Image/circle.png
+
+gui-text
+// Element name
+combo-text
+// pos (coords are -1..1)
+0.65, 0.15
+.3, .1
+// Text
+x3
+// Font name, size
+dimbo, 2, fgcol=ffff40
+

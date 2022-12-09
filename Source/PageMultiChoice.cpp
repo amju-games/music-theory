@@ -128,8 +128,7 @@ void PageMultiChoice::InvertChoice(int c)
 
 void PageMultiChoice::OnChoice(int c)
 {
-  // Disable all buttons. Get position of choice.
-  Vec2f choicePos;
+  // Disable all buttons. 
   int numChoices = m_answers.GetNumAnswers();
   for (int i = 0; i < numChoices; i++)
   {
@@ -140,16 +139,13 @@ void PageMultiChoice::OnChoice(int c)
   // Do this whether we were correct or incorrect
   HighlightCorrectAnswerButton();
 
-  // Position offset for tick/cross
-  const Vec2f OFFSET(-0.03f, -0.15f);
-
   if (m_answers.IsAnswerCorrect(c))
   {
-    dynamic_cast<GSPages*>(m_gs)->OnCorrect(choicePos + OFFSET);
+    dynamic_cast<GSPages*>(m_gs)->OnCorrect();
   }
   else
   {
-    dynamic_cast<GSPages*>(m_gs)->OnIncorrect(choicePos + OFFSET);
+    dynamic_cast<GSPages*>(m_gs)->OnIncorrect();
   }
 }
 

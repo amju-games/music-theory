@@ -11,8 +11,6 @@
 elastic
 0, 2.0
 
-translate
-0, -0.05
 
 // Element type
 gui-comp
@@ -20,39 +18,32 @@ gui-comp
 top-bar-elasticated
 // Num children
 // TODO Most of bar hidden for now - in fact it's JUST THE PIE now
-3
+4
 
 include
-pie.txt
+hearts.txt
 
-// TODO HIDDEN until we fix design issues
-// Num pages count bg
 colour
-ffffff
+000000
 gui-image
-counter-bg
-//.7, .55
-10, 10
+score-bg
+0.65, 0.6
 .3, .2
-Image/white.png, stretch
+Image/blank-button-2.png
 
-// TODO HIDDEN until we fix design issues
-// Player score
-// Element type
 gui-text
 // Element name
-num-pages-text
+score-text
 // pos (coords are -1..1)
-//0.7, 0.5
-10, 10
-// size
-0.3, 0.1
+0.65, 0.5
+.3, .1
 // Text
 25600
 // Font name, size
-dimbo, 1.7, fgcol=000000
+dimbo, 2, fgcol=ffffff
 
-
+include
+combo.txt
 
 
 

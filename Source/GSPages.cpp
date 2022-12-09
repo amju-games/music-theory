@@ -63,6 +63,9 @@ void GSPages::StartTopic(int topicNum)
   m_numPagesShown = 0;
   m_numCorrectThisSession = 0;
   m_numIncorrectThisSession = 0;
+  m_scoreThisSession = 0;
+  m_scoreMultiplier = 1;
+  m_livesThisSession = 3;
 
   // TODO Get this from Topic. 
   m_maxNumPagesThisSession = 10;
@@ -142,14 +145,33 @@ void GSPages::OnDeactive()
   m_userConfig = nullptr;
 }
 
-void GSPages::HideTickAndCross()
+//void GSPages::HideTickAndCross()
+//{
+//  GuiElement* tick = GetElementByName(m_gui, "tick");
+//  GuiElement* cross = GetElementByName(m_gui, "cross");
+//  tick->ResetAnimation();
+//  cross->ResetAnimation();
+//  tick->SetVisible(false);
+//  cross->SetVisible(false);
+//}
+
+void GSPages::UpdateHud()
 {
-  GuiElement* tick = GetElementByName(m_gui, "tick");
-  GuiElement* cross = GetElementByName(m_gui, "cross");
-  tick->ResetAnimation();
-  cross->ResetAnimation();
-  tick->SetVisible(false);
-  cross->SetVisible(false);
+  // Score
+  IGuiText* scoreText = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "score-text"));
+  Assert(scoreText);
+  // Show number of pages or number of correct answers?
+  std::string s = ToString(m_scoreThisSession);
+  scoreText->SetText(s);
+
+  // Lives
+  IGuiText* livesText = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "num-lives-text"));
+  Assert(livesText);
+  // Show number of pages or number of correct answers?
+  s = ToString(m_livesThisSession);
+  livesText->SetText(s);
+
+  // TODO Combo
 }
 
 void GSPages::NextPage()
@@ -165,12 +187,14 @@ void GSPages::NextPage()
   m_maxNumPagesThisSession = topic->GetNumPages();
 
   // Have we got more pages, or are we done?
-  if (m_numPagesShown >= m_maxNumPagesThisSession)
+  if (m_livesThisSession < 1) ////m_numPagesShown >= m_maxNumPagesThisSession)
   {
     // Done, go to Topic successfully completed, or unsuccessfully completed.
     // (Can use the same state?)
     GSTopicEnd* gs = TheGSTopicEnd::Instance();
     gs->SetScore(m_numCorrectThisSession, m_maxNumPagesThisSession);
+    // TODO m_scoreThisSession
+
     TheGame::Instance()->SetCurrentState(gs);
     return;
   }
@@ -184,7 +208,7 @@ void GSPages::NextPage()
   m_numPagesShown++;
   std::cout << "Increased m_numPagesShown to: " << m_numPagesShown << "\n";
 
-  HideTickAndCross();
+///  HideTickAndCross();
 
   // Rub out blackboard - reset anim
   GuiElement* ruboutAnim = GetElementByName(m_gui, "blackboard-erase");
@@ -192,33 +216,37 @@ void GSPages::NextPage()
   ruboutAnim->SetVisible(false);
   ruboutAnim->ResetAnimation();
 
-  // Show number of pages, num correct, num incorrect, etc. These GUI elements
-  //  should be in the top bar.
-  IGuiText* numPagesText = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "num-pages-text"));
-  Assert(numPagesText);
-  // Show number of pages or number of correct answers?
-  std::string s = ToString(m_numCorrectThisSession) + "/" + ToString(m_maxNumPagesThisSession);
-  numPagesText->SetText(s);
+  //// Show number of pages, num correct, num incorrect, etc. These GUI elements
+  ////  should be in the top bar.
+  //IGuiText* numPagesText = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "score-text"));
+  //Assert(numPagesText);
+  //// Show number of pages or number of correct answers?
+  //std::string s = ToString(m_numCorrectThisSession);
+  //numPagesText->SetText(s);
 
-  // Start pie slice colour anim
-  GuiDecAnimation* sliceColourAnim = dynamic_cast<GuiDecAnimation*>(
-    GetElementByName(m_gui, "anim-pie-colour-" + ToString(m_numPagesShown)));
-  sliceColourAnim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+  UpdateHud();
+
+  //// Start pie slice colour anim
+  //GuiDecAnimation* sliceColourAnim = dynamic_cast<GuiDecAnimation*>(
+  //  GetElementByName(m_gui, "anim-pie-colour-" + ToString(m_numPagesShown)));
+  //sliceColourAnim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
 
   ShowHints();
 }
 
 void GSPages::SetPie(int n, const Colour& col)
 {
-  // Stop anim
-  GuiDecAnimation* sliceColourAnim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "anim-pie-colour-" + ToString(n)));
-  sliceColourAnim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ZERO);
+  // No pie
 
-  // Set slice colour
-  GuiDecColour* sliceColour = dynamic_cast<GuiDecColour*>(GetElementByName(m_gui, "colour-pie" + ToString(n)));
-  Assert(sliceColour);
-  sliceColour->SetColour(col, 0); // set both colours, anim value is between 0..1 
-  sliceColour->SetColour(col, 1);
+  //// Stop anim
+  //GuiDecAnimation* sliceColourAnim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "anim-pie-colour-" + ToString(n)));
+  //sliceColourAnim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ZERO);
+
+  //// Set slice colour
+  //GuiDecColour* sliceColour = dynamic_cast<GuiDecColour*>(GetElementByName(m_gui, "colour-pie" + ToString(n)));
+  //Assert(sliceColour);
+  //sliceColour->SetColour(col, 0); // set both colours, anim value is between 0..1 
+  //sliceColour->SetColour(col, 1);
 }
 
 void GSPages::Draw2d()
@@ -291,7 +319,7 @@ void GSPages::SetPage(Page* p)
   }
 }
 
-void GSPages::OnCorrect(const Vec2f& choicePos)
+void GSPages::OnCorrect()
 {
   //GuiElement* tick = GetElementByName(m_gui, "tick");
   //tick->SetVisible(true);
@@ -312,7 +340,11 @@ void GSPages::OnCorrect(const Vec2f& choicePos)
 
   // Add to profile/score
   m_numCorrectThisSession++;
-  SetPie(m_numPagesShown, GetColour(COLOUR_CORRECT));
+//  SetPie(m_numPagesShown, GetColour(COLOUR_CORRECT));
+
+  m_scoreThisSession += m_scoreMultiplier;
+  // TODO score anim
+  UpdateHud();
 
   Page::SendNextPageMessage();
 
@@ -324,7 +356,7 @@ void GSPages::OnCorrect(const Vec2f& choicePos)
   TheLurker::Instance()->Queue(lm);
 }
 
-void GSPages::OnIncorrect(const Vec2f& choicePos)
+void GSPages::OnIncorrect()
 {
   m_page->ShowCorrectAnswer();
 
@@ -336,7 +368,11 @@ void GSPages::OnIncorrect(const Vec2f& choicePos)
   PlayWav(WAV_INCORRECT);
 
   m_numIncorrectThisSession++;
-  SetPie(m_numPagesShown, GetColour(COLOUR_INCORRECT));
+  ///SetPie(m_numPagesShown, GetColour(COLOUR_INCORRECT));
+
+  m_livesThisSession--;
+  UpdateHud();
+
 
   // Do this in m_page->ShowCorrectAnswer() if required
   //LurkMsg lm(Lookup("Incorrect!"), 

@@ -1,0 +1,58 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// version
+1
+
+// Lives/hearts in top bar
+
+// Heart
+animation
+name-not-used
+repeat
+1.2
+linear
+
+gui-comp
+heart-comp-2
+2
+
+scale
+.9, .9; 1.5, 1.5
+.8, .8
+
+colour
+ffffffff, ffffff00
+
+gui-image
+fading-pulsing-heart
+0.65, 1.0
+.3, .4
+Image/heart.png, stretch
+
+scale
+.9, .9; 1.1, 1.1
+.8, .8
+
+gui-comp
+heart-comp
+2
+
+gui-image
+pulsing-heart
+0.65, 1.0
+.3, .4
+Image/heart2.png, stretch
+
+gui-text
+// Element name
+num-lives-text
+// pos (coords are -1..1)
+0.6, 0.85
+.4, .1
+// Text
+3
+// Font name, size
+dimbo, 2.0, fgcol=ffffff
+
+
