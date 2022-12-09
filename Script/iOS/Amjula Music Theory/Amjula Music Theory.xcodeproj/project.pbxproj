@@ -47,6 +47,7 @@
 		69C10CD61F122197009B6836 /* PlayWav.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69C10CD41F122197009B6836 /* PlayWav.cpp */; };
 		69C10CDD1F17877A009B6836 /* DictionaryPickQuestion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69C10CD91F17877A009B6836 /* DictionaryPickQuestion.cpp */; };
 		69C10CDE1F17877A009B6836 /* PageQuestion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69C10CDB1F17877A009B6836 /* PageQuestion.cpp */; };
+		69C10CE21F1A2586009B6836 /* Tappable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69C10CE01F1A2586009B6836 /* Tappable.cpp */; };
 		69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E431E833741008A8D29 /* AppDelegate.mm */; };
 		69D58E481E833741008A8D29 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E441E833741008A8D29 /* main.m */; };
 		69D58E491E833741008A8D29 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E461E833741008A8D29 /* ViewController.mm */; };
@@ -194,6 +195,8 @@
 		69C10CDA1F17877A009B6836 /* DictionaryPickQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictionaryPickQuestion.h; path = ../../../../Source/DictionaryPickQuestion.h; sourceTree = "<group>"; };
 		69C10CDB1F17877A009B6836 /* PageQuestion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PageQuestion.cpp; path = ../../../../Source/PageQuestion.cpp; sourceTree = "<group>"; };
 		69C10CDC1F17877A009B6836 /* PageQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageQuestion.h; path = ../../../../Source/PageQuestion.h; sourceTree = "<group>"; };
+		69C10CE01F1A2586009B6836 /* Tappable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Tappable.cpp; path = ../../../../Source/Tappable.cpp; sourceTree = "<group>"; };
+		69C10CE11F1A2586009B6836 /* Tappable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tappable.h; path = ../../../../Source/Tappable.h; sourceTree = "<group>"; };
 		69D58E421E833741008A8D29 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "../../../../Source/iOS-MusicTheory/AppDelegate.h"; sourceTree = "<group>"; };
 		69D58E431E833741008A8D29 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = "../../../../Source/iOS-MusicTheory/AppDelegate.mm"; sourceTree = "<group>"; };
 		69D58E441E833741008A8D29 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "../../../../Source/iOS-MusicTheory/main.m"; sourceTree = "<group>"; };
@@ -370,30 +373,24 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				69C10CD91F17877A009B6836 /* DictionaryPickQuestion.cpp */,
-				69C10CDA1F17877A009B6836 /* DictionaryPickQuestion.h */,
-				69C10CDB1F17877A009B6836 /* PageQuestion.cpp */,
-				69C10CDC1F17877A009B6836 /* PageQuestion.h */,
-				69C10CD41F122197009B6836 /* PlayWav.cpp */,
-				69C10CD51F122197009B6836 /* PlayWav.h */,
-				6951CF111F0B932300140095 /* GSBase3d.cpp */,
-				6951CF121F0B932300140095 /* GSBase3d.h */,
-				6951CF131F0B932300140095 /* Hints.cpp */,
-				6951CF141F0B932300140095 /* Hints.h */,
-				6951CF151F0B932300140095 /* Md2SceneNode.cpp */,
-				6951CF161F0B932300140095 /* Md2SceneNode.h */,
+				69C10CE01F1A2586009B6836 /* Tappable.cpp */,
+				69C10CE11F1A2586009B6836 /* Tappable.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				6959E2E41E97F6F800E251A9 /* Course.cpp */,
 				6959E2E51E97F6F800E251A9 /* Course.h */,
 				69AC402F1EB5331300F255A4 /* Dictionary.cpp */,
 				69AC40301EB5331300F255A4 /* Dictionary.h */,
+				69C10CD91F17877A009B6836 /* DictionaryPickQuestion.cpp */,
+				69C10CDA1F17877A009B6836 /* DictionaryPickQuestion.h */,
 				69F5E08F1E8C09DF00E7BF93 /* GameViewController.h */,
 				69F5E0901E8C09DF00E7BF93 /* GameViewController.m */,
 				6959E2FB1EA1091500E251A9 /* GSAbout.cpp */,
 				6959E2FC1EA1091500E251A9 /* GSAbout.h */,
 				697A07EF1E82F19B0045CE54 /* GSBase.cpp */,
 				697A07F01E82F19B0045CE54 /* GSBase.h */,
+				6951CF111F0B932300140095 /* GSBase3d.cpp */,
+				6951CF121F0B932300140095 /* GSBase3d.h */,
 				6959E3081EA7CFF200E251A9 /* GSFirstUser.cpp */,
 				6959E3091EA7CFF200E251A9 /* GSFirstUser.h */,
 				6959E2E61E97F6F800E251A9 /* GSMainMenu.cpp */,
@@ -426,11 +423,15 @@
 				697A07FC1E82F19B0045CE54 /* GuiMusicScore.h */,
 				6959E3151EA7F44600E251A9 /* GuiTextEditIos.h */,
 				6959E3161EA7F44600E251A9 /* GuiTextEditIos.mm */,
+				6951CF131F0B932300140095 /* Hints.cpp */,
+				6951CF141F0B932300140095 /* Hints.h */,
 				6959E3171EA7F44600E251A9 /* iOSKeyboard.h */,
 				6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */,
 				69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */,
 				6959E30A1EA7CFF200E251A9 /* Keys.h */,
 				69D58E441E833741008A8D29 /* main.m */,
+				6951CF151F0B932300140095 /* Md2SceneNode.cpp */,
+				6951CF161F0B932300140095 /* Md2SceneNode.h */,
 				6959E2FF1EA1091500E251A9 /* MultiChoiceQuestion.cpp */,
 				6959E3001EA1091500E251A9 /* MultiChoiceQuestion.h */,
 				6959E3011EA1091500E251A9 /* MusicalTermQuestion.cpp */,
@@ -446,8 +447,12 @@
 				69F5E0881E8C09C000E7BF93 /* PageMultiChoice.h */,
 				692BF7461EAE50BD00DB6CE7 /* PagePlayNotes.cpp */,
 				69D58E821E86A02B008A8D29 /* PagePlayNotes.h */,
+				69C10CDB1F17877A009B6836 /* PageQuestion.cpp */,
+				69C10CDC1F17877A009B6836 /* PageQuestion.h */,
 				69F5E0891E8C09C000E7BF93 /* Panel.h */,
 				69F5E08A1E8C09C000E7BF93 /* PlayMidi.h */,
+				69C10CD41F122197009B6836 /* PlayWav.cpp */,
+				69C10CD51F122197009B6836 /* PlayWav.h */,
 				6959E31C1EAB5BA500E251A9 /* PrintGui.cpp */,
 				6959E31D1EAB5BA500E251A9 /* PrintGui.h */,
 				69F5E08B1E8C09C000E7BF93 /* Question.cpp */,
@@ -645,6 +650,7 @@
 				6951CF181F0B932300140095 /* Hints.cpp in Sources */,
 				69AC40391EB5331300F255A4 /* PageMultiChoice.cpp in Sources */,
 				69C10CDD1F17877A009B6836 /* DictionaryPickQuestion.cpp in Sources */,
+				69C10CE21F1A2586009B6836 /* Tappable.cpp in Sources */,
 				69C10CD61F122197009B6836 /* PlayWav.cpp in Sources */,
 				6959E30B1EA7CFF200E251A9 /* GSFirstUser.cpp in Sources */,
 				69AC40361EB5331300F255A4 /* Dictionary.cpp in Sources */,
