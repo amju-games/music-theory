@@ -28,6 +28,9 @@
     <Filter Include="Assets\Gui\Stroke">
       <UniqueIdentifier>{84a3835c-428f-4394-8591-b2957993e95c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Course">
+      <UniqueIdentifier>{1852cf61-39d7-446d-ad98-d2ea2fd0ea31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp">
@@ -274,9 +277,6 @@
     <Text Include="..\..\..\..\Assets\Gui\stroke-tick-1.txt">
       <Filter>Assets\Gui\Stroke</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Course\grade1.txt">
-      <Filter>Assets</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\gs_topic_start.txt">
       <Filter>Assets\Gui</Filter>
     </Text>
@@ -285,6 +285,12 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\title-text.txt">
       <Filter>Assets\Gui</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\grade1.txt">
+      <Filter>Assets\Course</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Course\musical_terms.txt">
+      <Filter>Assets\Course</Filter>
     </Text>
   </ItemGroup>
 </Project>

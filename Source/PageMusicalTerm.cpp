@@ -30,7 +30,7 @@ void PageMusicalTerm::OnActive()
   // Get musical terms dictionary (TODO select grade)
   // This is a Resource.
   MusicalTermsDictionary* dic = dynamic_cast<MusicalTermsDictionary*>(
-    TheResourceManager::Instance()->GetRes("musical_terms.txt.dictionary"));
+    TheResourceManager::Instance()->GetRes("Course/musical_terms.txt.dictionary"));
 
   m_question->SetDictionary(dic);
   m_question->MakeQuestion();
