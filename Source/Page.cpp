@@ -106,7 +106,9 @@ void Page::OnActive()
   }
 
   // Show instruction text for the page
-  // Only if different, as Lurk msgs create delay
+  // Only show if different. Show in centre, so it doesn't introduce delay,
+  //  lets us have long explanations if needed, and we know the player read
+  //  it.
   static std::string prevInstr;
   const std::string& instr = GetInstructionText();
   if (instr != prevInstr)
@@ -114,7 +116,7 @@ void Page::OnActive()
     LurkMsg lm(instr,
       GetColour(COLOUR_TUTORIAL), // TODO
       GetColour(COLOUR_TEXT),  // TODO
-      AMJU_TOP, PAGE_LURK_TIME);
+      AMJU_CENTRE);  
 
     TheLurker::Instance()->Queue(lm);
     prevInstr = instr; // remember for next time
