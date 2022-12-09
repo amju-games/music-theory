@@ -79,8 +79,6 @@ void GSPages::StartTopic(int topicNum)
 
   // We get this from Topic later. 
   m_maxNumPagesThisSession = 0;
-
-  TheUserProfile()->SetTopicScore(0);
 }
 
 void GSPages::ShowHints()
@@ -223,9 +221,17 @@ bool GSPages::FindPageWithUnusedQuestions()
 
 void GSPages::SetFinalScore()
 {
+  // Get topic ID
+  Course* course = GetCourse();
+  Assert(course);
+  Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
+  Assert(topic);
+
+  // Calc percentage score
   float percent = static_cast<float>(m_scoreThisSession) / static_cast<float>(m_maxMark) * 100.f;
   int s = static_cast<int>(percent);
-  TheUserProfile()->SetTopicScore(s);
+
+  TheUserProfile()->SetTopicScore(s, topic->GetId());
 }
 
 void GSPages::NextPage()

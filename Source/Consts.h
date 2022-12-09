@@ -38,8 +38,6 @@ static const float STAIRS_ZOOM_DIST = -100.f;
 
 #define KEY_GENERAL "general"
 #define KEY_USER_NAME "user_name"
-#define KEY_TOPICS "topics"
-#define KEY_TOPIC_UNLOCKED "topic_unlocked_"
 
 #define DEFAULT_SHARE_TEXT_KEY "default_share_text"
 #define DEFAULT_SHARE_TEXT "I'm learning stuff at Amjula Music School! amjula.com #amjula"

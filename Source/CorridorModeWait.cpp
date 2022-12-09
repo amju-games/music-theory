@@ -227,8 +227,8 @@ void CorridorModeWait::Drag(bool rightNotLeft)
     {
       canSwipe = true;
     }
-    // ...or ALL the topics are unlocked
-    if (   gsmc->AllTopicsUnlocked()
+    // ...or ALL the topics are passed
+    if (   gsmc->AllTopicsPassed()
         && (m_currentTopicScrolledTo < numTopics))
     {
       canSwipe = true;

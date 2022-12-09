@@ -171,7 +171,7 @@ void GSMainCorridor::Load3dForTopics()
   }
 
   // Position shadow to the right of the last unlocked door.
-  if (AllTopicsUnlocked())
+  if (AllTopicsPassed())
   {
     // If all unlocked, allow player to go up the stairs, so move shadow 
     //  an extra position to the right.
@@ -389,14 +389,19 @@ void GSMainCorridor::GoToTopic()
   SetMode(CorridorModeEnterClassroom::ID);
 }
 
-bool GSMainCorridor::AllTopicsUnlocked() const
+bool GSMainCorridor::AllTopicsPassed() const
 {
+  auto profile = TheUserProfile();
+
   Course* course = GetCourse();
   Assert(course);
   int numTopics = course->GetNumTopics();
   for (int i = 0; i < numTopics; i++)
   {
-    if (!IsTopicUnlocked(i))
+    Topic* topic = course->GetTopic(i);
+    Assert(topic);
+
+    if (!profile->IsTopicPassed(topic->GetId()))
     {
       return false;
     }

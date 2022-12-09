@@ -22,6 +22,8 @@ const char* PLAYER_SCORE_KEY = "score";
 
 const char* KEY_TOPIC_BEST = "topic_best_";
 
+const char* KEY_TOPIC_UNLOCKED = "topic_unlocked_";
+
 const char* FILENAME_SUFFIX = "_user_profile.txt";
 
 } // anon namespace
@@ -71,28 +73,20 @@ int UserProfile::GetScore()
   return userConfig->GetInt(PLAYER_SCORE_KEY, 0);
 }
 
-//void UserProfile::AddToScore(int add)
-//{
-///  auto userConfig = GetConfigFile();
- // int score = userConfig->GetInt(PLAYER_SCORE_KEY, 0);
- // score += add;
- // userConfig->SetInt(PLAYER_SCORE_KEY, score);
- // Save();
-//}
-
-void UserProfile::SetTopicScore(int topicScore)
+void UserProfile::SetTopicScore(int score, const std::string& topicId)
 {
-  m_topicScore = topicScore;
+  Assert(!topicId.empty());
+  m_topicScore = score;
 
   auto userConfig = GetConfigFile();
-  int best = userConfig->GetInt(KEY_TOPIC_BEST + m_currentTopic, 0);
-  if (best > m_topicScore)
+  int best = userConfig->GetInt(KEY_TOPIC_BEST + topicId, 0);
+  if (m_topicScore > best)
   {
 
 std::cout << "New best score for " << m_currentTopic << ": " 
   << m_topicScore << "\n";
 
-    userConfig->SetInt(KEY_TOPIC_BEST + m_currentTopic, m_topicScore);
+    userConfig->SetInt(KEY_TOPIC_BEST + topicId, m_topicScore);
     Save();
   } 
 }
@@ -102,9 +96,9 @@ int UserProfile::GetCurrentTopicScore() const
   return m_topicScore;
 }
 
-void UserProfile::SetCurrentTopic(int topicId)
+void UserProfile::SetCurrentTopic(int topicIndex)
 { 
-  m_currentTopic = topicId;
+  m_currentTopic = topicIndex;
 }
 
 int UserProfile::GetCurrentTopic() const
@@ -143,19 +137,22 @@ void UserProfile::AddHints(int add)
 
 int UserProfile::GetBestTopicScore(const std::string& topicId) 
 {
+  Assert(!topicId.empty());
   auto userConfig = GetConfigFile();
-  int best = userConfig->GetInt(KEY_TOPIC_BEST + m_currentTopic, 0);
+  int best = userConfig->GetInt(KEY_TOPIC_BEST + topicId, 0);
   return best;
 }
 
 bool UserProfile::IsTopicUnlocked(const std::string& topicId) 
 {
+  Assert(!topicId.empty());
   auto userConfig = GetConfigFile();
   return userConfig->Exists(KEY_TOPIC_UNLOCKED + topicId);
 }
 
 bool UserProfile::IsTopicPassed(const std::string& topicId) 
 {
+  Assert(!topicId.empty());
   int best = GetBestTopicScore(topicId);
   const int TOPIC_PASS_MARK = 1; // TODO ok here? Per-topic??
   return best > TOPIC_PASS_MARK;
@@ -163,6 +160,7 @@ bool UserProfile::IsTopicPassed(const std::string& topicId)
 
 void UserProfile::UnlockTopic(const std::string& topicId)
 {
+  Assert(!topicId.empty());
   auto userConfig = GetConfigFile();
   userConfig->SetInt(KEY_TOPIC_UNLOCKED + topicId, 1);
 }

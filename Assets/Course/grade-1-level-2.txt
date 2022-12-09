@@ -41,7 +41,7 @@ notes-and-rests
 @@@Notes and Rests
 // Initially locked?
 // Topics unlocked by this one
-none
+$$$empty
 // Pages
 4
 page-symbol-symbol=Course/level2/rest-equivs.txt=@@@What has the same value?
@@ -57,7 +57,7 @@ keys-and-scales
 $$$171
 // Initially locked?
 // Topics unlocked by this one
-none
+$$$empty
 // Pages
 4
 page-symbol-text=Course/level2/whats_the_scale.txt=$$$94
@@ -71,7 +71,7 @@ bars-and-time-sigs
 // Localised display name
 @@@Bars and Time Sigs
 // Topics unlocked by this one
-none
+$$$empty
 // Pages
 2
 page-symbol-symbol=Course/level2/missing_time_sig.txt=@@@What is the time signature?
@@ -86,7 +86,7 @@ musical-terms-symbols-1
 $$$9
 // Initially locked?
 // Topics unlocked by this one
-none
+$$$empty
 // Pages
 2
 page-text-text=Course/level2/musical_terms.txt=$$$99

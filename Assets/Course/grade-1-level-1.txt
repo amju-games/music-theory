@@ -76,7 +76,7 @@ musical-terms-symbols-level1
 $$$9
 // Initially locked?
 // Topics unlocked by this one
-none
+$$$empty
 // Pages
 2
 page-text-text=Course/level1/musical_terms.txt=$$$99

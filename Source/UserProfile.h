@@ -40,7 +40,7 @@ public:
 
   // Set score for the current topic. Update persistent best score
   //  if it's better than current best.
-  void SetTopicScore(int topicScore);
+  void SetTopicScore(int score, const std::string& topicId);
   int GetCurrentTopicScore() const;
 
   // Persistent config for each topic

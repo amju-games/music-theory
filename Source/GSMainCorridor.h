@@ -47,8 +47,10 @@ public:
   // Return true if user has unlocked the given topic (int index, not string ID)
   // TODO Move to UserProfile??
   bool IsTopicUnlocked(int topicNum) const;
-  // Return true if all Topics in the current Course are unlocked
-  bool AllTopicsUnlocked() const;
+
+  // Return true if all Topics in the current Course have been passed,
+  //  so player can progress to next level.
+  bool AllTopicsPassed() const;
 
   // Returns true if the current level has all Topics passed.
   bool IsLevelPassed() const;
