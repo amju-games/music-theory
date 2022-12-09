@@ -6,6 +6,13 @@ Playable keyboard
  - Just play a sound at start up/periodically for first proof
  - Works for Windows
 
+ 
+Music notation
+ - Specialised Text GUI: all one draw command, all one texture atlas
+ - Except differently coloured elements; these are another GuiMusicScore object?
+ - Proof of concept works (Windows), but not independent (x, y) scaling
+
+
 Animated Drawing
  - A GUI element, right?
  - One texture, so derived from image?
@@ -23,9 +30,6 @@ Animated GUI elements
  - Extend Elastic type
 
 
-Music notation
- - Specialised Text GUI: all one draw command, all one texture atlas
- - Except differently coloured elements; these are another GuiMusicScore object?
 
 
 Game state: drag choice to destination rectangle

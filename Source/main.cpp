@@ -25,6 +25,8 @@
 #include <EventPoller.h>
 #include <BassSoundPlayer.h>
 #include "GSPlayNotes.h"
+#include "GSShowMusicScore.h"
+#include "GuiMusicScore.h"
 
 namespace Amju
 {
@@ -48,7 +50,10 @@ void StartUpAfterCreateWindow()
   bsp->MidiSetSoundFont("C:/Users/Jason/projects/music-theory/Assets/Sound/velocity_grand_piano.sf2");
   sm->SetImpl(bsp);
 
-  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
+  GuiMusicScore::AddToFactory();
+
+//  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
 }
 }
 

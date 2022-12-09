@@ -15,6 +15,8 @@ namespace Amju
 class GuiMusicScore : public GuiElement
 {
 public:
+  static void AddToFactory();
+
   GuiMusicScore();
  
   virtual void Draw() override;

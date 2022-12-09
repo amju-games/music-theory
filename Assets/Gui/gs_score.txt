@@ -1,0 +1,14 @@
+// gs_score.txt
+// version
+1
+
+// Element type
+gui-comp
+// Name
+score-comp
+// Num children
+1
+
+music-score
+stave, 0, 0
+treble-clef, 0, 0

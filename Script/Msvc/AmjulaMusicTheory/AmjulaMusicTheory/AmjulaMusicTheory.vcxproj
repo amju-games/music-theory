@@ -137,11 +137,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSShowMusicScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Source\GSBase.h" />
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h" />
+    <ClInclude Include="..\..\..\..\Source\GSShowMusicScore.h" />
+    <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib" />
