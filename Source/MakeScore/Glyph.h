@@ -6,17 +6,14 @@
 
 #pragma once
 
-#include "Accidental.h"
 #include "IGlyph.h"
-#include "KeySig.h"
 #include "TimeValue.h"
 #include "Utils.h"
 
 struct Tie;
 
 // * Glyph *
-// Note or rest glyph, corresponding to one input token, and one output
-//  (compound) glyph.
+// Base class for note and rest glyphs.
 struct Glyph : public IGlyph
 {
   Glyph() = default;
@@ -27,22 +24,17 @@ struct Glyph : public IGlyph
   // Replace display (output) glyph name with a star if required.
   void HandleStar();
 
-  std::string TimeBefore() const;
-  std::string TimeAfter() const;
+  // Generate TIME special glyphs, (for animation)
+  virtual std::string TimeBefore() const { return ""; } 
+  virtual std::string TimeAfter() const { return ""; }
 
   std::string ToString() const override;
 
-  void SetPitch(int pitch_)
-  {
-    pitch = pitch_;
-  }
-
-  // Set stave line for this glyph (notes only)
+  // Set stave line for this glyph (notes and rests, so we can
+  //  adjust standard rest position)
   void SetStaveLine(int staveLine) { m_staveLine = staveLine; }
 
   void SetTimeVal(float timeval_) { timeval = timeval_; }
-
-  void SetDisplayNameForBeamedNote();
 
   // Call to set this glyph as the left hand side of the given tie
   void SetTieLeft(Tie* tie) { m_tieLeft = tie; }
@@ -54,18 +46,7 @@ struct Glyph : public IGlyph
 
   // Use input token and state to generate output text for this glyph.
   // TODO Doesn't need param and can set displayGlyphName directly
-  std::string GetGlyphOutputStr(std::string s) const;
-
-  // Calc accidental, given pitch and key sig
-  void CalcAccidental(KeySig ks);
-
-  // Adjust accidental calculated above, based on the most recent
-  //  accidental set on this stave line
-  void AdjustAccidental(Accidental previousAcc);
-
-  std::string GetAccidentalStr() const;
-
-  std::string GetStaccatoStr() const;
+  virtual std::string GetGlyphOutputStr(std::string s) const = 0;
 
   int order = 0; // horiz position in bar 
 
@@ -82,8 +63,6 @@ struct Glyph : public IGlyph
   // Start time is the accumulated time values of all preceding glyphs.
   TimeValue startTime = 0;
 
-  int pitch = DEFAULT_PITCH;
-
   // Points to tie - we are the LEFT glyph of the tie
   Tie* m_tieLeft = nullptr;
 
@@ -92,9 +71,6 @@ struct Glyph : public IGlyph
 
   // Line within stave on which this glyph sits - 2 is the middle line.
   int m_staveLine = 2;
-
-  // Accidental, to be added to the left of the glyph
-  Accidental m_accidental = Accidental::ACCIDENTAL_NONE;
 
   // Bit field of flags, e.g. staccato
   int m_switches = 0;

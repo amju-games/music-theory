@@ -19,9 +19,18 @@ std::string Beam::ToString() const
   }
   float ymax = ymin + BEAM_HEIGHT;
 
+  // Increase in y from left end to right end of beam, which depends
+  //  on gradient.
+  // Get gradient from the primary beam, if there is one set.
+  if (parent)
+  {
+    const_cast<float&>(gradient) = parent->gradient;
+  }
+  float yinc = gradient * (xmax - xmin);
+
   return "quad, " +
-    Str((xmax + xoff) * scaleX) + ", " + Str(ymin * scaleY) + ", " +
-    Str((xmax + xoff) * scaleX) + ", " + Str(ymax * scaleY) + ", " +
+    Str((xmax + xoff) * scaleX) + ", " + Str((ymin + yinc) * scaleY) + ", " +
+    Str((xmax + xoff) * scaleX) + ", " + Str((ymax + yinc) * scaleY) + ", " +
     Str((xmin + xoff) * scaleX) + ", " + Str(ymax * scaleY) + ", " +
     Str((xmin + xoff) * scaleX) + ", " + Str(ymin * scaleY);
 }

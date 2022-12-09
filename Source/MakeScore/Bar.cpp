@@ -7,6 +7,7 @@
 #include <iostream>
 #include "Bar.h"
 #include "Flag.h"
+#include "NoteGlyph.h"
 
 void Bar::CopyState(const Bar& b)
 {
@@ -148,7 +149,7 @@ void Bar::AddGlyph(const std::string& s, int pitch, int switches)
 
   int order = static_cast<int>(m_glyphs.size());
 
-  Glyph* gl = new Glyph(s, order);
+  NoteGlyph* gl = new NoteGlyph(s, order);
   gl->SetScale(m_scale);
 
   if (!rest)
@@ -211,8 +212,10 @@ void Bar::AddBeam(const std::string& s)
   // Flags are attached to one glyph, and can go left or right.
 
   // Level is quaver/semi etc
-  m_beams.push_back(std::unique_ptr<Beam>(
-    new Beam(BeamLevel::BEAM_LEVEL_1, n - 1, n)));
+  Beam* beam = new Beam(BeamLevel::BEAM_LEVEL_1, n - 1, n);
+  // TODO Set gradient of beam. But we don't know the positions
+  //  of the beamed notes yet. So this approach is doomed.
+  m_beams.push_back(std::unique_ptr<Beam>(beam));
 
   if (s == "--" || s == "-")
   {
@@ -221,20 +224,24 @@ void Bar::AddBeam(const std::string& s)
   else if (s == "==" || s == "=")
   {
     // 2 semiquavers, add 2nd beam
-    m_beams.push_back(std::unique_ptr<Beam>(
-      new Beam(BeamLevel::BEAM_LEVEL_2, n - 1, n)));
+    Beam* beam2 = new Beam(BeamLevel::BEAM_LEVEL_2, n - 1, n);
+    // Set parent, so we can set gradient to same as parent beam
+    beam2->SetParentBeam(beam);
+    m_beams.push_back(std::unique_ptr<Beam>(beam2));
   }
   else if (s == "-=")
   {
     // Semiq flag, attached to right stem
-    m_beams.push_back(std::unique_ptr<Beam>(
-      new Flag(BeamLevel::BEAM_LEVEL_2, n - 1, n, false)));
+    Flag* flag = new Flag(BeamLevel::BEAM_LEVEL_2, n - 1, n, false);
+    flag->SetParentBeam(beam);
+    m_beams.push_back(std::unique_ptr<Beam>(flag));
   }
   else if (s == "=-")
   {
     // Semiq flag, attached to left stem
-    m_beams.push_back(std::unique_ptr<Beam>(
-      new Flag(BeamLevel::BEAM_LEVEL_2, n - 1, n, true)));
+    Flag* flag = new Flag(BeamLevel::BEAM_LEVEL_2, n - 1, n, true);
+    flag->SetParentBeam(beam);
+    m_beams.push_back(std::unique_ptr<Beam>(flag));
   }
 }
 

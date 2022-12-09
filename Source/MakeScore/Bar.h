@@ -9,6 +9,7 @@
 #include <map>
 #include <memory>
 #include <vector>
+#include "Accidental.h"
 #include "Beam.h"
 #include "Clef.h"
 #include "Consts.h"

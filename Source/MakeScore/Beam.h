@@ -28,6 +28,11 @@ struct Beam : public IGlyph
 
   std::string ToString() const override;
 
+  // Set 'parent' beam for flag or 2nd/3rd beam, so we can take the
+  //  gradient from the parent.
+  // OR Maybe point to owning BeamGroup instead?
+  void SetParentBeam(Beam* p) { parent = p; }
+
   BeamLevel level = BeamLevel::BEAM_LEVEL_1;
   int left = 0;
   int right = 0;
@@ -36,5 +41,13 @@ struct Beam : public IGlyph
 
   // note type, so we know where to offset the quad corners
   bool upNotDown = true;
+
+  float gradient = 0;
+
+  // For flags and second/third beams, this is the first, primary
+  //  beam, which has the gradient calculated on it. We take the same
+  //  gradient for decendants.
+  // OR Maybe point to owning BeamGroup instead?
+  Beam* parent = nullptr;
 };
 

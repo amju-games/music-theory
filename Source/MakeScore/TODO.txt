@@ -11,8 +11,17 @@ Set note volume with dynamic marks and hairpins
 
 Beams for full stave, i.e. not just horizontal.
 Adjust stem length for beamed notes! Argh!
+Beam gadient - OK, but flags/sub-beams must use gradient to set position.
+How do we add beams in input tokens? Just have to bracket a sequence of 
+ *quavers with something. Like, say, brackets, or <beam> .. </beam> ?
+So we have all beamed notes in a Beam Group. All the notes have to have
+ the same stem dir. Get the gradient from first and last. Set stem length
+ on middle notes. So note glyphs should have stem length. Create the stem,
+ if stem length is set.
+ Have separate Note and Rest glyphs.
 
-Key sig
+
+***Key sig
 
 Add accidentals automatically to notes with pitches not in the 
  key sig. But we must also allow overriding, and double sharp/flat.
@@ -20,10 +29,10 @@ Add accidentals automatically to notes with pitches not in the
 
 ***Add text (E.g. "Allegro <note>=120" at top; "<i>cresc.</i>" under stave)
 
-Symbols like f, mf, ff etc 
+***Symbols like f, mf, ff etc 
+ - Need compounds like sfz -- use compound glyphs
 
-Hairpins: these should be special glyphs. Can use < and > ?
-Need start and end, so maybe <cres> </cres> and <decres> </decres> ?
+***Hairpins: these should be special glyphs. Can use < and > ?
 
 Staccato, accent, pause
 Use <> for these, then apply to all subsequent notes

@@ -22,14 +22,17 @@ SOURCES=\
 Attachment.cpp \
 Bar.cpp \
 Beam.cpp \
+BeamGroup.cpp \
 Clef.cpp \
 Consts.cpp \
 Curve.cpp \
 Flag.cpp \
 Glyph.cpp \
+Hairpin.cpp \
 KeySig.cpp \
 Main.cpp \
 MakeScore.cpp \
+NoteGlyph.cpp \
 Pitch.cpp \
 Stave.cpp \
 Switch.cpp \
