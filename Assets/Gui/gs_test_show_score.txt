@@ -27,44 +27,33 @@ music-score
 // Name, Position, Size
 music-score
 -0.5, 0
-.75, .75
+.6, .6
 // Colour
 000000
 
 // Glyphs start here
-stave, -0.5, 0, 20, .5
-//treble-clef, 0, 0,   0.5, 0.5
+stave, -0.5, 0, 20, 1
+treble-clef, -0.8, 0
 
-crotchet, 0.6, 0
-., 0.875, 0.03
-// NOTE WITH STEMS
-//note-minim, 1.0, 0
-//tail, 1.0, 0
+// Time sig
+12/8, 0, 0
 
-// stem-down
-//quad, 1.02, 0.1,  1.02, 0.475,  1.0, 0.475,  1.0, 0.1
-// stem-up
-//quad, 1.205, 0.475,  1.205, 0.825,  1.185, 0.825,  1.185, 0.475
-
+// Key sig
+keysig-7flat-treble, 0.6, 0
 
 // NOTE WITH STEMS
 
-minim-up, 1.0, -0.05,   0.5, 0.5
-dotted-minim-up-raised-dot, 1.5, 0.0 ,    0.5, 0.5
-dotted-minim-up, 2.0, 0.05 ,   0.5, 0.5
-minim-up, 2.5, 0.1 ,    0.5, 0.5
-dotted-crotchet-down, 3.0, 0.25,  0.5, 0.5
-dotted-minim-down, 3.5, 0.25,  0.5, 0.5
-dotted-minim-down-raised-dot, 4.0, 0.25,  0.5, 0.5
+dotted-quaver-down, 1.0, -0.05
 
-note-minim, 0.0, 0.0
-//// stem-up
-quad, 0.205, 0.495,  0.205, 0.825,  0.175, 0.825,  0.175, 0.475
+dotted-quaver-up-raised-dot, 1.5, 0.0
+dotted-quaver-up, 2.0, 0.05
+minim-up, 2.5, 0.1
+dotted-crotchet-down, 3.0, 0.25
+dotted-minim-down, 3.5, 0.25
+dotted-minim-down-raised-dot, 4.0, 0.25
 
-//// stem-down
-quad, 0.03, 0.125,  0.03, 0.475,  0.0, 0.455,  0.0, 0.125
 
-//end
+end
 
 // Beams etc tests
 // 4 points, defined in anti-clockwise (CCW) order
