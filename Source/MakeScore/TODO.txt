@@ -1,5 +1,19 @@
 MAKE SCORE TODO LIST
 
+Ledger lines
+
+B & T Clef, (clef change)
+
+Beams for full stave
+
+Key sig
+
+Add text (E.g. "Allegro <note>=120" at top; "<i>cresc.</i>" under stave)
+
+Symbols like f, mf, ff etc 
+
+Staccato, accent, pause
+
 Preprocess:
 Automatically add beam codes, using rules for groups.
 
