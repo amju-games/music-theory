@@ -45,7 +45,7 @@ Image/gui-button-2.png
 // CANCEL
 $$$88
 // Font name, size
-BUTTON, 2.0, fgcol=ffffff, bgcol=FF0949
+BUTTON, 3.0, fgcol=ffffff, bgcol=FF0949
 
 
 // Start button
@@ -56,5 +56,5 @@ start-button
 Image/gui-button-2.png
 // START
 $$$83
-BUTTON, 2., fgcol=ffffff, bgcol=4E69F4
+BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 

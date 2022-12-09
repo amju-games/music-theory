@@ -118,7 +118,7 @@ share-button
 Image/gui-button-2.png
 // SHARE
 $$$82
-BUTTON, 2., fgcol=ffffff, bgcol=4E69F4
+BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
 
 // Text about having some more hint tokens
