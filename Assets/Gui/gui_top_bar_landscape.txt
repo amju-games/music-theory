@@ -19,28 +19,32 @@ gui-comp
 // Name
 top-bar-elasticated
 // Num children
-// TODO Most of bar hidden for now
+// TODO Most of bar hidden for now - in fact it's JUST THE PIE now
 3
 
 include
 pie.txt
 
+// TODO HIDDEN until we fix design issues
 // Num pages count bg
 colour
 ffffff
 gui-image
 counter-bg
-.7, .55
+//.7, .55
+10, 10
 .3, .2
 Image/white.png, stretch
 
+// TODO HIDDEN until we fix design issues
 // Player score
 // Element type
 gui-text
 // Element name
 num-pages-text
 // pos (coords are -1..1)
-0.7, 0.5
+//0.7, 0.5
+10, 10
 // size
 0.3, 0.1
 // Text
