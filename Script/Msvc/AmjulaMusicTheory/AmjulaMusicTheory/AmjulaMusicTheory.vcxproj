@@ -364,6 +364,7 @@
     <Text Include="..\..\..\..\Assets\Gui\page_musical_term.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-cross-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-cross-2.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\stroke-spiral-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-1.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-test-2.txt" />
     <Text Include="..\..\..\..\Assets\Gui\stroke-tick-1.txt" />

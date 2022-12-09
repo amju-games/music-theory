@@ -112,17 +112,24 @@ void GuiLineDrawing::BuildTriList()
       p[3] = p[2];
       p[1] = p1 + perp * w;
       p[2] = p1 - perp * w;
-      // Shift and calc new U coord
+      // Shift, and calc new U coord below
       u0 = u1;
-
-      if (i == (m_index - 1))
-      {
-        u1 = 1;
-      }
     }
     totalLength += segLength;
     // Calculate next u-coord
-    u1 = std::min(0.5f, totalLength / w * 0.33f);
+    // TODO Short strokes may break this?
+    if (totalLength < m_totalLength * 0.5f)
+    {
+      u1 = std::min(0.5f, totalLength / w * 0.33f);
+    }
+    else
+    {
+      float a = m_totalLength - totalLength;
+      if (a < (w * 1.5f))
+      {
+        u1 = (1.f - a / (w * 1.5f)) * 0.5f + 0.5f;
+      }
+    }
 
     AmjuGL::Tri t[2];
 
@@ -281,6 +288,8 @@ void GuiLineDrawing::MakeInBetweenPoints()
 {
   // Make in between points from control points
   m_points.clear();
+  m_totalLength = 0;
+
   int n = m_controlPoints.size() - 3;
   for (int i = 0; i < n; i++)
   {
@@ -290,6 +299,13 @@ void GuiLineDrawing::MakeInBetweenPoints()
       Vec2f v = CatmullRomSpline(t, m_controlPoints[i], m_controlPoints[i + 1], m_controlPoints[i + 2], m_controlPoints[i + 3]);
       v.x *= m_size.x;
       v.y *= m_size.y;
+
+      // Add to total length
+      if (!m_points.empty())
+      {
+        m_totalLength += sqrtf((v - m_points.back()).SqLen());
+      }
+
       m_points.push_back(v);
 
 //t += 0.2f;

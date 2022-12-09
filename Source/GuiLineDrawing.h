@@ -41,6 +41,9 @@ protected:
   std::vector<Vec2f> m_points;
   std::vector<Vec2f> m_controlPoints;
 
+  // Total length of all segments 
+  float m_totalLength = 0;
+
   RCPtr<TriList> m_triList;
   Colour m_fgCol;
 
