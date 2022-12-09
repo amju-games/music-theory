@@ -126,13 +126,24 @@ void GSPages::NextPage()
   // Show number of pages or number of correct answers?
   std::string s = ToString(m_numCorrectThisSession) + "/" + ToString(m_maxNumPagesThisSession);
   numPagesText->SetText(s);
+
+  // Start pie slice colour anim
+  GuiDecAnimation* sliceColourAnim = dynamic_cast<GuiDecAnimation*>(
+    GetElementByName(m_gui, "anim-pie-colour-" + ToString(m_numPagesShown)));
+  sliceColourAnim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
 }
 
 void GSPages::SetPie(int n, const Colour& col)
 {
+  // Stop anim
+  GuiDecAnimation* sliceColourAnim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "anim-pie-colour-" + ToString(n)));
+  sliceColourAnim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ZERO);
+
+  // Set slice colour
   GuiDecColour* sliceColour = dynamic_cast<GuiDecColour*>(GetElementByName(m_gui, "colour-pie" + ToString(n)));
   Assert(sliceColour);
-  sliceColour->SetColour(col);
+  sliceColour->SetColour(col, 0); // set both colours, anim value is between 0..1 
+  sliceColour->SetColour(col, 1);
 }
 
 void GSPages::Draw2d()
