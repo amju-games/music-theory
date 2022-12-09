@@ -1,7 +1,7 @@
 # * Amjula Music Theory *
 # (c) Copyright 2017 Jason Colman
 
-# Test MakeScore
+# Test harness for MakeScore
 
 pushd ../../Assets/Gui
 cp scoretest.txt gs_test_show_score.txt

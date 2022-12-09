@@ -1,7 +1,5 @@
 MAKE SCORE TODO LIST
 
-Add tied note support
-
 Preprocess:
 Automatically add beam codes, using rules for groups.
 
