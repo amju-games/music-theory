@@ -14,5 +14,10 @@ public:
 
   void Draw() override;
   void Update() override;
+
+  void DoOk() override; // Lurker calls this when we close Notebook
+
+private:
+  int m_pageNum = 0; // 0 is cover, 1 is page 1, etc.??? OR 0 is TOC???
 };
 }

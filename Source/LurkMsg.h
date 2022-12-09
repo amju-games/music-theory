@@ -46,9 +46,9 @@ public:
   void SetYesCommand(CommandFunc onYes);
   void SetNoCommand(CommandFunc onNo);
  
-  void DoOk();
-  void DoYes();
-  void DoNo();
+  virtual void DoOk();
+  virtual void DoYes();
+  virtual void DoNo();
 
   static const float DEFAULT_MAX_LURK_TIME;
   static const char* MESSAGE_FONT;

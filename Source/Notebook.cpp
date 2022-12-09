@@ -3,10 +3,21 @@
 
 #include <Batched.h>
 #include <GuiComposite.h>
+#include <GuiDecAnimation.h>
+#include <MessageQueue.h>
 #include "Notebook.h"
+#include "PlayWav.h"
 
 namespace Amju
 {
+namespace
+{
+void OnNotebookClose(GuiElement*)
+{
+  TheLurker::Instance()->OnLurkOk();
+}
+} // anon namespace - does it work if nested in another ns?
+
 Notebook::Notebook()
 {
   m_isModal = true;
@@ -19,7 +30,7 @@ Notebook::Notebook()
 
   GuiButton* quitButton = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "quit-button"));
   Assert(quitButton);
-  quitButton->SetCommand([](GuiElement*) { TheLurker::Instance()->OnLurkOk(); });
+  quitButton->SetCommand(OnNotebookClose);
 
   // TODO TEMP TEST
   // Load a notebook page
@@ -40,6 +51,24 @@ void Notebook::Draw()
   m_gui->Draw();
 }
 
+void Notebook::DoOk()
+{
+  // Called when we close the notebook
+  // Scroll off over time
+  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "move-off-anim-trigger"));
+  anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+
+  PlayWav("swish");
+
+  SetAsListener(nullptr); // stop being the modal listener
+
+  // Send timed message (or could add this as an OnComplete func)
+  TheMessageQueue::Instance()->Add(new FuncMsg([this]()
+  {
+    m_state = LurkMsg::LURK_FINISHED; // now this msg will get popped off
+  }, SecondsFromNow(.5f)));
+}
+
 void Notebook::Update()
 {
   m_gui->Update();
@@ -47,10 +76,6 @@ void Notebook::Update()
   // LURK_HIDING state set when we execute LurkOk command
   if (m_state == LurkMsg::LURK_HIDING)
   {
-    // TODO Scroll off over time
-
-    SetAsListener(nullptr); // stop being the modal listener
-    m_state = LurkMsg::LURK_FINISHED; // now this msg will get popped off
   }
 }
 }

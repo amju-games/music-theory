@@ -29,6 +29,19 @@ G
 // Font name, size
 icon, 1.5, fgcol=ffffff, bgcol=FF0949
 
+// Animate down off the screen, triggered in code when we exit
+animation
+move-off-anim-trigger
+const
+zero
+
+animation
+move-off-anim
+one-shot
+.3
+linear
+translate
+0, 0; 0, -2
 
 
 elastic
@@ -48,6 +61,10 @@ notebook-bg
 2, 2
 Image/grave/book1.png
 
+// Current page is added in code below this anchor.
+// Position the anchor so the GUI we load will be in the right place.
+translate
+0.4,0
 gui-comp
 // name
 page-anchor

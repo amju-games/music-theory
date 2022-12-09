@@ -11,15 +11,15 @@ gui-comp
 // Name
 tap-picture-treb-clef
 // Num children
-3
+2
 
-// Background image
+// Background image - we don't want this for notebook 
 
-gui-image
-counter-bg
--.4, .8
-.8, 1.6
-Image/flower-border-1.png, stretch
+//gui-image
+//bg
+//-.4, .8
+//.8, 1.6
+//Image/flower-border-1.png, stretch
 
 // Text
 
