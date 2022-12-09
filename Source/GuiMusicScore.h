@@ -52,17 +52,17 @@ public:
   {
     Glyph() = default;
 
-    Glyph(char ch, const Vec2f& pos, const Colour& col) :
+    Glyph(int ch, const Vec2f& pos, const Colour& col) :
       m_char(ch), m_pos(pos), m_colour(col) {}
 
-    Glyph(char ch, const Vec2f& pos, const Vec2f& scale, const Colour& col) :
+    Glyph(int ch, const Vec2f& pos, const Vec2f& scale, const Colour& col) :
       m_char(ch), m_pos(pos), m_scale(scale), m_colour(col) {}
 
     Glyph(const Vec2f corners[4], const Colour& col);
 
     void SetTimeMinMax(const Vec2f& tmm) { m_timeMinMax = tmm; }
 
-    char m_char = 'q';
+    int m_char = 'q';
     Vec2f m_pos;
     Vec2f m_scale = Vec2f(1.f, 1.f);
 

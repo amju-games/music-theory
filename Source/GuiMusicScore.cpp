@@ -11,11 +11,13 @@
 
 namespace Amju
 {
-const char QUAD_CHAR = 0;
+const int QUAD_CHAR = 0;
 
 // This non-printable character is used for quads, which are a special case.
 // Used for stave lines, bar lines, beams etc.
 const char* QUAD_NAME = "quad";
+
+const char* END_TOKEN = "end";
 
 std::map<std::string, std::string> GuiMusicScore::s_compoundGlyphs;
 
@@ -35,7 +37,7 @@ GuiMusicScore::Glyph::Glyph(const Vec2f corner[4], const Colour& col) :
 }
 
 // Look up character in font from human-readable name
-static bool GlyphNameToCh(const std::string& s, char* ch)
+static bool GlyphNameToCh(const std::string& s, int* ch)
 {
   // Single character names just map to that character, e.g. a dot "." is character '.' in music score font.
   if (s.size() == 1)
@@ -44,7 +46,15 @@ static bool GlyphNameToCh(const std::string& s, char* ch)
     return true;
   }
 
-  static const std::unordered_map<std::string, char> NAMES = 
+  // Convert numbers from string to int, so we can reliably map names to chars above 127
+  //if (IsInt(s))
+  //{
+  //    *ch = ToInt(s);
+  //    return true;
+  //}
+
+  // TODO These can all go in the compound glyphs text file
+  static const std::unordered_map<std::string, int> NAMES = 
   {
     { "quad", QUAD_CHAR }, // special (non-printable) character to represent a quad
     { "triplet", '!' },
@@ -102,17 +112,18 @@ static bool GlyphNameToCh(const std::string& s, char* ch)
     { "whole-note", 'w' },
     { "note-1", 'w' }, // use 1 for whole note?
     { "repeat-right", '}' },
-    { "small-1", '¡' },
-    { "small-3", '£' },
-    { "small-4", '¢' },
-    { "small-5", '¦' },
-    { "small-6", '§' },
-    { "small-7", '¶' },
-    { "small-9", 'ª' },
-    { "rest-crotchet", '¥' },
-    { "rest-3", '®' },
-    { "ped", '°' },
-    { "double-sharp", '´' },
+    { "small-1", 161 },
+    { "small-3", 163 },
+    { "small-4", 162 },
+    { "small-5", 166 },
+    { "small-6", 167 },
+    { "small-7", 182 },
+    { "small-9", 170 },
+    { "small-0", 186 },
+    { "rest-crotchet", 165 },
+    { "rest-3", 174 },
+    { "ped", 176 },
+    { "double-sharp", 180 },
     { "trill", 'µ' },
     { "tail", '·' }, // or bar line?
     { "tr", '¼' },
@@ -188,6 +199,7 @@ GuiMusicScore::GuiMusicScore()
   rtt->SetRenderFlags(RenderToTexture::AMJU_RENDER_COLOUR_WITH_ALPHA);
   //rtt->SetSize(128, 128); // // TODO TEMP TEST - shold be multiple of screen resolution?
   rtt->SetSize(1024, 1024);
+  rtt->SetClearColour(Colour(0, 0, 0, 0)); // 0 alpha, so we see through most of it, black is normally the colour of music score.
   rtt->Init();
 
   m_fullscreenRenderer.SetRenderTarget(rtt);
@@ -292,17 +304,23 @@ bool GuiMusicScore::AddMultipleGlyphsFromString(const std::string& line, const V
 
     // s is a single glyph string, or could be a "compound name".
     // Check first string: it could be a "compound name", which expands out to multiple glyphs.
-    if (IsCompoundGlyphName(tokens[0]))
+    if (tokens[0] == END_TOKEN)
+    {
+      return false;
+    }
+    else if (IsCompoundGlyphName(tokens[0]))
     {
       if (!ExpandCompoundGlyph(tokens, pos, scale))
       {
         ReportError("Failed to expand compound glyph: " + s);
+        Assert(0);
         return false;
       }
     }
     else if (!AddGlyphFromString(s, pos, scale))
     {
       ReportError("Failed to set score glyph: " + s);
+      Assert(0);
       return false;
     }
   }
@@ -331,7 +349,7 @@ bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* re
   }
   else if (n == 3 || n == 5)
   {
-    char ch;
+    int ch;
 
     if (!GlyphNameToCh(strs[0], &ch))
     {
