@@ -42,13 +42,24 @@ void PageMultiChoice::OnActive()
     {
       m_canRemoveForHint.push_back(i);
     }
-    else if (!seen)
+    else if ((!seen) || (numChoices == 1))
     {
       // Show correct answer for questions we have not seen before.
       button->SetHasFocus(true); // pulsing glow
     }
   }
-  // TODO Hide any extra buttons?
+
+  // Hide any extra buttons
+  int maxNumChoices = 4; // ? or just keep going until we fail to find any more buttons?
+  for (int i = numChoices; i < maxNumChoices; i++)
+  {
+    GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(i)));
+    if (!button)
+    {
+      break;
+    }
+    button->SetVisible(false);
+  }
 }
 
 void PageMultiChoice::OnChoice(int c)
