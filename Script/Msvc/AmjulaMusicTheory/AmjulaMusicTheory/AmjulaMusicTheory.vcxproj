@@ -529,8 +529,10 @@
     <Text Include="..\..\..\..\Assets\Gui\text_bg_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\title-text.txt" />
     <Text Include="..\..\..\..\Assets\Scene\basket-scene.txt" />
-    <Text Include="..\..\..\..\Assets\Scene\corridor-one-door.txt" />
-    <Text Include="..\..\..\..\Assets\Scene\corridor-scene.txt" />
+    <Text Include="..\..\..\..\Assets\Scene\corridor-one-door-1.txt" />
+    <Text Include="..\..\..\..\Assets\Scene\corridor-one-door-2.txt" />
+    <Text Include="..\..\..\..\Assets\Scene\corridor-scene-1.txt" />
+    <Text Include="..\..\..\..\Assets\Scene\corridor-scene-2.txt" />
     <Text Include="..\..\..\..\Assets\Scene\room1-scene.txt" />
     <Text Include="..\..\..\..\Assets\Scene\schoolhouse-scene.txt" />
     <Text Include="..\..\..\..\Assets\Scene\title-scene.txt" />

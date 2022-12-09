@@ -657,17 +657,11 @@
     <Text Include="..\..\..\..\Assets\Scene\schoolhouse-scene.txt">
       <Filter>Assets\Scene</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Scene\corridor-scene.txt">
-      <Filter>Assets\Scene</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Shaders\opengl\rotating-frag.txt">
       <Filter>Assets\Shaders\opengl</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Shaders\opengl\rotating-vert.txt">
       <Filter>Assets\Shaders\opengl</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Scene\corridor-one-door.txt">
-      <Filter>Assets\Scene</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\page_symbol_kb_landscape.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
@@ -796,6 +790,18 @@
       <Filter>Assets\Gui</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Scene\basket-scene.txt">
+      <Filter>Assets\Scene</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Scene\corridor-one-door-1.txt">
+      <Filter>Assets\Scene</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Scene\corridor-one-door-2.txt">
+      <Filter>Assets\Scene</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Scene\corridor-scene-1.txt">
+      <Filter>Assets\Scene</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Scene\corridor-scene-2.txt">
       <Filter>Assets\Scene</Filter>
     </Text>
   </ItemGroup>
