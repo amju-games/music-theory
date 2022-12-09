@@ -10,6 +10,7 @@
 #include <vector>
 #include "Beam.h"
 #include "Glyph.h"
+#include "Stave.h"
 #include "TimeSig.h"
 #include "TimeSigGlyph.h"
 #include "TimeValue.h"
@@ -32,6 +33,10 @@ struct Bar
 
   // Beams connecting ordered glyphs
   std::vector<std::unique_ptr<Beam>> m_beams;
+
+  // Stave type for the bar (I would expect this to be the same for
+  //  all bars, at least in the same line).
+  StaveType m_staveType = StaveType::STAVE_TYPE_RHYTHM;
 
   float m_x = 0;
   float m_y = 0;

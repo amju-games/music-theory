@@ -18,6 +18,7 @@
 
 #include "Bar.h"
 #include "Glyph.h"
+#include "Stave.h"
 #include "Tie.h"
 #include "TimeSigGlyph.h"
 #include "TimeValue.h"
@@ -39,6 +40,11 @@ public:
   void SetOutputOneLine(bool oneLine)
   {
     m_outputOnOneLine = oneLine;
+  }
+
+  void SetStaveType(StaveType st) 
+  {
+    m_staveType = st;
   }
 
 private:
@@ -110,5 +116,6 @@ private:
   //  per-bar.
   std::vector<std::unique_ptr<Tie>> m_ties;
 
+  StaveType m_staveType = StaveType::STAVE_TYPE_RHYTHM;
 };
 

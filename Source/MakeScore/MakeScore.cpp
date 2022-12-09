@@ -211,9 +211,9 @@ std::string MakeScore::ToString()
 
   // First, output a stave. For rhythm only, it's a single line.
   // TODO Multiple lines 
-  res += "stave-line, 0, " + Str(DEFAULT_HEIGHT + m_y) + ", " + 
-    Str(PAGE_WIDTH) + ", " + Str(m_scale) + 
-    LineEnd(m_outputOnOneLine);
+
+  res += GetStaveString(m_staveType, 0, m_y, PAGE_WIDTH, m_scale);
+  res += LineEnd(m_outputOnOneLine);
 
   for (auto& b : m_bars)
   {
@@ -239,6 +239,11 @@ void CommandLineParams(int argc, char** argv, MakeScore& ms)
     {
       // All on one line
       ms.SetOutputOneLine(true);
+    }
+
+    if (param == "--stave-single")
+    {
+      ms.SetStaveType(StaveType::STAVE_TYPE_SINGLE);
     }
   }
 }
