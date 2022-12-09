@@ -306,6 +306,11 @@ void GSMainCorridor::Draw2d()
 
 void GSMainCorridor::SetMode(int modeId)
 {
+  if (modeId == m_newModeId)
+  {
+    return; // right?
+  }
+
 std::cout << "Set Mode: new mode ID is " << modeId << "\n";
  
   // Don't change immediately, wait until Update.
