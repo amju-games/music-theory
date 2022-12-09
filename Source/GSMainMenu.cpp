@@ -16,17 +16,17 @@ namespace Amju
 {
 static void OnShare(GuiElement*)
 {
-  TheGSMainMenu::Instance()->ScrollUp();
+  TheGSMainMenu::Instance()->HideButtons()->ScrollUp();
 }
 
 static void OnNewUser(GuiElement*)
 {
-  TheGSMainMenu::Instance()->ScrollDown();
+  TheGSMainMenu::Instance()->HideButtons()->ScrollDown();
 }
 
 static void OnAbout(GuiElement*)
 {
-  TheGSMainMenu::Instance()->ScrollDown();
+  TheGSMainMenu::Instance()->HideButtons()->ScrollDown();
   TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSAbout>, SecondsFromNow(1.0f)));
 }
 
@@ -97,6 +97,8 @@ void GSMainMenu::GoToTopic(int topic)
   gs->SetTopic(topic);
   gs->SetPrevState(this);
   TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSTopicStart>, SecondsFromNow(1.0f)));
+
+  HideButtons();
 
   // Start animation
   ScrollUp();

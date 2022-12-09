@@ -3,11 +3,35 @@
 
 #include <AmjuGL.h>
 #include <CursorManager.h>
+#include <GuiButton.h>
+#include <GuiComposite.h>
 #include <GuiDecAnimation.h>
 #include "GSBase.h"
 
 namespace Amju
 {
+void GSBase::HideButtons(GuiElement* elem)
+{
+  if (dynamic_cast<GuiButton*>(elem))
+  {
+    elem->SetVisible(false);     
+  }
+  else if (GuiComposite* comp = dynamic_cast<GuiComposite*>(elem))
+  {
+    int n = comp->GetNumChildren();
+    for (int i = 0; i < n; i++)
+    {
+      HideButtons(comp->GetChild(i));
+    }
+  }
+}
+
+GSBase* GSBase::HideButtons()
+{
+  HideButtons(m_gui);
+  return this;
+}
+
 void GSBase::Update()
 {
   if (m_gui)

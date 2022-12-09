@@ -13,12 +13,14 @@
 
 namespace Amju
 {
-static void OnStart(GuiElement*)
+static void OnStart(GuiElement* elem)
 {
+  TheGSTitle::Instance()->HideButtons();
+
   // Is there a user yet?
   ConfigFile* cf = TheUserProfile()->GetConfigForTopic(KEY_GENERAL);
   Assert(cf);
-  if (cf->Exists(KEY_USER_NAME))
+  if (true)//cf->Exists(KEY_USER_NAME))
   {
     TheGSTitle::Instance()->ScrollUp();
     TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainMenu>, SecondsFromNow(1.5f)));
