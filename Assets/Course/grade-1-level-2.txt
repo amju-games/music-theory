@@ -21,18 +21,18 @@ $$$170
 // Topics unlocked by this one
 none
 // Pages
-5
+1
 // Normally, pages are defined as a vec of strings:
 // 1. base name for page gui filename
 // 2. Dictionary defining Questions
 // 3. Instructions text
-page-symbol-symbol-2=Course/level2/which_clef.txt=$$$3
-page-symbol-text=Course/level2/higher_or_lower.txt=$$$92
-page-symbol-symbol=Course/level2/name_the_note.txt=$$$93
+//page-symbol-symbol-2=Course/level2/which_clef.txt=$$$3
+//page-symbol-text=Course/level2/higher_or_lower.txt=$$$92
+//page-symbol-symbol=Course/level2/name_the_note.txt=$$$93
 // Special case page:
 // 3rd param is x offset for keyboard=moving mid C close to left edge of screen
 page-symbol-kb=Course/level2/notes_on_treble_clef_with_accidentals.txt=-0.9=$$$98
-page-symbol-kb=Course/level2/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
+//page-symbol-kb=Course/level2/notes_on_bass_clef_with_accidentals.txt=0.8=$$$98
 
 // Topic
 // ID

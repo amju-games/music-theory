@@ -19,7 +19,9 @@
 // Map score of note on treble clef to midi note value
 //stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; treb-bb4-cr, 2.0, 0 =58
 //stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; treb-b4-cr, 2.0, 0 =59
-stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; c,   2.0, 0 =60
+stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; c,   2.0, 0 ; d, 2.5,0 =60,62
+end
+
 stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; c#,  2.0, 0 =61
 stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; db,  2.0, 0 =61
 stave, 0.5, 0, 2.0, 1 ; treble-clef, 1.2, 0 ; d,   2.0, 0 =62
