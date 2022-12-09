@@ -1,0 +1,120 @@
+// keyboard.txt
+// Reusable piano keyboard
+// version
+1
+
+// Element type
+gui-comp
+// Name
+keyboard
+// Num children
+4
+
+// Background to kb
+gui-image
+kb-bg
+-1.0, 0.0
+2, 1
+Image/black.png
+
+// Piano Name, giving cue for middle C position
+gui-image
+kb-piano-name-mask
+-0.5, 0.2
+1.0, 0.1
+Image/piano-name.png
+
+// The keyboard
+music-kb
+kb
+// Pos
+-4, -2.0
+// Scale
+.6, .6
+//1, 1
+// Keys
+key-white.obj, D9D9D9, 0
+key-black.obj, 444444, 0.55
+key-white.obj, D9D9D9, 0.55
+key-black.obj, 444444, 0.55
+key-white.obj, D9D9D9, 0.55
+key-white.obj, D9D9D9, 1.1
+key-black.obj, 444444, 0.55
+key-white.obj, D9D9D9, 0.55
+key-black.obj, 444444, 0.55
+key-white.obj, D9D9D9, 0.55
+key-black.obj, 444444, 0.55
+key-white.obj, D9D9D9, 0.55
+
+key-white.obj, D9D9D9, 1.1
+key-black.obj, 444444, .55
+key-white.obj, D9D9D9, .55
+key-black.obj, 444444, .55
+key-white.obj, D9D9D9, .55
+key-white.obj, D9D9D9, 1.1
+key-black.obj, 444444, .55
+key-white.obj, D9D9D9, .55
+key-black.obj, 444444, .55
+key-white.obj, D9D9D9, .55
+key-black.obj, 444444, .55
+key-white.obj, D9D9D9, .55
+end
+
+// Front of kb: black bg with dots
+// Element type
+gui-comp
+// Name
+keyboard-front-comp
+// Num children
+8
+
+// Child 1: bg
+gui-image
+kb-fg
+-1.0, -0.92
+2, 2
+Image/black.png
+
+// Children 2..8: dots
+gui-image
+kb-dot1
+-0.3, -0.94
+0.05, 0.04
+Image/dot.png
+
+gui-image
+kb-dot2
+-0.2, -0.94
+0.05, 0.04
+Image/dot.png
+
+gui-image
+kb-dot3
+-0.1, -0.94
+0.05, 0.04
+Image/dot.png
+
+gui-image
+kb-dot4
+0, -0.94
+0.05, 0.04
+Image/dot.png
+
+gui-image
+kb-dot5
+0.1, -0.94
+0.05, 0.04
+Image/dot.png
+
+gui-image
+kb-dot6
+0.2, -0.94
+0.05, 0.04
+Image/dot.png
+
+gui-image
+kb-dot7
+0.3, -0.94
+0.05, 0.04
+Image/dot.png
+

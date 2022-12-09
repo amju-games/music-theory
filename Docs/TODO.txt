@@ -19,6 +19,19 @@ Hmmm. Let's make Tests GameStates for now, and change it later if required.
 
 
 
+Gui decorators
+ - Colour. Use this for piano dots
+ - Swipe-able. Then use this for piano/kb, so we swipe the keys and the piano name.
+
+ Animated GUI elements
+ - We also want to animate scale of leaves, and it would be good to automate animations to some degree
+ - Extend Elastic type
+
+  - Consistent CTAs: pulsing, colour change (white <-> green, say)
+
+  - Include file decorator
+   - So can reuse octaves!?
+
 
 
 Mac: drawing not working, although user draw is, strangely.
@@ -153,11 +166,7 @@ Alternate animated drawing
   - Could be super advanced: click to place control points, drag them around. (Insert would be useful but harder to implement)
 
 
-Animated GUI elements
- - We also want to animate scale of leaves, and it would be good to automate animations to some degree
- - Extend Elastic type
 
-  - Consistent CTAs: pulsing, colour change (white <-> green, say)
 
 
 
