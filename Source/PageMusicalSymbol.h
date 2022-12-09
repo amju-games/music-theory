@@ -14,5 +14,6 @@ class PageMusicalSymbol : public PageScoreMCQBase
 public:
   PageMusicalSymbol();
   static const char* NAME;
+  void SetDictionaryName(const std::string& dictionaryName);
 };
 }

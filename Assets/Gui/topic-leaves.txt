@@ -9,7 +9,7 @@
 
 gui-comp
 topic-leaves-comp
-4
+5
 
 gui-comp
 leaf-0
@@ -93,5 +93,23 @@ translate
 include
 topic-leaf-right.txt
 
-
+gui-comp
+leaf-4
+1
+animation
+clean-anim-value
+const
+one
+animation
+wait
+one-shot
+// Wait until shoot grown
+1.5
+step
+colour
+ffffffff
+translate
+0, 0.3
+include
+topic-leaf-left.txt
 

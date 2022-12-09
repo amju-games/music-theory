@@ -25,13 +25,6 @@ quit-confirm-elements
 // Num children
 4
 
-// Background
-//gui-image
-//quit-confirm-bg
-//-0.8, 0.4
-//1.6, 0.8
-//Image/gui-button-2.png
-
 gui-rect
 quit-confirm-bg
 -0.8, 0.4

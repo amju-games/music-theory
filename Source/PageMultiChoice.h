@@ -24,6 +24,9 @@ public:
   virtual void ShowCorrectAnswer() override;
 
 protected:
+  void HideChoiceButton(int n);
+
+protected:
   MultiChoice m_answers;
 
   // Answer buttons we can remove when user requests a hint 

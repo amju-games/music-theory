@@ -87,6 +87,12 @@ void PageMultiChoice::OnHint()
 
   std::random_shuffle(m_canRemoveForHint.begin(), m_canRemoveForHint.end());
   int n = m_canRemoveForHint.back(); // the button to remove
+
+  HideChoiceButton(n);
+}
+
+void PageMultiChoice::HideChoiceButton(int n)
+{
   m_canRemoveForHint.pop_back(); // so we can't remove it again
 
   std::string fadeAnimName = "fade-button-" + ToString(n);

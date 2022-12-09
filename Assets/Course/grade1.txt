@@ -9,7 +9,19 @@
 1
 
 // Num topics
-4
+5
+
+// Topic
+// ID
+note-lengths-1
+// Localised display name
+Names for note lengths
+// Initially locked?
+// Topics unlocked by this one
+// Pages
+10
+page-note-length-names
+
 
 // Topic
 // ID

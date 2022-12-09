@@ -13,4 +13,9 @@ PageMusicalSymbol::PageMusicalSymbol()
   m_dictionaryFilename = "Course/musical_symbols.txt.dictionary";
 }
 
+void PageMusicalSymbol::SetDictionaryName(const std::string& dictionaryName)
+{
+  m_dictionaryFilename = dictionaryName;
+}
+
 }

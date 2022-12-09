@@ -106,5 +106,5 @@ gui-image
 score-white-bg
 -0.9, 0.75
 1.8, 0.6
-Image/paper2f.png, stretch
+Image/paper-square.png, stretch
 
