@@ -79,8 +79,8 @@ void GSMainMenu::OnActive()
   GuiElement* title = GetElementByName(m_gui, "title-button");
   title->SetCommand(OnBackToTitle);
 
-  //GuiElement* about = GetElementByName(m_gui, "about-button");
-  //about->SetCommand(OnAbout);
+  GuiElement* about = GetElementByName(m_gui, "about-button");
+  about->SetCommand(OnAbout);
 
   //GuiElement* share = GetElementByName(m_gui, "share-button");
   //share->SetCommand(OnShare);

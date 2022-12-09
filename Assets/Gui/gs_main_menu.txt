@@ -128,7 +128,7 @@ one
 
 gui-comp
 scrolling-part-of-scene
-5
+6
 
 
 // GROWING SHOOT
@@ -196,19 +196,56 @@ one-shot
 1.5
 linear
 
+rotate
+5
+
 scale
 0.0, 0.0; 1.0, 1.0
--0.8, 0.0
+-0.7, 0.0
 
 // Topic button
 gui-button
 topic-button-0
 // pos (coords are -1..1)
-0, 0.18
+0.03, 0.18
 0.8, 0.4
 Image/leaf1.png
 $$$empty
 dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
+
+// OPTION LEAF BUTTON TEXT (not using button text as we are scaling)
+
+animation
+clean-anim-value
+const
+one
+
+animation
+delay
+one-shot
+3.5
+step
+
+animation
+fade-in-text
+one-shot
+1.5
+linear
+
+colour
+ffffff00, ffffffff
+
+gui-text
+topic-0-name-text
+// pos (coords are -1..1)
+0.0, 0.4
+// size
+1.0, 0.1
+// Text
+Musical terms
+// Font name, size
+dimbo, 1.0, multi, fgcol=ffffff
+
 
 
 // TITLE TEXT
