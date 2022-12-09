@@ -28,6 +28,7 @@ camera
 // Num children
 0
 
+// Left hand stairs: no stairs on level 1
 // Node type
 mesh
 // Name
@@ -35,7 +36,8 @@ left-arch
 // Matrix
 1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 60, 1
 // Obj mesh
-obj/arch1.obj
+// end1, not arch1, as there are no stairs down to lower level
+obj/end1.obj
 // Num children
 0
 
