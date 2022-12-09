@@ -24,7 +24,7 @@ gui-image
 best-so-far-bg
 -0.15, -0.1
 0.3, 0.5
-Image/paper2.png, stretch
+Image/cert-bg.png, stretch
 
 // Element type
 gui-text
