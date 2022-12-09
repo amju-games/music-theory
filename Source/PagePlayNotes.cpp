@@ -70,7 +70,7 @@ void PagePlayNotes::OnActive()
 
   q->SetDictionary(GetDictionary());
 
-  QuestionProgress qp;
+  QuestionProgress& qp = GetPagesState()->GetProgress();
   q->MakeQuestion(qp); // pick the random line
 
   SetUpQuestionUI();
