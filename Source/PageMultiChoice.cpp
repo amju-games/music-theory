@@ -162,11 +162,11 @@ void PageMultiChoice::OnChoice(int c)
 
   if (m_answers.IsAnswerCorrect(c))
   {
-    dynamic_cast<GSPages*>(m_gs)->OnCorrect();
+    GetPagesState()->OnCorrect();
   }
   else
   {
-    dynamic_cast<GSPages*>(m_gs)->OnIncorrect();
+    GetPagesState()->OnIncorrect();
   }
 }
 

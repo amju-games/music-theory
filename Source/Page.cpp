@@ -21,7 +21,7 @@ static void OnHint(GuiElement* hintButton)
 
 // Convenience function: get the GSPages game state, but only if it's
 //  currently active.
-static GSPages* GetPagesState()
+GSPages* GetPagesState()
 {
   GSPages* pages = TheGSPages::Instance();
   // Sanity check: this only makes sense if GSPages is active
@@ -198,9 +198,5 @@ void Page::Update()
   m_gui->Update();
 }
 
-void Page::SetGameState(GameState* gs)
-{
-  m_gs = gs;
-}
 } // namespace
 

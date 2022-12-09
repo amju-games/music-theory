@@ -161,11 +161,11 @@ void PagePlayNotes::OnMusicKbEvent(const MusicKbEvent& event)
     int correctNote = ToInt(GetQuestion()->GetAnswerString());
     if (correctNote == event.m_note)
     {
-      dynamic_cast<GSPages*>(m_gs)->OnCorrect();
+      GetPagesState()->OnCorrect();
     }
     else
     {
-      dynamic_cast<GSPages*>(m_gs)->OnIncorrect();
+      GetPagesState()->OnIncorrect();
     }
   }
 }

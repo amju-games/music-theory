@@ -274,7 +274,6 @@ void GSPages::SetPage(Page* p)
 
   if (m_page)
   {
-    m_page->SetGameState(this);
     // Activate new page
     m_page->OnActive();
   }

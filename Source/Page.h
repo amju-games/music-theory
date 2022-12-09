@@ -13,11 +13,15 @@ namespace Amju
 {
 class ConfigFile;
 class Dictionary;
-class GameState;
 struct MusicKbEvent;
+class GSPages;
 
 // Call to load a new page, assuming the current game state is GSPages.
 void GoToNextPage();
+
+// Convenience function: get the GSPages game state, but only if it's
+//  currently active.
+GSPages* GetPagesState();
 
 // * Page *
 // A page is one screenful of information, usually in the form of a "test" or question. 
@@ -55,8 +59,6 @@ public:
   // Set config file to save any state we want to remember about this page/topic
   void SetConfigFile(ConfigFile* cf);
 
-  void SetGameState(GameState* gs);
-
   // Called when user taps Hint button -- show page-specific hint.
   virtual void OnHint() {}
   virtual bool CanGetHint() { return true; }
@@ -91,10 +93,6 @@ protected:
 
   // Visible UI representation of question
   RCPtr<PageQuestion> m_pageQuestion;
-
-  // The game state which owns this page 
-  // TODO This will always be GSPages, no?
-  GameState* m_gs = nullptr;
 
   // Config file to save any state we want to remember about this page/topic
   RCPtr<ConfigFile> m_config;
