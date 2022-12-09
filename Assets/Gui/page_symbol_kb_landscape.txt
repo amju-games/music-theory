@@ -1,0 +1,20 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Musical Symbol - keyboard page
+
+// version
+1
+
+gui-comp
+// Name
+page
+// Num children
+2
+
+include
+question_symbol_landscape.txt
+
+include
+keyboard.txt
+

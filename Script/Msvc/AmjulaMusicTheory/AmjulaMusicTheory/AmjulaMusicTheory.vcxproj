@@ -93,7 +93,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>AMJU_USE_BASS;USE_BASS_MIDI;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AMJU_USE_BASS;AMJU_USE_BASS_MIDI;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/I "../../../../../amjulib/Source/Events" 
 /I "../../../../../amjulib/Source/EventsWin32" 
 /I "../../../../../amjulib/Source/EventsSDL" 
@@ -269,6 +269,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\BassPlayMidi.cpp" />
     <ClCompile Include="..\..\..\..\Source\Course.cpp" />
+    <ClCompile Include="..\..\..\..\Source\DictionaryPickQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSAbout.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase3d.cpp" />
@@ -298,6 +299,7 @@
     <ClCompile Include="..\..\..\..\Source\PageFactory.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageMultiChoice.cpp" />
     <ClCompile Include="..\..\..\..\Source\PagePlayNotes.cpp" />
+    <ClCompile Include="..\..\..\..\Source\PageQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\PlayWav.cpp" />
     <ClCompile Include="..\..\..\..\Source\PrintGui.cpp" />
     <ClCompile Include="..\..\..\..\Source\Question.cpp" />
@@ -340,6 +342,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\Course.h" />
+    <ClInclude Include="..\..\..\..\Source\DictionaryPickQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\GSAbout.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase3d.h" />
@@ -371,6 +374,7 @@
     <ClInclude Include="..\..\..\..\Source\PageFactory.h" />
     <ClInclude Include="..\..\..\..\Source\PageMultiChoice.h" />
     <ClInclude Include="..\..\..\..\Source\PagePlayNotes.h" />
+    <ClInclude Include="..\..\..\..\Source\PageQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\PlayMidi.h" />
     <ClInclude Include="..\..\..\..\Source\PlayWav.h" />
     <ClInclude Include="..\..\..\..\Source\Question.h" />
@@ -424,6 +428,7 @@
     <Text Include="..\..\..\..\Assets\Gui\music-score-bg.txt" />
     <Text Include="..\..\..\..\Assets\Gui\music_score_bg_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_interval.txt" />
+    <Text Include="..\..\..\..\Assets\Gui\page_symbol_kb_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_symbol_symbol_4.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_symbol_symbol_4_landscape.txt" />
     <Text Include="..\..\..\..\Assets\Gui\page_symbol_text_4.txt" />

@@ -11,6 +11,23 @@
 // Num topics
 9
 
+
+// Topic
+// ID
+notes-treble
+// Localised display name
+Notes on the treble clef
+// Group
+4
+// Initially locked?
+// Topics unlocked by this one
+none
+// Pages
+2
+page-symbol-kb, Course/notes_on_treble_clef.txt
+page-symbol-kb, Course/notes_on_treble_clef.txt
+
+
 // Topic
 // 1a
 // ID
@@ -177,20 +194,6 @@ page-symbol-text, Course/musical_symbols.txt
 page-symbol-text, Course/musical_symbols.txt
 
 
-// Topic
-// ID
-notes-treble
-// Localised display name
-Notes on the treble clef
-// Group
-4
-// Initially locked?
-// Topics unlocked by this one
-none
-// Pages
-1
-page-symbol-text, Course/crotchet_minim_semibreve.txt
-//page-play-notes
 
 
 // Topic

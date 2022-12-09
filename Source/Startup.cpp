@@ -104,9 +104,9 @@ void StartUpAfterCreateWindow()
   // Set sound player
   SoundManager* sm = TheSoundManager::Instance();
   BassSoundPlayer* bsp = new BassSoundPlayer;
-#ifdef USE_BASS_MIDI
+#ifdef AMJU_USE_BASS_MIDI
   bsp->MidiSetSoundFont((File::GetRoot() + "Sound/" + SOUND_FONT + ".sf2").c_str());
-#endif // USE_BASS_MIDI
+#endif // AMJU_USE_BASS_MIDI
   sm->SetImpl(bsp); 
 #endif
 

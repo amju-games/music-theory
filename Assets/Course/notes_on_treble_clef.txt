@@ -1,0 +1,15 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// Notes on treble clef
+
+// version
+1
+
+stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.5, 0 ; crotchet-up, 1.2, 0.00  =note0
+stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.5, 0 ; crotchet-up, 1.2, 0.05  =note1
+stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.5, 0 ; crotchet-up, 1.2, 0.10  =note2
+stave, 0.2, 0, 1.5, 1 ; treble-clef, 0.5, 0 ; crotchet-up, 1.2, 0.15  =note3
+
+
+

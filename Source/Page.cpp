@@ -4,6 +4,7 @@
 #include <ConfigFile.h>
 #include <GameState.h>
 #include <GuiDecAnimation.h>
+#include "Dictionary.h"
 #include "GSPages.h"
 #include "Page.h"
 
@@ -22,6 +23,22 @@ void Page::SetConfigFile(ConfigFile* cf)
 void Page::SetDictionaryName(const std::string& dictionaryName)
 {
   m_dictionaryFilename = dictionaryName;
+}
+
+Dictionary* Page::GetDictionary()
+{
+#ifdef _DEBUG
+  // Not a resource, so we can easily reload
+  Dictionary* dic = new Dictionary;
+  bool loaded = dic->Load(m_dictionaryFilename);
+  Assert(loaded);
+#else
+  // Get musical terms dictionary - this is a Resource.
+  Dictionary* dic = dynamic_cast<Dictionary*>(
+    TheResourceManager::Instance()->GetRes(m_dictionaryFilename + ".dictionary"));
+  Assert(dic);
+#endif
+  return dic;
 }
 
 void Page::SetGuiName(const std::string& guiName)
@@ -87,11 +104,33 @@ void Page::OnActive()
   }
 }
 
+Question* Page::GetQuestion()
+{
+  return m_question;
+}
+
 GuiElement* Page::GetGui()
 {
   return m_gui;
 }
-  
+ 
+void Page::SetQuestion(Question* q)
+{
+  m_question = q;
+}
+
+void Page::SetPageQuestion(PageQuestion* pq)
+{
+  m_pageQuestion = pq;
+  m_pageQuestion->SetPage(this);
+}
+
+void Page::SetUpQuestionUI()
+{
+  Assert(m_pageQuestion);
+  m_pageQuestion->SetUp();
+}
+
 void Page::Draw()
 {
   m_gui->Draw();

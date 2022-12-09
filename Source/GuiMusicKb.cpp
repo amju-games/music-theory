@@ -35,6 +35,9 @@ GuiMusicKb::~GuiMusicKb()
   
 void GuiMusicKb::Draw()
 {
+  Shader* shader = AmjuGL::GetCurrentShader();
+  AmjuGL::UseShader(0);
+
   AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
   PushColour();
 
@@ -54,7 +57,7 @@ void GuiMusicKb::Draw()
   AmjuGL::SetIdentity();
   // Ortho view
   float W = 4.f;
-  AmjuGL::SetOrthoProjection(-W, W, W, -W, 0.1f, 100);
+  AmjuGL::SetOrthoProjection(-2 * W, 2 * W, W, -W, 0.1f, 100);
   
   AmjuGL::SetMatrixMode(AmjuGL::AMJU_MODELVIEW_MATRIX);
   AmjuGL::PushMatrix();
@@ -113,6 +116,7 @@ void GuiMusicKb::Draw()
 #endif // DEBUG_SHOW_RECT
 
   PopColour();
+  AmjuGL::UseShader(shader);
 }
 
 GuiMusicKb::PKey GuiMusicKb::PickKey(const Vec2f& pos)
@@ -324,6 +328,8 @@ void GuiMusicKb::Update()
 
 bool GuiMusicKb::OnCursorEvent(const CursorEvent& ce)
 {
+#ifdef YES_ALLOW_SWIPE_TO_SCROLL
+
   if (m_tapDown)
   {
     // Detect swipe
@@ -354,6 +360,8 @@ bool GuiMusicKb::OnCursorEvent(const CursorEvent& ce)
     }
     return true;
   }
+#endif // YES_ALLOW_SWIPE_TO_SCROLL
+
   return false;
 }
 

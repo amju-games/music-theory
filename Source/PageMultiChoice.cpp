@@ -39,20 +39,6 @@ void PageMultiChoice::OnActive()
   correct->SetVisible(false);
 }
 
-void PageMultiChoice::SetUpQuestionUI()
-{
-  // Hmm, switch on type, refactor as subclasses
-  switch (m_qType)
-  {
-  case QuestionType::QTYPE_SCORE:
-    SetQScore();
-    break;
-  case QuestionType::QTYPE_TEXT:
-    SetQText();
-    break;
-  }
-}
-
 void PageMultiChoice::SetUpButtons()
 {
   // Set button callbacks
@@ -191,26 +177,6 @@ void PageMultiChoice::ShowCorrectAnswer()
   GuiElement* correct = GetElementByName(m_gui, "animate-correct");
   correct->SetLocalPos(button->GetLocalPos());
   correct->SetVisible(true);
-
-
-  //std::string istr = ToString(i);
-  //GuiText* text = dynamic_cast<GuiText*>(GetElementByName(m_gui, "text-choice-" + istr));
-  //if (text)
-  //{
-  //  text->SetBgCol(Colour(1, 1, 0, 1)); // yellow highlight
-  //  text->SetDrawBg(true);
-  //}
-
-  //GuiButton* button = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "button-choice-" + ToString(i)));
-  //if (button)
-  //{
-  //  button->SetHasFocus(true); // pulsing glow
-  //}
-}
-
-void PageMultiChoice::SetQuestionType(QuestionType qt)
-{
-  m_qType = qt;
 }
 
 void PageMultiChoice::SetAnswerType(AnswerType at)
@@ -221,22 +187,9 @@ void PageMultiChoice::SetAnswerType(AnswerType at)
 void PageMultiChoice::SetUpQuestion()
 {
   MusicalTermQuestion* q = new MusicalTermQuestion;
-  m_question = q;
+  SetQuestion(q);
 
-#ifdef _DEBUG
-  // Not a resource, so we can eaily reload
-  Dictionary* dic = new Dictionary;
-  // Strip off traliing ".dictionary", as we are not going through resource loader
-  bool loaded = dic->Load(m_dictionaryFilename);
-  Assert(loaded);
-#else
-  // Get musical terms dictionary - this is a Resource.
-  Dictionary* dic = dynamic_cast<Dictionary*>(
-    TheResourceManager::Instance()->GetRes(m_dictionaryFilename + ".dictionary"));
-  Assert(dic);
-#endif
-
-  q->SetDictionary(dic);
+  q->SetDictionary(GetDictionary());
   q->MakeQuestion();
   m_answers = q->GetMultiChoiceAnswers();
 
@@ -246,42 +199,6 @@ void PageMultiChoice::SetUpQuestion()
   q->SetQuestionSeenBefore(m_config);
 
   m_canRemoveForHint.clear();
-}
-
-void PageMultiChoice::SetQText()
-{
-  IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "musical-term-text"));
-  Assert(text);
-  text->SetText(m_question->GetQuestionString());
-}
-
-void PageMultiChoice::SetQScore()
-{
-  // Set musical score display from question text
-  GuiMusicScore* ms = dynamic_cast<GuiMusicScore*>(GetElementByName(m_gui, "music-score"));
-  Assert(ms);
-  // Simple: multiple glyphs. TODO smart ScoreBuilder.
-  // Multiple glyphs split by ;
-  Strings strs = Split(m_question->GetQuestionString(), ';');
-  for (const std::string& s : strs)
-  {
-    if (!ms->AddMultipleGlyphsFromString(s))
-    {
-      ReportError("Failed to set score glyph: " + s);
-      Assert(0);
-    }
-  }
-
-  // TODO Ideally we would like to do this:
-  //ScoreBuilder sb;
-  //std::string error;
-  //bool ok = sb.SetFromString(q->GetQuestionString(), &error);
-  //if (!ok)
-  //{
-  //  std::cout << "Error in score string: " << error << "\n";
-  //  Assert(0);
-  //}
-  //sb.Write(*ms);
 }
 
 }

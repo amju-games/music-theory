@@ -5,11 +5,13 @@
 
 #include <GuiButton.h>
 #include <RCPtr.h>
+#include "PageQuestion.h"
 #include "Question.h"
 
 namespace Amju
 {
 class ConfigFile;
+class Dictionary;
 class GameState;
 struct MusicKbEvent;
 
@@ -41,11 +43,16 @@ public:
   // Pages present info stored in "dictionaries" - text files grouping pairs/tuples of strings.
   void SetDictionaryName(const std::string& dictionaryName);
 
+  Dictionary* Page::GetDictionary();
+
   // Allows us to set different GUIs for the same Page type, as many pages could be
   //  essentially the same, just presented differently.
   void SetGuiName(const std::string& guiName);
 
   GuiElement* GetGui();
+
+  // Get non-graphical question, i.e. what we ask the user to do
+  Question* GetQuestion();
 
   // Enable/disable buttons, for modal dialog like quit confirm 
   virtual void SetIsEnabled(bool enabled);
@@ -68,8 +75,16 @@ public:
   void SetIsLearnMode(bool learn);
   bool IsLearnMode() const;
 
+  // Set the page question, which displays questions using UI
+  void SetPageQuestion(PageQuestion*);
+
 protected:
   GuiButton* GetHintButton() const; // convenience function
+  
+  void SetQuestion(Question*);
+
+  // Use the page question to show the question to the user
+  void SetUpQuestionUI();
 
 protected:
   // Base gui file name - we append current orientation and reload if the orientation changes.
@@ -83,6 +98,9 @@ protected:
 
   // Non-graphical representation of the question presented
   RCPtr<Question> m_question;
+
+  // Visible UI representation of question
+  RCPtr<PageQuestion> m_pageQuestion;
 
   // The game state which owns this page 
   // TODO This will always be GSPages, no?

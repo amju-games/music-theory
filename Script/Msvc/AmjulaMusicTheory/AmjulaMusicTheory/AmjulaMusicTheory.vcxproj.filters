@@ -189,6 +189,12 @@
     <ClCompile Include="..\..\..\..\Source\PlayWav.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\PageQuestion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\DictionaryPickQuestion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -317,6 +323,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\PlayWav.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\PageQuestion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\DictionaryPickQuestion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -551,6 +563,9 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\stroke-correct-wide.txt">
       <Filter>Assets\Gui\Stroke</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Assets\Gui\page_symbol_kb_landscape.txt">
+      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
   </ItemGroup>
 </Project>
