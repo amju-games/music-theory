@@ -360,6 +360,8 @@ int GuiMusicKb::GetMaxKey() const
 
 GuiMusicKb::PKey GuiMusicKb::GetKey(int midiNote)
 {
+  // Binary search for key with the given midi note value
+  //  (keys are in midi note value order)
   auto it = std::lower_bound(m_keys.begin(), m_keys.end(), midiNote,
     [](const PKey& k1, int m) { return k1->m_midiNote < m; }
   );
