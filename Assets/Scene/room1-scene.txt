@@ -1,0 +1,64 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Jason Colman
+
+// version
+1
+
+// room1-scene
+// Classroom scene
+
+// Node type
+comp
+// Name
+root
+// Matrix
+I
+// Num children
+1
+
+// Node type
+camera
+// Name
+camera
+// Eye pos
+80, 40, 130
+//80, 300, 300
+// Look at pos
+80, 30, 0
+// Num children
+3
+
+// Node type
+mesh
+// Name
+room
+// Matrix
+I
+// Obj mesh
+obj/room1.obj
+// Num children
+0
+
+// Node type
+mesh
+// Name
+blackboard
+// Matrix
+1,0,0,0,  0,1,0,0,  0,0,1,0,  100,0,0,1
+// Obj mesh
+obj/bboard1.obj
+// Num children
+0
+
+
+// Node type
+mesh
+// Name
+desk1
+// Matrix
+1,0,0,0,  0,1,0,0,  0,0,1,0,  80,-10,80,1
+// Obj mesh
+obj/desk1.obj
+// Num children
+0
+
