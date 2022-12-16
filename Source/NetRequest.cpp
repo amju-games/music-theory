@@ -1,6 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2018 Jason Colman
 
+#include <iostream>
 #include <ConfigFile.h>
 #include "Consts.h"
 #include "NetRequest.h"
