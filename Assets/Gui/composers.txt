@@ -23,7 +23,8 @@ notes-on-treb-clef-level1
 // I don't think so. NB We can use escape sequences or utf-8 to get accents etc.
 J. S. Bach
 // Avatar string: sets values on nodes in the avatar GUI tree
-colour;colour-head;F9EBA9|colour;colour-hair;a0a0a0|cell;nose;12
+colour;colour-scale-head;F9EBA9|colour;colour-scale-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040
+
 // Text for correct
 <i>Ja</i>! That is correct!|Correct again!|Once again, you are correct!|<i>Wunderbar</i>! You are correct again!
 // Text for incorrect - explanation is appended

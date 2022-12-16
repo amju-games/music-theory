@@ -66,4 +66,4 @@ mouth
 Image/avatar-curve.png
 
 // Avatar string: sets values on nodes in the avatar GUI tree
-colour;colour-head;80ff20
+colour;colour-scale-head;80ff20
