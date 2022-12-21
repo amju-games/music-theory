@@ -48,6 +48,7 @@
 #include "Consts.h"
 #include "Course.h"
 #include "Dictionary.h"
+#include "GSAvatarMod.h"
 #include "GSCopyAssets.h"
 #include "GSFirstUser.h"
 #include "GSMainCorridor.h"
@@ -164,7 +165,7 @@ void SetUpRootDir()
 #ifdef YES_GLUE_FILE
   std::string dir = "/Users/jay/projects/music-theory/Build/CompiledAssets/";
 #else
-  std::string dir = "/Users/jay/projects/music-theory/Assets/";
+  std::string dir = "/Users/juliet/fun/amt/music-theory/Assets/";
 #endif
 
   File::SetRoot(dir, "/");
@@ -346,6 +347,7 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
 
   TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSAvatarMod::Instance());
 }
 
 static void LoadStringTableForPreferredLanguage()

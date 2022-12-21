@@ -91,6 +91,11 @@ void GSBase::OnActive()
   GameState::OnActive();
 
   m_gui = LoadGui(m_guiFilename);
+  if (!m_gui)
+  {
+    std::cout << "Failed to load: " << m_guiFilename << "\n";
+    Assert(false);
+  }
 }
 
 GuiElement* GSBase::GetGui()

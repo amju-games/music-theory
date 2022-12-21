@@ -56,7 +56,9 @@ void GSTitle::OnActive()
   GSBase::OnActive();
 
   // Start playing title music
-  TheSoundManager::Instance()->PlaySong("Music/amt-title.it");
+  auto sm = TheSoundManager::Instance();
+  sm->SetSongMaxVolume(0.1f); // for some reason it's deafening on Mac
+  sm->PlaySong("Music/amt-title.it");
 
   // Copy ROConfig from glue file into save dir. This is almost pointless for this
   //  game, so as an optimisation, get rid of this step
