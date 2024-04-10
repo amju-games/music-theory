@@ -1,5 +1,5 @@
 // * Amjula music theory *
-// (c) Copyright 2017-2018 Jason Colman
+// (c) Copyright 2024 Juliet Colman
 
 #include <Batched.h>
 #include <GuiComposite.h>

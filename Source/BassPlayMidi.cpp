@@ -1,5 +1,5 @@
 // * Amjula music theory *
-// (c) Copyright 2017 Jason Colman
+// (c) Copyright 2024 Juliet Colman
 
 // Implement PlayMidi() using the BASS library. Used for Windows, not iOS.
 // The other way to do this, probably better, would be to make a new SoundPlayerImpl. Rats.

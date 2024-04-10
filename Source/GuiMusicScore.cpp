@@ -1,5 +1,5 @@
 // * Amjula music theory *
-// (c) Copyright 2017 Jason Colman
+// (c) Copyright 2024 Juliet Colman
 
 #include <mutex> // call_once
 #include <unordered_map> // map glyph names to ascii codes

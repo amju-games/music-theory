@@ -1,5 +1,5 @@
 // * Amjula music theory *
-// (c) Copyright 2018 Jason Colman
+// (c) Copyright 2018 Juliet Colman
 
 #pragma once
 
