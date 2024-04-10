@@ -162,10 +162,11 @@ void SetUpRootDir()
 
 #ifdef MACOSX
 
+// TODO Fix these harcoded paths!
 #ifdef YES_GLUE_FILE
-  std::string dir = "/Users/jay/projects/music-theory/Build/CompiledAssets/";
+  std::string dir = "/Users/juliet/repos/music-theory/Build/CompiledAssets/";
 #else
-  std::string dir = "/Users/juliet/fun/amt/music-theory/Assets/";
+  std::string dir = "/Users/juliet/repos/music-theory/Assets/";
 #endif
 
   File::SetRoot(dir, "/");
@@ -341,11 +342,8 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSFirstUser::Instance());
-
 //  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
-
 //  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
-
   TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSAvatarMod::Instance());
 }

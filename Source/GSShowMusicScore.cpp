@@ -30,13 +30,13 @@ void GSShowMusicScore::OnActive()
   GSBase::OnActive(); 
   m_gui = LoadGui("Gui/gs_score.txt");
 
-  // Dots
-  for (int i = 0; i < 7; i++)
-  {
-    m_dots[i] = GetElementByName(m_gui, "kb-dot" + ToString(i + 1));
-    // Need colour decorator, I'm a bit surprised we can't set image colour :#
+//  // Dots
+//  for (int i = 0; i < 7; i++)
+//  {
+//    m_dots[i] = GetElementByName(m_gui, "kb-dot" + ToString(i + 1));
+//    // Need colour decorator, I'm a bit surprised we can't set image colour :#
 //    m_dots[i]->Set
-  }
+//  }
 
   m_score = dynamic_cast<GuiMusicScore*>(GetElementByName(m_gui, "music-score"));
 

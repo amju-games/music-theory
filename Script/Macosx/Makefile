@@ -6,7 +6,7 @@ AMJULIB		:=	$(AMJULIB_MAC_SCRIPT_PATH)/../../
 RUNDIR		:=	../../Assets/
 BUILD		:=	../../Build/Mac
 TARGET		:=	$(BUILD)/macgame
-LIBDIRS   	:= 	$(AMJULIB)/Build/Releases/amjulib-v.0.5-macosx
+LIBDIRS   	:= 	$(AMJULIB)/Releases/amjulib-v.0.5-macosx
 SOURCES		:=	../../Source 
 BASSPATH	:=	$(AMJULIB)/3rdPartyLibs/Bass/Bass2.4.16.7/Macosx
 
@@ -21,7 +21,7 @@ LIBS	:= \
 	-lstdc++ -lm 
 
 include $(AMJULIB_MAC_SCRIPT_PATH)/GenMakefile
-CFLAGS += -D_DEBUG -DAMJU_USE_BASS -Wno-deprecated-declarations
+CFLAGS += -D_DEBUG -DAMJU_USE_BASS_MIDI -DAMJU_USE_BASS -Wno-deprecated-declarations
 
 run:
 	$(TARGET)

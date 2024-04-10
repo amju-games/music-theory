@@ -752,7 +752,7 @@
 				TargetAttributes = {
 					699058BB1E7D3BF400E528B4 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = SDLRPX9288;
+						DevelopmentTeam = AVUUC7C85U;
 						ProvisioningStyle = Automatic;
 					};
 					699058D81E7D3BF500E528B4 = {
@@ -769,7 +769,7 @@
 			};
 			buildConfigurationList = 699058B71E7D3BF400E528B4 /* Build configuration list for PBXProject "Amjula Music Theory" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -1093,9 +1093,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = NO;
-				DEVELOPMENT_TEAM = SDLRPX9288;
+				DEVELOPMENT_TEAM = AVUUC7C85U;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
@@ -1107,7 +1111,7 @@
 					AMJU_USE_ES2,
 					AMJU_USE_BASS,
 				);
-				HEADER_SEARCH_PATHS = "/Users/jay/projects/amjulib/Source/**";
+				HEADER_SEARCH_PATHS = "/Users/juliet/repos/amjulib/Source/**";
 				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1115,7 +1119,7 @@
 					/Users/jay/projects/amjulib/Source/SoundBass/Bass2.4/iPhone,
 					"/Users/jay/projects/amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory-2024-02-23";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1126,7 +1130,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = NO;
-				DEVELOPMENT_TEAM = SDLRPX9288;
+				DEVELOPMENT_TEAM = AVUUC7C85U;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1137,7 +1141,7 @@
 					AMJU_USE_ES2,
 					AMJU_USE_BASS,
 				);
-				HEADER_SEARCH_PATHS = "/Users/jay/projects/amjulib/Source/**";
+				HEADER_SEARCH_PATHS = "/Users/juliet/repos/amjulib/Source/**";
 				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1145,7 +1149,7 @@
 					/Users/jay/projects/amjulib/Source/SoundBass/Bass2.4/iPhone,
 					"/Users/jay/projects/amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory-2024-02-23";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
