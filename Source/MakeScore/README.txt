@@ -1,7 +1,7 @@
 * MakeScore *
 
 Part of Amjula Music School 
-(c) Jason Colman 2017-2018
+(c) Juliet Colman 2024
 
 MakeScore converts simple strings describing music notation
 into more complicated strings. 

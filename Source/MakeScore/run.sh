@@ -1,5 +1,5 @@
 # * Amjula Music Theory *
-# (c) Copyright 2017 Jason Colman
+# (c) Copyright 2024 Juliet Colman
 
 # Test harness for MakeScore
 # This is for testing the output from MakeScore.

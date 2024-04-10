@@ -1,5 +1,5 @@
 // * Amjula Music Theory *
-// (c) Copyright Jason Colman 2017-2018
+// (c) Copyright Juliet Colman 2024
 //
 // * MakeScore *
 // Sub-project for human-friendly authoring of musical notation.

@@ -1,6 +1,6 @@
 /*
  *  Catch v1.8.2
- *  Generated: 2017-03-13 21:18:33.619572
+ *  Generated: 2024-03-13 21:18:33.619572
  *  ----------------------------------------------------------
  *  This file has been merged from multiple headers. Please don't edit it directly
  *  Copyright (c) 2012 Two Blue Cubes Ltd. All rights reserved.
@@ -10135,7 +10135,7 @@ namespace Catch {
             // Also, UTC only, again because of backward compatibility (%z is C++11)
             time_t rawtime;
             std::time(&rawtime);
-            const size_t timeStampSize = sizeof("2017-01-16T17:06:45Z");
+            const size_t timeStampSize = sizeof("2024-01-16T17:06:45Z");
 
 #ifdef _MSC_VER
             std::tm timeInfo = {};

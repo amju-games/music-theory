@@ -1,5 +1,5 @@
 # * Amjula Music Theory *
-# (c) Copyright 2017 Jason Colman
+# (c) Copyright 2024 Juliet Colman
 
 # Generate "What's the missing rest" questions
 # For each line in the 'dictionary' of questions:
