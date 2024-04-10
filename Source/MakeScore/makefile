@@ -7,14 +7,14 @@ run:
 	./makescore
 
 
-CC=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
+CC=clang++
 
 WARNINGS=-Wall
 
 INCLUDES=\
   -I..
 
-CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11 -g -O0
+CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++20 -g -O0
 
 LDFLAGS=
 
