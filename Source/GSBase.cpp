@@ -10,6 +10,7 @@
 #include "ComposerList.h"
 #include "GSAvatarMod.h"
 #include "GSBase.h"
+#include "GSGuiEdit.h"
 #include "LurkMsg.h"
 #include "Notebook.h" // TODO TEMP TEST for debugging
 #include "PrintGui.h"
@@ -179,6 +180,26 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
       a->SetPrevState(this);
     }
     TheGame::Instance()->SetCurrentState(a);
+  }
+
+  // Gui Edit mode
+  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
+     (ke.key == 'e' || ke.key == 'E'))
+  {
+    GSGuiEdit* a = TheGSGuiEdit::Instance();
+    if (a->GetPrevState() != this)
+    {
+      a->SetPrevState(this);
+    }
+    a->SetEditGuiFilename(m_guiFilename);
+    TheGame::Instance()->SetCurrentState(a);
+  }
+
+  // Go back to previous state
+  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
+     (ke.key == 'b' || ke.key == 'B'))
+  {
+    TheGame::Instance()->GetState()->GoBack();
   }
 
 #endif
