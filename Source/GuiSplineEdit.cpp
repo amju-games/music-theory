@@ -67,6 +67,16 @@ void GuiSplineEdit::Draw()
   AmjuGL::Enable(AmjuGL::AMJU_TEXTURE_2D);
 }
 
+void GuiSplineEdit::DeleteHighlightedControlPoint()
+{
+  auto& points = GetSpline()->GetControlPoints();
+  Assert(m_highlightedGrabber >= 0);
+  Assert(m_highlightedGrabber < static_cast<int>(points.size()));
+  points.erase(points.begin() + m_highlightedGrabber);
+  RecalcGrabberPositions();
+  GetSpline()->CreateFromControlPoints();
+}
+
 bool GuiSplineEdit::CreateNewControlPoint(const MouseButtonEvent& mbe)
 {
   // See if we clicked on a line seg between two control points.
@@ -83,6 +93,7 @@ bool GuiSplineEdit::CreateNewControlPoint(const MouseButtonEvent& mbe)
     {
       // Close enough! Add a new control point.
       points.insert(points.begin() + i, p - pointsOffset);
+      GetSpline()->CreateFromControlPoints();
       RecalcGrabberPositions();
       return true;
     }
@@ -95,6 +106,11 @@ bool GuiSplineEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
   if (mbe.button == AMJU_BUTTON_MOUSE_RIGHT)
   {
     // Right click on grabber: menu to delete it? Or keypress to delete highlighed grabber?
+    if (mbe.isDown && m_highlightedGrabber != -1)
+    {
+      DeleteHighlightedControlPoint();
+      return true;
+    }
 
     // Right click NOT on a grabber: add a new control point? Hmm, we need to know where it goes in sequence.
     //  So you have to click on a line between 2 existing control points.

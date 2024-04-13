@@ -25,6 +25,9 @@ protected:
   //  place in the sequence of control points.
   bool CreateNewControlPoint(const MouseButtonEvent& mbe);
 
+  // Delete the currently highlighted grabber/control point.
+  void DeleteHighlightedControlPoint();
+
 protected:
   void HandleDragGrabber(const Vec2f& deltaPos) override;
 
