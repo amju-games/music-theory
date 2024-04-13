@@ -2,26 +2,48 @@
 // (c) Copyright 2024 Juliet Colman
 
 #include <AmjuGL.h>
+#include <DrawBorder.h>
 #include <DrawRect.h>
 #include <GuiComposite.h>
+#include <GuiEdit.h>
 #include "GSGuiEdit.h"
 #include "UseVertexColourShader.h"
 
 namespace Amju
 {
+static GuiElement* FindSelectedElement(GuiElement* e, const MouseButtonEvent& mbe)
+{
+  if (e)
+  {
+    // Prefer descendant elements to root elements, so mirroring the draw order
+    GuiComposite* comp = dynamic_cast<GuiComposite*>(e);
+    if (comp)
+    {
+      int n = comp->GetNumChildren();
+      // Reverse iterate through children, preferring last sibling to first
+      for (int i = n - 1; i >= 0; i--)
+      {
+        GuiElement* selected = FindSelectedElement(comp->GetChild(i), mbe);
+        if (selected)
+        {
+          return selected;
+        }
+      }
+    }
+
+    Rect rect = GetRect(e);
+    if (rect.IsPointIn(Vec2f(mbe.x, mbe.y)))
+    {
+      return e;
+    }
+  }
+  return nullptr;
+}
+
 static void DrawBoundingRects(GuiElement* e)
 {
   if (e)
   {
-    AmjuGL::SetIdentity();
-    Rect r = GetRect(e);
-    PushColour();
-    AmjuGL::SetColour(Colour(1, 0, 0, 1));
-    AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
-    DrawSolidRect(r);
-    AmjuGL::Enable(AmjuGL::AMJU_TEXTURE_2D);
-    PopColour();
-
     GuiComposite* comp = dynamic_cast<GuiComposite*>(e);
     if (comp)
     {
@@ -30,6 +52,12 @@ static void DrawBoundingRects(GuiElement* e)
       {
         DrawBoundingRects(comp->GetChild(i));
       }
+      DrawBorder(e, Colour(0, 0, 1.0f, 0.25f), 0);
+    }
+    else
+    {
+      //DrawFilled(e, Colour(0, 0.5f, 1.0f, 0.01f), 0.01f);
+      DrawBorder(e, Colour(0, 0, 1.0f, 1.0f), 0);
     }
   }
 }
@@ -60,6 +88,8 @@ void GSGuiEdit::OnActive()
     Assert(false);
   }
 
+  SetSelectedElement(nullptr);
+
   std::cout << "Now in GUI Edit mode!\n";
 }
 
@@ -80,15 +110,53 @@ void GSGuiEdit::Draw2d()
   // Draw edit gui, scaled down a bit
   if (m_editGui)
   {
-    // Recursively draw bounding rects
-    DrawBoundingRects(m_editGui);
+//    GuiElement::SetGlobalScale(0.8f); // Problems with this
 
     UseVertexColourShader();
-    AmjuGL::PushMatrix();
-    const float SCALE = 0.8f;
-    AmjuGL::Scale(SCALE, SCALE, 1.f);
+    AmjuGL::PushMatrix(); // ?
     m_editGui->Draw();
-    AmjuGL::PopMatrix();
+    AmjuGL::PopMatrix(); // ?
+
+    // Recursively draw bounding rects
+    AmjuGL::UseShader(nullptr);
+    DrawBoundingRects(m_editGui);
+
+    if (m_editor)
+    {
+      m_editor->Draw();
+    }
+
+    //GuiElement::SetGlobalScale(1.0f);
+  }
+}
+
+bool GSGuiEdit::OnKeyEvent(const KeyEvent& ke)
+{
+  // TODO check for some keys, but not 'e' because that takes us here! 
+  // Probably also not reloading gui, because that could overwrite changes we are making.
+
+  if (CheckForKey_B_BackToPrevState(ke))
+  {
+    // TODO Wait, we want to prompt to save, no?
+    // Or do we save all changes immediately?
+    return true;
+  }
+
+  return false;
+}
+
+void GSGuiEdit::SetSelectedElement(PGuiElement e)
+{
+  //m_selectedElement = e;
+  if (e)
+  {
+    m_editor = e->CreateEditor();
+    m_editor->SetChild(e); // Not AddChild(), which would set Editor node as parent.
+    m_editor->RecalcGrabberPositions();
+  }
+  else
+  {
+    m_editor = nullptr;
   }
 }
 
@@ -99,11 +167,46 @@ bool GSGuiEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
   // What about overlapping elements? We need a z order.
   // We can use their position in the tree in depth first search order.
 
+  if (m_editor)
+  {
+    if (m_editor->OnMouseButtonEvent(mbe))
+    {
+      // Editor has consumed the event
+      return true;
+    }
+  }
+
+  if (mbe.isDown)
+  {
+    // No corner grabbed: check for a selected element
+    GuiElement* selected = FindSelectedElement(m_editGui, mbe);
+    //if (dynamic_cast<GuiComposite*>(selected))
+    //{
+    //  selected = nullptr; // can't select a composite?
+    //  //m_selectedElement = nullptr;
+    //}
+    if (selected)
+    {
+      SetSelectedElement(selected);
+      std::cout << "Selecting: " << selected->GetName() << "\n";
+      return true;
+    }
+    else
+    {
+      m_editor = nullptr;
+    }
+  }
+
   return false;
 }
 
 bool GSGuiEdit::OnCursorEvent(const CursorEvent& ce) 
 {
+  if (m_editor)
+  {
+    return m_editor->OnCursorEvent(ce);
+  }
+
   return false;
 }
 

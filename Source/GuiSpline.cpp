@@ -10,26 +10,42 @@
 #include <StringUtils.h>
 #include <Timer.h>
 #include <Vec3.h>
-#include "GuiLineDrawing.h"
+#include "GuiSpline.h"
+#include "GuiSplineEdit.h"
 
 namespace Amju
 {
-const char* GuiLineDrawing::NAME = "line-drawing";
+const char* GuiSpline::NAME = "line-drawing"; // TODO 
 
-void GuiLineDrawing::Reset()
+GuiEdit* GuiSpline::CreateEditor()
+{
+  return new GuiSplineEdit;
+}
+
+void GuiSpline::Reset()
 {
   m_triList = nullptr;
   m_index = 0;
 }
 
-void GuiLineDrawing::SetColour(const Colour& col)
+void GuiSpline::SetColour(const Colour& col)
 {
   m_fgCol = col;
 }
 
-void GuiLineDrawing::SetTexture(PTexture tex)
+void GuiSpline::SetTexture(PTexture tex)
 {
   m_texture = tex;
+}
+
+const GuiSpline::ControlPoints& GuiSpline::GetControlPoints() const
+{
+  return m_controlPoints;
+}
+
+GuiSpline::ControlPoints& GuiSpline::GetControlPoints()
+{
+  return m_controlPoints;
 }
 
 static Vec2f CatmullRomSpline(float t, Vec2f p1, Vec2f p2, Vec2f p3, Vec2f p4)
@@ -45,7 +61,7 @@ static Vec2f CatmullRomSpline(float t, Vec2f p1, Vec2f p2, Vec2f p3, Vec2f p4)
   return v;
 }
 
-void GuiLineDrawing::BuildTriList()
+void GuiSpline::BuildTriList()
 {
   AmjuGL::Tris tris;
 
@@ -141,13 +157,13 @@ void GuiLineDrawing::BuildTriList()
   m_triList = Amju::MakeTriList(tris);
 }
 
-void GuiLineDrawing::SetWidths(float w1, float w2)
+void GuiSpline::SetWidths(float w1, float w2)
 {
   m_startWidth = w1;
   m_endWidth = w2;
 }
 
-void GuiLineDrawing::Draw()
+void GuiSpline::Draw()
 {
   if (!IsVisible())
   {
@@ -167,7 +183,33 @@ void GuiLineDrawing::Draw()
   AmjuGL::PopMatrix();
 }
 
-bool GuiLineDrawing::Load(File* f)
+bool GuiSpline::Save(File* f)
+{
+  if (!GuiElement::Save(f))
+  {
+    return false;
+  }
+  if (!f->WriteFloat(m_startWidth))
+  {
+    return false;
+  }
+  if (!f->WriteFloat(m_endWidth))
+  {
+    return false;
+  }
+
+  std::string fgCol = ToHexString(m_fgCol, true);
+  if (!f->Write(fgCol))
+  {
+    return false;
+  }
+
+  return SavePoints(f);
+
+  return true;
+}
+
+bool GuiSpline::Load(File* f)
 {
   // Get name, pos, size
   if (!GuiElement::Load(f))
@@ -197,24 +239,8 @@ bool GuiLineDrawing::Load(File* f)
   }
   m_fgCol = FromHexString(colour);
 
-  // Get points filename
-  std::string pointsFilename;
-  if (!f->GetDataLine(&pointsFilename))
-  {
-    f->ReportError("Expected points file name.");
-    return false;
-  }
-
-  std::string path = GetFilePath(f->GetName());
-  pointsFilename = path + "/" + pointsFilename;
-
-  File pointsFile;
-  if (!pointsFile.OpenRead(pointsFilename))
-  {
-    return false;
-  }
-
-  if (!LoadPoints(&pointsFile))
+  // We don't read the control points from a separate file any more.
+  if (!LoadPoints(f))
   {
     return false;
   }
@@ -230,7 +256,7 @@ bool GuiLineDrawing::Load(File* f)
   return true;
 }
 
-bool GuiLineDrawing::LoadPoints(File* f)
+bool GuiSpline::LoadPoints(File* f)
 {
   // Load control points
   std::string line;
@@ -241,6 +267,7 @@ bool GuiLineDrawing::LoadPoints(File* f)
     int n = strs.size();
     if (n != 2)
     {
+      // So a string such as 'end' signals the end of the points list.
       break;
     }
     Vec2f pos(ToFloat(strs[0]), ToFloat(strs[1]));
@@ -252,20 +279,23 @@ bool GuiLineDrawing::LoadPoints(File* f)
   return true;
 }
 
-bool GuiLineDrawing::SavePoints(File* f)
+bool GuiSpline::SavePoints(File* f)
 {
-  // Save points, not control points
-  for (const Vec2f& p : m_points)
+  for (const Vec2f& p : m_controlPoints)
   {
     if (!f->Write(ToString(p.x) + ", " + ToString(p.y)))
     {
       return false;
     }
   }
+  if (!f->Write("end"))
+  {
+    return false;
+  }
   return true;
 }
 
-void GuiLineDrawing::MakeInBetweenPoints()
+void GuiSpline::MakeInBetweenPoints()
 {
   // Make in between points from control points
   m_points.clear();
@@ -294,26 +324,26 @@ void GuiLineDrawing::MakeInBetweenPoints()
   }
 }
 
-void GuiLineDrawing::AddControlPoint(const Vec2f& p)
+void GuiSpline::AddControlPoint(const Vec2f& p)
 {
   m_controlPoints.push_back(p);
 }
 
-void GuiLineDrawing::CreateFromControlPoints()
+void GuiSpline::CreateFromControlPoints()
 {
   MakeInBetweenPoints();
   m_index = m_points.size(); // build the entire line
   BuildTriList();
 }
 
-void GuiLineDrawing::AddPoint(const Vec2f& p)
-{
-  m_points.push_back(p);
-  m_index = m_points.size();
-  BuildTriList();
-}
+//void GuiSpline::AddPoint(const Vec2f& p)
+//{
+//  m_points.push_back(p);
+//  m_index = m_points.size();
+//  BuildTriList();
+//}
 
-void GuiLineDrawing::Animate(float d)
+void GuiSpline::Animate(float d)
 {
   int oldIndex = m_index;
   m_index = static_cast<int>(static_cast<float>(m_points.size()) * d);

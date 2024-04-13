@@ -96,7 +96,7 @@
     <ClCompile Include="..\..\..\..\Source\GSShowMusicScore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\GuiLineDrawing.cpp">
+    <ClCompile Include="..\..\..\..\Source\GuiSpline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\GSShowLineDrawing.cpp">
@@ -351,6 +351,12 @@
     <ClCompile Include="..\..\..\..\Source\ColourPicker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GSGuiEdit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GuiSplineEdit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
@@ -382,7 +388,7 @@
     <ClInclude Include="..\..\..\..\Source\GSShowMusicScore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\GuiLineDrawing.h">
+    <ClInclude Include="..\..\..\..\Source\GuiSpline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GSShowLineDrawing.h">
@@ -605,6 +611,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\ColourPicker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GSGuiEdit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GuiSplineEdit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

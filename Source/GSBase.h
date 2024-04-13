@@ -47,6 +47,9 @@ protected:
   //  for the state. (This could have unwanted effects.)
   virtual void ReloadGui();
 
+  // If B key pressed, go to previous state: return true if we do.
+  bool CheckForKey_B_BackToPrevState(const KeyEvent& ke);
+
 protected: 
   // 2D GUI
   PGuiElement m_gui;

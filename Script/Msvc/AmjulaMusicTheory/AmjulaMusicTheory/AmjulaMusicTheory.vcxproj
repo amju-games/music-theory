@@ -22,31 +22,31 @@
     <ProjectGuid>{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>AmjulaMusicTheory</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Catch|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -126,6 +126,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -290,6 +291,7 @@
     <ClCompile Include="..\..\..\..\Source\Course.cpp" />
     <ClCompile Include="..\..\..\..\Source\DictionaryPickQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSAvatarMod.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSGuiEdit.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiAvatar.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSAbout.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
@@ -309,9 +311,10 @@
     <ClCompile Include="..\..\..\..\Source\GSUserDraw.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSUserDrawSave.cpp" />
     <ClCompile Include="..\..\..\..\Source\Gui3dScene.cpp" />
-    <ClCompile Include="..\..\..\..\Source\GuiLineDrawing.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GuiSpline.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicKb.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GuiSplineEdit.cpp" />
     <ClCompile Include="..\..\..\..\Source\LurkMsg.cpp" />
     <ClCompile Include="..\..\..\..\Source\Md2SceneNode.cpp" />
     <ClCompile Include="..\..\..\..\Source\MultiChoiceQuestion.cpp" />
@@ -435,6 +438,7 @@
     <ClInclude Include="..\..\..\..\Source\GSBase3d.h" />
     <ClInclude Include="..\..\..\..\Source\GSCopyAssets.h" />
     <ClInclude Include="..\..\..\..\Source\GSFirstUser.h" />
+    <ClInclude Include="..\..\..\..\Source\GSGuiEdit.h" />
     <ClInclude Include="..\..\..\..\Source\GSMainCorridor.h" />
     <ClInclude Include="..\..\..\..\Source\GSPages.h" />
     <ClInclude Include="..\..\..\..\Source\GSPause.h" />
@@ -449,9 +453,10 @@
     <ClInclude Include="..\..\..\..\Source\GSUserDrawSave.h" />
     <ClInclude Include="..\..\..\..\Source\Gui3dScene.h" />
     <ClInclude Include="..\..\..\..\Source\GuiAvatar.h" />
-    <ClInclude Include="..\..\..\..\Source\GuiLineDrawing.h" />
+    <ClInclude Include="..\..\..\..\Source\GuiSpline.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
+    <ClInclude Include="..\..\..\..\Source\GuiSplineEdit.h" />
     <ClInclude Include="..\..\..\..\Source\LurkMsg.h" />
     <ClInclude Include="..\..\..\..\Source\Md2SceneNode.h" />
     <ClInclude Include="..\..\..\..\Source\MultiChoiceQuestion.h" />

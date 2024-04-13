@@ -8,7 +8,7 @@
 
 namespace Amju
 {
-class GuiLineDrawing;
+class GuiSpline;
 
 // * GSUserDraw *
 // User can draw on screen.
@@ -24,7 +24,7 @@ public:
 
 protected:
   bool m_isDrawing = false;
-  GuiLineDrawing* m_drawing = nullptr;
+  GuiSpline* m_drawing = nullptr;
   GuiElement* m_pencil = nullptr;
 };
 

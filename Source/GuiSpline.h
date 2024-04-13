@@ -9,30 +9,34 @@
 
 namespace Amju
 {
-// * GuiLineDrawing *
-// Line drawing, which can be animated. The line passes through a vector
-//  of control points (Catmull-Rom spline).
-class GuiLineDrawing : public GuiElement
+// * GuiSpline *
+// Curved line, passes through a vector of control points (Catmull-Rom spline).
+// Can be 'animated' in the sense of showing a portion of the spline, varying from
+//  0..1 (i.e. the parametric 't' value).
+class GuiSpline : public GuiElement
 {
 public:
   static const char* NAME;
+  std::string GetTypeName() const override { return NAME; }
 
-  virtual void Draw() override;
-  virtual bool Load(File*) override;
+  // Create a GuiElement editor object which lets us edit this node.
+  GuiEdit* CreateEditor() override;
 
-  virtual void Animate(float animValue) override;
+  void Draw() override;
+  bool Load(File*) override;
+  bool Save(File*) override;
 
-  void AddPoint(const Vec2f& p);
+  void Animate(float animValue) override;
+
+  using ControlPoints = std::vector<Vec2f>;
+  const ControlPoints& GetControlPoints() const;
+  ControlPoints& GetControlPoints();
+
+  //void AddPoint(const Vec2f& p);
 
   void AddControlPoint(const Vec2f& p);
 
   void SetColour(const Colour& col);
-
-  // Load sequence of points from a file. This lets us make up a reusable library of strokes. 
-  bool LoadPoints(File*);
-
-  // Save points to the given file so they can be reloaded
-  bool SavePoints(File*);
 
   void SetTexture(PTexture tex);
 
@@ -45,12 +49,14 @@ protected:
   void Reset();
   void BuildTriList();
   void MakeInBetweenPoints();
+  bool LoadPoints(File*);
+  bool SavePoints(File*);
 
 protected:
   // A line drawing is a sequence of points.
   // We fill in the gaps between control points with a Catmull-Rom spline.
   std::vector<Vec2f> m_points;
-  std::vector<Vec2f> m_controlPoints;
+  ControlPoints m_controlPoints;
 
   // Total length of all segments 
   float m_totalLength = 0;

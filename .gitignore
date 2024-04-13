@@ -16,3 +16,6 @@ Assets/Music/SoundFXSource/*.wav
 *.user
 *.o
 Source/MakeScore/out.txt
+Script/Msvc/AmjulaMusicTheory/MakeScore/x64/Debug/
+*.exe
+*.pdb

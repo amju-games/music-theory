@@ -16,6 +16,7 @@ class Gui3dScene : public GuiElement
 {
 public:
   static const char* NAME;
+  std::string GetTypeName() const override { return NAME; }
 
   void Draw() override;
   void Update() override;

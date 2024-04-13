@@ -22,6 +22,7 @@ static void OnStart(GuiElement* elem)
   TheSoundManager::Instance()->StopSong(); // TODO play next song
 
   PlayWav(WAV_START_BUTTON); // This wav should blend nicely with the title music
+  TheGSMainCorridor::Instance()->SetPrevState(TheGSTitle::Instance());
   GoTo<TheGSMainCorridor>();
 
 //  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainCorridor>, SecondsFromNow(1.5f)));

@@ -12,7 +12,7 @@
 #include <StringsFile.h>
 #include <StringUtils.h>
 #include "Consts.h"
-#include "GuiLineDrawing.h"
+#include "GuiSpline.h"
 #include "GuiMusicScore.h"
 #include "PlayMidi.h"
 
@@ -658,7 +658,7 @@ bool GuiMusicScore::AddCurveFromString(
       Assert(0);
     }
 
-    GuiLineDrawing* curve = new GuiLineDrawing;
+    GuiSpline* curve = new GuiSpline;
     curve->SetSize(Vec2f(1, 1));
 
     // Set thickness at ends and in middle

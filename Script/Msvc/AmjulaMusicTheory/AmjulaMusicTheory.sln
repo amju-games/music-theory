@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AmjulaMusicTheory", "AmjulaMusicTheory\AmjulaMusicTheory.vcxproj", "{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -36,6 +36,7 @@ Global
 		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.Debug|Win32.ActiveCfg = Debug|Win32
 		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.Debug|Win32.Build.0 = Debug|Win32
 		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.Debug|x64.ActiveCfg = Debug|Win32
+		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.Debug|x64.Build.0 = Debug|Win32
 		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.DebugAssetTest|Win32.ActiveCfg = Debug|Win32
 		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.DebugAssetTest|Win32.Build.0 = Debug|Win32
 		{8A1EA8DA-78AE-41B8-8F9E-6929D7666196}.DebugAssetTest|x64.ActiveCfg = Release|Win32
@@ -60,6 +61,7 @@ Global
 		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.Debug|Win32.ActiveCfg = Debug|Win32
 		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.Debug|Win32.Build.0 = Debug|Win32
 		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.Debug|x64.ActiveCfg = Debug|Win32
+		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.Debug|x64.Build.0 = Debug|Win32
 		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.DebugAssetTest|Win32.ActiveCfg = DebugAssetTest|Win32
 		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.DebugAssetTest|Win32.Build.0 = DebugAssetTest|Win32
 		{93920D98-6C4D-43A6-8579-AA7200EC11D0}.DebugAssetTest|x64.ActiveCfg = DebugAssetTest|Win32
@@ -106,5 +108,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A831570-A1BB-4026-8AEC-EC68F99A5471}
 	EndGlobalSection
 EndGlobal

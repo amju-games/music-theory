@@ -2,7 +2,7 @@
 // (c) Copyright 2024 Juliet Colman
 
 #include "GSUserDrawSave.h"
-#include "GuiLineDrawing.h"
+#include "GuiSpline.h"
 
 namespace Amju
 {
@@ -17,7 +17,7 @@ bool GSUserDrawSave::OnMouseButtonEvent(const MouseButtonEvent& mbe)
     File f;
     if (f.OpenWrite("points.txt"))
     {
-      if (m_drawing->SavePoints(&f))
+      if (m_drawing->Save(&f))
       {
         std::cout << " ..done saving points, OK apparently.\n";
       }

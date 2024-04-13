@@ -3,7 +3,7 @@
 
 #include <GuiComposite.h>
 #include "GSUserDraw.h"
-#include "GuiLineDrawing.h"
+#include "GuiSpline.h"
 
 namespace Amju
 {
@@ -33,7 +33,7 @@ bool GSUserDraw::OnCursorEvent(const CursorEvent& ce)
 
   if (m_isDrawing && m_drawing)
   {
-    m_drawing->AddPoint(pos);
+    //m_drawing->AddPoint(pos);
     return true;
   }
   return false;
@@ -47,7 +47,7 @@ bool GSUserDraw::OnMouseButtonEvent(const MouseButtonEvent& mbe)
   {
     // Create new stroke object and add to scene root
 
-    m_drawing = new GuiLineDrawing;
+    m_drawing = new GuiSpline;
     m_drawing->SetColour(Colour(0, 0, 0, 1));
     GuiComposite* comp = dynamic_cast<GuiComposite*>(GetElementByName(m_gui, "root"));
     comp->AddChild(m_drawing);

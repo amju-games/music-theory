@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include <string>
+
 // Time values
 using TimeValue = float;
 static const float TIMEVAL_SEMIBREVE = 1.f;

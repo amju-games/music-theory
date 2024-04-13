@@ -62,7 +62,7 @@
 #include "GSUserDrawSave.h"
 #include "Gui3dScene.h"
 #include "GuiAvatar.h"
-#include "GuiLineDrawing.h"
+#include "GuiSpline.h"
 #include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
 #include "NetSend.h"
@@ -320,7 +320,7 @@ static void SetUpGui()
   AddToGuiFactory<ColourPicker>();
   AddToGuiFactory<Gui3dScene>();
   AddToGuiFactory<GuiAvatar>();
-  AddToGuiFactory<GuiLineDrawing>();
+  AddToGuiFactory<GuiSpline>();
   AddToGuiFactory<GuiMusicKb>();
   AddToGuiFactory<GuiMusicScore>();
 

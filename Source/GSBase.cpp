@@ -118,6 +118,21 @@ void GSBase::ReloadGui()
   OnActive();
 }
 
+bool GSBase::CheckForKey_B_BackToPrevState(const KeyEvent& ke)
+{
+  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
+    (ke.key == 'b' || ke.key == 'B'))
+  {
+    auto* state = TheGame::Instance()->GetState();
+    if (state->GetPrevState())
+    {
+      state->GoBack();
+    }
+    return true;
+  }
+  return false;
+}
+
 bool GSBase::OnKeyEvent(const KeyEvent& ke)
 {
 #ifdef _DEBUG
@@ -195,11 +210,9 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
     TheGame::Instance()->SetCurrentState(a);
   }
 
-  // Go back to previous state
-  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
-     (ke.key == 'b' || ke.key == 'B'))
+  if (CheckForKey_B_BackToPrevState(ke))
   {
-    TheGame::Instance()->GetState()->GoBack();
+    return true;
   }
 
 #endif

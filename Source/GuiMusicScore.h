@@ -19,6 +19,7 @@ class GuiMusicScore : public GuiElement
 {
 public:
   static const char* NAME;
+  std::string GetTypeName() const override { return NAME; }
 
   GuiMusicScore();
  
