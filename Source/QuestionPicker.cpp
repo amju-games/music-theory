@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <numeric> // iota
 #include <AmjuAssert.h>
+#include <AmjuRand.h>
 #include "QuestionPicker.h"
 
 namespace Amju
@@ -94,7 +95,7 @@ std::vector<int> QuestionPicker::RemoveDuplicates(
 
 static void Shuffle(std::vector<int>& vec)
 {
-  std::random_shuffle(vec.begin(), vec.end()); // TODO contol randomisation
+  RandomShuffle(vec.begin(), vec.end(), RandomInt); 
 }
 
 std::vector<int> QuestionPicker::GetNFakes(

@@ -2,6 +2,7 @@
 // (c) Copyright 2024 Juliet Colman
 
 #include <functional>
+#include <AmjuRand.h>
 #include <GuiButton.h>
 #include <GuiDecAnimation.h>
 #include <GuiDecColour.h>
@@ -204,7 +205,7 @@ void PageMultiChoice::OnHint()
     return;
   }
 
-  std::random_shuffle(m_canRemoveForHint.begin(), m_canRemoveForHint.end());
+  RandomShuffle(m_canRemoveForHint.begin(), m_canRemoveForHint.end(), RandomInt);
   int n = m_canRemoveForHint.back(); // the button to remove
 
   HideChoiceButton(n);
