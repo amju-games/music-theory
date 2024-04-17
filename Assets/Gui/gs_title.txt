@@ -11,7 +11,7 @@ gui-comp
 // Name
 title-root
 // Num children
-2
+4
 
 //animation
 //trigger
@@ -35,6 +35,10 @@ logo-image
 1.0, 1.0
 Image/logo-512.png
 
+// Try this to see if edit mode can handle the offset
+//translate
+//0.3, 0
+
 elastic
 0,-2
 // Start button
@@ -46,4 +50,34 @@ Image/gui-button-2.png
 // START
 $$$83
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
+
+// Test: coloured poly
+//colour
+//00ff80
+//poly
+//my poly
+//style=1, fillCol=ff8080
+//.5, .5
+//-.5, .5
+//-.5, -.5
+//.5, -.5
+//end
+
+spline
+my spline
+style=3, fillCol=40ffc0, outCol=ffc000, loop, w0=0.1, w1=0.2
+.5, .5
+-.5, .5
+-.5, -.5
+.5, -.5
+end
+
+gui-rect
+my rect
+0, 0
+.5,.5
+ff0000
+0.1
+15
+
 

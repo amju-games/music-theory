@@ -96,9 +96,6 @@
     <ClCompile Include="..\..\..\..\Source\GSShowMusicScore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\GuiSpline.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\GSShowLineDrawing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -354,7 +351,7 @@
     <ClCompile Include="..\..\..\..\Source\GSGuiEdit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\GuiSplineEdit.cpp">
+    <ClCompile Include="..\..\..\..\Source\DevMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -386,9 +383,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GSShowMusicScore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\GuiSpline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GSShowLineDrawing.h">
@@ -616,7 +610,7 @@
     <ClInclude Include="..\..\..\..\Source\GSGuiEdit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\GuiSplineEdit.h">
+    <ClInclude Include="..\..\..\..\Source\DevMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

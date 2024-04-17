@@ -25,19 +25,13 @@ public:
 
   GuiElement* GetGui();
 
+  const std::string& GetGuiFilename();
+
   // Call when we animate to a new state etc, preventing user pressing the 
   //  same button again, or a different button.
   // Return this, so we can hide buttons as part of chain of calls, for
   //  convenience.
   virtual GSBase* HideButtons();
-
-  // Scroll screen in given direction, using animation + translation decorators.
-  // Assumes the gui page has the correctly named animation element.
-  // This must be "scroll-up-trigger", "scroll-left-trigger", etc.
-  void ScrollLeft();
-  void ScrollRight();
-  void ScrollUp();
-  void ScrollDown();
 
 protected:
   void HideButtons(GuiElement*);
@@ -49,6 +43,8 @@ protected:
 
   // If B key pressed, go to previous state: return true if we do.
   bool CheckForKey_B_BackToPrevState(const KeyEvent& ke);
+
+  void DrawDevMenu();
 
 protected: 
   // 2D GUI

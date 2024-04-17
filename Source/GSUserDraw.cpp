@@ -48,7 +48,7 @@ bool GSUserDraw::OnMouseButtonEvent(const MouseButtonEvent& mbe)
     // Create new stroke object and add to scene root
 
     m_drawing = new GuiSpline;
-    m_drawing->SetColour(Colour(0, 0, 0, 1));
+    m_drawing->SetOutlineColour(Colour(0, 0, 0, 1));
     GuiComposite* comp = dynamic_cast<GuiComposite*>(GetElementByName(m_gui, "root"));
     comp->AddChild(m_drawing);
 //TODO TEMP TEST    comp->BringChildToFront(m_pencil);

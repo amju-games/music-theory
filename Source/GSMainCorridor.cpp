@@ -369,6 +369,8 @@ void GSMainCorridor::Draw2d()
   m_currentMode->Draw2d();
 
   TheLurker::Instance()->Draw();
+
+  DrawDevMenu();
 }
 
 void GSMainCorridor::SetMode(int modeId)

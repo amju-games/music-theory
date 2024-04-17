@@ -6,8 +6,10 @@
 #include <GuiButton.h>
 #include <GuiComposite.h>
 #include <GuiDecAnimation.h>
+#include <GuiMenu.h>
 #include <ROConfig.h>
 #include "ComposerList.h"
+#include "DevMenu.h"
 #include "GSAvatarMod.h"
 #include "GSBase.h"
 #include "GSGuiEdit.h"
@@ -70,6 +72,13 @@ void GSBase::Update()
   TheSerialReqManager::Instance()->Update();
 }
 
+void GSBase::DrawDevMenu()
+{
+  auto* devMenu = GetDevMenu();
+  devMenu->SetVisible(true);
+  devMenu->Draw();
+}
+
 void GSBase::Draw2d() 
 {
   AmjuGL::SetClearColour(Colour(.95f, .95f, .95f, 1.f));
@@ -81,6 +90,8 @@ void GSBase::Draw2d()
   }
 
   TheLurker::Instance()->Draw();
+
+  DrawDevMenu();
 
 #ifdef GEKKO
   TheCursorManager::Instance()->Draw();
@@ -219,28 +230,9 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
   return false;
 }
 
-void GSBase::ScrollRight()
+const std::string& GSBase::GetGuiFilename()
 {
-  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "scroll-right-trigger"));
-  anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
-}
-
-void GSBase::ScrollLeft()
-{
-  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "scroll-left-trigger"));
-  anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
-}
-
-void GSBase::ScrollUp()
-{
-  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "scroll-up-trigger"));
-  anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
-}
-
-void GSBase::ScrollDown()
-{
-  GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "scroll-down-trigger"));
-  anim->SetEaseType(GuiDecAnimation::EaseType::EASE_TYPE_ONE);
+  return m_guiFilename;
 }
 }
 

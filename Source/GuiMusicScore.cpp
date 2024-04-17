@@ -663,20 +663,15 @@ bool GuiMusicScore::AddCurveFromString(
 
     // Set thickness at ends and in middle
     curve->SetWidths(0.006f, 0.012f);
-    
-    // Set rounded texture
-    PTexture tex = (Texture*)TheResourceManager::Instance()->GetRes("Image/circle.png");
-    curve->SetTexture(tex);
-    tex->SetWrapMode(AmjuGL::AMJU_TEXTURE_CLAMP);
-
-    curve->SetColour(m_fgCol);
+    curve->SetIsLoop(false);
+    curve->SetOutlineColour(m_fgCol);
 
     for (int i = 1; i < n; i += 2)
     {
       Vec2f v(ToFloat(strs[i]), ToFloat(strs[i + 1]));
       curve->AddControlPoint(v); 
     }
-    curve->CreateFromControlPoints(); // create full shape from control points
+    curve->OnControlPointsChanged(); // create full shape from control points
 
     m_children.push_back(curve);
     return true;
@@ -856,19 +851,20 @@ static float rnd()
   
 void GuiMusicScore::SetQuadColour(AmjuGL::Tri t[2], const Colour& col)
 {
+  t[0].SetColour(col);
+  t[1].SetColour(col);
+
+#ifdef VERTEX_COLOUR_TEST
   for (int i = 0; i < 2; i++)
   {
     for (int j = 0; j < 3; j++)
     {
       AmjuGL::Vert& v = t[i].m_verts[j];
 
-      v.SetColour(col.m_r, col.m_g, col.m_b, col.m_a);
-
-#ifdef VERTEX_COLOUR_TEST
       v.SetColour(rnd(), rnd(), rnd(), 1.0f); 
-#endif // VERTEX_COLOUR_TEST
     }
   }
+#endif // VERTEX_COLOUR_TEST
 }
 
 void GuiMusicScore::RefreshColours()

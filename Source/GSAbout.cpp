@@ -12,9 +12,7 @@ namespace Amju
 {
 static void OnOK(GuiElement* elem)
 {
-  TheGSAbout::Instance()->HideButtons()->ScrollUp();
   TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainCorridor>, SecondsFromNow(0.5f)));
-  // TODO Also stop underground anims?
 }
 
 GSAbout::GSAbout()

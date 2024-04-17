@@ -289,6 +289,7 @@
     <ClCompile Include="..\..\..\..\Source\CorridorModeShowTappable.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorModeWait.cpp" />
     <ClCompile Include="..\..\..\..\Source\Course.cpp" />
+    <ClCompile Include="..\..\..\..\Source\DevMenu.cpp" />
     <ClCompile Include="..\..\..\..\Source\DictionaryPickQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSAvatarMod.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSGuiEdit.cpp" />
@@ -311,10 +312,8 @@
     <ClCompile Include="..\..\..\..\Source\GSUserDraw.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSUserDrawSave.cpp" />
     <ClCompile Include="..\..\..\..\Source\Gui3dScene.cpp" />
-    <ClCompile Include="..\..\..\..\Source\GuiSpline.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicKb.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
-    <ClCompile Include="..\..\..\..\Source\GuiSplineEdit.cpp" />
     <ClCompile Include="..\..\..\..\Source\LurkMsg.cpp" />
     <ClCompile Include="..\..\..\..\Source\Md2SceneNode.cpp" />
     <ClCompile Include="..\..\..\..\Source\MultiChoiceQuestion.cpp" />
@@ -431,6 +430,7 @@
     <ClInclude Include="..\..\..\..\Source\CorridorModeShowTappable.h" />
     <ClInclude Include="..\..\..\..\Source\CorridorModeWait.h" />
     <ClInclude Include="..\..\..\..\Source\Course.h" />
+    <ClInclude Include="..\..\..\..\Source\DevMenu.h" />
     <ClInclude Include="..\..\..\..\Source\DictionaryPickQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\GSAbout.h" />
     <ClInclude Include="..\..\..\..\Source\GSAvatarMod.h" />
@@ -453,10 +453,8 @@
     <ClInclude Include="..\..\..\..\Source\GSUserDrawSave.h" />
     <ClInclude Include="..\..\..\..\Source\Gui3dScene.h" />
     <ClInclude Include="..\..\..\..\Source\GuiAvatar.h" />
-    <ClInclude Include="..\..\..\..\Source\GuiSpline.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
-    <ClInclude Include="..\..\..\..\Source\GuiSplineEdit.h" />
     <ClInclude Include="..\..\..\..\Source\LurkMsg.h" />
     <ClInclude Include="..\..\..\..\Source\Md2SceneNode.h" />
     <ClInclude Include="..\..\..\..\Source\MultiChoiceQuestion.h" />

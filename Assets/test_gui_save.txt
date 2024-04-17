@@ -1,0 +1,15 @@
+// * Amjula music theory * (c) Copyright 2024 Juliet Colman
+1
+gui-comp
+score-comp
+// Num children
+2
+// child 0 of score-comp
+include
+keyboard.txt
+// child 1 of score-comp
+music-score
+music-score
+-0.900000, 0.000000
+0.400000, 0.750000
+// end of score-comp
