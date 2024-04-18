@@ -34,6 +34,8 @@ public:
   void OnGuiItemNew(GuiElement* e);
   void OnGuiItemMoveUp(GuiElement* e);
   void OnGuiItemMoveDown(GuiElement* e);
+  void OnGuiItemDecorate(GuiElement* e);
+  void OnGuiItemDuplicate(GuiElement* e);
   void OnUndo();
   void OnRedo();
 
@@ -46,7 +48,7 @@ private:
   //  edit mode itself, which we are not editing!
   std::string m_editGuiFilename; 
   PGuiElement m_editGui; // Root node of GUI tree we are editing
-  PGuiElement m_selectedElement; // Element we are editing in the tree... we might not need this
+  PGuiElement m_selectedElement; // Element we are editing
   RCPtr<GuiEdit> m_editor; // Editor node, which lets us edit the selected element
 
   RCPtr<GuiDialog> m_treeview; // Show GUI tree in vertical text form

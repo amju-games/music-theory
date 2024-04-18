@@ -21,6 +21,8 @@ public:
   static const char* NAME;
   std::string GetTypeName() const override { return NAME; }
 
+  GuiMusicScore* Clone() override { return new GuiMusicScore(*this); }
+
   GuiMusicScore();
  
   virtual void Draw() override;
