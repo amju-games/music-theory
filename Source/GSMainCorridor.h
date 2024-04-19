@@ -13,13 +13,16 @@
 
 namespace Amju
 {
+class GuiDecAnimation;
+class GuiDecTranslate;
+
 // * GSMainCorridor *
 // Main menu game state. 
 // Displays a scrollable corridor, with doors which lead to individual
 //  topics.
 // In the corridor are tappable 3D objects, which present the user with 
 //  more info.
-class GSMainCorridor : public GSBase3d
+class GSMainCorridor : public GSBase
 {
 public:
   GSMainCorridor();
@@ -33,10 +36,14 @@ public:
   virtual bool OnCursorEvent(const CursorEvent&) override;
   virtual bool OnMouseButtonEvent(const MouseButtonEvent&) override;
 
+  // Trigger animation, moving to new x-position. 
+  // We call this when we swipe left or right, (and there is something in that direction).
+  void TriggerCorridorAnim(float desiredX);
+
   // Conceptually private: button commands
   void GoToTopic();
 
-  SceneNodeCamera* GetCamera();
+//  SceneNodeCamera* GetCamera();
 
   CorridorCamController& GetCameraController();
 
@@ -59,7 +66,7 @@ public:
   Tappable* TappablePickTest(const Vec2f& touchCoord);
 
   // Get classroom door we have currently visible in centre of screen 
-  PSceneNode GetDoor();
+  PGuiElement GetDoor();
 
   // Called when we find that user has tapped down and up on a tappable
   void OnTapped(Tappable* tappable);
@@ -85,8 +92,11 @@ protected:
   void LoadCourse();
 
 private:
+  RCPtr<GuiDecAnimation> m_posInCorridorAnimator;
+  RCPtr<GuiDecTranslate> m_posInCorridor;
+
   // Each topic has a door. We open the door for the chosen topic.
-  std::vector<PSceneNode> m_doors;
+  std::vector<PGuiElement> m_doors;
 
   // Items which respond to being tapped, to show some kind of info.
   std::vector<RCPtr<Tappable>> m_tappables;

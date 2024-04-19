@@ -17,7 +17,7 @@ static const float NEXT_PAGE_TIME = 2.2f;
 static const float PAGE_LURK_TIME = 1.7f;
 
 // Distance between doors in corridor
-static const float DISTANCE_BETWEEN_DOORS = 135;
+static const float DISTANCE_BETWEEN_DOORS = 1.0f;
 
 // User scroll left/right in corridor
 static const float MAX_SCROLL_VEL = 300.0f;

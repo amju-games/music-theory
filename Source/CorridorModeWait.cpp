@@ -211,7 +211,7 @@ void CorridorModeWait::Drag(bool rightNotLeft)
   // We can scroll 1 position to the left and right of the doors, so we can
   //  tap on stairs.
   // We can't scroll past locked topics.
-  bool canSwipe = false;
+  bool canSwipe = true;
   // We can scroll left (player swiped RIGHT though) if there is a door or
   //  stairwell/arch to the left.
   if (rightNotLeft && (m_currentTopicScrolledTo >= 0))
@@ -237,8 +237,12 @@ void CorridorModeWait::Drag(bool rightNotLeft)
 
   if (canSwipe)
   {
+    float currentX = m_currentTopicScrolledTo * DISTANCE_BETWEEN_DOORS;
     m_currentTopicScrolledTo -= dir;
     m_desiredXPos += DISTANCE_BETWEEN_DOORS * dir;
+
+    GetState()->TriggerCorridorAnim(m_desiredXPos);
+
     m_scrollVel = MAX_SCROLL_VEL * dir;
     m_isScrolling = true;
     m_didScroll = true;
@@ -290,13 +294,13 @@ void CorridorModeWait::OnActive()
 
 void CorridorModeWait::SetCamera()
 {
-  SceneNodeCamera* cam = m_gs->GetCamera();
-  Vec3f eye = cam->GetEyePos();
-  Vec3f look = cam->GetLookAtPos();
-  eye.z = m_currentXPos;
-  look.z = m_currentXPos;
-  cam->SetEyePos(eye);
-  cam->SetLookAtPos(look);
+  //SceneNodeCamera* cam = m_gs->GetCamera();
+  //Vec3f eye = cam->GetEyePos();
+  //Vec3f look = cam->GetLookAtPos();
+  //eye.z = m_currentXPos;
+  //look.z = m_currentXPos;
+  //cam->SetEyePos(eye);
+  //cam->SetLookAtPos(look);
 }
 
 void CorridorModeWait::Update()

@@ -340,7 +340,7 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
 
   // Show animated splines
-//  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
 
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());

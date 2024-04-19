@@ -17,13 +17,13 @@ void CorridorCamController::Update()
 {
   if (m_isCamLerping)
   {
-    SceneNodeCamera* cam = TheGSMainCorridor::Instance()->GetCamera();
+    //SceneNodeCamera* cam = TheGSMainCorridor::Instance()->GetCamera();
 
-    Vec3f eye = Lerp(m_origCamEye, m_desiredCamEye, m_camLerpT);
-    Vec3f look = Lerp(m_origCamTarget, m_desiredCamTarget, m_camLerpT);
+    //Vec3f eye = Lerp(m_origCamEye, m_desiredCamEye, m_camLerpT);
+    //Vec3f look = Lerp(m_origCamTarget, m_desiredCamTarget, m_camLerpT);
 
-    cam->SetEyePos(eye);
-    cam->SetLookAtPos(look);
+    //cam->SetEyePos(eye);
+    //cam->SetLookAtPos(look);
   }
 }
 
@@ -33,9 +33,9 @@ void CorridorCamController::SetDesired(const Vec3f& eye, const Vec3f& target)
   m_desiredCamTarget = target;
 
   // TODO Ptr to Camera should be member?
-  SceneNodeCamera* cam = TheGSMainCorridor::Instance()->GetCamera();
-  m_origCamEye = cam->GetEyePos();
-  m_origCamTarget = cam->GetLookAtPos();
+  //SceneNodeCamera* cam = TheGSMainCorridor::Instance()->GetCamera();
+  //m_origCamEye = cam->GetEyePos();
+  //m_origCamTarget = cam->GetLookAtPos();
 
   m_isCamLerping = true;
   m_camLerpT = 0;

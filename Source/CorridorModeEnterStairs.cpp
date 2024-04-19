@@ -26,12 +26,12 @@ void CorridorModeEnterStairs::OnActive()
 {
   CorridorModeLerpCam::OnActive();
 
-  auto cam = m_gs->GetCamera();
-  Vec3f camChange(STAIRS_ZOOM_DIST, 0, 0);
-  Vec3f eye = cam->GetEyePos() + camChange;
-  Vec3f target = cam->GetLookAtPos() + camChange;
+  //auto cam = m_gs->GetCamera();
+  //Vec3f camChange(STAIRS_ZOOM_DIST, 0, 0);
+  //Vec3f eye = cam->GetEyePos() + camChange;
+  //Vec3f target = cam->GetLookAtPos() + camChange;
 
-  m_gs->GetCameraController().SetDesired(eye, target);
+  //m_gs->GetCameraController().SetDesired(eye, target);
 }
 
 void CorridorModeEnterStairs::OnFinishedLerp()

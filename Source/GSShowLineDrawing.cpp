@@ -7,7 +7,8 @@ namespace Amju
 {
 GSShowLineDrawing::GSShowLineDrawing()
 {
-  m_guiFilename = "Gui/gs_line_drawing.txt";
+//  m_guiFilename = "Gui/gs_line_drawing.txt";
+  m_guiFilename = "Gui/corridor-section-1.txt";
 }
 }
 

@@ -1,0 +1,81 @@
+// * Amjula music theory * (c) Copyright 2024 Juliet Colman
+1
+gui-comp
+corridor-section-root
+// Num children
+3
+// child 0 of corridor-section-root
+gui-comp
+wall
+// Num children
+1
+// child 0 of wall
+gui-image
+logo-image
+0.353873, 0.856250
+0.500000, 0.887500
+Image/logo-512.png
+// end of wall
+// child 1 of corridor-section-root
+gui-comp
+frame
+// Num children
+4
+// child 0 of frame
+poly
+frame poly
+-0.0137324,-0.265625
+style=3, loop, outCol=00c000, fillCol=40ffc0, radius=0.010000
+-0.036972, 0.543750
+-0.108099, 0.662500
+-0.105986, -0.503125
+-0.019366, -0.503125
+end
+// child 1 of frame
+poly
+frame poly-1
+0.309155,-0.271875
+style=3, loop, outCol=00c000, fillCol=40ffc0, radius=0.010000
+-0.026408, 0.656250
+-0.118662, 0.509375
+-0.105986, -0.503125
+-0.019366, -0.503125
+end
+// child 2 of frame
+poly
+frame poly-1-1
+0.383803,-0.265625
+style=3, loop, outCol=00c000, fillCol=40ffc0, radius=0.010000
+0.573944, -0.343750
+-0.108099, -0.321875
+-0.105986, -0.503125
+0.586268, -0.506250
+end
+// child 3 of frame
+poly
+frame poly-1
+0.0362676,-0.315625
+style=3, loop, outCol=00c000, fillCol=40ffc0, radius=0.010000
+-0.082746, 0.584375
+-0.153874, 0.715625
+0.244366, 0.706250
+0.151408, 0.553125
+end
+// end of frame
+// child 2 of corridor-section-root
+gui-comp
+door
+// Num children
+1
+// child 0 of door
+poly
+door poly
+0.00140846,-0.43125
+style=3, loop, outCol=ff0000, fillCol=40ffc0, radius=0.010000
+0.160211, 0.628125
+-0.025352, 0.656250
+-0.011268, -0.356250
+0.186620, -0.350000
+end
+// end of door
+// end of corridor-section-root

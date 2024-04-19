@@ -1,5 +1,5 @@
 // * Amjula music theory *
-// (c) Copyright 2017 Jason Colman
+// (c) Copyright 2024 Juliet Colman
 
 // Main menu
 // Corridor version, like Big Brain Academy.
@@ -14,16 +14,29 @@ gs-main-menu-root
 // Num children
 2
 
+// child 0 of gs-main-menu-root
+animation
+scroll-corridor
+one-shot
+// cycle time
+0.500000
+// easing function
+linear
+
+translate
+0,0
+
+animation
+clean-anim
+const
+zero
+
+gui-comp
+add-door-sections-to-me
+0
 
 ////include
 ////hint-display-no-button.txt
-
-// TEST
-3d-scene
-particles-test
-0, 0
-1, 1
-Gui/bonus-effect.txt
 
 
 
