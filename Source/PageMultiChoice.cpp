@@ -266,8 +266,8 @@ void PageMultiChoice::ShowCorrectAnswer()
   if (expl.empty())
   {
     PLurkMsg lm = new LurkMsg(Lookup("$$$122" /* Incorrect! */), 
-      GetColour(COLOUR_TEXT),
-      GetColour(COLOUR_INCORRECT),
+      GetConstColour(COLOUR_TEXT),
+      GetConstColour(COLOUR_INCORRECT),
       AMJU_TOP, PAGE_LURK_TIME);
     TheLurker::Instance()->Queue(lm);
 

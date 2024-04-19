@@ -21,7 +21,7 @@ const std::string WAV_BUTTON_CLICK = "Sound/wav/click.wav";
 const std::string WAV_ENTER_TAPPABLE = "wow1";
 const std::string WAV_EXIT_TAPPABLE = "wow2";
 
-Colour GetColour(const char* colourName)
+Colour GetConstColour(const char* colourName)
 {
   Assert(ROConfig()->Exists(colourName));
   return FromHexString(ROConfig()->GetValue(colourName));

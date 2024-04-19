@@ -69,7 +69,7 @@ extern const std::string WAV_EXIT_TAPPABLE;
 
 // GetColour
 // Looks up the given colour name in ROConfig
-Colour GetColour(const char* colourName);
+Colour GetConstColour(const char* colourName);
 
 // Constants to pass into GetColour()
 #define COLOUR_TUTORIAL "colour_tutorial"

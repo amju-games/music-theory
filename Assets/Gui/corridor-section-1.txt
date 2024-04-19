@@ -10,11 +10,37 @@ wall
 // Num children
 1
 // child 0 of wall
-gui-image
-logo-image
-0.353873, 0.856250
-0.500000, 0.887500
-Image/logo-512.png
+colour
+40f0f0
+gui-comp
+gui-wall-comp
+// Num children
+3
+// child 0 of gui-wall-comp
+poly
+wall-poly-1
+-0.040493,0.559375
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.507042, -1.175000
+0.492958, 0.462500
+end
+// child 1 of gui-wall-comp
+poly
+wall-poly-2
+0.257746,0.578125
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.554577, -1.234375
+0.492958, 0.462500
+end
+// child 2 of gui-wall-comp
+poly
+wall-poly-3
+-0.433451,0.709375
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.526408, -0.375000
+0.521127, 0.462500
+end
+// end of gui-wall-comp
 // end of wall
 // child 1 of corridor-section-root
 gui-comp
@@ -25,7 +51,7 @@ frame
 poly
 frame poly
 -0.0137324,-0.265625
-style=3, loop, outCol=00c000, fillCol=40ffc0, radius=0.010000
+style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
 -0.036972, 0.543750
 -0.108099, 0.662500
 -0.105986, -0.503125
@@ -33,33 +59,33 @@ style=3, loop, outCol=00c000, fillCol=40ffc0, radius=0.010000
 end
 // child 1 of frame
 poly
-frame poly-1
-0.309155,-0.271875
-style=3, loop, outCol=00c000, fillCol=40ffc0, radius=0.010000
--0.026408, 0.656250
--0.118662, 0.509375
--0.105986, -0.503125
--0.019366, -0.503125
+frame poly-1-1
+0.383803,-0.265625
+style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
+0.573944, -0.343750
+-0.021831, -0.312500
+-0.017958, -0.503125
+0.586268, -0.506250
 end
 // child 2 of frame
 poly
-frame poly-1-1
-0.383803,-0.265625
-style=3, loop, outCol=00c000, fillCol=40ffc0, radius=0.010000
-0.573944, -0.343750
--0.108099, -0.321875
+frame poly-1
+0.397183,-0.275
+style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
+-0.026408, 0.656250
+-0.106338, 0.531250
 -0.105986, -0.503125
-0.586268, -0.506250
+-0.019366, -0.503125
 end
 // child 3 of frame
 poly
 frame poly-1
 0.0362676,-0.315625
-style=3, loop, outCol=00c000, fillCol=40ffc0, radius=0.010000
+style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
 -0.082746, 0.584375
 -0.153874, 0.715625
-0.244366, 0.706250
-0.151408, 0.553125
+0.337676, 0.696875
+0.257042, 0.575000
 end
 // end of frame
 // child 2 of corridor-section-root
@@ -68,14 +94,38 @@ door
 // Num children
 1
 // child 0 of door
+colour
+ff0000
+gui-comp
+door-comp
+// Num children
+2
+// child 0 of door-comp
 poly
 door poly
 0.00140846,-0.43125
 style=3, loop, outCol=ff0000, fillCol=40ffc0, radius=0.010000
-0.160211, 0.628125
--0.025352, 0.656250
--0.011268, -0.356250
-0.186620, -0.350000
+0.279929, 0.678125
+-0.035915, 0.675000
+-0.028874, -0.325000
+0.285212, -0.331250
 end
+// child 1 of door-comp
+gui-comp
+gui-comp-2
+// Num children
+1
+// child 0 of gui-comp-2
+poly
+poly-2
+0.375,-0.478125
+style=3, loop, outCol=00ffff, fillCol=ff0000, radius=0.010000
+-0.373239, 0.681250
+-0.367958, -0.040625
+-0.257043, -0.040625
+-0.271126, 0.678125
+end
+// end of gui-comp-2
+// end of door-comp
 // end of door
 // end of corridor-section-root

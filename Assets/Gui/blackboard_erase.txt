@@ -29,20 +29,13 @@ linear
 
 
 // Zig-zag line drawing
-line-drawing
+spline
 // Name, Position, Size
 line-drawing-zig-zag
 0.5, 0
-1, 1
-// Start width
-0.1
-// End width
-0.1
 // Colour: (start colour, end colour?)
-4E525A
+style=2, outCol=4E525A, w0=0.1, w1=0.1
 // Points
-// TODO Auto add duplicated start and end control points
-0, 0
 0, 0
 0.3, 0.4
 0.2, 0
@@ -53,8 +46,6 @@ line-drawing-zig-zag
 0.9, 0.4
 0.8, 0
 1.1, 0.4
-1.0, 0
-1.0, 0
 1.0, 0
 end
 

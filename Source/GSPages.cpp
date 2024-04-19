@@ -485,8 +485,8 @@ void GSPages::OnQuitButton()
     // TODO Get this string from the current Composer, e.g.
     //   m_composer->GetConfirmStr()
     Lookup("$$$90") /* Sure you want to quit? */,
-    GetColour(COLOUR_TEXT),
-    GetColour(COLOUR_CONFIRM_QUIT),
+    GetConstColour(COLOUR_TEXT),
+    GetConstColour(COLOUR_CONFIRM_QUIT),
     Amju::OnQuitConfirmCancel,
     Amju::OnQuitConfirmOK);
 }

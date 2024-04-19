@@ -234,7 +234,7 @@ GuiMusicScore::GuiMusicScore()
   m_fgCol = Colour(0, 0, 0, 1); // default to black
 
   // Default highlight colour
-  m_highlightColour = GetColour(COLOUR_MUSIC_HIGHLIGHT);
+  m_highlightColour = GetConstColour(COLOUR_MUSIC_HIGHLIGHT);
 
 #ifdef _DEBUG
   // We can do this just once to optimise; for development, we want to initialise every time.

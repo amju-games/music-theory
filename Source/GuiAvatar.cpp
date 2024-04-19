@@ -47,7 +47,7 @@ AvatarMap s_avatarMap =
       Colour col = FromHexString(value);
       gc->SetColour(col);
       // set same colour again so no interpolation surprises
-      gc->SetColour(col, 1);
+      gc->SetSecondColour(col);
     }
   },
 
