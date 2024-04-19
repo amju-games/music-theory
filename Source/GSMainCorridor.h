@@ -66,7 +66,7 @@ public:
   Tappable* TappablePickTest(const Vec2f& touchCoord);
 
   // Get classroom door we have currently visible in centre of screen 
-  PGuiElement GetDoor();
+  RCPtr<GuiDecAnimation> GetDoorAnim();
 
   // Called when we find that user has tapped down and up on a tappable
   void OnTapped(Tappable* tappable);
@@ -96,7 +96,7 @@ private:
   RCPtr<GuiDecTranslate> m_posInCorridor;
 
   // Each topic has a door. We open the door for the chosen topic.
-  std::vector<PGuiElement> m_doors;
+  std::vector<RCPtr<GuiDecAnimation>> m_doorAnims;
 
   // Items which respond to being tapped, to show some kind of info.
   std::vector<RCPtr<Tappable>> m_tappables;

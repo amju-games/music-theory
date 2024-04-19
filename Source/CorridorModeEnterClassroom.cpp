@@ -1,6 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2024 Juliet Colman
 
+#include <GuiDecAnimation.h>
 #include <MessageQueue.h>
 #include <SceneNodeCamera.h>
 #include <Timer.h>
@@ -77,12 +78,16 @@ void CorridorModeEnterClassroom::OnActive()
   PlayWav(WAV_ENTER_DOOR);
   PlayWav(WAV_DOOR_OPEN);
 
-  // TODO Start animation of door and 'camera'.
+  // Start animation of door and TODO 'camera'.
+  auto gsmc = TheGSMainCorridor::Instance();
+  auto doorAnim = gsmc->GetDoorAnim();
+  doorAnim->ResetAnimation();
+  doorAnim->SetIsPaused(false);
 
   // Go the the topic start state.
   GSTopicStart* gs = TheGSTopicStart::Instance();
   gs->SetPrevState(m_gs);
   // Time delay so we get to see an animation, e.g. door opening
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSTopicStart>, SecondsFromNow(2.0f)));
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSTopicStart>, SecondsFromNow(1.0f)));
 }
 }

@@ -64,7 +64,7 @@ AvatarMap s_avatarMap =
       GuiDecScale* gs = dynamic_cast<GuiDecScale*>(elem);
       Assert(gs);
       gs->SetScale(scale);
-      gs->SetScale(scale, 1); // as for colour, set both ends of lerp
+      //gs->SetScale(scale, 1); // as for colour, set both ends of lerp
     }
   },
 

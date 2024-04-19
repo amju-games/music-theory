@@ -142,7 +142,7 @@ void GSMainCorridor::Load3dForTopics()
   Assert(course);
   int numTopics = course->GetNumTopics();
 
-  m_doors.clear();
+  m_doorAnims.clear();
 
   // Insert root node for corridor sections
   // Find the animation node which controls our position in the corridor
@@ -154,7 +154,14 @@ void GSMainCorridor::Load3dForTopics()
   // This descendant is where we should add door sections.
   GuiComposite* addChildren = dynamic_cast<GuiComposite*>(m_posInCorridor->GetElementByName("add-door-sections-to-me"));
 
-  // TODO Add corridor ends
+  // Add corridor left end -- but TODO Add LIFT if level > 1
+//  GuiDecTranslate* doorPosInCorridor = new GuiDecTranslate;
+//  addChildren->AddChild(doorPosInCorridor);
+  constexpr bool NOT_LISTENER = false;
+  PGuiElement corridorSection = LoadGui("Gui/corridor-end-section.txt", NOT_LISTENER);
+  addChildren->AddChild(corridorSection);
+  corridorSection->SetLocalPos(Vec2f(-1.f * DISTANCE_BETWEEN_DOORS, 0));
+
 
   // Find the last locked door, so we can put it in shadow.
 //  int lastUnlocked = 0;
@@ -165,13 +172,17 @@ void GSMainCorridor::Load3dForTopics()
     Topic* topic = course->GetTopic(i);
     Assert(topic);
 
-    // 'Offset' position aloong corridor
-    GuiDecTranslate* doorPosInCorridor = new GuiDecTranslate;
-    doorPosInCorridor->SetTranslation(Vec2f(static_cast<float>(i) * DISTANCE_BETWEEN_DOORS, 0));
-    addChildren->AddChild(doorPosInCorridor);
     constexpr bool NOT_LISTENER = false;
     PGuiElement corridorSection = LoadGui("Gui/corridor-section-1.txt", NOT_LISTENER);
-    doorPosInCorridor->AddChild(corridorSection);
+    // Find door anim element, store it so we can open the correct door when it's selected.
+    GuiElement* doorAnimElem = corridorSection->GetElementByName("door-anim");
+    GuiDecAnimation* doorAnim = dynamic_cast<GuiDecAnimation*>(doorAnimElem);
+    Assert(doorAnim);
+    m_doorAnims.push_back(doorAnim);
+    doorAnim->SetIsPaused(true);
+    addChildren->AddChild(corridorSection);
+    // Offset position along corridor
+    corridorSection->SetLocalPos(Vec2f(static_cast<float>(i) * DISTANCE_BETWEEN_DOORS, 0));
 
 
     // TODO add something to locked topics so we can see it's locked
@@ -445,6 +456,8 @@ void GSMainCorridor::GoToTopic()
 
 bool GSMainCorridor::AllTopicsPassed() const
 {
+  return true; // for now, allow player to see all topics
+
   auto profile = TheUserProfile();
 
   Course* course = GetCourse();
@@ -466,7 +479,7 @@ bool GSMainCorridor::AllTopicsPassed() const
 bool GSMainCorridor::IsTopicUnlocked(int topicNum) const
 {
   // TODO for dev
-////  return true;
+  return true;
 
   auto profile = TheUserProfile();
 ////  ConfigFile* config = profile->GetConfigForTopic(KEY_TOPICS);
@@ -489,12 +502,12 @@ bool GSMainCorridor::IsTopicUnlocked(int topicNum) const
   return unlocked;
 }
 
-PGuiElement GSMainCorridor::GetDoor()
+RCPtr<GuiDecAnimation> GSMainCorridor::GetDoorAnim()
 {
   int currentTopic = TheUserProfile()->GetCurrentTopic();
   Assert(currentTopic >= 0);
-  Assert(currentTopic< static_cast<int>(m_doors.size()));
-  return m_doors[currentTopic];
+  Assert(currentTopic< static_cast<int>(m_doorAnims.size()));
+  return m_doorAnims[currentTopic];
 }
 
 void GSMainCorridor::Update()

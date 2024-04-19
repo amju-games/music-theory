@@ -211,7 +211,7 @@ void CorridorModeWait::Drag(bool rightNotLeft)
   // We can scroll 1 position to the left and right of the doors, so we can
   //  tap on stairs.
   // We can't scroll past locked topics.
-  bool canSwipe = true;
+  bool canSwipe = false;
   // We can scroll left (player swiped RIGHT though) if there is a door or
   //  stairwell/arch to the left.
   if (rightNotLeft && (m_currentTopicScrolledTo >= 0))

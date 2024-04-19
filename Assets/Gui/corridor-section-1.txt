@@ -87,6 +87,26 @@ style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
 0.337676, 0.696875
 0.257042, 0.575000
 end
+
+// Scale door animation
+animation
+door-anim
+one-shot
+// cycle time
+0.500000
+// easing function
+linear
+
+scale
+1,1 ; 0.5, 1
+// pivot
+0, 0
+
+animation
+clean-anim
+const
+one
+
 // end of frame
 // child 2 of corridor-section-root
 gui-comp

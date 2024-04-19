@@ -29,7 +29,7 @@ translate
 animation
 clean-anim
 const
-zero
+one
 
 gui-comp
 add-door-sections-to-me
