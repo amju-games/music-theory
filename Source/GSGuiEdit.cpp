@@ -9,6 +9,7 @@
 #include <GuiEdit.h>
 #include <GuiFactory.h>
 #include <GuiMenu.h>
+#include <GuiScroll.h>
 #include "GSGuiEdit.h"
 #include "UseVertexColourShader.h"
 
@@ -213,6 +214,15 @@ static GuiElement* FindGuiElementFromMenuItem(GuiElement* menuItem, GuiElement* 
   return nullptr;
 }
 
+static void OnGuiItemProperties(GuiElement* menuItem)
+{
+  GSGuiEdit* s = dynamic_cast<GSGuiEdit*>(TheGame::Instance()->GetState());
+  if (s)
+  {
+    s->OnGuiItemProperties(menuItem);
+  }
+}
+
 static void OnGuiItemDuplicate(GuiElement* menuItem)
 {
   GSGuiEdit* s = dynamic_cast<GSGuiEdit*>(TheGame::Instance()->GetState());
@@ -393,6 +403,13 @@ void GSGuiEdit::OnRedo()
   }
 }
 
+void GSGuiEdit::OnGuiItemProperties([[maybe_unused]] GuiElement* menuItem)
+{
+  //if (m_selectedElement && m_editor)
+  //{
+  //}
+}
+
 void GSGuiEdit::OnGuiItemDuplicate([[maybe_unused]] GuiElement* menuItem)
 {
   if (m_selectedElement)
@@ -509,12 +526,12 @@ void GSGuiEdit::OnGuiTreeItemRightClick(GuiElement* e)
   newItemMenu->AddChild(new GuiMenuItem("gui-text", &Amju::OnGuiItemNew));
   // TODO etc
 
-  m_rightClickTreeViewMenu->AddChild(new GuiNestMenuItem("New", newItemMenu));
-  m_rightClickTreeViewMenu->AddChild(new GuiMenuItem("Move forward", &Amju::OnGuiItemMoveUp)); // i.e. higher in child vec, so drawn later
-  m_rightClickTreeViewMenu->AddChild(new GuiMenuItem("Move back", &Amju::OnGuiItemMoveDown)); 
+  m_rightClickTreeViewMenu->AddChild(new GuiNestMenuItem("New >", newItemMenu));
+  m_rightClickTreeViewMenu->AddChild(new GuiMenuItem("Bring forward", &Amju::OnGuiItemMoveUp)); // i.e. higher in child vec, so drawn later
+  m_rightClickTreeViewMenu->AddChild(new GuiMenuItem("Send back", &Amju::OnGuiItemMoveDown)); 
 
   // TODO!!!!!!!
-//  m_rightClickTreeViewMenu->AddChild(new GuiMenuItem("Properties", &Amju::OnGuiItemProperties));
+  m_rightClickTreeViewMenu->AddChild(new GuiMenuItem("Properties...", &Amju::OnGuiItemProperties));
 
   GuiMenu* decorateItemMenu = new GuiMenu;
   decorateItemMenu->AddChild(new GuiMenuItem("animation", &Amju::OnGuiItemDecorate));
@@ -523,7 +540,7 @@ void GSGuiEdit::OnGuiTreeItemRightClick(GuiElement* e)
   decorateItemMenu->AddChild(new GuiMenuItem("translate", &Amju::OnGuiItemDecorate));
   decorateItemMenu->AddChild(new GuiMenuItem("scale", &Amju::OnGuiItemDecorate));
   decorateItemMenu->AddChild(new GuiMenuItem("rotate", &Amju::OnGuiItemDecorate));
-  m_rightClickTreeViewMenu->AddChild(new GuiNestMenuItem("Decorate", decorateItemMenu));
+  m_rightClickTreeViewMenu->AddChild(new GuiNestMenuItem("Decorate >", decorateItemMenu));
 
   m_rightClickTreeViewMenu->AddChild(new GuiMenuItem("Duplicate", &Amju::OnGuiItemDuplicate));
 
@@ -625,7 +642,13 @@ void GSGuiEdit::PopulateTreeView()
   treemenu->SetIsVertical(true);
   PopulateTreeViewRecursive(treemenu, m_editGui, 0);
 
-  m_treeview->AddChild(treemenu);
+  GuiScroll* scrollbar = new GuiScroll;
+  m_treeview->AddChild(scrollbar);
+  treemenu->SetLocalPos(Vec2f(0, 0));
+  scrollbar->SetSize(Vec2f(.1f, 1.f));
+  scrollbar->AddChild(treemenu);
+  scrollbar->SetExtents(Vec2f(0, 2.f));
+  //scrollbar->InitScrollBar();
 }
 
 void GSGuiEdit::Update()
@@ -635,6 +658,11 @@ void GSGuiEdit::Update()
   if (m_editGui)
   {
     m_editGui->Update();
+  }
+
+  if (m_treeview)
+  {
+    m_treeview->Update();
   }
 }
 
@@ -665,7 +693,6 @@ void GSGuiEdit::Draw2d()
   }
 
   AmjuGL::UseShader(nullptr);
-  m_treeview->GetChild(0)->SetVisible(true);
   m_treeview->Draw();
 
   if (m_rightClickTreeViewMenu)

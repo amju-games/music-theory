@@ -339,7 +339,8 @@ static void SetInitialState()
     // Show keyboard and nice score
 //  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
 
-  // Show animated splines
+  // Show animated splines?
+  // Right now using this to edit GUIs, currently corridor sections.
   TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
 
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
@@ -350,7 +351,7 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSAvatarMod::Instance());
 
-  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 }
 
 static void LoadStringTableForPreferredLanguage()

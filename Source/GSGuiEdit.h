@@ -36,6 +36,7 @@ public:
   void OnGuiItemMoveDown(GuiElement* e);
   void OnGuiItemDecorate(GuiElement* e);
   void OnGuiItemDuplicate(GuiElement* e);
+  void OnGuiItemProperties(GuiElement* e);
   void OnUndo();
   void OnRedo();
 
