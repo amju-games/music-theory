@@ -172,6 +172,10 @@ public:
     {
       // Find the child index so we can put it back where it was.
       m_indexOfDeletedChild = comp->FindChildIndex(m_toDelete);
+      if (m_indexOfDeletedChild == -1)
+      {
+        return false;
+      }
       Assert(m_indexOfDeletedChild != -1);
       comp->DeleteChild(m_indexOfDeletedChild);
       m_parent = comp;
@@ -341,14 +345,44 @@ static GuiElement* FindSelectedElement(GuiElement* e, const MouseButtonEvent& mb
         }
       }
     }
-
-    Rect rect = GetRect(e);
-    if (rect.IsPointIn(Vec2f(mbe.x, mbe.y)))
+    else
     {
-      return e;
+      // No select comps, right? We shouldn't be able to move them around, because
+      //  comps don't save their pos.
+      Rect rect = GetRect(e);
+      if (rect.IsPointIn(Vec2f(mbe.x, mbe.y)))
+      {
+        return e;
+      }
     }
   }
   return nullptr;
+}
+
+static void FindSelectedElements(GuiElement* root, const Rect& rect, std::vector<PGuiElement>& selection)
+{
+  if (root)
+  {
+    // Prefer descendant elements to root elements, so mirroring the draw order
+    GuiComposite* comp = dynamic_cast<GuiComposite*>(root);
+    if (comp)
+    {
+      int n = comp->GetNumChildren();
+      for (int i = 0; i < n; i++)
+      {
+        FindSelectedElements(comp->GetChild(i), rect, selection);
+      }
+    }
+    else
+    {
+      // We don't want to be able to multi-select composites.
+      Rect r = GetRect(root);
+      if (rect.Intersects(r))
+      {
+        selection.push_back(root);
+      }
+    }
+  }
 }
 
 static void DrawBoundingRects(GuiElement* e)
@@ -386,8 +420,8 @@ void GSGuiEdit::OnUndo()
   if (TheGuiCommandHandler::Instance()->CanUndo())
   {
     TheGuiCommandHandler::Instance()->Undo();
-    m_selectedElement = nullptr;
-    m_editor = nullptr;
+    m_selectedElements.clear();
+    m_editors.clear();
     PopulateTreeView();
   }
 }
@@ -397,8 +431,8 @@ void GSGuiEdit::OnRedo()
   if (TheGuiCommandHandler::Instance()->CanRedo())
   {
     TheGuiCommandHandler::Instance()->Redo();
-    m_selectedElement = nullptr;
-    m_editor = nullptr;
+    m_selectedElements.clear();
+    m_editors.clear();
     PopulateTreeView();
   }
 }
@@ -412,36 +446,36 @@ void GSGuiEdit::OnGuiItemProperties([[maybe_unused]] GuiElement* menuItem)
 
 void GSGuiEdit::OnGuiItemDuplicate([[maybe_unused]] GuiElement* menuItem)
 {
-  if (m_selectedElement)
+  if (m_selectedElements.size() == 1)
   {
-    TheGuiCommandHandler::Instance()->DoNewCommand(new GuiItemDuplicateCommand(m_selectedElement));
-    m_selectedElement = nullptr;
-    m_editor = nullptr;
+    TheGuiCommandHandler::Instance()->DoNewCommand(new GuiItemDuplicateCommand(m_selectedElements[0]));
+    m_selectedElements.clear();
+    m_editors.clear();
     PopulateTreeView();
   }
 }
 
 void GSGuiEdit::OnGuiItemDelete([[maybe_unused]] GuiElement* menuItem)
 {
-  if (m_selectedElement)
+  if (m_selectedElements.size() == 1)
   {
-    TheGuiCommandHandler::Instance()->DoNewCommand(new GuiItemDeleteCommand(m_selectedElement));
-    m_selectedElement = nullptr;
-    m_editor = nullptr;
+    TheGuiCommandHandler::Instance()->DoNewCommand(new GuiItemDeleteCommand(m_selectedElements[0]));
+    m_selectedElements.clear();
+    m_editors.clear();
     PopulateTreeView();
   }
 }
 
 void GSGuiEdit::OnGuiItemDecorate(GuiElement* menuItem)
 {
-  if (m_selectedElement)
+  if (m_selectedElements.size() == 1)
   {
     // Adds a decorator child to the selected element's parent, so it must be a composite.
     // TODO Add a root element to an empty tree.
     // The menu item has the type name of the required new child.
-    if (m_selectedElement->GetParent())
+    if (m_selectedElements[0]->GetParent())
     {
-      GuiComposite* compParent = dynamic_cast<GuiComposite*>(m_selectedElement->GetParent());
+      GuiComposite* compParent = dynamic_cast<GuiComposite*>(m_selectedElements[0]->GetParent());
       if (compParent)
       {
         GuiText* t = dynamic_cast<GuiText*>(menuItem);
@@ -452,9 +486,9 @@ void GSGuiEdit::OnGuiItemDecorate(GuiElement* menuItem)
           if (newDecorator)
           {
             UniqueNameForNewElement(newDecorator.GetPtr());
-            TheGuiCommandHandler::Instance()->DoNewCommand(new GuiItemDecorateCommand(m_selectedElement, newDecorator));
-            m_selectedElement = nullptr;
-            m_editor = nullptr;
+            TheGuiCommandHandler::Instance()->DoNewCommand(new GuiItemDecorateCommand(m_selectedElements[0], newDecorator));
+            m_selectedElements.clear();
+            m_editors.clear();
             PopulateTreeView();
           }
         }
@@ -465,12 +499,12 @@ void GSGuiEdit::OnGuiItemDecorate(GuiElement* menuItem)
 
 void GSGuiEdit::OnGuiItemNew(GuiElement* menuItem)
 {
-  if (m_selectedElement)
+  if (m_selectedElements.size() == 1)
   {
     // New adds a child to the selected element, so it must be a composite.
     // TODO Add a root element to an empty tree.
     // The menu item has the type name of the required new child.
-    GuiComposite* comp = dynamic_cast<GuiComposite*>(m_selectedElement.GetPtr());
+    GuiComposite* comp = dynamic_cast<GuiComposite*>(m_selectedElements[0].GetPtr());
     if (comp)
     {
       GuiText* t = dynamic_cast<GuiText*>(menuItem);
@@ -483,8 +517,8 @@ void GSGuiEdit::OnGuiItemNew(GuiElement* menuItem)
           UniqueNameForNewElement(newChild);
           newChild->CreateEditorDefault();
           TheGuiCommandHandler::Instance()->DoNewCommand(new GuiItemNewCommand(comp, newChild));
-          m_selectedElement = nullptr;
-          m_editor = nullptr;
+          m_selectedElements.clear();
+          m_editors.clear();
           PopulateTreeView();
         }
       }
@@ -494,18 +528,18 @@ void GSGuiEdit::OnGuiItemNew(GuiElement* menuItem)
 
 void GSGuiEdit::OnGuiItemMoveUp([[maybe_unused]] GuiElement* menuItem)
 {
-  if (m_selectedElement)
+  for (auto& e : m_selectedElements)
   {
-    TheGuiCommandHandler::Instance()->DoNewCommand(new GuiItemForwardBackCommand(m_selectedElement, true));
+    TheGuiCommandHandler::Instance()->DoNewCommand(new GuiItemForwardBackCommand(e, true));
     PopulateTreeView();
   }
 }
 
 void GSGuiEdit::OnGuiItemMoveDown([[maybe_unused]] GuiElement* menuItem)
 {
-  if (m_selectedElement)
+  for (auto& e : m_selectedElements)
   {
-    TheGuiCommandHandler::Instance()->DoNewCommand(new GuiItemForwardBackCommand(m_selectedElement, false));
+    TheGuiCommandHandler::Instance()->DoNewCommand(new GuiItemForwardBackCommand(e, false));
     PopulateTreeView();
   }
 }
@@ -598,6 +632,7 @@ void GSGuiEdit::OnActive()
     Assert(false);
   }
 
+  m_selectionRectIsActive = false;
   SetSelectedElement(nullptr);
 
   PopulateTreeView();
@@ -609,6 +644,10 @@ void GSGuiEdit::OnActive()
 void PopulateTreeViewRecursive(GuiMenu* m, GuiElement* e, int depth)
 {
   GuiMenuItem* item = new GuiMenuItem(std::string(depth * 4, ' ') + e->GetName(), OnGuiTreeItemLeftClick);
+  // TODO Also set right click command, so we select this element if we right click its 
+  //  name in the menu/tree.
+
+
   item->SetRightClickCommand(OnGuiTreeItemRightClick);
   m->AddChild(item);
 
@@ -655,7 +694,8 @@ void GSGuiEdit::Update()
 {
   GSBase::Update();
 
-  if (m_editGui)
+  if (m_editGui &&
+    m_doUpdateEditGui)
   {
     m_editGui->Update();
   }
@@ -684,12 +724,23 @@ void GSGuiEdit::Draw2d()
     AmjuGL::UseShader(nullptr);
     DrawBoundingRects(m_editGui);
 
-    if (m_editor)
+    for (auto& ed : m_editors)
     {
-      m_editor->Draw();
+      ed->Draw();
     }
 
     //GuiElement::SetGlobalScale(1.0f);
+  }
+
+  if (true) // m_selectionRectIsActive)
+  {
+    AmjuGL::UseShader(nullptr);
+    AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
+    PushColour();
+    AmjuGL::SetColour({0, 1, 0, 1});
+    DrawRect(m_selectionRect);
+    PopColour();
+    AmjuGL::Enable(AmjuGL::AMJU_TEXTURE_2D);
   }
 
   AmjuGL::UseShader(nullptr);
@@ -721,24 +772,40 @@ bool GSGuiEdit::OnKeyEvent(const KeyEvent& ke)
   return false;
 }
 
+void GSGuiEdit::SetElementsInSelectionRect()
+{
+  m_selectedElements.clear();
+  m_editors.clear();
+
+  FindSelectedElements(m_editGui, m_selectionRect, m_selectedElements);
+
+  for (auto& elem : m_selectedElements)
+  {
+    RCPtr<GuiEdit> editor = elem->CreateEditor();
+    m_editors.push_back(editor);
+    editor->SetChild(elem); // Not AddChild(), which would set Editor node as parent.
+    editor->RecalcGrabberPositions();
+    editor->SelectGrabbersInRect(m_selectionRect);
+  }
+}
+
 void GSGuiEdit::SetSelectedElement(PGuiElement e)
 {
-  m_selectedElement = e;
+  m_selectedElements.clear();
+  m_editors.clear();
   if (e)
   {
-    m_editor = e->CreateEditor();
-    m_editor->SetChild(e); // Not AddChild(), which would set Editor node as parent.
-    m_editor->RecalcGrabberPositions();
-  }
-  else
-  {
-    m_editor = nullptr;
+    m_selectedElements.push_back(e);
+    RCPtr<GuiEdit> editor = e->CreateEditor();
+    m_editors.push_back(editor);
+    editor->SetChild(e); // Not AddChild(), which would set Editor node as parent.
+    editor->RecalcGrabberPositions();
   }
 }
 
 bool GSGuiEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 {
-  if (m_rightClickTreeViewMenu && 
+  if (m_rightClickTreeViewMenu &&
     m_rightClickTreeViewMenu->OnMouseButtonEvent(mbe))
   {
     return true;
@@ -755,16 +822,21 @@ bool GSGuiEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
   // We can use their position in the tree in depth first search order.
 
   if (m_rightClickMenu &&
-      m_rightClickMenu->OnMouseButtonEvent(mbe))
+    m_rightClickMenu->OnMouseButtonEvent(mbe))
   {
     return true;
   }
 
-  if (m_editor)
+  if (!m_editors.empty())
   {
-    if (m_editor->OnMouseButtonEvent(mbe))
+    bool b = false;
+    for (auto& ed : m_editors)
     {
-      // Editor has consumed the event
+      b |= ed->OnMouseButtonEvent(mbe);
+    }
+    if (b)
+    {
+      // One or more editors consumed the event
       return true;
     }
   }
@@ -786,8 +858,8 @@ bool GSGuiEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
     }
     else
     {
-      m_editor = nullptr;
-      m_selectedElement = nullptr;
+      m_selectedElements.clear();
+      m_editors.clear();
     }
   }
   else if (mbe.button == AMJU_BUTTON_MOUSE_RIGHT && mbe.isDown)
@@ -800,11 +872,27 @@ bool GSGuiEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
     return true;
   }
 
+  m_selectionRectIsActive = mbe.isDown;
+  if (m_selectionRectIsActive)
+  {
+    m_selectionRectAnchor = Vec2f(mbe.x, mbe.y);
+    m_selectionRect.Set(mbe.x, mbe.x, mbe.y, mbe.y);
+  }
+  else
+  {
+    SetElementsInSelectionRect();
+  }
+
   return false;
 }
 
 bool GSGuiEdit::OnCursorEvent(const CursorEvent& ce) 
 {
+  if (m_selectionRectIsActive)
+  {
+    m_selectionRect.Set(m_selectionRectAnchor.x, ce.x, m_selectionRectAnchor.y, ce.y);
+  }
+
   if (m_rightClickTreeViewMenu &&
     m_rightClickTreeViewMenu->OnCursorEvent(ce))
   {
@@ -822,9 +910,18 @@ bool GSGuiEdit::OnCursorEvent(const CursorEvent& ce)
     return true;
   }
 
-  if (m_editor)
+  if (!m_editors.empty())
   {
-    return m_editor->OnCursorEvent(ce);
+    bool b = false;
+    for (auto& ed : m_editors)
+    {
+      std::cout << "cursor event on editor for " << ed->GetChild()->GetName() << "\n";
+      b |= ed->OnCursorEvent(ce);
+    }
+    if (b)
+    {
+      return true;
+    }
   }
 
   return false;

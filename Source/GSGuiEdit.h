@@ -42,6 +42,7 @@ public:
 
 private:
   void SetSelectedElement(PGuiElement e);
+  void SetElementsInSelectionRect(); // multi-select
   void PopulateTreeView();
 
 private:
@@ -49,12 +50,21 @@ private:
   //  edit mode itself, which we are not editing!
   std::string m_editGuiFilename; 
   PGuiElement m_editGui; // Root node of GUI tree we are editing
-  PGuiElement m_selectedElement; // Element we are editing
-  RCPtr<GuiEdit> m_editor; // Editor node, which lets us edit the selected element
+  //PGuiElement m_selectedElement; // Element we are editing
+  std::vector<PGuiElement> m_selectedElements;
+  std::vector<RCPtr<GuiEdit>> m_editors; // Editor nodes, which lets us edit the selected elements.
+  // Each selected element has an editor pointing to it.
 
   RCPtr<GuiDialog> m_treeview; // Show GUI tree in vertical text form
   RCPtr<GuiMenu> m_rightClickMenu;
   RCPtr<GuiMenu> m_rightClickTreeViewMenu;
+
+  // By default, don't update the GUI we are editing, to turn off peskly animations.
+  bool m_doUpdateEditGui = false;
+
+  Rect m_selectionRect;
+  Vec2f m_selectionRectAnchor;
+  bool m_selectionRectIsActive = false;
 };
 
 // Sticking with Singletons; that's the pattern in all this code.
