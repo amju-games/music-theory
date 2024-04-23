@@ -11,7 +11,7 @@ wall
 1
 // child 0 of wall
 colour
-40f0f0
+798EEB
 gui-comp
 gui-wall-comp
 // Num children

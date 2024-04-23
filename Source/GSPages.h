@@ -5,7 +5,7 @@
 
 #include <Colour.h>
 #include "ComposerList.h"
-#include "GSBase3d.h"
+#include "GSBase.h"
 #include "MusicEvent.h"
 #include "Page.h"
 #include "QuestionProgress.h"
@@ -18,7 +18,7 @@ struct Colour;
 // Show 'pages' of questions for the user to answer.
 // One page is displayed at a time. The page type depends on the type
 //  of question being asked.
-class GSPages : public GSBase3d
+class GSPages : public GSBase
 {
 public:
   GSPages();
@@ -62,9 +62,6 @@ public:
 protected:
   void SetButtonEnabled(const std::string& buttonName, bool enabled);
   virtual void ReloadGui() override;
-
-  // Load 3D and add 'teacher' avatar
-  virtual void Reload3d() override;
 
   void UpdateHud();
 

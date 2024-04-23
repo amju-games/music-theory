@@ -80,9 +80,7 @@ void CorridorModeEnterClassroom::OnActive()
 
   // Start animation of door and TODO 'camera'.
   auto gsmc = TheGSMainCorridor::Instance();
-  auto doorAnim = gsmc->GetDoorAnim();
-  doorAnim->ResetAnimation();
-  doorAnim->SetIsPaused(false);
+  gsmc->StartDoorAnim();
 
   // Go the the topic start state.
   GSTopicStart* gs = TheGSTopicStart::Instance();

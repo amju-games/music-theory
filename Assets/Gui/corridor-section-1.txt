@@ -1,7 +1,13 @@
 // * Amjula music theory * (c) Copyright 2024 Juliet Colman
 1
+
 gui-comp
 corridor-section-root
+// Num children
+1
+
+gui-comp
+wall-frame-and-door-comp
 // Num children
 3
 // child 0 of corridor-section-root
@@ -11,7 +17,7 @@ wall
 1
 // child 0 of wall
 colour
-40f0f0
+798EEB
 gui-comp
 gui-wall-comp
 // Num children
@@ -46,49 +52,123 @@ end
 gui-comp
 frame
 // Num children
-4
+12
 // child 0 of frame
 poly
-frame poly
--0.0137324,-0.265625
-style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
--0.036972, 0.543750
--0.108099, 0.662500
--0.105986, -0.503125
--0.019366, -0.503125
+frame-blackness
+-0.123944,-0.24375
+style=1, loop, outCol=000000, fillCol=000000, radius=0.010000
+0.457746, 0.537500
+0.059507, 0.528125
+0.070070, -0.521875
+0.447183, -0.293750
 end
 // child 1 of frame
 poly
-frame poly-1-1
-0.383803,-0.265625
+framepoly1
+-0.0137324,-0.265625
 style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
-0.573944, -0.343750
--0.021831, -0.312500
--0.017958, -0.503125
-0.586268, -0.506250
+-0.014085, 0.528125
+-0.091901, 0.643750
+-0.095775, 0.640625
+-0.095423, -0.503125
+-0.079577, -0.515625
+-0.035564, -0.512500
+-0.015845, -0.503125
 end
 // child 2 of frame
 poly
-frame poly-1
-0.397183,-0.275
+framepoly2
+0.383803,-0.265625
 style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
--0.026408, 0.656250
--0.106338, 0.531250
--0.105986, -0.503125
--0.019366, -0.503125
+0.598592, -0.321875
+-0.021831, -0.312500
+-0.015845, -0.490625
+0.001408, -0.503125
+0.600352, -0.506250
+0.598591, -0.493750
 end
 // child 3 of frame
 poly
-frame poly-1
+framepoly3
+0.397183,-0.275
+style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
+-0.024648, 0.665625
+-0.106338, 0.531250
+-0.106690, -0.512500
+-0.095423, -0.509375
+-0.032746, -0.509375
+-0.024648, -0.500000
+end
+// child 4 of frame
+poly
+framepoly4
 0.0362676,-0.315625
 style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
--0.082746, 0.584375
--0.153874, 0.715625
+-0.084507, 0.571875
+-0.145422, 0.687500
+-0.134508, 0.693750
 0.337676, 0.696875
 0.257042, 0.575000
 end
-
-// Scale door animation
+// child 5 of frame
+poly
+framedetail1
+0.0197182,-0.321875
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+-0.103873, -0.453125
+-0.108099, 0.662500
+end
+// child 6 of frame
+poly
+framedetail2
+0.0573944,-0.39375
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+-0.107394, -0.384375
+-0.111620, 0.671875
+end
+// child 7 of frame
+poly
+framedetail3
+0.417253,-0.3875
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+-0.107394, -0.400000
+-0.108099, 0.662500
+end
+// child 8 of frame
+poly
+framedetail4
+0.455282,-0.353125
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+-0.100352, -0.431250
+-0.104578, 0.693750
+end
+// child 9 of frame
+poly
+framedetail5
+0.0369718,-0.35
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+0.315141, 0.687500
+-0.122184, 0.693750
+end
+// child 10 of frame
+poly
+framedetail6
+0.481338,-1.28125
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+0.510563, 0.665625
+-0.108099, 0.662500
+end
+// child 11 of frame
+poly
+framedetail6-1
+0.0524647,-0.3875
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+0.260563, 0.665625
+-0.115141, 0.671875
+end
+// end of frame
+// child 2 of corridor-section-root
 animation
 door-anim
 one-shot
@@ -96,56 +176,280 @@ one-shot
 0.500000
 // easing function
 linear
-
 scale
-1,1 ; 0.5, 1
-// pivot
-0, 0
-
+1,1; 0.2,1
+// pivot point
+0,0
 animation
 clean-anim
 const
+// easing function
 one
-
-// end of frame
-// child 2 of corridor-section-root
-gui-comp
-door
-// Num children
-1
-// child 0 of door
-colour
-ff0000
 gui-comp
 door-comp
 // Num children
-2
-// child 0 of door-comp
-poly
-door poly
-0.00140846,-0.43125
-style=3, loop, outCol=ff0000, fillCol=40ffc0, radius=0.010000
-0.279929, 0.678125
--0.035915, 0.675000
--0.028874, -0.325000
-0.285212, -0.331250
-end
-// child 1 of door-comp
-gui-comp
-gui-comp-2
-// Num children
 1
-// child 0 of gui-comp-2
+// child 0 of door-comp
+colour
+ff80ff
+gui-comp
+door
+// Num children
+5
+// child 0 of door
 poly
-poly-2
-0.375,-0.478125
-style=3, loop, outCol=00ffff, fillCol=ff0000, radius=0.010000
--0.373239, 0.681250
--0.367958, -0.040625
--0.257043, -0.040625
--0.271126, 0.678125
+door-base-poly
+0.00140846,-0.43125
+style=3, loop, outCol=000000, fillCol=c0c0c0, radius=0.010000
+0.288732, 0.681250
+-0.019014, 0.687500
+-0.034154, 0.671875
+-0.033099, -0.325000
+-0.009508, -0.331250
+0.279930, -0.334375
 end
-// end of gui-comp-2
-// end of door-comp
+// child 1 of door
+gui-comp
+door-panel-1
+// Num children
+5
+// child 0 of door-panel-1
+poly
+door-panel-base-poly
+0.375,-0.478125
+style=3, loop, outCol=000000, fillCol=c0c0c0, radius=0.007500
+-0.373239, 0.681250
+-0.376761, 0.668750
+-0.375000, -0.028125
+-0.359155, -0.040625
+-0.265846, -0.040625
+-0.260563, -0.021875
+-0.265845, 0.687500
+-0.279929, 0.681250
+end
+// child 1 of door-panel-1
+poly
+door-panel-top-poly
+0.375704,-0.4875
+style=3, loop, outCol=000000, fillCol=808080, radius=0.005000
+-0.375000, 0.684375
+-0.352113, 0.646875
+-0.288733, 0.653125
+-0.265845, 0.687500
+end
+// child 2 of door-panel-1
+poly
+door-panel-bottom-poly
+0.378169,-1.19687
+style=3, loop, outCol=000000, fillCol=e0e0e0, radius=0.005000
+-0.375000, 0.684375
+-0.346831, 0.731250
+-0.286972, 0.731250
+-0.265845, 0.687500
+end
+// child 3 of door-panel-1
+poly
+door-panel-left-poly
+0.433451,-0.878125
+style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.433099, 1.074999
+-0.410212, 1.040625
+-0.406690, 0.409375
+-0.433099, 0.371875
+end
+// child 4 of door-panel-1
+poly
+door-panel-right-poly
+0.548591,-0.875
+style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.433099, 1.074999
+-0.461268, 1.040625
+-0.457747, 0.403125
+-0.433099, 0.371875
+end
+// end of door-panel-1
+// child 2 of door
+gui-comp
+door-panel-1-1
+// Num children
+5
+// child 0 of door-panel-1-1
+poly
+door-panel-base-poly-1
+0.512324,-0.4875
+style=3, loop, outCol=000000, fillCol=c0c0c0, radius=0.007500
+-0.373239, 0.681250
+-0.376761, 0.668750
+-0.369718, -0.003125
+-0.359155, -0.028125
+-0.267607, -0.000000
+-0.257042, -0.003125
+-0.264084, 0.662500
+-0.276408, 0.675000
+end
+// child 1 of door-panel-1-1
+poly
+door-panel-top-poly-1
+0.513028,-0.4875
+style=3, loop, outCol=000000, fillCol=808080, radius=0.005000
+-0.375000, 0.684375
+-0.352113, 0.646875
+-0.286972, 0.643750
+-0.267606, 0.678125
+end
+// child 2 of door-panel-1-1
+poly
+door-panel-bottom-poly-1
+0.520775,-1.18437
+style=3, loop, outCol=000000, fillCol=e0e0e0, radius=0.005000
+-0.375000, 0.684375
+-0.346831, 0.718750
+-0.286972, 0.725000
+-0.271127, 0.681250
+end
+// child 3 of door-panel-1-1
+poly
+door-panel-left-poly-1
+0.570775,-0.8875
+style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.433099, 1.074999
+-0.410212, 1.040625
+-0.401408, 0.409375
+-0.429578, 0.390625
+end
+// child 4 of door-panel-1-1
+poly
+door-panel-right-poly-1
+0.680633,-0.890625
+style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.434859, 1.081249
+-0.455986, 1.050000
+-0.447184, 0.418750
+-0.429578, 0.378125
+end
+// end of door-panel-1-1
+// child 3 of door
+gui-comp
+door-panel-1-1-1
+// Num children
+5
+// child 0 of door-panel-1-1-1
+poly
+door-panel-base-poly-1-1
+0.369718,-0.703125
+style=3, loop, outCol=000000, fillCol=c0c0c0, radius=0.007500
+-0.346831, 0.159375
+-0.366198, 0.146875
+-0.364436, -0.021875
+-0.359155, -0.028125
+-0.264086, -0.025000
+-0.262324, -0.003125
+-0.262324, 0.143750
+-0.279929, 0.153125
+end
+// child 1 of door-panel-1-1-1
+poly
+door-panel-top-poly-1-1
+0.375704,-1.225
+style=3, loop, outCol=000000, fillCol=808080, radius=0.005000
+-0.375000, 0.684375
+-0.352113, 0.646875
+-0.286972, 0.643750
+-0.267606, 0.678125
+end
+// child 2 of door-panel-1-1-1
+poly
+door-panel-bottom-poly-1-1
+0.376409,-1.40625
+style=3, loop, outCol=000000, fillCol=e0e0e0, radius=0.005000
+-0.373239, 0.681250
+-0.346831, 0.718750
+-0.286972, 0.725000
+-0.274648, 0.678125
+end
+// child 3 of door-panel-1-1-1
+poly
+door-panel-left-poly-1-1
+0.435212,-1.625
+style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.431338, 1.074999
+-0.410212, 1.040625
+-0.408450, 0.937500
+-0.427818, 0.887500
+end
+// child 4 of door-panel-1-1-1
+poly
+door-panel-right-poly-1-1
+0.536267,-1.65
+style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.424296, 1.096874
+-0.445423, 1.059375
+-0.447184, 0.968750
+-0.424296, 0.934375
+end
+// end of door-panel-1-1-1
+// child 4 of door
+gui-comp
+door-panel-1-1-1-1
+// Num children
+5
+// child 0 of door-panel-1-1-1-1
+poly
+door-panel-base-poly-1-1-1
+0.510563,-0.696875
+style=3, loop, outCol=000000, fillCol=c0c0c0, radius=0.007500
+-0.346831, 0.159375
+-0.369719, 0.146875
+-0.371478, -0.025000
+-0.359155, -0.028125
+-0.264086, -0.025000
+-0.262324, -0.003125
+-0.262324, 0.143750
+-0.279929, 0.153125
+end
+// child 1 of door-panel-1-1-1-1
+poly
+door-panel-top-poly-1-1-1
+0.516549,-1.22812
+style=3, loop, outCol=000000, fillCol=808080, radius=0.005000
+-0.375000, 0.684375
+-0.352113, 0.646875
+-0.286972, 0.643750
+-0.267606, 0.678125
+end
+// child 2 of door-panel-1-1-1-1
+poly
+door-panel-bottom-poly-1-1-1
+0.517254,-1.40313
+style=3, loop, outCol=000000, fillCol=e0e0e0, radius=0.005000
+-0.373239, 0.681250
+-0.346831, 0.718750
+-0.286972, 0.725000
+-0.274648, 0.678125
+end
+// child 3 of door-panel-1-1-1-1
+poly
+door-panel-left-poly-1-1-1
+0.576057,-1.60938
+style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.431338, 1.074999
+-0.410212, 1.040625
+-0.408450, 0.937500
+-0.427818, 0.887500
+end
+// child 4 of door-panel-1-1-1-1
+poly
+door-panel-right-poly-1-1-1
+0.675351,-1.65
+style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.424296, 1.096874
+-0.445423, 1.059375
+-0.447184, 0.968750
+-0.424296, 0.934375
+end
+// end of door-panel-1-1-1-1
 // end of door
+
+// end of door-highlights
+// end of door-comp
 // end of corridor-section-root

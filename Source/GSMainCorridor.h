@@ -65,8 +65,7 @@ public:
   // Test each tappable to see if it has been picked
   Tappable* TappablePickTest(const Vec2f& touchCoord);
 
-  // Get classroom door we have currently visible in centre of screen 
-  RCPtr<GuiDecAnimation> GetDoorAnim();
+  void StartDoorAnim();
 
   // Called when we find that user has tapped down and up on a tappable
   void OnTapped(Tappable* tappable);
@@ -85,6 +84,12 @@ public:
   int GetLevel() const;
 
 protected:
+  // Get section we have currently visible in centre of screen 
+  PGuiElement GetCurrentCorridorSection();
+
+  // On initialisation, pause anims
+  void PauseAnimsOnSection(PGuiElement corridorSection);
+
   void Load3dForTopics();
   bool LoadTappables();
   void ChangeMode();
@@ -93,12 +98,14 @@ protected:
 
 private:
   RCPtr<GuiDecAnimation> m_posInCorridorAnimator;
+  RCPtr<GuiDecAnimation> m_zoomAllAnimator; //?
   RCPtr<GuiDecTranslate> m_posInCorridor;
 
-  // Each topic has a door. We open the door for the chosen topic.
-  std::vector<RCPtr<GuiDecAnimation>> m_doorAnims;
+  // Each of these sections has a door. We open the door for the chosen topic.
+  std::vector<PGuiElement> m_animatableCorridorSections;
 
   // Items which respond to being tapped, to show some kind of info.
+  // TODO Do they all need a zoom animator then?
   std::vector<RCPtr<Tappable>> m_tappables;
 
   // Item user has tapped on

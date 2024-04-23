@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "GSBase3d.h"
+#include "GSBase.h"
 #include <Singleton.h>
 
 namespace Amju
@@ -13,7 +13,7 @@ namespace Amju
 //  topic, or it might be new (TODO different states for these scenarios?)
 // Display the localised topic name (and introduction?).
 // Create/Load pages for the topic, go to Pages state.
-class GSTopicStart : public GSBase3d
+class GSTopicStart : public GSBase
 {
 public:
   GSTopicStart();

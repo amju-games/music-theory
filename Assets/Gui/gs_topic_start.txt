@@ -11,7 +11,12 @@ gui-comp
 // Name
 topic-start-comp
 // Num children
-8
+9
+
+translate
+0, -.2
+include
+blackboard-1.txt
 
 // Best so far display
 

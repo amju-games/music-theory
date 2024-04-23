@@ -50,7 +50,6 @@ static void OnQuitButton(GuiElement*)
 GSPages::GSPages()
 {
   m_guiFilename = "Gui/gs_pages_landscape.txt";
-  m_sceneFilename = "Scene/room1-scene.txt";
 }
 
 QuestionProgress& GSPages::GetProgress()
@@ -119,17 +118,12 @@ void GSPages::ReloadGui()
   }
 }
 
-void GSPages::Reload3d()
-{
-  GSBase3d::Reload3d();
-}
-
 void GSPages::OnActive()
 {
   // This WON'T be called if we resume from pause, there is a confirm dialog
   //  in this state.
 
-  GSBase3d::OnActive();
+  GSBase::OnActive();
 
   // GUI is loaded in GSBase::OnActive. Don't call ReloadGui() to set the quit
   //  button handler, as this will load the entire GUI again.
@@ -179,7 +173,7 @@ void GSPages::OnActive()
 
 void GSPages::OnDeactive()
 {
-  GSBase3d::OnDeactive();
+  GSBase::OnDeactive();
   
   SetPage(nullptr);
   
@@ -308,12 +302,12 @@ void GSPages::Draw2d()
   // We want to draw the avatar Under so avatar doesn't obscure page GUI.
   // But we want to draw the central lurk message last, with the 
   //  darkened bg UNDER the avatar! We don't want to grey out the avatar.
-  GSBase3d::Draw2d();
+  GSBase::Draw2d();
 }
 
 void GSPages::Update()
 {
-  GSBase3d::Update();
+  GSBase::Update();
   if (m_page)
   {
     m_page->Update();
@@ -328,7 +322,7 @@ bool GSPages::Load(const std::string& filename)
 
 bool GSPages::OnKeyEvent(const KeyEvent& ke)
 {
-  if (GSBase3d::OnKeyEvent(ke))
+  if (GSBase::OnKeyEvent(ke))
   {
     return true;
   }

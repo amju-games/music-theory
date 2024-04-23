@@ -14,9 +14,10 @@ gs-main-menu-root
 // Num children
 2
 
+
 // child 0 of gs-main-menu-root
 animation
-scroll-corridor
+scroll-anim
 one-shot
 // cycle time
 0.500000
@@ -27,7 +28,7 @@ translate
 0,0
 
 animation
-clean-anim
+clean-anim-2
 const
 one
 

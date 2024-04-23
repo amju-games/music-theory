@@ -14,7 +14,6 @@ gs-pages-root
 // Num children
 5
 
-
 include
 gui_top_bar_landscape.txt
 

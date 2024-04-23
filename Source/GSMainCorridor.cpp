@@ -126,6 +126,48 @@ void GSMainCorridor::TriggerCorridorAnim(float desiredX)
   m_posInCorridorAnimator->ResetAnimation();
 }
 
+void GSMainCorridor::PauseAnimsOnSection(PGuiElement corridorSection)
+{
+  GuiElement* doorAnimElem = corridorSection->GetElementByName("door-anim");
+  GuiDecAnimation* doorAnim = dynamic_cast<GuiDecAnimation*>(doorAnimElem);
+  if (doorAnim)
+  {
+    doorAnim->SetIsPaused(true);
+  }
+
+  //GuiElement* zoomAnimElem = corridorSection->GetElementByName("zoom-anim");
+  //GuiDecAnimation* zoomAnim = dynamic_cast<GuiDecAnimation*>(zoomAnimElem);
+  //if (zoomAnim)
+  //{
+  //  zoomAnim->SetIsPaused(true);
+  //}
+}
+
+void GSMainCorridor::StartDoorAnim()
+{
+  auto corridorSection = GetCurrentCorridorSection();
+
+  GuiElement* doorAnimElem = corridorSection->GetElementByName("door-anim");
+  GuiDecAnimation* doorAnim = dynamic_cast<GuiDecAnimation*>(doorAnimElem);
+  if (doorAnim)
+  {
+    doorAnim->ResetAnimation();
+    doorAnim->SetIsPaused(false);
+  }
+
+  // Animator to scale up so we 'zoom in' to the current door. 
+  //GuiElement* zoomAnimElem = corridorSection->GetElementByName("zoom-anim");
+  //GuiDecAnimation* zoomAnim = dynamic_cast<GuiDecAnimation*>(zoomAnimElem);
+  //if (zoomAnim)
+  //{
+  //  zoomAnim->ResetAnimation();
+  //  zoomAnim->SetIsPaused(false);
+  //}
+
+//  m_zoomAllAnimator->ResetAnimation();
+//  m_zoomAllAnimator->SetIsPaused(false);
+}
+
 void GSMainCorridor::Load3dForTopics()
 {
   //const float X_OFFSET = -DISTANCE_BETWEEN_DOORS * 0.5f;
@@ -142,30 +184,27 @@ void GSMainCorridor::Load3dForTopics()
   Assert(course);
   int numTopics = course->GetNumTopics();
 
-  m_doorAnims.clear();
+  m_animatableCorridorSections.clear();
 
   // Insert root node for corridor sections
   // Find the animation node which controls our position in the corridor
-  m_posInCorridorAnimator = dynamic_cast<GuiDecAnimation*>(GetGui()->GetElementByName("scroll-corridor"));
+  m_posInCorridorAnimator = dynamic_cast<GuiDecAnimation*>(GetGui()->GetElementByName("scroll-anim"));
+
+//  m_zoomAllAnimator = dynamic_cast<GuiDecAnimation*>(GetGui()->GetElementByName("zoom-all-anim"));
+//  m_zoomAllAnimator->SetIsPaused(true);
+
   // Translation node controlled by animator
   m_posInCorridor = dynamic_cast<GuiDecTranslate*>(m_posInCorridorAnimator->GetChild());
 
-  // Child of m_posInCorridor is a stop to prevent animation values cascading further.
   // This descendant is where we should add door sections.
   GuiComposite* addChildren = dynamic_cast<GuiComposite*>(m_posInCorridor->GetElementByName("add-door-sections-to-me"));
 
   // Add corridor left end -- but TODO Add LIFT if level > 1
-//  GuiDecTranslate* doorPosInCorridor = new GuiDecTranslate;
-//  addChildren->AddChild(doorPosInCorridor);
   constexpr bool NOT_LISTENER = false;
   PGuiElement corridorSection = LoadGui("Gui/corridor-end-section.txt", NOT_LISTENER);
   addChildren->AddChild(corridorSection);
   corridorSection->SetLocalPos(Vec2f(-1.f * DISTANCE_BETWEEN_DOORS, 0));
-
-
-  // Find the last locked door, so we can put it in shadow.
-//  int lastUnlocked = 0;
-//  bool allUnlocked = true;
+  // TODO Also animatable? So we can zoom in to stuff?
 
   for (int i = 0; i < numTopics; i++)
   {
@@ -175,11 +214,9 @@ void GSMainCorridor::Load3dForTopics()
     constexpr bool NOT_LISTENER = false;
     PGuiElement corridorSection = LoadGui("Gui/corridor-section-1.txt", NOT_LISTENER);
     // Find door anim element, store it so we can open the correct door when it's selected.
-    GuiElement* doorAnimElem = corridorSection->GetElementByName("door-anim");
-    GuiDecAnimation* doorAnim = dynamic_cast<GuiDecAnimation*>(doorAnimElem);
-    Assert(doorAnim);
-    m_doorAnims.push_back(doorAnim);
-    doorAnim->SetIsPaused(true);
+    m_animatableCorridorSections.push_back(corridorSection);
+    PauseAnimsOnSection(corridorSection);
+
     addChildren->AddChild(corridorSection);
     // Offset position along corridor
     corridorSection->SetLocalPos(Vec2f(static_cast<float>(i) * DISTANCE_BETWEEN_DOORS, 0));
@@ -502,12 +539,13 @@ bool GSMainCorridor::IsTopicUnlocked(int topicNum) const
   return unlocked;
 }
 
-RCPtr<GuiDecAnimation> GSMainCorridor::GetDoorAnim()
+PGuiElement GSMainCorridor::GetCurrentCorridorSection()
 {
+  // TODO Also allow for corridor sections with no associated topic
   int currentTopic = TheUserProfile()->GetCurrentTopic();
   Assert(currentTopic >= 0);
-  Assert(currentTopic< static_cast<int>(m_doorAnims.size()));
-  return m_doorAnims[currentTopic];
+  Assert(currentTopic< static_cast<int>(m_animatableCorridorSections.size()));
+  return m_animatableCorridorSections[currentTopic];
 }
 
 void GSMainCorridor::Update()
