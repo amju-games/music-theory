@@ -76,6 +76,11 @@ GSMainCorridor::GSMainCorridor()
   SetMode(CorridorModeWait::ID);
 }
 
+float GSMainCorridor::GetEnterClassroomAnimTime() const
+{
+  return .5f;
+}
+
 void GSMainCorridor::LoadCourse()
 {
   // Load the course which this app presents to the user: we only expect there to
@@ -87,10 +92,6 @@ void GSMainCorridor::LoadCourse()
 
 bool GSMainCorridor::LoadTappables()
 {
-  //// Get root node for adding tappables 
-  //PSceneNode root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE)->GetNodeByName("tappable-root");
-  //Assert(root);
-
   //File f;
   //std::string filename = "Gui/tappables-" + ToString(m_levelNum) + ".txt";
   //if (!f.OpenRead(filename))
@@ -121,8 +122,14 @@ bool GSMainCorridor::LoadTappables()
 
 void GSMainCorridor::TriggerCorridorAnim(float desiredX)
 {
+  // Current position
   m_posInCorridor->SetTranslation(m_posInCorridor->GetTranslation(1), 0);
+
+  // Desired position
   m_posInCorridor->SetTranslation(Vec2f(desiredX, 0), 1);
+
+  // Kick off the animation
+  m_posInCorridorAnimator->SetCycleTime(GetEnterClassroomAnimTime());
   m_posInCorridorAnimator->ResetAnimation();
 }
 
@@ -135,12 +142,14 @@ void GSMainCorridor::PauseAnimsOnSection(PGuiElement corridorSection)
     doorAnim->SetIsPaused(true);
   }
 
-  //GuiElement* zoomAnimElem = corridorSection->GetElementByName("zoom-anim");
-  //GuiDecAnimation* zoomAnim = dynamic_cast<GuiDecAnimation*>(zoomAnimElem);
-  //if (zoomAnim)
-  //{
-  //  zoomAnim->SetIsPaused(true);
-  //}
+  // Zoom every section - I wish I could work out how to do this with just the one
+  //  animation
+    GuiElement* zoomAnimElem = corridorSection->GetElementByName("zoom-anim");
+    GuiDecAnimation* zoomAnim = dynamic_cast<GuiDecAnimation*>(zoomAnimElem);
+    if (zoomAnim)
+    {
+      zoomAnim->SetIsPaused(true);
+    }
 }
 
 void GSMainCorridor::StartDoorAnim()
@@ -153,6 +162,17 @@ void GSMainCorridor::StartDoorAnim()
   {
     doorAnim->ResetAnimation();
     doorAnim->SetIsPaused(false);
+  }
+
+  for (auto& section : m_animatableCorridorSections)
+  {
+    GuiElement* zoomAnimElem = section->GetElementByName("zoom-anim");
+    GuiDecAnimation* zoomAnim = dynamic_cast<GuiDecAnimation*>(zoomAnimElem);
+    if (zoomAnim)
+    {
+      zoomAnim->ResetAnimation();
+      zoomAnim->SetIsPaused(false);
+    }
   }
 
   // Animator to scale up so we 'zoom in' to the current door. 
@@ -168,14 +188,8 @@ void GSMainCorridor::StartDoorAnim()
 //  m_zoomAllAnimator->SetIsPaused(false);
 }
 
-void GSMainCorridor::Load3dForTopics()
+void GSMainCorridor::LoadCorridor()
 {
-  //const float X_OFFSET = -DISTANCE_BETWEEN_DOORS * 0.5f;
-
-  //// Get root node for adding nodes - TODO SHOULDN'T BE CAMERA
-  //SceneNode* root = GetCamera();
-  //Assert(root);
-
   // Get user config, so we know which topics have been unlocked.
 ////  ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
   //auto profile = TheUserProfile();
@@ -215,65 +229,18 @@ void GSMainCorridor::Load3dForTopics()
     PGuiElement corridorSection = LoadGui("Gui/corridor-section-1.txt", NOT_LISTENER);
     // Find door anim element, store it so we can open the correct door when it's selected.
     m_animatableCorridorSections.push_back(corridorSection);
+
+    // Prevent animations from immediately starting
     PauseAnimsOnSection(corridorSection);
 
     addChildren->AddChild(corridorSection);
     // Offset position along corridor
     corridorSection->SetLocalPos(Vec2f(static_cast<float>(i) * DISTANCE_BETWEEN_DOORS, 0));
 
-
     // TODO add something to locked topics so we can see it's locked
-//    bool unlocked = (i == 0) || profile->IsTopicUnlocked(topic->GetId());
-
-//    if (unlocked)
-//    {
-//      lastUnlocked = i;
-//    }
-
-    // Why can't we do this?
-    //   allUnlocked &&= unlocked;
-//    allUnlocked = allUnlocked && unlocked;
-
-    // TODO Load from a list of scene files; each one has a locked and
-    //  unlocked variety.
-    
-    //std::string filename = "Scene/corridor-one-door-" + 
-    //  ToString(m_levelNum) + ".txt";
-    //PSceneNode node = LoadScene(filename);
-    //Assert(node);
-    //PSceneNode door = node->GetNodeByName("door");
-    //m_doors.push_back(door);
-
-    //// Translate this node
-    //Matrix m;
-
-    //// Camera is looking down the x axis, so we translate each piece of the 
-    ////  corridor in z... TODO make this translation automatically at
-    ////  right angles to view vec?
-    //m.Translate(Vec3f(0, 0, X_OFFSET + i * -DISTANCE_BETWEEN_DOORS));
-
-    //node->SetLocalTransform(m);
-
-    //root->AddChild(node);
   }
 
-#ifdef YES_SHADOW
-  // Position shadow to the right of the last unlocked door.
-  if (AllTopicsPassed())
-  {
-    // If all unlocked, allow player to go up the stairs, so move shadow 
-    //  an extra position to the right.
-    lastUnlocked++;
-  }
- 
-  PSceneNode shadow = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE)->GetNodeByName("corridor-shadow");
-  Assert(shadow);
-  Matrix m;
-  m.Translate(Vec3f(0, 0, X_OFFSET + lastUnlocked * -DISTANCE_BETWEEN_DOORS));
-  m *= shadow->GetLocalTransform();
-  shadow->SetLocalTransform(m);
-#endif // YES_SHADOW
-
+  // TODO Lift to next level
   // Position right-hand stairs to the right of the last door
   //PSceneNode rightStairs = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE)->GetNodeByName("right-arch");
   //if (rightStairs)
@@ -298,55 +265,7 @@ void GSMainCorridor::OnDeactive()
     m_currentMode->OnDeactive();
   }
   m_currentMode = nullptr;
-}
-
-void GSMainCorridor::SetCameraForNewLevel(bool wentUpNotDown)
-{
-  //// Reset the camera, so when we pull out of the zoom, we are at a different
-  ////  position in the new corridor.
-  //// If we went up, camera moves to the left end of the new upstairs corridor.
-  //// If we went down, camera moves to right-hand end of the new downstairs corridor.
-
-  //// TODO TEMP TEST
-  //// These distances should be calculated per-level because they depend on num topics
-  //int numTopicsThisLevel = GetCourse()->GetNumTopics();
-
-  //const float LEFT_END = 60.0f;
-  //float leftEnd = LEFT_END + DISTANCE_BETWEEN_DOORS / 2;
-  //float rightEnd = 
-  //  LEFT_END - DISTANCE_BETWEEN_DOORS * (numTopicsThisLevel + 1) + 
-  //  DISTANCE_BETWEEN_DOORS / 2;
-
-  //float newZ = wentUpNotDown ? leftEnd : rightEnd;
-
-  //auto cam = GetCamera();
-  //Vec3f eye = cam->GetEyePos(); // Currently the camera does not have the zoom distance added
-  //Vec3f target = cam->GetLookAtPos();
-  //eye.z = newZ;
-  //target.z = newZ;
-  //// Set new camera positions
-  //cam->SetEyePos(eye);
-  //cam->SetLookAtPos(target);
-
-  //// Set the controller: we will lerp backwards from 1..0, so desired positions are
-  ////  the new camera positions, with the zoom applied.
-
-  //Vec3f camChange(STAIRS_ZOOM_DIST, 0, 0);
-  //GetCameraController().SetDesired(eye + camChange, target + camChange);
-
-  //// Set camera pos and current topic in CorridorModeWait
-  //// TODO The camera stuff should just live in CameraController.
-  //// TODO Also the currently selected topic should just live in here?
-
-  //// TODO Yuck, better to have a member var (if we don't scrap this)
-  //CorridorModeWait* cmw = dynamic_cast<CorridorModeWait*>(
-  //  m_modes[CorridorModeWait::ID].GetPtr());
-
-  //Assert(cmw);
-  //// If we go up, we are on left, so at topic -1. Else we went down,
-  ////  and so we are at the right end, so at the last topic + 1.
-  //int newTopic = wentUpNotDown ? -1 : numTopicsThisLevel;
-  //cmw->SetCurrentPosAndTopic(newZ, newTopic);
+  m_lastXPosInCorridor = m_posInCorridor->GetLocalPos().x;
 }
 
 void GSMainCorridor::SetLevel(int levelNum)
@@ -368,21 +287,9 @@ void GSMainCorridor::SetLevel(int levelNum)
   // Load course for this level
   LoadCourse();
 
-  //// Load 3D for this level
-  //// Load classroom doors for each Topic in this level
-  //m_sceneFilename = "Scene/corridor-scene-" + ToString(m_levelNum) + ".txt";
-  //Reload3d();
-
-  //SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
-  //m_camera = dynamic_cast<SceneNodeCamera*>(
-  //  root->GetNodeByName("camera"));
-  //Assert(m_camera);
-
-  Load3dForTopics();
+  LoadCorridor();
 
   LoadTappables();
-
-  SetCameraForNewLevel(wentUpNotDown);
 }
 
 int GSMainCorridor::GetLevel() const
@@ -400,7 +307,15 @@ void GSMainCorridor::OnActive()
   //Assert(m_camera);
 
   // TODO What happens when we re-enter this state, and we are on e.g. level 2
-  Load3dForTopics();
+
+  // TODO Surely we shouldn't do this every time we re-activate, we will be on the same
+  //  level as before, 99% of the time.
+  LoadCorridor();
+
+  // Set position in corridor
+  m_posInCorridor->SetTranslation(Vec2f(m_lastXPosInCorridor, 0), 0);
+  m_posInCorridor->SetTranslation(Vec2f(m_lastXPosInCorridor, 0), 1);
+
   LoadTappables();
 
   SetMode(CorridorModeWait::ID);
@@ -481,7 +396,7 @@ std::cout << "Change Mode: changing to new mode ID " << m_newModeId << "\n";
   m_newModeId = -1;
 }
 
-void GSMainCorridor::GoToTopic()
+void GSMainCorridor::EnterClassroomForCurrentTopic()
 {
   //if (!IsTopicUnlocked())
   //{
@@ -558,8 +473,6 @@ void GSMainCorridor::Update()
   {
     m_currentMode->Update();
   }
-
-  m_camController.Update();
 }
 
 void GSMainCorridor::OnTapped(Tappable* tapped)
@@ -576,28 +489,6 @@ Tappable* GSMainCorridor::GetSelectedTappable()
 
 Tappable* GSMainCorridor::TappablePickTest(const Vec2f& touchCoord)
 {
-  // Set up camera matrices for Unproject
-  //GetCamera()->Draw();
-
-  // Get 3D coord at near and far plane for the mouse (touch) coord
-  Vec3f nearCoord, farCoord;
-  if (   Unproject(touchCoord, 0, &nearCoord)
-      && Unproject(touchCoord, 1, &farCoord))
-  {
-    LineSeg seg(nearCoord, farCoord);
-
-    // Check tappables
-    for (auto t : m_tappables)
-    {
-      // Intersect ray and AABB
-      const AABB& aabb = *(t->GetSceneNode()->GetAABB());
-
-      if (Clip(seg, aabb))
-      {
-        return t;
-      }
-    }
-  }
   return nullptr;
 }
 
@@ -614,11 +505,6 @@ bool GSMainCorridor::OnCursorEvent(const CursorEvent& ce)
 bool GSMainCorridor::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 {
   return m_currentMode->OnMouseButtonEvent(mbe);
-}
-
-CorridorCamController& GSMainCorridor::GetCameraController()
-{
-  return m_camController;
 }
 }
 

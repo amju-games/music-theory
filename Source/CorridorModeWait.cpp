@@ -37,24 +37,15 @@ CorridorModeWait::CorridorModeWait()
   m_guiFilename = "Gui/corridor_mode_wait.txt";
 }
 
-void CorridorModeWait::SetCurrentPosAndTopic(float xPos, int topic)
-{
-  m_desiredXPos = xPos;
-  m_currentXPos = xPos; 
-  m_currentTopicScrolledTo = topic;
-}
-
 void CorridorModeWait::Reset()
 {
 std::cout << "Call to CorridorModeWait::Reset(), trashing camera!!!\n";
 
-  m_isScrolling = false;
-  m_scrollVel = 0;
   m_isDragging = false;
   m_currentTopicScrolledTo = 0;
   m_desiredXPos = 0;
   m_currentXPos = 0; 
-  m_scrollVel = 0;
+  m_scrollTime = 0;
   m_didScroll = false;
 
   SetCamera();
@@ -62,6 +53,11 @@ std::cout << "Call to CorridorModeWait::Reset(), trashing camera!!!\n";
 
 void CorridorModeWait::OnTapDoorOrArch()
 {
+  if (IsScrolling())
+  {
+    return;
+  }
+
   auto gsmc = TheGSMainCorridor::Instance();
 
   Course* course = GetCourse();
@@ -126,20 +122,6 @@ return;
   gsmc->SetMode(CorridorModeEnterClassroom::ID);
 }
 
-void CorridorModeWait::DecelerateScrolling()
-{
-  float dt = TheTimer::Instance()->GetDt();
-
-  float sign = Sign(m_scrollVel);
-  float origScrollVel = m_scrollVel;
-  m_scrollVel -= SCROLL_DECEL * sign * dt;
-  if (Sign(m_scrollVel) != sign)
-  {
-    // Sign changed! We don't want to reverse direction, so restore old value.
-    m_scrollVel = origScrollVel;
-  }
-}
-
 void CorridorModeWait::ShowTopicName(bool showNotHide)
 {
   GuiElement* text = GetElementByName(m_gui, "topic-name");
@@ -196,7 +178,7 @@ void CorridorModeWait::Drag(bool rightNotLeft)
 {
   static auto gsmc = TheGSMainCorridor::Instance();
 
-  if (m_isScrolling)
+  if (IsScrolling())
   {
     return;
   }
@@ -242,9 +224,9 @@ void CorridorModeWait::Drag(bool rightNotLeft)
     m_desiredXPos += DISTANCE_BETWEEN_DOORS * dir;
 
     GetState()->TriggerCorridorAnim(m_desiredXPos);
+    m_scrollTime = GetState()->GetEnterClassroomAnimTime(); // time we are in 'scroll mode'
+    m_isDragging = false;
 
-    m_scrollVel = MAX_SCROLL_VEL * dir;
-    m_isScrolling = true;
     m_didScroll = true;
     ShowTopicName(false);
 
@@ -283,8 +265,7 @@ void CorridorModeWait::OnActive()
 
   SetCurrentTopic();
 
-  m_isScrolling = false;
-  m_scrollVel = 0;
+  m_scrollTime = 0;
   m_isDragging = false;
 
   SetCamera();
@@ -303,24 +284,23 @@ void CorridorModeWait::SetCamera()
   //cam->SetLookAtPos(look);
 }
 
+bool CorridorModeWait::IsScrolling() const
+{
+  return m_scrollTime > 0;
+}
+
 void CorridorModeWait::Update()
 {
   CorridorMode::Update();
 
-  if (m_isScrolling)
+  if (IsScrolling())
   {
-    DecelerateScrolling();
-
     float dt = TheTimer::Instance()->GetDt();
-    m_currentXPos += m_scrollVel * dt;
+    m_scrollTime -= dt;
 
-    if ((m_scrollVel > 0 && m_currentXPos > m_desiredXPos)
-      || (m_scrollVel < 0 && m_currentXPos < m_desiredXPos))
+    if (m_scrollTime < 0)
     {
-      // We have reached the desired position
-      m_currentXPos = m_desiredXPos;
-      m_scrollVel = 0;
-      m_isScrolling = false;
+      m_scrollTime = 0;
 
       SetCurrentTopic();
 
@@ -339,6 +319,11 @@ void CorridorModeWait::Update()
 
 bool CorridorModeWait::OnCursorEvent(const CursorEvent& ce)
 {
+  if (IsScrolling())
+  {
+    return false;
+  }
+
   if (m_isDragging)
   {
     Vec2f pos = Vec2f(ce.x, ce.y);
@@ -362,6 +347,13 @@ bool CorridorModeWait::OnCursorEvent(const CursorEvent& ce)
 
 bool CorridorModeWait::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 {
+  if (IsScrolling())
+  {
+    m_touchDownThisFrame = false;
+    m_touchUpThisFrame = false;
+    return true; // don't allow any user input until we stop
+  }
+
   // Rectangle for tapping door in centre of screen
   const Rect rect(
     DOOR_RECT_XMIN,
@@ -369,16 +361,8 @@ bool CorridorModeWait::OnMouseButtonEvent(const MouseButtonEvent& mbe)
     DOOR_RECT_YMIN,
     DOOR_RECT_YMAX);
 
-  if (m_isScrolling)
-  {
-    m_touchDownThisFrame = false;
-    m_touchUpThisFrame = false;
-  }
-  else
-  {
-    m_touchDownThisFrame = mbe.isDown;
-    m_touchUpThisFrame = !mbe.isDown;
-  }
+  m_touchDownThisFrame = mbe.isDown;
+  m_touchUpThisFrame = !mbe.isDown;
   
   m_isDragging = mbe.isDown;
 
@@ -396,7 +380,7 @@ bool CorridorModeWait::OnMouseButtonEvent(const MouseButtonEvent& mbe)
     bool touchUpOnDoor = rect.IsPointIn(m_touchUpCoord);
     if (   m_touchDownOnDoor 
         && touchUpOnDoor 
-        && !m_isScrolling
+        && !IsScrolling()
     )
         //&& TheTutorialManager::Instance()->MsgHasBeenShown(
         //       TUTORIAL_TAP_DOOR, AMJU_FIRST_TIME_THIS_USER))

@@ -23,9 +23,6 @@ public:
   virtual bool OnMouseButtonEvent(const MouseButtonEvent&) override;
   virtual void Reset() override; 
 
-  // Called when we activate this mode
-  void SetCurrentPosAndTopic(float xPos, int topic);
-
 private:
   void Drag(bool rightNotLeft);
   void DecelerateScrolling();
@@ -35,6 +32,10 @@ private:
   void SetCamera();
   void OnTapDoorOrArch();
 
+  // If true, we are scrolling left or right, and no user interaction is 
+  //  allowed until we stop.
+  bool IsScrolling() const;
+
 private:
   // To detect swipe left/right, and taps on Tappables
   Vec2f m_touchDownCoord, m_touchUpCoord;
@@ -43,13 +44,14 @@ private:
   bool m_touchUpThisFrame = false;
   bool m_touchDownOnDoor = false;
 
-  bool m_isScrolling = false;
   bool m_didScroll = false; // true if we scrolled between touch down and touch up
   float m_desiredXPos = 0;
   float m_currentXPos = 0;
-  float m_scrollVel = 0;
   int m_currentTopicScrolledTo = 0;
- 
+
+  // Time in scrolling mode remaining
+  float m_scrollTime = 0;
+
   Tappable* m_tappedDown = nullptr; // item we tapped down on, or nullptr
 };
 }

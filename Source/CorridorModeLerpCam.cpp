@@ -32,7 +32,7 @@ void CorridorModeLerpCam::Update()
 
 void CorridorModeLerpCam::SetCamLerpT()
 {
-  m_gs->GetCameraController().SetLerpT(m_camLerpT);
+  //m_gs->GetCameraController().SetLerpT(m_camLerpT);
 }
 
 }

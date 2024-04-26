@@ -15,7 +15,7 @@ const int CorridorModeEnterTappable::ID = 4;
 void CorridorModeEnterTappable::OnActive()
 {
   CorridorModeLerpCam::OnActive();
-  m_gs->GetCameraController().SetDesiredFromTappable(m_gs->GetSelectedTappable());
+  //m_gs->GetCameraController().SetDesiredFromTappable(m_gs->GetSelectedTappable());
 
   // TODO Seen this tappable before?
   // If not, play a "new tappable found" sound effect

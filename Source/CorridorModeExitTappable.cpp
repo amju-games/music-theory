@@ -15,12 +15,12 @@ const int CorridorModeExitTappable::ID = 5;
 void CorridorModeExitTappable::OnFinishedLerp()
 {
   m_gs->SetMode(CorridorModeWait::ID);
-  m_gs->GetCameraController().SetIsLerping(false);
+  //m_gs->GetCameraController().SetIsLerping(false);
 }
 
 void CorridorModeExitTappable::SetCamLerpT()
 {
-  m_gs->GetCameraController().SetLerpT(1.0f - m_camLerpT);
+  //m_gs->GetCameraController().SetLerpT(1.0f - m_camLerpT);
 }
 
 void CorridorModeExitTappable::OnActive()

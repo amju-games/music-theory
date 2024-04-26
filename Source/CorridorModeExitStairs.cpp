@@ -14,19 +14,19 @@ const int CorridorModeExitStairs::ID = 7;
 
 void CorridorModeExitStairs::SetCamLerpT()
 {
-  m_gs->GetCameraController().SetLerpT(1.0f - m_camLerpT);
+  //m_gs->GetCameraController().SetLerpT(1.0f - m_camLerpT);
 }
 
 void CorridorModeExitStairs::OnActive()
 {
   CorridorModeLerpCam::OnActive();
-  m_gs->GetCameraController().SetIsLerping(true);
+  //m_gs->GetCameraController().SetIsLerping(true);
 }
 
 void CorridorModeExitStairs::OnFinishedLerp()
 {
   m_gs->SetMode(CorridorModeWait::ID);
-  m_gs->GetCameraController().SetIsLerping(false); // stop lerping camera
+  //m_gs->GetCameraController().SetIsLerping(false); // stop lerping camera
 }
 
 }

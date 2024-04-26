@@ -41,11 +41,7 @@ public:
   void TriggerCorridorAnim(float desiredX);
 
   // Conceptually private: button commands
-  void GoToTopic();
-
-//  SceneNodeCamera* GetCamera();
-
-  CorridorCamController& GetCameraController();
+  void EnterClassroomForCurrentTopic();
 
   // Set current mode: modeId is index into vector, one of the IDs in 
   //  the CorridorMode classes.
@@ -83,6 +79,8 @@ public:
   void SetLevel(int newLevel);
   int GetLevel() const;
 
+  float GetEnterClassroomAnimTime() const;
+
 protected:
   // Get section we have currently visible in centre of screen 
   PGuiElement GetCurrentCorridorSection();
@@ -90,16 +88,16 @@ protected:
   // On initialisation, pause anims
   void PauseAnimsOnSection(PGuiElement corridorSection);
 
-  void Load3dForTopics();
+  void LoadCorridor();
   bool LoadTappables();
   void ChangeMode();
-  void SetCameraForNewLevel(bool wentUpNotDown);
   void LoadCourse();
 
 private:
   RCPtr<GuiDecAnimation> m_posInCorridorAnimator;
   RCPtr<GuiDecAnimation> m_zoomAllAnimator; //?
   RCPtr<GuiDecTranslate> m_posInCorridor;
+  float m_lastXPosInCorridor = 0;
 
   // Each of these sections has a door. We open the door for the chosen topic.
   std::vector<PGuiElement> m_animatableCorridorSections;
@@ -110,11 +108,6 @@ private:
 
   // Item user has tapped on
   RCPtr<Tappable> m_tapped;
-
-  // Hold on to the camera scene node, it's useful
-  RCPtr<SceneNodeCamera> m_camera;
-
-  CorridorCamController m_camController;
 
   // The different modes/states we can be in: State pattern
   // The int key is a unique ID for each CorridorMode type.

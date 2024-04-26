@@ -81,11 +81,12 @@ void CorridorModeEnterClassroom::OnActive()
   // Start animation of door and TODO 'camera'.
   auto gsmc = TheGSMainCorridor::Instance();
   gsmc->StartDoorAnim();
+  const float animTime = gsmc->GetEnterClassroomAnimTime();
 
   // Go the the topic start state.
   GSTopicStart* gs = TheGSTopicStart::Instance();
   gs->SetPrevState(m_gs);
   // Time delay so we get to see an animation, e.g. door opening
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSTopicStart>, SecondsFromNow(1.0f)));
+  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSTopicStart>, SecondsFromNow(animTime)));
 }
 }
