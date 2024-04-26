@@ -32,7 +32,7 @@ GuiMenu* GetDevMenu()
     gm->SetLocalPos(Vec2f(-1.0f, 1.0f));
 
     GuiMenu* gotoSubmenu = new GuiMenu;
-    gotoSubmenu->AddChild(new GuiMenuItem("Gui Edit", GoToEditState));
+    gotoSubmenu->AddChild(new GuiTextMenuItem("Gui Edit", GoToEditState));
 
     gm->AddChild(new GuiNestMenuItem("Go to    ", gotoSubmenu));
   }

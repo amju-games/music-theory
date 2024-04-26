@@ -39,6 +39,9 @@ public:
   void OnGuiItemProperties(GuiElement* e);
   void OnUndo();
   void OnRedo();
+  void SetUpdateGuiWeAreEditing(bool yesUpdate); // Call to play/pause animations on the GUI we are editing
+
+  void HideRightClickMenu();
 
 private:
   void SetSelectedElement(PGuiElement e);

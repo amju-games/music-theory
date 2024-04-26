@@ -10,6 +10,7 @@
 #include <GuiFactory.h>
 #include <GuiMenu.h>
 #include <GuiScroll.h>
+#include <GuiTreeView.h>
 #include "GSGuiEdit.h"
 #include "UseVertexColourShader.h"
 
@@ -208,14 +209,9 @@ static void UniqueNameForNewElement(PGuiElement elem)
 //  find the named element in the given GUI tree.
 static GuiElement* FindGuiElementFromMenuItem(GuiElement* menuItem, GuiElement* guiTreeToSearch)
 {
-  GuiText* t = dynamic_cast<GuiText*>(menuItem);
-  if (t)
-  {
-    std::string str = t->GetText();
-    str = Trim(str);
-    return guiTreeToSearch->GetElementByName(str);
-  }
-  return nullptr;
+  std::string str = menuItem->GetName();
+  str = Trim(str);
+  return guiTreeToSearch->GetElementByName(str);
 }
 
 static void OnGuiItemProperties(GuiElement* menuItem)
@@ -326,6 +322,15 @@ static void OnSaveGui(GuiElement*)
   }
 }
 
+static void OnPlayAnims(GuiElement*)
+{
+  GSGuiEdit* e = dynamic_cast<GSGuiEdit*>(TheGame::Instance()->GetState());
+  if (e)
+  {
+    e->SetUpdateGuiWeAreEditing(true);
+  }
+}
+
 static GuiElement* FindSelectedElement(GuiElement* e, const MouseButtonEvent& mbe)
 {
   if (e)
@@ -413,6 +418,11 @@ GSGuiEdit::GSGuiEdit()
   //  element types, a property box, etc. This is not the GUI that
   //  is being edited - that's m_editGuiFilename.
   m_guiFilename = "Gui/gs_edit_gui.txt"; 
+}
+
+void GSGuiEdit::SetUpdateGuiWeAreEditing(bool yesUpdate)
+{
+  m_doUpdateEditGui = yesUpdate;
 }
 
 void GSGuiEdit::OnUndo()
@@ -549,34 +559,34 @@ void GSGuiEdit::OnGuiTreeItemRightClick(GuiElement* e)
   m_rightClickTreeViewMenu = new GuiFloatingMenu();
 
   // TODO This deletes node and all descendants. Have another option to just delete the (decorator) node
-  m_rightClickTreeViewMenu->AddChild(new GuiMenuItem("Delete", &Amju::OnGuiItemDelete));
+  m_rightClickTreeViewMenu->AddChild(new GuiTextMenuItem("Delete", &Amju::OnGuiItemDelete));
 
   GuiMenu* newItemMenu = new GuiMenu;
-  newItemMenu->AddChild(new GuiMenuItem("gui-comp", &Amju::OnGuiItemNew));
-  newItemMenu->AddChild(new GuiMenuItem("spline", &Amju::OnGuiItemNew));
-  newItemMenu->AddChild(new GuiMenuItem("poly", &Amju::OnGuiItemNew));
-  newItemMenu->AddChild(new GuiMenuItem("gui-image", &Amju::OnGuiItemNew));
-  newItemMenu->AddChild(new GuiMenuItem("gui-button", &Amju::OnGuiItemNew));
-  newItemMenu->AddChild(new GuiMenuItem("gui-text", &Amju::OnGuiItemNew));
+  newItemMenu->AddChild(new GuiTextMenuItem("gui-comp", &Amju::OnGuiItemNew));
+  newItemMenu->AddChild(new GuiTextMenuItem("spline", &Amju::OnGuiItemNew));
+  newItemMenu->AddChild(new GuiTextMenuItem("poly", &Amju::OnGuiItemNew));
+  newItemMenu->AddChild(new GuiTextMenuItem("gui-image", &Amju::OnGuiItemNew));
+  newItemMenu->AddChild(new GuiTextMenuItem("gui-button", &Amju::OnGuiItemNew));
+  newItemMenu->AddChild(new GuiTextMenuItem("gui-text", &Amju::OnGuiItemNew));
   // TODO etc
 
   m_rightClickTreeViewMenu->AddChild(new GuiNestMenuItem("New >", newItemMenu));
-  m_rightClickTreeViewMenu->AddChild(new GuiMenuItem("Bring forward", &Amju::OnGuiItemMoveUp)); // i.e. higher in child vec, so drawn later
-  m_rightClickTreeViewMenu->AddChild(new GuiMenuItem("Send back", &Amju::OnGuiItemMoveDown)); 
+  m_rightClickTreeViewMenu->AddChild(new GuiTextMenuItem("Bring forward", &Amju::OnGuiItemMoveUp)); // i.e. higher in child vec, so drawn later
+  m_rightClickTreeViewMenu->AddChild(new GuiTextMenuItem("Send back", &Amju::OnGuiItemMoveDown));
 
   // TODO!!!!!!!
-  m_rightClickTreeViewMenu->AddChild(new GuiMenuItem("Properties...", &Amju::OnGuiItemProperties));
+  m_rightClickTreeViewMenu->AddChild(new GuiTextMenuItem("Properties...", &Amju::OnGuiItemProperties));
 
   GuiMenu* decorateItemMenu = new GuiMenu;
-  decorateItemMenu->AddChild(new GuiMenuItem("animation", &Amju::OnGuiItemDecorate));
-  decorateItemMenu->AddChild(new GuiMenuItem("colour", &Amju::OnGuiItemDecorate));
-  decorateItemMenu->AddChild(new GuiMenuItem("elastic", &Amju::OnGuiItemDecorate));
-  decorateItemMenu->AddChild(new GuiMenuItem("translate", &Amju::OnGuiItemDecorate));
-  decorateItemMenu->AddChild(new GuiMenuItem("scale", &Amju::OnGuiItemDecorate));
-  decorateItemMenu->AddChild(new GuiMenuItem("rotate", &Amju::OnGuiItemDecorate));
+  decorateItemMenu->AddChild(new GuiTextMenuItem("animation", &Amju::OnGuiItemDecorate));
+  decorateItemMenu->AddChild(new GuiTextMenuItem("colour", &Amju::OnGuiItemDecorate));
+  decorateItemMenu->AddChild(new GuiTextMenuItem("elastic", &Amju::OnGuiItemDecorate));
+  decorateItemMenu->AddChild(new GuiTextMenuItem("translate", &Amju::OnGuiItemDecorate));
+  decorateItemMenu->AddChild(new GuiTextMenuItem("scale", &Amju::OnGuiItemDecorate));
+  decorateItemMenu->AddChild(new GuiTextMenuItem("rotate", &Amju::OnGuiItemDecorate));
   m_rightClickTreeViewMenu->AddChild(new GuiNestMenuItem("Decorate >", decorateItemMenu));
 
-  m_rightClickTreeViewMenu->AddChild(new GuiMenuItem("Duplicate", &Amju::OnGuiItemDuplicate));
+  m_rightClickTreeViewMenu->AddChild(new GuiTextMenuItem("Duplicate", &Amju::OnGuiItemDuplicate));
 
   // Position on left or right of parent menu item
   if (e->GetCombinedPos().x + m_treeview->GetSize().x < .5f)
@@ -587,6 +597,11 @@ void GSGuiEdit::OnGuiTreeItemRightClick(GuiElement* e)
   {
     m_rightClickTreeViewMenu->SetLocalPos(e->GetCombinedPos() - Vec2f(m_rightClickTreeViewMenu->GetSize().x, 0));
   }
+}
+
+void GSGuiEdit::HideRightClickMenu()
+{
+  m_rightClickMenu = nullptr;
 }
 
 void GSGuiEdit::OnGuiTreeItemLeftClick(GuiElement* e)
@@ -641,15 +656,16 @@ void GSGuiEdit::OnActive()
   std::cout << "Now in GUI Edit mode!\n";
 }
 
-void PopulateTreeViewRecursive(GuiMenu* m, GuiElement* e, int depth)
+static void PopulateTreeViewRecursive(GuiTreeView* treeview, GuiElement* e, int depth)
 {
-  GuiMenuItem* item = new GuiMenuItem(std::string(depth * 4, ' ') + e->GetName(), OnGuiTreeItemLeftClick);
+  // TODO TreeViewItem
+  GuiTextMenuItem* item = new GuiTextMenuItem(std::string(depth * 4, ' ') + e->GetName(), OnGuiTreeItemLeftClick);
   // TODO Also set right click command, so we select this element if we right click its 
   //  name in the menu/tree.
 
 
   item->SetRightClickCommand(OnGuiTreeItemRightClick);
-  m->AddChild(item);
+  treeview->AddChild(item);
 
   GuiComposite* comp = dynamic_cast<GuiComposite*>(e);
   if (comp)
@@ -657,7 +673,7 @@ void PopulateTreeViewRecursive(GuiMenu* m, GuiElement* e, int depth)
     int n = comp->GetNumChildren();
     for (int i = 0; i < n; i++)
     {
-      PopulateTreeViewRecursive(m, comp->GetChild(i), depth + 1);
+      PopulateTreeViewRecursive(treeview, comp->GetChild(i), depth + 1);
     }
   }
 }
@@ -676,7 +692,7 @@ void GSGuiEdit::PopulateTreeView()
   m_treeview->SetTitle("GUI tree");
   m_treeview->SetBgColour({ .2f, .2f, .2f, 1.f });
 
-  GuiMenu* treemenu = new GuiMenu;
+  GuiTreeView* treemenu = new GuiTreeView;
 
   treemenu->SetIsVertical(true);
   PopulateTreeViewRecursive(treemenu, m_editGui, 0);
@@ -865,9 +881,10 @@ bool GSGuiEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
   else if (mbe.button == AMJU_BUTTON_MOUSE_RIGHT && mbe.isDown)
   {
     m_rightClickMenu = new GuiFloatingMenu();
-    m_rightClickMenu->AddChild(new GuiMenuItem("Save", &Amju::OnSaveGui));
-    m_rightClickMenu->AddChild(new GuiMenuItem("Undo", &Amju::OnUndo));
-    m_rightClickMenu->AddChild(new GuiMenuItem("Redo", &Amju::OnRedo));
+    m_rightClickMenu->AddChild(new GuiTextMenuItem("Save", &Amju::OnSaveGui));
+    m_rightClickMenu->AddChild(new GuiTextMenuItem("Undo", &Amju::OnUndo));
+    m_rightClickMenu->AddChild(new GuiTextMenuItem("Redo", &Amju::OnRedo));
+    m_rightClickMenu->AddChild(new GuiTextMenuItem("Play anims", &Amju::OnPlayAnims));
     m_rightClickMenu->SetLocalPos(Vec2f(mbe.x, mbe.y));
     return true;
   }
@@ -915,7 +932,6 @@ bool GSGuiEdit::OnCursorEvent(const CursorEvent& ce)
     bool b = false;
     for (auto& ed : m_editors)
     {
-      std::cout << "cursor event on editor for " << ed->GetChild()->GetName() << "\n";
       b |= ed->OnCursorEvent(ce);
     }
     if (b)
