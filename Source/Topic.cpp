@@ -80,11 +80,17 @@ bool Topic::Load(File* f)
     std::string line;
     if (!f->GetDataLine(&line))
     {
-      f->ReportError("Expected page type name");
+      f->ReportError("Expected page def for page " + std::to_string(i));
       return false;
     }
 
     Strings strs = Split(line, '=');
+    if (strs.size() < 3)
+    {
+      f->ReportError("Expected page def, consisting of 3+ strings, separated by '=', got this: " + line);
+      return false;
+    }
+
     // Allow single string, for page type name;
     // 2nd string = dictionary for page to load
 
@@ -92,7 +98,7 @@ bool Topic::Load(File* f)
     RCPtr<Page> page = ThePageFactory::Instance()->Create(strs[0]);
     if (!page)
     {
-      f->ReportError("Unexpected page name");
+      f->ReportError("Unexpected page type name: " + strs[0]);
       return false;
     }
 
