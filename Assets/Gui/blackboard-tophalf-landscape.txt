@@ -1,0 +1,145 @@
+// * Amjula music theory * (c) Copyright 2024 Juliet Colman
+1
+gui-comp
+blackboard-root
+// Num children
+1
+// child 0 of blackboard-root
+gui-comp
+blackboard-comp
+// Num children
+2
+// child 0 of blackboard-comp
+colour
+ffc040
+gui-comp
+frame-comp
+// Num children
+4
+// child 0 of frame-comp
+poly
+base-poly
+-0.757042,0.509375
+style=3, loop, outCol=000000, fillCol=c0c0c0, radius=0.006000
+1.521126, 0.400000
+0.005634, 0.415625
+-0.030633, 0.381250
+-0.031690, -0.393750
+0.002113, -0.415625
+1.554577, -0.412500
+1.554577, -0.393750
+1.553169, 0.375000
+end
+// child 1 of frame-comp
+poly
+bottom-base
+-0.798944,-0.35625
+style=3, loop, outCol=000000, fillCol=c0c0c0, radius=0.010000
+1.619718, 0.484375
+0.005634, 0.490625
+-0.007745, 0.475000
+-0.010211, 0.378125
+0.006338, 0.362500
+1.610916, 0.362500
+1.621832, 0.375000
+end
+// child 2 of frame-comp
+poly
+top-base
+-0.807042,0.559375
+style=3, loop, outCol=000000, fillCol=c0c0c0, radius=0.006000
+1.600351, 0.406250
+0.005634, 0.415625
+-0.005985, 0.409375
+-0.003168, 0.328125
+0.015140, 0.315625
+1.621478, 0.315625
+1.620071, 0.387500
+end
+// child 3 of frame-comp
+gui-comp
+panel-comp
+// Num children
+6
+// child 0 of panel-comp
+poly
+panel-top-poly
+-0.35317,0.0781199
+style=3, loop, outCol=000000, fillCol=808080, radius=0.005000
+-0.406690, 0.775000
+-0.383803, 0.740625
+1.119013, 0.734375
+1.128520, 0.762500
+end
+// child 1 of panel-comp
+poly
+panel-bottom-poly
+-0.399999,-0.74375
+style=3, loop, outCol=000000, fillCol=e0e0e0, radius=0.005000
+-0.357394, 0.903125
+-0.330986, 0.940625
+1.156689, 0.931250
+1.169014, 0.896875
+end
+// child 2 of panel-comp
+poly
+door-panel-bottom-poly-stripe
+-0.441549,-0.825
+style=1, loop, outCol=000000, fillCol=e0e0e0, radius=0.005000
+-0.360915, 0.881250
+-0.359154, 0.915625
+1.257041, 0.921875
+1.258802, 0.865625
+end
+// child 3 of panel-comp
+poly
+door-panel-top-poly-stripe
+-0.447886,0.0656251
+style=1, loop, outCol=000000, fillCol=e0e0e0, radius=0.005000
+-0.364436, 0.843750
+-0.360915, 0.878125
+1.258802, 0.868750
+1.255281, 0.837500
+end
+// child 4 of panel-comp
+poly
+panel-left-poly
+-0.342957,-0.378125
+style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.413732, 1.224998
+-0.392606, 1.190624
+-0.394365, 0.571875
+-0.413733, 0.534375
+end
+// child 5 of panel-comp
+poly
+panel-right-poly
+1.18239,-0.406255
+style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.406690, 1.246873
+-0.420775, 1.224999
+-0.426057, 0.593750
+-0.411972, 0.562500
+end
+// end of panel-comp
+// end of frame-comp
+// child 1 of blackboard-comp
+colour
+4e525a
+gui-comp
+blackboard-drawing-surface
+// Num children
+1
+// child 0 of blackboard-drawing-surface
+poly
+blackboard-drawing-surface-poly
+-0.581338,0.5375
+style=3, loop, outCol=000000, fillCol=ffffff, radius=0.006000
+1.343309, 0.271875
+-0.152111, 0.275000
+-0.155635, -0.340625
+1.339789, -0.350000
+end
+// end of blackboard-drawing-surface
+// end of blackboard-comp
+// end of blackboard-root

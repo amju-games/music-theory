@@ -16,7 +16,7 @@ topic-start-comp
 translate
 0, -.2
 include
-blackboard-1.txt
+blackboard-tophalf-landscape.txt
 
 // Best so far display
 

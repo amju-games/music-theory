@@ -23,10 +23,8 @@ screen-bg
 2, 2
 Image/white.png, stretch
 
-translate
-0,0.15
 include 
-blackboard-1.txt
+blackboard-tophalf-landscape.txt
 
 
 
