@@ -2,6 +2,7 @@
 // (c) Copyright 2024 Juliet Colman
 
 #include <AmjuGL.h>
+#include <Batched.h>
 #include <DrawBorder.h>
 #include <DrawRect.h>
 #include <GuiComposite.h>
@@ -735,6 +736,7 @@ void GSGuiEdit::Draw2d()
     AmjuGL::PushMatrix(); // ?
     m_editGui->Draw();
     AmjuGL::PopMatrix(); // ?
+    Batched::DrawAll(); // flush all polys in GUI we are editing
 
     // Recursively draw bounding rects
     AmjuGL::UseShader(nullptr);
