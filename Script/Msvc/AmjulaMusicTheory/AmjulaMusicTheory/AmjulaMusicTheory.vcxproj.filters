@@ -96,7 +96,7 @@
     <ClCompile Include="..\..\..\..\Source\GSShowMusicScore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\GSShowLineDrawing.cpp">
+    <ClCompile Include="..\..\..\..\Source\GSShowGui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\GSUserDraw.cpp">
@@ -385,7 +385,7 @@
     <ClInclude Include="..\..\..\..\Source\GSShowMusicScore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\GSShowLineDrawing.h">
+    <ClInclude Include="..\..\..\..\Source\GSShowGui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GSUserDraw.h">

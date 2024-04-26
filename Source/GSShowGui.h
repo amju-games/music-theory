@@ -8,14 +8,14 @@
 
 namespace Amju
 {
-// * GSShowLineDrawing *
+// * GSShowGui *
 // Test game state: shows line drawing
-class GSShowLineDrawing : public GSBase
+class GSShowGui : public GSBase
 {
 public:
-  GSShowLineDrawing();
+  GSShowGui();
 };
 
-typedef Singleton<GSShowLineDrawing> TheGSShowLineDrawing;
+typedef Singleton<GSShowGui> TheGSShowGui;
 }
 
