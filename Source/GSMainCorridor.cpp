@@ -164,25 +164,7 @@ void GSMainCorridor::StartDoorAnim()
     doorAnim->SetIsPaused(false);
   }
 
-  for (auto& section : m_animatableCorridorSections)
-  {
-    GuiElement* zoomAnimElem = section->GetElementByName("zoom-anim");
-    GuiDecAnimation* zoomAnim = dynamic_cast<GuiDecAnimation*>(zoomAnimElem);
-    if (zoomAnim)
-    {
-      zoomAnim->ResetAnimation();
-      zoomAnim->SetIsPaused(false);
-    }
-  }
-
-  // Animator to scale up so we 'zoom in' to the current door. 
-  //GuiElement* zoomAnimElem = corridorSection->GetElementByName("zoom-anim");
-  //GuiDecAnimation* zoomAnim = dynamic_cast<GuiDecAnimation*>(zoomAnimElem);
-  //if (zoomAnim)
-  //{
-  //  zoomAnim->ResetAnimation();
-  //  zoomAnim->SetIsPaused(false);
-  //}
+  m_isZooming = true;
 
 //  m_zoomAllAnimator->ResetAnimation();
 //  m_zoomAllAnimator->SetIsPaused(false);
@@ -194,9 +176,15 @@ void GSMainCorridor::LoadCorridor()
 ////  ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
   //auto profile = TheUserProfile();
 
+  m_zoom = 1.f; // Check for weird stuff
+  m_isZooming = false;
+
   Course* course = GetCourse();
   Assert(course);
   int numTopics = course->GetNumTopics();
+
+  // Trash and reload the GUI
+  m_gui = LoadGui(m_guiFilename);
 
   m_animatableCorridorSections.clear();
 
@@ -226,6 +214,10 @@ void GSMainCorridor::LoadCorridor()
     Assert(topic);
 
     constexpr bool NOT_LISTENER = false;
+
+    // TODO list of names in topic file?
+    // Just cycle through some filenames, but set colours on walls and doors
+    //  programatically.
     PGuiElement corridorSection = LoadGui("Gui/corridor-section-1.txt", NOT_LISTENER);
     // Find door anim element, store it so we can open the correct door when it's selected.
     m_animatableCorridorSections.push_back(corridorSection);
@@ -240,15 +232,10 @@ void GSMainCorridor::LoadCorridor()
     // TODO add something to locked topics so we can see it's locked
   }
 
-  // TODO Lift to next level
-  // Position right-hand stairs to the right of the last door
-  //PSceneNode rightStairs = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE)->GetNodeByName("right-arch");
-  //if (rightStairs)
-  //{
-  //  Matrix m;
-  //  m.Translate(Vec3f(0, 0, X_OFFSET + numTopics * -DISTANCE_BETWEEN_DOORS));
-  //  rightStairs->SetLocalTransform(m);
-  //}
+  // Lift to next level -- TODO diff styles
+  PGuiElement rightLiftSection = LoadGui("Gui/corridor-lift-section.txt", NOT_LISTENER);
+  addChildren->AddChild(rightLiftSection);
+  rightLiftSection->SetLocalPos(Vec2f(numTopics * DISTANCE_BETWEEN_DOORS, 0));
 }
 
 bool GSMainCorridor::IsLevelPassed() const
@@ -287,6 +274,9 @@ void GSMainCorridor::SetLevel(int levelNum)
   // Load course for this level
   LoadCourse();
 
+  // TODO If we went up, go to 0; if we went down, go to other end of corridor
+  m_lastXPosInCorridor = 0;
+  // TODO Also set last topic to 0 or the end? 
   LoadCorridor();
 
   LoadTappables();
@@ -355,7 +345,11 @@ void GSMainCorridor::Draw2d()
   if (m_gui)
   {
     UseVertexColourShader();
+
+    AmjuGL::PushMatrix();
+    AmjuGL::Scale(m_zoom, m_zoom, 1.f);
     m_gui->Draw();
+    AmjuGL::PopMatrix();
   }
 
   m_currentMode->Draw2d();
@@ -459,7 +453,7 @@ PGuiElement GSMainCorridor::GetCurrentCorridorSection()
   // TODO Also allow for corridor sections with no associated topic
   int currentTopic = TheUserProfile()->GetCurrentTopic();
   Assert(currentTopic >= 0);
-  Assert(currentTopic< static_cast<int>(m_animatableCorridorSections.size()));
+  Assert(currentTopic < static_cast<int>(m_animatableCorridorSections.size()));
   return m_animatableCorridorSections[currentTopic];
 }
 
@@ -472,6 +466,13 @@ void GSMainCorridor::Update()
   if (m_currentMode)
   {
     m_currentMode->Update();
+  }
+
+  if (m_isZooming)
+  {
+    const float dt = TheTimer::Instance()->GetDt();
+    const float ZOOM_VEL = 2.f;
+    m_zoom += ZOOM_VEL * dt;
   }
 }
 
