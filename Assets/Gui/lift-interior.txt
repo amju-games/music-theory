@@ -1,0 +1,122 @@
+// * Amjula music theory * (c) Copyright 2024 Juliet Colman
+1
+gui-comp
+lift-interior-root
+// Num children
+1
+// child 0 of lift-interior-root
+gui-comp
+frame
+// Num children
+11
+// child 0 of frame
+poly
+framepoly2
+0.34507,-0.25625
+style=3, loop, outCol=401010, fillCol=802020, radius=0.010000
+-0.012324, 0.618750
+-0.395070, 0.625000
+-0.385563, -0.496875
+-0.005634, -0.496875
+end
+// child 1 of frame
+poly
+framepoly1
+0.0496479,-0.378125
+style=3, loop, outCol=000000, fillCol=401010, radius=0.010000
+-0.049297, 0.728125
+-0.093662, 0.737500
+-0.097536, 0.734375
+-0.091902, -0.384375
+-0.040493, -0.290625
+end
+// child 2 of frame
+poly
+framepoly3
+0.325,-0.4
+style=3, loop, outCol=000000, fillCol=401010, radius=0.010000
+-0.003522, 0.756250
+-0.058804, 0.746875
+-0.053872, -0.265625
+0.008803, -0.371875
+end
+// child 3 of frame
+poly
+framepoly4
+0.0116198,-1.525
+style=3, loop, outCol=000000, fillCol=201010, radius=0.010000
+0.001760, 0.865625
+-0.060565, 0.753125
+0.325351, 0.753125
+0.260563, 0.871875
+end
+// child 4 of frame
+poly
+framedetail1
+0.14824,-0.428125
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+-0.109155, 0.106250
+-0.032042, 0.112500
+-0.033803, 0.756250
+-0.109860, 0.756250
+end
+// child 5 of frame
+poly
+framedetail2
+0.347887,-0.459375
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+-0.109154, 0.143750
+-0.196479, 0.134375
+-0.192958, 0.771875
+-0.113381, 0.765625
+end
+// child 6 of frame
+poly
+framedetail3
+-0.132043,-0.996875
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+0.170774, 0.375000
+0.251762, 0.381250
+0.250001, 0.634375
+0.173591, 0.631250
+end
+// child 7 of frame
+poly
+framedetail4
+0.527465,-1.21563
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+-0.380281, 0.593750
+-0.284507, 0.600000
+-0.286268, 0.850000
+-0.377466, 0.843750
+end
+// child 8 of frame
+poly
+framedetail5
+0.102113,-0.640625
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+-0.121479, -0.021875
+-0.114437, 0.018750
+-0.117958, 0.962500
+-0.132748, 0.959375
+end
+// child 9 of frame
+poly
+framedetail6
+-0.00281692,-0.490625
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+0.299295, 0.809375
+0.286268, 0.818750
+0.298592, -0.137500
+0.312676, -0.162500
+end
+// child 10 of frame
+poly
+framedetail6-1
+0.0524647,-0.3875
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+0.220070, 0.734375
+-0.051761, 0.737500
+end
+// end of frame
+// end of lift-interior-root

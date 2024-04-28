@@ -47,12 +47,6 @@ void UpdateNums()
 GSTopicEnd::GSTopicEnd()
 {
   m_guiFilename = "Gui/gs_topic_end.txt";
-  m_sceneFilename = "Scene/topic_start_scene.txt";
-}
-
-void GSTopicEnd::Draw()
-{
-  GSBase3d::Draw();
 }
 
 void GSTopicEnd::SetBestScore(int best)
@@ -62,7 +56,7 @@ void GSTopicEnd::SetBestScore(int best)
 
 void GSTopicEnd::OnActive()
 {
-  GSBase3d::OnActive();
+  GSBase::OnActive();
 
   m_midiNote = MIDI_START_NOTE;
 

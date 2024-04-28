@@ -11,21 +11,18 @@ gui-comp
 // Name
 page-root
 // Num children
-3
+4
 
-// Blue background
-colour
-798EEB
-
-gui-image
-screen-bg
--1, 1.2
-2, 2
-Image/white.png, stretch
+include
+wallpaper.txt
 
 include 
 blackboard-tophalf-landscape.txt
 
+// Flush drawing background
+// TODO When composer is all polys, can draw here.
+
+flush
 
 
 // Child 2

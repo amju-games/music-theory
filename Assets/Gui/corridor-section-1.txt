@@ -13,31 +13,76 @@ wall-frame-and-door-comp
 gui-comp
 wall
 // Num children
-1
+2
 // child 0 of wall
 colour
 798eeb
 gui-comp
-gui-wall-comp
+wall-group-1
 // Num children
-3
-// child 0 of gui-wall-comp
+4
+// child 0 of wall-group-1
 poly
 wall-poly-1
--0.040493,0.559375
+-0.209507,0.55625
 style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
 0.507042, -1.175000
 0.492958, 0.462500
 end
-// child 1 of gui-wall-comp
+// child 1 of wall-group-1
 poly
 wall-poly-2
-0.257746,0.578125
+0.0975346,0.59375
 style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
-0.554577, -1.234375
+0.544014, -1.268750
+0.535212, 0.475000
+end
+// child 2 of wall-group-1
+poly
+wall-poly-3
+-0.537324,0.709375
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.521127, -0.418750
+0.521127, 0.462500
+end
+// child 3 of wall-group-1
+poly
+wall-poly-3-1
+0.451056,0.70625
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.519366, -1.306250
+0.521127, 0.462500
+end
+// end of wall-group-1
+// child 1 of wall
+colour
+a0a0a0
+gui-comp
+wall-group-2
+// Num children
+1
+// child 0 of wall-group-2
+gui-comp
+wall-group-2-comp
+// Num children
+3
+// child 0 of wall-group-2-comp
+poly
+wall-poly-1
+-0.0563381,0.5625
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.515845, -1.228125
 0.492958, 0.462500
 end
-// child 2 of gui-wall-comp
+// child 1 of wall-group-2-comp
+poly
+wall-poly-2
+0.282394,0.578125
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.554577, -1.234375
+0.538732, 0.465625
+end
+// child 2 of wall-group-2-comp
 poly
 wall-poly-3
 -0.433451,0.709375
@@ -45,7 +90,8 @@ style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
 0.526408, -0.375000
 0.521127, 0.462500
 end
-// end of gui-wall-comp
+// end of wall-group-2-comp
+// end of wall-group-2
 // end of wall
 // child 1 of wall-frame-and-door-comp
 gui-comp
@@ -173,7 +219,7 @@ animation
 door-anim
 one-shot
 // cycle time
-0.5
+0.500000
 // easing function
 linear
 scale

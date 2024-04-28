@@ -4,18 +4,17 @@
 #pragma once
 
 #include <Singleton.h>
-#include "GSBase3d.h"
+#include "GSBase.h"
 
 namespace Amju
 {
 // * GSTopicEnd *
 // Shown when we finish a topic.
 // Show score, rating, give hints, etc.
-class GSTopicEnd : public GSBase3d
+class GSTopicEnd : public GSBase
 {
 public:
   GSTopicEnd();
-  void Draw() override; // camera shake
   void OnActive() override;
 
   // Called on timer

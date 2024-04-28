@@ -194,7 +194,7 @@ style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
 end
 // end of door-panel-1-1-1-1-1
 // child 6 of door
-spline
+poly
 spline-1
 0.431338,-0.759375
 style=1, loop, outCol=00ffff, fillCol=000000, radius=0.100000, w0=0.030000, w1=0.010000
@@ -205,7 +205,7 @@ style=1, loop, outCol=00ffff, fillCol=000000, radius=0.100000, w0=0.030000, w1=0
 -0.330986, 0.096875
 end
 // child 7 of door
-spline
+poly
 spline-1-1
 0.430281,-0.559375
 style=1, loop, outCol=00ffff, fillCol=000000, radius=0.100000, w0=0.030000, w1=0.010000
@@ -216,7 +216,7 @@ style=1, loop, outCol=00ffff, fillCol=000000, radius=0.100000, w0=0.030000, w1=0
 -0.330986, 0.096875
 end
 // child 8 of door
-spline
+poly
 spline-1-1-1
 0.430986,-0.3625
 style=1, loop, outCol=00ffff, fillCol=000000, radius=0.100000, w0=0.030000, w1=0.010000

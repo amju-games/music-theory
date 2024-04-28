@@ -1,0 +1,173 @@
+// * Amjula music theory * (c) Copyright 2024 Juliet Colman
+1
+gui-comp
+lift-frame-root
+// Num children
+1
+// child 0 of lift-frame-root
+gui-comp
+frame
+// Num children
+14
+// child 0 of frame
+poly
+framepoly1-1
+0.0362676,-0.315625
+style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
+0.271126, 0.984374
+0.209155, 1.093751
+0.167958, 1.118750
+0.113732, 1.125000
+0.067606, 1.115625
+0.004929, 1.071874
+-0.043310, 0.996875
+-0.067958, 0.918750
+-0.075000, 0.784375
+-0.023944, 0.790625
+0.002465, 0.909374
+0.039437, 0.974999
+0.118662, 1.046874
+0.212677, 0.959375
+0.233098, 0.875000
+0.235563, 0.803125
+0.294014, 0.790625
+0.296479, 0.796875
+0.291197, 0.893750
+end
+// child 1 of frame
+poly
+framedetail6-1-1
+0.509155,-0.065625
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+-0.200704, 0.528125
+-0.204577, 0.612500
+-0.225704, 0.715625
+-0.262676, 0.771875
+-0.306690, 0.825000
+-0.366549, 0.837500
+-0.424648, 0.809375
+-0.466901, 0.762500
+-0.502113, 0.703125
+-0.517958, 0.615625
+-0.525353, 0.512500
+end
+// child 2 of frame
+poly
+frame-blackness
+-0.123944,-0.24375
+style=1, loop, outCol=000000, fillCol=000000, radius=0.010000
+0.407395, 0.831250
+0.384507, 0.915625
+0.346831, 0.962501
+0.283098, 0.993752
+0.229578, 0.975000
+0.176761, 0.928125
+0.138028, 0.834375
+0.129929, 0.721875
+0.413733, 0.725000
+end
+// child 3 of frame
+poly
+framepoly1
+-0.0137324,-0.265625
+style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
+-0.015846, 0.621875
+-0.093662, 0.737500
+-0.097536, 0.734375
+-0.095423, -0.503125
+-0.079577, -0.515625
+-0.035564, -0.512500
+-0.015845, -0.503125
+end
+// child 4 of frame
+poly
+framepoly2
+0.383803,-0.265625
+style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
+0.686620, -0.325000
+0.002817, -0.303125
+0.008803, -0.481250
+0.026056, -0.493750
+0.688380, -0.509375
+0.686619, -0.496875
+end
+// child 5 of frame
+poly
+framepoly3
+0.397183,-0.275
+style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
+-0.003522, 0.756250
+-0.085212, 0.621875
+-0.083802, -0.503125
+-0.072536, -0.500000
+-0.008098, -0.500000
+-0.000000, -0.490625
+end
+// child 6 of frame
+poly
+framepoly4
+0.0362676,-0.315625
+style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
+-0.059860, 0.665625
+-0.148593, 0.787500
+0.358802, 0.787500
+0.276408, 0.659375
+end
+// child 7 of frame
+poly
+framedetail1
+0.0197182,-0.321875
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+-0.103873, -0.453125
+-0.109860, 0.756250
+end
+// child 8 of frame
+poly
+framedetail2
+0.0573944,-0.39375
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+-0.107394, -0.384375
+-0.113381, 0.765625
+end
+// child 9 of frame
+poly
+framedetail3
+0.149647,-0.390625
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+0.183098, -0.387500
+0.180633, 0.756250
+end
+// child 10 of frame
+poly
+framedetail4
+0.747535,-0.353125
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+-0.369718, -0.421875
+-0.375705, 0.784375
+end
+// child 11 of frame
+poly
+framedetail5
+0.0369718,-0.35
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+0.336267, 0.778125
+-0.123945, 0.787500
+end
+// child 12 of frame
+poly
+framedetail6
+0.481338,-1.28125
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+0.598591, 0.662500
+-0.083451, 0.671875
+end
+// child 13 of frame
+poly
+framedetail6-1
+0.0524647,-0.3875
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+0.281690, 0.756250
+-0.116902, 0.765625
+end
+// end of frame
+// end of lift-frame-root

@@ -1,0 +1,47 @@
+// * Amjula music theory * (c) Copyright 2024 Juliet Colman
+1
+gui-comp
+corridor-floor-root
+// Num children
+2
+// child 0 of corridor-floor-root
+colour
+802020
+poly
+floor-poly-bg
+0.432023,0.19375
+style=1, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+20, -0.675000
+20, -1.309375
+-20, -1.284375
+-20, -0.646875
+end
+// child 1 of corridor-floor-root
+colour
+401010
+gui-comp
+stripes
+// Num children
+2
+// child 0 of stripes
+poly
+floor-poly-stripe-1
+-0.0222741,-0.015625
+style=1, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+20, -0.809375
+20, -0.962500
+-20, -0.912500
+-20, -0.815625
+end
+// child 1 of stripes
+poly
+floor-poly-stripe-1-1
+-0.0215699,0.209375
+style=1, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+20, -0.884375
+20, -0.962500
+-20, -0.996875
+-20, -0.815625
+end
+// end of stripes
+// end of corridor-floor-root

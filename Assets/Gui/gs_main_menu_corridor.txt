@@ -7,13 +7,18 @@
 // version
 1
 
+
 // Element type
 gui-comp
 // Name
 gs-main-menu-root
 // Num children
-2
+3
 
+animation
+clean-anim
+const
+one
 
 // child 0 of gs-main-menu-root
 animation
@@ -34,7 +39,12 @@ one
 
 gui-comp
 add-door-sections-to-me
-0
+1
+include
+corridor-floor.txt
+
+// Flush polys before superimposing text, buttons
+flush
 
 ////include
 ////hint-display-no-button.txt

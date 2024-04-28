@@ -1,0 +1,120 @@
+// * Amjula music theory * (c) Copyright 2024 Juliet Colman
+1
+gui-comp
+lift-door-root
+// Num children
+1
+// child 0 of lift-door-root
+colour
+40c0ff
+gui-comp
+door
+// Num children
+3
+// child 0 of door
+poly
+door-base-poly
+0.00140846,-0.43125
+style=3, loop, outCol=000000, fillCol=c0c0c0, radius=0.010000
+0.142605, 0.781250
+-0.020775, 0.781250
+-0.035915, 0.765625
+-0.033099, -0.325000
+-0.009508, -0.331250
+0.134155, -0.331250
+0.142606, -0.300000
+end
+// child 1 of door
+gui-comp
+door-panel-1
+// Num children
+4
+// child 0 of door-panel-1
+poly
+door-panel-top-poly
+0.375704,-0.4875
+style=3, loop, outCol=000000, fillCol=808080, radius=0.005000
+-0.376761, 0.778125
+-0.353874, 0.740625
+-0.290494, 0.746875
+-0.267606, 0.781250
+end
+// child 1 of door-panel-1
+poly
+door-panel-bottom-poly
+0.378169,-1.19687
+style=3, loop, outCol=000000, fillCol=e0e0e0, radius=0.005000
+-0.375000, 0.878125
+-0.346831, 0.925000
+-0.286972, 0.925000
+-0.265845, 0.881250
+end
+// child 2 of door-panel-1
+poly
+door-panel-left-poly
+0.433451,-0.878125
+style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.434860, 1.168748
+-0.411973, 1.134374
+-0.406690, 0.603125
+-0.433099, 0.565625
+end
+// child 3 of door-panel-1
+poly
+door-panel-right-poly
+0.548591,-0.875
+style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.434860, 1.168748
+-0.463029, 1.134374
+-0.457747, 0.596875
+-0.433099, 0.565625
+end
+// end of door-panel-1
+// child 2 of door
+gui-comp
+door-panel-1-1-1
+// Num children
+4
+// child 0 of door-panel-1-1-1
+poly
+door-panel-top-poly-1-1
+0.375704,-1.225
+style=3, loop, outCol=000000, fillCol=808080, radius=0.005000
+-0.375000, 0.878125
+-0.352113, 0.840625
+-0.286972, 0.837500
+-0.267606, 0.871875
+end
+// child 1 of door-panel-1-1-1
+poly
+door-panel-bottom-poly-1-1
+0.376409,-1.40625
+style=3, loop, outCol=000000, fillCol=e0e0e0, radius=0.005000
+-0.373239, 0.681250
+-0.346831, 0.718750
+-0.286972, 0.725000
+-0.274648, 0.678125
+end
+// child 2 of door-panel-1-1-1
+poly
+door-panel-left-poly-1-1
+0.435212,-1.625
+style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.431338, 1.268749
+-0.410212, 1.234375
+-0.408450, 0.937500
+-0.427818, 0.887500
+end
+// child 3 of door-panel-1-1-1
+poly
+door-panel-right-poly-1-1
+0.536267,-1.65
+style=3, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.424296, 1.290624
+-0.445423, 1.253125
+-0.447184, 0.968750
+-0.433099, 0.934375
+end
+// end of door-panel-1-1-1
+// end of door
+// end of lift-door-root

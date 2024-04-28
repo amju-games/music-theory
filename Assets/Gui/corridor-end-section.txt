@@ -1,78 +1,128 @@
 // * Amjula music theory * (c) Copyright 2024 Juliet Colman
 1
 gui-comp
-corridor-section-root
+corridor-end-section-root
 // Num children
 2
-// child 0 of corridor-section-root
+// child 0 of corridor-end-section-root
+gui-comp
+wall-and-frame-comp
+// Num children
+2
+// child 0 of wall-and-frame-comp
 gui-comp
 wall
 // Num children
-1
+2
 // child 0 of wall
 colour
-798EEB
+798eeb
 gui-comp
-gui-wall-comp
+wall-group-1
 // Num children
-5
-// child 0 of gui-wall-comp
+4
+// child 0 of wall-group-1
 poly
 wall-poly-1
--0.040493,0.559375
+-0.209507,0.55625
 style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
 0.507042, -1.175000
 0.492958, 0.462500
 end
-// child 1 of gui-wall-comp
+// child 1 of wall-group-1
 poly
 wall-poly-2
-0.220774,0.571875
+0.0975346,0.59375
 style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
-0.554577, -1.234375
-0.544014, 0.462500
+0.544014, -1.268750
+0.535212, 0.475000
 end
-// child 2 of gui-wall-comp
+// child 2 of wall-group-1
 poly
 wall-poly-3
--0.380634,0.703125
+-0.537324,0.709375
 style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
-0.517605, -1.403125
+0.521127, -1.387500
 0.521127, 0.462500
 end
-// child 3 of gui-wall-comp
+// child 3 of wall-group-1
 poly
 wall-poly-3-1
--0.684507,0.640625
+0.451056,0.70625
 style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
-0.542253, -1.353125
+0.529929, -1.312500
 0.521127, 0.462500
 end
-// child 4 of gui-wall-comp
+// end of wall-group-1
+// child 1 of wall
+colour
+a0a0a0
+gui-comp
+wall-group-2
+// Num children
+1
+// child 0 of wall-group-2
+gui-comp
+wall-group-2-comp
+// Num children
+3
+// child 0 of wall-group-2-comp
 poly
-wall-poly-3-1-1
--1.02183,0.675
+wall-poly-1
+-0.0563381,0.5625
 style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
-0.542253, -1.353125
-0.551057, 0.490625
+0.515845, -1.228125
+0.492958, 0.462500
 end
-// end of gui-wall-comp
+// child 1 of wall-group-2-comp
+poly
+wall-poly-2
+0.282394,0.578125
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.554577, -1.234375
+0.538732, 0.465625
+end
+// child 2 of wall-group-2-comp
+poly
+wall-poly-3
+-0.433451,0.709375
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.531690, -1.359375
+0.521127, 0.462500
+end
+// end of wall-group-2-comp
+// end of wall-group-2
 // end of wall
-// child 1 of corridor-section-root
+// child 1 of wall-and-frame-comp
 gui-comp
 frame
 // Num children
-1
+2
 // child 0 of frame
 poly
-frame poly-1-1
+framepoly2
 0.383803,-0.265625
 style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
-0.573944, -0.362500
--0.880986, -0.346875
--0.913733, -0.478125
--0.887676, -0.496875
-0.586268, -0.506250
+0.860916, -0.325000
+-0.502465, -0.309375
+-0.496479, -0.487500
+-0.479226, -0.500000
+0.862676, -0.509375
+0.860915, -0.496875
+end
+// child 1 of frame
+poly
+framedetail6
+0.481338,-1.28125
+style=2, loop, outCol=000000, fillCol=ffffff, radius=0.005000
+0.772887, 0.662500
+-0.599296, 0.659375
 end
 // end of frame
-// end of corridor-section-root
+// end of wall-and-frame-comp
+// end of corridor-end-section-root
+
+translate
+-.2, -.05
+include 
+corridor-furniture-1.txt

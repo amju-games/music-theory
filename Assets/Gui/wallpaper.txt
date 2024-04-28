@@ -1,0 +1,117 @@
+// * Amjula music theory * (c) Copyright 2024 Juliet Colman
+1
+gui-comp
+wallpaper-root
+// Num children
+2
+// child 0 of wallpaper-root
+colour
+798eeb
+gui-comp
+wall-group-1
+// Num children
+6
+// child 0 of wall-group-1
+poly
+wall-poly-1
+-1.39437,0.646875
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.473591, -1.696875
+0.492958, 0.462500
+end
+// child 1 of wall-group-1
+poly
+wall-poly-1-1
+-1.04859,0.584375
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.494718, -1.718750
+0.492958, 0.462500
+end
+// child 2 of wall-group-1
+poly
+wall-poly-2
+-0.717606,0.559375
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.538732, -1.709375
+0.535212, 0.475000
+end
+// child 3 of wall-group-1
+poly
+wall-poly-3
+-0.317253,0.55625
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.517606, -1.659375
+0.521127, 0.462500
+end
+// child 4 of wall-group-1
+poly
+wall-poly-4
+0.0531684,0.65
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.540492, -1.837500
+0.521127, 0.462500
+end
+// child 5 of wall-group-1
+poly
+wall-poly-4-1
+0.437675,0.553125
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.540492, -1.837500
+0.521127, 0.462500
+end
+// end of wall-group-1
+// child 1 of wallpaper-root
+colour
+a0a0a0
+gui-comp
+wall-group-2
+// Num children
+1
+// child 0 of wall-group-2
+gui-comp
+wall-group-2-comp
+// Num children
+5
+// child 0 of wall-group-2-comp
+poly
+wall-poly-10
+-1.24824,0.6375
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.515845, -1.775000
+0.492958, 0.462500
+end
+// child 1 of wall-group-2-comp
+poly
+wall-poly-20
+-0.916549,0.646875
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.556338, -1.787500
+0.538732, 0.465625
+end
+// child 2 of wall-group-2-comp
+poly
+wall-poly-20-1
+0.235563,0.5625
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.556338, -1.787500
+0.538732, 0.465625
+end
+// child 3 of wall-group-2-comp
+poly
+wall-poly-30
+-0.503874,0.615625
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.524648, -1.850000
+0.521127, 0.462500
+end
+// child 4 of wall-group-2-comp
+poly
+wall-poly-30-1
+-0.124649,0.565625
+style=2, loop, outCol=ffffff, fillCol=ffffff, radius=0.100000
+0.524648, -1.850000
+0.521127, 0.462500
+end
+// end of wall-group-2-comp
+// end of wall-group-2
+// end of wallpaper-root

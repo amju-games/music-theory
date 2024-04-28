@@ -11,12 +11,18 @@ gui-comp
 // Name
 topic-start-comp
 // Num children
-9
+11
+
+include 
+wallpaper.txt
 
 translate
-0, -.2
+0, 0
 include
-blackboard-tophalf-landscape.txt
+blackboard-full-landscape.txt
+
+
+flush
 
 // Best so far display
 
