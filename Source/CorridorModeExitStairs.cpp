@@ -4,9 +4,11 @@
 #include <Lerp.h>
 #include <SceneNodeCamera.h>
 #include <Timer.h>
+#include "Consts.h"
 #include "CorridorModeExitStairs.h"
 #include "CorridorModeWait.h"
 #include "GSMainCorridor.h"
+#include "PlayWav.h"
 
 namespace Amju
 {
@@ -14,19 +16,23 @@ const int CorridorModeExitStairs::ID = 7;
 
 void CorridorModeExitStairs::SetCamLerpT()
 {
-  //m_gs->GetCameraController().SetLerpT(1.0f - m_camLerpT);
 }
 
 void CorridorModeExitStairs::OnActive()
 {
   CorridorModeLerpCam::OnActive();
-  //m_gs->GetCameraController().SetIsLerping(true);
+
+  PlayWav(WAV_ENTER_DOOR);
+  PlayWav(WAV_DOOR_OPEN);
+
+  // Start animation of lift doors and zoom out 
+  m_gs->StartExitLiftAnim();
+
 }
 
 void CorridorModeExitStairs::OnFinishedLerp()
 {
   m_gs->SetMode(CorridorModeWait::ID);
-  //m_gs->GetCameraController().SetIsLerping(false); // stop lerping camera
 }
 
 }

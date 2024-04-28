@@ -17,6 +17,9 @@ public:
   virtual void OnFinishedLerp() override;
 
   static void SetNewLevel(int newLevel);
+
+private:
+  static int s_newLevel;
 };
 
 }

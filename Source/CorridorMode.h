@@ -19,7 +19,7 @@ public:
   void SetGameState(GSMainCorridor* gs) { m_gs = gs; }
   GSMainCorridor* GetState() { return m_gs; }
 
-  virtual void Update() = 0;  // Call this in overridden functions
+  virtual void Update();    // Call this in overridden functions
   virtual void Draw2d(); // Call this in overridden functions
   virtual void OnActive(); // Call this in overridden functions
   virtual void OnDeactive(); // Call this in overridden functions

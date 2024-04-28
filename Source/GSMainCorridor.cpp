@@ -46,6 +46,10 @@
 namespace
 {
 const char* LEVEL_KEY = "level";
+constexpr bool NOT_LISTENER = false;
+constexpr float MAX_ZOOM = 3.f;
+constexpr float MIN_ZOOM = 1.f;
+constexpr float ZOOM_VEL = 2.f;
 }
 
 namespace Amju
@@ -141,15 +145,36 @@ void GSMainCorridor::PauseAnimsOnSection(PGuiElement corridorSection)
   {
     doorAnim->SetIsPaused(true);
   }
+}
 
-  // Zoom every section - I wish I could work out how to do this with just the one
-  //  animation
-    GuiElement* zoomAnimElem = corridorSection->GetElementByName("zoom-anim");
-    GuiDecAnimation* zoomAnim = dynamic_cast<GuiDecAnimation*>(zoomAnimElem);
-    if (zoomAnim)
+void GSMainCorridor::StartExitLiftAnim()
+{
+  // Switch ends of the corridor: if we were at the right end, go to the left, and
+  //  vicew versa.
+  // TODO fix exiting left lift, so we should be on the right end of the corridor
+  m_lastXPosInCorridor = -1;
+  SetCorridorXPosition();
+
+  StartEnterLiftAnim();
+  m_isZooming = Zoom::ZOOM_OUT;
+  m_zoom = MAX_ZOOM;
+}
+
+void GSMainCorridor::StartEnterLiftAnim()
+{
+  for (auto& elem : m_animatableLiftSections)
+  {
+    GuiElement* doorAnimElem = elem->GetElementByName("door-anim");
+    GuiDecAnimation* doorAnim = dynamic_cast<GuiDecAnimation*>(doorAnimElem);
+    if (doorAnim)
     {
-      zoomAnim->SetIsPaused(true);
+      doorAnim->ResetAnimation();
+      doorAnim->SetIsPaused(false);
     }
+  }
+
+  m_isZooming = Zoom::ZOOM_IN;
+  m_zoom = MIN_ZOOM;
 }
 
 void GSMainCorridor::StartDoorAnim()
@@ -164,10 +189,75 @@ void GSMainCorridor::StartDoorAnim()
     doorAnim->SetIsPaused(false);
   }
 
-  m_isZooming = true;
+  m_isZooming = Zoom::ZOOM_IN;
+  m_zoom = MIN_ZOOM;
+}
 
-//  m_zoomAllAnimator->ResetAnimation();
-//  m_zoomAllAnimator->SetIsPaused(false);
+void GSMainCorridor::AddOneBlankSection(int sectionNum, GuiComposite* addChildren)
+{
+  PGuiElement corridorSection = LoadGui("Gui/corridor-end-section.txt", NOT_LISTENER);
+  addChildren->AddChild(corridorSection);
+  corridorSection->SetLocalPos(Vec2f(static_cast<float>(sectionNum) * DISTANCE_BETWEEN_DOORS, 0));
+}
+
+void GSMainCorridor::AddOneLiftSection(int sectionNum, GuiComposite* addChildren)
+{
+  PGuiElement liftSection = LoadGui("Gui/corridor-lift-section.txt", NOT_LISTENER);
+  m_animatableLiftSections.push_back(liftSection); 
+  addChildren->AddChild(liftSection);
+  liftSection->SetLocalPos(Vec2f(sectionNum * DISTANCE_BETWEEN_DOORS, 0));
+
+  // Prevent animations from immediately starting
+  PauseAnimsOnSection(liftSection);
+}
+
+void GSMainCorridor::AddRightLiftOrBlankSection(int sectionNum, GuiComposite* addChildren)
+{
+  // Lift to next level -- TODO diff styles
+  if (m_levelNum > 3) // TODO Find max level
+  {
+    // No more levels: just add a black section
+    AddOneBlankSection(sectionNum, addChildren);
+  }
+  else
+  {
+    AddOneLiftSection(sectionNum, addChildren);
+  }
+}
+
+void GSMainCorridor::AddLeftLiftOrBlankSection(GuiComposite* addChildren)
+{
+  AddOneBlankSection(-2, addChildren);
+
+  if (m_levelNum == 1)
+  {
+    // Add corridor left end: add two of these?
+    AddOneBlankSection(-1, addChildren);
+  }
+  else
+  {
+    // Add LIFT if level > 1: you can do down in this lift to the previous level.
+    AddOneLiftSection(-1, addChildren);
+  }
+}
+
+void GSMainCorridor::AddCorridorSection(int sectionNum, GuiComposite* addChildren)
+{
+  // TODO list of names in topic file?
+  // Just cycle through some filenames, but set colours on walls and doors
+  //  programatically.
+  PGuiElement corridorSection = LoadGui("Gui/corridor-section-1.txt", NOT_LISTENER);
+  // Find door anim element, store it so we can open the correct door when it's selected.
+  m_animatableCorridorSections.push_back(corridorSection);
+
+  // Prevent animations from immediately starting
+  PauseAnimsOnSection(corridorSection);
+
+  addChildren->AddChild(corridorSection);
+  // Offset position along corridor
+  corridorSection->SetLocalPos(Vec2f(static_cast<float>(sectionNum) * DISTANCE_BETWEEN_DOORS, 0));
+
+  // TODO add something to locked topics so we can see it's locked
 }
 
 void GSMainCorridor::LoadCorridor()
@@ -176,8 +266,8 @@ void GSMainCorridor::LoadCorridor()
 ////  ConfigFile* config = TheUserProfile()->GetConfigForTopic(KEY_TOPICS);
   //auto profile = TheUserProfile();
 
-  m_zoom = 1.f; // Check for weird stuff
-  m_isZooming = false;
+  m_zoom = 1.f; 
+  m_isZooming = Zoom::NO_ZOOM;
 
   Course* course = GetCourse();
   Assert(course);
@@ -192,50 +282,23 @@ void GSMainCorridor::LoadCorridor()
   // Find the animation node which controls our position in the corridor
   m_posInCorridorAnimator = dynamic_cast<GuiDecAnimation*>(GetGui()->GetElementByName("scroll-anim"));
 
-//  m_zoomAllAnimator = dynamic_cast<GuiDecAnimation*>(GetGui()->GetElementByName("zoom-all-anim"));
-//  m_zoomAllAnimator->SetIsPaused(true);
-
   // Translation node controlled by animator
   m_posInCorridor = dynamic_cast<GuiDecTranslate*>(m_posInCorridorAnimator->GetChild());
 
   // This descendant is where we should add door sections.
   GuiComposite* addChildren = dynamic_cast<GuiComposite*>(m_posInCorridor->GetElementByName("add-door-sections-to-me"));
 
-  // Add corridor left end -- but TODO Add LIFT if level > 1
-  constexpr bool NOT_LISTENER = false;
-  PGuiElement corridorSection = LoadGui("Gui/corridor-end-section.txt", NOT_LISTENER);
-  addChildren->AddChild(corridorSection);
-  corridorSection->SetLocalPos(Vec2f(-1.f * DISTANCE_BETWEEN_DOORS, 0));
-  // TODO Also animatable? So we can zoom in to stuff?
+  AddLeftLiftOrBlankSection(addChildren);
 
   for (int i = 0; i < numTopics; i++)
   {
     Topic* topic = course->GetTopic(i);
     Assert(topic);
 
-    constexpr bool NOT_LISTENER = false;
-
-    // TODO list of names in topic file?
-    // Just cycle through some filenames, but set colours on walls and doors
-    //  programatically.
-    PGuiElement corridorSection = LoadGui("Gui/corridor-section-1.txt", NOT_LISTENER);
-    // Find door anim element, store it so we can open the correct door when it's selected.
-    m_animatableCorridorSections.push_back(corridorSection);
-
-    // Prevent animations from immediately starting
-    PauseAnimsOnSection(corridorSection);
-
-    addChildren->AddChild(corridorSection);
-    // Offset position along corridor
-    corridorSection->SetLocalPos(Vec2f(static_cast<float>(i) * DISTANCE_BETWEEN_DOORS, 0));
-
-    // TODO add something to locked topics so we can see it's locked
+    AddCorridorSection(i, addChildren);
   }
 
-  // Lift to next level -- TODO diff styles
-  PGuiElement rightLiftSection = LoadGui("Gui/corridor-lift-section.txt", NOT_LISTENER);
-  addChildren->AddChild(rightLiftSection);
-  rightLiftSection->SetLocalPos(Vec2f(numTopics * DISTANCE_BETWEEN_DOORS, 0));
+  AddRightLiftOrBlankSection(numTopics, addChildren);
 }
 
 bool GSMainCorridor::IsLevelPassed() const
@@ -287,6 +350,12 @@ int GSMainCorridor::GetLevel() const
   return m_levelNum;
 }
 
+void GSMainCorridor::SetCorridorXPosition()
+{
+  m_posInCorridor->SetTranslation(Vec2f(m_lastXPosInCorridor, 0), 0);
+  m_posInCorridor->SetTranslation(Vec2f(m_lastXPosInCorridor, 0), 1);
+}
+
 void GSMainCorridor::OnActive()
 {
   GSBase::OnActive();
@@ -303,8 +372,7 @@ void GSMainCorridor::OnActive()
   LoadCorridor();
 
   // Set position in corridor
-  m_posInCorridor->SetTranslation(Vec2f(m_lastXPosInCorridor, 0), 0);
-  m_posInCorridor->SetTranslation(Vec2f(m_lastXPosInCorridor, 0), 1);
+  SetCorridorXPosition();
 
   LoadTappables();
 
@@ -468,11 +536,31 @@ void GSMainCorridor::Update()
     m_currentMode->Update();
   }
 
-  if (m_isZooming)
+  UpdateZoom();
+}
+
+void GSMainCorridor::UpdateZoom()
+{
+  [[maybe_unused]] const float dt = TheTimer::Instance()->GetDt();
+  if (m_isZooming == Zoom::ZOOM_IN)
   {
-    const float dt = TheTimer::Instance()->GetDt();
-    const float ZOOM_VEL = 2.f;
     m_zoom += ZOOM_VEL * dt;
+    if (m_zoom > MAX_ZOOM)
+    {
+      m_isZooming = Zoom::NO_ZOOM;
+      m_zoom = MAX_ZOOM;
+      // TODO Notify?
+    }
+  }
+  else if (m_isZooming == Zoom::ZOOM_OUT)
+  {
+    m_zoom -= ZOOM_VEL * dt;
+    if (m_zoom < MIN_ZOOM)
+    {
+      m_isZooming = Zoom::NO_ZOOM;
+      m_zoom = MIN_ZOOM;
+      // TODO Notify?
+    }
   }
 }
 

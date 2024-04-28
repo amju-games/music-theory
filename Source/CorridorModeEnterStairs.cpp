@@ -9,10 +9,12 @@
 #include "CorridorModeExitStairs.h"
 #include "CorridorModeWait.h"
 #include "GSMainCorridor.h"
+#include "GSShowNewLevelNum.h"
+#include "PlayWav.h"
 
 namespace Amju
 {
-static int s_newLevel = -1;
+int CorridorModeEnterStairs::s_newLevel = -1;
 const int CorridorModeEnterStairs::ID = 6;
 
 void CorridorModeEnterStairs::SetNewLevel(int newLevel)
@@ -26,12 +28,12 @@ void CorridorModeEnterStairs::OnActive()
 {
   CorridorModeLerpCam::OnActive();
 
-  //auto cam = m_gs->GetCamera();
-  //Vec3f camChange(STAIRS_ZOOM_DIST, 0, 0);
-  //Vec3f eye = cam->GetEyePos() + camChange;
-  //Vec3f target = cam->GetLookAtPos() + camChange;
+  // TODO Lift noises
+  PlayWav(WAV_ENTER_DOOR);
+  PlayWav(WAV_DOOR_OPEN);
 
-  //m_gs->GetCameraController().SetDesired(eye, target);
+  // Start animation of lift and zoom in 
+  m_gs->StartEnterLiftAnim();
 }
 
 void CorridorModeEnterStairs::OnFinishedLerp()
@@ -40,6 +42,14 @@ void CorridorModeEnterStairs::OnFinishedLerp()
 
   // Switch mode to zooming back out
   m_gs->SetMode(CorridorModeExitStairs::ID);
+
+  // Go to mode to show level
+    // Go the the topic start state.
+  GSShowNewLevelNum* gs = TheGSShowNewLevelNum::Instance();
+  gs->SetPrevState(m_gs);
+  // No need to queue message, we go now, right?
+  GoTo<TheGSShowNewLevelNum>();
+
 }
 
 }

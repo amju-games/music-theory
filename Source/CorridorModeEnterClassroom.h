@@ -13,14 +13,6 @@ class CorridorModeEnterClassroom : public CorridorMode
 {
 public:
   static const int ID;
-  virtual void Update() override;
   virtual void OnActive() override;
-
-private:
-  void UpdateOpeningDoor();
-
-private:
-  bool m_doorIsOpening = false;
-  float m_doorAngleRads = 0;
 };
 }

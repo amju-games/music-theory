@@ -13,6 +13,7 @@
 
 namespace Amju
 {
+class GuiComposite;
 class GuiDecAnimation;
 class GuiDecTranslate;
 
@@ -62,6 +63,8 @@ public:
   Tappable* TappablePickTest(const Vec2f& touchCoord);
 
   void StartDoorAnim();
+  void StartEnterLiftAnim();
+  void StartExitLiftAnim();
 
   // Called when we find that user has tapped down and up on a tappable
   void OnTapped(Tappable* tappable);
@@ -89,9 +92,18 @@ protected:
   void PauseAnimsOnSection(PGuiElement corridorSection);
 
   void LoadCorridor();
+  void AddRightLiftOrBlankSection(int sectionNum, GuiComposite* addChildren);
+  void AddLeftLiftOrBlankSection(GuiComposite* addChildren);
+  void AddCorridorSection(int sectionNum, GuiComposite* addChildren);
+  void AddOneBlankSection(int sectionNum, GuiComposite* addChildren);
+  void AddOneLiftSection(int sectionNum, GuiComposite* addChildren);
+
   bool LoadTappables();
   void ChangeMode();
   void LoadCourse();
+
+  void UpdateZoom();
+  void SetCorridorXPosition();
 
 private:
   RCPtr<GuiDecAnimation> m_posInCorridorAnimator;
@@ -101,6 +113,7 @@ private:
 
   // Each of these sections has a door. We open the door for the chosen topic.
   std::vector<PGuiElement> m_animatableCorridorSections;
+  std::vector<PGuiElement> m_animatableLiftSections;
 
   // Items which respond to being tapped, to show some kind of info.
   // TODO Do they all need a zoom animator then?
@@ -118,7 +131,13 @@ private:
   int m_levelNum = 1; // 1-based, right?
 
   float m_zoom = 1.f; // scale factor, zooms in 'camera'
-  bool m_isZooming = false;
+  enum class Zoom
+  {
+    ZOOM_IN,
+    ZOOM_OUT,
+    NO_ZOOM
+  };
+  Zoom m_isZooming;
 };
 
 typedef Singleton<GSMainCorridor> TheGSMainCorridor;
