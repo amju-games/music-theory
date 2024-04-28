@@ -47,7 +47,7 @@ linear
 music-score
 // Name, Position
 music-score
--0.55, -0.03
+-0.55, 0.02
 // Scale - affects pos, TODO
 .28, .72
 // Colour: white, as drawn on blackboard
