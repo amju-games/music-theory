@@ -11,7 +11,18 @@ gui-comp
 // Name
 topic-end-root
 // Num children
-8
+11
+
+include 
+wallpaper.txt
+
+translate
+0, 0
+include
+blackboard-full-landscape.txt
+
+flush
+
 
 // Best so far display
 translate
