@@ -1,0 +1,46 @@
+// * Amjula music theory * (c) Copyright 2024 Juliet Colman
+1
+gui-comp
+transform-test-root
+// Num children
+1
+// child 0 of transform-test-root
+translate
+0.5,0
+animation
+test-anim
+repeat
+// cycle time
+1.000000
+// easing function
+linear
+scale
+2,2;1,1
+// pivot point
+1,0
+gui-comp
+test-comp
+// Num children
+2
+// child 0 of test-comp
+poly
+poly-1
+0,0
+style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
+0.163732, -0.118750
+-0.105633, -0.121875
+-0.102113, 0.268750
+0.161972, 0.271875
+end
+// child 1 of test-comp
+poly
+poly-1-1
+0.05,-0.05
+style=3, loop, outCol=000000, fillCol=ffffff, radius=0.010000
+0.110915, -0.050000
+0.061621, -0.050000
+0.058098, 0.256250
+0.105634, 0.256250
+end
+// end of test-comp
+// end of transform-test-root

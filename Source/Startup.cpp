@@ -54,7 +54,7 @@
 #include "GSMainCorridor.h"
 #include "GSPages.h"
 #include "GSPlayNotes.h"
-#include "GSShowLineDrawing.h"
+#include "GSShowGui.h"
 #include "GSShowMusicScore.h"
 #include "GSTestShowScore.h"
 #include "GSTitle.h"
@@ -341,7 +341,7 @@ static void SetInitialState()
 
   // Show animated splines?
   // Right now using this to edit GUIs, currently corridor sections.
-  TheGame::Instance()->SetCurrentState(TheGSShowLineDrawing::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSShowGui::Instance());
 
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());
@@ -351,7 +351,7 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSAvatarMod::Instance());
 
-//  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+  //TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 }
 
 static void LoadStringTableForPreferredLanguage()

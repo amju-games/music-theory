@@ -1,15 +1,87 @@
 // * Amjula music theory * (c) Copyright 2024 Juliet Colman
 1
 gui-comp
-score-comp
+lift-door-root
+// Num children
+1
+// child 0 of lift-door-root
+colour
+40c0ff
+gui-comp
+door
 // Num children
 2
-// child 0 of score-comp
-include
-keyboard.txt
-// child 1 of score-comp
-music-score
-music-score
--0.900000, 0.000000
-0.400000, 0.750000
-// end of score-comp
+// child 0 of door
+gui-comp
+door-panel-1
+// Num children
+5
+// child 0 of door-panel-1
+poly
+door-panel-top-poly
+0,-0.484375
+style=2, loop, outCol=000000, fillCol=808080, radius=0.005000
+-0.031690, -0.281250
+0.147887, 0.825000
+0.142605, 0.243750
+0.065141, -0.271875
+end
+// child 1 of door-panel-1
+poly
+door-panel-bottom-poly
+0,-1.19687
+style=2, loop, outCol=000000, fillCol=e0e0e0, radius=0.005000
+-0.033450, 1.531249
+0.059859, 1.537495
+0.058099, 1.521875
+-0.031689, 0.937500
+end
+// child 2 of door-panel-1
+poly
+door-panel-left-poly
+0,-0.859375
+style=2, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.033451, 1.199998
+0.144365, 0.096874
+-0.024649, 0.090625
+end
+// child 3 of door-panel-1
+poly
+door-panel-right-poly
+0,-0.875
+style=2, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+0.149646, 1.228123
+0.052817, 1.224999
+0.049295, 1.218749
+0.146127, 0.628125
+end
+// child 4 of door-panel-1
+poly
+door-panel-right-poly-1
+0,-0.925
+style=2, loop, outCol=000000, fillCol=b0b0b0, radius=0.005000
+-0.029931, 0.687499
+-0.035212, 0.149999
+0.064437, 0.143750
+0.068662, 0.159375
+end
+// end of door-panel-1
+// child 1 of door
+gui-comp
+door-panel-1-1-1
+// Num children
+1
+// child 0 of door-panel-1-1-1
+poly
+door-panel-bottom-poly-1-1
+0,-1.40625
+style=2, loop, outCol=000000, fillCol=e0e0e0, radius=0.005000
+-0.038731, 0.643750
+-0.028168, 1.746875
+0.147887, 1.753126
+0.147887, 0.640625
+0.139085, 0.637499
+end
+// end of door-panel-1-1-1
+// end of door
+// end of lift-door-root
