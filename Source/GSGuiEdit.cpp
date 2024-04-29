@@ -703,7 +703,8 @@ void GSGuiEdit::PopulateTreeView()
   treemenu->SetLocalPos(Vec2f(0, 0));
   scrollbar->SetSize(Vec2f(.1f, 1.f));
   scrollbar->AddChild(treemenu);
-  scrollbar->SetExtents(Vec2f(0, 2.f));
+  float h = treemenu->GetSize().y;
+  scrollbar->SetExtents(Vec2f(0, h)); 
   //scrollbar->InitScrollBar();
 }
 
