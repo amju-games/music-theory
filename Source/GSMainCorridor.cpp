@@ -213,16 +213,21 @@ void GSMainCorridor::AddOneLiftSection(int sectionNum, GuiComposite* addChildren
 
 void GSMainCorridor::AddRightLiftOrBlankSection(int sectionNum, GuiComposite* addChildren)
 {
-  // Lift to next level -- TODO diff styles
-  if (m_levelNum > 3) // TODO Find max level
+  // TODO Find the max level, i.e. the final "course" file.
+  bool hasLiftToNextLevel = GetLevel() < 4;
+
+  // Lift to next level -- TODO diff styles?
+  if (hasLiftToNextLevel) 
+  {
+    AddOneLiftSection(sectionNum, addChildren);
+  }
+  else
   {
     // No more levels: just add a black section
     AddOneBlankSection(sectionNum, addChildren);
   }
-  else
-  {
-    AddOneLiftSection(sectionNum, addChildren);
-  }
+  // Extra one at far end
+  AddOneBlankSection(sectionNum + 1, addChildren);
 }
 
 void GSMainCorridor::AddLeftLiftOrBlankSection(GuiComposite* addChildren)
