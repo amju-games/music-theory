@@ -24,17 +24,10 @@ blackboard-full-landscape.txt
 
 flush
 
-// Best so far display
 
 gui-comp
 best-so-far
 2
-
-//gui-image
-//best-so-far-bg
-//-0.15, -0.1
-//0.3, 0.5
-//Image/cert-bg.png, stretch
 
 // Element type
 gui-text
@@ -62,9 +55,6 @@ best-so-far-num
 // Font name, size
 TEXT, 2., fgcol=ffffff, left
 
-// Just a test
-//include
-//static-certificate.txt
 
 // Element type
 gui-text
@@ -81,6 +71,8 @@ TOPIC
 TEXT, 2.5, multi, fgcol=ffffff, reveal=0.1
 
 
+elastic
+0, 2
 
 // Quit button
 // element type
@@ -88,18 +80,20 @@ gui-button
 // Element name
 cancel-button
 // pos (coords are -1..1)
--0.96, 0.92
+-0.86, 0.86
 // size
-0.12, 0.12
+0.15, 0.15
 // Image 
 Image/gui-button-1.png
 // Text
 // Quit "X"
 G
 // Font name, size
-icon, 1.5, fgcol=ffffff, bgcol=FF0949
+icon, 1.8, fgcol=ffffff, bgcol=FF0949
 
 
+elastic
+0, -2
 // Start button
 gui-button
 start-button
@@ -111,12 +105,10 @@ $$$83
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
 // Composer avatar
-
-elastic
--.05,0
+// TODO Off screen "for now"
 
 translate
--.7, -.1
+-1.7, -.1
 scale
 .35,.35
 // Pivot, unlikely to work here
@@ -133,22 +125,9 @@ avatar.txt
 
 flush
 
-// Composer info button
-gui-button
-// Element name
-info-button
-// pos (coords are -1..1)
--0.6, 0.92
-// size
-0.12, 0.12
-// Image 
-Image/gui-button-1.png
-// Text
-// Info "i" symbol, should be I on atlas!
-H
-// Font name, size
-icon, 1.6, fgcol=ffffff, bgcol=4E69F4
 
+
+// TODO Off screen "for now"
 
 // Nameplate with composer name - using button just because it
 //  aligns text on an image BG
@@ -157,7 +136,7 @@ gui-button
 // Element name
 composer-name-button
 // pos (coords are -1..1)
--0.95, -0.55
+-1.95, -0.55
 // size
 0.5, 0.4
 // Image 
@@ -168,3 +147,19 @@ J.S.Bach
 times, 2.0, fgcol=000000
 
 
+// TODO Off screen "for now"
+// Composer info button
+gui-button
+// Element name
+info-button
+// pos (coords are -1..1)
+-1.6, -0.4
+// size
+0.12, 0.12
+// Image 
+Image/gui-button-1.png
+// Text
+// Info "i" symbol, should be I on atlas!
+H
+// Font name, size
+icon, 1.6, fgcol=ffffff, bgcol=4E69F4
