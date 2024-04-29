@@ -293,6 +293,7 @@
     <ClCompile Include="..\..\..\..\Source\DictionaryPickQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSAvatarMod.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSGuiEdit.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSShowNewLevelNum.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiAvatar.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSAbout.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
@@ -445,6 +446,7 @@
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowGui.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowMusicScore.h" />
+    <ClInclude Include="..\..\..\..\Source\GSShowNewLevelNum.h" />
     <ClInclude Include="..\..\..\..\Source\GSTestShowScore.h" />
     <ClInclude Include="..\..\..\..\Source\GSTitle.h" />
     <ClInclude Include="..\..\..\..\Source\GSTopicEnd.h" />

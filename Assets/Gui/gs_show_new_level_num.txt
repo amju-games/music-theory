@@ -1,0 +1,20 @@
+// * Amjula music theory *
+// (c) Copyright 2024 Juliet Colman
+
+// Show new level num
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+show-new-leGSShowNewLevelNumel-num-root
+// Num children
+2
+
+include 
+lift-interior.txt
+
+flush
+

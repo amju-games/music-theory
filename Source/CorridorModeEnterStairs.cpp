@@ -43,13 +43,13 @@ void CorridorModeEnterStairs::OnFinishedLerp()
   // Switch mode to zooming back out
   m_gs->SetMode(CorridorModeExitStairs::ID);
 
+  // TODO
   // Go to mode to show level
     // Go the the topic start state.
-  GSShowNewLevelNum* gs = TheGSShowNewLevelNum::Instance();
-  gs->SetPrevState(m_gs);
-  // No need to queue message, we go now, right?
-  GoTo<TheGSShowNewLevelNum>();
-
+  //GSShowNewLevelNum* gs = TheGSShowNewLevelNum::Instance();
+  //gs->SetPrevState(m_gs);
+  //// No need to queue message, we go now, right?
+  //GoTo<TheGSShowNewLevelNum>();
 }
 
 }
