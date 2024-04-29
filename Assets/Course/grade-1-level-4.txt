@@ -26,7 +26,7 @@ none
 // 1. base name for page gui filename
 // 2. Dictionary defining Questions
 // 3. Instructions text
-page-symbol-symbol-2=Course/level4/which_clef.txt=$$$3
+page-symbol-symbol=Course/level4/which_clef.txt=$$$3
 page-symbol-text=Course/level4/higher_or_lower.txt=$$$92
 page-symbol-symbol=Course/level4/name_the_note.txt=$$$93
 // Special case page:
