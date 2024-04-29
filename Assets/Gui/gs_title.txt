@@ -11,7 +11,7 @@ gui-comp
 // Name
 title-root
 // Num children
-4
+2
 
 //animation
 //trigger
@@ -65,12 +65,23 @@ BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
 spline
 my spline
-style=3, fillCol=40ffc0, outCol=ffc000, loop, w0=0.1, w1=0.2
-.5, .5
--.5, .5
--.5, -.5
-.5, -.5
+0.2, 0.2
+style=3, loop, outCol=ffc000, fillCol=40ffc0, radius=0.010000
+0.500000, 0.500000
+0.360211, 0.640625
+-0.108099, 0.662500
+-0.500000, 0.500000
+-0.585211, 0.053125
+-0.500000, -0.500000
+0.500000, -0.500000
 end
+
+
+
+
+
+translate
+.3,0
 
 gui-rect
 my rect
@@ -81,3 +92,15 @@ ff0000
 15
 
 
+
+translate
+.3,0
+
+poly
+my spline
+style=3, fillCol=40ffc0, outCol=ffc000, loop, w0=0.1, w1=0.2, radius=0.01
+.5, .5
+-.5, .5
+-.5, -.5
+.5, -.5
+end
