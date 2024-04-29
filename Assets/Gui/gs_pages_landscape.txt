@@ -51,11 +51,10 @@ G
 icon, 1.5, fgcol=ffffff, bgcol=FF0949
 
 // Composer avatar
-elastic
--.05,0
+// TODO Off screen "for now"
 
 translate
--.7, .45
+-1.7, .45
 scale
 .25,.25
 // Pivot, unlikely to work here
