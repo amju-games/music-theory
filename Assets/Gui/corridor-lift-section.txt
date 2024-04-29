@@ -26,14 +26,29 @@ one-shot
 0.500000
 // easing function
 linear
-translate
-0,0; -0.35,0
+scale
+1,1;0.1,1
+0,0
 animation
 clean-anim
 const
 // easing function
 one
 
+gui-comp
+two-doors
+2
+translate
+0,0
+
+include
+lift-door.txt
+
+translate
+0.29,0
+scale
+-1,1
+0,0
 include
 lift-door.txt
 
