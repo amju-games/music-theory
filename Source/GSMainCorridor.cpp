@@ -124,13 +124,16 @@ bool GSMainCorridor::LoadTappables()
   return true;
 }
 
-void GSMainCorridor::TriggerCorridorAnim(float desiredX)
+void GSMainCorridor::TriggerCorridorAnim(float desiredXChange)
 {
+  std::cout << "TriggerCorridorAnim: desiredXChange: " << desiredXChange << "\n";
+
   // Current position
-  m_posInCorridor->SetTranslation(m_posInCorridor->GetTranslation(1), 0);
+  Vec2f currentPos = m_posInCorridor->GetTranslation(1);
+  m_posInCorridor->SetTranslation(currentPos, 0);
 
   // Desired position
-  m_posInCorridor->SetTranslation(Vec2f(desiredX, 0), 1);
+  m_posInCorridor->SetTranslation(currentPos + Vec2f(desiredXChange, 0), 1);
 
   // Kick off the animation
   m_posInCorridorAnimator->SetCycleTime(GetEnterClassroomAnimTime());
@@ -149,12 +152,6 @@ void GSMainCorridor::PauseAnimsOnSection(PGuiElement corridorSection)
 
 void GSMainCorridor::StartExitLiftAnim()
 {
-  // Switch ends of the corridor: if we were at the right end, go to the left, and
-  //  vicew versa.
-  // TODO fix exiting left lift, so we should be on the right end of the corridor
-  m_lastXPosInCorridor = -1;
-  SetCorridorXPosition();
-
   StartEnterLiftAnim();
   m_isZooming = Zoom::ZOOM_OUT;
   m_zoom = MAX_ZOOM;
@@ -282,6 +279,7 @@ void GSMainCorridor::LoadCorridor()
   m_gui = LoadGui(m_guiFilename);
 
   m_animatableCorridorSections.clear();
+  m_animatableLiftSections.clear();
 
   // Insert root node for corridor sections
   // Find the animation node which controls our position in the corridor
@@ -332,6 +330,8 @@ void GSMainCorridor::SetLevel(int levelNum)
 
   bool wentUpNotDown = (levelNum > m_levelNum);
 
+  std::cout << "Setting new level to: " << levelNum << ", was: " << m_levelNum << "\n";
+
   m_levelNum = levelNum;
 
   // Persist level number
@@ -342,12 +342,22 @@ void GSMainCorridor::SetLevel(int levelNum)
   // Load course for this level
   LoadCourse();
 
-  // TODO If we went up, go to 0; if we went down, go to other end of corridor
-  m_lastXPosInCorridor = 0;
   // TODO Also set last topic to 0 or the end? 
   LoadCorridor();
 
   LoadTappables();
+
+  CorridorModeWait* waitMode = dynamic_cast<CorridorModeWait*>(m_modes[CorridorModeWait::ID].GetPtr());
+  int topicNum = -1;
+  if (!wentUpNotDown)
+  {
+    topicNum = GetCourse()->GetNumTopics();
+  }
+  m_lastXPosInCorridor = -(DISTANCE_BETWEEN_DOORS * static_cast<float>(topicNum)); // Negate!
+  waitMode->SetTopicOnLevelChange(topicNum);
+  SetCorridorXPosition();
+  m_posInCorridorAnimator->ResetAnimation();
+//  m_posInCorridorAnimator->SetIsPaused(true);
 }
 
 int GSMainCorridor::GetLevel() const
@@ -397,18 +407,6 @@ void GSMainCorridor::OnActive()
   // Init HUD
 //  auto profile = TheUserProfile();
 //  NumUpdate(m_gui, "hint-counter" /* TODO CONST */, profile->GetHints());
-
-  // TEST start particle effect
-//  Gui3dScene* particleScene = (Gui3dScene*)GetElementByName(m_gui, "particles-test");
-
-  //auto sg = particleScene->GetSceneGraph();
-  //Assert(sg);
-  //auto sgroot = sg->GetRootNode(SceneGraph::AMJU_OPAQUE);
-  //Assert(sgroot);
-  //ParticleEffect2d* node = dynamic_cast<ParticleEffect2d*>(sgroot->GetNodeByName("my-particle-node"));
-  //Assert(node);
- 
-  //node->Start();
 }
 
 void GSMainCorridor::Draw2d()
@@ -420,6 +418,7 @@ void GSMainCorridor::Draw2d()
     UseVertexColourShader();
 
     AmjuGL::PushMatrix();
+    AmjuGL::Scale(.5f, .5f, 1); // TODO To see what's going on better?!
     AmjuGL::Scale(m_zoom, m_zoom, 1.f);
     m_gui->Draw();
     AmjuGL::PopMatrix();
@@ -552,6 +551,7 @@ void GSMainCorridor::UpdateZoom()
     m_zoom += ZOOM_VEL * dt;
     if (m_zoom > MAX_ZOOM)
     {
+      std::cout << "Finished zooming in!\n";
       m_isZooming = Zoom::NO_ZOOM;
       m_zoom = MAX_ZOOM;
       // TODO Notify?
@@ -562,6 +562,7 @@ void GSMainCorridor::UpdateZoom()
     m_zoom -= ZOOM_VEL * dt;
     if (m_zoom < MIN_ZOOM)
     {
+      std::cout << "Finished zooming out!\n";
       m_isZooming = Zoom::NO_ZOOM;
       m_zoom = MIN_ZOOM;
       // TODO Notify?

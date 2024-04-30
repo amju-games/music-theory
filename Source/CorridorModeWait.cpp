@@ -37,14 +37,17 @@ CorridorModeWait::CorridorModeWait()
   m_guiFilename = "Gui/corridor_mode_wait.txt";
 }
 
+void CorridorModeWait::SetTopicOnLevelChange(int newTopic)
+{
+  m_currentTopicScrolledTo = newTopic;
+}
+
 void CorridorModeWait::Reset()
 {
 std::cout << "Call to CorridorModeWait::Reset(), trashing camera!!!\n";
 
   m_isDragging = false;
   m_currentTopicScrolledTo = 0;
-  m_desiredXPos = 0;
-  m_currentXPos = 0; 
   m_scrollTime = 0;
   m_didScroll = false;
 
@@ -135,6 +138,8 @@ void CorridorModeWait::SetCurrentTopic()
   Assert(course);
   int numTopics = course->GetNumTopics();
 
+  std::cout << "Wait mode: m_currentTopicScrolledTo is: " << m_currentTopicScrolledTo << "\n";
+
   if (m_currentTopicScrolledTo < 0
     || m_currentTopicScrolledTo >= numTopics)
   {
@@ -187,7 +192,7 @@ void CorridorModeWait::Drag(bool rightNotLeft)
   Assert(course);
   int numTopics = course->GetNumTopics();
 
-  int dir = rightNotLeft ? 1 : -1; // direction
+  const int dir = rightNotLeft ? 1 : -1; // direction
 
   // Check for end of corridor
   // We can scroll 1 position to the left and right of the doors, so we can
@@ -219,11 +224,14 @@ void CorridorModeWait::Drag(bool rightNotLeft)
 
   if (canSwipe)
   {
-    float currentX = m_currentTopicScrolledTo * DISTANCE_BETWEEN_DOORS;
+    // Update current topic immediately; on screen, we scroll to the new position.
     m_currentTopicScrolledTo -= dir;
-    m_desiredXPos += DISTANCE_BETWEEN_DOORS * dir;
 
-    GetState()->TriggerCorridorAnim(m_desiredXPos);
+    // Set change in X, giving new X to which we animate 
+    float xChange = DISTANCE_BETWEEN_DOORS * dir;
+    GetState()->TriggerCorridorAnim(xChange);
+
+    // Wait until animation completes
     m_scrollTime = GetState()->GetEnterClassroomAnimTime(); // time we are in 'scroll mode'
     m_isDragging = false;
 
@@ -273,17 +281,6 @@ void CorridorModeWait::OnActive()
 //  QueueFirstTimeMsgs( { TUTORIAL_HELLO, TUTORIAL_SWIPE }, AMJU_FIRST_TIME_THIS_USER);
 }
 
-void CorridorModeWait::SetCamera()
-{
-  //SceneNodeCamera* cam = m_gs->GetCamera();
-  //Vec3f eye = cam->GetEyePos();
-  //Vec3f look = cam->GetLookAtPos();
-  //eye.z = m_currentXPos;
-  //look.z = m_currentXPos;
-  //cam->SetEyePos(eye);
-  //cam->SetLookAtPos(look);
-}
-
 bool CorridorModeWait::IsScrolling() const
 {
   return m_scrollTime > 0;
@@ -307,8 +304,6 @@ void CorridorModeWait::Update()
       // Successful swipe - if first time, show more tutorial msgs
 //      QueueFirstTimeMsgs( { TUTORIAL_TAP_DOOR }, AMJU_FIRST_TIME_THIS_USER);
     }
-
-    SetCamera();
   }
   else
   {

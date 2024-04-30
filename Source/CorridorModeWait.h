@@ -23,13 +23,16 @@ public:
   virtual bool OnMouseButtonEvent(const MouseButtonEvent&) override;
   virtual void Reset() override; 
 
+  // Set topic: this will be -1 or 1 more than the final topic index,
+  //  if we are exiting a lift.
+  void SetTopicOnLevelChange(int newTopic);
+
 private:
   void Drag(bool rightNotLeft);
   void DecelerateScrolling();
   void CheckTappables();
   void ShowTopicName(bool showNotHide);
   void SetCurrentTopic();
-  void SetCamera();
   void OnTapDoorOrArch();
 
   // If true, we are scrolling left or right, and no user interaction is 
@@ -45,8 +48,6 @@ private:
   bool m_touchDownOnDoor = false;
 
   bool m_didScroll = false; // true if we scrolled between touch down and touch up
-  float m_desiredXPos = 0;
-  float m_currentXPos = 0;
   int m_currentTopicScrolledTo = 0;
 
   // Time in scrolling mode remaining

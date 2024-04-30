@@ -128,7 +128,7 @@ private:
   RCPtr<CorridorMode> m_currentMode;
   int m_newModeId = -1; // set to a valid index in m_modes when we want to change mode
 
-  int m_levelNum = 1; // 1-based, right?
+  int m_levelNum = 1; // 1-based: the current Course we are displaying
 
   float m_zoom = 1.f; // scale factor, zooms in 'camera'
   enum class Zoom

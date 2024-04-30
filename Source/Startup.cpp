@@ -351,7 +351,7 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSAvatarMod::Instance());
 
-  //TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 }
 
 static void LoadStringTableForPreferredLanguage()
