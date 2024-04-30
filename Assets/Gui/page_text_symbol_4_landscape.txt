@@ -1,5 +1,5 @@
 // * Amjula music theory *
-// (c) Copyright 2017 Jason Colman
+// (c) Copyright 2024 Juliet Colman
 
 // page_text_symbol_4
 // Text question, with 4 buttons for symbols/musical scores.
