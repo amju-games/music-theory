@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-207
+209
 1=Welcome to Amjula Music School!
 2=Swipe left and right to move along the corridor!
 3=Which clef?
@@ -209,3 +209,5 @@
 205=You played %s, but you should have played %s!
 206=DOWN
 207=UP
+208=<i>Guten tag</i>! I am Johann Sebastian Bach, but you can call me J.S. for short!
+209=This classroom is haunted by the ghostly presence of J.S. Bach!
