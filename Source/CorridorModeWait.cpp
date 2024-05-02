@@ -164,12 +164,12 @@ void CorridorModeWait::SetCurrentTopic()
   if (m_currentTopicScrolledTo == -1) 
   {
     Assert(level > LOWEST_LEVEL);
-    text->SetText("@@@DOWN");
+    text->SetText("$$$206" /* DOWN */);
   }
   else if (m_currentTopicScrolledTo == numTopics)
   {
     Assert(GetState()->IsThereALevelAboveCurrentLevel());
-    text->SetText("@@@UP");
+    text->SetText("$$$207" /* UP */);
   }
   else 
   {
