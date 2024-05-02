@@ -15,7 +15,8 @@ hint-buttons-and-counters
 
 // Move to bottom of screen
 translate
-0, -.725
+// TODO Moved off screen "for now"
+0, -1.725
 
 gui-comp
 two-buttons
