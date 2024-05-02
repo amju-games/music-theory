@@ -17,6 +17,7 @@
 #include "Dictionary.h"
 #include "GSMainCorridor.h"
 #include "GSPages.h"
+#include "GSPagesEdit.h"
 #include "GSPause.h"
 #include "GSTopicStart.h"
 #include "GSTopicEnd.h"
@@ -32,6 +33,12 @@
 
 namespace Amju
 {
+static void GoToEditMode()
+{
+  TheGSPagesEdit::Instance()->SetPrevState(TheGSPages::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSPagesEdit::Instance());
+}
+
 static void OnQuitConfirmOK(GuiElement*)
 {
   TheGSPages::Instance()->OnQuitConfirmOK();
@@ -332,20 +339,23 @@ bool GSPages::OnKeyEvent(const KeyEvent& ke)
   {
     switch (ke.key)
     {
-      case 'p':
-      {
-        // Show page GUI tree
-        if (m_page && m_page->GetGui())
-        {
-          PrintGui(m_page->GetGui());
-        }
-        else
-        {
-          std::cout << "Null page GUI!\n";
-        }
-        break;
+    case '9':
+      GoToEditMode();
+      return true;
 
-      case 'o':
+    case 'p':
+      // Show page GUI tree
+      if (m_page && m_page->GetGui())
+      {
+        PrintGui(m_page->GetGui());
+      }
+      else
+      {
+        std::cout << "Null page GUI!\n";
+      }
+      break;
+
+    case 'o':
       {
         // Go to topic end
         SetFinalScore();
@@ -361,14 +371,11 @@ bool GSPages::OnKeyEvent(const KeyEvent& ke)
         break;
       }
 
-      case 'i':
-      {
+    case 'i':
         // Inc score
         m_scoreThisSession++;
         UpdateHud();
         break;
-      }
-      } // case
     } // switch
   } // if
 

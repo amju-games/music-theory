@@ -37,7 +37,7 @@ public:
 
   void OnCorrect();
   void OnIncorrect();
-  void NextPage();
+  virtual void NextPage();
   void OnHint();
 
   void OnQuitButton();

@@ -16,20 +16,15 @@ namespace Amju
 {
 static void OnHint(GuiElement* hintButton)
 {
-  TheGSPages::Instance()->OnHint();
+  GetPagesState()->OnHint();
 }
 
 // Convenience function: get the GSPages game state, but only if it's
 //  currently active.
 GSPages* GetPagesState()
 {
-  GSPages* pages = TheGSPages::Instance();
-  // Sanity check: this only makes sense if GSPages is active
-  if (TheGame::Instance()->GetState() == pages)
-  {
-    return pages;
-  }
-  return nullptr;
+  auto* gameState = TheGame::Instance()->GetState();
+  return dynamic_cast<GSPages*>(gameState);
 }
 
 // Called from timed FuncMessage
@@ -40,6 +35,30 @@ void GoToNextPage()
   {
     pages->NextPage();
   }
+}
+
+std::string Page::GetInfo() const
+{
+  const std::string guiFilename = "Gui/page_" + m_guiName + "_landscape.txt";
+
+  std::string info =
+    "Page info: GUI filename: " + guiFilename +
+    "\nDictionary filename: " + m_dictionaryFilename +
+    "\nInstruction text: " + GetInstructionText();
+
+  if (m_question)
+  {
+    info +=
+      "\nQuestion: " + m_question->GetQuestionString() +
+      "\nAnswer: " + m_question->GetAnswerString() +
+      "\nExplanation: " + m_question->GetExplanationString();
+  }
+  else
+  {
+    info += "\nQuestion: not set";
+  }
+  info += "\n";
+  return info;
 }
 
 void Page::SendNextPageMessage()
@@ -92,7 +111,7 @@ void Page::SetGuiName(const std::string& guiName)
 
 GuiButton* Page::GetHintButton() const
 {
-  GuiElement* hint = GetElementByName(TheGSPages::Instance()->GetGui(), "hint-button");
+  GuiElement* hint = GetElementByName(GetPagesState()->GetGui(), "hint-button");
   return dynamic_cast<GuiButton*>(hint);
 }
 

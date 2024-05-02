@@ -31,6 +31,8 @@ public:
   // Send timed Message to go to next page
   static void SendNextPageMessage();
 
+  std::string GetInfo() const; // Get page name and other info, for authoring info
+
   virtual void OnActive();
   virtual void OnDeactive();
   virtual void Draw();

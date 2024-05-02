@@ -23,7 +23,7 @@ struct PlayCommand : public GuiCommand
     Assert(numHints > 0); // Button should be disabled if hints < 1
     profile->AddHints(HintType::HINT_TYPE_PLAY, -1);
     // Update the HUD
-    TheGSPages::Instance()->ShowHints();
+    GetPagesState()->ShowHints();
 
     GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(GetElementByName(
       m_guiRoot, "play-music-trigger"));
@@ -81,7 +81,7 @@ void PageQuestionScore::SetUp()
   }
   
   // Hook up play button -- hide if nothing to play
-  PGuiElement guiRoot = TheGSPages::Instance()->GetGui();
+  PGuiElement guiRoot = GetPagesState()->GetGui();
   GuiButton* playButton = dynamic_cast<GuiButton*>(
     GetElementByName(guiRoot, "play-button"));
 
@@ -115,7 +115,7 @@ void PageQuestionScore::OnPlayerChoice()
 {
   // Disable Play button once player has answered
   GuiButton* playButton = dynamic_cast<GuiButton*>(
-    GetElementByName(TheGSPages::Instance()->GetGui(), "play-button"));
+    GetElementByName(GetPagesState()->GetGui(), "play-button"));
   if (playButton)
   {
     playButton->SetIsEnabled(false);
