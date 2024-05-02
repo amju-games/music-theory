@@ -208,10 +208,15 @@ void GSMainCorridor::AddOneLiftSection(int sectionNum, GuiComposite* addChildren
   PauseAnimsOnSection(liftSection);
 }
 
+bool GSMainCorridor::IsThereALevelAboveCurrentLevel() const
+{
+  // TODO We need a list of courses, so we know when we are at the EOC
+  return GetLevel() < 4;  
+}
+
 void GSMainCorridor::AddRightLiftOrBlankSection(int sectionNum, GuiComposite* addChildren)
 {
-  // TODO Find the max level, i.e. the final "course" file.
-  bool hasLiftToNextLevel = GetLevel() < 4;
+  bool hasLiftToNextLevel = IsThereALevelAboveCurrentLevel();
 
   // Lift to next level -- TODO diff styles?
   if (hasLiftToNextLevel) 
@@ -418,7 +423,6 @@ void GSMainCorridor::Draw2d()
     UseVertexColourShader();
 
     AmjuGL::PushMatrix();
-    AmjuGL::Scale(.5f, .5f, 1); // TODO To see what's going on better?!
     AmjuGL::Scale(m_zoom, m_zoom, 1.f);
     m_gui->Draw();
     AmjuGL::PopMatrix();

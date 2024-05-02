@@ -50,8 +50,6 @@ std::cout << "Call to CorridorModeWait::Reset(), trashing camera!!!\n";
   m_currentTopicScrolledTo = 0;
   m_scrollTime = 0;
   m_didScroll = false;
-
-  SetCamera();
 }
 
 void CorridorModeWait::OnTapDoorOrArch()
@@ -140,25 +138,49 @@ void CorridorModeWait::SetCurrentTopic()
 
   std::cout << "Wait mode: m_currentTopicScrolledTo is: " << m_currentTopicScrolledTo << "\n";
 
-  if (m_currentTopicScrolledTo < 0
-    || m_currentTopicScrolledTo >= numTopics)
+  const bool topicIsOutOfRange = (m_currentTopicScrolledTo < -1) || 
+    (m_currentTopicScrolledTo > numTopics);
+
+  const bool noMoreLevels = !GetState()->IsThereALevelAboveCurrentLevel();
+  const bool noUpLift = (m_currentTopicScrolledTo == numTopics) && noMoreLevels;
+
+  const int level = GetState()->GetLevel();
+  constexpr int LOWEST_LEVEL = 1; // TODO Should we be able to go down to level 0?
+  const bool noDownLift = (m_currentTopicScrolledTo == -1) && (level <= LOWEST_LEVEL);
+
+  if (topicIsOutOfRange || noUpLift || noDownLift)
   {
     // Past end of Topic doors
     ShowTopicName(false);
     return;
   }
 
-  TheUserProfile()->SetCurrentTopic(m_currentTopicScrolledTo);
+  // Set text above door or lift
 
-  // Set topic name: get topic name...
-  Topic* topic = course->GetTopic(m_currentTopicScrolledTo);
-
-  // ...now set the text on screen
-  IGuiText* text = dynamic_cast<IGuiText*>(
-    GetElementByName(m_gui, "topic-name-text"));
+  IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "topic-name-text"));
   Assert(text);
 
-  text->SetText(topic->GetDisplayName());
+  // Show "Up" or "Down" for lifts, or topic name for classroom door.
+  if (m_currentTopicScrolledTo == -1) 
+  {
+    Assert(level > LOWEST_LEVEL);
+    text->SetText("@@@DOWN");
+  }
+  else if (m_currentTopicScrolledTo == numTopics)
+  {
+    Assert(GetState()->IsThereALevelAboveCurrentLevel());
+    text->SetText("@@@UP");
+  }
+  else 
+  {
+    Assert(m_currentTopicScrolledTo >= 0 &&
+      m_currentTopicScrolledTo < numTopics);
+    // Set topic name: get topic name, set in GUI text
+    TheUserProfile()->SetCurrentTopic(m_currentTopicScrolledTo);
+    Topic* topic = course->GetTopic(m_currentTopicScrolledTo);
+    text->SetText(topic->GetDisplayName());
+  }
+
   GuiText* gtext = dynamic_cast<GuiText*>(text);
   if (gtext)
   {
@@ -176,7 +198,7 @@ void CorridorModeWait::SetCurrentTopic()
     rect->SetLocalPos(pos);
   }
 
-  ShowTopicName(true); // ? m_gs->IsTopicUnlocked(m_currentTopicScrolledTo));
+  ShowTopicName(true);
 }
 
 void CorridorModeWait::Drag(bool rightNotLeft)
@@ -275,8 +297,6 @@ void CorridorModeWait::OnActive()
 
   m_scrollTime = 0;
   m_isDragging = false;
-
-  SetCamera();
 
 //  QueueFirstTimeMsgs( { TUTORIAL_HELLO, TUTORIAL_SWIPE }, AMJU_FIRST_TIME_THIS_USER);
 }
