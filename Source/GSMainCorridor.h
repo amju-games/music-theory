@@ -27,6 +27,8 @@ class GSMainCorridor : public GSBase
 {
 public:
   GSMainCorridor();
+  ~GSMainCorridor();
+
   virtual void OnActive() override;
   virtual void OnDeactive() override;
   virtual void Update() override;

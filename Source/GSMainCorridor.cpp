@@ -80,6 +80,10 @@ GSMainCorridor::GSMainCorridor()
   SetMode(CorridorModeWait::ID);
 }
 
+GSMainCorridor::~GSMainCorridor()
+{
+}
+
 float GSMainCorridor::GetEnterClassroomAnimTime() const
 {
   return .5f;
