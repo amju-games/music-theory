@@ -421,6 +421,10 @@ GSGuiEdit::GSGuiEdit()
   m_guiFilename = "Gui/gs_edit_gui.txt"; 
 }
 
+GSGuiEdit::~GSGuiEdit()
+{
+}
+
 void GSGuiEdit::SetUpdateGuiWeAreEditing(bool yesUpdate)
 {
   m_doUpdateEditGui = yesUpdate;

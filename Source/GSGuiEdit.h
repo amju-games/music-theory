@@ -17,6 +17,7 @@ class GSGuiEdit : public GSBase
 {
 public:
   GSGuiEdit();
+  ~GSGuiEdit();
   void OnActive() override;
   void Update() override;
   void Draw2d() override;
