@@ -1,6 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2024 Juliet Colman
 
+#include <Localise.h>
 #include <SceneNodeCamera.h>
 #include <Sign.h>
 #include <Timer.h>
@@ -164,12 +165,12 @@ void CorridorModeWait::SetCurrentTopic()
   if (m_currentTopicScrolledTo == -1) 
   {
     Assert(level > LOWEST_LEVEL);
-    text->SetText("$$$206" /* DOWN */);
+    text->SetText(Lookup("$$$206" /* DOWN */));
   }
   else if (m_currentTopicScrolledTo == numTopics)
   {
     Assert(GetState()->IsThereALevelAboveCurrentLevel());
-    text->SetText("$$$207" /* UP */);
+    text->SetText(Lookup("$$$207" /* UP */));
   }
   else 
   {
