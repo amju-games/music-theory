@@ -93,31 +93,35 @@ void GSMainCorridor::LoadCourse()
 
 bool GSMainCorridor::LoadTappables()
 {
-  //File f;
-  //std::string filename = "Gui/tappables-" + ToString(m_levelNum) + ".txt";
-  //if (!f.OpenRead(filename))
-  //{
-  //  // Plenty of error messages will be displayed, don't worry
-  //  return false;
-  //}
+  File f;
+  std::string filename = "Gui/tappables-" + std::to_string(GetLevelManager().GetLevelNum()) + ".txt";
+  if (!f.OpenRead(filename))
+  {
+    // Plenty of error messages will be displayed, don't worry
+    return false;
+  }
 
-  //int num = 0;
-  //if (!f.GetInteger(&num))
-  //{
-  //  f.ReportError("Expected num tappables");
-  //  return false;
-  //}
-  //m_tappables.clear();
-  //for (int i = 0; i < num; i++)
-  //{
-  //  RCPtr<Tappable> t = new Tappable;
-  //  if (!t->Load(&f))
-  //  {
-  //    return false;
-  //  }
-  //  m_tappables.push_back(t);
-  //  root->AddChild(t->GetSceneNode());
-  //}
+  // TODO Need a different anchor for tappables?
+  GuiComposite* addChildren = dynamic_cast<GuiComposite*>(GetGui()->GetElementByName("add-door-sections-to-me"));
+
+  int num = 0;
+  if (!f.GetInteger(&num))
+  {
+    f.ReportError("Expected num tappables");
+    return false;
+  }
+  m_tappables.clear();
+  for (int i = 0; i < num; i++)
+  {
+    RCPtr<Tappable> t = new Tappable;
+    if (!t->Load(&f))
+    {
+      return false;
+    }
+    m_tappables.push_back(t);
+    addChildren->AddChild(t->GetGui());
+  }
+
   return true;
 }
 
@@ -348,7 +352,6 @@ void GSMainCorridor::SetLevel(int levelNum)
   // Load course for the new level
   LoadCourse();
 
-  // TODO Also set last topic to 0 or the end? 
   LoadCorridor();
 
   LoadTappables();
@@ -363,7 +366,6 @@ void GSMainCorridor::SetLevel(int levelNum)
   waitMode->SetTopicOnLevelChange(topicNum);
   SetCorridorXPosition();
   m_posInCorridorAnimator->ResetAnimation();
-//  m_posInCorridorAnimator->SetIsPaused(true);
 }
 
 void GSMainCorridor::SetCorridorXPosition()
@@ -578,6 +580,15 @@ Tappable* GSMainCorridor::GetSelectedTappable()
 
 Tappable* GSMainCorridor::TappablePickTest(const Vec2f& touchCoord)
 {
+  for (Tappable* t : m_tappables)
+  {
+    Assert(t);
+    Rect r = t->GetGui()->CalcRect();
+    if (r.IsPointIn(touchCoord))
+    {
+      return t;
+    }
+  }
   return nullptr;
 }
 

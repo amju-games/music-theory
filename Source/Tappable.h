@@ -23,7 +23,8 @@ public:
   virtual void OnTapped();
   virtual bool Load(File*);
 
-  SceneNode* GetSceneNode();
+  PGuiElement GetGui();
+
   const std::string& GetName() const;
   const Vec3f& GetCameraEyePos() const;
   const Vec3f& GetCameraTargetPos() const;
@@ -36,9 +37,6 @@ public:
 
 protected:
   std::string m_name;
-
-  // 3D scene node
-  PSceneNode m_node;
 
   Vec3f m_camEye;
   Vec3f m_camTarget;

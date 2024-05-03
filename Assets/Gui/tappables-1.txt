@@ -4,10 +4,19 @@
 // v
 1
 
-// Tappables: 3d objects which user can tap on to get info.
+// Tappables: Gui objects which user can tap on to get info, or hint coins.
 
 // num tappables
-8
+1
+
+// Name
+Level pic
+// Gui file
+Gui/tappables/tap-level1-level-pic.txt
+
+
+
+
 
 // ==========================================================================
 // Picture

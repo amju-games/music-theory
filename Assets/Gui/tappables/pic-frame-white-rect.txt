@@ -1,0 +1,11 @@
+// * Amjula music theory * (c) Copyright 2024 Juliet Colman
+1
+poly
+white-rect
+0,0
+style=1, loop, outCol=000000, fillCol=ffffff, radius=0.006000
+0.232394, -0.184375
+0.234507, 0.390625
+-0.109858, 0.387500
+-0.114436, -0.171875
+end

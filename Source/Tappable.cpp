@@ -1,5 +1,5 @@
-// * Amjulib *
-// (c) Copyright 2000-2024 Juliet Colman
+// * Amjula Music School *
+// (c) Copyright 2024 Juliet Colman
 
 #include <EventPoller.h>
 #include <File.h>
@@ -21,43 +21,28 @@ bool Tappable::Load(File* f)
     return false;
   }
 
-  // 3D mesh
-  m_node = LoadScene(f);
-  m_node->SetName("Tappable: " + m_name);
-  
-  // Camera eye/target when selected
-  if (!LoadVec3(f, &m_camEye))
-  {
-    f->ReportError("Failed to load eye pos for camera node");
-    return false;
-  }
-
-  if (!LoadVec3(f, &m_camTarget))
-  {
-    f->ReportError("Failed to load look at (target) pos for camera node");
-    return false;
-  }
-
   // Load "on-screen" GUI
   if (!f->GetDataLine(&m_screenGuiFilename))
   {
     f->ReportError("Expected screen GUI for tappable");
     return false;
   }
+  ActivateGui();
 
-  // Load GUI we display in notebook (use includes to share as much as poss)
-  if (!f->GetDataLine(&m_notebookGuiFilename))
-  {
-    f->ReportError("Expected notebook GUI for tappable");
-    return false;
-  }
+  //// Load GUI we display in notebook (use includes to share as much as poss)
+  //if (!f->GetDataLine(&m_notebookGuiFilename))
+  //{
+  //  f->ReportError("Expected notebook GUI for tappable");
+  //  return false;
+  //}
 
   return true;
 }
 
-SceneNode* Tappable::GetSceneNode()
+PGuiElement Tappable::GetGui()
 {
-  return m_node;
+  Assert(m_gui);
+  return m_gui;
 }
 
 const std::string& Tappable::GetName() const
@@ -107,7 +92,7 @@ void Tappable::UpdateGui()
 void Tappable::OnTapped()
 {
   // Default behaviour
-  TheGSMainCorridor::Instance()->SetMode(CorridorModeEnterTappable::ID);
+  //TheGSMainCorridor::Instance()->SetMode(CorridorModeEnterTappable::ID);
 
   PlayWav(WAV_ENTER_TAPPABLE);
 }

@@ -1,0 +1,84 @@
+// * Amjula music theory * (c) Copyright 2024 Juliet Colman
+1
+gui-comp
+picture-frame
+// Num children
+7
+// child 0 of picture-frame
+poly
+base-poly-1-1
+0.0647887,-0.21875
+style=3, loop, outCol=000000, fillCol=c0c0c0, radius=0.006000
+0.169014, 0.040625
+0.223943, -0.046875
+-0.255985, -0.053125
+-0.200704, 0.040625
+end
+// child 1 of picture-frame
+poly
+base-poly-1-1-1
+0.542606,-0.503125
+style=3, loop, outCol=000000, fillCol=808080, radius=0.006000
+-0.311620, 0.896875
+-0.246127, 1.012500
+-0.250703, 0.225000
+-0.309858, 0.331250
+end
+// child 2 of picture-frame
+poly
+base-poly-1-1-1-1
+0.020423,-0.484375
+style=3, loop, outCol=000000, fillCol=808080, radius=0.006000
+-0.149648, 0.878125
+-0.221479, 0.993750
+-0.213731, 0.209375
+-0.151408, 0.303125
+end
+// child 3 of picture-frame
+spline
+spline-1
+-0.015845,-0.096875
+style=1, loop, outCol=000000, fillCol=e0e0e0, radius=0.100000, w0=0.005000, w1=0.005000
+-0.105634, 0.484375
+-0.156690, 0.565625
+-0.133803, 0.621875
+-0.080986, 0.618750
+-0.012324, 0.484375
+0.047535, 0.506250
+0.038733, 0.553125
+0.008803, 0.546875
+end
+// child 4 of picture-frame
+spline
+spline-2
+0.116198,0.55
+style=1, loop, outCol=000000, fillCol=d0d0d0, radius=0.100000, w0=0.005000, w1=0.005000
+-0.304577, -0.015625
+-0.278169, -0.062500
+-0.286972, -0.090625
+-0.304578, -0.084375
+end
+// child 5 of picture-frame
+spline
+spline-2-1
+0.307043,0.640625
+style=1, loop, outCol=00ffff, fillCol=d0d0d0, radius=0.100000, w0=0.005000, w1=0.005000
+-0.323944, -0.115625
+-0.295774, -0.137500
+-0.302817, -0.175000
+-0.322183, -0.168750
+end
+// child 6 of picture-frame
+spline
+spline-3
+0.348592,0.496875
+style=2, loop, outCol=000000, fillCol=ff0000, radius=0.100000, w0=0.010000, w1=0.005000
+-0.484155, -0.046875
+-0.512324, -0.015625
+-0.480634, 0.018750
+-0.404930, -0.090625
+-0.339789, -0.075000
+-0.341549, -0.034375
+-0.369718, -0.040625
+end
+// end of picture-frame
