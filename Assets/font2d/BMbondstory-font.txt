@@ -1,0 +1,10 @@
+// BM font: "Bond Story"
+// version: 2 => BM font 
+2
+
+// Oh no, the code isn't ready. The output isn't the same as for font textures
+//  generated with Bitmap Font Generator :(
+
+// BM Font .fnt file (txt appended for glue file)
+font2d/bondstory/bondstory.fnt.txt
+

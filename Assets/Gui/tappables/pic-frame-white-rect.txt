@@ -3,7 +3,7 @@
 poly
 white-rect
 0,0
-style=1, loop, outCol=000000, fillCol=ffffff, radius=0.006000
+style=1, loop, outCol=000000, fillCol=e0e0e0, radius=0.006000
 0.232394, -0.184375
 0.234507, 0.390625
 -0.109858, 0.387500
