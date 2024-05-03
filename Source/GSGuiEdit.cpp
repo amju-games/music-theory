@@ -522,19 +522,23 @@ void GSGuiEdit::OnGuiItemNew(GuiElement* menuItem)
     GuiComposite* comp = dynamic_cast<GuiComposite*>(m_selectedElements[0].GetPtr());
     if (comp)
     {
-      GuiText* t = dynamic_cast<GuiText*>(menuItem);
-      if (t)
+      GuiTextMenuItem* gtmi = dynamic_cast<GuiTextMenuItem*>(menuItem);
+      if (gtmi)
       {
-        std::string str = Trim(t->GetText());
-        PGuiElement newChild = TheGuiFactory::Instance()->Create(str);
-        if (newChild)
+        GuiText* t = dynamic_cast<GuiText*>(gtmi->GetChild());
+        if (t)
         {
-          UniqueNameForNewElement(newChild);
-          newChild->CreateEditorDefault();
-          TheGuiCommandHandler::Instance()->DoNewCommand(new GuiItemNewCommand(comp, newChild));
-          m_selectedElements.clear();
-          m_editors.clear();
-          PopulateTreeView();
+          std::string str = Trim(t->GetText());
+          PGuiElement newChild = TheGuiFactory::Instance()->Create(str);
+          if (newChild)
+          {
+            UniqueNameForNewElement(newChild);
+            newChild->CreateEditorDefault();
+            TheGuiCommandHandler::Instance()->DoNewCommand(new GuiItemNewCommand(comp, newChild));
+            m_selectedElements.clear();
+            m_editors.clear();
+            PopulateTreeView();
+          }
         }
       }
     }
@@ -828,6 +832,12 @@ void GSGuiEdit::SetSelectedElement(PGuiElement e)
 
 bool GSGuiEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 {
+  if (m_rightClickTreeViewMenu &&
+    !m_rightClickTreeViewMenu->IsVisible())
+  {
+    m_rightClickTreeViewMenu = nullptr;
+  }
+
   if (m_rightClickTreeViewMenu &&
     m_rightClickTreeViewMenu->OnMouseButtonEvent(mbe))
   {
