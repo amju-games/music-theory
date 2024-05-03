@@ -27,7 +27,7 @@ public:
   void SetCurrentTopic(int topicId);
   int GetCurrentTopic() const;
 
-  // Get current level - store in config file.
+  // Get/set persistent current level 
   void SetCurrentLevel(int level);
   int GetCurrentLevel() const;
 
@@ -69,6 +69,7 @@ private:
 
   int m_currentTopic = 0; // not persistent
   int m_topicScore = 0; // score for the current topic, not persistent
+  int m_levelNum = 0;
 };
 
 // Get profile for current user, TODO might redo this a bit

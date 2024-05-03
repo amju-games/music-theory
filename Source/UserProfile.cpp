@@ -29,6 +29,8 @@ const char* KEY_TOPIC_UNLOCKED = "topic_unlocked_";
 
 const char* FILENAME_SUFFIX = "_user_profile.txt";
 
+const char* KEY_LEVEL = "level";
+
 } // anon namespace
 
 UserProfile* TheUserProfile()
@@ -53,7 +55,7 @@ std::cout << "Saving config file " << filename << "\n";
 
 ConfigFile* UserProfile::GetConfigFile()
 {
-  // Not in map, try to load, add to map
+  // TODO The user profile isn't per-user, sigh
   static ConfigFile* cf = nullptr;
   if (!cf)
   { 
@@ -187,6 +189,22 @@ void UserProfile::UnlockTopic(const std::string& topicId)
   Assert(!topicId.empty());
   auto userConfig = GetConfigFile();
   userConfig->SetInt(KEY_TOPIC_UNLOCKED + topicId, 1);
+}
+
+void UserProfile::SetCurrentLevel(int level)
+{
+  Assert(m_levelNum != level); // LevelManager guards this -- unless we change users
+  auto userConfig = GetConfigFile();
+  userConfig->SetInt(KEY_LEVEL, level);
+  Save();
+  m_levelNum = level;
+}
+
+int UserProfile::GetCurrentLevel() const
+{
+  const ConfigFile* userConfig = const_cast<UserProfile*>(this)->GetConfigFile();
+  const int DEFAULT_LEVEL = 1; // TODO 0 when we have tutorial level
+  return userConfig->GetInt(KEY_LEVEL, DEFAULT_LEVEL);
 }
 }
 

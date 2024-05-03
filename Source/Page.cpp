@@ -10,7 +10,9 @@
 #include "Consts.h"
 #include "Dictionary.h"
 #include "GSPages.h"
+#include "LevelManager.h"
 #include "Page.h"
+#include "Wallpaper.h"
 
 namespace Amju
 {
@@ -128,6 +130,9 @@ void Page::OnDeactive()
 void Page::OnActive()
 {
   m_gui = LoadGui("Gui/boilerplate.txt");
+
+  Wallpaper w;
+  w.SetWallpaper(m_gui, GetLevelManager().GetLevelNum());
 
   // Load page-specific gui and join it to the boilerplate
   std::string landscape = "_landscape";

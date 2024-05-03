@@ -1,3 +1,5 @@
+// * Amjula music theory * (c) Copyright 2024 Juliet Colman
+
 #pragma once
 
 namespace Amju
@@ -10,7 +12,10 @@ class GuiElement;
 class Wallpaper
 {
 public:
-  void SetWallpaper(GuiElement* gui, int level);
+  // Set wallpaper colours.
+  // guiRoot should have Colour decorator descendants "colour-wall-group-1" and
+  //  "colour-wall-group-2".
+  void SetWallpaper(GuiElement* guiRoot, int level);
 };
 }
 

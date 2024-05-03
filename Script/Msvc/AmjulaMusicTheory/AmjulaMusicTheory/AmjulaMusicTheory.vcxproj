@@ -289,6 +289,7 @@
     <ClCompile Include="..\..\..\..\Source\CorridorModeShowTappable.cpp" />
     <ClCompile Include="..\..\..\..\Source\CorridorModeWait.cpp" />
     <ClCompile Include="..\..\..\..\Source\Course.cpp" />
+    <ClCompile Include="..\..\..\..\Source\CourseManager.cpp" />
     <ClCompile Include="..\..\..\..\Source\DevMenu.cpp" />
     <ClCompile Include="..\..\..\..\Source\DictionaryPickQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSAvatarMod.cpp" />
@@ -316,6 +317,7 @@
     <ClCompile Include="..\..\..\..\Source\Gui3dScene.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicKb.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\LevelManager.cpp" />
     <ClCompile Include="..\..\..\..\Source\LurkMsg.cpp" />
     <ClCompile Include="..\..\..\..\Source\Md2SceneNode.cpp" />
     <ClCompile Include="..\..\..\..\Source\MultiChoiceQuestion.cpp" />
@@ -414,6 +416,7 @@
     <ClCompile Include="..\..\..\..\Source\UserProfile.cpp" />
     <ClCompile Include="..\..\..\..\Source\UseVertexColourShader.cpp" />
     <ClCompile Include="..\..\..\..\Source\Version.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Wallpaper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\CentreMsg.h" />
@@ -459,6 +462,8 @@
     <ClInclude Include="..\..\..\..\Source\GuiAvatar.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
+    <ClInclude Include="..\..\..\..\Source\CourseManager.h" />
+    <ClInclude Include="..\..\..\..\Source\LevelManager.h" />
     <ClInclude Include="..\..\..\..\Source\LurkMsg.h" />
     <ClInclude Include="..\..\..\..\Source\Md2SceneNode.h" />
     <ClInclude Include="..\..\..\..\Source\MultiChoiceQuestion.h" />
@@ -501,6 +506,7 @@
     <ClInclude Include="..\..\..\..\Source\UserProfile.h" />
     <ClInclude Include="..\..\..\..\Source\UseVertexColourShader.h" />
     <ClInclude Include="..\..\..\..\Source\Version.h" />
+    <ClInclude Include="..\..\..\..\Source\Wallpaper.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib" />

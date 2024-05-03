@@ -29,6 +29,7 @@
 #include "GSAbout.h"
 #include "GSMainCorridor.h"
 #include "GSTitle.h"
+#include "LevelManager.h"
 #include "LurkMsg.h"
 #include "MySceneGraph.h"
 #include "NumUpdate.h"
@@ -37,15 +38,10 @@
 #include "TutorialManager.h"
 #include "UserProfile.h"
 #include "UseVertexColourShader.h"
-
-// TODO TEMP TEST
-#include "Gui3dScene.h"
-#include "SceneGraph.h"
-#include "ParticleEffect2d.h"
+#include "Wallpaper.h"
 
 namespace
 {
-const char* LEVEL_KEY = "level";
 constexpr bool NOT_LISTENER = false;
 constexpr float MAX_ZOOM = 3.f;
 constexpr float MIN_ZOOM = 1.f;
@@ -56,7 +52,7 @@ namespace Amju
 {
 GSMainCorridor::GSMainCorridor()
 {
-  m_levelNum = TheGameConfigFile::Instance()->GetInt(LEVEL_KEY, 1);
+  // Load the course we start the game on (this is persisted between sessions).
   LoadCourse();
 
   m_guiFilename = "Gui/gs_main_menu_corridor.txt";
@@ -90,7 +86,8 @@ float GSMainCorridor::GetEnterClassroomAnimTime() const
 
 void GSMainCorridor::LoadCourse()
 {
-  bool loadedOk = GetCourseManager().LoadCourseForLevel(m_levelNum);
+  int levelNum = GetLevelManager().GetLevelNum();
+  bool loadedOk = GetCourseManager().LoadCourseForLevel(levelNum);
   Assert(loadedOk);
 }
 
@@ -195,6 +192,9 @@ void GSMainCorridor::AddOneBlankSection(int sectionNum, GuiComposite* addChildre
   PGuiElement corridorSection = LoadGui("Gui/corridor-end-section.txt", NOT_LISTENER);
   addChildren->AddChild(corridorSection);
   corridorSection->SetLocalPos(Vec2f(static_cast<float>(sectionNum) * DISTANCE_BETWEEN_DOORS, 0));
+
+  Wallpaper w;
+  w.SetWallpaper(corridorSection, GetLevelManager().GetLevelNum());
 }
 
 void GSMainCorridor::AddOneLiftSection(int sectionNum, GuiComposite* addChildren)
@@ -204,14 +204,16 @@ void GSMainCorridor::AddOneLiftSection(int sectionNum, GuiComposite* addChildren
   addChildren->AddChild(liftSection);
   liftSection->SetLocalPos(Vec2f(sectionNum * DISTANCE_BETWEEN_DOORS, 0));
 
+  Wallpaper w;
+  w.SetWallpaper(liftSection, GetLevelManager().GetLevelNum());
+
   // Prevent animations from immediately starting
   PauseAnimsOnSection(liftSection);
 }
 
 bool GSMainCorridor::IsThereALevelAboveCurrentLevel() const
 {
-  // TODO We need a list of courses, so we know when we are at the EOC
-  return GetLevel() < 4;  
+  return GetLevelManager().GetLevelNum() < GetLevelManager().GetNumberOfLevels();
 }
 
 void GSMainCorridor::AddRightLiftOrBlankSection(int sectionNum, GuiComposite* addChildren)
@@ -236,7 +238,7 @@ void GSMainCorridor::AddLeftLiftOrBlankSection(GuiComposite* addChildren)
 {
   AddOneBlankSection(-2, addChildren);
 
-  if (m_levelNum == 1)
+  if (GetLevelManager().GetLevelNum() == 1)
   {
     // Add corridor left end: add two of these?
     AddOneBlankSection(-1, addChildren);
@@ -263,6 +265,9 @@ void GSMainCorridor::AddCorridorSection(int sectionNum, GuiComposite* addChildre
   addChildren->AddChild(corridorSection);
   // Offset position along corridor
   corridorSection->SetLocalPos(Vec2f(static_cast<float>(sectionNum) * DISTANCE_BETWEEN_DOORS, 0));
+
+  Wallpaper w;
+  w.SetWallpaper(corridorSection, GetLevelManager().GetLevelNum());
 
   // TODO add something to locked topics so we can see it's locked
 }
@@ -328,23 +333,19 @@ void GSMainCorridor::OnDeactive()
 
 void GSMainCorridor::SetLevel(int levelNum)
 {
-  if (levelNum == m_levelNum)
+  int currentLevelNum = GetLevelManager().GetLevelNum();
+  if (levelNum == currentLevelNum)
   {
     return;
   }
 
-  bool wentUpNotDown = (levelNum > m_levelNum);
+  bool wentUpNotDown = (levelNum > currentLevelNum);
 
-  std::cout << "Setting new level to: " << levelNum << ", was: " << m_levelNum << "\n";
+  std::cout << "Setting new level to: " << levelNum << ", was: " << currentLevelNum << "\n";
 
-  m_levelNum = levelNum;
+  GetLevelManager().SetLevelNum(levelNum);
 
-  // Persist level number
-  auto gcf = TheGameConfigFile::Instance();
-  gcf->SetInt(LEVEL_KEY, m_levelNum);
-  gcf->Save();
-
-  // Load course for this level
+  // Load course for the new level
   LoadCourse();
 
   // TODO Also set last topic to 0 or the end? 
@@ -365,11 +366,6 @@ void GSMainCorridor::SetLevel(int levelNum)
 //  m_posInCorridorAnimator->SetIsPaused(true);
 }
 
-int GSMainCorridor::GetLevel() const
-{
-  return m_levelNum;
-}
-
 void GSMainCorridor::SetCorridorXPosition()
 {
   m_posInCorridor->SetTranslation(Vec2f(m_lastXPosInCorridor, 0), 0);
@@ -380,14 +376,8 @@ void GSMainCorridor::OnActive()
 {
   GSBase::OnActive();
 
-  //SceneNode* root = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE);
-  //m_camera = dynamic_cast<SceneNodeCamera*>(
-  //  root->GetNodeByName("camera"));
-  //Assert(m_camera);
-
   // TODO What happens when we re-enter this state, and we are on e.g. level 2
-
-  // TODO Surely we shouldn't do this every time we re-activate, we will be on the same
+  // TODO  - Surely we shouldn't do this every time we re-activate, we will be on the same
   //  level as before, 99% of the time.
   LoadCorridor();
 

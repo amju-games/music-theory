@@ -75,14 +75,13 @@ public:
   Tappable* GetSelectedTappable();
 
   // Get/set level number: this is shown as different floors, connected
-  //  by stairs. The corridors on each floor can look different, and 
-  //  could have different numbers of Topics.
-  // The Topic group number is the level number - rename it.
+  //  by lifts. The corridors on each floor can look different, and 
+  //  can have different numbers of Topics.
   // When we change level:
-  //  - Load 3D scene for level number
+  //  - Load scene for level number
   //  - Add classrooms for the topics at this level
+  // The level number is persisted by the LevelManager.
   void SetLevel(int newLevel);
-  int GetLevel() const;
   bool IsThereALevelAboveCurrentLevel() const;
 
   float GetEnterClassroomAnimTime() const;
@@ -130,8 +129,6 @@ private:
   std::map<int, RCPtr<CorridorMode>> m_modes;
   RCPtr<CorridorMode> m_currentMode;
   int m_newModeId = -1; // set to a valid index in m_modes when we want to change mode
-
-  int m_levelNum = 1; // 1-based: the current Course we are displaying. If zero, we are on the tutorial level.
 
   float m_zoom = 1.f; // scale factor, zooms in 'camera'
   enum class Zoom

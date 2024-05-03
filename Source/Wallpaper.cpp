@@ -1,3 +1,5 @@
+// * Amjula music theory * (c) Copyright 2024 Juliet Colman
+
 #include <array>
 #include <vector>
 #include <GuiDecColour.h>
@@ -34,6 +36,7 @@ static void SetColourForGroup(GuiElement* gui, const std::string& colourDecName,
     return;
   }
   decColour->SetColour(colour);
+  decColour->SetSecondColour(colour);
 }
 
 void Wallpaper::SetWallpaper(GuiElement* gui, int level)

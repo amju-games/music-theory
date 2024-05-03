@@ -12,6 +12,7 @@
 #include "Course.h"
 #include "CourseManager.h"
 #include "GSMainCorridor.h"
+#include "LevelManager.h"
 #include "LurkMsg.h"
 #include "PlayWav.h"
 #include "Tappable.h"
@@ -72,7 +73,7 @@ void CorridorModeWait::OnTapDoorOrArch()
   if (m_currentTopicScrolledTo < 0)
   {
     // Go to prev level
-    int level = gsmc->GetLevel();
+    int level = GetLevelManager().GetLevelNum();
     if (level > 1)
     {
       level--; 
@@ -94,7 +95,7 @@ std::cout << "At lowest level, so not going down.\n";
       && gsmc->IsLevelPassed())
   {
     // Go to next level
-    int level = gsmc->GetLevel();
+    int level = GetLevelManager().GetLevelNum();
     // TODO Max num levels??
     if (level < MAX_NUM_LEVELS)
     {
@@ -146,7 +147,7 @@ void CorridorModeWait::SetCurrentTopic()
   const bool noMoreLevels = !GetState()->IsThereALevelAboveCurrentLevel();
   const bool noUpLift = (m_currentTopicScrolledTo == numTopics) && noMoreLevels;
 
-  const int level = GetState()->GetLevel();
+  const int level = GetLevelManager().GetLevelNum();
   constexpr int LOWEST_LEVEL = 1; // TODO Should we be able to go down to level 0?
   const bool noDownLift = (m_currentTopicScrolledTo == -1) && (level <= LOWEST_LEVEL);
 

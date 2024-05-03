@@ -12,10 +12,12 @@
 #include "GSTopicEnd.h"
 #include "GSTopicStart.h"
 #include "GuiAvatar.h"
+#include "LevelManager.h"
 #include "NumUpdate.h"
 #include "PlayWav.h"
 #include "Topic.h"
 #include "UserProfile.h"
+#include "Wallpaper.h"
 
 namespace Amju
 {
@@ -45,6 +47,9 @@ GSTopicStart::GSTopicStart()
 void GSTopicStart::OnActive()
 {
   GSBase::OnActive();
+
+  Wallpaper w;
+  w.SetWallpaper(GetGui(), GetLevelManager().GetLevelNum());
 
   // Set button commands
   GuiElement* elem = GetElementByName(m_gui, "cancel-button");

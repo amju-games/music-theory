@@ -10,11 +10,13 @@
 #include "CourseManager.h"
 #include "GSMainCorridor.h"
 #include "GSTopicEnd.h"
+#include "LevelManager.h"
 #include "NumUpdate.h"
 #include "PlayMidi.h"
 #include "PlayWav.h"
 #include "Topic.h"
 #include "UserProfile.h"
+#include "Wallpaper.h"
 
 namespace Amju
 {
@@ -58,6 +60,9 @@ void GSTopicEnd::SetBestScore(int best)
 void GSTopicEnd::OnActive()
 {
   GSBase::OnActive();
+
+  Wallpaper w;
+  w.SetWallpaper(GetGui(), GetLevelManager().GetLevelNum());
 
   m_midiNote = MIDI_START_NOTE;
 
