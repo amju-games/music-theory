@@ -1,0 +1,37 @@
+// * Amjula music theory * (c) Copyright 2024 Juliet Colman
+1
+translate
+-1.6, 0
+gui-comp
+tappable-pic-level-num-1
+// Num children
+5
+
+include
+pic-frame-white-rect.txt
+
+colour
+e0b040
+// child 0 of tappable-pic-level-num-1
+include
+pic-frame-3.txt
+
+// child 1 of tappable-pic-level-num-1
+flush
+
+gui-text
+level-num-text
+-0.2, 0.75
+0.5, 1
+// "@@@Level 1"
+Level
+TEXT, 2.5, fgcol=000000, bgcol=ffffff, sx=1.000000, centre
+
+gui-text
+level-num-text
+-0.2, 0.55
+0.5, 1
+// "@@@Level 4"
+4
+TEXT, 4, fgcol=000000, bgcol=ffffff, sx=1.000000, centre
+// end of tappable-pic-level-num-1

@@ -1,0 +1,16 @@
+// * Amjula music theory *
+// (c) Copyright 2024 Juliet Colman
+
+// v
+1
+
+// Tappables: objects which user can tap on to get info.
+
+// num tappables
+1
+
+// Name
+Level pic
+// Gui file
+Gui/tappables/tap-level3-level-pic.txt
+
