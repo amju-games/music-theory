@@ -32,10 +32,5 @@ private:
 
 // A Course is a loadable resource
 Resource* CourseLoader(const std::string& resName);
-
-// We expect there to be one course in existence. We load the resource at start up, 
-//  then use GetCourse to access it from then on.
-void SetCourse(Course* course);
-Course* GetCourse();
 }
 

@@ -78,16 +78,4 @@ Topic* Course::GetTopic(int i)
   Assert(i < static_cast<int>(m_topics.size()));
   return m_topics[i];
 }
-
-static Course* s_course = nullptr;
-
-void SetCourse(Course* course)
-{
-  s_course = course;
-}
-
-Course* GetCourse()
-{
-  return s_course;
-}
 }

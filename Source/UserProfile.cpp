@@ -6,6 +6,7 @@
 #include <ReportError.h>
 #include "Consts.h"
 #include "Course.h"
+#include "CourseManager.h"
 #include "UserProfile.h"
 
 namespace Amju
@@ -110,7 +111,7 @@ int UserProfile::GetCurrentTopic() const
 
 std::string UserProfile::GetCurrentTopicDisplayName() const
 {
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   Topic* topic = course->GetTopic(m_currentTopic);
   Assert(topic);

@@ -7,6 +7,7 @@
 #include <MessageQueue.h>
 #include "Consts.h"
 #include "Course.h"
+#include "CourseManager.h"
 #include "GSMainCorridor.h"
 #include "GSTopicEnd.h"
 #include "NumUpdate.h"
@@ -71,7 +72,7 @@ void GSTopicEnd::OnActive()
   // TODO Set Share message and image
   
   auto profile = TheUserProfile();
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   Topic* topic = course->GetTopic(profile->GetCurrentTopic());
   Assert(topic);
@@ -181,7 +182,7 @@ std::string GSTopicEnd::GenerateScoreComment()
   std::string res = "$$$172" /* Awesome! */;
 
   auto profile = TheUserProfile();
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   Topic* topic = course->GetTopic(profile->GetCurrentTopic());
   Assert(topic);

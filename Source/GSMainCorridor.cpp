@@ -11,7 +11,6 @@
 #include <Lerp.h>
 #include <LoadScene.h>
 #include <MessageQueue.h>
-#include <ResourceManager.h>
 #include <Sign.h>
 #include <StringUtils.h>
 #include <Timer.h>
@@ -26,6 +25,7 @@
 #include "CorridorModeShowTappable.h"
 #include "CorridorModeWait.h"
 #include "Course.h"
+#include "CourseManager.h"
 #include "GSAbout.h"
 #include "GSMainCorridor.h"
 #include "GSTitle.h"
@@ -60,7 +60,6 @@ GSMainCorridor::GSMainCorridor()
   LoadCourse();
 
   m_guiFilename = "Gui/gs_main_menu_corridor.txt";
-  //m_sceneFilename = "Scene/corridor-scene-" + ToString(m_levelNum) + ".txt";
 
   m_modes[CorridorModeEnterClassroom::ID] = new CorridorModeEnterClassroom;
   m_modes[CorridorModeEnterStairs::ID] = new CorridorModeEnterStairs;
@@ -86,16 +85,13 @@ GSMainCorridor::~GSMainCorridor()
 
 float GSMainCorridor::GetEnterClassroomAnimTime() const
 {
-  return .5f;
+  return .5f; // TODO CONFIG!
 }
 
 void GSMainCorridor::LoadCourse()
 {
-  // Load the course which this app presents to the user: we only expect there to
-  //  be one instance. We could potentially load this depending on config/user choice.
-  std::string courseFile = "Course/grade-1-level-" + ToString(m_levelNum) + ".txt.course";
-  Course* course = (Course*)TheResourceManager::Instance()->GetRes(courseFile);
-  SetCourse(course);
+  bool loadedOk = GetCourseManager().LoadCourseForLevel(m_levelNum);
+  Assert(loadedOk);
 }
 
 bool GSMainCorridor::LoadTappables()
@@ -280,7 +276,7 @@ void GSMainCorridor::LoadCorridor()
   m_zoom = 1.f; 
   m_isZooming = Zoom::NO_ZOOM;
 
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   int numTopics = course->GetNumTopics();
 
@@ -360,7 +356,7 @@ void GSMainCorridor::SetLevel(int levelNum)
   int topicNum = -1;
   if (!wentUpNotDown)
   {
-    topicNum = GetCourse()->GetNumTopics();
+    topicNum = GetCourseManager().GetCourse()->GetNumTopics();
   }
   m_lastXPosInCorridor = -(DISTANCE_BETWEEN_DOORS * static_cast<float>(topicNum)); // Negate!
   waitMode->SetTopicOnLevelChange(topicNum);
@@ -486,7 +482,7 @@ bool GSMainCorridor::AllTopicsPassed() const
 
   auto profile = TheUserProfile();
 
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   int numTopics = course->GetNumTopics();
   for (int i = 0; i < numTopics; i++)
@@ -510,7 +506,7 @@ bool GSMainCorridor::IsTopicUnlocked(int topicNum) const
   auto profile = TheUserProfile();
 ////  ConfigFile* config = profile->GetConfigForTopic(KEY_TOPICS);
 
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   if (topicNum >= course->GetNumTopics())
   {

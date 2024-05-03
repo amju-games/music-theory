@@ -10,6 +10,7 @@
 #include "CorridorModeEnterClassroom.h"
 #include "CorridorModeEnterStairs.h"
 #include "Course.h"
+#include "CourseManager.h"
 #include "GSMainCorridor.h"
 #include "LurkMsg.h"
 #include "PlayWav.h"
@@ -62,7 +63,7 @@ void CorridorModeWait::OnTapDoorOrArch()
 
   auto gsmc = TheGSMainCorridor::Instance();
 
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   int numTopics = course->GetNumTopics();
 
@@ -133,7 +134,7 @@ void CorridorModeWait::ShowTopicName(bool showNotHide)
 
 void CorridorModeWait::SetCurrentTopic()
 {
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   int numTopics = course->GetNumTopics();
 
@@ -211,7 +212,7 @@ void CorridorModeWait::Drag(bool rightNotLeft)
     return;
   }
 
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   int numTopics = course->GetNumTopics();
 

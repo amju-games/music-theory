@@ -6,6 +6,7 @@
 #include "ComposerList.h"
 #include "Consts.h"
 #include "Course.h"
+#include "CourseManager.h"
 #include "GSMainCorridor.h"
 #include "GSPages.h"
 #include "GSTopicEnd.h"
@@ -63,7 +64,7 @@ void GSTopicStart::OnActive()
 //  NumUpdate(m_gui, "hint-counter" /* TODO CONST */, numHints);
 
   // Set best so far %
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   Topic* topic = course->GetTopic(profile->GetCurrentTopic());
   Assert(topic);

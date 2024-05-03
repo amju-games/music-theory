@@ -1,4 +1,5 @@
 #include "Course.h"
+#include "CourseManager.h"
 #include "GSPagesEdit.h"
 #include "UserProfile.h"
 
@@ -14,7 +15,7 @@ void GSPagesEdit::NextPage()
 {
   GSPages::NextPage();
 
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
   Assert(topic);

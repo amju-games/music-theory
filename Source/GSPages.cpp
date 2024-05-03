@@ -10,10 +10,10 @@
 #include <GuiText.h>
 #include <Localise.h>
 #include <MessageQueue.h>
-
 #include "CentreMsg.h"
 #include "Consts.h"
 #include "Course.h"
+#include "CourseManager.h"
 #include "Dictionary.h"
 #include "GSMainCorridor.h"
 #include "GSPages.h"
@@ -143,7 +143,7 @@ void GSPages::OnActive()
   // Get general user config, just a convenience, it lives in the User Profile.
   m_userConfig = TheUserProfile()->GetConfigFile();
 
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
   Assert(topic);
@@ -237,7 +237,7 @@ bool GSPages::FindPageWithUnusedQuestions()
 void GSPages::SetFinalScore()
 {
   // Get topic ID
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
   Assert(topic);
@@ -251,7 +251,7 @@ void GSPages::SetFinalScore()
 
 void GSPages::NextPage()
 {
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
   Assert(topic);
@@ -362,7 +362,7 @@ bool GSPages::OnKeyEvent(const KeyEvent& ke)
         TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
         float percent = static_cast<float>(m_scoreThisSession) / static_cast<float>(m_maxMark) * 100.f;
   
-        Course* course = GetCourse();
+        Course* course = GetCourseManager().GetCourse();
         Assert(course);
         Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
         Assert(topic);
@@ -494,7 +494,7 @@ void GSPages::OnQuitButton()
 
 void GSPages::OnQuitConfirmOK()
 {
-  Course* course = GetCourse();
+  Course* course = GetCourseManager().GetCourse();
   Assert(course);
   Topic* topic = course->GetTopic(TheUserProfile()->GetCurrentTopic());
   Assert(topic);
