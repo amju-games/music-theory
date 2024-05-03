@@ -83,7 +83,7 @@ void PagePlayNotes::OnActive()
 
   // Set the question type: we pick a line at random from a dictionary.
   DictionaryPickQuestion* q = new DictionaryPickQuestion;
-  SetQuestion(q);
+  SetQuestion(q); // owns q, no leak
 
   q->SetDictionary(GetDictionary());
 

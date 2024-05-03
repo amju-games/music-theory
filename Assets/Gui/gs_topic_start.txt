@@ -61,14 +61,13 @@ gui-text
 // Element name
 topic-name-text
 // pos (coords are -1..1)
--0.5, 0.8
+-.6, 0.6
 // size
-1.0, 1.2
+1.2, 0.8
 // Text
 TOPIC
 // Font name, size
-// TODO Bug: reveal doesn't work for multi-line.
-TEXT, 2.5, multi, fgcol=ffffff, reveal=0.1
+TEXT, 2.5, multi, fgcol=ffffff
 
 
 elastic

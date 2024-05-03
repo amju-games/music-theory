@@ -62,7 +62,10 @@ void GSTopicStart::OnActive()
   // Set topic display name
   IGuiText* text = dynamic_cast<IGuiText*>(GetElementByName(m_gui, "topic-name-text"));
   Assert(text);
-  text->SetText(TheUserProfile()->GetCurrentTopicDisplayName());
+  auto up = TheUserProfile();
+  std::string topicAndLevelStr = up->GetCurrentTopicDisplayName();
+  topicAndLevelStr += "\nLevel " + std::to_string(up->GetCurrentLevel());
+  text->SetText(topicAndLevelStr);
 
   auto profile = TheUserProfile();
 //  int numHints = profile->GetHints(HintType::HINT_TYPE_HINT); // TODO
