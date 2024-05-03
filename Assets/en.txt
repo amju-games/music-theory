@@ -179,9 +179,9 @@
 175=You passed the test!
 176=Oh no! Try again!
 177=Done
-178=Notes on the Treble Clef 1
+178=Notes on the Treble Clef
 179=What has the same value?
-180=Notes on the Bass Clef 1
+180=Notes on the Bass Clef
 181=Notes and Rests
 182=Bars and Time Sigs
 183=What is the time signature?
@@ -207,7 +207,7 @@
 203=Four crotchet beats in every bar
 204=a C
 205=You played %s, but you should have played %s!
-206=DOWN
-207=UP
+206=Down
+207=Up
 208=<i>Guten tag</i>! I am Johann Sebastian Bach, but you can call me J.S. for short!
 209=This classroom is haunted by the ghostly presence of J.S. Bach!
