@@ -47,6 +47,6 @@ num-lives-text
 // Text
 3
 // Font name, size
-dimbo, 2.0, fgcol=ffffff
+NUMERIC, 2.0, fgcol=ffffff
 
 

@@ -72,5 +72,5 @@ score-text
 // Text
 25600
 // Font name, size
-dimbo, 1.5, fgcol=ffffff
+NUMERIC, 1.5, fgcol=ffffff
 

@@ -21,17 +21,17 @@ flush
 
 gui-text
 level-num-text
--0.2, 0.75
+-0.2, 0.72
 .5, 1
 // "@@@Level 1"
 Level
-bondstory, 2.5, fgcol=000000, bgcol=ffffff, sx=1.000000, centre
+CatComic, 2.5, fgcol=000000, bgcol=ffffff, sx=1.000000, centre
 
 gui-text
 level-num-text
--0.2, 0.55
+-0.2, 0.52
 0.5, 1
 // "@@@Level 1"
 1
-bondstory, 4, fgcol=000000, bgcol=ffffff, sx=1.000000, centre
+CatComic, 4, fgcol=000000, bgcol=ffffff, sx=1.000000, centre
 // end of tappable-pic-level-num-1

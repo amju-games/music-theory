@@ -4,12 +4,12 @@
 // size
 0.5
 // bitmap + alpha
-font2d/Berlin/berlin_sans_NUMERIC_2048_84pt.png
+font2d/CatComic/catcomic_2048_64pt.png
 // no of chars in x
-4
+16
 // no of chars in y
-3
+8
 // start char
-48
+32
 // widths
-font2d/Berlin/berlin_sans_2048_84pt_widths.txt
+font2d/CatComic/catcomic_2048_64pt_widths.txt

@@ -56,5 +56,5 @@ combo-text
 // Text
 x3
 // Font name, size
-dimbo, 2, fgcol=ffff40
+NUMERIC, 2, fgcol=ffff40
 

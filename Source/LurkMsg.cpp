@@ -17,7 +17,7 @@ namespace Amju
 {
 std::string LurkMsg::s_modalBgFilename = "Gui/modal-grey-out.txt";
 
-const char* LurkMsg::MESSAGE_FONT = "font2d/times-font.font";
+const char* LurkMsg::MESSAGE_FONT = "font2d/TEXT-font.font";
 
 const float LurkMsg::DEFAULT_MAX_LURK_TIME = 3.0f;
 

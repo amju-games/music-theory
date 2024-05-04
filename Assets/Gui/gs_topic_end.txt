@@ -49,7 +49,7 @@ best-so-far-text
 // Text
 Best so far
 // Font name, size
-dimbo, 1., fgcol=000000
+TEXT, 1., fgcol=000000
 
 // Element type
 gui-text
@@ -62,7 +62,7 @@ best-so-far-num
 // Text
 16%
 // Font name, size
-dimbo, 2., fgcol=000000
+TEXT, 2., fgcol=000000
 
 
 // Element type
@@ -76,7 +76,7 @@ topic-name-text
 // Text
 TOPIC
 // Font name, size
-TEXT, 1.5, fgcol=ffffff
+BLACKBOARD, 1.5, fgcol=ffffff
 
 
 // Player total persistent score
@@ -85,7 +85,7 @@ total-score-text
 -1, 0.3
 2, 0.2
 TOTAL SCORE
-dimbo, 4.0, fgcol=ffffff
+BLACKBOARD, 4.0, fgcol=ffffff
 
 
 // TODO Delay?
@@ -129,7 +129,7 @@ comment-text
 2.0, 0.1
 // Have some more hints!
 $$$87
-TEXT, 1.5, multi, fgcol=ffffff
+BLACKBOARD, 1.5, multi, fgcol=ffffff
 
 // ---------------------------------------------------------------------
 elastic

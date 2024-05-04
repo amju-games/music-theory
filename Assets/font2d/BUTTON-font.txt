@@ -5,16 +5,15 @@
 0.5
 
 // bitmap + alpha
-font2d/Dimbo/dimbo-160pt.png
+font2d/CatComic/catcomic_2048_64pt.png
 
 // no of chars in x
 16
 // no of chars in y
-14
+8
 
 // start char
 32
 
 // widths
-font2d/Dimbo/dimbo-160pt-widths.txt
-
+font2d/CatComic/catcomic_2048_64pt_widths.txt

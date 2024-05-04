@@ -36,5 +36,5 @@ topic-name-text
 // Text
 HELLO
 // Font name, size
-dimbo, 2.0, fgcol=000000
+CatComic, 2.0, fgcol=000000
 

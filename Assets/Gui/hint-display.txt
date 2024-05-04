@@ -44,7 +44,7 @@ hint-button
 Image/gui-button-2.png
 // HINT!
 $$$89
-dimbo, 2.0, fgcol=ffffff, bgcol=01D76B
+BUTTON, 2.0, fgcol=ffffff, bgcol=01D76B
 
 // Counter: animated number in circle
 
@@ -106,7 +106,7 @@ hint-counter
 // Text
 NUM
 // Font name, size
-dimbo, 1.25, fgcol=ffffff
+NUMERIC, 1.25, fgcol=ffffff
 
 
 
@@ -132,7 +132,7 @@ play-button
 0.3, 0.2
 Image/gui-button-2.png
 Play!
-dimbo, 2, fgcol=ffffff, bgcol=01D76B
+BUTTON, 2, fgcol=ffffff, bgcol=01D76B
 
 // Counter: animated number in circle
 
@@ -192,6 +192,6 @@ play-counter
 // Text
 NUM
 // Font name, size
-dimbo, 1.25, fgcol=ffffff
+NUMERIC, 1.25, fgcol=ffffff
 
 

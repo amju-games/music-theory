@@ -40,20 +40,20 @@ best-so-far-text
 // Text
 Best so far:
 // Font name, size
-TEXT, 2., fgcol=ffffff, right
+BLACKBOARD, 2., fgcol=ffffff, right
 
 // Element type
 gui-text
 // Element name
 best-so-far-num
 // pos (coords are -1..1)
-0.125, -.2
+0.15, -.2
 // size
 0.4, 0.1
 // Text
 16%
 // Font name, size
-TEXT, 2., fgcol=ffffff, left
+BLACKBOARD, 2., fgcol=ffffff, left
 
 
 // Element type
@@ -67,7 +67,7 @@ topic-name-text
 // Text
 TOPIC
 // Font name, size
-TEXT, 2.5, multi, fgcol=ffffff
+BLACKBOARD, 2.5, multi, fgcol=ffffff
 
 
 elastic
