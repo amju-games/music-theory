@@ -205,7 +205,7 @@ grade-text
 // Text
 GRADE
 // Font name, size
-dimbo, 1.0, multi, fgcol=ffffff
+BUTTON, 1.0, multi, fgcol=ffffff
 
 gui-text
 grade-number-text
@@ -216,7 +216,7 @@ grade-number-text
 // Text
 1
 // Font name, size
-dimbo, 3.0, multi, fgcol=ffffff
+BUTTON, 3.0, multi, fgcol=ffffff
 
 
 // 2nd child of root!
@@ -232,7 +232,7 @@ Image/gui-button-2.png
 // Text
 <BACK
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+BUTTON, 1.0, fgcol=ffffff, bgcol=FF0949
 
 
 
@@ -245,7 +245,7 @@ about-button
 0.5, .35
 Image/leaf1.png
 About
-dimbo, 1.0, fgcol=ffffff, bgcol=BC003E
+BUTTON, 1.0, fgcol=ffffff, bgcol=BC003E
 
 
 
@@ -262,7 +262,7 @@ Image/leaf1.png
 // Text
 Pitch
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
+BUTTON, 1.0, fgcol=ffffff, bgcol=6EB127
 
 
 
@@ -274,7 +274,7 @@ topic-button-2
 0.6, 0.3
 Image/leaf1.png
 Key signatures
-dimbo, 1.0, fgcol=ffffff, bgcol=6EB127
+BUTTON, 1.0, fgcol=ffffff, bgcol=6EB127
 
 
 
@@ -286,7 +286,7 @@ new-button
 0.7, .35
 Image/leaf1.png
 I'm new!
-dimbo, 1.3, fgcol=ffffff, bgcol=DC6A13
+BUTTON, 1.3, fgcol=ffffff, bgcol=DC6A13
 
 gui-button
 share-button
@@ -295,7 +295,7 @@ share-button
 0.6, .35
 Image/leaf1.png
 Share
-dimbo, 1.2, fgcol=ffffff, bgcol=F27C7C
+BUTTON, 1.2, fgcol=ffffff, bgcol=F27C7C
 
 // TODO
 // About, I'm new and Share buttons
@@ -306,7 +306,7 @@ topic-button-2
 0.6, .35
 Image/leaf1.png
 Share2
-dimbo, 1.2, fgcol=ffffff, bgcol=2676BC
+BUTTON, 1.2, fgcol=ffffff, bgcol=2676BC
 
 
 rotate
@@ -320,7 +320,7 @@ topic-button-2
 0.6, .35
 Image/leaf1.png
 Share3
-dimbo, 1.2, fgcol=ffffff, bgcol=37B3F5
+BUTTON, 1.2, fgcol=ffffff, bgcol=37B3F5
 
 
 

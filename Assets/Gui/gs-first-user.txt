@@ -33,7 +33,7 @@ grade-number-text
 // Text
 Hello! What's your name?
 // Font name, size
-dimbo, 1.0, multi, fgcol=ffffff
+BUTTON, 1.0, multi, fgcol=ffffff
 
 // Text edit box
 // Element type
@@ -47,7 +47,7 @@ edit-user-name
 // Text
 $$$empty
 // Font name, size
-dimbo, 1.0, bgcol=ffffff, fgcol=000000
+BUTTON, 1.0, bgcol=ffffff, fgcol=000000
 
 // Start button
 // element type
@@ -64,7 +64,7 @@ Image/gui-button-2.png
 // Text
 START
 // Font name, size
-dimbo, 1.5, fgcol=ffffff, bgcol=FF0949
+BUTTON, 1.5, fgcol=ffffff, bgcol=FF0949
 
 
 

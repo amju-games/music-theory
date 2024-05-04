@@ -25,4 +25,4 @@ Image/gui-button-2.png
 // Done
 $$$177
 // Font name, size
-dimbo, 2.0, fgcol=ffffff, bgcol=FF0949
+BUTTON, 2.0, fgcol=ffffff, bgcol=FF0949

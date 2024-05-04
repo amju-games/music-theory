@@ -32,7 +32,7 @@ static-text
 // Text
 Bass Clef
 // Font name, size
-dimbo, 2.0, multi, fgcol=000000
+BUTTON, 2.0, multi, fgcol=000000
 
 // Musical symbols
 

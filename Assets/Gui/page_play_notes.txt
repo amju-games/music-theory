@@ -92,4 +92,4 @@ help-text
 // Text
 Play the note!
 // Font name, size
-dimbo, 1.0, multi, fgcol=000000
+BUTTON, 1.0, multi, fgcol=000000

@@ -29,7 +29,7 @@ static-text
 // Text
 Dynamics
 // Font name, size
-dimbo, 2.0, multi, fgcol=000000
+BUTTON, 2.0, multi, fgcol=000000
 
 music-score
 // Name, Position, Size
@@ -54,7 +54,7 @@ static-text
 // Text
 Pianissimo - very soft!!!
 // Font name, size
-dimbo, 1.25, fgcol=000000
+BUTTON, 1.25, fgcol=000000
 
 gui-text
 static-text
@@ -65,7 +65,7 @@ static-text
 // Text
 Piano - soft!!
 // Font name, size
-dimbo, 1.25, fgcol=000000
+BUTTON, 1.25, fgcol=000000
 
 gui-text
 static-text
@@ -76,5 +76,5 @@ static-text
 // Text
 Mezzo piano - moderately soft!
 // Font name, size
-dimbo, 1.25, fgcol=000000
+BUTTON, 1.25, fgcol=000000
 

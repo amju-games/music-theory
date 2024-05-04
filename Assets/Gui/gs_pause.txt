@@ -30,7 +30,7 @@ Image/gui-button-2.png
 // Text
 RESUME
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+BUTTON, 1.0, fgcol=ffffff, bgcol=FF0949
 
 elastic
 -1.5, 0.0
@@ -49,6 +49,6 @@ Image/gui-button-2.png
 // Text
 QUIT
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+BUTTON, 1.0, fgcol=ffffff, bgcol=FF0949
 
 

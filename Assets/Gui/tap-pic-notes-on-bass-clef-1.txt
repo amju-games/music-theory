@@ -38,7 +38,7 @@ static-text
 // Text
 Notes on the Bass Clef
 // Font name, size
-dimbo, 2.5, multi, fgcol=000000
+BUTTON, 2.5, multi, fgcol=000000
 
 
 // THE NOTES ON STAVE
@@ -86,7 +86,7 @@ static-text
 // Text
 C
 // Font name, size
-dimbo, 1.0, left, fgcol=000000
+BUTTON, 1.0, left, fgcol=000000
 
 gui-text
 static-text
@@ -97,7 +97,7 @@ static-text
 // Text
 D
 // Font name, size
-dimbo, 1.0, left, fgcol=000000
+BUTTON, 1.0, left, fgcol=000000
 
 gui-text
 static-text
@@ -108,7 +108,7 @@ static-text
 // Text
 E
 // Font name, size
-dimbo, 1.0, left, fgcol=000000
+BUTTON, 1.0, left, fgcol=000000
 
 gui-text
 static-text
@@ -119,7 +119,7 @@ static-text
 // Text
 F
 // Font name, size
-dimbo, 1.0, left, fgcol=000000
+BUTTON, 1.0, left, fgcol=000000
 
 gui-text
 static-text
@@ -130,7 +130,7 @@ static-text
 // Text
 G
 // Font name, size
-dimbo, 1.0, left, fgcol=000000
+BUTTON, 1.0, left, fgcol=000000
 
 gui-text
 static-text
@@ -141,7 +141,7 @@ static-text
 // Text
 A
 // Font name, size
-dimbo, 1.0, left, fgcol=000000
+BUTTON, 1.0, left, fgcol=000000
 
 gui-text
 static-text
@@ -152,7 +152,7 @@ static-text
 // Text
 B
 // Font name, size
-dimbo, 1.0, left, fgcol=000000
+BUTTON, 1.0, left, fgcol=000000
 
 gui-text
 static-text
@@ -163,5 +163,5 @@ static-text
 // Text
 Middle C
 // Font name, size
-dimbo, 1.0, left, fgcol=000000
+BUTTON, 1.0, left, fgcol=000000
 

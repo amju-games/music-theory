@@ -30,7 +30,7 @@ static-text
 // Text
 Level
 // Font name, size
-dimbo, 5.25, multi, fgcol=ffffff
+BUTTON, 5.25, multi, fgcol=ffffff
 
 gui-text
 static-text
@@ -41,5 +41,5 @@ static-text
 // Text
 1
 // Font name, size
-dimbo, 10.25, multi, fgcol=ffffff
+BUTTON, 10.25, multi, fgcol=ffffff
 

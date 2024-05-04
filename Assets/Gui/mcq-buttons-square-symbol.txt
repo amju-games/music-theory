@@ -49,7 +49,7 @@ Image/gui-button-square.png
 // Text
 $$$empty
 // Font name, size
-dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+BUTTON, 1.0, fgcol=000000, bgcol=eeeeee
 
 music-score
 music-score-0
@@ -108,7 +108,7 @@ Image/gui-button-square.png
 // Text
 $$$empty
 // Font name, size
-dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+BUTTON, 1.0, fgcol=000000, bgcol=eeeeee
 
 music-score
 music-score-1
@@ -164,7 +164,7 @@ Image/gui-button-square.png
 // Text
 $$$empty
 // Font name, size
-dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+BUTTON, 1.0, fgcol=000000, bgcol=eeeeee
 
 music-score
 music-score-2
@@ -219,7 +219,7 @@ Image/gui-button-square.png
 // Text
 $$$empty
 // Font name, size
-dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+BUTTON, 1.0, fgcol=000000, bgcol=eeeeee
 
 music-score
 music-score-3

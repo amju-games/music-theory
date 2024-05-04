@@ -36,6 +36,6 @@ static-text
 // Text
 Down to Level 1
 // Font name, size
-dimbo, 4, multi, fgcol=ffffff
+BUTTON, 4, multi, fgcol=ffffff
 
 

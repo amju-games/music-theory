@@ -29,7 +29,7 @@ static-text
 // Text
 Note Lengths
 // Font name, size
-dimbo, 2.0, multi, fgcol=000000
+BUTTON, 2.0, multi, fgcol=000000
 
 music-score
 // Name, Position, Size
@@ -57,7 +57,7 @@ static-text
 // Text
 1 Semibreve lasts for...
 // Font name, size
-dimbo, 1.5, multi, fgcol=000000
+BUTTON, 1.5, multi, fgcol=000000
 
 gui-text
 static-text
@@ -68,7 +68,7 @@ static-text
 // Text
 2 Minims...
 // Font name, size
-dimbo, 1.5, multi, fgcol=000000
+BUTTON, 1.5, multi, fgcol=000000
 
 gui-text
 static-text
@@ -79,6 +79,6 @@ static-text
 // Text
 ...or 4 Crotchets
 // Font name, size
-dimbo, 1.5, multi, fgcol=000000
+BUTTON, 1.5, multi, fgcol=000000
 
 

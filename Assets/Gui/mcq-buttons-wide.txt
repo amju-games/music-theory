@@ -45,7 +45,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+BUTTON, 1.0, fgcol=000000, bgcol=eeeeee
 
 // 2nd child of button-0-group
 // Translate other buttons up
@@ -92,7 +92,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+BUTTON, 1.0, fgcol=000000, bgcol=eeeeee
 
 translate
 0,0 ; 0, 0.2
@@ -136,7 +136,7 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+BUTTON, 1.0, fgcol=000000, bgcol=eeeeee
 
 translate
 0,0 ; 0, 0.2
@@ -179,6 +179,6 @@ Image/gui-button-8.png
 // Text
 choice-text
 // Font name, size
-dimbo, 1.0, fgcol=000000, bgcol=eeeeee
+BUTTON, 1.0, fgcol=000000, bgcol=eeeeee
 
 

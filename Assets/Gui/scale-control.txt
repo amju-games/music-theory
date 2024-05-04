@@ -58,4 +58,4 @@ static-text
 // Text
 Scale
 // Font name, size
-dimbo, 1.5, fgcol=000000
+BUTTON, 1.5, fgcol=000000

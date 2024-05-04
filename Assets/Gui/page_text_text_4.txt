@@ -33,7 +33,7 @@ musical-term-text
 // Text
 Alla marcia
 // Font name, size
-dimbo, 1.3, multi, fgcol=000000
+BUTTON, 1.3, multi, fgcol=000000
 
 
 include

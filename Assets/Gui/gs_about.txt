@@ -151,7 +151,7 @@ about-text
 // Text
 Amjula Music Theory\n\nVersion 0.1
 // Font name, size
-dimbo, 1.0, multi, fgcol=000000
+BUTTON, 1.0, multi, fgcol=000000
 
 
 
@@ -168,6 +168,6 @@ ok-button
 Image/gui-button-2.png
 OK
 // Font name, size
-dimbo, 1.0, fgcol=ffffff, bgcol=FF0949
+BUTTON, 1.0, fgcol=ffffff, bgcol=FF0949
 
 
