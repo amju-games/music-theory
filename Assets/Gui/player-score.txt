@@ -11,7 +11,7 @@ gui-comp
 // Name
 player-score-comp
 // Num children
-4
+3
 
 colour
 000080
@@ -31,12 +31,6 @@ score-bg
 .3, .3
 Image/rough-oval.png, stretch
 
-
-gui-image
-score-bg
-0.64, 0.61
-.32, .32
-Image/bw-edge.png, stretch
 
 
 
