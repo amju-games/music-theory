@@ -23,7 +23,7 @@ avatar-string
 // Text
 Avatar text
 // Font
-arial, 1.0, fgcol=000000, bgcol=ffffff
+TEXT, 1.0, fgcol=000000, bgcol=ffffff
 
 // Avatar
 

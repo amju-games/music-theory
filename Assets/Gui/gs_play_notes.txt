@@ -24,7 +24,7 @@ help-text
 // Text
 Hello! A keyboard?
 // Font name, size
-arial, 1.0, multi, fgcol=000000
+TEXT, 1.0, multi, fgcol=000000
 
 
 include
