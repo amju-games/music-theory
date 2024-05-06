@@ -743,9 +743,12 @@ void GSGuiEdit::Draw2d()
 
     UseVertexColourShader();
     AmjuGL::PushMatrix(); // ?
+    AmjuGL::Translate(m_zoomAnchor.x, m_zoomAnchor.y, 0);
+    AmjuGL::Scale(m_zoom, m_zoom, 1.f);
+    AmjuGL::Translate(-m_zoomAnchor.x, -m_zoomAnchor.y, 0);
     m_editGui->Draw();
-    AmjuGL::PopMatrix(); // ?
     Batched::DrawAll(); // flush all polys in GUI we are editing
+    AmjuGL::PopMatrix(); // ?
 
     // Recursively draw bounding rects
     AmjuGL::UseShader(nullptr);
@@ -830,8 +833,38 @@ void GSGuiEdit::SetSelectedElement(PGuiElement e)
   }
 }
 
+bool GSGuiEdit::OnMiddleButtonEvent(const MouseButtonEvent& mbe)
+{
+  Assert(mbe.button == AMJU_BUTTON_MOUSE_MIDDLE);
+  m_zoomIsActive = mbe.isDown;
+  if (m_zoomIsActive && m_zoom <= 1.f)
+  {
+    m_zoomAnchor = Vec2f(mbe.x, mbe.y);
+  }
+  return true;
+}
+
+bool GSGuiEdit::OnCursorZoomEvent(const CursorEvent& ce)
+{
+  Assert(m_zoomIsActive);
+  m_zoom += ce.dx;
+  if (m_zoom < 1.f)
+  {
+    m_zoom = 1.f;
+  }
+  return true;
+}
+
 bool GSGuiEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 {
+  // Check for middle button, we can use this to zoom.
+  if (mbe.button == AMJU_BUTTON_MOUSE_MIDDLE)
+  {
+    return OnMiddleButtonEvent(mbe);
+  }
+
+  // Destroy right click sub-menu of tree view if it is not in use, so it doesn't
+  //  continue to consume events.
   if (m_rightClickTreeViewMenu &&
     !m_rightClickTreeViewMenu->IsVisible())
   {
@@ -922,6 +955,11 @@ bool GSGuiEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 
 bool GSGuiEdit::OnCursorEvent(const CursorEvent& ce) 
 {
+  if (m_zoomIsActive)
+  {
+    return OnCursorZoomEvent(ce);
+  }
+
   if (m_selectionRectIsActive)
   {
     m_selectionRect.Set(m_selectionRectAnchor.x, ce.x, m_selectionRectAnchor.y, ce.y);

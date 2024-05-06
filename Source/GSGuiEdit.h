@@ -48,6 +48,8 @@ private:
   void SetSelectedElement(PGuiElement e);
   void SetElementsInSelectionRect(); // multi-select
   void PopulateTreeView();
+  bool OnMiddleButtonEvent(const MouseButtonEvent& mbe);
+  bool OnCursorZoomEvent(const CursorEvent& ce);
 
 private:
   // Filename of GUI we will edit; not to be confused with the GUI for the
@@ -66,8 +68,12 @@ private:
   // By default, don't update the GUI we are editing, to turn off peskly animations.
   bool m_doUpdateEditGui = false;
 
+  Vec2f m_zoomAnchor; // Mouse pos when zoom starts.
+  bool m_zoomIsActive = false;
+  float m_zoom = 1.f;
+
   Rect m_selectionRect;
-  Vec2f m_selectionRectAnchor;
+  Vec2f m_selectionRectAnchor; // Fixed corner of selection rect
   bool m_selectionRectIsActive = false;
 };
 
