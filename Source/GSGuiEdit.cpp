@@ -11,6 +11,7 @@
 #include <GuiFactory.h>
 #include <GuiMenu.h>
 #include <GuiScroll.h>
+#include <GuiTextEdit.h>
 #include <GuiTreeView.h>
 #include "GSGuiEdit.h"
 #include "UseVertexColourShader.h"
@@ -20,7 +21,7 @@ namespace Amju
 class GuiItemDuplicateCommand : public GuiCommand
 {
 public:
-  GuiItemDuplicateCommand(GuiElement* elem) : m_element(elem) {}
+  GuiItemDuplicateCommand(GuiElement* elem) : m_element(elem), m_cloneIndex(-1) {}
 
   bool Do() override
   {
@@ -44,6 +45,7 @@ public:
   void Undo() override
   {
     Assert(m_element);
+    Assert(m_cloneIndex != -1);
     GuiComposite* comp = dynamic_cast<GuiComposite*>(m_element->GetParent());
     Assert(comp);
     comp->DeleteChild(m_cloneIndex);
@@ -197,6 +199,69 @@ private:
   RCPtr<GuiComposite> m_parent;
   int m_indexOfDeletedChild = -1;
 };
+
+static void OnElementUpdated(PGuiElement elem)
+{
+  GSGuiEdit* s = dynamic_cast<GSGuiEdit*>(TheGame::Instance()->GetState());
+  if (s)
+  {
+    s->OnElementUpdated(elem);
+  }
+}
+
+// * PropertyChangeCommand *
+// Command to change the named property of the given element, using the given menuItem
+//  to get the new value.
+class PropertyChangeCommand : public GuiCommand
+{
+public:
+  PropertyChangeCommand(const std::string propertyName, const std::string& newValue, PGuiElement elem)
+    : m_propertyName(propertyName), m_newValue(newValue), m_elem(elem)
+  {
+  }
+
+  bool Do() override
+  {
+    // Store properties for Undo
+    m_oldProperties = m_elem->GetProperties();
+
+    if (m_oldProperties.at(m_propertyName) == m_newValue)
+    {
+      return false; // no change, nothing to Undo
+    }
+
+    // Update properties with changed value
+    auto newProperties(m_oldProperties);
+    newProperties[m_propertyName] = m_newValue;
+    m_elem->SetProperties(newProperties);
+    
+    // Update the tree view etc to reflect new properties
+    OnElementUpdated(m_elem);
+
+    return true;
+  }
+
+  void Undo() override
+  {
+    m_elem->SetProperties(m_oldProperties);
+    OnElementUpdated(m_elem);
+  }
+
+private:
+  const std::string m_propertyName;
+  const std::string m_newValue;
+  PGuiElement m_elem;
+  GuiPropertyMap m_oldProperties;
+};
+
+static void OnPropertyTextChanged(PGuiElement elem)
+{
+  GSGuiEdit* s = dynamic_cast<GSGuiEdit*>(TheGame::Instance()->GetState());
+  if (s)
+  {
+    s->OnPropertyTextChanged(elem);
+  }
+}
 
 static void UniqueNameForNewElement(PGuiElement elem)
 {
@@ -454,8 +519,17 @@ void GSGuiEdit::OnRedo()
 
 void GSGuiEdit::OnGuiItemProperties([[maybe_unused]] GuiElement* menuItem)
 {
-  //if (m_selectedElement && m_editor)
+  // TODO Handle multi-selection?
+  //if (m_selectedElements.size() != 1)
   //{
+  //  return;
+  //}
+  //// Create properties menu
+  //m_propertiesMenu = new GuiMenu;
+  //PopulatePropertiesMenu(m_propertiesMenu);
+  //if (m_propertiesMenuParent)
+  //{
+  //  m_propertiesMenuParent->AddChild(m_propertiesMenu);
   //}
 }
 
@@ -563,13 +637,13 @@ void GSGuiEdit::OnGuiItemMoveDown([[maybe_unused]] GuiElement* menuItem)
   }
 }
 
-void GSGuiEdit::OnGuiTreeItemRightClick(GuiElement* e)
+void GSGuiEdit::OnElementUpdated(GuiElement* e)
 {
-  m_rightClickTreeViewMenu = new GuiFloatingMenu();
+  PopulateTreeView();
+}
 
-  // TODO This deletes node and all descendants. Have another option to just delete the (decorator) node
-  m_rightClickTreeViewMenu->AddChild(new GuiTextMenuItem("Delete", &Amju::OnGuiItemDelete));
-
+void GSGuiEdit::AddNewItemMenuToRightClickTreeView()
+{
   GuiMenu* newItemMenu = new GuiMenu;
   newItemMenu->AddChild(new GuiTextMenuItem("gui-comp", &Amju::OnGuiItemNew));
   newItemMenu->AddChild(new GuiTextMenuItem("spline", &Amju::OnGuiItemNew));
@@ -578,14 +652,59 @@ void GSGuiEdit::OnGuiTreeItemRightClick(GuiElement* e)
   newItemMenu->AddChild(new GuiTextMenuItem("gui-button", &Amju::OnGuiItemNew));
   newItemMenu->AddChild(new GuiTextMenuItem("gui-text", &Amju::OnGuiItemNew));
   // TODO etc
-
   m_rightClickTreeViewMenu->AddChild(new GuiNestMenuItem("New >", newItemMenu));
-  m_rightClickTreeViewMenu->AddChild(new GuiTextMenuItem("Bring forward", &Amju::OnGuiItemMoveUp)); // i.e. higher in child vec, so drawn later
-  m_rightClickTreeViewMenu->AddChild(new GuiTextMenuItem("Send back", &Amju::OnGuiItemMoveDown));
+}
 
-  // TODO!!!!!!!
-  m_rightClickTreeViewMenu->AddChild(new GuiTextMenuItem("Properties...", &Amju::OnGuiItemProperties));
+void GSGuiEdit::PopulatePropertiesMenu(GuiMenu* menu)
+{
+  Assert(m_selectedElements.size() == 1);
+  auto selectedElement = m_selectedElements[0];
+  auto properties = selectedElement->GetProperties();
 
+  // Create a menu, add each property as an editable menu item
+  for (auto& [name, value] : properties)
+  {
+    // Create an editor menu item (TODO according to the type of the property);
+    //  populate it with initial value
+    GuiMenu* container = new GuiMenu; // contains one item: the property editor item
+    container->SetName(name); // set name=>property name so we can retrieve it in OnPropertyTextChanged
+
+    GuiTextEditMenuItem* textEditMenuItem = new GuiTextEditMenuItem(value);
+    textEditMenuItem->SetOnTextChangedCommand(&Amju::OnPropertyTextChanged); 
+    container->AddChild(textEditMenuItem);
+
+    menu->AddChild(new GuiNestMenuItem(name + " > ", container));
+  }
+}
+
+void GSGuiEdit::OnPropertyTextChanged(GuiElement* elem)
+{
+  GuiTextEditMenuItem* textEditMenuItem = dynamic_cast<GuiTextEditMenuItem*>(elem);
+  Assert(textEditMenuItem);
+  // Parent container menu has name==property name, see PopulatePropertiesMenu()
+  GuiElement* parent = textEditMenuItem->GetParent();
+  const std::string& propertyName = parent->GetName();
+  const std::string& newValue = textEditMenuItem->GetText();
+
+  Assert(m_selectedElements.size() == 1);
+  auto selectedElement = m_selectedElements[0];
+
+  parent->SetVisible(false);
+
+  TheGuiCommandHandler::Instance()->DoNewCommand(
+    new PropertyChangeCommand(propertyName, newValue, selectedElement));
+}
+
+void GSGuiEdit::AddPropertiesMenuToRightClickTreeView()
+{
+  GuiMenu* propertiesMenu = new GuiMenu;
+  propertiesMenu->SetName("properties sub menu");
+  PopulatePropertiesMenu(propertiesMenu);
+  m_rightClickTreeViewMenu->AddChild(new GuiNestMenuItem("Properties >", propertiesMenu));
+}
+
+void GSGuiEdit::AddDecorateMenuToRightClickTreeView()
+{
   GuiMenu* decorateItemMenu = new GuiMenu;
   decorateItemMenu->AddChild(new GuiTextMenuItem("animation", &Amju::OnGuiItemDecorate));
   decorateItemMenu->AddChild(new GuiTextMenuItem("colour", &Amju::OnGuiItemDecorate));
@@ -594,8 +713,34 @@ void GSGuiEdit::OnGuiTreeItemRightClick(GuiElement* e)
   decorateItemMenu->AddChild(new GuiTextMenuItem("scale", &Amju::OnGuiItemDecorate));
   decorateItemMenu->AddChild(new GuiTextMenuItem("rotate", &Amju::OnGuiItemDecorate));
   m_rightClickTreeViewMenu->AddChild(new GuiNestMenuItem("Decorate >", decorateItemMenu));
+}
+
+void GSGuiEdit::PopulateRightClickTreeViewMenu()
+{
+  AddPropertiesMenuToRightClickTreeView();
 
   m_rightClickTreeViewMenu->AddChild(new GuiTextMenuItem("Duplicate", &Amju::OnGuiItemDuplicate));
+  AddDecorateMenuToRightClickTreeView();
+  AddNewItemMenuToRightClickTreeView();
+
+  m_rightClickTreeViewMenu->AddChild(new GuiTextMenuItem("Bring forward", &Amju::OnGuiItemMoveUp));
+  m_rightClickTreeViewMenu->AddChild(new GuiTextMenuItem("Send back", &Amju::OnGuiItemMoveDown));
+
+  // TODO This deletes node and all descendants. Have another option to just delete the (decorator) node
+  m_rightClickTreeViewMenu->AddChild(new GuiTextMenuItem("Delete", &Amju::OnGuiItemDelete));
+}
+
+void GSGuiEdit::OnGuiTreeItemRightClick(GuiElement* e)
+{
+  // If nothing is selected, select the menu item under the cursor.
+  if (m_selectedElements.empty())
+  {
+    OnGuiTreeItemLeftClick(e);
+  }
+  Assert(!m_selectedElements.empty());
+
+  m_rightClickTreeViewMenu = new GuiFloatingMenu();
+  PopulateRightClickTreeViewMenu();
 
   // Position on left or right of parent menu item
   if (e->GetCombinedPos().x + m_treeview->GetSize().x < .5f)

@@ -40,6 +40,9 @@ public:
   void OnGuiItemProperties(GuiElement* e);
   void OnUndo();
   void OnRedo();
+  void OnPropertyTextChanged(GuiElement* e);
+  void OnElementUpdated(GuiElement* e);
+  
   void SetUpdateGuiWeAreEditing(bool yesUpdate); // Call to play/pause animations on the GUI we are editing
 
   void HideRightClickMenu();
@@ -48,6 +51,11 @@ private:
   void SetSelectedElement(PGuiElement e);
   void SetElementsInSelectionRect(); // multi-select
   void PopulateTreeView();
+  void PopulatePropertiesMenu(GuiMenu* propertiesMenu);
+  void PopulateRightClickTreeViewMenu();
+  void AddNewItemMenuToRightClickTreeView();
+  void AddPropertiesMenuToRightClickTreeView();
+  void AddDecorateMenuToRightClickTreeView();
   bool OnMiddleButtonEvent(const MouseButtonEvent& mbe);
   bool OnCursorZoomEvent(const CursorEvent& ce);
 
@@ -64,6 +72,8 @@ private:
   RCPtr<GuiDialog> m_treeview; // Show GUI tree in vertical text form
   RCPtr<GuiMenu> m_rightClickMenu;
   RCPtr<GuiMenu> m_rightClickTreeViewMenu;
+  RCPtr<GuiMenu> m_propertiesMenu;
+  RCPtr<GuiMenu> m_propertiesMenuParent;
 
   // By default, don't update the GUI we are editing, to turn off peskly animations.
   bool m_doUpdateEditGui = false;
