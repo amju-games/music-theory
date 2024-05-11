@@ -842,7 +842,7 @@ void GSGuiEdit::PopulateTreeView()
 
   m_treeview = new GuiDialog();
   m_treeview->SetLocalPos(lastPosForRightClickMenu);
-  m_treeview->SetSize({.5f, .5f });
+  m_treeview->SetSize({ .5f, .5f });
   m_treeview->SetTitle("GUI tree");
   m_treeview->SetBgColour({ .2f, .2f, .2f, 1.f });
 
@@ -857,7 +857,7 @@ void GSGuiEdit::PopulateTreeView()
   scrollbar->SetSize(Vec2f(.1f, 1.f));
   scrollbar->AddChild(treemenu);
   float h = treemenu->GetSize().y;
-  scrollbar->SetExtents(Vec2f(0, h)); 
+  scrollbar->SetExtents(Vec2f(0, h));
   //scrollbar->InitScrollBar();
 }
 
@@ -877,6 +877,33 @@ void GSGuiEdit::Update()
   }
 }
 
+void GSGuiEdit::SetZoomMatricesFromModelview()
+{
+  m_zoomMatrix.ModelView();
+  bool inverseOk = m_zoomMatrix.Inverse(&m_inverseZoomMatrix);
+  Assert(inverseOk); // zoom matrix should always be invertible, right?!
+}
+
+MouseButtonEvent GSGuiEdit::ZoomTransform(const MouseButtonEvent& mbe) const
+{
+  Vec3f v(mbe.x, mbe.y, 0);
+  Vec3f transformedV = v * m_inverseZoomMatrix;
+  MouseButtonEvent result(mbe);
+  result.x = transformedV.x;
+  result.y = transformedV.y;
+  return result;
+}
+
+CursorEvent GSGuiEdit::ZoomTransform(const CursorEvent& ce) const
+{
+  Vec3f v(ce.x, ce.y, 0);
+  Vec3f transformedV = v * m_inverseZoomMatrix;
+  CursorEvent result(ce);
+  result.x = transformedV.x;
+  result.y = transformedV.y;
+  return result;
+}
+
 void GSGuiEdit::Draw2d()
 {
   GSBase::Draw2d();
@@ -891,11 +918,14 @@ void GSGuiEdit::Draw2d()
     AmjuGL::Translate(m_zoomAnchor.x, m_zoomAnchor.y, 0);
     AmjuGL::Scale(m_zoom, m_zoom, 1.f);
     AmjuGL::Translate(-m_zoomAnchor.x, -m_zoomAnchor.y, 0);
+
+    // store transform for drawing editing grabbers etc and transforming mouse coords
+    SetZoomMatricesFromModelview();
+
     m_editGui->Draw();
     Batched::DrawAll(); // flush all polys in GUI we are editing
-    AmjuGL::PopMatrix(); // ?
 
-    // Recursively draw bounding rects
+    // Recursively draw bounding rects and grabbers
     AmjuGL::UseShader(nullptr);
     DrawBoundingRects(m_editGui);
 
@@ -904,18 +934,18 @@ void GSGuiEdit::Draw2d()
       ed->Draw();
     }
 
-    //GuiElement::SetGlobalScale(1.0f);
-  }
+    if (true) // m_selectionRectIsActive) // Hmm what's going on here?
+    {
+      AmjuGL::UseShader(nullptr);
+      AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
+      PushColour();
+      AmjuGL::SetColour({0, 1, 0, 1});
+      DrawRect(m_selectionRect);
+      PopColour();
+      AmjuGL::Enable(AmjuGL::AMJU_TEXTURE_2D);
+    }
 
-  if (true) // m_selectionRectIsActive)
-  {
-    AmjuGL::UseShader(nullptr);
-    AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
-    PushColour();
-    AmjuGL::SetColour({0, 1, 0, 1});
-    DrawRect(m_selectionRect);
-    PopColour();
-    AmjuGL::Enable(AmjuGL::AMJU_TEXTURE_2D);
+    AmjuGL::PopMatrix();
   }
 
   AmjuGL::UseShader(nullptr);
@@ -1010,6 +1040,8 @@ bool GSGuiEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 
   // Destroy right click sub-menu of tree view if it is not in use, so it doesn't
   //  continue to consume events.
+  // TODO Do the same for the right-click menu (Save/Undo etc)
+  // TODO We don't need to do this here. Maybe in Update()?
   if (m_rightClickTreeViewMenu &&
     !m_rightClickTreeViewMenu->IsVisible())
   {
@@ -1027,23 +1059,24 @@ bool GSGuiEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
     return true;
   }
 
-  // Find out if we have clicked down on a GUI element.
-  // If we clicked down, that element becomes active. 
-  // What about overlapping elements? We need a z order.
-  // We can use their position in the tree in depth first search order.
-
   if (m_rightClickMenu &&
     m_rightClickMenu->OnMouseButtonEvent(mbe))
   {
     return true;
   }
 
+  auto zoomedMbe = ZoomTransform(mbe);
+
+  // Find out if we have clicked down on a GUI element.
+  // If we clicked down, that element becomes active. 
+  // What about overlapping elements? We need a z order.
+  // As there is no explicit z order, we use their position in the tree in depth first search order.
   if (!m_editors.empty())
   {
     bool b = false;
     for (auto& ed : m_editors)
     {
-      b |= ed->OnMouseButtonEvent(mbe);
+      b |= ed->OnMouseButtonEvent(zoomedMbe);
     }
     if (b)
     {
@@ -1055,7 +1088,7 @@ bool GSGuiEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
   if (mbe.button == AMJU_BUTTON_MOUSE_LEFT && mbe.isDown)
   {
     // No corner grabbed: check for a selected element
-    GuiElement* selected = FindSelectedElement(m_editGui, mbe);
+    GuiElement* selected = FindSelectedElement(m_editGui, zoomedMbe);
     //if (dynamic_cast<GuiComposite*>(selected))
     //{
     //  selected = nullptr; // can't select a composite?
@@ -1087,8 +1120,11 @@ bool GSGuiEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
   m_selectionRectIsActive = mbe.isDown;
   if (m_selectionRectIsActive)
   {
-    m_selectionRectAnchor = Vec2f(mbe.x, mbe.y);
-    m_selectionRect.Set(mbe.x, mbe.x, mbe.y, mbe.y);
+    // Use zoomed mbe here, right?
+    float x = zoomedMbe.x;
+    float y = zoomedMbe.y;
+    m_selectionRectAnchor = Vec2f(x, y);
+    m_selectionRect.Set(x, x, y, y);
   }
   else
   {
@@ -1105,9 +1141,13 @@ bool GSGuiEdit::OnCursorEvent(const CursorEvent& ce)
     return OnCursorZoomEvent(ce);
   }
 
+  auto zoomedCe = ZoomTransform(ce);
+
   if (m_selectionRectIsActive)
   {
-    m_selectionRect.Set(m_selectionRectAnchor.x, ce.x, m_selectionRectAnchor.y, ce.y);
+    float x = zoomedCe.x;
+    float y = zoomedCe.y;
+    m_selectionRect.Set(m_selectionRectAnchor.x, x, m_selectionRectAnchor.y, y);
   }
 
   if (m_rightClickTreeViewMenu &&
@@ -1132,7 +1172,7 @@ bool GSGuiEdit::OnCursorEvent(const CursorEvent& ce)
     bool b = false;
     for (auto& ed : m_editors)
     {
-      b |= ed->OnCursorEvent(ce);
+      b |= ed->OnCursorEvent(zoomedCe);
     }
     if (b)
     {

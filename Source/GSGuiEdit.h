@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <Matrix.h>
 #include "GSBase.h"
 
 namespace Amju
@@ -59,15 +60,22 @@ private:
   bool OnMiddleButtonEvent(const MouseButtonEvent& mbe);
   bool OnCursorZoomEvent(const CursorEvent& ce);
 
+  void SetZoomMatricesFromModelview();
+  // Transform mouse/cursor events from screen space to zoomed-in GUI space
+  MouseButtonEvent ZoomTransform(const MouseButtonEvent&) const;
+  CursorEvent ZoomTransform(const CursorEvent&) const;
+
 private:
   // Filename of GUI we will edit; not to be confused with the GUI for the
   //  edit mode itself, which we are not editing!
   std::string m_editGuiFilename; 
   PGuiElement m_editGui; // Root node of GUI tree we are editing
-  //PGuiElement m_selectedElement; // Element we are editing
+  
+  // Elements we are editing
   std::vector<PGuiElement> m_selectedElements;
-  std::vector<RCPtr<GuiEdit>> m_editors; // Editor nodes, which lets us edit the selected elements.
+  // Editor nodes, which lets us edit the selected elements.
   // Each selected element has an editor pointing to it.
+  std::vector<RCPtr<GuiEdit>> m_editors;
 
   RCPtr<GuiDialog> m_treeview; // Show GUI tree in vertical text form
   RCPtr<GuiMenu> m_rightClickMenu;
@@ -75,12 +83,14 @@ private:
   RCPtr<GuiMenu> m_propertiesMenu;
   RCPtr<GuiMenu> m_propertiesMenuParent;
 
-  // By default, don't update the GUI we are editing, to turn off peskly animations.
+  // By default, don't update the GUI we are editing, to turn off pesky animations.
   bool m_doUpdateEditGui = false;
 
   Vec2f m_zoomAnchor; // Mouse pos when zoom starts.
   bool m_zoomIsActive = false;
   float m_zoom = 1.f;
+  Matrix m_zoomMatrix; // transform coords for drawing and editing when zoomed in
+  Matrix m_inverseZoomMatrix; // we use this to reverse transform mouse coords
 
   Rect m_selectionRect;
   Vec2f m_selectionRectAnchor; // Fixed corner of selection rect
