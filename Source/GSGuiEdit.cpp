@@ -493,6 +493,7 @@ GSGuiEdit::~GSGuiEdit()
 void GSGuiEdit::SetUpdateGuiWeAreEditing(bool yesUpdate)
 {
   m_doUpdateEditGui = yesUpdate;
+  m_rightClickMenu->SetVisible(false);
 }
 
 void GSGuiEdit::OnUndo()
@@ -503,6 +504,7 @@ void GSGuiEdit::OnUndo()
     m_selectedElements.clear();
     m_editors.clear();
     PopulateTreeView();
+    m_rightClickMenu->SetVisible(false);
   }
 }
 
@@ -514,6 +516,7 @@ void GSGuiEdit::OnRedo()
     m_selectedElements.clear();
     m_editors.clear();
     PopulateTreeView();
+    m_rightClickMenu->SetVisible(false);
   }
 }
 
@@ -780,6 +783,8 @@ void GSGuiEdit::OnSaveGui()
     }
     f.WriteInteger(1); // version
     m_editGui->Save(&f);
+
+    m_rightClickMenu->SetVisible(false);
   }
 }
 
@@ -1110,9 +1115,20 @@ bool GSGuiEdit::OnMouseButtonEvent(const MouseButtonEvent& mbe)
   {
     m_rightClickMenu = new GuiFloatingMenu();
     m_rightClickMenu->AddChild(new GuiTextMenuItem("Save", &Amju::OnSaveGui));
-    m_rightClickMenu->AddChild(new GuiTextMenuItem("Undo", &Amju::OnUndo));
-    m_rightClickMenu->AddChild(new GuiTextMenuItem("Redo", &Amju::OnRedo));
-    m_rightClickMenu->AddChild(new GuiTextMenuItem("Play anims", &Amju::OnPlayAnims));
+
+    auto commandHandler = TheGuiCommandHandler::Instance();
+    auto undoMenuItem = new GuiTextMenuItem("Undo", &Amju::OnUndo);
+    undoMenuItem->SetEnabled(commandHandler->CanUndo());
+    m_rightClickMenu->AddChild(undoMenuItem);
+
+    auto redoMenuItem = new GuiTextMenuItem("Redo", &Amju::OnRedo);
+    redoMenuItem->SetEnabled(commandHandler->CanRedo());
+    m_rightClickMenu->AddChild(redoMenuItem);
+
+    // Play or pause anims, set menu item text according to current state
+    std::string playOrPause = (m_doUpdateEditGui ? "Pause anims" : "Play anims");
+    m_rightClickMenu->AddChild(new GuiTextMenuItem(playOrPause, &Amju::OnPlayAnims));
+
     m_rightClickMenu->SetLocalPos(Vec2f(mbe.x, mbe.y));
     return true;
   }
