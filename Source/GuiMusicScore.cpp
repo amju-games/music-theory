@@ -718,7 +718,16 @@ bool GuiMusicScore::Load(File* f)
     f->ReportError("Expected music score colour");
     return false;
   }
-  m_fgCol = FromHexString(colour);
+  auto optionalColour = FromHexString(colour);
+  if (optionalColour)
+  {
+    m_fgCol = *optionalColour;
+  }
+  else
+  {
+    f->ReportError("Bad colour: " + colour);
+    return false;
+  }
 
   // Load the score to display, not the texture atlas
   // Format is: each line specifies one glyph or the end of the score data.

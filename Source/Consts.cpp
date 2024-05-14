@@ -24,7 +24,10 @@ const std::string WAV_EXIT_TAPPABLE = "wow2";
 Colour GetConstColour(const char* colourName)
 {
   Assert(ROConfig()->Exists(colourName));
-  return FromHexString(ROConfig()->GetValue(colourName));
+  const std::string& colourString = ROConfig()->GetValue(colourName);
+  auto optionalColour = FromHexString(colourString);
+  Assert(optionalColour);
+  return *optionalColour;
 }
 
 }

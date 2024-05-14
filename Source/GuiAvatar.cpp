@@ -44,7 +44,7 @@ AvatarMap s_avatarMap =
     [](GuiElement* elem, const std::string& value)
     {
       GuiDecColour* gc = dynamic_cast<GuiDecColour*>(elem);
-      Colour col = FromHexString(value);
+      Colour col = *FromHexString(value);
       gc->SetColour(col);
       // set same colour again so no interpolation surprises
       gc->SetSecondColour(col);

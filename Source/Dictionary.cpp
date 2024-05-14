@@ -63,7 +63,7 @@ int Dictionary::GetNumTerms() const
 
 bool Dictionary::GetTerm(int i, std::string* english, std::string* foreign, std::string* expl) const
 {
-  if (i >= m_dictionary.size())
+  if (i >= static_cast<int>(m_dictionary.size()))
   {
     return false;
   }
