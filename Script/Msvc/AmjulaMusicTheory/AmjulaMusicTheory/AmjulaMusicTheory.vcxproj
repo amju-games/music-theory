@@ -334,6 +334,7 @@
     <ClCompile Include="..\..\..\..\Source\PageMultiChoice.cpp" />
     <ClCompile Include="..\..\..\..\Source\PagePlayNotes.cpp" />
     <ClCompile Include="..\..\..\..\Source\PageQuestion.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Palette.cpp" />
     <ClCompile Include="..\..\..\..\Source\ParticleFx.cpp" />
     <ClCompile Include="..\..\..\..\Source\PlayWav.cpp" />
     <ClCompile Include="..\..\..\..\Source\PrintGui.cpp" />
@@ -481,6 +482,7 @@
     <ClInclude Include="..\..\..\..\Source\PageMultiChoice.h" />
     <ClInclude Include="..\..\..\..\Source\PagePlayNotes.h" />
     <ClInclude Include="..\..\..\..\Source\PageQuestion.h" />
+    <ClInclude Include="..\..\..\..\Source\Palette.h" />
     <ClInclude Include="..\..\..\..\Source\ParticleFx.h" />
     <ClInclude Include="..\..\..\..\Source\PlayMidi.h" />
     <ClInclude Include="..\..\..\..\Source\PlayWav.h" />
