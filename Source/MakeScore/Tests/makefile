@@ -1,10 +1,10 @@
 all:makescore_exe
 
 clean:
-	rm makescore *.o
+	rm testrunner.exe *.o
 
 run:
-	./makescore
+	./testrunner.exe
 
 
 CC=clang++
@@ -18,10 +18,10 @@ CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++20 -g -O0
 
 LDFLAGS=
 
-SOURCES=$(wildcard *.cpp)
+SOURCES=$(filter-out ../Main.cpp, $(wildcard ../*.cpp) $(wildcard *.cpp))
 
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=makescore
+EXECUTABLE=testrunner.exe
 
 makescore_exe: $(SOURCES) $(EXECUTABLE)
 

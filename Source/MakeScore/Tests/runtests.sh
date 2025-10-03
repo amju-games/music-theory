@@ -1,0 +1,4 @@
+make
+./testrunner.exe ~*Broken*
+
+

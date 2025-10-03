@@ -28,7 +28,17 @@
 class MakeScore
 {
 public:
+  MakeScore() = default; // can load Music XML file for input
+
+  // Create with input string
   MakeScore(const std::string& in) : m_input(in) { }
+
+  // Create internal representation from a Music XML file - 
+  //  no need to call MakeInternal() in this case.
+  bool LoadXml(const std::string& filename);
+
+  // Get information about the piece, loaded from XML or set with a 'Makescore string'
+  int NumParts() const;
 
   void SetTranspose(int semitones) { m_transpose = semitones; }
   void SetPageWidth(float pw) { m_pageWidth = pw; }

@@ -40,6 +40,10 @@ t   - Adds a tie between the previous and next note
 
 Beams
 Beam tokens are added between quaver tokens
+TODO This can be smarter: we know the note lengths of the beamed notes, so we
+should just need one token to indicate that these should be beamed.
+But we might need -= and =- to indicate directions of 'flags'.
+
 --  - Single beam, i.e. quaver
 ==  - Double beam, i.e. semiquaver
 -=  - Quaver beamed to semiquaver

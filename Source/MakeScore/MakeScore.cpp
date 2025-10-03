@@ -1,5 +1,5 @@
 // * Amjula Music Theory *
-// (c) Copyright Juliet Colman 2024
+// (c) Copyright Juliet Colman 2025
 //
 // * MakeScore *
 //
@@ -34,6 +34,7 @@
 #include "Switch.h"
 #include "TimeSig.h"
 #include "TimeValue.h"
+#include "tinyxml2.h"
 #include "Utils.h"
 
 // Const set of performance directions, with relative widths
@@ -474,5 +475,18 @@ std::string MakeScore::ToString()
   }
 
   return res;
+}
+
+bool MakeScore::LoadXml(const std::string& filename)
+{
+  using namespace tinyxml2;
+  XMLDocument doc;
+  XMLError e = doc.LoadFile(filename.c_str());
+  return e == XML_SUCCESS;
+}
+
+int MakeScore::NumParts() const
+{
+  return 1; // For now - TDD :)
 }
 
