@@ -1,6 +1,9 @@
 // * Amjula music theory * (c) Copyright 2024 Juliet Colman
 
+#ifdef RANGES_AVAILABLE // no <ranges> on Mac OS 11 ("Big Sur")
 #include <ranges> // get map values into a vector
+#endif
+
 #include <File.h>
 #include <StringUtils.h>
 #include "Palette.h"
@@ -9,8 +12,21 @@ namespace Amju
 {
 Palette::ColourVec Palette::GetColours() const
 {
+#ifdef RANGES_AVAILABLE // no <ranges> on Mac OS 11 ("Big Sur")
+
   auto vv = std::views::values(m_colours);
   return ColourVec{ vv.begin(), vv.end() };
+
+#else
+
+  ColourVec result;
+  for (const auto& kv : m_colours)
+  {
+    result.push_back(kv.second);
+  }
+  return result;
+
+#endif
 }
 
 bool Palette::ParseLine(const std::string& s)
