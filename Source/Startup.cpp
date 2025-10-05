@@ -27,6 +27,7 @@
 #include <AmjuGLWindowInfo.h>
 #include <AmjuRand.h>
 #include <BassSoundPlayer.h>
+#include <CommandLineArgs.h>
 #include <CursorManager.h>
 #include <Directory.h>
 #include <EventPoller.h>
@@ -333,11 +334,18 @@ static void SetUpGui()
 
 static void SetInitialState()
 {
+  const std::string VIEWSCORE = "--viewscore";
+  const auto& args = GetCommandLineArgs();
+  if (args.Contains(VIEWSCORE))
+  {
+    // Show keyboard and nice score
+    TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
+    return;
+  }
+
   // Just a keyboard
 //  TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
 // 
-    // Show keyboard and nice score
-//  TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
 
   // Show animated splines?
   // Right now using this to edit GUIs, currently corridor sections.
@@ -347,11 +355,11 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSFirstUser::Instance());
-//  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSAvatarMod::Instance());
 
-  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 }
 
 static void LoadStringTableForPreferredLanguage()

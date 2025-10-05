@@ -26,6 +26,9 @@ CFLAGS += -D_DEBUG -DAMJU_USE_BASS_MIDI -DAMJU_USE_BASS -Wno-deprecated-declarat
 run:
 	$(TARGET)
 
+# Use runsetup first time
+
+
 #	cp $(TARGET) $(RUNDIR); \
 #	cp $(BASSPATH)/libbassmidi.dylib $(RUNDIR); \
 #	cp $(BASSPATH)/libbass.dylib $(RUNDIR); \
@@ -50,4 +53,6 @@ runsetup:
 	cp $(BASSPATH)/libbassmidi.dylib $(BUILD); \
 	cp $(BASSPATH)/libbass.dylib $(BUILD); 
 
+viewscore:
+	$(TARGET) --viewscore
 
