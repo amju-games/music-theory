@@ -20,6 +20,7 @@
 #include "Bar.h"
 #include "Consts.h"
 #include "Glyph.h"
+#include "Part.h"
 #include "Stave.h"
 #include "Tie.h"
 #include "TimeSigGlyph.h"
@@ -39,6 +40,10 @@ public:
 
   // Get information about the piece, loaded from XML or set with a 'Makescore string'
   int NumParts() const;
+  void AddPart(const std::string& name);
+  Part& GetPart(int n);
+
+  int NumBars() const;
 
   void SetTranspose(int semitones) { m_transpose = semitones; }
   void SetPageWidth(float pw) { m_pageWidth = pw; }
@@ -154,5 +159,8 @@ private:
 
   // Bit field for staccato, accent, pause, etc., per stave
   int m_switches[MAX_NUM_STAVES] = { 0, 0, 0, 0 };
+
+  // Parts
+  std::vector<Part> m_parts; // change to ptrs as required
 };
 

@@ -487,6 +487,24 @@ bool MakeScore::LoadXml(const std::string& filename)
 
 int MakeScore::NumParts() const
 {
+  return m_parts.size();
+}
+
+int MakeScore::NumBars() const
+{
   return 1; // For now - TDD :)
 }
+
+void MakeScore::AddPart(const std::string& name)
+{
+  m_parts.push_back(Part(name));
+}
+
+Part& MakeScore::GetPart(int n)
+{
+  assert(n < NumParts());
+  return m_parts[n];
+}
+
+
 

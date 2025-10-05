@@ -6,6 +6,8 @@
 // To build on Mac:
 //
 //  clang++ *.cpp ../*cpp -DCATCH -std=c++20
+// 
+// ..but there's a makefile and script to build and then run the tests.
 
 
 #include "catch.hpp"
@@ -30,6 +32,7 @@ TEST_CASE("Load sample music xml file", "MakeScore")
   bool successfulLoad = ms.LoadXml("test1.musicxml");
   REQUIRE(successfulLoad);
   REQUIRE(ms.NumParts() == 1);
+  REQUIRE(ms.NumBars() == 1);
 }
 
 
