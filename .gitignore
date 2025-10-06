@@ -19,3 +19,5 @@ Source/MakeScore/out.txt
 Script/Msvc/AmjulaMusicTheory/MakeScore/x64/Debug/
 *.exe
 *.pdb
+/Script/Msvc/AmjulaMusicTheory/MakeScore/x64
+/Script/Msvc/AmjulaMusicTheory/CatchTests/x64
