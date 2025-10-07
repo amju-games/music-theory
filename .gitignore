@@ -21,3 +21,4 @@ Script/Msvc/AmjulaMusicTheory/MakeScore/x64/Debug/
 *.pdb
 /Script/Msvc/AmjulaMusicTheory/MakeScore/x64
 /Script/Msvc/AmjulaMusicTheory/CatchTests/x64
+/Script/Msvc/AmjulaMusicTheory/MakeScore_CatchTests/x64

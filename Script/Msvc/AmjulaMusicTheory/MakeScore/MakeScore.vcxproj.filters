@@ -155,5 +155,8 @@
     <ClInclude Include="..\..\..\..\Source\MakeScore\BeamGroup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MakeScore\Part.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

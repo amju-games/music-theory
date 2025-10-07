@@ -182,6 +182,7 @@
     <ClInclude Include="..\..\..\..\Source\MakeScore\KeySig.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\MakeScore.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\NoteGlyph.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\Part.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Pitch.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\RestGlyph.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Stave.h" />
