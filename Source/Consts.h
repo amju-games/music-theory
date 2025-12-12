@@ -9,6 +9,9 @@ namespace Amju
 {
 // * Constants *
 
+// Command line option which sets initial state to displaying music score
+extern const std::string VIEWSCORE;
+
 // Delay before we go to next page (gives time to see blackboard erase)
 static const float NEXT_PAGE_TIME = 2.2f;
 

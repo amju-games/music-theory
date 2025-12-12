@@ -334,12 +334,11 @@ static void SetUpGui()
 
 static void SetInitialState()
 {
-  const std::string VIEWSCORE = "--viewscore";
   const auto& args = GetCommandLineArgs();
   if (args.Contains(VIEWSCORE))
   {
     // Show keyboard and nice score
-    TheGame::Instance()->SetCurrentState(TheGSShowMusicScore::Instance());
+    TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
     return;
   }
 
@@ -355,11 +354,11 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSFirstUser::Instance());
-  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSAvatarMod::Instance());
 
-//  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 }
 
 static void LoadStringTableForPreferredLanguage()
