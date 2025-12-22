@@ -11,8 +11,6 @@ ILevelManager& GetLevelManager()
   return lm;
 }
 
-static const char* const LEVEL_KEY = "level";
-
 LevelManager::LevelManager()
 {
   m_levelNum = TheUserProfile()->GetCurrentLevel();

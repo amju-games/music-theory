@@ -308,6 +308,9 @@ void LurkMsg::Set(GuiElement* text, const Colour& fgCol, const Colour& bgCol, Lu
     m_rect->SetRoundCorners(GuiRect::AMJU_BR | GuiRect::AMJU_TR);
     break;
 
+  case AMJU_CENTRE:
+    break;
+
   case AMJU_NONE:
     Assert(0);
     break;
