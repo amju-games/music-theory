@@ -10,11 +10,6 @@ namespace Amju
 {
 const char* Gui3dScene::NAME = "3d-scene";
 
-static GuiElement* CreateGui3dScene()
-{
-  return new Gui3dScene;
-}
-
 SceneGraph* Gui3dScene::GetSceneGraph()
 {
   return m_sceneGraph;

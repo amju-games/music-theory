@@ -280,7 +280,8 @@ static GuiElement* FindGuiElementFromMenuItem(GuiElement* menuItem, GuiElement* 
   return guiTreeToSearch->GetElementByName(str);
 }
 
-static void OnGuiItemProperties(GuiElement* menuItem)
+// TODO Why unused?
+[[maybe_unused]]static void OnGuiItemProperties(GuiElement* menuItem)
 {
   GSGuiEdit* s = dynamic_cast<GSGuiEdit*>(TheGame::Instance()->GetState());
   if (s)

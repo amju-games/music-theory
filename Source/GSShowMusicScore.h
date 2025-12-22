@@ -26,10 +26,6 @@ private:
   // Score scrolls to the left
   // The score is within the m_gui tree, so this is a non-ownership pointer.
   GuiMusicScore* m_score = nullptr;
-
-  // BAD: wrong place for this
-  // 7 gui images used to show the current octave
-  GuiElement* m_dots[7];
 };
 
 typedef Singleton<GSShowMusicScore> TheGSShowMusicScore;
