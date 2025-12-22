@@ -1181,7 +1181,6 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
 					_DEBUG,
 					AMJU_IOS,
