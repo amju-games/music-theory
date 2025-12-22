@@ -4,6 +4,8 @@
 // Implement PlayMidi() using the BASS library. Used for Windows, not iOS.
 // The other way to do this, probably better, would be to make a new SoundPlayerImpl. Rats.
 
+#ifndef AMJU_IOS
+
 #include <iostream>
 #include <BassSoundPlayer.h>
 #include <File.h>
@@ -31,4 +33,6 @@ void PlayMidi(int note, int velocity)
     }
   }
 }
+
+#endif // AMJU_IOS
 
