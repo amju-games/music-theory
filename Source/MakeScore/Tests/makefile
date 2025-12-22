@@ -18,7 +18,7 @@ CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++20 -g -O0
 
 LDFLAGS=
 
-SOURCES=$(filter-out ../Main.cpp, $(wildcard ../*.cpp) $(wildcard *.cpp))
+SOURCES=$(filter-out ../Main.cpp traverse_xml_example.cpp, $(wildcard ../*.cpp) $(wildcard *.cpp))
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=testrunner.exe

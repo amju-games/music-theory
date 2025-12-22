@@ -25,18 +25,22 @@
 #include "Tie.h"
 #include "TimeSigGlyph.h"
 #include "TimeValue.h"
+#include "tinyxml2.h"
 
 class MakeScore
 {
 public:
-  MakeScore() = default; // can load Music XML file for input
+  MakeScore() = default; // can load Music XML file for input, or set input string directly
 
-  // Create with input string
-  MakeScore(const std::string& in) : m_input(in) { }
+  void SetInputString(const std::string& in) { m_input = in; }
 
   // Create internal representation from a Music XML file - 
   //  no need to call MakeInternal() in this case.
   bool LoadXml(const std::string& filename);
+
+  // Internal function: parse XML after loading document.
+  // Public for tests.
+  bool ParseXml(const tinyxml2::XMLDocument& doc);
 
   // Get information about the piece, loaded from XML or set with a 'Makescore string'
   int NumParts() const;

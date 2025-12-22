@@ -12,10 +12,12 @@
 
 #include "catch.hpp"
 #include "../MakeScore.h" 
+#include "../tinyxml2.h"
 
 TEST_CASE("Test MakeScore Broken", "MakeScore")
 {
-  MakeScore ms("c"); // one bar of one crotchet
+  MakeScore ms;
+  ms.SetInputString("c"); // one bar of one crotchet
   ms.MakeInternal();
   REQUIRE(ms.ToString() == "crotchet");
 }
@@ -41,9 +43,19 @@ TEST_CASE("Compare outputs from MusicXML and shorthand inputs", "MakeScore")
   MakeScore xmlScore;
   REQUIRE(xmlScore.LoadXml("test1.musicxml"));
 
-  MakeScore shorthandScore("4/4 clef-t key-s-0 <sb> 60");
+  MakeScore shorthandScore;
+  shorthandScore.SetInputString("4/4 clef-t key-s-0 <sb> 60");
   shorthandScore.MakeInternal();
 
   REQUIRE(xmlScore.ToString() == shorthandScore.ToString());
+}
+
+TEST_CASE("Parse XML", "MakeScore")
+{
+  using namespace tinyxml2;
+  XMLDocument doc;
+  MakeScore ms;
+  bool success = ms.ParseXml(doc);
+  REQUIRE(success);
 }
 

@@ -506,5 +506,25 @@ Part& MakeScore::GetPart(int n)
   return m_parts[n];
 }
 
+bool MakeScore::ParseXml(const tinyxml2::XMLDocument& doc)
+{
+  using namespace tinyxml2;
+
+  const XMLNode* root = doc.FirstChildElement("score-partwise");
+  if (!root)
+  {
+    std::cout << "XML parse fail: no score-partwise root element?\n";
+    return false; // TODO we need to report errors
+  }
+  const XMLText* rootText = root->ToText();
+  if (!rootText)
+  {
+    std::cout << "XML parse fail: no root element text?\n";
+    return false; // TODO we need to report errors
+  }
+  std::cout << "Root element: " << rootText->Value() << "\n";
+
+  return true;
+}
 
 

@@ -11,28 +11,49 @@
 // Same for Win, although we need double quotes and internally we need to 
 // strip off the quotes:
 //    (Win) echo "4/4 c c mr" | MakeScore.exe
+//
+// OR: load from a Music XML file: ./makescore --xml <xml file>
 
 #include "Consts.h"
 #include "MakeScore.h"
 
-void CommandLineParams(int argc, char** argv, MakeScore& ms)
+bool CommandLineParams(int argc, char** argv, MakeScore& ms)
 {
   for (int i = 1; i < argc; i++)
   {
     std::string param = argv[i];
 
-    if (param == "--oneline")
+    if (param == "--xml")
+    {
+      i++;
+      if (i == argc)
+      {
+        std::cout << "Error, expected XML filename following \"--xml\".\n";
+        return false; 
+      }
+
+      std::string xmlfile(argv[i]);
+      if (ms.LoadXml(xmlfile) == false)
+      {
+        std::cout << "Error loading Music XML input file " << xmlfile << ".\n";
+        return false;
+      }
+
+      std::cout << "// Input: XML file " << xmlfile << "\n";
+    }
+
+    else if (param == "--oneline")
     {
       // All on one line
       ms.SetOutputOneLine(true);
     }
 
-    if (param == "--stave-single")
+    else if (param == "--stave-single")
     {
       ms.SetStaveType(StaveType::STAVE_TYPE_SINGLE);
     }
 
-    if (param == "--transpose")
+    else if (param == "--transpose")
     {
       i++;
       int tr = atoi(argv[i]);
@@ -40,7 +61,7 @@ void CommandLineParams(int argc, char** argv, MakeScore& ms)
       ms.SetTranspose(tr);
     }
 
-    if (param == "--page-width")
+    else if (param == "--page-width")
     {
       i++;
       // Normalised: i.e. page width of 1 means the default width.
@@ -49,7 +70,7 @@ void CommandLineParams(int argc, char** argv, MakeScore& ms)
       ms.SetPageWidth(pageWidth);
     }
 
-    if (param == "--scale")
+    else if (param == "--scale")
     {
       i++;
       // Normalised: i.e. scale of 1 means the default scale.
@@ -57,7 +78,31 @@ void CommandLineParams(int argc, char** argv, MakeScore& ms)
       scale = static_cast<float>(atof(argv[i])) * scale;
       ms.SetScale(scale);
     }
+
+    else
+    {
+      // None of the above: treat as input string
+      // Chop off whitespace and quotes - needed for Win, not Mac
+      Trim(param);
+      StripQuotes(param);
+
+      // Do we need this? TODO
+      std::cout << "// " << param << "\n";
+      ms.SetInputString(param);
+
+      // For single line rhythm, centre vertically
+      // TODO Auto centre 1 or more lines
+      ms.SetY(0.5f);
+
+      // TODO Transform input:
+      // Add beam groupings
+      // Replace beamed quaver/semiquaver glyphs with crotchet glyphs
+      ms.Preprocess();
+
+      ms.MakeInternal();
+    }
   }
+  return true;
 }
 
 #ifndef CATCH
@@ -65,29 +110,12 @@ void CommandLineParams(int argc, char** argv, MakeScore& ms)
 
 int main(int argc, char** argv)
 {
-  std::string input;
-  std::getline(std::cin, input);
+  MakeScore ms;
 
-  // Chop off whitespace and quotes - needed for Win, not Mac
-  Trim(input);
-  StripQuotes(input);
-
-  std::cout << "// " << input << "\n";
-
-  MakeScore ms(input);
-
-  CommandLineParams(argc, argv, ms);
-
-  // For single line rhythm, centre vertically
-  // TODO Auto centre 1 or more lines
-  ms.SetY(0.5f);
-
-  // TODO Transform input:
-  // Add beam groupings
-  // Replace beamed quaver/semiquaver glyphs with crotchet glyphs
-  ms.Preprocess();
-
-  ms.MakeInternal();
+  if (CommandLineParams(argc, argv, ms) == false)
+  {
+    return 1;
+  }
 
   // Output final string.
   // Don't append a newline char, so we can add more to this line, in
