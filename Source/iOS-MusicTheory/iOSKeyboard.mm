@@ -47,6 +47,9 @@ static const float CORNER_RADIUS = 10.f;
 
 namespace Amju
 {
+const char* GuiTextIos::NAME = "GuiTextIos";
+const char* GuiTextEditIos::NAME = "GuiTextIos";
+
 static GuiElement* CreateTextEditiOS()
 {
   return new GuiTextEditIos;

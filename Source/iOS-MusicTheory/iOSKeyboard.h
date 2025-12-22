@@ -15,6 +15,9 @@ public:
   GuiTextIos();
   ~GuiTextIos();
   
+  static const char* NAME;
+  std::string GetTypeName() const override { return NAME; }
+
   void SetText(const std::string& text) override;
   std::string GetText() const override;
   virtual void Draw() override {}
@@ -30,6 +33,9 @@ public:
   GuiTextEditIos();
   ~GuiTextEditIos();
   
+  static const char* NAME;
+  std::string GetTypeName() const override { return NAME; }
+
   void ShowKeyboard(bool showNotHide);
   
   void SetText(const std::string& text) override;

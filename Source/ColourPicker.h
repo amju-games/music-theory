@@ -13,6 +13,7 @@ class ColourPicker : public GuiDecInclude
 {
 public:
   static const char* NAME;
+  std::string GetTypeName() const override { return NAME; }
 
   bool Load(File*) override;
 

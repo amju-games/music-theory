@@ -14,7 +14,8 @@ class GuiMusicKb : public GuiComposite
 {
 public:
   static const char* NAME;
-  
+  std::string GetTypeName() const override { return NAME; }
+
   // Make sure all keys which were pressed send final key up events
   virtual ~GuiMusicKb();
 
