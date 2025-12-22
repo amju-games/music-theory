@@ -20,6 +20,7 @@ mkdir $DEST_DIR
 mkdir $DEST_DIR/Course
 mkdir $DEST_DIR/font2d
 mkdir $DEST_DIR/Gui
+#mkdir $DEST_DIR/Gui/tappables
 mkdir $DEST_DIR/Image
 mkdir $DEST_DIR/obj
 mkdir $DEST_DIR/Scene
@@ -31,7 +32,16 @@ mkdir -p $DEST_DIR/Sound/wav
 cp $SRC_DIR/*.txt $DEST_DIR
 cp -R $SRC_DIR/Course/* $DEST_DIR/Course/
 cp -R $SRC_DIR/font2d/* $DEST_DIR/font2d
-cp $SRC_DIR/Gui/*.txt $DEST_DIR/Gui
+cp -R $SRC_DIR/Gui/* $DEST_DIR/Gui
+
+# Add a final end-of-line character to all text files: this is
+#  until we properly fix text files so line length is prepended
+#  to each line.
+for f in $DEST_DIR/*.txt $DEST_DIR/Gui/*.txt $DEST_DIR/Gui/tappables/*.txt $DEST_DIR/Course/*.txt  $DEST_DIR/font2d/*.txt 
+do
+    echo "Adding end of line to file: " $f
+    echo "" >> $f
+done
 
 # TODO platform-specific GUI files
 #cp $SRC_DIR/gui/$PLATFORM/*.txt $DEST_DIR
@@ -54,10 +64,10 @@ cd $DEST_DIR
 # Create empty glue file
 $GLUE_EXE -c $GLUE_FILE
 
-for f in *.txt *.png Course/level1/* Course/level2/* Course/level3/* Course/level4/* Course/*.txt Course/expl/*.txt Image/*.png obj/*.obj obj/*.mtl obj/*.png Gui/*.txt Scene/*.txt font2d/*.txt font2d/Berlin/* font2d/ArialRound/* font2d/Dimbo/* font2d/Guido2compressed/* font2d/Icon/* font2d/TimesNewRomanMusic/* Shaders/gles/*.txt Shaders/opengl/*.txt
+for f in *.txt *.png Course/level1/* Course/level2/* Course/level3/* Course/level4/* Course/*.txt Course/expl/*.txt Image/*.png obj/*.obj obj/*.mtl obj/*.png Gui/*.txt Gui/tappables/*.txt Scene/*.txt font2d/*.txt font2d/Berlin/* font2d/CatComic/* font2d/SnackBox/* font2d/BondStory/* font2d/ArialRound/* font2d/Guido2compressed/* font2d/Icon/* font2d/TimesNewRomanMusic/* Shaders/gles/*.txt Shaders/opengl/*.txt
 do
     echo "Adding file: " $f
-   $GLUE_EXE -a $GLUE_FILE $f
+    $GLUE_EXE -a $GLUE_FILE $f
 done
 
 # Verify glue file contents
