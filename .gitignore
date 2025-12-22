@@ -22,3 +22,9 @@ Script/Msvc/AmjulaMusicTheory/MakeScore/x64/Debug/
 /Script/Msvc/AmjulaMusicTheory/MakeScore/x64
 /Script/Msvc/AmjulaMusicTheory/CatchTests/x64
 /Script/Msvc/AmjulaMusicTheory/MakeScore_CatchTests/x64
+Assets/Gui/scoretest_temp.txt
+Assets/Mac/libbass.dylib
+Assets/Mac/libbassmidi.dylib
+Assets/Mac/macgame
+Script/iOS/Amjula Music Theory/Amjula Music Theory.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+Script/iOS/Amjula Music Theory/Amjula Music Theory.xcodeproj/xcuserdata/juliet.xcuserdatad/xcschemes/xcschememanagement.plist
