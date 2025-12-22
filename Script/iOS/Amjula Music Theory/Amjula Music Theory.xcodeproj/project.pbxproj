@@ -49,7 +49,7 @@
 		6959E3051EA1091500E251A9 /* MultiChoiceQuestion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2FF1EA1091500E251A9 /* MultiChoiceQuestion.cpp */; };
 		6959E3061EA1091500E251A9 /* MusicalTermQuestion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3011EA1091500E251A9 /* MusicalTermQuestion.cpp */; };
 		6959E30B1EA7CFF200E251A9 /* GSFirstUser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3081EA7CFF200E251A9 /* GSFirstUser.cpp */; };
-		6959E3191EA7F44600E251A9 /* GuiTextEditIos.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3161EA7F44600E251A9 /* GuiTextEditIos.mm */; };
+		6959E3191EA7F44600E251A9 /* iOSGuiTextEdit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3161EA7F44600E251A9 /* iOSGuiTextEdit.mm */; };
 		6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */; };
 		6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E31C1EAB5BA500E251A9 /* PrintGui.cpp */; };
 		695E90731F4A13CA0003901E /* GSCopyAssets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695E90711F4A13CA0003901E /* GSCopyAssets.cpp */; };
@@ -60,10 +60,8 @@
 		6976F4961F2F1DD300D1D51A /* GSMainCorridor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6976F4941F2F1DD300D1D51A /* GSMainCorridor.cpp */; };
 		697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07EF1E82F19B0045CE54 /* GSBase.cpp */; };
 		697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */; };
-		697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */; };
 		697A08001E82F19B0045CE54 /* GSShowMusicScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F51E82F19B0045CE54 /* GSShowMusicScore.cpp */; };
 		697A08011E82F19B0045CE54 /* GSUserDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F71E82F19B0045CE54 /* GSUserDraw.cpp */; };
-		697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F91E82F19B0045CE54 /* GuiLineDrawing.cpp */; };
 		697A08031E82F19B0045CE54 /* GuiMusicScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07FB1E82F19B0045CE54 /* GuiMusicScore.cpp */; };
 		697A080D1E8307590045CE54 /* libAmjulib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 697A080B1E82F3990045CE54 /* libAmjulib.a */; };
 		697F64852051BC7100365E68 /* Notebook.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697F64822051BC7000365E68 /* Notebook.cpp */; };
@@ -119,6 +117,18 @@
 		69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */; };
 		69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E08B1E8C09C000E7BF93 /* Question.cpp */; };
 		69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */; };
+		C56DAD032EF2CFED00739D75 /* DevMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACEE2EF2CFEC00739D75 /* DevMenu.cpp */; };
+		C56DAD042EF2CFED00739D75 /* GSShowNewLevelNum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACEF2EF2CFED00739D75 /* GSShowNewLevelNum.cpp */; };
+		C56DAD052EF2CFED00739D75 /* GSUserDrawSave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACF12EF2CFED00739D75 /* GSUserDrawSave.cpp */; };
+		C56DAD062EF2CFED00739D75 /* BassPlayMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */; };
+		C56DAD072EF2CFED00739D75 /* ColourPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACF62EF2CFED00739D75 /* ColourPicker.cpp */; };
+		C56DAD082EF2CFED00739D75 /* Palette.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACF72EF2CFED00739D75 /* Palette.cpp */; };
+		C56DAD092EF2CFED00739D75 /* GSGuiEdit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACF82EF2CFED00739D75 /* GSGuiEdit.cpp */; };
+		C56DAD0A2EF2CFED00739D75 /* GSShowGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACFB2EF2CFED00739D75 /* GSShowGui.cpp */; };
+		C56DAD0B2EF2CFED00739D75 /* GSPagesEdit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACFE2EF2CFED00739D75 /* GSPagesEdit.cpp */; };
+		C56DAD0C2EF2CFED00739D75 /* LevelManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACFF2EF2CFED00739D75 /* LevelManager.cpp */; };
+		C56DAD0D2EF2CFED00739D75 /* Wallpaper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DAD002EF2CFED00739D75 /* Wallpaper.cpp */; };
+		C56DAD0E2EF2CFED00739D75 /* CourseManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DAD022EF2CFED00739D75 /* CourseManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -239,8 +249,8 @@
 		6959E3021EA1091500E251A9 /* MusicalTermQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicalTermQuestion.h; path = ../../../../Source/MusicalTermQuestion.h; sourceTree = "<group>"; };
 		6959E3081EA7CFF200E251A9 /* GSFirstUser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSFirstUser.cpp; path = ../../../../Source/GSFirstUser.cpp; sourceTree = "<group>"; };
 		6959E3091EA7CFF200E251A9 /* GSFirstUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSFirstUser.h; path = ../../../../Source/GSFirstUser.h; sourceTree = "<group>"; };
-		6959E3151EA7F44600E251A9 /* GuiTextEditIos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiTextEditIos.h; path = "../../../../Source/iOS-MusicTheory/GuiTextEditIos.h"; sourceTree = "<group>"; };
-		6959E3161EA7F44600E251A9 /* GuiTextEditIos.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GuiTextEditIos.mm; path = "../../../../Source/iOS-MusicTheory/GuiTextEditIos.mm"; sourceTree = "<group>"; };
+		6959E3151EA7F44600E251A9 /* iOSGuiTextEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iOSGuiTextEdit.h; path = "../../../../Source/iOS-MusicTheory/iOSGuiTextEdit.h"; sourceTree = "<group>"; };
+		6959E3161EA7F44600E251A9 /* iOSGuiTextEdit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSGuiTextEdit.mm; path = "../../../../Source/iOS-MusicTheory/iOSGuiTextEdit.mm"; sourceTree = "<group>"; };
 		6959E3171EA7F44600E251A9 /* iOSKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iOSKeyboard.h; path = "../../../../Source/iOS-MusicTheory/iOSKeyboard.h"; sourceTree = "<group>"; };
 		6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSKeyboard.mm; path = "../../../../Source/iOS-MusicTheory/iOSKeyboard.mm"; sourceTree = "<group>"; };
 		6959E31C1EAB5BA500E251A9 /* PrintGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintGui.cpp; path = ../../../../Source/PrintGui.cpp; sourceTree = "<group>"; };
@@ -261,14 +271,10 @@
 		697A07F01E82F19B0045CE54 /* GSBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSBase.h; path = ../../../../Source/GSBase.h; sourceTree = "<group>"; };
 		697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSPlayNotes.cpp; path = ../../../../Source/GSPlayNotes.cpp; sourceTree = "<group>"; };
 		697A07F21E82F19B0045CE54 /* GSPlayNotes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSPlayNotes.h; path = ../../../../Source/GSPlayNotes.h; sourceTree = "<group>"; };
-		697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSShowLineDrawing.cpp; path = ../../../../Source/GSShowLineDrawing.cpp; sourceTree = "<group>"; };
-		697A07F41E82F19B0045CE54 /* GSShowLineDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSShowLineDrawing.h; path = ../../../../Source/GSShowLineDrawing.h; sourceTree = "<group>"; };
 		697A07F51E82F19B0045CE54 /* GSShowMusicScore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSShowMusicScore.cpp; path = ../../../../Source/GSShowMusicScore.cpp; sourceTree = "<group>"; };
 		697A07F61E82F19B0045CE54 /* GSShowMusicScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSShowMusicScore.h; path = ../../../../Source/GSShowMusicScore.h; sourceTree = "<group>"; };
 		697A07F71E82F19B0045CE54 /* GSUserDraw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSUserDraw.cpp; path = ../../../../Source/GSUserDraw.cpp; sourceTree = "<group>"; };
 		697A07F81E82F19B0045CE54 /* GSUserDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSUserDraw.h; path = ../../../../Source/GSUserDraw.h; sourceTree = "<group>"; };
-		697A07F91E82F19B0045CE54 /* GuiLineDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiLineDrawing.cpp; path = ../../../../Source/GuiLineDrawing.cpp; sourceTree = "<group>"; };
-		697A07FA1E82F19B0045CE54 /* GuiLineDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiLineDrawing.h; path = ../../../../Source/GuiLineDrawing.h; sourceTree = "<group>"; };
 		697A07FB1E82F19B0045CE54 /* GuiMusicScore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiMusicScore.cpp; path = ../../../../Source/GuiMusicScore.cpp; sourceTree = "<group>"; };
 		697A07FC1E82F19B0045CE54 /* GuiMusicScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiMusicScore.h; path = ../../../../Source/GuiMusicScore.h; sourceTree = "<group>"; };
 		697A08061E82F3980045CE54 /* Amjulib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Amjulib.xcodeproj; path = ../../../../amjulib/Script/iOSAmjulibXCode/Amjulib/Amjulib.xcodeproj; sourceTree = "<group>"; };
@@ -363,6 +369,28 @@
 		69F5E08B1E8C09C000E7BF93 /* Question.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Question.cpp; path = ../../../../Source/Question.cpp; sourceTree = "<group>"; };
 		69F5E08C1E8C09C000E7BF93 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = ../../../../Source/Question.h; sourceTree = "<group>"; };
 		69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSPlayMidi.mm; path = "../../../../Source/iOS-MusicTheory/iOSPlayMidi.mm"; sourceTree = "<group>"; };
+		C56DACED2EF2CFEC00739D75 /* Palette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Palette.h; path = ../../../../Source/Palette.h; sourceTree = "<group>"; };
+		C56DACEE2EF2CFEC00739D75 /* DevMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DevMenu.cpp; path = ../../../../Source/DevMenu.cpp; sourceTree = "<group>"; };
+		C56DACEF2EF2CFED00739D75 /* GSShowNewLevelNum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSShowNewLevelNum.cpp; path = ../../../../Source/GSShowNewLevelNum.cpp; sourceTree = "<group>"; };
+		C56DACF02EF2CFED00739D75 /* GSGuiEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSGuiEdit.h; path = ../../../../Source/GSGuiEdit.h; sourceTree = "<group>"; };
+		C56DACF12EF2CFED00739D75 /* GSUserDrawSave.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSUserDrawSave.cpp; path = ../../../../Source/GSUserDrawSave.cpp; sourceTree = "<group>"; };
+		C56DACF22EF2CFED00739D75 /* GSShowNewLevelNum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSShowNewLevelNum.h; path = ../../../../Source/GSShowNewLevelNum.h; sourceTree = "<group>"; };
+		C56DACF32EF2CFED00739D75 /* CourseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CourseManager.h; path = ../../../../Source/CourseManager.h; sourceTree = "<group>"; };
+		C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BassPlayMidi.cpp; path = ../../../../Source/BassPlayMidi.cpp; sourceTree = "<group>"; };
+		C56DACF52EF2CFED00739D75 /* GSUserDrawSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSUserDrawSave.h; path = ../../../../Source/GSUserDrawSave.h; sourceTree = "<group>"; };
+		C56DACF62EF2CFED00739D75 /* ColourPicker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColourPicker.cpp; path = ../../../../Source/ColourPicker.cpp; sourceTree = "<group>"; };
+		C56DACF72EF2CFED00739D75 /* Palette.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Palette.cpp; path = ../../../../Source/Palette.cpp; sourceTree = "<group>"; };
+		C56DACF82EF2CFED00739D75 /* GSGuiEdit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSGuiEdit.cpp; path = ../../../../Source/GSGuiEdit.cpp; sourceTree = "<group>"; };
+		C56DACF92EF2CFED00739D75 /* Wallpaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Wallpaper.h; path = ../../../../Source/Wallpaper.h; sourceTree = "<group>"; };
+		C56DACFA2EF2CFED00739D75 /* DevMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DevMenu.h; path = ../../../../Source/DevMenu.h; sourceTree = "<group>"; };
+		C56DACFB2EF2CFED00739D75 /* GSShowGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSShowGui.cpp; path = ../../../../Source/GSShowGui.cpp; sourceTree = "<group>"; };
+		C56DACFC2EF2CFED00739D75 /* LevelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelManager.h; path = ../../../../Source/LevelManager.h; sourceTree = "<group>"; };
+		C56DACFD2EF2CFED00739D75 /* GSPagesEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSPagesEdit.h; path = ../../../../Source/GSPagesEdit.h; sourceTree = "<group>"; };
+		C56DACFE2EF2CFED00739D75 /* GSPagesEdit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSPagesEdit.cpp; path = ../../../../Source/GSPagesEdit.cpp; sourceTree = "<group>"; };
+		C56DACFF2EF2CFED00739D75 /* LevelManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LevelManager.cpp; path = ../../../../Source/LevelManager.cpp; sourceTree = "<group>"; };
+		C56DAD002EF2CFED00739D75 /* Wallpaper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Wallpaper.cpp; path = ../../../../Source/Wallpaper.cpp; sourceTree = "<group>"; };
+		C56DAD012EF2CFED00739D75 /* GSShowGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSShowGui.h; path = ../../../../Source/GSShowGui.h; sourceTree = "<group>"; };
+		C56DAD022EF2CFED00739D75 /* CourseManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CourseManager.cpp; path = ../../../../Source/CourseManager.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -515,6 +543,28 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */,
+				C56DACF62EF2CFED00739D75 /* ColourPicker.cpp */,
+				C56DAD022EF2CFED00739D75 /* CourseManager.cpp */,
+				C56DACF32EF2CFED00739D75 /* CourseManager.h */,
+				C56DACEE2EF2CFEC00739D75 /* DevMenu.cpp */,
+				C56DACFA2EF2CFED00739D75 /* DevMenu.h */,
+				C56DACF82EF2CFED00739D75 /* GSGuiEdit.cpp */,
+				C56DACF02EF2CFED00739D75 /* GSGuiEdit.h */,
+				C56DACFE2EF2CFED00739D75 /* GSPagesEdit.cpp */,
+				C56DACFD2EF2CFED00739D75 /* GSPagesEdit.h */,
+				C56DACFB2EF2CFED00739D75 /* GSShowGui.cpp */,
+				C56DAD012EF2CFED00739D75 /* GSShowGui.h */,
+				C56DACEF2EF2CFED00739D75 /* GSShowNewLevelNum.cpp */,
+				C56DACF22EF2CFED00739D75 /* GSShowNewLevelNum.h */,
+				C56DACF12EF2CFED00739D75 /* GSUserDrawSave.cpp */,
+				C56DACF52EF2CFED00739D75 /* GSUserDrawSave.h */,
+				C56DACFF2EF2CFED00739D75 /* LevelManager.cpp */,
+				C56DACFC2EF2CFED00739D75 /* LevelManager.h */,
+				C56DACF72EF2CFED00739D75 /* Palette.cpp */,
+				C56DACED2EF2CFEC00739D75 /* Palette.h */,
+				C56DAD002EF2CFED00739D75 /* Wallpaper.cpp */,
+				C56DACF92EF2CFED00739D75 /* Wallpaper.h */,
 				697F64822051BC7000365E68 /* Notebook.cpp */,
 				697F64842051BC7100365E68 /* Notebook.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
@@ -573,8 +623,6 @@
 				6959E2F51E9ACE8A00E251A9 /* GSPause.h */,
 				697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */,
 				697A07F21E82F19B0045CE54 /* GSPlayNotes.h */,
-				697A07F31E82F19B0045CE54 /* GSShowLineDrawing.cpp */,
-				697A07F41E82F19B0045CE54 /* GSShowLineDrawing.h */,
 				697A07F51E82F19B0045CE54 /* GSShowMusicScore.cpp */,
 				697A07F61E82F19B0045CE54 /* GSShowMusicScore.h */,
 				69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */,
@@ -591,14 +639,12 @@
 				694519362017368C001C188B /* Gui3dScene.h */,
 				6915CD0B20444A990001CB2E /* GuiAvatar.cpp */,
 				6915CD0920444A990001CB2E /* GuiAvatar.h */,
-				697A07F91E82F19B0045CE54 /* GuiLineDrawing.cpp */,
-				697A07FA1E82F19B0045CE54 /* GuiLineDrawing.h */,
 				69D58E7C1E86A02B008A8D29 /* GuiMusicKb.cpp */,
 				69D58E7D1E86A02B008A8D29 /* GuiMusicKb.h */,
 				697A07FB1E82F19B0045CE54 /* GuiMusicScore.cpp */,
 				697A07FC1E82F19B0045CE54 /* GuiMusicScore.h */,
-				6959E3151EA7F44600E251A9 /* GuiTextEditIos.h */,
-				6959E3161EA7F44600E251A9 /* GuiTextEditIos.mm */,
+				6959E3151EA7F44600E251A9 /* iOSGuiTextEdit.h */,
+				6959E3161EA7F44600E251A9 /* iOSGuiTextEdit.mm */,
 				694519442017368E001C188B /* HintType.h */,
 				6959E3171EA7F44600E251A9 /* iOSKeyboard.h */,
 				6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */,
@@ -747,7 +793,7 @@
 		699058B41E7D3BF400E528B4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1320;
 				ORGANIZATIONNAME = Amju;
 				TargetAttributes = {
 					699058BB1E7D3BF400E528B4 = {
@@ -847,11 +893,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C56DAD0B2EF2CFED00739D75 /* GSPagesEdit.cpp in Sources */,
 				6959E2D11E958C3C00E251A9 /* GSTitle.cpp in Sources */,
 				6945194C2017368F001C188B /* Gui3dScene.cpp in Sources */,
 				6955431F1F3B526D007C23EA /* TappableHint.cpp in Sources */,
+				C56DAD0A2EF2CFED00739D75 /* GSShowGui.cpp in Sources */,
 				69AC40371EB5331300F255A4 /* MusicEvent.cpp in Sources */,
 				692BF7471EAE50BD00DB6CE7 /* PagePlayNotes.cpp in Sources */,
+				C56DAD082EF2CFED00739D75 /* Palette.cpp in Sources */,
 				69D58E861E86A02B008A8D29 /* Page.cpp in Sources */,
 				69D732961F23DA29007B73C1 /* CorridorModeShowTappable.cpp in Sources */,
 				6959E3031EA1091500E251A9 /* GSAbout.cpp in Sources */,
@@ -866,24 +915,28 @@
 				691D91B91F9E5F1D004D6CED /* NumUpdate.cpp in Sources */,
 				69D732951F23DA29007B73C1 /* CorridorModeExitTappable.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
-				697A08021E82F19B0045CE54 /* GuiLineDrawing.cpp in Sources */,
+				C56DAD062EF2CFED00739D75 /* BassPlayMidi.cpp in Sources */,
 				695E90801F5AB7260003901E /* SerialReqManager.cpp in Sources */,
 				6959E2F91E9ACE8A00E251A9 /* GSTopicStart.cpp in Sources */,
 				6945194A2017368F001C188B /* UseVertexColourShader.cpp in Sources */,
 				695E907E1F5AB7260003901E /* LurkMsg.cpp in Sources */,
 				6915CD0F20444A9A0001CB2E /* ComposerList.cpp in Sources */,
+				C56DAD0C2EF2CFED00739D75 /* LevelManager.cpp in Sources */,
 				69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */,
 				695E90731F4A13CA0003901E /* GSCopyAssets.cpp in Sources */,
+				C56DAD072EF2CFED00739D75 /* ColourPicker.cpp in Sources */,
 				6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */,
 				69A23A5D1F61E6970021BF88 /* TutorialManager.cpp in Sources */,
 				69D732911F23DA29007B73C1 /* CorridorMode.cpp in Sources */,
 				69C10CDE1F17877A009B6836 /* PageQuestion.cpp in Sources */,
 				6951CF191F0B932300140095 /* Md2SceneNode.cpp in Sources */,
 				69D58E851E86A02B008A8D29 /* GuiMusicKb.cpp in Sources */,
+				C56DAD032EF2CFED00739D75 /* DevMenu.cpp in Sources */,
 				69D58E491E833741008A8D29 /* ViewController.mm in Sources */,
+				C56DAD0D2EF2CFED00739D75 /* Wallpaper.cpp in Sources */,
 				69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */,
 				69D732941F23DA29007B73C1 /* CorridorModeExitClassroom.cpp in Sources */,
-				6959E3191EA7F44600E251A9 /* GuiTextEditIos.mm in Sources */,
+				6959E3191EA7F44600E251A9 /* iOSGuiTextEdit.mm in Sources */,
 				6945194F2017368F001C188B /* ParticleFx.cpp in Sources */,
 				694519492017368F001C188B /* QuestionProgress.cpp in Sources */,
 				697A08031E82F19B0045CE54 /* GuiMusicScore.cpp in Sources */,
@@ -891,6 +944,7 @@
 				69AC40391EB5331300F255A4 /* PageMultiChoice.cpp in Sources */,
 				69C10CDD1F17877A009B6836 /* DictionaryPickQuestion.cpp in Sources */,
 				6955431D1F3B526D007C23EA /* ShareManager.cpp in Sources */,
+				C56DAD092EF2CFED00739D75 /* GSGuiEdit.cpp in Sources */,
 				6955431C1F3B526D007C23EA /* MySceneGraph.cpp in Sources */,
 				69A23A611F641AA40021BF88 /* TutorialIds.cpp in Sources */,
 				69C10CE21F1A2586009B6836 /* Tappable.cpp in Sources */,
@@ -902,19 +956,21 @@
 				6955431E1F3B526D007C23EA /* TappableFactory.cpp in Sources */,
 				69D58E871E86A02B008A8D29 /* ScoreBuilder.cpp in Sources */,
 				6951CF171F0B932300140095 /* GSBase3d.cpp in Sources */,
+				C56DAD042EF2CFED00739D75 /* GSShowNewLevelNum.cpp in Sources */,
 				697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */,
 				695E907F1F5AB7260003901E /* NetSend.cpp in Sources */,
 				69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */,
 				6945194B2017368F001C188B /* CorridorModeExitStairs.cpp in Sources */,
 				69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */,
+				C56DAD0E2EF2CFED00739D75 /* CourseManager.cpp in Sources */,
 				692BF74B1EAE5E2B00DB6CE7 /* PageFactory.cpp in Sources */,
 				6959E3051EA1091500E251A9 /* MultiChoiceQuestion.cpp in Sources */,
 				6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */,
 				6976F4961F2F1DD300D1D51A /* GSMainCorridor.cpp in Sources */,
 				6959E2EE1E97F6F800E251A9 /* Topic.cpp in Sources */,
 				69A23A5C1F61E6970021BF88 /* Consts.cpp in Sources */,
+				C56DAD052EF2CFED00739D75 /* GSUserDrawSave.cpp in Sources */,
 				695E90811F5AB7260003901E /* Version.cpp in Sources */,
-				697A07FF1E82F19B0045CE54 /* GSShowLineDrawing.cpp in Sources */,
 				69EA9D4D1F7CE5630080089A /* CentreMsg.cpp in Sources */,
 				69406035201E4BCD003438B4 /* NetRequest.cpp in Sources */,
 				69D732921F23DA29007B73C1 /* CorridorModeEnterClassroom.cpp in Sources */,
@@ -1007,15 +1063,24 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1038,7 +1103,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1055,15 +1120,24 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1080,7 +1154,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1092,7 +1166,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				DEVELOPMENT_TEAM = AVUUC7C85U;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1113,13 +1190,13 @@
 				);
 				HEADER_SEARCH_PATHS = "/Users/juliet/repos/amjulib/Source/**";
 				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					/Users/jay/projects/amjulib/Source/SoundBass/Bass2.4/iPhone,
-					"/Users/jay/projects/amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
+					../../../../amjulib/Source/SoundBass/Bass2.4/iPhone,
+					"../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory-2024-02-23";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory-2025-12-22";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1129,7 +1206,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				DEVELOPMENT_TEAM = AVUUC7C85U;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1143,13 +1223,13 @@
 				);
 				HEADER_SEARCH_PATHS = "/Users/juliet/repos/amjulib/Source/**";
 				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					/Users/jay/projects/amjulib/Source/SoundBass/Bass2.4/iPhone,
-					"/Users/jay/projects/amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
+					../../../../amjulib/Source/SoundBass/Bass2.4/iPhone,
+					"../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory-2024-02-23";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory-2025-12-22";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
