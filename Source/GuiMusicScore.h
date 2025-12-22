@@ -5,7 +5,7 @@
 
 #include <set>
 #include <Colour.h>
-#include <FullScreenPostProcess.h> // Render larger, to improve quality
+#include <RenderToTexture.h> // Render larger, for anti-aliasing
 #include <GuiElement.h>
 #include <StringUtils.h>
 #include <TextureSequence.h>
@@ -110,7 +110,10 @@ public:
   
 protected:
   // Draw child GUI elements (curves, text, etc)
-  void DrawChildren();
+  void DrawChildren(); // not const because GuiElement::Draw not const, why tho
+
+  void DrawBoundingRect() const;
+  void DrawIndividualGlyphRects() const;
 
   // Add one quad (2 triangles) to the given vec of tris, made from the
   //  4 corners supplied. I.e. can be any quad shape.
@@ -157,8 +160,9 @@ protected:
 protected:
   RCPtr<TriList> m_triList; 
   RCPtr<TextureSequence> m_atlas; // music font - actual image is a resource.
-  Colour m_fgCol; // default colour for all glyphs
-  Colour m_highlightColour;
+  Colour m_fgCol; // usual colour for all glyphs
+  Colour m_highlightColour; // colour for highlighted part of score
+  Colour m_bgCol; // background colour of score rect
 
   using Glyphs = std::vector<Glyph>;
   Glyphs m_glyphs;
@@ -171,14 +175,17 @@ protected:
   // Look up table from compound glyph name to multiple glyphs to which we should expand.
   static std::map<std::string, std::string> s_compoundGlyphs;
 
-  FullScreenPostProcess m_fullscreenRenderer;
+  // Render to texture, for anti-aliasing.
+  RCPtr<RenderToTexture> m_rtt;
   
-  // Current min/max time, which we set for all subsequently added glyphs.
-  // This can be set with a special glyph name.
+  // Current min/max time, which we set for all subsequently added glyphs
+  //  during the Loading phase.
+  // This time range is set multiple times while loading a sequence of glyphs,
+  //  rather than setting the time range for every glyph individually.
   Vec2f m_timeMinMax = Vec2f(-1.f, -1.f);
   
-  // Set to true if above time range is set between 0..1, as this means we will
-  //  animate some glyphs.
+  // Set to true during Load phase if the above time range is ever set between 0..1, 
+  //  as this means we will animate some glyphs.
   bool m_hasAnimation = false;
 
   // Note on/off events, which we load along with glyphs. This makes it easier to

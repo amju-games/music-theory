@@ -153,12 +153,12 @@ void SetUpRootDir()
 #ifdef AMJU_IOS
   std::string dir = GetDataDir();
 
-#ifndef YES_GLUE_FILE
+#ifndef YES_GLUE_FILE // How is this optional?
   dir += "/Assets/";
 #endif // YES_GLUE_FILE
 
   File::SetRoot(dir, "/");
-#endif
+#endif // iOS
 
 #ifdef MACOSX
 

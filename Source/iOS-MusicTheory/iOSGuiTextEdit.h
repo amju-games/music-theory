@@ -4,7 +4,5 @@
 
 namespace Amju
 {
-class GuiTextEditIos : public GuiElement
-{
-};
+
 }

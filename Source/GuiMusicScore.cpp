@@ -24,12 +24,15 @@
 
 #define USE_BM_FONT
 
+#define USE_RTT
+
 namespace Amju
 {
 #ifdef USE_BM_FONT
-const char* FONT_FILE_NAME = "font2d/Guido2compressed/guido2_0.png";
+const char* FONT_TEXTURE_FILE_NAME = "font2d/Guido2compressed/guido2_0.png";
+const char* FONT_INFO_FILE_NAME = "font2d/Guido2compressed/guido2.fnt";
 #else
-const char* FONT_FILE_NAME = "font2d/Guido2/guido2-60pt.png";
+const char* FONT_TEXTURE_FILE_NAME = "font2d/Guido2/guido2-60pt.png";
 #endif
 
 #ifdef DEBUG_DRAW_GLYPH_RECTS
@@ -221,14 +224,14 @@ GuiMusicScore::GuiMusicScore()
   if (!bm)
   {
     bm = new BmFontTextureSequence;
-    Texture* tex = (Texture*)TheResourceManager::Instance()->GetRes(FONT_FILE_NAME);
+    Texture* tex = (Texture*)TheResourceManager::Instance()->GetRes(FONT_TEXTURE_FILE_NAME);
     bm->Set(tex, 1, 1, 1, 1);
-    bm->LoadBmFont("font2d/Guido2compressed/guido2.fnt");
+    bm->LoadBmFont(FONT_INFO_FILE_NAME); 
   }
   m_atlas = bm.GetPtr();
 #else
   m_atlas = new TextureSequence;
-  m_atlas->Load(FONT_FILE_NAME, 16, 14, 1, 1);
+  m_atlas->Load(FONT_TEXTURE_FILE_NAME, 16, 14, 1, 1);
 #endif
 
   m_fgCol = Colour(0, 0, 0, 1); // default to black
@@ -246,18 +249,28 @@ GuiMusicScore::GuiMusicScore()
 #endif
 
 #ifdef USE_RTT
-  // TODO Share for all Music Scores
-  m_fullscreenRenderer.InitFullScreenQuad();
-  RenderToTexture* rtt = dynamic_cast<RenderToTexture*>(AmjuGL::Create(RenderToTexture::DRAWABLE_TYPE_ID));
-  Assert(rtt);
+//  m_fullscreenRenderer.InitFullScreenQuad();
+  m_rtt = dynamic_cast<RenderToTexture*>(AmjuGL::Create(RenderToTexture::DRAWABLE_TYPE_ID));
+  Assert(m_rtt);
 
-  rtt->SetRenderFlags(RenderToTexture::AMJU_RENDER_COLOUR_WITH_ALPHA);
-  //rtt->SetSize(128, 128); // // TODO TEMP TEST - shold be multiple of screen resolution?
-  rtt->SetSize(1024, 1024);
-  rtt->SetClearColour(Colour(0, 0, 0, 0)); // 0 alpha, so we see through most of it, black is normally the colour of music score.
-  rtt->Init();
+  // TODO Just colour, no alpha. 99% of the texture will be transparent. 
+  // If we have to, we could have a background texture which we draw into the m_rtt first.
+  // But I think a configurable clear colour will be fine. 
+  m_rtt->SetRenderFlags(RenderToTexture::AMJU_RENDER_COLOUR); // not _WITH_ALPHA);
 
-  m_fullscreenRenderer.SetRenderTarget(rtt);
+  // Size of render target should be a multiple (e.g. 4x) of the render area.
+  // I.e. m_rect, once the size has been calculated. Alghough I don't see why
+  //  we need to render the tri list to calc m_rect. Just use pos and size.
+
+  // We want to get the VIEWPORT size of m_rect, and x4 that. (Scale could be configurable?)
+
+  //m_rtt->SetSize(128, 128); // // TODO TEMP TEST 
+  m_rtt->SetSize(1024, 1024);
+  // TODO no alpha, just render solid. We should load the clear colour.
+  m_rtt->SetClearColour(Colour(1.f, 0, 1.f, 1.f));  // TODO TEMP TEST
+  m_rtt->Init();
+
+//  m_fullscreenRenderer.SetRenderTarget(m_rtt);
 #endif // USE_RTT
 }
 
@@ -339,6 +352,31 @@ void GuiMusicScore::Animate(float animValue)
   }
 }
 
+void GuiMusicScore::DrawBoundingRect() const
+{
+#ifdef DEBUG_DRAW_BOUNDING_RECT
+  AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
+  AmjuGL::SetColour(Colour(1, 1, 0, 1));
+  AmjuGL::UseShader(nullptr);
+  DrawRect(m_rect);
+#endif // DEBUG_DRAW_BOUNDING_RECT
+}
+
+void GuiMusicScore::DrawIndividualGlyphRects() const
+{
+#ifdef DEBUG_DRAW_GLYPH_RECTS
+  AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
+  AmjuGL::SetColour(Colour(0, 1, 0, 1));
+  AmjuGL::UseShader(nullptr);
+  for (const Rect& r : glyphRects)
+  {
+    DrawRect(r);
+  }
+  // TODO Draw child bounding rects too
+#endif
+
+}
+
 void GuiMusicScore::Draw()
 {
   if (!m_triList)
@@ -350,8 +388,8 @@ void GuiMusicScore::Draw()
   Vec2f size = GetSize();
 
 #ifdef USE_RTT
-  RenderToTexture* rtt = m_fullscreenRenderer.GetRenderTarget();
-  rtt->Begin();
+//  RenderToTexture* m_rtt = m_fullscreenRenderer.GetRenderTarget();
+  m_rtt->Begin();
 #endif
 
   m_atlas->Bind();
@@ -362,28 +400,16 @@ void GuiMusicScore::Draw()
 
   DrawChildren();
 
-#ifdef DEBUG_DRAW_BOUNDING_RECT
-  AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
-  AmjuGL::SetColour(Colour(1, 1, 0, 1));
-  AmjuGL::UseShader(nullptr);
-  DrawRect(m_rect);
-#endif // DEBUG_DRAW_BOUNDING_RECT
-
-#ifdef DEBUG_DRAW_GLYPH_RECTS
-  AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
-  AmjuGL::SetColour(Colour(0, 1, 0, 1));
-  AmjuGL::UseShader(nullptr);
-  for (const Rect& r : glyphRects)
-  {
-    DrawRect(r);
-  }
-#endif
+  DrawBoundingRect();
+  DrawIndividualGlyphRects();
 
   AmjuGL::PopMatrix();
 
 #ifdef USE_RTT
-  rtt->End();
-  m_fullscreenRenderer.DrawFullScreenQuad();
+  m_rtt->End();
+
+  m_rtt->DebugDraw(); // TODO Debug, obvs
+//  m_fullscreenRenderer.DrawFullScreenQuad();
 #endif
 }
 
@@ -897,6 +923,9 @@ GuiMusicScore::Glyph& GuiMusicScore::GetGlyph(int i)
 
 Rect GuiMusicScore::CalcRect() const
 {
+  // TODO what is this used for -- why can't we just use m_size?
+  // Or m_rect - shouldn't this just be m_size + m_pos or something like that?
+
   // Argh. We have to build the tri list to know how big the bounding box is.
   // TODO We can separate bbox and tri list.
   if (!m_triList)

@@ -1,7 +1,6 @@
-#include "GuiTextEditIos.h"
+#include "iOSGuiTextEdit.h"
 
 namespace Amju
 {
 
 }
-
