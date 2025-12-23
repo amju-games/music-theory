@@ -8,6 +8,7 @@
 namespace Amju
 {
 const std::string VIEWSCORE = "--viewscore";
+const std::string KEYBOARD = "--keyboard";
 
 const std::string WAV_CORRECT = "bell_tinkle";
 const std::string WAV_INCORRECT = "anvil";//"bad1";
