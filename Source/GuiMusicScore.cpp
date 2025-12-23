@@ -24,7 +24,7 @@
 
 #define USE_BM_FONT
 
-#define USE_RTT
+//#define USE_RTT
 
 namespace Amju
 {
