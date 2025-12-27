@@ -52,6 +52,7 @@
 #include "GSAvatarMod.h"
 #include "GSCopyAssets.h"
 #include "GSFirstUser.h"
+#include "GSHero.h"
 #include "GSMainCorridor.h"
 #include "GSPages.h"
 #include "GSPlayNotes.h"
@@ -65,6 +66,7 @@
 #include "GuiAvatar.h"
 #include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
+#include "GuiScrollScore.h"
 #include "NetSend.h"
 #include "ParticleFx.h"
 #include "SceneNodeGui.h"
@@ -333,6 +335,7 @@ static void SetUpGui()
   AddToGuiFactory<GuiAvatar>();
   AddToGuiFactory<GuiMusicKb>();
   AddToGuiFactory<GuiMusicScore>();
+  AddToGuiFactory<GuiScrollScore>();
 
   //Add game-specific types to Scene node factory
   ParticleFx::AddToFactory();
@@ -371,8 +374,10 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSAvatarMod::Instance());
+//  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 
-  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+  // Developing Hero Mode
+  TheGame::Instance()->SetCurrentState(TheGSHero::Instance());
 }
 
 static void LoadStringTableForPreferredLanguage()
