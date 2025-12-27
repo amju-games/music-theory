@@ -13,6 +13,11 @@ GSHero::GSHero()
   m_guiFilename = "Gui/gs_hero.txt";
 }
 
+void GSHero::Update()
+{
+  GSBase::Update();
+}
+
 void GSHero::OnActive() 
 {
   const auto& args = GetCommandLineArgs();

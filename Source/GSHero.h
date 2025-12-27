@@ -16,6 +16,7 @@ public:
   GSHero();
 
   void OnActive() override;
+  void Update() override;
 };
 
 typedef Singleton<GSHero> TheGSHero;
