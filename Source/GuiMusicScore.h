@@ -93,9 +93,11 @@ public:
 
     // Glyph colour: usually we would expect this to be black, but we can highlight 
     //  or pulse symbols etc.
+    // We can also colour code notes.
     Colour m_colour = Colour(0.f, 0.f, 0.f, 1.f);
 
     // For quads, store the 4 corners 
+    // TODO Quads should be a different type. Also we want LineSegs.
     Vec2f m_corner[4];
   };
 
@@ -105,6 +107,11 @@ public:
   // For testing, unlikely to be useful otherwise?
   int GetNumGlyphs() const;
   Glyph& GetGlyph(int);
+
+  // Set min/max time, which will then be applied to all Glyphs subsequently added.
+  // This is to simplify parsing each Glyph - we don't need to specify min/max time
+  //  for every Glyph this way.
+  void SetMinMaxTime(float tMin, float tMax);
 
   bool HasAnimation() const { return m_hasAnimation; }
   
@@ -150,6 +157,9 @@ protected:
   // For text child nodes, set font, which will be used for all text
   //  until changed.
   bool ParseFont(const Strings& strs);
+
+  // Set colour of all subsequent glyphs until changed.
+  bool ParseColour(const Strings& strs);
   
   // Check for new note events, send them, and advance m_nextNoteEvent appropriately.
   void UpdateNoteEvents(float animValue);
@@ -190,6 +200,7 @@ protected:
 
   // Note on/off events, which we load along with glyphs. This makes it easier to
   //  add midi note events to a score.
+  // TODO Hoist out this type, it's general purpose.
   struct NoteEvent
   {
     NoteEvent() = default;
@@ -221,6 +232,7 @@ protected:
 
   // Child GUI elements: This lets us add curves, use for ties, slurs, etc.,
   //  text, etc.
+  // TODO Wrap in decorators to set colour, and possibly time?
   std::vector<RCPtr<GuiElement>> m_children;
 };
 }

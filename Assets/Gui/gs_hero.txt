@@ -28,38 +28,41 @@ TEXT, 1.0, multi, fgcol=000000
 include
 keyboard.txt
 
-music-score
+// Animate the score
+animation
+play-score
+repeat
+10.0
+linear
+
+scroll-score
 // Name, Position, Size
 the-score
--.9, 0
+0, -.4 
 .4, .75 
+//.2, .4
+//.1, .2
 // Colour
 // 1DA2FF
 000000
 
 // Glyphs start here
-// 4/4 clef-t [Andante] <c> key-f-4 61 <slur> p 62 < 73 74 | 65 80 </slur> <stacc> 67 /< 70 mf 
-stave, 0, 0.5, 4, 0.6 
-treble-clef, 0, 0.5, 0.6, 0.6 
-keysig-4flat-treble, 0.45, 0.5, 0.6, 0.6 
-4/4, 1.15, 0.5, 0.6, 0.6 
-TIME, 0.01, 0.125 ; NOTE_ON, 61, 0.01 ; crotchet-up, 1.76, 0.45, 0.6, 0.6 ; NOTE_OFF, 61, 0.125 ; TIME, -1, -1
-TIME, 0.125, 0.25 ; NOTE_ON, 62, 0.125 ; crotchet-up, 2.27, 0.45, 0.6, 0.6 ; natural, 2.07, 0.45, 0.6, 0.6 ; NOTE_OFF, 62, 0.25 ; TIME, -1, -1
-TIME, 0.25, 0.375 ; NOTE_ON, 73, 0.25 ; crotchet-down, 2.78, 0.8, 0.6, 0.6 ; NOTE_OFF, 73, 0.375 ; TIME, -1, -1
-TIME, 0.375, 0.5 ; NOTE_ON, 74, 0.375 ; crotchet-down, 3.29, 0.8, 0.6, 0.6 ; natural, 3.09, 0.8, 0.6, 0.6 ; NOTE_OFF, 74, 0.5 ; TIME, -1, -1
-bar-line, 0, 0.5, 0.6, 0.6
-bar-line, 4, 0.5, 0.6, 0.6
-TIME, 0.5, 0.625 ; NOTE_ON, 65, 0.5 ; crotchet-up, 4.33333, 0.55, 0.6, 0.6 ; NOTE_OFF, 65, 0.625 ; TIME, -1, -1
-TIME, 0.625, 0.75 ; NOTE_ON, 80, 0.625 ; crotchet-down, 4.86667, 1, 0.6, 0.6 ; ledger-w, 4.86667, 1, 0.6, 0.6 ; NOTE_OFF, 80, 0.75 ; TIME, -1, -1
-TIME, 0.75, 0.8125 ; NOTE_ON, 67, 0.75 ; crotchet-up, 5.4, 0.6, 0.6, 0.6 ; ., 5.45, 0.45, 0.6, 0.6 ; NOTE_OFF, 67, 0.8125 ; TIME, -1, -1
-TIME, 0.875, 0.9375 ; NOTE_ON, 70, 0.875 ; crotchet-up, 5.93333, 0.7, 0.6, 0.6 ; ., 5.98333, 0.55, 0.6, 0.6 ; NOTE_OFF, 70, 0.9375 ; TIME, -1, -1
-bar-line, 4, 0.5, 0.6, 0.6
-bar-line, 6.66667, 0.5, 0.6, 0.6
-"Andante", 0, 2, 0.6, 0.6
-curve, 1.146,0.69, 1.5188,1.062, 2.078,1.155, 2.6372,1.128, 3.01,1.02
-p, 1.685, 0, 0.6, 0.6
-quad, 3.36, 0.348, 3.36, 0.3588, 1.482, 0.3108, 1.482, 0.3 ; quad, 3.36, 0.252, 3.36, 0.2628, 1.482, 0.3108, 1.482, 0.3
-mf, 5.74583, 0, 0.6, 0.6
+stave, 0, 0.5, 20, 1 
+treble-clef, 0, 0.5 
+keysig-4flat-treble, 0.45, 0.5 
+4/4, 1.15, 0.5 
+TIME, 0.0001, 0.125 ; NOTE_ON, 61, 0.01 ; crotchet-up, 1.76, 0.45 ; NOTE_OFF, 61, 0.125 ; TIME, -1, -1
+TIME, 0.125, 0.25 ; NOTE_ON, 62, 0.125 ; crotchet-up, 2.27, 0.45 ; natural, 2.07, 0.45 ; NOTE_OFF, 62, 0.25 ; TIME, -1, -1
+TIME, 0.25, 0.375 ; NOTE_ON, 73, 0.25 ; crotchet-down, 2.78, 0.8 ; NOTE_OFF, 73, 0.375 ; TIME, -1, -1
+TIME, 0.375, 0.5 ; NOTE_ON, 74, 0.375 ; crotchet-down, 3.29, 0.8 ; natural, 3.09, 0.8 ; NOTE_OFF, 74, 0.5 ; TIME, -1, -1
+bar-line, 0, 0.5
+bar-line, 4, 0.5
+TIME, 0.5, 0.625 ; NOTE_ON, 65, 0.5 ; crotchet-up, 4.33333, 0.55 ; NOTE_OFF, 65, 0.625 ; TIME, -1, -1
+TIME, 0.625, 0.75 ; NOTE_ON, 80, 0.625 ; crotchet-down, 4.86667, 1 ; ledger-w, 4.86667, 1 ; NOTE_OFF, 80, 0.75 ; TIME, -1, -1
+TIME, 0.75, 0.8125 ; NOTE_ON, 67, 0.75 ; crotchet-up, 5.4, 0.6 ; ., 5.45, 0.45 ; NOTE_OFF, 67, 0.8125 ; TIME, -1, -1
+TIME, 0.875, 0.9375 ; NOTE_ON, 70, 0.875 ; crotchet-up, 5.93333, 0.7 ; ., 5.98333, 0.55 ; NOTE_OFF, 70, 0.9375 ; TIME, -1, -1
+bar-line, 4, 0.5
+bar-line, 6.66667, 0.5
 
 
 end
