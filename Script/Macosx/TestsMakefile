@@ -6,7 +6,7 @@ AMJULIB		:=	$(AMJULIB_MAC_SCRIPT_PATH)/../../
 RUNDIR		:=	../../Assets/
 BUILD		:=	../../Build/Mac
 TARGET		:=	$(BUILD)/macgame_test
-LIBDIRS   	:= 	$(AMJULIB)/Build/Releases/amjulib-v.0.5-macosx
+LIBDIRS   	:= 	$(AMJULIB)/Releases/amjulib-v.0.5-macosx
 SOURCES		:=	../../Source/Tests ../../Source
 BASSPATH	:=	$(AMJULIB)/Source/SoundBass/Bass2.4/Macosx
 
@@ -20,7 +20,7 @@ LIBS	:= \
 	-lcurl \
 	-lstdc++ -lm 
 
-EXTRA_CFLAGS += -DCATCH
+AMJU_MACHDEP += -DCATCH
 
 include $(AMJULIB_MAC_SCRIPT_PATH)/GenMakefile
 
