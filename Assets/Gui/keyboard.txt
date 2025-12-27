@@ -2,7 +2,10 @@
 // (c) Copyright 2024 Juliet Colman
 
 // keyboard.txt
-// Reusable piano keyboard
+// Reusable piano keys
+// This is included by all other keyboards, which can be different
+//  colours -- but the keys themselves are always black and white. 
+
 // version
 1
 
