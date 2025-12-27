@@ -217,6 +217,10 @@ GuiMusicScore::GuiMusicScore()
 {
   m_rect = EmptyRect();
 
+  // Hack: we shouldn't be doing all this stuff in the ctor, it makes this 
+  //  type hard to test. 
+#ifndef CATCH
+
   // Create texture atlas. TODO CONFIG
   // Image is a resource, only loaded once.
 #ifdef USE_BM_FONT
@@ -229,10 +233,10 @@ GuiMusicScore::GuiMusicScore()
     bm->LoadBmFont(FONT_INFO_FILE_NAME); 
   }
   m_atlas = bm.GetPtr();
-#else
+#else // USE_BM_FONT
   m_atlas = new TextureSequence;
   m_atlas->Load(FONT_TEXTURE_FILE_NAME, 16, 14, 1, 1);
-#endif
+#endif // USE_BM_FONT
 
   m_fgCol = Colour(0, 0, 0, 1); // default to black
 
@@ -240,13 +244,14 @@ GuiMusicScore::GuiMusicScore()
   m_highlightColour = GetConstColour(COLOUR_MUSIC_HIGHLIGHT);
 
 #ifdef _DEBUG
-  // We can do this just once to optimise; for development, we want to initialise every time.
+  // For development, we want to initialise every time,
+  //  so when we hot reload it re-initialises the new Score.
   OneTimeInit();
-#else
-  // One time init for all Music Scores.
+#else // _DEBUG
+  // One time init for all Music Scores - we just do it once.
   static std::once_flag flag;
   std::call_once(flag, OneTimeInit);
-#endif
+#endif // _DEBUG
 
 #ifdef USE_RTT
 //  m_fullscreenRenderer.InitFullScreenQuad();
@@ -272,6 +277,8 @@ GuiMusicScore::GuiMusicScore()
 
 //  m_fullscreenRenderer.SetRenderTarget(m_rtt);
 #endif // USE_RTT
+
+#endif // CATCH
 }
 
 void GuiMusicScore::SendNoteEvent(const NoteEvent& ne)
@@ -515,7 +522,12 @@ bool GuiMusicScore::ParseTime(const Strings& strs)
     ReportError("Bad params for time, second time earlier than first.");
     return false;
   }
-  
+  SetMinMaxTime(t1, t2);
+  return true;
+}
+
+void GuiMusicScore::SetMinMaxTime(float t1, float t2)
+{ 
   // If the time for a glyph is between 0 and 1, then this Score is animated.
   if (   (t1 > 0 && t1 < 1)
       || (t2 > 0 && t2 < 1))
@@ -524,7 +536,6 @@ bool GuiMusicScore::ParseTime(const Strings& strs)
   }
   
   m_timeMinMax = Vec2f(t1, t2);
-  return true;
 }
 
 bool GuiMusicScore::ParseNoteEvent(const Strings& strs, bool onNotOff)
