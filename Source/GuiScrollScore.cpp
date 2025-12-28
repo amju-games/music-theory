@@ -55,46 +55,49 @@ void GuiScrollScore::Animate(float animValue)
     {
       // We have reached the beat. Recalc velocity to reach the next one.
     
-std::cout << "Current: " << animValue << " Next time: " << time 
-  << " current x: " << m_currentX  << " desired x: " << x << "\n";
+std::cout << "t: " << animValue 
+  << " reached: " << time 
+  << " old x: " << m_currentX  
+  << " new x: " << x; 
 
       m_currentX = x; 
       m_nextT = time;
 
-/*
       // Find the next time
       ++it;
       if (it == m_beatTable.end())
       {
-        m_scrollSpeed = 0;
+        //m_scrollSpeed = 0; // Keep scrolling
+std::cout << " - end?\n";
       }
       else
       {
         const auto& [nextTime, nextX] = *it;
-        m_nextT = nextTime;
+        ////m_nextT = nextTime;
 
-        // We want to go from current x to new x in (time - animValue) normalized time.
-        // We need to convert the time diff into real time from normalized time.
+        // We want to go from current x to next x in (nextTime - time) normalized time.
         float dt = nextTime - time;
         Assert(dt >= 0);
         Assert(dt <= 1.f);
         // We need to know the legth of the piece in seconds
         // OR the bpm and the number of beats (we could get this from time sigs and bars?)
-        float pieceLength = 10.f; // TODO TEMP TEST
-        float actualTime = dt * pieceLength;
+        //float pieceLength = 10.f; // TODO TEMP TEST
+        //float actualTime = dt * pieceLength;
         // We need a current x offset
-        float dx = x - m_currentX;
-        m_currentX = x; 
-        //m_scrollSpeed = dx / actualTime;
-std::cout << "New speed: " << m_scrollSpeed << " units/sec\n";
+        float dx = nextX - m_currentX;
+        m_scrollSpeed = dx / dt;
+std::cout << " nextT: " << nextTime 
+  << " nextX: " << nextX
+  << " vel: " << m_scrollSpeed << " units/sec\n";
       }
-*/
     }
   }
 
   // Scroll from right to left
-  const float dt = TheTimer::Instance()->GetDt();
-  m_currentX += dt * m_scrollSpeed; 
+  static float prevAnimValue = animValue;
+  float dt = animValue - prevAnimValue;
+  prevAnimValue = animValue;
+  m_currentX += m_scrollSpeed * dt; 
 }
 
 void GuiScrollScore::OnResetAnimation() 
