@@ -59,6 +59,9 @@
     <ClCompile Include="..\..\..\..\Source\Tests\UserProfile_catchtest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Tests\GuiScrollScore_catchtest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Source\Tests\tests_readme.txt" />

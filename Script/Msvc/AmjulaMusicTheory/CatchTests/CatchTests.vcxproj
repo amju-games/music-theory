@@ -27,6 +27,7 @@
     <ClCompile Include="..\..\..\..\Source\Tests\Course_catchtest.cpp" />
     <ClCompile Include="..\..\..\..\Source\Tests\CreateDictionary.cpp" />
     <ClCompile Include="..\..\..\..\Source\Tests\Dictionary_catchtest.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Tests\GuiScrollScore_catchtest.cpp" />
     <ClCompile Include="..\..\..\..\Source\Tests\Localisation_catchtest.cpp" />
     <ClCompile Include="..\..\..\..\Source\Tests\MultiChoice_catchtest.cpp" />
     <ClCompile Include="..\..\..\..\Source\Tests\MusicalTermQuestion_catchtest.cpp" />
