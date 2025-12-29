@@ -6,6 +6,7 @@
 #include <Game.h>
 #include <GameState.h>
 #include <GuiElement.h>
+#include "MusicEvent.h"
 
 namespace Amju
 {
@@ -22,6 +23,9 @@ public:
 
   // Check keys for debug features: R to reload, G to show GUI tree
   virtual bool OnKeyEvent(const KeyEvent&) override;
+
+  // Music keyboard events are sent to current game state
+  virtual void OnMusicKbEvent(const MusicKbEvent&) {}
 
   GuiElement* GetGui();
 

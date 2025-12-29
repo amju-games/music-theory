@@ -28,7 +28,7 @@ public:
   virtual void Update() override;
   virtual bool OnKeyEvent(const KeyEvent& ke) override;
 
-  void OnMusicKbEvent(const MusicKbEvent&);
+  void OnMusicKbEvent(const MusicKbEvent&) override;
 
   // Load list of pages from file?
   bool Load(const std::string& filename);
