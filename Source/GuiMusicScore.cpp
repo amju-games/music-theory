@@ -48,6 +48,14 @@ const char* QUAD_NAME = "quad";
 // This is for setting the min/max time for subsequent glyphs
 const char* TIME_NAME = "TIME";
 
+// BMP and BEAT are meta data about the score, for setting correct
+//  animation speed.
+const char* BPM_NAME = "BPM"; // Sets tempo of piece
+const char* BEAT_NAME = "BEAT"; // Sets the prevailing time mark as a beat,
+  // e.g. a crotchet in 4/4. 
+  // For accuracy, a multi-beat note or rest should have extra TIME/BEAT
+  //  meta data added to the score input.
+
 // For adding curve (LineDrawing) children
 const char* CURVE_NAME = "curve";
 
@@ -562,16 +570,63 @@ bool GuiMusicScore::ParseNoteOff(const Strings& strs)
   return ParseNoteEvent(strs, false);
 }
 
+bool GuiMusicScore::ParseBeat(const Strings& strs)
+{
+  if (strs.size() != 1)
+  {
+    ReportError("Unexpected extra data for BEAT.");
+    return false;
+  }
+std::cout << "Setting a BEAT at " << m_timeMinMax.x << "\n";
+  AddBeat(m_timeMinMax.x);
+  return true;
+}
+
+void GuiMusicScore::AddBeat(float t)
+{
+  m_beats.insert(t); 
+}
+
+void GuiMusicScore::SetBpm(float bpm)
+{
+std::cout << "Setting BPM = " << bpm << "\n";
+  m_bpm = bpm;
+}
+
+bool GuiMusicScore::ParseBpm(const Strings& strs)
+{
+  if (strs.size() != 2)
+  {
+    ReportError("Bad number of params for BPM.");
+    return false;
+  }
+  int bpm = ToFloat(strs[1]);
+  if (bpm < 20.f || bpm > 300.f)
+  {
+    ReportError("Invalid value for BPM.");
+    return false;
+  }
+  SetBpm(bpm);
+  return true;
+}
+
 bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* result, const Vec2f& pos_, const Vec2f& scale_)
 {
   // Split line. Format OK? Has optional scale?
   Strings strs = Split(line, ',');
   int n = strs.size();
 
-  // Quads are a special case
   if (strs[0] == TIME_NAME)
   {
     return ParseTime(strs);
+  }
+  else if (strs[0] == BPM_NAME)
+  {
+    return ParseBpm(strs);
+  }
+  else if (strs[0] == BEAT_NAME)
+  {
+    return ParseBeat(strs);
   }
   else if (strs[0] == NOTE_ON_NAME)
   {
@@ -952,4 +1007,16 @@ Rect GuiMusicScore::CalcRect() const
   return r;
 }
 
+std::optional<float> GuiMusicScore::GetSongLengthSeconds() const
+{
+  if (!m_beats.empty() && m_bpm > 0.f)
+  {
+    // Song length in seconds
+    // Add 1 to num beats to account for duration of final beat
+    float songLength = static_cast<float>(m_beats.size() + 1) / m_bpm * 60.f;
+std::cout << "BEATS: " << m_beats.size() << " LENGTH: " << songLength << "s.\n";
+    return songLength;
+  }  
+  return std::nullopt;
+}
 }

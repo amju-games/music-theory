@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <optional>
 #include <set>
 #include <Colour.h>
 #include <RenderToTexture.h> // Render larger, for anti-aliasing
@@ -113,8 +114,18 @@ public:
   //  for every Glyph this way.
   void SetMinMaxTime(float tMin, float tMax);
 
+  // Returns true if the score contains time markers for animation.
   bool HasAnimation() const { return m_hasAnimation; }
-  
+ 
+  // Add meta data telling us there is a beat at normalized time t.
+  void AddBeat(float t);
+ 
+  // Set the tempo in Beats Per Minute.
+  void SetBpm(float bpm);
+
+  // Returns song length, if known - i.e. we need the metadata in the input.
+  std::optional<float> GetSongLengthSeconds() const;
+ 
 protected:
   // Draw child GUI elements (curves, text, etc)
   void DrawChildren(); // not const because GuiElement::Draw not const, why tho
@@ -160,6 +171,10 @@ protected:
 
   // Set colour of all subsequent glyphs until changed.
   bool ParseColour(const Strings& strs);
+
+  // Tempo and beat meta data 
+  bool ParseBpm(const Strings& strs);
+  bool ParseBeat(const Strings& strs);
   
   // Check for new note events, send them, and advance m_nextNoteEvent appropriately.
   void UpdateNoteEvents(float animValue);
@@ -234,7 +249,22 @@ protected:
   //  text, etc.
   // TODO Wrap in decorators to set colour, and possibly time?
   std::vector<RCPtr<GuiElement>> m_children;
+
+  // BPM tempo for the score, read in at load time.
+  float m_bpm = 0.f; // 0 means not known
+
+  // Meta data: the normalized time of every beat in the piece.
+  // Two options here, to get all the beats in a piece.
+  // 1. Multiple beats at the same time marker, where a beat would be lost
+  //  (e.g. a minim in 4/4 hides the second beat).
+  //  -> Vector, as there could be duplicate beat times
+  // 2. Extra time markers added for hidden beats. In this scheme (both, 
+  //  TBF), the TIME and BEAT meta data can be a separate (optional) block
+  //  of output.
+  //  -> Set (or sorted vec), as there will only be one beat per time marker. 
+  // 2nd is preferable because we can show beat lines. 1st choice gives 
+  //  correct count but not all beats are visible.
+  std::set<float> m_beats; 
 };
 }
-
 
