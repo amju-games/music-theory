@@ -20,32 +20,19 @@
 #include "Bar.h"
 #include "Consts.h"
 #include "Glyph.h"
-#include "Part.h"
 #include "Stave.h"
 #include "Tie.h"
 #include "TimeSigGlyph.h"
 #include "TimeValue.h"
-#include "tinyxml2.h"
 
 class MakeScore
 {
 public:
-  MakeScore() = default; // can load Music XML file for input, or set input string directly
+  MakeScore() = default; // can load Music XML file for input
 
   void SetInputString(const std::string& in) { m_input = in; }
-
-  // Create internal representation from a Music XML file - 
-  //  no need to call MakeInternal() in this case.
-  bool LoadXml(const std::string& filename);
-
-  // Internal function: parse XML after loading document.
-  // Public for tests.
-  bool ParseXml(const tinyxml2::XMLDocument& doc);
-
-  // Get information about the piece, loaded from XML or set with a 'Makescore string'
-  int NumParts() const;
-  void AddPart(const std::string& name);
-  Part& GetPart(int n);
+  // Create with input string
+  MakeScore(const std::string& in) : m_input(in) { }
 
   int NumBars() const;
 
@@ -163,8 +150,5 @@ private:
 
   // Bit field for staccato, accent, pause, etc., per stave
   int m_switches[MAX_NUM_STAVES] = { 0, 0, 0, 0 };
-
-  // Parts
-  std::vector<Part> m_parts; // change to ptrs as required
 };
 

@@ -11,8 +11,6 @@
 // Same for Win, although we need double quotes and internally we need to 
 // strip off the quotes:
 //    (Win) echo "4/4 c c mr" | MakeScore.exe
-//
-// OR: load from a Music XML file: ./makescore --xml <xml file>
 
 #include "Consts.h"
 #include "MakeScore.h"
@@ -23,37 +21,18 @@ bool CommandLineParams(int argc, char** argv, MakeScore& ms)
   {
     std::string param = argv[i];
 
-    if (param == "--xml")
-    {
-      i++;
-      if (i == argc)
-      {
-        std::cout << "Error, expected XML filename following \"--xml\".\n";
-        return false; 
-      }
-
-      std::string xmlfile(argv[i]);
-      if (ms.LoadXml(xmlfile) == false)
-      {
-        std::cout << "Error loading Music XML input file " << xmlfile << ".\n";
-        return false;
-      }
-
-      std::cout << "// Input: XML file " << xmlfile << "\n";
-    }
-
-    else if (param == "--oneline")
+    if (param == "--oneline")
     {
       // All on one line
       ms.SetOutputOneLine(true);
     }
 
-    else if (param == "--stave-single")
+    if (param == "--stave-single")
     {
       ms.SetStaveType(StaveType::STAVE_TYPE_SINGLE);
     }
 
-    else if (param == "--transpose")
+    if (param == "--transpose")
     {
       i++;
       int tr = atoi(argv[i]);
@@ -61,7 +40,7 @@ bool CommandLineParams(int argc, char** argv, MakeScore& ms)
       ms.SetTranspose(tr);
     }
 
-    else if (param == "--page-width")
+    if (param == "--page-width")
     {
       i++;
       // Normalised: i.e. page width of 1 means the default width.
@@ -70,7 +49,7 @@ bool CommandLineParams(int argc, char** argv, MakeScore& ms)
       ms.SetPageWidth(pageWidth);
     }
 
-    else if (param == "--scale")
+    if (param == "--scale")
     {
       i++;
       // Normalised: i.e. scale of 1 means the default scale.
