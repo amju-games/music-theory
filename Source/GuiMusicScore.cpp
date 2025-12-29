@@ -1012,9 +1012,7 @@ std::optional<float> GuiMusicScore::GetSongLengthSeconds() const
   if (!m_beats.empty() && m_bpm > 0.f)
   {
     // Song length in seconds
-    // Add 1 to num beats to account for duration of final beat
-    float songLength = static_cast<float>(m_beats.size() + 1) / m_bpm * 60.f;
-std::cout << "BEATS: " << m_beats.size() << " LENGTH: " << songLength << "s.\n";
+    float songLength = static_cast<float>(m_beats.size()) / m_bpm * 60.f;
     return songLength;
   }  
   return std::nullopt;
