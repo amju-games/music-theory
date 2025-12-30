@@ -29,6 +29,7 @@ bool CommandLineParams(int argc, char** argv, MakeScore& ms)
 
     else if (param == "--stave-single")
     {
+      // TODO This should be the default
       ms.SetStaveType(StaveType::STAVE_TYPE_SINGLE);
     }
 
@@ -71,7 +72,7 @@ bool CommandLineParams(int argc, char** argv, MakeScore& ms)
 
       // For single line rhythm, centre vertically
       // TODO Auto centre 1 or more lines
-      ms.SetY(0.5f);
+      ///ms.SetY(0.5f);
 
       // TODO Transform input:
       // Add beam groupings

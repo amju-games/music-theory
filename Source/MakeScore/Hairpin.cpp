@@ -23,7 +23,7 @@ std::string Hairpin::ToString() const
   // Height: half distance between lines at open end
   const float H = 0.08f;
   // Mid point, i.e. y-coord of point at closed end
-  const float Y = 0.5f;
+  const float Y = y;
 
   // Y coords are Y +/- hl at left end, to Y +/- hr at right end.
   float hl = 0;

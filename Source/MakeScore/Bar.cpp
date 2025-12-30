@@ -259,9 +259,7 @@ std::string Bar::ToString(bool oneLine)
     for (int s = 0; s < numStaves; s++)
     {
       float x = 0;
-      float y = 0.5f; // Hmm, why do we need to offset in y? 
-      // Because there is some kind of horrible y-offset afoot --
-      //  TODO Remove y-offset.
+      float y = m_y; 
 
       y += s * DOUBLE_STAVE_DISTANCE;
       res += GetClefOutputString(m_currentClef[s], s, x, y, m_scale) + 
@@ -279,7 +277,7 @@ std::string Bar::ToString(bool oneLine)
       {
         x = 0.45f; // TODO TEMP TEST
       }
-      float y = 0.5f; // Hmm, why do we need to offset in y? 
+      float y = m_y;
       y += s * DOUBLE_STAVE_DISTANCE;
       res += GetKeySigOutputString(m_keySig, m_currentClef[s], s, x, y, m_scale) + 
         LineEnd(oneLine);

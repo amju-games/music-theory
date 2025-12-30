@@ -18,7 +18,7 @@ std::string Attachment::ToString() const
   }
 
   std::string res = m_glyphText + ", " + 
-    Str(x) + ", " + Str(y) + ", " +
+    Str(x) + ", " + Str(y) +
     AddScaleStringIfRequired();
 
   return res;

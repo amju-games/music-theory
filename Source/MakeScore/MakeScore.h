@@ -127,7 +127,7 @@ private:
 
   std::vector<std::unique_ptr<IGlyph>> m_otherGlyphs;
 
-  StaveType m_staveType = StaveType::STAVE_TYPE_RHYTHM;
+  StaveType m_staveType = StaveType::STAVE_TYPE_SINGLE;
 
   // Most recently set note (time) value
   std::string m_lastTimeValToken = INPUT_TOKEN_CROTCHET;

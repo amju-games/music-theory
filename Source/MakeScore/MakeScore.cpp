@@ -288,7 +288,7 @@ void MakeScore::AddDirection(const std::string& s)
   // Attach to most reccent glyph if there is one
   Attach(t);
 
-  // Use width to offset x. Set y = 0, which is below the stave.
+  // Use width to offset x. Set y - 0.5, which is below the stave.
   float w = 1.f;
   auto it = DIRECTIONS.find(s);
   if (it != DIRECTIONS.end())
@@ -298,7 +298,7 @@ void MakeScore::AddDirection(const std::string& s)
   const float DIRECTION_WIDTH_MULT = 0.15f;
   w *= DIRECTION_WIDTH_MULT;
   // Offset x by half width so we centre the glyph horizontally
-  t->SetPos(w * -0.5f, 0);
+  t->SetPos(w * -0.5f, m_y - DEFAULT_HEIGHT);
 
   m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(t));
 }
@@ -309,8 +309,8 @@ void MakeScore::AddText(const std::string& s)
   t->SetGlyphText("\"" + s + "\"");
   t->SetScale(m_scale);
   // Offset Y so text is above or below the current stave
-  const float Y_ABOVE = 2.0f;
-  t->SetPos(0, Y_ABOVE);
+  const float Y_ABOVE = 1.5f;
+  t->SetPos(0, m_y + Y_ABOVE);
 
   // Attach to most reccent glyph if there is one
   Attach(t);
