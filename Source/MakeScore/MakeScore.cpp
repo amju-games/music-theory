@@ -457,23 +457,50 @@ std::string MakeScore::ToString()
   res += GetStaveString(m_staveType, 0, m_y, m_pageWidth, m_scale);
   res += LineEnd(m_outputOnOneLine);
 
-  for (auto& b : m_bars)
+  for (const auto& b : m_bars)
   {
     res += b->ToString(m_outputOnOneLine);
   }
 
-  for (auto& t : m_ties)
+  for (const auto& t : m_ties)
   {
     res += t->ToString();
     res += LineEnd(m_outputOnOneLine);
   }
 
-  for (auto& g : m_otherGlyphs)
+  for (const auto& g : m_otherGlyphs)
   {
     res += g->ToString();
     res += LineEnd(m_outputOnOneLine);
   }
 
+  // Output every beat, with its normalized time.   
+  res += OutputBeats(); // TODO turn off if not required
+
+  return res;
+}
+
+std::string MakeScore::OutputBeats() const
+{
+  // Output every beat in each bar with its time marker
+  // (TODO I think this might be overkill for what we need)
+  int totalNumBeats = 0;
+  for (const auto& b : m_bars)
+  {
+    auto [ numBeats, _ ] = GetNumBeatsAndCrotchetValue(b->GetTimeSig());
+    totalNumBeats += numBeats;
+  }
+  // Calc duration of one beat
+  const float d = 1.f / static_cast<float>(totalNumBeats);
+  float t = 0;
+  // Output the beats
+  std::string res;
+  for (int i = 0; i < totalNumBeats; i++)
+  {
+    res += "TIME, " + Str(t) + ", " + Str(t) + "; BEAT ";
+    res += LineEnd(m_outputOnOneLine);
+    t += d;
+  }
   return res;
 }
 

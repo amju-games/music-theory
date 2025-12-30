@@ -36,6 +36,9 @@ public:
 
   TimeSig GetTimeSig() const;
 
+  // Get number of beats in this bar
+  int GetNumBeats() const;
+
   void SetKeySig(KeySig ks);
 
   KeySig GetKeySig() const;

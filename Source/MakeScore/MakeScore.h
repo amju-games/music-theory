@@ -103,6 +103,8 @@ private:
   void CalcBarSizesAndPositions();
   void CalcStartTimes();
 
+  std::string OutputBeats() const;
+
 private:
   // If true, all glyphs on one line, separated by ';'
   // Else each is on a separate line.

@@ -49,10 +49,12 @@ TimeSig Bar::GetTimeSig() const
 // The time val of all the glyph members should add up to this.
 TimeValue Bar::GetDuration() const
 {
-  switch (m_timeSig)
+  auto [ numBeats, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
+  
+  if (numBeats == 0)
   {
-  case TimeSig::TIME_SIG_NONE:
-    // Add up duration of all sequential glyphs
+    // No time sig, so add up duration of all sequential glyphs --
+    // TODO notes in a chord don't count!
     {
       float d = 0;
       for (auto& g : m_glyphs)
@@ -61,27 +63,23 @@ TimeValue Bar::GetDuration() const
       }
       return d;
     }
-
-  case TimeSig::TIME_SIG_COMMON:
-  case TimeSig::TIME_SIG_FOUR_FOUR:
-    return 4.f * TIMEVAL_CROTCHET;
-
-  case TimeSig::TIME_SIG_THREE_FOUR:
-    return 3.f * TIMEVAL_CROTCHET;
-
-  case TimeSig::TIME_SIG_CUT_COMMON:
-  case TimeSig::TIME_SIG_TWO_FOUR:
-    return 2.f * TIMEVAL_CROTCHET;
   }
-  return 0;
+  else
+  {
+    return static_cast<float>(numBeats) * TIMEVAL_CROTCHET;
+  }
 }
 
 float Bar::CalcNormalisedTimes(float totalDuration, float start)
 {
+  auto [ numBeats, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
+
   // Normalise glyph durations, and accumulate to get start times.
   for (auto& g : m_glyphs)
   {
     g->timeval /= totalDuration;
+    g->timeval *= timeMult; // Adjust time values (for compound times)
+
     g->startTime += start;
     start += g->timeval;
   }
@@ -262,6 +260,9 @@ std::string Bar::ToString(bool oneLine)
     {
       float x = 0;
       float y = 0.5f; // Hmm, why do we need to offset in y? 
+      // Because there is some kind of horrible y-offset afoot --
+      //  TODO Remove y-offset.
+
       y += s * DOUBLE_STAVE_DISTANCE;
       res += GetClefOutputString(m_currentClef[s], s, x, y, m_scale) + 
         LineEnd(oneLine);
@@ -310,11 +311,14 @@ std::string Bar::ToString(bool oneLine)
     res += b->ToString() + LineEnd(oneLine);
   }
 
-  // Bar lines
+  // Bar lines: just at the end of the bar, right?
+  // Unless a repeat etc is specified.
+  /*
   res +=
     "bar-line, " + Str(m_x) + ", " + Str(m_y) +
     ", " + Str(m_scale) + ", " + Str(m_scale) +
     LineEnd(oneLine);
+  */
 
   res +=
     "bar-line, " + Str(m_x + m_width) + ", " + Str(m_y) +
