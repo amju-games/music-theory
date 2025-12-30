@@ -54,12 +54,12 @@ void GuiScrollScore::Animate(float animValue)
     if (time > m_nextT)
     {
       // We have reached the beat. Recalc velocity to reach the next one.
-    
+/*    
 std::cout << "t: " << animValue 
   << " reached: " << time 
   << " old x: " << m_currentX  
   << " new x: " << x; 
-
+*/
       m_currentX = x; 
       m_nextT = time;
 
@@ -73,22 +73,18 @@ std::cout << " - end?\n";
       else
       {
         const auto& [nextTime, nextX] = *it;
-        ////m_nextT = nextTime;
 
         // We want to go from current x to next x in (nextTime - time) normalized time.
         float dt = nextTime - time;
         Assert(dt >= 0);
         Assert(dt <= 1.f);
-        // We need to know the legth of the piece in seconds
-        // OR the bpm and the number of beats (we could get this from time sigs and bars?)
-        //float pieceLength = 10.f; // TODO TEMP TEST
-        //float actualTime = dt * pieceLength;
-        // We need a current x offset
         float dx = nextX - m_currentX;
         m_scrollSpeed = dx / dt;
+/*
 std::cout << " nextT: " << nextTime 
   << " nextX: " << nextX
   << " vel: " << m_scrollSpeed << " units/sec\n";
+*/
       }
     }
   }
@@ -116,7 +112,6 @@ void GuiScrollScore::BuildBeatTable(BeatTable& beatTable)
     const float x = g.m_pos.x;
     const float t = g.m_timeMinMax.x; // Start time for this glyph
 
-//std::cout << t << "\t" << x << "\t'" << g.m_char << "'\n";
     if (g.m_char < ' ')
     {
       continue; // non-printable glyph code, e.g. for a quad, which doesn't use m_pos.
@@ -143,12 +138,14 @@ void GuiScrollScore::BuildBeatTable(BeatTable& beatTable)
     }
   }
 
+/*
   // TODO TEMP TEST: Print the beat table. This shows us normalized times, and
   //  the x-position corresponding to that time.
   for (const auto& [time, x] : beatTable)
   {
     std::cout << "Time " << time << "\tX " << x << "\n";
   }
+*/
 }
 }
 
