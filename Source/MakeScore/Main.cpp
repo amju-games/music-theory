@@ -27,12 +27,12 @@ bool CommandLineParams(int argc, char** argv, MakeScore& ms)
       ms.SetOutputOneLine(true);
     }
 
-    if (param == "--stave-single")
+    else if (param == "--stave-single")
     {
       ms.SetStaveType(StaveType::STAVE_TYPE_SINGLE);
     }
 
-    if (param == "--transpose")
+    else if (param == "--transpose")
     {
       i++;
       int tr = atoi(argv[i]);
@@ -40,7 +40,7 @@ bool CommandLineParams(int argc, char** argv, MakeScore& ms)
       ms.SetTranspose(tr);
     }
 
-    if (param == "--page-width")
+    else if (param == "--page-width")
     {
       i++;
       // Normalised: i.e. page width of 1 means the default width.
@@ -49,7 +49,7 @@ bool CommandLineParams(int argc, char** argv, MakeScore& ms)
       ms.SetPageWidth(pageWidth);
     }
 
-    if (param == "--scale")
+    else if (param == "--scale")
     {
       i++;
       // Normalised: i.e. scale of 1 means the default scale.
