@@ -15,7 +15,7 @@ struct NoteGlyph : public Glyph
 {
   NoteGlyph() = default;
 
-  // Construct glyph from inpupt token and position in bar.
+  // Construct glyph from input token and position in bar.
   NoteGlyph(const std::string& inputToken, int order) :
     Glyph(inputToken, order) {}
 

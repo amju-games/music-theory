@@ -10,7 +10,7 @@
 std::string Glyph::ToString() const
 {
   return displayGlyphName + ", " + Str(x) + ", " + Str(y) +
-    ", " + Str(scaleX) + ", " + Str(scaleY);
+    AddScaleStringIfRequired();
 }
 
 std::string Glyph::GetGlyphOutputStr(std::string s) const

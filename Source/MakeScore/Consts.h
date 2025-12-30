@@ -17,7 +17,7 @@ static const float DEFAULT_PAGE_WIDTH = 4.0f;
 // Height of stave line and glyphs on it, relative to bottom of bar lines.
 static const float DEFAULT_HEIGHT = 0.2f;
 
-static const float DEFAULT_SCALE = 0.6f;
+static const float DEFAULT_SCALE = 1.0f;
 
 // For double stave layout, this is the distance between the top stave line in
 //  the first and second staves (in fact, between any two corresponding

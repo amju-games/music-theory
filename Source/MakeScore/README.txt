@@ -3,8 +3,24 @@
 Part of Amjula Music School 
 (c) Juliet Colman 2024
 
+HOW TO BUILD
+There is a makefile!
+	```
+	make clean
+	make
+	```
+
+HOW TO RUN
+Example:
+	```
+	./makescore '4/4 m c c'
+	```
+
+
 MakeScore converts simple strings describing music notation
-into more complicated strings. 
+into data for GuiMusicScore loading.
+It's much simpler, and lighter weight, than MusicXML, and thus
+ not comprehensive.
 
 List of input tokens
 Time values

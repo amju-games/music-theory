@@ -53,7 +53,7 @@ std::string RestGlyph::ToString() const
   std::string res = TimeBefore();
 
   res += displayGlyphName + ", " + Str(x) + ", " + Str(y) +
-    ", " + Str(scaleX) + ", " + Str(scaleY);
+    AddScaleStringIfRequired();
 
   res += TimeAfter();
 
