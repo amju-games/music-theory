@@ -344,7 +344,7 @@ void GuiMusicScore::Animate(float animValue)
   for (int i = 0; i < numGlyphs; i++)
   {
     Glyph& g = m_glyphs[i];
-    Colour col = m_fgCol;
+    Colour col = g.m_colour; // Not, m_fgCol;
     if (g.m_timeMinMax.x <= animValue && g.m_timeMinMax.y > animValue)
     {
       // Add this glyph to highlighted set
@@ -819,13 +819,15 @@ bool GuiMusicScore::Load(File* f)
     return false;
   }
 
-  // Colour
+  // Default colour for the musical elements on the page. 
+  // There isn't a background colour, but TODO there should be.
   std::string colour;
   if (!f->GetDataLine(&colour))
   {
     f->ReportError("Expected music score colour");
     return false;
   }
+  // Optional as in, this could fail.
   auto optionalColour = FromHexString(colour);
   if (optionalColour)
   {
@@ -836,8 +838,32 @@ bool GuiMusicScore::Load(File* f)
     f->ReportError("Bad colour: " + colour);
     return false;
   }
+  // NB score data is better loaded separately - this can be a simple
+  //  placeholder, or if the score is simple, maybe it makes sense to
+  //  load it here.
+  // Music data ends with an "end" line, so if there's no music to display
+  //  at this point, we just expect "end" here.
+  if (!LoadMusicScore(f))
+  {
+    return false;
+  }
 
-  // Load the score to display, not the texture atlas
+  return true;
+}
+
+bool GuiMusicScore::LoadMusicScore(const std::string& filename)
+{
+  File f;
+  if (!f.OpenRead(filename))
+  {
+    return false;
+  }
+  return LoadMusicScore(&f);
+}
+
+bool GuiMusicScore::LoadMusicScore(File* f)
+{
+  // Load the score to display
   // Format is: each line specifies one glyph or the end of the score data.
   // Each line has: glyph type, x pos, y pos, with optional x scale, y scale.
   // Glyph type will be from an allowed set of names, so we report an error

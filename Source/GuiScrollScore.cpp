@@ -33,12 +33,16 @@ void GuiScrollScore::Update()
   auto pos = GetLocalPos();
   const float scale = GetSize().x * GetCombinedScale().x;
   pos.x = - m_currentX * scale; // I'm thinking of the next pos as positive x but we need to go backwards
+
   SetLocalPos(pos);
 }
 
 void GuiScrollScore::Animate(float animValue) 
 {
-  GuiMusicScore::Animate(animValue);
+// We don't want to do this, but if we did, we would need to not overwrite
+//  the colour of glyphs.
+
+//  GuiMusicScore::Animate(animValue);
 
   // Find the next entry in the Beat Table 
   auto it = m_beatTable.lower_bound(animValue);
