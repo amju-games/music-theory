@@ -6,6 +6,16 @@ namespace Amju
 {
 const char* GuiScrollScore::NAME = "scroll-score";
 
+bool GuiScrollScore::LoadMusicScore(File* f)
+{
+  if (!GuiMusicScore::LoadMusicScore(f))
+  {
+    return false;
+  }
+  BuildBeatTable(m_beatTable);
+  return true;
+}
+
 bool GuiScrollScore::Load(File* f)
 {
   if (!GuiMusicScore::Load(f))

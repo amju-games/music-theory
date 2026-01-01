@@ -28,11 +28,25 @@ public:
   GuiMusicScore();
  
   virtual void Draw() override;
+
+  // Load the GUI info - size, position, name, etc.
+  // Loading the actual score at this point is not very useful, so
+  //  we have a separate function to do that.
   virtual bool Load(File*) override;
+
   virtual void Animate(float animValue) override;
   virtual void OnResetAnimation() override;
 
   virtual Rect CalcRect() const override;
+
+  // Load music from file. For now, this is a text file of glyphs,
+  //  and then in future we can support MakeScore input and MusicXML.
+  // We use File::ReportError to report errors up to the author - we 
+  //  don't want to assert and crash the game.
+  virtual bool LoadMusicScore(const std::string& filename);
+
+  // Load glyph data from an open file. 
+  virtual bool LoadMusicScore(File* file);
 
   // Set default fg colour, i.e. the colour for glyphs, quads, etc. 
   // Needs to be called before loading so the colour is applied to

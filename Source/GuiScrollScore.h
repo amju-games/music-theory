@@ -23,6 +23,13 @@ public:
   void OnResetAnimation() override;
   bool Load(File*) override;
 
+  // Override to build beat table after loading
+  bool LoadMusicScore(File* file) override;
+
+  // This is to 'un-hide' the parent class LoadMusicScore(const std::string&)
+  //  -- why tho c++
+  using GuiMusicScore::LoadMusicScore;
+
 //protected:
   // Build table of Time (normalized) -> x-coord (local coords).
   // Public and with BeatTable param for unit testing.

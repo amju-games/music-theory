@@ -81,6 +81,14 @@ void GSHero::OnActive()
 
   m_scrollScore->SetPalette(palette);
 
+std::cout << "Loading music score...\n";
+  // Now we can load the music for this game round.
+  if (!m_scrollScore->LoadMusicScore("test_hero_score.txt"))
+  {
+    std::cout << "Failed to load music!!!\n";
+    Assert(0); // TODO better error handling
+  }
+
   // Find the animator parent too.
   elem = m_scrollScore->GetParent();
   Assert(elem);
@@ -95,6 +103,7 @@ void GSHero::OnActive()
   auto songLength = m_scrollScore->GetSongLengthSeconds();
   if (songLength)
   {
+std::cout << "Song length is: " << *songLength << "\n";
     m_scoreAnim->SetCycleTime(*songLength);
   }
   else
