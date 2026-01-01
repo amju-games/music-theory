@@ -11,6 +11,7 @@
 #include <StringUtils.h>
 #include <TextureSequence.h>
 #include <TriList.h>
+#include "Palette.h"
 
 namespace Amju
 {
@@ -33,7 +34,17 @@ public:
 
   virtual Rect CalcRect() const override;
 
+  // Set default fg colour, i.e. the colour for glyphs, quads, etc. 
+  // Needs to be called before loading so the colour is applied to
+  //  subsequently parsed glyphs.
   void SetFgCol(const Colour& col);
+
+  // Set palette to use to colourise the score.
+  // The 'colour name' in the palette corresponds here to MIDI note
+  //  values, (stringified).
+  // Once palette is set, glyphs subsequently parsed will use it. So
+  //  this call needs to come before the score is loaded.
+  void SetPalette(RCPtr<Palette> palette);
 
   // Add glyph defined by a string.
   bool AddGlyphFromString(
@@ -89,7 +100,8 @@ public:
     Vec2f m_scale = Vec2f(1.f, 1.f);
 
     // This is used to highlight glyphs as the owning GuiMusicScore is animated.
-    // This glyph is highlighted while the animation value is within this range.
+    // Any glyph parsed will be highlighted when the animation value is within 
+    //  this range.
     Vec2f m_timeMinMax = Vec2f(-1.f, -1.f);
 
     // Glyph colour: usually we would expect this to be black, but we can highlight 
@@ -104,6 +116,10 @@ public:
 
   // Add a Glyph: when all required Glyphs have been added, call BuildTriList().
   void AddGlyph(const Glyph& g);
+
+  // Used during parsing/loading: get the colour for the glyph we are
+  //  just about to add. (We use current note data member to decide). 
+  Colour GetColourForGlyph() const;
 
   // For testing, unlikely to be useful otherwise?
   int GetNumGlyphs() const;
@@ -188,6 +204,7 @@ protected:
   Colour m_fgCol; // usual colour for all glyphs
   Colour m_highlightColour; // colour for highlighted part of score
   Colour m_bgCol; // background colour of score rect
+  RCPtr<Palette> m_palette; // optional palette to colourise notes
 
   using Glyphs = std::vector<Glyph>;
   Glyphs m_glyphs;
@@ -212,6 +229,10 @@ protected:
   // Set to true during Load phase if the above time range is ever set between 0..1, 
   //  as this means we will animate some glyphs.
   bool m_hasAnimation = false;
+
+  // Most recent note (MIDI pitch) parsed.
+  // This can be used to set colour of the glyphs for the note. 
+  int m_lastNoteParsed = -1; 
 
   // Note on/off events, which we load along with glyphs. This makes it easier to
   //  add midi note events to a score.

@@ -43,8 +43,27 @@ std::cout << "Got keyboard event\n";
 
 void GSHero::OnActive() 
 {
+  // Set palette for keyboard and score, before we load them in.
+  RCPtr<Palette> palette = new Palette;
+
+  File paletteFile;
+  if (!paletteFile.OpenRead("test_palette.txt"))
+  {
+    // TODO Report Error gracefully
+    std::cout << "Failed to open palette file.\n";
+    Assert(false);
+  }
+
+  if (!palette->Load(paletteFile))
+  {
+    // TODO Report Error gracefully
+    std::cout << "Failed to load colours from  palette file.\n";
+    Assert(false);
+  }
+
   GSBase::OnActive();  
 
+  // Get pointer to the score..
   auto* elem = GetElementByName(m_gui, "the-score");
   if (!elem)
   {
@@ -53,11 +72,14 @@ void GSHero::OnActive()
   }
  
   m_scrollScore = dynamic_cast<GuiScrollScore*>(elem);
+
   if (!m_scrollScore)
   {
     std::cout << "GUI Score element called \"the-score\" was found but it's the wrong type.\n";
     Assert(0); 
   }
+
+  m_scrollScore->SetPalette(palette);
 
   // Find the animator parent too.
   elem = m_scrollScore->GetParent();
@@ -75,6 +97,33 @@ void GSHero::OnActive()
   {
     m_scoreAnim->SetCycleTime(*songLength);
   }
+  else
+  {
+    // This is bad  
+    std::cout << "Failed to get song length. Does the BMP and BEAT meta data exist in the score?\n";
+    Assert(false); // TODO We need a decent error reporter that doesn't crash the game
+  }
+
+  // Find the keyboard
+  elem = GetElementByName(m_gui, "the-keyboard");
+  if (!elem)
+  {
+    std::cout << "GUI keyboard element called \"the-keyboard\" not found.\n";
+    Assert(0); 
+  }
+ 
+  m_keyboard = dynamic_cast<GuiMusicKb*>(elem);
+
+  if (!m_keyboard)
+  {
+    std::cout << "GUI keyboard element called \"the-keyboard\" was found but it's the wrong type.\n";
+    Assert(0); 
+  }
+
+  m_keyboard->SetPalette(palette);
+
+  // Load the score from a separate file
+  // TODO
 
   // Pause animation until we are ready to start, right?
   m_scoreAnim->SetIsPaused(true);

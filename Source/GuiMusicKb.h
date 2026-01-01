@@ -5,6 +5,7 @@
 
 #include <GuiComposite.h>
 #include <ObjMesh.h>
+#include "Palette.h"
 
 namespace Amju
 {
@@ -25,6 +26,12 @@ public:
 
   virtual bool OnMouseButtonEvent(const MouseButtonEvent&) override;
   virtual bool OnCursorEvent(const CursorEvent&) override;
+
+  // Store palette and apply the contents to the keys.
+  // The "colour names" for this palette are MIDI pitch values, e.g.
+  //  60=ff0000
+  // sets middle C to red.
+  void SetPalette(RCPtr<Palette> palette);
 
   // TODO Operations on keys: press, release, highlight, etc.
   // Use the unique name for the key? Or perhaps use the midi value as the unique ID?

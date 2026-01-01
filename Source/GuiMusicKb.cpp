@@ -254,6 +254,30 @@ bool GuiMusicKb::Key::LoadFromString(const std::string& s)
   return true;
 }
 
+void GuiMusicKb::SetPalette(RCPtr<Palette> palette)
+{
+  // Reset all keys to their natural colour
+  for (auto& key : m_keys)
+  {
+    key->m_colour = key->m_naturalColour; // a member function would be nice
+  }
+
+  if (!palette)
+  {
+    return;
+  }
+
+  for (const auto& [noteStr, colour] : palette->GetColourMap())
+  {
+    int midiNote = ToInt(noteStr);
+    PKey key = GetKey(midiNote);
+    if (key)
+    {
+      key->m_colour = colour;
+    } 
+  }
+}
+
 static Vec2f _project(const Vec3f& v)
 {
   Matrix modl;

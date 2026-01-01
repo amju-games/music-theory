@@ -6,6 +6,7 @@
 #include <GuiDecAnimation.h>
 #include <Singleton.h>
 #include "GSBase.h"
+#include "GuiMusicKb.h"
 #include "GuiScrollScore.h"
 
 namespace Amju
@@ -25,10 +26,14 @@ public:
   void Start();
 
 protected:
-  // Get the scroll score child of m_gui after it's loaded
+  // The scroll score child of m_gui (get after gui is loaded)
   RCPtr<GuiScrollScore> m_scrollScore;
-  // Get animator parent of scroll score
+
+  // The animator parent of scroll score
   RCPtr<GuiDecAnimation> m_scoreAnim;
+
+  // The keyboard
+  RCPtr<GuiMusicKb> m_keyboard;
 };
 
 typedef Singleton<GSHero> TheGSHero;

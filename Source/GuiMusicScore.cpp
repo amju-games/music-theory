@@ -556,6 +556,7 @@ bool GuiMusicScore::ParseNoteEvent(const Strings& strs, bool onNotOff)
   int note = ToInt(strs[1]);
   float time = ToFloat(strs[2]);
   m_noteEvents.push_back(NoteEvent(note, time, onNotOff));
+  m_lastNoteParsed = onNotOff ? note : -1;
 
   return true;
 }
@@ -652,7 +653,7 @@ bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* re
       (Vec2f(ToFloat(strs[5]), ToFloat(strs[6])) + pos_) * scale_,
       (Vec2f(ToFloat(strs[7]), ToFloat(strs[8])) + pos_) * scale_
     };
-    *result = Glyph(corners, m_fgCol);
+    *result = Glyph(corners, GetColourForGlyph());
     return true;
   }
   else if (n == 3 || n == 5)
@@ -668,18 +669,33 @@ bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* re
     if (n == 3)
     {
       Vec2f p = (pos + pos_) * scale_;
-      *result = Glyph(ch, p, scale_, m_fgCol);
+      *result = Glyph(ch, p, scale_, GetColourForGlyph());
     }
     else
     {
       Vec2f scale = Vec2f(ToFloat(strs[3]), ToFloat(strs[4])) * scale_;
       Vec2f p = (pos + pos_) * scale;
-      *result = Glyph(ch, p, scale, m_fgCol);
+      *result = Glyph(ch, p, scale, GetColourForGlyph());
     }
     return true;
   }
   ReportError("Failed to parse line " + line);
   return false;
+}
+
+Colour GuiMusicScore::GetColourForGlyph() const
+{
+  if (m_lastNoteParsed != -1 && m_palette)
+  {
+    auto colour =  m_palette->GetColour(std::to_string(m_lastNoteParsed));
+    if (colour)
+    {
+      return *colour;
+    }
+  }
+
+  // No palette or colour not defined for this note: use default glyph colour
+  return m_fgCol;
 }
 
 bool GuiMusicScore::AddTextFromString(
@@ -1016,5 +1032,12 @@ std::optional<float> GuiMusicScore::GetSongLengthSeconds() const
     return songLength;
   }  
   return std::nullopt;
+}
+
+void GuiMusicScore::SetPalette(RCPtr<Palette> palette)
+{
+  m_palette = palette;
+  // TODO Recolourise all the glyphs? Reset to default colour if
+  //  palette is null?
 }
 }

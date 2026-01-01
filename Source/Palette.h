@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <vector>
 #include <Colour.h>
+#include <RCPtr.h>
 
 namespace Amju
 {
@@ -18,7 +19,7 @@ class File;
 // E.g. 
 //   red=ff0000
 //   translucentblue=0000ff80
-class Palette
+class Palette : public RefCounted
 {
 public:
   using ColourVec = std::vector<Colour>;
@@ -26,7 +27,9 @@ public:
 
   ColourVec GetColours() const;
 
-  std::optional<Colour> GetColour(const std::string& colourName);
+  const ColourMap& GetColourMap() const { return m_colours; }
+
+  std::optional<Colour> GetColour(const std::string& colourName) const;
 
   bool Load(File& f);
   bool Save(File& f);

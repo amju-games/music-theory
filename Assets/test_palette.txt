@@ -1,0 +1,6 @@
+// Test palette
+1
+60=ff4040ff
+62=ff8040ff
+64=ffc040ff
+

@@ -63,4 +63,14 @@ bool Palette::Save(File& f)
 {
   return false;
 }
+
+std::optional<Colour> Palette::GetColour(const std::string& colourName) const
+{
+  auto it = m_colours.find(colourName);
+  if (it != m_colours.end())
+  {
+    return it->second;
+  }  
+  return std::nullopt;
+}
 }

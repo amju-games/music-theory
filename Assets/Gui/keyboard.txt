@@ -33,7 +33,7 @@ translate
 
 // The keyboard
 music-kb
-kb
+the-keyboard
 // Pos
 0, 0
 // Scale
