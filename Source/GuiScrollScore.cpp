@@ -44,6 +44,8 @@ void GuiScrollScore::Animate(float animValue)
 
 //  GuiMusicScore::Animate(animValue);
 
+  m_animTime = animValue; 
+
   // Find the next entry in the Beat Table 
   auto it = m_beatTable.lower_bound(animValue);
   if (it == m_beatTable.begin())
@@ -112,7 +114,10 @@ std::cout << " nextT: " << nextTime
 
 void GuiScrollScore::OnResetAnimation() 
 {
+  // Hmm, do we want to call this?
   GuiMusicScore::OnResetAnimation();
+
+  m_animTime = 0; 
 
   m_nextT = 0;
   m_currentX = 0;
@@ -121,6 +126,8 @@ void GuiScrollScore::OnResetAnimation()
 
 void GuiScrollScore::BuildBeatTable(BeatTable& beatTable) 
 {
+  beatTable.clear();
+
   for (const auto& g : m_glyphs)
   {
     const float x = g.m_pos.x;
@@ -160,6 +167,16 @@ void GuiScrollScore::BuildBeatTable(BeatTable& beatTable)
     std::cout << "Time " << time << "\tX " << x << "\n";
   }
 */
+}
+
+float GuiScrollScore::GetAnimTime() const
+{ 
+  return m_animTime;
+}
+
+const BeatTable& GuiScrollScore::GetBeatTable() const
+{
+  return m_beatTable;
 }
 }
 

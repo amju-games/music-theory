@@ -35,10 +35,19 @@ public:
   // Public and with BeatTable param for unit testing.
   void BuildBeatTable(BeatTable&);
 
+  const BeatTable& GetBeatTable() const;
+
+  // Get the last timing value passed into Animate().
+  // This is used to compare player input with the beat table.
+  float GetAnimTime() const;
+
 protected:
   // Beats per min, used to set scroll speed.
   float m_bpm = 80.f;
   float m_scrollSpeed = 0;
+
+  // Most recent timing value passed into Animate()
+  float m_animTime = 0; 
 
   // Local X coord of Beat Line: this is the x-coord where the next beat should
   //  be when its time is reached.
