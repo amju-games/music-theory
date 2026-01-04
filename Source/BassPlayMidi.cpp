@@ -1,7 +1,7 @@
 // * Amjula music theory *
 // (c) Copyright 2024 Juliet Colman
 
-// Implement PlayMidi() using the BASS library. Used for Windows, not iOS.
+// Implement PlayMidi() using the BASS library. Used for Windows and Mac, not iOS.
 // The other way to do this, probably better, would be to make a new SoundPlayerImpl. Rats.
 
 #ifndef AMJU_IOS
@@ -15,7 +15,9 @@ using namespace Amju;
 
 void PlayMidi(int note, int velocity)
 {
+#ifdef PLAY_MIDI_DEBUG
   std::cout << "Playing midi note: " << note << " vel: " << velocity << "\n";
+#endif
 
   SoundManager* sm = TheSoundManager::Instance();
   if (velocity == 0)
