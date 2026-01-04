@@ -11,6 +11,7 @@
 #include <StringUtils.h>
 #include <TextureSequence.h>
 #include <TriList.h>
+#include "NoteEvent.h"
 #include "Palette.h"
 
 namespace Amju
@@ -156,6 +157,8 @@ public:
   // Returns song length, if known - i.e. we need the metadata in the input.
   std::optional<float> GetSongLengthSeconds() const;
  
+  const NoteEvents& GetNoteEvents() const;
+
 protected:
   // Draw child GUI elements (curves, text, etc)
   void DrawChildren(); // not const because GuiElement::Draw not const, why tho
@@ -209,7 +212,6 @@ protected:
   // Check for new note events, send them, and advance m_nextNoteEvent appropriately.
   void UpdateNoteEvents(float animValue);
 
-  struct NoteEvent;
   void SendNoteEvent(const NoteEvent&);
 
 protected:
@@ -248,30 +250,6 @@ protected:
   // This can be used to set colour of the glyphs for the note. 
   int m_lastNoteParsed = -1; 
 
-  // Note on/off events, which we load along with glyphs. This makes it easier to
-  //  add midi note events to a score.
-  // TODO Hoist out this type, it's general purpose.
-  struct NoteEvent
-  {
-    NoteEvent() = default;
-    NoteEvent(int note, float time, bool onNotOff) :
-      m_note(note), m_time(time), m_onNotOff(onNotOff) {}
-
-    bool operator<(const NoteEvent& ne) const
-    {
-      return m_time < ne.m_time;
-    }
-
-    // Midi note value
-    int m_note = 0;
-    // Times are 0..1 animation values, not time in seconds
-    float m_time = 0;
-    // MIDI note on or note off event
-    bool m_onNotOff = true;
-  };
-
-  // Vector of note events, sorted by time.
-  using NoteEvents = std::vector<NoteEvent>;
   NoteEvents m_noteEvents;
   // Index into m_noteEvents. This is the next note event to be played, when the
   //  animation value reaches the time of the event

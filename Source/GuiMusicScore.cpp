@@ -1066,4 +1066,9 @@ void GuiMusicScore::SetPalette(RCPtr<Palette> palette)
   // TODO Recolourise all the glyphs? Reset to default colour if
   //  palette is null?
 }
+
+const NoteEvents& GuiMusicScore::GetNoteEvents() const
+{
+  return m_noteEvents;
+}
 }
