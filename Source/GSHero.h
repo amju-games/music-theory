@@ -26,6 +26,11 @@ public:
   void Start();
 
 protected:
+  // Grade player input event against what we think is the corresponding
+  //  event in the score.
+  void GradeEvent(const MusicKbEvent& e);
+
+protected:
   // The scroll score child of m_gui (get after gui is loaded)
   RCPtr<GuiScrollScore> m_scrollScore;
 
