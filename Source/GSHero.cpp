@@ -7,6 +7,7 @@
 #include <MessageQueue.h>
 #include <SoundManager.h>
 #include "Consts.h"
+#include "Grader.h"
 #include "GSHero.h"
 #include "PlayWav.h"
 
@@ -41,137 +42,6 @@ void GSHero::OnMusicKbEvent(const MusicKbEvent& e)
   GradeEvent(e);
 }
 
-static auto GetRangeToConsider(
-  const MusicKbEvent& e, const NoteEvents& noteEvents, float animTime, float songLength)
-{
-  // Find note events before and after animTime. 
-  // Creating a dummy NoteEvent to use as the search value for equal_range.
-  //  (We want to search on animTime, which is not the same type
-  //  as what's in the container. This is as good/bad as the alternatives :))
-  NoteEvent searchVal; 
-  searchVal.m_time = animTime;
-  // Get iterators to elements with times >= and > animTime
-  auto [beforeIt, afterIt] = std::equal_range(
-    noteEvents.begin(), noteEvents.end(), searchVal);
-
-  // Expand range of events to include those preceding and following.
-  if (beforeIt != noteEvents.begin())
-  {
-    // Drop down to previous element, so we can get the time of the last
-    // event before animTime. 
-    beforeIt--;
-    // Now get all the events with the same time.
-    searchVal.m_time = beforeIt->m_time;
-    beforeIt = std::lower_bound(noteEvents.begin(), beforeIt, searchVal); 
-  }
-  // Same idea, for the note events immediately after:
-  if (afterIt != noteEvents.end())
-  {
-    afterIt++;
-    if (afterIt != noteEvents.end())
-    {
-      // Include all events that are the next time up from animTime.
-      searchVal.m_time = afterIt->m_time;
-      afterIt = std::upper_bound(afterIt, noteEvents.end(), searchVal);
-    }
-  }
-
-#ifdef CLOSEST_EVENT_DEBUG
-std::cout << "KEY DOWN! Note: " << e.m_note << " Time now: " << animTime << ", note events considered:\n";
-for (auto it = beforeIt; it != afterIt; ++it)
-{
-  std::cout << " Time: " << it->m_time 
-    << (it->m_onNotOff ? " ON " : " OFF ")
-    << " Pitch: " << it->m_note
-    << " Time diff: " << songLength * std::abs(animTime - it->m_time) << "s"
-    << "\n";
-}
-#endif
-
-  return std::make_pair(beforeIt, afterIt);
-}
-
-static std::optional<NoteEvents::const_iterator> FindBestMatch(
-  const NoteEvents::const_iterator beforeIt, 
-  const NoteEvents::const_iterator afterIt,
-  const MusicKbEvent& e, float animTime, float songLength)
-{
-  // Find the most closely matching event: the same type, with the shortest
-  //  time difference.
-  // If this is a note off event, we're looking for the event with note off,
-  //  same pitch as the player event, and closest time.
-  bool found = false;
-  float bestDiff = 1.f;
-  auto bestIt = beforeIt;
-  for (auto it = beforeIt; it != afterIt; ++it)
-  {
-    float diff = std::abs(animTime - it->m_time);
-
-    if (   it->m_onNotOff == e.m_on  // event types match?
-        && diff < bestDiff // closer time?
-        && (e.m_on || it->m_note == e.m_note)) // if note off, pitches match?
-    {
-      bestDiff = diff;
-      bestIt = it;
-      found = true;
-    }
-  }
-
-//#ifdef CLOSEST_EVENT_DEBUG
-std::cout << "Best match:\n";
-  std::cout << " Time: " << bestIt->m_time 
-    << (bestIt->m_onNotOff ? " ON " : " OFF ")
-    << " Pitch: " << bestIt->m_note
-    << " Time diff: " << songLength * std::abs(animTime - bestIt->m_time) << "s"
-    << "\n";
-//#endif
-
-  if (!found)
-  {
-    return std::nullopt;
-  }
-
-  return bestIt;
-}
-
-static std::optional<NoteEvents::const_iterator> GetClosestMatchingEvent(
-  const MusicKbEvent& e, const NoteEvents& noteEvents, float animTime, float songLength)
-{
-  if (noteEvents.empty())
-  {
-    // There are no note events! Hmm, not sure what this would mean.
-std::cout << "No note events, so don't know what to do!\n";
-    return std::nullopt;
-  }
-
-  const auto [beforeIt, afterIt] = GetRangeToConsider(e, noteEvents, animTime, songLength);
-
-  return FindBestMatch(beforeIt, afterIt, e, animTime, songLength);
-}
-
-static void GradeTime(const NoteEvent& ne, float animTime, float songLength)
-{
-  float timeDiff = animTime - ne.m_time; 
-  float timeDiffSecs = timeDiff * songLength;
-
-  const float PERFECT = 0.05f; // TODO TEMP TEST make these configurable
-std::cout << 
-  (std::abs(timeDiffSecs) < PERFECT ? " - *PERFECT TIMING*!" :
-  (timeDiff < 0 ? " -- Too quick! " : " -- Too slow! "))
-  << timeDiffSecs << "seconds ";
-
-  const float MAX_ERROR = 0.25f; // TODO TEMP TEST
-  if (std::abs(timeDiffSecs) > MAX_ERROR)
-  {
-std::cout << "NO POINTS!\n";
-  }
-  else
-  {
-    float grade = (1.f - std::abs(timeDiffSecs) / MAX_ERROR) * 100.f;
-std::cout << " -- Grade: " << std::round(grade) << "%\n";
-  } 
-}
-
 void GSHero::GradeEvent(const MusicKbEvent& e)
 {
 std::cout << "Grading note event: Pitch: " << e.m_note 
@@ -201,7 +71,8 @@ std::cout << "Grading note event: Pitch: " << e.m_note
   const auto& noteEvents = m_scrollScore->GetNoteEvents();
 
   // Get iterator pointing to the event we think the player is attempting.
-  auto optIt = GetClosestMatchingEvent(e, noteEvents, animTime, songLength);
+  Grader grader;
+  auto optIt = grader.GetClosestMatchingEvent(e, noteEvents, animTime, songLength);
   if (optIt)
   {
     const auto it = *optIt;
@@ -222,7 +93,7 @@ std::cout << " - ignoring this player event, already graded.\n";
     {
       // Note on event, pitch is correct
 std::cout << "** Correct note! " << e.m_note << "\n";
-      GradeTime(ne, animTime, songLength);
+      grader.GradeTime(ne, animTime, songLength);
     }
     else if (e.m_on && e.m_note != ne.m_note)
     {
@@ -235,7 +106,7 @@ std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << 
       // Note off event - the pitches must match. We grade on time.
       Assert(!e.m_on);
       Assert(e.m_note == ne.m_note);
-      GradeTime(ne, animTime, songLength);
+      grader.GradeTime(ne, animTime, songLength);
     }
   }
   else
