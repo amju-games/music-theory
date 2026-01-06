@@ -10,6 +10,7 @@
 #include <SoundManager.h>
 #include "Consts.h"
 #include "Grader.h"
+#include "HeroGameRound.h"
 #include "GSHero.h"
 #include "PlayWav.h"
 
@@ -37,6 +38,18 @@ void GSHero::ReloadGui()
   sm->StopSong();
 }
 
+const HeroGameRound& GetGameRound()
+{
+  static HeroGameRound round;
+
+  // TODO Prepend dirs in code, as they will always be the same
+  round.m_backingTrack = "Music/amt1.it";
+  round.m_palette = "test_palette.txt";
+  round.m_musicScore = "test_hero_score.txt";
+
+  return round;
+}
+
 void GSHero::Start()
 {
 std::cout << "START!!\n";
@@ -51,11 +64,10 @@ std::cout << "START!!\n";
   // The BPM has to match that of the song. We don't want a huge number of
   //  count-in audio files, so better to adjust BPM of the count-in song, to 
   //  match the main song BPM.
-  // TODO Get count in filename from game round data
-  //TODO sm->PlaySong("Music/count-in.it");  
+  sm->PlaySong(GetGameRound().m_countIn);  
 
   // Start the count-in
-  const int numCountInBeats = 1; // TODO Get from game round data
+  const int numCountInBeats = GetGameRound().m_numCountInBeats;
   m_scrollScore->StartCountIn(numCountInBeats, onFinished);
 }
 
@@ -68,8 +80,7 @@ void GSHero::OnCountInFinished()
 
   // Start playing the backing track for this song
   auto sm = TheSoundManager::Instance();
-  // TODO Obvs this track comes from game round data
-  sm->PlaySong("Music/amt1.it");
+  sm->PlaySong(GetGameRound().m_backingTrack);
 }
 
 void GSHero::OnMusicKbEvent(const MusicKbEvent& e) 
@@ -81,16 +92,14 @@ void GSHero::GradeEvent(const MusicKbEvent& e)
 {
 std::cout << "=================================\nGrading note event: Pitch: " << e.m_note 
   << " " << (e.m_on ? "*ON*" : "+off+");
-
-  // TODO Play the note - player should always get audio feedback from the
-  //  keyboard!
-//  m_scrollScore->SendNoteEvent(e);
+  // No newline!
 
   // Get song length
   auto optSongLength = m_scrollScore->GetSongLengthSeconds();
   // If we got here, we surely know the song length!
   if (!optSongLength)
   {
+std::cout << "\n";
     std::cout << "*** Unexpected, can't get song length!!\n";
     return;
   }
@@ -99,6 +108,7 @@ std::cout << "=================================\nGrading note event: Pitch: " <<
   float animTime = m_scrollScore->GetAnimTime();
   if (animTime >= 1.f)
   {
+std::cout << "\n";
     return;
   }
   else if (animTime == 0)
@@ -161,7 +171,7 @@ std::cout << "** Correct note! " << e.m_note << "\n";
       // Note on event, pitch is INCORRECT
 std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << ne.m_note << "\n";
       PlayWav(WAV_INCORRECT);
-      Grade grade(Grade::BAD_NOTE, -100);
+      Grade grade(Grade::BAD_NOTE, 0);
       FeedbackBalloon(grade);
     }
     else
@@ -201,8 +211,7 @@ void GSHero::InitGui()
   RCPtr<Palette> palette = new Palette;
 
   File paletteFile;
-  // TODO Filename should come from game round info
-  if (!paletteFile.OpenRead("test_palette.txt"))
+  if (!paletteFile.OpenRead(GetGameRound().m_palette))
   {
     // TODO Report Error gracefully
     std::cout << "Failed to open palette file.\n";
@@ -235,13 +244,12 @@ void GSHero::InitGui()
   // We need to do this before we load the music score, because that's when
   //  we set the colours of the glyphs.
   // If super hard mode, we don't colour the notes, but we DO still use the
-  //  palette note colour for trails. TODO
+  //  palette note colour for trails, right?
   m_scrollScore->SetPalette(palette);
 
 std::cout << "Loading music score...\n";
   // Now we can load the music for this game round.
-  // TODO music score filename also comes from game round info.
-  if (!m_scrollScore->LoadMusicScore("test_hero_score.txt"))
+  if (!m_scrollScore->LoadMusicScore(GetGameRound().m_musicScore))
   {
     std::cout << "Failed to load music!!!\n";
     Assert(0); // TODO better error handling
@@ -308,6 +316,11 @@ void GSHero::ShowFeedbackBalloon(bool showNotHide)
 
 void GSHero::FeedbackBalloon(const Grade& g)
 {
+  if (g.m_score > 0.5f)
+  {
+    PlayWav("good1");
+  }
+
   ShowFeedbackBalloon(true);
 
   auto elem = GetElementByName(m_gui, "feedback-text");
