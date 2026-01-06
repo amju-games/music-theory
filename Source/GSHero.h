@@ -11,6 +11,8 @@
 
 namespace Amju
 {
+struct Grade;
+
 // * GSHero *
 // Hero mode: the game mechanic which is like Guitar Hero, but for keyboard/sheet music.
 class GSHero : public GSBase
@@ -29,6 +31,11 @@ protected:
   // Grade player input event against what we think is the corresponding
   //  event in the score.
   void GradeEvent(const MusicKbEvent& e);
+
+  // Display feedback
+  void FeedbackBalloon(const Grade& g);
+
+  void ShowFeedbackBalloon(bool showNotHide);
 
 protected:
   // The scroll score child of m_gui (get after gui is loaded)

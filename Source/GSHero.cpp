@@ -3,7 +3,9 @@
 
 #include <algorithm>
 #include <iostream>
+#include <sstream>
 #include <CommandLineArgs.h>
+#include <GuiText.h>
 #include <MessageQueue.h>
 #include <SoundManager.h>
 #include "Consts.h"
@@ -93,7 +95,8 @@ std::cout << " - ignoring this player event, already graded.\n";
     {
       // Note on event, pitch is correct
 std::cout << "** Correct note! " << e.m_note << "\n";
-      grader.GradeTime(ne, animTime, songLength);
+      auto grade = grader.GradeTime(ne, animTime, songLength);
+      FeedbackBalloon(grade);
     }
     else if (e.m_on && e.m_note != ne.m_note)
     {
@@ -106,12 +109,14 @@ std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << 
       // Note off event - the pitches must match. We grade on time.
       Assert(!e.m_on);
       Assert(e.m_note == ne.m_note);
-      grader.GradeTime(ne, animTime, songLength);
+      auto grade = grader.GradeTime(ne, animTime, songLength);
+      FeedbackBalloon(grade);
     }
   }
   else
   {
 std::cout << ":((( Couldn't find a matching event to grade against!\n";
+    // This could be because we played a note when we shouldn't?
   }
 }
 
@@ -217,5 +222,34 @@ std::cout << "Paused...\n";
   // Start after a short pause, TODO TEMP TEST
   TheMessageQueue::Instance()->Add(new FuncMsg(
     [](){ TheGSHero::Instance()->Start(); }, SecondsFromNow(2.f)));
+
+  // Hide GUI elements
+  ShowFeedbackBalloon(false);
+}
+
+void GSHero::ShowFeedbackBalloon(bool showNotHide)
+{
+  auto elem = GetElementByName(m_gui, "feedback-balloon");
+  if (elem)
+  {
+    elem->SetVisible(showNotHide);
+  }
+}
+
+void GSHero::FeedbackBalloon(const Grade& g)
+{
+  ShowFeedbackBalloon(true);
+
+  auto elem = GetElementByName(m_gui, "feedback-text");
+  if (elem)
+  {
+    auto t = dynamic_cast<GuiText*>(elem);
+    if (t)
+    {
+      std::stringstream ss;
+      ss << g.m_score;
+      t->SetText(ss.str());
+    }
+  }
 }
 }

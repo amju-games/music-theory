@@ -11,20 +11,13 @@ gs-hero-root
 // Num children
 4
 
-// Element type
-gui-text
-// Element name
-help-text
-// pos (coords are -1..1)
--0.9, 0.9
-// size
-1.8, 0.2
-// Text
-HERO MODE!
-// Font name, size
-TEXT, 3.0, multi, fgcol=000000
+// Text balloon giving feedback on player's input
+include
+feedback-balloon.txt
 
-
+// Keyboard springs up from below the screen
+elastic
+0, -3
 include
 keyboard.txt
 
@@ -60,4 +53,5 @@ style=2, outCol=ffffff, fillCol=ffffff, radius=0.01
 0.0, 0.1
 0.0, 0.8
 end
+
 
