@@ -4,6 +4,16 @@
 
 namespace Amju
 {
+static std::string GetFeedbackFromScore(float score)
+{
+  return "Fanciful!";
+}
+
+Grade::Grade(Type t, float score) : 
+  m_type(t), m_score(score), m_feedback(GetFeedbackFromScore(score))
+{
+}
+
 std::pair<NoteEvents::const_iterator, NoteEvents::const_iterator> 
   Grader::GetRangeToConsider(
   const MusicKbEvent& e, const NoteEvents& noteEvents, float animTime, float songLength)
@@ -113,7 +123,7 @@ std::cout << "No note events, so don't know what to do!\n";
   return FindBestMatch(beforeIt, afterIt, e, animTime, songLength);
 }
 
-void Grader::GradeTime(const NoteEvent& ne, float animTime, float songLength)
+Grade Grader::GradeTime(const NoteEvent& ne, float animTime, float songLength)
 {
   float timeDiff = animTime - ne.m_time;
   float timeDiffSecs = timeDiff * songLength;
@@ -128,11 +138,15 @@ std::cout <<
   if (std::abs(timeDiffSecs) > MAX_ERROR)
   {
 std::cout << "NO POINTS!\n";
+    return Grade(Grade::TOO_QUICK, 0);
   }
   else
   {
-    float grade = (1.f - std::abs(timeDiffSecs) / MAX_ERROR) * 100.f;
-std::cout << " -- Grade: " << std::round(grade) << "%\n";
+    // We could return a score from 0..1, or -1..1, where 0 is perfect,
+    //  and the sign tells you whether we were early or late.
+    float grade = (1.f - std::abs(timeDiffSecs) / MAX_ERROR);
+std::cout << " -- Grade: " << std::round(grade * 100.f) << "%\n";
+    return Grade(Grade::GOOD_NOTE, grade);
   }
 }
 }
