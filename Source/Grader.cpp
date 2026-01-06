@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <cmath> // round()
+#include <map>
 #include "Grader.h"
 
 //#define GRADE_DEBUG
@@ -8,7 +9,26 @@ namespace Amju
 {
 static std::string GetFeedbackFromScore(float score)
 {
-  return "Fanciful!";
+  static const std::map<float, std::string> STRS = 
+  {
+    { .0f, "Stinker!" },
+    { .1f, "Woeful!" },
+    { .2f, "Preposterous!" },
+    { .3f, "Pitiful!" },
+    { .4f, "Not bad!" },
+    { .5f, "Fanciful!" },
+    { .6f, "Smooth!" },
+    { .7f, "Good!" },
+    { .8f, "Delightful!!" },
+    { .9f, "Great!" },
+    { .95f, "Wonderful!" },
+  };
+  auto it = STRS.lower_bound(score);
+  if (it == STRS.end())
+  {
+    return "Perfect!";
+  }
+  return it->second;
 }
 
 Grade::Grade(Type t, float score) : 

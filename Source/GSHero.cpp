@@ -3,8 +3,8 @@
 
 #include <algorithm>
 #include <iostream>
-#include <sstream>
 #include <CommandLineArgs.h>
+#include <GuiDecColour.h>
 #include <GuiText.h>
 #include <MessageQueue.h>
 #include <SoundManager.h>
@@ -307,9 +307,7 @@ void GSHero::FeedbackBalloon(const Grade& g)
     auto t = dynamic_cast<GuiText*>(elem);
     if (t)
     {
-      std::stringstream ss;
-      ss << g.m_score;
-      t->SetText(ss.str());
+      t->SetText(g.m_feedback);
     }
   }
 
@@ -323,5 +321,7 @@ void GSHero::FeedbackBalloon(const Grade& g)
       a->ResetAnimation();
     }
   }
+
+  // TODO Set balloon colours according to score
 }
 }
