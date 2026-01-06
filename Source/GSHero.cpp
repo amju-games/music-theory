@@ -97,7 +97,11 @@ std::cout << "=================================\nGrading note event: Pitch: " <<
   float songLength = *optSongLength;
 
   float animTime = m_scrollScore->GetAnimTime();
-  if (animTime == 0)
+  if (animTime >= 1.f)
+  {
+    return;
+  }
+  else if (animTime == 0)
   {
     // We haven't started the song yet. 
     // But this could be a slightly early attempt at the first note
@@ -137,7 +141,12 @@ std::cout << " AnimTime now: " << animTime
 std::cout << " - ignoring this player event, already graded.\n";
       return;
     }
-    prevIt = it;
+    // Only remember if note on, so we don't wipe the last value on a
+    //  note off event. Still not a great solution.
+    if (e.m_on)
+    {
+      prevIt = it;
+    }
 
     const NoteEvent& ne = *it;
     if (e.m_on && e.m_note == ne.m_note)
