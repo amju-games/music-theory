@@ -2,6 +2,8 @@
 #include <cmath> // round()
 #include "Grader.h"
 
+//#define GRADE_DEBUG
+
 namespace Amju
 {
 static std::string GetFeedbackFromScore(float score)
@@ -50,7 +52,7 @@ std::pair<NoteEvents::const_iterator, NoteEvents::const_iterator>
     }
   }
 
-#ifdef CLOSEST_EVENT_DEBUG
+#ifdef GRADE_DEBUG
 std::cout << "KEY DOWN! Note: " << e.m_note << " Time now: " << animTime << ", note events considered:\n";
 for (auto it = beforeIt; it != afterIt; ++it)
 {
@@ -91,16 +93,22 @@ std::optional<NoteEvents::const_iterator> Grader::FindBestMatch(
     }
   }
 
-//#ifdef CLOSEST_EVENT_DEBUG
-std::cout << "Best match:\n";
-  std::cout << " Time: " << bestIt->m_time
-    << (bestIt->m_onNotOff ? " ON " : " OFF ")
-    << " Pitch: " << bestIt->m_note
-    << " Time diff: " 
-    << (animTime - bestIt->m_time) << " norm / "
-    << songLength * (animTime - bestIt->m_time) << " secs"
-    << "\n";
-//#endif
+#ifdef GRADE_DEBUG
+  if (found)
+  {
+    std::cout << "Best match:   Time: " << bestIt->m_time
+      << (bestIt->m_onNotOff ? " ON " : " OFF ")
+      << " Pitch: " << bestIt->m_note
+      << " Time diff: " 
+      << (animTime - bestIt->m_time) << " norm / "
+      << songLength * (animTime - bestIt->m_time) << " secs"
+      << "\n";
+  }
+  else
+  {
+    std::cout << "No best match?!?!\n";
+  }
+#endif
 
   if (!found)
   {
