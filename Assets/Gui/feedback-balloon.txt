@@ -12,7 +12,21 @@ feedback-balloon
 1
 
 animation
-name-not-used
+moving-anim
+one-shot
+3
+linear
+
+translate
+0, 0; -1.5, 1
+
+animation
+clean-anim
+const
+one
+
+animation
+pulsing-anim
 repeat
 1.2
 linear

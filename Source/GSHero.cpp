@@ -79,7 +79,7 @@ void GSHero::OnMusicKbEvent(const MusicKbEvent& e)
 
 void GSHero::GradeEvent(const MusicKbEvent& e)
 {
-std::cout << "Grading note event: Pitch: " << e.m_note 
+std::cout << "=================================\nGrading note event: Pitch: " << e.m_note 
   << " " << (e.m_on ? "*ON*" : "+off+");
 
   // TODO Play the note - player should always get audio feedback from the
@@ -152,6 +152,8 @@ std::cout << "** Correct note! " << e.m_note << "\n";
       // Note on event, pitch is INCORRECT
 std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << ne.m_note << "\n";
       PlayWav(WAV_INCORRECT);
+      Grade grade(Grade::BAD_NOTE, -100);
+      FeedbackBalloon(grade);
     }
     else
     {
@@ -167,7 +169,8 @@ std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << 
   else
   {
 std::cout << ":((( Couldn't find a matching event to grade against!\n";
-    // This could be because we played a note when we shouldn't?
+    // Now I think the most likely cause is a note up event for a
+    //  bad note down.
   }
 }
 
@@ -222,6 +225,8 @@ void GSHero::InitGui()
 
   // We need to do this before we load the music score, because that's when
   //  we set the colours of the glyphs.
+  // If super hard mode, we don't colour the notes, but we DO still use the
+  //  palette note colour for trails. TODO
   m_scrollScore->SetPalette(palette);
 
 std::cout << "Loading music score...\n";
@@ -273,6 +278,7 @@ std::cout << "Song length is: " << *songLength << "\n";
     Assert(0); 
   }
 
+  // If super hard mode, we don't colour the keys. TODO
   m_keyboard->SetPalette(palette);
 
   // Hide GUI elements
@@ -304,6 +310,17 @@ void GSHero::FeedbackBalloon(const Grade& g)
       std::stringstream ss;
       ss << g.m_score;
       t->SetText(ss.str());
+    }
+  }
+
+  // Reset animation
+  elem = GetElementByName(m_gui, "moving-anim");
+  if (elem)
+  {
+    auto a = dynamic_cast<GuiDecAnimation*>(elem);
+    if (a)
+    {
+      a->ResetAnimation();
     }
   }
 }
