@@ -53,6 +53,11 @@ std::cout << "Count in..... time remaining: " << m_countInTimeRemaining
   << "\n";
 }
 
+float GuiScrollScore::GetCountInTimeRemaining() const
+{
+  return m_countInTimeRemaining;
+}
+
 void GuiScrollScore::Update()
 {
   // Sigh, can't update here because count-in won't work.
@@ -103,21 +108,15 @@ void GuiScrollScore::Animate(float animValue)
 
   // Find the next entry in the Beat Table 
   auto it = m_beatTable.lower_bound(animValue);
-  if (it == m_beatTable.begin())
-  {
-    // we are at the start of the piece.
-    return;
-  }
-  else
+  if (it != m_beatTable.begin()) // go to event before anim time  if it exists
   {
     --it;
   }
 
   if (it == m_beatTable.end())
   {
-    m_scrollSpeed = 0;
     // Have we reached the end of the piece?
-//std::cout << "End of the piece?\n";
+std::cout << "End of the piece?\n";
   }
   else
   {
@@ -125,13 +124,17 @@ void GuiScrollScore::Animate(float animValue)
     if (time > m_nextT)
     {
       // We have reached the beat. Recalc velocity to reach the next one.
-/*    
+#ifdef ANIM_DEBUG    
 std::cout << "t: " << animValue 
   << " reached: " << time 
   << " old x: " << m_currentX  
   << " new x: " << x; 
-*/
-      m_currentX = x; 
+#endif
+      if (m_currentX < x)
+      {
+        // Catch up if we have to - but don't jump back, that will look bad. 
+        m_currentX = x; 
+      }
       m_nextT = time;
 
       // Find the next time
@@ -151,20 +154,30 @@ std::cout << " - end?\n";
         Assert(dt <= 1.f);
         float dx = nextX - m_currentX;
         m_scrollSpeed = dx / dt;
-/*
+
+#ifdef ANIM_DEBUG
 std::cout << " nextT: " << nextTime 
   << " nextX: " << nextX
   << " vel: " << m_scrollSpeed << " units/sec\n";
-*/
+#endif
       }
     }
   }
 
   // Scroll from right to left
+  // Get 'dt' for the animTime. TODO Should be passed in as a param.
   static float prevAnimValue = animValue;
   float dt = animValue - prevAnimValue;
+  if (dt < 0)
+  {
+    dt = 0;
+  }
   prevAnimValue = animValue;
-  m_currentX += m_scrollSpeed * dt; 
+  float dx = m_scrollSpeed * dt; 
+  if (dx > 0)
+  {
+    m_currentX += dx;
+  }
 }
 
 void GuiScrollScore::OnResetAnimation() 
@@ -226,11 +239,10 @@ void GuiScrollScore::BuildBeatTable(BeatTable& beatTable)
 
 void GuiScrollScore::AddBeatLines()
 {
-  // Add lines to show beat table x values
+  // Add lines to show beat table x values. 
+  // They show up a bit to the left of the music glyphs :(
   for (const auto& [time, x] : m_beatTable)
   {
-std::cout << "Adding a beat line at x = " << x << "\n";
-
     auto poly = new GuiPoly;
     poly->SetLocalPos({0, 0});
     poly->AddControlPoint({x, 1.f});

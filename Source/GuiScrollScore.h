@@ -36,6 +36,8 @@ public:
   //  the given number of beats. (We use BPM to work out the time.)
   void StartCountIn(int numCountInBeats, std::function<void()> onFinished);
 
+  float GetCountInTimeRemaining() const;
+
 //protected:
   // Build table of Time (normalized) -> x-coord (local coords).
   // Public and with BeatTable param for unit testing.
@@ -65,9 +67,10 @@ protected:
   float m_currentX = 0.f; 
   float m_nextT = 0.f; // Next time in Beat Table. When this updates, we recalc the x-velocity.
 
-  // Count in scroll speed. Time remaining is not strictly required.  
+  // Count-in scroll speed and time remaining.
   float m_countInSpeed = 0;
   float m_countInTimeRemaining = 0;
+  // Callback for when count-in is finished
   std::function<void()> m_countInFinishedFunc;
 
   BeatTable m_beatTable;

@@ -96,7 +96,9 @@ std::cout << "Best match:\n";
   std::cout << " Time: " << bestIt->m_time
     << (bestIt->m_onNotOff ? " ON " : " OFF ")
     << " Pitch: " << bestIt->m_note
-    << " Time diff: " << songLength * std::abs(animTime - bestIt->m_time) << "s"
+    << " Time diff: " 
+    << (animTime - bestIt->m_time) << " norm / "
+    << songLength * (animTime - bestIt->m_time) << " secs"
     << "\n";
 //#endif
 
@@ -134,7 +136,7 @@ std::cout <<
   (timeDiff < 0 ? " -- Too quick! " : " -- Too slow! "))
   << timeDiffSecs << "seconds ";
 
-  const float MAX_ERROR = 0.25f; // TODO TEMP TEST
+  const float MAX_ERROR = 0.5f; // TODO TEMP TEST
   if (std::abs(timeDiffSecs) > MAX_ERROR)
   {
 std::cout << "NO POINTS!\n";

@@ -25,6 +25,18 @@ void GSHero::Update()
   GSBase::Update();
 }
 
+void GSHero::ReloadGui()
+{
+  GSBase::ReloadGui();
+
+  // Restart song from count in. It would be nice to start immediately,
+  // e.g.
+  // TheMessageQueue::Instance()->Clear(); // <- no such function exists :(
+  // Start();
+  auto sm = TheSoundManager::Instance();
+  sm->StopSong();
+}
+
 void GSHero::Start()
 {
 std::cout << "START!!\n";
@@ -35,12 +47,15 @@ std::cout << "START!!\n";
   // Callback for when count-in finished
   auto onFinished = []() { TheGSHero::Instance()->OnCountInFinished(); };
 
-  // Play count in audio
+  // Play count-in audio
+  // The BPM has to match that of the song. We don't want a huge number of
+  //  count-in audio files, so better to adjust BPM of the count-in song, to 
+  //  match the main song BPM.
   // TODO Get count in filename from game round data
   //TODO sm->PlaySong("Music/count-in.it");  
 
   // Start the count-in
-  const int numCountInBeats = 4; // TODO Get from game round data
+  const int numCountInBeats = 1; // TODO Get from game round data
   m_scrollScore->StartCountIn(numCountInBeats, onFinished);
 }
 
@@ -65,21 +80,13 @@ void GSHero::OnMusicKbEvent(const MusicKbEvent& e)
 void GSHero::GradeEvent(const MusicKbEvent& e)
 {
 std::cout << "Grading note event: Pitch: " << e.m_note 
-  << " " << (e.m_on ? "*ON*" : "+off+")
-  << "...\n";
+  << " " << (e.m_on ? "*ON*" : "+off+");
 
   // TODO Play the note - player should always get audio feedback from the
   //  keyboard!
 //  m_scrollScore->SendNoteEvent(e);
 
-  float animTime = m_scrollScore->GetAnimTime();
-  if (animTime == 0)
-  {
-    // We haven't started the action yet. 
-    //PlayWav(WAV_INCORRECT); //?
-    return;
-  }
-
+  // Get song length
   auto optSongLength = m_scrollScore->GetSongLengthSeconds();
   // If we got here, we surely know the song length!
   if (!optSongLength)
@@ -88,6 +95,30 @@ std::cout << "Grading note event: Pitch: " << e.m_note
     return;
   }
   float songLength = *optSongLength;
+
+  float animTime = m_scrollScore->GetAnimTime();
+  if (animTime == 0)
+  {
+    // We haven't started the song yet. 
+    // But this could be a slightly early attempt at the first note
+    //  in the song.
+    // So we grade as usual, but using current count-in time remaining.
+    float timeBeforeSecs = m_scrollScore->GetCountInTimeRemaining();
+    if (timeBeforeSecs == 0)
+    {
+      // If we haven't even started the count-in, ignore this event.
+std::cout << "  * not even counting in yet bruv!\n";
+      return;
+    }
+std::cout << " -- grade count-in event!\n";
+    // Convert time in seconds to normalised time
+    animTime = - timeBeforeSecs / songLength;
+std::cout << "  - time before start: " << timeBeforeSecs << " normalised: " << animTime << "\n";
+  }
+
+std::cout << " AnimTime now: " << animTime 
+  << "...\n";
+
   const auto& noteEvents = m_scrollScore->GetNoteEvents();
 
   // Get iterator pointing to the event we think the player is attempting.
@@ -128,7 +159,9 @@ std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << 
       Assert(!e.m_on);
       Assert(e.m_note == ne.m_note);
       auto grade = grader.GradeTime(ne, animTime, songLength);
-      FeedbackBalloon(grade);
+      // The visual feedback is different: show note trail and increasing
+      //  score while note is being played.
+      //FeedbackBalloon(grade);
     }
   }
   else
@@ -141,7 +174,17 @@ std::cout << ":((( Couldn't find a matching event to grade against!\n";
 void GSHero::OnActive() 
 {
   GSBase::OnActive();  
+  InitGui();
 
+std::cout << "Paused...\n";
+
+  // Start count in after a short pause, TODO TEMP TEST
+  TheMessageQueue::Instance()->Add(new FuncMsg(
+    [](){ TheGSHero::Instance()->Start(); }, SecondsFromNow(2.f)));
+}
+
+void GSHero::InitGui()
+{
   // Set palette for keyboard and score, before we load them in.
   RCPtr<Palette> palette = new Palette;
 
@@ -232,17 +275,11 @@ std::cout << "Song length is: " << *songLength << "\n";
 
   m_keyboard->SetPalette(palette);
 
-  // Pause animation until we are ready to start, right?
-  m_scoreAnim->SetIsPaused(true);
-
-std::cout << "Paused...\n";
-
-  // Start after a short pause, TODO TEMP TEST
-  TheMessageQueue::Instance()->Add(new FuncMsg(
-    [](){ TheGSHero::Instance()->Start(); }, SecondsFromNow(2.f)));
-
   // Hide GUI elements
   ShowFeedbackBalloon(false);
+
+  // Pause animation until we finish count-in
+  m_scoreAnim->SetIsPaused(true);
 }
 
 void GSHero::ShowFeedbackBalloon(bool showNotHide)
