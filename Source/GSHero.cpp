@@ -29,13 +29,31 @@ void GSHero::Start()
 {
 std::cout << "START!!\n";
 
-  // Start score scrolling, and set backing track playing at the same time.
+  auto sm = TheSoundManager::Instance();
+  sm->SetSongMaxVolume(0.1f); // for some reason it's deafening on Mac
+
+  // Callback for when count-in finished
+  auto onFinished = []() { TheGSHero::Instance()->OnCountInFinished(); };
+
+  // Play count in audio
+  // TODO Get count in filename from game round data
+  //TODO sm->PlaySong("Music/count-in.it");  
+
+  // Start the count-in
+  const int numCountInBeats = 4; // TODO Get from game round data
+  m_scrollScore->StartCountIn(numCountInBeats, onFinished);
+}
+
+void GSHero::OnCountInFinished()
+{
+  // Start score animating, and set backing track playing at the same time.
   // The score and the song have to be in perfect sync.
   // TODO Is there a way to sync the song?
   m_scoreAnim->SetIsPaused(false);
 
+  // Start playing the backing track for this song
   auto sm = TheSoundManager::Instance();
-  sm->SetSongMaxVolume(0.1f); // for some reason it's deafening on Mac
+  // TODO Obvs this track comes from game round data
   sm->PlaySong("Music/amt1.it");
 }
 

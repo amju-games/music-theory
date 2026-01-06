@@ -18,6 +18,7 @@ public:
   static const char* NAME;
   std::string GetTypeName() const override { return NAME; }
 
+  void Draw() override;
   void Update() override;
   void Animate(float animValue) override;
   void OnResetAnimation() override;
@@ -30,6 +31,11 @@ public:
   //  -- why tho c++
   using GuiMusicScore::LoadMusicScore;
 
+  // Start counting in: start scrolling the score, so that the time it
+  //  takes to reach the first music event (at animTime = 0) matches
+  //  the given number of beats. (We use BPM to work out the time.)
+  void StartCountIn(int numCountInBeats, std::function<void()> onFinished);
+
 //protected:
   // Build table of Time (normalized) -> x-coord (local coords).
   // Public and with BeatTable param for unit testing.
@@ -40,6 +46,8 @@ public:
   // Get the last timing value passed into Animate().
   // This is used to compare player input with the beat table.
   float GetAnimTime() const;
+
+  void AddBeatLines();
 
 protected:
   // Beats per min, used to set scroll speed.
@@ -56,6 +64,11 @@ protected:
   float m_beatLineX = 0.f;
   float m_currentX = 0.f; 
   float m_nextT = 0.f; // Next time in Beat Table. When this updates, we recalc the x-velocity.
+
+  // Count in scroll speed. Time remaining is not strictly required.  
+  float m_countInSpeed = 0;
+  float m_countInTimeRemaining = 0;
+  std::function<void()> m_countInFinishedFunc;
 
   BeatTable m_beatTable;
 };

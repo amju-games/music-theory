@@ -1,4 +1,5 @@
 #include <iostream>
+#include <GuiPoly.h>
 #include <Timer.h>
 #include "GuiScrollScore.h"
 
@@ -13,6 +14,7 @@ bool GuiScrollScore::LoadMusicScore(File* f)
     return false;
   }
   BuildBeatTable(m_beatTable);
+  AddBeatLines();
   return true;
 }
 
@@ -23,18 +25,71 @@ bool GuiScrollScore::Load(File* f)
     return false;
   }
   BuildBeatTable(m_beatTable);
+  AddBeatLines();
   return true;
+}
+
+void GuiScrollScore::StartCountIn(
+  int numCountInBeats, std::function<void()> onFinished)
+{
+  if (m_beatTable.empty())
+  {
+std::cout << "Can't count in, no music events!\n";
+    return;
+  }
+
+  m_countInFinishedFunc = onFinished;
+
+  // Duration of count-in
+  m_countInTimeRemaining = static_cast<float>(numCountInBeats) / GetBpm() * 60.f;
+
+  // Get distance to first music event in score. 
+  float d = m_beatTable.begin()->second;
+
+  m_countInSpeed = d / m_countInTimeRemaining;
+
+std::cout << "Count in..... time remaining: " << m_countInTimeRemaining 
+  << " dist: " << d 
+  << "\n";
 }
 
 void GuiScrollScore::Update()
 {
-  GuiMusicScore::Update();
+  // Sigh, can't update here because count-in won't work.
+}
+
+void GuiScrollScore::Draw()
+{
+  // Mini-update in Draw :( ... 
+  // We want to update scroll pos when not animating,
+  //  when unfortunately Update will not be called.
+
+  // If counting in, scroll without animating
+  if (m_countInSpeed > 0)
+  {
+    const float dt = TheTimer::Instance()->GetDt();
+    m_currentX += dt * m_countInSpeed;
+ 
+    m_countInTimeRemaining -= dt;
+    if (m_countInTimeRemaining <= 0)
+    {
+      // Notify client that count in has finished
+      m_countInFinishedFunc();
+
+      m_countInSpeed = 0;
+      m_countInTimeRemaining = 0;
+    }
+  }
 
   auto pos = GetLocalPos();
   const float scale = GetSize().x * GetCombinedScale().x;
-  pos.x = - m_currentX * scale; // I'm thinking of the next pos as positive x but we need to go backwards
+
+  // We want increasingly negative x to scroll R -> L
+  pos.x = - m_currentX * scale; 
 
   SetLocalPos(pos);
+
+  GuiMusicScore::Draw();
 }
 
 void GuiScrollScore::Animate(float animValue) 
@@ -167,6 +222,26 @@ void GuiScrollScore::BuildBeatTable(BeatTable& beatTable)
     std::cout << "Time " << time << "\tX " << x << "\n";
   }
 */
+}
+
+void GuiScrollScore::AddBeatLines()
+{
+  // Add lines to show beat table x values
+  for (const auto& [time, x] : m_beatTable)
+  {
+std::cout << "Adding a beat line at x = " << x << "\n";
+
+    auto poly = new GuiPoly;
+    poly->SetLocalPos({0, 0});
+    poly->AddControlPoint({x, 1.f});
+    poly->AddControlPoint({x, -1.f});
+    poly->OnControlPointsChanged();
+    poly->SetFilledColour(*FromHexString("ff8080"));
+    poly->SetOutlineColour(*FromHexString("ff8080"));
+    poly->SetStyle(GuiPoly::Style::OUTLINE);
+    m_children.push_back(poly);
+    m_children.push_back(new GuiFlush);
+  }
 }
 
 float GuiScrollScore::GetAnimTime() const

@@ -153,6 +153,8 @@ public:
  
   // Set the tempo in Beats Per Minute.
   void SetBpm(float bpm);
+  // Get tempo, (for when it's set from loaded data)
+  float GetBpm() const;
 
   // Returns song length, if known - i.e. we need the metadata in the input.
   std::optional<float> GetSongLengthSeconds() const;

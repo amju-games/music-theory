@@ -27,6 +27,9 @@ public:
   // Start the score scrolling, and backing track playing
   void Start();
 
+  // Callback, when count-in finishes
+  void OnCountInFinished();
+
 protected:
   // Grade player input event against what we think is the corresponding
   //  event in the score.

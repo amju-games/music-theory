@@ -578,7 +578,6 @@ bool GuiMusicScore::ParseBeat(const Strings& strs)
     ReportError("Unexpected extra data for BEAT.");
     return false;
   }
-std::cout << "Setting a BEAT at " << m_timeMinMax.x << "\n";
   AddBeat(m_timeMinMax.x);
   return true;
 }
@@ -590,8 +589,12 @@ void GuiMusicScore::AddBeat(float t)
 
 void GuiMusicScore::SetBpm(float bpm)
 {
-std::cout << "Setting BPM = " << bpm << "\n";
   m_bpm = bpm;
+}
+
+float GuiMusicScore::GetBpm() const
+{
+  return m_bpm;
 }
 
 bool GuiMusicScore::ParseBpm(const Strings& strs)
