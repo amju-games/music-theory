@@ -239,6 +239,7 @@ void GuiScrollScore::BuildBeatTable(BeatTable& beatTable)
 
 void GuiScrollScore::AddBeatLines()
 {
+#ifdef ADD_BEAT_LINES
   // Add lines to show beat table x values. 
   // They show up a bit to the left of the music glyphs :(
   for (const auto& [time, x] : m_beatTable)
@@ -254,6 +255,7 @@ void GuiScrollScore::AddBeatLines()
     m_children.push_back(poly);
     m_children.push_back(new GuiFlush);
   }
+#endif
 }
 
 float GuiScrollScore::GetAnimTime() const
