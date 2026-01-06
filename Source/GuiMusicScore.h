@@ -250,6 +250,7 @@ protected:
   // This can be used to set colour of the glyphs for the note. 
   int m_lastNoteParsed = -1; 
 
+  // MIDI note events - loaded as special glyphs.
   NoteEvents m_noteEvents;
   // Index into m_noteEvents. This is the next note event to be played, when the
   //  animation value reaches the time of the event

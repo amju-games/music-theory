@@ -602,7 +602,7 @@ bool GuiMusicScore::ParseBpm(const Strings& strs)
     return false;
   }
   int bpm = ToFloat(strs[1]);
-  if (bpm < 20.f || bpm > 300.f)
+  if (bpm < 1.f || bpm > 300.f)
   {
     ReportError("Invalid value for BPM.");
     return false;
