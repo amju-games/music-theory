@@ -40,13 +40,7 @@ void GSHero::ReloadGui()
 
 const HeroGameRound& GetGameRound()
 {
-  static HeroGameRound round;
-
-  // TODO Prepend dirs in code, as they will always be the same
-  round.m_backingTrack = "Music/amt1.it";
-  round.m_palette = "test_palette.txt";
-  round.m_musicScore = "test_hero_score.txt";
-
+  auto& round = TheGameRoundManager::Instance()->GetGameRound(0);
   return round;
 }
 
@@ -196,6 +190,13 @@ std::cout << ":((( Couldn't find a matching event to grade against!\n";
 void GSHero::OnActive() 
 {
   GSBase::OnActive();  
+
+  bool ok = TheGameRoundManager::Instance()->Load();
+  if (!ok)
+  {
+std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
+  }
+
   InitGui();
 
 std::cout << "Paused...\n";

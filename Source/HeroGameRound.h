@@ -1,6 +1,8 @@
 #pragma once
 
+#include <ostream>
 #include <vector>
+#include "Singleton.h"
 
 namespace Amju
 {
@@ -37,6 +39,8 @@ struct HeroGameRound
   std::string m_musicScore;
 };
 
+std::ostream& operator<<(std::ostream& os, const HeroGameRound& round);
+
 // * GameRoundManager *
 // Load game round data from .csv file (call once at startup).
 // Game Rounds are grouped into Levels, but I don't think we need
@@ -48,10 +52,13 @@ public:
 
   int GetNumGameRounds() const;
 
+  // OK for now but we might want to get by level and index.
   const HeroGameRound& GetGameRound(int index);
 
 private:
   std::vector<HeroGameRound> m_gameRounds;
 };
+
+using TheGameRoundManager = Singleton<GameRoundManager>;
 }
 
