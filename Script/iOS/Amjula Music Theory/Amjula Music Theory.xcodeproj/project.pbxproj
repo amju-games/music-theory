@@ -117,6 +117,11 @@
 		69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */; };
 		69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E08B1E8C09C000E7BF93 /* Question.cpp */; };
 		69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */; };
+		C55726A32F0EFA5400EEB2A5 /* Grader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55726982F0EFA5300EEB2A5 /* Grader.cpp */; };
+		C55726A42F0EFA5400EEB2A5 /* HeroGameRound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55726992F0EFA5300EEB2A5 /* HeroGameRound.cpp */; };
+		C55726A52F0EFA5400EEB2A5 /* GS3dExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C557269F2F0EFA5400EEB2A5 /* GS3dExample.cpp */; };
+		C55726A62F0EFA5400EEB2A5 /* GuiScrollScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55726A02F0EFA5400EEB2A5 /* GuiScrollScore.cpp */; };
+		C55726A72F0EFA5400EEB2A5 /* GSHero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55726A22F0EFA5400EEB2A5 /* GSHero.cpp */; };
 		C56DAD032EF2CFED00739D75 /* DevMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACEE2EF2CFEC00739D75 /* DevMenu.cpp */; };
 		C56DAD042EF2CFED00739D75 /* GSShowNewLevelNum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACEF2EF2CFED00739D75 /* GSShowNewLevelNum.cpp */; };
 		C56DAD052EF2CFED00739D75 /* GSUserDrawSave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACF12EF2CFED00739D75 /* GSUserDrawSave.cpp */; };
@@ -369,6 +374,18 @@
 		69F5E08B1E8C09C000E7BF93 /* Question.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Question.cpp; path = ../../../../Source/Question.cpp; sourceTree = "<group>"; };
 		69F5E08C1E8C09C000E7BF93 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = ../../../../Source/Question.h; sourceTree = "<group>"; };
 		69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSPlayMidi.mm; path = "../../../../Source/iOS-MusicTheory/iOSPlayMidi.mm"; sourceTree = "<group>"; };
+		C55726962F0EFA5300EEB2A5 /* ColourPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColourPicker.h; path = ../../../../Source/ColourPicker.h; sourceTree = "<group>"; };
+		C55726982F0EFA5300EEB2A5 /* Grader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Grader.cpp; path = ../../../../Source/Grader.cpp; sourceTree = "<group>"; };
+		C55726992F0EFA5300EEB2A5 /* HeroGameRound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HeroGameRound.cpp; path = ../../../../Source/HeroGameRound.cpp; sourceTree = "<group>"; };
+		C557269A2F0EFA5300EEB2A5 /* GuiScrollScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiScrollScore.h; path = ../../../../Source/GuiScrollScore.h; sourceTree = "<group>"; };
+		C557269B2F0EFA5300EEB2A5 /* HeroGameRound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeroGameRound.h; path = ../../../../Source/HeroGameRound.h; sourceTree = "<group>"; };
+		C557269C2F0EFA5400EEB2A5 /* GS3dExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GS3dExample.h; path = ../../../../Source/GS3dExample.h; sourceTree = "<group>"; };
+		C557269D2F0EFA5400EEB2A5 /* NoteEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteEvent.h; path = ../../../../Source/NoteEvent.h; sourceTree = "<group>"; };
+		C557269E2F0EFA5400EEB2A5 /* Grader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Grader.h; path = ../../../../Source/Grader.h; sourceTree = "<group>"; };
+		C557269F2F0EFA5400EEB2A5 /* GS3dExample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GS3dExample.cpp; path = ../../../../Source/GS3dExample.cpp; sourceTree = "<group>"; };
+		C55726A02F0EFA5400EEB2A5 /* GuiScrollScore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiScrollScore.cpp; path = ../../../../Source/GuiScrollScore.cpp; sourceTree = "<group>"; };
+		C55726A12F0EFA5400EEB2A5 /* GSHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSHero.h; path = ../../../../Source/GSHero.h; sourceTree = "<group>"; };
+		C55726A22F0EFA5400EEB2A5 /* GSHero.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSHero.cpp; path = ../../../../Source/GSHero.cpp; sourceTree = "<group>"; };
 		C56DACED2EF2CFEC00739D75 /* Palette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Palette.h; path = ../../../../Source/Palette.h; sourceTree = "<group>"; };
 		C56DACEE2EF2CFEC00739D75 /* DevMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DevMenu.cpp; path = ../../../../Source/DevMenu.cpp; sourceTree = "<group>"; };
 		C56DACEF2EF2CFED00739D75 /* GSShowNewLevelNum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSShowNewLevelNum.cpp; path = ../../../../Source/GSShowNewLevelNum.cpp; sourceTree = "<group>"; };
@@ -549,6 +566,7 @@
 				69EA9D4B1F7CE5630080089A /* CentreMsg.cpp */,
 				69EA9D4C1F7CE5630080089A /* CentreMsg.h */,
 				C56DACF62EF2CFED00739D75 /* ColourPicker.cpp */,
+				C55726962F0EFA5300EEB2A5 /* ColourPicker.h */,
 				6915CD0C20444A990001CB2E /* ComposerList.cpp */,
 				6915CD0D20444A9A0001CB2E /* ComposerList.h */,
 				69A23A591F61E6970021BF88 /* Consts.cpp */,
@@ -585,6 +603,10 @@
 				69AC40301EB5331300F255A4 /* Dictionary.h */,
 				69C10CD91F17877A009B6836 /* DictionaryPickQuestion.cpp */,
 				69C10CDA1F17877A009B6836 /* DictionaryPickQuestion.h */,
+				C55726982F0EFA5300EEB2A5 /* Grader.cpp */,
+				C557269E2F0EFA5400EEB2A5 /* Grader.h */,
+				C557269F2F0EFA5400EEB2A5 /* GS3dExample.cpp */,
+				C557269C2F0EFA5400EEB2A5 /* GS3dExample.h */,
 				6959E2FB1EA1091500E251A9 /* GSAbout.cpp */,
 				6959E2FC1EA1091500E251A9 /* GSAbout.h */,
 				6915CD12204987B70001CB2E /* GSAvatarMod.cpp */,
@@ -599,6 +621,8 @@
 				6959E3091EA7CFF200E251A9 /* GSFirstUser.h */,
 				C56DACF82EF2CFED00739D75 /* GSGuiEdit.cpp */,
 				C56DACF02EF2CFED00739D75 /* GSGuiEdit.h */,
+				C55726A22F0EFA5400EEB2A5 /* GSHero.cpp */,
+				C55726A12F0EFA5400EEB2A5 /* GSHero.h */,
 				6976F4941F2F1DD300D1D51A /* GSMainCorridor.cpp */,
 				6976F4951F2F1DD300D1D51A /* GSMainCorridor.h */,
 				6959E2C81E958C3C00E251A9 /* GSPages.cpp */,
@@ -635,6 +659,10 @@
 				69D58E7D1E86A02B008A8D29 /* GuiMusicKb.h */,
 				697A07FB1E82F19B0045CE54 /* GuiMusicScore.cpp */,
 				697A07FC1E82F19B0045CE54 /* GuiMusicScore.h */,
+				C55726A02F0EFA5400EEB2A5 /* GuiScrollScore.cpp */,
+				C557269A2F0EFA5300EEB2A5 /* GuiScrollScore.h */,
+				C55726992F0EFA5300EEB2A5 /* HeroGameRound.cpp */,
+				C557269B2F0EFA5300EEB2A5 /* HeroGameRound.h */,
 				694519442017368E001C188B /* HintType.h */,
 				6959E3151EA7F44600E251A9 /* iOSGuiTextEdit.h */,
 				6959E3161EA7F44600E251A9 /* iOSGuiTextEdit.mm */,
@@ -664,6 +692,7 @@
 				695E90791F5AB7260003901E /* NetSend.h */,
 				697F64822051BC7000365E68 /* Notebook.cpp */,
 				697F64842051BC7100365E68 /* Notebook.h */,
+				C557269D2F0EFA5400EEB2A5 /* NoteEvent.h */,
 				691D91B71F9E5F1D004D6CED /* NumUpdate.cpp */,
 				691D91B81F9E5F1D004D6CED /* NumUpdate.h */,
 				69D58E7E1E86A02B008A8D29 /* Page.cpp */,
@@ -897,6 +926,7 @@
 				6959E2D11E958C3C00E251A9 /* GSTitle.cpp in Sources */,
 				6945194C2017368F001C188B /* Gui3dScene.cpp in Sources */,
 				6955431F1F3B526D007C23EA /* TappableHint.cpp in Sources */,
+				C55726A32F0EFA5400EEB2A5 /* Grader.cpp in Sources */,
 				C56DAD0A2EF2CFED00739D75 /* GSShowGui.cpp in Sources */,
 				69AC40371EB5331300F255A4 /* MusicEvent.cpp in Sources */,
 				692BF7471EAE50BD00DB6CE7 /* PagePlayNotes.cpp in Sources */,
@@ -927,6 +957,7 @@
 				C56DAD072EF2CFED00739D75 /* ColourPicker.cpp in Sources */,
 				6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */,
 				69A23A5D1F61E6970021BF88 /* TutorialManager.cpp in Sources */,
+				C55726A72F0EFA5400EEB2A5 /* GSHero.cpp in Sources */,
 				69D732911F23DA29007B73C1 /* CorridorMode.cpp in Sources */,
 				69C10CDE1F17877A009B6836 /* PageQuestion.cpp in Sources */,
 				6951CF191F0B932300140095 /* Md2SceneNode.cpp in Sources */,
@@ -951,6 +982,7 @@
 				6945194E2017368F001C188B /* CorridorModeLerpCam.cpp in Sources */,
 				69C10CD61F122197009B6836 /* PlayWav.cpp in Sources */,
 				6959E30B1EA7CFF200E251A9 /* GSFirstUser.cpp in Sources */,
+				C55726A52F0EFA5400EEB2A5 /* GS3dExample.cpp in Sources */,
 				697F64852051BC7100365E68 /* Notebook.cpp in Sources */,
 				69AC40361EB5331300F255A4 /* Dictionary.cpp in Sources */,
 				6955431E1F3B526D007C23EA /* TappableFactory.cpp in Sources */,
@@ -967,7 +999,9 @@
 				6959E3051EA1091500E251A9 /* MultiChoiceQuestion.cpp in Sources */,
 				6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */,
 				6976F4961F2F1DD300D1D51A /* GSMainCorridor.cpp in Sources */,
+				C55726A42F0EFA5400EEB2A5 /* HeroGameRound.cpp in Sources */,
 				6959E2EE1E97F6F800E251A9 /* Topic.cpp in Sources */,
+				C55726A62F0EFA5400EEB2A5 /* GuiScrollScore.cpp in Sources */,
 				69A23A5C1F61E6970021BF88 /* Consts.cpp in Sources */,
 				C56DAD052EF2CFED00739D75 /* GSUserDrawSave.cpp in Sources */,
 				695E90811F5AB7260003901E /* Version.cpp in Sources */,
