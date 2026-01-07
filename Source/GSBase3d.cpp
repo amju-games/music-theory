@@ -26,6 +26,8 @@ void GSBase3d::Reload3d()
     return;
   }
 
+std::cout << "Loading 3d scene: " << m_sceneFilename << "\n";
+
   SceneGraph* sg = GetSceneGraph();
   sg->Clear(); // for reload
 
@@ -46,9 +48,6 @@ void GSBase3d::Draw()
 
   // Use standard/default shader for 3D scene
   AmjuGL::UseShader(nullptr);
-
-  // We are now experimenting with NOT using lighting, just baked colours in textures.
-  AmjuGL::Disable(AmjuGL::AMJU_LIGHTING);
 
   GetSceneGraph()->Draw();
 }

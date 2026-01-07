@@ -189,6 +189,7 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
     }
   }
 
+/*
   // Show notebook
   if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
     (ke.key == 'n' || ke.key == 'N'))
@@ -220,6 +221,7 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
     a->SetEditGuiFilename(m_guiFilename);
     TheGame::Instance()->SetCurrentState(a);
   }
+*/
 
   if (CheckForKey_B_BackToPrevState(ke))
   {

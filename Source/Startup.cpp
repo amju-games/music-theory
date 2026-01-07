@@ -49,6 +49,7 @@
 #include "Consts.h"
 #include "Course.h"
 #include "Dictionary.h"
+#include "GS3dExample.h"
 #include "GSAvatarMod.h"
 #include "GSCopyAssets.h"
 #include "GSFirstUser.h"
@@ -360,6 +361,13 @@ static void SetInitialState()
   {
     // Show a playable piano keyboard
     TheGame::Instance()->SetCurrentState(TheGSPlayNotes::Instance());
+    return;
+  }
+
+  if (args.Contains("--3d"))
+  {
+    // Show an example 3d scene
+    TheGame::Instance()->SetCurrentState(TheGS3dExample::Instance());
     return;
   }
 
