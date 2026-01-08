@@ -16,17 +16,17 @@ I
 4
 
 // Node type
-camera-ortho
+camera-persp
 // Name
 camera
-// Eye pos 
-0, 2, -9
-// Look at pos 
+// Eye pos
+0, 2, -2.5 
+// Look at pos
 0, 1, 0
 // Up vector
 0, 1, 0
-// Ortho: l, r, t, b, n, f
--2, 2, 1, -1, 0.1, 1000
+// FovY, aspect, near, far
+90, 1.0, 1, 1000
 // Num children
 0
 
