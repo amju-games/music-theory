@@ -44,9 +44,20 @@ public:
     float animTime, 
     float songLength);
 
-  // Decide grade based on difference between note event time and 
-  //  (normalised) time now.
-  static Grade GradeTime(const NoteEvent& ne, float animTimeNow, float songLength);
+  // Decide grade, based on 
+  //  1. is note correct?
+  //  2. grade  difference between normalised note event time and 
+  //     normalised time now.
+  // Pass in song length to convert normalised times to actual times.
+  // Pass in max time (seconds), beyond which the event is too quick 
+  //  or too slow.
+  // Value in returned grade ranges from 0 (worst) to 1 (perfect).
+  static Grade FinalGrade(
+    const MusicKbEvent& e, 
+    const NoteEvent& ne, 
+    float animTimeNow, 
+    float songLength,
+    float maxTimeErrorSeconds);
 };
 }
 

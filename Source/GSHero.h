@@ -54,6 +54,12 @@ protected:
 
   // The keyboard
   RCPtr<GuiMusicKb> m_keyboard;
+
+  // This is for when we grade player input events.
+  // This iterator points to the last note event (in m_scrollScore) which
+  //  the player attempted, so the player can't spam keys to get lots
+  //  of points or make lots of attempts.
+  NoteEvents::const_iterator m_prevAttempt;
 };
 
 typedef Singleton<GSHero> TheGSHero;

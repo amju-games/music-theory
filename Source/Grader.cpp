@@ -11,22 +11,22 @@ static std::string GetFeedbackFromScore(float score)
 {
   static const std::map<float, std::string> STRS = 
   {
-    { .0f, "Stinker!" },
-    { .1f, "Woeful!" },
-    { .2f, "Preposterous!" },
-    { .3f, "Pitiful!" },
-    { .4f, "Not bad!" },
-    { .5f, "Fanciful!" },
-    { .6f, "Smooth!" },
-    { .7f, "Good!" },
-    { .8f, "Delightful!!" },
-    { .9f, "Great!" },
-    { .95f, "Wonderful!" },
+    { .0f, "@@@Stinker!" },
+    { .1f, "@@@Woeful!" },
+    { .2f, "@@@Preposterous!" },
+    { .3f, "@@@Pitiful!" },
+    { .4f, "@@@Not bad!" },
+    { .5f, "@@@Fanciful!" },
+    { .6f, "@@@Smooth!" },
+    { .7f, "@@@Good!" },
+    { .8f, "@@@Delightful!!" },
+    { .9f, "@@@Great!" },
+    { .95f, "@@@Wonderful!" },
   };
   auto it = STRS.lower_bound(score);
   if (it == STRS.end())
   {
-    return "Perfect!";
+    return "@@@Perfect!";
   }
   return it->second;
 }
@@ -34,6 +34,14 @@ static std::string GetFeedbackFromScore(float score)
 Grade::Grade(Type t, float score) : 
   m_type(t), m_score(score), m_feedback(GetFeedbackFromScore(score))
 {
+  if (t == Grade::TOO_QUICK)
+  {
+    m_feedback = "@@@Too Quick!";
+  }
+  else if (t == Grade::TOO_SLOW)
+  {
+    m_feedback = "@@@Too Slow!";
+  }
 }
 
 std::pair<NoteEvents::const_iterator, NoteEvents::const_iterator> 
@@ -153,28 +161,34 @@ std::cout << "No note events, so don't know what to do!\n";
   return FindBestMatch(beforeIt, afterIt, e, animTime, songLength);
 }
 
-Grade Grader::GradeTime(const NoteEvent& ne, float animTime, float songLength)
+Grade Grader::FinalGrade(
+  const MusicKbEvent& e, const NoteEvent& ne, float animTime, float songLength,
+  float maxErrorSecs)
 {
+  if (e.m_note != ne.m_note)
+  {
+    return Grade(Grade::BAD_NOTE, 0);
+  }
+
   float timeDiff = animTime - ne.m_time;
   float timeDiffSecs = timeDiff * songLength;
 
-  const float PERFECT = 0.05f; // TODO TEMP TEST make these configurable
-std::cout <<
-  (std::abs(timeDiffSecs) < PERFECT ? " - *PERFECT TIMING*!" :
-  (timeDiff < 0 ? " -- Too quick! " : " -- Too slow! "))
-  << timeDiffSecs << "seconds ";
+std::cout << "Time diff: " << timeDiffSecs << "  seconds ";
 
-  const float MAX_ERROR = 0.5f; // TODO TEMP TEST
-  if (std::abs(timeDiffSecs) > MAX_ERROR)
+  if (std::abs(timeDiffSecs) > maxErrorSecs)
   {
-std::cout << "NO POINTS!\n";
-    return Grade(Grade::TOO_QUICK, 0);
+    if (timeDiffSecs < 0)
+    {
+std::cout << "Too quick, no points!\n";
+      return Grade(Grade::TOO_QUICK, 0);
+    }
+std::cout << "Too slow, no points!\n";
+    return Grade(Grade::TOO_SLOW, 0);
   }
   else
   {
-    // We could return a score from 0..1, or -1..1, where 0 is perfect,
-    //  and the sign tells you whether we were early or late.
-    float grade = (1.f - std::abs(timeDiffSecs) / MAX_ERROR);
+    // We return a score from 0..1, where 1 is perfect.
+    float grade = (1.f - std::abs(timeDiffSecs) / maxErrorSecs);
 std::cout << " -- Grade: " << std::round(grade * 100.f) << "%\n";
     return Grade(Grade::GOOD_NOTE, grade);
   }

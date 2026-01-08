@@ -103,7 +103,12 @@ std::cout << "\n";
   if (animTime >= 1.f)
   {
 std::cout << "\n";
-    return;
+    // Ignore note down event after song finished. But allow for final
+    //  late note up event??
+    if (e.m_on) // ? Or safer to just totally ignore
+    {
+      return;
+    }
   }
   else if (animTime == 0)
   {
@@ -139,25 +144,33 @@ std::cout << " AnimTime now: " << animTime
     // Save the iterator - once we've graded the player's attempt of the
     //  event it points to, we shouldn't grade it again, so we ignore 
     //  repeats of the same iterator.
-    static auto prevIt = noteEvents.end();
-    if (it == prevIt)
+    if (it == m_prevAttempt)
     {
 std::cout << " - ignoring this player event, already graded.\n";
+      // Give the player some feedback, never just ignore, right?
+      PlayWav("pop");
       return;
     }
-    // Only remember if note on, so we don't wipe the last value on a
-    //  note off event. Still not a great solution.
-    if (e.m_on)
+
+    // The note event we think the player is attempting to match
+    const NoteEvent& ne = *it;
+    // Grade the time difference between player and note event ne
+    const float MAX_ERROR = 0.5f; // Max acceptable time diff, TODO CONFIG
+    auto grade = grader.FinalGrade(e, ne, animTime, songLength, MAX_ERROR);
+
+    // Prevent multiple attempts at the same event: store the iterator
+    //  so we can check above.
+    // Only remember if note on, and a valid attempt.
+    if (e.m_on && grade.m_type != Grade::TOO_QUICK)
     {
-      prevIt = it;
+std::cout << "Storing event so you can't try again\n";
+      m_prevAttempt = it;
     }
 
-    const NoteEvent& ne = *it;
     if (e.m_on && e.m_note == ne.m_note)
     {
       // Note on event, pitch is correct
 std::cout << "** Correct note! " << e.m_note << "\n";
-      auto grade = grader.GradeTime(ne, animTime, songLength);
       FeedbackBalloon(grade);
     }
     else if (e.m_on && e.m_note != ne.m_note)
@@ -165,7 +178,7 @@ std::cout << "** Correct note! " << e.m_note << "\n";
       // Note on event, pitch is INCORRECT
 std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << ne.m_note << "\n";
       PlayWav(WAV_INCORRECT);
-      Grade grade(Grade::BAD_NOTE, 0);
+      Assert(grade.m_type == Grade::BAD_NOTE);
       FeedbackBalloon(grade);
     }
     else
@@ -173,7 +186,6 @@ std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << 
       // Note off event - the pitches must match. We grade on time.
       Assert(!e.m_on);
       Assert(e.m_note == ne.m_note);
-      auto grade = grader.GradeTime(ne, animTime, songLength);
       // The visual feedback is different: show note trail and increasing
       //  score while note is being played.
       //FeedbackBalloon(grade);
@@ -198,6 +210,9 @@ std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
   }
 
   InitGui();
+
+  // Reset previous attempt pointer
+  m_prevAttempt = m_scrollScore->GetNoteEvents().end();
 
 std::cout << "Paused...\n";
 
@@ -317,9 +332,15 @@ void GSHero::ShowFeedbackBalloon(bool showNotHide)
 
 void GSHero::FeedbackBalloon(const Grade& g)
 {
+  Assert(g.m_type != Grade::UNGRADED);
+
   if (g.m_score > 0.5f)
   {
     PlayWav("good1");
+  }
+  else
+  {
+    PlayWav("rubber_ducky");
   }
 
   ShowFeedbackBalloon(true);
