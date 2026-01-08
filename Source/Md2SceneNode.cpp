@@ -5,6 +5,7 @@
 #include <AmjuAssert.h>
 #include <AmjuGL.h>
 #include <DrawAABB.h>
+#include <File.h>
 #include <ReportError.h>
 #include <ResourceManager.h>
 #include <Sign.h>
@@ -140,5 +141,36 @@ void Md2SceneNode::Update()
       }
     }
   }
+}
+
+bool Md2SceneNode::Load(File* f)
+{
+  if (!f->GetDataLine(&m_name))
+  {
+    f->ReportError("Expected md2 scene node name");
+    return false;
+  }
+
+  if (!LoadMatrix(f))
+  {
+    return false;
+  }
+
+  // Get md2 resource name
+  std::string md2Name;
+  if (!f->GetDataLine(&md2Name))
+  {
+    return false;
+  }
+  LoadMd2(md2Name);
+
+  // TODO Should an MD2 node be able to have children ? 
+  // I guess so..
+  if (!LoadChildren(f))
+  {
+    return false;
+  }
+
+  return true;
 }
 }

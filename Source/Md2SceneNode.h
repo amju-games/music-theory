@@ -15,8 +15,10 @@ class Md2SceneNode : public SceneNode
 public:
   Md2SceneNode();
 
-  virtual void Draw();
-  virtual void Update();
+  void Draw() override;
+  void Update() override;
+  bool Load(File* f) override;
+
   void SetAnim(int animId);
   void SetAnim(const std::string& animName);
 
