@@ -99,16 +99,20 @@ void GSHero::OnMusicKbEvent(const MusicKbEvent& e)
 
 void GSHero::GradeEvent(const MusicKbEvent& e)
 {
+#ifdef GRADE_DEBUG
 std::cout << "=================================\nGrading note event: Pitch: " << e.m_note 
   << " " << (e.m_on ? "*ON*" : "+off+");
   // No newline!
+#endif
 
   // Get song length
   auto optSongLength = m_scrollScore->GetSongLengthSeconds();
   // If we got here, we surely know the song length!
   if (!optSongLength)
   {
+#ifdef GRADE_DEBUG
 std::cout << "\n";
+#endif
     std::cout << "*** Unexpected, can't get song length!!\n";
     return;
   }
@@ -117,7 +121,9 @@ std::cout << "\n";
   float animTime = m_scrollScore->GetAnimTime();
   if (animTime >= 1.f)
   {
+#ifdef GRADE_DEBUG
 std::cout << "\n";
+#endif
     // Ignore note down event after song finished. But allow for final
     //  late note up event??
     if (e.m_on) // ? Or safer to just totally ignore
@@ -135,17 +141,25 @@ std::cout << "\n";
     if (timeBeforeSecs == 0)
     {
       // If we haven't even started the count-in, ignore this event.
+#ifdef GRADE_DEBUG
 std::cout << "  * not even counting in yet bruv!\n";
+#endif
       return;
     }
+#ifdef GRADE_DEBUG
 std::cout << " -- grade count-in event!\n";
+#endif
     // Convert time in seconds to normalised time
     animTime = - timeBeforeSecs / songLength;
+#ifdef GRADE_DEBUG
 std::cout << "  - time before start: " << timeBeforeSecs << " normalised: " << animTime << "\n";
+#endif
   }
 
+#ifdef GRADE_DEBUG
 std::cout << " AnimTime now: " << animTime 
   << "...\n";
+#endif
 
   const auto& noteEvents = m_scrollScore->GetNoteEvents();
 
@@ -161,7 +175,9 @@ std::cout << " AnimTime now: " << animTime
     //  repeats of the same iterator.
     if (it == m_prevAttempt)
     {
+#ifdef GRADE_DEBUG
 std::cout << " - ignoring this player event, already graded.\n";
+#endif
       // Give the player some feedback, never just ignore, right?
       PlayWav("pop");
       return;
@@ -178,23 +194,31 @@ std::cout << " - ignoring this player event, already graded.\n";
     // Only remember if note on, and a valid attempt.
     if (e.m_on && grade.m_type != Grade::TOO_QUICK)
     {
+#ifdef GRADE_DEBUG
 std::cout << "Storing event so you can't try again\n";
+#endif
       m_prevAttempt = it;
     }
 
     if (e.m_on && e.m_note == ne.m_note)
     {
       // Note on event, pitch is correct
+#ifdef GRADE_DEBUG
 std::cout << "** Correct note! " << e.m_note << "\n";
+#endif
       FeedbackBalloon(grade);
+      IncreaseScore(grade);
     }
     else if (e.m_on && e.m_note != ne.m_note)
     {
       // Note on event, pitch is INCORRECT
+#ifdef GRADE_DEBUG
 std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << ne.m_note << "\n";
+#endif
       PlayWav(WAV_INCORRECT);
       Assert(grade.m_type == Grade::BAD_NOTE);
       FeedbackBalloon(grade);
+      DecreaseLife(grade); // TODO Life boosters when we reach checkpoints
     }
     else
     {
@@ -208,7 +232,9 @@ std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << 
   }
   else
   {
+#ifdef GRADE_DEBUG
 std::cout << ":((( Couldn't find a matching event to grade against!\n";
+#endif
     // Now I think the most likely cause is a note up event for a
     //  bad note down.
   }

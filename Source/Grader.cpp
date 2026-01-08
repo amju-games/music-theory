@@ -173,23 +173,31 @@ Grade Grader::FinalGrade(
   float timeDiff = animTime - ne.m_time;
   float timeDiffSecs = timeDiff * songLength;
 
+#ifdef GRADE_DEBUG
 std::cout << "Time diff: " << timeDiffSecs << "  seconds ";
+#endif
 
   if (std::abs(timeDiffSecs) > maxErrorSecs)
   {
     if (timeDiffSecs < 0)
     {
+#ifdef GRADE_DEBUG
 std::cout << "Too quick, no points!\n";
+#endif
       return Grade(Grade::TOO_QUICK, 0);
     }
+#ifdef GRADE_DEBUG
 std::cout << "Too slow, no points!\n";
+#endif
     return Grade(Grade::TOO_SLOW, 0);
   }
   else
   {
     // We return a score from 0..1, where 1 is perfect.
     float grade = (1.f - std::abs(timeDiffSecs) / maxErrorSecs);
+#ifdef GRADE_DEBUG
 std::cout << " -- Grade: " << std::round(grade * 100.f) << "%\n";
+#endif
     return Grade(Grade::GOOD_NOTE, grade);
   }
 }
