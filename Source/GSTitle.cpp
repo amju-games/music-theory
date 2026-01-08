@@ -70,7 +70,6 @@ void GSTitle::OnActive()
   startButton->SetCommand(OnStart);
   startButton->SetHasFocus(true);
 }
-
 }
 
 

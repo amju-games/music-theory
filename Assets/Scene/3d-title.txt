@@ -1,0 +1,65 @@
+// * Amjula music theory *
+// (c) Copyright 2017 Juliet Colman
+
+// Title scene: piano with text
+
+// version
+1
+
+// Node type
+comp
+// Name
+root
+// Matrix
+I
+// Num children
+4
+
+// Node type
+camera-persp
+// Name
+camera
+// Eye pos
+0, 60, 200
+// Look at pos
+0, 30, 0
+// Up vector
+0, 1, 0
+// FovY, aspect, near, far
+90, 1.0, 1, 1000
+// Num children
+0
+
+// Node type
+mesh
+// Name
+title-piano
+// Matrix
+1,0,0,0,  0,1.2,0,0,  0,0,.8,0, 0, 0, 0,1
+// Obj mesh
+obj/piano1.obj
+// Num children
+0
+
+// Node type
+mesh
+// Name
+title-piano-2
+// Matrix
+.5,0,0,0,  0,.5,0,0,  0,0,.5,0, 0, 0, 50,1
+// Obj mesh
+obj/piano1.obj
+// Num children
+0
+
+// Node type
+md2
+// Name
+md2-test-node
+// Matrix
+.5,0,0,0,  0,.5,0,0,  0,0,.5,0, 0, 0, 100,1
+// Obj mesh
+md2/amju.md2
+// Num children
+0
+

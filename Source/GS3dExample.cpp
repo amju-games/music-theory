@@ -16,6 +16,9 @@ void GS3dExample::Draw()
   GSBase3d::Draw();
 
 /*
+  // Alternatively, this works - it's just copied from the "Simplest"
+  //  example.
+
   AmjuGL::SetMatrixMode(AmjuGL::AMJU_PROJECTION_MATRIX);
   AmjuGL::SetIdentity();
   AmjuGL::SetPerspectiveProjection(45, 1, 1, 100);

@@ -50,6 +50,7 @@
 #include "Course.h"
 #include "Dictionary.h"
 #include "GS3dExample.h"
+#include "GS3dTitle.h"
 #include "GSAvatarMod.h"
 #include "GSCopyAssets.h"
 #include "GSFirstUser.h"
@@ -68,6 +69,7 @@
 #include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
 #include "GuiScrollScore.h"
+#include "Md2SceneNode.h"
 #include "NetSend.h"
 #include "ParticleFx.h"
 #include "SceneNodeGui.h"
@@ -339,11 +341,17 @@ static void SetUpGui()
   AddToGuiFactory<GuiScrollScore>();
 
   //Add game-specific types to Scene node factory
+  // TODO These are not game specific! Add to amjulib!!
   ParticleFx::AddToFactory();
 
   TheSceneNodeFactory::Instance()->Add(
     SceneNodeGui::NAME, 
     []()->SceneNode* { return new SceneNodeGui; } 
+  );
+
+  TheSceneNodeFactory::Instance()->Add(
+    "md2", 
+    []()->SceneNode* { return new Md2SceneNode; } 
   );
 }
 
@@ -368,6 +376,13 @@ static void SetInitialState()
   {
     // Show an example 3d scene
     TheGame::Instance()->SetCurrentState(TheGS3dExample::Instance());
+    return;
+  }
+
+  if (args.Contains("--title"))
+  {
+    // Show 3d title
+    TheGame::Instance()->SetCurrentState(TheGS3dTitle::Instance());
     return;
   }
 

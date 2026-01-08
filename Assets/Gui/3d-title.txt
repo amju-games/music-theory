@@ -1,0 +1,27 @@
+// * Amjula music theory *
+// (c) Copyright 2024 Juliet Colman
+
+// GSTitle
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+title-root
+// Num children
+1
+
+elastic
+0,-2
+// Start button
+gui-button
+start-button
+-0.2, -0.4
+0.4, 0.25
+Image/gui-button-2.png
+// START
+$$$83
+BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
+
