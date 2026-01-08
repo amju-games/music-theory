@@ -26,9 +26,6 @@
     <ClCompile Include="..\..\..\..\Source\MakeScore\Tests\MakeScore_catchtest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\MakeScore\Tests\Part_catchtest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Source\MakeScore\Tests\makefile" />

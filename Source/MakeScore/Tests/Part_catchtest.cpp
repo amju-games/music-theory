@@ -5,7 +5,6 @@
 
 #include "catch.hpp"
 #include "../MakeScore.h" 
-#include "../Part.h" 
 
 TEST_CASE("Test Part", "Part")
 {
