@@ -1,5 +1,5 @@
 // * Amjula music theory *
-// (c) Copyright 2017 Jason Colman
+// (c) Copyright 2017 Juliet Colman
 
 // Title scene: piano with text
 
@@ -13,7 +13,7 @@ root
 // Matrix
 I
 // Num children
-0
+2
 
 // Node type
 camera-persp
@@ -28,7 +28,7 @@ camera
 // FovY, aspect, near, far
 90, 1.0, 1, 1000
 // Num children
-1
+0
 
 // Node type
 mesh
@@ -37,10 +37,9 @@ title-piano
 // Matrix
 1,0,0,0,  0,1.2,0,0,  0,0,.8,0, -2,27,6,1
 // Obj mesh
-//obj/schoolhouse.obj
 obj/piano1.obj
 // Num children
-2
+0
 
 // Node type
 mesh
