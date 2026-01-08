@@ -12,6 +12,7 @@
 #include "Grader.h"
 #include "HeroGameRound.h"
 #include "GSHero.h"
+#include "NumUpdate.h"
 #include "PlayWav.h"
 
 namespace Amju
@@ -36,6 +37,20 @@ void GSHero::ReloadGui()
   // Start();
   auto sm = TheSoundManager::Instance();
   sm->StopSong();
+}
+
+void GSHero::IncreaseScore(const Grade& grade)
+{
+  int amount = std::round(grade.m_score * 1000.f);
+  amount *= 100;
+  m_playerScore += amount;
+  NumUpdate(m_gui, "score-text", m_playerScore);
+}
+
+void GSHero::DecreaseLife(const Grade& grade)
+{
+  m_lifePercent -= 5;
+  NumUpdate(m_gui, "num-lives-text", std::to_string(m_lifePercent) + "%");
 }
 
 const HeroGameRound& GetGameRound()
@@ -213,6 +228,14 @@ std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
 
   // Reset previous attempt pointer
   m_prevAttempt = m_scrollScore->GetNoteEvents().end();
+  
+  // Reset score
+  m_playerScore = 0;
+  NumUpdate(m_gui, "score-text", 0);
+
+  // Reset life
+  m_lifePercent = 100;
+  NumUpdate(m_gui, "num-lives-text", "100%");
 
 std::cout << "Paused...\n";
 

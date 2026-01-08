@@ -9,7 +9,21 @@ gui-comp
 // Name
 gs-hero-root
 // Num children
-4
+6
+
+// Player score for the round
+elastic
+0, 2
+translate
+-.8, .35
+include 
+player-score.txt
+
+// Player lives
+elastic
+2, 0
+include
+hearts.txt
 
 // Text balloon giving feedback on player's input
 include

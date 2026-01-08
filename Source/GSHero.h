@@ -8,6 +8,7 @@
 #include "GSBase.h"
 #include "GuiMusicKb.h"
 #include "GuiScrollScore.h"
+#include "UserProfile.h"
 
 namespace Amju
 {
@@ -45,6 +46,9 @@ protected:
   // Debug: called when R key is pressed to reload everything.
   void ReloadGui() override;
 
+  void IncreaseScore(const Grade& grade);
+  void DecreaseLife(const Grade& grade);
+
 protected:
   // The scroll score child of m_gui (get after gui is loaded)
   RCPtr<GuiScrollScore> m_scrollScore;
@@ -60,6 +64,15 @@ protected:
   //  the player attempted, so the player can't spam keys to get lots
   //  of points or make lots of attempts.
   NoteEvents::const_iterator m_prevAttempt;
+
+  // User profile, store progress
+  RCPtr<UserProfile> m_userProfile;
+
+  // Score this round - to add to player profile
+  int m_playerScore = 0; 
+
+  // Remaining life left this round, as a percentage
+  int m_lifePercent = 100;
 };
 
 typedef Singleton<GSHero> TheGSHero;
