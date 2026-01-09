@@ -5,25 +5,28 @@
 1
 
 // Player score
+// Left-justified text, growing rightwards,
+//  with backround that should also grow rightwards.
+
+animation
+pulsing anim
+mirror-repeat
+1.0
+linear
 
 // Element type
 gui-comp
 // Name
 player-score-comp
 // Num children
-3
-
-colour
-000080
-
-gui-image
-score-bg
-0.638, 0.612
-.324, .324
-Image/rough-oval.png, stretch
+2
 
 colour
 4D68F1
+
+scale
+0.9, 0.9; 1.1, 1.1
+.5,.5
 
 gui-image
 score-bg
@@ -31,21 +34,24 @@ score-bg
 .3, .3
 Image/rough-oval.png, stretch
 
-
-
-
 gui-comp
 score-comp
 1
 
+// Bob up and down
 animation
-name-not-used
+bob-up-and-down
 mirror-repeat
 0.6
 linear
 
 translate
-0,0 ; 0, 0.005
+0,0 ; 0, 0.008
+
+animation
+clean-anim
+const
+one
 
 animation
 score-text-anim-trigger
@@ -61,10 +67,10 @@ gui-text
 // Element name
 score-text
 // pos (coords are -1..1)
-0.6, 0.5
+0.9, 0.5
 .4, .1
 // Text
 25600
 // Font name, size
-NUMERIC, 1.5, fgcol=ffffff
+NUMERIC, 1.5, fgcol=ffffff, left
 

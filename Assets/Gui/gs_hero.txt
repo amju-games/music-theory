@@ -9,23 +9,37 @@ gui-comp
 // Name
 gs-hero-root
 // Num children
-6
+7
 
 // Player score for the round
 elastic
-0, 2
+-2, 0
 translate
--.8, .35
+-1.57, .35
 include 
 player-score.txt
 
 // Player lives
 elastic
-2, 0
+-1, 0
+translate
+-1.6, -0.3
 include
 hearts.txt
 
 // Text balloon giving feedback on player's input
+// Title of song/piece
+gui-text
+// Name
+song-title
+-1.0, 0.8
+// size
+2.0, 0.2
+// Text
+title
+// Font name, size
+BUTTON, 2.0, multi, fgcol=000000
+
 include
 feedback-balloon.txt
 
@@ -47,7 +61,7 @@ linear
 scroll-score
 // Name, Position, Size
 the-score
-0, -.4 
+0, -.6
 .4, .75 
 // Colour
 // 1DA2FF
@@ -57,15 +71,15 @@ end
 
 // Vertical line colour
 colour
-ff0000
+ff4000
 // Vertical line which shows when to play a note: just as the note
 //  passes this line.
 poly
 vertical_line_play_notes_here
 0, 0
 style=2, outCol=ffffff, fillCol=ffffff, radius=0.01
-0.0, 0.1
-0.0, 0.8
+0.0, -.1 
+0.0, 0.7
 end
 
 
