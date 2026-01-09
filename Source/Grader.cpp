@@ -32,7 +32,7 @@ static std::string GetFeedbackFromScore(float score)
 }
 
 Grade::Grade(Type t, float score) : 
-  m_type(t), m_score(score), m_feedback(GetFeedbackFromScore(score))
+  m_type(t), m_score(score) 
 {
   if (t == Grade::TOO_QUICK)
   {
@@ -41,6 +41,22 @@ Grade::Grade(Type t, float score) :
   else if (t == Grade::TOO_SLOW)
   {
     m_feedback = "@@@Too Slow!";
+  }
+  else if (t == Grade::NO_ATTEMPT)
+  {
+    m_feedback = "MISSED!";
+  }
+  else if (t == Grade::BAD_NOTE)
+  {
+    m_feedback = "BUM NOTE!";
+  }
+  else if (t == Grade::GOOD_NOTE)
+  {
+    m_feedback = GetFeedbackFromScore(score);
+  }
+  else
+  {
+    Assert(0);
   }
 }
 

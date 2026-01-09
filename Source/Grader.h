@@ -10,7 +10,7 @@ namespace Amju
 //  which is the best match.
 struct Grade
 {
-  enum Type { UNGRADED, GOOD_NOTE, BAD_NOTE, TOO_QUICK, TOO_SLOW };
+  enum Type { UNGRADED, GOOD_NOTE, NO_ATTEMPT, BAD_NOTE, TOO_QUICK, TOO_SLOW };
   Type m_type = UNGRADED;
   float m_score = 0;
   std::string m_feedback;

@@ -23,7 +23,12 @@ public:
 
   void OnActive() override;
   void Update() override;
+
+  // Called when player triggers a keyboard event
   void OnMusicKbEvent(const MusicKbEvent&) override;
+
+  // Called when Score sends a note event
+  void OnNoteEvent(const NoteEvent& ne);
 
   // Start the score scrolling, and backing track playing
   void Start();
@@ -73,6 +78,9 @@ protected:
 
   // Remaining life left this round, as a percentage
   int m_lifePercent = 100;
+
+  // Flag for detecting missed notes, with no attempt made.
+  bool m_noteAttempted = false;
 };
 
 typedef Singleton<GSHero> TheGSHero;
