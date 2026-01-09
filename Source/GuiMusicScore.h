@@ -161,6 +161,9 @@ public:
  
   const NoteEvents& GetNoteEvents() const;
 
+  using NoteEventCallback = std::function<void(const NoteEvent&)>;
+  void SetNoteEventCallback(NoteEventCallback cb);
+
 protected:
   // Draw child GUI elements (curves, text, etc)
   void DrawChildren(); // not const because GuiElement::Draw not const, why tho
@@ -214,7 +217,7 @@ protected:
   // Check for new note events, send them, and advance m_nextNoteEvent appropriately.
   void UpdateNoteEvents(float animValue);
 
-  void SendNoteEvent(const NoteEvent&);
+  virtual void SendNoteEvent(const NoteEvent&);
 
 protected:
   RCPtr<TriList> m_triList; 
@@ -281,6 +284,8 @@ protected:
   // 2nd is preferable because we can show beat lines. 1st choice gives 
   //  correct count but not all beats are visible.
   std::set<float> m_beats; 
+
+  NoteEventCallback m_noteEventCallback;
 };
 }
 

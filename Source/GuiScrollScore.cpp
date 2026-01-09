@@ -29,6 +29,15 @@ bool GuiScrollScore::Load(File* f)
   return true;
 }
 
+void GuiScrollScore::SendNoteEvent(const NoteEvent& ne)
+{
+  if (m_noteEventCallback)
+  {
+    m_noteEventCallback(ne);
+  }
+  // ..but don't play the note
+}
+
 void GuiScrollScore::StartCountIn(
   int numCountInBeats, std::function<void()> onFinished)
 {
@@ -101,8 +110,10 @@ void GuiScrollScore::Animate(float animValue)
 {
 // We don't want to do this, but if we did, we would need to not overwrite
 //  the colour of glyphs.
-
 //  GuiMusicScore::Animate(animValue);
+
+  // We do want to update note events to call the callback when they occur.
+  UpdateNoteEvents(animValue);
 
   m_animTime = animValue; 
 

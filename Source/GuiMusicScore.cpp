@@ -289,8 +289,18 @@ GuiMusicScore::GuiMusicScore()
 #endif // CATCH
 }
 
+void GuiMusicScore::SetNoteEventCallback(NoteEventCallback cb)
+{
+  m_noteEventCallback = cb;
+}
+
 void GuiMusicScore::SendNoteEvent(const NoteEvent& ne)
 {
+  if (m_noteEventCallback)
+  {
+    m_noteEventCallback(ne);
+  }
+
   if (ne.m_onNotOff)
   {
     // TODO better MIDI API
@@ -324,7 +334,7 @@ void GuiMusicScore::UpdateNoteEvents(float animValue)
          && ne->m_time <= animValue)
   {
     // Fire off this event!
-    SendNoteEvent(*ne);
+    SendNoteEvent(*ne); 
     m_nextNoteEvent++;
     ne++;
   }
