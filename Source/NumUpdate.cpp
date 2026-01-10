@@ -56,6 +56,11 @@ void HudNumber::Update()
 
 void HudNumber::Add(int amountToAdd, int numFrames)
 {
+  if (amountToAdd == 0)
+  {
+    return;
+  }
+
   m_internalNumber += amountToAdd;
   m_increment = (m_internalNumber - m_displayedNumber) / numFrames;
   if (m_increment == 0)

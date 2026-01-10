@@ -117,6 +117,8 @@
 		69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */; };
 		69F5E08E1E8C09C000E7BF93 /* Question.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E08B1E8C09C000E7BF93 /* Question.cpp */; };
 		69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */; };
+		C5117C4B2F11CE0300952A7B /* GSHeroEnd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5117C462F11CE0300952A7B /* GSHeroEnd.cpp */; };
+		C5117C4C2F11CE0300952A7B /* GS3dTitle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5117C4A2F11CE0300952A7B /* GS3dTitle.cpp */; };
 		C55726A32F0EFA5400EEB2A5 /* Grader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55726982F0EFA5300EEB2A5 /* Grader.cpp */; };
 		C55726A42F0EFA5400EEB2A5 /* HeroGameRound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55726992F0EFA5300EEB2A5 /* HeroGameRound.cpp */; };
 		C55726A52F0EFA5400EEB2A5 /* GS3dExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C557269F2F0EFA5400EEB2A5 /* GS3dExample.cpp */; };
@@ -374,6 +376,10 @@
 		69F5E08B1E8C09C000E7BF93 /* Question.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Question.cpp; path = ../../../../Source/Question.cpp; sourceTree = "<group>"; };
 		69F5E08C1E8C09C000E7BF93 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = ../../../../Source/Question.h; sourceTree = "<group>"; };
 		69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSPlayMidi.mm; path = "../../../../Source/iOS-MusicTheory/iOSPlayMidi.mm"; sourceTree = "<group>"; };
+		C5117C462F11CE0300952A7B /* GSHeroEnd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSHeroEnd.cpp; path = ../../../../Source/GSHeroEnd.cpp; sourceTree = "<group>"; };
+		C5117C482F11CE0300952A7B /* GS3dTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GS3dTitle.h; path = ../../../../Source/GS3dTitle.h; sourceTree = "<group>"; };
+		C5117C492F11CE0300952A7B /* GSHeroEnd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSHeroEnd.h; path = ../../../../Source/GSHeroEnd.h; sourceTree = "<group>"; };
+		C5117C4A2F11CE0300952A7B /* GS3dTitle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GS3dTitle.cpp; path = ../../../../Source/GS3dTitle.cpp; sourceTree = "<group>"; };
 		C55726962F0EFA5300EEB2A5 /* ColourPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColourPicker.h; path = ../../../../Source/ColourPicker.h; sourceTree = "<group>"; };
 		C55726982F0EFA5300EEB2A5 /* Grader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Grader.cpp; path = ../../../../Source/Grader.cpp; sourceTree = "<group>"; };
 		C55726992F0EFA5300EEB2A5 /* HeroGameRound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HeroGameRound.cpp; path = ../../../../Source/HeroGameRound.cpp; sourceTree = "<group>"; };
@@ -560,6 +566,10 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C5117C4A2F11CE0300952A7B /* GS3dTitle.cpp */,
+				C5117C482F11CE0300952A7B /* GS3dTitle.h */,
+				C5117C462F11CE0300952A7B /* GSHeroEnd.cpp */,
+				C5117C492F11CE0300952A7B /* GSHeroEnd.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */,
@@ -933,11 +943,13 @@
 				C56DAD082EF2CFED00739D75 /* Palette.cpp in Sources */,
 				69D58E861E86A02B008A8D29 /* Page.cpp in Sources */,
 				69D732961F23DA29007B73C1 /* CorridorModeShowTappable.cpp in Sources */,
+				C5117C4C2F11CE0300952A7B /* GS3dTitle.cpp in Sources */,
 				6959E3031EA1091500E251A9 /* GSAbout.cpp in Sources */,
 				69D732971F23DA29007B73C1 /* CorridorModeWait.cpp in Sources */,
 				6959E2D01E958C3C00E251A9 /* GSPages.cpp in Sources */,
 				6959E2F81E9ACE8A00E251A9 /* GSPause.cpp in Sources */,
 				69D732931F23DA29007B73C1 /* CorridorModeEnterTappable.cpp in Sources */,
+				C5117C4B2F11CE0300952A7B /* GSHeroEnd.cpp in Sources */,
 				6959E3061EA1091500E251A9 /* MusicalTermQuestion.cpp in Sources */,
 				69D7329C1F250B58007B73C1 /* CorridorCamController.cpp in Sources */,
 				694519482017368F001C188B /* QuestionPicker.cpp in Sources */,

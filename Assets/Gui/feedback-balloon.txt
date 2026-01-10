@@ -27,7 +27,7 @@ one
 
 animation
 pulsing-anim
-repeat
+one-shot
 1.2
 linear
 

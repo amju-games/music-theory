@@ -11,6 +11,7 @@ public:
   GS3dTitle();
 
   void Update() override;
+  void OnActive() override;
 };
 
 using TheGS3dTitle = Singleton<GS3dTitle>;

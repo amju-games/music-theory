@@ -1,0 +1,68 @@
+// * Amjula music theory *
+// (c) Copyright 2024 Juliet Colman
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+gs-hero-end-root
+// Num children
+5
+
+elastic
+0,-2
+// Retry button
+gui-button
+retry-button
+-0.2, -0.2
+0.4, 0.25
+Image/gui-button-2.png
+// START
+@@@Retry
+BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
+
+elastic
+0,-2
+// Quit button
+gui-button
+quit-button
+-0.2, -0.5
+0.4, 0.25
+Image/gui-button-2.png
+// START
+@@@Quit
+BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
+
+
+rotate
+10
+.5, .5
+gui-text
+mega-text-test
+-1, 1
+2, 2
+The end!
+BUTTON, 10.0, multi, fgcol=404080
+
+// Player score for the round
+elastic
+-2, 0
+translate
+-1.57, .35
+include 
+player-score.txt
+
+// Title of song/piece
+gui-text
+// Name
+song-title
+-1.0, 0.8
+// size
+2.0, 0.2
+// Text
+title
+// Font name, size
+BUTTON, 2.0, multi, fgcol=000000
+

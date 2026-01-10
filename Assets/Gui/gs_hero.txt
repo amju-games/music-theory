@@ -27,7 +27,6 @@ translate
 include
 hearts.txt
 
-// Text balloon giving feedback on player's input
 // Title of song/piece
 gui-text
 // Name
@@ -40,6 +39,7 @@ title
 // Font name, size
 BUTTON, 2.0, multi, fgcol=000000
 
+// Text balloon giving feedback on player's input
 include
 feedback-balloon.txt
 

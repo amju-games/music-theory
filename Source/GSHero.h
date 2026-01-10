@@ -55,6 +55,8 @@ protected:
   void IncreaseScore(const Grade& grade);
   void DecreaseLife(const Grade& grade);
 
+  void OnPlayerHasLost();
+
 protected:
   // The scroll score child of m_gui (get after gui is loaded)
   RCPtr<GuiScrollScore> m_scrollScore;
@@ -82,6 +84,10 @@ protected:
 
   // Flag for detecting missed notes, with no attempt made.
   bool m_noteAttempted = false;
+
+  // Set to true if player loses round, so we can wait for a second or two 
+  //  before changing game state.
+  bool m_playerHasLost = false;
 };
 
 typedef Singleton<GSHero> TheGSHero;

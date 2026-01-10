@@ -374,10 +374,10 @@ static void SetInitialState()
     return;
   }
 
-  if (args.Contains("--title"))
+  if (args.Contains("--hero"))
   {
-    // Show 3d title
-    TheGame::Instance()->SetCurrentState(TheGS3dTitle::Instance());
+    // Go directly to Hero mode
+    TheGame::Instance()->SetCurrentState(TheGSHero::Instance());
     return;
   }
 
@@ -395,7 +395,7 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
 
   // Developing Hero Mode
-  TheGame::Instance()->SetCurrentState(TheGSHero::Instance());
+  TheGame::Instance()->SetCurrentState(TheGS3dTitle::Instance());
 }
 
 static void LoadStringTableForPreferredLanguage()
