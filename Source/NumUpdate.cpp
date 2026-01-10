@@ -3,11 +3,74 @@
 
 #include <GuiDecAnimation.h>
 #include <GuiText.h>
+#include <Sign.h>
 #include <StringUtils.h>
 #include "NumUpdate.h"
 
 namespace Amju
 {
+void HudNumber::SetGuiElement(
+  PGuiElement guiRoot, 
+  const std::string& guiTextElementName, 
+  const std::string& guiAnimElementName)
+{
+  m_guiTextElement = guiRoot->GetElementByName(guiTextElementName);
+  Assert(m_guiTextElement);
+  
+  if (!guiAnimElementName.empty())
+  {
+    m_guiAnimElement = guiRoot->GetElementByName(guiAnimElementName);
+    Assert(m_guiAnimElement);
+  }
+}
+
+void HudNumber::Reset(int initialValue)
+{
+  m_displayedNumber = initialValue;
+  m_internalNumber = initialValue;
+  m_increment = 0;
+
+  IGuiText* text = dynamic_cast<IGuiText*>(m_guiTextElement.GetPtr());
+  Assert(text); 
+  text->SetText(std::to_string(initialValue));
+}
+
+void HudNumber::Update()
+{
+  if (m_increment != 0)
+  {
+    int diffBefore = m_internalNumber - m_displayedNumber;
+    m_displayedNumber += m_increment;
+    int diffAfter = m_internalNumber - m_displayedNumber; 
+    if (Sign(diffBefore) != Sign(diffAfter))
+    {
+      m_displayedNumber = m_internalNumber;
+      m_increment = 0;
+    }
+
+    IGuiText* text = dynamic_cast<IGuiText*>(m_guiTextElement.GetPtr());
+    Assert(text); 
+    text->SetText(std::to_string(m_displayedNumber));
+  }
+}
+
+void HudNumber::Add(int amountToAdd, int numFrames)
+{
+  m_internalNumber += amountToAdd;
+  m_increment = (m_internalNumber - m_displayedNumber) / numFrames;
+  if (m_increment == 0)
+  {
+    m_increment = Sign(amountToAdd);
+  }
+
+  if (m_guiAnimElement)
+  {
+    GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(m_guiAnimElement.GetPtr());
+    Assert(anim);
+    anim->ResetAnimation();
+  }
+}
+
 void NumUpdate(PGuiElement gui, const std::string& elemName, int value)
 {
   NumUpdate(gui, elemName, ToString(value));

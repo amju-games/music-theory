@@ -8,6 +8,7 @@
 #include "GSBase.h"
 #include "GuiMusicKb.h"
 #include "GuiScrollScore.h"
+#include "NumUpdate.h"
 #include "UserProfile.h"
 
 namespace Amju
@@ -74,10 +75,10 @@ protected:
   RCPtr<UserProfile> m_userProfile;
 
   // Score this round - to add to player profile
-  int m_playerScore = 0; 
+  HudNumber m_playerScore;
 
   // Remaining life left this round, as a percentage
-  int m_lifePercent = 100;
+  HudNumber m_lifePercent;
 
   // Flag for detecting missed notes, with no attempt made.
   bool m_noteAttempted = false;

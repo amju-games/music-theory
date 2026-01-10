@@ -30,6 +30,9 @@ GSHero::GSHero()
 void GSHero::Update()
 {
   GSBase::Update();
+
+  m_playerScore.Update();
+  m_lifePercent.Update();
 }
 
 void GSHero::ReloadGui()
@@ -44,18 +47,19 @@ void GSHero::ReloadGui()
   sm->StopSong();
 }
 
+static const int NUM_UPDATE_NUM_FRAMES = 50;
+
 void GSHero::IncreaseScore(const Grade& grade)
 {
   int amount = std::round(grade.m_score * 1000.f);
   amount *= 100;
-  m_playerScore += amount;
-  NumUpdate(m_gui, "score-text", m_playerScore);
+
+  m_playerScore.Add(amount, NUM_UPDATE_NUM_FRAMES);
 }
 
 void GSHero::DecreaseLife(const Grade& grade)
 {
-  m_lifePercent -= 5;
-  NumUpdate(m_gui, "num-lives-text", std::to_string(m_lifePercent) + "%");
+  m_lifePercent.Add(-5, NUM_UPDATE_NUM_FRAMES);
 }
 
 const HeroGameRound& GetGameRound()
@@ -290,15 +294,17 @@ std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
   InitGui();
 
   // Reset previous attempt pointer
+  // (Points to most recently graded event, so we don't grade the same
+  //  event multiple times)
   m_prevAttempt = m_scrollScore->GetNoteEvents().end();
   
   // Reset score
-  m_playerScore = 0;
-  NumUpdate(m_gui, "score-text", 0);
+  m_playerScore.SetGuiElement(m_gui, "score-text", "score-text-anim-trigger");
+  m_playerScore.Reset(0);
 
   // Reset life
-  m_lifePercent = 100;
-  NumUpdate(m_gui, "num-lives-text", "100%");
+  m_lifePercent.SetGuiElement(m_gui, "num-lives-text", "num-lives-text-anim-trigger");
+  m_lifePercent.Reset(100);
 
 std::cout << "Paused...\n";
 
