@@ -1,3 +1,4 @@
+#include <sstream>
 #include <File.h>
 #include <Localise.h>
 #include <StringUtils.h>
@@ -16,7 +17,7 @@ bool GameRoundManager::Load()
     return false;
   }
   // Identify lines we don't want to include by counting the number of cells.
-  const int EXPECTED_NUM_CELLS = 9;
+  const int EXPECTED_NUM_CELLS = 10;
   std::string line;
   bool isFirstLine = true;
   while (f.GetDataLine(&line))
@@ -25,6 +26,9 @@ bool GameRoundManager::Load()
     
     if (cells.size() != EXPECTED_NUM_CELLS)
     {
+      std::stringstream ss;
+      ss << "Ignoring line, it has " << cells.size() << " cells!";
+      f.ReportError(ss.str());
       continue;
     }
 
@@ -54,7 +58,7 @@ bool GameRoundManager::Load()
     round.m_numCountInBeats = ToInt(cells[6]);
     round.m_palette = "Gui/Palettes/" + cells[7];
     round.m_musicScore = "Gui/Scores/" + cells[8];
-
+    round.m_soundFont = "Sound/" + cells[9];
 std::cout << round;
 
     m_gameRounds.push_back(round);
@@ -75,7 +79,8 @@ std::ostream& operator<<(std::ostream& os, const HeroGameRound& round)
     << round.m_countIn << ", "
     << round.m_numCountInBeats << ", "
     << round.m_palette << ", "
-    << round.m_musicScore << ".\n";
+    << round.m_musicScore << ", "
+    << round.m_soundFont << ".\n";
 }
 
 int GameRoundManager::GetNumGameRounds() const

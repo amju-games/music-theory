@@ -299,13 +299,8 @@ static void SetUpSound()
 #ifdef AMJU_USE_BASS_MIDI
   std::string soundFont = File::GetRoot() + "Sound/" + MIDI_SOUND_FONT + ".sf2";
   //std::string soundFont = File::GetRoot() + "Sound/organ1.sf2";
-  std::cout << "Setting sound font: " << soundFont << "...";
   bool ok = bsp->MidiSetSoundFont(soundFont.c_str());
-  if (ok)
-  {
-    std::cout << "  ok.\n";
-  }
-  else
+  if (!ok)
   {
     std::cout << "\nSETTING SOUND FONT FAILED!\n";
   }

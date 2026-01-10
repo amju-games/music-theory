@@ -37,6 +37,9 @@ struct HeroGameRound
 
   // Filename of music score
   std::string m_musicScore;
+
+  // Filename of sound font
+  std::string m_soundFont;
 };
 
 std::ostream& operator<<(std::ostream& os, const HeroGameRound& round);
