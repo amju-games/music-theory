@@ -84,8 +84,10 @@ protected:
   // Remaining life left this round, as a percentage
   HudNumber m_lifePercent;
 
-  // Flag for detecting missed notes, with no attempt made.
-  bool m_noteAttempted = false;
+  // Counters for detecting missed notes, i.e. no attempt made by
+  //  player.
+  int m_numPlayerNotes = 0;
+  int m_numScoreNotes = 0;
 
   // Set to true if player wins or loses round, so we can wait for a 
   //  second or two before changing game state.

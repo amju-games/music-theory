@@ -165,24 +165,27 @@ void GSHero::OnNoteEvent(const NoteEvent& ne)
   //  attempt.
   // We reset flag on note down. On note up, if the flag is still
   //  reset, there was no attempt made.
-  if (ne.m_onNotOff)
+  if (!ne.m_onNotOff)
   {
-    m_noteAttempted = false;
+    // Note off: increment count of completed score-generated events
+    m_numScoreNotes++;
+std::cout << "Player notes: " << m_numPlayerNotes
+  << " Score notes: " << m_numScoreNotes << "\n";
   }
-  else if (!m_noteAttempted)
+
+  if (m_numScoreNotes > m_numPlayerNotes)
   {
-    float animTime = m_scrollScore->GetAnimTime();
-    if (animTime < 1.f)
-    {
-std::cout << "No attempt made for note with pitch " << ne.m_note << "\n";
-      // Missed note
-      Grade grade(Grade::NO_ATTEMPT, 0);
-      // Show this differently TODO... the problem is the feedback is at
-      //  the end of a note's life, so the feedback is not connecting to 
-      //  the note we missed.
-//    FeedbackBalloon(grade);
-      DecreaseLife(grade); 
-    }
+std::cout << "Player has missed a note, I think.\n";
+
+    m_numPlayerNotes = m_numScoreNotes;
+
+    // Missed note
+    Grade grade(Grade::NO_ATTEMPT, 0);
+    // Show this differently TODO... the problem is the feedback is at
+    //  the end of a note's life, so the feedback is not connecting to 
+    //  the note we missed.
+//  FeedbackBalloon(grade);
+    DecreaseLife(grade); 
   }
 }
 
@@ -196,7 +199,10 @@ void GSHero::OnMusicKbEvent(const MusicKbEvent& e)
 
   if (e.m_on)
   {
-    m_noteAttempted = true;
+    //m_noteAttempted = true;
+    m_numPlayerNotes++;
+std::cout << "Player notes: " << m_numPlayerNotes
+  << " Score notes: " << m_numScoreNotes << "\n";
   }
   GradeEvent(e);
 }
