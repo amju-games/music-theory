@@ -23,6 +23,6 @@ To rebuild `obj2bin` if necessary:
     `
     cd amjulib/Tools/obj2bin/Script/MacOSX
     ./make_obj2bin.sh
-    cp amjulib/Build/glue/Mac/glue music-theory/Script/AssetCompiler
+    cp amjulib/Build/obj2bin/Mac/obj2bin music-theory/Script/AssetCompiler
     `
 
