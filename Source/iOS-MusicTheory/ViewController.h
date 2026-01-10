@@ -12,11 +12,6 @@
 
 @interface ViewController : GLKViewController
 
-// j.c. accelerometer - http://www.appcoda.com/ios-maze-game-tutorial-accelerometer/
-@property (assign, nonatomic) CMAcceleration acceleration;
-@property (strong, nonatomic) CMMotionManager  *motionManager;
-@property (strong, nonatomic) NSOperationQueue *queue;
-
 + (ViewController*) GetVC;
 
 @end

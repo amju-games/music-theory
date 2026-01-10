@@ -19,12 +19,6 @@
 #include <StartUp.h>
 #include "iOSKeyboard.h"
 
-
-// Accelerom poll freq - j.c. - http://www.appcoda.com/ios-maze-game-tutorial-accelerometer/
-// If frequency is too high, frame rate seems to get choppy.
-// TODO Make this a setting.
-#define kUpdateInterval (1.0f / 10.0f)
-
 @interface ViewController () {
 }
 @property (strong, nonatomic) EAGLContext *context;
@@ -74,19 +68,7 @@ static ViewController* s_theVc = NULL;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
     [self setupGL];
-  
-    // j.c. accelerometer - http://www.appcoda.com/ios-maze-game-tutorial-accelerometer/
-    self.motionManager = [[CMMotionManager alloc]  init];
-    self.queue         = [[NSOperationQueue alloc] init];
-  
-    self.motionManager.accelerometerUpdateInterval = kUpdateInterval;
-
-    [self.motionManager startAccelerometerUpdatesToQueue:self.queue withHandler:
-     ^(CMAccelerometerData *accelerometerData, NSError *error) {
-       [(id) self setAcceleration:accelerometerData.acceleration];
-       [self performSelectorOnMainThread:@selector(update) withObject:nil waitUntilDone:NO];
-     }];
- 
+    
     // j.c. Initialise iOS-specific text edit boxes and keyboard
     Amju::iOSTextSetViewController(self);
 }
@@ -151,30 +133,6 @@ static void QueueEvent(Amju::Event* e)
 
 - (void)update
 {
-  // j.c. send accelerom events but TODO only if changed
-
-   const float kFilteringFactor = 0.1;
-   static float accel[3] = { 0, 0, 0 };
-   
-   accel[0] = self.acceleration.x * kFilteringFactor + accel[0] * (1.0 - kFilteringFactor);
-   accel[1] = self.acceleration.y * kFilteringFactor + accel[1] * (1.0 - kFilteringFactor);
-   accel[2] = self.acceleration.z * kFilteringFactor + accel[2] * (1.0 - kFilteringFactor);
-   
-   // accel[0] corresponds to tilting forward/back, i.e. rotation about x-axis when in landscape mode
-   // accel[1] corresponds to z-rotation, like twisting a Wii remote
-  
-   // This is for LANDSCAPE mode
-   Amju::BalanceBoardEvent* be = new Amju::BalanceBoardEvent(accel[1], accel[0]);
-
-   // This is for PORTRAIT mode
-//   Amju::BalanceBoardEvent* be = new Amju::BalanceBoardEvent(accel[0], -accel[1]);
-
-#ifdef ACCELEROM_DEBUG
-   std::cout << "ACCEL: X: " << accel[0] << " Y: " << accel[1] << " Z: " << accel[2] << "\n";
-#endif
-   
-   QueueEvent(be);
-   
   Amju::TheGame::Instance()->Update();
 }
 
