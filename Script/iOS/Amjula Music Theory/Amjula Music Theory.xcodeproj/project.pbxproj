@@ -136,6 +136,7 @@
 		C56DAD0C2EF2CFED00739D75 /* LevelManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACFF2EF2CFED00739D75 /* LevelManager.cpp */; };
 		C56DAD0D2EF2CFED00739D75 /* Wallpaper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DAD002EF2CFED00739D75 /* Wallpaper.cpp */; };
 		C56DAD0E2EF2CFED00739D75 /* CourseManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DAD022EF2CFED00739D75 /* CourseManager.cpp */; };
+		C579D4782F12DBEE0042461C /* GSHeroWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C579D4772F12DBED0042461C /* GSHeroWin.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -414,6 +415,8 @@
 		C56DAD002EF2CFED00739D75 /* Wallpaper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Wallpaper.cpp; path = ../../../../Source/Wallpaper.cpp; sourceTree = "<group>"; };
 		C56DAD012EF2CFED00739D75 /* GSShowGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSShowGui.h; path = ../../../../Source/GSShowGui.h; sourceTree = "<group>"; };
 		C56DAD022EF2CFED00739D75 /* CourseManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CourseManager.cpp; path = ../../../../Source/CourseManager.cpp; sourceTree = "<group>"; };
+		C579D4762F12DBED0042461C /* GSHeroWin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSHeroWin.h; path = ../../../../Source/GSHeroWin.h; sourceTree = "<group>"; };
+		C579D4772F12DBED0042461C /* GSHeroWin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSHeroWin.cpp; path = ../../../../Source/GSHeroWin.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -566,10 +569,6 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				C5117C4A2F11CE0300952A7B /* GS3dTitle.cpp */,
-				C5117C482F11CE0300952A7B /* GS3dTitle.h */,
-				C5117C462F11CE0300952A7B /* GSHeroEnd.cpp */,
-				C5117C492F11CE0300952A7B /* GSHeroEnd.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */,
@@ -617,6 +616,8 @@
 				C557269E2F0EFA5400EEB2A5 /* Grader.h */,
 				C557269F2F0EFA5400EEB2A5 /* GS3dExample.cpp */,
 				C557269C2F0EFA5400EEB2A5 /* GS3dExample.h */,
+				C5117C4A2F11CE0300952A7B /* GS3dTitle.cpp */,
+				C5117C482F11CE0300952A7B /* GS3dTitle.h */,
 				6959E2FB1EA1091500E251A9 /* GSAbout.cpp */,
 				6959E2FC1EA1091500E251A9 /* GSAbout.h */,
 				6915CD12204987B70001CB2E /* GSAvatarMod.cpp */,
@@ -633,6 +634,10 @@
 				C56DACF02EF2CFED00739D75 /* GSGuiEdit.h */,
 				C55726A22F0EFA5400EEB2A5 /* GSHero.cpp */,
 				C55726A12F0EFA5400EEB2A5 /* GSHero.h */,
+				C5117C462F11CE0300952A7B /* GSHeroEnd.cpp */,
+				C5117C492F11CE0300952A7B /* GSHeroEnd.h */,
+				C579D4772F12DBED0042461C /* GSHeroWin.cpp */,
+				C579D4762F12DBED0042461C /* GSHeroWin.h */,
 				6976F4941F2F1DD300D1D51A /* GSMainCorridor.cpp */,
 				6976F4951F2F1DD300D1D51A /* GSMainCorridor.h */,
 				6959E2C81E958C3C00E251A9 /* GSPages.cpp */,
@@ -1014,6 +1019,7 @@
 				C55726A42F0EFA5400EEB2A5 /* HeroGameRound.cpp in Sources */,
 				6959E2EE1E97F6F800E251A9 /* Topic.cpp in Sources */,
 				C55726A62F0EFA5400EEB2A5 /* GuiScrollScore.cpp in Sources */,
+				C579D4782F12DBEE0042461C /* GSHeroWin.cpp in Sources */,
 				69A23A5C1F61E6970021BF88 /* Consts.cpp in Sources */,
 				C56DAD052EF2CFED00739D75 /* GSUserDrawSave.cpp in Sources */,
 				695E90811F5AB7260003901E /* Version.cpp in Sources */,
