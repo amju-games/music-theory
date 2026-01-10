@@ -8,5 +8,5 @@ Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 illum 2
-map_Kd ../Image/title-town-district.png
-map_d ../Image/title-town-district.png
+map_Kd title-town-district.png
+map_d title-town-district.png

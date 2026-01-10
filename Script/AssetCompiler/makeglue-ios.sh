@@ -24,6 +24,7 @@ mkdir $DEST_DIR/Gui/Palettes
 mkdir $DEST_DIR/Gui/Scores
 #mkdir $DEST_DIR/Gui/tappables
 mkdir $DEST_DIR/Image
+mkdir $DEST_DIR/md2
 mkdir $DEST_DIR/obj
 mkdir $DEST_DIR/Scene
 mkdir -p $DEST_DIR/Shaders/gles
@@ -52,6 +53,7 @@ cp $SRC_DIR/obj/*.png $DEST_DIR
 #  TODO put in separate dir so we only add minimal set
 cp $SRC_DIR/obj/*.mtl $DEST_DIR/obj
 cp $SRC_DIR/obj/*.png $DEST_DIR/obj
+cp $SRC_DIR/md2/* $DEST_DIR/md2
 
 # Add a final end-of-line character to all text files: this is
 #  until we properly fix text files so line length is prepended
@@ -67,7 +69,7 @@ cd $DEST_DIR
 # Create empty glue file
 $GLUE_EXE -c $GLUE_FILE
 
-for f in *.csv *.txt *.png Course/level1/* Course/level2/* Course/level3/* Course/level4/* Course/*.txt Course/expl/*.txt Image/*.png obj/*.obj obj/*.mtl obj/*.png Gui/*.txt Gui/tappables/*.txt Gui/Scores/*.txt Gui/Palettes/*.txt Scene/*.txt font2d/*.txt font2d/Berlin/* font2d/CatComic/* font2d/SnackBox/* font2d/BondStory/* font2d/ArialRound/* font2d/Guido2compressed/* font2d/Icon/* font2d/TimesNewRomanMusic/* Shaders/gles/*.txt Shaders/opengl/*.txt
+for f in *.csv *.txt *.png Course/level1/* Course/level2/* Course/level3/* Course/level4/* Course/*.txt Course/expl/*.txt Image/*.png md2/* obj/*.obj obj/*.mtl obj/*.png Gui/*.txt Gui/tappables/*.txt Gui/Scores/*.txt Gui/Palettes/*.txt Scene/*.txt font2d/*.txt font2d/Berlin/* font2d/CatComic/* font2d/SnackBox/* font2d/BondStory/* font2d/ArialRound/* font2d/Guido2compressed/* font2d/Icon/* font2d/TimesNewRomanMusic/* Shaders/gles/*.txt Shaders/opengl/*.txt
 do
     echo "Adding file: " $f
     $GLUE_EXE -a $GLUE_FILE $f
