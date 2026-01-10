@@ -17,6 +17,8 @@
 #include "NumUpdate.h"
 #include "PlayWav.h"
 
+//#define KEYBOARD_DEBUG
+
 namespace Amju
 {
 static int IsWhite(int midi)
@@ -66,7 +68,7 @@ void GSHero::UpdateKeyboardPosition()
   }
  
   // Look ahead this many events. 
-  const int lookAhead = 5;
+  const int lookAhead = 7;
   // Reduce the range if we are near the end of the note events.
   auto end = std::min(it + lookAhead, noteEvents.end());
   // Get the min and max notes in the range
@@ -84,14 +86,18 @@ std::cout << "** Look ahead: min note: " << minNote << " max note: " << maxNote 
   //  white keys we need to move, and mult by width.
 
   // Just get key width once: we won't be changing this, right??
-  static const float keyWidth = 
-    m_keyboard->GetKey(60)->m_projectedRect.GetSize().y;
+  const float keyWidth = 
+    m_keyboard->GetKey(60)->m_projectedRect.GetSize().x;
+
+#ifdef KEYBOARD_DEBUG
+std::cout << "Key width: " << keyWidth << "\n";
+#endif
 
   const auto& currentPos = m_keyboardTranslate->GetLocalPos();
   auto desiredPos = currentPos;
   const int screenMin = m_keyboard->GetMinKeyOnScreen();
   const int screenMax = m_keyboard->GetMaxKeyOnScreen();
-  if (maxNote > screenMax)
+  if (maxNote >= screenMax)
   {
     int whiteNotes = CountWhiteNotes(screenMax, maxNote);
     desiredPos.x -= keyWidth * static_cast<float>(whiteNotes);
@@ -103,10 +109,17 @@ std::cout << "  Max note on screen: " << screenMax
   << "\n";
 #endif
   }
-  else if (minNote < screenMin) // both conditions should not be true!
+  else if (minNote <= screenMin) // both conditions should not be true!
   {
     int whiteNotes = CountWhiteNotes(minNote, screenMin);
     desiredPos.x += keyWidth * static_cast<float>(whiteNotes);
+
+#ifdef KEYBOARD_DEBUG
+std::cout << "  Min note on screen: " << screenMin
+  << " min note coming up: " << minNote 
+  << " white notes: " << whiteNotes 
+  << "\n";
+#endif
   }
   else
   {
@@ -231,6 +244,8 @@ std::cout << "START!!\n";
   // Start the count-in
   const int numCountInBeats = GetGameRound().m_numCountInBeats;
   m_scrollScore->StartCountIn(numCountInBeats, onFinished);
+
+  UpdateKeyboardPosition();
 }
 
 void GSHero::OnCountInFinished()

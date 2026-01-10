@@ -9,6 +9,11 @@
 // version
 1
 
+animation
+clean-anim
+const
+one
+
 // Element type
 gui-comp
 // Name
@@ -37,7 +42,7 @@ the-keyboard
 // Pos
 0, 0
 // Scale
-1, 1
+0.7, 1
 // Keys
 // First key midi value (60=middle C)
 24
