@@ -55,7 +55,9 @@ protected:
   void IncreaseScore(const Grade& grade);
   void DecreaseLife(const Grade& grade);
 
+  // Called internally when we detect that player has won or lost round
   void OnPlayerHasLost();
+  void OnPlayerHasWon();
 
 protected:
   // The scroll score child of m_gui (get after gui is loaded)
@@ -85,9 +87,9 @@ protected:
   // Flag for detecting missed notes, with no attempt made.
   bool m_noteAttempted = false;
 
-  // Set to true if player loses round, so we can wait for a second or two 
-  //  before changing game state.
-  bool m_playerHasLost = false;
+  // Set to true if player wins or loses round, so we can wait for a 
+  //  second or two before changing game state.
+  bool m_roundIsOver = false;
 };
 
 typedef Singleton<GSHero> TheGSHero;
