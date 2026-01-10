@@ -19,6 +19,25 @@
 
 namespace Amju
 {
+static int IsWhite(int midi)
+{
+  int mod = midi % 12;
+  return mod != 1 && mod != 3 && mod != 6 && mod != 8 && mod != 10;
+}
+
+// Count the white notes in the given range of midi notes. Inclusive range.
+static int CountWhiteNotes(int midi1, int midi2)
+{
+  Assert(midi1 <= midi2);
+  int white = 0;
+  while (midi1 <= midi2)
+  {
+    white += IsWhite(midi1);
+    midi1++;
+  }
+  return white;
+}
+
 static void OnNoteEvent(const NoteEvent& ne)
 {
   TheGSHero::Instance()->OnNoteEvent(ne);
@@ -27,6 +46,79 @@ static void OnNoteEvent(const NoteEvent& ne)
 GSHero::GSHero()
 {
   m_guiFilename = "Gui/gs_hero.txt";
+}
+
+void GSHero::UpdateKeyboardPosition()
+{
+  // Set keyboard x-coord so that upcoming notes will be playable.
+
+  // Look ahead to see what note events will be coming soon.
+  const auto& noteEvents = m_scrollScore->GetNoteEvents();
+  float animTime = m_scrollScore->GetAnimTime();
+
+  // Get all notes which will occur after the current anim time.
+  auto it = std::upper_bound(noteEvents.begin(), noteEvents.end(), animTime,
+    [](float t, const NoteEvent& ne) { return t < ne.m_time; });
+
+  if (it == noteEvents.end())
+  {
+    return; // no more notes?! 
+  }
+ 
+  // Look ahead this many events. 
+  const int lookAhead = 5;
+  // Reduce the range if we are near the end of the note events.
+  auto end = std::min(it + lookAhead, noteEvents.end());
+  // Get the min and max notes in the range
+  const auto [minIt, maxIt] = std::minmax_element(it, end,
+    [](const NoteEvent& ne1, const NoteEvent& ne2) { return ne1.m_note < ne2.m_note; });
+  const int minNote = minIt->m_note;
+  const int maxNote = maxIt->m_note;
+
+#ifdef KEYBOARD_DEBUG
+std::cout << "** Look ahead: min note: " << minNote << " max note: " << maxNote << "\n";
+#endif
+
+  // Convert distance in midi note values to screen space distance in x:
+  // We use the screen space width of a white key. Count how many
+  //  white keys we need to move, and mult by width.
+
+  // Just get key width once: we won't be changing this, right??
+  static const float keyWidth = 
+    m_keyboard->GetKey(60)->m_projectedRect.GetSize().y;
+
+  const auto& currentPos = m_keyboardTranslate->GetLocalPos();
+  auto desiredPos = currentPos;
+  const int screenMin = m_keyboard->GetMinKeyOnScreen();
+  const int screenMax = m_keyboard->GetMaxKeyOnScreen();
+  if (maxNote > screenMax)
+  {
+    int whiteNotes = CountWhiteNotes(screenMax, maxNote);
+    desiredPos.x -= keyWidth * static_cast<float>(whiteNotes);
+
+#ifdef KEYBOARD_DEBUG
+std::cout << "  Max note on screen: " << screenMax 
+  << " max note coming up: " << maxNote 
+  << " white notes: " << whiteNotes 
+  << "\n";
+#endif
+  }
+  else if (minNote < screenMin) // both conditions should not be true!
+  {
+    int whiteNotes = CountWhiteNotes(minNote, screenMin);
+    desiredPos.x += keyWidth * static_cast<float>(whiteNotes);
+  }
+  else
+  {
+    return; // no need to do anything, let the animation finish
+  }
+
+  // Copy current value to initial value, and set new desired value.
+  // (Copying current to initial sounds like a useful thing to add 
+  //  to the GuiDecorator class.)
+  m_keyboardTranslate->SetTranslation(currentPos, 0);
+  m_keyboardTranslate->SetTranslation(desiredPos, 1);
+  m_keyboardAnim->ResetAnimation();
 }
 
 void GSHero::Update()
@@ -67,7 +159,7 @@ void GSHero::IncreaseScore(const Grade& grade)
 
 void GSHero::DecreaseLife(const Grade& grade)
 {
-  m_lifePercent.Add(-10, NUM_UPDATE_NUM_FRAMES);
+  m_lifePercent.Add(-1, NUM_UPDATE_NUM_FRAMES);
 
   if (m_lifePercent.m_internalNumber <= 0)
   {
@@ -161,16 +253,24 @@ void GSHero::OnNoteEvent(const NoteEvent& ne)
     return;
   }
 
+  if (ne.m_onNotOff)
+  {
+    // Just update this once per note, not on both note on and note off
+    //  events. It doesn't really matter which event type we chose.
+    UpdateKeyboardPosition();
+  }
+
   // This is logic to detect a missed note, i.e. player does not 
   //  attempt.
-  // We reset flag on note down. On note up, if the flag is still
-  //  reset, there was no attempt made.
   if (!ne.m_onNotOff)
   {
     // Note off: increment count of completed score-generated events
     m_numScoreNotes++;
+
+#ifdef COUNT_NOTES_DEBUG
 std::cout << "Player notes: " << m_numPlayerNotes
   << " Score notes: " << m_numScoreNotes << "\n";
+#endif
   }
 
   if (m_numScoreNotes > m_numPlayerNotes)
@@ -201,8 +301,11 @@ void GSHero::OnMusicKbEvent(const MusicKbEvent& e)
   {
     //m_noteAttempted = true;
     m_numPlayerNotes++;
+
+#ifdef COUNT_NOTES_DEBUG
 std::cout << "Player notes: " << m_numPlayerNotes
   << " Score notes: " << m_numScoreNotes << "\n";
+#endif
   }
   GradeEvent(e);
 }
@@ -479,6 +582,20 @@ std::cout << "Song length is: " << *songLength << "\n";
 
   // If super hard mode, we don't colour the keys. TODO
   m_keyboard->SetPalette(palette);
+
+  // Get animation controller for translating keyboard
+  elem = GetElementByName(m_gui, "keyboard-anim");
+  if (!elem)
+  {
+    std::cout << "GUI element called \"keyboard-anim\" not found.\n";
+    Assert(0); 
+  }
+  m_keyboardAnim = dynamic_cast<GuiDecAnimation*>(elem);
+  Assert(m_keyboardAnim);
+
+  // The child of this animator is the translate decorator for the keyboard
+  m_keyboardTranslate = dynamic_cast<GuiDecTranslate*>(m_keyboardAnim->GetChild());
+  Assert(m_keyboardTranslate);
 
   // Hide GUI elements
   ShowFeedbackBalloon(false);

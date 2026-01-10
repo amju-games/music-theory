@@ -4,6 +4,7 @@
 #pragma once
 
 #include <GuiDecAnimation.h>
+#include <GuiDecTranslate.h>
 #include <Singleton.h>
 #include "GSBase.h"
 #include "GuiMusicKb.h"
@@ -39,6 +40,10 @@ public:
 
 protected:
   void InitGui();
+
+  // Look ahead at note events coming up, and translate the keyboard
+  //  if necessary, so the keys are on screen.
+  void UpdateKeyboardPosition();
  
   // Grade player input event against what we think is the corresponding
   //  event in the score.
@@ -68,6 +73,13 @@ protected:
 
   // The keyboard
   RCPtr<GuiMusicKb> m_keyboard;
+
+  // Animation controller for keyboard translate
+  RCPtr<GuiDecAnimation> m_keyboardAnim;
+
+  // The translation animated by the above anim. This moves
+  //  the keyboard so needed notes are on screen.
+  RCPtr<GuiDecTranslate> m_keyboardTranslate;
 
   // This is for when we grade player input events.
   // This iterator points to the last note event (in m_scrollScore) which

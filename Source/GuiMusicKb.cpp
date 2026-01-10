@@ -43,6 +43,10 @@ GuiMusicKb::~GuiMusicKb()
   
 void GuiMusicKb::Draw()
 {
+  // After drawing/culling, we should know which keys are on screen.
+  m_onScreenMin = 127;
+  m_onScreenMax = -1;
+
   Shader* shader = AmjuGL::GetCurrentShader();
   AmjuGL::UseShader(nullptr);
 
@@ -98,10 +102,15 @@ void GuiMusicKb::Draw()
 
     AmjuGL::SetColour(key.m_colour);
 
-    // Cull off screen keys, sigh
+    // Calc projected AABB as a rectangle
+    key.CalcRect();
+
+    // Cull off-screen keys; store the range of keys which are on screen.
     if (   key.m_projectedRect.GetMin(0) <  1.f
         && key.m_projectedRect.GetMax(0) > -1.f)
     {
+      m_onScreenMin = std::min(m_onScreenMin, key.m_midiNote);
+      m_onScreenMax = std::max(m_onScreenMax, key.m_midiNote);
       key.m_mesh->Draw();
     }
 
@@ -110,10 +119,16 @@ void GuiMusicKb::Draw()
     DrawAABB(key.m_mesh->GetAABB());
 #endif
 
-    // Get projected AABB as a rectangle
-    key.CalcRect();
-
     AmjuGL::PopMatrix();
+
+    // We can bail once we've drawn the rightmost key, no?
+    // We have to calc all the projected rects once tho. Hmm.
+    /*
+    if (key.m_projectedRec.GetMin(0) > 1.f)
+    {
+      break; 
+    }
+    */
   }
   m_kbWidth = x;
 
@@ -409,6 +424,16 @@ int GuiMusicKb::GetMaxKey() const
   Assert(!m_keys.empty());
   int maxKey = m_keys.back()->m_midiNote;
   return maxKey;
+}
+
+int GuiMusicKb::GetMinKeyOnScreen() const
+{
+  return m_onScreenMin;
+}
+
+int GuiMusicKb::GetMaxKeyOnScreen() const
+{
+  return m_onScreenMax;
 }
 
 GuiMusicKb::PKey GuiMusicKb::GetKey(int midiNote)

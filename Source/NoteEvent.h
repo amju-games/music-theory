@@ -6,7 +6,6 @@ namespace Amju
 {
   // Note on/off events, which we load along with glyphs. This makes it easier to
   //  add midi note events to a score.
-  // TODO Hoist out this type, it's general purpose.
   struct NoteEvent
   {
     NoteEvent() = default;

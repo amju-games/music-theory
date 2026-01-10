@@ -70,6 +70,9 @@ public:
   int GetMinKey() const;
   int GetMaxKey() const;
 
+  int GetMinKeyOnScreen() const;
+  int GetMaxKeyOnScreen() const;
+
 private:
 
   // Find key picked by user
@@ -97,6 +100,10 @@ private:
   bool m_tapDownScroll = false; // true when we have touched down to drag KB left or right
   
   PKey m_lastKey; // last key pressed
+
+  // After a Draw call, these are the min and max MIDI notes of the keys on screen. 
+  int m_onScreenMin = -1;
+  int m_onScreenMax = -1;
 };
 }
 
