@@ -605,8 +605,8 @@ bool GuiMusicKb::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 
 int GuiMusicKb::CountFingersOnKey(PKey key) const 
 {
-  return std::count_if(m_fingers.cbegin(), m_fingers.cend(), 
-    [&](const Finger& f) { return f.m_key.GetPtr() == key.GetPtr(); });
+  return static_cast<int>(std::count_if(m_fingers.cbegin(), m_fingers.cend(),
+    [&](const Finger& f) { return f.m_key.GetPtr() == key.GetPtr(); }));
 }
 
 // Touch down event: add a new finger
