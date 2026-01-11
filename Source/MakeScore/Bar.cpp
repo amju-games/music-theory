@@ -157,7 +157,7 @@ void Bar::AddNote(const std::string& s, int pitch, int switches)
   NoteGlyph* gl = new NoteGlyph(s, order);
   gl->SetScale(m_scale);
 
-  gl->SetSwitches(switches); // but can pause a rest
+  gl->SetPerformance(switches); // but can pause a rest
 
   gl->SetPitch(pitch);
 
@@ -247,7 +247,7 @@ void Bar::AddBeam(const std::string& s)
   }
 }
 
-std::string Bar::ToString(bool oneLine)
+std::string Bar::ToString()
 {
   std::string res;
 
@@ -263,7 +263,7 @@ std::string Bar::ToString(bool oneLine)
 
       y += s * DOUBLE_STAVE_DISTANCE;
       res += GetClefOutputString(m_currentClef[s], s, x, y, m_scale) + 
-        LineEnd(oneLine);
+        LineEnd();
     }
   }
 
@@ -280,14 +280,14 @@ std::string Bar::ToString(bool oneLine)
       float y = m_y;
       y += s * DOUBLE_STAVE_DISTANCE;
       res += GetKeySigOutputString(m_keySig, m_currentClef[s], s, x, y, m_scale) + 
-        LineEnd(oneLine);
+        LineEnd();
     }
   }  
 
   // Optional time sig
   if (m_timeSigGlyph)
   {
-    res += m_timeSigGlyph->ToString() + LineEnd(oneLine);
+    res += m_timeSigGlyph->ToString() + LineEnd();
   }
 
   // Set display names for beamed (semi)quavers etc. 
@@ -300,13 +300,13 @@ std::string Bar::ToString(bool oneLine)
 
   for (auto& g : m_glyphs)
   {
-    res += g->ToString() + LineEnd(oneLine);
+    res += g->ToString() + LineEnd();
   }
 
   for (auto& b : m_beams)
   {
     b->SetScale(m_scale);
-    res += b->ToString() + LineEnd(oneLine);
+    res += b->ToString() + LineEnd();
   }
 
   // Bar lines: just at the end of the bar, right?
@@ -321,7 +321,7 @@ std::string Bar::ToString(bool oneLine)
   res +=
     "bar-line, " + Str(m_x + m_width) + ", " + Str(m_y) +
     ", " + Str(m_scale) + ", " + Str(m_scale) +
-    LineEnd(oneLine);
+    LineEnd();
 
   return res;
 }

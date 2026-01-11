@@ -9,7 +9,7 @@
 
 #pragma once
 
-enum Switch
+enum Performance
 {
   SW_STACCATO = 0x01,
   SW_ACCENT   = 0x02,
@@ -17,8 +17,8 @@ enum Switch
 };
 
 // Set bit in bitfield. Also return new value for bitfield.
-int SetSwitch(int& bitfield, Switch s);
+int SetPerformance(int& bitfield, Performance s);
 
 // Clear bit in bitfield. Also return new value for bitfield.
-int ClearSwitch(int& bitfield, Switch s);
+int ClearPerformance(int& bitfield, Performance s);
 

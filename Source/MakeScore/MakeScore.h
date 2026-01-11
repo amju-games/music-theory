@@ -28,7 +28,7 @@
 class MakeScore
 {
 public:
-  MakeScore() = default; // can load Music XML file for input
+  MakeScore() = default;
 
   void SetInputString(const std::string& in) { m_input = in; }
   // Create with input string
@@ -41,12 +41,19 @@ public:
 
   std::string ToString();
   void MakeInternal();
+
+  // For testing
+  const Strings& GetOutputLines() const { return m_outputLines; }
+
   void SetScale(float scale) { m_scale = scale; }
   void SetY(float y) { m_y = y; }
 
   // Add beam groupings
   // Replace beamed quaver/semiquaver glyphs with crotchet glyphs
   void Preprocess();
+
+  // Strip unnecessary TIME data
+  void Postprocess(); 
 
   void SetOutputOneLine(bool oneLine)
   {
@@ -59,12 +66,13 @@ public:
   }
 
 private:
+  void ToStringInternal(); // Populate m_outputStrings
 
   bool IsHairpin(const std::string& s);
 
   bool IsSlur(const std::string& s);
 
-  bool IsSwitch(const std::string& s);
+  bool IsPerformance(const std::string& s);
 
   // Attach t to the last glyph added, if there is one; set left or
   //  right parent.
@@ -152,5 +160,7 @@ private:
 
   // Bit field for staccato, accent, pause, etc., per stave
   int m_switches[MAX_NUM_STAVES] = { 0, 0, 0, 0 };
+
+  Strings m_outputLines;
 };
 

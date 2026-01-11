@@ -31,7 +31,7 @@
 #include "KeySig.h"
 #include "MakeScore.h"
 #include "Pitch.h"
-#include "Switch.h"
+#include "Performance.h"
 #include "TimeSig.h"
 #include "TimeValue.h"
 #include "tinyxml2.h"
@@ -57,11 +57,6 @@ float GetHeight(BeamLevel bl)
 {
   // Relies on the int values 0, 1...
   return static_cast<float>(bl);
-}
-
-std::string LineEnd(bool oneLine)
-{
-  return (oneLine ? ";" : "\n");
 }
 
 bool MakeScore::IsSlur(const std::string& s)
@@ -113,15 +108,15 @@ bool MakeScore::IsHairpin(const std::string& s)
   return true;
 }
 
-bool MakeScore::IsSwitch(const std::string& s)
+bool MakeScore::IsPerformance(const std::string& s)
 {
   if (s == "<stacc>")
   {
-    SetSwitch(m_switches[m_stave], SW_STACCATO);
+    SetPerformance(m_switches[m_stave], SW_STACCATO);
   }
   else if (s == "</stacc>")
   {
-    ClearSwitch(m_switches[m_stave], SW_STACCATO);
+    ClearPerformance(m_switches[m_stave], SW_STACCATO);
   }
   else
   {
@@ -167,7 +162,7 @@ void MakeScore::AddTokens()
       // Tie prev and next notes - we can get position of prev.
       AddTie();
     }
-    else if (IsSwitch(s))
+    else if (IsPerformance(s))
     {
       // Nothing to do, if it's a switch, we flip a value
     }
@@ -387,6 +382,8 @@ void MakeScore::MakeInternal()
   CalcBarSizesAndPositions();
 
   CalcStartTimes();
+
+  ToStringInternal();
 }
 
 void MakeScore::CalcStartTimes()
@@ -450,6 +447,16 @@ void MakeScore::CalcBarSizesAndPositions()
 std::string MakeScore::ToString()
 {
   std::string res;
+  for (const auto& s : m_outputLines)
+  {
+    res += s + "\n";
+  }
+  return res;
+}
+
+void MakeScore::ToStringInternal()
+{
+  std::string res;
 
   // First, output a stave. For rhythm only, it's a single line.
   // TODO Multiple lines 
@@ -459,7 +466,7 @@ std::string MakeScore::ToString()
 
   for (const auto& b : m_bars)
   {
-    res += b->ToString(m_outputOnOneLine);
+    res += b->ToString();
   }
 
   for (const auto& t : m_ties)
@@ -477,7 +484,7 @@ std::string MakeScore::ToString()
   // Output every beat, with its normalized time.   
   res += OutputBeats(); // TODO turn off if not required
 
-  return res;
+  m_outputLines = Split(res, '\n');
 }
 
 std::string MakeScore::OutputBeats() const

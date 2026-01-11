@@ -8,6 +8,11 @@
 
 #include <sstream>
 #include <string>
+#include <vector>
+
+using Strings = std::vector<std::string>;
+
+Strings Split(const std::string& s, char splitChar);
 
 void Trim(std::string& s);
 
@@ -22,11 +27,9 @@ void StripQuotes(std::string& s);
 
 bool IsQuote(char c);
 
+std::string LineEnd(bool oneLine = false);
+
 // Like to_string(), but chops trailing zeroes from floats
-template <typename T> std::string Str(T f);
-
-std::string LineEnd(bool oneLine);
-
 // Str - convert given argument to a string
 // For floats, this results in no trailing zeros, nice
 template <typename T>

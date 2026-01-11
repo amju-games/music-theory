@@ -7,14 +7,14 @@
 //  into list of glyphs.
 //
 
-#include "Switch.h"
+#include "Performance.h"
 
-int SetSwitch(int& bitfield, Switch s)
+int SetPerformance(int& bitfield, Performance s)
 {
   return (bitfield |= static_cast<int>(s));
 }
 
-int ClearSwitch(int& bitfield, Switch s)
+int ClearPerformance(int& bitfield, Performance s)
 {
   return (bitfield &= ~(static_cast<int>(s)));
 }

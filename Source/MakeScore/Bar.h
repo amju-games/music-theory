@@ -61,7 +61,8 @@ public:
 
   void SetClef(Clef clef);
 
-  std::string ToString(bool oneLine);
+  // Return string comprising multiple lines, each line a separate glyph.
+  std::string ToString();
 
   // Get the rough width for the bar by adding up the sequential
   //  glyphs, and adding extra for clefs, key sigs, time sigs.

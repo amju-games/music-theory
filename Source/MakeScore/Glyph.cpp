@@ -5,7 +5,7 @@
 // Sub-project for human-friendly authoring of musical notation.
 
 #include "Glyph.h"
-#include "Switch.h"
+#include "Performance.h"
 
 std::string Glyph::ToString() const
 {

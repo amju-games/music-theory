@@ -42,7 +42,7 @@ struct Glyph : public IGlyph
   // Set this glyph as the right hand side of the given tie
   void SetTieRight(Tie* tie) { m_tieRight = tie; }
 
-  void SetSwitches(int switches) { m_switches = switches; }
+  void SetPerformance(int switches) { m_switches = switches; }
 
   // Use input token and state to generate output text for this glyph.
   // This is used by note and rest glyphs to output full string of glyphs -- not

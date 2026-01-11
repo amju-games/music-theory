@@ -43,7 +43,8 @@ std::string Hairpin::ToString() const
     Str(m_rightX * scaleX) + ", " + Str((Y + hr + TH) * scaleY)  + ", " +
     Str(m_leftX * scaleX)  + ", " + Str((Y + hl + TH) * scaleY)  + ", " +
     Str(m_leftX * scaleX)  + ", " + Str((Y + hl) * scaleY)       +
-    " ; quad, " + 
+    LineEnd() + 
+    "quad, " + 
     Str(m_rightX * scaleX) + ", " + Str((Y - hr) * scaleY) + ", " +
     Str(m_rightX * scaleX) + ", " + Str((Y - hr + TH) * scaleY) + ", " +
     Str(m_leftX * scaleX)  + ", " + Str((Y - hl + TH) * scaleY) + ", " +

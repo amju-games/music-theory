@@ -6,7 +6,8 @@
 
 #include <cassert>
 #include "NoteGlyph.h"
-#include "Switch.h"
+#include "Suppress.h"
+#include "Performance.h"
 
 void NoteGlyph::AdjustAccidental(Accidental previousAcc)
 {
@@ -159,6 +160,7 @@ std::string NoteGlyph::GetStaccatoStr() const
     // Dot glyph name is just '.' 
     res = " ; ., " + Str(staccX) + ", " + Str(staccY) + 
       AddScaleStringIfRequired();
+    res += LineEnd();
   }
   return res;
 }
@@ -178,6 +180,7 @@ std::string NoteGlyph::ToString() const
 
   res += displayGlyphName + ", " + Str(x) + ", " + Str(y) +
     AddScaleStringIfRequired();
+  res += LineEnd();
  
   if (m_accidental != Accidental::ACCIDENTAL_NONE)
   {
@@ -185,6 +188,7 @@ std::string NoteGlyph::ToString() const
     res += " ; " + GetAccidentalStr() + ", "  + 
       Str(x + ACC_X_OFFSET) + ", " + Str(y) + 
       AddScaleStringIfRequired();
+    res += LineEnd();
   }
  
   // Add ledger lines - below
@@ -193,6 +197,7 @@ std::string NoteGlyph::ToString() const
     float ledgerY = y - (s + 2) * 0.05f;
     res += " ; ledger-w, " + Str(x) + ", " + Str(ledgerY) +
       AddScaleStringIfRequired();
+    res += LineEnd();
   }
   // Above
   for (int s = m_staveLine; s > 9; s -= 2)
@@ -200,6 +205,7 @@ std::string NoteGlyph::ToString() const
     float ledgerY = y - (s - 10) * 0.05f;
     res += " ; ledger-w, " + Str(x) + ", " + Str(ledgerY) +
       AddScaleStringIfRequired();
+    res += LineEnd();
   }
 
   // Add staccato dot
@@ -227,12 +233,18 @@ std::string NoteGlyph::TimeBefore() const
     {
       t = timeval * 0.5f + startTime; // halve length of note
     }
-    res += "TIME, " + Str(start) + ", " + Str(t) + " ; ";
-
-    if (!IsRest(realGlyphName) && !m_tieRight)
+    if ((GetSuppressFlags() & META_TIME) == 0)
     {
+      res += "TIME, " + Str(start) + ", " + Str(t) + LineEnd();
+    }
+    if (   !IsRest(realGlyphName) 
+        && !m_tieRight 
+        && (GetSuppressFlags() & META_NOTE) == 0)
+    {
+      // NB If we suppress times, we won't know when to play the note --
+      //  note meta data should include start time.
       // Output MIDI note event, unless on RHS of a tie
-      res += "NOTE_ON, " + Str(pitch) + ", " + Str(start) + " ; ";
+      res += "NOTE_ON, " + Str(pitch) + ", " + Str(start) + LineEnd();
     }
   }
   return res;
@@ -245,7 +257,9 @@ std::string NoteGlyph::TimeAfter() const
   bool yesTime = (timeval > 0);
   if (yesTime)
   {
-    if (!IsRest(realGlyphName) && !m_tieLeft)
+    if (   !IsRest(realGlyphName) 
+        && !m_tieLeft
+        && (GetSuppressFlags() & META_NOTE) == 0)
     {
       // Output MIDI note off event, unless the note is on LHS of a tie,
       //  in which case it will last longer.
@@ -256,12 +270,15 @@ std::string NoteGlyph::TimeAfter() const
       {
         t = timeval * 0.5f + startTime; // halve length of note
       }
-      res += " ; NOTE_OFF, " + Str(pitch) + ", " + Str(t);
+      res += "NOTE_OFF, " + Str(pitch) + ", " + Str(t) + LineEnd();
     }
 
     // Cancel time for subsequent glyphs (but postprocess to strip out
     //  unnecessary cancellations)
-    res += " ; TIME, -1, -1";
+    if ((GetSuppressFlags() & META_TIME) == 0)
+    {
+      res += "TIME, -1, -1" + LineEnd();
+    }
   }
   return res;
 }

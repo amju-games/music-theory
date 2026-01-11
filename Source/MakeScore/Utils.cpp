@@ -7,6 +7,13 @@
 #include <algorithm> // remove
 #include "Utils.h"
 
+std::string LineEnd(bool oneLine)
+{
+  // ";" as delimiter is deprecated; we can string all the lines together
+  //  as a simple postprocessing step if we need to.
+  return ("\n");
+}
+
 float Interp(float f0, float f1, float t)
 {
   return f0 + (f1 - f0) * t;
@@ -68,3 +75,34 @@ void StripQuotes(std::string& s)
   }
 }
 
+Strings Split(const std::string& cs, char c)
+{
+  Strings r;
+  std::string s(cs);
+  while (true) 
+  {
+    size_t i = s.find(c);
+    if (i == std::string::npos)
+    {   
+      // No special character found, so push back the entire string and finish.
+      r.push_back(s);
+#ifdef SPLIT_DEBUG
+      std::cout << "Split: final string: " << s.c_str() << "\n";
+#endif
+      break; 
+    }         
+    else
+    {   
+      // Found the special character. 
+      // Push back whatever is before the character, then work on the remainder
+      // of the string.
+#ifdef SPLIT_DEBUG
+      std::cout << "Split: string: " << s.substr(0, i).c_str() << " rem: " << s.substr(i + 1).c_str() << "\n";
+#endif 
+      r.push_back(s.substr(0, i));
+      s = s.substr(i + 1); 
+      Trim(s); // Allow whitespace, get rid of it here
+    }   
+  }
+  return r;
+}
