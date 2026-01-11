@@ -196,11 +196,11 @@ void MakeScore::AddTokens()
     }
     else if (IsDeferredPitch(s))
     {
-      m_lastPitch = GetPitch(s) + m_transpose;
+      m_lastPitch = GetPitch(s); // + m_transpose;
     }
     else if (IsImmediatePitch(s))
     {
-      m_lastPitch = GetPitch(s) + m_transpose;
+      m_lastPitch = GetPitch(s); // + m_transpose;
       AddNote();
     }
     else if (IsRest(s))

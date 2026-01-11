@@ -46,7 +46,7 @@ void NoteGlyph::CalcAccidental(KeySig ks)
 {
   // Is pitch in ks, or do we need an accidental?
   // Get note 0..11, then look up note in the given key 
-  int note = pitch % 12;
+  int note = pitch.m_midi % 12;
 
   const auto S = Accidental::ACCIDENTAL_SHARP;
   const auto s = Accidental::ACCIDENTAL_SHARP_IN_KEY_SIG;
@@ -195,7 +195,7 @@ std::string NoteGlyph::ToString() const
   for (int s = m_staveLine; s < -1; s += 2)
   {
     float ledgerY = y - (s + 2) * 0.05f;
-    res += " ; ledger-w, " + Str(x) + ", " + Str(ledgerY) +
+    res += "ledger-w, " + Str(x) + ", " + Str(ledgerY) +
       AddScaleStringIfRequired();
     res += LineEnd();
   }
@@ -203,7 +203,7 @@ std::string NoteGlyph::ToString() const
   for (int s = m_staveLine; s > 9; s -= 2)
   {
     float ledgerY = y - (s - 10) * 0.05f;
-    res += " ; ledger-w, " + Str(x) + ", " + Str(ledgerY) +
+    res += "ledger-w, " + Str(x) + ", " + Str(ledgerY) +
       AddScaleStringIfRequired();
     res += LineEnd();
   }
@@ -244,7 +244,7 @@ std::string NoteGlyph::TimeBefore() const
       // NB If we suppress times, we won't know when to play the note --
       //  note meta data should include start time.
       // Output MIDI note event, unless on RHS of a tie
-      res += "NOTE_ON, " + Str(pitch) + ", " + Str(start) + LineEnd();
+      res += "NOTE_ON, " + Str(pitch.m_midi) + ", " + Str(start) + LineEnd();
     }
   }
   return res;
@@ -270,7 +270,7 @@ std::string NoteGlyph::TimeAfter() const
       {
         t = timeval * 0.5f + startTime; // halve length of note
       }
-      res += "NOTE_OFF, " + Str(pitch) + ", " + Str(t) + LineEnd();
+      res += "NOTE_OFF, " + Str(pitch.m_midi) + ", " + Str(t) + LineEnd();
     }
 
     // Cancel time for subsequent glyphs (but postprocess to strip out

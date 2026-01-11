@@ -9,6 +9,7 @@
 #include "Accidental.h"
 #include "Glyph.h"
 #include "KeySig.h"
+#include "Pitch.h"
 
 // * NoteGlyph *
 struct NoteGlyph : public Glyph
@@ -25,9 +26,9 @@ struct NoteGlyph : public Glyph
 
   std::string ToString() const override;
 
-  void SetPitch(int pitch_)
+  void SetPitch(Pitch p)
   {
-    pitch = pitch_;
+    pitch = p;
   }
 
   void SetDisplayNameForBeamedNote();
@@ -48,7 +49,7 @@ struct NoteGlyph : public Glyph
   std::string GetStaccatoStr() const;
 
 
-  int pitch = DEFAULT_PITCH;
+  Pitch pitch;
 
   Accidental m_accidental = Accidental::ACCIDENTAL_NONE;
 

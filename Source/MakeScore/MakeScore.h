@@ -20,6 +20,7 @@
 #include "Bar.h"
 #include "Consts.h"
 #include "Glyph.h"
+#include "Pitch.h"
 #include "Stave.h"
 #include "Tie.h"
 #include "TimeSigGlyph.h"
@@ -140,8 +141,8 @@ private:
   // Most recently set note (time) value
   std::string m_lastTimeValToken = INPUT_TOKEN_CROTCHET;
 
-  // Most recently set pitch, which is a MIDI note value.
-  int m_lastPitch = DEFAULT_PITCH;
+  // Most recently set pitch
+  Pitch m_lastPitch;
 
   int m_transpose = 0;
 

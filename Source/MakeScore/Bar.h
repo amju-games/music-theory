@@ -15,6 +15,7 @@
 #include "Consts.h"
 #include "Glyph.h"
 #include "KeySig.h"
+#include "Pitch.h"
 #include "Stave.h"
 #include "TimeSig.h"
 #include "TimeSigGlyph.h"
@@ -51,7 +52,7 @@ public:
 
   void SetScale(float scale);
 
-  void AddNote(const std::string& s, int pitch, int switches);
+  void AddNote(const std::string& s, Pitch pitch, int switches);
 
   void AddRest(const std::string& s, int switches);
 
@@ -84,7 +85,7 @@ public:
 
   // Calc y-position for glyph, given stave type and pitch. (We then offset
   //  this later on, depending on the clef.)
-  void CalcGlyphY(Glyph* gl, int pitch) const;
+  void CalcGlyphY(Glyph* gl, Pitch pitch) const;
 
   void SetStaveType(StaveType st) { m_staveType = st; }
 

@@ -11,13 +11,55 @@
 
 
 #include "catch.hpp"
-#include "../MakeScore.h" 
+#include "MakeScore.h" 
+#include "Suppress.h"
 
-TEST_CASE("Test MakeScore Broken", "MakeScore")
+void MatchStart(const std::string& container, const std::string& containedAtStart)
 {
-  MakeScore ms("c"); // one bar of one crotchet
-  ms.MakeInternal();
-  REQUIRE(ms.ToString() == "crotchet");
+  REQUIRE(container.size() >= containedAtStart.size());
+  REQUIRE(container.substr(0, containedAtStart.size()) == containedAtStart);
 }
 
+TEST_CASE("treble-clef", "MakeScore")
+{
+  MakeScore ms("clef-t");
+  ms.MakeInternal();
+  const auto& strs = ms.GetOutputLines();
+  MatchStart(strs[0], "stave");
+  MatchStart(strs[1], "treble-clef");
+}
 
+TEST_CASE("crotchet, midi pitch", "MakeScore")
+{
+  SetSuppressFlags(SUPPRESS_ALL);
+  MakeScore ms("clef-t <c> 60");
+  ms.MakeInternal();
+  const auto& strs = ms.GetOutputLines();
+  MatchStart(strs[0], "stave");
+  MatchStart(strs[1], "treble-clef");
+  MatchStart(strs[2], "crotchet");
+}
+
+TEST_CASE("crotchet, musicxml pitch", "MakeScore")
+{
+  SetSuppressFlags(SUPPRESS_ALL);
+  MakeScore ms("clef-t <c> c4");
+  ms.MakeInternal();
+  const auto& strs = ms.GetOutputLines();
+  MatchStart(strs[0], "stave");
+  MatchStart(strs[1], "treble-clef");
+  MatchStart(strs[2], "crotchet");
+}
+
+TEST_CASE("pitch", "MakeScore")
+{
+  REQUIRE(GetPitch("60").m_midi == 60);
+  REQUIRE(GetPitch("c4").m_midi == 60);
+  REQUIRE(GetPitch("72").m_midi == 72);
+  REQUIRE(GetPitch("c5").m_midi == 72);
+  REQUIRE(GetPitch("c5+").m_midi == 73);
+  REQUIRE(GetPitch("c5++").m_midi == 74);
+  REQUIRE(GetPitch("d5-").m_midi == 73);
+  REQUIRE(GetPitch("d5").m_midi == 74);
+  REQUIRE(GetPitch("e5").m_midi == 76);
+}

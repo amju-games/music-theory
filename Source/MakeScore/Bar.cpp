@@ -91,7 +91,7 @@ void Bar::SetScale(float scale)
   m_scale = scale;
 }
 
-void Bar::CalcGlyphY(Glyph* gl, int pitch) const
+void Bar::CalcGlyphY(Glyph* gl, Pitch pitch) const
 {
   switch (m_staveType)
   {
@@ -126,9 +126,9 @@ void Bar::CalcGlyphY(Glyph* gl, int pitch) const
     int clef = static_cast<int>(m_currentClef[m_currentStave]);
     // Choose stave position depending on key sign type (sharp/flat)
     int sharpOrFlat = (m_keySig >= KEYSIG_0_FLAT) ? 1 : 0;
-    int staveLine = Y_POS[sharpOrFlat][pitch % 12] + CLEF_OFFSET[clef];
+    int staveLine = Y_POS[sharpOrFlat][pitch.m_midi % 12] + CLEF_OFFSET[clef];
     // Use the octave to shunt note up or down
-    int octave = (pitch / 12 - 5) * 7; // so middle C is 0
+    int octave = (pitch.m_midi / 12 - 5) * 7; // so middle C is 0
     staveLine += octave;
     float y = static_cast<float>(staveLine) * 0.05f;
     // TODO Offset y for stave > 1
@@ -150,7 +150,7 @@ void Bar::AddRest(const std::string& s, int switches)
   m_glyphs.push_back(std::unique_ptr<Glyph>(gl));
 }
 
-void Bar::AddNote(const std::string& s, int pitch, int switches)
+void Bar::AddNote(const std::string& s, Pitch pitch, int switches)
 {
   int order = static_cast<int>(m_glyphs.size());
 
