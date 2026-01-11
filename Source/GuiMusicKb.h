@@ -27,6 +27,9 @@ public:
   virtual bool OnMouseButtonEvent(const MouseButtonEvent&) override;
   virtual bool OnCursorEvent(const CursorEvent&) override;
 
+  // Release all keys: safety net to make sure no notes playing
+  void ReleaseAllKeys();
+
   // Store palette and apply the contents to the keys.
   // The "colour names" for this palette are MIDI pitch values, e.g.
   //  60=ff0000
@@ -66,6 +69,7 @@ public:
 
   // Get key: midi note is unique ID
   PKey GetKey(int midiNote);
+
   // Get range of midi notes covered by this keyboard
   int GetMinKey() const;
   int GetMaxKey() const;
@@ -73,8 +77,7 @@ public:
   int GetMinKeyOnScreen() const;
   int GetMaxKeyOnScreen() const;
 
-private:
-
+protected:
   // Find key picked by user
   PKey PickKey(const Vec2f& pos);
   
@@ -83,10 +86,42 @@ private:
 
   void ReleaseKey(Key* key);
 
-  // Release all keys: good safety net but means KB is monophonic
-  void ReleaseAllKeys();
+  // * Finger *
+  // Keep track of touch down/move/up events
+  struct Finger
+  {
+    Finger() = default;
+    explicit Finger(const Vec2f& pos) : m_pos(pos) {}
 
-private:
+    // Location at which we touched down
+    // Is this useful?
+    Vec2f m_touchDownPos;
+
+    // Most recent position
+    Vec2f m_pos;
+
+    // Most recent key we pick - this can change as touch moves
+    PKey m_key;
+  };
+ 
+  using Fingers = std::vector<Finger>;
+  Fingers m_fingers;
+
+  // Touch down event: add a new finger
+  void AddFinger(const Vec2f& touchDownPos);
+  
+  // Touch up event: remove finger
+  void EraseClosestFinger(const Vec2f& touchUpPos);
+
+  // Move event: update closest finger
+  void MoveClosestFinger(const Vec2f& cursorPos);
+
+  Fingers::iterator FindClosestFinger(const Vec2f& pos);
+
+  // Count the number of fingers on the given key
+  int CountFingersOnKey(PKey key) const;
+
+protected:
   // Total width of keyboard
   float m_kbWidth = 0.f;
 

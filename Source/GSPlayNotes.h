@@ -14,7 +14,8 @@ class GSPlayNotes : public GSBase
 {
 public:
   GSPlayNotes();
-  virtual void Update() override;
+  void Update() override;
+  void OnActive() override;
 };
 
 typedef Singleton<GSPlayNotes> TheGSPlayNotes;

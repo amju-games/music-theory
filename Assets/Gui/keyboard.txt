@@ -34,7 +34,7 @@ kb-comp
 1
 
 translate
--4.8, 0
+-4.8, -0.06
 
 // The keyboard
 music-kb

@@ -1,15 +1,42 @@
 // * Amjula music theory *
 // (c) Copyright 2024 Juliet Colman
 
-#include <AmjuGL.h>
-#include <SoundManager.h>
+#include <EventPoller.h>
 #include <Timer.h>
-#include <Teapot.h>
 #include "GSPlayNotes.h"
-#include "PlayMidi.h"
 
 namespace Amju
 {
+void Queue(Event* e)
+{
+  TheEventPoller::Instance()->GetImpl()->QueueEvent(e);
+}
+
+MouseButtonEvent* MouseEvent(bool down, float x, float y)
+{
+  auto mbe = new MouseButtonEvent;
+  mbe->button = AMJU_BUTTON_MOUSE_LEFT;
+  mbe->isDown = down;
+  mbe->x = x;
+  mbe->y = y;
+  return mbe;
+}
+
+void SendMouseDownEvents()
+{
+  Queue(MouseEvent(true, 0, -0.5f));
+  Queue(MouseEvent(true, 0.4f, -0.5f));
+//  Queue(MouseEvent(true, -0.2f, -0.5f));
+}
+
+void SendMouseUpEvents()
+{
+  Queue(MouseEvent(false, 0, -0.5f));
+  Queue(MouseEvent(false, 0.4f, -0.5f));
+//  Queue(MouseEvent(false, -0.2f, -0.5f));
+}
+
+
 GSPlayNotes::GSPlayNotes()
 {
   m_guiFilename = "Gui/gs_play_notes.txt";
@@ -18,42 +45,22 @@ GSPlayNotes::GSPlayNotes()
 void GSPlayNotes::Update()
 {
   GSBase::Update();
-  return;
-  
-  static float t = 0;
-  static bool isOn = false;
-  float dt = TheTimer::Instance()->GetDt();
-  t += dt;
-  const float NOTE_TIME = 0.2f;
-  static int note = 0;
-  static int oldNote = note;
-  static float noteTime = 0;
-  noteTime += dt * 0.25f;
+}
 
-  bool yesSustain = true;
+void GSPlayNotes::OnActive()
+{
+  GSBase::OnActive();
 
-  if (t > NOTE_TIME)
-  {
-    if (yesSustain)
-    {
-      PlayMidi(oldNote, 0);
-    }
-    else
-    {
-      PlayMidi(note, 0);
-    }
-    t = 0;
-    isOn = false;
-  }
-  else if (t > 0 && !isOn)
-  {
-    oldNote = note;
-    note = (int)(30 * sin(noteTime));
+  // Simulate mouse button and cursor (mouse move) events,
+  //  to get polyphony working
 
-    PlayMidi(note, 127);
+  TheMessageQueue::Instance()->Add(new FuncMsg(
+    SendMouseDownEvents,
+    SecondsFromNow(1.f)));
 
-    isOn = true;
-  }
+  TheMessageQueue::Instance()->Add(new FuncMsg(
+    SendMouseUpEvents,
+    SecondsFromNow(4.f)));
 }
 }
 

@@ -23,6 +23,8 @@
 #undef max
 #endif
 
+#define MUSIC_KB_DEBUG
+
 // If defined, we allow the user to drag across the keyboard, pressing and releasing
 //  keys accordingly.
 #define YES_GLISSANDO
@@ -43,7 +45,7 @@ GuiMusicKb::~GuiMusicKb()
   
 void GuiMusicKb::Draw()
 {
-  // After drawing/culling, we should know which keys are on screen.
+  // After drawing/culling, we know which keys are on screen.
   m_onScreenMin = 127;
   m_onScreenMax = -1;
 
@@ -393,7 +395,8 @@ void GuiMusicKb::PressKey(Key* key)
     return;
   }
 
-  ReleaseKey(m_lastKey);
+  // Don't do this, it prevents polyphony
+//  ReleaseKey(m_lastKey);
 
   m_lastKey = key;
 
@@ -541,8 +544,10 @@ bool GuiMusicKb::OnCursorEvent(const CursorEvent& ce)
   if (m_tapDown)
   {
     m_tapDownPos = Vec2f(ce.x, ce.y);
-    Key* key = PickKey(m_tapDownPos);
-    PressKey(key);
+    //Key* key = PickKey(m_tapDownPos);
+    //PressKey(key);
+
+    MoveClosestFinger(m_tapDownPos);
   }
 #endif // YES_GLISSANDO
 
@@ -572,19 +577,99 @@ bool GuiMusicKb::OnMouseButtonEvent(const MouseButtonEvent& mbe)
   {
     m_tapDown = true;
 
+    // Store most recent tap down pos: useful for glissando..?
     m_tapDownPos = Vec2f(mbe.x, mbe.y);
-    Key* key = PickKey(m_tapDownPos);
-    PressKey(key);
+    //Key* key = PickKey(m_tapDownPos);
+    //PressKey(key);
+
+    AddFinger(m_tapDownPos);
   }
-  else
+
+  if (!mbe.isDown)
   {
+    auto tapDownPos = Vec2f(mbe.x, mbe.y);
+    EraseClosestFinger(tapDownPos);
+
+    //Key* key = PickKey(tapDownPos);
+    //ReleaseKey(key);
+
     m_tapDown = false;
     m_tapDownScroll = false;
-    ReleaseAllKeys(); // safety net
+
+    // Prevents polyphony
+    //ReleaseAllKeys(); // safety net
   }
 
   return false;
 }
 
+int GuiMusicKb::CountFingersOnKey(PKey key) const 
+{
+  return std::count_if(m_fingers.cbegin(), m_fingers.cend(), 
+    [&](const Finger& f) { return f.m_key.GetPtr() == key.GetPtr(); });
+}
+
+// Touch down event: add a new finger
+void GuiMusicKb::AddFinger(const Vec2f& pos)
+{
+  Finger f(pos);
+  f.m_key = PickKey(pos);
+  if (f.m_key)
+  {
+    if (CountFingersOnKey(f.m_key) == 0)
+    {
+      PressKey(f.m_key); // Not if another finger is already on it
+    }
+    m_fingers.push_back(f);
+  }
+}
+  
+// Touch up event: remove finger
+void GuiMusicKb::EraseClosestFinger(const Vec2f& pos)
+{
+  auto it = FindClosestFinger(pos);
+  if (it != m_fingers.end())
+  {
+    if (CountFingersOnKey(it->m_key) == 1)
+    {
+      ReleaseKey(it->m_key); // Not if another finger is still on it
+    }
+    m_fingers.erase(it);
+  }
+}
+
+// Move event: update closest finger
+void GuiMusicKb::MoveClosestFinger(const Vec2f& pos)
+{
+  auto it = FindClosestFinger(pos);
+  if (it != m_fingers.end())
+  {
+    it->m_pos = pos; // Update posision
+    // Has key changed?
+    auto key = PickKey(pos);
+    if (key != it->m_key)
+    {
+      if (CountFingersOnKey(it->m_key) == 1)
+      {
+        ReleaseKey(it->m_key); // Not if another finger is still on it
+      }
+      if (CountFingersOnKey(key) == 0)
+      {
+        PressKey(key); // Not if another finger is still on it
+      }
+      it->m_key = key;
+    }
+  }
+}
+
+GuiMusicKb::Fingers::iterator GuiMusicKb::FindClosestFinger(const Vec2f& pos) 
+{
+  return std::min_element(m_fingers.begin(), m_fingers.end(),
+    [&](const Finger& f1, const Finger& f2) 
+    { 
+      // Compare squared lengths of vectors
+      return (pos - f1.m_pos).SqLen() < (pos - f2.m_pos).SqLen();
+    });
+}
 }
 

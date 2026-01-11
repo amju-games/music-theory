@@ -164,57 +164,52 @@ void PopulateCursorEvent(Amju::CursorEvent* ce, int x, int y)
 {
   float s = self.view.contentScaleFactor;
   
-	int i = 0;
-	for (UITouch* touch in touches)
-	{
-		CGPoint touchPoint = [touch locationInView:self.view];
-		
-		Amju::CursorEvent* ce = new Amju::CursorEvent;
-		PopulateCursorEvent(ce, touchPoint.x * s, touchPoint.y * s);
-		QueueEvent(ce);
+  for (UITouch* touch in touches)
+  {
+    CGPoint touchPoint = [touch locationInView:self.view];
 
-		if (i++ == 0)
-		{
-			Amju::MouseButtonEvent* mbe = new Amju::MouseButtonEvent;
-			mbe->button = Amju::AMJU_BUTTON_MOUSE_LEFT;
-			mbe->isDown = true;
-			PopulateMBEvent(mbe, touchPoint.x * s, touchPoint.y * s);
-			QueueEvent(mbe);
-		}
-	}
+   // Why do we want a cursor event as well as a mouse down event?
+   //Amju::CursorEvent* ce = new Amju::CursorEvent;
+   //PopulateCursorEvent(ce, touchPoint.x * s, touchPoint.y * s);
+   //QueueEvent(ce);
+
+    // Touch down events are treated as left mouse button down events
+    Amju::MouseButtonEvent* mbe = new Amju::MouseButtonEvent;
+    mbe->button = Amju::AMJU_BUTTON_MOUSE_LEFT;
+    mbe->isDown = true;
+    PopulateMBEvent(mbe, touchPoint.x * s, touchPoint.y * s);
+    QueueEvent(mbe);
+  }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
   float s = self.view.contentScaleFactor;
-  
-	int i = 0;
-	for (UITouch* touch in touches)
-	{
-		CGPoint touchPoint = [touch locationInView:self.view];
-		if (i++ == 0)
-		{
-			Amju::MouseButtonEvent* mbe = new Amju::MouseButtonEvent;
-			mbe->button = Amju::AMJU_BUTTON_MOUSE_LEFT;
-			mbe->isDown = false;
-			PopulateMBEvent(mbe, touchPoint.x * s, touchPoint.y * s);
-			QueueEvent(mbe);
-			return; // ignore other data, it this ok ?
-		}
-	}
+
+  for (UITouch* touch in touches)
+  {
+    CGPoint touchPoint = [touch locationInView:self.view];
+
+    // Touch up events are treated as left mouse button up events
+    Amju::MouseButtonEvent* mbe = new Amju::MouseButtonEvent;
+    mbe->button = Amju::AMJU_BUTTON_MOUSE_LEFT;
+    mbe->isDown = false;
+    PopulateMBEvent(mbe, touchPoint.x * s, touchPoint.y * s);
+    QueueEvent(mbe);
+  }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
   float s = self.view.contentScaleFactor;
   
-	for (UITouch* touch in touches)
-	{
-		CGPoint touchPoint = [touch locationInView:self.view];
-		Amju::CursorEvent* ce = new Amju::CursorEvent;
-		PopulateCursorEvent(ce, touchPoint.x * s, touchPoint.y * s);
-		QueueEvent(ce);
-	}
+  for (UITouch* touch in touches)
+  {
+    CGPoint touchPoint = [touch locationInView:self.view];
+    Amju::CursorEvent* ce = new Amju::CursorEvent;
+    PopulateCursorEvent(ce, touchPoint.x * s, touchPoint.y * s);
+    QueueEvent(ce);
+  }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
