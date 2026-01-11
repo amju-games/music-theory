@@ -57,6 +57,9 @@ static ViewController* s_theVc = NULL;
   
     [super viewDidLoad];
     
+    // Enable multi-touch on the main view
+    self.view.multipleTouchEnabled = YES;
+  
     self.context = [[[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2] autorelease];
 
     if (!self.context) {
