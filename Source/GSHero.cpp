@@ -152,10 +152,6 @@ void GSHero::ReloadGui()
 {
   GSBase::ReloadGui();
 
-  // Restart song from count in. It would be nice to start immediately,
-  // e.g.
-  // TheMessageQueue::Instance()->Clear(); // <- no such function exists :(
-  // Start();
   auto sm = TheSoundManager::Instance();
   sm->StopSong();
 }
@@ -172,7 +168,7 @@ void GSHero::IncreaseScore(const Grade& grade)
 
 void GSHero::DecreaseLife(const Grade& grade)
 {
-  m_lifePercent.Add(-1, NUM_UPDATE_NUM_FRAMES);
+  m_lifePercent.Add(-10, NUM_UPDATE_NUM_FRAMES);
 
   if (m_lifePercent.m_internalNumber <= 0)
   {
@@ -197,7 +193,8 @@ void GSHero::OnPlayerHasLost()
 std::cout << "Player has lost this round!\n";
 
   m_roundIsOver = true;
-  // Play record scratch
+
+  PlayWav("record_scratch");
 
   // Stop scrolling - TODO Grind to a halt, not immediate stop
   m_scoreAnim->SetIsPaused(true);
