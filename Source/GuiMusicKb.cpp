@@ -541,12 +541,9 @@ bool GuiMusicKb::OnCursorEvent(const CursorEvent& ce)
 
 #ifdef YES_GLISSANDO
   // Glissando
-  if (m_tapDown)
+  if (m_tapDown) // Not sure this makes any difference
   {
     m_tapDownPos = Vec2f(ce.x, ce.y);
-    //Key* key = PickKey(m_tapDownPos);
-    //PressKey(key);
-
     MoveClosestFinger(m_tapDownPos);
   }
 #endif // YES_GLISSANDO
@@ -579,9 +576,6 @@ bool GuiMusicKb::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 
     // Store most recent tap down pos: useful for glissando..?
     m_tapDownPos = Vec2f(mbe.x, mbe.y);
-    //Key* key = PickKey(m_tapDownPos);
-    //PressKey(key);
-
     AddFinger(m_tapDownPos);
   }
 
@@ -590,14 +584,8 @@ bool GuiMusicKb::OnMouseButtonEvent(const MouseButtonEvent& mbe)
     auto tapDownPos = Vec2f(mbe.x, mbe.y);
     EraseClosestFinger(tapDownPos);
 
-    //Key* key = PickKey(tapDownPos);
-    //ReleaseKey(key);
-
     m_tapDown = false;
     m_tapDownScroll = false;
-
-    // Prevents polyphony
-    //ReleaseAllKeys(); // safety net
   }
 
   return false;
