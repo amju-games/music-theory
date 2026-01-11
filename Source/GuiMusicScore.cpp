@@ -354,7 +354,7 @@ void GuiMusicScore::Animate(float animValue)
   for (int i = 0; i < numGlyphs; i++)
   {
     Glyph& g = m_glyphs[i];
-    Colour col = g.m_colour; // Not, m_fgCol;
+    Colour col = m_fgCol;
     if (g.m_timeMinMax.x <= animValue && g.m_timeMinMax.y > animValue)
     {
       // Add this glyph to highlighted set
