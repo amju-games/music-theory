@@ -94,6 +94,8 @@ private:
   //  to the current Bar.
   void AddNote();
 
+  void AddChord(std::vector<Pitch> chord);
+
   void AddRest(const std::string& s);
 
   void AddClef(const std::string& s);

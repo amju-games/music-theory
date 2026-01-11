@@ -158,7 +158,7 @@ std::string NoteGlyph::GetStaccatoStr() const
     }
    
     // Dot glyph name is just '.' 
-    res = " ; ., " + Str(staccX) + ", " + Str(staccY) + 
+    res = "., " + Str(staccX) + ", " + Str(staccY) + 
       AddScaleStringIfRequired();
     res += LineEnd();
   }
@@ -185,7 +185,7 @@ std::string NoteGlyph::ToString() const
   if (m_accidental != Accidental::ACCIDENTAL_NONE)
   {
     const float ACC_X_OFFSET = -0.2f;
-    res += " ; " + GetAccidentalStr() + ", "  + 
+    res += GetAccidentalStr() + ", "  + 
       Str(x + ACC_X_OFFSET) + ", " + Str(y) + 
       AddScaleStringIfRequired();
     res += LineEnd();

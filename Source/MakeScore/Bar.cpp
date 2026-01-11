@@ -183,6 +183,11 @@ void Bar::AddNote(const std::string& s, Pitch pitch, int switches)
   m_glyphs.push_back(std::unique_ptr<Glyph>(gl));
 }
 
+void Bar::AddChord(
+  const std::string& durationToken, const Chord& ch, int switches)
+{
+}
+
 void Bar::SetClef(Clef clef)
 {
   // Has clef changed? If so, output a mini-clef at the end of the bar.
@@ -353,6 +358,15 @@ void Bar::CalcWidth(int totalNumGlyphs, float pageWidth)
 {
   float relW = GetRelativeWidth();
 
+  if (totalNumGlyphs == 0)
+  {
+    std::cout << "Div by zero! Total num glyphs == 0!\n";
+  }
+  if (m_scale == 0)
+  {
+    std::cout << "Div by zero! m_scale == 0!\n";
+  }
+
   m_width = relW / static_cast<float>(totalNumGlyphs) * pageWidth / m_scale;
 }
 
@@ -428,7 +442,14 @@ void Bar::SetPos(float x, float y)
 
   // Reduce total width, and divide this by the number of glyphs to get 
   //  the distance between each glyph.
-  w = (m_width - reduction - 2 * xoff) / (numGlyphs - 1.0f);
+  if (numGlyphs > 1)
+  {
+    w = (m_width - reduction - 2 * xoff) / (numGlyphs - 1.0f);
+  }
+  else
+  {
+    w = (m_width - reduction - 2 * xoff);
+  }
 
   // Set coord of each glyph
   // Compensate for glyph width, move to the left a bit

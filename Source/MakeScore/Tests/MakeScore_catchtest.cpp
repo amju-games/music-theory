@@ -63,3 +63,14 @@ TEST_CASE("pitch", "MakeScore")
   REQUIRE(GetPitch("d5").m_midi == 74);
   REQUIRE(GetPitch("e5").m_midi == 76);
 }
+
+TEST_CASE("chord", "MakeScore")
+{
+  SetSuppressFlags(SUPPRESS_ALL);
+  MakeScore ms("clef-t <c> (c4 e4)");
+  ms.MakeInternal();
+  const auto& strs = ms.GetOutputLines();
+  MatchStart(strs[2], "crotchet");
+}
+
+

@@ -147,6 +147,8 @@ void MakeScore::AddTokens()
   bool isText = false;
   std::string text;
 
+  Chord chord;
+
   for (int i = 0; i < n; i++)
   {
     std::string s = strs[i]; // copy so we can strip quotes off
@@ -202,6 +204,21 @@ void MakeScore::AddTokens()
     {
       m_lastPitch = GetPitch(s); // + m_transpose;
       AddNote();
+    }
+    else if (s[0] == '(') // Chords are immediate pitches in parentheses
+    {
+      Pitch pitch = GetPitch(s.substr(1));
+      chord.push_back(pitch);
+      while (s.back() != ')')
+      {
+        i++;
+        s = strs[i];
+        chord.push_back(GetPitch(s)); 
+      }
+      s.pop_back();
+      chord.push_back(GetPitch(s)); 
+      AddChord(chord);
+      chord.clear();
     }
     else if (IsRest(s))
     {
@@ -330,6 +347,13 @@ void MakeScore::AddClef(const std::string& s)
 void MakeScore::AddRest(const std::string& s)
 {
   m_bars.back()->AddRest(s, m_switches[m_stave]);
+}
+
+void MakeScore::AddChord(std::vector<Pitch> chord)
+{
+  m_bars.back()->AddChord(m_lastTimeValToken, chord, m_switches[m_stave]);
+
+  // TODO Tied chords!
 }
 
 void MakeScore::AddNote()

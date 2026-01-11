@@ -11,6 +11,7 @@
 #include <vector>
 #include "Accidental.h"
 #include "Beam.h"
+#include "Chord.h"
 #include "Clef.h"
 #include "Consts.h"
 #include "Glyph.h"
@@ -21,8 +22,6 @@
 #include "TimeSigGlyph.h"
 #include "TimeValue.h"
 #include "Utils.h"
-
-using GlyphVec = std::vector<std::unique_ptr<Glyph>>;
 
 class Bar
 {
@@ -52,7 +51,10 @@ public:
 
   void SetScale(float scale);
 
-  void AddNote(const std::string& s, Pitch pitch, int switches);
+  // TODO Duration should be an enum or float
+  void AddNote(const std::string& durationToken, Pitch pitch, int switches);
+
+  void AddChord(const std::string& durationToken, const Chord& ch, int switches);
 
   void AddRest(const std::string& s, int switches);
 

@@ -77,3 +77,6 @@ struct Glyph : public IGlyph
   // Bit field of flags, e.g. staccato
   int m_switches = 0;
 };
+
+using GlyphVec = std::vector<std::unique_ptr<Glyph>>;
+
