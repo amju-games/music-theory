@@ -528,13 +528,17 @@ bool GuiMusicScore::AddMultipleGlyphsFromString(const std::string& line, const V
 
 bool GuiMusicScore::ParseTime(const Strings& strs)
 {
-  if (strs.size() != 3)
+  if (strs.size() < 2 || strs.size() > 3)
   {
     ReportError("Bad number of params for time.");
     return false;
   }
   float t1 = ToFloat(strs[1]);
-  float t2 = ToFloat(strs[2]);
+  float t2 = t1;
+  if (strs.size() == 3)
+  {
+    t2 = ToFloat(strs[2]);
+  }
   if (t2 < t1)
   {
     ReportError("Bad params for time, second time earlier than first.");
@@ -583,18 +587,20 @@ bool GuiMusicScore::ParseNoteOff(const Strings& strs)
 
 bool GuiMusicScore::ParseBeat(const Strings& strs)
 {
-  if (strs.size() != 1)
+  if (strs.size() != 3)
   {
-    ReportError("Unexpected extra data for BEAT.");
+    ReportError("Unexpected data for BEAT.");
     return false;
   }
-  AddBeat(m_timeMinMax.x);
+
+  // Beat: time (the ".x" meaning element 0 here), bar and beat numbers
+  AddBeat(Beat(m_timeMinMax.x, ToInt(strs[1]), ToInt(strs[2])));
   return true;
 }
 
-void GuiMusicScore::AddBeat(float t)
+void GuiMusicScore::AddBeat(const Beat& beat)
 {
-  m_beats.insert(t); 
+  m_beats.push_back(beat); 
 }
 
 void GuiMusicScore::SetBpm(float bpm)

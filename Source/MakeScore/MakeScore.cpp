@@ -34,7 +34,6 @@
 #include "Performance.h"
 #include "TimeSig.h"
 #include "TimeValue.h"
-#include "tinyxml2.h"
 #include "Utils.h"
 
 // Const set of performance directions, with relative widths
@@ -526,11 +525,18 @@ std::string MakeScore::OutputBeats() const
   float t = 0;
   // Output the beats
   std::string res;
-  for (int i = 0; i < totalNumBeats; i++)
+  // Output beats with bar (one based) and beat number (one based)
+  int bar = 1;
+  for (const auto& b : m_bars)
   {
-    res += "TIME, " + Str(t) + ", " + Str(t) + "; BEAT ";
-    res += LineEnd(m_outputOnOneLine);
-    t += d;
+    auto [ numBeats, _ ] = GetNumBeatsAndCrotchetValue(b->GetTimeSig());
+    for (int i = 1; i <= numBeats; i++)
+    {
+      res += "TIME, " + Str(t) + LineEnd(); // one-value TIME variant
+      t += d;
+      res += "BEAT, " + std::to_string(bar) + ", " + std::to_string(i) + LineEnd();
+    }
+    bar++;
   }
   return res;
 }

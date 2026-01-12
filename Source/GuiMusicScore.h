@@ -16,6 +16,20 @@
 
 namespace Amju
 {
+// * Beat *
+// Normalised time for a beat in the piece
+struct Beat
+{
+  float m_time = 0; // (normalised)
+  int m_bar = 1; // bar number (1-based)
+  int m_beat = 1; // beat number in bar (1-based)
+
+  Beat(float time, int bar, int beat) : 
+    m_time(time), m_bar(bar), m_beat(beat) {}
+
+  bool operator<(const Beat& b) { return m_time < b.m_time; }
+};
+
 // * GuiMusicScore *
 // Display music notation.
 class GuiMusicScore : public GuiElement
@@ -149,7 +163,7 @@ public:
   bool HasAnimation() const { return m_hasAnimation; }
  
   // Add meta data telling us there is a beat at normalized time t.
-  void AddBeat(float t);
+  void AddBeat(const Beat& beat);
  
   // Set the tempo in Beats Per Minute.
   void SetBpm(float bpm);
@@ -273,17 +287,7 @@ protected:
   float m_bpm = 0.f; // 0 means not known
 
   // Meta data: the normalized time of every beat in the piece.
-  // Two options here, to get all the beats in a piece.
-  // 1. Multiple beats at the same time marker, where a beat would be lost
-  //  (e.g. a minim in 4/4 hides the second beat).
-  //  -> Vector, as there could be duplicate beat times
-  // 2. Extra time markers added for hidden beats. In this scheme (both, 
-  //  TBF), the TIME and BEAT meta data can be a separate (optional) block
-  //  of output.
-  //  -> Set (or sorted vec), as there will only be one beat per time marker. 
-  // 2nd is preferable because we can show beat lines. 1st choice gives 
-  //  correct count but not all beats are visible.
-  std::set<float> m_beats; 
+  std::vector<Beat> m_beats; 
 
   NoteEventCallback m_noteEventCallback;
 };
