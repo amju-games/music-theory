@@ -28,16 +28,25 @@ include
 hearts.txt
 
 // Title of song/piece
+animation
+title-anim
+one-shot
+// Time to set new translation
+0.5
+ease-in-out-elastic
+// animated translation for text
+translate
+2, 0; 0, 0
 gui-text
 // Name
 song-title
--1.0, 0.8
+-1.0, 0.95
 // size
-2.0, 0.2
+2.0, 0.3
 // Text
 title
 // Font name, size
-BUTTON, 2.0, multi, fgcol=000000
+cityweek, 4.0, multi, fgcol=000000
 
 // Text balloon giving feedback on player's input
 include

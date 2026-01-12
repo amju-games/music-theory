@@ -492,6 +492,14 @@ std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
   m_lifePercent.SetGuiElement(m_gui, "num-lives-text", "num-lives-text-anim-trigger");
   m_lifePercent.Reset(100);
 
+  // Set song title. This could do with a bit more razzle dazzle.
+  auto elem = GetElementByName(m_gui, "song-title");
+  auto songTitleText = dynamic_cast<GuiText*>(elem);
+  if (songTitleText)
+  {
+    songTitleText->SetText(GetGameRound().m_title);
+  }
+
 std::cout << "Paused...\n";
 
   // Start count in after a short pause, TODO do anims etc in the mean time
