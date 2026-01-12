@@ -23,7 +23,7 @@
 #undef max
 #endif
 
-#define MUSIC_KB_DEBUG
+//#define MUSIC_KB_DEBUG
 
 // If defined, we allow the user to drag across the keyboard, pressing and releasing
 //  keys accordingly.
