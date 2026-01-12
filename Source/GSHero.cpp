@@ -194,6 +194,7 @@ std::cout << "Player has lost this round!\n";
 
   m_roundIsOver = true;
 
+  TheSoundManager::Instance()->StopSong();
   PlayWav("record_scratch");
 
   // Stop scrolling - TODO Grind to a halt, not immediate stop
