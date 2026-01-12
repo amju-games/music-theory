@@ -217,7 +217,28 @@ void PopulateCursorEvent(Amju::CursorEvent* ce, int x, int y)
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  // TODO Don't know what to do here
+  // This could be e.g. a phone call interrupts the game. Cancel all touches,
+  //  which I think for me just means send touch up events.
+  [self touchesEnded:touches withEvent:event];
+}
+
+// Landscape only, but we want to auto rotate to support Left and Right.
+- (BOOL)shouldAutorotate {
+  return YES;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+  // This allows both Landscape Left and Landscape Right
+  return UIInterfaceOrientationMaskLandscape;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+  return UIInterfaceOrientationLandscapeLeft;
+}
+
+// Want to hide status bar, but Info.plist setting is being ignored
+- (BOOL)prefersStatusBarHidden {
+  return YES;
 }
 
 @end
