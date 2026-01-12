@@ -53,6 +53,8 @@ protected:
 
   void InitKeyboard();
 
+  void ResetHud();
+
   // Look ahead at note events coming up, and translate the keyboard
   //  if necessary, so the keys are on screen.
   void UpdateKeyboardPosition();

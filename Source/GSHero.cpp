@@ -513,6 +513,15 @@ std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
   //  event multiple times)
   m_prevAttempt = m_scrollScore->GetNoteEvents().end();
   
+std::cout << "Paused...\n";
+
+  // Start count in after a short pause, TODO do anims etc in the mean time
+  TheMessageQueue::Instance()->Add(new FuncMsg(
+    [](){ TheGSHero::Instance()->Start(); }, SecondsFromNow(2.f)));
+}
+
+void GSHero::ResetHud()
+{
   // Reset score
   m_playerScore.SetGuiElement(m_gui, "score-text", "score-text-anim-trigger");
   m_playerScore.Reset(0);
@@ -520,12 +529,6 @@ std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
   // Reset life
   m_lifePercent.SetGuiElement(m_gui, "num-lives-text", "num-lives-text-anim-trigger");
   m_lifePercent.Reset(100);
-
-std::cout << "Paused...\n";
-
-  // Start count in after a short pause, TODO do anims etc in the mean time
-  TheMessageQueue::Instance()->Add(new FuncMsg(
-    [](){ TheGSHero::Instance()->Start(); }, SecondsFromNow(2.f)));
 }
 
 void GSHero::SetSongTitle()
@@ -683,6 +686,8 @@ void GSHero::InitGui()
   m_scoreAnim->SetIsPaused(true);
 
   SetSongTitle();
+
+  ResetHud();
 }
 
 void GSHero::ShowFeedbackBalloon(bool showNotHide)
