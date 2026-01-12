@@ -40,6 +40,18 @@ public:
 
 protected:
   void InitGui();
+ 
+  void SetSongTitle();
+
+  RCPtr<Palette> LoadPalette();
+
+  void InitScrollScore();
+
+  void LoadMusicScore();
+
+  void InitScrollScoreAnim();
+
+  void InitKeyboard();
 
   // Look ahead at note events coming up, and translate the keyboard
   //  if necessary, so the keys are on screen.

@@ -18,6 +18,7 @@
 #include "PlayWav.h"
 
 //#define KEYBOARD_DEBUG
+#define MISSED_NOTE_DEBUG
 
 namespace Amju
 {
@@ -244,10 +245,20 @@ std::cout << "START!!\n";
   m_scrollScore->StartCountIn(numCountInBeats, onFinished);
 
   UpdateKeyboardPosition();
+
+  m_numPlayerNotes = 0;
+  m_numScoreNotes = 0;
+#ifdef MISSED_NOTE_DEBUG
+std::cout << "RESET counters:\n";
+std::cout << "  Num player notes: " << m_numPlayerNotes 
+  << " Num score notes: " << m_numScoreNotes << "\n";
+#endif
 }
 
 void GSHero::OnCountInFinished()
 {
+std::cout << "Count in finished!\n";
+
   // Start score animating, and set backing track playing at the same time.
   // The score and the song have to be in perfect sync.
   // TODO Is there a way to sync the song?
@@ -256,6 +267,14 @@ void GSHero::OnCountInFinished()
   // Start playing the backing track for this song
   auto sm = TheSoundManager::Instance();
   sm->PlaySong(GetGameRound().m_backingTrack);
+
+  m_numPlayerNotes = 0;
+  m_numScoreNotes = 0;
+#ifdef MISSED_NOTE_DEBUG
+std::cout << "RESET counters:\n";
+std::cout << "  Num player notes: " << m_numPlayerNotes 
+  << " Num score notes: " << m_numScoreNotes << "\n";
+#endif
 }
 
 void GSHero::OnNoteEvent(const NoteEvent& ne)
@@ -280,17 +299,27 @@ void GSHero::OnNoteEvent(const NoteEvent& ne)
     // Note off: increment count of completed score-generated events
     m_numScoreNotes++;
 
-#ifdef COUNT_NOTES_DEBUG
-std::cout << "Player notes: " << m_numPlayerNotes
-  << " Score notes: " << m_numScoreNotes << "\n";
+#ifdef MISSED_NOTE_DEBUG
+std::cout << "Score note! (" << ne.m_note << ", note off):\n";
+std::cout << "  Num player notes: " << m_numPlayerNotes 
+  << " Num score notes: " << m_numScoreNotes << "\n";
 #endif
   }
 
   if (m_numScoreNotes > m_numPlayerNotes)
   {
-std::cout << "Player has missed a note, I think.\n";
+#ifdef MISSED_NOTE_DEBUG
+std::cout << "*** Player has missed a note, I think!!!\n";
+std::cout << "  Num player notes: " << m_numPlayerNotes 
+  << " Num score notes: " << m_numScoreNotes << "\n";
+#endif
 
     m_numPlayerNotes = m_numScoreNotes;
+#ifdef MISSED_NOTE_DEBUG
+std::cout << "  ... Resetting: counters now equal:\n";
+std::cout << "  Num player notes: " << m_numPlayerNotes 
+  << " Num score notes: " << m_numScoreNotes << "\n";
+#endif
 
     // Missed note
     Grade grade(Grade::NO_ATTEMPT, 0);
@@ -310,16 +339,6 @@ void GSHero::OnMusicKbEvent(const MusicKbEvent& e)
     return;
   }
 
-  if (e.m_on)
-  {
-    //m_noteAttempted = true;
-    m_numPlayerNotes++;
-
-#ifdef COUNT_NOTES_DEBUG
-std::cout << "Player notes: " << m_numPlayerNotes
-  << " Score notes: " << m_numScoreNotes << "\n";
-#endif
-  }
   GradeEvent(e);
 }
 
@@ -423,6 +442,15 @@ std::cout << " - ignoring this player event, already graded.\n";
 #ifdef GRADE_DEBUG
 std::cout << "Storing event so you can't try again\n";
 #endif
+
+      // This is the right place to increment player note count?
+      m_numPlayerNotes++;
+#ifdef MISSED_NOTE_DEBUG
+std::cout << "Player note! (" << e.m_note << ", note down):\n";
+std::cout << "  Num player notes: " << m_numPlayerNotes 
+  << " Num score notes: " << m_numScoreNotes << "\n";
+#endif
+
       m_prevAttempt = it;
     }
 
@@ -493,14 +521,6 @@ std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
   m_lifePercent.SetGuiElement(m_gui, "num-lives-text", "num-lives-text-anim-trigger");
   m_lifePercent.Reset(100);
 
-  // Set song title. This could do with a bit more razzle dazzle.
-  auto elem = GetElementByName(m_gui, "song-title");
-  auto songTitleText = dynamic_cast<GuiText*>(elem);
-  if (songTitleText)
-  {
-    songTitleText->SetText(GetGameRound().m_title);
-  }
-
 std::cout << "Paused...\n";
 
   // Start count in after a short pause, TODO do anims etc in the mean time
@@ -508,9 +528,19 @@ std::cout << "Paused...\n";
     [](){ TheGSHero::Instance()->Start(); }, SecondsFromNow(2.f)));
 }
 
-void GSHero::InitGui()
+void GSHero::SetSongTitle()
 {
-  // Set palette for keyboard and score, before we load them in.
+  // Set song title. This could do with a bit more razzle dazzle.
+  auto elem = GetElementByName(m_gui, "song-title");
+  auto songTitleText = dynamic_cast<GuiText*>(elem);
+  if (songTitleText)
+  {
+    songTitleText->SetText(GetGameRound().m_title);
+  }
+}
+
+RCPtr<Palette> GSHero::LoadPalette()
+{
   RCPtr<Palette> palette = new Palette;
 
   File paletteFile;
@@ -528,6 +558,11 @@ void GSHero::InitGui()
     Assert(false);
   }
 
+  return palette;
+}
+
+void GSHero::InitScrollScore()
+{
   // Get pointer to the score..
   auto* elem = GetElementByName(m_gui, "the-score");
   if (!elem)
@@ -546,13 +581,10 @@ void GSHero::InitGui()
 
   // Set callback for note events, so we can spot missed attempts
   m_scrollScore->SetNoteEventCallback(Amju::OnNoteEvent);
+}
 
-  // We need to do this before we load the music score, because that's when
-  //  we set the colours of the glyphs.
-  // If super hard mode, we don't colour the notes, but we DO still use the
-  //  palette note colour for trails, right?
-  m_scrollScore->SetPalette(palette);
-
+void GSHero::LoadMusicScore()
+{
 std::cout << "Loading music score...\n";
   // Now we can load the music for this game round.
   if (!m_scrollScore->LoadMusicScore(GetGameRound().m_musicScore))
@@ -560,9 +592,12 @@ std::cout << "Loading music score...\n";
     std::cout << "Failed to load music!!!\n";
     Assert(0); // TODO better error handling
   }
+}
 
+void GSHero::InitScrollScoreAnim()
+{
   // Find the animator parent too.
-  elem = m_scrollScore->GetParent();
+  auto elem = m_scrollScore->GetParent();
   Assert(elem);
   m_scoreAnim = dynamic_cast<GuiDecAnimation*>(elem);
   if (!m_scoreAnim)
@@ -584,9 +619,12 @@ std::cout << "Song length is: " << *songLength << "\n";
     std::cout << "Failed to get song length. Does the BMP and BEAT meta data exist in the score?\n";
     Assert(false); // TODO We need a decent error reporter that doesn't crash the game
   }
+}
 
+void GSHero::InitKeyboard()
+{
   // Find the keyboard
-  elem = GetElementByName(m_gui, "the-keyboard");
+  auto elem = GetElementByName(m_gui, "the-keyboard");
   if (!elem)
   {
     std::cout << "GUI keyboard element called \"the-keyboard\" not found.\n";
@@ -601,9 +639,6 @@ std::cout << "Song length is: " << *songLength << "\n";
     Assert(0); 
   }
 
-  // If super hard mode, we don't colour the keys. TODO
-  m_keyboard->SetPalette(palette);
-
   // Get animation controller for translating keyboard
   elem = GetElementByName(m_gui, "keyboard-anim");
   if (!elem)
@@ -617,12 +652,37 @@ std::cout << "Song length is: " << *songLength << "\n";
   // The child of this animator is the translate decorator for the keyboard
   m_keyboardTranslate = dynamic_cast<GuiDecTranslate*>(m_keyboardAnim->GetChild());
   Assert(m_keyboardTranslate);
+}
+
+void GSHero::InitGui()
+{
+  auto palette = LoadPalette();
+
+  InitScrollScore();
+
+  // We need to do this before we load the music score, because that's when
+  //  we set the colours of the glyphs.
+  // If super hard mode, we don't colour the notes, but we DO still use the
+  //  palette note colour for trails, right?
+  m_scrollScore->SetPalette(palette);
+
+  LoadMusicScore();
+
+  InitScrollScoreAnim();
+
+  InitKeyboard();
+
+  // Set keyboard palette
+  // If super hard mode, we don't colour the keys. TODO
+  m_keyboard->SetPalette(palette);
 
   // Hide GUI elements
   ShowFeedbackBalloon(false);
 
   // Pause animation until we finish count-in
   m_scoreAnim->SetIsPaused(true);
+
+  SetSongTitle();
 }
 
 void GSHero::ShowFeedbackBalloon(bool showNotHide)
