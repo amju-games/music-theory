@@ -1,0 +1,40 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+// Heart to attach to score - play note correctly, get extra life.
+
+// Heart
+animation
+pulsing anim
+repeat
+1.2
+linear
+
+gui-comp
+heart-comp-2
+2
+
+colour
+ffffffff, ffffff00
+scale
+.9, .9; 1.5, 1.5
+.5, .5
+gui-image
+fading-pulsing-heart
+0, 0
+.3, .4
+Image/heart.png, stretch
+
+scale
+.9, .9; 1.1, 1.1
+.5, .5
+
+gui-image
+pulsing-heart
+0, 0
+.3, .4
+Image/heart.png, stretch
+
