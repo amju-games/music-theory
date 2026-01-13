@@ -25,15 +25,15 @@ public:
 
   void OnActive() override;
   void Update() override;
+  void Draw2d() override;
+
+  void OnPauseGame() override;
 
   // Called when player triggers a keyboard event
   void OnMusicKbEvent(const MusicKbEvent&) override;
 
   // Called when Score sends a note event
   void OnNoteEvent(const NoteEvent& ne);
-
-  // Start the score scrolling, and backing track playing
-  void Start();
 
   // Callback, when count-in finishes
   void OnCountInFinished();
@@ -49,7 +49,23 @@ protected:
   //  is programmatic rather than specified - could be a mix of both.
   void AttachExtraBits();
 
+  // Called when we restart this state - we may need to resume if we were
+  //  paused.
+  void ResumeOrRestartGame();
+
+  // Do immediate set up required to resume after a delay
+  void SetUpForResume();
+
+  // Restart - if we are not returning from the pause state and so not
+  //  resuming
+  void RestartGame();
+
+  // Resume having been paused before
+  void ResumeGame();
+
   void InitGui();
+
+  void InitSound();
  
   void SetSongTitle();
 
@@ -64,6 +80,8 @@ protected:
   void InitKeyboard();
 
   void ResetHud();
+
+  void ResetMissedNoteCounters();
 
   // Look ahead at note events coming up, and translate the keyboard
   //  if necessary, so the keys are on screen.
@@ -132,6 +150,10 @@ protected:
   // Set to true if player wins or loses round, so we can wait for a 
   //  second or two before changing game state.
   bool m_roundIsOver = false;
+
+  // If we paused the game while mid-song, this is the time at which
+  //  we paused.
+  float m_pauseResumeTime = 0;
 };
 
 typedef Singleton<GSHero> TheGSHero;

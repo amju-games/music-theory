@@ -36,6 +36,10 @@ struct HudNumber
   // Call to add to the internal value (amount to add can be negative).
   // Specify how many frames to take to update.
   void Add(int amountToAdd, int numFrames);
+
+  // After a pause, we will have new GUI elements so update text value
+  //  to internal value.
+  void ResumeAfterPause();
 };
 
 // Update a number displayed in the HUD.

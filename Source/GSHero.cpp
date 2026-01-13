@@ -14,8 +14,10 @@
 #include "GSHero.h"
 #include "GSHeroEnd.h"
 #include "GSHeroWin.h"
+#include "GSPause.h"
 #include "NumUpdate.h"
 #include "PlayWav.h"
+#include "UseVertexColourShader.h"
 
 #ifdef WIN32
 // Utterly criminal
@@ -55,6 +57,127 @@ static void OnNoteEvent(const NoteEvent& ne)
 GSHero::GSHero()
 {
   m_guiFilename = "Gui/gs_hero.txt";
+}
+
+void GSHero::SetUpForResume()
+{
+  // Do the things for a Resume we need to do immediately: calc
+  //  and show the resume point in the score. 
+
+  // Work out how far back we should go from the resume time.
+  // We want to find the start of the current bar.
+
+  // Convert pauseResumeTime into seconds
+  auto optSongLength = m_scrollScore->GetSongLengthSeconds();
+  float songLength = *optSongLength;
+  float seconds = m_pauseResumeTime * songLength;
+
+  // Immediately set the position of the score where we will restart from.
+  // Restart the scrolling score from the resume point
+  m_scoreAnim->SetAnimTimeSeconds(seconds);
+  m_scoreAnim->SetIsPaused(false);
+  m_scoreAnim->Update();
+  m_scoreAnim->SetIsPaused(true);
+}
+
+void GSHero::ResumeGame()
+{
+  // Play the count-in track, then restart the anim and play backing
+  //  track -- but set the seek position.
+  // Restart the song from the resume point
+
+  // Ideally, count-in before restarting the song and scroll anim.
+  // Once the count-in is over, we can reset this resume time.
+  // We can reset this now because there is no count-in on resume.
+  m_pauseResumeTime = 0;
+
+  // TODO TEMP TEST - un-pause the scroll anim, play track
+  OnCountInFinished();
+}
+
+void GSHero::ResumeOrRestartGame()
+{
+  // HUD values are restored in ResetHUD.
+  // Here we need to set the score position and play the song from the
+  //  time we were at when we were paused.
+
+  if (m_pauseResumeTime > 0)
+  {
+    SetUpForResume();
+
+    std::cout << "Resuming game in 3 secs!\n";
+
+    // Resume after a short pause, TODO do anims etc in the mean time
+    TheMessageQueue::Instance()->Add(new FuncMsg(
+      [](){ TheGSHero::Instance()->ResumeGame(); }, SecondsFromNow(3.f)));
+  }
+  else
+  {
+    // Nothing to resume -- restart everything.
+std::cout << " ...restarting after this short pause..\n";
+
+    // Start count in after a short pause, TODO do anims etc in the mean time
+    TheMessageQueue::Instance()->Add(new FuncMsg(
+      [](){ TheGSHero::Instance()->RestartGame(); }, SecondsFromNow(1.f)));
+  }
+}
+
+void GSHero::OnPauseGame()
+{
+  TheGSPause::Instance()->SetPrevState(this);
+
+  auto sm = TheSoundManager::Instance();
+  sm->StopSong();
+
+  // If we set this to >0, we will resume the round rather than
+  //  resetting.
+  // Don't reset here, in case we have paused while we were resuming :)
+  //  - in that case, we just resume again from the same point.
+  // Only reset this when we have successfully resumed.
+  //  m_pauseResumeTime = 0;
+
+  if (m_roundIsOver)
+  {
+    // We were done - allow the timed message in flight to take us go to 
+    //  the appropriate next state, which will not need a pause menu, 
+    //  as it's just GUI.
+    return;
+  }
+ 
+  // We don't want timed messages messing up the flow! 
+  TheMessageQueue::Instance()->Clear();
+
+  // Pause scrolling score -- if it was moving
+  m_scoreAnim->SetIsPaused(true);
+
+  float animTime = m_scrollScore->GetAnimTime();
+  if (animTime > 0)
+  {
+    // During or before the count-in, do nothing special, just restart
+    //  the round when we re-enter this state.
+    // But if we have started the song, store the point we go to.
+    m_pauseResumeTime = animTime;
+  }
+
+  GoTo<TheGSPause>();
+
+  // Resume options:
+  // If we were before count-in started, restart the state.
+  // If we are counting-in from the start of the song, just restart
+  //  the song - also just restart the state.
+  // If we pause during the song, it would be nice to restart with a 
+  //  new count-in into the bar where we were paused.
+  // If we pause during the 'resume count-in', restart the resume count-in.
+  // If we pause after the song has finished, or if we lost and the song
+  //  has stopped, we should go to the next state.
+  // ... so it sounds like we need a state enum, sigh, to keep track of
+  //  the current state, so we know how to resume.
+
+  // OK how about this: we DO go to a separate paused state. 
+  // The only info we need to resume is the time into the song, right?
+  // In OnActive, we restore the state.
+  // The global message queue still fucks it up, so we have to use a 
+  //  local message queue.
 }
 
 void GSHero::UpdateKeyboardPosition()
@@ -141,12 +264,24 @@ std::cout << "  Min note on screen: " << screenMin
   m_keyboardAnim->ResetAnimation();
 }
 
+void GSHero::Draw2d()
+{
+  if (m_gui)
+  {   
+    UseVertexColourShader();
+    m_gui->Draw();
+  }
+}
+
 void GSHero::Update()
 {
   GSBase::Update();
 
   m_playerScore.Update();
   m_lifePercent.Update();
+
+  auto pos = m_scrollScore->GetLocalPos();
+  m_scoreExtras->SetLocalPos(pos);
 
   float animTime = m_scrollScore->GetAnimTime();
   if (!m_roundIsOver && animTime > 0.9999f)
@@ -157,10 +292,10 @@ void GSHero::Update()
 
 void GSHero::ReloadGui()
 {
-  GSBase::ReloadGui();
-
   auto sm = TheSoundManager::Instance();
   sm->StopSong();
+
+  GSBase::ReloadGui();
 }
 
 static const int NUM_UPDATE_NUM_FRAMES = 50;
@@ -189,6 +324,8 @@ std::cout << "Player has won this round!\n";
 
   m_roundIsOver = true;
 
+  TheMessageQueue::Instance()->Clear();
+
   // Go to next game state after short delay
   TheMessageQueue::Instance()->Add(new FuncMsg(
     GoTo<TheGSHeroWin>,
@@ -207,6 +344,8 @@ std::cout << "Player has lost this round!\n";
   // Stop scrolling - TODO Grind to a halt, not immediate stop
   m_scoreAnim->SetIsPaused(true);
 
+  TheMessageQueue::Instance()->Clear();
+
   // Go to next game state after short delay
   TheMessageQueue::Instance()->Add(new FuncMsg(
     GoTo<TheGSHeroEnd>,
@@ -219,10 +358,8 @@ const HeroGameRound& GetGameRound()
   return round;
 }
 
-void GSHero::Start()
+void GSHero::InitSound()
 {
-std::cout << "START!!\n";
-
   auto sm = TheSoundManager::Instance();
   sm->SetSongMaxVolume(0.1f); // for some reason it's deafening on Mac
 
@@ -236,11 +373,17 @@ std::cout << "START!!\n";
     std::cout << "Bad news, couldn't set sound font.\n";
   }
 #endif
+}
+
+void GSHero::RestartGame()
+{
+std::cout << "Restarting game.\n";
 
   // Play count-in audio
   // The BPM has to match that of the song. We don't want a huge number of
   //  count-in audio files, so better to adjust BPM of the count-in song, to 
   //  match the main song BPM.
+  auto sm = TheSoundManager::Instance();
   sm->PlaySong(GetGameRound().m_countIn);  
 
   // Callback for when count-in finished
@@ -251,7 +394,10 @@ std::cout << "START!!\n";
   m_scrollScore->StartCountIn(numCountInBeats, onFinished);
 
   UpdateKeyboardPosition();
+}
 
+void GSHero::ResetMissedNoteCounters()
+{
   m_numPlayerNotes = 0;
   m_numScoreNotes = 0;
 #ifdef MISSED_NOTE_DEBUG
@@ -267,20 +413,13 @@ std::cout << "Count in finished!\n";
 
   // Start score animating, and set backing track playing at the same time.
   // The score and the song have to be in perfect sync.
-  // TODO Is there a way to sync the song?
   m_scoreAnim->SetIsPaused(false);
 
   // Start playing the backing track for this song
   auto sm = TheSoundManager::Instance();
   sm->PlaySong(GetGameRound().m_backingTrack);
 
-  m_numPlayerNotes = 0;
-  m_numScoreNotes = 0;
-#ifdef MISSED_NOTE_DEBUG
-std::cout << "RESET counters:\n";
-std::cout << "  Num player notes: " << m_numPlayerNotes 
-  << " Num score notes: " << m_numScoreNotes << "\n";
-#endif
+  ResetMissedNoteCounters();
 }
 
 void GSHero::OnNoteEvent(const NoteEvent& ne)
@@ -513,28 +652,34 @@ std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
   }
 
   InitGui();
-
-  // Reset previous attempt pointer
-  // (Points to most recently graded event, so we don't grade the same
-  //  event multiple times)
-  m_prevAttempt = m_scrollScore->GetNoteEvents().end();
-  
-std::cout << "Paused...\n";
-
-  // Start count in after a short pause, TODO do anims etc in the mean time
-  TheMessageQueue::Instance()->Add(new FuncMsg(
-    [](){ TheGSHero::Instance()->Start(); }, SecondsFromNow(2.f)));
+ 
+  // Set up but don't start playing anything yet
+  InitSound();
+ 
+  // Resume game if we have restarted after a pause.
+  // If we weren't paused, just restart.
+  ResumeOrRestartGame();
 }
 
 void GSHero::ResetHud()
 {
-  // Reset score
+  // Find GUI elements
   m_playerScore.SetGuiElement(m_gui, "score-text", "score-text-anim-trigger");
-  m_playerScore.Reset(0);
+  m_lifePercent.SetGuiElement(
+    m_gui, "num-lives-text", "num-lives-text-anim-trigger");
 
-  // Reset life
-  m_lifePercent.SetGuiElement(m_gui, "num-lives-text", "num-lives-text-anim-trigger");
-  m_lifePercent.Reset(100);
+  // Reset score and life values: but only if we are not resuming 
+  //  from being paused.
+  if (m_pauseResumeTime == 0)
+  {
+    m_playerScore.Reset(0);
+    m_lifePercent.Reset(100); 
+  }
+  else
+  {
+    m_playerScore.ResumeAfterPause();
+    m_lifePercent.ResumeAfterPause();
+  }
 }
 
 void GSHero::SetSongTitle()
@@ -606,12 +751,12 @@ std::cout << "Loading music score...\n";
 void GSHero::InitScrollScoreAnim()
 {
   // Find the animator parent too.
-  auto elem = m_scrollScore->GetParent();
+  auto elem = GetElementByName(m_gui, "play-score");
   Assert(elem);
   m_scoreAnim = dynamic_cast<GuiDecAnimation*>(elem);
   if (!m_scoreAnim)
   {
-    std::cout << "Score does not have an animator parent.\n";
+    std::cout << "Score does not have an animator.\n";
     Assert(0);
   }
 
