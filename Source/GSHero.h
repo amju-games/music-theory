@@ -39,6 +39,16 @@ public:
   void OnCountInFinished();
 
 protected:
+  // Add an extra GUI element to the score.
+  // Specify the event number and type. So you can attach to, say,
+  //  the 3rd note on event, or the 2nd rest on event.
+  // eventNum is zero-based.
+  void AttachExtraBitToScore(PGuiElement extra, int eventNum, NoteEventType net);
+
+  // Attach extra GUI elements to the score -- it would be nice if this
+  //  is programmatic rather than specified - could be a mix of both.
+  void AttachExtraBits();
+
   void InitGui();
  
   void SetSongTitle();
@@ -94,6 +104,10 @@ protected:
   // The translation animated by the above anim. This moves
   //  the keyboard so needed notes are on screen.
   RCPtr<GuiDecTranslate> m_keyboardTranslate;
+
+  // A composite on to which we can hang extra stuff we want the score
+  //  to display
+  RCPtr<GuiComposite> m_scoreExtras;
 
   // This is for when we grade player input events.
   // This iterator points to the last note event (in m_scrollScore) which

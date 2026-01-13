@@ -694,6 +694,68 @@ void GSHero::InitGui()
   SetSongTitle();
 
   ResetHud();
+
+  // Reset previous attempt pointer
+  // (Points to most recently graded event, so we don't grade the same
+  //  event multiple times)
+  m_prevAttempt = m_scrollScore->GetNoteEvents().end();
+
+  AttachExtraBits(); 
+}
+
+void GSHero::AttachExtraBits()
+{
+  // TODO TEMP TEST 
+  // Attach a heart to the score 
+  auto heart = LoadGui("Gui/extra-heart.txt");
+  AttachExtraBitToScore(heart, 2, NoteEventType::NOTE_ON);
+}
+
+void GSHero::AttachExtraBitToScore(
+  PGuiElement extra, int eventNum, NoteEventType net)
+{
+  // TODO for now, we are only supporting note on events.
+
+  auto elem = GetElementByName(m_gui, "score-extras");
+  m_scoreExtras = dynamic_cast<GuiComposite*>(elem);
+  if (!m_scoreExtras)
+  {
+std::cout << "Failed to find score-extras!\n";
+    return;
+  }
+
+  m_scoreExtras->AddChild(extra);
+
+  float scale = m_scrollScore->GetSize().x;
+
+  const auto& noteEvents = m_scrollScore->GetNoteEvents();
+  // Get rid of note up events, so we just have note down events.
+  // Probably best to just iterate over the events, counting the type
+  //  we are interested in.
+  auto notesCopy(noteEvents);
+  notesCopy.erase(
+    std::remove_if(notesCopy.begin(), notesCopy.end(), 
+     [](const NoteEvent& ne) { return !ne.m_onNotOff; }),
+    notesCopy.end());
+
+  const auto& ne = notesCopy[eventNum];
+
+  // Now we have the time of the event, look up the x coord for that time.
+  const auto& beatTable = m_scrollScore->GetBeatTable();
+  // Find x-pos for note event
+  auto it = beatTable.lower_bound(ne.m_time);
+  if (it != beatTable.end())
+  {
+    float x = it->second;
+
+    // Find the position of the note or rest so we can place the extra
+    //  GUI on top -- extra's local pos then finesses the position.
+    x *= scale;
+    float y = -m_scrollScore->GetLocalPos().y + // compensate for score pos
+      0; // TODO Find y-pos of glyph 
+
+    extra->SetLocalPos(Vec2f(x, y) + extra->GetLocalPos());
+  }
 }
 
 void GSHero::ShowFeedbackBalloon(bool showNotHide)

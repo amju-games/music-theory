@@ -9,7 +9,7 @@ gui-comp
 // Name
 gs-hero-root
 // Num children
-7
+8
 
 // Player score for the round
 elastic
@@ -73,7 +73,6 @@ include
 keyboard.txt
 
 // Animate the score
-// NB This animator has to be the parent of the score.
 animation
 play-score
 one-shot
@@ -84,13 +83,20 @@ linear
 scroll-score
 // Name, Position, Size
 the-score
-0, -.6
+0, -.2
 .4, .75 
 // Colour
 // 1DA2FF
 000000
 // Glyphs start here; or just "end" and load from file later.
 end
+
+// A comp to which we can add extra bits, which will scroll along
+//  with the score.
+// (it won't - unless we set its position in code.)
+gui-comp
+score-extras
+0
 
 // Vertical line colour
 colour
