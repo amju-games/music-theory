@@ -28,5 +28,13 @@ namespace Amju
   // Vector of note events, sorted by time.
   // NB For polyphony, consecutive events could have the same time.
   using NoteEvents = std::vector<NoteEvent>;
+
+  enum class NoteEventType
+  {
+    NOTE_ON,
+    NOTE_OFF,
+    REST_ON,
+    REST_OFF
+  };
 }
 
