@@ -150,7 +150,7 @@ void MakeScore::AddTokens()
 
   for (int i = 0; i < n; i++)
   {
-    std::string s = strs[i]; // copy so we can strip quotes off
+    std::string s = strs[i]; // copy so we can strip quotes off etc
 
     if (s == "|")
     {
@@ -241,6 +241,13 @@ void MakeScore::AddTokens()
       isText = true;
       s = s.substr(1);
     }
+    else if (s == "page-w")
+    {
+      i++;
+      float pageWidth = atof(strs[i].c_str());
+      SetPageWidth(pageWidth);
+    }
+    // FINAL ELSE
     else if (!isText)
     {
       std::cout << "// *ERROR* Unrecognised: " << s << "\n"; 

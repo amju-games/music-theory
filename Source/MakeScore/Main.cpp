@@ -29,26 +29,19 @@ bool CommandLineParams(int argc, char** argv, MakeScore& ms)
 
     else if (param == "--stave-single")
     {
-      // TODO This should be the default
+      // This is the default
       ms.SetStaveType(StaveType::STAVE_TYPE_SINGLE);
     }
 
+#ifdef SUPPORT_TRANSPOSE_COMMAND_LINE
     else if (param == "--transpose")
     {
       i++;
       int tr = atoi(argv[i]);
-      std::cout << "// Transpose: " << tr << "\n";
+      //std::cout << "// Transpose: " << tr << "\n";
       ms.SetTranspose(tr);
     }
-
-    else if (param == "--page-width")
-    {
-      i++;
-      // Normalised: i.e. page width of 1 means the default width.
-      float pageWidth = DEFAULT_PAGE_WIDTH;
-      pageWidth = static_cast<float>(atof(argv[i])) * pageWidth;
-      ms.SetPageWidth(pageWidth);
-    }
+#endif
 
     else if (param == "--scale")
     {
@@ -66,8 +59,6 @@ bool CommandLineParams(int argc, char** argv, MakeScore& ms)
       Trim(param);
       StripQuotes(param);
 
-      // Do we need this? TODO
-      std::cout << "// " << param << "\n";
       ms.SetInputString(param);
 
       // For single line rhythm, centre vertically
@@ -85,6 +76,16 @@ bool CommandLineParams(int argc, char** argv, MakeScore& ms)
   return true;
 }
 
+static void OutputCommandLineComment(int argc, char** argv)
+{
+  std::cout << "// " << argv[0] << " \"";
+  for (int i = 1; i < argc; i++)
+  {
+    std::cout << argv[i] << " ";
+  }
+  std::cout << "\"\n";
+}
+
 #ifndef CATCH
 // Don't build this main function for unit test exe
 
@@ -96,6 +97,8 @@ int main(int argc, char** argv)
   {
     return 1;
   }
+
+  OutputCommandLineComment(argc, argv);
 
   // Output final string.
   // Don't append a newline char, so we can add more to this line, in
