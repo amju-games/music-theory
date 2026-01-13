@@ -297,9 +297,12 @@
     <ClCompile Include="..\..\..\..\Source\DictionaryPickQuestion.cpp" />
     <ClCompile Include="..\..\..\..\Source\Grader.cpp" />
     <ClCompile Include="..\..\..\..\Source\GS3dExample.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GS3dTitle.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSAvatarMod.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSGuiEdit.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSHero.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSHeroEnd.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSHeroWin.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPagesEdit.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSShowNewLevelNum.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiAvatar.cpp" />
@@ -448,6 +451,7 @@
     <ClInclude Include="..\..\..\..\Source\DictionaryPickQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\Grader.h" />
     <ClInclude Include="..\..\..\..\Source\GS3dExample.h" />
+    <ClInclude Include="..\..\..\..\Source\GS3dTitle.h" />
     <ClInclude Include="..\..\..\..\Source\GSAbout.h" />
     <ClInclude Include="..\..\..\..\Source\GSAvatarMod.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
@@ -456,6 +460,8 @@
     <ClInclude Include="..\..\..\..\Source\GSFirstUser.h" />
     <ClInclude Include="..\..\..\..\Source\GSGuiEdit.h" />
     <ClInclude Include="..\..\..\..\Source\GSHero.h" />
+    <ClInclude Include="..\..\..\..\Source\GSHeroEnd.h" />
+    <ClInclude Include="..\..\..\..\Source\GSHeroWin.h" />
     <ClInclude Include="..\..\..\..\Source\GSMainCorridor.h" />
     <ClInclude Include="..\..\..\..\Source\GSPages.h" />
     <ClInclude Include="..\..\..\..\Source\GSPagesEdit.h" />

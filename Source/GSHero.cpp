@@ -17,6 +17,12 @@
 #include "NumUpdate.h"
 #include "PlayWav.h"
 
+#ifdef WIN32
+// Utterly criminal
+#undef min
+#undef max
+#endif
+
 //#define KEYBOARD_DEBUG
 #define MISSED_NOTE_DEBUG
 
