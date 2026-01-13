@@ -50,7 +50,7 @@ std::string Tie::ToString() const
   };
 
   std::string res = "curve, ";
-  int n = coords.size();
+  auto n = coords.size();
   for (int i = 0; i < n; i += 2)
   {
     res += Str(coords[i]     * scaleX) + ",";

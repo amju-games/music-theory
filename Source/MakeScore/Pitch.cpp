@@ -5,6 +5,7 @@
 // Sub-project for human-friendly authoring of musical notation.
 
 #include <array>
+#include <cassert>
 #include "Pitch.h"
 
 std::string Pitch::ToString() const

@@ -302,7 +302,7 @@ static const int NUM_UPDATE_NUM_FRAMES = 50;
 
 void GSHero::IncreaseScore(const Grade& grade)
 {
-  int amount = std::round(grade.m_score * 1000.f);
+  int amount = static_cast<int>(std::round(grade.m_score * 1000.f));
   amount *= 100;
 
   m_playerScore.Add(amount, NUM_UPDATE_NUM_FRAMES);
