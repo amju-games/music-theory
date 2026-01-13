@@ -477,8 +477,8 @@ void StartUpAfterCreateWindow()
 
 #ifdef YES_FPS_COUNTER
   // Set FPS counter
-  Font* font = (Font*)TheResourceManager::Instance()->GetRes("font2d/arial-font.font");
-  TheGame::Instance()->SetFrameTimeFont(font);
+  //Font* font = (Font*)TheResourceManager::Instance()->GetRes("font2d/arial-font.font");
+  //TheGame::Instance()->SetFrameTimeFont(font);
 #endif
 
   SetInitialState();
