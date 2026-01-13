@@ -36,6 +36,9 @@ struct Glyph : public IGlyph
 
   void SetTimeVal(float timeval_) { timeval = timeval_; }
 
+  // This is for testing and debugging
+  void SetTimeValToken(const std::string& token) { timevalToken = token; }
+
   // Call to set this glyph as the left hand side of the given tie
   void SetTieLeft(Tie* tie) { m_tieLeft = tie; }
 
@@ -61,6 +64,9 @@ struct Glyph : public IGlyph
 
   // Time value for this glyph, i.e. its duration.
   TimeValue timeval = 0;
+
+  // String duration, for testing
+  std::string timevalToken;
 
   // Start time is the accumulated time values of all preceding glyphs.
   TimeValue startTime = 0;

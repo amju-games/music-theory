@@ -25,6 +25,8 @@ public:
 
   std::string ToString() const override;
 
+  std::string CommentStr() const;
+
   // Use input token and state to generate output text for this glyph.
   // TODO Doesn't need param and can set displayGlyphName directly
   std::string GetGlyphOutputStr(std::string s) const override;

@@ -7,6 +7,26 @@
 #include <array>
 #include "Pitch.h"
 
+std::string Pitch::ToString() const
+{
+  std::string res;
+  if (!m_step.empty())
+  {
+    res += m_step + std::to_string(m_octave);
+    if (m_alter > 0) 
+    {
+      res += std::string(m_alter, '+');
+    }
+    else if (m_alter < 0)
+    {
+      res += std::string(-m_alter, '-');
+    }
+    res += " ";
+  }
+  res += "midi: " + std::to_string(m_midi);
+  return res;
+}
+
 void Pitch::CalcMidi()
 {
   // Base midi pitch values for the seven notes (steps)

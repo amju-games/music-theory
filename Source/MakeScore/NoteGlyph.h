@@ -48,6 +48,8 @@ struct NoteGlyph : public Glyph
 
   std::string GetStaccatoStr() const;
 
+  std::string CommentStr() const;
+
   Pitch pitch;
 
   Accidental m_accidental = Accidental::ACCIDENTAL_NONE;

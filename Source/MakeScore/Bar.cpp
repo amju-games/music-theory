@@ -147,6 +147,7 @@ void Bar::AddRest(const std::string& s, int switches)
   RestGlyph* gl = new RestGlyph(s, order);
   gl->SetScale(m_scale);
   gl->SetTimeVal(GetTimeVal(s));
+  gl->SetTimeValToken(s);
   m_glyphs.push_back(std::unique_ptr<Glyph>(gl));
 }
 
@@ -179,6 +180,7 @@ void Bar::AddNote(const std::string& s, Pitch pitch, int switches)
 
   // Set duration for this musical symbol
   gl->SetTimeVal(GetTimeVal(s));
+  gl->SetTimeValToken(s);
 
   m_glyphs.push_back(std::unique_ptr<Glyph>(gl));
 }

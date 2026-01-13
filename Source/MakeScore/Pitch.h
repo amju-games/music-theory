@@ -16,6 +16,8 @@ struct Pitch
   int m_alter = 0; // sharp (+) => 1, flat (-) => -1, etc
 
   void CalcMidi();
+
+  std::string ToString() const;
 };
 
 // Return true if token defines a pitch for use with subsequent tokens
@@ -30,3 +32,4 @@ bool IsImmediatePitch(const std::string& s);
 // Return MIDI pitch for the given token, which should be a deferred
 //  or immediate pitch value.
 Pitch GetPitch(const std::string& s);
+

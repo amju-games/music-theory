@@ -7,6 +7,11 @@
 #include <cassert>
 #include "RestGlyph.h"
 
+std::string RestGlyph::CommentStr() const
+{
+  return "// Rest, value: " + timevalToken + LineEnd();
+}
+
 std::string RestGlyph::TimeBefore() const
 {
   std::string res;
@@ -20,7 +25,7 @@ std::string RestGlyph::TimeBefore() const
       start = 0.01f; // so first glyph is not highlighted until anim starts
     }
     float t = timeval + startTime;
-    res += "TIME, " + Str(start) + ", " + Str(t) + " ; ";
+    res += "TIME, " + Str(start) + ", " + Str(t) + LineEnd();
   }
   return res;
 }
@@ -34,7 +39,7 @@ std::string RestGlyph::TimeAfter() const
   {
     // Cancel time for subsequent glyphs (but postprocess to strip out
     //  unnecessary cancellations)
-    res += " ; TIME, -1, -1";
+    res += "TIME, -1, -1";
   }
   return res;
 }
@@ -50,10 +55,14 @@ std::string RestGlyph::ToString() const
 
   // Add special glyphs for timing before and after - this is
   //  for animation and MIDI events. 
-  std::string res = TimeBefore();
+  std::string res;
+
+  res += CommentStr();
+
+  res += TimeBefore();
 
   res += displayGlyphName + ", " + Str(x) + ", " + Str(y) +
-    AddScaleStringIfRequired();
+    AddScaleStringIfRequired() + LineEnd();
 
   res += TimeAfter();
 

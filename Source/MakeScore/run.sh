@@ -10,7 +10,9 @@ pushd ../../Assets/Gui
 cp scoretest.txt scoretest_temp.txt
 popd
 
-./makescore "page-w 3 [Andante] 4/4 clef-t key-s-0 <c> c4 < <slur> p d4  e4 /< f4 f | g4 > a4 71 /> 72 mf </slur> | <m> 60 64 | 62 65 |" > out.txt
+//./makescore "page-w 3 [Andante] 4/4 clef-t key-s-0 <c> c4 < <slur> p d4  e4 /< f4 f | g4 > a4 71 /> 72 mf </slur> | <m> 60 64 | 62 65 |" > out.txt
+
+./makescore "4/4 <c> c4 cr d4 cr | mr <m> g4 | sbr | <sb> c5" > out.txt
 
 # Check rhythm stave type works OK
 #./makescore --oneline "2/4 <beam> q q </beam> c t | q qr <stacc> <beam> qq qq qq qq </beam>" > out.txt

@@ -165,6 +165,17 @@ std::string NoteGlyph::GetStaccatoStr() const
   return res;
 }
 
+std::string NoteGlyph::CommentStr() const
+{
+  auto res =  "// Note, " + pitch.ToString();
+  if (!timevalToken.empty())
+  {
+    res += ", value: " + timevalToken;
+  }
+  res += LineEnd();
+  return res;
+}
+
 std::string NoteGlyph::ToString() const
 {
   // If we haven't yet created the output text, do it now
@@ -174,9 +185,13 @@ std::string NoteGlyph::ToString() const
     const_cast<std::string&>(displayGlyphName) = GetGlyphOutputStr(realGlyphName);
   }
 
+  std::string res;
+
+  res += CommentStr();
+
   // Add special glyphs for timing before and after - this is
   //  for animation and MIDI events. 
-  std::string res = TimeBefore();
+  res += TimeBefore();
 
   res += displayGlyphName + ", " + Str(x) + ", " + Str(y) +
     AddScaleStringIfRequired();
