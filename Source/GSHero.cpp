@@ -200,7 +200,13 @@ void GSHero::UpdateKeyboardPosition()
   // Look ahead this many events. 
   const int lookAhead = 7;
   // Reduce the range if we are near the end of the note events.
-  auto end = std::min(it + lookAhead, noteEvents.end());
+  auto end = std::next(it, 
+    std::min<size_t>(lookAhead, std::distance(it, noteEvents.end())));
+
+  // Not:
+  // auto end = std::min(it + lookAhead, noteEvents.end());
+  // Which triggers iterator check and crashes the program in MSVC.
+
   // Get the min and max notes in the range
   const auto [minIt, maxIt] = std::minmax_element(it, end,
     [](const NoteEvent& ne1, const NoteEvent& ne2) { return ne1.m_note < ne2.m_note; });
