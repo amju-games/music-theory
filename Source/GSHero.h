@@ -65,6 +65,8 @@ protected:
 
   void InitGui();
 
+  void InitPauseButton();  
+
   void InitSound();
  
   void SetSongTitle();

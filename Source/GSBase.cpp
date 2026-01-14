@@ -165,6 +165,13 @@ bool GSBase::CheckForKey_B_BackToPrevState(const KeyEvent& ke)
 bool GSBase::OnKeyEvent(const KeyEvent& ke)
 {
 #ifdef _DEBUG
+  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
+    (ke.key == 'p' || ke.key == 'P'))
+  {
+    TheGame::Instance()->PauseGame();
+    return true;
+  }
+
   // Reload all resources: slow
   if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
     (ke.key == 't' || ke.key == 'T'))

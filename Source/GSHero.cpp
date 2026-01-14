@@ -54,6 +54,12 @@ static void OnNoteEvent(const NoteEvent& ne)
   TheGSHero::Instance()->OnNoteEvent(ne);
 }
 
+static void OnPauseButton(PGuiElement)
+{
+  // TODO Notify via Game?
+  TheGSHero::Instance()->OnPauseGame();
+}
+
 GSHero::GSHero()
 {
   m_guiFilename = "Gui/gs_hero.txt";
@@ -66,6 +72,7 @@ void GSHero::SetUpForResume()
 
   // Work out how far back we should go from the resume time.
   // We want to find the start of the current bar.
+  // If we're in the first bar, we could just restart the game round.
 
   // Convert pauseResumeTime into seconds
   auto optSongLength = m_scrollScore->GetSongLengthSeconds();
@@ -128,13 +135,6 @@ void GSHero::OnPauseGame()
 
   auto sm = TheSoundManager::Instance();
   sm->StopSong();
-
-  // If we set this to >0, we will resume the round rather than
-  //  resetting.
-  // Don't reset here, in case we have paused while we were resuming :)
-  //  - in that case, we just resume again from the same point.
-  // Only reset this when we have successfully resumed.
-  //  m_pauseResumeTime = 0;
 
   if (m_roundIsOver)
   {
@@ -814,6 +814,13 @@ void GSHero::InitKeyboard()
   Assert(m_keyboardTranslate);
 }
 
+void GSHero::InitPauseButton()
+{
+  GuiElement* elem = GetElementByName(m_gui, "pause-button");
+  Assert(elem);
+  elem->SetCommand(Amju::OnPauseButton);
+}
+
 void GSHero::InitGui()
 {
   auto palette = LoadPalette();
@@ -831,6 +838,8 @@ void GSHero::InitGui()
   InitScrollScoreAnim();
 
   InitKeyboard();
+
+  InitPauseButton();
 
   // Set keyboard palette
   // If super hard mode, we don't colour the keys. TODO
