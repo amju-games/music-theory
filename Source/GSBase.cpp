@@ -70,13 +70,17 @@ void GSBase::Update()
   TheLurker::Instance()->Update();
 
   TheSerialReqManager::Instance()->Update();
+
+  auto frameStatsText = 
+    dynamic_cast<GuiText*>(GetElementByName(m_gui, "frame-stats"));
+  if (frameStatsText)
+  {
+    frameStatsText->SetText(TheGame::Instance()->GetFrameStats());
+  }
 }
 
 void GSBase::DrawDevMenu()
 {
-  auto* devMenu = GetDevMenu();
-  devMenu->SetVisible(true);
-  devMenu->Draw();
 }
 
 void GSBase::Draw2d() 
@@ -107,6 +111,20 @@ void GSBase::OnActive()
   {
     std::cout << "Failed to load: " << m_guiFilename << "\n";
     Assert(false);
+  }
+  
+  // Extra GUI, to display frame stats, etc
+  auto extraGui = LoadGui("Gui/extra-gui.txt");
+  if (extraGui)
+  {
+    auto newRoot = new GuiComposite;
+    newRoot->AddChild(m_gui);
+    newRoot->AddChild(extraGui);
+    m_gui = newRoot;
+  }
+  else
+  {
+    std::cout << "Failed to load extra GUI.\n";
   }
 }
 

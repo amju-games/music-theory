@@ -1,0 +1,20 @@
+// * Amjula music theory *
+// (c) Copyright 2024 Juliet Colman
+
+// version
+1
+
+// EXTRA GUI
+
+gui-text
+// Element name
+frame-stats
+// pos (coords are -1..1)
+-1, 0.95 
+1, .05
+// Text
+Hello, I am extra
+// Font name, size
+TEXT, 0.7, fgcol=ff0000, bgcol=000000, left, multi
+
+
