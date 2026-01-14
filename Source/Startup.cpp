@@ -95,7 +95,7 @@
 #define _CRTDBG_MAP_ALLOC  
 #include <stdlib.h>  
 #include <crtdbg.h>  
-#endif
+#endif  // _DEBUG
 
 #ifdef NDEBUG
 #define YES_GLUE_FILE
@@ -103,7 +103,7 @@
 #define GLUE_FILE "data-win.glue"
 #define MUSIC_GLUE_FILE "music-win.glue"
 #endif // NDEBUG
-#endif
+#endif  // WIN32
 
 // Probably just for now
 #define YES_FPS_COUNTER

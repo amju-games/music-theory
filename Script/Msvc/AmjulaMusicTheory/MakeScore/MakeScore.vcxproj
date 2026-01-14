@@ -165,6 +165,7 @@
     <ClCompile Include="..\..\..\..\Source\MakeScore\Pitch.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\RestGlyph.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Stave.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\Suppress.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Tie.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\TimeSig.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\TimeValue.cpp" />
@@ -191,11 +192,13 @@
     <ClInclude Include="..\..\..\..\Source\MakeScore\Pitch.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\RestGlyph.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Stave.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\Suppress.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Tie.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\TimeSig.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\TimeSigGlyph.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\TimeValue.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\Utils.h" />
+    <ClInclude Include="..\..\..\..\Source\PagePlayNotes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

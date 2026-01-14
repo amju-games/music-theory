@@ -398,12 +398,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bass.lib">
-      <Filter>Libs</Filter>
-    </Library>
-    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\Bass2.3\Win\bassmidi.lib">
-      <Filter>Libs</Filter>
-    </Library>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\GLUT\glut32.lib">
       <Filter>Libs</Filter>
     </Library>
@@ -411,6 +405,12 @@
       <Filter>Libs</Filter>
     </Library>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Curl\Win32\lib\libcurl.lib">
+      <Filter>Libs</Filter>
+    </Library>
+    <Library Include="..\..\..\..\..\amjulib\Source\SoundBass\Bass2.4\Win\bass.lib">
+      <Filter>Libs</Filter>
+    </Library>
+    <Library Include="..\..\..\..\..\amjulib\Source\SoundBass\Bass2.4\Win\bassmidi.lib">
       <Filter>Libs</Filter>
     </Library>
   </ItemGroup>
