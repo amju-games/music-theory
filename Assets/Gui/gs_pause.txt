@@ -1,7 +1,5 @@
 // * Amjula music theory *
-// (c) Copyright 2024 Juliet Colman
-
-// Pause menu
+// (c) Copyright 2026 Juliet Colman
 
 // version
 1
@@ -11,44 +9,39 @@ gui-comp
 // Name
 gs-pause-root
 // Num children
-2
+3
 
 elastic
--1.5, 0.0
-
-// Resume button
-// element type
+0,-2
+// Next button
 gui-button
-// Element name
 resume-button
-// pos (coords are -1..1)
--0.5, 0.2
-// size
-0.3, 0.15
-// Image 
+-0.2, -0.2
+0.4, 0.25
 Image/gui-button-2.png
-// Text
-RESUME
-// Font name, size
-BUTTON, 1.0, fgcol=ffffff, bgcol=FF0949
+@@@Resume
+BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
 elastic
--1.5, 0.0
-
-// Quit topic button
-// element type
+0,-2
+// Quit button
 gui-button
-// Element name
-quit-topic-button
-// pos (coords are -1..1)
--0.5, 0.0
-// size
-0.3, 0.15
-// Image 
+quit-button
+-0.2, -0.5
+0.4, 0.25
 Image/gui-button-2.png
-// Text
-QUIT
-// Font name, size
-BUTTON, 1.0, fgcol=ffffff, bgcol=FF0949
+// START
+@@@Quit
+BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
+
+rotate
+10
+.5, .5
+gui-text
+mega-text-test
+-1, 1
+2, 2
+PAUSED!
+BUTTON, 10.0, multi, fgcol=404080
 

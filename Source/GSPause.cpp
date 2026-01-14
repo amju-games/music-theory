@@ -2,7 +2,7 @@
 // (c) Copyright 2024 Juliet Colman
 
 #include <Game.h>
-#include "GSMainCorridor.h"
+#include "GS3dTitle.h"
 #include "GSPause.h"
 
 namespace Amju
@@ -12,11 +12,11 @@ static void OnResume(GuiElement*)
   TheGame::Instance()->GetState()->GoBack();
 }
 
-static void OnQuitTopic(GuiElement*)
+static void OnQuit(GuiElement*)
 {
   // Back to main menu
   // TODO Quit confirm
-  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
+  TheGame::Instance()->SetCurrentState(TheGS3dTitle::Instance());
 }
 
 GSPause::GSPause()
@@ -32,8 +32,8 @@ void GSPause::OnActive()
   Assert(elem);
   elem->SetCommand(OnResume);
 
-  elem = GetElementByName(m_gui, "quit-topic-button");
+  elem = GetElementByName(m_gui, "quit-button");
   Assert(elem);
-  elem->SetCommand(OnQuitTopic);
+  elem->SetCommand(OnQuit);
 }
 };
