@@ -81,6 +81,7 @@ void GSHero::SetUpForResume()
 
   // Immediately set the position of the score where we will restart from.
   // Restart the scrolling score from the resume point
+  m_scrollScore->OnResetAnimation(); // wait, does this do anything?
   m_scoreAnim->SetAnimTimeSeconds(seconds);
   m_scoreAnim->SetIsPaused(false);
   m_scoreAnim->Update();
@@ -156,6 +157,10 @@ void GSHero::OnPauseGame()
     // During or before the count-in, do nothing special, just restart
     //  the round when we re-enter this state.
     // But if we have started the song, store the point we go to.
+    // Check if we are in the first bar - if so, we just restart the
+    //  round, as we can't go back to the previous bar.
+    // TODO
+
     m_pauseResumeTime = animTime;
   }
 
