@@ -279,8 +279,15 @@ std::string NoteGlyph::TimeAfter() const
       // Output MIDI note off event, unless the note is on LHS of a tie,
       //  in which case it will last longer.
       // Follow chain of ties back to start of tie, to get total length.
-      // TODO 
-      float t = timeval + startTime;
+      // TODO  Tied notes
+
+      // NB Reducing time of note by 10%. This is so there is a short
+      //  break between note on and note off events, which will prevent
+      //  simultaneous note on/off events for the same note, which can
+      //  only be bad news.
+      // TODO We could vary this amount depending on legato, etc.
+      float timeReduction = 0.9f;
+      float t = timeval * timeReduction + startTime;
       if (m_switches & SW_STACCATO)
       {
         t = timeval * 0.5f + startTime; // halve length of note
