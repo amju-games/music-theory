@@ -26,6 +26,7 @@ std::string RestGlyph::TimeBefore() const
     }
     float t = timeval + startTime;
     res += "TIME, " + Str(start) + ", " + Str(t) + LineEnd();
+    res += "REST_ON" + LineEnd(); // extra meta data for client to identify rests
   }
   return res;
 }
@@ -37,6 +38,8 @@ std::string RestGlyph::TimeAfter() const
   bool yesTime = (timeval > 0);
   if (yesTime)
   {
+    res += "REST_OFF" + LineEnd(); // extra meta data for client to identify rests
+
     // Cancel time for subsequent glyphs (but postprocess to strip out
     //  unnecessary cancellations)
     res += "TIME, -1, -1";

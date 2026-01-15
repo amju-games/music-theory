@@ -64,9 +64,11 @@ const char* TEXT_NAME = "text";
 const char* FONT_NAME = "text_font";
 const char* FONT_SIZE = "text_size";
 
-// Note on/note off 'meta glyphs'
+// Note on/note off meta data
 const char* NOTE_ON_NAME  = "NOTE_ON";
 const char* NOTE_OFF_NAME = "NOTE_OFF";
+const char* REST_ON_NAME  = "REST_ON";
+const char* REST_OFF_NAME = "REST_OFF";
 
 const char* END_TOKEN = "end";
 
@@ -560,6 +562,14 @@ void GuiMusicScore::SetMinMaxTime(float t1, float t2)
   m_timeMinMax = Vec2f(t1, t2);
 }
 
+bool GuiMusicScore::ParseRestOn(const Strings& strs)
+{
+}
+
+bool GuiMusicScore::ParseRestOff(const Strings& strs)
+{
+}
+
 bool GuiMusicScore::ParseNoteEvent(const Strings& strs, bool onNotOff)
 {
   if (strs.size() != 3)
@@ -655,6 +665,14 @@ bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* re
   else if (strs[0] == NOTE_OFF_NAME)
   {
     return ParseNoteOff(strs);
+  }
+  else if (strs[0] == REST_ON_NAME)
+  {
+    return ParseRestOn(strs);
+  }
+  else if (strs[0] == REST_OFF_NAME)
+  {
+    return ParseRestOff(strs);
   }
   else if (strs[0] == QUAD_NAME)
   {

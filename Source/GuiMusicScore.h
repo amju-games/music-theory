@@ -212,10 +212,12 @@ protected:
   // Parse strings to set min/max time, which is then set on all subsequent glyphs
   bool ParseTime(const Strings& strs);
 
-  // parse note on/off 'glyphs'
+  // Parse note on/off meta data
   bool ParseNoteOn(const Strings& strs);
   bool ParseNoteOff(const Strings& strs);
   bool ParseNoteEvent(const Strings& strs, bool onNotOff);
+  bool ParseRestOn(const Strings& strs);
+  bool ParseRestOff(const Strings& strs);
 
   // For text child nodes, set font, which will be used for all text
   //  until changed.
