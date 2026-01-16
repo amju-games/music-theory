@@ -26,7 +26,7 @@
 #endif
 
 //#define KEYBOARD_DEBUG
-#define MISSED_NOTE_DEBUG
+//#define MISSED_NOTE_DEBUG
 
 namespace Amju
 {
@@ -895,8 +895,6 @@ std::cout << "Failed to find score-extras!\n";
 
   m_scoreExtras->AddChild(extra);
 
-  float scale = m_scrollScore->GetSize().x;
-
   const auto& noteEvents = m_scrollScore->GetNoteEvents();
   // Get rid of note up events, so we just have note down events.
   // Probably best to just iterate over the events, counting the type
@@ -904,27 +902,19 @@ std::cout << "Failed to find score-extras!\n";
   auto notesCopy(noteEvents);
   notesCopy.erase(
     std::remove_if(notesCopy.begin(), notesCopy.end(), 
-     [](const NoteEvent& ne) { return ne.IsNoteOnEvent(); }),
+     [](const NoteEvent& ne) { return !ne.IsNoteOnEvent(); }),
     notesCopy.end());
 
   const auto& ne = notesCopy[eventNum];
 
-  // Now we have the time of the event, look up the x coord for that time.
-  const auto& beatTable = m_scrollScore->GetBeatTable();
-  // Find x-pos for note event
-  auto it = beatTable.lower_bound(ne.m_time);
-  if (it != beatTable.end())
-  {
-    float x = it->second;
+  // Find the position of the note or rest so we can place the extra
+  //  GUI on top -- extra's local pos then finesses the position.
+  Vec2f pos = ne.GetPos();
+  Vec2f scale = m_scrollScore->GetSize();
+ 
+  pos *= scale; // or just scale x ?? TODO
 
-    // Find the position of the note or rest so we can place the extra
-    //  GUI on top -- extra's local pos then finesses the position.
-    x *= scale;
-    float y = -m_scrollScore->GetLocalPos().y + // compensate for score pos
-      0; // TODO Find y-pos of glyph 
-
-    extra->SetLocalPos(Vec2f(x, y) + extra->GetLocalPos());
-  }
+  extra->SetLocalPos(pos + extra->GetLocalPos());
 }
 
 void GSHero::ShowFeedbackBalloon(bool showNotHide)

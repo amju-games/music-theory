@@ -574,31 +574,41 @@ bool GuiMusicScore::ParseRestOff(const Strings& strs)
   return true;
 }
 
-bool GuiMusicScore::ParseNoteEvent(const Strings& strs, bool onNotOff)
+bool GuiMusicScore::ParseNoteOn(const Strings& strs)
 {
-  if (strs.size() != 3)
+  if (strs.size() < 6)
   {
     ReportError("Bad number of params for note on event.");
     return false;
   }
-  int note = ToInt(strs[1]);
+
+  int pitch = ToInt(strs[1]);
   float time = ToFloat(strs[2]);
-  // We find position of note event on score later
-  NoteEventType net = onNotOff ? NoteEventType::NOTE_ON : NoteEventType::NOTE_OFF; 
-  m_noteEvents.push_back(NoteEvent(note, time, net, Vec2f()));
-  m_lastNoteParsed = onNotOff ? note : -1;
+  int volume = ToFloat(strs[3]);
+  float x = ToFloat(strs[4]);
+  float y = ToFloat(strs[5]);
+
+  m_noteEvents.push_back(NoteEvent(
+    pitch, time, NoteEventType::NOTE_ON , volume, {x, y}));
+
+  m_lastNoteParsed = pitch; // used to get colour from palette
 
   return true;
 }
 
-bool GuiMusicScore::ParseNoteOn(const Strings& strs)
-{
-  return ParseNoteEvent(strs, true);
-}
-
 bool GuiMusicScore::ParseNoteOff(const Strings& strs)
 {
-  return ParseNoteEvent(strs, false);
+  if (strs.size() != 3)
+  {
+    ReportError("Bad number of params for note off event.");
+    return false;
+  }
+  int note = ToInt(strs[1]);
+  float time = ToFloat(strs[2]);
+  m_noteEvents.push_back(NoteEvent(note, time, NoteEventType::NOTE_OFF, 0, Vec2f()));
+  m_lastNoteParsed = -1; // used to get colour from palette
+
+  return true;
 }
 
 bool GuiMusicScore::ParseBeat(const Strings& strs)

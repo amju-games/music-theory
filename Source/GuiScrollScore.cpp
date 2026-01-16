@@ -3,6 +3,8 @@
 #include <Timer.h>
 #include "GuiScrollScore.h"
 
+//#define ANIM_DEBUG
+
 namespace Amju
 {
 const char* GuiScrollScore::NAME = "scroll-score";
@@ -13,7 +15,6 @@ bool GuiScrollScore::LoadMusicScore(File* f)
   {
     return false;
   }
-  BuildBeatTable(m_beatTable);
   AddBeatLines();
   return true;
 }
@@ -24,7 +25,6 @@ bool GuiScrollScore::Load(File* f)
   {
     return false;
   }
-  BuildBeatTable(m_beatTable);
   AddBeatLines();
   return true;
 }
@@ -41,7 +41,7 @@ void GuiScrollScore::SendNoteEvent(const NoteEvent& ne)
 void GuiScrollScore::StartCountIn(
   int numCountInBeats, std::function<void()> onFinished)
 {
-  if (m_beatTable.empty())
+  if (m_noteEvents.empty())
   {
 std::cout << "Can't count in, no music events!\n";
     return;
@@ -52,8 +52,8 @@ std::cout << "Can't count in, no music events!\n";
   // Duration of count-in
   m_countInTimeRemaining = static_cast<float>(numCountInBeats) / GetBpm() * 60.f;
 
-  // Get distance to first music event in score. 
-  float d = m_beatTable.begin()->second;
+  // Get spatial distance to first music event in score. 
+  float d = m_noteEvents.begin()->GetPos().x;
 
   m_countInSpeed = d / m_countInTimeRemaining;
 
@@ -117,21 +117,30 @@ void GuiScrollScore::Animate(float animValue)
 
   m_animTime = animValue; 
 
-  // Find the next entry in the Beat Table 
-  auto it = m_beatTable.lower_bound(animValue);
-  if (it != m_beatTable.begin()) // go to event before anim time  if it exists
+  auto noteOnEvents = m_noteEvents;
+  // Just retain note on events 
+  noteOnEvents.erase(
+    std::remove_if(noteOnEvents.begin(), noteOnEvents.end(),
+    [](const NoteEvent& ne) { return !ne.IsNoteOnEvent(); }),
+    noteOnEvents.end());
+
+  // Find the next entry in the note events sequence
+  auto it = std::lower_bound(noteOnEvents.begin(), noteOnEvents.end(), animValue,
+    [](const NoteEvent& ne, float f) { return ne.m_time < f; });
+  if (it != noteOnEvents.begin()) // go to event before anim time if it exists
   {
     --it;
   }
 
-  if (it == m_beatTable.end())
+  if (it == noteOnEvents.end())
   {
     // Have we reached the end of the piece?
 std::cout << "End of the piece?\n";
   }
   else
   {
-    const auto& [time, x] = *it;
+    const float time = it->m_time;
+    const float x = it->GetPos().x;
     if (time > m_nextT)
     {
       // We have reached the beat. Recalc velocity to reach the next one.
@@ -150,14 +159,15 @@ std::cout << "t: " << animValue
 
       // Find the next time
       ++it;
-      if (it == m_beatTable.end())
+      if (it == noteOnEvents.end())
       {
         //m_scrollSpeed = 0; // Keep scrolling
 std::cout << " - end?\n";
       }
       else
       {
-        const auto& [nextTime, nextX] = *it;
+        const float nextTime = it->m_time;
+        const float nextX = it->GetPos().x;
 
         // We want to go from current x to next x in (nextTime - time) normalized time.
         float dt = nextTime - time;
@@ -203,57 +213,12 @@ void GuiScrollScore::OnResetAnimation()
   m_scrollSpeed = 0;
 }
 
-void GuiScrollScore::BuildBeatTable(BeatTable& beatTable) 
-{
-  beatTable.clear();
-
-  for (const auto& g : m_glyphs)
-  {
-    const float x = g.m_pos.x;
-    const float t = g.m_timeMinMax.x; // Start time for this glyph
-
-    if (g.m_char < ' ')
-    {
-      continue; // non-printable glyph code, e.g. for a quad, which doesn't use m_pos.
-    }
-
-    if (t < 0)
-    {
-      continue; // we don't care about this glyph if time not set
-    }
-
-    // Unfortunately I don't think we can rely on the useful operator[] adding a 
-    //  value of zero if the key doesn't exist yet. X coords could be negative, no?
-    if (!beatTable.contains(t))
-    {
-      beatTable[t] = x;
-    }
-    else
-    {
-      float& minXSoFar = beatTable[t]; 
-      if (x < minXSoFar)
-      {
-         minXSoFar = x;
-      }
-    }
-  }
-
-/*
-  // TODO TEMP TEST: Print the beat table. This shows us normalized times, and
-  //  the x-position corresponding to that time.
-  for (const auto& [time, x] : beatTable)
-  {
-    std::cout << "Time " << time << "\tX " << x << "\n";
-  }
-*/
-}
-
 void GuiScrollScore::AddBeatLines()
 {
 #ifdef ADD_BEAT_LINES
   // Add lines to show beat table x values. 
   // They show up a bit to the left of the music glyphs :(
-  for (const auto& [time, x] : m_beatTable)
+  for (const auto& ne : m_noteEvents)
   {
     auto poly = new GuiPoly;
     poly->SetLocalPos({0, 0});
@@ -272,11 +237,6 @@ void GuiScrollScore::AddBeatLines()
 float GuiScrollScore::GetAnimTime() const
 { 
   return m_animTime;
-}
-
-const BeatTable& GuiScrollScore::GetBeatTable() const
-{
-  return m_beatTable;
 }
 }
 

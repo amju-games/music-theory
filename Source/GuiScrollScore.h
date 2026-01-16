@@ -4,12 +4,6 @@
 
 namespace Amju
 {
-// Beat table: map time (normalized) -> x coord in score (local coord)
-// E.g. t=0 -> x=0; t=0.1 -> x=0.2; t=0.2 -> x=0.5, ...
-// We can't rely on equal spacing and keep the scroll speed constant - 
-//  different glyphs take up different widths.
-using BeatTable = std::map<float, float>;
-
 // * GuiScrollScore *
 // Scroll score from right to left, rather than static/highlighting.
 class GuiScrollScore : public GuiMusicScore
@@ -39,11 +33,6 @@ public:
   float GetCountInTimeRemaining() const;
 
 //protected:
-  // Build table of Time (normalized) -> x-coord (local coords).
-  // Public and with BeatTable param for unit testing.
-  void BuildBeatTable(BeatTable&);
-
-  const BeatTable& GetBeatTable() const;
 
   // Get the last timing value passed into Animate().
   // This is used to compare player input with the beat table.
@@ -75,8 +64,6 @@ protected:
   float m_countInTimeRemaining = 0;
   // Callback for when count-in is finished
   std::function<void()> m_countInFinishedFunc;
-
-  BeatTable m_beatTable;
 };
 }
 
