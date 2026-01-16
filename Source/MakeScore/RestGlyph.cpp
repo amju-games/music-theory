@@ -22,11 +22,15 @@ std::string RestGlyph::TimeBefore() const
     float start = startTime;
     if (start == 0)
     {
-      start = 0.01f; // so first glyph is not highlighted until anim starts
+      start = 0.0001f; // so first glyph is not highlighted until anim starts
     }
     float t = timeval + startTime;
     res += "TIME, " + Str(start) + ", " + Str(t) + LineEnd();
-    res += "REST_ON" + LineEnd(); // extra meta data for client to identify rests
+    // extra meta data for client to identify rests
+    res += "REST_ON, " +
+      Str(x)  + ", " + 
+      Str(y) + 
+      LineEnd(); 
   }
   return res;
 }

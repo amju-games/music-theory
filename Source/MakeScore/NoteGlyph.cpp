@@ -241,7 +241,7 @@ std::string NoteGlyph::TimeBefore() const
     float start = startTime;
     if (start == 0)
     {
-      start = 0.01f; // so first glyph is not highlighted until anim starts
+      start = 0.0001f; // so first glyph is not highlighted until anim starts
     }
     float t = timeval + startTime;
     if (m_switches & SW_STACCATO)
@@ -252,14 +252,23 @@ std::string NoteGlyph::TimeBefore() const
     {
       res += "TIME, " + Str(start) + ", " + Str(t) + LineEnd();
     }
-    if (   !IsRest(realGlyphName) 
-        && !m_tieRight 
+    // Output note meta data. This has escalated to pitch, volume, start
+    //  time, and position on the stave. Event types have expanded to include
+    //  rest on/off and should also include ties. This meta data gives
+    //  the client code some understanding of the musical content, rather
+    //  than just rendering primitives.
+    if (   !m_tieRight 
         && (GetSuppressFlags() & META_NOTE) == 0)
     {
       // NB If we suppress times, we won't know when to play the note --
-      //  note meta data should include start time.
+      //  note meta data should include start time. It does, no??
       // Output MIDI note event, unless on RHS of a tie
-      res += "NOTE_ON, " + Str(pitch.m_midi) + ", " + Str(start) + LineEnd();
+      res += "NOTE_ON, " + 
+        Str(pitch.m_midi) + ", " + 
+        Str(start) + ", " + 
+        Str(volume) + ", " +
+        Str(x) + ", " + Str(y) + 
+        LineEnd();
     }
   }
   return res;

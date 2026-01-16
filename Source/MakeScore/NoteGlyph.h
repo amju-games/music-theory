@@ -50,9 +50,12 @@ struct NoteGlyph : public Glyph
 
   std::string CommentStr() const;
 
+public: // ?!
   Pitch pitch;
 
   Accidental m_accidental = Accidental::ACCIDENTAL_NONE;
+
+  int volume = 127;
 
   // TODO
   // Stem* m_stem;
