@@ -4,98 +4,114 @@
 
 BPM, 30 
 
-// ./makescore "page-w 20 4/4 clef-t <c> 60 62 64 65 | 67 69 71 72 | 6/8 <q> 76 77 78 79 74 73 | 2/4 <m> 64 60 | "
+// ./makescore "page-w 20 4/4 clef-t <c> 60 62 64 65 | 67 69 71 72 | 6/8 <q> 76 77 78 79 74 73 | 2/4 <m> 64 60 |  "
 stave, 0, 0, 20, 1
 treble-clef, 0, 0, 1, 1
 4/4, 0.55, 0
-TIME, 0.01, 0.0714286
-NOTE_ON, 60, 0.01
+// Note, midi: 60, value: c
+TIME, 0.0001, 0.0714286
+NOTE_ON, 60, 0.0001, 127, 1.68, -0.1
 crotchet-up, 1.68, -0.1
 ledger-w, 1.68, -0.1
-NOTE_OFF, 60, 0.0714286
+NOTE_OFF, 60, 0.0642857
 TIME, -1, -1
+// Note, midi: 62, value: c
 TIME, 0.0714286, 0.142857
-NOTE_ON, 62, 0.0714286
+NOTE_ON, 62, 0.0714286, 127, 2.71, -0.05
 crotchet-up, 2.71, -0.05
-NOTE_OFF, 62, 0.142857
+NOTE_OFF, 62, 0.135714
 TIME, -1, -1
+// Note, midi: 64, value: c
 TIME, 0.142857, 0.214286
-NOTE_ON, 64, 0.142857
+NOTE_ON, 64, 0.142857, 127, 3.74, 0
 crotchet-up, 3.74, 0
-NOTE_OFF, 64, 0.214286
+NOTE_OFF, 64, 0.207143
 TIME, -1, -1
+// Note, midi: 65, value: c
 TIME, 0.214286, 0.285714
-NOTE_ON, 65, 0.214286
+NOTE_ON, 65, 0.214286, 127, 4.77, 0.05
 crotchet-up, 4.77, 0.05
-NOTE_OFF, 65, 0.285714
+NOTE_OFF, 65, 0.278571
 TIME, -1, -1
 bar-line, 6, 0, 1, 1
+// Note, midi: 67, value: c
 TIME, 0.285714, 0.357143
-NOTE_ON, 67, 0.285714
+NOTE_ON, 67, 0.285714, 127, 6.6, 0.1
 crotchet-up, 6.6, 0.1
-NOTE_OFF, 67, 0.357143
+NOTE_OFF, 67, 0.35
 TIME, -1, -1
+// Note, midi: 69, value: c
 TIME, 0.357143, 0.428571
-NOTE_ON, 69, 0.357143
+NOTE_ON, 69, 0.357143, 127, 7.4, 0.15
 crotchet-up, 7.4, 0.15
-NOTE_OFF, 69, 0.428571
+NOTE_OFF, 69, 0.421429
 TIME, -1, -1
+// Note, midi: 71, value: c
 TIME, 0.428571, 0.5
-NOTE_ON, 71, 0.428571
+NOTE_ON, 71, 0.428571, 127, 8.2, 0.2
 crotchet-up, 8.2, 0.2
-NOTE_OFF, 71, 0.5
+NOTE_OFF, 71, 0.492857
 TIME, -1, -1
+// Note, midi: 72, value: c
 TIME, 0.5, 0.571429
-NOTE_ON, 72, 0.5
+NOTE_ON, 72, 0.5, 127, 9, 0.25
 crotchet-down, 9, 0.25
-NOTE_OFF, 72, 0.571429
+NOTE_OFF, 72, 0.564286
 TIME, -1, -1
 bar-line, 10, 0, 1, 1
 6/8, 10, 0
+// Note, midi: 76, value: q
 TIME, 0.571429, 0.595238
-NOTE_ON, 76, 0.571429
+NOTE_ON, 76, 0.571429, 127, 11.0571, 0.35
 quaver-down, 11.0571, 0.35
-NOTE_OFF, 76, 0.595238
+NOTE_OFF, 76, 0.592857
 TIME, -1, -1
+// Note, midi: 77, value: q
 TIME, 0.595238, 0.619048
-NOTE_ON, 77, 0.595238
+NOTE_ON, 77, 0.595238, 127, 12.0143, 0.4
 quaver-down, 12.0143, 0.4
-NOTE_OFF, 77, 0.619048
+NOTE_OFF, 77, 0.616667
 TIME, -1, -1
+// Note, midi: 78, value: q
 TIME, 0.619048, 0.642857
-NOTE_ON, 78, 0.619048
+NOTE_ON, 78, 0.619048, 127, 12.9714, 0.4
 quaver-down, 12.9714, 0.4
 sharp, 12.7714, 0.4
-NOTE_OFF, 78, 0.642857
+NOTE_OFF, 78, 0.640476
 TIME, -1, -1
+// Note, midi: 79, value: q
 TIME, 0.642857, 0.666667
-NOTE_ON, 79, 0.642857
+NOTE_ON, 79, 0.642857, 127, 13.9286, 0.45
 quaver-down, 13.9286, 0.45
-NOTE_OFF, 79, 0.666667
+NOTE_OFF, 79, 0.664286
 TIME, -1, -1
+// Note, midi: 74, value: q
 TIME, 0.666667, 0.690476
-NOTE_ON, 74, 0.666667
+NOTE_ON, 74, 0.666667, 127, 14.8857, 0.3
 quaver-down, 14.8857, 0.3
-NOTE_OFF, 74, 0.690476
+NOTE_OFF, 74, 0.688095
 TIME, -1, -1
+// Note, midi: 73, value: q
 TIME, 0.690476, 0.714286
-NOTE_ON, 73, 0.690476
+NOTE_ON, 73, 0.690476, 127, 15.8429, 0.25
 quaver-down, 15.8429, 0.25
 sharp, 15.6429, 0.25
-NOTE_OFF, 73, 0.714286
+NOTE_OFF, 73, 0.711905
 TIME, -1, -1
 bar-line, 17, 0, 1, 1
 2/4, 17, 0
+// Note, midi: 64, value: m
 TIME, 0.714286, 0.857143
-NOTE_ON, 64, 0.714286
+NOTE_ON, 64, 0.714286, 127, 18, 0
 minim-up, 18, 0
-NOTE_OFF, 64, 0.857143
+NOTE_OFF, 64, 0.842857
 TIME, -1, -1
+// Note, midi: 60, value: m
 TIME, 0.857143, 1
-NOTE_ON, 60, 0.857143
+NOTE_ON, 60, 0.857143, 127, 18.9, -0.1
 minim-up, 18.9, -0.1
 ledger-w, 18.9, -0.1
-NOTE_OFF, 60, 1
+NOTE_OFF, 60, 0.985714
 TIME, -1, -1
 bar-line, 20, 0, 1, 1
 bar-line, 20, 0, 1, 1
