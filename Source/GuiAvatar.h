@@ -3,57 +3,34 @@
 
 #pragma once
 
-#include <GuiDecorator.h>
+#include "GuiSetFromString.h"
 
 namespace Amju
 {
 // * GuiAvatar *
-// Decorator which sets attributes on descendant nodes.
-// This is so we can customise the look of a standard tree of sprites, but
-//  could perhaps be used for other things too.
-class GuiAvatar : public GuiDecorator
+// Avatar with blinking eyes which look around.
+// We can set attribs on descendant elements from strings, to give
+//  a large combination of different-looking characters.
+class GuiAvatar : public GuiSetFromString
 {
 public:
   static const char* NAME;
   std::string GetTypeName() const override { return NAME; }
 
-  bool Load(File*) override;
-
-  // Set Avatar from string.
-  // We set descendant nodes from a string like this:
-  // "colour; iris - colour; 005678 | scale; head - scale; 1.0, 1.2 | ... "
-  //  1. Split using |
-  //  2. This gives 3 strings separated with ;
-  //  3. First is type, so we know what to dynamic_cast to (or could use a factory ?)
-  //  4. Second is name of GuiElement we will set attribs on
-  //  5. Third is value of attrib - how we set it depends on the type (string 1), 
-  //     so again a factory could be the best way.
-  bool SetFromString(const std::string&);
-
-  // Get string describing avatar, which can be passed in to SetFromString()
-  std::string GetString() const;
-
   void Update() override;
-
-  // Call this to set a value on one descendant node. This is used when we set
-  //  the avatar from string, and can be used to animate or alter the avatar later.
-  // Format of string is "type;name;value", e.g. "colour; iris-colour; 005678"
-  // The type should use names used by GuiFactory where possible, for 
-  //  consistency - no point having a second set of different names for things.
-  // Name is the name of the GuiElement. 
-  // Value depends on the type, e.g. for a colour, it's a hex rgb[a] value.
-  bool SetOneDescendant(const std::string&);
 
   // Eye look direction: (0, 0) is dead ahead; (1, 0) is looking right, etc.
   void SetLookDir(const Vec2f& lookDir);
 
+protected:
+ // Call base class version, but with checks for specially named elements
+ //  to set symmetrical elements like eyes. 
+ bool SetAttribOfNamedElementWithFunc(
+   const std::string& name, SetFromStringFunc func, const std::string& value)
+   override;
+  
 private:
-  // Map of strings set with SetFromString() and SetOneDescendant(). Map so we
-  //  only store the last string set for a given type + name.
-  // We use this map so we can report it out in GetString() - so only needed if
-  //  this is used, i.e. for avatar editing.
-  std::map<std::string, std::string> m_values;
-
+  // Eye info - for this to work we rely on specially named elements.
   Vec2f m_lookDir;
   Vec2f m_desiredLookDir;
   float m_blinkTime = 0;
