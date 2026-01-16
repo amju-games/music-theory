@@ -111,6 +111,21 @@ for (auto it = beforeIt; it != afterIt; ++it)
   return std::make_pair(beforeIt, afterIt);
 }
 
+bool EventTypesMatch(const NoteEvent& ne, const MusicKbEvent& e)
+{
+  if (e.m_on && ne.IsNoteOnEvent())
+  {
+    return true;
+  }
+  
+  if (!e.m_on && ne.IsNoteOffEvent())
+  {
+    return true;
+  }
+
+  return false;
+}
+
 std::optional<NoteEvents::const_iterator> Grader::FindBestMatch(
   const NoteEvents::const_iterator beforeIt,
   const NoteEvents::const_iterator afterIt,
@@ -127,7 +142,7 @@ std::optional<NoteEvents::const_iterator> Grader::FindBestMatch(
   {
     float diff = std::abs(animTime - it->m_time);
 
-    if (   it->m_onNotOff == e.m_on  // event types match?
+    if (   EventTypesMatch(*it, e)  // event types match?
         && diff < bestDiff // closer time?
         && (e.m_on || it->m_note == e.m_note)) // if note off, pitches match?
     {

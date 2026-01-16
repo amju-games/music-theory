@@ -303,12 +303,12 @@ void GuiMusicScore::SendNoteEvent(const NoteEvent& ne)
     m_noteEventCallback(ne);
   }
 
-  if (ne.m_onNotOff)
+  if (ne.IsNoteOnEvent())
   {
     // TODO better MIDI API
     PlayMidi(ne.m_note, MIDI_NOTE_MAX_VOLUME);
   }
-  else
+  else if (ne.IsNoteOffEvent())
   {
     PlayMidi(ne.m_note, 0);
   }
@@ -564,10 +564,14 @@ void GuiMusicScore::SetMinMaxTime(float t1, float t2)
 
 bool GuiMusicScore::ParseRestOn(const Strings& strs)
 {
+  // TODO
+  return true;
 }
 
 bool GuiMusicScore::ParseRestOff(const Strings& strs)
 {
+  // TODO
+  return true;
 }
 
 bool GuiMusicScore::ParseNoteEvent(const Strings& strs, bool onNotOff)
@@ -579,7 +583,9 @@ bool GuiMusicScore::ParseNoteEvent(const Strings& strs, bool onNotOff)
   }
   int note = ToInt(strs[1]);
   float time = ToFloat(strs[2]);
-  m_noteEvents.push_back(NoteEvent(note, time, onNotOff));
+  // We find position of note event on score later
+  NoteEventType net = onNotOff ? NoteEventType::NOTE_ON : NoteEventType::NOTE_OFF; 
+  m_noteEvents.push_back(NoteEvent(note, time, net, Vec2f()));
   m_lastNoteParsed = onNotOff ? note : -1;
 
   return true;
