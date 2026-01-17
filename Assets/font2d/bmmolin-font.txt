@@ -5,5 +5,4 @@
 2
 
 // BM Font .fnt file (txt appended for glue file)
-font2d/bmmolin/molin-font.fnt.txt
-
+font2d/bmmolin/molin-bmfont.fnt.txt
