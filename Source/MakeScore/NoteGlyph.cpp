@@ -207,10 +207,15 @@ std::string NoteGlyph::ToString() const
   }
  
   // Add ledger lines - below
+  std::string ledger = "ledger";
+  if (timevalToken == "sb")
+  {
+    ledger = "ledger-w"; // wider ledger line
+  }
   for (int s = m_staveLine; s < -1; s += 2)
   {
     float ledgerY = y - (s + 2) * 0.05f;
-    res += "ledger-w, " + Str(x) + ", " + Str(ledgerY) +
+    res += ledger + ", " + Str(x) + ", " + Str(ledgerY) +
       AddScaleStringIfRequired();
     res += LineEnd();
   }
@@ -218,7 +223,7 @@ std::string NoteGlyph::ToString() const
   for (int s = m_staveLine; s > 9; s -= 2)
   {
     float ledgerY = y - (s - 10) * 0.05f;
-    res += "ledger-w, " + Str(x) + ", " + Str(ledgerY) +
+    res += ledger + ", " + Str(x) + ", " + Str(ledgerY) +
       AddScaleStringIfRequired();
     res += LineEnd();
   }
