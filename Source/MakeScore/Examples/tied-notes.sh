@@ -1,9 +1,7 @@
 # * Amjula Music Theory *
 # (c) Copyright 2026 Juliet Colman
 
-# 'f4' here is treated as f natural, superseding the key sig.
-# This is consistent with setting notes as midi values, and with musicxml.
-../makescore --scale 0.5 "page-w 5 <c> key-s-1 g3 a3 b3 c4 d4 e4 f4+ g4 a4 b4 c5 d5 e5 f5+ g5" > out.txt
+../makescore "page-w 4 <g4> c t c t m | <c> a4 t a4 t <m> a4" > out.txt
 
 # Append output to boilerplate
 cp ../../../Assets/Gui/scoretest.txt ../../../Assets/Gui/scoretest_temp.txt
