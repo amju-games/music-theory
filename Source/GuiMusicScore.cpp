@@ -820,9 +820,10 @@ bool GuiMusicScore::AddCurveFromString(
     }
 
     GuiSpline* curve = new GuiSpline;
-    curve->SetSize(Vec2f(1, 1));
+    curve->SetSize(Vec2f(1.f, 1.f)); // Doesn't do anything but do we need size to be non-zero?
+    curve->SetStyle(IGuiPoly::Style::OUTLINE);
 
-    // Set thickness at ends and in middle
+    // Set thickness at ends and in middle -- TODO Should depend on scale
     curve->SetWidths(0.006f, 0.012f);
     curve->SetIsLoop(false);
     curve->SetOutlineColour(m_fgCol);
@@ -830,6 +831,9 @@ bool GuiMusicScore::AddCurveFromString(
     for (int i = 1; i < n; i += 2)
     {
       Vec2f v(ToFloat(strs[i]), ToFloat(strs[i + 1]));
+      
+      v *= GetSize();
+      v += GetCombinedPos();
       curve->AddControlPoint(v); 
     }
     curve->OnControlPointsChanged(); // create full shape from control points
