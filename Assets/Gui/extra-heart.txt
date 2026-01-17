@@ -6,6 +6,10 @@
 
 // Heart to attach to score - play note correctly, get extra life.
 
+scale
+0.25, 0.25
+0.5, 0.5
+
 // Heart
 animation
 pulsing anim

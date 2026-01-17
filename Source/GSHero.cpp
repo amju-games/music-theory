@@ -877,7 +877,10 @@ void GSHero::AttachExtraBits()
   // TODO TEMP TEST 
   // Attach a heart to the score 
   auto heart = LoadGui("Gui/extra-heart.txt");
-  AttachExtraBitToScore(heart, 2, NoteEventType::NOTE_ON);
+  AttachExtraBitToScore(heart, 1, NoteEventType::NOTE_ON);
+
+  auto heart2 = LoadGui("Gui/extra-heart.txt");
+  AttachExtraBitToScore(heart2, 2, NoteEventType::NOTE_ON);
 }
 
 void GSHero::AttachExtraBitToScore(
@@ -902,7 +905,7 @@ std::cout << "Failed to find score-extras!\n";
   auto notesCopy(noteEvents);
   notesCopy.erase(
     std::remove_if(notesCopy.begin(), notesCopy.end(), 
-     [](const NoteEvent& ne) { return !ne.IsNoteOnEvent(); }),
+     [=](const NoteEvent& ne) { return ne.m_type != net; }),
     notesCopy.end());
 
   const auto& ne = notesCopy[eventNum];
