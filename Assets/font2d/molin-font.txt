@@ -1,0 +1,20 @@
+// font
+// version
+1
+// size
+0.5
+
+// bitmap + alpha
+font2d/molin/molin-2048-55pt.png
+
+// no of chars in x
+16
+// no of chars in y
+16
+
+// start char
+0
+
+// widths
+font2d/molin/molin-2048-55pt-widths.txt
+
