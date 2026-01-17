@@ -381,9 +381,12 @@ static void SetInitialState()
     return;
   }
 
-  // Show animated splines?
-  // Right now using this to edit GUIs, currently corridor sections.
-  TheGame::Instance()->SetCurrentState(TheGSShowGui::Instance());
+  if (args.Contains("--gui"))
+  {
+    // Show a GUI, the gui filename is the 3rd command-line param.
+    TheGame::Instance()->SetCurrentState(TheGSShowGui::Instance());
+    return;
+  }
 
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());

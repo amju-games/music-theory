@@ -1,0 +1,66 @@
+// * Amjula music theory *
+// (c) Copyright 2024 Juliet Colman
+
+// version
+1
+
+// Display fonts
+
+
+gui-comp
+font-comp
+5
+
+// Hor line
+poly
+my-line
+0, 0
+style=2, outCol=ff8080, fillCol=ff0000, radius=0.003
+-1, 0
+1, 0
+end
+
+gui-text
+// Element name
+text-1
+// pos (coords are -1..1)
+-1, 0
+2, .1
+// Text
+The quick brown fox
+// Font name, size
+TEXT, 1, fgcol=ff0000c0, left
+
+gui-text
+// Element name
+text-2
+// pos (coords are -1..1)
+-1, 0
+2, .1
+// Text
+The quick brown fox
+// Font name, size
+TEXT, 2, fgcol=0080ff80, left
+
+gui-text
+// Element name
+text-4
+// pos (coords are -1..1)
+-1, 0
+2, .1
+// Text
+The quick brown fox
+// Font name, size
+TEXT, 4, fgcol=ffc00080, left
+
+gui-text
+// Element name
+text-8
+// pos (coords are -1..1)
+-1, 0
+2, .1
+// Text
+The quick brown fox
+// Font name, size
+TEXT, 8, fgcol=00ffc080, left
+
