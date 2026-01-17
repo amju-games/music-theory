@@ -27,14 +27,21 @@ std::string Tie::ToString() const
   //  on whether the tie is 'n' or 'u' shape. 
   // Inner control points: centre, and one near each end to give
   //  desired shape.
-  float y = 1.f; // for 'n' shape -- TODO
-                 // If U shape
-  y = 1.1f;
+
+  bool stemUp = (m_leftGlyph->m_staveLine < 5);
+
+  bool curveIsU = stemUp;
+  float y = m_leftGlyph->y;  // same as right side -- RIGHT?!
+  // Don't know why, but we are off by 0.5 here.
+  // Add or subtract to get above/below note head.
+  y += 0.5f + (curveIsU ? -0.1f : 0.1f);
   float w = m_rightX - m_leftX;
   const float TIE_ASPECT_RATIO = 8.f;
   float h = w / TIE_ASPECT_RATIO;
-  // if u shape
-  h = -h;
+  if (curveIsU)
+  {
+    h = -h;
+  }
   float xoff = X_OFFSET_RIGHT * .6f;
 
   const float CP = 0.18f; // control point, for shape
