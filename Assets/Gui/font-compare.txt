@@ -1,0 +1,23 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+// Display fonts
+
+
+gui-comp
+font-comp
+2
+
+translate
+0, 0.3
+include
+bm-fonts.txt
+
+translate
+0, -0.3
+include 
+fonts.txt
+

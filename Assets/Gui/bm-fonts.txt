@@ -42,7 +42,7 @@ text-1
 // Text
 The quick brown fox
 // Font name, size
-molin, 1, fgcol=ff0000c0, left
+bmmolin, 1, fgcol=ff0000c0, left
 
 gui-text
 // Element name
@@ -53,7 +53,7 @@ text-2
 // Text
 The quick brown fox
 // Font name, size
-molin, 2, fgcol=0080ff80, left
+bmmolin, 2, fgcol=0080ff80, left
 
 gui-text
 // Element name
@@ -64,7 +64,7 @@ text-4
 // Text
 The quick brown fox
 // Font name, size
-molin, 4, fgcol=ffc00080, left
+bmmolin, 4, fgcol=ffc00080, left
 
 gui-text
 // Element name
@@ -75,5 +75,5 @@ text-8
 // Text
 The quick brown fox
 // Font name, size
-molin, 8, fgcol=00ffc080, left
+bmmolin, 8, fgcol=00ffc080, left
 
