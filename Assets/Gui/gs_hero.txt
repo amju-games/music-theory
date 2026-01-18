@@ -61,7 +61,7 @@ song-title
 // Text
 title
 // Font name, size
-cityweek, 4.0, multi, fgcol=000000
+molin, 3.0, multi, fgcol=000000
 
 // Text balloon giving feedback on player's input
 include
