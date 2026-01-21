@@ -105,7 +105,7 @@ void GuiAvatar::Update()
 
   // Move from current look dir to desired look dir
   m_lookDir = Lerp(m_lookDir, m_desiredLookDir, dt);
-  const float LOOK_DIR_SCALE = 0.05f;
+  const float LOOK_DIR_SCALE = 0.02f;
   Vec2f pos(m_lookDir.x * LOOK_DIR_SCALE, m_lookDir.y * LOOK_DIR_SCALE);
   const char* EYE[2] = { RIGHT_EYE, LEFT_EYE };
   for (int i = 0; i < 2; i++)

@@ -163,6 +163,10 @@ bool GuiSetFromString::Load(File* f)
 //     so again a factory could be the best way.
 bool GuiSetFromString::SetFromString(const std::string& cs)
 {
+  if (cs == "$$$EMPTY")
+  {
+    return true;
+  }
   Strings strs = Split(cs, '|');
   for (const std::string& s : strs)
   {

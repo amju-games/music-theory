@@ -327,6 +327,7 @@
     <ClCompile Include="..\..\..\..\Source\GuiMusicKb.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiScrollScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GuiSetFromString.cpp" />
     <ClCompile Include="..\..\..\..\Source\HeroGameRound.cpp" />
     <ClCompile Include="..\..\..\..\Source\LevelManager.cpp" />
     <ClCompile Include="..\..\..\..\Source\LurkMsg.cpp" />
@@ -482,6 +483,7 @@
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
     <ClInclude Include="..\..\..\..\Source\CourseManager.h" />
     <ClInclude Include="..\..\..\..\Source\GuiScrollScore.h" />
+    <ClInclude Include="..\..\..\..\Source\GuiSetFromString.h" />
     <ClInclude Include="..\..\..\..\Source\HeroGameRound.h" />
     <ClInclude Include="..\..\..\..\Source\HintType.h" />
     <ClInclude Include="..\..\..\..\Source\LevelManager.h" />

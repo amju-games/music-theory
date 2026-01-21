@@ -396,6 +396,9 @@
     <ClCompile Include="..\..\..\..\Source\GSHeroWin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GuiSetFromString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\GLUT\glut32.lib">
@@ -707,6 +710,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GSHeroWin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GuiSetFromString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

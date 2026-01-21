@@ -1,0 +1,53 @@
+// * Amjula music theory *
+// (c) Copyright 2024 Juliet Colman
+
+// version
+1
+
+gui-comp
+cat-body
+2
+
+colour
+ffffff
+
+translate
+-.3, -.5
+
+scale
+1, -1
+.5,.5
+gui-sprite
+body
+0.,0
+.5, .5
+Image/animals/animal-sheet.png
+4,4
+12
+
+// TODO: shadow under head on body.
+colour
+202020, add
+
+translate
+-.3, -.5
+
+scale
+.5, .75
+.5,.5
+gui-sprite
+body
+0.,.1
+.5, .5
+Image/animals/animal-sheet.png
+4,4
+14
+
+
+// --------------------------------------------------------------------------------------
+// This is how to decorate an avatar tree to set attributes
+gui-avatar
+// Avatar string: sets values on nodes in the avatar GUI tree
+colour;colour-scale-head;F9EBA9|colour;colour-scale-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040
+//
+// ... include avatar.txt under here
