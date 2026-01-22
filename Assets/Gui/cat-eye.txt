@@ -108,7 +108,7 @@ one
 
 // EYELID - UPPER
 colour
-eeeeee00
+ffffff
 scale
 .65,.65
 .5, .5
@@ -120,7 +120,7 @@ eyelid-upper
 Image/animals/animal-sheet.png
 8,8
 // Two adjacent cells, for blinking
-8,9
+14,15
 
 
 // EYELID - LOWER
