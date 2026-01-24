@@ -4,63 +4,19 @@
 // version
 1
 
-// Player score
-// Left-justified text, growing rightwards,
-//  with backround that should also grow rightwards.
-
-// Element type
-gui-comp
-// Name
-player-score-comp
-// Num children
-2
-
 // Sweep colours 
 animation
 sweep
 mirror-repeat
-5
+10
 linear
 
 colour-palette
-palette-bubblegum-16.png
+Image/palette-bubblegum-16.png
 
 gui-image
-score-bg
+rect
 -0.8, 0.8
 1.6, 1.6
 Image/rough-oval.png, stretch
-
-gui-comp
-score-comp
-1
-
-translate
-0,0 ; 0, 0.008
-
-animation
-clean-anim
-const
-one
-
-animation
-score-text-anim-trigger
-one-shot
-0.2
-linear
-
-scale
-1, 1 ; 2, 2
-0, 0.5
-
-gui-text
-// Element name
-score-text
-// pos (coords are -1..1)
-0.7, .5
-.4, .1
-// Text
-25600
-// Font name, size
-NUMERIC, 1.5, fgcol=ffffff, left
 
