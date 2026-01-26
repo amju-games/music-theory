@@ -151,24 +151,6 @@ void AddEventToVec(int tpq, const smf::MidiEvent& mev, Events& events)
   }
 }
 
-void OutputNote(int tpq, const smf::MidiEvent& mev)
-{
-  if (mev.isNoteOn())
-  {
-    std::cout  << std::dec 
-      << "Note: start: " << mev.tick / tpq << " crotchets "
-      ////<< " *  dur: " << mev.getDurationInSeconds()  << " seconds"
-      << " Dur: " << mev.getTickDuration() / tpq << " crotchets ";
-
-    int numBytes = mev.size();
-    if (numBytes > 2)
-    {   
-      std::cout << "  Pitch: " << static_cast<int>(mev[1]) 
-        << "  vel: "  << static_cast<int>(mev[2]) << "\n";
-    }   
-  }
-}
-
 std::string TimeValString(TimeVal t)
 {
   if (t == TimeVal::SEMIQUAVER) return "qq";
@@ -190,6 +172,20 @@ std::string OutputEvent(const Event& e)
     res += "> " + std::to_string(e.m_pitch);
   }
   return res;
+}
+
+std::string OutputEvent(const Event& prev, const Event& e)
+{
+  if (e.m_isRest || prev.m_isRest) // either is rest - output this event in full
+  {
+    return OutputEvent(e);
+  }
+  if (e.m_duration == prev.m_duration)
+  {
+    // Duration the same -- just need to output pitch
+    return std::to_string(e.m_pitch);
+  }
+  return OutputEvent(e);
 }
 
 std::string ToString(smf::MidiFile& midifile)
@@ -240,8 +236,7 @@ std::string ToString(smf::MidiFile& midifile)
   res += OutputEvent(events.front()) + " ";
   for (int i = 1; i < events.size(); i++)
   {
-    res += OutputEvent(events[i]);
-    //res += OutputEvent(events[i - 1], events[i]);
+    res += OutputEvent(events[i - 1], events[i]);
     res += " ";
   }
   res += "\n";
