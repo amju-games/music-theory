@@ -51,6 +51,7 @@ std::string OutputEvent(const Event& e)
   {
     res = TimeValString(e.m_timeVal) + "r" + (e.m_dots > 0 ? std::string(e.m_dots, '.') : "");
   }
+  else
   {
     res = "<" + TimeValString(e.m_timeVal) + (e.m_dots > 0 ? std::string(e.m_dots, '.') : "");
     res += "> " + std::to_string(e.m_pitch);
@@ -94,6 +95,13 @@ std::string OutputTrack(int tpq, Events& events)
   // Fill 'gaps' between note events with rests
   FillGapsWithRests(tpq, events);
 
+  return OutputEvents(events);
+}
+
+std::string OutputEvents(const Events& events)
+{
+  std::string res;
+
   // Traverse events. Output time val and pitch when either changes.
   res += OutputEvent(events.front()) + " ";
   for (int i = 1; i < events.size(); i++)
@@ -104,7 +112,6 @@ std::string OutputTrack(int tpq, Events& events)
   res += "\n";
   return res;
 }
-
 
 std::string ToString(smf::MidiFile& midifile)
 {

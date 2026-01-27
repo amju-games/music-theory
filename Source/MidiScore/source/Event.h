@@ -26,7 +26,7 @@ struct Event
   int m_dots = 0; // multiply time val by 1.5 per dot
   int m_pitch = 0; // MIDI pitch
   int m_velocity = 64; 
-  bool m_isRest = false; // arghh
+  bool m_isRest = false; 
 
   std::string ToString() const;
 
