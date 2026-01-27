@@ -49,4 +49,11 @@ TEST_CASE("Guess key sigs", "[KeySig]")
   REQUIRE(GuessKeySig(MakeMajorScale(71), true) == KeySig::KS_FLAT_7);
 }
 
+TEST_CASE("Key sig strings", "[KeySig]")
+{
+  REQUIRE(KeySigString(KeySig::KS_SHARP_0) == "key-s-0");
+  REQUIRE(KeySigString(KeySig::KS_SHARP_5) == "key-s-5");
+  REQUIRE(KeySigString(KeySig::KS_FLAT_0) == "key-f-0");
+  REQUIRE(KeySigString(KeySig::KS_FLAT_7) == "key-f-7");
+}
 

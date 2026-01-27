@@ -9,7 +9,14 @@ namespace MidiScore
 {
 std::string KeySigString(KeySig ks)
 {
-  return "";
+  if (static_cast<int>(ks) < static_cast<int>(KeySig::KS_FLAT_0))
+  {
+    // sharp
+    return "key-s-" + std::to_string(static_cast<int>(ks));
+  }
+  // Flat
+  return "key-f-" + 
+    std::to_string(static_cast<int>(ks) - static_cast<int>(KeySig::KS_FLAT_0));
 }
 
 float Dot(const std::vector<float>& v1, const std::vector<float>& v2)
