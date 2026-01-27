@@ -19,7 +19,7 @@ std::string KeySigString(KeySig ks)
     std::to_string(static_cast<int>(ks) - static_cast<int>(KeySig::KS_FLAT_0));
 }
 
-float Dot(const std::vector<float>& v1, const std::vector<float>& v2)
+static float Dot(const std::vector<float>& v1, const std::vector<float>& v2)
 {
   assert(v1.size() == v2.size());
   float sum = 0.0f;
@@ -94,9 +94,15 @@ KeySig GuessKeySig(const Events& events, bool preferFlatKey)
   {
     const auto& scale = DISTRIBS[i];
     float d = Dot(scale, pitchDistribution);
+
     // Decide if this dot product is better than any previously -- and for
     //  same as best values, it depends if we prefer sharps or flats.
-    bool foundBetter = preferFlatKey ? (d >= bestDot) : (d > bestDot);
+    // Only use >= for keys with 5+ flats, so we don't make bad choices
+    //  with a small sample size (number of notes).
+    bool foundBetter = 
+      preferFlatKey && i > static_cast<int>(KeySig::KS_FLAT_4) ? 
+        (d >= bestDot) : (d > bestDot);
+
     if (foundBetter)
     {
       bestDot = d;
