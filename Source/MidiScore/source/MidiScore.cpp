@@ -73,19 +73,14 @@ std::string OutputEvent(const Event& prev, const Event& e)
   return OutputEvent(e);
 }
 
-std::string OutputTrack(int tpq, Events& events)
+std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks)
 {
   if (events.empty())
   {
     return "";
   }
 
-  TimeSig ts = GuessTimeSig(tpq, events);
-
-  Clef clef = GuessClef(events); // from pitch range
-
-  bool preferFlatKey = true;
-  KeySig ks = GuessKeySig(events, preferFlatKey); // from all pitches
+  Clef clef = GuessClef(events); 
 
   std::string res;
   res += ClefString(clef) + " ";
@@ -95,7 +90,7 @@ std::string OutputTrack(int tpq, Events& events)
   // Fill 'gaps' between note events with rests
   FillGapsWithRests(tpq, events);
 
-  return OutputEvents(events);
+  return res + OutputEvents(events);
 }
 
 std::string OutputEvents(const Events& events)
@@ -113,12 +108,38 @@ std::string OutputEvents(const Events& events)
   return res;
 }
 
+void GuessTimeSigAndKeySig(int tpq, const Events& events, TimeSig& ts, KeySig& ks)
+{
+  // This has to be passed in because it MUST NOT be different across tracks
+  ts = GuessTimeSig(tpq, events); // or user can specify - TODO
+
+  // This has to be passed in because it shouldn't be different across tracks
+  bool preferFlatKey = true;
+  ks = GuessKeySig(events, preferFlatKey); // or user can specify - TODO
+}
+
+Events GetEventsFromTrack(int tpq, const smf::MidiEventList& track)
+{
+  Events events;
+  
+  for (int event = 0; event < track.size(); event++) 
+  {
+    AddEventToVec(tpq, track[event], events);
+  }   
+
+  return events;
+}
+
 std::string ToString(smf::MidiFile& midifile)
 {
   std::string res;
 
   // should we do this? Perhaps we need to do one pass with, 
   //  to get all "verticals", and then one without, to get the different voices.
+  // Also, if we are guessing the key sig and time sigs, we should do it on
+  //  all the notes across all the tracks, then use those same guesses
+  //  for every stave. 
+  // 
   // TODO Decide whether or not to join the tracks. If we do, (and if we don't)
   //  -- we need to detect chords.
 //  midifile.joinTracks(); 
@@ -128,18 +149,21 @@ std::string ToString(smf::MidiFile& midifile)
 
   const int tpq = midifile.getTicksPerQuarterNote();
 
+  midifile.joinTracks(); // Join all tracks and do a pass on all the events
+  Events allEvents = GetEventsFromTrack(tpq, midifile[0]);
+  TimeSig ts;
+  KeySig ks;
+  GuessTimeSigAndKeySig(tpq, allEvents, ts, ks);
+  // TODO do other first-pass things on all the events
+
+  // 2nd pass: Un-join tracks and output each track -- TODO as a separate stave  
+  midifile.splitTracks();
   int tracks = midifile.getTrackCount();
   
   for (int track = 0; track < tracks; track++) 
   {
-std::cout << "Track: " << track << "\n";
-
-    Events events;
-    for (int event = 0; event < midifile[track].size(); event++) 
-    {
-      AddEventToVec(tpq, midifile[track][event], events);
-    }   
-    res += OutputTrack(tpq, events);
+    Events events = GetEventsFromTrack(tpq, midifile[track]);
+    res += OutputTrack(tpq, events, ts, ks);
   }
 
   return res;
