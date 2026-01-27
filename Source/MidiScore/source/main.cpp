@@ -1,3 +1,6 @@
+// * MidiScore *
+// (c) Copyright 2026 Juliet Colman
+
 // MidiScore -- read midi file, output makescore text
 // Uses https://github.com/craigsapp/midifile
 

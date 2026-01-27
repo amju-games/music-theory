@@ -1,3 +1,6 @@
+// * MidiScore *
+// (c) Copyright 2026 Juliet Colman
+
 #pragma once
 
 #include <string>
@@ -26,8 +29,15 @@ struct Event
   bool m_isRest = false; // arghh
 
   std::string ToString() const;
+
+  // Set timeval enum in this Event, given duration and tpq. 
+  void SetTimeVal(int tpq);
 };
 
 using Events = std::vector<Event>;
+
+// Insert rests in the given events vec, where there are gaps between
+//  the end and start time of two consecutive events.
+void FillGapsWithRests(int tpq, Events& events);
 }
 
