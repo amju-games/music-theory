@@ -35,42 +35,18 @@ void AddEventToVec(int tpq, const smf::MidiEvent& mev, Events& events)
   }
 }
 
-std::string TimeValString(TimeVal t)
-{
-  if (t == TimeVal::SEMIQUAVER) return "qq";
-  if (t == TimeVal::QUAVER) return "q";
-  if (t == TimeVal::CROTCHET) return "c";
-  if (t == TimeVal::MINIM) return "m";
-  return "sb";
-}
-
-std::string OutputEvent(const Event& e)
-{
-  std::string res;
-  if (e.m_isRest)
-  {
-    res = TimeValString(e.m_timeVal) + "r" + (e.m_dots > 0 ? std::string(e.m_dots, '.') : "");
-  }
-  else
-  {
-    res = "<" + TimeValString(e.m_timeVal) + (e.m_dots > 0 ? std::string(e.m_dots, '.') : "");
-    res += "> " + std::to_string(e.m_pitch);
-  }
-  return res;
-}
-
 std::string OutputEvent(const Event& prev, const Event& e)
 {
   if (e.m_isRest || prev.m_isRest) // either is rest - output this event in full
   {
-    return OutputEvent(e);
+    return e.ToString();
   }
   if (e.m_duration == prev.m_duration)
   {
     // Duration the same -- just need to output pitch
     return std::to_string(e.m_pitch);
   }
-  return OutputEvent(e);
+  return e.ToString();
 }
 
 std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks)
@@ -98,7 +74,7 @@ std::string OutputEvents(const Events& events)
   std::string res;
 
   // Traverse events. Output time val and pitch when either changes.
-  res += OutputEvent(events.front()) + " ";
+  res += events.front().ToString() + " ";
   for (int i = 1; i < events.size(); i++)
   {
     res += OutputEvent(events[i - 1], events[i]);

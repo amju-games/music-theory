@@ -5,6 +5,37 @@
 
 namespace MidiScore
 {
+std::string TimeValString(TimeVal t)
+{
+  if (t == TimeVal::SEMIQUAVER) return "qq";
+  if (t == TimeVal::QUAVER) return "q";
+  if (t == TimeVal::CROTCHET) return "c";
+  if (t == TimeVal::MINIM) return "m";
+  return "sb";
+}
+
+std::string Event::ToString() const
+{
+  switch (m_type)
+  {
+  case EventType::REST:
+    return TimeValString(m_timeVal) + "r" + (m_dots > 0 ? std::string(m_dots, '.') : "");
+  
+  case EventType::NOTE: 
+    return "<" + TimeValString(m_timeVal) + (m_dots > 0 ? std::string(m_dots, '.') : "") +"> " + std::to_string(m_pitch);
+
+  case EventType::BARLINE:
+     return "|";
+
+  case EventType::TIE:
+     return "t";
+
+  default:
+    break;
+  }
+  return "";
+}
+
 // Set timeval enum in an Event, given duration and tpq. 
 void Event::SetTimeVal(int tpq)
 {
@@ -48,7 +79,7 @@ void FillGapsWithRests(int tpq, Events& events)
       gapEvent.m_duration = gap;
       gapEvent.m_start = t;
       gapEvent.m_end = gap + t;
-      gapEvent.m_isRest = true;
+      gapEvent.m_type = EventType::REST;
       gapEvent.SetTimeVal(tpq);
 
       it = events.insert(it, gapEvent);

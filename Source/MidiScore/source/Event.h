@@ -17,6 +17,13 @@ enum class TimeVal
   SEMIBREVE
 };
 
+std::string TimeValString(TimeVal t);
+
+enum class EventType
+{
+  NOTE, REST, BARLINE, TIE
+};
+
 struct Event
 {
   int m_start = 0; // in tpq ticks
@@ -26,12 +33,18 @@ struct Event
   int m_dots = 0; // multiply time val by 1.5 per dot
   int m_pitch = 0; // MIDI pitch
   int m_velocity = 64; 
-  bool m_isRest = false; 
+  
+  EventType m_type = EventType::NOTE;
 
   std::string ToString() const;
 
   // Set timeval enum in this Event, given duration and tpq. 
   void SetTimeVal(int tpq);
+
+  bool IsNote() const { return m_type == EventType::NOTE; }
+  bool IsRest() const { return m_type == EventType::REST; }
+  bool IsBarline() const { return m_type == EventType::BARLINE; }
+  bool IsTie() const { return m_type == EventType::TIE; }
 };
 
 using Events = std::vector<Event>;
