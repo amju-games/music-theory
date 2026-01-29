@@ -64,6 +64,8 @@ std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks)
   res += TimeSigString(ts) + " ";
   res += KeySigString(ks) + " ";
 
+  InsertChordMarkers(events);
+
   InsertBarLines(tpq, ts, events);
 
   // Fill 'gaps' between note events with rests
@@ -136,7 +138,7 @@ std::string ToString(smf::MidiFile& midifile)
   // TODO do other first-pass things on all the events
 
   // 2nd pass: Un-join tracks and output each track -- TODO as a separate stave  
-  midifile.splitTracks();
+//  midifile.splitTracks();
   int tracks = midifile.getTrackCount();
   
   for (int track = 0; track < tracks; track++) 

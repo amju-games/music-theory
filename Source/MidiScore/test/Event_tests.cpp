@@ -181,8 +181,8 @@ TEST_CASE("Chord: different note durations", "[Events]")
   Events events
   { 
     // pitch, start, duration, tpq
-    n(60, 0,  16, tpq),  
-    n(64, 0,  8, tpq),  
+    n(60, 0,  8, tpq),  
+    n(64, 0,  16, tpq),  
   };
 
   InsertChordMarkers(events);
@@ -190,6 +190,7 @@ TEST_CASE("Chord: different note durations", "[Events]")
 
   REQUIRE(events.size() == 4);
   REQUIRE(events[0].IsChordStart());
+  // Notes in chord are sorted so longest duration comes first 
   REQUIRE(events[1].m_duration == 16);
   REQUIRE(events[2].m_duration == 8); 
   REQUIRE(events[3].IsChordEnd());
@@ -217,5 +218,97 @@ TEST_CASE("Big Chord", "[Events]")
   REQUIRE(events[1].IsChordStart());
   REQUIRE(events[6].IsChordEnd());
   REQUIRE(events[7].IsNote());
+}
+
+TEST_CASE("Chord split across bar line", "[Events]")
+{
+  // Expect e.g. <sb> ( 60 64 ) -> <m> ( 60 64 ) | t <m> ( 60 64 )
+  const int tpq = 4; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0,  32, tpq),  // double sb
+    n(64, 0,  32, tpq),  
+  };
+
+  InsertChordMarkers(events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+
+  //std::cout << "After bar line/splitting: " << OutputEvents(events) << "\n";
+
+  REQUIRE(events.size() == 11);
+  REQUIRE(events[0].IsChordStart());
+  REQUIRE(events[1].IsNote());
+  REQUIRE(events[2].IsNote());
+  REQUIRE(events[3].IsChordEnd());
+  REQUIRE(events[4].IsBarLine());
+  REQUIRE(events[5].IsTie());
+  REQUIRE(events[6].IsChordStart());
+  REQUIRE(events[7].IsNote());
+  REQUIRE(events[8].IsNote());
+  REQUIRE(events[9].IsChordEnd());
+  REQUIRE(events[10].IsBarLine());
+}
+
+TEST_CASE("Chord split across bar line, different note durations", "[Events]")
+{
+  // Expect e.g. <sb> ( 60 64 ) -> <m> ( 60 64 ) | t <m> ( 60 64 )
+  const int tpq = 4; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0,  32, tpq),  // double sb
+    n(64, 0,  16, tpq),  // single sb
+    n(67, 0,  8, tpq),  // minim 
+  };
+
+  InsertChordMarkers(events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+
+  //std::cout << "After bar line/splitting: " << OutputEvents(events) << "\n";
+
+  REQUIRE(events.size() == 9);
+  REQUIRE(events[0].IsChordStart());
+  REQUIRE(events[1].IsNote());
+  REQUIRE(events[2].IsNote());
+  REQUIRE(events[3].IsNote());
+  REQUIRE(events[4].IsChordEnd());
+  REQUIRE(events[5].IsBarLine());
+  REQUIRE(events[6].IsTie());
+  REQUIRE(events[7].IsNote()); // only one of the notes 'survives' into the next bar
+  REQUIRE(events[8].IsBarLine());
+}
+
+TEST_CASE("Chord NOT split across bar lines", "[Events]")
+{
+  // Expect e.g. ( <sb> 60 64 ) | ( <sb> 61 65 ) | 
+  // i.e. bar line is not within chord markers.
+
+  const int tpq = 4; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0,  16, tpq),  // sb
+    n(64, 0,  16, tpq),  
+    n(61, 16,  16, tpq),  // sb, next bar
+    n(65, 16,  16, tpq),  
+  };
+
+  InsertChordMarkers(events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+
+  std::cout << "After bar line/splitting: " << OutputEvents(events) << "\n";
+
+  REQUIRE(events.size() == 10);
+  REQUIRE(events[0].IsChordStart());
+  REQUIRE(events[1].IsNote());
+  REQUIRE(events[2].IsNote());
+  REQUIRE(events[3].IsChordEnd());
+  REQUIRE(events[4].IsBarLine());
+  REQUIRE(events[5].IsChordStart());
+  REQUIRE(events[6].IsNote());
+  REQUIRE(events[7].IsNote());
+  REQUIRE(events[8].IsChordEnd());
+  REQUIRE(events[9].IsBarLine());
 }
 

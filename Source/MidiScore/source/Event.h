@@ -16,7 +16,9 @@ enum class TimeVal
   QUAVER,
   CROTCHET, 
   MINIM,
-  SEMIBREVE
+  SEMIBREVE,
+  SB2,
+  SB4
 };
 
 std::string TimeValString(TimeVal t);

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Event.h"
+#include "MidiScore.h" // OutputEvents
 #include "TimeSig.h"
 
 namespace MidiScore
@@ -13,7 +14,10 @@ std::string TimeValString(TimeVal t)
   if (t == TimeVal::QUAVER) return "q";
   if (t == TimeVal::CROTCHET) return "c";
   if (t == TimeVal::MINIM) return "m";
-  return "sb";
+  if (t == TimeVal::SEMIBREVE) return "sb";
+  if (t == TimeVal::SB2) return "sb2";
+  if (t == TimeVal::SB4) return "sb4";
+  return "BAD TIME VAL";
 }
 
 std::string Event::ToString() const
@@ -51,7 +55,17 @@ std::string Event::ToString() const
 void Event::SetTimeVal(int tpq)
 {
   m_dots = 0;
-  if (m_duration >= 4 * tpq) 
+  if (m_duration >= 16 * tpq) 
+  {
+    m_timeVal = TimeVal::SEMIBREVE;
+    if (m_duration == 24 * tpq) m_dots = 1;
+  }
+  else if (m_duration >= 8 * tpq) 
+  {
+    m_timeVal = TimeVal::SB2;
+    if (m_duration == 12 * tpq) m_dots = 1;
+  }
+  else if (m_duration >= 4 * tpq) 
   {
     m_timeVal = TimeVal::SEMIBREVE;
     if (m_duration == 6 * tpq) m_dots = 1;
@@ -141,6 +155,91 @@ Event MakeChordEnd(int startTicks)
   return e;
 }
 
+// Split chord across bar lines, return number of bar lines created.
+int SplitChord(int tpq, Events& events, Events::iterator& it, int barLineTicks,
+  int ticksForOneBar)
+{
+  // E.g., something like this:
+  //  ( <m> 60 61 ) -> ( <c> 60 61 ) | t ( <c>  60 61 )
+  // So MakeScore can see there are chords before and after the bar line.
+
+  // When we start, we have skipped over the CHORD_START event, i.e.
+  //  in the above example, we are pointing to the first note in the chord:
+  //
+  //  60 61 ) 
+  //  ^
+  //  it
+
+  int bar = 0;
+  while (it->m_start < barLineTicks && it->m_end > barLineTicks)
+  {
+    // Get the notes in the chord.. find the chord end marker
+    auto chordEnd = it;
+    while (chordEnd != events.end() && !chordEnd->IsChordEnd()) ++chordEnd;
+
+     
+    // Make a vec of the 'surviving' notes the the chord, i.e. they
+    //  have a duration beyond the duration until the bar line. 
+    Events notes;
+    // Cut the duration of all the notes in the chord, to the bar line
+    for (auto jt = it; jt != chordEnd; ++jt)
+    {
+      Event note(*jt); // copy of the note, for the next bar.
+
+      // urgh, maybe some notes are shorter and don't get split, or
+      //  don't even reach the bar line.
+      jt->m_end = std::min(jt->m_end, barLineTicks); 
+
+      // Set new duration and time val
+      jt->m_duration = jt->m_end - jt->m_start;
+      jt->SetTimeVal(tpq);
+
+      // Create remaining portion of this note
+      note.m_start = barLineTicks;
+      note.m_duration = note.m_end - note.m_start;
+      // If any remainder, add to chord to add to the next bar.
+      if (note.m_duration > 0)
+      {
+        note.SetTimeVal(tpq);
+        notes.push_back(note);
+      }
+    }
+    it = chordEnd;
+    // Situation now:
+    //  60 61 ) 
+    //        ^
+    //        it
+    ++it;
+    it = events.insert(it, MakeBarLine(barLineTicks));
+    // Add tie if any notes 'survive' to the next bar: at least one should do.
+    if (!notes.empty())
+    {
+      ++it;
+      it = events.insert(it, MakeTie(barLineTicks));
+    }
+    // Now:
+    //  60 61 ) | t
+    //            ^
+    //            it
+   
+    // Add the notes and chord end marker, (which has time of note end time)
+    if (notes.size() > 1) // if only one note surviving, it's not a chord.
+    {
+      notes.push_back(MakeChordEnd(notes.front().m_end));
+      ++it;
+      it = events.insert(it, MakeChordStart(barLineTicks));
+    }
+    ++it;
+    it = events.insert(it, notes.begin(), notes.end());
+    // it points to first note added, nice for the next iteration.
+     
+    bar++;
+    barLineTicks += ticksForOneBar; 
+    // loop and chop second note as before if required
+  }
+  return bar;
+}
+
 // Split note across bar lines, return number of bar lines created.
 int SplitNote(int tpq, Events& events, Events::iterator& it, int barLineTicks,
   int ticksForOneBar)
@@ -160,14 +259,15 @@ int SplitNote(int tpq, Events& events, Events::iterator& it, int barLineTicks,
   while (it->m_start < barLineTicks && it->m_end > barLineTicks)
   {
     Event& firstNote = *it;
-    Event secondNote(*it); // copy first note
+    Event secondNote(*it); // copy of first note, to go in next bar
 
     // Cut duration of first note to bar line
     firstNote.m_end = barLineTicks;
     firstNote.m_duration = firstNote.m_end - firstNote.m_start;
     firstNote.SetTimeVal(tpq);
 
-    // Second note is the difference, which can overrun a bar at this stage.
+    // Second note is the duration difference, which can overrun the 
+    //  length of the next  bar at this stage.
     secondNote.m_start = barLineTicks;
     secondNote.m_duration = secondNote.m_end - secondNote.m_start;
     secondNote.SetTimeVal(tpq);
@@ -196,8 +296,11 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events)
 
   int ticksForOneBar = tpq * BeatsInBar(ts);
   int bar = 1; // don't add barline at start  
+  bool chord = false; // true if we are parsing between ( ) chord markers
   for (auto it = events.begin(); it != events.end(); ++it)
   {
+    if (it->IsChordStart()) chord = true;
+    if (it->IsChordEnd()) chord = false;
     if (!it->IsNote()) continue;
 
     // Number of ticks at which we should insert bar line
@@ -205,8 +308,11 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events)
 
     if (it->m_start < barLineTicks && it->m_end > barLineTicks)
     {
-      // Note duration crosses bar line, so split and tie it
-      bar += SplitNote(tpq, events, it, barLineTicks, ticksForOneBar);
+      // Note/chord duration crosses bar line, so split and tie it
+      if (chord)
+        bar += SplitChord(tpq, events, it, barLineTicks, ticksForOneBar);
+      else
+        bar += SplitNote(tpq, events, it, barLineTicks, ticksForOneBar);
     }
     else if (it->m_start >= barLineTicks)
     {
@@ -234,10 +340,23 @@ void InsertChordMarkers(Events& events)
       it = events.insert(it - 1, MakeChordStart(it->m_start));
 
       // Skip over all events with the same start time      
+      // Store start of notes in chord
+      ++it;
+      auto firstNote = it;
       while (it != events.end() && it->m_start == start)
       {
         ++it;
       }
+
+      // Sort the notes in the chord, longest duration first.
+//std::cout << "Before sort: " << OutputEvents( { it, chordEnd } );
+      std::sort(firstNote, it,
+        [](const Event& e1, const Event& e2)
+        {
+          return e2.m_duration < e1.m_duration; // descending order
+        }
+      );
+//std::cout << "After sort: " << OutputEvents( { it, chordEnd } );
 
       if (it == events.end())
       {
