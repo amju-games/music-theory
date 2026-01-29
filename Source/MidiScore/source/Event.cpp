@@ -41,6 +41,7 @@ std::string Event::ToString() const
 // Set timeval enum in an Event, given duration and tpq. 
 void Event::SetTimeVal(int tpq)
 {
+  m_dots = 0;
   if (m_duration >= 4 * tpq) 
   {
     m_timeVal = TimeVal::SEMIBREVE;
@@ -111,10 +112,12 @@ Event MakeTie(int startTicks)
   return e;
 }
 
-void SplitNote(int tpq, Events& events, Events::iterator& it, int barLineTicks)
+// Split note across bar lines, return number of bar lines created.
+int SplitNote(int tpq, Events& events, Events::iterator& it, int barLineTicks,
+  int ticksForOneBar)
 {
   // One note -> first part of note, bar line, tie, final part of note.
-  // If the note value is greater than a bar length, we can repeat the
+  // If the note value is greater than a bar length, we repeat the
   //  splitting process.
   // Before:
   //  it -> <note>
@@ -124,20 +127,35 @@ void SplitNote(int tpq, Events& events, Events::iterator& it, int barLineTicks)
   //        <tie>
   //  it -> <second note>
 
-  Event& firstNote = *it;
-  Event secondNote(*it);
-  firstNote.m_end = barLineTicks;
-  firstNote.m_duration = firstNote.m_end - firstNote.m_start;
-  firstNote.SetTimeVal(tpq);
-  secondNote.m_start = barLineTicks;
-  secondNote.m_duration = secondNote.m_end - secondNote.m_start;
-  secondNote.SetTimeVal(tpq);
-  ++it;
-  it = events.insert(it, MakeBarLine(barLineTicks));
-  ++it;
-  it = events.insert(it, MakeTie(barLineTicks));
-  ++it;
-  it = events.insert(it, secondNote);
+  int bar = 0;
+  while (it->m_start < barLineTicks && it->m_end > barLineTicks)
+  {
+    Event& firstNote = *it;
+    Event secondNote(*it); // copy first note
+
+    // Cut duration of first note to bar line
+    firstNote.m_end = barLineTicks;
+    firstNote.m_duration = firstNote.m_end - firstNote.m_start;
+    firstNote.SetTimeVal(tpq);
+
+    // Second note is the difference, which can overrun a bar at this stage.
+    secondNote.m_start = barLineTicks;
+    secondNote.m_duration = secondNote.m_end - secondNote.m_start;
+    secondNote.SetTimeVal(tpq);
+
+    // Insert bar line, tie and second note
+    ++it;
+    it = events.insert(it, MakeBarLine(barLineTicks));
+    ++it;
+    it = events.insert(it, MakeTie(barLineTicks));
+    ++it;
+    it = events.insert(it, secondNote);
+
+    bar++;
+    barLineTicks += ticksForOneBar; 
+    // loop and chop second note as before if required
+  }
+  return bar;
 }
 
 void InsertBarLines(int tpq, TimeSig ts, Events& events)
@@ -153,20 +171,21 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events)
   {
     if (it->IsBarLine() || it->IsTie()) continue;
 
+    // Number of ticks at which we should insert bar line
     int barLineTicks = bar * ticksForOneBar;
+
     if (it->m_start < barLineTicks && it->m_end > barLineTicks)
     {
-      SplitNote(tpq, events, it, barLineTicks);
-      bar++;
+      // Note duration crosses bar line, so split and tie it
+      bar += SplitNote(tpq, events, it, barLineTicks, ticksForOneBar);
     }
     else if (it->m_start >= barLineTicks)
     {
-      // (if >, there's a gap here: fill with a rest now?)
-
       it = events.insert(it, MakeBarLine(barLineTicks));
       bar++;
     }
   }
+  // Add final bar line
   events.push_back(MakeBarLine(bar * ticksForOneBar));
 }
 }

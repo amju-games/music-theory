@@ -114,3 +114,28 @@ TEST_CASE("Adding bar lines splits notes", "[Events]")
   REQUIRE(events[4].IsBarLine());
 }
 
+TEST_CASE("Split note across multiple bars", "[Events]")
+{
+  const int tpq = 4; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 8,  32, tpq),  // double-sb starting on beat 3 
+  };
+
+  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+  //InsertRests(tpq, events); 
+  //std::cout << OutputEvents(events);
+
+  REQUIRE(events.size() == 8);
+  REQUIRE(events[0].IsNote());
+  REQUIRE(events[1].IsBarLine());
+  REQUIRE(events[2].IsTie());
+  REQUIRE(events[3].IsNote());
+  REQUIRE(events[4].IsBarLine());
+  REQUIRE(events[5].IsTie());
+  REQUIRE(events[6].IsNote());
+  REQUIRE(events[7].IsBarLine());
+}
+
+
