@@ -244,7 +244,7 @@ void InsertChordMarkers(Events& events)
         events.push_back(MakeChordEnd(end));
         break; // no more events
       }
-      it = events.insert(it, MakeChordEnd(start));
+      it = events.insert(it, MakeChordEnd(end));
       ++it;
     }
   }
