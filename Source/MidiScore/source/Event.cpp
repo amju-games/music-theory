@@ -27,12 +27,21 @@ std::string Event::ToString() const
     return "<" + TimeValString(m_timeVal) + (m_dots > 0 ? std::string(m_dots, '.') : "") +"> " + std::to_string(m_pitch);
 
   case EventType::BARLINE:
-     return "|";
+    return "|";
 
   case EventType::TIE:
-     return "t";
+    return "t";
+
+  case EventType::CHORD_START: 
+    return "(";
+ 
+  case EventType::CHORD_END: 
+    return ")";
 
   default:
+    std::cout << "No String for Event Type " 
+      << static_cast<int>(m_type) << "\n";
+    assert(0);
     break;
   }
   return "";
@@ -112,6 +121,26 @@ Event MakeTie(int startTicks)
   return e;
 }
 
+Event MakeChordStart(int startTicks)
+{
+  Event e;
+  e.m_type = EventType::CHORD_START;
+  e.m_start = startTicks;
+  e.m_duration = 0;
+  e.m_end = startTicks;
+  return e;
+}
+
+Event MakeChordEnd(int startTicks)
+{
+  Event e;
+  e.m_type = EventType::CHORD_END;
+  e.m_start = startTicks;
+  e.m_duration = 0;
+  e.m_end = startTicks;
+  return e;
+}
+
 // Split note across bar lines, return number of bar lines created.
 int SplitNote(int tpq, Events& events, Events::iterator& it, int barLineTicks,
   int ticksForOneBar)
@@ -169,7 +198,7 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events)
   int bar = 1; // don't add barline at start  
   for (auto it = events.begin(); it != events.end(); ++it)
   {
-    if (it->IsBarLine() || it->IsTie()) continue;
+    if (!it->IsNote()) continue;
 
     // Number of ticks at which we should insert bar line
     int barLineTicks = bar * ticksForOneBar;
@@ -187,6 +216,38 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events)
   }
   // Add final bar line
   events.push_back(MakeBarLine(bar * ticksForOneBar));
+}
+
+void InsertChordMarkers(Events& events)
+{
+  // Look for notes with the same start time; once found, add markers 
+  //  around the notes.
+  for (auto it = events.begin() + 1; it != events.end(); ++it)
+  {
+    if (!it->IsNote()) continue;
+   
+    int start = (it - 1)->m_start; 
+    int end = (it - 1)->m_end;
+    
+    if (start == it->m_start)
+    {
+      it = events.insert(it - 1, MakeChordStart(it->m_start));
+
+      // Skip over all events with the same start time      
+      while (it != events.end() && it->m_start == start)
+      {
+        ++it;
+      }
+
+      if (it == events.end())
+      {
+        events.push_back(MakeChordEnd(end));
+        break; // no more events
+      }
+      it = events.insert(it, MakeChordEnd(start));
+      ++it;
+    }
+  }
 }
 }
 

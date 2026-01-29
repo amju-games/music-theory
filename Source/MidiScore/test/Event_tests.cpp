@@ -138,4 +138,84 @@ TEST_CASE("Split note across multiple bars", "[Events]")
   REQUIRE(events[7].IsBarLine());
 }
 
+TEST_CASE("Chord - 2 notes", "[Events]")
+{
+  const int tpq = 4; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0,  16, tpq),  
+    n(64, 0,  16, tpq),  
+    n(67, 16,  16, tpq),  
+  };
+
+  InsertChordMarkers(events);
+  //std::cout << OutputEvents(events);
+
+  REQUIRE(events.size() == 5);
+  REQUIRE(events[0].IsChordStart());
+  REQUIRE(events[3].IsChordEnd());
+}
+
+TEST_CASE("Chord at end of piece", "[Events]")
+{
+  const int tpq = 4; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0,  16, tpq),  
+    n(64, 0,  16, tpq),  
+  };
+
+  InsertChordMarkers(events);
+  //std::cout << OutputEvents(events);
+
+  REQUIRE(events.size() == 4);
+  REQUIRE(events[0].IsChordStart());
+  REQUIRE(events[3].IsChordEnd());
+}
+
+TEST_CASE("Chord: different note durations", "[Events]")
+{
+  const int tpq = 4; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0,  16, tpq),  
+    n(64, 0,  8, tpq),  
+  };
+
+  InsertChordMarkers(events);
+  //std::cout << OutputEvents(events);
+
+  REQUIRE(events.size() == 4);
+  REQUIRE(events[0].IsChordStart());
+  REQUIRE(events[1].m_duration == 16);
+  REQUIRE(events[2].m_duration == 8); 
+  REQUIRE(events[3].IsChordEnd());
+}
+
+TEST_CASE("Big Chord", "[Events]")
+{
+  const int tpq = 4; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0,  4, tpq),  
+    n(60, 4,  4, tpq),  
+    n(64, 4,  4, tpq),  
+    n(67, 4,  4, tpq),  
+    n(72, 4,  4, tpq),  
+    n(60, 8,  4, tpq),
+  };
+
+  InsertChordMarkers(events);
+  //std::cout << OutputEvents(events);
+
+  REQUIRE(events.size() == 8);
+  REQUIRE(events[0].IsNote());
+  REQUIRE(events[1].IsChordStart());
+  REQUIRE(events[6].IsChordEnd());
+  REQUIRE(events[7].IsNote());
+}
 

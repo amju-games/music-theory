@@ -23,7 +23,7 @@ std::string TimeValString(TimeVal t);
 
 enum class EventType
 {
-  NOTE, REST, BARLINE, TIE
+  NOTE, REST, BARLINE, TIE, CHORD_START, CHORD_END
 };
 
 struct Event
@@ -47,6 +47,8 @@ struct Event
   bool IsRest() const { return m_type == EventType::REST; }
   bool IsBarLine() const { return m_type == EventType::BARLINE; }
   bool IsTie() const { return m_type == EventType::TIE; }
+  bool IsChordStart() const { return m_type == EventType::CHORD_START; }
+  bool IsChordEnd() const { return m_type == EventType::CHORD_END; }
 };
 
 using Events = std::vector<Event>;
@@ -56,5 +58,7 @@ using Events = std::vector<Event>;
 void InsertRests(int tpq, Events& events);
 
 void InsertBarLines(int tpq, TimeSig ts, Events& events);
+
+void InsertChordMarkers(Events& events);
 }
 
