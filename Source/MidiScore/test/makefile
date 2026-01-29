@@ -1,7 +1,7 @@
 all:makescore_exe
 
 clean:
-	rm testrunner.exe *.o ../sourse/*.o
+	rm testrunner.exe *.o ../source/*.o ../midifile/src/*.o
 
 run:
 	./testrunner.exe

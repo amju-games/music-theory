@@ -37,7 +37,8 @@ void AddEventToVec(int tpq, const smf::MidiEvent& mev, Events& events)
 
 std::string OutputEvent(const Event& prev, const Event& e)
 {
-  if (e.m_isRest || prev.m_isRest) // either is rest - output this event in full
+  // If either is not a note - output this event in full
+  if (!e.IsNote() || !prev.IsNote()) 
   {
     return e.ToString();
   }
@@ -63,8 +64,10 @@ std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks)
   res += TimeSigString(ts) + " ";
   res += KeySigString(ks) + " ";
 
+  InsertBarLines(tpq, ts, events);
+
   // Fill 'gaps' between note events with rests
-  FillGapsWithRests(tpq, events);
+  InsertRests(tpq, events);
 
   return res + OutputEvents(events);
 }

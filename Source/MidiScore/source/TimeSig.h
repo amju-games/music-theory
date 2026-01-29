@@ -16,6 +16,9 @@ enum class TimeSig
 
 std::string TimeSigString(TimeSig ts);
 
+// I.e. 4 in 4/4; 3 in 3/4; * 2 in 6/8, right?? *, etc.
+int BeatsInBar(TimeSig ts);
+
 TimeSig GuessTimeSig(int tpq, const Events& events);
 }
 

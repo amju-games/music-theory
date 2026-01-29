@@ -1,7 +1,7 @@
 all:midiscore_exe
 
 clean:
-	rm midiscore source/*.o
+	rm midiscore source/*.o midifile/src/*.o test/*.o
 
 run:
 	./midiscore

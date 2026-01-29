@@ -33,7 +33,7 @@ KeySig GuessKeySig(const Events& events, bool preferFlatKey)
   // Make frequency distribution of pitches, all shifted to the same octave
   for (const Event& e : events)
   {
-    if (e.m_isRest) continue;
+    if (e.IsRest()) continue;
 
     int p = e.m_pitch % 12;
     pitchDistribution[p]++;

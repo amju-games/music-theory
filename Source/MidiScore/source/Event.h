@@ -8,6 +8,8 @@
 
 namespace MidiScore
 {
+enum class TimeSig;
+
 enum class TimeVal
 {
   SEMIQUAVER,
@@ -43,7 +45,7 @@ struct Event
 
   bool IsNote() const { return m_type == EventType::NOTE; }
   bool IsRest() const { return m_type == EventType::REST; }
-  bool IsBarline() const { return m_type == EventType::BARLINE; }
+  bool IsBarLine() const { return m_type == EventType::BARLINE; }
   bool IsTie() const { return m_type == EventType::TIE; }
 };
 
@@ -51,6 +53,8 @@ using Events = std::vector<Event>;
 
 // Insert rests in the given events vec, where there are gaps between
 //  the end and start time of two consecutive events.
-void FillGapsWithRests(int tpq, Events& events);
+void InsertRests(int tpq, Events& events);
+
+void InsertBarLines(int tpq, TimeSig ts, Events& events);
 }
 

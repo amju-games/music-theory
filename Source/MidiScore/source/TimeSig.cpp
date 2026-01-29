@@ -12,6 +12,12 @@ std::string TimeSigString(TimeSig ts)
   return ""; 
 }
 
+int BeatsInBar(TimeSig ts)
+{
+  if (ts == TimeSig::TS_3_4) return 3;
+  return 4;
+}
+
 TimeSig GuessTimeSig(int tpq, const Events& events)
 {
   int totalDuration = events.back().m_end;
