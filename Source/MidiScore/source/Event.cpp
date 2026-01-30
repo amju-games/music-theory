@@ -2,6 +2,7 @@
 // (c) Copyright 2026 Juliet Colman
 
 #include <iostream>
+#include <sstream>
 #include "Event.h"
 #include "MidiScore.h" // OutputEvents
 #include "TimeSig.h"
@@ -41,6 +42,13 @@ std::string Event::ToString() const
  
   case EventType::CHORD_END: 
     return ")";
+
+  case EventType::TIME_SET:
+    {
+      std::stringstream ss;
+      ss << "time " << m_timeSetVal;
+      return ss.str();
+    }
 
   default:
     std::cout << "No String for Event Type " 
@@ -110,11 +118,9 @@ void InsertRests(int tpq, Events& events)
   //  with the start time of the next event. If there is a gap, we should
   //  insert a rest there.
   // *That's ok except for within a chord, because the notes in the chord
-  //  could have different durations. We don't always want to insert a rest after 
+  //  could have different durations. We don't want to insert a rest after 
   //  the shorter note, because it could clash with another note being
   //  played at the same time as the rest.
-  // So we look ahead to the next event, to see if there should be a rest
-  //  within the chord.
 
   int t = 0;  // accumulated time ticks through the piece
   bool chord = false; // true if we are parsing between ( ) chord markers
@@ -127,25 +133,8 @@ void InsertRests(int tpq, Events& events)
     {
       // Gap found between accumulated time so far, and the start time of
       //  the current event. So we should insert a rest here.
-      if (chord) 
+      if (!chord) // Except, no rests within chord markers. See *.
       {
-        auto nextEvent = it; 
-        // Look ahead to the next event, if there is one
-        if (nextEvent != events.end())
-        {
-          ++nextEvent;
-        }
-        int restDuration = nextEvent->m_start - t;
-        if (restDuration > 0)
-        {
-          it = events.insert(it, MakeRest(tpq, restDuration, t));
-          ++it;
-        }
-      }
-      else
-      {
-        // Easier case: just make a rest to fill the gap between previous
-        //  and next event.
         int restDuration = it->m_start - t;
         it = events.insert(it, MakeRest(tpq, restDuration, t));
         ++it;
@@ -403,14 +392,12 @@ void InsertChordMarkers(Events& events)
       }
 
       // Sort the notes in the chord, longest duration first.
-//std::cout << "Before sort: " << OutputEvents( { it, chordEnd } );
       std::sort(firstNote, it,
         [](const Event& e1, const Event& e2)
         {
           return e2.m_duration < e1.m_duration; // descending order
         }
       );
-//std::cout << "After sort: " << OutputEvents( { it, chordEnd } );
 
       if (it == events.end())
       {
@@ -421,6 +408,43 @@ void InsertChordMarkers(Events& events)
       ++it;
     }
   }
+}
+
+static Event MakeTimeSet(int tpq, int time)
+{
+  Event e;
+  e.m_type = EventType::TIME_SET;
+  e.m_start = time;
+  e.m_end = time;
+  e.m_duration = 0;
+  // For the final output, we use number of crotchets, which can be 
+  //  fractional, of course. Alternatively, we could output the tpq
+  //  value and the time in tpq ticks.
+  e.m_timeSetVal = static_cast<float>(time) / static_cast<float>(tpq);
+  return e;
+}
+
+void InsertTimeSetEvents(int tpq, Events& events)
+{
+  bool chord = false;
+  int prevEventEnd = 0;
+
+  for (auto it = events.begin(); it != events.end(); ++it)
+  {
+    if (it->IsChordStart()) chord = true;
+
+    // Insert a time set event if the start time of the current
+    //  event is not the same as the end time of the previous event.
+    // Don't bother inside chord markers, as every note has the same
+    //  start time, and so the usual rule doesn't apply.
+    if (!chord && it->m_start != prevEventEnd)
+    {
+      it = events.insert(it, MakeTimeSet(tpq, it->m_start));
+    }
+
+    prevEventEnd = it->m_end;
+    if (it->IsChordEnd()) chord = false;
+  } 
 }
 }
 

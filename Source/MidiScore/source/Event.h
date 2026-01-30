@@ -25,7 +25,7 @@ std::string TimeValString(TimeVal t);
 
 enum class EventType
 {
-  NOTE, REST, BARLINE, TIE, CHORD_START, CHORD_END
+  NOTE, REST, BARLINE, TIE, CHORD_START, CHORD_END, TIME_SET
 };
 
 struct Event
@@ -37,6 +37,10 @@ struct Event
   int m_dots = 0; // multiply time val by 1.5 per dot
   int m_pitch = 0; // MIDI pitch
   int m_velocity = 64; 
+
+  // For time set event, the output time. 
+  // (We don't expose midi-specific tpq value)
+  float m_timeSetVal = 0; 
   
   EventType m_type = EventType::NOTE;
 
@@ -62,5 +66,7 @@ void InsertRests(int tpq, Events& events);
 void InsertBarLines(int tpq, TimeSig ts, Events& events);
 
 void InsertChordMarkers(Events& events);
+
+void InsertTimeSetEvents(int tpq, Events& events);
 }
 

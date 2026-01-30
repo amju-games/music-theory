@@ -57,6 +57,8 @@ std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks)
     return "";
   }
 
+//std::cout << "Raw events: " << OutputEvents(events) << "\n";
+
   Clef clef = GuessClef(events); 
 
   std::string res;
@@ -65,11 +67,17 @@ std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks)
   res += KeySigString(ks) + " ";
 
   InsertChordMarkers(events);
+//std::cout << "With chord markers: " << OutputEvents(events) << "\n";
 
   InsertBarLines(tpq, ts, events);
+//std::cout << "With bar lines: " << OutputEvents(events) << "\n";
 
   // Fill 'gaps' between note events with rests
   InsertRests(tpq, events);
+//std::cout << "With rests: " << OutputEvents(events) << "\n";
+
+  InsertTimeSetEvents(tpq, events);
+//std::cout << "With time sets: " << OutputEvents(events) << "\n";
 
   return res + OutputEvents(events);
 }
@@ -130,12 +138,13 @@ std::string ToString(smf::MidiFile& midifile)
 
   const int tpq = midifile.getTicksPerQuarterNote();
 
-  midifile.joinTracks(); // Join all tracks and do a pass on all the events
+  midifile.joinTracks(); // Join all tracks and do a first pass on all the events
   Events allEvents = GetEventsFromTrack(tpq, midifile[0]);
   TimeSig ts;
   KeySig ks;
   GuessTimeSigAndKeySig(tpq, allEvents, ts, ks);
   // TODO do other first-pass things on all the events
+  // E.g. create dynamics markers
 
   // 2nd pass: Un-join tracks and output each track -- TODO as a separate stave  
 //  midifile.splitTracks();
