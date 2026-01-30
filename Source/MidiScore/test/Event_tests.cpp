@@ -297,7 +297,7 @@ TEST_CASE("Chord NOT split across bar lines", "[Events]")
   InsertChordMarkers(events);
   InsertBarLines(tpq, TimeSig::TS_4_4, events);
 
-  std::cout << "After bar line/splitting: " << OutputEvents(events) << "\n";
+  //std::cout << "After bar line/splitting: " << OutputEvents(events) << "\n";
 
   REQUIRE(events.size() == 10);
   REQUIRE(events[0].IsChordStart());

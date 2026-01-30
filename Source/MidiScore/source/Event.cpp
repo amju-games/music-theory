@@ -235,7 +235,7 @@ int SplitChord(int tpq, Events& events, Events::iterator& it, int barLineTicks,
      
     bar++;
     barLineTicks += ticksForOneBar; 
-    // loop and chop second note as before if required
+    // loop and chop second notes as before if required
   }
   return bar;
 }
@@ -315,8 +315,18 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events)
         bar += SplitNote(tpq, events, it, barLineTicks, ticksForOneBar);
     }
     else if (it->m_start >= barLineTicks)
-    {
-      it = events.insert(it, MakeBarLine(barLineTicks));
+    { 
+      // We don't need to split this note or chord.
+      if (chord)
+      {
+        // Put the new bar line before the chord marker
+        it = events.insert(it - 1, MakeBarLine(barLineTicks));
+        ++it;
+      }
+      else
+      {
+        it = events.insert(it, MakeBarLine(barLineTicks));
+      }
       bar++;
     }
   }
