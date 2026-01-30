@@ -92,26 +92,52 @@ void Event::SetTimeVal(int tpq)
   }
 }
 
+Event MakeRest(int tpq, int duration, int start)
+{
+  Event rest;
+  rest.m_duration = duration;
+  rest.m_start = start;
+  rest.m_end = start + duration;
+  rest.SetTimeVal(tpq);
+  rest.m_type = EventType::REST;
+
+  return rest;
+}
+
 void InsertRests(int tpq, Events& events)
 {
-  int t = 0;
+  // To insert rests, we get the end time of each event, and compare it
+  //  with the start time of the next event. If there is a gap, we should
+  //  insert a rest there.
+  // *That's ok except for within a chord, because the notes in the chord
+  //  could have different durations. We don't want to insert a rest after 
+  //  the shorter note, because it could clash with another note being
+  //  played at the same time as the rest.
+
+  int t = 0;  // accumulated time ticks through the piece
+  bool chord = false; // true if we are parsing between ( ) chord markers
+
   for (auto it = events.begin(); it != events.end(); ++it)
   {
-    if (it->m_start >  t)
+    if (it->IsChordStart()) chord = true;
+  
+    if (it->m_start > t)
     {
-      int gap = it->m_start - t;
-
-      Event gapEvent;
-      gapEvent.m_duration = gap;
-      gapEvent.m_start = t;
-      gapEvent.m_end = gap + t;
-      gapEvent.m_type = EventType::REST;
-      gapEvent.SetTimeVal(tpq);
-
-      it = events.insert(it, gapEvent);
-      ++it;
+      // Gap found between accumulated time so far, and the start time of
+      //  the current event. So we should insert a rest here.
+      if (!chord) // Don't insert rest within a chord, see note above.*
+      {
+        int restDuration = it->m_start - t;
+        it = events.insert(it, MakeRest(tpq, restDuration, t));
+        ++it;
+      }
     }
     t = it->m_end;
+
+    // Reset flag here, after testing for being in a chord.
+    // We don't want to add rests within a chord, but if we did, it would
+    //  be right before the chord end marker.
+    if (it->IsChordEnd()) chord = false;
   }
 }
 
@@ -176,7 +202,6 @@ int SplitChord(int tpq, Events& events, Events::iterator& it, int barLineTicks,
     // Get the notes in the chord.. find the chord end marker
     auto chordEnd = it;
     while (chordEnd != events.end() && !chordEnd->IsChordEnd()) ++chordEnd;
-
      
     // Make a vec of the 'surviving' notes the the chord, i.e. they
     //  have a duration beyond the duration until the bar line. 
