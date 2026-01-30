@@ -372,3 +372,53 @@ TEST_CASE("Chord NOT split across bar lines", "[Events]")
   REQUIRE(events[9].IsBarLine());
 }
 
+TEST_CASE("Chord, different durations, with note after rest in chord", "[Events]")
+{
+  // Chord with another note starting within the chord markers.
+    
+  const int tpq = 4; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0,  16, tpq),  // sb - two note chord with sb and m notes
+    n(64, 0,  8, tpq),   // m
+    n(62, 12,  4, tpq),  // c, 4th beat of same bar, so within chord markers
+  };
+
+  InsertChordMarkers(events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+  InsertRests(tpq, events);
+
+  // Expected output is a rest between the shorter note in the chord and the crotchet.
+  auto str = OutputEvents(events);
+  //std::cout << str;
+  const std::string expected = "( <sb> 60 <m> 64 cr )";
+  REQUIRE(str.substr(0, expected.size()) == expected);
+}
+
+TEST_CASE("Chord, different durations, with note after shorter note in chord, so no rest", "[Events]")
+{
+  // Chord with another note starting within the chord markers.
+  // As the third note starts right after the shorter note in the chord, there
+  //  should not be a rest within the chord markers.
+    
+  const int tpq = 4; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0,  16, tpq),  // sb - two note chord with sb and m notes
+    n(64, 0,  8, tpq),   // m
+    n(62, 8,  4, tpq),  // c, 3rd beat of same bar, so within chord markers
+  };
+
+  InsertChordMarkers(events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+  InsertRests(tpq, events);
+
+  // Expected output is a rest between the shorter note in the chord and the crotchet.
+  auto str = OutputEvents(events);
+  //std::cout << str;
+  const std::string expected = "( <sb> 60 <m> 64 ) <c> 62";
+  REQUIRE(str.substr(0, expected.size()) == expected);
+}
+

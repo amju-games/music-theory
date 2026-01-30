@@ -110,9 +110,11 @@ void InsertRests(int tpq, Events& events)
   //  with the start time of the next event. If there is a gap, we should
   //  insert a rest there.
   // *That's ok except for within a chord, because the notes in the chord
-  //  could have different durations. We don't want to insert a rest after 
+  //  could have different durations. We don't always want to insert a rest after 
   //  the shorter note, because it could clash with another note being
   //  played at the same time as the rest.
+  // So we look ahead to the next event, to see if there should be a rest
+  //  within the chord.
 
   int t = 0;  // accumulated time ticks through the piece
   bool chord = false; // true if we are parsing between ( ) chord markers
@@ -125,8 +127,25 @@ void InsertRests(int tpq, Events& events)
     {
       // Gap found between accumulated time so far, and the start time of
       //  the current event. So we should insert a rest here.
-      if (!chord) // Don't insert rest within a chord, see note above.*
+      if (chord) 
       {
+        auto nextEvent = it; 
+        // Look ahead to the next event, if there is one
+        if (nextEvent != events.end())
+        {
+          ++nextEvent;
+        }
+        int restDuration = nextEvent->m_start - t;
+        if (restDuration > 0)
+        {
+          it = events.insert(it, MakeRest(tpq, restDuration, t));
+          ++it;
+        }
+      }
+      else
+      {
+        // Easier case: just make a rest to fill the gap between previous
+        //  and next event.
         int restDuration = it->m_start - t;
         it = events.insert(it, MakeRest(tpq, restDuration, t));
         ++it;
