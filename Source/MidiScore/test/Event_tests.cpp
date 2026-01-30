@@ -21,14 +21,14 @@ static Event n(int pitch, int start, int duration, int tpq)
   return e;
 }
 
-TEST_CASE("Fill gaps with rests 1", "[Events]")
+TEST_CASE("Insert one rest", "[Events]")
 { 
   const int tpq = 1; // ticks per quarter note
   Events events
   { 
-    n(60, 0, 4, tpq),
-    n(62, 4, 2, tpq),
-    n(64, 8, 4, tpq),
+    n(60, 0, 4, tpq), // sb
+    n(62, 4, 2, tpq), // m
+    n(64, 8, 4, tpq), // sb
   };
 
   InsertRests(tpq, events);
@@ -36,37 +36,50 @@ TEST_CASE("Fill gaps with rests 1", "[Events]")
   //std::cout << OutputEvents(events);
 
   REQUIRE(events.size() == 4);
-  REQUIRE_FALSE(events[0].IsRest());  // 60
-  REQUIRE_FALSE(events[1].IsRest());  // 62
+  REQUIRE(events[0].IsNote());  // 60
+  REQUIRE(events[1].IsNote());  // 62
   REQUIRE(events[2].IsRest());  
   REQUIRE(events[2].m_start == 6);
   REQUIRE(events[2].m_duration == 2);
-  REQUIRE_FALSE(events[3].IsRest());  // 64
+  REQUIRE(events[3].IsNote());  // 64
 }
 
-TEST_CASE("Fill gaps - long rests", "[Events]")
+TEST_CASE("Insert rests with bar lines", "[Events]")
 { 
   const int tpq = 4; // ticks per quarter note
   Events events{ 
-    n(60, 0,  4, tpq),  // pitch, start, duration, tpq
-    n(62, 16, 4, tpq),  // 3 ticks gap
-    n(64, 32, 4, tpq),
-    n(65, 48, 4, tpq),
+    // pitch, start, duration, tpq
+    n(60, 4,  4, tpq),  // cr, c, mr
+    n(62, 20, 8, tpq),  // cr, m, cr
+    n(64, 44, 4, tpq),  // mr. c
+    n(65, 48, 4, tpq),  // c mr
   };
 
+  // Add bar lines as this is the 'real world' situation
+  InsertBarLines(tpq, TimeSig::TS_4_4, events);
   InsertRests(tpq, events);
 
-  REQUIRE(events.size() == 7); // rest not added at end, so 3 rests added
-  REQUIRE(events[0].IsNote());
-  REQUIRE(events[1].IsRest());
-  REQUIRE(events[2].IsNote());
-  REQUIRE(events[3].IsRest());
-  REQUIRE(events[4].IsNote());
-  REQUIRE(events[5].IsRest());
-  REQUIRE(events[6].IsNote());
+  //std::cout << OutputEvents(events);
+  // cr <c> 60 mr | cr <m> 62 cr | mr. <c> 64 | <c> 65 mr. | 
+
+  REQUIRE(events.size() == 14);
+  REQUIRE(events[0].IsRest());
+  REQUIRE(events[1].IsNote());
+  REQUIRE(events[2].IsRest());
+  REQUIRE(events[3].IsBarLine());
+  REQUIRE(events[4].IsRest());
+  REQUIRE(events[5].IsNote());
+  REQUIRE(events[6].IsRest());
+  REQUIRE(events[7].IsBarLine());
+  REQUIRE(events[8].IsRest());
+  REQUIRE(events[9].IsNote());
+  REQUIRE(events[10].IsBarLine());
+  REQUIRE(events[11].IsNote());
+  REQUIRE(events[12].IsRest());
+  REQUIRE(events[13].IsBarLine());
 }
 
-TEST_CASE("Add bar lines", "[Events]")
+TEST_CASE("Add bar lines 4/4", "[Events]")
 {
   const int tpq = 4; // ticks per quarter note
   Events events
@@ -80,6 +93,8 @@ TEST_CASE("Add bar lines", "[Events]")
 
   InsertBarLines(tpq, TimeSig::TS_4_4, events);
 
+  // Not inserting rests, and notes fall nicely within bar lines, so
+  //  output is simply the notes interleaved with bar lines.
   //std::cout << OutputEvents(events);
 
   REQUIRE(events.size() == 8);
@@ -91,6 +106,48 @@ TEST_CASE("Add bar lines", "[Events]")
   REQUIRE(events[5].IsBarLine());
   REQUIRE(events[6].IsNote());
   REQUIRE(events[7].IsBarLine());
+}
+
+TEST_CASE("Add bar lines 3/4", "[Events]")
+{
+  const int tpq = 4; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0,  16, tpq),  // sb
+    n(62, 16, 12, tpq),  // m.  cr
+    n(64, 32, 8, tpq),   // m   mr
+    n(65, 48, 4, tpq),   // c   (final rest length is whatever fills up the last bar). 
+  };
+
+  InsertBarLines(tpq, TimeSig::TS_3_4, events);
+  // Same note events as in the 4/4 test, but now 
+  //  the notes don't fall nicely within bars - add rests to show
+  //  the timing.
+  InsertRests(tpq, events);
+
+  //std::cout << OutputEvents(events);
+  // <m.> 60 | t <c> 60 <m> 62 | t <c> 62 cr <c> 64 | t <c> 64 mr | <c> 65 mr |
+
+  REQUIRE(events.size() == 18);
+  REQUIRE(events[0].IsNote());
+  REQUIRE(events[1].IsBarLine());
+  REQUIRE(events[2].IsTie());
+  REQUIRE(events[3].IsNote());
+  REQUIRE(events[4].IsNote());
+  REQUIRE(events[5].IsBarLine());
+  REQUIRE(events[6].IsTie());
+  REQUIRE(events[7].IsNote());
+  REQUIRE(events[8].IsRest());
+  REQUIRE(events[9].IsNote());
+  REQUIRE(events[10].IsBarLine());
+  REQUIRE(events[11].IsTie());
+  REQUIRE(events[12].IsNote());
+  REQUIRE(events[13].IsRest());
+  REQUIRE(events[14].IsBarLine());
+  REQUIRE(events[15].IsNote());
+  REQUIRE(events[16].IsRest());
+  REQUIRE(events[17].IsBarLine());
 }
 
 TEST_CASE("Adding bar lines splits notes", "[Events]")
@@ -154,7 +211,10 @@ TEST_CASE("Chord - 2 notes", "[Events]")
 
   REQUIRE(events.size() == 5);
   REQUIRE(events[0].IsChordStart());
+  REQUIRE(events[1].IsNote());
+  REQUIRE(events[2].IsNote());
   REQUIRE(events[3].IsChordEnd());
+  REQUIRE(events[4].IsNote());
 }
 
 TEST_CASE("Chord at end of piece", "[Events]")
