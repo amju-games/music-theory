@@ -394,7 +394,6 @@ void InsertChordMarkers(Events& events)
     if (!it->IsNote()) continue;
    
     int start = (it - 1)->m_start; 
-    int end = (it - 1)->m_end;
     
     if (start == it->m_start)
     {
@@ -417,12 +416,16 @@ void InsertChordMarkers(Events& events)
         }
       );
 
+      // Chord end marker has start and end times set to the end of the
+      //  longest note. It doesn't affect other processing, but is for
+      //  consistency.
+      int chordEndTime = firstNote->m_end;
       if (it == events.end())
       {
-        events.push_back(MakeChordEnd(end));
+        events.push_back(MakeChordEnd(chordEndTime));
         break; // no more events
       }
-      it = events.insert(it, MakeChordEnd(end));
+      it = events.insert(it, MakeChordEnd(chordEndTime));
       ++it;
     }
   }

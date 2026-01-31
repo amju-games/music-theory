@@ -109,8 +109,10 @@ TEST_CASE("Insert one rest", "[Events]")
   const int tpq = 1; // ticks per quarter note
   Events events
   { 
+    // pitch, start, duration, tpq
     n(60, 0, 4, tpq), // sb
     n(62, 4, 2, tpq), // m
+    // gap here! minim ends at t=6, next note starts at t=8
     n(64, 8, 4, tpq), // sb
   };
 
@@ -167,6 +169,9 @@ TEST_CASE("Add bar lines 4/4", "[Events]")
   const int tpq = 4; // ticks per quarter note
   Events events
   { 
+    // There are some gaps between note (n) end time and note (n+1) start time.
+    // But we are not testing inserting rests here, just bar lines.
+
     // pitch, start, duration, tpq
     n(60, 0,  16, tpq),  // sb
     n(62, 16, 12, tpq),  // m.
@@ -206,10 +211,11 @@ TEST_CASE("Add bar lines 3/4", "[Events]")
   InsertBarLines(tpq, TimeSig::TS_3_4, events);
   // Same note events as in the 4/4 test, but now 
   //  the notes don't fall nicely within bars - add rests to show
-  //  the timing.
+  //  the timing, or it's hard to make sense of the result.
   InsertRests(tpq, events);
 
   //std::cout << OutputEvents(events);
+  // Each bar is 3 crotchets duration; notes are split and tied across bar lines.
   // <m.> 60 | t <c> 60 <m> 62 | t <c> 62 cr <c> 64 | t <c> 64 mr | <c> 65 mr |
 
   REQUIRE(events.size() == 18);
@@ -235,6 +241,8 @@ TEST_CASE("Add bar lines 3/4", "[Events]")
 
 TEST_CASE("Adding bar lines splits notes", "[Events]")
 {
+  // Simplest test showing a note split across a bar line
+
   const int tpq = 4; // ticks per quarter note
   Events events
   { 
@@ -256,6 +264,8 @@ TEST_CASE("Adding bar lines splits notes", "[Events]")
 
 TEST_CASE("Split note across multiple bars", "[Events]")
 {
+  // Super long note split across multiple bars
+
   const int tpq = 4; // ticks per quarter note
   Events events
   { 
@@ -280,6 +290,8 @@ TEST_CASE("Split note across multiple bars", "[Events]")
 
 TEST_CASE("Chord - 2 notes", "[Events]")
 {
+  // Identify a chord - notes have the same start times.
+
   const int tpq = 4; // ticks per quarter note
   Events events
   { 
@@ -302,6 +314,8 @@ TEST_CASE("Chord - 2 notes", "[Events]")
 
 TEST_CASE("Chord at end of piece", "[Events]")
 {
+  // Test edge case: first and final notes in piece are a chord
+
   const int tpq = 4; // ticks per quarter note
   Events events
   { 
@@ -320,12 +334,16 @@ TEST_CASE("Chord at end of piece", "[Events]")
 
 TEST_CASE("Chord: different note durations", "[Events]")
 {
+  // Notes in a chord can have different durations. 
+  // To make subsequent processing easier, the notes are sorted so
+  //  the note with the max duration comes first.
+  
   const int tpq = 4; // ticks per quarter note
   Events events
   { 
     // pitch, start, duration, tpq
-    n(60, 0,  8, tpq),  
-    n(64, 0,  16, tpq),  
+    n(60, 0,  8, tpq),  // shorter note
+    n(64, 0,  16, tpq),  // longer note
   };
 
   InsertChordMarkers(events);
@@ -334,9 +352,11 @@ TEST_CASE("Chord: different note durations", "[Events]")
   REQUIRE(events.size() == 4);
   REQUIRE(events[0].IsChordStart());
   // Notes in chord are sorted so longest duration comes first 
-  REQUIRE(events[1].m_duration == 16);
-  REQUIRE(events[2].m_duration == 8); 
+  REQUIRE(events[1].m_duration == 16); // longer
+  REQUIRE(events[2].m_duration == 8); // shorter
   REQUIRE(events[3].IsChordEnd());
+  // Chord end marker has end time of the longest note
+  REQUIRE(events[3].m_end == 16); 
 }
 
 TEST_CASE("Big Chord", "[Events]")
