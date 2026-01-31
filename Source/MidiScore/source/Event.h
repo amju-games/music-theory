@@ -38,15 +38,18 @@ struct Event
   int m_pitch = 0; // MIDI pitch
   int m_velocity = 64; 
 
-  // For time set event, the output time. 
+  // For time set event, the output time, given in number of crotchets
+  //  from the start of the piece. 
   // (We don't expose midi-specific tpq value)
   float m_timeSetVal = 0; 
   
   EventType m_type = EventType::NOTE;
 
   std::string ToString() const;
+  std::string NoteToStringNoDuration() const;
+  std::string DurationString() const;
 
-  // Set timeval enum in this Event, given duration and tpq. 
+  // Set timeval enum and dots in this Event, given duration and tpq. 
   void SetTimeVal(int tpq);
 
   bool IsNote() const { return m_type == EventType::NOTE; }

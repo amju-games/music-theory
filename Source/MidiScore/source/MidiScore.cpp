@@ -35,18 +35,20 @@ void AddEventToVec(int tpq, const smf::MidiEvent& mev, Events& events)
   }
 }
 
-std::string OutputEvent(const Event& prev, const Event& e)
+std::string OutputEvent(int& prevDuration, const Event& e)
 {
-  // If either is not a note - output this event in full
-  if (!e.IsNote() || !prev.IsNote()) 
-  {
-    return e.ToString();
-  }
-  if (e.m_duration == prev.m_duration)
+  // If this event is a note, check the duration - only output if it
+  //  has changed.
+  if (e.IsNote() && e.m_duration == prevDuration)
   {
     // Duration the same -- just need to output pitch
     return std::to_string(e.m_pitch);
+    return e.NoteToStringNoDuration(); // also dynamics etc
   }
+
+  if (e.IsNote())  
+    prevDuration = e.m_duration;
+
   return e.ToString();
 }
 
@@ -86,11 +88,11 @@ std::string OutputEvents(const Events& events)
 {
   std::string res;
 
-  // Traverse events. Output time val and pitch when either changes.
-  res += events.front().ToString() + " ";
-  for (int i = 1; i < events.size(); i++)
+  // Traverse events. Output time val when it changes.
+  int prevDuration = -1;
+  for (int i = 0; i < events.size(); i++)
   {
-    res += OutputEvent(events[i - 1], events[i]);
+    res += OutputEvent(prevDuration, events[i]);
     res += " ";
   }
   res += "\n";

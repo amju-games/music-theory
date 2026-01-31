@@ -21,15 +21,30 @@ std::string TimeValString(TimeVal t)
   return "BAD TIME VAL";
 }
 
+std::string Event::NoteToStringNoDuration() const
+{
+  assert(m_type == EventType::NOTE);
+
+  return std::to_string(m_pitch); // TODO also dynamics, articulation
+}
+
+std::string Event::DurationString() const
+{
+  return TimeValString(m_timeVal) + 
+    (m_dots > 0 ? std::string(m_dots, '.') : ""); 
+}
+
 std::string Event::ToString() const
 {
   switch (m_type)
   {
   case EventType::REST:
-    return TimeValString(m_timeVal) + "r" + (m_dots > 0 ? std::string(m_dots, '.') : "");
+    return DurationString() + "r";
   
   case EventType::NOTE: 
-    return "<" + TimeValString(m_timeVal) + (m_dots > 0 ? std::string(m_dots, '.') : "") +"> " + std::to_string(m_pitch);
+    // Duration is in angle brackets, which means it applies
+    //  to all subsequent notes.
+    return "<" + DurationString() + "> " + NoteToStringNoDuration();
 
   case EventType::BARLINE:
     return "|";
@@ -258,10 +273,13 @@ int SplitChord(int tpq, Events& events, Events::iterator& it, int barLineTicks,
     // Add the notes and chord end marker, (which has time of note end time)
     if (notes.size() > 1) // if only one note surviving, it's not a chord.
     {
+      // Add the chord END marker to the end of the notes in the chord.
       notes.push_back(MakeChordEnd(notes.front().m_end));
+      // Insert the chort START marker into the event list.
       ++it;
       it = events.insert(it, MakeChordStart(barLineTicks));
     }
+    // Insert the notes in the chord + end marker into the event list.
     ++it;
     it = events.insert(it, notes.begin(), notes.end());
     // it points to first note added, nice for the next iteration.
