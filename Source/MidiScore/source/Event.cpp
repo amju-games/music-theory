@@ -14,19 +14,34 @@ void AppendNoteEventToEvents(Event e, Events& events)
   events.emplace_back(e);
 }
 
+static int Signum(int s) // sigh, no standard func?
+{
+  return s > 0 ? 1 : (s < 0 ? -1 : 0); 
+}
+
 void InsertDynamics(Events& events)
 {
   for (int i = 0; i < events.size(); i++)
   {
     Event& e = events[i];
-    if (i > 0)
+    if (i == 0)
     {
-      e.m_dynamics.SetFromPrevEvent(events[i - 1].m_dynamics);
-    }
+      e.m_dynamics.SetMark(); // always on note 0
+    } 
     else
     {
-      // First note: set dynamic str
-      e.m_dynamics.SetString();
+      int change1 = e.m_dynamics.m_velocity - events[i - 1].m_dynamics.m_velocity;
+      if (i > 1)
+      {
+        int change2 = events[i - 1].m_dynamics.m_velocity - 
+          events[i - 2].m_dynamics.m_velocity;
+
+        if (Signum(change1) != Signum(change2))
+        {
+          // Vec direction has changed - add a mark to the prev note
+          events[i - 1].m_dynamics.SetMark();
+        }
+      }
     }
   }
 }

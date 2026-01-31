@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <array>
+#include <iostream>
 #include "Dynamics.h"
 
 namespace MidiScore
@@ -17,14 +18,16 @@ std::string VelocityToString(int velocity)
   return STRS[i];
 }
 
-void Dynamics::SetFromPrevEvent(const Dynamics& prevDynamics)
+std::string Dynamics::ToString() const
 {
-  m_velChange = m_velocity - prevDynamics.m_velocity;
+  return m_string;
 }
 
-void Dynamics::SetString()
+std::string Dynamics::SetMark()
 {
-  m_string = VelocityToString(m_velocity);
+  auto s = VelocityToString(m_velocity);
+  m_string += s;
+  return s;
 }
 }
 

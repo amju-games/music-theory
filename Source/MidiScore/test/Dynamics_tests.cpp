@@ -49,11 +49,11 @@ TEST_CASE("Dynamics processing: big range", "[Dynamics]")
   REQUIRE(events[0].m_dynamics.m_velocity == 1);
   REQUIRE(events[1].m_dynamics.m_velocity == 125);
 
-  REQUIRE(events[0].m_dynamics.m_velChange == 0);
-  REQUIRE(events[1].m_dynamics.m_velChange == 125-1);
-  REQUIRE(events[2].m_dynamics.m_velChange == 64-125);
-  REQUIRE(events[3].m_dynamics.m_velChange == 48-64);
-  REQUIRE(events[4].m_dynamics.m_velChange == 31-48);
-  REQUIRE(events[5].m_dynamics.m_velChange == 31-31);
+  REQUIRE(events[0].m_dynamics.ToString() == "ppp");
+  REQUIRE(events[1].m_dynamics.ToString() == "fff");
+  REQUIRE(events[2].m_dynamics.ToString() == "");
+  REQUIRE(events[3].m_dynamics.ToString() == "");
+  REQUIRE(events[4].m_dynamics.ToString() == "pp");
+  REQUIRE(events[5].m_dynamics.ToString() == "");
 }
 
