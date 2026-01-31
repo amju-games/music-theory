@@ -62,6 +62,9 @@ struct Event
 
 using Events = std::vector<Event>;
 
+// Used when we read note events from MIDI input.
+void AppendNoteEventToEvents(const Event& e, Events& events);
+
 // Insert rests in the given events vec, where there are gaps between
 //  the end and start time of two consecutive events.
 void InsertRests(int tpq, Events& events);

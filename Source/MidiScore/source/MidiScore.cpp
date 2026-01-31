@@ -16,22 +16,24 @@ void AddEventToVec(int tpq, const smf::MidiEvent& mev, Events& events)
 {
   if (mev.isNoteOn())
   {
-    // Add note event to vec
-    Event e;
-    e.m_start = mev.tick;
-    e.m_duration = mev.getTickDuration();
-    e.m_end = e.m_start + e.m_duration;
-
-    e.SetTimeVal(tpq);
-
     int numBytes = mev.size();
-    if (numBytes > 2)
+    if (numBytes > 1)
     {   
-      e.m_pitch = static_cast<int>(mev[1]);
-      e.m_velocity = static_cast<int>(mev[2]);
-    }
+      // Add note event to vec of events
+      Event e;
+      e.m_start = mev.tick;
+      e.m_duration = mev.getTickDuration();
+      e.m_end = e.m_start + e.m_duration;
 
-    events.push_back(e);
+      e.SetTimeVal(tpq);
+
+      e.m_pitch = static_cast<int>(mev[1]);
+      if (numBytes > 2)
+      {
+        e.m_velocity = static_cast<int>(mev[2]);
+      }
+      AppendNoteEventToEvents(e, events);
+    }
   }
 }
 

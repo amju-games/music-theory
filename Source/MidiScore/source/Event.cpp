@@ -9,6 +9,11 @@
 
 namespace MidiScore
 {
+void AppendNoteEventToEvents(const Event& e, Events& events)
+{
+  events.emplace_back(e);
+}
+
 std::string TimeValString(TimeVal t)
 {
   if (t == TimeVal::SEMIQUAVER) return "qq";
