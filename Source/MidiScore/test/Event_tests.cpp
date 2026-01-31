@@ -93,6 +93,15 @@ TEST_CASE("BAD Output strings", "[Events]")
   // TPQ needs to be >=4 for a semiquaver, (so we can express 1/4 of a crotchet)
   //  -- but this erroneously adds a dot, so TPQ needs to be >=8. 
   REQUIRE(n(60, 0, 1, 4).ToString() == "<qq.> 60"); // s/b "<qq> 60"
+
+  // Limit of small note values: demisemiquaver is not recognised.
+  // Duration is 1/8 of a crotchet, should be "qqq"?
+  REQUIRE(n(60, 0, 1, 8).ToString() == "<qq> 60"); // s/b "<qqq> 60" ?
+
+  // Limit of large note values
+  // Above a dotted sb4, note values are not recognised.
+  // Duration is 32 crotchets (128/4), 8 semibreves.
+  REQUIRE(n(60, 0, 128, 4).ToString() == "<sb4> 60"); // s/b "<sb8> 60" ?
 }
 
 TEST_CASE("Insert one rest", "[Events]")
