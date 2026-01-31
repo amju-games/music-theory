@@ -30,7 +30,7 @@ void AddEventToVec(int tpq, const smf::MidiEvent& mev, Events& events)
       e.m_pitch = static_cast<int>(mev[1]);
       if (numBytes > 2)
       {
-        e.m_velocity = static_cast<int>(mev[2]);
+        e.m_dynamics.SetVelocity(static_cast<int>(mev[2]));
       }
       AppendNoteEventToEvents(e, events);
     }

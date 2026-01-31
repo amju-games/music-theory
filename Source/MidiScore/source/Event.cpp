@@ -9,9 +9,26 @@
 
 namespace MidiScore
 {
-void AppendNoteEventToEvents(const Event& e, Events& events)
+void AppendNoteEventToEvents(Event e, Events& events)
 {
   events.emplace_back(e);
+}
+
+void InsertDynamics(Events& events)
+{
+  for (int i = 0; i < events.size(); i++)
+  {
+    Event& e = events[i];
+    if (i > 0)
+    {
+      e.m_dynamics.SetFromPrevEvent(events[i - 1].m_dynamics);
+    }
+    else
+    {
+      // First note: set dynamic str
+      e.m_dynamics.SetString();
+    }
+  }
 }
 
 std::string TimeValString(TimeVal t)

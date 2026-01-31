@@ -16,5 +16,15 @@ std::string VelocityToString(int velocity)
   }}; 
   return STRS[i];
 }
+
+void Dynamics::SetFromPrevEvent(const Dynamics& prevDynamics)
+{
+  m_velChange = m_velocity - prevDynamics.m_velocity;
+}
+
+void Dynamics::SetString()
+{
+  m_string = VelocityToString(m_velocity);
+}
 }
 

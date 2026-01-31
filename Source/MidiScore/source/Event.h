@@ -5,6 +5,7 @@
 
 #include <string>
 #include <vector>
+#include "Dynamics.h"
 
 namespace MidiScore
 {
@@ -36,7 +37,8 @@ struct Event
   TimeVal m_timeVal = TimeVal::CROTCHET;
   int m_dots = 0; // multiply time val by 1.5 per dot
   int m_pitch = 0; // MIDI pitch
-  int m_velocity = 64; 
+
+  Dynamics m_dynamics;
 
   // For time set event, the output time, given in number of crotchets
   //  from the start of the piece. 
@@ -63,7 +65,11 @@ struct Event
 using Events = std::vector<Event>;
 
 // Used when we read note events from MIDI input.
-void AppendNoteEventToEvents(const Event& e, Events& events);
+// NB Event is passed by value, as we will update dynamics members.
+void AppendNoteEventToEvents(Event e, Events& events);
+
+// Call first, when the only events are notes, for simplicity.
+void InsertDynamics(Events& events);
 
 // Insert rests in the given events vec, where there are gaps between
 //  the end and start time of two consecutive events.
