@@ -44,7 +44,6 @@ std::string OutputEvent(int& prevDuration, const Event& e)
   if (e.IsNote() && e.m_duration == prevDuration)
   {
     // Duration the same -- just need to output pitch
-    return std::to_string(e.m_pitch);
     return e.NoteToStringNoDuration(); // also dynamics etc
   }
 
@@ -69,6 +68,8 @@ std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks)
   res += ClefString(clef) + " ";
   res += TimeSigString(ts) + " ";
   res += KeySigString(ks) + " ";
+
+  InsertDynamics(events);
 
   InsertChordMarkers(events);
 //std::cout << "With chord markers: " << OutputEvents(events) << "\n";

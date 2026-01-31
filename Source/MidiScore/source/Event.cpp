@@ -41,6 +41,12 @@ void InsertDynamics(Events& events)
           // Vec direction has changed - add a mark to the prev note
           events[i - 1].m_dynamics.SetMark();
         }
+
+        // Final note
+        if (i == events.size() - 1 && change1 != 0)
+        {
+          e.m_dynamics.SetMark();
+        }
       }
     }
   }
@@ -62,7 +68,15 @@ std::string Event::NoteToStringNoDuration() const
 {
   assert(m_type == EventType::NOTE);
 
-  return std::to_string(m_pitch); // TODO also dynamics, articulation
+  // Dynamics refer to the last note, so pitch comes first.
+  auto res = std::to_string(m_pitch);
+  auto d = m_dynamics.ToString();
+  if (!d.empty())
+  {
+    res += " " + d;
+  }
+  // TODO also articulation
+  return res;
 }
 
 std::string Event::DurationString() const
