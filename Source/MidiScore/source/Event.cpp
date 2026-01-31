@@ -80,7 +80,7 @@ void Event::SetTimeVal(int tpq)
   m_dots = 0;
   if (m_duration >= 16 * tpq) 
   {
-    m_timeVal = TimeVal::SEMIBREVE;
+    m_timeVal = TimeVal::SB4;
     if (m_duration == 24 * tpq) m_dots = 1;
   }
   else if (m_duration >= 8 * tpq) 
