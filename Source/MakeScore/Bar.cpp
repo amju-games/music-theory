@@ -91,13 +91,13 @@ void Bar::SetScale(float scale)
   m_scale = scale;
 }
 
-void Bar::CalcGlyphY(Glyph* gl, Pitch pitch) const
+void Bar::CalcGlyphY(Glyph* glyph, Pitch pitch) const
 {
   switch (m_staveType)
   {
   case StaveType::STAVE_TYPE_NONE:
   case StaveType::STAVE_TYPE_RHYTHM:
-    gl->y = DEFAULT_HEIGHT;
+    glyph->y = DEFAULT_HEIGHT;
     break;
 
   case StaveType::STAVE_TYPE_SINGLE:
@@ -132,8 +132,8 @@ void Bar::CalcGlyphY(Glyph* gl, Pitch pitch) const
     staveLine += octave;
     float y = static_cast<float>(staveLine) * 0.05f;
     // TODO Offset y for stave > 1
-    gl->y = y;
-    gl->SetStaveLine(staveLine);
+    glyph->y = y;
+    glyph->SetStaveLine(staveLine);
     break;
   }
   case StaveType::STAVE_TYPE_DOUBLE:
@@ -141,53 +141,71 @@ void Bar::CalcGlyphY(Glyph* gl, Pitch pitch) const
   }
 }
 
-void Bar::AddRest(const std::string& s, int switches)
+float Bar::AddRest(const std::string& s, int switches, float crotchetTime)
 {
   int order = static_cast<int>(m_glyphs.size());
-  RestGlyph* gl = new RestGlyph(s, order);
-  gl->SetScale(m_scale);
-  gl->SetTimeVal(GetTimeVal(s));
-  gl->SetTimeValToken(s);
-  m_glyphs.push_back(std::unique_ptr<Glyph>(gl));
+  RestGlyph* glyph = new RestGlyph(s, order);
+  glyph->SetScale(m_scale);
+  glyph->SetTimeVal(GetTimeVal(s));
+  glyph->SetTimeValToken(s);
+  m_glyphs.push_back(std::unique_ptr<Glyph>(glyph));
+
+  return crotchetTime; // TODO + time val
 }
 
-void Bar::AddNote(const std::string& s, Pitch pitch, int switches)
+std::unique_ptr<NoteGlyph> Bar::CreateNoteGlyph(
+  const std::string& durationToken,
+  Pitch pitch,
+  int switches,
+  int yOrder,
+  float crotchetTime)
 {
-  int order = static_cast<int>(m_glyphs.size());
-
-  NoteGlyph* gl = new NoteGlyph(s, order);
-  gl->SetScale(m_scale);
-
-  gl->SetPerformance(switches); // but can pause a rest
-
-  gl->SetPitch(pitch);
+  auto glyph = std::make_unique<NoteGlyph>(durationToken, yOrder);
+  glyph->SetScale(m_scale);
+  glyph->SetPerformance(switches); // but can pause a rest
+  glyph->SetPitch(pitch);
 
   // Calc y, using current pitch, stave, and clef. 
-  CalcGlyphY(gl, pitch);
+  CalcGlyphY(glyph.get(), pitch);
 
   // Calc any accidental required for the given pitch in the 
   //  current key. 
   // TODO Not if we have overriden by specifying an accidental.
-  gl->CalcAccidental(m_keySig);
+  glyph->CalcAccidental(m_keySig);
 
   // Accidental 2nd pass: adjust based on previous accidental
   //  for the stave line for this note
-  Accidental prev = m_accidentals[gl->m_staveLine];
-  gl->AdjustAccidental(prev);
+  Accidental prev = m_accidentals[glyph->m_staveLine];
+  glyph->AdjustAccidental(prev);
 
   // Store most recent acc for the stave line of this note
-  m_accidentals[gl->m_staveLine] = gl->m_accidental;
+  m_accidentals[glyph->m_staveLine] = glyph->m_accidental;
 
   // Set duration for this musical symbol
-  gl->SetTimeVal(GetTimeVal(s));
-  gl->SetTimeValToken(s);
+  glyph->SetTimeVal(GetTimeVal(durationToken));
+  glyph->SetTimeValToken(durationToken);
 
-  m_glyphs.push_back(std::unique_ptr<Glyph>(gl));
+  return glyph;
 }
 
-void Bar::AddChord(
-  const std::string& durationToken, const Chord& ch, int switches)
+float Bar::AddNote(const std::string& duration, Pitch pitch, int switches,
+  float crotchetTime)
 {
+  int order = static_cast<int>(m_glyphs.size());
+
+  m_glyphs.push_back(CreateNoteGlyph(duration, pitch, switches, order, crotchetTime));
+
+  return crotchetTime; // TODO Add duration
+}
+
+float Bar::AddChord(
+  const Chord& ch, int switches,
+  float crotchetTime)
+{
+  if (ch.empty()) return crotchetTime;
+
+  // Just for now, just output the 0th note
+  return AddNote(ch[0].second, ch[0].first, switches, crotchetTime); 
 }
 
 void Bar::SetClef(Clef clef)
@@ -207,9 +225,9 @@ void Bar::AddTimeSig(const std::string& s)
 {
   SetTimeSig(::GetTimeSig(s));
 
-  Glyph* gl = new TimeSigGlyph(s);
-  gl->SetScale(m_scale);
-  m_timeSigGlyph = std::unique_ptr<Glyph>(gl);
+  Glyph* glyph = new TimeSigGlyph(s);
+  glyph->SetScale(m_scale);
+  m_timeSigGlyph = std::unique_ptr<Glyph>(glyph);
 }
 
 void Bar::AddBeam(const std::string& s)

@@ -147,6 +147,11 @@ void MakeScore::AddTokens()
   std::string text;
 
   Chord chord;
+  bool inChord; // If true, we are within ( ) chord markers
+
+  // Current time in piece, units are number of crotchets from start.
+  // Set from duration of tokens, and explicitly by the 'time' token. 
+  float crotchetTime = 0;
 
   for (int i = 0; i < n; i++)
   {
@@ -175,7 +180,7 @@ void MakeScore::AddTokens()
     {
       // Nothing to do
     }
-    else if (IsDirection(s))
+    else if (IsDirection(s)) // Wait, what are Performance and Direction
     {
       AddDirection(s);
     }
@@ -202,37 +207,47 @@ void MakeScore::AddTokens()
     else if (IsImmediatePitch(s))
     {
       m_lastPitch = GetPitch(s); // + m_transpose;
-      AddNote();
-    }
-    else if (s[0] == '(') // Chords are immediate pitches in parentheses
-    {
-      Pitch pitch = GetPitch(s.substr(1));
-      chord.push_back(pitch);
-      while (s.back() != ')')
+      if (inChord)
       {
-        i++;
-        s = strs[i];
-        chord.push_back(GetPitch(s)); 
+        chord.push_back({ m_lastPitch, m_lastTimeValToken });
       }
-      s.pop_back();
-      chord.push_back(GetPitch(s)); 
-      AddChord(chord);
+      else
+      {
+        crotchetTime = AddNote(crotchetTime);
+      }
+    }
+    else if (IsChordStart(s))
+    {
+      inChord = true;
+    }
+    else if (IsChordEnd(s))
+    {
+      inChord = false;
+      crotchetTime = AddChord(chord, crotchetTime);
       chord.clear();
     }
     else if (IsRest(s))
     {
-      AddRest(s);
+      crotchetTime += AddRest(s, crotchetTime);
     }
     else if (IsDeferredTimeVal(s))
     {
       // Store time val token for subsequent notes
       assert(s.size() > 2);
+      // Strip off < >
       m_lastTimeValToken = s.substr(1, s.size() - 2);
     }
     else if (IsImmediateTimeVal(s))
     {
       m_lastTimeValToken = s;
-      AddNote();
+      if (inChord)
+      {
+        chord.push_back({ m_lastPitch, m_lastTimeValToken });
+      }
+      else
+      {
+        crotchetTime = AddNote(crotchetTime);
+      }
     }
     else if (s[0] == TEXT_QUOTE_OPEN)
     {
@@ -246,6 +261,11 @@ void MakeScore::AddTokens()
       i++;
       float pageWidth = atof(strs[i].c_str());
       SetPageWidth(pageWidth);
+    }
+    else if (s == "time")
+    {
+      i++;
+      crotchetTime = atof(strs[i].c_str());
     }
     // FINAL ELSE
     else if (!isText)
@@ -350,22 +370,27 @@ void MakeScore::AddClef(const std::string& s)
   m_bars.back()->SetClef(GetClef(s));
 }
 
-void MakeScore::AddRest(const std::string& s)
+float MakeScore::AddRest(const std::string& s, float crotchetTime)
 {
-  m_bars.back()->AddRest(s, m_switches[m_stave]);
+  return m_bars.back()->AddRest(s, m_switches[m_stave], crotchetTime);
 }
 
-void MakeScore::AddChord(std::vector<Pitch> chord)
+float MakeScore::AddChord(const Chord& chord, float crotchetTime)
 {
-  m_bars.back()->AddChord(m_lastTimeValToken, chord, m_switches[m_stave]);
+  float newCrotchetTime = m_bars.back()->AddChord(
+    chord, m_switches[m_stave],
+    crotchetTime);
 
   // TODO Tied chords!
+
+  return newCrotchetTime;
 }
 
-void MakeScore::AddNote()
+float MakeScore::AddNote(float crotchetTime)
 {
-  m_bars.back()->AddNote(
-    m_lastTimeValToken, m_lastPitch, m_switches[m_stave]);
+  float newCrotchetTime = m_bars.back()->AddNote(
+    m_lastTimeValToken, m_lastPitch, m_switches[m_stave],
+    crotchetTime);
 
   // If last tie has no right connection, connect it now to the
   //  glyph we just added.
@@ -378,6 +403,8 @@ void MakeScore::AddNote()
       tie->SetRightGlyph(m_bars.back()->GetGlyphs().back().get());
     }
   }
+
+  return newCrotchetTime;
 }
 
 void MakeScore::AddTie()
@@ -399,6 +426,9 @@ void MakeScore::AddTie()
 
 void MakeScore::MakeInternal()
 {
+  // TODO Don't add default bar, instead add bars on demand when we add
+  //  glyphs
+
   // Add first default bar
   Bar* bar = new Bar;
   bar->SetIsFirstBarOfLine(true); // first bar

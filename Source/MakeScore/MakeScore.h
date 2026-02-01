@@ -92,11 +92,23 @@ private:
 
   // Use most recently set note (time) value and pitch to add a new NoteGlyph
   //  to the current Bar.
-  void AddNote();
+  // crotchetTime is time since start of piece, in crotchet units, at which
+  //  this note should be added.
+  // Returns new crotchet time value for subsequent glyphs.
+  float AddNote(float crotchetTime);
 
-  void AddChord(std::vector<Pitch> chord);
+  // Add chord (built up of pitches and time values within chord
+  //  markers).
+  // crotchetTime is time since start of piece, in crotchet units, at which
+  //  this note should be added.
+  // Returns new crotchet time value for subsequent glyphs.
+  float AddChord(const Chord& chord, float crotchetTime);
 
-  void AddRest(const std::string& s);
+  // Add a rest, with given duration value, at given time.
+  // crotchetTime is time since start of piece, in crotchet units, at which
+  //  this note should be added.
+  // Returns new crotchet time value for subsequent glyphs.
+  float AddRest(const std::string& duration, float crotchetTime);
 
   void AddClef(const std::string& s);
 

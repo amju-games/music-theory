@@ -10,9 +10,14 @@
 #include "Consts.h"
 #include "Utils.h"
 
+// * IGlyph *
+// Interface for glyph types
 struct IGlyph
 {
   virtual ~IGlyph() = default;
+
+  // Output drawing primitives for rendering, plus meta data for
+  //  animation and MIDI notes.
   virtual std::string ToString() const = 0;
 
   void SetScale(float s) { scaleX = scaleY = s; }
@@ -36,4 +41,8 @@ struct IGlyph
   float y = DEFAULT_HEIGHT;
   float scaleX = 1.0f;
   float scaleY = 1.0f;
+
+  // Time pos of this glyph in the piece. Units are crotchet beats from
+  //  the start of the piece (zero based). 
+  float m_crotchetTime = 0;
 };

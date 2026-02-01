@@ -16,6 +16,7 @@
 #include "Consts.h"
 #include "Glyph.h"
 #include "KeySig.h"
+#include "NoteGlyph.h"
 #include "Pitch.h"
 #include "Stave.h"
 #include "TimeSig.h"
@@ -52,13 +53,16 @@ public:
   void SetScale(float scale);
 
   // TODO Duration should be an enum or float
-  void AddNote(const std::string& durationToken, Pitch pitch, int switches);
+  float AddNote(const std::string& durationToken, Pitch pitch, int switches,
+    float crotchetTime);
 
-  void AddChord(const std::string& durationToken, const Chord& ch, int switches);
+  float AddChord(const Chord& ch, int switches,
+    float crotchetTime);
 
-  void AddRest(const std::string& s, int switches);
+  float AddRest(const std::string& durationToken, int switches, 
+    float crotchetTime);
 
-  void AddTimeSig(const std::string& s);
+  void AddTimeSig(const std::string& durationToken);
 
   void AddBeam(const std::string& s);
 
@@ -100,6 +104,13 @@ private:
   bool YesShowClefAtFrontOfBar() const;
 
   float GetKeySigWidth() const;
+
+  std::unique_ptr<NoteGlyph> CreateNoteGlyph(
+    const std::string& durationToken,
+    Pitch pitch,
+    int switches,
+    int yOrder,
+    float crotchetTime);
 
 private:
   // Sequence of glyphs, left to right, in the bar, following any key sig
