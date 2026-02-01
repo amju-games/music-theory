@@ -130,6 +130,77 @@ void MakeScore::Preprocess()
   //  std::cout << "Preprocessed input: " << m_input << "\n";
 }
 
+void MakeScore::PreprocessTokens(std::vector<std::string>& tokens)
+{
+  // Goal of this function:
+  // Move anything other than pitch and time value tokens to the
+  //  outside of chord markers.
+  // Then when we process them, the chord will already exist in the
+  //  bar, so we can attach to it (for directions, slurs, ties, etc.)
+
+  bool inChord = false; // true if within ( ) chord marker tokens
+
+  // Make a new token list, to which we only append
+  std::vector<std::string> newTokens;
+
+  // List of tokens within chord markers which we save until the
+  //  end of the chord, then append to the output.
+  std::vector<std::string> moveToAfterChord;
+
+  // This implementation avoids all the iterator problems of manipulating
+  //  the sequence in-place. It's deliberately simple and hopefully easy
+  //  to understand. 
+  for (auto it = tokens.begin(); it != tokens.end(); ++it)
+  {
+    auto token = *it;
+    Trim(token);
+
+    if (IsChordStart(token))
+    {
+      inChord = true;
+      newTokens.push_back(token);
+    }
+    else if (IsChordEnd(token))
+    {
+      inChord = false;
+      newTokens.push_back(token);
+
+      // Append saved tokens to new list, then clear saved tokens list.
+      newTokens.insert(newTokens.end(), 
+        moveToAfterChord.begin(), moveToAfterChord.end());
+    
+      moveToAfterChord.clear();
+    } 
+    else if (inChord)
+    {
+      // These are the token types which we want to stay within the chord.
+      if (   IsImmediatePitch(token) 
+          || IsDeferredPitch(token) 
+          || IsImmediateTimeVal(token)
+          || IsDeferredTimeVal(token)
+          || IsRest(token)) // Rest test needs to be more careful
+      {
+        newTokens.push_back(token);
+      }
+      else 
+      {
+        // Every other token type, that is within a chord, we want to 
+        //  move to the outside of the chord markers.
+        // So, don't add this token to the new tokens yet.
+        // Save token to add once we are outside of chord.
+        moveToAfterChord.push_back(token);
+      }
+    }
+    else
+    {
+      // Token is not chord related and we're not in chord
+      newTokens.push_back(token);
+    }
+  }
+  // Overwrite the old tokens with the new list.
+  tokens = newTokens;
+}
+
 // Tokenise input string and add each token to internal representation.
 void MakeScore::AddTokens()
 {
@@ -140,6 +211,8 @@ void MakeScore::AddTokens()
     std::istream_iterator<std::string>{ss},
     std::istream_iterator<std::string>{}
   };
+
+  PreprocessTokens(strs);
 
   int n = strs.size();
 
@@ -189,6 +262,9 @@ void MakeScore::AddTokens()
     }
     else if (IsDirection(s)) // Wait, what are Performance and Direction
     {
+      // If we're in a chord, we haven't added the notes to the bar yet,
+      //  and attaching this dir to the most recent note in the input string
+      //  won't work.
       AddDirection(s);
     }
     else if (IsBeam(s))

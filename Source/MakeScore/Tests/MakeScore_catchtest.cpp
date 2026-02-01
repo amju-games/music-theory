@@ -64,13 +64,78 @@ TEST_CASE("pitch", "MakeScore")
   REQUIRE(GetPitch("e5").m_midi == 76);
 }
 
-TEST_CASE("chord", "MakeScore")
+TEST_CASE("Chord detection", "[.]")
 {
   SetSuppressFlags(SUPPRESS_ALL);
   MakeScore ms("clef-t <c> (c4 e4)");
   ms.MakeInternal();
   const auto& strs = ms.GetOutputLines();
   MatchStart(strs[2], "crotchet");
+  REQUIRE(0);
 }
 
+TEST_CASE("PreprocessTokens", "[MakeScore]")
+{
+  // Test that preprocessing removes tokens from within chord markers
+
+  MakeScore ms;
+
+  {
+  // ff direction within chord, at end
+  std::vector<std::string> tokens = { "(", "c4", "c", "ff", ")", "d4" };
+  const std::vector<std::string> expected = { "(", "c4", "c", ")", "ff", "d4" };
+  
+  ms.PreprocessTokens(tokens);
+  REQUIRE(tokens == expected);
+  }
+
+  {
+  // ff direction within chord, at start
+  std::vector<std::string> tokens = { "(", "ff", "c4", "c", ")", "d4" };
+  const std::vector<std::string> expected = { "(", "c4", "c", ")", "ff", "d4" };
+  
+  ms.PreprocessTokens(tokens);
+  REQUIRE(tokens == expected);
+  }
+
+  {
+  // Multi directions within chord, at start
+  std::vector<std::string> tokens = { "(", "ff", "mp", "c", ")", "d4" };
+  const std::vector<std::string> expected = { "(", "c", ")", "ff", "mp", "d4" };
+  
+  ms.PreprocessTokens(tokens);
+  REQUIRE(tokens == expected);
+  }
+
+  {
+  // Multi directions within chord, split up 
+  std::vector<std::string> tokens = { "(", "ff", "c4", "mp", ")", "d4" };
+  const std::vector<std::string> expected = { "(", "c4", ")", "ff", "mp", "d4" };
+  
+  ms.PreprocessTokens(tokens);
+  REQUIRE(tokens == expected);
+  }
+
+  {
+  // BIG test, real world data
+  std::vector<std::string> tokens = 
+  {
+    "(", "<c>", "72", "mf", "48", ")", "(", "72", "60", ")", 
+    " (", " 79", " 64", " )", " (", "79", " mp", " 60", " )", " |", 
+    " (", " 81", " 65", " )", " (", " 81", " 60", " )", 
+    " (", " <m>", " 79", " ff", " <c>", " 64", " )" 
+  };
+
+  const std::vector<std::string> expected = 
+  {
+    "(", "<c>", "72", "48", ")", "mf", "(", "72", "60", ")", 
+    "(", "79", "64", ")", "(", "79", "60", ")", "mp", "|", 
+    "(", "81", "65", ")", "(", "81", "60", ")", 
+    "(", "<m>", "79", "<c>", "64", ")", "ff" 
+  };
+  
+  ms.PreprocessTokens(tokens);
+  REQUIRE(tokens == expected);
+  }
+}
 

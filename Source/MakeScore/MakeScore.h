@@ -49,9 +49,14 @@ public:
   void SetScale(float scale) { m_scale = scale; }
   void SetY(float y) { m_y = y; }
 
-  // Add beam groupings
-  // Replace beamed quaver/semiquaver glyphs with crotchet glyphs
+  // Preprocess input string before tokenisation: is this necessary?
+  // Add beam groupings?
+  // Replace beamed quaver/semiquaver glyphs with crotchet glyphs?
   void Preprocess();
+
+  // Preprocess tokens before parsing:
+  // Move tokens outside of chord markers
+  void PreprocessTokens(std::vector<std::string>& tokens);
 
   // Strip unnecessary TIME data
   void Postprocess(); 
