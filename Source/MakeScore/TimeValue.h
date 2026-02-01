@@ -8,9 +8,9 @@
 
 #include <string>
 
-// Time values
+// Time values: units are crotchet == 1.
 using TimeValue = float;
-static const float TIMEVAL_SEMIBREVE = 1.f;
+static const float TIMEVAL_SEMIBREVE = 4.f;
 static const float TIMEVAL_MINIM = TIMEVAL_SEMIBREVE / 2.f;
 static const float TIMEVAL_CROTCHET = TIMEVAL_MINIM / 2.f;
 static const float TIMEVAL_QUAVER = TIMEVAL_CROTCHET / 2.f;
