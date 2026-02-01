@@ -19,6 +19,8 @@ struct Flag : public Beam
 
   std::string ToString() const override;
 
+  std::string CommentString() const override;
+
   // Stem to which the flag is attached is on the left (true) or
   //  right (false).
   bool stemLeftNotRight = true;

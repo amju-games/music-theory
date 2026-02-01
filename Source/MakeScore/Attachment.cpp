@@ -10,6 +10,16 @@
 #include "Attachment.h"
 #include "Utils.h"
 
+std::string Attachment::CommentString() const 
+{
+  std::string res = "// Attachment: " + m_glyphText + ", parents: L: " 
+    + (m_parent[LEFT] ? m_parent[LEFT]->CommentString() : "<none> ") 
+    + " R: " 
+    + (m_parent[RIGHT] ? m_parent[RIGHT]->CommentString() : "<none> ")
+    + LineEnd();
+  return res;
+}
+
 std::string Attachment::ToString() const 
 {
   if (m_parent[LEFT])

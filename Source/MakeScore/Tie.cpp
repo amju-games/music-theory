@@ -21,6 +21,11 @@ void Tie::CalcPos()
   m_rightGlyph->SetTieRight(this);
 }
 
+std::string Tie::CommentString() const
+{
+  return "// Tie" + LineEnd();
+}
+
 std::string Tie::ToString() const
 {
   // Control points: start and end points in x; y value, depending

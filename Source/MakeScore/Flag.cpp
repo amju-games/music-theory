@@ -6,6 +6,11 @@
 
 #include "Flag.h"
 
+std::string Flag::CommentString() const
+{
+  return "// Flag, more info coming" + LineEnd();
+}
+
 std::string Flag::ToString() const
 {
   float ymin = y;

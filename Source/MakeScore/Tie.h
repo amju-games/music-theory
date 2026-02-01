@@ -10,9 +10,11 @@
 
 struct Glyph;
 
+// TODO Why not an attachment?
 struct Tie : public IGlyph
 {
-  virtual std::string ToString() const;
+  std::string ToString() const override;
+  std::string CommentString() const override;
 
   void CalcPos();
 

@@ -28,6 +28,8 @@ struct Beam : public IGlyph
 
   std::string ToString() const override;
 
+  std::string CommentString() const override;
+
   // Set 'parent' beam for flag or 2nd/3rd beam, so we can take the
   //  gradient from the parent.
   // OR Maybe point to owning BeamGroup instead?

@@ -7,7 +7,7 @@
 #include <cassert>
 #include "RestGlyph.h"
 
-std::string RestGlyph::CommentStr() const
+std::string RestGlyph::CommentString() const
 {
   return "// Rest, value: " + timevalToken + LineEnd();
 }
@@ -63,8 +63,6 @@ std::string RestGlyph::ToString() const
   // Add special glyphs for timing before and after - this is
   //  for animation and MIDI events. 
   std::string res;
-
-  res += CommentStr();
 
   res += TimeBefore();
 

@@ -9,6 +9,7 @@
 #include "Flag.h"
 #include "NoteGlyph.h"
 #include "RestGlyph.h"
+#include "Suppress.h"
 
 void Bar::CopyState(const Bar& b)
 {
@@ -226,7 +227,10 @@ std::string Bar::ToString()
 {
   std::string res;
 
+  bool yesComments = (GetSuppressFlags() & META_COMMENT) == 0;
+
   int numStaves = 1; // TODO 
+
   // Clef for each stave, if first bar of line, and single or double
   //  stave - not if no stave or just rhythm line
   if (YesShowClefAtFrontOfBar())
@@ -262,6 +266,10 @@ std::string Bar::ToString()
   // Optional time sig
   if (m_timeSigGlyph)
   {
+    if (yesComments)
+    {
+      res += m_timeSigGlyph->CommentString() + LineEnd();
+    }
     res += m_timeSigGlyph->ToString() + LineEnd();
   }
 
@@ -275,12 +283,20 @@ std::string Bar::ToString()
 
   for (auto& g : m_glyphs)
   {
+    if (yesComments)
+    {
+      res += g->CommentString() + LineEnd();
+    }
     res += g->ToString() + LineEnd();
   }
 
   for (auto& b : m_beams)
   {
     b->SetScale(m_scale);
+    if (yesComments)
+    {
+      res += b->CommentString() + LineEnd();
+    }
     res += b->ToString() + LineEnd();
   }
 

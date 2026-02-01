@@ -206,7 +206,7 @@ std::string NoteGlyph::GetStaccatoStr() const
   return res;
 }
 
-std::string NoteGlyph::CommentStr() const
+std::string NoteGlyph::CommentString() const
 {
   auto res =  "// Note, " + pitch.ToString();
   if (!timevalToken.empty())
@@ -227,8 +227,6 @@ std::string NoteGlyph::ToString() const
   }
 
   std::string res;
-
-  res += CommentStr();
 
   // Add special glyphs for timing before and after - this is
   //  for animation and MIDI events. 

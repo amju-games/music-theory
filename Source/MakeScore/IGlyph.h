@@ -20,6 +20,8 @@ struct IGlyph
   //  animation and MIDI notes.
   virtual std::string ToString() const = 0;
 
+  virtual std::string CommentString() const = 0;
+
   void SetScale(float s) { scaleX = scaleY = s; }
 
   void SetPos(float x_, float y_) { x = x_; y = y_; }

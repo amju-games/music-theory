@@ -52,7 +52,7 @@ struct NoteGlyph : public Glyph
 
   std::string GetStaccatoStr() const;
 
-  std::string CommentStr() const;
+  std::string CommentString() const override;
 
 public: // ?!
   Pitch pitch;

@@ -6,6 +6,11 @@
 
 #include "Beam.h"
 
+std::string Beam::CommentString() const
+{
+  return "// Beam, more info coming" + LineEnd();
+}
+
 std::string Beam::ToString() const
 {
   float ymin = y;
