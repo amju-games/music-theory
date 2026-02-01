@@ -37,7 +37,11 @@ struct NoteGlyph : public Glyph
   // TODO Doesn't need param and can set displayGlyphName directly
   std::string GetGlyphOutputStr(std::string s) const override;
 
+  // Calc y-pos of note, i.e. position on stave.
+  void CalcY(KeySig keySig, Clef clef);
+
   // Calc accidental, given pitch and key sig
+  // TODO handle when overriden by specifying step/octave/alter
   void CalcAccidental(KeySig ks);
 
   // Adjust accidental calculated above, based on the most recent

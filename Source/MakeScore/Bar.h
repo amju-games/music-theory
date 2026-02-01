@@ -89,10 +89,6 @@ public:
   //  rhythm scores). 
   void SetPos(float x, float y);
 
-  // Calc y-position for glyph, given stave type and pitch. (We then offset
-  //  this later on, depending on the clef.)
-  void CalcGlyphY(Glyph* gl, Pitch pitch) const;
-
   void SetStaveType(StaveType st) { m_staveType = st; }
 
   // Only required to get final glyph, for Ties. TODO replace with

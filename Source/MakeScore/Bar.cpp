@@ -91,56 +91,6 @@ void Bar::SetScale(float scale)
   m_scale = scale;
 }
 
-void Bar::CalcGlyphY(Glyph* glyph, Pitch pitch) const
-{
-  switch (m_staveType)
-  {
-  case StaveType::STAVE_TYPE_NONE:
-  case StaveType::STAVE_TYPE_RHYTHM:
-    glyph->y = DEFAULT_HEIGHT;
-    break;
-
-  case StaveType::STAVE_TYPE_SINGLE:
-  {
-    // Y-position for MIDI notes starting from MIDI 0, with C at y = 0.
-    // y = 0 corresponds to the bottom line of the stave.
-    // Choose array depending on whether the current key sig uses 
-    //  sharps or flats.
-    const int Y_POS[2][12] = 
-    {
-      { 0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6 }, // Sharp key sig
-      { 0, 1, 1, 2, 2, 3, 4, 4, 5, 5, 6, 6 }  // Flat key sig 
-    };
-
-    // Add this offset to the y position, setting y to the correct
-    //  position on the stave. E.g. for treble clef, middle C should be
-    //  at y = -2, i.e. two stave positions below the bottom line.
-    const int CLEF_OFFSET[4] = 
-    {
-      -2, // treb
-      10, // bass
-       4, // alto
-       6, // tenor 
-    };
-    // Use last clef set for this stave
-    int clef = static_cast<int>(m_currentClef[m_currentStave]);
-    // Choose stave position depending on key sign type (sharp/flat)
-    int sharpOrFlat = (m_keySig >= KEYSIG_0_FLAT) ? 1 : 0;
-    int staveLine = Y_POS[sharpOrFlat][pitch.m_midi % 12] + CLEF_OFFSET[clef];
-    // Use the octave to shunt note up or down
-    int octave = (pitch.m_midi / 12 - 5) * 7; // so middle C is 0
-    staveLine += octave;
-    float y = static_cast<float>(staveLine) * 0.05f;
-    // TODO Offset y for stave > 1
-    glyph->y = y;
-    glyph->SetStaveLine(staveLine);
-    break;
-  }
-  case StaveType::STAVE_TYPE_DOUBLE:
-    break; // TODO
-  }
-}
-
 float Bar::AddRest(const std::string& s, int switches, float crotchetTime)
 {
   int order = static_cast<int>(m_glyphs.size());
@@ -157,20 +107,20 @@ std::unique_ptr<NoteGlyph> Bar::CreateNoteGlyph(
   const std::string& durationToken,
   Pitch pitch,
   int switches,
-  int yOrder,
+  int xOrder,
   float crotchetTime)
 {
-  auto glyph = std::make_unique<NoteGlyph>(durationToken, yOrder);
+  auto glyph = std::make_unique<NoteGlyph>(durationToken, xOrder);
   glyph->SetScale(m_scale);
   glyph->SetPerformance(switches); // but can pause a rest
   glyph->SetPitch(pitch);
 
   // Calc y, using current pitch, stave, and clef. 
-  CalcGlyphY(glyph.get(), pitch);
+  glyph->CalcY(m_keySig, m_currentClef[m_currentStave]);
 
   // Calc any accidental required for the given pitch in the 
   //  current key. 
-  // TODO Not if we have overriden by specifying an accidental.
+  // TODO handle when overriden by specifying step/octave/alter
   glyph->CalcAccidental(m_keySig);
 
   // Accidental 2nd pass: adjust based on previous accidental

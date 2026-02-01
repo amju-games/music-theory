@@ -9,6 +9,47 @@
 #include "Suppress.h"
 #include "Performance.h"
 
+void NoteGlyph::CalcY(KeySig keySig, Clef clef) 
+{
+  // Y-position for MIDI notes starting from MIDI 0, with C at y = 0.
+  // y = 0 corresponds to the bottom line of the stave.
+  // Choose array depending on whether the current key sig uses 
+  //  sharps or flats.
+  const int Y_POS[2][12] = 
+  {   
+    { 0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6 }, // Sharp key sig
+    { 0, 1, 1, 2, 2, 3, 4, 4, 5, 5, 6, 6 }  // Flat key sig 
+  };  
+
+  // Add this offset to the y position, setting y to the correct
+  //  position on the stave. E.g. for treble clef, middle C should be
+  //  at y = -2, i.e. two stave positions below the bottom line.
+  const int CLEF_OFFSET[4] = 
+  {   
+    -2, // treb
+    10, // bass
+     4, // alto
+     6, // tenor 
+  };  
+
+  // Choose stave position depending on key sign type (sharp/flat)
+  int sharpOrFlat = (keySig >= KEYSIG_0_FLAT) ? 1 : 0;
+  int staveLine = Y_POS[sharpOrFlat][pitch.m_midi % 12] + CLEF_OFFSET[static_cast<int>(clef)];
+  // Use the octave to shunt note up or down
+  int octave = (pitch.m_midi / 12 - 5) * 7; // so middle C is 0
+  staveLine += octave;
+ 
+  // Scale stave position by real distances used 
+  const float STAVE_LINE_GAP = 0.1f;
+
+  // Set y-coord - should be SetY()
+  y = static_cast<float>(staveLine) * STAVE_LINE_GAP * .5f;
+  // TODO Offset y for stave > 1
+  //SetY(y);
+
+  SetStaveLine(staveLine);
+}
+
 void NoteGlyph::AdjustAccidental(Accidental previousAcc)
 {
   // Don't repeat an accidental, e.g. two sharp notes in sequence
