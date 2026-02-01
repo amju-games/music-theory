@@ -157,7 +157,14 @@ void MakeScore::AddTokens()
   {
     std::string s = strs[i]; // copy so we can strip quotes off etc
 
-    if (s == "|")
+    if (s[0] == TEXT_QUOTE_OPEN)
+    {
+      // First token of some text
+      // text = s.substr(1);
+      isText = true;
+      s = s.substr(1);
+    }
+    else if (s == "|")
     {
       Bar* bar = new Bar;
       bar->CopyState(*m_bars.back());
@@ -248,13 +255,6 @@ void MakeScore::AddTokens()
       {
         crotchetTime = AddNote(crotchetTime);
       }
-    }
-    else if (s[0] == TEXT_QUOTE_OPEN)
-    {
-      // First token of some text
-      // text = s.substr(1);
-      isText = true;
-      s = s.substr(1);
     }
     else if (s == "page-w")
     {
