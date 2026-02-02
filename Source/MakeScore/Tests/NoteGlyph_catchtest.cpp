@@ -41,8 +41,11 @@ TEST_CASE("Calc stave line - step/oct/alter pitches", "[NoteGlyph]")
   // Middle c, treb clef, 0 sharps or flats
   REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_TREBLE, Pitch("c", 4, 0)) == -2);
   // Check alter value doesn't change the stave pos
-  REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_TREBLE, Pitch("c", 4, 2)) == -2);
-  REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_TREBLE, Pitch("c", 4, -1)) == -2);
+  REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_TREBLE, Pitch("c", 4, 1)) == -2); // c#4
+  REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_TREBLE, Pitch("c", 4, -1)) == -2); // cb4
+
+  // db4
+  REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_TREBLE, Pitch("d", 4, -1)) == -1);
 
   // f5, treb clef
   REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_TREBLE, Pitch("f", 5, 0)) == 8);
@@ -52,5 +55,14 @@ TEST_CASE("Calc stave line - step/oct/alter pitches", "[NoteGlyph]")
 
   // g2, bass clef
   REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_BASS, Pitch("g", 2, 0)) == 0);
+}
+
+TEST_CASE("Calc accidental - step/oct/alter pitches", "[NoteGlyph]")
+{
+  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(Pitch("c", 4, 0)) == Accidental::ACCIDENTAL_NATURAL);
+  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(Pitch("c", 4, 1)) == Accidental::ACCIDENTAL_SHARP);
+  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(Pitch("c", 4, 2)) == Accidental::ACCIDENTAL_DOUBLE_SHARP);
+  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(Pitch("c", 4, -1)) == Accidental::ACCIDENTAL_FLAT);
+  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(Pitch("c", 4, -2)) == Accidental::ACCIDENTAL_DOUBLE_FLAT);
 }
 

@@ -4,12 +4,14 @@
 // * MakeScore *
 // Sub-project for human-friendly authoring of musical notation.
 
+#include <array>
 #include <cassert>
+#include <iostream>
 #include "NoteGlyph.h"
 #include "Suppress.h"
 #include "Performance.h"
 
-int CalcStaveLineForStepOctaveAlterPitch(
+static int CalcStaveLineForStepOctaveAlterPitch(
  KeySig keySig, Clef clef, const Pitch& pitch) 
 {
   // Calc stave line for step, with C at zero.
@@ -27,10 +29,11 @@ int CalcStaveLineForStepOctaveAlterPitch(
   int octaveShift = (pitch.m_octave - 4) * 7;
   line += octaveShift;
   // pitch.m_alter doesn't alter the line the note is on.
+
   return line;
 }
 
-int CalcStaveLineForMidiPitch(KeySig keySig, Clef clef, const Pitch& pitch) 
+static int CalcStaveLineForMidiPitch(KeySig keySig, Clef clef, const Pitch& pitch) 
 {
   // Y-position for MIDI notes starting from MIDI 0, with C at y = 0.
   // y = 0 corresponds to the bottom line of the stave.
@@ -122,11 +125,44 @@ void NoteGlyph::AdjustAccidental(Accidental previousAcc)
   } 
 }
 
-void NoteGlyph::CalcAccidental(KeySig ks)
+Accidental NoteGlyph::CalcAccidental(KeySig ks)
+{
+  Accidental acc;
+  if (m_pitch.m_step.empty())
+  {
+    acc = CalcAccidentalFromMidi(ks, m_pitch);
+  }
+  else
+  {
+    acc = CalcAccidentalFromStepOctAlter(m_pitch);
+  }
+  // Don't worry here about any Accidental already in force, we adjust
+  //  later
+  m_accidental = acc;
+  return acc;
+}
+
+Accidental NoteGlyph::CalcAccidentalFromStepOctAlter(Pitch pitch)
+{
+  int i = std::clamp(pitch.m_alter + 2, 0, 4);
+  const std::array<Accidental, 5> ACCS = 
+  {{
+    Accidental::ACCIDENTAL_DOUBLE_FLAT,
+    Accidental::ACCIDENTAL_FLAT,
+    Accidental::ACCIDENTAL_NATURAL,
+    Accidental::ACCIDENTAL_SHARP,
+    Accidental::ACCIDENTAL_DOUBLE_SHARP,
+  }};
+  assert(i >= 0);
+  assert(i < 5);
+  return ACCS[i];
+}
+
+Accidental NoteGlyph::CalcAccidentalFromMidi(KeySig ks, Pitch pitch)
 {
   // Is pitch in ks, or do we need an accidental?
   // Get note 0..11, then look up note in the given key 
-  int note = m_pitch.m_midi % 12;
+  int note = pitch.m_midi % 12;
 
   const auto S = Accidental::ACCIDENTAL_SHARP;
   const auto s = Accidental::ACCIDENTAL_SHARP_IN_KEY_SIG;
@@ -164,10 +200,7 @@ void NoteGlyph::CalcAccidental(KeySig ks)
   };
 
   Accidental acc = ACCS[ks][note];
-
-  // Don't worry here about any Accidental already in force, we adjust
-  //  later
-  m_accidental = acc;
+  return acc;
 }
 
 std::string NoteGlyph::GetGlyphOutputStr(std::string s) const

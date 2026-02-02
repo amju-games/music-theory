@@ -46,7 +46,11 @@ struct NoteGlyph : public Glyph
 
   // Calc accidental, given pitch and key sig
   // TODO handle when overriden by specifying step/octave/alter
-  void CalcAccidental(KeySig ks);
+  // Returns accidental calculated, and sets member.
+  Accidental CalcAccidental(KeySig ks);
+  // Internal functions - public for testing
+  static Accidental CalcAccidentalFromStepOctAlter(Pitch pitch);
+  static Accidental CalcAccidentalFromMidi(KeySig ks, Pitch pitch);
 
   Accidental GetAccidental() const { return m_accidental; }
 
