@@ -41,6 +41,7 @@ struct NoteGlyph : public Glyph
   void CalcY(KeySig keySig, Clef clef);
 
   // Calc stave line, used in CalcY above.
+  // See comment in Glyph.h explaining stave lines.
   static int CalcStaveLine(KeySig keySig, Clef clef, const Pitch& pitch);
 
   // Calc accidental, given pitch and key sig

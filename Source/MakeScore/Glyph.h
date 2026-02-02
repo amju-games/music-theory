@@ -32,6 +32,42 @@ struct Glyph : public IGlyph
 
   // Set stave line for this glyph (notes and rests, so we can
   //  adjust standard rest position)
+  // Stave line is a position on a standard 5-line stave. The bottom line
+  //  is at position 0, and the top line is position 8, because the intervening
+  //  lines and spaces count. 
+  // 
+  // Whatever the clef, the bottom stave line is always 0.
+  // So the stave line for a particular pitch depends on the clef.
+  //
+  // Treble clef:
+  // 10 -a5- 
+  // 9   g5
+  // 8  -f5------------------ 
+  // 7   e5                
+  // 6  -d5------------------
+  // 5   c5
+  // 4  -b4------------------
+  // 3   a4
+  // 2  -g4------------------
+  // 1   f4
+  // 0  -e4------------------
+  // -1  d4 
+  // -2  c4   -- middle c
+  //
+  // Bass clef:
+  // 10 -c4-  -- middle c
+  // 9   b3
+  // 8  -a3------------------ 
+  // 7   g3                
+  // 6  -f3------------------
+  // 5   e3
+  // 4  -d3------------------
+  // 3   c3
+  // 2  -b2------------------
+  // 1   a2
+  // 0  -g2------------------
+  // -1  f2 
+  // -2  e2 
   void SetStaveLine(int staveLine) { m_staveLine = staveLine; }
 
   void SetTimeVal(float timeval_) { timeval = timeval_; }

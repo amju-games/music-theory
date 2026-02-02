@@ -10,6 +10,13 @@
 
 struct Pitch
 {
+  Pitch() = default;
+
+  explicit Pitch(int midi) : m_midi(midi) {}
+
+  Pitch(const std::string& step, int octave, int alter) : 
+    m_midi(0), m_step(step), m_octave(octave), m_alter(alter) {}
+
   int m_midi = 0;
   std::string m_step; // e.g. "c"
   int m_octave = 0;
