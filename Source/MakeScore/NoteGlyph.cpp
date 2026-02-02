@@ -9,7 +9,7 @@
 #include "Suppress.h"
 #include "Performance.h"
 
-void NoteGlyph::CalcY(KeySig keySig, Clef clef) 
+int NoteGlyph::CalcStaveLine(KeySig keySig, Clef clef, const Pitch& pitch) 
 {
   // Y-position for MIDI notes starting from MIDI 0, with C at y = 0.
   // y = 0 corresponds to the bottom line of the stave.
@@ -38,7 +38,13 @@ void NoteGlyph::CalcY(KeySig keySig, Clef clef)
   // Use the octave to shunt note up or down
   int octave = (pitch.m_midi / 12 - 5) * 7; // so middle C is 0
   staveLine += octave;
+  return staveLine;
+}
  
+void NoteGlyph::CalcY(KeySig keySig, Clef clef) 
+{
+  int staveLine = CalcStaveLine(keySig, clef, m_pitch);
+
   // Scale stave position by real distances used 
   const float STAVE_LINE_GAP = 0.1f;
 
@@ -87,7 +93,7 @@ void NoteGlyph::CalcAccidental(KeySig ks)
 {
   // Is pitch in ks, or do we need an accidental?
   // Get note 0..11, then look up note in the given key 
-  int note = pitch.m_midi % 12;
+  int note = m_pitch.m_midi % 12;
 
   const auto S = Accidental::ACCIDENTAL_SHARP;
   const auto s = Accidental::ACCIDENTAL_SHARP_IN_KEY_SIG;
@@ -208,7 +214,7 @@ std::string NoteGlyph::GetStaccatoStr() const
 
 std::string NoteGlyph::CommentString() const
 {
-  auto res =  "// Note, " + pitch.ToString();
+  auto res =  "// Note, " + m_pitch.ToString();
   if (!timevalToken.empty())
   {
     res += ", value: " + timevalToken;
@@ -308,9 +314,9 @@ std::string NoteGlyph::TimeBefore() const
       //  note meta data should include start time. It does, no??
       // Output MIDI note event, unless on RHS of a tie
       res += "NOTE_ON, " + 
-        Str(pitch.m_midi) + ", " + 
+        Str(m_pitch.m_midi) + ", " + 
         Str(start) + ", " + 
-        Str(volume) + ", " +
+        Str(m_volume) + ", " +
         Str(x) + ", " + Str(y) + 
         LineEnd();
     }
@@ -345,7 +351,7 @@ std::string NoteGlyph::TimeAfter() const
       {
         t = timeval * 0.5f + startTime; // halve length of note
       }
-      res += "NOTE_OFF, " + Str(pitch.m_midi) + ", " + Str(t) + LineEnd();
+      res += "NOTE_OFF, " + Str(m_pitch.m_midi) + ", " + Str(t) + LineEnd();
     }
 
     // Cancel time for subsequent glyphs (but postprocess to strip out

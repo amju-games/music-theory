@@ -28,7 +28,7 @@ struct NoteGlyph : public Glyph
 
   void SetPitch(Pitch p)
   {
-    pitch = p;
+    m_pitch = p;
   }
 
   void SetDisplayNameForBeamedNote();
@@ -40,9 +40,14 @@ struct NoteGlyph : public Glyph
   // Calc y-pos of note, i.e. position on stave.
   void CalcY(KeySig keySig, Clef clef);
 
+  // Calc stave line, used in CalcY above.
+  static int CalcStaveLine(KeySig keySig, Clef clef, const Pitch& pitch);
+
   // Calc accidental, given pitch and key sig
   // TODO handle when overriden by specifying step/octave/alter
   void CalcAccidental(KeySig ks);
+
+  Accidental GetAccidental() const { return m_accidental; }
 
   // Adjust accidental calculated above, based on the most recent
   //  accidental set on this stave line
@@ -54,12 +59,12 @@ struct NoteGlyph : public Glyph
 
   std::string CommentString() const override;
 
-public: // ?!
-  Pitch pitch;
+private:
+  Pitch m_pitch;
 
   Accidental m_accidental = Accidental::ACCIDENTAL_NONE;
 
-  int volume = 127;
+  int m_volume = 127;
 
   // TODO
   // Stem* m_stem;

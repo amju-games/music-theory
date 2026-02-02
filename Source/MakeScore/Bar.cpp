@@ -130,7 +130,7 @@ std::unique_ptr<NoteGlyph> Bar::CreateNoteGlyph(
   glyph->AdjustAccidental(prev);
 
   // Store most recent acc for the stave line of this note
-  m_accidentals[glyph->m_staveLine] = glyph->m_accidental;
+  m_accidentals[glyph->m_staveLine] = glyph->GetAccidental();
 
   // Set duration for this musical symbol
   glyph->SetTimeVal(GetTimeVal(durationToken));
