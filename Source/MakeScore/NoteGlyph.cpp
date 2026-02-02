@@ -9,7 +9,28 @@
 #include "Suppress.h"
 #include "Performance.h"
 
-int NoteGlyph::CalcStaveLine(KeySig keySig, Clef clef, const Pitch& pitch) 
+int CalcStaveLineForStepOctaveAlterPitch(
+ KeySig keySig, Clef clef, const Pitch& pitch) 
+{
+  // Calc stave line for step, with C at zero.
+  int line = std::tolower(pitch.m_step[0]) - 'a' - 2;
+  // Offset, depending on clef
+  const int CLEF_OFFSET[4] = 
+  {   
+    -2, // treb
+    10, // bass
+     4, // alto
+     6, // tenor 
+  };  
+  line += CLEF_OFFSET[static_cast<int>(clef)];
+  // Octave shift, where octave 4 is a shift of zero
+  int octaveShift = (pitch.m_octave - 4) * 7;
+  line += octaveShift;
+  // pitch.m_alter doesn't alter the line the note is on.
+  return line;
+}
+
+int CalcStaveLineForMidiPitch(KeySig keySig, Clef clef, const Pitch& pitch) 
 {
   // Y-position for MIDI notes starting from MIDI 0, with C at y = 0.
   // y = 0 corresponds to the bottom line of the stave.
@@ -41,6 +62,18 @@ int NoteGlyph::CalcStaveLine(KeySig keySig, Clef clef, const Pitch& pitch)
   return staveLine;
 }
  
+int NoteGlyph::CalcStaveLine(KeySig keySig, Clef clef, const Pitch& pitch) 
+{
+  if (pitch.m_step.empty())
+  {
+    return CalcStaveLineForMidiPitch(keySig, clef, pitch);
+  }
+  else
+  {
+    return CalcStaveLineForStepOctaveAlterPitch(keySig, clef, pitch);
+  }
+}
+
 void NoteGlyph::CalcY(KeySig keySig, Clef clef) 
 {
   int staveLine = CalcStaveLine(keySig, clef, m_pitch);

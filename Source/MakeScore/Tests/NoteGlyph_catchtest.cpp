@@ -36,3 +36,21 @@ TEST_CASE("Calc stave line - midi pitches - enharmonic notes", "[NoteGlyph]")
   REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_1_FLAT, Clef::CLEF_BASS, Pitch(58)) == 9);
 }
 
+TEST_CASE("Calc stave line - step/oct/alter pitches", "[NoteGlyph]")
+{
+  // Middle c, treb clef, 0 sharps or flats
+  REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_TREBLE, Pitch("c", 4, 0)) == -2);
+  // Check alter value doesn't change the stave pos
+  REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_TREBLE, Pitch("c", 4, 2)) == -2);
+  REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_TREBLE, Pitch("c", 4, -1)) == -2);
+
+  // f5, treb clef
+  REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_TREBLE, Pitch("f", 5, 0)) == 8);
+
+  // middle c, bass clef
+  REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_BASS, Pitch("c", 4, 0)) == 10);
+
+  // g2, bass clef
+  REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_BASS, Pitch("g", 2, 0)) == 0);
+}
+
