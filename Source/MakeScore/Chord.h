@@ -2,8 +2,11 @@
 
 #include <vector>
 #include "Glyph.h"
+#include "NoteGlyph.h"
 #include "Pitch.h"
 
+// Chord type, populated when we parse the input tokens. 
+// It's just a vec of (pitch, duration) pairs. 
 // Duration of each note in the chord is the last prevailing duration
 //  string, so it can change within chord markers.
 // TODO Duration is currently a string, should be an enum or type.
@@ -13,13 +16,28 @@ using Chord = std::vector<std::pair<Pitch, std::string>>;
 bool IsChordStart(const std::string&);
 bool IsChordEnd(const std::string&);
 
-// TODO Derive from NoteGlyph? Container of note glyphs??
+// * ChordGlyph *
+// This is a type of 'vertical' - maybe we should have a Vertical type.
+// TODO Derive from NoteGlyph? 
 class ChordGlyph : public Glyph
 {
 public:
+  ChordGlyph(const Chord& ch) : m_chordInfo(ch) {}
+
+  std::string ToString() const override;
+  std::string CommentString() const override;
+
+  // Override these Glyph functions to set times on child Notes.
+  void SetTimeVal(float timeVal) override; 
+  void SetStartTime(float st) override;
+ 
+  void AddNoteGlyph(std::unique_ptr<NoteGlyph>&& noteGlyph);
 
 protected:
-  GlyphVec m_glyphs;
-  Chord m_pitches;
+  GlyphVec m_noteGlyphs; 
+
+  // Do we need this? For comment, at least..?
+  // Or, we use this to create the NoteGlyphs.
+  Chord m_chordInfo;
 };
 

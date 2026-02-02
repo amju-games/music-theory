@@ -78,11 +78,16 @@ float Bar::CalcNormalisedTimes(float totalDuration, float start)
   // Normalise glyph durations, and accumulate to get start times.
   for (auto& g : m_glyphs)
   {
-    g->timeval /= totalDuration;
-    g->timeval *= timeMult; // Adjust time values (for compound times)
+    float timeVal = g->GetTimeVal();
+    timeVal /= totalDuration;
+    timeVal *= timeMult; // Adjust time values (for compound times)
+    g->SetTimeVal(timeVal);
 
-    g->startTime += start;
-    start += g->timeval;
+    float startTime = g->GetStartTime();
+    startTime += start;
+    g->SetStartTime(startTime);
+
+    start += timeVal;
   }
   return start;
 }
@@ -104,6 +109,27 @@ float Bar::AddRest(const std::string& s, int switches, float crotchetTime)
   return crotchetTime; // TODO + time val
 }
 
+std::unique_ptr<ChordGlyph> Bar::CreateChordGlyph(
+  const Chord& ch,
+  int switches,
+  int xOrder,
+  float crotchetTime)
+{
+  auto chordGlyph = std::make_unique<ChordGlyph>(ch);
+  chordGlyph->SetScale(m_scale);
+
+  for (const auto& [pitch, duration] : ch)
+  {
+    auto noteGlyph = CreateNoteGlyph(duration, pitch, switches, xOrder, crotchetTime);
+    chordGlyph->AddNoteGlyph(std::move(noteGlyph));
+  }
+  const auto durationToken = ch[0].second;
+  chordGlyph->SetTimeVal(GetTimeVal(durationToken));
+  chordGlyph->SetTimeValToken(durationToken);
+
+  return chordGlyph;
+}
+
 std::unique_ptr<NoteGlyph> Bar::CreateNoteGlyph(
   const std::string& durationToken,
   Pitch pitch,
@@ -121,7 +147,7 @@ std::unique_ptr<NoteGlyph> Bar::CreateNoteGlyph(
 
   // Calc any accidental required for the given pitch in the 
   //  current key. 
-  // TODO handle when overriden by specifying step/octave/alter
+  // Handled when overriden by specifying step/octave/alter.
   glyph->CalcAccidental(m_keySig);
 
   // Accidental 2nd pass: adjust based on previous accidental
@@ -132,7 +158,8 @@ std::unique_ptr<NoteGlyph> Bar::CreateNoteGlyph(
   // Store most recent acc for the stave line of this note
   m_accidentals[glyph->m_staveLine] = glyph->GetAccidental();
 
-  // Set duration for this musical symbol
+  // Set duration - calc the time val in crotchets, and save the
+  //  raw token, for final render output and comment output.
   glyph->SetTimeVal(GetTimeVal(durationToken));
   glyph->SetTimeValToken(durationToken);
 
@@ -144,7 +171,8 @@ float Bar::AddNote(const std::string& duration, Pitch pitch, int switches,
 {
   int order = static_cast<int>(m_glyphs.size());
 
-  m_glyphs.push_back(CreateNoteGlyph(duration, pitch, switches, order, crotchetTime));
+  m_glyphs.push_back(
+    CreateNoteGlyph(duration, pitch, switches, order, crotchetTime));
 
   return crotchetTime; // TODO Add duration
 }
@@ -153,10 +181,17 @@ float Bar::AddChord(
   const Chord& ch, int switches,
   float crotchetTime)
 {
-  if (ch.empty()) return crotchetTime;
+  assert(!ch.empty());
 
   // Just for now, just output the 0th note
-  return AddNote(ch[0].second, ch[0].first, switches, crotchetTime); 
+  //return AddNote(ch[0].second, ch[0].first, switches, crotchetTime); 
+
+  int order = static_cast<int>(m_glyphs.size());
+
+  m_glyphs.push_back(
+    CreateChordGlyph(ch, switches, order, crotchetTime));
+
+  return crotchetTime; // TODO Add duration
 }
 
 void Bar::SetClef(Clef clef)
@@ -415,8 +450,7 @@ void Bar::SetPos(float x, float y)
   {
     const float TIME_SIG_WIDTH = 0.3f; 
     reduction += TIME_SIG_WIDTH;
-    m_timeSigGlyph->x = x; // plus some extra?
-    m_timeSigGlyph->y += y;
+    m_timeSigGlyph->SetPos(x, m_timeSigGlyph->GetY() + y);
     x += TIME_SIG_WIDTH;
   }
 
@@ -444,10 +478,9 @@ void Bar::SetPos(float x, float y)
 
   for (auto& g : m_glyphs)
   {
-    g->x = x + w * static_cast<float>(g->order) + xoff + xfudge;
-
-    g->y += y; // TODO Whether or not this is correct will become
-               //  apparent when we have multi-line scores.
+    g->SetPos(
+      x + w * static_cast<float>(g->order) + xoff + xfudge,
+      g->GetY() + y);
   }
 
   // Set position of beam left and right ends

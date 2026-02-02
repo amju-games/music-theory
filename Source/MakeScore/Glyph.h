@@ -70,7 +70,11 @@ struct Glyph : public IGlyph
   // -2  e2 
   void SetStaveLine(int staveLine) { m_staveLine = staveLine; }
 
-  void SetTimeVal(float timeval_) { timeval = timeval_; }
+  float GetTimeVal() const { return timeval; }
+  virtual void SetTimeVal(float timeval_) { timeval = timeval_; }
+
+  float GetStartTime() const { return startTime; }
+  virtual void SetStartTime(float st) { startTime = st; }
 
   // This is for testing and debugging
   void SetTimeValToken(const std::string& token) { timevalToken = token; }

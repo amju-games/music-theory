@@ -25,6 +25,8 @@ struct IGlyph
   void SetScale(float s) { scaleX = scaleY = s; }
 
   void SetPos(float x_, float y_) { x = x_; y = y_; }
+  float GetX() const { return x; }
+  float GetY() const { return y; }
 
   // Append this to get scale in X and Y, if scale is not 1 in both.
   // If scale is 1 for both axes, we return empty string.

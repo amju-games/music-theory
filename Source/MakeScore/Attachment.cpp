@@ -24,7 +24,7 @@ std::string Attachment::ToString() const
 {
   if (m_parent[LEFT])
   {
-    const_cast<float&>(x) += m_parent[LEFT]->x;
+    const_cast<float&>(x) += m_parent[LEFT]->GetX();
   }
 
   std::string res = m_glyphText + ", " + 

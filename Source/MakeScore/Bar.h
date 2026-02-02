@@ -108,6 +108,12 @@ private:
     int yOrder,
     float crotchetTime);
 
+  std::unique_ptr<ChordGlyph> CreateChordGlyph(
+    const Chord& ch, 
+    int switches,
+    int xOrder,
+    float crotchetTime);
+
 private:
   // Sequence of glyphs, left to right, in the bar, following any key sig
   //  and time sig.
