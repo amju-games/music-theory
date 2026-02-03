@@ -24,6 +24,7 @@ public:
   Quad(float cornerXY[8]);
 
   std::string ToString() const override;
+  std::string CommentString() const override;
 
 protected:
   std::array<float, 8> m_cornerXY;

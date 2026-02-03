@@ -128,7 +128,7 @@ std::unique_ptr<ChordGlyph> Bar::CreateChordGlyph(
   chordGlyph->SetTimeVal(GetTimeVal(durationToken));
   chordGlyph->SetTimeValToken(durationToken);
 
-  chordGlyph->SetStem(Stem::CreateChordStem(chordGlyph));
+  chordGlyph->SetStem();
 
   return chordGlyph;
 }
@@ -177,7 +177,7 @@ float Bar::AddNote(const std::string& duration, Pitch pitch, int switches,
   auto noteGlyph = 
     CreateNoteGlyph(duration, pitch, switches, order, crotchetTime);
 
-  noteGlyph->SetStem(Stem::CreateNoteStem(noteGlyph));
+  noteGlyph->SetStem();
   m_glyphs.push_back(std::move(noteGlyph));
 
   return crotchetTime; // TODO Add duration

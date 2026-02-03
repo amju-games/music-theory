@@ -6,6 +6,13 @@
 
 #pragma once
 
+// In our coordinate system, with a scale of 1, the distance between stave
+//  lines is this.
+static const float STAVE_LINE_GAP = 0.1f;
+
+static const float STEM_W  = 0.02f;
+static const float DEFAULT_STEM_H  = 3.5f; // in units of stave line gaps
+
 static const int MAX_NUM_STAVES = 4; // for SATB
 
 static const int DEFAULT_PITCH = 69; // default pitch = A above middle C

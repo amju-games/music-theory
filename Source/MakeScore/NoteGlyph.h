@@ -27,7 +27,8 @@ struct NoteGlyph : public Glyph
 
   std::string ToString() const override;
 
-  void SetStem(const Stem& stem) { m_stem = stem; }
+  // Set up stem from stave line etc
+  void SetStem();
 
   void SetPitch(Pitch p)
   {

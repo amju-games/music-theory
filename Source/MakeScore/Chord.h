@@ -28,7 +28,7 @@ public:
   std::string ToString() const override;
   std::string CommentString() const override;
 
-  void SetStem(const Stem& stem) { m_stem = stem; }
+  void SetStem();
 
   // Override these Glyph functions to set times on child Notes.
   void SetTimeVal(float timeVal) override; 
@@ -42,7 +42,7 @@ public:
   void SetPos(float x_, float y_) override;
 
 protected:
-  GlyphVec m_noteGlyphs; 
+  std::vector<std::unique_ptr<NoteGlyph>> m_noteGlyphs; 
 
   // Do we need this? For comment, at least..?
   // Or, we use this to create the NoteGlyphs.

@@ -27,6 +27,13 @@ Quad::Quad(float cornerXY[8])
   }
 }
 
+std::string Quad::CommentString() const 
+{
+  // Not sure we need to write a comment here, as the higher level
+  //  glyph probably explains better.
+  return "";
+}
+
 std::string Quad::ToString() const 
 {
   return "quad, " + 

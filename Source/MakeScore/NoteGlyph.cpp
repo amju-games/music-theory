@@ -87,13 +87,13 @@ void NoteGlyph::CalcY(KeySig keySig, Clef clef)
 {
   int staveLine = CalcStaveLine(keySig, clef, m_pitch);
 
-  // Scale stave position by real distances used 
-  const float STAVE_LINE_GAP = 0.1f;
-
-  // Set y-coord - should be SetY()
-  y = static_cast<float>(staveLine) * STAVE_LINE_GAP * .5f;
+  // Scale stave position by unit of distance in our coordinate system.
+  // Convert stave line unit into distance: Each stave line unit is
+  //  half the distance between two adjacent stave lines, because the
+  //  gaps are counted too. (e.g. c4 = -2, d4 = -1, e4 = 0 etc.)
+  float y = static_cast<float>(staveLine) * STAVE_LINE_GAP * .5f;
   // TODO Offset y for stave > 1
-  //SetY(y);
+  SetY(y);
 
   SetStaveLine(staveLine);
 }
@@ -477,4 +477,25 @@ bool NoteGlyph::ShouldHaveStem() const
 {
   return timeval < TIMEVAL_SEMIBREVE;
 }
+
+void NoteGlyph::SetStem()
+{
+  if (!ShouldHaveStem()) 
+  {
+    return;
+  }
+
+  m_stem.SetDirection(GetStaveLine() < 5 ? 
+    Stem::Direction::UP : Stem::Direction::DOWN);
+
+  m_stem.SetLengthType(Stem::LengthType::STANDARD);
+
+  // TODO We will calc length if beamed, and ignore direction, as we have
+  //  to connect with the beam!
+
+  m_stem.SetMinMaxStaveLines(m_staveLine, m_staveLine); // same for min and max
+  m_stem.SetScale(GetScaleX(), GetScaleY());
+  m_stem.SetPos(GetX(), GetY());
+}
+
 
