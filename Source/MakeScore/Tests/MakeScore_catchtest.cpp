@@ -37,7 +37,18 @@ TEST_CASE("crotchet, midi pitch", "MakeScore")
   const auto& strs = ms.GetOutputLines();
   MatchStart(strs[0], "stave");
   MatchStart(strs[1], "treble-clef");
-  MatchStart(strs[2], "crotchet");
+  MatchStart(strs[2], "note-solid"); // crotchet note head
+}
+
+TEST_CASE("minim, midi pitch", "MakeScore")
+{
+  SetSuppressFlags(SUPPRESS_ALL);
+  MakeScore ms("clef-t <m> 62");
+  ms.MakeInternal();
+  const auto& strs = ms.GetOutputLines();
+  MatchStart(strs[0], "stave");
+  MatchStart(strs[1], "treble-clef");
+  MatchStart(strs[2], "note-minim"); // minim note head
 }
 
 TEST_CASE("crotchet, musicxml pitch", "MakeScore")
@@ -48,7 +59,7 @@ TEST_CASE("crotchet, musicxml pitch", "MakeScore")
   const auto& strs = ms.GetOutputLines();
   MatchStart(strs[0], "stave");
   MatchStart(strs[1], "treble-clef");
-  MatchStart(strs[2], "crotchet");
+  MatchStart(strs[2], "note-solid");
 }
 
 TEST_CASE("pitch", "MakeScore")
