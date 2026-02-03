@@ -28,6 +28,5 @@ Assets/Mac/libbassmidi.dylib
 Assets/Mac/macgame
 Script/iOS/Amjula Music Theory/Amjula Music Theory.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
 Script/iOS/Amjula Music Theory/Amjula Music Theory.xcodeproj/xcuserdata/juliet.xcuserdatad/xcschemes/xcschememanagement.plist
-makescore
 .~lock.hero-game-rounds.csv#
 Script/Msvc/AmjulaMusicTheory/AmjulaMusicTheory/AmjulaMusicTheory.vcxproj.user
