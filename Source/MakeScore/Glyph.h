@@ -70,6 +70,8 @@ struct Glyph : public IGlyph
   // -2  e2 
   void SetStaveLine(int staveLine) { m_staveLine = staveLine; }
 
+  int GetStaveLine() const { return m_staveLine; }
+
   float GetTimeVal() const { return timeval; }
   virtual void SetTimeVal(float timeval_) { timeval = timeval_; }
 

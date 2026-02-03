@@ -4,6 +4,7 @@
 #include "Glyph.h"
 #include "NoteGlyph.h"
 #include "Pitch.h"
+#include "Stem.h"
 
 // Chord type, populated when we parse the input tokens. 
 // It's just a vec of (pitch, duration) pairs. 
@@ -27,11 +28,18 @@ public:
   std::string ToString() const override;
   std::string CommentString() const override;
 
+  void SetStem(const Stem& stem) { m_stem = stem; }
+
   // Override these Glyph functions to set times on child Notes.
   void SetTimeVal(float timeVal) override; 
   void SetStartTime(float st) override;
  
   void AddNoteGlyph(std::unique_ptr<NoteGlyph>&& noteGlyph);
+
+  // Overridden to set stem
+  void SetScale(float s) override;
+  void SetScale(float sx, float sy) override;
+  void SetPos(float x_, float y_) override;
 
 protected:
   GlyphVec m_noteGlyphs; 
@@ -39,5 +47,7 @@ protected:
   // Do we need this? For comment, at least..?
   // Or, we use this to create the NoteGlyphs.
   Chord m_chordInfo;
+
+  Stem m_stem;
 };
 

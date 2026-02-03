@@ -10,6 +10,7 @@
 #include "Glyph.h"
 #include "KeySig.h"
 #include "Pitch.h"
+#include "Stem.h"
 
 // * NoteGlyph *
 struct NoteGlyph : public Glyph
@@ -26,12 +27,12 @@ struct NoteGlyph : public Glyph
 
   std::string ToString() const override;
 
+  void SetStem(const Stem& stem) { m_stem = stem; }
+
   void SetPitch(Pitch p)
   {
     m_pitch = p;
   }
-
-  void SetDisplayNameForBeamedNote();
 
   // Use input token and state to generate output text for this glyph.
   // TODO Doesn't need param and can set displayGlyphName directly
@@ -64,6 +65,14 @@ struct NoteGlyph : public Glyph
 
   std::string CommentString() const override;
 
+  // Overridden to set stem
+  void SetScale(float s) override;
+  void SetScale(float sx, float sy) override;
+  void SetPos(float x_, float y_) override;
+
+  // Return true if not a semibreve - TODO other cases?
+  bool ShouldHaveStem() const;
+
 private:
   Pitch m_pitch;
 
@@ -71,6 +80,5 @@ private:
 
   int m_volume = 127;
 
-  // TODO
-  // Stem* m_stem;
+  Stem m_stem;
 };

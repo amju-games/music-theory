@@ -9,6 +9,7 @@
 #include "Flag.h"
 #include "NoteGlyph.h"
 #include "RestGlyph.h"
+#include "Stem.h"
 #include "Suppress.h"
 
 void Bar::CopyState(const Bar& b)
@@ -127,6 +128,8 @@ std::unique_ptr<ChordGlyph> Bar::CreateChordGlyph(
   chordGlyph->SetTimeVal(GetTimeVal(durationToken));
   chordGlyph->SetTimeValToken(durationToken);
 
+  chordGlyph->SetStem(Stem::CreateChordStem(chordGlyph));
+
   return chordGlyph;
 }
 
@@ -171,8 +174,11 @@ float Bar::AddNote(const std::string& duration, Pitch pitch, int switches,
 {
   int order = static_cast<int>(m_glyphs.size());
 
-  m_glyphs.push_back(
-    CreateNoteGlyph(duration, pitch, switches, order, crotchetTime));
+  auto noteGlyph = 
+    CreateNoteGlyph(duration, pitch, switches, order, crotchetTime);
+
+  noteGlyph->SetStem(Stem::CreateNoteStem(noteGlyph));
+  m_glyphs.push_back(std::move(noteGlyph));
 
   return crotchetTime; // TODO Add duration
 }

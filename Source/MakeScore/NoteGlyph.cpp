@@ -211,25 +211,17 @@ Accidental NoteGlyph::CalcAccidentalFromMidi(KeySig ks, Pitch pitch)
 
 std::string NoteGlyph::GetGlyphOutputStr(std::string s) const
 {
-  std::string out = Glyph::GetGlyphOutputStr(s);
+  // Calc code for note head glyph
 
-  if (s != "sb")
-  {
-    bool stemUp = (m_staveLine < 5);
-    out += (stemUp ? "-up" : "-down");
-  }
+  std::string out = "note-solid"; // glyph code for standard solid note head
 
+  bool dot = Contains(s, '.');
+  Remove(s, '.');
+
+  if (s == INPUT_TOKEN_MINIM) out = "note-minim";
+  else if (s == INPUT_TOKEN_SEMIBREVE) out = "semibreve";
+ 
   return out;
-}
-
-void NoteGlyph::SetDisplayNameForBeamedNote()
-{
-  // E.g. "q" or "qq" -> "crotchet-up" for a beamed quaver.
-  // Take dottedness into account.
-
-  // TODO set stem to fit other notes connected by same beams
-  bool dot = Contains(realGlyphName, '.');
-  displayGlyphName = GetGlyphOutputStr(dot ? "c." : "c");
 }
 
 std::string NoteGlyph::GetAccidentalStr() const
@@ -297,6 +289,8 @@ std::string NoteGlyph::CommentString() const
 
 std::string NoteGlyph::ToString() const
 {
+  const bool yesComment = (GetSuppressFlags() & META_COMMENT) == 0;
+
   // If we haven't yet created the output text, do it now
   if (displayGlyphName.empty())
   {
@@ -310,13 +304,20 @@ std::string NoteGlyph::ToString() const
   //  for animation and MIDI events. 
   res += TimeBefore();
 
+  // Output note head
   res += displayGlyphName + ", " + Str(x) + ", " + Str(y) +
     AddScaleStringIfRequired();
   res += LineEnd();
+
+  // Output stem
+  if (yesComment) res += m_stem.CommentString() + LineEnd();
+  res += m_stem.ToString() + LineEnd();
  
   if (m_accidental != Accidental::ACCIDENTAL_NONE)
   {
+    // TODO Make this settable so we can avoid overlaps when rendering chords
     const float ACC_X_OFFSET = -0.2f;
+
     res += GetAccidentalStr() + ", "  + 
       Str(x + ACC_X_OFFSET) + ", " + Str(y) + 
       AddScaleStringIfRequired();
@@ -435,3 +436,27 @@ std::string NoteGlyph::TimeAfter() const
   }
   return res;
 }
+
+void NoteGlyph::SetScale(float s)
+{
+  Glyph::SetScale(s);
+  m_stem.SetScale(s);
+}
+
+void NoteGlyph::SetScale(float sx, float sy)
+{
+  Glyph::SetScale(sx, sy);
+  m_stem.SetScale(sx, sy);
+}
+
+void NoteGlyph::SetPos(float x_, float y_) 
+{
+  Glyph::SetPos(x_, y_);
+  m_stem.SetPos(x_, y_);
+}
+
+bool NoteGlyph::ShouldHaveStem() const
+{
+  return timeval < TIMEVAL_SEMIBREVE;
+}
+

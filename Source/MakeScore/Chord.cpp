@@ -56,4 +56,21 @@ void ChordGlyph::SetStartTime(float st)
   }
 }
 
+void ChordGlyph::SetScale(float s)
+{
+  Glyph::SetScale(s);
+  m_stem.SetScale(s);
+}
+
+void ChordGlyph::SetScale(float sx, float sy) 
+{
+  Glyph::SetScale(sx, sy);
+  m_stem.SetScale(sx, sy);
+}
+
+void ChordGlyph::SetPos(float x_, float y_) 
+{
+  Glyph::SetPos(x_, y_);
+  m_stem.SetPos(x_, y_);
+}
 

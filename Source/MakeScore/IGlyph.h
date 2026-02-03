@@ -22,9 +22,12 @@ struct IGlyph
 
   virtual std::string CommentString() const = 0;
 
-  void SetScale(float s) { scaleX = scaleY = s; }
+  virtual void SetScale(float s) { scaleX = scaleY = s; }
+  virtual void SetScale(float sx, float sy) { scaleX = sx; scaleY = sy; }
+  float GetScaleX() const { return scaleX; }
+  float GetScaleY() const { return scaleY; }
 
-  void SetPos(float x_, float y_) { x = x_; y = y_; }
+  virtual void SetPos(float x_, float y_) { x = x_; y = y_; }
   float GetX() const { return x; }
   float GetY() const { return y; }
 
