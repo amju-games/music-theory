@@ -15,7 +15,13 @@ static int CalcStaveLineForStepOctaveAlterPitch(
  KeySig keySig, Clef clef, const Pitch& pitch) 
 {
   // Calc stave line for step, with C at zero.
-  int line = std::tolower(pitch.m_step[0]) - 'a' - 2;
+  const std::array<int, 7> LINES = {{ 5, 6, 0, 1, 2, 3, 4 }};
+  int i = std::tolower(pitch.m_step[0]) - 'a';
+  i = std::clamp(i, 0, 6);
+  assert(i >= 0);
+  assert(i < 7);
+  int line = LINES[i];
+
   // Offset, depending on clef
   const int CLEF_OFFSET[4] = 
   {   

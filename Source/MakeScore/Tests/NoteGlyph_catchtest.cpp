@@ -44,6 +44,11 @@ TEST_CASE("Calc stave line - step/oct/alter pitches", "[NoteGlyph]")
   REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_TREBLE, Pitch("c", 4, 1)) == -2); // c#4
   REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_TREBLE, Pitch("c", 4, -1)) == -2); // cb4
 
+  // Watch out for steps a and b
+  REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_BASS, Pitch("b", 3, 0)) == 9);
+  REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_BASS, Pitch("a", 3, 0)) == 8);
+  REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_BASS, Pitch("g", 3, 0)) == 7);
+
   // db4
   REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_TREBLE, Pitch("d", 4, -1)) == -1);
 
