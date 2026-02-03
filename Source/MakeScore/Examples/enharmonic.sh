@@ -10,8 +10,7 @@ pushd ../../../Assets/Gui
 cp scoretest.txt scoretest_temp.txt
 popd
 
-# 'f4' here is treated as f natural
-../makescore "page-w 5 <c> c4 c4+ d4- d4 d4+ e4- e4" > out.txt
+../makescore "[Enharmonic notes] page-w 4 <c> c4 c4+ d4- d4 d4+ e4- e4" > out.txt
 
 # Append output to boilerplate
 cat out.txt >> ../../../Assets/Gui/scoretest_temp.txt
