@@ -50,7 +50,7 @@ struct NoteGlyph : public Glyph
   // Returns accidental calculated, and sets member.
   Accidental CalcAccidental(KeySig ks);
   // Internal functions - public for testing
-  static Accidental CalcAccidentalFromStepOctAlter(Pitch pitch);
+  static Accidental CalcAccidentalFromStepOctAlter(KeySig ks, Pitch pitch);
   static Accidental CalcAccidentalFromMidi(KeySig ks, Pitch pitch);
 
   Accidental GetAccidental() const { return m_accidental; }

@@ -140,7 +140,7 @@ Accidental NoteGlyph::CalcAccidental(KeySig ks)
   }
   else
   {
-    acc = CalcAccidentalFromStepOctAlter(m_pitch);
+    acc = CalcAccidentalFromStepOctAlter(ks, m_pitch);
   }
   // Don't worry here about any Accidental already in force, we adjust
   //  later
@@ -148,7 +148,7 @@ Accidental NoteGlyph::CalcAccidental(KeySig ks)
   return acc;
 }
 
-Accidental NoteGlyph::CalcAccidentalFromStepOctAlter(Pitch pitch)
+Accidental NoteGlyph::CalcAccidentalFromStepOctAlter(KeySig ks, Pitch pitch)
 {
   int i = std::clamp(pitch.m_alter + 2, 0, 4);
   const std::array<Accidental, 5> ACCS = 
@@ -161,7 +161,25 @@ Accidental NoteGlyph::CalcAccidentalFromStepOctAlter(Pitch pitch)
   }};
   assert(i >= 0);
   assert(i < 5);
-  return ACCS[i];
+  auto acc = ACCS[i];
+
+  // Now get the accidental for the key and midi pitch. If the accidental
+  //  above is already set from the key sig, we don't need it.
+  // TODO Test what happens when a note before undoes the key sig. I think**
+  //  it works 
+  auto keySigAcc = CalcAccidentalFromMidi(ks, pitch);
+
+  if (   (acc == Accidental::ACCIDENTAL_SHARP && 
+          keySigAcc == Accidental::ACCIDENTAL_SHARP_IN_KEY_SIG)
+      || (acc == Accidental::ACCIDENTAL_FLAT && 
+          keySigAcc == Accidental::ACCIDENTAL_FLAT_IN_KEY_SIG)
+      || (acc == Accidental::ACCIDENTAL_NATURAL && 
+          keySigAcc == Accidental::ACCIDENTAL_NATURAL_IN_KEY_SIG))
+  {
+    acc = Accidental::ACCIDENTAL_NONE;
+  }
+
+  return acc;
 }
 
 Accidental NoteGlyph::CalcAccidentalFromMidi(KeySig ks, Pitch pitch)
