@@ -62,12 +62,32 @@ TEST_CASE("Calc stave line - step/oct/alter pitches", "[NoteGlyph]")
   REQUIRE(NoteGlyph::CalcStaveLine(KeySig::KEYSIG_0_SHARP, Clef::CLEF_BASS, Pitch("g", 2, 0)) == 0);
 }
 
-TEST_CASE("Calc accidental - step/oct/alter pitches", "[NoteGlyph]")
+// TODO More test cases, check sharps and flats are zeroed when in the key sig.
+// Double sh/flat is never zeroed.
+TEST_CASE("Calc accidental - step/oct/alter pitches - c major", "[NoteGlyph]")
 {
-  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(Pitch("c", 4, 0)) == Accidental::ACCIDENTAL_NATURAL);
-  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(Pitch("c", 4, 1)) == Accidental::ACCIDENTAL_SHARP);
-  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(Pitch("c", 4, 2)) == Accidental::ACCIDENTAL_DOUBLE_SHARP);
-  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(Pitch("c", 4, -1)) == Accidental::ACCIDENTAL_FLAT);
-  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(Pitch("c", 4, -2)) == Accidental::ACCIDENTAL_DOUBLE_FLAT);
+  // Calc accidental for a pitch given in step/octave/alter form.
+  // The 'alter' value determines the accidental, but this is checked against
+  //  the key sig so we don't add unnecessary accs to the score.
+
+  // For c4 with c major key sig, there is no acc
+  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(
+    KeySig::KEYSIG_0_SHARP, Pitch("c", 4, 0)) == Accidental::ACCIDENTAL_NONE);
+
+  // c4+ in c major has sharp acc
+  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(
+    KeySig::KEYSIG_0_SHARP, Pitch("c", 4, 1)) == Accidental::ACCIDENTAL_SHARP);
+
+  // c4++ in c major has double-sharp acc.
+  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(
+    KeySig::KEYSIG_0_SHARP, Pitch("c", 4, 2)) == Accidental::ACCIDENTAL_DOUBLE_SHARP);
+
+  // c4- in c major has flat acc.
+  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(
+    KeySig::KEYSIG_0_SHARP, Pitch("c", 4, -1)) == Accidental::ACCIDENTAL_FLAT);
+
+  // c4-- in c major has double-flat acc.
+  REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(
+    KeySig::KEYSIG_0_SHARP, Pitch("c", 4, -2)) == Accidental::ACCIDENTAL_DOUBLE_FLAT);
 }
 
