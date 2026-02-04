@@ -31,11 +31,17 @@ static const float DEFAULT_SCALE = 1.0f;
 //  stave lines, of course).
 static const float DOUBLE_STAVE_DISTANCE = -0.9f;
 
+// This is the full list of time types supported in the input.
 extern const char* INPUT_TOKEN_SEMIQUAVER;
+extern const char* INPUT_TOKEN_DOTTED_SEMIQUAVER;
 extern const char* INPUT_TOKEN_QUAVER;
+extern const char* INPUT_TOKEN_DOTTED_QUAVER;
 extern const char* INPUT_TOKEN_CROTCHET;
+extern const char* INPUT_TOKEN_DOTTED_CROTCHET;
 extern const char* INPUT_TOKEN_MINIM;
+extern const char* INPUT_TOKEN_DOTTED_MINIM;
 extern const char* INPUT_TOKEN_SEMIBREVE;
+extern const char* INPUT_TOKEN_DOTTED_SEMIBREVE;
 
 static const char TEXT_QUOTE_OPEN = '[';
 static const char TEXT_QUOTE_CLOSE = ']';
