@@ -72,6 +72,9 @@ std::string Stem::ToString() const
 
 std::string Stem::CommentString() const
 {
+  // Don't comment if no stem is going to be drawn
+  if (m_lengthType == LengthType::NONE) return "";
+
   std::string res = "// Stem: ";
   res += std::string("Direction: ") + 
     (m_direction == Direction::NONE ? "none" : (m_direction == Direction::UP ? "up" : "down"));
