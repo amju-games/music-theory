@@ -25,6 +25,9 @@ std::string ChordGlyph::ToString() const
   }
 
   // Output stem
+  const_cast<Stem&>(m_stem).SetScale(GetScaleX(), GetScaleY());
+  const_cast<Stem&>(m_stem).SetPos(GetX(), GetY());
+
   if (yesComment) res += m_stem.CommentString() + LineEnd();
   res += m_stem.ToString();
 
@@ -46,42 +49,6 @@ void ChordGlyph::AddNoteGlyph(std::unique_ptr<NoteGlyph>&& noteGlyph)
 {
   order = noteGlyph->order;
   m_noteGlyphs.emplace_back(std::move(noteGlyph));
-}
-
-void ChordGlyph::SetTimeVal(float timeVal)
-{
-  Glyph::SetTimeVal(timeVal);
-  for (const auto& noteGlyph : m_noteGlyphs)
-  {
-    noteGlyph->SetTimeVal(timeVal);
-  }
-}
-
-void ChordGlyph::SetStartTime(float st)
-{
-  Glyph::SetStartTime(st);
-  for (const auto& noteGlyph : m_noteGlyphs)
-  {
-    noteGlyph->SetStartTime(st);
-  }
-}
-
-void ChordGlyph::SetScale(float s)
-{
-  Glyph::SetScale(s);
-  m_stem.SetScale(s);
-}
-
-void ChordGlyph::SetScale(float sx, float sy) 
-{
-  Glyph::SetScale(sx, sy);
-  m_stem.SetScale(sx, sy);
-}
-
-void ChordGlyph::SetPos(float x_, float y_) 
-{
-  Glyph::SetPos(x_, y_);
-  m_stem.SetPos(x_, y_);
 }
 
 void ChordGlyph::SetStem()
@@ -134,9 +101,6 @@ std::cout << "// MinStave: " << minStave << " MaxStave: " << maxStave << "\n";
     m_stem.SetBeam(GetBeam());
   }
 */
-
-  m_stem.SetScale(GetScaleX(), GetScaleY());
-  m_stem.SetPos(GetX(), GetY());
 
   m_stem.SetIsChord();
 }

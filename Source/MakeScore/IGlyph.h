@@ -45,6 +45,11 @@ struct IGlyph
     return  ", " + Str(scaleX) + ", " + Str(scaleY);
   }
 
+  std::string CoordString() const
+  {
+    return Str(x) + ", " + Str(y);
+  } 
+
   float x = 0;
   // Default height is on single middle stave line for rhythm
   float y = DEFAULT_HEIGHT;

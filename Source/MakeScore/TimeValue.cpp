@@ -93,6 +93,20 @@ bool IsDeferredTimeVal(const std::string& s)
     IsImmediateTimeVal(s.substr(1, s.size() - 2));
 }
 
+bool Times::DurationIsSemibreveOrMore() const
+{
+  return m_timeType >= TimeType::SEMIBREVE;
+}
+
+bool Times::IsDotted() const
+{
+  return (   m_timeType == TimeType::DOTTED_SEMIBREVE 
+          || m_timeType == TimeType::DOTTED_MINIM 
+          || m_timeType == TimeType::DOTTED_CROTCHET 
+          || m_timeType == TimeType::DOTTED_QUAVER 
+          || m_timeType == TimeType::DOTTED_SEMIQUAVER); 
+}
+
 void Times::SetStartTime(TimeValue startTime)
 {
   m_startTime = startTime;
@@ -113,6 +127,7 @@ void Times::Normalise(float scale)
 
 TimeType Times::GetTimeType() const { return m_timeType; }
 TimeValue Times::GetTimeValue() const { return m_timeValue; }
+TimeValue Times::GetStartTimeValue() const { return m_startTime; }
 float Times::GetNormalisedStartTime() const { return m_normalisedStartTime; } 
 float Times::GetNormalisedDuration() const { return m_normalisedDuration; }
 std::string Times::GetTimeToken() const { return m_token; }

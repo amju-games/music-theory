@@ -528,19 +528,16 @@ void MakeScore::CalcStartTimes()
   // Then normalise, and acculumate time values of all glyphs to set the
   //  starting time of each one.
 
-  float totalDuration = 0;
+  TimeValue totalDuration = 0; // units are crotchets
   for (auto& bar : m_bars)
   {
     totalDuration += bar->GetDuration();
   }
 
-  // Use totalDuration to normalise duration of each glyph, and cumulative
-  //  duration, so we set the start time of each glyph within 0..1
- 
-  float acc = 0; 
+  // Use totalDuration to normalise start time and duration of each glyph
   for (auto& bar : m_bars)
   {
-    acc = bar->CalcNormalisedTimes(totalDuration, acc);  
+    bar->CalcNormalisedTimes(totalDuration);  
   }
 }
 

@@ -227,17 +227,22 @@ Accidental NoteGlyph::CalcAccidentalFromMidi(KeySig ks, Pitch pitch)
   return acc;
 }
 
-std::string NoteGlyph::GetGlyphOutputStr(std::string s) const
+std::string NoteGlyph::GetGlyphOutputStr() const
 {
-  // Calc code for note head glyph
+  // Decide glyph code for note head glyph
 
   std::string out = "note-solid"; // glyph code for standard solid note head
 
-  bool dot = Contains(s, '.');
-  Remove(s, '.');
-
-  if (s == INPUT_TOKEN_MINIM) out = "note-minim";
-  else if (s == INPUT_TOKEN_SEMIBREVE) out = "semibreve";
+  auto timeType = m_times.GetTimeType();
+  if (timeType == TimeType::MINIM || timeType == TimeType::DOTTED_MINIM)
+  {
+     out = "note-minim";
+  }
+  else if (   timeType == TimeType::SEMIBREVE 
+           || timeType == TimeType::DOTTED_SEMIBREVE)
+  {
+    out = "semibreve";
+  }
  
   return out;
 }
@@ -297,9 +302,10 @@ std::string NoteGlyph::GetStaccatoStr() const
 std::string NoteGlyph::CommentString() const
 {
   auto res =  "// Note, " + m_pitch.ToString();
-  if (!timevalToken.empty())
+  const auto& token = m_times.GetTimeToken();
+  if (!token.empty())
   {
-    res += ", value: " + timevalToken;
+    res += ", duration: " + token;
   }
   res += LineEnd();
   return res;
@@ -309,13 +315,6 @@ std::string NoteGlyph::ToString() const
 {
   const bool yesComment = (GetSuppressFlags() & META_COMMENT) == 0;
 
-  // If we haven't yet created the output text, do it now
-  if (displayGlyphName.empty())
-  {
-    // Argh, cast away constness
-    const_cast<std::string&>(displayGlyphName) = GetGlyphOutputStr(realGlyphName);
-  }
-
   std::string res;
 
   // Add special glyphs for timing before and after - this is
@@ -323,11 +322,27 @@ std::string NoteGlyph::ToString() const
   res += TimeBefore();
 
   // Output note head
-  res += displayGlyphName + ", " + Str(x) + ", " + Str(y) +
-    AddScaleStringIfRequired();
-  res += LineEnd();
+  res += GetGlyphOutputStr() + ", " + CoordString() + 
+    AddScaleStringIfRequired() + 
+    LineEnd();
+
+  // Output dot if required
+  if (m_times.IsDotted())
+  {
+    // Raise dot so not on line?
+    std::string dotType = m_staveLine % 2 == 0 ? "raised-dot" : "reg-dot";
+    // Wide note?
+    if (m_times.DurationIsSemibreveOrMore()) dotType = "sb-" + dotType;
+    
+    res += dotType + ", " + CoordString() + 
+      AddScaleStringIfRequired() + 
+      LineEnd();
+  }
 
   // Output stem
+  const_cast<Stem&>(m_stem).SetScale(GetScaleX(), GetScaleY());
+  const_cast<Stem&>(m_stem).SetPos(GetX(), GetY());
+
   if (yesComment) res += m_stem.CommentString() + LineEnd();
   res += m_stem.ToString() + LineEnd();
  
@@ -344,7 +359,7 @@ std::string NoteGlyph::ToString() const
  
   // Add ledger lines - below
   std::string ledger = "ledger";
-  if (timevalToken == "sb")
+  if (m_times.DurationIsSemibreveOrMore())
   {
     ledger = "ledger-w"; // wider ledger line
   }
@@ -364,7 +379,8 @@ std::string NoteGlyph::ToString() const
     res += LineEnd();
   }
 
-  // Add staccato dot
+  // Add staccato dot -- TODO like stems, this needs to be done by owning chord
+  //  if we are part of a chord.
   res += GetStaccatoStr(); // staccato dot or empty str
 
   res += TimeAfter();
@@ -376,14 +392,13 @@ std::string NoteGlyph::TimeBefore() const
 {
   std::string res;
 
+  const float timeval = m_times.GetNormalisedDuration();
   bool yesTime = (timeval > 0);
   if (yesTime)
   {
-    float start = startTime;
-    if (start == 0)
-    {
-      start = 0.0001f; // so first glyph is not highlighted until anim starts
-    }
+    const float startTime = m_times.GetNormalisedStartTime();
+    float start = std::max(MIN_START_TIME, startTime);
+    
     float t = timeval + startTime;
     if (m_switches & SW_STACCATO)
     {
@@ -419,6 +434,7 @@ std::string NoteGlyph::TimeAfter() const
 {
   std::string res;
 
+  const float timeval = m_times.GetNormalisedDuration();
   bool yesTime = (timeval > 0);
   if (yesTime)
   {
@@ -426,6 +442,8 @@ std::string NoteGlyph::TimeAfter() const
         && !m_tieLeft
         && (GetSuppressFlags() & META_NOTE) == 0)
     {
+      const float startTime = m_times.GetNormalisedStartTime();
+
       // Output MIDI note off event, unless the note is on LHS of a tie,
       //  in which case it will last longer.
       // Follow chain of ties back to start of tie, to get total length.
@@ -455,27 +473,9 @@ std::string NoteGlyph::TimeAfter() const
   return res;
 }
 
-void NoteGlyph::SetScale(float s)
-{
-  Glyph::SetScale(s);
-  m_stem.SetScale(s);
-}
-
-void NoteGlyph::SetScale(float sx, float sy)
-{
-  Glyph::SetScale(sx, sy);
-  m_stem.SetScale(sx, sy);
-}
-
-void NoteGlyph::SetPos(float x_, float y_) 
-{
-  Glyph::SetPos(x_, y_);
-  m_stem.SetPos(x_, y_);
-}
-
 bool NoteGlyph::ShouldHaveStem() const
 {
-  return timeval < TIMEVAL_SEMIBREVE;
+  return !m_times.DurationIsSemibreveOrMore();
 }
 
 void NoteGlyph::SetStem()
@@ -488,14 +488,12 @@ void NoteGlyph::SetStem()
   m_stem.SetDirection(GetStaveLine() < 5 ? 
     Stem::Direction::UP : Stem::Direction::DOWN);
 
-  m_stem.SetLengthType(Stem::LengthType::STANDARD);
+  m_stem.SetLengthType(Stem::LengthType::STANDARD); // TODO VARIABLE if beamed
 
   // TODO We will calc length if beamed, and ignore direction, as we have
   //  to connect with the beam!
 
   m_stem.SetMinMaxStaveLines(m_staveLine, m_staveLine); // same for min and max
-  m_stem.SetScale(GetScaleX(), GetScaleY());
-  m_stem.SetPos(GetX(), GetY());
 }
 
 

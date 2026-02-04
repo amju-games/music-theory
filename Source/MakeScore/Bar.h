@@ -44,25 +44,25 @@ public:
 
   KeySig GetKeySig() const;
 
-  // Return the total time for the bar.
-  // The time val of all the glyph members should add up to this.
+  // Return the total time for the bar, in crotchet units.
+  // Used to get the total duration for the whole piece.
   TimeValue GetDuration() const;
 
-  float CalcNormalisedTimes(float totalDuration, float start);
+  // Calc normalised start times and durations for meta data
+  void CalcNormalisedTimes(float totalDurationOfPiece);
 
   void SetScale(float scale);
 
-  // TODO Duration should be an enum or float
   float AddNote(const std::string& durationToken, Pitch pitch, int switches,
-    float crotchetTime);
+    float startTimeValue);
 
   float AddChord(const Chord& ch, int switches,
-    float crotchetTime);
+    float startTimeValue);
 
   float AddRest(const std::string& durationToken, int switches, 
-    float crotchetTime);
+    float startTimeValue);
 
-  void AddTimeSig(const std::string& durationToken);
+  void AddTimeSig(const std::string& token);
 
   void AddBeam(const std::string& s);
 

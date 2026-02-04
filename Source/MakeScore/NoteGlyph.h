@@ -22,8 +22,8 @@ struct NoteGlyph : public Glyph
     Glyph(inputToken, order) {}
 
   // Generate TIME special glyphs, (for animation)
-  std::string TimeBefore() const override;
-  std::string TimeAfter() const override;
+  std::string TimeBefore() const;
+  std::string TimeAfter() const;
 
   std::string ToString() const override;
 
@@ -36,8 +36,7 @@ struct NoteGlyph : public Glyph
   }
 
   // Use input token and state to generate output text for this glyph.
-  // TODO Doesn't need param and can set displayGlyphName directly
-  std::string GetGlyphOutputStr(std::string s) const override;
+  std::string GetGlyphOutputStr() const;
 
   // Calc y-pos of note, i.e. position on stave.
   void CalcY(KeySig keySig, Clef clef);
@@ -65,11 +64,6 @@ struct NoteGlyph : public Glyph
   std::string GetStaccatoStr() const;
 
   std::string CommentString() const override;
-
-  // Overridden to set stem
-  void SetScale(float s) override;
-  void SetScale(float sx, float sy) override;
-  void SetPos(float x_, float y_) override;
 
   // Return true if not a semibreve - TODO other cases?
   bool ShouldHaveStem() const;

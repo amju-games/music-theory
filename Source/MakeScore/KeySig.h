@@ -42,8 +42,12 @@ KeySig GetKeySig(const std::string& s);
 // So for a single stave, staveNumber is 
 //  zero. For the lower stave of a double-stave score (e.g. piano music), 
 //  staveNumber is 1, etc.
-std::string GetKeySigOutputString(KeySig ks, Clef clef, 
-  int staveNumber, float x, float y, float scale);
+// x, y, scale are position and scale of owning Bar.
+std::string GetKeySigOutputString(
+  KeySig ks, 
+  Clef clef, 
+  int staveNumber, 
+  float x, float y, float scale);
 
 // Return new key sig, which is original key sig, tranposed by 
 //  tr semitones.

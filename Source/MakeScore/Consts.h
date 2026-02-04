@@ -6,6 +6,10 @@
 
 #pragma once
 
+// Don't start TIMEs etc at zero, to avoid notes etc being highlighted
+//  before animation starts. So min time is this value, not zero.
+static const float MIN_START_TIME = 0.0001f;
+
 // In our coordinate system, with a scale of 1, the distance between stave
 //  lines is this.
 static const float STAVE_LINE_GAP = 0.1f;

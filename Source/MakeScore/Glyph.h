@@ -24,10 +24,6 @@ struct Glyph : public IGlyph
   // Replace display (output) glyph name with a star if required.
   void HandleStar();
 
-  // Generate TIME special glyphs, (for animation)
-  virtual std::string TimeBefore() const;
-  virtual std::string TimeAfter() const;
-
   std::string ToString() const override;
 
   // Set stave line for this glyph (notes and rests, so we can
@@ -72,15 +68,11 @@ struct Glyph : public IGlyph
 
   int GetStaveLine() const { return m_staveLine; }
 
-  float GetTimeVal() const { return timeval; }
-  virtual void SetTimeVal(float timeval_) { timeval = timeval_; }
+  // Times: unifies start time, duration, normalised times.
+  Times& GetTimes() { return m_times; }
+  const Times& GetTimes() const { return m_times; }
 
-  float GetStartTime() const { return startTime; }
-  virtual void SetStartTime(float st) { startTime = st; }
-
-  // This is for testing and debugging
-  void SetTimeValToken(const std::string& token) { timevalToken = token; }
-
+  // Ties: notes and chords only, not rests.
   // Call to set this glyph as the left hand side of the given tie
   void SetTieLeft(Tie* tie) { m_tieLeft = tie; }
 
@@ -89,14 +81,9 @@ struct Glyph : public IGlyph
 
   void SetPerformance(int switches) { m_switches = switches; }
 
-  // Use input token and state to generate output text for this glyph.
-  // This is used by note and rest glyphs to output full string of glyphs -- not
-  //  used for e.g. time sigs, so there should be another base class -- TODO
-  // TODO Doesn't need param and can set displayGlyphName directly.
-  virtual std::string GetGlyphOutputStr(std::string s) const;
+  int order = 0; // horiz order in bar 
 
-  int order = 0; // horiz position in bar 
-
+protected:
   // Two glyph names. E.g. we have a quaver, but it's drawn using a 
   //  crotchet glyph because it's beamed. So its 'real' name is 'q',
   //  (i.e. the input token) but its display name is 'crotchet'.
@@ -104,14 +91,7 @@ struct Glyph : public IGlyph
   std::string displayGlyphName;
   std::string realGlyphName;
 
-  // Time value for this glyph, i.e. its duration.
-  TimeValue timeval = 0;
-
-  // String duration, for testing
-  std::string timevalToken;
-
-  // Start time is the accumulated time values of all preceding glyphs.
-  TimeValue startTime = 0;
+  Times m_times;
 
   // Points to tie - we are the LEFT glyph of the tie
   Tie* m_tieLeft = nullptr;

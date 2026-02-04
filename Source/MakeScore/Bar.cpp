@@ -48,6 +48,8 @@ TimeSig Bar::GetTimeSig() const
 }
 
 // Return the total time for the bar.
+// Easy if there's a time sig, it's just the number of beats in the bar.
+// If no time sig, we try to calculate it:
 // The time val of all the glyph members should add up to this.
 TimeValue Bar::GetDuration() const
 {
@@ -61,7 +63,7 @@ TimeValue Bar::GetDuration() const
       float d = 0;
       for (auto& g : m_glyphs)
       {
-        d += g->timeval;
+        d += g->GetTimes().GetTimeValue(); // get duration, float, in crotchets
       }
       return d;
     }
@@ -72,25 +74,18 @@ TimeValue Bar::GetDuration() const
   }
 }
 
-float Bar::CalcNormalisedTimes(float totalDuration, float start)
+void Bar::CalcNormalisedTimes(const TimeValue totalPieceDuration)
 {
   auto [ numBeats, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
 
-  // Normalise glyph durations, and accumulate to get start times.
   for (auto& g : m_glyphs)
   {
-    float timeVal = g->GetTimeVal();
-    timeVal /= totalDuration;
-    timeVal *= timeMult; // Adjust time values (for compound times)
-    g->SetTimeVal(timeVal);
-
-    float startTime = g->GetStartTime();
-    startTime += start;
-    g->SetStartTime(startTime);
-
-    start += timeVal;
+    // Calc scale factor to normalise times. timeMult adjusts for compound
+    //  times, but basically we are dividing start times and durations by
+    //  the total duration of the piece.
+    float scale = timeMult / totalPieceDuration;
+    g->GetTimes().Normalise(scale);
   }
-  return start;
 }
 
 void Bar::SetScale(float scale)
@@ -98,16 +93,19 @@ void Bar::SetScale(float scale)
   m_scale = scale;
 }
 
-float Bar::AddRest(const std::string& s, int switches, float crotchetTime)
+float Bar::AddRest(const std::string& token, int switches, float startTimeValue)
 {
   int order = static_cast<int>(m_glyphs.size());
-  RestGlyph* glyph = new RestGlyph(s, order);
-  glyph->SetScale(m_scale);
-  glyph->SetTimeVal(GetTimeVal(s));
-  glyph->SetTimeValToken(s);
-  m_glyphs.push_back(std::unique_ptr<Glyph>(glyph));
 
-  return crotchetTime; // TODO + time val
+  auto glyph = std::make_unique<RestGlyph>(token, order);
+  glyph->SetScale(m_scale);
+  auto& times = glyph->GetTimes();
+  times.Set(token);
+  times.SetStartTime(startTimeValue);
+  auto duration = times.GetTimeValue();
+  m_glyphs.push_back(std::move(glyph));
+
+  return startTimeValue + duration;
 }
 
 std::unique_ptr<ChordGlyph> Bar::CreateChordGlyph(
@@ -124,9 +122,10 @@ std::unique_ptr<ChordGlyph> Bar::CreateChordGlyph(
     auto noteGlyph = CreateNoteGlyph(duration, pitch, switches, xOrder, crotchetTime);
     chordGlyph->AddNoteGlyph(std::move(noteGlyph));
   }
+  // Get the input token of the 0th note in the chord - which should be
+  //  the longest duration (notes are sorted by duration)
   const auto durationToken = ch[0].second;
-  chordGlyph->SetTimeVal(GetTimeVal(durationToken));
-  chordGlyph->SetTimeValToken(durationToken);
+  chordGlyph->GetTimes().Set(durationToken);
 
   chordGlyph->SetStem();
 
@@ -138,54 +137,57 @@ std::unique_ptr<NoteGlyph> Bar::CreateNoteGlyph(
   Pitch pitch,
   int switches,
   int xOrder,
-  float crotchetTime)
+  float startTimeValue)
 {
-  auto glyph = std::make_unique<NoteGlyph>(durationToken, xOrder);
-  glyph->SetScale(m_scale);
-  glyph->SetPerformance(switches); // but can pause a rest
-  glyph->SetPitch(pitch);
+  auto noteGlyph = std::make_unique<NoteGlyph>(durationToken, xOrder);
+  noteGlyph->SetScale(m_scale);
+  noteGlyph->SetPerformance(switches); // but can pause a rest
+  noteGlyph->SetPitch(pitch);
 
   // Calc y, using current pitch, stave, and clef. 
-  glyph->CalcY(m_keySig, m_currentClef[m_currentStave]);
+  noteGlyph->CalcY(m_keySig, m_currentClef[m_currentStave]);
 
   // Calc any accidental required for the given pitch in the 
   //  current key. 
   // Handled when overriden by specifying step/octave/alter.
-  glyph->CalcAccidental(m_keySig);
+  noteGlyph->CalcAccidental(m_keySig);
 
   // Accidental 2nd pass: adjust based on previous accidental
   //  for the stave line for this note
-  Accidental prev = m_accidentals[glyph->m_staveLine];
-  glyph->AdjustAccidental(prev);
+  Accidental prev = m_accidentals[noteGlyph->GetStaveLine()];
+  noteGlyph->AdjustAccidental(prev);
 
   // Store most recent acc for the stave line of this note
-  m_accidentals[glyph->m_staveLine] = glyph->GetAccidental();
+  m_accidentals[noteGlyph->GetStaveLine()] = noteGlyph->GetAccidental();
 
   // Set duration - calc the time val in crotchets, and save the
   //  raw token, for final render output and comment output.
-  glyph->SetTimeVal(GetTimeVal(durationToken));
-  glyph->SetTimeValToken(durationToken);
+  noteGlyph->GetTimes().Set(durationToken);
 
-  return glyph;
+  // Set the start time value, units are crotchets, same as duration.
+  noteGlyph->GetTimes().SetStartTime(startTimeValue);
+
+  return noteGlyph;
 }
 
-float Bar::AddNote(const std::string& duration, Pitch pitch, int switches,
-  float crotchetTime)
+float Bar::AddNote(const std::string& token, Pitch pitch, int switches,
+  float startTimeValue)
 {
   int order = static_cast<int>(m_glyphs.size());
 
   auto noteGlyph = 
-    CreateNoteGlyph(duration, pitch, switches, order, crotchetTime);
+    CreateNoteGlyph(token, pitch, switches, order, startTimeValue);
 
-  noteGlyph->SetStem();
+  noteGlyph->SetStem(); // outside of Create because chords also call that.
+  auto duration = noteGlyph->GetTimes().GetTimeValue();
   m_glyphs.push_back(std::move(noteGlyph));
 
-  return crotchetTime; // TODO Add duration
+  return startTimeValue + duration;
 }
 
 float Bar::AddChord(
   const Chord& ch, int switches,
-  float crotchetTime)
+  float startTimeValue)
 {
   assert(!ch.empty());
 
@@ -194,10 +196,11 @@ float Bar::AddChord(
 
   int order = static_cast<int>(m_glyphs.size());
 
-  m_glyphs.push_back(
-    CreateChordGlyph(ch, switches, order, crotchetTime));
+  auto chordGlyph = CreateChordGlyph(ch, switches, order, startTimeValue);
+  auto duration = chordGlyph->GetTimes().GetTimeValue();
+  m_glyphs.push_back(std::move(chordGlyph));
 
-  return crotchetTime; // TODO Add duration
+  return startTimeValue + duration;
 }
 
 void Bar::SetClef(Clef clef)

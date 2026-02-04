@@ -20,8 +20,8 @@ public:
 
   // Generate TIME special glyphs (for animation - we do want to highlight rests,
   //  but not generate MIDI events.)
-  std::string TimeBefore() const override;
-  std::string TimeAfter() const override;
+  std::string TimeBefore() const;
+  std::string TimeAfter() const;
 
   std::string ToString() const override;
 
@@ -29,5 +29,5 @@ public:
 
   // Use input token and state to generate output text for this glyph.
   // TODO Doesn't need param and can set displayGlyphName directly
-  std::string GetGlyphOutputStr(std::string s) const override;
+  std::string GetGlyphOutputStr() const;
 };

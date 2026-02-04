@@ -8,6 +8,7 @@ enum Metadata
   META_NOTE     = 0x04,
   META_NOTENAME = 0x08,
   META_COMMENT  = 0x10,
+  META_REST     = 0x20,
 };
 
 static const unsigned int SUPPRESS_ALL = 0xffffffff;
@@ -17,5 +18,4 @@ static const unsigned int SUPPRESS_ALL = 0xffffffff;
 void SetSuppressFlags(unsigned int suppressFlags);
 
 unsigned int GetSuppressFlags();
-
 

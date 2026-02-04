@@ -70,11 +70,18 @@ public:
   //  different to other notes.
   bool DurationIsSemibreveOrMore() const;
 
+  // Test for dotted type
+  bool IsDotted() const;
+
   // TimeType: enum: one of the possible time values for a note/rest.
   TimeType GetTimeType() const;
 
   // TimeValue: duration of a note/rest, in units of crotchets.
   TimeValue GetTimeValue() const;
+
+  // Get start time, as a TimeValue, i.e. a float in crotchet units, from
+  //  the start of the piece.
+  TimeValue GetStartTimeValue() const;
 
   // NormalisedStartTime: normalised time at which note/rest is played in the 
   //  piece, between 0 and 1.
