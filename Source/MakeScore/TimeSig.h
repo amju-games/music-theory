@@ -46,3 +46,4 @@ std::string GetStr(TimeSig ts);
 
 // Return true if string is a recognised time sig input.
 bool IsTimeSig(std::string s);
+

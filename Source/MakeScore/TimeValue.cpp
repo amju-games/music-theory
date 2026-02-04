@@ -18,8 +18,42 @@ static const std::map<std::string, float> TIME_VAL_STRS =
   { INPUT_TOKEN_SEMIQUAVER, TIMEVAL_SEMIQUAVER },
 };
 
-float GetTimeVal(std::string s)
+TimeType GetTimeTypeFromToken(const std::string& cs)
 {
+  auto s(cs);
+  Remove(s, 'r'); 
+    // This is for rest input format where the duration string
+    // also contains 'r'. I think it would be better to deprecate this form
+    // and be consitent with pitches, i.e. allow only "<sb> r" or "<r> sb",
+    //  not "sbr".
+
+  Remove(s, '*'); 
+    // To support hiding the note or rest time value in the
+    // final output, intended to support questions like "what is the value of
+    // the rest here?"
+
+  static const std::map<std::string, TimeType> TIME_TYPES = 
+  {
+    { INPUT_TOKEN_SEMIBREVE,         TimeType::SEMIBREVE }, 
+    { INPUT_TOKEN_DOTTED_SEMIBREVE,  TimeType::DOTTED_SEMIBREVE  },
+    { INPUT_TOKEN_MINIM,             TimeType::MINIM  },
+    { INPUT_TOKEN_DOTTED_MINIM,      TimeType::DOTTED_MINIM  },
+    { INPUT_TOKEN_CROTCHET,          TimeType::CROTCHET  },
+    { INPUT_TOKEN_DOTTED_CROTCHET,   TimeType::DOTTED_CROTCHET  },
+    { INPUT_TOKEN_QUAVER,            TimeType::QUAVER  },
+    { INPUT_TOKEN_DOTTED_QUAVER,     TimeType::DOTTED_QUAVER  },
+    { INPUT_TOKEN_SEMIQUAVER,        TimeType::SEMIQUAVER  },
+    { INPUT_TOKEN_DOTTED_SEMIQUAVER, TimeType::DOTTED_SEMIQUAVER  },
+  };
+
+  auto it = TIME_TYPES.find(s);
+  if (it == TIME_TYPES.end()) return TimeType::ERROR;
+  return it->second;
+}
+
+float GetTimeVal(const std::string& cs)
+{
+  auto s(cs);
   Remove(s, 'r'); // rests and notes are treated the same
   Remove(s, '*'); // in case glyph is hidden
 
@@ -58,3 +92,28 @@ bool IsDeferredTimeVal(const std::string& s)
   return s.size() > 2 && s[0] == '<' && s.back() == '>' &&
     IsImmediateTimeVal(s.substr(1, s.size() - 2));
 }
+
+void Times::SetStartTime(TimeValue startTime)
+{
+  m_startTime = startTime;
+}
+
+void Times::Set(const std::string& timeToken)
+{
+  m_timeType = GetTimeTypeFromToken(timeToken);
+  m_timeValue = GetTimeVal(timeToken);
+  m_token = timeToken;
+}
+
+void Times::Normalise(float scale)
+{
+  m_normalisedStartTime = m_startTime * scale;
+  m_normalisedDuration = m_timeValue * scale;
+}
+
+TimeType Times::GetTimeType() const { return m_timeType; }
+TimeValue Times::GetTimeValue() const { return m_timeValue; }
+float Times::GetNormalisedStartTime() const { return m_normalisedStartTime; } 
+float Times::GetNormalisedDuration() const { return m_normalisedDuration; }
+std::string Times::GetTimeToken() const { return m_token; }
+
