@@ -32,6 +32,7 @@
 #include "MakeScore.h"
 #include "Pitch.h"
 #include "Performance.h"
+#include "RestGlyph.h"
 #include "TimeSig.h"
 #include "TimeValue.h"
 #include "Utils.h"
@@ -133,14 +134,15 @@ void MakeScore::Preprocess()
 void MakeScore::PreprocessTokens(std::vector<std::string>& tokens)
 {
   // Goal of this function:
-  // Move anything other than pitch and time value tokens to the
+  // Move anything other than pitch, rest, and time value tokens to the
   //  outside of chord markers.
-  // Then when we process them, the chord will already exist in the
-  //  bar, so we can attach to it (for directions, slurs, ties, etc.)
+  // Then when we process those other tokens, the chord will already 
+  //  exist in the bar, so we can attach to it (for directions, slurs, ties, etc.)
 
   bool inChord = false; // true if within ( ) chord marker tokens
 
-  // Make a new token list, to which we only append
+  // Make a new token list, to which we only append. I.e. we don't 
+  //  move the tokens around in-place; we create a new token sequence.
   std::vector<std::string> newTokens;
 
   // List of tokens within chord markers which we save until the
@@ -174,11 +176,13 @@ void MakeScore::PreprocessTokens(std::vector<std::string>& tokens)
     else if (inChord)
     {
       // These are the token types which we want to stay within the chord.
+      //  (not sure what to do with rests in chords tho)
       if (   IsImmediatePitch(token) 
           || IsDeferredPitch(token) 
           || IsImmediateTimeVal(token)
           || IsDeferredTimeVal(token)
-          || IsRest(token)) // Rest test needs to be more careful
+          || IsImmediateRest(token) 
+          || IsDeferredRest(token)) 
       {
         newTokens.push_back(token);
       }
@@ -309,10 +313,11 @@ void MakeScore::AddTokens()
       crotchetTime = AddChord(chord, crotchetTime);
       chord.clear();
     }
-    else if (IsRest(s))
+    else if (IsImmediateRest(s))
     {
-      crotchetTime += AddRest(s, crotchetTime);
+      crotchetTime += AddRest(m_lastTimeValToken, crotchetTime);
     }
+    // NB Deferred rests not supported for now, I don't think there's much point.
     else if (IsDeferredTimeVal(s))
     {
       // Store time val token for subsequent notes

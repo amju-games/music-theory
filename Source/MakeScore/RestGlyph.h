@@ -8,6 +8,15 @@
 
 #include "Glyph.h"
 
+// Parsing: return true if token is a rest which should be added to the
+//  score immediately.
+bool IsImmediateRest(const std::string& token);
+
+// Parsing: return true if token is a deferred rest, i.e. we should add
+//  a rest to the score for each subsequent time value token. This is
+//  consistent with the behaviour for deferred and immediate pitches.
+bool IsDeferredRest(const std::string& token);
+
 // * RestGlyph *
 class RestGlyph : public Glyph
 {

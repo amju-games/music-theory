@@ -441,8 +441,7 @@ std::string NoteGlyph::TimeAfter() const
   bool yesTime = (timeval > 0);
   if (yesTime)
   {
-    if (   !IsRest(realGlyphName) 
-        && !m_tieLeft
+    if (   !m_tieLeft 
         && (GetSuppressFlags() & META_NOTE) == 0)
     {
       const float startTime = m_times.GetNormalisedStartTime();

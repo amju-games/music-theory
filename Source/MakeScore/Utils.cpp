@@ -24,11 +24,6 @@ bool IsBeam(const std::string& s)
   return s == "-" || s == "=" || s == "--" || s == "==" | s == "-=" || s == "=-";
 }
 
-bool IsRest(const std::string& s)
-{
-  return Contains(s, 'r');
-}
-
 void Trim(std::string& s)
 {
   while (!s.empty() && (s[0] == ' ' || s[0] == '\r' || s[0] == '\n'))

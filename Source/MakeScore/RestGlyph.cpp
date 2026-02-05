@@ -8,6 +8,16 @@
 #include "RestGlyph.h"
 #include "Suppress.h"
 
+bool IsImmediateRest(const std::string& token)
+{
+  return token == "r";
+}
+
+bool IsDeferredRest(const std::string& token)
+{
+  return token == "<r>";
+}
+
 std::string RestGlyph::CommentString() const
 {
   return "// Rest, value: " + m_times.GetTimeToken() + LineEnd();

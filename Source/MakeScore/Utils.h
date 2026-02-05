@@ -42,6 +42,4 @@ std::string Str(T f)
 
 bool IsBeam(const std::string& s);
 
-bool IsRest(const std::string& s);
-
 float Interp(float f0, float f1, float t);
