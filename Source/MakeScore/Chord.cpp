@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iostream>
+#include <set>
 #include "Chord.h"
 #include "Suppress.h"
 
@@ -13,7 +14,10 @@ bool IsChordEnd(const std::string& s)
   return s == ")";
 }
 
-static void CalcOverlapOffset(
+// Calc x-offset for a note in a chord.
+// We offset to avoid notes on adjacent stave lines from overlapping.
+// Returns offset appied to note, which can be -1, 0, or 1.
+static int CalcOverlapOffset(
   std::unique_ptr<NoteGlyph>& noteGlyph, int& lastStaveLine, int& i,
   Stem::Direction stemDir)
 {
@@ -39,6 +43,8 @@ static void CalcOverlapOffset(
   if (stemDir == Stem::Direction::DOWN) overlap = -overlap;
 
   noteGlyph->SetOverlapOffset(overlap);
+
+  return overlap;
 }
 
 std::string ChordGlyph::ToString() const 
@@ -53,10 +59,51 @@ std::string ChordGlyph::ToString() const
   std::string res;
   int i = 0; // note counter, which resets when no overlap
 
+  // Remember any notes (their stave line, anyway) where we offset the
+  //  note to the left, because this affects the offset of any 
+  //  accidental on the note. (If we offset to the right, it doesn't
+  //  affect the accidental offset.)
+  std::set<int> offsetLeftNotes;
+
+  // Store stave lines which have notes with accidentals on them.
+  std::set<int> accidentalStaveLines;
+
+  // Calc offsets for overlapping notes, and gather stave lines with 
+  //  note offsets and accidentals. 
   for (const auto& noteGlyph : m_noteGlyphs)
   {
-    CalcOverlapOffset(const_cast<std::unique_ptr<NoteGlyph>&>(noteGlyph), 
+    int noteOffset = CalcOverlapOffset(
+      const_cast<std::unique_ptr<NoteGlyph>&>(noteGlyph), 
       lastStaveLine, i, m_stem.GetDirection());
+
+    if (noteOffset == -1)
+    {
+      offsetLeftNotes.insert(noteGlyph->GetStaveLine());
+    }
+
+    if (noteGlyph->GetAccidental() != Accidental::ACCIDENTAL_NONE)
+    {
+      accidentalStaveLines.insert(noteGlyph->GetStaveLine());
+    }
+  }
+
+  // Second pass: now we can calc offsets for accidentals and output
+  //  the note.
+  int accidentalOffset = 0;
+  for (const auto& noteGlyph : m_noteGlyphs)
+  {
+    // If we are far enough away from other notes' stave lines, we
+    //  can reset the offset applied
+    const int staveLine = noteGlyph->GetStaveLine();
+    if (offsetLeftNotes.contains(staveLine))
+    {
+      accidentalOffset++;
+    }
+    if (accidentalStaveLines.contains(staveLine))
+    {
+      noteGlyph->SetAccidentalOverlapOffset(accidentalOffset);
+      accidentalOffset++;
+    }
 
     // Set x coord of note to x coord of this chord (and it may be offset
     //  to avoid overlaps.)
@@ -119,7 +166,7 @@ void ChordGlyph::SetStem()
   // Decide direction
   int minStave = (*minIt)->GetStaveLine();
   int maxStave = (*maxIt)->GetStaveLine();
-std::cout << "// MinStave: " << minStave << " MaxStave: " << maxStave << "\n";
+
   auto dir = Stem::Direction::DOWN;
   if (minStave > 4) { } // easy, all notes >= middle line
   else if (maxStave < 5) { dir = Stem::Direction::UP; }
