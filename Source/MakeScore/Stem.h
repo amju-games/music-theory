@@ -31,6 +31,7 @@ public:
     NONE, UP, DOWN
   };
   void SetDirection(Direction d) { m_direction = d; }
+  Direction GetDirection() const { return m_direction; }
 
   std::string ToString() const override;
   std::string CommentString() const override;

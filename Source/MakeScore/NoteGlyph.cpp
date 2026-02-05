@@ -86,16 +86,15 @@ int NoteGlyph::CalcStaveLine(KeySig keySig, Clef clef, const Pitch& pitch)
 void NoteGlyph::CalcY(KeySig keySig, Clef clef) 
 {
   int staveLine = CalcStaveLine(keySig, clef, m_pitch);
+  SetStaveLine(staveLine);
 
   // Scale stave position by unit of distance in our coordinate system.
   // Convert stave line unit into distance: Each stave line unit is
   //  half the distance between two adjacent stave lines, because the
   //  gaps are counted too. (e.g. c4 = -2, d4 = -1, e4 = 0 etc.)
   float y = static_cast<float>(staveLine) * STAVE_LINE_GAP * .5f;
-  // TODO Offset y for stave > 1
+  // TODO Offset y for stave > 1? Should be done in Bar.
   SetY(y);
-
-  SetStaveLine(staveLine);
 }
 
 void NoteGlyph::AdjustAccidental(Accidental previousAcc)
@@ -230,21 +229,22 @@ Accidental NoteGlyph::CalcAccidentalFromMidi(KeySig ks, Pitch pitch)
 std::string NoteGlyph::GetGlyphOutputStr() const
 {
   // Decide glyph code for note head glyph
-
-  std::string out = "note-solid"; // glyph code for standard solid note head
-
-  auto timeType = m_times.GetTimeType();
-  if (timeType == TimeType::MINIM || timeType == TimeType::DOTTED_MINIM)
+  switch (m_times.GetTimeType())
   {
-     out = "note-minim";
+  case TimeType::MINIM:
+  case TimeType::DOTTED_MINIM:
+    return "note-minim";
+
+  case TimeType::SEMIBREVE:
+  case TimeType::DOTTED_SEMIBREVE:
+    return "semibreve";
+
+  default:
+    break;
   }
-  else if (   timeType == TimeType::SEMIBREVE 
-           || timeType == TimeType::DOTTED_SEMIBREVE)
-  {
-    out = "semibreve";
-  }
- 
-  return out;
+
+  // Any note crotchet or shorter time value gets solid note head.
+  return "note-solid"; // glyph code for standard solid note head
 }
 
 std::string NoteGlyph::GetAccidentalStr() const
@@ -322,7 +322,9 @@ std::string NoteGlyph::ToString() const
   res += TimeBefore();
 
   // Output note head
-  res += GetGlyphOutputStr() + ", " + CoordString() + 
+  float xOffset = static_cast<float>(m_overlapOffset) * NOTE_HEAD_WIDTH;
+
+  res += GetGlyphOutputStr() + ", " + Str(x + xOffset) + ", " + Str(y) + 
     AddScaleStringIfRequired() + 
     LineEnd();
 
@@ -342,24 +344,25 @@ std::string NoteGlyph::ToString() const
   // Output stem
   const_cast<Stem&>(m_stem).SetScale(GetScaleX(), GetScaleY());
   const_cast<Stem&>(m_stem).SetPos(GetX(), GetY());
-
   if (yesComment) res += m_stem.CommentString() + LineEnd();
   res += m_stem.ToString() + LineEnd();
- 
+
+  // Output accidental 
   if (m_accidental != Accidental::ACCIDENTAL_NONE)
   {
-    // TODO Make this settable so we can avoid overlaps when rendering chords
-    const float ACC_X_OFFSET = -0.2f;
+    // X offset to avoid overlaps in chords
+    float accXOffset = -ACCIDENTAL_X_OFFSET * 
+      static_cast<float>(m_accidentalOverlapOffsets + 1);
 
     res += GetAccidentalStr() + ", "  + 
-      Str(x + ACC_X_OFFSET) + ", " + Str(y) + 
+      Str(x + accXOffset) + ", " + Str(y) + 
       AddScaleStringIfRequired();
     res += LineEnd();
   }
  
   // Add ledger lines - below
   std::string ledger = "ledger";
-  if (m_times.DurationIsSemibreveOrMore())
+  if (m_times.DurationIsSemibreveOrMore() || m_overlapOffset) // ? Maybe we need a special side ledger line for chords with offset notes - TODO
   {
     ledger = "ledger-w"; // wider ledger line
   }
@@ -495,5 +498,4 @@ void NoteGlyph::SetStem()
 
   m_stem.SetMinMaxStaveLines(m_staveLine, m_staveLine); // same for min and max
 }
-
 

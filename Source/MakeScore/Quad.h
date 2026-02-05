@@ -18,6 +18,7 @@ public:
   Quad() = default;
 
   // Construct axis-aligned quad: set min and max corners
+  // +ve y is UP.
   Quad(float xmin, float ymin, float xmax, float ymax);
 
   // TODO Construct arbitrary quad - CCW vertices?

@@ -6,6 +6,14 @@
 
 #pragma once
 
+// Width of crotchet/minim note head.
+// Used to place stems and arrange clashing note heads in chords.
+static const float NOTE_HEAD_WIDTH = 0.2f;
+
+// Note positions, accidental positions, in chords etc
+// Offset for the accidental for a single note
+static const float ACCIDENTAL_X_OFFSET = 0.2f;
+
 // Don't start TIMEs etc at zero, to avoid notes etc being highlighted
 //  before animation starts. So min time is this value, not zero.
 static const float MIN_START_TIME = 0.0001f;

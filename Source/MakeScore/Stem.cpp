@@ -6,10 +6,6 @@
 
 Quad Stem::MakeQuad() const
 {
-  // If a chord, span the range of notes, then add on the 
-  //  length -- either standard or to reach the beam if beamed.
-  // For single note, if we're here, we must be beamed I think.
-
   // Our quad here is axis aligned so not too many coords to calc.
   // Quad(float xmin, float ymin, float xmax, float ymax);
 
