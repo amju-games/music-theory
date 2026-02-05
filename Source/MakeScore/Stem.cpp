@@ -12,25 +12,55 @@ Quad Stem::MakeQuad() const
 
   // Our quad here is axis aligned so not too many coords to calc.
   // Quad(float xmin, float ymin, float xmax, float ymax);
-  float h = m_length * STAVE_LINE_GAP;
+
+  // If a single note, min and max stave are the same value, and we
+  //  can ignore. In fact we really should, because the y-coord for a
+  //  single note has been set (in CalcY), but for a chord, it's zero.
+  // We're ignoring the y-coord calculated in CalcY, so we run the 
+  //  same code for single notes and chords.
+  // 
+  // For a chord, min and max stave span the range of notes needing a stem.
+  // But they are in 'stave line' coords, not actual y-coords.
+  // A stave line of zero is the bottom line (e4 in treb clef, a3 in bass).
+  // The next line up is stave line 2 -- gaps count (as it's integer-based).
+  // So we divide by 2 to go from stave line to distances.
+  // STAVE_LINE_GAP is the scale factor to go from 'half stave line' 
+  //  space to actual coords.
+
+  // This is the same calc as in CalcY
+  float ymin = m_minStave * STAVE_LINE_GAP * .5f;
+  float ymax = m_maxStave * STAVE_LINE_GAP * .5f;
+  
+  // Span for chords
+  float h = ymax - ymin;
+
+  // Add on height of stem (for single note), extra height above max
+  //  note/below min note for a chord.
+  h += m_length * STAVE_LINE_GAP;
+
   float xOff = 0.05f; // Where do we find this number tho
-  float yOff = 0.475f;
+  float yOff = 0.475f; // Somewhere there is a fudge factor of 0.5, sigh.
+
   if (m_direction == Direction::UP)
   {
-    xOff += 0.2f; // note head width
+    //   |
+    //  0
+    xOff += 0.2f; // note head width TODO s.b a Const
     return Quad(
       (x + xOff) * GetScaleX(), 
-      (y + yOff) * GetScaleY(), 
+      (ymin + yOff) * GetScaleY(), 
       (x + STEM_W + xOff) * GetScaleX(), 
-      (y + h + yOff) * GetScaleY()); 
+      (ymin + h + yOff) * GetScaleY()); 
   }
   else
   {
+    //  0
+    // |
     return Quad(
       (x + xOff) * GetScaleX(), 
-      (y - h + yOff) * GetScaleY(), 
+      (ymax - h + yOff) * GetScaleY(), 
       (x + STEM_W + xOff) * GetScaleX(), 
-      (y + yOff) * GetScaleY()); 
+      (ymax + yOff) * GetScaleY()); 
   }
 }
 
@@ -81,6 +111,7 @@ std::string Stem::CommentString() const
   res += std::string(" LengthType: ") + 
     (m_lengthType == LengthType::NONE ? "none" : (m_lengthType == LengthType::STANDARD ? "standard" : (m_lengthType == LengthType::VARIABLE ? "variable" : "?")));
   if (m_isChord) res += " (CHORD)";
+
   return res; 
 }
 
