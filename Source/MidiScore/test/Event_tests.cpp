@@ -65,21 +65,21 @@ TEST_CASE("Output strings", "[Events]")
   REQUIRE(n(60, 0, 3, 8).ToString() == "<qq.> 60"); // dotted semiquaver
 
   // Rests
-  REQUIRE(r(0, 4, 4).ToString() == "cr"); // crotchet rest
-  REQUIRE(r(0, 8, 4).ToString() == "mr"); // minim rest
-  REQUIRE(r(0, 16, 4).ToString() == "sbr"); // semibreve rest
-  REQUIRE(r(0, 32, 4).ToString() == "sb2r"); // sb2 rest
-  REQUIRE(r(0, 64, 4).ToString() == "sb4r"); // sb4 rest
-  REQUIRE(r(0, 2, 4).ToString() == "qr"); // quaver rest
-  REQUIRE(r(0, 2, 8).ToString() == "qqr"); // semiquaver rest
+  REQUIRE(r(0, 4, 4).ToString() == "<c> r"); // crotchet rest
+  REQUIRE(r(0, 8, 4).ToString() == "<m> r"); // minim rest
+  REQUIRE(r(0, 16, 4).ToString() == "<sb> r"); // semibreve rest
+  REQUIRE(r(0, 32, 4).ToString() == "<sb2> r"); // sb2 rest
+  REQUIRE(r(0, 64, 4).ToString() == "<sb4> r"); // sb4 rest
+  REQUIRE(r(0, 2, 4).ToString() == "<q> r"); // quaver rest
+  REQUIRE(r(0, 2, 8).ToString() == "<qq> r"); // semiquaver rest
 
-  REQUIRE(r(0, 6, 4).ToString() == "c.r"); // dotted crotchet rest
-  REQUIRE(r(0, 12, 4).ToString() == "m.r"); // dotted minim rest
-  REQUIRE(r(0, 24, 4).ToString() == "sb.r"); // dotted semibreve rest
-  REQUIRE(r(0, 48, 4).ToString() == "sb2.r"); // dotted sb2 rest
-  REQUIRE(r(0, 96, 4).ToString() == "sb4.r"); // dotted sb4 rest
-  REQUIRE(r(0, 3, 4).ToString() == "q.r"); // dotted quaver rest
-  REQUIRE(r(0, 3, 8).ToString() == "qq.r"); // dotted semiquaver rest
+  REQUIRE(r(0, 6, 4).ToString() == "<c.> r"); // dotted crotchet rest
+  REQUIRE(r(0, 12, 4).ToString() == "<m.> r"); // dotted minim rest
+  REQUIRE(r(0, 24, 4).ToString() == "<sb.> r"); // dotted semibreve rest
+  REQUIRE(r(0, 48, 4).ToString() == "<sb2.> r"); // dotted sb2 rest
+  REQUIRE(r(0, 96, 4).ToString() == "<sb4.> r"); // dotted sb4 rest
+  REQUIRE(r(0, 3, 4).ToString() == "<q.> r"); // dotted quaver rest
+  REQUIRE(r(0, 3, 8).ToString() == "<qq.> r"); // dotted semiquaver rest
 }
 
 // Showing what happens, this is not good behaviour, but shows the edge cases.
