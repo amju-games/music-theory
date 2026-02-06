@@ -9,9 +9,8 @@ Quad Stem::MakeQuad() const
   // Our quad here is axis aligned so not too many coords to calc.
   // Quad(float xmin, float ymin, float xmax, float ymax);
 
-  // If a single note, min and max stave are the same value, and we
-  //  can ignore. In fact we really should, because the y-coord for a
-  //  single note has been set (in CalcY), but for a chord, it's zero.
+  // If a single note, min and max stave are the same value, so the
+  //  span is zero.
   // We're ignoring the y-coord calculated in CalcY, so we run the 
   //  same code for single notes and chords.
   // 
@@ -30,18 +29,16 @@ Quad Stem::MakeQuad() const
   // Span for chords
   float h = ymax - ymin;
 
-  // Add on height of stem (for single note), extra height above max
-  //  note/below min note for a chord.
+  // Add on height of stem above or below note(s)
   h += m_length * STAVE_LINE_GAP;
 
-  float xOff = 0.05f; // Where do we find this number tho
   float yOff = 0.475f; // Somewhere there is a fudge factor of 0.5, sigh.
 
   if (m_direction == Direction::UP)
   {
     //   |
     //  0
-    xOff += 0.2f; // note head width TODO s.b a Const
+    float xOff = STEM_UP_X_OFFSET; 
     return Quad(
       (x + xOff) * GetScaleX(), 
       (ymin + yOff) * GetScaleY(), 
@@ -52,6 +49,7 @@ Quad Stem::MakeQuad() const
   {
     //  0
     // |
+    float xOff = STEM_DOWN_X_OFFSET; 
     return Quad(
       (x + xOff) * GetScaleX(), 
       (ymax - h + yOff) * GetScaleY(), 
@@ -79,16 +77,7 @@ std::string Stem::ToString() const
     break;
 
   case LengthType::STANDARD:
-  // Oh wait, can we just use the same code, ensuring consistency?
-/*
-    res += std::string(m_direction == Direction::UP ? "stem-up" : "stem-down") + 
-      ", " + Str(x) + ", " + Str(y) +
-      AddScaleStringIfRequired() + 
-      LineEnd();
-    break;
-*/
   case LengthType::VARIABLE:
-    // Make a quad. 
     res += MakeQuad().ToString() + LineEnd();
     break;
   }
@@ -102,10 +91,16 @@ std::string Stem::CommentString() const
   if (m_lengthType == LengthType::NONE) return "";
 
   std::string res = "// Stem: ";
+
   res += std::string("Direction: ") + 
-    (m_direction == Direction::NONE ? "none" : (m_direction == Direction::UP ? "up" : "down"));
+    (m_direction == Direction::NONE ? "none" : 
+      (m_direction == Direction::UP ? "up" : "down"));
+
   res += std::string(" LengthType: ") + 
-    (m_lengthType == LengthType::NONE ? "none" : (m_lengthType == LengthType::STANDARD ? "standard" : (m_lengthType == LengthType::VARIABLE ? "variable" : "?")));
+    (m_lengthType == LengthType::NONE ? "none" : 
+      (m_lengthType == LengthType::STANDARD ? "standard" : 
+        (m_lengthType == LengthType::VARIABLE ? "variable" : "?")));
+
   if (m_isChord) res += " (CHORD)";
 
   return res; 
