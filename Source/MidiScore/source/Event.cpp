@@ -125,45 +125,91 @@ std::string Event::ToString() const
   return "";
 }
 
-// Set timeval enum in an Event, given duration and tpq. 
+// Set time values in an Event, given m_duration member and tpq. 
 void Event::SetTimeVal(int tpq)
 {
-  m_dots = 0;
-  if (m_duration >= 16 * tpq) 
+  // Set up sequence of exact multiples of tpq. We expect the raw event
+  //  duration to be one of these multiples, but it could be off. So
+  //  get the closest multiple, set the TimeVal, and then correct duration 
+  //  and end times to the 'perfect', exact values. This will avoid 
+  //  inserting crazy rests between note events with funny durations.
+  //
+  // Each element here is tpq multiple, time val, and number of dots.
+  // (Could insert more elements to support double dots.)
+  // Not static, tpq can be different each time!
+  const std::vector<std::tuple<int, TimeVal, int>> MULTIPLES = 
+  { 
+    { tpq / 4,      TimeVal::SEMIQUAVER,  0 }, // qq
+    { 3 * tpq / 8,  TimeVal::SEMIQUAVER,  1 }, // qq.
+    { tpq / 2,      TimeVal::QUAVER,      0 }, // q
+    { 3 * tpq / 4,  TimeVal::QUAVER,      1 }, // q.
+    { tpq,          TimeVal::CROTCHET,    0 }, // c
+    { 3 * tpq / 2,  TimeVal::CROTCHET,    1 }, // c.
+    { 2 * tpq,      TimeVal::MINIM,       0 }, // m.
+    { 3 * tpq,      TimeVal::MINIM,       1 }, // m.
+    { 4 * tpq,      TimeVal::SEMIBREVE,   0 }, // sb
+    { 6 * tpq,      TimeVal::SEMIBREVE,   1 }, // sb.
+    { 8 * tpq,      TimeVal::SB2,         0 }, // sb2
+    { 12 * tpq,     TimeVal::SB2,         1 }, // sb2.
+    { 16 * tpq,     TimeVal::SB4,         0 }, // sb4
+    { 24 * tpq,     TimeVal::SB4,         1 }, // sb4.
+  };
+
+  // Get first element >= m_duration
+  auto it = std::lower_bound(MULTIPLES.begin(), MULTIPLES.end(), m_duration, 
+    [] (const auto& m, int dur) { return std::get<0>(m) < dur; }
+  );
+  
+  if (it == MULTIPLES.end())
   {
-    m_timeVal = TimeVal::SB4;
-    if (m_duration == 24 * tpq) m_dots = 1;
-  }
-  else if (m_duration >= 8 * tpq) 
+    // Duration is bigger than sb4. (with the dot).
+    --it; // use largest supported value, (but it's wrong).
+    // TODO We need a better way of reporting errors
+    std::cout << "// *** Event duration too large! Event pitch: " 
+      << m_pitch 
+      << " at time: " 
+      << m_start 
+      << " (" 
+      << m_start/tpq 
+      << " crotchets)\n"; 
+  } 
+  else if (it == MULTIPLES.begin()) 
   {
-    m_timeVal = TimeVal::SB2;
-    if (m_duration == 12 * tpq) m_dots = 1;
+    // Is duration smaller than qq?
+    if (m_duration < std::get<0>(MULTIPLES.front()))
+    {
+      std::cout << "// *** Event duration too small! Event pitch: " 
+        << m_pitch 
+        << " at time: " 
+        << m_start 
+        << " (" 
+        << m_start/tpq 
+        << " crotchets)\n"; 
+    }
   }
-  else if (m_duration >= 4 * tpq) 
+  else
   {
-    m_timeVal = TimeVal::SEMIBREVE;
-    if (m_duration == 6 * tpq) m_dots = 1;
+    // Choose between current or the previous element, whichever has closest
+    //  duration to m_duration.
+    // (Element *it is >= duration, but maybe the previous element, which is
+    //  < duration, is closer to it.)
+    const int iDuration = std::get<0>(*it);
+    auto jt = it - 1;
+    const int jDuration = std::get<0>(*jt);
+    assert(iDuration >= m_duration);
+    assert(m_duration >= jDuration);
+    if ((iDuration - m_duration) > (m_duration - jDuration))
+    {
+      it = jt; // prev element is closer to m_duration
+    }
   }
-  else if (m_duration >= 2 * tpq) 
-  {
-    m_timeVal = TimeVal::MINIM;
-    if (m_duration == 3 * tpq) m_dots = 1;
-  }
-  else if (m_duration >=     tpq) 
-  {
-    m_timeVal = TimeVal::CROTCHET;
-    if (m_duration == (3 * tpq / 2)) m_dots = 1;
-  }
-  else if (m_duration >= tpq / 2) 
-  {
-    m_timeVal = TimeVal::QUAVER;
-    if (m_duration == (3 * tpq / 4)) m_dots = 1;
-  }
-  else 
-  {
-    m_timeVal = TimeVal::SEMIQUAVER;
-    if (m_duration == (3 * tpq / 8)) m_dots = 1;
-  }
+
+  // Set members.
+  const auto [duration, timeVal, dots] = *it;
+  m_timeVal = timeVal;
+  m_duration = duration;
+  m_dots = dots;
+  m_end = m_start + m_duration; // recalc this
 }
 
 Event MakeRest(int tpq, int duration, int start)

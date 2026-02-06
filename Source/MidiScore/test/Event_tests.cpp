@@ -83,25 +83,93 @@ TEST_CASE("Output strings", "[Events]")
 }
 
 // Showing what happens, this is not good behaviour, but shows the edge cases.
-TEST_CASE("BAD Output strings", "[Events]")
+TEST_CASE("BAD Output strings 1", "[Events]")
 {
-  // TPQ is 1, int arithmetic fails and we erroneously add a dot.
-  REQUIRE(n(60, 0, 1, 1).ToString() == "<c.> 60"); // s/b "<c> 60"
+  // n(pitch, start, duration, tpq) 
+
+  // TPQ is 1, int arithmetic fails and we erroneously add a dot?
+  // Actually that seeems to be ok now.
+  REQUIRE(n(60, 0, 1, 1).ToString() == "<c> 60"); // s/b "<c> 60"
   // TPQ of 2 gives correct string for a crotchet
   REQUIRE(n(60, 0, 2, 2).ToString() == "<c> 60"); // s/b "<c> 60"
+}
 
+TEST_CASE("BAD Output strings 2", "[Events]")
+{
   // TPQ needs to be >=4 for a semiquaver, (so we can express 1/4 of a crotchet)
   //  -- but this erroneously adds a dot, so TPQ needs to be >=8. 
-  REQUIRE(n(60, 0, 1, 4).ToString() == "<qq.> 60"); // s/b "<qq> 60"
+  // Hmm seems ok now
+  REQUIRE(n(60, 0, 1, 4).ToString() == "<qq> 60"); // s/b "<qq> 60"
 
   // Limit of small note values: demisemiquaver is not recognised.
   // Duration is 1/8 of a crotchet, should be "qqq"?
   REQUIRE(n(60, 0, 1, 8).ToString() == "<qq> 60"); // s/b "<qqq> 60" ?
+}
 
+TEST_CASE("BAD Output strings 3", "[Events]")
+{
   // Limit of large note values
   // Above a dotted sb4, note values are not recognised.
   // Duration is 32 crotchets (128/4), 8 semibreves.
-  REQUIRE(n(60, 0, 128, 4).ToString() == "<sb4> 60"); // s/b "<sb8> 60" ?
+  REQUIRE(n(60, 0, 128, 4).ToString() == "<sb4.> 60"); // s/b "<sb8> 60" ?
+}
+
+TEST_CASE("Set time val", "[Events]")
+{
+  // Check time val is set correctly, and duration/end set to proper
+  //  values, when the duration from the raw events is not an expected
+  //  multiple of tpq.
+
+  // n(pitch, start, duration, tpq) 
+  const int pitch = 60;
+  const int start = 0;
+  const int tpq = 480;
+  
+  // These are real life values, always under the expected tpq multiple.
+  // Don't know what the reason is behind this.
+  {
+  auto e = n(pitch, start, 911, tpq); // Calls SetTimeVal
+  REQUIRE(e.m_timeVal == TimeVal::MINIM);
+  REQUIRE(e.m_duration == 960);
+  REQUIRE(e.m_end == 960);
+  }
+
+  {
+  auto e = n(pitch, start, 455, tpq); 
+  REQUIRE(e.m_timeVal == TimeVal::CROTCHET);
+  REQUIRE(e.m_duration == 480);
+  REQUIRE(e.m_end == 480);
+  }
+
+  {
+  auto e = n(pitch, start, 239, tpq); 
+  REQUIRE(e.m_timeVal == TimeVal::QUAVER);
+  REQUIRE(e.m_duration == 240);
+  REQUIRE(e.m_end == 240);
+  }
+
+  // So presumably you could get a raw duration that is a bit more than
+  //  a tpq multiple.
+  {
+  auto e = n(pitch, start, 970, tpq); 
+  REQUIRE(e.m_timeVal == TimeVal::MINIM);
+  REQUIRE(e.m_duration == 960);
+  REQUIRE(e.m_end == 960);
+  }
+
+  {
+  auto e = n(pitch, start, 490, tpq);
+  REQUIRE(e.m_timeVal == TimeVal::CROTCHET);
+  REQUIRE(e.m_duration == 480);
+  REQUIRE(e.m_end == 480);
+  }
+
+  {
+  auto e = n(pitch, start, 250, tpq); 
+  REQUIRE(e.m_timeVal == TimeVal::QUAVER);
+  REQUIRE(e.m_duration == 240);
+  REQUIRE(e.m_end == 240);
+  }
 }
 
 TEST_CASE("Insert one rest", "[Events]")
