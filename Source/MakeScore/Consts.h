@@ -14,16 +14,28 @@ static const float NOTE_HEAD_WIDTH = 0.2f;
 // Offset for the accidental for a single note
 static const float ACCIDENTAL_X_OFFSET = 0.2f;
 
+// For chords, if we offset further to the left, we use a reduced 
+//  offset width to try to limit the space taken up.
+// TODO although we might need another offset for double flats.
+static const float ACCIDENTAL_EXTRA_OFFSET = 0.15f;
+
 // Don't start TIMEs etc at zero, to avoid notes etc being highlighted
 //  before animation starts. So min time is this value, not zero.
 static const float MIN_START_TIME = 0.0001f;
 
-// In our coordinate system, with a scale of 1, the distance between stave
-//  lines is this.
+// In our coordinate system, with a scale of 1, this is the 
+//  distance between stave lines
 static const float STAVE_LINE_GAP = 0.1f;
 
-static const float STEM_W  = 0.02f;
-static const float DEFAULT_STEM_H  = 3.5f; // in units of stave line gaps
+// X-offsets for up and down stems
+static const float STEM_UP_X_OFFSET = 0.24f;
+static const float STEM_DOWN_X_OFFSET = 0.07f;
+
+// Stem width
+static const float STEM_W  = 0.022f;
+
+// Standard stem height for a single note
+static const float DEFAULT_STEM_H  = 3.25f; // in units of stave line gaps
 
 static const int MAX_NUM_STAVES = 4; // for SATB
 

@@ -10,6 +10,7 @@
 #include "Consts.h"
 #include "Glyph.h"
 #include "KeySig.h"
+#include "LedgerLine.h"
 #include "Pitch.h"
 #include "Stem.h"
 
@@ -22,13 +23,28 @@ struct NoteGlyph : public Glyph
   NoteGlyph(const std::string& inputToken, int order) :
     Glyph(inputToken, order) {}
 
-  // Generate TIME special glyphs, (for animation)
+  // Output final note data
+  std::string ToString() const override;
+
+  // Output meta data, for animating and playing notes: start time,
+  //  note events, etc.
   std::string TimeBefore() const;
   std::string TimeAfter() const;
 
-  std::string ToString() const override;
+  std::string CommentString() const override;
 
-  // Set up stem from stave line etc
+  // Functions used to build up full string - these can be called from
+  //  chord, so not private.
+  // These are the final output strings, with coords, scale factors.
+  std::string DotString() const;
+  std::string AccidentalString() const;
+  std::string LedgerLinesString(LedgerLineWidth width) const;
+  std::string StemString() const;
+  std::string NoteHeadString() const;
+  std::string StaccatoString() const;
+
+  // Set up stem: called when single note added.
+  // For chords, the stems of the individual notes are not set.
   void SetStem();
 
   void SetPitch(Pitch p)
@@ -36,19 +52,19 @@ struct NoteGlyph : public Glyph
     m_pitch = p;
   }
 
-  // Use input token and state to generate output text for this glyph.
-  std::string GetGlyphOutputStr() const;
-
   // Calc y-pos of note, i.e. position on stave.
   void CalcY(KeySig keySig, Clef clef);
 
   // Calc stave line, used in CalcY above.
-  // See comment in Glyph.h explaining stave lines.
+  // Stave lines are ints; spaces count. Bottom line of stave is zero,
+  //  top line is 8, (because of spaces in between). This numbering
+  //  is independent of the clef in use.
   static int CalcStaveLine(KeySig keySig, Clef clef, const Pitch& pitch);
 
   // Calc accidental, given key sig
   // Returns accidental calculated, and sets member.
   Accidental CalcAccidental(KeySig ks);
+
   // Internal functions - public for testing
   static Accidental CalcAccidentalFromStepOctAlter(KeySig ks, Pitch pitch);
   static Accidental CalcAccidentalFromMidi(KeySig ks, Pitch pitch);
@@ -60,27 +76,31 @@ struct NoteGlyph : public Glyph
   //  accidental set on this stave line
   void AdjustAccidental(Accidental previousAcc);
 
-  // Get the final output string for the accidental for this note.
-  std::string GetAccidentalStr() const;
-
-  // Get the final output string for the staccato dot for this note.
-  std::string GetStaccatoStr() const;
-
-  std::string CommentString() const override;
-
   // Return true if not a semibreve - TODO other cases?
   bool ShouldHaveStem() const;
 
   // Call if this note is in a chord and because of overlaps with other
   //  notes, should be offset in x.
-  // Set to 0 (no overlap) or +1 or -1 depending on stave direction.
+  // Set to 0 (no offset) or +1 (right) or -1 (left) depending on stave direction.
+  // TODO Make sure this works with SBs.
   void SetOverlapOffset(int overlapOffset) { m_overlapOffset = overlapOffset; }
 
-  // Call to offset the accidental for this note. 
+  // Called by chord to offset the accidental for this note. 
   // As accidentals can overlap in y, we might need to offset by more
   //  than one offset distance. 
   // offsets: the number of offset distances we should move.
   void SetAccidentalOverlapOffset(int offsets) { m_accidentalOverlapOffsets = offsets; }
+
+protected:
+  // Decide ledger line width
+  // For a single note, ledger line width can be for a sb or other note.
+  LedgerLineWidth DecideLedgerLineWidth() const;
+
+  // Get the glyph name for the accidental for this note.
+  std::string GetAccidentalStr() const;
+
+  // Use input token and state to generate output text for this glyph.
+  std::string GetGlyphOutputStr() const;
 
 private:
   Pitch m_pitch;

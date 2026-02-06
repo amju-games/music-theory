@@ -264,7 +264,7 @@ std::string NoteGlyph::GetAccidentalStr() const
   return ACC_STR[static_cast<int>(m_accidental)];
 }
 
-std::string NoteGlyph::GetStaccatoStr() const
+std::string NoteGlyph::StaccatoString() const
 {
   std::string res;
   if (m_switches & SW_STACCATO)
@@ -274,18 +274,26 @@ std::string NoteGlyph::GetStaccatoStr() const
     float staccX = x + STACC_X_OFFSET;
     float staccY = y + STACC_Y_OFFSET;
     // Add dot, choosing above or below, avoiding overlapping a line
-    bool stemUp = (m_staveLine < 5);
+    bool stemUp = (m_stem.GetDirection() == Stem::Direction::UP);
+
+    // If on one of these stave lines, we should move up or down to 
+    //  avoid overlapping a line.
+    // We DON'T need to worry about ledger lines: if this is a single
+    //  note, there won't be any ledger line beyond this note; if this 
+    //  note is in a chord, we will only draw the dot for the highest
+    //  or lowest note, so that still holds true.
+    bool onLine = (m_staveLine == 2 || m_staveLine == 4 || m_staveLine == 6);
     if (stemUp)
     {
       // Staccato dot should go below
       staccY = y - STACC_Y_OFFSET;
       // Move down a bit more to skip over stave line if necessary
-      if (m_staveLine == 2 || m_staveLine == 4)
+      if (onLine)
       {
         staccY -= STACC_Y_OFFSET * 0.5f;
       }
     }
-    else if (m_staveLine == 6)
+    else if (onLine)
     {
       // Move down a bit more to skip over stave line if necessary
       staccY += STACC_Y_OFFSET * 0.5f;
@@ -311,80 +319,179 @@ std::string NoteGlyph::CommentString() const
   return res;
 }
 
-std::string NoteGlyph::ToString() const
+std::string NoteGlyph::DotString() const
 {
-  const bool yesComment = (GetSuppressFlags() & META_COMMENT) == 0;
-
   std::string res;
-
-  // Add special glyphs for timing before and after - this is
-  //  for animation and MIDI events. 
-  res += TimeBefore();
-
-  // Output note head
-  float xOffset = static_cast<float>(m_overlapOffset) * NOTE_HEAD_WIDTH;
-
-  res += GetGlyphOutputStr() + ", " + Str(x + xOffset) + ", " + Str(y) + 
-    AddScaleStringIfRequired() + 
-    LineEnd();
-
-  // Output dot if required
   if (m_times.IsDotted())
   {
-    // Raise dot so not on line?
-    std::string dotType = m_staveLine % 2 == 0 ? "raised-dot" : "reg-dot";
+    // Are we on a line? If so, raise the dot to avoid overlapping the line.
+    bool onLine = m_staveLine % 2 == 0; 
+    // But if we're on a ledger line and offset to the right, don't raise
+    //  the dot, as it will be beyond the ledger line, so no point in
+    //  raising it.
+    if (onLine && (m_staveLine < 0 || m_staveLine > 8) && m_overlapOffset == 1)
+    {
+      onLine = false;
+    }
+    // Sigh, actually I think the above is wrong. If we offset to the right,
+    //  the ledger lines should be wide enough for offset and non-offset 
+    //  notes, and so we would still want to raise the dot.
+    std::string dotType = onLine ? "raised-dot" : "reg-dot";
+
     // Wide note?
     if (m_times.DurationIsSemibreveOrMore()) dotType = "sb-" + dotType;
-    
-    res += dotType + ", " + CoordString() + 
+  
+    // If the note head is offset to the right, also offset the dot to
+    //  the right.
+    float xDotOffset = (m_overlapOffset == 1 ? NOTE_HEAD_WIDTH : 0.f);  
+
+    // Output the dot.
+    res += dotType + ", " + Str(x + xDotOffset) + ", " + Str(y) + 
       AddScaleStringIfRequired() + 
       LineEnd();
   }
+  return res;
+}
 
-  // Output stem
-  const_cast<Stem&>(m_stem).SetScale(GetScaleX(), GetScaleY());
-  const_cast<Stem&>(m_stem).SetPos(GetX(), GetY());
-  if (yesComment) res += m_stem.CommentString() + LineEnd();
-  res += m_stem.ToString() + LineEnd();
-
-  // Output accidental 
+std::string NoteGlyph::AccidentalString() const
+{
+  std::string res;
   if (m_accidental != Accidental::ACCIDENTAL_NONE)
   {
-    // X offset to avoid overlaps in chords
-    float accXOffset = -ACCIDENTAL_X_OFFSET * 
-      static_cast<float>(m_accidentalOverlapOffsets + 1);
+    // Accidentals get offset to the left for single notes. For
+    //  chords, we can offset more to avoid overlapping accidentals.
+    // (The offset is negative as to the left of the note head.)
+    float accXOffset = -(ACCIDENTAL_X_OFFSET +
+      ACCIDENTAL_EXTRA_OFFSET *  
+      static_cast<float>(m_accidentalOverlapOffsets));
 
     res += GetAccidentalStr() + ", "  + 
       Str(x + accXOffset) + ", " + Str(y) + 
       AddScaleStringIfRequired();
     res += LineEnd();
   }
- 
-  // Add ledger lines - below
-  std::string ledger = "ledger";
-  if (m_times.DurationIsSemibreveOrMore() || m_overlapOffset) // ? Maybe we need a special side ledger line for chords with offset notes - TODO
-  {
-    ledger = "ledger-w"; // wider ledger line
-  }
+  return res;
+}
+
+LedgerLineWidth NoteGlyph::DecideLedgerLineWidth() const
+{
+  // Decide the width of ledger line we need. 
+  //  0. suppress ledger line
+  //  1. single note, duration < sb
+  //  2. single sb
+
+  if (m_times.DurationIsSemibreveOrMore())
+    return LedgerLineWidth::SINGLE_SB;
+
+  return LedgerLineWidth::SINGLE_NOTE;
+}
+
+std::string NoteGlyph::LedgerLinesString(LedgerLineWidth width) const
+{
+  std::string res;
+
+  // Decide the width of ledger line we need. 
+  //  0. suppress ledger line
+  //  1. single note, duration < sb
+  //  2. single sb
+  //  For notes in a chord, these are also possible:
+  //  3. overlap offset notes < sb
+  //  4. overlap offset sbs
+  // The offset has to be decided by the chord for 3 and 4. The overlap offset
+  //  could have been applied to another note, not this one.
+  if (static_cast<int>(width) == 0) return res;
+
+  static const std::array<std::string, 5> LEDGERS = 
+  {{
+     "** Ledger line ERROR **",
+     "ledger",
+     "ledger-w",
+     "ledger-w", // TODO
+     "ledger-w", // TODO
+  }};
+
+  std::string ledger = LEDGERS[static_cast<int>(width)];
+
+  // Draw lines under the stave, coming up from the lowest.
   for (int s = m_staveLine; s < -1; s += 2)
   {
-    float ledgerY = y - (s + 2) * 0.05f;
+    // Convert from stave line to actual y-coord: this is the
+    //  same calculation as in CalcY.
+    float ledgerY = y - (s + 2) * 0.5f * STAVE_LINE_GAP;
+
     res += ledger + ", " + Str(x) + ", " + Str(ledgerY) +
-      AddScaleStringIfRequired();
-    res += LineEnd();
+      AddScaleStringIfRequired() +
+      LineEnd();
   }
-  // Above
+
+  // Draw lines above the stave, coming down.
   for (int s = m_staveLine; s > 9; s -= 2)
   {
-    float ledgerY = y - (s - 10) * 0.05f;
+    float ledgerY = y - (s - 10) * 0.5f * STAVE_LINE_GAP;
+
     res += ledger + ", " + Str(x) + ", " + Str(ledgerY) +
-      AddScaleStringIfRequired();
-    res += LineEnd();
+      AddScaleStringIfRequired() + 
+      LineEnd();
   }
+
+  return res;
+}
+
+std::string NoteGlyph::StemString() const
+{
+  std::string res;
+
+  const bool yesComment = (GetSuppressFlags() & META_COMMENT) == 0;
+
+  // Output stem
+  const_cast<Stem&>(m_stem).SetScale(GetScaleX(), GetScaleY());
+  const_cast<Stem&>(m_stem).SetPos(GetX(), GetY());
+
+  if (yesComment) 
+  {
+     res += m_stem.CommentString() + LineEnd();
+  }
+  res += m_stem.ToString() + LineEnd();
+
+  return res;
+}
+
+std::string NoteGlyph::NoteHeadString() const
+{
+  std::string res;
+  // Output note head: x position can be offset left or right in a chord.
+  float xOffset = static_cast<float>(m_overlapOffset) * NOTE_HEAD_WIDTH;
+  
+  res += GetGlyphOutputStr() + ", " + Str(x + xOffset) + ", " + Str(y) + 
+    AddScaleStringIfRequired() + 
+    LineEnd();
+ 
+  return res;
+}
+
+std::string NoteGlyph::ToString() const
+{
+  std::string res;
+
+  // Add special glyphs for timing before and after - this is
+  //  for animation and MIDI events. 
+  res += TimeBefore();
+
+  res += NoteHeadString();
+
+  res += StemString();
+
+  res += DotString(); // Output duration * 1.5 dot if required
+
+  res += AccidentalString();
+ 
+  // For a single note, we decide the ledger line width; for notes in
+  //  a chord, the chord decides.
+  res += LedgerLinesString(DecideLedgerLineWidth());
 
   // Add staccato dot -- TODO like stems, this needs to be done by owning chord
   //  if we are part of a chord.
-  res += GetStaccatoStr(); // staccato dot or empty str
+  res += StaccatoString(); // staccato dot or empty str
 
   res += TimeAfter();
 
