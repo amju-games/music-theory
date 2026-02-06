@@ -90,7 +90,7 @@ std::string Event::ToString() const
   switch (m_type)
   {
   case EventType::REST:
-    return DurationString() + "r";
+    return "<" + DurationString() + "> r";
   
   case EventType::NOTE: 
     // Duration is in angle brackets, which means it applies

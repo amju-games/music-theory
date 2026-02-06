@@ -47,8 +47,14 @@ std::string OutputEvent(int& prevDuration, const Event& e)
     return e.NoteToStringNoDuration(); // also dynamics etc
   }
 
-  if (e.IsNote())  
-    prevDuration = e.m_duration;
+  // If a rest, and the duration has not changed, just output
+  //  immediate rest token.
+  if (e.IsRest() && e.m_duration == prevDuration)
+  {
+    return "r"; // immediate rest token
+  }
+
+  prevDuration = e.m_duration;
 
   return e.ToString();
 }
