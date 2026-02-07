@@ -506,7 +506,10 @@ void MakeScore::ToStringInternal()
 
   // Output every beat, with its normalized time.   
   // Only need to do it for one stave.
-  res += m_staves.back()->OutputBeats(); // TODO turn off if not required
+  if (!m_staves.empty())
+  {
+    res += m_staves.back()->OutputBeats(); // TODO turn off if not required
+  }
 
   m_outputLines = Split(res, '\n');
 }
