@@ -277,9 +277,19 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
     if (s[0] == TEXT_QUOTE_OPEN)
     {
       // First token of some text
-      // text = s.substr(1);
       isText = true;
       s = s.substr(1);
+      if (s.back() == TEXT_QUOTE_CLOSE)
+      {
+        text += s.substr(0, s.size() - 1);
+        AddText(text);
+        isText = false;
+        text.clear();
+      }
+      else
+      {
+        text = s;
+      }
     }
     else if (s == "stave")
     { 
@@ -399,7 +409,6 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
       // REPORT ERROR TODO
       // ? return;
     }
-
   }
 }
 
