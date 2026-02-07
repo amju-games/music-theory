@@ -37,8 +37,6 @@ static const float STEM_W  = 0.022f;
 // Standard stem height for a single note
 static const float DEFAULT_STEM_H  = 3.25f; // in units of stave line gaps
 
-static const int MAX_NUM_STAVES = 4; // for SATB
-
 static const int DEFAULT_PITCH = 69; // default pitch = A above middle C
 
 static const float X_OFFSET_RIGHT = 0.25f;
