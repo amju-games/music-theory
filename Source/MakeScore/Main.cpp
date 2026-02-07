@@ -27,12 +27,6 @@ bool CommandLineParams(int argc, char** argv, MakeScore& ms)
       ms.SetOutputOneLine(true);
     }
 
-    else if (param == "--stave-single")
-    {
-      // This is the default
-      ms.SetStaveType(StaveType::STAVE_TYPE_SINGLE);
-    }
-
 #ifdef SUPPORT_TRANSPOSE_COMMAND_LINE
     else if (param == "--transpose")
     {

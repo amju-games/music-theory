@@ -54,9 +54,18 @@ public:
   // Replace beamed quaver/semiquaver glyphs with crotchet glyphs?
   void Preprocess();
 
+  // Tokenise input string
+  std::vector<std::string> Tokenise();
+
   // Preprocess tokens before parsing:
   // Move tokens outside of chord markers
   void PreprocessTokens(std::vector<std::string>& tokens);
+
+  // Parse tokens - music notation tokens only
+  void Parse(std::vector<std::string>& tokens);
+  
+  // Parse global style/page setting tokens
+  void ParseGlobalSettings(std::vector<std::string>& tokens);
 
   // Strip unnecessary TIME data
   void Postprocess(); 
@@ -64,11 +73,6 @@ public:
   void SetOutputOneLine(bool oneLine)
   {
     m_outputOnOneLine = oneLine;
-  }
-
-  void SetStaveType(StaveType st) 
-  {
-    m_staveType = st;
   }
 
 private:
@@ -80,20 +84,11 @@ private:
 
   bool IsPerformance(const std::string& s);
 
-  // Attach t to the last glyph added, if there is one; set left or
-  //  right parent.
-  void Attach(Attachment* t, int leftOrRight = 0);
-
   // Add a performance direction attachment
   void AddDirection(const std::string& s);
 
   // Add a text string attachment
   void AddText(const std::string& s);
-
-  void AddTimeSig(const std::string& s)
-  {
-    m_bars.back()->AddTimeSig(s);
-  }
 
   // Use most recently set note (time) value and pitch to add a new NoteGlyph
   //  to the current Bar.
@@ -119,19 +114,17 @@ private:
 
   void AddKeySig(const std::string& s);
 
-  void AddBeam(const std::string& s)
-  {
-    m_bars.back()->AddBeam(s);
-  }
+  void AddStave();
 
   // Create a new Tie, setting the left glyph to the most recently added glyph.
   void AddTie();
 
-  void AddTokens();
   void CalcBarSizesAndPositions();
   void CalcStartTimes();
 
   std::string OutputBeats() const;
+
+  Stave& GetCurrentStave();
 
 private:
   // If true, all glyphs on one line, separated by ';'
@@ -145,17 +138,7 @@ private:
 
   std::string m_input;
 
-  // Ordered sequence of bars in the score.
-  std::vector<std::unique_ptr<Bar>> m_bars;
-
-  // Ties connect glyphs which can be in different bars, so ties are not
-  //  per-bar.
-  // TODO Absorb this into m_otherGlyphs
-  std::vector<std::unique_ptr<Tie>> m_ties;
-
   std::vector<std::unique_ptr<IGlyph>> m_otherGlyphs;
-
-  StaveType m_staveType = StaveType::STAVE_TYPE_SINGLE;
 
   // Most recently set note (time) value
   std::string m_lastTimeValToken = INPUT_TOKEN_CROTCHET;
@@ -177,9 +160,8 @@ private:
 
   // Current stave
   int m_stave = 0;
-
-  // Bit field for staccato, accent, pause, etc., per stave
-  int m_switches[MAX_NUM_STAVES] = { 0, 0, 0, 0 };
+  // All staves
+  std::vector<std::unique_ptr<Stave>> m_staves;
 
   Strings m_outputLines;
 };

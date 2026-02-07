@@ -14,17 +14,13 @@
 
 void Bar::CopyState(const Bar& b)
 {
-  SetStaveType(b.m_staveType);
   SetScale(b.m_scale);
   // Copy time sig over to next bar
   SetTimeSig(b.GetTimeSig());
   // Copy key sig over
   SetKeySig(b.GetKeySig());
-  // Copy clefs over
-  for (int s = 0; s < MAX_NUM_STAVES; s++)
-  {
-    m_currentClef[s] = b.m_currentClef[s];
-  }
+  // Copy clef over
+  m_currentClef = b.m_currentClef;
 }
 
 void Bar::SetKeySig(KeySig ks)
@@ -145,7 +141,7 @@ std::unique_ptr<NoteGlyph> Bar::CreateNoteGlyph(
   noteGlyph->SetPitch(pitch);
 
   // Calc y, using current pitch, stave, and clef. 
-  noteGlyph->CalcY(m_keySig, m_currentClef[m_currentStave]);
+  noteGlyph->CalcY(m_keySig, m_currentClef);
 
   // Calc any accidental required for the given pitch in the 
   //  current key. 
@@ -191,9 +187,6 @@ float Bar::AddChord(
 {
   assert(!ch.empty());
 
-  // Just for now, just output the 0th note
-  //return AddNote(ch[0].second, ch[0].first, switches, crotchetTime); 
-
   int order = static_cast<int>(m_glyphs.size());
 
   auto chordGlyph = CreateChordGlyph(ch, switches, order, startTimeValue);
@@ -208,12 +201,12 @@ void Bar::SetClef(Clef clef)
   // Has clef changed? If so, output a mini-clef at the end of the bar.
   // Not if this is the first bar though???? Not sure about this - TODO
   // I think we need to add the mini-clef to the PREVIOUS bar.
-  if (    clef != m_currentClef[m_currentStave]
+  if (    clef != m_currentClef
       && !m_isFirstBarOfLine) // ?
   {
     m_yesOutputMiniClef = true;
   }
-  m_currentClef[m_currentStave] = clef;
+  m_currentClef = clef;
 }
 
 void Bar::AddTimeSig(const std::string& s)
@@ -285,7 +278,7 @@ std::string Bar::ToString()
       float y = m_y; 
 
       y += s * DOUBLE_STAVE_DISTANCE;
-      res += GetClefOutputString(m_currentClef[s], s, x, y, m_scale) + 
+      res += GetClefOutputString(m_currentClef, s, x, y, m_scale) + 
         LineEnd();
     }
   }
@@ -302,7 +295,7 @@ std::string Bar::ToString()
       }
       float y = m_y;
       y += s * DOUBLE_STAVE_DISTANCE;
-      res += GetKeySigOutputString(m_keySig, m_currentClef[s], s, x, y, m_scale) + 
+      res += GetKeySigOutputString(m_keySig, m_currentClef, s, x, y, m_scale) + 
         LineEnd();
     }
   }  
@@ -363,9 +356,7 @@ std::string Bar::ToString()
 
 bool Bar::YesShowClefAtFrontOfBar() const
 {
-  return (m_isFirstBarOfLine &&
-          m_staveType != StaveType::STAVE_TYPE_NONE &&
-          m_staveType != StaveType::STAVE_TYPE_RHYTHM);
+  return (m_isFirstBarOfLine);
 }
 
 float Bar::GetRelativeWidth() const
@@ -500,3 +491,4 @@ void Bar::SetPos(float x, float y)
     b->y += y;
   }
 }
+

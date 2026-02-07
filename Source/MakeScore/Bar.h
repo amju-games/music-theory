@@ -18,7 +18,6 @@
 #include "KeySig.h"
 #include "NoteGlyph.h"
 #include "Pitch.h"
-#include "Stave.h"
 #include "TimeSig.h"
 #include "TimeSigGlyph.h"
 #include "TimeValue.h"
@@ -89,8 +88,6 @@ public:
   //  rhythm scores). 
   void SetPos(float x, float y);
 
-  void SetStaveType(StaveType st) { m_staveType = st; }
-
   // Only required to get final glyph, for Ties. TODO replace with
   //   GetFinalGlyph
   const GlyphVec& GetGlyphs() const { return m_glyphs; }
@@ -131,17 +128,10 @@ private:
   // Beams connecting ordered glyphs
   std::vector<std::unique_ptr<Beam>> m_beams;
 
-  // Stave type for the bar (I would expect this to be the same for
-  //  all bars, at least in the same line).
-  StaveType m_staveType = StaveType::STAVE_TYPE_RHYTHM;
-
   float m_x = 0;
   float m_y = 0;
   float m_width = 0;
   float m_scale = 1.0f;
-
-  // Current stave to which we add glyphs, clef, etc.
-  int m_currentStave = 0;
 
   // Time sig: we can use this to check for errors, and do beams/groups
   //  automatically. Also, we can use it to set times for each glyph,
@@ -150,7 +140,7 @@ private:
 
   // Clef for each stave. Output clef at start of a new line, and a mini-clef
   //  when the clef changes on a stave.
-  Clef m_currentClef[MAX_NUM_STAVES] = { Clef::CLEF_TREBLE };
+  Clef m_currentClef = Clef::CLEF_TREBLE;
 
   bool m_isFirstBarOfLine = false;
   // Output mini clef at end of bar if the clef changed

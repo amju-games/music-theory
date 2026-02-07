@@ -53,10 +53,21 @@ bool IsDirection(const std::string& s)
   return DIRECTIONS.find(s) != DIRECTIONS.end();
 }
 
+// ???
+// This is called from Beam and Flag ... obviously, TODO
 float GetHeight(BeamLevel bl)
 {
   // Relies on the int values 0, 1...
   return static_cast<float>(bl);
+}
+
+Stave& MakeScore::GetCurrentStave()
+{
+  if (m_staves.empty())
+  {
+    AddStave();
+  }
+  return *(m_staves.back());
 }
 
 bool MakeScore::IsSlur(const std::string& s)
@@ -68,13 +79,13 @@ bool MakeScore::IsSlur(const std::string& s)
     c->SetScale(m_scale);
 
     // Attach to most reccent glyph if there is one
-    Attach(c, Attachment::LEFT);
+    GetCurrentStave().Attach(c, Attachment::LEFT);
 
     m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(c));
   }
   else if (s == "</slur>")
   {
-    Attach(m_lastSlur, Attachment::RIGHT);
+    GetCurrentStave().Attach(m_lastSlur, Attachment::RIGHT);
   }
   else
   {
@@ -93,13 +104,13 @@ bool MakeScore::IsHairpin(const std::string& s)
     hp->SetCrescendo(s == "<");
 
     // Attach to most reccent glyph if there is one
-    Attach(hp, Attachment::LEFT);
+    GetCurrentStave().Attach(hp, Attachment::LEFT);
 
     m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(hp));
   }
   else if (s == "/<" || s == "/>")
   {
-    Attach(m_lastHairpin, Attachment::RIGHT);
+    GetCurrentStave().Attach(m_lastHairpin, Attachment::RIGHT);
   }
   else
   {
@@ -112,11 +123,11 @@ bool MakeScore::IsPerformance(const std::string& s)
 {
   if (s == "<stacc>")
   {
-    SetPerformance(m_switches[m_stave], SW_STACCATO);
+    GetCurrentStave().SetPerformance(SW_STACCATO);
   }
   else if (s == "</stacc>")
   {
-    ClearPerformance(m_switches[m_stave], SW_STACCATO);
+    GetCurrentStave().ClearPerformance(SW_STACCATO);
   }
   else
   {
@@ -205,20 +216,28 @@ void MakeScore::PreprocessTokens(std::vector<std::string>& tokens)
   tokens = newTokens;
 }
 
-// Tokenise input string and add each token to internal representation.
-void MakeScore::AddTokens()
+// Tokenise input string 
+std::vector<std::string>  MakeScore::Tokenise()
 {
   std::stringstream ss(m_input);
 
   // Split space-separated input into a vector of strings.
-  std::vector<std::string> strs{
+  std::vector<std::string> tokens 
+  {
     std::istream_iterator<std::string>{ss},
     std::istream_iterator<std::string>{}
   };
+  
+  return tokens;
+}
 
-  PreprocessTokens(strs);
+void MakeScore::ParseGlobalSettings(std::vector<std::string>& tokens)
+{
+}
 
-  int n = strs.size();
+void MakeScore::Parse(std::vector<std::string>& tokens)
+{
+  int n = tokens.size();
 
   bool isText = false;
   std::string text;
@@ -232,7 +251,28 @@ void MakeScore::AddTokens()
 
   for (int i = 0; i < n; i++)
   {
-    std::string s = strs[i]; // copy so we can strip quotes off etc
+    std::string s = tokens[i]; // copy so we can strip quotes off etc
+
+    // Text - add to string and check for final quote
+    if (isText)
+    {
+      if (!text.empty())
+      {
+        text += " ";
+      }
+      if (s.back() == TEXT_QUOTE_CLOSE)
+      {
+        text += s.substr(0, s.size() - 1);
+        AddText(text);
+        isText = false;
+        text.clear();
+      }
+      else
+      {
+        text += s;
+      }
+      continue;
+    }
 
     if (s[0] == TEXT_QUOTE_OPEN)
     {
@@ -241,16 +281,18 @@ void MakeScore::AddTokens()
       isText = true;
       s = s.substr(1);
     }
+    else if (s == "stave")
+    { 
+      AddStave();
+    }
     else if (s == "|")
     {
-      Bar* bar = new Bar;
-      bar->CopyState(*m_bars.back());
-      m_bars.push_back(std::unique_ptr<Bar>(bar));
+      GetCurrentStave().AddBar(); // TODO different bar lines
     }
     else if (s == "t")
     {
       // Tie prev and next notes - we can get position of prev.
-      AddTie();
+      GetCurrentStave().AddTie();
     }
     else if (IsPerformance(s))
     {
@@ -273,19 +315,19 @@ void MakeScore::AddTokens()
     }
     else if (IsBeam(s))
     {
-      AddBeam(s);
+      //// TODO /////GetCurrentStave().AddBeam(s);
     }
     else if (IsClef(s))
     {
-      AddClef(s);
+      GetCurrentStave().AddClef(s);
     }
     else if (IsTimeSig(s))
     {
-      AddTimeSig(s);
+      GetCurrentStave().AddTimeSig(s);
     }
     else if (IsKeySig(s))
     {
-      AddKeySig(s);
+      GetCurrentStave().AddKeySig(s);
     }
     else if (IsDeferredPitch(s))
     {
@@ -300,7 +342,8 @@ void MakeScore::AddTokens()
       }
       else
       {
-        crotchetTime = AddNote(crotchetTime);
+        crotchetTime = GetCurrentStave().AddNote(
+          m_lastTimeValToken, m_lastPitch, crotchetTime);
       }
     }
     else if (IsChordStart(s))
@@ -310,12 +353,12 @@ void MakeScore::AddTokens()
     else if (IsChordEnd(s))
     {
       inChord = false;
-      crotchetTime = AddChord(chord, crotchetTime);
+      crotchetTime = GetCurrentStave().AddChord(chord, crotchetTime);
       chord.clear();
     }
     else if (IsImmediateRest(s))
     {
-      crotchetTime += AddRest(m_lastTimeValToken, crotchetTime);
+      crotchetTime += GetCurrentStave().AddRest(m_lastTimeValToken, crotchetTime);
     }
     // NB Deferred rests not supported for now, I don't think there's much point.
     else if (IsDeferredTimeVal(s))
@@ -334,19 +377,19 @@ void MakeScore::AddTokens()
       }
       else
       {
-        crotchetTime = AddNote(crotchetTime);
+        crotchetTime = GetCurrentStave().AddNote(m_lastTimeValToken, m_lastPitch, crotchetTime);
       }
     }
     else if (s == "page-w")
     {
       i++;
-      float pageWidth = atof(strs[i].c_str());
+      float pageWidth = atof(tokens[i].c_str());
       SetPageWidth(pageWidth);
     }
     else if (s == "time")
     {
       i++;
-      crotchetTime = atof(strs[i].c_str());
+      crotchetTime = atof(tokens[i].c_str());
     }
     // FINAL ELSE
     else if (!isText)
@@ -356,45 +399,6 @@ void MakeScore::AddTokens()
       // ? return;
     }
 
-    // Text - add to string and check for final quote
-    if (isText)
-    {
-      if (!text.empty())
-      {
-        text += " ";
-      }
-      if (s.back() == TEXT_QUOTE_CLOSE)
-      {
-        text += s.substr(0, s.size() - 1);
-        AddText(text);
-        isText = false;
-        text.clear();
-      }
-      else
-      {
-        text += s;
-      }
-    }
-  }
-}
-
-void MakeScore::Attach(Attachment* t, int leftOrRight)
-{
-  auto& b = m_bars.back();
-  auto& g = b->GetGlyphs();
-  if (g.empty())
-  {
-    // Try prev bar
-    if (m_bars.size() > 1)
-    {
-      auto& b = m_bars[m_bars.size() - 2];
-      auto& g = b->GetGlyphs();
-      t->SetParent(g.back().get(), leftOrRight);
-    }
-  }
-  else
-  {
-    t->SetParent(g.back().get(), leftOrRight);
   }
 }
 
@@ -405,7 +409,7 @@ void MakeScore::AddDirection(const std::string& s)
   t->SetScale(m_scale);
 
   // Attach to most reccent glyph if there is one
-  Attach(t);
+  GetCurrentStave().Attach(t);
 
   // Use width to offset x. Set y - 0.5, which is below the stave.
   float w = 1.f;
@@ -432,154 +436,43 @@ void MakeScore::AddText(const std::string& s)
   t->SetPos(0, m_y + Y_ABOVE);
 
   // Attach to most reccent glyph if there is one
-  Attach(t);
+  GetCurrentStave().Attach(t);
 
   m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(t));
 }
 
-void MakeScore::AddKeySig(const std::string& s)
+void MakeScore::AddStave()
 {
-  KeySig ks = GetKeySig(s);
-  ks = TransposeKeySig(ks, m_transpose);
-  m_bars.back()->SetKeySig(ks);
-}
-
-void MakeScore::AddClef(const std::string& s)
-{
-  // NB Bar already has Current stave number
-  
-  m_bars.back()->SetClef(GetClef(s));
-}
-
-float MakeScore::AddRest(const std::string& s, float crotchetTime)
-{
-  return m_bars.back()->AddRest(s, m_switches[m_stave], crotchetTime);
-}
-
-float MakeScore::AddChord(const Chord& chord, float crotchetTime)
-{
-  float newCrotchetTime = m_bars.back()->AddChord(
-    chord, m_switches[m_stave],
-    crotchetTime);
-
-  // TODO Tied chords!
-
-  return newCrotchetTime;
-}
-
-float MakeScore::AddNote(float crotchetTime)
-{
-  float newCrotchetTime = m_bars.back()->AddNote(
-    m_lastTimeValToken, m_lastPitch, m_switches[m_stave],
-    crotchetTime);
-
-  // If last tie has no right connection, connect it now to the
-  //  glyph we just added.
-  if (!m_ties.empty())
+  float h = 0;
+  if (!m_staves.empty())
   {
-    Tie* tie = m_ties.back().get();
-    if (!tie->IsRhsSet())
-    {
-      assert(!m_bars.empty());
-      tie->SetRightGlyph(m_bars.back()->GetGlyphs().back().get());
-    }
+    h = m_staves.back()->GetHeight();
   }
-
-  return newCrotchetTime;
-}
-
-void MakeScore::AddTie()
-{
-  // Set bar and position of the left glyph of the tie
-  if (m_bars.empty())
-  {
-    std::cout << "// *** Error, no left glyph for tie to refer to.\n";
-    return;
-  }
-
-  Tie* tie = new Tie;
-  tie->SetLeftGlyph(m_bars.back()->GetGlyphs().back().get());
-
-  tie->SetScale(m_scale);
-
-  m_ties.push_back(std::unique_ptr<Tie>(tie));
+  auto stave = std::make_unique<Stave>();
+  stave->SetScale(m_scale);
+  stave->SetPos(0, h); // TODO Plus y-offset?
+  m_staves.emplace_back(std::move(stave));
 }
 
 void MakeScore::MakeInternal()
 {
-  // TODO Don't add default bar, instead add bars on demand when we add
-  //  glyphs
-
-  // Add first default bar
-  Bar* bar = new Bar;
-  bar->SetIsFirstBarOfLine(true); // first bar
-  bar->SetStaveType(m_staveType);
-  bar->SetScale(m_scale);
-  m_bars.push_back(std::unique_ptr<Bar>(bar));
+  // Tokenise, preprocess, deal with global settings in the input,
+  //  so later parsing only deals with music notation, not page/style stuff.
+  auto tokens = Tokenise();
+  PreprocessTokens(tokens);
+  ParseGlobalSettings(tokens); // TODO
 
   // Tokenise input string and add each token to internal representation.
-  AddTokens();
+  // At this stage the only tokens should be music notation, not settings.
+  Parse(tokens);
 
-  CalcBarSizesAndPositions();
-
-  CalcStartTimes();
+  for (auto& stave : m_staves)
+  {
+    stave->CalcBarSizesAndPositions();
+    stave->CalcStartTimes();
+  }
 
   ToStringInternal();
-}
-
-void MakeScore::CalcStartTimes()
-{
-  // First, get the total time duration for all bars.
-  // Then normalise, and acculumate time values of all glyphs to set the
-  //  starting time of each one.
-
-  TimeValue totalDuration = 0; // units are crotchets
-  for (auto& bar : m_bars)
-  {
-    totalDuration += bar->GetDuration();
-  }
-
-  // Use totalDuration to normalise start time and duration of each glyph
-  for (auto& bar : m_bars)
-  {
-    bar->CalcNormalisedTimes(totalDuration);  
-  }
-}
-
-void MakeScore::CalcBarSizesAndPositions()
-{
-  // Now loop over the bars. From the number of glyphs in each bar,
-  //  work out the relative width of each bar.
-  // For now, assume only one line.
-  int totalNumGlyphs = 0;
-  for (auto& bar : m_bars)
-  {
-    float w = bar->GetRelativeWidth();
-    totalNumGlyphs += static_cast<int>(w); // TODO use floats throughout
-  }
-
-  // Bar calculates its width as fraction of s_pageWidth 
-  for (auto& bar : m_bars)
-  {
-    bar->CalcWidth(totalNumGlyphs, m_pageWidth);
-  }
-
-  // Set (left, bottom) position of each bar
-  float x = 0;
-  float y = m_y;
-
-  for (auto& bar : m_bars)
-  {
-    bar->SetPos(x, y);
-    x += bar->GetWidth();
-  }
-
-  // Set left and right positions of ties
-  for (auto& tie : m_ties) 
-  {
-    // Look up positions of glyphs the tie connects
-    tie->CalcPos(); 
-  }
 }
 
 std::string MakeScore::ToString()
@@ -596,21 +489,13 @@ void MakeScore::ToStringInternal()
 {
   std::string res;
 
-  // First, output a stave. For rhythm only, it's a single line.
-  // TODO Multiple lines 
-
-  res += GetStaveString(m_staveType, 0, m_y, m_pageWidth, m_scale);
-  res += LineEnd(m_outputOnOneLine);
-
-  for (const auto& b : m_bars)
+  float accumStaveY = 0;
+  for (auto& stave : m_staves)
   {
-    res += b->ToString();
-  }
-
-  for (const auto& t : m_ties)
-  {
-    res += t->ToString();
-    res += LineEnd(m_outputOnOneLine);
+    stave->SetScale(m_pageWidth, m_scale);
+    stave->SetPos(0, m_y + accumStaveY);
+    res += stave->ToString();
+    accumStaveY += stave->GetHeight();
   }
 
   for (const auto& g : m_otherGlyphs)
@@ -620,44 +505,9 @@ void MakeScore::ToStringInternal()
   }
 
   // Output every beat, with its normalized time.   
-  res += OutputBeats(); // TODO turn off if not required
+  // Only need to do it for one stave.
+  res += m_staves.back()->OutputBeats(); // TODO turn off if not required
 
   m_outputLines = Split(res, '\n');
-}
-
-std::string MakeScore::OutputBeats() const
-{
-  // Output every beat in each bar with its time marker
-  // (TODO I think this might be overkill for what we need)
-  int totalNumBeats = 0;
-  for (const auto& b : m_bars)
-  {
-    auto [ numBeats, _ ] = GetNumBeatsAndCrotchetValue(b->GetTimeSig());
-    totalNumBeats += numBeats;
-  }
-  // Calc duration of one beat
-  const float d = 1.f / static_cast<float>(totalNumBeats);
-  float t = 0;
-  // Output the beats
-  std::string res;
-  // Output beats with bar (one based) and beat number (one based)
-  int bar = 1;
-  for (const auto& b : m_bars)
-  {
-    auto [ numBeats, _ ] = GetNumBeatsAndCrotchetValue(b->GetTimeSig());
-    for (int i = 1; i <= numBeats; i++)
-    {
-      res += "TIME, " + Str(t) + LineEnd(); // one-value TIME variant
-      t += d;
-      res += "BEAT, " + std::to_string(bar) + ", " + std::to_string(i) + LineEnd();
-    }
-    bar++;
-  }
-  return res;
-}
-
-int MakeScore::NumBars() const
-{
-  return static_cast<int>(m_bars.size());
 }
 

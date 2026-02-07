@@ -33,7 +33,7 @@ std::string Tie::ToString() const
   // Inner control points: centre, and one near each end to give
   //  desired shape.
 
-  bool stemUp = (m_leftGlyph->m_staveLine < 5);
+  bool stemUp = (m_leftGlyph->GetStaveLine() < 5);
 
   bool curveIsU = stemUp;
   float y = m_leftGlyph->y;  // same as right side -- RIGHT?!

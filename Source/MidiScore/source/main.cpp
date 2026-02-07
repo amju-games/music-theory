@@ -17,8 +17,17 @@ int main(int argc, char** argv) {
   Options options;
   options.process(argc, argv);
   MidiFile midifile;
-  if (options.getArgCount() == 0) midifile.read(cin);
-  else midifile.read(options.getArg(1));
+  if (options.getArgCount() == 0) 
+  {
+    std::cout << R"(
+midiscore - convert midi file to juliet compact notation.
+Usage:
+  midiscore <midifile>
+)";
+    return 0;
+  }
+
+  midifile.read(options.getArg(1));
 
   std::cout << MidiScore::ToString(midifile);
 

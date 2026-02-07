@@ -104,7 +104,6 @@ std::string OutputEvents(const Events& events)
     res += OutputEvent(prevDuration, events[i]);
     res += " ";
   }
-  res += "\n";
   return res;
 }
 
@@ -158,15 +157,17 @@ std::string ToString(smf::MidiFile& midifile)
   // E.g. create dynamics markers
 
   // 2nd pass: Un-join tracks and output each track -- TODO as a separate stave  
-//  midifile.splitTracks();
+  midifile.splitTracks();
   int tracks = midifile.getTrackCount();
   
   for (int track = 0; track < tracks; track++) 
   {
     Events events = GetEventsFromTrack(tpq, midifile[track]);
-    res += OutputTrack(tpq, events, ts, ks);
+    if (events.empty()) continue;
+    res += "stave " + OutputTrack(tpq, events, ts, ks);
   }
 
+  res += "\n";
   return res;
 }
 }
