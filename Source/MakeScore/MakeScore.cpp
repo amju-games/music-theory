@@ -447,11 +447,11 @@ void MakeScore::AddStave()
   float h = 0;
   if (!m_staves.empty())
   {
-    h = m_staves.back()->GetHeight();
+    h -= m_staves.back()->GetHeight();
   }
   auto stave = std::make_unique<Stave>();
   stave->SetScale(m_pageWidth, m_scale);
-  stave->SetPos(0, h); // TODO Plus y-offset?
+  stave->SetPos(0, h); 
   m_staves.emplace_back(std::move(stave));
 }
 
@@ -490,13 +490,9 @@ void MakeScore::ToStringInternal()
 {
   std::string res;
 
-  float accumStaveY = 0;
-  for (auto& stave : m_staves)
+  for (const auto& stave : m_staves)
   {
-    stave->SetScale(m_pageWidth, m_scale);
-    stave->SetPos(0, m_y + accumStaveY);
     res += stave->ToString();
-    accumStaveY += stave->GetHeight();
   }
 
   for (const auto& g : m_otherGlyphs)

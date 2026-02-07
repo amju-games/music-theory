@@ -256,8 +256,8 @@ void Stave::AddTimeSig(const std::string& s)
 
 void Stave::Attach(Attachment* t, int leftOrRight)
 {
-  auto& b = m_bars.back();
-  auto& g = b->GetGlyphs();
+  auto& b = GetCurrentBar();
+  auto& g = b.GetGlyphs();
   if (g.empty())
   {
     // Try prev bar
