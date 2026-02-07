@@ -108,6 +108,7 @@ std::string ChordGlyph::ToString() const
     // Set x coord of note to x coord of this chord (and it may be offset
     //  to avoid overlaps.)
     noteGlyph->x = this->x;
+    noteGlyph->y += this->y - DEFAULT_HEIGHT; // add vertical offset, for multiple staves
     res += noteGlyph->ToString();
   }
 

@@ -10,7 +10,7 @@ pushd ../../../Assets/Gui
 cp scoretest.txt scoretest_temp.txt
 popd
 
-../makescore --scale 0.5 "page-w 4 [Chords] ( e4 f4 g4 a4 b4 c5 ) ( e4+ g4+ a4+ ) ( e4+ f4+ a4- ) ( e4+ f4- g4+ a4- ) ( <c> e5 f5+ g5+ ) ( g3 b3 ) ( <sb> c4 <c> e4 <m> g4 ) <c> ( f4 a4 <m> c5 )" > out.txt
+../makescore --scale 0.5 "page-w 4 [Chords] ( e4 f4 g4 a4 b4 c5 ) ( e4+ g4+ a4+ ) ( e4+ f4+ a4- ) ( e4+ f4- g4+ a4- ) ( <c> e5 f5+ g5+ ) ( g3 b3 ) ( <sb> c4 <c> e4 <m> g4 ) <c> ( f4 a4 <m> c5 ) | stave <m> 72 ( c4 e4 g4 ) ( d4 f4+ a4 ) ( e4 g4+ b4 )" > out.txt
 
 # Append output to boilerplate
 cat out.txt >> ../../../Assets/Gui/scoretest_temp.txt
