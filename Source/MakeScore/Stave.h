@@ -79,7 +79,7 @@ private:
   // Ordered sequence of bars in the score.
   std::vector<std::unique_ptr<Bar>> m_bars;
 
-  StaveType m_type = StaveType::STAVE_TYPE_PERCUSSION;
+  StaveType m_type = StaveType::STAVE_TYPE_STANDARD;
 
   // Height -- ratchets up as notes on ledger lines are added
   float m_h;
