@@ -11,10 +11,16 @@
 #include "Tie.h"
 #include "Utils.h"
 
-// TODO Just to get this to build
-static float GetPageWidth()
+float Stave::s_pageWidth = DEFAULT_PAGE_WIDTH;
+
+void Stave::SetPageWidth(float pageWidth)
 {
-  return 20.f; // TODO 
+  s_pageWidth = pageWidth;
+}
+
+float Stave::GetPageWidth()
+{
+  return s_pageWidth;
 }
 
 float Stave::GetHeight() const

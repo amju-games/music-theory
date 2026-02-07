@@ -385,6 +385,7 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
       i++;
       float pageWidth = atof(tokens[i].c_str());
       SetPageWidth(pageWidth);
+      Stave::SetPageWidth(pageWidth);
     }
     else if (s == "time")
     {
@@ -449,7 +450,7 @@ void MakeScore::AddStave()
     h = m_staves.back()->GetHeight();
   }
   auto stave = std::make_unique<Stave>();
-  stave->SetScale(m_scale);
+  stave->SetScale(m_pageWidth, m_scale);
   stave->SetPos(0, h); // TODO Plus y-offset?
   m_staves.emplace_back(std::move(stave));
 }

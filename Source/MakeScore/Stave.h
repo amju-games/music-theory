@@ -34,6 +34,9 @@ struct Tie;
 class Stave : public IGlyph
 {
 public:
+  static void SetPageWidth(float);
+  static float GetPageWidth();
+
   void SetType(StaveType); 
 
   // Get height of this stave, including all notes on the stave. So any note
@@ -93,5 +96,7 @@ private:
   int m_switches = 0;
 
   int m_transpose = 0; // transposition, in semitones
+
+  static float s_pageWidth;
 };
 
