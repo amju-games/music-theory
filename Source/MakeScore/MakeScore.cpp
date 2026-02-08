@@ -536,15 +536,11 @@ std::string MakeScore::BarLinesToString()
   //  the same width.)
   // +ve y is UP
 
-  // TODO Same offset that we have to add to stems. 
-  // Perhaps all quads are off by this in y, because...  glyphs have it
-  //  added somewhere, perhaps???
-  const float YOFF = 0.475f; // WHYYYYY
-
-  // top of top stave
-  float maxY = YOFF + m_staves.front()->GetY() + 4 * STAVE_LINE_GAP; 
-  // bottom of bottom stave.
-  float minY = YOFF + m_staves.back()->GetY(); 
+  // We have to add QUAD_Y_OFFSET to quad y-coords.
+  // Top of top stave
+  float maxY = QUAD_Y_OFFSET + m_staves.front()->GetY() + 4 * STAVE_LINE_GAP; 
+  // Bottom of bottom stave.
+  float minY = QUAD_Y_OFFSET + m_staves.back()->GetY(); 
 
   const int numBars = m_staves.front()->GetNumBars();
   for (int i = 0; i < numBars; i++)

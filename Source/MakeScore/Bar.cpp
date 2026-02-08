@@ -284,7 +284,7 @@ std::string Bar::ToString()
     if (YesShowClefAtFrontOfBar()) // always true if showing key sig?
     {
       // offset to avoid clef, should be done by accumulating x pos
-      x = 0.45f; // TODO TEMP TEST
+      x = CLEF_WIDTH;
     }
     float y = m_y;
     res += GetKeySigOutputString(m_keySig, m_currentClef, x, y, m_scale) + 
@@ -409,7 +409,6 @@ void Bar::SetPos(float x, float y)
   if (YesShowClefAtFrontOfBar())
   {
     // Need space for clef, so shunt everything right
-    const float CLEF_WIDTH = 0.45f; // ?
     float clefW = CLEF_WIDTH;
 
     // Also we must be outputting key sig

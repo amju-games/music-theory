@@ -6,6 +6,10 @@
 
 #pragma once
 
+// Quads have an offset in y, so they line up with glyphs as expected.
+// So we have to add this offset to quad y-coords.
+static const float QUAD_Y_OFFSET = 0.475f;
+
 // Width of crotchet/minim note head.
 // Used to place stems and arrange clashing note heads in chords.
 static const float NOTE_HEAD_WIDTH = 0.2f;
@@ -36,6 +40,9 @@ static const float STEM_W  = 0.022f;
 
 // Standard stem height for a single note
 static const float DEFAULT_STEM_H  = 3.25f; // in units of stave line gaps
+
+// Width of every clef
+static const float CLEF_WIDTH = 0.45f;
 
 // Barline width for a standard bar line
 static const float BAR_LINE_WIDTH = 0.03f;

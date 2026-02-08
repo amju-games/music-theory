@@ -32,7 +32,8 @@ Quad Stem::MakeQuad() const
   // Add on height of stem above or below note(s)
   h += m_length * STAVE_LINE_GAP;
 
-  float yOff = y + 0.475f; // Somewhere there is a fudge factor of 0.5, sigh.
+  float yOff = y + QUAD_Y_OFFSET; 
+  // quad y-ccords need to add this offset to line up with glyphs
 
   if (m_direction == Direction::UP)
   {
