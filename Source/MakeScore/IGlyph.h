@@ -51,8 +51,7 @@ struct IGlyph
   } 
 
   float x = 0;
-  // Default height is on single middle stave line for rhythm
-  float y = DEFAULT_HEIGHT;
+  float y = 0;
   float scaleX = 1.0f;
   float scaleY = 1.0f;
 

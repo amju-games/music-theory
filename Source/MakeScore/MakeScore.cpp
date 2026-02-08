@@ -431,7 +431,7 @@ void MakeScore::AddDirection(const std::string& s)
   const float DIRECTION_WIDTH_MULT = 0.15f;
   w *= DIRECTION_WIDTH_MULT;
   // Offset x by half width so we centre the glyph horizontally
-  t->SetPos(w * -0.5f, m_y - DEFAULT_HEIGHT);
+  t->SetPos(w * -0.5f, m_y);
 
   m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(t));
 }

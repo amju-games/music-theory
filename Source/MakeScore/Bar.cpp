@@ -266,38 +266,29 @@ std::string Bar::ToString()
 
   bool yesComments = (GetSuppressFlags() & META_COMMENT) == 0;
 
-  int numStaves = 1; // TODO 
-
   // Clef for each stave, if first bar of line, and single or double
   //  stave - not if no stave or just rhythm line
   if (YesShowClefAtFrontOfBar())
   {
-    for (int s = 0; s < numStaves; s++)
-    {
-      float x = 0;
-      float y = m_y; 
+    float x = 0;
+    float y = m_y; 
 
-      y += s * DOUBLE_STAVE_DISTANCE;
-      res += GetClefOutputString(m_currentClef, s, x, y, m_scale) + 
-        LineEnd();
-    }
+    res += GetClefOutputString(m_currentClef, x, y, m_scale) + 
+      LineEnd();
   }
 
   // Key sig
   if (m_isFirstBarOfLine)
   {
-    for (int s = 0; s < numStaves; s++)
+    float x = 0;
+    if (YesShowClefAtFrontOfBar()) // always true if showing key sig?
     {
-      float x = 0;
-      if (YesShowClefAtFrontOfBar()) // always true if showing key sig?
-      {
-        x = 0.45f; // TODO TEMP TEST
-      }
-      float y = m_y;
-      y += s * DOUBLE_STAVE_DISTANCE;
-      res += GetKeySigOutputString(m_keySig, m_currentClef, s, x, y, m_scale) + 
-        LineEnd();
+      // offset to avoid clef, should be done by accumulating x pos
+      x = 0.45f; // TODO TEMP TEST
     }
+    float y = m_y;
+    res += GetKeySigOutputString(m_keySig, m_currentClef, x, y, m_scale) + 
+      LineEnd();
   }  
 
   // Optional time sig

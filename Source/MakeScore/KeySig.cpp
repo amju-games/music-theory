@@ -63,7 +63,7 @@ KeySig GetKeySig(const std::string& s)
 }
 
 std::string GetKeySigOutputString(KeySig ks, Clef clef, 
-  int staveNumber, float x, float y, float scale)
+  float x, float y, float scale)
 {
   if (ks == KEYSIG_0_SHARP || ks == KEYSIG_0_FLAT)
   {

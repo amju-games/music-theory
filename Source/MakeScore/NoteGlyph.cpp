@@ -446,12 +446,12 @@ std::string NoteGlyph::StemString() const
   // Output stem
   const_cast<Stem&>(m_stem).SetScale(GetScaleX(), GetScaleY());
   // Urgh, we want the vertical offset for this stave, but we don't want
-  //  the note head position (added in CalcY), because the stem is not
-  //  drawn using the note head position.
+  //  the note head position (added in CalcY), because we would then be
+  //  adding the note head position to the y-coord twice.
   // So remove the note head component of the y coord. What a mess,
   //  TODO fix this travesty. 
   float awfulHackY = y - 
-    static_cast<float>(m_staveLine) * STAVE_LINE_GAP * .5f + DEFAULT_HEIGHT;
+    static_cast<float>(m_staveLine) * STAVE_LINE_GAP * .5f;
 
   const_cast<Stem&>(m_stem).SetPos(GetX(), awfulHackY);
 

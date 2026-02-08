@@ -44,7 +44,8 @@ std::string Stave::ToString() const
     break;
 
   case StaveType::STAVE_TYPE_PERCUSSION:
-    res += "stave-line, " + Str(x) + ", " + Str(DEFAULT_HEIGHT + y) + 
+    // TODO Percussion stave line for this and for notes
+    res += "stave-line, " + Str(x) + ", " + Str(y) + 
       AddScaleStringIfRequired() + LineEnd();
     break;
 
@@ -273,5 +274,4 @@ void Stave::Attach(Attachment* t, int leftOrRight)
     t->SetParent(g.back().get(), leftOrRight);
   }
 }
-
 

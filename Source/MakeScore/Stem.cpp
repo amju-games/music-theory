@@ -32,7 +32,7 @@ Quad Stem::MakeQuad() const
   // Add on height of stem above or below note(s)
   h += m_length * STAVE_LINE_GAP;
 
-  float yOff = y - DEFAULT_HEIGHT + 0.475f; // Somewhere there is a fudge factor of 0.5, sigh.
+  float yOff = y + 0.475f; // Somewhere there is a fudge factor of 0.5, sigh.
 
   if (m_direction == Direction::UP)
   {

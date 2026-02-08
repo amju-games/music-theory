@@ -39,13 +39,13 @@ static const float DEFAULT_STEM_H  = 3.25f; // in units of stave line gaps
 
 static const int DEFAULT_PITCH = 69; // default pitch = A above middle C
 
+// Used to position ends of curves, beams and flags
 static const float X_OFFSET_RIGHT = 0.25f;
 
+// If no page width is specified
 static const float DEFAULT_PAGE_WIDTH = 4.0f;
 
-// Height of stave line and glyphs on it, relative to bottom of bar lines.
-static const float DEFAULT_HEIGHT = 0.2f;
-
+// If no scale specified
 static const float DEFAULT_SCALE = 1.0f;
 
 // For double stave layout, this is the distance between the top stave line in

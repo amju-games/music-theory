@@ -37,16 +37,11 @@ bool IsKeySig(const std::string& s);
 // Return key sig type from input token.
 KeySig GetKeySig(const std::string& s);
 
-// Generate output string for the given key sig, for the given clef, on 
-//  the stave numbered from 0 and going down the page. 
-// So for a single stave, staveNumber is 
-//  zero. For the lower stave of a double-stave score (e.g. piano music), 
-//  staveNumber is 1, etc.
+// Generate output string for the given key sig, for the given clef.
 // x, y, scale are position and scale of owning Bar.
 std::string GetKeySigOutputString(
   KeySig ks, 
   Clef clef, 
-  int staveNumber, 
   float x, float y, float scale);
 
 // Return new key sig, which is original key sig, tranposed by 
