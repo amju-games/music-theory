@@ -37,6 +37,9 @@ static const float STEM_W  = 0.022f;
 // Standard stem height for a single note
 static const float DEFAULT_STEM_H  = 3.25f; // in units of stave line gaps
 
+// Barline width for a standard bar line
+static const float BAR_LINE_WIDTH = 0.03f;
+
 static const int DEFAULT_PITCH = 69; // default pitch = A above middle C
 
 // Used to position ends of curves, beams and flags

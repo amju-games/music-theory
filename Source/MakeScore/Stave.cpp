@@ -96,6 +96,16 @@ void Stave::AddFirstBar()
   m_bars.push_back(std::unique_ptr<Bar>(bar));
 }
 
+int Stave::GetNumBars() const
+{
+  return static_cast<int>(m_bars.size());
+}
+
+const Bar& Stave::GetBar(int i) const
+{
+  return *(m_bars[i]);
+}
+
 std::string Stave::OutputBeats() const
 {
   // Output every beat in each bar with its time marker

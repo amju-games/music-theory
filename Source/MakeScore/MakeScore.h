@@ -78,6 +78,9 @@ public:
 private:
   void ToStringInternal(); // Populate m_outputStrings
 
+  // Output bar lines
+  std::string BarLinesToString();
+
   bool IsHairpin(const std::string& s);
 
   bool IsSlur(const std::string& s);

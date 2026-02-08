@@ -32,6 +32,9 @@ public:
 
   void SetIsFirstBarOfLine(bool first) { m_isFirstBarOfLine = first; }
 
+  // Get x-coord for bar line at the end of this bar.
+  float GetBarLineX() const;
+
   void SetTimeSig(TimeSig ts);
 
   TimeSig GetTimeSig() const;

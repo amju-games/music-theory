@@ -32,7 +32,9 @@
 #include "MakeScore.h"
 #include "Pitch.h"
 #include "Performance.h"
+#include "Quad.h"
 #include "RestGlyph.h"
+#include "Suppress.h"
 #include "TimeSig.h"
 #include "TimeValue.h"
 #include "Utils.h"
@@ -504,6 +506,8 @@ void MakeScore::ToStringInternal()
     res += stave->ToString();
   }
 
+  res += BarLinesToString();
+
   for (const auto& g : m_otherGlyphs)
   {
     res += g->ToString();
@@ -518,5 +522,46 @@ void MakeScore::ToStringInternal()
   }
 
   m_outputLines = Split(res, '\n');
+}
+
+std::string MakeScore::BarLinesToString()
+{
+  std::string res;
+  if (m_staves.empty()) return "";
+
+  const bool yesComments = (GetSuppressFlags() & META_COMMENT) == 0;
+
+  // Draw quads through all staves. Use stave 0 for all bar widths and
+  //  bar line types. (Vertically aligned bars on all staves should have
+  //  the same width.)
+  // +ve y is UP
+
+  // TODO Same offset that we have to add to stems. 
+  // Perhaps all quads are off by this in y, because...  glyphs have it
+  //  added somewhere, perhaps???
+  const float YOFF = 0.475f; // WHYYYYY
+
+  // top of top stave
+  float maxY = YOFF + m_staves.front()->GetY() + 4 * STAVE_LINE_GAP; 
+  // bottom of bottom stave.
+  float minY = YOFF + m_staves.back()->GetY(); 
+
+  const int numBars = m_staves.front()->GetNumBars();
+  for (int i = 0; i < numBars; i++)
+  {
+    const float x = m_staves.front()->GetBar(i).GetBarLineX();
+
+    if (yesComments)
+      res += "// Bar line " + std::to_string(i) + LineEnd(); 
+
+    // Quad(float xmin, float ymin, float xmax, float ymax);
+    Quad q(
+      (x - BAR_LINE_WIDTH) * m_scale, 
+       minY * m_scale,
+       x * m_scale, 
+       maxY * m_scale);
+    res += q.ToString() + LineEnd();
+  } 
+  return res;
 }
 

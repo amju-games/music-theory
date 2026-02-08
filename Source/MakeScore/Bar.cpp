@@ -328,20 +328,6 @@ std::string Bar::ToString()
     res += b->ToString() + LineEnd();
   }
 
-  // Bar lines: just at the end of the bar, right?
-  // Unless a repeat etc is specified.
-  /*
-  res +=
-    "bar-line, " + Str(m_x) + ", " + Str(m_y) +
-    ", " + Str(m_scale) + ", " + Str(m_scale) +
-    LineEnd(oneLine);
-  */
-
-  res +=
-    "bar-line, " + Str(m_x + m_width) + ", " + Str(m_y) +
-    ", " + Str(m_scale) + ", " + Str(m_scale) +
-    LineEnd();
-
   return res;
 }
 
@@ -481,5 +467,10 @@ void Bar::SetPos(float x, float y)
     b->xmax = x + w * static_cast<float>(b->right) + xoff + xfudge;
     b->y += y;
   }
+}
+
+float Bar::GetBarLineX() const
+{
+  return m_x + m_width;
 }
 

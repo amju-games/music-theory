@@ -57,6 +57,8 @@ public:
 
   void AddBar();
   void AddFirstBar();
+  int GetNumBars() const;
+  const Bar& GetBar(int i) const;
 
   void AddTie();
 
