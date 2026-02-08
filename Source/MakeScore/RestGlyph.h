@@ -21,11 +21,10 @@ bool IsDeferredRest(const std::string& token);
 class RestGlyph : public Glyph
 {
 public:
-  RestGlyph() = default;
+  RestGlyph();
 
   // Construct glyph from inpupt token and position in bar.
-  RestGlyph(const std::string& inputToken, int order) :
-    Glyph(inputToken, order) {}
+  RestGlyph(const std::string& inputToken, int order);
 
   // Generate TIME special glyphs (for animation - we do want to highlight rests,
   //  but not generate MIDI events.)
@@ -37,6 +36,5 @@ public:
   std::string CommentString() const override;
 
   // Use input token and state to generate output text for this glyph.
-  // TODO Doesn't need param and can set displayGlyphName directly
   std::string GetGlyphOutputStr() const;
 };

@@ -18,6 +18,23 @@ bool IsDeferredRest(const std::string& token)
   return token == "<r>";
 }
 
+RestGlyph::RestGlyph()
+{
+  // Set y: the default position is the middle of the stave, i.e.
+  //  stave line 4 (counting spaces too, from 0 at bottom).
+  y = STAVE_LINE_GAP * 2;
+
+  // It would be nice to allow immediate rests to have an optional
+  //  stave line param, e.g. `r 8` would position the rest on the top
+  //  stave line.
+}
+
+RestGlyph::RestGlyph(const std::string& inputToken, int order) :
+  Glyph(inputToken, order)
+{
+  y = STAVE_LINE_GAP * 2; // see above
+}
+
 std::string RestGlyph::CommentString() const
 {
   return "// Rest, value: " + m_times.GetTimeToken() + LineEnd();
@@ -78,24 +95,15 @@ std::string RestGlyph::TimeAfter() const
 
 std::string RestGlyph::ToString() const
 {
-  // If we haven't yet created the output text, do it now
-  if (displayGlyphName.empty())
-  {
-    // Argh, cast away constness
-    const_cast<std::string&>(displayGlyphName) = GetGlyphOutputStr();
-  }
-
-  // Add special glyphs for timing before and after - this is
-  //  for animation and MIDI events. 
   std::string res;
 
+  // Add meta data for timing before and after - this is
+  //  for animation and MIDI events. 
   res += TimeBefore();
 
-  res += displayGlyphName + ", " + CoordString() +
+  res += GetGlyphOutputStr() + ", " + CoordString() +
     AddScaleStringIfRequired() + LineEnd();
 
-  // Output dot -- factor it out of NoteGlyph? Although here we don't care
-  //  about semibreve width
   if (m_times.IsDotted())
   {
     // TODO These output strings should be Consts.
