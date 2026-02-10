@@ -350,7 +350,8 @@ bool Bar::YesShowClefAtFrontOfBar() const
 
 float Bar::GetRelativeWidth() const
 {
-  float w = static_cast<float>(m_glyphs.size());
+  auto [ numBeats, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
+  float w = static_cast<float>(numBeats);
   if (YesShowClefAtFrontOfBar())
   {
     w += 1; // clef
@@ -364,20 +365,17 @@ float Bar::GetRelativeWidth() const
   return w;
 }
 
-void Bar::CalcWidth(int totalNumGlyphs, float pageWidth)
+void Bar::CalcWidth(int totalNumBeats, float pageWidth)
 {
   float relW = GetRelativeWidth();
 
-  if (totalNumGlyphs == 0)
-  {
-    std::cout << "Div by zero! Total num glyphs == 0!\n";
-  }
   if (m_scale == 0)
   {
     std::cout << "Div by zero! m_scale == 0!\n";
   }
 
-  m_width = relW / static_cast<float>(totalNumGlyphs) * pageWidth / m_scale;
+  // This should be total num BEATS
+  m_width = relW / static_cast<float>(totalNumBeats) * pageWidth / m_scale;
 }
 
 float Bar::GetWidth() const
@@ -409,8 +407,6 @@ void Bar::SetPos(float x, float y)
   m_x = x; // Remember for bar lines
   m_y = y;
 
-  float numGlyphs = static_cast<float>(m_glyphs.size());
-
   // w is the width between glyphs
   float w = 0;
 
@@ -436,7 +432,6 @@ void Bar::SetPos(float x, float y)
 
   if (m_timeSigGlyph)
   {
-    const float TIME_SIG_WIDTH = 0.3f; 
     reduction += TIME_SIG_WIDTH;
     m_timeSigGlyph->SetPos(x, m_timeSigGlyph->GetY() + y);
     x += TIME_SIG_WIDTH;
@@ -446,19 +441,28 @@ void Bar::SetPos(float x, float y)
   //  from last glyph to right bar line.
   // 'Edge' is the left bar line, OR right side of clef, keysig, timesig,
   //   whichever is most to the right.
-  float xoff = (m_width - reduction) / (numGlyphs + 1.0f);
+  auto [ numBeats, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
+  float xoff = (m_width - reduction) / (numBeats + 1.0f);
 
-  // Reduce total width, and divide this by the number of glyphs to get 
-  //  the distance between each glyph.
-  if (numGlyphs > 1)
+  // Reduce total width, and divide this by the number of beats to get 
+  //  the distance between each beat.
+  // x-coord is time (in beats - bar start time in beats) * beat width.
+  // TODO Should we use timeMult here?
+  if (numBeats > 1)
   {
-    w = (m_width - reduction - 2 * xoff) / (numGlyphs - 1.0f);
+    w = (m_width - reduction - 2 * xoff) / (numBeats - 1.0f);
   }
   else
   {
     w = (m_width - reduction - 2 * xoff);
   }
 
+  // OK to get time val of 0th glyph as start time of bar?
+  TimeValue barStartTime  = 0;
+  if (!m_glyphs.empty())
+  { 
+    barStartTime = m_glyphs.front()->GetTimes().GetStartTimeValue();
+  }
   // Set coord of each glyph
   // Compensate for glyph width, move to the left a bit
   // TODO depends on glyph type?, e.g. semibreve is slightly wider.
@@ -466,9 +470,14 @@ void Bar::SetPos(float x, float y)
 
   for (auto& g : m_glyphs)
   {
+    // Bar coord is (x, y), we offset by the position we calculate in x,
+    //  and by the glyph's own y-offset offset in y.
+    TimeValue glyphTimeInBar = g->GetTimes().GetStartTimeValue() - 
+      barStartTime;
+    float xPosInBar = w * glyphTimeInBar + xoff + xfudge;
     g->SetPos(
-      x + w * static_cast<float>(g->order) + xoff + xfudge,
-      g->GetY() + y);
+      xPosInBar + x,  // position within bar + pos of bar in x
+      g->GetY() + y); // y-coord of glyph + pos of bar in y
   }
 
   // Set position of beam left and right ends

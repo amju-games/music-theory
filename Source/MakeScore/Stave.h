@@ -59,6 +59,7 @@ public:
   void AddFirstBar();
   int GetNumBars() const;
   const Bar& GetBar(int i) const;
+  Bar& GetCurrentBar();
 
   void AddTie();
 
@@ -78,7 +79,7 @@ public:
   void ClearPerformance(int performanceSwitch) {}
 
 private:
-  Bar& GetCurrentBar();
+  int GetTotalNumBeats() const;
 
 private:
   // Ordered sequence of bars in the score.

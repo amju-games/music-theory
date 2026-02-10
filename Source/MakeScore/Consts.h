@@ -49,6 +49,9 @@ static const float DEFAULT_STEM_H  = 3.25f; // in units of stave line gaps
 // Width of every clef
 static const float CLEF_WIDTH = 0.45f;
 
+// Width of key signatures, ignoring the possibility of weird, wide ones
+static const float TIME_SIG_WIDTH = 0.3f;
+
 // Barline width for a standard bar line
 static const float BAR_LINE_WIDTH = 0.03f;
 
