@@ -74,6 +74,13 @@ Bar& Stave::GetCurrentBar()
   {
     AddFirstBar();
   }
+
+  if (m_bars.back()->GetBarLine() != BarLine::BAR_LINE_NOT_SET)
+  {
+    // Last bar has got a bar line at the end, so we should add a new bar.
+    AddBar();
+  }
+
   return *(m_bars.back());
 }
 

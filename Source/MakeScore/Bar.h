@@ -23,6 +23,24 @@
 #include "TimeValue.h"
 #include "Utils.h"
 
+enum class BarLine
+{
+  BAR_LINE_NOT_SET,
+  BAR_LINE_SINGLE,
+  BAR_LINE_DOUBLE,
+  BAR_LINE_END,
+  BAR_LINE_REPEAT_START,
+  BAR_LINE_REPEAT_END
+};
+
+// Return true if given string is a bar line input token
+bool IsBarLine(const std::string&);
+
+// Convert given string to bar line type
+BarLine GetBarLine(const std::string&);
+
+// * Bar *
+// Holds glyphs for one bar on one stave
 class Bar
 {
 public:
@@ -34,6 +52,9 @@ public:
 
   // Get x-coord for bar line at the end of this bar.
   float GetBarLineX() const;
+
+  BarLine GetBarLine() const { return m_barLine; }
+  void SetBarLine(BarLine b) { m_barLine = b; }
 
   void SetTimeSig(TimeSig ts);
 
@@ -155,4 +176,7 @@ private:
   //  with ledger lines). We can use this so we don't repeat accidentals
   //  unnecessarily, know when to cancel, etc.
   std::map<int, Accidental> m_accidentals; 
+
+  BarLine m_barLine = BarLine::BAR_LINE_NOT_SET;
 };
+

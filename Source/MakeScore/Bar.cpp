@@ -12,6 +12,18 @@
 #include "Stem.h"
 #include "Suppress.h"
 
+bool IsBarLine(const std::string& s)
+{
+  return GetBarLine(s) != BarLine::BAR_LINE_NOT_SET;
+}
+
+BarLine GetBarLine(const std::string& s)
+{
+  if (s == "|") return BarLine::BAR_LINE_SINGLE;
+  if (s == "||") return BarLine::BAR_LINE_DOUBLE;
+  return BarLine::BAR_LINE_NOT_SET;
+}
+
 void Bar::CopyState(const Bar& b)
 {
   SetScale(b.m_scale);

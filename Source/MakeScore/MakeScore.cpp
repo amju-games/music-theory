@@ -297,9 +297,9 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
     { 
       AddStave();
     }
-    else if (s == "|")
+    else if (IsBarLine(s))
     {
-      GetCurrentStave().AddBar(); // TODO different bar lines
+      GetCurrentStave().GetCurrentBar().SetBarLine(GetBarLine(s));
     }
     else if (s == "t")
     {
