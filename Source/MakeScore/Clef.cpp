@@ -31,15 +31,18 @@ Clef GetClef(const std::string& s)
 
 std::string GetClefOutputString(Clef clef, float x, float y, float scale)
 {
-  std::string CLEF_OUTPUT_STR[4] = 
+  std::map<Clef, std::string> CLEF_OUTPUT = 
   {
-    "treble-clef",
-    "bass-clef",
-    "alto-clef",
-    "tenor-clef"
+    { Clef::CLEF_TREBLE, "treble-clef" },
+    { Clef::CLEF_BASS, "bass-clef" },
+    { Clef::CLEF_ALTO, "alto-clef" },
+    { Clef::CLEF_TENOR, "tenor-clef" },
   };
-  int c = static_cast<int>(clef);
-  return CLEF_OUTPUT_STR[c] + 
+  auto it = CLEF_OUTPUT.find(clef);
+  if (it == CLEF_OUTPUT.end())
+    return "";
+
+  return it->second + 
     ", " + Str(x) + ", " + Str(y) + 
     ", " + Str(scale) + ", " + Str(scale);
 }

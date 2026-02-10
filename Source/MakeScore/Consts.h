@@ -23,6 +23,11 @@ static const float ACCIDENTAL_X_OFFSET = 0.2f;
 // TODO although we might need another offset for double flats.
 static const float ACCIDENTAL_EXTRA_OFFSET = 0.15f;
 
+// On a single-line stave with percussion clef, notes go on the middle
+//  stave line, which is 4, numbered from 0 (bottom line) and including
+//  spaces.
+static const int PERCUSSION_STAVE_LINE = 4;
+
 // Don't start TIMEs etc at zero, to avoid notes etc being highlighted
 //  before animation starts. So min time is this value, not zero.
 static const float MIN_START_TIME = 0.0001f;

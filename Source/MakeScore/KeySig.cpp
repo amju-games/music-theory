@@ -70,6 +70,24 @@ std::string GetKeySigOutputString(KeySig ks, Clef clef,
     return "";
   }
 
+  const std::string CLEF_STR[] = { 
+    "", //CLEF_NONE,
+    "", //CLEF_PERCUSSION,
+    "treble", //CLEF_TREBLE,
+    "bass", //CLEF_BASS,
+    "alto", //CLEF_ALTO,
+    "tenor", //CLEF_TENOR,
+    ""//CUE_CLEF_PERCUSSION, 
+    "treble", //CUE_CLEF_TREBLE,
+    "bass", //CUE_CLEF_BASS,
+    "alto", //CUE_CLEF_ALTO,
+    "tenor", //CUE_CLEF_TENOR,
+    "", //CLEF_BLANK,
+    "", //CUE_CLEF_BLANK,
+  };
+  const std::string& clefStr = CLEF_STR[static_cast<int>(clef)];
+  if (clefStr.empty()) return "";
+
   std::string res = "keysig-";
 
   if (ks >= KEYSIG_0_FLAT)
@@ -83,8 +101,7 @@ std::string GetKeySigOutputString(KeySig ks, Clef clef,
     res += Str(ks - KEYSIG_0_SHARP) + "sharp-";
   }
 
-  const std::string CLEF_STR[] = { "treble", "bass", "alto", "tenor" };
-  res += CLEF_STR[static_cast<int>(clef)];
+  res += clefStr;
 
   res += ", " + Str(x) + ", " + Str(y) + 
          ", " + Str(scale) + ", " + Str(scale);

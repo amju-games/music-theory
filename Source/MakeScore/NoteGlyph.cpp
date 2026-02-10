@@ -14,6 +14,9 @@
 static int CalcStaveLineForStepOctaveAlterPitch(
  KeySig keySig, Clef clef, const Pitch& pitch) 
 {
+  if (clef == Clef::CLEF_PERCUSSION)
+    return PERCUSSION_STAVE_LINE;
+
   // Calc stave line for step, with C at zero.
   const std::array<int, 7> LINES = {{ 5, 6, 0, 1, 2, 3, 4 }};
   int i = std::tolower(pitch.m_step[0]) - 'a';
@@ -23,12 +26,14 @@ static int CalcStaveLineForStepOctaveAlterPitch(
   int line = LINES[i];
 
   // Offset, depending on clef
-  const int CLEF_OFFSET[4] = 
-  {   
-    -2, // treb
-    10, // bass
-     4, // alto
-     6, // tenor 
+  const int CLEF_OFFSET[] = 
+  { 
+    0, // CLEF_NONE,
+    0, // CLEF_PERCUSSION,
+    -2, // CLEF_TREBLE,
+    10, // CLEF_BASS,
+    4, // CLEF_ALTO,
+    6, // CLEF_TENOR, 
   };  
   line += CLEF_OFFSET[static_cast<int>(clef)];
   // Octave shift, where octave 4 is a shift of zero
@@ -41,6 +46,9 @@ static int CalcStaveLineForStepOctaveAlterPitch(
 
 static int CalcStaveLineForMidiPitch(KeySig keySig, Clef clef, const Pitch& pitch) 
 {
+  if (clef == Clef::CLEF_PERCUSSION)
+    return PERCUSSION_STAVE_LINE;
+
   // Y-position for MIDI notes starting from MIDI 0, with C at y = 0.
   // y = 0 corresponds to the bottom line of the stave.
   // Choose array depending on whether the current key sig uses 
@@ -54,12 +62,14 @@ static int CalcStaveLineForMidiPitch(KeySig keySig, Clef clef, const Pitch& pitc
   // Add this offset to the y position, setting y to the correct
   //  position on the stave. E.g. for treble clef, middle C should be
   //  at y = -2, i.e. two stave positions below the bottom line.
-  const int CLEF_OFFSET[4] = 
-  {   
-    -2, // treb
-    10, // bass
-     4, // alto
-     6, // tenor 
+  const int CLEF_OFFSET[] = 
+  { 
+    0, // CLEF_NONE,
+    0, // CLEF_PERCUSSION,
+    -2, // CLEF_TREBLE,
+    10, // CLEF_BASS,
+    4, // CLEF_ALTO,
+    6, // CLEF_TENOR, 
   };  
 
   // Choose stave position depending on key sign type (sharp/flat)
