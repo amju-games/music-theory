@@ -134,6 +134,7 @@ std::unique_ptr<ChordGlyph> Bar::CreateChordGlyph(
   //  the longest duration (notes are sorted by duration)
   const auto durationToken = ch[0].second;
   chordGlyph->GetTimes().Set(durationToken);
+  chordGlyph->GetTimes().SetStartTime(crotchetTime);
 
   chordGlyph->SetStem();
 
