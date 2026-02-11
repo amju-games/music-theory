@@ -14,6 +14,11 @@ static const float QUAD_Y_OFFSET = 0.475f;
 // Used to place stems and arrange clashing note heads in chords.
 static const float NOTE_HEAD_WIDTH = 0.2f;
 
+// Left and right offset for notes in a chord that would overlap.
+// A bit less that a full note head width to make sure there are no
+//  unsightly gaps.
+static const float NOTE_HEAD_OVERLAP_OFFSET = 0.18f;
+
 // Note positions, accidental positions, in chords etc
 // Offset for the accidental for a single note
 static const float ACCIDENTAL_X_OFFSET = 0.2f;

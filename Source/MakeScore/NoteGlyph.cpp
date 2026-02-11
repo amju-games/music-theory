@@ -478,7 +478,7 @@ std::string NoteGlyph::NoteHeadString() const
 {
   std::string res;
   // Output note head: x position can be offset left or right in a chord.
-  float xOffset = static_cast<float>(m_overlapOffset) * NOTE_HEAD_WIDTH;
+  float xOffset = static_cast<float>(m_overlapOffset) * NOTE_HEAD_OVERLAP_OFFSET;
   
   res += GetGlyphOutputStr() + ", " + Str(x + xOffset) + ", " + Str(y) + 
     AddScaleStringIfRequired() + 
