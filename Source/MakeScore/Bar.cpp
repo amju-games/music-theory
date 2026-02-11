@@ -61,30 +61,32 @@ TimeSig Bar::GetTimeSig() const
 // The time val of all the glyph members should add up to this.
 TimeValue Bar::GetDuration() const
 {
+  return static_cast<float>(GetNumBeats()) * TIMEVAL_CROTCHET;
+}
+
+int Bar::GetNumBeats() const
+{
+  if (m_numBeats != -1) return m_numBeats;
+
   auto [ numBeats, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
   
   if (numBeats == 0)
   {
-    // No time sig, so add up duration of all sequential glyphs --
-    // TODO notes in a chord don't count!
+    // No time sig, so add up duration of all sequential glyphs
+    float d = 0;
+    for (auto& g : m_glyphs)
     {
-      float d = 0;
-      for (auto& g : m_glyphs)
-      {
-        d += g->GetTimes().GetTimeValue(); // get duration, float, in crotchets
-      }
-      return d;
+      d += g->GetTimes().GetTimeValue(); // get duration, float, in crotchets
     }
+    numBeats = static_cast<int>(d);
   }
-  else
-  {
-    return static_cast<float>(numBeats) * TIMEVAL_CROTCHET;
-  }
+  m_numBeats = numBeats;
+  return m_numBeats;
 }
 
 void Bar::CalcNormalisedTimes(const TimeValue totalPieceDuration)
 {
-  auto [ numBeats, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
+  auto [ _, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
 
   for (auto& g : m_glyphs)
   {
@@ -351,8 +353,7 @@ bool Bar::YesShowClefAtFrontOfBar() const
 
 float Bar::GetRelativeWidth() const
 {
-  auto [ numBeats, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
-  float w = static_cast<float>(numBeats);
+  float w = static_cast<float>(GetNumBeats());
   if (YesShowClefAtFrontOfBar())
   {
     w += 1; // clef
@@ -442,7 +443,8 @@ void Bar::SetPos(float x, float y)
   //  from last glyph to right bar line.
   // 'Edge' is the left bar line, OR right side of clef, keysig, timesig,
   //   whichever is most to the right.
-  auto [ numBeats, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
+  int numBeats = GetNumBeats();
+////  auto [ numBeats, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
   float xoff = (m_width - reduction) / (numBeats + 1.0f);
 
   // Reduce total width, and divide this by the number of beats to get 
@@ -472,7 +474,7 @@ void Bar::SetPos(float x, float y)
   for (auto& g : m_glyphs)
   {
     // Bar coord is (x, y), we offset by the position we calculate in x,
-    //  and by the glyph's own y-offset offset in y.
+    //  and by the glyph's own y-offset in y.
     TimeValue glyphTimeInBar = g->GetTimes().GetStartTimeValue() - 
       barStartTime;
     float xPosInBar = w * glyphTimeInBar + xoff + xfudge;

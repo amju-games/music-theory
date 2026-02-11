@@ -60,7 +60,8 @@ public:
 
   TimeSig GetTimeSig() const;
 
-  // Get number of beats in this bar
+  // Get number of beats in this bar.
+  // Calc on first call for this bar, then store the result.
   int GetNumBeats() const;
 
   void SetKeySig(KeySig ks);
@@ -178,5 +179,8 @@ private:
   std::map<int, Accidental> m_accidentals; 
 
   BarLine m_barLine = BarLine::BAR_LINE_NOT_SET;
+
+  // Number of beats in this bar - calculated on first call to GetNumBeats().
+  mutable int m_numBeats = -1; // -1 means not calculated yet
 };
 
