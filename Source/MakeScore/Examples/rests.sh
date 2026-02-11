@@ -2,7 +2,7 @@
 # (c) Copyright 2026 Juliet Colman
 
 
-../makescore --scale 0.5 "page-w 4 [Rests] <qq> r <q> r <c> r <m> r <sb> r | stave  <qq.> r <q.> r <c.> r <m.> r <sb.> r" > out.txt
+../makescore --scale 0.5 "page-w 4 [Rests] 4/4 <qq> r r <q> r <c> r <m> r | <sb> r | stave 4/4 <m> r <c> r <q> r <qq> r r | <sb> r" > out.txt
 
 cat out.txt
 

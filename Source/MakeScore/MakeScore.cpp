@@ -370,7 +370,7 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
     }
     else if (IsImmediateRest(s))
     {
-      crotchetTime += GetCurrentStave().AddRest(m_lastTimeValToken, crotchetTime);
+      crotchetTime = GetCurrentStave().AddRest(m_lastTimeValToken, crotchetTime);
     }
     // NB Deferred rests not supported for now, I don't think there's much point.
     else if (IsDeferredTimeVal(s))
