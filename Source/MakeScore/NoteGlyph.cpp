@@ -174,8 +174,6 @@ Accidental NoteGlyph::CalcAccidentalFromStepOctAlter(KeySig ks, Pitch pitch)
 
   // Now get the accidental for the key and midi pitch. If the accidental
   //  above is already set from the key sig, we don't need it.
-  // TODO Test what happens when a note before undoes the key sig. I think**
-  //  it works 
   auto keySigAcc = CalcAccidentalFromMidi(ks, pitch);
 
   if (   (acc == Accidental::ACCIDENTAL_SHARP && 
@@ -185,7 +183,7 @@ Accidental NoteGlyph::CalcAccidentalFromStepOctAlter(KeySig ks, Pitch pitch)
       || (acc == Accidental::ACCIDENTAL_NATURAL && 
           keySigAcc == Accidental::ACCIDENTAL_NATURAL_IN_KEY_SIG))
   {
-    acc = Accidental::ACCIDENTAL_NONE;
+    acc = keySigAcc;
   }
 
   return acc;

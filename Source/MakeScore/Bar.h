@@ -174,7 +174,7 @@ private:
   KeySig m_keySig = KEYSIG_0_SHARP;
 
   // Last Accidental used for each stave position (an int, can go negative
-  //  with ledger lines). We can use this so we don't repeat accidentals
+  //  with ledger lines). We use this so we don't repeat accidentals
   //  unnecessarily, know when to cancel, etc.
   std::map<int, Accidental> m_accidentals; 
 
