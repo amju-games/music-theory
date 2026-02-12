@@ -934,6 +934,10 @@ bool GuiMusicScore::LoadMusicScore(File* f)
       break;
     }
   }
+
+  // Sort the glyphs by start time, for animation.
+  std::sort(m_glyphs.begin(), m_glyphs.end());
+
   return true;
 }
 

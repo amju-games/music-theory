@@ -243,6 +243,11 @@ protected:
   Colour m_bgCol; // background colour of score rect
   RCPtr<Palette> m_palette; // optional palette to colourise notes
 
+  // Sequence of glyphs making up the music score. This includes quads
+  //  (for stave lines, bar lines, stems, etc) but does not include 
+  //  curves or text (other than dynamics etc, (like "ff", say), which are 
+  //  single glyphs in the texture atlas.
+  // These glyphs are sorted by start time, to help with animation.
   using Glyphs = std::vector<Glyph>;
   Glyphs m_glyphs;
 
@@ -293,5 +298,21 @@ protected:
 
   NoteEventCallback m_noteEventCallback;
 };
+
+inline bool operator<(
+  const GuiMusicScore::Glyph& g1, const GuiMusicScore::Glyph& g2)
+{
+  // Sort by start time
+  if (g1.m_timeMinMax.x < g2.m_timeMinMax.x) return true;
+  if (g1.m_timeMinMax.x > g2.m_timeMinMax.x) return false;
+
+  // Secondary: sort by end time
+  if (g1.m_timeMinMax.y < g2.m_timeMinMax.y) return true;
+  if (g1.m_timeMinMax.y > g2.m_timeMinMax.y) return false;
+
+  // Backstop: sort by char code, although they could be the same.
+  return g1.m_char < g2.m_char;
+}
+
 }
 
