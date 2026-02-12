@@ -121,8 +121,7 @@ int Stave::GetTotalNumBeats() const
   int totalNumBeats = 0;
   for (const auto& b : m_bars)
   {
-    auto [ numBeats, _ ] = GetNumBeatsAndCrotchetValue(b->GetTimeSig());
-    totalNumBeats += numBeats;
+    totalNumBeats += b->GetNumBeats();
   }
   return totalNumBeats;
 }
