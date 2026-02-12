@@ -103,6 +103,7 @@ bool MakeScore::IsHairpin(const std::string& s)
     Hairpin* hp = new Hairpin;
     m_lastHairpin = hp;
     hp->SetScale(m_scale);
+    hp->SetPos(0, GetYForDirection());
     hp->SetCrescendo(s == "<");
 
     // Attach to most reccent glyph if there is one
@@ -322,7 +323,7 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
     {
       // If we're in a chord, we haven't added the notes to the bar yet,
       //  and attaching this dir to the most recent note in the input string
-      //  won't work.
+      //  won't work. -- Fixed by preprocessing the tokens.
       AddDirection(s);
     }
     else if (IsBeam(s))
@@ -414,6 +415,19 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
   }
 }
 
+float MakeScore::GetYForDirection() const
+{
+  // Set y-coord so direction is under notes etc on stave 0, and above
+  //  notes etc on stave 1. This is ok so long as the only use case
+  //  for this is 2-stave piano music; will need rethinking for more cases.
+  int stave = static_cast<int>(m_staves.size()) - 1;
+  stave = std::max(stave, 0);
+  // +ve y is UP
+  float y = -.5f;
+  if (stave == 1) y = -.7f;
+  return y + m_y; // don't worry about scale yet, right?
+}
+
 void MakeScore::AddDirection(const std::string& s)
 {
   Attachment* t = new Attachment;
@@ -433,7 +447,7 @@ void MakeScore::AddDirection(const std::string& s)
   const float DIRECTION_WIDTH_MULT = 0.15f;
   w *= DIRECTION_WIDTH_MULT;
   // Offset x by half width so we centre the glyph horizontally
-  t->SetPos(w * -0.5f, m_y);
+  t->SetPos(w * -0.5f, GetYForDirection()); // don't worry about scale yet, right?
 
   m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(t));
 }

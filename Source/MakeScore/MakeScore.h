@@ -90,6 +90,8 @@ private:
   // Add a performance direction attachment
   void AddDirection(const std::string& s);
 
+  float GetYForDirection() const;
+
   // Add a text string attachment
   void AddText(const std::string& s);
 

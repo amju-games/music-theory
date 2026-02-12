@@ -13,7 +13,9 @@
 class Hairpin : public Attachment
 {
 public:
-  virtual std::string ToString() const;
+  std::string ToString() const override;
+  std::string CommentString() const override;
+
   void SetCrescendo(bool crescNotDecresc) { m_isCresc = crescNotDecresc; }
 
 private:
