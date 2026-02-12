@@ -32,13 +32,16 @@ Quad Stem::MakeQuad() const
   // Add on height of stem above or below note(s)
   h += m_length * STAVE_LINE_GAP;
 
+  // *!*!* Note use of QUAD_Y_OFFSET *!*!* 
+  // Quad y-coords need to add this offset to line up with glyphs
+  // See definition of stave lines etc in compound_glyphs
   float yOff = y + QUAD_Y_OFFSET; 
-  // quad y-ccords need to add this offset to line up with glyphs
 
   if (m_direction == Direction::UP)
   {
-    //   |
-    //  0
+    //   |  <-- stem
+    //  0   <-- note head
+
     float xOff = STEM_UP_X_OFFSET; 
     return Quad(
       (x + xOff) * GetScaleX(), 
@@ -48,8 +51,9 @@ Quad Stem::MakeQuad() const
   }
   else
   {
-    //  0
-    // |
+    //  0  <-- note head
+    // |   <-- stem
+
     float xOff = STEM_DOWN_X_OFFSET; 
     return Quad(
       (x + xOff) * GetScaleX(), 
@@ -69,20 +73,35 @@ void Stem::SetMinMaxStaveLines(int minStave, int maxStave)
   m_maxStave = maxStave;
 }
 
-std::string Stem::ToString() const
+void Stem::SetTailFromTimeType(TimeType tt)
 {
-  std::string res;
-  switch (m_lengthType)
+  switch (tt)
   {
-  case LengthType::NONE:
+  case TimeType::SEMIQUAVER:
+  case TimeType::DOTTED_SEMIQUAVER:
+    m_tail = Tail::TAIL_QQ;
+    break;
+ 
+  case TimeType::QUAVER:
+  case TimeType::DOTTED_QUAVER:
+    m_tail = Tail::TAIL_Q;
     break;
 
-  case LengthType::STANDARD:
-  case LengthType::VARIABLE:
-    res += MakeQuad().ToString() + LineEnd();
-    break;
+  default:
+    m_tail = Tail::TAIL_NONE;
   }
-  
+}
+
+std::string Stem::ToString() const
+{
+  if (m_lengthType == LengthType::NONE) return "";
+
+  std::string res;
+
+  res += MakeQuad().ToString() + LineEnd();
+ 
+  res += TailString() + LineEnd();
+ 
   return res; 
 }
 
@@ -105,5 +124,35 @@ std::string Stem::CommentString() const
   if (m_isChord) res += " (CHORD)";
 
   return res; 
+}
+
+std::string Stem::TailUpString() const
+{
+  // Urgh, stem goes up, tail goes down, sigh
+  std::string tail = (m_tail == Tail::TAIL_QQ ? "tail-down-2" : "tail-down-1");
+
+  const float TAIL_STEM_UP_X_OFFSET = 0.06f;
+  float xOff = TAIL_STEM_UP_X_OFFSET;
+  float yOff = (m_maxStave * .5f + m_length) * STAVE_LINE_GAP;
+  return tail + ", " + Str(x + xOff) + ", " + Str(y + yOff) + 
+    AddScaleStringIfRequired();
+}
+
+std::string Stem::TailDownString() const
+{
+  // Stem down, tail up, yuck
+  std::string tail = (m_tail == Tail::TAIL_QQ ? "tail-up-2" : "tail-up-1");
+  // x-coord is correct, calc y 
+  float yOff = (m_minStave * .5f - m_length) * STAVE_LINE_GAP;
+  return tail + ", " + Str(x) + ", " + Str(y + yOff) + AddScaleStringIfRequired();
+}
+
+std::string Stem::TailString() const
+{
+  if (m_tail == Tail::TAIL_NONE) return "";
+  std::string res;
+  if (m_direction == Direction::UP) res += TailUpString();
+  else if (m_direction == Direction::DOWN) res += TailDownString();  
+  return res;
 }
 

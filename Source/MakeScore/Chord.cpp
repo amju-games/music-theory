@@ -177,6 +177,7 @@ void ChordGlyph::SetStem()
   m_stem.SetDirection(dir);
   m_stem.SetLengthType(Stem::LengthType::VARIABLE);
   m_stem.SetMinMaxStaveLines(minStave, maxStave);
+  m_stem.SetTailFromTimeType(GetTimes().GetTimeType());
 
   // Is this chord beamed? How do we know if a note or chord is
   //  beamed??

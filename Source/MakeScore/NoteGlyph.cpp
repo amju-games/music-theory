@@ -619,5 +619,7 @@ void NoteGlyph::SetStem()
   //  to connect with the beam!
 
   m_stem.SetMinMaxStaveLines(m_staveLine, m_staveLine); // same for min and max
+
+  m_stem.SetTailFromTimeType(GetTimes().GetTimeType());
 }
 

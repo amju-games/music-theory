@@ -8,16 +8,19 @@
 #include "Consts.h"
 #include "IGlyph.h"
 
-struct NoteGlyph;
-class ChordGlyph;
 class Quad;
+
+enum class Tail
+{
+  TAIL_NONE,
+  TAIL_Q,
+  TAIL_QQ,
+  // ...
+};
 
 class Stem : public IGlyph
 {
 public:
-  static Stem CreateNoteStem(std::unique_ptr<NoteGlyph>&);
-  static Stem CreateChordStem(std::unique_ptr<ChordGlyph>&);
-
   enum class LengthType
   {
     NONE, // e.g. semibreve
@@ -42,8 +45,15 @@ public:
   //  the lowest and highest notes in the chord.
   void SetMinMaxStaveLines(int minStave, int maxStave);
 
+  void SetTailFromTimeType(TimeType);
+
+private:
   // Make a quad for this stem, if it's variable length.
   Quad MakeQuad() const;
+
+  std::string TailString() const;
+  std::string TailUpString() const;
+  std::string TailDownString() const;
 
 private:
   Direction m_direction = Direction::NONE;
@@ -65,5 +75,7 @@ private:
   
   int m_minStave = 0;
   int m_maxStave = 0;
+
+  Tail m_tail;
 };
 
