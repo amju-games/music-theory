@@ -76,11 +76,16 @@ int Bar::GetNumBeats() const
     float d = 0;
     for (auto& g : m_glyphs)
     {
-      d += g->GetTimes().GetTimeValue(); // get duration, float, in crotchets
+      // get duration, float, in crotchets
+      TimeValue timeVal = g->GetTimes().GetTimeValue(); 
+      d += timeVal;
     }
     numBeats = static_cast<int>(d);
+    // Beef up a small number of beats so spacing algo works
+    numBeats = std::max(2, numBeats);
   }
   m_numBeats = numBeats;
+
   return m_numBeats;
 }
 
@@ -374,9 +379,9 @@ void Bar::CalcWidth(int totalNumBeats, float pageWidth)
   if (m_scale == 0)
   {
     std::cout << "Div by zero! m_scale == 0!\n";
+    m_scale = 1.f;
   }
 
-  // This should be total num BEATS
   m_width = relW / static_cast<float>(totalNumBeats) * pageWidth / m_scale;
 }
 
@@ -444,7 +449,6 @@ void Bar::SetPos(float x, float y)
   // 'Edge' is the left bar line, OR right side of clef, keysig, timesig,
   //   whichever is most to the right.
   int numBeats = GetNumBeats();
-////  auto [ numBeats, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
   float xoff = (m_width - reduction) / (numBeats + 1.0f);
 
   // Reduce total width, and divide this by the number of beats to get 
