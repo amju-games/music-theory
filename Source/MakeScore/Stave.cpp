@@ -8,6 +8,7 @@
 #include "Attachment.h"
 #include "Consts.h"
 #include "Stave.h"
+#include "Suppress.h"
 #include "Tie.h"
 #include "Utils.h"
 
@@ -36,6 +37,8 @@ std::string Stave::CommentString() const
 
 std::string Stave::ToString() const
 {
+  const bool yesComments = (GetSuppressFlags() & META_COMMENT) == 0;
+
   std::string res;
 
   switch (m_type)
@@ -54,8 +57,12 @@ std::string Stave::ToString() const
     break;
   }
 
+  int barNum = 0;
   for (const auto& b : m_bars)
   {
+    if (yesComments)
+      res += "// ** Bar " + std::to_string(barNum++) + " **" + LineEnd();
+
     res += b->ToString();
   }
 

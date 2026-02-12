@@ -499,10 +499,16 @@ std::string MakeScore::ToString()
 
 void MakeScore::ToStringInternal()
 {
-  std::string res;
+  const bool yesComments = (GetSuppressFlags() & META_COMMENT) == 0;
 
+  std::string res;
+ 
+  int staveNum = 0;
   for (const auto& stave : m_staves)
   {
+    if (yesComments)
+      res += "// *** STAVE " + std::to_string(staveNum++) + "  ***" + LineEnd();
+
     res += stave->ToString();
   }
 
