@@ -100,9 +100,9 @@ public:
   // Used by MakeScore to set the width of each bar.
   float GetRelativeWidth() const;
 
-  // Called by MakeScore. Work out width for this bar, given the total
-  //  number of glyphs on the line, and the page width.
-  void CalcWidth(int totalNumGlyphs, float pageWidth);
+  // Work out width for this bar, given the total width of all bars, 
+  //  and the desired page width.
+  void CalcWidth(float totalWidth, float pageWidth);
 
   // Used by MakeScore to work out how much of the page width each bar gets
   float GetWidth() const;

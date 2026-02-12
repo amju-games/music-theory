@@ -100,12 +100,8 @@ void Stave::AddBar()
 
 void Stave::AddFirstBar()
 {
-  // TODO Don't add default bar, instead add bars on demand when we add
-  //  glyphs
-
-  // Add first default bar
   Bar* bar = new Bar;
-  bar->SetIsFirstBarOfLine(true); // first bar
+  bar->SetIsFirstBarOfLine(true); 
   bar->SetScale(scaleY);
   m_bars.push_back(std::unique_ptr<Bar>(bar));
 }
@@ -161,20 +157,20 @@ std::string Stave::OutputBeats() const
 
 void Stave::CalcBarSizesAndPositions()
 {
-  // Now loop over the bars. From the number of glyphs in each bar,
+  // Loop over the bars. From the number of glyphs in each bar,
   //  work out the relative width of each bar.
   // For now, assume only one line.
-  int totalNumGlyphs = 0;
+  float totalWidth = 0;
   for (auto& bar : m_bars)
   {
     float w = bar->GetRelativeWidth();
-    totalNumGlyphs += static_cast<int>(w); // TODO use floats throughout
+    totalWidth += w;
   }
 
   // Bar calculates its width as fraction of s_pageWidth 
   for (auto& bar : m_bars)
   {
-    bar->CalcWidth(totalNumGlyphs, GetPageWidth());
+    bar->CalcWidth(totalWidth, GetPageWidth());
   }
 
   // Set (left, bottom) position of each bar
@@ -277,8 +273,6 @@ void Stave::AddKeySig(const std::string& s)
 
 void Stave::AddClef(const std::string& s)
 {
-  // NB Bar already has Current stave number
-
   GetCurrentBar().SetClef(GetClef(s));
 }
 

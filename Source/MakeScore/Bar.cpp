@@ -80,7 +80,7 @@ int Bar::GetNumBeats() const
       TimeValue timeVal = g->GetTimes().GetTimeValue(); 
       d += timeVal;
     }
-    numBeats = static_cast<int>(d);
+    numBeats = static_cast<int>(d + .5f);
     // Beef up a small number of beats so spacing algo works
     numBeats = std::max(2, numBeats);
   }
@@ -321,14 +321,6 @@ std::string Bar::ToString()
     res += m_timeSigGlyph->ToString() + LineEnd();
   }
 
-  // Set display names for beamed (semi)quavers etc. 
-  // TODO Replace with BeamGroups
-  //for (auto& b : m_beams)
-  //{
-  //  m_glyphs[b->left]->SetDisplayNameForBeamedNote();
-  //  m_glyphs[b->right]->SetDisplayNameForBeamedNote();
-  //}
-
   for (auto& g : m_glyphs)
   {
     if (yesComments)
@@ -372,7 +364,7 @@ float Bar::GetRelativeWidth() const
   return w;
 }
 
-void Bar::CalcWidth(int totalNumBeats, float pageWidth)
+void Bar::CalcWidth(float totalWidth, float pageWidth)
 {
   float relW = GetRelativeWidth();
 
@@ -382,7 +374,7 @@ void Bar::CalcWidth(int totalNumBeats, float pageWidth)
     m_scale = 1.f;
   }
 
-  m_width = relW / static_cast<float>(totalNumBeats) * pageWidth / m_scale;
+  m_width = relW / totalWidth * pageWidth / m_scale;
 }
 
 float Bar::GetWidth() const
