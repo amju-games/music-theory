@@ -297,6 +297,7 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
     else if (s == "stave")
     { 
       AddStave();
+      crotchetTime = 0; // reset time for the new stave!
     }
     else if (IsBarLine(s))
     {
