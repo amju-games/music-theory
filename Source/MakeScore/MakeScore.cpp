@@ -511,13 +511,16 @@ void MakeScore::ToStringInternal()
 
     res += stave->ToString();
   }
-
+ 
+  if (yesComments) res += "// Bar lines" + LineEnd();
   res += BarLinesToString();
 
   for (const auto& g : m_otherGlyphs)
   {
-    res += g->ToString();
-    res += LineEnd(m_outputOnOneLine);
+    if (yesComments)
+      res += g->CommentString() + LineEnd();
+
+    res += g->ToString() + LineEnd();
   }
 
   // Output every beat, with its normalized time.   

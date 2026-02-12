@@ -23,8 +23,8 @@ public:
   void SetGlyphText(const std::string& text) { m_glyphText = text; }
 
   std::string ToString() const override;
-
   std::string CommentString() const override;
+
   bool IsRhsSet() const { return m_parent[RIGHT] != nullptr; }
 
 protected:

@@ -12,11 +12,18 @@
 
 std::string Attachment::CommentString() const 
 {
-  std::string res = "// Attachment: " + m_glyphText + ", parents: L: " 
-    + (m_parent[LEFT] ? m_parent[LEFT]->CommentString() : "<none> ") 
-    + " R: " 
-    + (m_parent[RIGHT] ? m_parent[RIGHT]->CommentString() : "<none> ")
-    + LineEnd();
+  std::string res = "// Attachment: \"" + m_glyphText + "\", Left parent: "
+    + LineEnd()
+    + (m_parent[LEFT] ? m_parent[LEFT]->CommentString() 
+        : "// <none?!>" + LineEnd()); 
+
+  if (m_parent[RIGHT])
+  {
+    res += "// Right parent:" 
+      + LineEnd() 
+      + m_parent[RIGHT]->CommentString();
+  }
+  
   return res;
 }
 
