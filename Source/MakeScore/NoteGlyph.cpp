@@ -518,21 +518,22 @@ std::string NoteGlyph::TimeBefore() const
 {
   std::string res;
 
-  const float timeval = m_times.GetNormalisedDuration();
-  bool yesTime = (timeval > 0);
+  const float durationNorm = m_times.GetNormalisedDuration();
+  bool yesTime = (durationNorm > 0);
   if (yesTime)
   {
-    const float startTime = m_times.GetNormalisedStartTime();
-    float start = std::max(MIN_START_TIME, startTime);
+    const float startTimeNorm = m_times.GetNormalisedStartTime();
+    startTimeNorm = std::max(MIN_START_TIME, startTimeNorm);
     
-    float t = timeval + startTime;
+    float endTimeNorm = timeval + startTime;
     if (m_switches & SW_STACCATO)
     {
-      t = timeval * 0.5f + startTime; // halve length of note
+      endTimeNorm = durationNorm * 0.5f + startTimeNorm; // halve length of note
     }
+
     if ((GetSuppressFlags() & META_TIME) == 0)
     {
-      res += "TIME, " + Str(start) + ", " + Str(t) + LineEnd();
+      res += "TIME, " + Str(startTimeNorm) + ", " + Str(endTimeNorm) + LineEnd();
     }
     // Output note meta data. This has escalated to pitch, volume, start
     //  time, and position on the stave. Event types have expanded to include
@@ -542,12 +543,10 @@ std::string NoteGlyph::TimeBefore() const
     if (   !m_tieRight 
         && (GetSuppressFlags() & META_NOTE) == 0)
     {
-      // NB If we suppress times, we won't know when to play the note --
-      //  note meta data should include start time. It does, no??
       // Output MIDI note event, unless on RHS of a tie
       res += "NOTE_ON, " + 
         Str(m_pitch.m_midi) + ", " + 
-        Str(start) + ", " + 
+        Str(startTimeNorm) + ", " + 
         Str(m_volume) + ", " +
         Str(x) + ", " + Str(y) + 
         LineEnd();
