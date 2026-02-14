@@ -522,10 +522,10 @@ std::string NoteGlyph::TimeBefore() const
   bool yesTime = (durationNorm > 0);
   if (yesTime)
   {
-    const float startTimeNorm = m_times.GetNormalisedStartTime();
+    float startTimeNorm = m_times.GetNormalisedStartTime();
     startTimeNorm = std::max(MIN_START_TIME, startTimeNorm);
     
-    float endTimeNorm = timeval + startTime;
+    float endTimeNorm = startTimeNorm + durationNorm;
     if (m_switches & SW_STACCATO)
     {
       endTimeNorm = durationNorm * 0.5f + startTimeNorm; // halve length of note
