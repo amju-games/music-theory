@@ -13,6 +13,7 @@ enum class TimeSig;
 
 enum class TimeVal
 {
+  QQQ,
   SEMIQUAVER,
   QUAVER,
   CROTCHET, 

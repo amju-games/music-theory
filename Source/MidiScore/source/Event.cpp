@@ -54,6 +54,7 @@ void InsertDynamics(Events& events)
 
 std::string TimeValString(TimeVal t)
 {
+  if (t == TimeVal::QQQ) return "qqq";
   if (t == TimeVal::SEMIQUAVER) return "qq";
   if (t == TimeVal::QUAVER) return "q";
   if (t == TimeVal::CROTCHET) return "c";
@@ -139,6 +140,8 @@ void Event::SetTimeVal(int tpq)
   // Not static, tpq can be different each time!
   const std::vector<std::tuple<int, TimeVal, int>> MULTIPLES = 
   { 
+    { tpq / 8,      TimeVal::QQQ,         0 }, // qqq
+    { 3 * tpq / 16, TimeVal::QQQ,         1 }, // qqq.
     { tpq / 4,      TimeVal::SEMIQUAVER,  0 }, // qq
     { 3 * tpq / 8,  TimeVal::SEMIQUAVER,  1 }, // qq.
     { tpq / 2,      TimeVal::QUAVER,      0 }, // q
@@ -171,11 +174,13 @@ void Event::SetTimeVal(int tpq)
       << m_start 
       << " (" 
       << m_start/tpq 
-      << " crotchets)\n"; 
+      << " crotchets), duration: "
+      << m_duration 
+      << " ticks.\n"; 
   } 
   else if (it == MULTIPLES.begin()) 
   {
-    // Is duration smaller than qq?
+    // Is duration smaller than smallest type?
     if (m_duration < std::get<0>(MULTIPLES.front()))
     {
       std::cout << "// *** Event duration too small! Event pitch: " 
@@ -184,7 +189,9 @@ void Event::SetTimeVal(int tpq)
         << m_start 
         << " (" 
         << m_start/tpq 
-        << " crotchets)\n"; 
+        << " crotchets), duration: "
+        << m_duration 
+        << " ticks.\n"; 
     }
   }
   else
