@@ -252,9 +252,8 @@ std::string ToString(smf::MidiFile& midifile)
   {
     Events events = GetEventsFromTrack(tpq, midifile[track]);
     if (events.empty()) continue;
-    res += "stave " + OutputTrack(tpq, events, ts, ks);
+    res += "stave " + OutputTrack(tpq, events, ts, ks) + "\n";
   }
-
   res += "\n";
   return res;
 }
