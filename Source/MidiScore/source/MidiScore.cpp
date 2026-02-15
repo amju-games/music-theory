@@ -129,6 +129,94 @@ Events GetEventsFromTrack(int tpq, const smf::MidiEventList& track)
   return events;
 }
 
+int CountNoteOnEventsInTrack(const smf::MidiEventList& track)
+{
+  int count = 0;
+  for (int event = 0; event < track.size(); event++) 
+  {
+    if (track[event].isNoteOn()) count++;
+  }
+  return count;
+}
+
+std::string InfoString(smf::MidiFile& midifile)
+{
+  midifile.removeEmpties();
+  midifile.doTimeAnalysis();
+  const int tpq = midifile.getTicksPerQuarterNote();
+  int tracks = midifile.getTrackCount();
+  std::string res = "TPQ: " + std::to_string(tpq) + 
+    " number of tracks: " + std::to_string(tracks) + "\n";
+
+  for (int track = 0; track < tracks; track++) 
+  {
+    res += "Track " + std::to_string(track) + ":\n";
+    
+    res += "  Number of note on events: " + 
+      std::to_string(CountNoteOnEventsInTrack(midifile[track])) + "\n";
+
+    for (int i = 0; i < midifile[track].getEventCount(); i++) 
+    {
+        const auto& msg = midifile[track][i];
+        if (msg.isTrackName())
+        {
+           std::string content = msg.getMetaContent();
+           res += "  Track name: " + content + "\n";
+        }
+ 
+        if (msg.isKeySignature()) 
+        {
+           std::string content = msg.getMetaContent();
+           res += "  Key Signature: " + content + "\n";
+        }
+ 
+        if (msg.isTimeSignature()) 
+        {
+           std::string content = msg.getMetaContent();
+           res += "  Time Signature: " + content + "\n";
+        }
+ 
+        if (msg.isTempo()) 
+        {
+           std::string content = std::to_string(msg.getTempoBPM());
+           res += "  Tempo: " + content + " BPM\n";
+        }
+ 
+        if (msg.isMarkerText()) 
+        {
+           std::string content = msg.getMetaContent();
+           res += "  Marker text: " + content + "\n";
+        }
+ 
+        if (msg.isLyricText()) 
+        {
+           std::string content = msg.getMetaContent();
+           res += "  Lyric text: " + content + "\n";
+        }
+ 
+        if (msg.isInstrumentName()) 
+        {
+           std::string content = msg.getMetaContent();
+           res += "  Instrument name: " + content + "\n";
+        }
+ 
+        if (msg.isCopyright()) 
+        {
+           std::string content = msg.getMetaContent();
+           res += "  Copyright: " + content + "\n";
+        }
+ 
+        if (msg.isText()) 
+        {
+           std::string content = msg.getMetaContent();
+           res += "  Text: " + content + "\n";
+        }
+    }
+  }
+
+  return res;
+}
+
 std::string ToString(smf::MidiFile& midifile)
 {
   std::string res;

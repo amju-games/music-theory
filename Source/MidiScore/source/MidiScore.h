@@ -13,6 +13,7 @@ class MidiFile;
 
 namespace MidiScore
 {
+std::string InfoString(smf::MidiFile& mf);
 std::string ToString(smf::MidiFile& mf);
 std::string OutputEvents(const Events& events);
 }

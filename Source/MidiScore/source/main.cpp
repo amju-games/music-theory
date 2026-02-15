@@ -13,21 +13,27 @@
 using namespace std;
 using namespace smf;
 
-int main(int argc, char** argv) {
-  Options options;
-  options.process(argc, argv);
-  MidiFile midifile;
-  if (options.getArgCount() == 0) 
+int main(int argc, char** argv) 
+{
+  if (argc == 1) 
   {
-    std::cout << R"(
-midiscore - convert midi file to juliet compact notation.
+    std::cout << R"(midiscore - convert midi file to juliet compact notation.
 Usage:
-  midiscore <midifile>
+  midiscore <midifile> [--info]
 )";
     return 0;
   }
 
-  midifile.read(options.getArg(1));
+  std::vector<std::string> args(argv + 1, argv + argc);
+
+  MidiFile midifile;
+  midifile.read(args[0]); // 0th arg is always filename
+
+  if (args.size() > 1 && args[1] == "--info")
+  {
+    std::cout << MidiScore::InfoString(midifile);
+    return 0;
+  }
 
   std::cout << MidiScore::ToString(midifile);
 
