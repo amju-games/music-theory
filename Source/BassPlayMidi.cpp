@@ -7,7 +7,6 @@
 #ifndef AMJU_IOS
 
 #include <iostream>
-#include <BassSoundPlayer.h>
 #include <File.h>
 #include <SoundManager.h>
 
@@ -29,7 +28,7 @@ void PlayMidi(int note, int velocity)
   }
   else
   {
-    if (!sm->MidiNoteOn(note))
+    if (!sm->MidiNoteOn(note, velocity))
     {
       std::cout << "..midi call failed :(\n";
     }
