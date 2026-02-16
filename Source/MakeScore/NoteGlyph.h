@@ -47,10 +47,9 @@ struct NoteGlyph : public Glyph
   // For chords, the stems of the individual notes are not set.
   void SetStem();
 
-  void SetPitch(Pitch p)
-  {
-    m_pitch = p;
-  }
+  void SetIsPartOfChord(bool isPartOfChord) { m_isPartOfChord = isPartOfChord; }
+
+  void SetPitch(const Pitch& p) { m_pitch = p; }
 
   // Calc y-pos of note, i.e. position on stave.
   void CalcY(KeySig keySig, Clef clef);
@@ -117,4 +116,7 @@ private:
   int m_volume = 127;
 
   Stem m_stem;
+
+  // If true, this note is part of a chord.
+  bool m_isPartOfChord = false;
 };

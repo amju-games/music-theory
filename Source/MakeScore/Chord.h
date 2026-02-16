@@ -26,6 +26,8 @@ public:
   std::string ToString() const override;
   std::string CommentString() const override;
 
+  void NormaliseTimes(float scale) override;
+
   void SetStem();
 
   void AddNoteGlyph(std::unique_ptr<NoteGlyph>&& noteGlyph);

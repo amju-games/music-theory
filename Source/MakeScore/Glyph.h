@@ -26,6 +26,8 @@ struct Glyph : public IGlyph
 
   std::string ToString() const override;
 
+  virtual void NormaliseTimes(float scale);
+
   // Set stave line for this glyph (notes and rests, so we can
   //  adjust standard rest position)
   // Stave line is a position on a standard 5-line stave. The bottom line

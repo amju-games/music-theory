@@ -23,6 +23,11 @@ Glyph::Glyph(const std::string& inputToken, int order_) :
   HandleStar();
 }
 
+void Glyph::NormaliseTimes(float scale)
+{
+  GetTimes().Normalise(scale);
+}
+
 void Glyph::HandleStar()
 {
   if (Contains(realGlyphName, '*'))

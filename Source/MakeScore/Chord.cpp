@@ -136,6 +136,7 @@ std::string ChordGlyph::CommentString() const
 void ChordGlyph::AddNoteGlyph(std::unique_ptr<NoteGlyph>&& noteGlyph)
 {
   order = noteGlyph->order;
+  noteGlyph->SetIsPartOfChord(true);
   m_noteGlyphs.emplace_back(std::move(noteGlyph));
 }
 
@@ -192,5 +193,15 @@ void ChordGlyph::SetStem()
 */
 
   m_stem.SetIsChord();
+}
+
+void ChordGlyph::NormaliseTimes(float scale)
+{
+  GetTimes().Normalise(scale);
+  // Normalise note times too
+  for (const auto& noteGlyph : m_noteGlyphs)
+  {
+    noteGlyph->GetTimes().Normalise(scale);
+  }
 }
 

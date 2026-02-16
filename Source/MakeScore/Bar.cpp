@@ -99,7 +99,7 @@ void Bar::CalcNormalisedTimes(const TimeValue totalPieceDuration)
     //  times, but basically we are dividing start times and durations by
     //  the total duration of the piece.
     float scale = timeMult / totalPieceDuration;
-    g->GetTimes().Normalise(scale);
+    g->NormaliseTimes(scale);
   }
 }
 
