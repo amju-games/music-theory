@@ -406,6 +406,11 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
       i++;
       crotchetTime = atof(tokens[i].c_str());
     }
+    else if (s == "bpm")
+    {
+      i++;
+      m_bpm = atof(tokens[i].c_str());
+    }
     // FINAL ELSE
     else if (!isText)
     {
@@ -517,6 +522,8 @@ void MakeScore::ToStringInternal()
   const bool yesComments = (GetSuppressFlags() & META_COMMENT) == 0;
 
   std::string res;
+
+  res += "BPM, " + std::to_string(m_bpm) + LineEnd();
  
   int staveNum = 0;
   for (const auto& stave : m_staves)

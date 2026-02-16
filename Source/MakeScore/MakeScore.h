@@ -163,11 +163,11 @@ private:
   // Last hairpin created, also so we can set right hand parent
   Attachment* m_lastHairpin = nullptr;
 
-  // Current stave
-  int m_stave = 0;
   // All staves
   std::vector<std::unique_ptr<Stave>> m_staves;
 
   Strings m_outputLines;
+
+  float m_bpm = 100.f;
 };
 
