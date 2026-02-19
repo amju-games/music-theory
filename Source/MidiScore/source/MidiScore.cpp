@@ -12,6 +12,8 @@
 
 namespace MidiScore
 {
+static TimeVal s_quantRes = TimeVal::QQQ;
+
 void AddEventToVec(int tpq, const smf::MidiEvent& mev, Events& events)
 {
   if (mev.isNoteOn())
@@ -21,11 +23,14 @@ void AddEventToVec(int tpq, const smf::MidiEvent& mev, Events& events)
     {   
       // Add note event to vec of events
       Event e;
-      e.m_start = mev.tick;
-      e.m_duration = mev.getTickDuration();
+      e.m_unquantisedStart = mev.tick;
+      e.m_unquantisedDuration = mev.getTickDuration();
       e.m_end = e.m_start + e.m_duration;
 
-      e.SetTimeVal(tpq);
+      e.QuantiseStartTime(tpq, s_quantRes);
+      e.QuantiseDuration(tpq, s_quantRes);
+
+      //e.SetTimeVal(tpq);
 
       e.m_pitch = static_cast<int>(mev[1]);
       if (numBytes > 2)
@@ -216,10 +221,26 @@ std::string InfoString(smf::MidiFile& midifile)
 
   return res;
 }
+ 
+TimeSig ParseTimeSig(std::optional<std::string> timeSig)
+{
+  return GetTimeSigFromString(*timeSig);
+}
 
-std::string ToString(smf::MidiFile& midifile)
+std::string ToString(
+  smf::MidiFile& midifile, 
+  std::optional<int> track,
+  std::optional<std::string> timeSig, 
+  std::optional<int> keySig,
+  std::optional<std::string> quant) 
 {
   std::string res;
+
+  if (quant)
+  {
+    s_quantRes = GetTimeValFromString(*quant);
+    std::cout << "// Quantising to: " << TimeValString(s_quantRes) << "\n";
+  }
 
   // should we do this? Perhaps we need to do one pass with, 
   //  to get all "verticals", and then one without, to get the different voices.
@@ -241,19 +262,45 @@ std::string ToString(smf::MidiFile& midifile)
   TimeSig ts;
   KeySig ks;
   GuessTimeSigAndKeySig(tpq, allEvents, ts, ks);
+
+  // Override guesses if values have been given
+  if (timeSig)
+  {
+    ts = ParseTimeSig(*timeSig);
+  }
+
+  if (keySig)
+  {
+    //ks = ParseKeySig(*keySig);
+  }
+
   // TODO do other first-pass things on all the events
   // E.g. create dynamics markers
 
   // 2nd pass: Un-join tracks and output each track -- TODO as a separate stave  
   midifile.splitTracks();
-  int tracks = midifile.getTrackCount();
-  
-  for (int track = 0; track < tracks; track++) 
+
+  // If track is specified, just output that one track.
+  if (track)
   {
-    Events events = GetEventsFromTrack(tpq, midifile[track]);
-    if (events.empty()) continue;
-    res += "stave " + OutputTrack(tpq, events, ts, ks) + "\n";
+    Events events = GetEventsFromTrack(tpq, midifile[*track]);
+    if (!events.empty()) 
+    {
+      res += "stave " + OutputTrack(tpq, events, ts, ks) + "\n";
+    }
   }
+  else
+  {
+    // Output all (non-empty) tracks.
+    int numTracks = midifile.getNumTracks();
+    for (int t = 0; t < numTracks; t++)
+    {
+      Events events = GetEventsFromTrack(tpq, midifile[t]);
+      if (events.empty()) continue;
+      res += "stave " + OutputTrack(tpq, events, ts, ks) + "\n";
+    }
+  }
+
   res += "\n";
   return res;
 }

@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <optional>
 #include <string>
 #include "Event.h"
 
@@ -13,8 +14,24 @@ class MidiFile;
 
 namespace MidiScore
 {
+// Output text info abou the given midi file.
 std::string InfoString(smf::MidiFile& mf);
-std::string ToString(smf::MidiFile& mf);
+
+// Output midi file as juliet shorthand notation, for reading 
+//  by MakeScore.
+// mf: the midi file.
+// track: optional track number; if nullopt, all tracks are output.
+// timeSig: optional time signature, overrides guessing.
+// keySig: optional key signature, overrides guessing.
+// quantResolution: optional, sets quantisation on and resolution level.
+std::string ToString(
+  smf::MidiFile& mf,
+  std::optional<int> track,
+  std::optional<std::string> timeSig, 
+  std::optional<int> keySig,
+  std::optional<std::string> quantResolution);
+
+// Used internally and for testing
 std::string OutputEvents(const Events& events);
 }
 
