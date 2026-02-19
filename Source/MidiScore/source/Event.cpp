@@ -4,6 +4,7 @@
 #include <array>
 #include <cmath>
 #include <iostream>
+#include <map>
 #include <sstream>
 #include "Event.h"
 #include "MidiScore.h" // OutputEvents
@@ -52,6 +53,22 @@ void InsertDynamics(Events& events)
       }
     }
   }
+}
+
+TimeVal GetTimeValFromString(const std::string& s)
+{
+  static const std::map<std::string, TimeVal> TVS =
+  {
+    { "qqq", TimeVal::QQQ },
+    { "qq", TimeVal::SEMIQUAVER },
+    { "q", TimeVal::QUAVER },
+    { "c", TimeVal::CROTCHET },
+    { "m", TimeVal::MINIM },
+    { "sb", TimeVal::SEMIBREVE },
+    { "sb2", TimeVal::SB2 },
+    { "sb4", TimeVal::SB4 },
+  };
+  return TVS.at(s);
 }
 
 std::string TimeValString(TimeVal t)

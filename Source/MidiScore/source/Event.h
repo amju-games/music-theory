@@ -25,6 +25,8 @@ enum class TimeVal
 
 std::string TimeValString(TimeVal t);
 
+TimeVal GetTimeValFromString(const std::string& s);
+
 enum class EventType
 {
   NOTE, REST, BARLINE, TIE, CHORD_START, CHORD_END, TIME_SET
