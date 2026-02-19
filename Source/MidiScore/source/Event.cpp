@@ -238,6 +238,24 @@ void Event::SetTimeVal(int tpq)
   m_end = m_start + m_duration; // recalc this
 }
 
+void Event::QuantiseDuration(int tpq, TimeVal resolution)
+{
+  assert(m_unquantisedDuration > -1);
+
+  const std::array<int, 8> MULTS = 
+  {{
+    tpq/8, tpq/4, tpq/2, tpq, tpq*2, tpq*4, tpq*8, tpq*16,
+  }};
+  int mult = MULTS[static_cast<int>(resolution)];
+
+  m_duration = mult * std::max(1.f,  // duration is at least resolution
+    std::round(
+      static_cast<float>(m_unquantisedDuration) / 
+      static_cast<float>(mult)));
+ 
+  SetTimeVal(tpq); 
+}
+
 void Event::QuantiseStartTime(int tpq, TimeVal resolution)
 {
   // If -1, unquantised start time was not set when

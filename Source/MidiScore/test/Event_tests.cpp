@@ -17,6 +17,7 @@ static Event n(int pitch, int start, int duration, int tpq)
   e.m_pitch = pitch;
   e.m_unquantisedStart = start;
   e.m_start = start; 
+  e.m_unquantisedDuration = duration;
   e.m_duration = duration;
   e.m_end = start + duration;
   e.SetTimeVal(tpq);
@@ -178,6 +179,29 @@ TEST_CASE("Set time val", "[Events]")
   }
 }
 
+TEST_CASE("Quantise duration", "[Events]")
+{
+  // Quantise duration, which must be the given resolution at least.
+  // Quantising gets rid of weird durations, like SetTimeVal, but
+  //  with a selectable resolution, rather than getting the closest,
+  //  smallest value.
+  
+  const int pitch = 60; // not important
+  const int tpq = 64;
+
+  {
+  auto e = n(pitch, 73, 9, tpq);
+  REQUIRE(e.m_unquantisedStart == 73);
+  REQUIRE(e.m_start == 73);
+  REQUIRE(e.m_unquantisedDuration == 9);
+  REQUIRE(e.m_duration == 8); // SetTimeVal quantised it to QQQ
+  e.QuantiseDuration(tpq, TimeVal::CROTCHET);
+  // Duration can't be smaller than quatisation resolution, because
+  //  it would be zero.
+  REQUIRE(e.m_duration == 64);
+  }
+}
+
 TEST_CASE("Quantise start time", "[Events]")
 {
   // Quantise event start times with different quant resolutions
@@ -207,6 +231,10 @@ TEST_CASE("Quantise start time", "[Events]")
   auto e = n(pitch, 71, duration, tpq);
   e.QuantiseStartTime(tpq, TimeVal::QQQ);
   REQUIRE(e.m_start == 72);
+
+  // Quantise to semiquaver, now lower time is closer
+  e.QuantiseStartTime(tpq, TimeVal::SEMIQUAVER);
+  REQUIRE(e.m_start == 64);
   }
 }
 
