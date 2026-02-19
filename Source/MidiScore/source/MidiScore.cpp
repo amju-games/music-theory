@@ -130,6 +130,16 @@ Events GetEventsFromTrack(int tpq, const smf::MidiEventList& track)
   {
     AddEventToVec(tpq, track[event], events);
   }   
+  
+  if (events.empty()) return events;
+
+  // Sort by ascending start time, to minimise number of time jumps 
+  std::sort(events.begin(), events.end(), 
+    [](const Event& e1, const Event& e2) 
+    {   
+      return e1.m_start < e2.m_start; 
+    }   
+  ); 
 
   return events;
 }
