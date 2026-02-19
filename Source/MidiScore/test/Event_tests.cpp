@@ -15,7 +15,8 @@ static Event n(int pitch, int start, int duration, int tpq)
   Event e;
   e.m_type = EventType::NOTE;
   e.m_pitch = pitch;
-  e.m_start = start;
+  e.m_unquantisedStart = start;
+  e.m_start = start; 
   e.m_duration = duration;
   e.m_end = start + duration;
   e.SetTimeVal(tpq);
@@ -101,9 +102,14 @@ TEST_CASE("BAD Output strings 2", "[Events]")
   // Hmm seems ok now
   REQUIRE(n(60, 0, 1, 4).ToString() == "<qq> 60"); // s/b "<qq> 60"
 
-  // Limit of small note values: demisemiquaver is not recognised.
-  // Duration is 1/8 of a crotchet, should be "qqq"?
-  REQUIRE(n(60, 0, 1, 8).ToString() == "<qq> 60"); // s/b "<qqq> 60" ?
+  // Limit of small note values: demisemiquaver IS recognised.
+  // Duration is 1/8 of a crotchet, should be "qqq"
+  REQUIRE(n(60, 0, 1, 8).ToString() == "<qqq> 60"); 
+
+  // Smaller than smallest value:
+  // Duration is 1/16 of a crotchet, should be "qqqq"
+  // Not supported.
+  REQUIRE(n(60, 0, 1, 16).ToString() == "<qqq> 60"); // s/b "<qqqq> 60" ?
 }
 
 TEST_CASE("BAD Output strings 3", "[Events]")
@@ -169,6 +175,38 @@ TEST_CASE("Set time val", "[Events]")
   REQUIRE(e.m_timeVal == TimeVal::QUAVER);
   REQUIRE(e.m_duration == 240);
   REQUIRE(e.m_end == 240);
+  }
+}
+
+TEST_CASE("Quantise start time", "[Events]")
+{
+  // Quantise event start times with different quant resolutions
+
+  const int pitch = 60; // not important
+  const int duration = 1; // not important
+  const int tpq = 64;
+
+  {
+  auto e = n(pitch, 73, duration, tpq);
+  REQUIRE(e.m_unquantisedStart == 73);
+  REQUIRE(e.m_start == 73);
+  e.QuantiseStartTime(tpq, TimeVal::CROTCHET);
+  REQUIRE(e.m_start == 64);
+
+  // It's ok to repeatedly call Quantise on the same event, because
+  //  we retain the unquantised start.
+  REQUIRE(e.m_unquantisedStart == 73);
+  // QQQ duration is 8/64 ticks
+  e.QuantiseStartTime(tpq, TimeVal::QQQ);
+  REQUIRE(e.m_start == 72);
+  }
+
+  // Check that a start time just under a multiple gets rounded up:
+  //  71 should be quantised to 72, not 64.
+  {
+  auto e = n(pitch, 71, duration, tpq);
+  e.QuantiseStartTime(tpq, TimeVal::QQQ);
+  REQUIRE(e.m_start == 72);
   }
 }
 

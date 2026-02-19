@@ -1,6 +1,8 @@
 // * MidiScore *
 // (c) Copyright 2026 Juliet Colman
 
+#include <array>
+#include <cmath>
 #include <iostream>
 #include <sstream>
 #include "Event.h"
@@ -217,6 +219,27 @@ void Event::SetTimeVal(int tpq)
   m_duration = duration;
   m_dots = dots;
   m_end = m_start + m_duration; // recalc this
+}
+
+void Event::QuantiseStartTime(int tpq, TimeVal resolution)
+{
+  // If -1, unquantised start time was not set when
+  //  event was created.
+  assert(m_unquantisedStart > -1);
+
+  const std::array<int, 8> MULTS = 
+  {{
+    tpq/8, tpq/4, tpq/2, tpq, tpq*2, tpq*4, tpq*8, tpq*16,
+  }};
+
+  // Look up the mult value for the given resolution. This is a straight
+  //  lookup - it's not a search for closest.
+  int mult = MULTS[static_cast<int>(resolution)];
+
+  // Get closest multiple of mult to the unquantised start time.
+  m_start = mult * std::round(
+    static_cast<float>(m_unquantisedStart) / 
+    static_cast<float>(mult));
 }
 
 Event MakeRest(int tpq, int duration, int start)
@@ -562,8 +585,18 @@ void InsertTimeSetEvents(int tpq, Events& events)
     //  event is not the same as the end time of the previous event.
     // Don't bother inside chord markers, as every note has the same
     //  start time, and so the usual rule doesn't apply.
-    if (!chord && it->m_start != prevEventEnd)
+    // Don't try to time set bar lines - they have fixed start times.
+    if (   !chord 
+        && it->m_start != prevEventEnd
+        && !it->IsBarLine())
     {
+std::cout << "// * Inserting a time set event! This event: \""
+  << it->ToString()
+  << "\" has start time: " 
+  << it->m_start 
+  << ", but prev end time is " 
+  << prevEventEnd 
+  << "..\n";
       it = events.insert(it, MakeTimeSet(tpq, it->m_start));
     }
 

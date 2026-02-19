@@ -33,8 +33,9 @@ enum class EventType
 struct Event
 {
   int m_start = 0; // in tpq ticks
+  int m_unquantisedStart = -1; // in tpq ticks. -1 so we can check it's set
   int m_duration = 0; // in tpq ticks
-  int m_end = 0; // in tpq ticks
+  int m_end = 0; // in tpq ticks; start + duration
   TimeVal m_timeVal = TimeVal::CROTCHET;
   int m_dots = 0; // multiply time val by 1.5 per dot
   int m_pitch = 0; // MIDI pitch
@@ -54,6 +55,10 @@ struct Event
 
   // Set timeval enum and dots in this Event, given duration and tpq. 
   void SetTimeVal(int tpq);
+
+  // Quantise start time, to the given resolution, which defaults
+  //  to the finest grain.
+  void QuantiseStartTime(int tpq, TimeVal resolution = TimeVal::QQQ);
 
   bool IsNote() const { return m_type == EventType::NOTE; }
   bool IsRest() const { return m_type == EventType::REST; }
