@@ -29,6 +29,8 @@ static float Dot(const std::vector<float>& v1, const std::vector<float>& v2)
  
 KeySig GuessKeySig(const Events& events, bool preferFlatKey)
 {
+  if (events.empty()) return KeySig::KS_SHARP_0;
+
   std::vector<float> pitchDistribution = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
   // Make frequency distribution of pitches, all shifted to the same octave
   for (const Event& e : events)
