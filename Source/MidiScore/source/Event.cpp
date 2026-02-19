@@ -472,7 +472,7 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events)
   //  rest??) - so let the user specify an anacrusis, otherwise just
   //  start adding bar lines every time sig worth of tpq.
 
-  int ticksForOneBar = tpq * BeatsInBar(ts);
+  int ticksForOneBar = static_cast<float>(tpq) * BeatsInBar(ts);
   int bar = 1; // don't add barline at start  
   bool chord = false; // true if we are parsing between ( ) chord markers
   for (auto it = events.begin(); it != events.end(); ++it)
