@@ -35,6 +35,9 @@ public:
   // Create with input string
   MakeScore(const std::string& in) : m_input(in) { }
 
+  // Load input from a file, ignoring comment lines
+  bool Load(const std::string& filename);
+
   int NumBars() const;
 
   void SetTranspose(int semitones) { m_transpose = semitones; }

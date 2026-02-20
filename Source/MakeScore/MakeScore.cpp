@@ -17,6 +17,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <fstream>
 #include <iostream>
 #include <iterator>
 #include <map>
@@ -61,6 +62,27 @@ float GetHeight(BeamLevel bl)
 {
   // Relies on the int values 0, 1...
   return static_cast<float>(bl);
+}
+
+bool MakeScore::Load(const std::string& filename)
+{
+  std::ifstream inputFile(filename);
+  if (!inputFile.good())
+  {
+    std::cout << "Can't open file `" << filename << "`\n";
+    return false;
+  }
+  std::string line;
+  while (std::getline(inputFile, line))
+  {
+    if (line.size() > 1 && line.substr(0, 2) == "//")
+      continue;
+
+    m_input += line;
+    m_input += " "; 
+  }
+  std::cout << "// Final input as one line:\n// " << m_input << "\n";
+  return true;
 }
 
 Stave& MakeScore::GetCurrentStave()
