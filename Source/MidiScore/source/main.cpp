@@ -34,6 +34,7 @@ Options:
                   negative k is number of flats.
   --quant <q>   Quantise starts and durations, to resolution q.
                   Q is one of: qqq, qq, q, c, m, sb, sb2, sb4
+  --debug       Verbose output for debugging
 )";
 
 int main(int argc, const char** argv) 
@@ -95,7 +96,11 @@ int main(int argc, const char** argv)
   // Optional quantisation resolution
   const auto quant = cl.get_value<std::string>(QUANT);
 
-  std::cout << MidiScore::ToString(midifile, track, timeSig, keySig, quant);
+  // Debug option
+  const bool debug = check_flag(cl, "--debug");
+
+  std::cout << MidiScore::ToString(
+    midifile, track, timeSig, keySig, quant, debug);
 
   return 0;
 }

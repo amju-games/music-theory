@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <map>
+#include <sstream>
 #include <MidiFile.h>
 #include "Clef.h"
 #include "Event.h"
@@ -64,7 +65,7 @@ std::string OutputEvent(int& prevDuration, const Event& e)
   return e.ToString();
 }
 
-std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks)
+std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks, bool debug)
 {
   if (events.empty())
   {
@@ -98,7 +99,64 @@ std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks)
   InsertTimeSetEvents(tpq, events);
 //std::cout << "With time sets: " << OutputEvents(events) << "\n";
 
+  if (debug)
+  {
+    return OutputEventsDebug(tpq, res, events);
+  }
+
   return res + OutputEvents(events);
+}
+
+std::string OutputEventsDebug(int tpq, const std::string& bar1Preamble, const Events& events)
+{
+  std::string res = "\n";
+
+  // Traverse events. Output time val when it changes.
+  int prevDuration = -1;
+
+  res += "// BAR: 1\n" + bar1Preamble + "\n";
+  int barNum = 2; // next bar num (1 based)
+
+  // So we can output times as crotchets from last bar line
+  int lastBarStart = 0;
+
+  for (int i = 0; i < events.size(); i++)
+  {
+    const Event& e = events[i];
+
+    if (e.IsBarLine())
+    {
+      // Bar line events are the end of bars, but we output as if it's
+      //  the start of the new bar - unless this is the final event.
+      if (i == events.size() - 1)
+      {
+        res += "// Final bar line. ";
+      }
+      else 
+      {
+        res += "// BAR: " + std::to_string(barNum++);
+      }
+      res += " Start: " + std::to_string(e.m_start) + 
+        " (" + std::to_string(e.m_start / tpq) + " crotchets):\n";
+
+      lastBarStart = e.m_start;
+    }
+    else if (e.IsNote() || e.IsRest())
+    {
+      float startFromBar = (e.m_start - lastBarStart) / tpq;
+      std::stringstream ss;
+      ss << startFromBar;
+      res += "// (Start: " + ss.str() + " c in bar)";
+      res += "  (Duration: " + e.DurationString() + "):\n";
+    }
+  
+    // Output the event, even if just bar line... because
+    //  we could update MakeScore to read this debug format?!
+    res += OutputEvent(prevDuration, e);
+   
+    res += "\n";
+  }
+  return res;
 }
 
 std::string OutputEvents(const Events& events)
@@ -245,7 +303,8 @@ std::string ToString(
   std::optional<int> track,
   std::optional<std::string> timeSig, 
   std::optional<int> keySig,
-  std::optional<std::string> quant) 
+  std::optional<std::string> quant, 
+  bool debug) 
 {
   std::string res;
 
@@ -299,7 +358,7 @@ std::string ToString(
     Events events = GetEventsFromTrack(tpq, midifile[*track]);
     if (!events.empty()) 
     {
-      res += "stave " + OutputTrack(tpq, events, ts, ks) + "\n";
+      res += "stave " + OutputTrack(tpq, events, ts, ks, debug) + "\n";
     }
   }
   else
@@ -310,7 +369,7 @@ std::string ToString(
     {
       Events events = GetEventsFromTrack(tpq, midifile[t]);
       if (events.empty()) continue;
-      res += "stave " + OutputTrack(tpq, events, ts, ks) + "\n";
+      res += "stave " + OutputTrack(tpq, events, ts, ks, debug) + "\n";
     }
   }
 

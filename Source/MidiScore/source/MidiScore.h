@@ -24,14 +24,20 @@ std::string InfoString(smf::MidiFile& mf);
 // timeSig: optional time signature, overrides guessing.
 // keySig: optional key signature, overrides guessing.
 // quantResolution: optional, sets quantisation on and resolution level.
+// debug: true for debug mode, verbose for debugging
 std::string ToString(
   smf::MidiFile& mf,
   std::optional<int> track,
   std::optional<std::string> timeSig, 
   std::optional<int> keySig,
-  std::optional<std::string> quantResolution);
+  std::optional<std::string> quantResolution,
+  bool debug);
 
 // Used internally and for testing
 std::string OutputEvents(const Events& events);
+
+// Output with as much info as poss
+std::string OutputEventsDebug(int tpq, 
+  const std::string& bar1Preamble, const Events& events);
 }
 
