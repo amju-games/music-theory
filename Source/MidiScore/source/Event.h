@@ -23,7 +23,7 @@ enum class TimeVal
   SB4
 };
 
-std::string TimeValString(TimeVal t);
+std::string TimeValString(TimeVal t, int dots = 0);
 
 TimeVal GetTimeValFromString(const std::string& s);
 

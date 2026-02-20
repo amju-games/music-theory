@@ -80,17 +80,17 @@ TimeVal GetTimeValFromString(const std::string& s)
   return TVS.at(s);
 }
 
-std::string TimeValString(TimeVal t)
+std::string TimeValString(TimeVal tv, int dots)
 {
-  if (t == TimeVal::QQQ) return "qqq";
-  if (t == TimeVal::SEMIQUAVER) return "qq";
-  if (t == TimeVal::QUAVER) return "q";
-  if (t == TimeVal::CROTCHET) return "c";
-  if (t == TimeVal::MINIM) return "m";
-  if (t == TimeVal::SEMIBREVE) return "sb";
-  if (t == TimeVal::SB2) return "sb2";
-  if (t == TimeVal::SB4) return "sb4";
-  return "BAD TIME VAL";
+  static const std::array<std::string, 8> STRS = 
+  {{
+    "qqq", "qq", "q", "c", "m", "sb", "sb2", "sb4"
+  }};
+
+  std::string res = STRS[static_cast<int>(tv)];
+  res += std::string(dots, '.');
+
+  return res;
 }
 
 std::string Event::NoteToStringNoDuration() const
@@ -110,8 +110,7 @@ std::string Event::NoteToStringNoDuration() const
 
 std::string Event::DurationString() const
 {
-  return TimeValString(m_timeVal) + 
-    (m_dots > 0 ? std::string(m_dots, '.') : ""); 
+  return TimeValString(m_timeVal, m_dots); 
 }
 
 std::string Event::ToString() const
