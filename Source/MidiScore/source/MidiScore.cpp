@@ -114,8 +114,9 @@ std::string OutputEventsDebug(int tpq, const std::string& bar1Preamble, const Ev
   // Traverse events. Output time val when it changes.
   int prevDuration = -1;
 
-  res += "// BAR: 1\n" + bar1Preamble + "\n";
-  int barNum = 2; // next bar num (1 based)
+  // Zero-based bar numbers to match MakeScore
+  res += "// BAR: 0\n" + bar1Preamble + "\n";
+  int barNum = 1; // next bar num 
 
   // So we can output times as crotchets from last bar line
   int lastBarStart = 0;
@@ -151,7 +152,7 @@ std::string OutputEventsDebug(int tpq, const std::string& bar1Preamble, const Ev
     }
   
     // Output the event, even if just bar line... because
-    //  we could update MakeScore to read this debug format?!
+    //  MakeScore can read this debug format :)
     res += OutputEvent(prevDuration, e);
    
     res += "\n";
