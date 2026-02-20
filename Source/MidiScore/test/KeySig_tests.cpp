@@ -57,3 +57,21 @@ TEST_CASE("Key sig strings", "[KeySig]")
   REQUIRE(KeySigString(KeySig::KS_FLAT_7) == "key-f-7");
 }
 
+TEST_CASE("Int to Key sig", "[KeySig]")
+{
+  REQUIRE(IntToKeySig(0) == KeySig::KS_SHARP_0);
+  REQUIRE(IntToKeySig(1) == KeySig::KS_SHARP_1);
+  REQUIRE(IntToKeySig(2) == KeySig::KS_SHARP_2);
+  REQUIRE(IntToKeySig(7) == KeySig::KS_SHARP_7);
+  // Out of range; there is no KS_SHARP_8
+  REQUIRE(IntToKeySig(8) == KeySig::KS_FLAT_0);
+
+  // -0 is not recognised as a flat key sig :(
+  REQUIRE_FALSE(IntToKeySig(-0) == KeySig::KS_FLAT_0);
+  REQUIRE(IntToKeySig(-1) == KeySig::KS_FLAT_1);
+  REQUIRE(IntToKeySig(-6) == KeySig::KS_FLAT_6);
+  REQUIRE(IntToKeySig(-7) == KeySig::KS_FLAT_7);
+  // Out of range, there's no KS_FLAT_8
+  REQUIRE_FALSE(IntToKeySig(-8) == KeySig::KS_FLAT_7);
+}
+

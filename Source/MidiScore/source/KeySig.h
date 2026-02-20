@@ -28,6 +28,11 @@ enum class KeySig
   KS_FLAT_7,
 };
 
+// Convert int to key sig: 
+//  Positive k is number of sharps
+//  Negative k is number of flats.
+KeySig IntToKeySig(int k);
+
 std::string KeySigString(KeySig ks);
 
 KeySig GuessKeySig(const Events& events, bool preferFlatKey = false);

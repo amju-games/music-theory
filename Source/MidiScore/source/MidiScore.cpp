@@ -292,11 +292,6 @@ std::string InfoString(smf::MidiFile& midifile)
 
   return res;
 }
- 
-TimeSig ParseTimeSig(std::optional<std::string> timeSig)
-{
-  return GetTimeSigFromString(*timeSig);
-}
 
 std::string ToString(
   smf::MidiFile& midifile, 
@@ -314,42 +309,35 @@ std::string ToString(
     std::cout << "// Quantising to: " << TimeValString(s_quantRes) << "\n";
   }
 
-  // should we do this? Perhaps we need to do one pass with, 
-  //  to get all "verticals", and then one without, to get the different voices.
-  // Also, if we are guessing the key sig and time sigs, we should do it on
-  //  all the notes across all the tracks, then use those same guesses
-  //  for every stave. 
-  // 
-  // TODO Decide whether or not to join the tracks. If we do, (and if we don't)
-  //  -- we need to detect chords.
-//  midifile.joinTracks(); 
-
   midifile.doTimeAnalysis();
   midifile.linkNotePairs();
 
   const int tpq = midifile.getTicksPerQuarterNote();
 
-  midifile.joinTracks(); // Join all tracks and do a first pass on all the events
+  // First pass: Join all tracks 
+  midifile.joinTracks(); 
   Events allEvents = GetEventsFromTrack(tpq, midifile[0]);
   TimeSig ts;
   KeySig ks;
+  // Guess Key sig and Time sig from ALL events
   GuessTimeSigAndKeySig(tpq, allEvents, ts, ks);
 
   // Override guesses if values have been given
   if (timeSig)
   {
-    ts = ParseTimeSig(*timeSig);
+    ts = GetTimeSigFromString(*timeSig);
   }
 
   if (keySig)
   {
-    //ks = ParseKeySig(*keySig);
+    ks = IntToKeySig(*keySig);
   }
 
   // TODO do other first-pass things on all the events
   // E.g. create dynamics markers
 
-  // 2nd pass: Un-join tracks and output each track -- TODO as a separate stave  
+  // 2nd pass: Un-join tracks and output each track 
+  //  as a separate stave  
   midifile.splitTracks();
 
   // If track is specified, just output that one track.

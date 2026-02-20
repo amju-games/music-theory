@@ -7,6 +7,21 @@
 
 namespace MidiScore
 {
+KeySig IntToKeySig(int k)
+{
+  if (k > 0)
+  {
+    return static_cast<KeySig>(
+      static_cast<int>(KeySig::KS_SHARP_0) + k);
+  }
+  else if (k < 0)
+  {
+    return static_cast<KeySig>(
+      static_cast<int>(KeySig::KS_FLAT_0) - k);
+  }
+  return KeySig::KS_SHARP_0;
+}
+
 std::string KeySigString(KeySig ks)
 {
   if (static_cast<int>(ks) < static_cast<int>(KeySig::KS_FLAT_0))
