@@ -45,6 +45,7 @@ TEST_CASE("Dynamics processing: big range", "[Dynamics]")
   AppendNoteEventToEvents(n(69, 31), events); // pp
 
   InsertDynamics(events);
+  Dynamics::SetLastDynamicsString(); // reset duplicate remover
 
   REQUIRE(events[0].m_dynamics.m_velocity == 1);
   REQUIRE(events[1].m_dynamics.m_velocity == 125); // ok, setting vel works
@@ -66,12 +67,15 @@ TEST_CASE("Dynamics processing: final note", "[Dynamics]")
   AppendNoteEventToEvents(n(64, 64), events); // mf
 
   InsertDynamics(events);
+  Dynamics::SetLastDynamicsString(); // reset duplicate remover
 
   REQUIRE(events[0].m_dynamics.ToString() == "ppp");
   REQUIRE(events[1].m_dynamics.ToString() == "");
-  // Not sure about this: I think it's good to show the sudden change, right?
-  // OTOH it's still the same as event[0].
-  REQUIRE(events[2].m_dynamics.ToString() == "ppp");
+
+  // This next event is set to "ppp" by the algo but stripped out
+  //  in Dynamics::ToString, as we want to remove duplicates.
+  REQUIRE(events[2].m_dynamics.ToString() == "");
+
   REQUIRE(events[3].m_dynamics.ToString() == "mf");
 }
 
@@ -84,6 +88,7 @@ TEST_CASE("Dynamics processing: all the same", "[Dynamics]")
   AppendNoteEventToEvents(n(65, 75), events); // mf
 
   InsertDynamics(events);
+  Dynamics::SetLastDynamicsString(); // reset duplicate remover
 
   REQUIRE(events[0].m_dynamics.ToString() == "mf");
   REQUIRE(events[1].m_dynamics.ToString() == "");
@@ -101,6 +106,7 @@ TEST_CASE("Dynamics processing: down and up", "[Dynamics]")
   AppendNoteEventToEvents(n(67, 75), events); // mf
 
   InsertDynamics(events);
+  Dynamics::SetLastDynamicsString(); // reset duplicate remover
 
   REQUIRE(events[0].m_dynamics.ToString() == "mf");
   REQUIRE(events[1].m_dynamics.ToString() == "");

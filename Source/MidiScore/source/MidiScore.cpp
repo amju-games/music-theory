@@ -82,6 +82,9 @@ std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks)
 
   InsertDynamics(events);
 
+  // Reset last dynamics string output (on prev track)
+  Dynamics::SetLastDynamicsString();
+
   InsertChordMarkers(events);
 //std::cout << "With chord markers: " << OutputEvents(events) << "\n";
 

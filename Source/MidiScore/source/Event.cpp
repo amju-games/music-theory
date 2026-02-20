@@ -33,6 +33,15 @@ void InsertDynamics(Events& events)
     } 
     else
     {
+/*                  
+               <- change 2 -> <- change 1 ->
+   Notes -->  0              0              0
+              ^              ^              ^
+             i-2            i-1             i
+
+  We're looking for a change in sign between change1 and change2.
+  If that happens, we should mark the dynamic of note i-1.
+*/
       int change1 = e.m_dynamics.m_velocity - events[i - 1].m_dynamics.m_velocity;
       if (i > 1)
       {

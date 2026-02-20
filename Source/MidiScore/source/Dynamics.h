@@ -6,6 +6,11 @@ namespace MidiScore
 {
 struct Dynamics
 {
+  // Set the last dynamics string output; this is to prevent
+  //  duplicates, so we only output a new dynamic string when there's
+  //  a change.
+  static void SetLastDynamicsString(const std::string& s = "");
+
   // For final output, combining any dynamics markings and hairpins.
   // Can be empty if there is no need to give dynamics for the owning event.
   std::string ToString() const;
