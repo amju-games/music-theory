@@ -45,6 +45,23 @@ bool CommandLineParams(int argc, char** argv, MakeScore& ms)
       scale = static_cast<float>(atof(argv[i])) * scale;
       ms.SetScale(scale);
     }
+ 
+    else if (param == "--file")
+    {
+      i++;
+      if (i == argc)
+      {
+        std::cout << "Expected filename after `--file`.\n";
+      }
+      std::string filename = argv[i];
+      if (!ms.Load(filename))
+      {
+        std::cout << "Failed to load " << filename << ".\n";
+        return 1;
+      }
+      ms.Preprocess();
+      ms.MakeInternal();
+    }
 
     else
     {
