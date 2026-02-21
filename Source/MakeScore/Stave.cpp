@@ -212,18 +212,41 @@ void Stave::CalcStartTimes()
 void Stave::AddTie()
 {
   // Set bar and position of the left glyph of the tie
-  if (m_bars.empty())
+  auto tie = std::make_unique<Tie>();
+  
+  auto& b = GetCurrentBar();
+  auto& g = b.GetGlyphs();
+  if (g.empty())
   {
-    std::cout << "// *** Error, no left glyph for tie to refer to.\n";
-    return;
+    // Try prev bar
+    if (m_bars.size() > 1)
+    {   
+      auto& b = m_bars[m_bars.size() - 2]; 
+      auto& g = b->GetGlyphs();
+      if (g.empty())
+      {
+        std::cout << "// *** Error, no left glyph for tie to refer to (not first bar).\n";
+        return;
+      }
+      else
+      {
+        tie->SetLeftGlyph(g.back().get());
+      }
+    }   
+    else
+    {
+      std::cout << "// *** Error, no left glyph for tie to refer to (first bar).\n";
+      return;
+    }
   }
-
-  Tie* tie = new Tie;
-  tie->SetLeftGlyph(GetCurrentBar().GetGlyphs().back().get());
+  else
+  {
+    tie->SetLeftGlyph(g.back().get());
+  }
 
   tie->SetScale(scaleY);
 
-  m_ties.push_back(std::unique_ptr<Tie>(tie));
+  m_ties.push_back(std::move(tie));
 }
 
 float Stave::AddRest(const std::string& s, float crotchetTime)
