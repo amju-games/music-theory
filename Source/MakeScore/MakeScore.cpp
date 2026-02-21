@@ -43,15 +43,17 @@
 // Const set of performance directions, with relative widths
 static const std::map<std::string, float> DIRECTIONS = 
 {
-  { "f",  1.f },
-  { "p",  1.f },
-  { "ff", 2.f },
-  { "pp", 2.f },
-  { "mp", 2.5f },
-  { "mf", 2.5f }
+  { "fff", 3.f },
+  { "ff",  2.f },
+  { "f",   1.f },
+  { "mf",  2.5f },
+  { "mp",  2.5f },
+  { "p",   1.f },
+  { "pp",  2.f },
+  { "ppp", 3.f },
 };
 
-bool IsDirection(const std::string& s)
+static bool IsDirection(const std::string& s)
 {
   return DIRECTIONS.find(s) != DIRECTIONS.end();
 }
