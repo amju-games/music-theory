@@ -171,6 +171,6 @@ private:
 
   Strings m_outputLines;
 
-  float m_bpm = 100.f;
+  float m_bpm = 0.f;
 };
 

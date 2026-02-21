@@ -432,6 +432,7 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
     }
     else if (s == "bpm")
     {
+      // If set in input, we will output bpm tempo.
       i++;
       m_bpm = atof(tokens[i].c_str());
     }
@@ -547,8 +548,11 @@ void MakeScore::ToStringInternal()
 
   std::string res;
 
-  res += "BPM, " + std::to_string(m_bpm) + LineEnd();
- 
+  if (m_bpm > 0.f)
+  {
+    res += "BPM, " + std::to_string(m_bpm) + LineEnd();
+  }
+
   int staveNum = 0;
   for (const auto& stave : m_staves)
   {
