@@ -42,6 +42,7 @@ struct Event
   TimeVal m_timeVal = TimeVal::CROTCHET;
   int m_dots = 0; // multiply time val by 1.5 per dot
   int m_pitch = 0; // MIDI pitch
+  bool m_isWholeBar = false; // for rests
 
   Dynamics m_dynamics;
 

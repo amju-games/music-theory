@@ -118,6 +118,7 @@ std::string Event::ToString() const
   switch (m_type)
   {
   case EventType::REST:
+    if (m_isWholeBar) return "<" + DurationString() + "> R";
     return "<" + DurationString() + "> r";
   
   case EventType::NOTE: 
@@ -285,7 +286,7 @@ void Event::QuantiseStartTime(int tpq, TimeVal resolution)
     static_cast<float>(mult));
 }
 
-Event MakeRest(int tpq, int duration, int start)
+Event MakeRest(int tpq, int duration, int start, bool wholeBar = false)
 {
   Event rest;
   rest.m_duration = duration;
@@ -293,6 +294,7 @@ Event MakeRest(int tpq, int duration, int start)
   rest.m_end = start + duration;
   rest.SetTimeVal(tpq);
   rest.m_type = EventType::REST;
+  rest.m_isWholeBar = wholeBar;
 
   return rest;
 }
@@ -321,7 +323,17 @@ void InsertRests(int tpq, Events& events)
       if (!chord) // Except, no rests within chord markers. See *.
       {
         int restDuration = it->m_start - t;
-        it = events.insert(it, MakeRest(tpq, restDuration, t));
+
+        // Check for whole-bar rest
+        bool wholeBar = 
+          (it == events.begin() &&  // at start of stave..
+           it->IsBarLine()) // ..and first event is an end-of-bar line
+           || // .. OR..
+          (it != events.begin() && // after start of stave..
+          (it - 1)->IsBarLine() && // ..and there's a bar line before..
+           it->IsBarLine()); // ..and a bar line after.
+        
+        it = events.insert(it, MakeRest(tpq, restDuration, t, wholeBar));
         ++it;
       }
     }
