@@ -10,7 +10,8 @@
 
 bool IsImmediateRest(const std::string& token)
 {
-  return token == "r";
+  // R means whole-bar rest
+  return token == "r" || token == "R";
 }
 
 bool IsDeferredRest(const std::string& token)
