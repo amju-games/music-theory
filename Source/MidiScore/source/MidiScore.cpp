@@ -2,6 +2,7 @@
 // (c) Copyright 2026 Juliet Colman
 
 #include <algorithm>
+#include <cmath>
 #include <map>
 #include <sstream>
 #include <MidiFile.h>
@@ -314,10 +315,17 @@ std::string ToString(
   midifile.linkNotePairs();
 
   const int tpq = midifile.getTicksPerQuarterNote();
+  std::cout << "// TPQ: " << tpq << "\n";
 
   // First pass: Join all tracks 
   midifile.joinTracks(); 
   Events allEvents = GetEventsFromTrack(tpq, midifile[0]);
+  if (allEvents.empty())
+  {
+    std::cout << "No events!\n";
+    return "";
+  }
+
   TimeSig ts;
   KeySig ks;
   // Guess Key sig and Time sig from ALL events
@@ -333,6 +341,17 @@ std::string ToString(
   {
     ks = IntToKeySig(*keySig);
   }
+
+  int numBars = 
+    std::ceil(
+    static_cast<float>(allEvents.back().m_end) / 
+    static_cast<float>(tpq) / 
+    static_cast<float>(BeatsInBar(ts)));
+
+  std::cout << "// Num bars: " << numBars << "\n";
+
+  // Give a rough page width using the number of bars
+  res += "page-w " + std::to_string(numBars) + "\n";
 
   // TODO do other first-pass things on all the events
   // E.g. create dynamics markers
@@ -353,11 +372,13 @@ std::string ToString(
   else
   {
     // Output all (non-empty) tracks.
+    int stave = 0;
     int numTracks = midifile.getNumTracks();
     for (int t = 0; t < numTracks; t++)
     {
       Events events = GetEventsFromTrack(tpq, midifile[t]);
       if (events.empty()) continue;
+      res += "// ** STAVE " + std::to_string(stave++) + " **\n";
       res += "stave " + OutputTrack(tpq, events, ts, ks, debug) + "\n";
     }
   }
