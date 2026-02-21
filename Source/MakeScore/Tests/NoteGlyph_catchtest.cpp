@@ -70,9 +70,9 @@ TEST_CASE("Calc accidental - step/oct/alter pitches - c major", "[NoteGlyph]")
   // The 'alter' value determines the accidental, but this is checked against
   //  the key sig so we don't add unnecessary accs to the score.
 
-  // For c4 with c major key sig, there is no acc
+  // For c4 with c major key sig, note is natural in key sig
   REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(
-    KeySig::KEYSIG_0_SHARP, Pitch("c", 4, 0)) == Accidental::ACCIDENTAL_NONE);
+    KeySig::KEYSIG_0_SHARP, Pitch("c", 4, 0)) == Accidental::ACCIDENTAL_NATURAL_IN_KEY_SIG);
 
   // c4+ in c major has sharp acc
   REQUIRE(NoteGlyph::CalcAccidentalFromStepOctAlter(

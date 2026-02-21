@@ -22,6 +22,7 @@ void MatchStart(const std::string& container, const std::string& containedAtStar
 
 TEST_CASE("treble-clef", "MakeScore")
 {
+  SetSuppressFlags(SUPPRESS_ALL);
   MakeScore ms("clef-t");
   ms.MakeInternal();
   const auto& strs = ms.GetOutputLines();
