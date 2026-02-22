@@ -12,6 +12,9 @@
 //  score immediately.
 bool IsImmediateRest(const std::string& token);
 
+// `R` input token means whole bar rest
+bool IsWholeBarRest(const std::string& token);
+
 // Parsing: return true if token is a deferred rest, i.e. we should add
 //  a rest to the score for each subsequent time value token. This is
 //  consistent with the behaviour for deferred and immediate pitches.
@@ -24,7 +27,7 @@ public:
   RestGlyph();
 
   // Construct glyph from inpupt token and position in bar.
-  RestGlyph(const std::string& inputToken, int order);
+  RestGlyph(const std::string& inputToken, bool isWholeBar, int order);
 
   // Generate TIME special glyphs (for animation - we do want to highlight rests,
   //  but not generate MIDI events.)
@@ -37,4 +40,10 @@ public:
 
   // Use input token and state to generate output text for this glyph.
   std::string GetGlyphOutputStr() const;
+
+  // For testing
+  bool IsWholeBarRest() const { return m_isWholeBar; }
+
+private:
+  bool m_isWholeBar = false;
 };

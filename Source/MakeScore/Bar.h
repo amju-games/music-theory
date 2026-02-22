@@ -84,7 +84,7 @@ public:
     float startTimeValue);
 
   float AddRest(const std::string& durationToken, int switches, 
-    float startTimeValue);
+    float startTimeValue, bool isWholeBar);
 
   void AddTimeSig(const std::string& token);
 

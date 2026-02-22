@@ -108,11 +108,11 @@ void Bar::SetScale(float scale)
   m_scale = scale;
 }
 
-float Bar::AddRest(const std::string& token, int switches, float startTimeValue)
+float Bar::AddRest(const std::string& token, int switches, float startTimeValue, bool isWholeBar)
 {
   int order = static_cast<int>(m_glyphs.size());
 
-  auto glyph = std::make_unique<RestGlyph>(token, order);
+  auto glyph = std::make_unique<RestGlyph>(token, isWholeBar, order);
   glyph->SetScale(m_scale);
   auto& times = glyph->GetTimes();
   times.Set(token);

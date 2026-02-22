@@ -249,9 +249,9 @@ void Stave::AddTie()
   m_ties.push_back(std::move(tie));
 }
 
-float Stave::AddRest(const std::string& s, float crotchetTime)
+float Stave::AddRest(const std::string& s, float crotchetTime, bool isWholeBar)
 {
-  return GetCurrentBar().AddRest(s, m_switches, crotchetTime);
+  return GetCurrentBar().AddRest(s, m_switches, crotchetTime, isWholeBar);
 }
 
 float Stave::AddChord(const Chord& chord, float crotchetTime)

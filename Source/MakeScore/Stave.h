@@ -65,7 +65,7 @@ public:
 
   float AddNote(const std::string& timeToken, const Pitch& pitch, float crotchetTime);
   float AddChord(const Chord& chord, float crotchetTime);
-  float AddRest(const std::string& s, float crotchetTime);
+  float AddRest(const std::string& s, float crotchetTime, bool isWholeBar);
 
   void AddKeySig(const std::string& s);
   void AddClef(const std::string& s);

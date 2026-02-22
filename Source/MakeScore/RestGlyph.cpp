@@ -14,6 +14,11 @@ bool IsImmediateRest(const std::string& token)
   return token == "r" || token == "R";
 }
 
+bool IsWholeBarRest(const std::string& token)
+{
+  return token == "R";
+}
+
 bool IsDeferredRest(const std::string& token)
 {
   return token == "<r>";
@@ -27,18 +32,23 @@ RestGlyph::RestGlyph()
 
   // It would be nice to allow immediate rests to have an optional
   //  stave line param, e.g. `r 8` would position the rest on the top
-  //  stave line.
+  //  stave line. TODO
 }
 
-RestGlyph::RestGlyph(const std::string& inputToken, int order) :
+RestGlyph::RestGlyph(const std::string& inputToken, bool isWholeBar, int order) :
   Glyph(inputToken, order)
 {
   y = STAVE_LINE_GAP * 2; // see above
+
+  // `R` means whole bar rest, but inputToken is the duration string
+  //  (which should be a time val tho)
+  m_isWholeBar = isWholeBar;
 }
 
 std::string RestGlyph::CommentString() const
 {
-  return "// Rest, value: " + m_times.GetTimeToken() + LineEnd();
+  return "// Rest, value: " + m_times.GetTimeToken() +
+    (m_isWholeBar ? ": Whole Bar" : "") + LineEnd();
 }
 
 std::string RestGlyph::TimeBefore() const
@@ -152,3 +162,4 @@ std::string RestGlyph::GetGlyphOutputStr() const
   }
   return "UNKNOWN!";
 }
+
