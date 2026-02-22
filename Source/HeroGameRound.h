@@ -19,10 +19,11 @@ struct HeroGameRound
   // Internal (non-display) name for this round
   std::string m_name;
 
-  // TODO Maybe learning outcomes?
-
-  // Localised title string
+  // Localised title string: should these be wstrings?
   std::string m_title;
+
+  // Localised composer string
+  std::string m_composer;
 
   // Filename of audio backing track
   std::string m_backingTrack;

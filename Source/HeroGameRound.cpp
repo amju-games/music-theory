@@ -17,7 +17,7 @@ bool GameRoundManager::Load()
     return false;
   }
   // Identify lines we don't want to include by counting the number of cells.
-  const int EXPECTED_NUM_CELLS = 10;
+  const int EXPECTED_NUM_CELLS = 11;
   std::string line;
   bool isFirstLine = true;
   while (f.GetDataLine(&line))
@@ -53,17 +53,22 @@ bool GameRoundManager::Load()
     round.m_round = ToInt(cells[1]);
     round.m_name = cells[2];
     round.m_title = Lookup(cells[3]); // Get localised string
-    round.m_backingTrack = "Music/" + cells[4];
-    round.m_countIn = "Music/" + cells[5];
-    round.m_numCountInBeats = ToInt(cells[6]);
-    round.m_palette = "Gui/Palettes/" + cells[7];
-    round.m_musicScore = "Gui/Scores/" + cells[8];
-    round.m_soundFont = "Sound/" + cells[9];
+    round.m_composer = Lookup(cells[4]); // Get localised string
+    round.m_backingTrack = "Songs/" + cells[5];
+    round.m_countIn = "Music/" + cells[6];
+    round.m_numCountInBeats = ToInt(cells[7]);
+    // TODO This is going to change to a list of midi pitches we want
+    //       to colour in 
+    round.m_palette = "Gui/Palettes/" + cells[8];
+    round.m_musicScore = "Songs/" + cells[9];
+    round.m_soundFont = "Sound/" + cells[10];
 std::cout << round;
 
     m_gameRounds.push_back(round);
   }
 
+  if (m_gameRounds.empty()) return false;
+  
 std::cout << "Loaded game round .csv file ok! There are: " << m_gameRounds.size() << " rounds.\n";
   return true;
 }
@@ -75,6 +80,7 @@ std::ostream& operator<<(std::ostream& os, const HeroGameRound& round)
     << round.m_round << ", "
     << round.m_name << ", "
     << round.m_title << ", "
+    << round.m_composer << ", "
     << round.m_backingTrack << ", "
     << round.m_countIn << ", "
     << round.m_numCountInBeats << ", "
