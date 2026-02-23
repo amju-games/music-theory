@@ -24,6 +24,7 @@ public:
   GSHero();
 
   void OnActive() override;
+  void OnDeactive() override;
   void Update() override;
   void Draw2d() override;
 

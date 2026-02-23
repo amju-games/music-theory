@@ -72,7 +72,7 @@ void GSHero::SetUpForResume()
 
   // Work out how far back we should go from the resume time.
   // We want to find the start of the current bar.
-  // If we're in the first bar, we could just restart the game round.
+  // If we're in the first bar, we should just restart the game round. TODO
 
   // Convert pauseResumeTime into seconds
   auto optSongLength = m_scrollScore->GetSongLengthSeconds();
@@ -122,7 +122,7 @@ void GSHero::ResumeOrRestartGame()
   else
   {
     // Nothing to resume -- restart everything.
-std::cout << " ...restarting after this short pause..\n";
+std::cout << " ...(re)starting round after this short pause..\n";
 
     // Start count in after a short pause, TODO do anims etc in the mean time
     TheMessageQueue::Instance()->Add(new FuncMsg(
@@ -390,18 +390,24 @@ void GSHero::RestartGame()
 {
 std::cout << "Restarting game.\n";
 
+  auto& gameround = GetGameRound();
+
   // Play count-in audio
   // The BPM has to match that of the song. We don't want a huge number of
   //  count-in audio files, so better to adjust BPM of the count-in song, to 
   //  match the main song BPM.
   auto sm = TheSoundManager::Instance();
-  sm->PlaySong(GetGameRound().m_countIn);  
+  // Preload main backing track
+  sm->Preload(gameround.m_backingTrack);
+  sm->PlaySong(gameround.m_countIn);  
 
   // Callback for when count-in finished
   auto onFinished = []() { TheGSHero::Instance()->OnCountInFinished(); };
 
   // Start the count-in
   const int numCountInBeats = GetGameRound().m_numCountInBeats;
+
+std::cout << "Count-in: there are " << numCountInBeats << " beats.\n";
   m_scrollScore->StartCountIn(numCountInBeats, onFinished);
 
   UpdateKeyboardPosition();
@@ -654,6 +660,14 @@ std::cout << ":((( Couldn't find a matching event to grade against!\n";
   }
 }
 
+void GSHero::OnDeactive() 
+{
+  GSBase::OnDeactive();
+  auto sm = TheSoundManager::Instance();
+  sm->ClearPreloadedSongs(); 
+}
+
+
 void GSHero::OnActive() 
 {
   GSBase::OnActive();  
@@ -664,6 +678,7 @@ void GSHero::OnActive()
   if (!ok)
   {
 std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
+    Assert(0);
   }
 
   InitGui();
