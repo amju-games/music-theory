@@ -78,6 +78,8 @@ using Events = std::vector<Event>;
 
 // Used when we read note events from MIDI input.
 // NB Event is passed by value, as we will update dynamics members.
+// Also, we might need to split a note event into multiple tied
+//  notes. E.g.  4/4 <60> m t c t q <61>  q |
 void AppendNoteEventToEvents(Event e, Events& events);
 
 // Call first, when the only events are notes, for simplicity.

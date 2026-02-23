@@ -257,12 +257,17 @@ void Event::QuantiseDuration(int tpq, TimeVal resolution)
   }};
   int mult = MULTS[static_cast<int>(resolution)];
 
+  // Here we ensure that duration is at least the quant resolution --
+  //  otherwise the note would disappear, and surely we don't want 
+  //  that, right???
   m_duration = mult * std::max(1.f,  // duration is at least resolution
     std::round(
       static_cast<float>(m_unquantisedDuration) / 
       static_cast<float>(mult)));
  
-  SetTimeVal(tpq); 
+  // DON'T set time val! First we need to consider splitting the
+  //  note into two or more tied notes.
+  //SetTimeVal(tpq); 
 }
 
 void Event::QuantiseStartTime(int tpq, TimeVal resolution)

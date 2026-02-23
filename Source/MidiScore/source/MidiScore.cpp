@@ -30,15 +30,21 @@ void AddEventToVec(int tpq, const smf::MidiEvent& mev, Events& events)
       e.m_end = e.m_start + e.m_duration;
 
       e.QuantiseStartTime(tpq, s_quantRes);
-      e.QuantiseDuration(tpq, s_quantRes);
 
-      //e.SetTimeVal(tpq);
+      // Set duration to the closest multiple of tpqs in the quant resolution.
+      // But don't set the timeval to the closest timeval. That would
+      //  obliterate crucial timing info -- we might need to split the
+      //  note to capture its length.
+      e.QuantiseDuration(tpq, s_quantRes);
 
       e.m_pitch = static_cast<int>(mev[1]);
       if (numBytes > 2)
       {
         e.m_dynamics.SetVelocity(static_cast<int>(mev[2]));
       }
+
+      // TimeVal is NOT set yet! In this function we decide whether or
+      //  not to split the note, and then assign TimeVals based on that.
       AppendNoteEventToEvents(e, events);
     }
   }

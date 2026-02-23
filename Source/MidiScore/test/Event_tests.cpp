@@ -238,6 +238,53 @@ TEST_CASE("Quantise start time", "[Events]")
   }
 }
 
+TEST_CASE("Quantise end time, split note if required", "[Events]")
+{
+  // Say we've got a long note and then a short note. We might
+  //  need to split the long note to get the time right.
+  // E.g. 4/4 <60> m t c t q <61>  q |
+
+  const int tpq = 2;
+
+  {
+    Events events;
+    Event e;
+    // 7 tpqs = m+c+q
+    e.m_end = e.m_duration = 7;
+    AppendNoteEventToEvents(e, events);
+    REQUIRE(events.size() == 5);
+    REQUIRE(events[0].IsNote());
+    REQUIRE(events[0].m_timeVal == TimeVal::MINIM);
+    REQUIRE(events[1].IsTie());
+    REQUIRE(events[2].IsNote());
+    REQUIRE(events[2].m_timeVal == TimeVal::CROTCHET);
+    REQUIRE(events[3].IsTie());
+    REQUIRE(events[4].IsNote());
+    REQUIRE(events[4].m_timeVal == TimeVal::QUAVER);
+  }
+
+  {
+    Events events;
+    Event e;
+    e.m_end = e.m_duration = 8;
+    AppendNoteEventToEvents(e, events);
+    REQUIRE(events.size() == 1);
+    REQUIRE(events[0].IsNote());
+    REQUIRE(events[0].m_timeVal == TimeVal::SEMIBREVE);
+  }
+
+  {
+    Events events;
+    Event e;
+    e.m_end = e.m_duration = 6;
+    AppendNoteEventToEvents(e, events);
+    REQUIRE(events.size() == 1);
+    REQUIRE(events[0].IsNote());
+    REQUIRE(events[0].m_timeVal == TimeVal::MINIM);
+    REQUIRE(events[0].m_dots == 1);
+  }
+}
+
 TEST_CASE("Insert one rest", "[Events]")
 { 
   const int tpq = 1; // ticks per quarter note
