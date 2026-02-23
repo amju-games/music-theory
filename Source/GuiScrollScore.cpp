@@ -52,13 +52,24 @@ std::cout << "Can't count in, no music events!\n";
   // Duration of count-in
   m_countInTimeRemaining = static_cast<float>(numCountInBeats) / GetBpm() * 60.f;
 
-  // Get spatial distance to first music event in score. 
-  float d = m_noteEvents.begin()->GetPos().x;
+  // 1. We want to move our current position a sensible distance back from the
+  //  event we want to hit when the count-in time elapses.
+  const float sensible = 2.f; // TODO should be num beats * dist between beats
+  m_currentX = -sensible;
 
+  // 2. Get distance to first music event in score after the count-in.
+  // (TODO If counting in to mid-piece, the pos will be of the first event 
+  //  we want to play after the count-in, not the beginning of the piece.)
+  float d = m_noteEvents.begin()->GetPos().x + sensible;
+
+  // 3. Calc the speed we need to get from our sensible position to the
+  //  music event we want to hit when the count-in elapses.
   m_countInSpeed = d / m_countInTimeRemaining;
 
 std::cout << "Count in..... time remaining: " << m_countInTimeRemaining 
   << " dist: " << d 
+  << " initial pos: " << m_currentX
+  << " vel: " << m_countInSpeed
   << "\n";
 }
 
