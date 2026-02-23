@@ -319,6 +319,7 @@ void GSHero::ReloadGui()
   GSBase::ReloadGui();
 }
 
+// TODO This is no good, it should be time, not number of frames, surely?!
 static const int NUM_UPDATE_NUM_FRAMES = 50;
 
 void GSHero::IncreaseScore(const Grade& grade)
@@ -331,7 +332,7 @@ void GSHero::IncreaseScore(const Grade& grade)
 
 void GSHero::DecreaseLife(const Grade& grade)
 {
-  m_lifePercent.Add(-10, NUM_UPDATE_NUM_FRAMES);
+  m_lifePercent.Add(-1, NUM_UPDATE_NUM_FRAMES); // TODO Balance this; currently only losing one point so we can easily play through the whole game round.
 
   if (m_lifePercent.m_internalNumber <= 0)
   {
@@ -427,6 +428,7 @@ void GSHero::ResetMissedNoteCounters()
 {
   m_numPlayerNotes = 0;
   m_numScoreNotes = 0;
+
 #ifdef MISSED_NOTE_DEBUG
 std::cout << "RESET counters:\n";
 std::cout << "  Num player notes: " << m_numPlayerNotes 
@@ -731,6 +733,16 @@ void GSHero::SetSongTitle()
   {
     songTitleText->SetText(GetGameRound().m_title);
   }
+
+  // Set Composer - also subtitle, TODO. Maybe there isn't space, and
+  //  we just show subtitle when we choose piece.
+  elem = GetElementByName(m_gui, "song-composer");
+  auto songComposerText = dynamic_cast<GuiText*>(elem);
+  if (songComposerText)
+  {
+    songComposerText->SetText(GetGameRound().m_composer);
+  }
+  
 }
 
 RCPtr<Palette> GSHero::LoadPalette()

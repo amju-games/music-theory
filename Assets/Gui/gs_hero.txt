@@ -52,6 +52,9 @@ ease-in-out-elastic
 // animated translation for text
 translate
 2, 0; 0, 0
+gui-comp
+title-subtitle-and-composer
+3
 gui-text
 // Name
 song-title
@@ -61,7 +64,27 @@ song-title
 // Text
 title
 // Font name, size
-molin, 3.0, multi, fgcol=000000
+molin, 2.0, multi, fgcol=000000
+gui-text
+// Name
+song-subtitle
+-1.0, 0.8
+// size
+2.0, 0.3
+// Text
+Subtitle
+// Font name, size
+molin, 1.2, multi, fgcol=000000
+gui-text
+// Name
+song-composer
+-.9, 0.7
+// size
+1.8, 0.1
+// Text
+Composer
+// Font name, size
+molin, 1, multi, fgcol=000000, right
 
 // Text balloon giving feedback on player's input
 include
