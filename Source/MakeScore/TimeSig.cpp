@@ -18,6 +18,7 @@ static const std::map<std::string, TimeSig> TIME_SIG_STRS =
   { "3/4", TimeSig::TIME_SIG_THREE_FOUR },
   { "4/4", TimeSig::TIME_SIG_FOUR_FOUR },
   { "5/4", TimeSig::TIME_SIG_FIVE_FOUR },
+  { "6/4", TimeSig::TIME_SIG_SIX_FOUR },
   { "common", TimeSig::TIME_SIG_COMMON },
   { "cut-common", TimeSig::TIME_SIG_CUT_COMMON }, // TODO s/b compound glyph
 };
@@ -40,6 +41,7 @@ Beats_CrotchetValue GetNumBeatsAndCrotchetValue(TimeSig ts)
     { TimeSig::TIME_SIG_THREE_FOUR, { 3, 1.f } },
     { TimeSig::TIME_SIG_FOUR_FOUR, { 4, 1.f } },
     { TimeSig::TIME_SIG_FIVE_FOUR, { 5, 1.f } },
+    { TimeSig::TIME_SIG_SIX_FOUR, { 6, 1.f } },
     { TimeSig::TIME_SIG_COMMON, { 4, 1.f } },
     { TimeSig::TIME_SIG_CUT_COMMON, { 2, 2.f } },
     { TimeSig::TIME_SIG_THREE_EIGHT, { 1, .666667f } },
