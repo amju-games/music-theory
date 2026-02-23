@@ -37,6 +37,17 @@ Options:
   --debug       Verbose output for debugging
 )";
 
+void OutputCommandLine(const commandline& cl)
+{
+  std::cout << "// ";
+  const auto& strs = cl.strings();
+  for (const auto& s : strs)
+  {
+    std::cout << s << " ";
+  }
+  std::cout << "\n";
+}
+
 int main(int argc, const char** argv) 
 {
   commandline cl(argc, argv);
@@ -47,6 +58,8 @@ int main(int argc, const char** argv)
     return 0;
   }
 
+  OutputCommandLine(cl);
+
   MidiFile midifile;
   // 0th arg is exe name, 1th arg is midi filename
   midifile.read(cl.get(1).value()); 
@@ -54,6 +67,7 @@ int main(int argc, const char** argv)
   // If "info" arg exists, output info about the midi file.
   if (check_flag(cl, "--info"))
   {
+    // TODO Combine this option with the others
     std::cout << MidiScore::InfoString(midifile);
     return 0;
   }
