@@ -505,7 +505,8 @@ bool GuiMusicScore::AddMultipleGlyphsFromString(const std::string& line, const V
     Assert(tokens.size() > 0);
 
     // s is a single glyph string, or could be a "compound name".
-    // Check first string: it could be a "compound name", which expands out to multiple glyphs.
+    // Check first string: it could be a "compound name", which expands 
+    //  out to multiple glyphs.
     if (tokens[0] == END_TOKEN)
     {
       return false;
@@ -514,15 +515,13 @@ bool GuiMusicScore::AddMultipleGlyphsFromString(const std::string& line, const V
     {
       if (!ExpandCompoundGlyph(tokens, pos, scale))
       {
-        ReportError("Failed to expand compound glyph: " + s);
-        Assert(0);
+        ReportError("Failed to expand compound glyph: \"" + s + "\"");
         return false;
       }
     }
     else if (!AddGlyphFromString(s, pos, scale))
     {
-      ReportError("Failed to set score glyph: " + s);
-      Assert(0);
+      ReportError("Failed to set score glyph: \"" + s + "\"");
       return false;
     }
   }
@@ -565,13 +564,35 @@ void GuiMusicScore::SetMinMaxTime(float t1, float t2)
 
 bool GuiMusicScore::ParseRestOn(const Strings& strs)
 {
-  // TODO
+  if (strs.size() != 3)
+  {
+    ReportError("Bad number of params for rest on event.");
+    return false;
+  }
+
+  float time = m_timeMinMax.x;
+  float x = ToFloat(strs[1]);
+  float y = ToFloat(strs[2]);
+
+  m_noteEvents.push_back(NoteEvent(
+    0, time, NoteEventType::REST_ON , {x, y}));
+
   return true;
 }
 
 bool GuiMusicScore::ParseRestOff(const Strings& strs)
 {
-  // TODO
+  if (strs.size() != 1)
+  {
+    ReportError("Bad number of params for rest OFF event.");
+    return false;
+  }
+
+  float time = m_timeMinMax.x;
+
+  m_noteEvents.push_back(NoteEvent(
+    0, time, NoteEventType::REST_OFF , {0, 0}));
+
   return true;
 }
 
@@ -930,9 +951,15 @@ bool GuiMusicScore::LoadMusicScore(File* f)
   std::string line;
   while (f->GetDataLine(&line))
   {
-    if (!AddMultipleGlyphsFromString(line))
+    if (line == "end")
     {
       break;
+    }
+
+    if (!AddMultipleGlyphsFromString(line))
+    {
+      f->ReportError("Failed to load score :(");
+      return false;
     }
   }
 
