@@ -190,14 +190,24 @@ void GSHero::UpdateKeyboardPosition()
   // Set keyboard x-coord so that upcoming notes will be playable.
 
   // Look ahead to see what note events will be coming soon.
-  const auto& noteEvents = m_scrollScore->GetNoteEvents();
+  auto noteOnEvents = m_scrollScore->GetNoteEvents();
+
+  // Just consider note on events 
+  noteOnEvents.erase(
+    std::remove_if(noteOnEvents.begin(), noteOnEvents.end(),
+    [](const NoteEvent& ne)
+    {
+      return !ne.IsNoteOnEvent();
+    }),
+    noteOnEvents.end());
+
   float animTime = m_scrollScore->GetAnimTime();
 
   // Get all notes which will occur after the current anim time.
-  auto it = std::upper_bound(noteEvents.begin(), noteEvents.end(), animTime,
+  auto it = std::upper_bound(noteOnEvents.begin(), noteOnEvents.end(), animTime,
     [](float t, const NoteEvent& ne) { return t < ne.m_time; });
 
-  if (it == noteEvents.end())
+  if (it == noteOnEvents.end())
   {
     return; // no more notes?! 
   }
@@ -206,10 +216,10 @@ void GSHero::UpdateKeyboardPosition()
   const int lookAhead = 7;
   // Reduce the range if we are near the end of the note events.
   auto end = std::next(it, 
-    std::min<size_t>(lookAhead, std::distance(it, noteEvents.end())));
+    std::min<size_t>(lookAhead, std::distance(it, noteOnEvents.end())));
 
   // Not:
-  // auto end = std::min(it + lookAhead, noteEvents.end());
+  // auto end = std::min(it + lookAhead, noteOnEvents.end());
   // Which triggers iterator check and crashes the program in MSVC.
 
   // Get the min and max notes in the range
@@ -769,11 +779,13 @@ void GSHero::InitScrollScore()
 
 void GSHero::LoadMusicScore()
 {
-std::cout << "Loading music score...\n";
-  // Now we can load the music for this game round.
-  if (!m_scrollScore->LoadMusicScore(GetGameRound().m_musicScore))
+  const auto& score = GetGameRound().m_musicScore;
+
+std::cout << "Loading music score: " << score << "...\n";
+
+  if (!m_scrollScore->LoadMusicScore(score))
   {
-    std::cout << "Failed to load music!!!\n";
+    std::cout << "Failed to load score: " << score << "\n";
     Assert(0); // TODO better error handling
   }
 }
