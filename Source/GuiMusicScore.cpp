@@ -138,7 +138,8 @@ static bool GlyphNameToCh(const std::string& s, int* ch)
     { "d.s.", 'd' },
     // quad defined in compound glyphs //{ "bar-line", 'e' },
     { "f", 'f' },
-    { "gliss", 'g' },
+    { "gliss", 'g' }, // arpeggiated/rolled chord: a snippet which you would repeat
+      //  vertically for the height of the chord.
     { "tail-down-1", 'j' },
     { "tail-down-2", 'k' },
     { "rest-4", 'l' },
@@ -910,7 +911,7 @@ bool GuiMusicScore::Load(File* f)
 
 bool GuiMusicScore::LoadMusicScore(const std::string& filename)
 {
-  File f;
+  File f(File::NO_VERSION); // no version number for music score files
   if (!f.OpenRead(filename))
   {
     return false;
