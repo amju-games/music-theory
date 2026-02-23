@@ -119,10 +119,16 @@ void GuiScrollScore::Animate(float animValue)
 
   auto noteOnEvents = m_noteEvents;
   // Just retain note on events 
+  // No, we want rests too
+
   noteOnEvents.erase(
     std::remove_if(noteOnEvents.begin(), noteOnEvents.end(),
-    [](const NoteEvent& ne) { return !ne.IsNoteOnEvent(); }),
+    [](const NoteEvent& ne) 
+    { 
+      return !ne.IsNoteOnEvent() && !ne.IsRestOnEvent(); 
+    }),
     noteOnEvents.end());
+
 
   // Find the next entry in the note events sequence
   auto it = std::lower_bound(noteOnEvents.begin(), noteOnEvents.end(), animValue,
