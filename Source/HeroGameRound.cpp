@@ -55,7 +55,7 @@ bool GameRoundManager::Load()
     round.m_title = Lookup(cells[3]); // Get localised string
     round.m_composer = Lookup(cells[4]); // Get localised string
     round.m_backingTrack = "Songs/" + cells[5];
-    round.m_countIn = "Music/" + cells[6];
+    round.m_countIn = "Songs/" + cells[6];
     round.m_numCountInBeats = ToInt(cells[7]);
     // TODO This is going to change to a list of midi pitches we want
     //       to colour in 
