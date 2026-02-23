@@ -102,14 +102,14 @@ static void OutputCommandLineComment(int argc, char** argv)
 
 int main(int argc, char** argv)
 {
+  OutputCommandLineComment(argc, argv);
+
   MakeScore ms;
 
   if (CommandLineParams(argc, argv, ms) == false)
   {
     return 1;
   }
-
-  OutputCommandLineComment(argc, argv);
 
   // Output final string.
   // Don't append a newline char, so we can add more to this line, in
