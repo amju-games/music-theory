@@ -301,7 +301,8 @@ std::string ToString(
   std::optional<std::string> timeSig, 
   std::optional<int> keySig,
   std::optional<std::string> quant, 
-  bool debug) 
+  bool debug,
+  std::optional<float> bpm) 
 {
   std::string res;
 
@@ -351,7 +352,12 @@ std::string ToString(
   std::cout << "// Num bars: " << numBars << "\n";
 
   // Give a rough page width using the number of bars
-  res += "page-w " + std::to_string(numBars) + "\n";
+  res += "page-w " + std::to_string(2 * numBars) + "\n";
+
+  if (bpm)
+  {
+    res += "bpm " + (std::stringstream() << *bpm).str() + "\n";
+  }
 
   // TODO do other first-pass things on all the events
   // E.g. create dynamics markers

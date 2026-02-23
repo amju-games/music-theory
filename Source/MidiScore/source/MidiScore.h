@@ -31,7 +31,8 @@ std::string ToString(
   std::optional<std::string> timeSig, 
   std::optional<int> keySig,
   std::optional<std::string> quantResolution,
-  bool debug);
+  bool debug,
+  std::optional<float> bpm);
 
 // Used internally and for testing
 std::string OutputEvents(const Events& events);

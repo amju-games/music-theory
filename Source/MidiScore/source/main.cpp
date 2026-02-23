@@ -16,6 +16,8 @@ static const auto TRACK = "--track";
 static const auto TIMESIG = "--timesig";
 static const auto KEYSIG = "--keysig";
 static const auto QUANT = "--quant";
+static const auto DEBUG = "--debug";
+static const auto BPM = "--bpm";
 
 static const auto USAGE_STRING = 
 R"(midiscore - convert midi file to juliet compact notation.
@@ -28,13 +30,15 @@ Options:
                   Default is all tracks, as separate staves.
                   NB track numbers are zero-based.
   --timesig <t> Set time signature to t, a string. 
-                  Format is "3/4", "4/4", etc. without quotes.
+                  Format for t is "3/4", "4/4", etc. without quotes.
   --keysig <k>  Set key signature to k, an int. 
                   Positive k is number of sharps; 
                   negative k is number of flats.
   --quant <q>   Quantise starts and durations, to resolution q.
-                  Q is one of: qqq, qq, q, c, m, sb, sb2, sb4
+                  q is one of: qqq, qq, q, c, m, sb, sb2, sb4
   --debug       Verbose output for debugging
+  --bpm <f>     Set Beats Per Minute tempo: passed to MakeScore.
+                  f is a number, can be fractional.
 )";
 
 void OutputCommandLine(const commandline& cl)
@@ -111,10 +115,13 @@ int main(int argc, const char** argv)
   const auto quant = cl.get_value<std::string>(QUANT);
 
   // Debug option
-  const bool debug = check_flag(cl, "--debug");
+  const bool debug = check_flag(cl, DEBUG);
+
+  // BPM tempo -- passed through to MakeScore. 
+  const auto bpm = cl.get_value<float>(BPM);
 
   std::cout << MidiScore::ToString(
-    midifile, track, timeSig, keySig, quant, debug);
+    midifile, track, timeSig, keySig, quant, debug, bpm);
 
   return 0;
 }
