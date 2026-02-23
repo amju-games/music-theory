@@ -14,6 +14,7 @@ enum class TimeSig
   TS_2_4,
   TS_3_4,
   TS_4_4,
+  TS_6_4,
   TS_3_8,
   TS_6_8,
   TS_9_8,

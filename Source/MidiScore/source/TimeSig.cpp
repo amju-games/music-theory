@@ -14,6 +14,7 @@ TimeSig GetTimeSigFromString(const std::string& s)
     { "2/4", TimeSig::TS_2_4 },
     { "3/4", TimeSig::TS_3_4 },
     { "4/4", TimeSig::TS_4_4 },
+    { "6/4", TimeSig::TS_6_4 },
     { "3/8", TimeSig::TS_3_8 },
     { "6/8", TimeSig::TS_6_8 },
     { "9/8", TimeSig::TS_9_8 },
@@ -26,12 +27,13 @@ TimeSig GetTimeSigFromString(const std::string& s)
 
 std::string TimeSigString(TimeSig ts) 
 {
-  static const std::array<std::string, 8> STRS = 
+  static const std::array<std::string, 9> STRS = 
   {{
     "", // TS_NONE
     "2/4",
     "3/4",
     "4/4",
+    "6/4",
     "3/8",
     "6/8",
     "9/8",
@@ -43,12 +45,13 @@ std::string TimeSigString(TimeSig ts)
 
 float BeatsInBar(TimeSig ts)
 {
-  static const std::array<float, 8> BEATS = 
+  static const std::array<float, 9> BEATS = 
   {{
     1.f, // TS_NONE
     2.f,
     3.f,
     4.f,
+    6.f,
     1.5f,
     3.f,
     4.5f,
@@ -60,9 +63,7 @@ float BeatsInBar(TimeSig ts)
 
 TimeSig GuessTimeSig(int tpq, const Events& events)
 {
-  if (events.empty()) return TimeSig::TS_NONE;
-  int totalDuration = events.back().m_end;
-  if (totalDuration % (3 * tpq) == 0) return TimeSig::TS_3_4;
+  // Oh no, TODO!!!!!
   return TimeSig::TS_4_4;
 }
 }
