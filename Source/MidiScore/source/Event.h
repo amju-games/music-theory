@@ -96,5 +96,9 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events);
 void InsertChordMarkers(Events& events);
 
 void InsertTimeSetEvents(int tpq, Events& events);
+
+// Reverse some events - we expect them to be notes and rests.
+// This reverses their order and recalculates start and end times.
+void Reverse(Events& events);
 }
 

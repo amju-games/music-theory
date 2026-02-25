@@ -80,12 +80,27 @@ static Event MakeTimeSet(int tpq, int time)
 }
 
 static const std::vector<std::tuple<int, TimeVal, int>> 
-  GetTpqMultiples(int tpq)
+  GetTpqMultiples(int tpq, bool withDots = true)
 {
   // Set up sequence of exact multiples of tpq. 
   // Each element here is tpq multiple, time val, and number of dots.
   // (Could insert more elements to support double dots.)
   // Not static, tpq can be different each time!
+  if (!withDots)
+  {
+    return
+    { 
+      { tpq / 8,      TimeVal::QQQ,         0 }, // qqq
+      { tpq / 4,      TimeVal::SEMIQUAVER,  0 }, // qq
+      { tpq / 2,      TimeVal::QUAVER,      0 }, // q
+      { tpq,          TimeVal::CROTCHET,    0 }, // c
+      { 2 * tpq,      TimeVal::MINIM,       0 }, // m
+      { 4 * tpq,      TimeVal::SEMIBREVE,   0 }, // sb
+      { 8 * tpq,      TimeVal::SB2,         0 }, // sb2
+      { 16 * tpq,     TimeVal::SB4,         0 }, // sb4
+    };
+  }
+
   return
   { 
     { tpq / 8,      TimeVal::QQQ,         0 }, // qqq
@@ -96,7 +111,7 @@ static const std::vector<std::tuple<int, TimeVal, int>>
     { 3 * tpq / 4,  TimeVal::QUAVER,      1 }, // q.
     { tpq,          TimeVal::CROTCHET,    0 }, // c
     { 3 * tpq / 2,  TimeVal::CROTCHET,    1 }, // c.
-    { 2 * tpq,      TimeVal::MINIM,       0 }, // m.
+    { 2 * tpq,      TimeVal::MINIM,       0 }, // m
     { 3 * tpq,      TimeVal::MINIM,       1 }, // m.
     { 4 * tpq,      TimeVal::SEMIBREVE,   0 }, // sb
     { 6 * tpq,      TimeVal::SEMIBREVE,   1 }, // sb.
@@ -111,7 +126,6 @@ void AppendNoteEventToEvents(int tpq, Event e, Events& events)
 {
   // Get TimeVal of note, with "tail", the extra bit.
   // Tail == 0? -> add note, Done
-  // Tail == 0.5 of timeval? add a dot, add note, and done.
   // Else add a tie and loop 
   // Same for rests, but no ties. 
 
@@ -164,7 +178,8 @@ void AppendNoteEventToEvents(int tpq, Event e, Events& events)
     //if (dots == 1) tailDuration -= head.m_duration / 2;
 //std::cout << "Remaining tail duration: " << tailDuration << "\n";
     // If tail is (close to) zero, we are done.
-    if (tailDuration <= std::get<0>(multiples.front()))
+    if (tailDuration <= 0 || 
+        tailDuration < std::get<0>(multiples.front()))
     {
       // Done.
       return;
@@ -427,6 +442,90 @@ void Event::QuantiseStartTime(int tpq, TimeVal resolution)
     static_cast<float>(mult));
 }
 
+void Reverse(Events& events)
+{
+  if (events.empty()) return;
+
+  // The use case here is for generated (split) notes and rests.
+  // So they will be contiguous in time with no gaps.
+  // Just reversing the elements (we assume notes or rests here)
+  //  isn't sufficient: the start and end times need recalculating.
+  int start = events.front().m_start;
+  std::reverse(events.begin(), events.end());
+  // Now we have successfully reversed durations and time vals, but
+  //  start and end times are wrong.
+  for (Event& e : events)
+  {
+    e.m_start = start;
+    start += e.m_duration;
+    e.m_end = start;
+  }
+}
+
+Events::iterator SplitInsertRest(
+  Events& events, // container we will insert into 
+  Events::iterator it, // insertion point
+  int tpq, int duration, int start, bool wholeBar)
+{
+  // Insert the rest with given start time and duration, splitting
+  //  it if duration is not a nice tpq multiple.
+
+  const bool DO_USE_DOTS = true;
+  const auto multiples = GetTpqMultiples(tpq, DO_USE_DOTS);
+  int tailDuration = duration;
+
+  // Result rests go in here first, then we add the whole lot at the end.
+  // That simplifies inserting, and lets us reverse the list too if we want.
+  Events toAdd;
+
+  while (true)
+  {
+    // Get first element >= m_duration
+    auto mit = std::lower_bound(
+      multiples.begin(), multiples.end(), tailDuration, 
+      [] (const auto& m, int dur) { return std::get<0>(m) < dur; }
+    );
+  
+    if (mit == multiples.end())
+    {
+      // Split the large rest -- so not really an error?
+      --mit;
+    }
+
+    if (mit != multiples.begin() &&
+        tailDuration < std::get<0>(*mit))
+    { 
+      --mit;
+    }
+    const auto [headDuration, timeVal, dots] = *mit;
+    tailDuration -= headDuration;
+
+    if (tailDuration <= 0 ||
+        tailDuration < std::get<0>(multiples.front()))
+    {
+      // If this is first time around, we are not going to split, 
+      //  and we pass wholeBar through unchanged.
+      toAdd.emplace_back(MakeRest(tpq, headDuration, start, wholeBar));
+      // Done.
+      break;
+    }
+    wholeBar = false; // splitting, so not a whole bar rest
+    toAdd.emplace_back(MakeRest(tpq, headDuration, start, wholeBar));
+    start += headDuration; 
+  }
+
+  // The rests to add go from largest to smallest duration. We want to reverse
+  //  that, if the next event is a bar line, or if the rest(s) are between
+  //  notes, it will depend on the note durations...
+  // First fix: reverse rests to add if next event is a bar line.
+  if (it != events.end() && it->IsBarLine())
+  {
+    Reverse(toAdd);
+  }
+  it = events.insert(it, toAdd.begin(), toAdd.end());
+  return it;
+}
+
 void InsertRests(int tpq, Events& events)
 {
   // To insert rests, we get the end time of each event, and compare it
@@ -460,8 +559,10 @@ void InsertRests(int tpq, Events& events)
           (it != events.begin() && // after start of stave..
           (it - 1)->IsBarLine() && // ..and there's a bar line before..
            it->IsBarLine()); // ..and a bar line after.
-        
-        it = events.insert(it, MakeRest(tpq, restDuration, t, wholeBar));
+     
+        // If the duration can't be expressed as a [dotted] TimeVal,
+        //  we have to insert multiple rests
+        it = SplitInsertRest(events, it, tpq, restDuration, t, wholeBar);
         ++it;
       }
     }
@@ -672,10 +773,10 @@ void InsertChordMarkers(Events& events)
     
     if (start == it->m_start)
     {
-std::cout << "Adding chord marker. This event: " << i 
-  << " has start: " << it->m_start 
-  << ", prev event start: " << start 
-  << "\n";
+//std::cout << "Adding chord marker. This event: " << i 
+//  << " has start: " << it->m_start 
+//  << ", prev event start: " << start 
+//  << "\n";
 
       it = events.insert(it - 1, MakeChordStart(it->m_start));
 

@@ -358,7 +358,7 @@ std::string ToString(
   std::cout << "// Num bars: " << numBars << "\n";
 
   // Give a rough page width using the number of bars
-  res += "page-w " + std::to_string(2 * numBars) + "\n";
+  res += "page-w " + std::to_string(4 * numBars) + "\n";
 
   if (bpm)
   {

@@ -401,11 +401,78 @@ TEST_CASE("Insert rests with bar lines", "[Events]")
   REQUIRE(events[13].IsBarLine());
 }
 
+TEST_CASE("Insert rests, split and reverse", "[Events]")
+{
+  // Sometimes adding rests we should split the rest, and then reverse
+  //  so that the order is from smallest to largest duration.
+  const int tpq = 32; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0, tpq / 8, tpq), // qqq at start of bar
+    // gap here! 3.75 crotchets long...
+  };
+  Event barline;
+  barline.m_type = EventType::BARLINE;
+  barline.m_start = 4 * tpq;
+  barline.m_end = barline.m_start;
+  events.emplace_back(barline);
+
+  // Expect: <qqq> 60 |
+
+  InsertRests(tpq, events);
+ 
+  // Expect: <qqq> 60 r q. m. |  -- i.e. split rests are reversed
+ 
+  REQUIRE(events.size() == 5); // 3 rests added
+  REQUIRE(events[0].IsNote()); // unchanged 
+  REQUIRE(events[1].IsRest());
+  REQUIRE(events[1].m_timeVal == TimeVal::QQQ);
+  REQUIRE(events[1].m_dots == 0);
+  REQUIRE(events[2].IsRest());
+  REQUIRE(events[2].m_timeVal == TimeVal::QUAVER);
+  REQUIRE(events[2].m_dots == 1);
+  REQUIRE(events[3].IsRest());
+  REQUIRE(events[3].m_timeVal == TimeVal::MINIM);
+  REQUIRE(events[3].m_dots == 1);
+  REQUIRE(events[4].IsBarLine());
+}
+
+TEST_CASE("Reverse", "[Events]")
+{
+  // Test helper function: reverse generated rest or note events.
+  const int tpq = 32; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0,       1 * tpq, tpq), 
+    n(61, 1 * tpq, 1 * tpq, tpq), 
+    n(62, 2 * tpq, 1 * tpq, tpq),  
+    n(63, 3 * tpq, 1 * tpq, tpq)
+  };
+
+  Reverse(events);
+
+  REQUIRE(events.size() == 4);
+  REQUIRE(events[0].m_start == 0);
+  REQUIRE(events[0].m_end == 1 * tpq);
+  REQUIRE(events[1].m_start == 1 * tpq);
+  REQUIRE(events[1].m_end == 2 * tpq);
+  REQUIRE(events[2].m_start == 2 * tpq);
+  REQUIRE(events[2].m_end == 3 * tpq);
+  REQUIRE(events[3].m_start == 3 * tpq);
+  REQUIRE(events[3].m_end == 4 * tpq);
+}
+
 TEST_CASE("Insert rest, duration means it must be split", "[Events]")
 {
   // Some durations are not expressible as a [dotted] TimeVal, and must
   //  be split.
-  // E.g. 4.5 * tpq: <sb> r <q> r
+  // In this test, there is one c, then another qqq at the end of 4 beats.
+  // So to fill the gap, with dots, the rest could be 
+  //  m + q + qq. OR m + q. + qqq
+  // With dots turned off, the result is
+  //  m + q + qq + qqq
   const int tpq = 32; // ticks per quarter note
   Events events
   { 
@@ -417,11 +484,10 @@ TEST_CASE("Insert rest, duration means it must be split", "[Events]")
 
   InsertRests(tpq, events);
  
-std::cout << "Split rest: " << OutputEvents(events) << "\n";
+  // Expect rests: m q qq qqq (if dots are turned off)
 
-  // Expect rests: m q qq.
-
-  REQUIRE(events.size() == 5); // 3 rests added
+#ifdef NO_DOTS
+  REQUIRE(events.size() == 6); // 4 rests added
   REQUIRE(events[0].IsNote()); // unchanged 
   REQUIRE(events[1].IsRest());
   REQUIRE(events[1].m_timeVal == TimeVal::MINIM);
@@ -431,8 +497,25 @@ std::cout << "Split rest: " << OutputEvents(events) << "\n";
   REQUIRE(events[2].m_dots == 0);
   REQUIRE(events[3].IsRest());
   REQUIRE(events[3].m_timeVal == TimeVal::SEMIQUAVER);
-  REQUIRE(events[3].m_dots == 1);
+  REQUIRE(events[3].m_dots == 0);
+  REQUIRE(events[4].IsRest());
+  REQUIRE(events[4].m_timeVal == TimeVal::QQQ);
+  REQUIRE(events[4].m_dots == 0);
+  REQUIRE(events[5].IsNote()); // unchanged 
+#else
+  REQUIRE(events.size() == 5); // 3 rests added
+  REQUIRE(events[0].IsNote()); // unchanged 
+  REQUIRE(events[1].IsRest());
+  REQUIRE(events[1].m_timeVal == TimeVal::MINIM);
+  REQUIRE(events[1].m_dots == 0);
+  REQUIRE(events[2].IsRest());
+  REQUIRE(events[2].m_timeVal == TimeVal::QUAVER);
+  REQUIRE(events[2].m_dots == 1);
+  REQUIRE(events[3].IsRest());
+  REQUIRE(events[3].m_timeVal == TimeVal::QQQ);
+  REQUIRE(events[3].m_dots == 0);
   REQUIRE(events[4].IsNote()); // unchanged 
+#endif // NO_DOTS
 }
 
 TEST_CASE("Add bar lines 4/4", "[Events]")
