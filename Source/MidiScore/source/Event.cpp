@@ -12,9 +12,166 @@
 
 namespace MidiScore
 {
-void AppendNoteEventToEvents(Event e, Events& events)
+static Event MakeBarLine(int startTicks)
 {
-  events.emplace_back(e);
+  Event e;
+  e.m_type = EventType::BARLINE;
+  e.m_start = startTicks;
+  e.m_duration = 0;
+  e.m_end = startTicks;
+  return e;
+}
+
+static Event MakeTie(int startTicks)
+{
+  Event e;
+  e.m_type = EventType::TIE;
+  e.m_start = startTicks;
+  e.m_duration = 0;
+  e.m_end = startTicks;
+  return e;
+}
+
+static Event MakeChordStart(int startTicks)
+{
+  Event e;
+  e.m_type = EventType::CHORD_START;
+  e.m_start = startTicks;
+  e.m_duration = 0;
+  e.m_end = startTicks;
+  return e;
+}
+
+static Event MakeChordEnd(int startTicks)
+{
+  Event e;
+  e.m_type = EventType::CHORD_END;
+  e.m_start = startTicks;
+  e.m_duration = 0;
+  e.m_end = startTicks;
+  return e;
+}
+
+static Event MakeRest(int tpq, int duration, int start, bool wholeBar = false)
+{
+  Event rest;
+  rest.m_duration = duration;
+  rest.m_start = start;
+  rest.m_end = start + duration;
+  rest.SetTimeVal(tpq);
+  rest.m_type = EventType::REST;
+  rest.m_isWholeBar = wholeBar;
+
+  return rest;
+}
+
+static Event MakeTimeSet(int tpq, int time)
+{
+  Event e;
+  e.m_type = EventType::TIME_SET;
+  e.m_start = time;
+  e.m_end = time;
+  e.m_duration = 0;
+  // For the final output, we use number of crotchets, which can be 
+  //  fractional, of course. Alternatively, we could output the tpq
+  //  value and the time in tpq ticks.
+  e.m_timeSetVal = static_cast<float>(time) / static_cast<float>(tpq);
+  return e;
+}
+
+static const std::vector<std::tuple<int, TimeVal, int>> 
+  GetTpqMultiples(int tpq)
+{
+  // Set up sequence of exact multiples of tpq. 
+  // Each element here is tpq multiple, time val, and number of dots.
+  // (Could insert more elements to support double dots.)
+  // Not static, tpq can be different each time!
+  return
+  { 
+    { tpq / 8,      TimeVal::QQQ,         0 }, // qqq
+    { 3 * tpq / 16, TimeVal::QQQ,         1 }, // qqq.
+    { tpq / 4,      TimeVal::SEMIQUAVER,  0 }, // qq
+    { 3 * tpq / 8,  TimeVal::SEMIQUAVER,  1 }, // qq.
+    { tpq / 2,      TimeVal::QUAVER,      0 }, // q
+    { 3 * tpq / 4,  TimeVal::QUAVER,      1 }, // q.
+    { tpq,          TimeVal::CROTCHET,    0 }, // c
+    { 3 * tpq / 2,  TimeVal::CROTCHET,    1 }, // c.
+    { 2 * tpq,      TimeVal::MINIM,       0 }, // m.
+    { 3 * tpq,      TimeVal::MINIM,       1 }, // m.
+    { 4 * tpq,      TimeVal::SEMIBREVE,   0 }, // sb
+    { 6 * tpq,      TimeVal::SEMIBREVE,   1 }, // sb.
+    { 8 * tpq,      TimeVal::SB2,         0 }, // sb2
+    { 12 * tpq,     TimeVal::SB2,         1 }, // sb2.
+    { 16 * tpq,     TimeVal::SB4,         0 }, // sb4
+    { 24 * tpq,     TimeVal::SB4,         1 }, // sb4.
+  };
+}
+
+void AppendNoteEventToEvents(int tpq, Event e, Events& events)
+{
+  // Get TimeVal of note, with "tail", the extra bit.
+  // Tail == 0? -> add note, Done
+  // Tail == 0.5 of timeval? add a dot, add note, and done.
+  // Else add a tie and loop 
+  // Same for rests, but no ties. 
+
+//std::cout << "Start adding note, tpq: " << tpq << "...\n";
+  const auto multiples = GetTpqMultiples(tpq);
+  int tailDuration = e.m_duration;
+  int start = e.m_start;
+
+  while (true)
+  {
+    // Get first element >= m_duration
+    auto it = std::lower_bound(
+      multiples.begin(), multiples.end(), tailDuration, 
+      [] (const auto& m, int dur) { return std::get<0>(m) < dur; }
+    );
+  
+    if (it == multiples.end())
+    {
+      // Split the large note -- so not really an error?
+      std::cout << "// ** ERROR: note duration is too long: " 
+        << e.ToString() << "\n";
+      --it;
+    }
+
+    if (it != multiples.begin() &&
+        tailDuration < std::get<0>(*it))
+    { 
+      --it;
+    }
+//std::cout << "Tail duration: " << tailDuration << " lower_bound dur: " << std::get<0>(*it) << "\n";
+
+    Event head(e);
+    head.m_start = start;
+    const auto [duration, timeVal, dots] = *it;
+    head.m_timeVal = timeVal;
+    head.m_duration = duration;
+    head.m_dots = dots;
+    head.m_end = head.m_start + head.m_duration; 
+    start = head.m_end;
+
+//std::cout << "Adding HEAD: " << head.ToString() 
+//  << "  start: " << head.m_start 
+//  << "  dur: " << head.m_duration
+//  << "  end: " << head.m_end
+//  << "\n";
+ 
+    events.emplace_back(head);
+
+    tailDuration -= head.m_duration;
+    //if (dots == 1) tailDuration -= head.m_duration / 2;
+//std::cout << "Remaining tail duration: " << tailDuration << "\n";
+    // If tail is (close to) zero, we are done.
+    if (tailDuration <= std::get<0>(multiples.front()))
+    {
+      // Done.
+      return;
+    }
+//std::cout << " add tie..\n";
+    events.emplace_back(MakeTie(head.m_end));
+  } 
 }
 
 static int Signum(int s) // sigh, no standard func?
@@ -157,41 +314,20 @@ std::string Event::ToString() const
 // Set time values in an Event, given m_duration member and tpq. 
 void Event::SetTimeVal(int tpq)
 {
-  // Set up sequence of exact multiples of tpq. We expect the raw event
+  // We expect the raw event
   //  duration to be one of these multiples, but it could be off. So
   //  get the closest multiple, set the TimeVal, and then correct duration 
   //  and end times to the 'perfect', exact values. This will avoid 
   //  inserting crazy rests between note events with funny durations.
   //
-  // Each element here is tpq multiple, time val, and number of dots.
-  // (Could insert more elements to support double dots.)
-  // Not static, tpq can be different each time!
-  const std::vector<std::tuple<int, TimeVal, int>> MULTIPLES = 
-  { 
-    { tpq / 8,      TimeVal::QQQ,         0 }, // qqq
-    { 3 * tpq / 16, TimeVal::QQQ,         1 }, // qqq.
-    { tpq / 4,      TimeVal::SEMIQUAVER,  0 }, // qq
-    { 3 * tpq / 8,  TimeVal::SEMIQUAVER,  1 }, // qq.
-    { tpq / 2,      TimeVal::QUAVER,      0 }, // q
-    { 3 * tpq / 4,  TimeVal::QUAVER,      1 }, // q.
-    { tpq,          TimeVal::CROTCHET,    0 }, // c
-    { 3 * tpq / 2,  TimeVal::CROTCHET,    1 }, // c.
-    { 2 * tpq,      TimeVal::MINIM,       0 }, // m.
-    { 3 * tpq,      TimeVal::MINIM,       1 }, // m.
-    { 4 * tpq,      TimeVal::SEMIBREVE,   0 }, // sb
-    { 6 * tpq,      TimeVal::SEMIBREVE,   1 }, // sb.
-    { 8 * tpq,      TimeVal::SB2,         0 }, // sb2
-    { 12 * tpq,     TimeVal::SB2,         1 }, // sb2.
-    { 16 * tpq,     TimeVal::SB4,         0 }, // sb4
-    { 24 * tpq,     TimeVal::SB4,         1 }, // sb4.
-  };
+  const auto multiples = GetTpqMultiples(tpq);
 
   // Get first element >= m_duration
-  auto it = std::lower_bound(MULTIPLES.begin(), MULTIPLES.end(), m_duration, 
+  auto it = std::lower_bound(multiples.begin(), multiples.end(), m_duration, 
     [] (const auto& m, int dur) { return std::get<0>(m) < dur; }
   );
   
-  if (it == MULTIPLES.end())
+  if (it == multiples.end())
   {
     // Duration is bigger than sb4. (with the dot).
     --it; // use largest supported value, (but it's wrong).
@@ -206,10 +342,10 @@ void Event::SetTimeVal(int tpq)
       << m_duration 
       << " ticks.\n"; 
   } 
-  else if (it == MULTIPLES.begin()) 
+  else if (it == multiples.begin()) 
   {
     // Is duration smaller than smallest type?
-    if (m_duration < std::get<0>(MULTIPLES.front()))
+    if (m_duration < std::get<0>(multiples.front()))
     {
       std::cout << "// *** Event duration too small! Event pitch: " 
         << m_pitch 
@@ -291,19 +427,6 @@ void Event::QuantiseStartTime(int tpq, TimeVal resolution)
     static_cast<float>(mult));
 }
 
-Event MakeRest(int tpq, int duration, int start, bool wholeBar = false)
-{
-  Event rest;
-  rest.m_duration = duration;
-  rest.m_start = start;
-  rest.m_end = start + duration;
-  rest.SetTimeVal(tpq);
-  rest.m_type = EventType::REST;
-  rest.m_isWholeBar = wholeBar;
-
-  return rest;
-}
-
 void InsertRests(int tpq, Events& events)
 {
   // To insert rests, we get the end time of each event, and compare it
@@ -349,46 +472,6 @@ void InsertRests(int tpq, Events& events)
     //  be right before the chord end marker.
     if (it->IsChordEnd()) chord = false;
   }
-}
-
-Event MakeBarLine(int startTicks)
-{
-  Event e;
-  e.m_type = EventType::BARLINE;
-  e.m_start = startTicks;
-  e.m_duration = 0;
-  e.m_end = startTicks;
-  return e;
-}
-
-Event MakeTie(int startTicks)
-{
-  Event e;
-  e.m_type = EventType::TIE;
-  e.m_start = startTicks;
-  e.m_duration = 0;
-  e.m_end = startTicks;
-  return e;
-}
-
-Event MakeChordStart(int startTicks)
-{
-  Event e;
-  e.m_type = EventType::CHORD_START;
-  e.m_start = startTicks;
-  e.m_duration = 0;
-  e.m_end = startTicks;
-  return e;
-}
-
-Event MakeChordEnd(int startTicks)
-{
-  Event e;
-  e.m_type = EventType::CHORD_END;
-  e.m_start = startTicks;
-  e.m_duration = 0;
-  e.m_end = startTicks;
-  return e;
 }
 
 // Split chord across bar lines, return number of bar lines created.
@@ -576,14 +659,24 @@ void InsertChordMarkers(Events& events)
 {
   // Look for notes with the same start time; once found, add markers 
   //  around the notes.
+  int i = 1;
   for (auto it = events.begin() + 1; it != events.end(); ++it)
   {
+    // Only valid when we compare the start times of two
+    //  continguous notes... this could be broken by note lengths
+    //  that require tied notes I expect. :|
     if (!it->IsNote()) continue;
-   
+    if (!(it - 1)->IsNote()) continue;
+  
     int start = (it - 1)->m_start; 
     
     if (start == it->m_start)
     {
+std::cout << "Adding chord marker. This event: " << i 
+  << " has start: " << it->m_start 
+  << ", prev event start: " << start 
+  << "\n";
+
       it = events.insert(it - 1, MakeChordStart(it->m_start));
 
       // Skip over all events with the same start time      
@@ -615,21 +708,8 @@ void InsertChordMarkers(Events& events)
       it = events.insert(it, MakeChordEnd(chordEndTime));
       ++it;
     }
+    i++;
   }
-}
-
-static Event MakeTimeSet(int tpq, int time)
-{
-  Event e;
-  e.m_type = EventType::TIME_SET;
-  e.m_start = time;
-  e.m_end = time;
-  e.m_duration = 0;
-  // For the final output, we use number of crotchets, which can be 
-  //  fractional, of course. Alternatively, we could output the tpq
-  //  value and the time in tpq ticks.
-  e.m_timeSetVal = static_cast<float>(time) / static_cast<float>(tpq);
-  return e;
 }
 
 void InsertTimeSetEvents(int tpq, Events& events)

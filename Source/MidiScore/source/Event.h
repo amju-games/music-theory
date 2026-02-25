@@ -80,13 +80,15 @@ using Events = std::vector<Event>;
 // NB Event is passed by value, as we will update dynamics members.
 // Also, we might need to split a note event into multiple tied
 //  notes. E.g.  4/4 <60> m t c t q <61>  q |
-void AppendNoteEventToEvents(Event e, Events& events);
+void AppendNoteEventToEvents(int tpq, Event e, Events& events);
 
 // Call first, when the only events are notes, for simplicity.
 void InsertDynamics(Events& events);
 
 // Insert rests in the given events vec, where there are gaps between
 //  the end and start time of two consecutive events.
+// NB we may split rests to make up the time value, as for
+//  AppendNoteEventToEvents above. e.g. <m.> r <q> r
 void InsertRests(int tpq, Events& events);
 
 void InsertBarLines(int tpq, TimeSig ts, Events& events);

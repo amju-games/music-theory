@@ -238,36 +238,92 @@ TEST_CASE("Quantise start time", "[Events]")
   }
 }
 
-TEST_CASE("Quantise end time, split note if required", "[Events]")
+TEST_CASE("Quantise duration, split note if required", "[Events]")
 {
   // Say we've got a long note and then a short note. We might
   //  need to split the long note to get the time right.
   // E.g. 4/4 <60> m t c t q <61>  q |
 
-  const int tpq = 2;
+  const int tpq = 8;
 
   {
     Events events;
     Event e;
-    // 7 tpqs = m+c+q
-    e.m_end = e.m_duration = 7;
-    AppendNoteEventToEvents(e, events);
-    REQUIRE(events.size() == 5);
+    // 3.5 (7/2) tpqs: = m + c + q   (m is 2, m. is 3, q is 0.5)
+    // Result: m. q
+    e.m_end = e.m_duration = tpq * 7 / 2;
+    AppendNoteEventToEvents(tpq, e, events);
+    REQUIRE(events.size() == 3);
     REQUIRE(events[0].IsNote());
     REQUIRE(events[0].m_timeVal == TimeVal::MINIM);
+    REQUIRE(events[0].m_dots == 1);
+    REQUIRE(events[0].m_duration == tpq * 3); // dotted minim = 3 crotchets
+    REQUIRE(events[0].m_end == tpq * 3); // dotted minim = 3 crotchets
     REQUIRE(events[1].IsTie());
+    REQUIRE(events[1].m_start == tpq * 3);
     REQUIRE(events[2].IsNote());
-    REQUIRE(events[2].m_timeVal == TimeVal::CROTCHET);
-    REQUIRE(events[3].IsTie());
-    REQUIRE(events[4].IsNote());
-    REQUIRE(events[4].m_timeVal == TimeVal::QUAVER);
+    REQUIRE(events[2].m_timeVal == TimeVal::QUAVER);
+    REQUIRE(events[2].m_start == tpq * 3);
+    REQUIRE(events[2].m_duration == tpq / 2); 
+    REQUIRE(events[2].m_end == tpq * 3 + tpq / 2); 
+
+    // The notes should not overlap, so there should not be any chord
+    //  markers. (This was going wrong before as ties and notes were
+    //  incorrectly identified as a chord.)
+    Events eventsBeforeChord(events);
+    InsertChordMarkers(events);
+    REQUIRE(eventsBeforeChord.size() == events.size());
   }
 
   {
     Events events;
     Event e;
-    e.m_end = e.m_duration = 8;
-    AppendNoteEventToEvents(e, events);
+    // 2.5 (5/2) tpqs: = m + q   (m is 2, q is 0.5)
+    // Result: m t q
+    e.m_end = e.m_duration = tpq * 5 / 2;
+    AppendNoteEventToEvents(tpq, e, events);
+    REQUIRE(events.size() == 3);
+    REQUIRE(events[0].IsNote());
+    REQUIRE(events[0].m_timeVal == TimeVal::MINIM);
+    REQUIRE(events[0].m_dots == 0);
+    REQUIRE(events[0].m_duration == tpq * 2);
+    REQUIRE(events[0].m_end == tpq * 2); 
+    REQUIRE(events[1].IsTie());
+    REQUIRE(events[1].m_start == tpq * 2);
+    REQUIRE(events[2].IsNote());
+    REQUIRE(events[2].m_timeVal == TimeVal::QUAVER);
+    REQUIRE(events[2].m_start == tpq * 2);
+    REQUIRE(events[2].m_duration == tpq / 2); 
+    REQUIRE(events[2].m_end == tpq * 2 + tpq / 2); 
+  }
+
+  {
+    Events events;
+    Event e;
+    // 6.5 tpqs: = sb + m + q   (sb is 4, m is 2, q is 0.5)
+    // Result: sb. t q
+    e.m_end = e.m_duration = tpq * 13 / 2;
+    AppendNoteEventToEvents(tpq, e, events);
+    REQUIRE(events.size() == 3);
+    REQUIRE(events[0].IsNote());
+    REQUIRE(events[0].m_timeVal == TimeVal::SEMIBREVE);
+    REQUIRE(events[0].m_dots == 1);
+    REQUIRE(events[0].m_duration == tpq * 6);
+    REQUIRE(events[0].m_end == tpq * 6); 
+    REQUIRE(events[1].IsTie());
+    REQUIRE(events[1].m_start == tpq * 6);
+    REQUIRE(events[2].IsNote());
+    REQUIRE(events[2].m_timeVal == TimeVal::QUAVER);
+    REQUIRE(events[2].m_start == tpq * 6);
+    REQUIRE(events[2].m_duration == tpq / 2); 
+    REQUIRE(events[2].m_end == tpq * 6 + tpq / 2); 
+  }
+
+  {
+    Events events;
+    Event e;
+    e.m_end = e.m_duration = tpq * 4;
+    AppendNoteEventToEvents(tpq, e, events);
     REQUIRE(events.size() == 1);
     REQUIRE(events[0].IsNote());
     REQUIRE(events[0].m_timeVal == TimeVal::SEMIBREVE);
@@ -276,8 +332,8 @@ TEST_CASE("Quantise end time, split note if required", "[Events]")
   {
     Events events;
     Event e;
-    e.m_end = e.m_duration = 6;
-    AppendNoteEventToEvents(e, events);
+    e.m_end = e.m_duration = tpq * 3;
+    AppendNoteEventToEvents(tpq, e, events);
     REQUIRE(events.size() == 1);
     REQUIRE(events[0].IsNote());
     REQUIRE(events[0].m_timeVal == TimeVal::MINIM);

@@ -35,14 +35,15 @@ TEST_CASE("Dynamics: velocity to string", "[Dynamics]")
 
 TEST_CASE("Dynamics processing: big range", "[Dynamics]")
 {
+  const int tpq = 480;
   Events events;
   // Add some notes with velocities - check vel and velChange are set
-  AppendNoteEventToEvents(n(60, 1), events); // ppp
-  AppendNoteEventToEvents(n(62, 125), events); // fff 
-  AppendNoteEventToEvents(n(64, 64), events); // mf
-  AppendNoteEventToEvents(n(65, 48), events); // mp
-  AppendNoteEventToEvents(n(67, 31), events); // pp
-  AppendNoteEventToEvents(n(69, 31), events); // pp
+  AppendNoteEventToEvents(tpq, n(60, 1), events); // ppp
+  AppendNoteEventToEvents(tpq, n(62, 125), events); // fff 
+  AppendNoteEventToEvents(tpq, n(64, 64), events); // mf
+  AppendNoteEventToEvents(tpq, n(65, 48), events); // mp
+  AppendNoteEventToEvents(tpq, n(67, 31), events); // pp
+  AppendNoteEventToEvents(tpq, n(69, 31), events); // pp
 
   InsertDynamics(events);
   Dynamics::SetLastDynamicsString(); // reset duplicate remover
@@ -60,11 +61,12 @@ TEST_CASE("Dynamics processing: big range", "[Dynamics]")
 
 TEST_CASE("Dynamics processing: final note", "[Dynamics]")
 {
+  const int tpq = 480;
   Events events;
-  AppendNoteEventToEvents(n(60, 1), events); // ppp
-  AppendNoteEventToEvents(n(62, 1), events); // ppp
-  AppendNoteEventToEvents(n(62, 1), events); // ppp
-  AppendNoteEventToEvents(n(64, 64), events); // mf
+  AppendNoteEventToEvents(tpq, n(60, 1), events); // ppp
+  AppendNoteEventToEvents(tpq, n(62, 1), events); // ppp
+  AppendNoteEventToEvents(tpq, n(62, 1), events); // ppp
+  AppendNoteEventToEvents(tpq, n(64, 64), events); // mf
 
   InsertDynamics(events);
   Dynamics::SetLastDynamicsString(); // reset duplicate remover
@@ -81,11 +83,12 @@ TEST_CASE("Dynamics processing: final note", "[Dynamics]")
 
 TEST_CASE("Dynamics processing: all the same", "[Dynamics]")
 {
+  const int tpq = 480;
   Events events;
-  AppendNoteEventToEvents(n(60, 75), events); // mf
-  AppendNoteEventToEvents(n(62, 75), events); // mf
-  AppendNoteEventToEvents(n(64, 75), events); // mf
-  AppendNoteEventToEvents(n(65, 75), events); // mf
+  AppendNoteEventToEvents(tpq, n(60, 75), events); // mf
+  AppendNoteEventToEvents(tpq, n(62, 75), events); // mf
+  AppendNoteEventToEvents(tpq, n(64, 75), events); // mf
+  AppendNoteEventToEvents(tpq, n(65, 75), events); // mf
 
   InsertDynamics(events);
   Dynamics::SetLastDynamicsString(); // reset duplicate remover
@@ -98,12 +101,13 @@ TEST_CASE("Dynamics processing: all the same", "[Dynamics]")
 
 TEST_CASE("Dynamics processing: down and up", "[Dynamics]")
 {
+  const int tpq = 480;
   Events events;
-  AppendNoteEventToEvents(n(60, 75), events); // mf
-  AppendNoteEventToEvents(n(62, 50), events); // mp
-  AppendNoteEventToEvents(n(64, 25), events); // pp
-  AppendNoteEventToEvents(n(65, 50), events); // mp
-  AppendNoteEventToEvents(n(67, 75), events); // mf
+  AppendNoteEventToEvents(tpq, n(60, 75), events); // mf
+  AppendNoteEventToEvents(tpq, n(62, 50), events); // mp
+  AppendNoteEventToEvents(tpq, n(64, 25), events); // pp
+  AppendNoteEventToEvents(tpq, n(65, 50), events); // mp
+  AppendNoteEventToEvents(tpq, n(67, 75), events); // mf
 
   InsertDynamics(events);
   Dynamics::SetLastDynamicsString(); // reset duplicate remover

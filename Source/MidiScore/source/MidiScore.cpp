@@ -45,7 +45,7 @@ void AddEventToVec(int tpq, const smf::MidiEvent& mev, Events& events)
 
       // TimeVal is NOT set yet! In this function we decide whether or
       //  not to split the note, and then assign TimeVals based on that.
-      AppendNoteEventToEvents(e, events);
+      AppendNoteEventToEvents(tpq, e, events);
     }
   }
 }
