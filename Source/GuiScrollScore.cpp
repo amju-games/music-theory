@@ -9,6 +9,13 @@ namespace Amju
 {
 const char* GuiScrollScore::NAME = "scroll-score";
 
+float GetStartX()
+{
+  // Sensible position to start from.
+  // TODO should be num beats * dist between beats
+  return 3.f; // TODO 
+}
+
 bool GuiScrollScore::LoadMusicScore(File* f)
 {
   if (!GuiMusicScore::LoadMusicScore(f))
@@ -16,6 +23,7 @@ bool GuiScrollScore::LoadMusicScore(File* f)
     return false;
   }
   AddBeatLines();
+  m_currentX = -GetStartX();
   return true;
 }
 
@@ -26,6 +34,7 @@ bool GuiScrollScore::Load(File* f)
     return false;
   }
   AddBeatLines();
+  m_currentX = -GetStartX();
   return true;
 }
 
@@ -54,7 +63,7 @@ std::cout << "Can't count in, no music events!\n";
 
   // 1. We want to move our current position a sensible distance back from the
   //  event we want to hit when the count-in time elapses.
-  const float sensible = 2.f; // TODO should be num beats * dist between beats
+  const float sensible = GetStartX();
   m_currentX = -sensible;
 
   // 2. Get distance to first music event in score after the count-in.
