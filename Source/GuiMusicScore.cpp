@@ -30,7 +30,7 @@ namespace Amju
 {
 #ifdef USE_BM_FONT
 const char* FONT_TEXTURE_FILE_NAME = "font2d/Guido2compressed/guido2_0.png";
-const char* FONT_INFO_FILE_NAME = "font2d/Guido2compressed/guido2.fnt";
+const char* FONT_INFO_FILE_NAME = "font2d/Guido2compressed/guido2.txt";
 #else
 const char* FONT_TEXTURE_FILE_NAME = "font2d/Guido2/guido2-60pt.png";
 #endif
