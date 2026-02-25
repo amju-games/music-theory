@@ -426,12 +426,12 @@ void GuiMusicScore::Draw()
   AmjuGL::Scale(size.x, size.y, 1);
   AmjuGL::Draw(m_triList);
 
-  DrawChildren();
-
   DrawBoundingRect();
   DrawIndividualGlyphRects();
 
   AmjuGL::PopMatrix();
+
+  DrawChildren();
 
 #ifdef USE_RTT
   m_rtt->End();
@@ -443,10 +443,19 @@ void GuiMusicScore::Draw()
 
 void GuiMusicScore::DrawChildren()
 {
+  const auto pos = GetCombinedPos();
+  const auto size = GetSize();
+
+  AmjuGL::PushMatrix();
+  AmjuGL::Translate(pos.x, pos.y, 0);
+  AmjuGL::Scale(size.x, size.y, 1);
   for (auto child : m_children)
   {
     child->Draw();
   }
+  AmjuGL::PopMatrix();
+
+  // Eventually, the batched elements will get drawn :)
 }
 
 void GuiMusicScore::AddGlyph(const Glyph& cg)
@@ -846,7 +855,8 @@ bool GuiMusicScore::AddCurveFromString(
     curve->SetStyle(IGuiPoly::Style::OUTLINE);
 
     // Set thickness at ends and in middle -- TODO Should depend on scale
-    curve->SetWidths(0.006f, 0.012f);
+    float w = GetSize().y * 0.01f;
+    curve->SetWidths(w * 0.1f, w * 1.5f);
     curve->SetIsLoop(false);
     curve->SetOutlineColour(m_fgCol);
 

@@ -180,7 +180,7 @@ public:
 
 protected:
   // Draw child GUI elements (curves, text, etc)
-  void DrawChildren(); // not const because GuiElement::Draw not const, why tho
+  virtual void DrawChildren(); // not const because GuiElement::Draw not const, why tho
 
   void DrawBoundingRect() const;
   void DrawIndividualGlyphRects() const;

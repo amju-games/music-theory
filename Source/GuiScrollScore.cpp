@@ -16,6 +16,16 @@ float GetStartX()
   return 3.f; // TODO 
 }
 
+void GuiScrollScore::DrawChildren()
+{
+  GuiMusicScore::DrawChildren();
+
+  AmjuGL::PushMatrix();
+  AmjuGL::Translate(GetLocalPos().x, 0, 0);
+  Batched::DrawAll();
+  AmjuGL::PopMatrix();
+}
+
 bool GuiScrollScore::LoadMusicScore(File* f)
 {
   if (!GuiMusicScore::LoadMusicScore(f))

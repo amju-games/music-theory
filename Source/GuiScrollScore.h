@@ -43,6 +43,8 @@ public:
 protected:
   void SendNoteEvent(const NoteEvent&) override;
 
+  void DrawChildren() override;
+
 protected:
   // Beats per min, used to set scroll speed.
   float m_bpm = 80.f;
