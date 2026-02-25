@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # makemusicglue-ios.sh
 
 export PLATFORM=iOS
@@ -15,6 +17,7 @@ mkdir -p $DEST_DIR/Sound/wav
 
 cp $SRC_DIR/Music/*.it $DEST_DIR/Music
 cp $SRC_DIR/Sound/wav/*.wav $DEST_DIR/Sound/wav
+cp -R $SRC_DIR/Songs $DEST_DIR
 
 cd $DEST_DIR
 
@@ -25,6 +28,10 @@ for f in Sound/wav/*.wav Music/*.it
 do
   echo "Adding file: " $f
   $GLUE_EXE -a $GLUE_FILE $f
+done
+
+for f in Songs/**/*.ogg; do
+  $GLUE_EXE -a $GLUE_FILE "$f"
 done
 
 # Verify glue file contents

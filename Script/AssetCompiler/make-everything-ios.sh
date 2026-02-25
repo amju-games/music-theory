@@ -11,9 +11,9 @@ mkdir -p $DEST_DIR
 
 rm -rf $DEST_DIR
 
-. makeobjsbin-ios.sh
+./makeobjsbin-ios.sh
 
-. makeglue-ios.sh
+./makeglue-ios.new.sh
 
-. makemusicglue-ios.sh
+./makemusicglue-ios.sh
 

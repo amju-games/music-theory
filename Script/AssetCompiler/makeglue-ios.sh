@@ -1,82 +1,46 @@
-# makeglue-ios.sh
-# This packs all the assets for the game into one glue file.
+#!/bin/zsh
 
-export PLATFORM=iOS
-export THIS_DIR=`pwd`
-export TOP_DIR=$THIS_DIR/../..
-export COMPILED_ASSETS=$TOP_DIR/Build/CompiledAssets
-export DEST_DIR=$COMPILED_ASSETS/$PLATFORM
-export SRC_DIR=$TOP_DIR/Assets
-export GLUE_EXE=$THIS_DIR/glue
-export GLUE_FILE=$DEST_DIR/../data-$PLATFORM.glue
+# 1. Setup paths (Added quotes to handle spaces safely)
+export PLATFORM="iOS"
+export THIS_DIR=$(pwd)
+export TOP_DIR="$THIS_DIR/../.."
+export COMPILED_ASSETS="$TOP_DIR/Build/CompiledAssets"
+export DEST_DIR="$COMPILED_ASSETS/$PLATFORM"
+export SRC_DIR="$TOP_DIR/Assets"
+export GLUE_EXE="$THIS_DIR/glue"
+export GLUE_FILE="$DEST_DIR/../data-$PLATFORM.glue"
 
-# We can't do this here, it will trash the lovingly binarfified obj files.
-# rm -rf $DEST_DIR
-# But we do do this in make-everything-ios, which is what we should use
-#  to make proper builds.
+# 2. Create all directories at once (-p creates parents and ignores existing)
+mkdir -p "$DEST_DIR"/{Course,font2d,Gui/Palettes,Image,md2,obj,Scene,Shaders/gles,Shaders/opengl,Sound/wav,Songs}
 
-mkdir $COMPILED_ASSETS
-mkdir $DEST_DIR
-mkdir $DEST_DIR/Course
-mkdir $DEST_DIR/font2d
-mkdir $DEST_DIR/Gui
-mkdir $DEST_DIR/Gui/Palettes
-mkdir $DEST_DIR/Gui/Scores
-#mkdir $DEST_DIR/Gui/tappables
-mkdir $DEST_DIR/Image
-mkdir $DEST_DIR/md2
-mkdir $DEST_DIR/obj
-mkdir $DEST_DIR/Scene
-mkdir -p $DEST_DIR/Shaders/gles
-# Not required for iOS but lets us use the same glue file for iOS, Mac and Win
-mkdir -p $DEST_DIR/Shaders/opengl
-mkdir -p $DEST_DIR/Sound/wav
+# 3. Copy Assets (Simplified with wildcards)
+cp "$SRC_DIR"/*.{txt,csv} "$DEST_DIR/" 2>/dev/null
+cp -R "$SRC_DIR"/{Course,font2d,Gui,Songs,md2} "$DEST_DIR/"
+cp "$SRC_DIR"/Image/*.png "$DEST_DIR/Image/"
+cp "$SRC_DIR"/Shaders/gles/*.txt "$DEST_DIR/Shaders/gles/"
+cp "$SRC_DIR"/Shaders/opengl/*.txt "$DEST_DIR/Shaders/opengl/"
+cp "$SRC_DIR"/Scene/*.txt "$DEST_DIR/Scene/"
+cp "$SRC_DIR"/obj/*.{png,mtl} "$DEST_DIR/obj/"
+cp "$SRC_DIR"/obj/*.png "$DEST_DIR/" # Copying to top level as per your original script
 
-cp $SRC_DIR/*.txt $DEST_DIR
-cp $SRC_DIR/*.csv $DEST_DIR
-cp -R $SRC_DIR/Course/* $DEST_DIR/Course/
-cp -R $SRC_DIR/font2d/* $DEST_DIR/font2d
-cp -R $SRC_DIR/Gui/* $DEST_DIR/Gui
+# 4. Add EOL to all text/csv files (The "Universal" way)
+# This finds every .txt and .csv file everywhere in DEST_DIR
+find "$DEST_DIR" -type f \( -name "*.txt" -o -name "*.csv" \) -exec sh -c 'echo "" >> "$1"' _ {} \;
 
-# TODO platform-specific GUI files
-#cp $SRC_DIR/gui/$PLATFORM/*.txt $DEST_DIR
+# 5. Create the Glue File
+cd "$DEST_DIR"
+"$GLUE_EXE" -c "$GLUE_FILE"
 
-cp $SRC_DIR/Image/*.png $DEST_DIR/Image
-cp $SRC_DIR/Shaders/gles/*.txt $DEST_DIR/Shaders/gles/
-# Not required for iOS but lets us use the same glue file for iOS, Mac and Win
-cp $SRC_DIR/Shaders/opengl/*.txt $DEST_DIR/Shaders/opengl/
-cp $SRC_DIR/Scene/*.txt $DEST_DIR/Scene
-# Images in obj/ are copied to the top level dest dir. We get the full path by using the 
-#  path to the obj file, but in a glue file this is ignored
-cp $SRC_DIR/obj/*.png $DEST_DIR
-# mtl files and images used to decorate meshes - 
-#  TODO put in separate dir so we only add minimal set
-cp $SRC_DIR/obj/*.mtl $DEST_DIR/obj
-cp $SRC_DIR/obj/*.png $DEST_DIR/obj
-cp $SRC_DIR/md2/* $DEST_DIR/md2
-
-# Add a final end-of-line character to all text files: this is
-#  until we properly fix text files so line length is prepended
-#  to each line.
-for f in $DEST_DIR/*.txt $DEST_DIR/*.csv $DEST_DIR/Gui/*.txt $DEST_DIR/Gui/tappables/*.txt $DEST_DIR/Course/*.txt  $DEST_DIR/font2d/*.txt 
-do
-    echo "Adding end of line to file: " $f
-    echo "" >> $f
+# 6. Add all files to Glue
+# Instead of listing 50 paths, we find all files we care about:
+find . -type f \( -name "*.txt" -o -name "*.csv" -o -name "*.png" -o -name "*.obj" -o -name "*.mtl" -o -path "./md2/*" \) | while read -r f; do
+    # Remove the './' from the start of the filename for the glue tool
+    clean_f="${f#./}"
+    echo "Adding file: $clean_f"
+    "$GLUE_EXE" -a "$GLUE_FILE" "$clean_f"
 done
 
-cd $DEST_DIR
-
-# Create empty glue file
-$GLUE_EXE -c $GLUE_FILE
-
-for f in *.csv *.txt *.png Course/level1/* Course/level2/* Course/level3/* Course/level4/* Course/*.txt Course/expl/*.txt Image/*.png md2/* obj/*.obj obj/*.mtl obj/*.png Gui/*.txt Gui/tappables/*.txt Gui/Scores/*.txt Gui/Palettes/*.txt Scene/*.txt font2d/*.txt font2d/Berlin/* font2d/CatComic/* font2d/SnackBox/* font2d/BondStory/* font2d/ArialRound/* font2d/Guido2compressed/* font2d/Icon/* font2d/TimesNewRomanMusic/* Shaders/gles/*.txt Shaders/opengl/*.txt
-do
-    echo "Adding file: " $f
-    $GLUE_EXE -a $GLUE_FILE $f
-done
-
-# Verify glue file contents
-$GLUE_EXE -d $GLUE_FILE
-
-cd $THIS_DIR
+# 7. Verify and Return
+"$GLUE_EXE" -d "$GLUE_FILE"
+cd "$THIS_DIR"
 
