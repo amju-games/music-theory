@@ -401,6 +401,40 @@ TEST_CASE("Insert rests with bar lines", "[Events]")
   REQUIRE(events[13].IsBarLine());
 }
 
+TEST_CASE("Insert rest, duration means it must be split", "[Events]")
+{
+  // Some durations are not expressible as a [dotted] TimeVal, and must
+  //  be split.
+  // E.g. 4.5 * tpq: <sb> r <q> r
+  const int tpq = 32; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0, 1 * tpq, tpq), // c 
+    // gap here! 2.75 crotchets long
+    n(64, tpq * 31 / 8, tpq / 8, tpq), // qqq at end of 4/4 bar
+  };
+
+  InsertRests(tpq, events);
+ 
+std::cout << "Split rest: " << OutputEvents(events) << "\n";
+
+  // Expect rests: m q qq.
+
+  REQUIRE(events.size() == 5); // 3 rests added
+  REQUIRE(events[0].IsNote()); // unchanged 
+  REQUIRE(events[1].IsRest());
+  REQUIRE(events[1].m_timeVal == TimeVal::MINIM);
+  REQUIRE(events[1].m_dots == 0);
+  REQUIRE(events[2].IsRest());
+  REQUIRE(events[2].m_timeVal == TimeVal::QUAVER);
+  REQUIRE(events[2].m_dots == 0);
+  REQUIRE(events[3].IsRest());
+  REQUIRE(events[3].m_timeVal == TimeVal::SEMIQUAVER);
+  REQUIRE(events[3].m_dots == 1);
+  REQUIRE(events[4].IsNote()); // unchanged 
+}
+
 TEST_CASE("Add bar lines 4/4", "[Events]")
 {
   const int tpq = 4; // ticks per quarter note
