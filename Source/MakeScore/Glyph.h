@@ -85,6 +85,7 @@ struct Glyph : public IGlyph
 
   virtual bool IsBeamable() const { return false; }
 
+private:
   int order = 0; // horiz order in bar 
 
 protected:

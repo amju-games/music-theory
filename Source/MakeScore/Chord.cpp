@@ -135,7 +135,7 @@ std::string ChordGlyph::CommentString() const
 
 void ChordGlyph::AddNoteGlyph(std::unique_ptr<NoteGlyph>&& noteGlyph)
 {
-  order = noteGlyph->order;
+  //order = noteGlyph->order;
   noteGlyph->SetIsPartOfChord(true);
   m_noteGlyphs.emplace_back(std::move(noteGlyph));
 }
