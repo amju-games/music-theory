@@ -72,6 +72,12 @@ public:
   // Used to get the total duration for the whole piece.
   TimeValue GetDuration() const;
 
+  // Set start time of first beat of bar, in crotchet units.
+  void SetStartTime(TimeValue tv) { m_startTime = tv; }
+
+  // Get start time of first beat of bar, in crotchet units.
+  TimeValue GetStartTime() const { return m_startTime; }
+
   void MakeBeamGroups();
 
   // Calc normalised start times and durations for meta data
@@ -191,5 +197,8 @@ private:
 
   // Number of beats in this bar - calculated on first call to GetNumBeats().
   mutable int m_numBeats = -1; // -1 means not calculated yet
+
+  // Start time of first beat of bar, in crotchet units
+  TimeValue m_startTime = 0;
 };
 

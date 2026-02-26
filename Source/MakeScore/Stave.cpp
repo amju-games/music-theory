@@ -210,6 +210,10 @@ void Stave::CalcStartTimes()
   TimeValue totalDuration = 0; // units are crotchets
   for (auto& bar : m_bars)
   {
+    // Let the Bar know its start time in the piece.
+    // This is used to split beams and could have other uses.
+    bar->SetStartTime(totalDuration);
+
     totalDuration += bar->GetDuration();
   }
 
