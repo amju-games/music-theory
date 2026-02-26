@@ -37,9 +37,17 @@ public:
   StemDir GetStemDirection() const { return m_stemDir; }
 
 private:
-  std::vector<Glyph*> m_notes;
+  // No: the notes and chords point to this beam group, with a shared
+  //  ptr -- so the members of the beam group own it?!
+//  std::vector<Glyph*> m_notes;
+
   StemDir m_stemDir = StemDir::NONE;
 };
 
 using PBeamGroup = std::shared_ptr<BeamGroup>;
+
+// Find the beam groups in the given sequence of glyphs.
+// This will be runs of contiguous beamable notes/chords.
+std::vector<BeamGroup> FindBeamGroups(
+  const std::vector<std::unique_ptr<Glyph>>& glyphs);
 

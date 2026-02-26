@@ -83,6 +83,8 @@ struct Glyph : public IGlyph
 
   void SetPerformance(int switches) { m_switches = switches; }
 
+  virtual bool IsBeamable() const { return false; }
+
   int order = 0; // horiz order in bar 
 
 protected:

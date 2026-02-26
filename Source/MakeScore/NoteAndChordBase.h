@@ -11,9 +11,6 @@ public:
   NoteAndChordBase(const std::string& token, int orderInBar) :
     Glyph(token, orderInBar) {}
 
-  // True if note is < a crotchet
-  virtual bool IsBeamable() const { return false; }
-  
   // Return shared ptr to beam group, if in a beam group, else nullptr.
   PBeamGroup GetBeamGroup() { return m_beamGroup; }
   
