@@ -140,6 +140,10 @@ std::string RestGlyph::GetGlyphOutputStr() const
   case TimeType::ERROR:
     return "** ERROR **"; // TODO error strings should be Consts, with description
 
+  case TimeType::QQQ: 
+  case TimeType::DOTTED_QQQ:
+    return "rest-3";
+
   case TimeType::SEMIQUAVER: 
   case TimeType::DOTTED_SEMIQUAVER:
     return "rest-semiquaver";

@@ -77,6 +77,8 @@ static const float DEFAULT_SCALE = 1.0f;
 static const float DOUBLE_STAVE_DISTANCE = -0.9f;
 
 // This is the full list of time types supported in the input.
+extern const char* INPUT_TOKEN_QQQ;
+extern const char* INPUT_TOKEN_DOTTED_QQQ;
 extern const char* INPUT_TOKEN_SEMIQUAVER;
 extern const char* INPUT_TOKEN_DOTTED_SEMIQUAVER;
 extern const char* INPUT_TOKEN_QUAVER;

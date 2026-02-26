@@ -6,11 +6,13 @@
 
 #include "Consts.h"
 
+const char* INPUT_TOKEN_QQQ = "qqq";
 const char* INPUT_TOKEN_SEMIQUAVER = "qq";
 const char* INPUT_TOKEN_QUAVER = "q";
 const char* INPUT_TOKEN_CROTCHET = "c";
 const char* INPUT_TOKEN_MINIM = "m";
 const char* INPUT_TOKEN_SEMIBREVE = "sb";
+const char* INPUT_TOKEN_DOTTED_QQQ = "qqq.";
 const char* INPUT_TOKEN_DOTTED_SEMIQUAVER = "qq.";
 const char* INPUT_TOKEN_DOTTED_QUAVER = "q.";
 const char* INPUT_TOKEN_DOTTED_CROTCHET = "c.";

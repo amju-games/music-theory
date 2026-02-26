@@ -16,6 +16,7 @@ static const std::map<std::string, float> TIME_VAL_STRS =
   { INPUT_TOKEN_CROTCHET,   TIMEVAL_CROTCHET },
   { INPUT_TOKEN_QUAVER,     TIMEVAL_QUAVER },
   { INPUT_TOKEN_SEMIQUAVER, TIMEVAL_SEMIQUAVER },
+  { INPUT_TOKEN_QQQ,        TIMEVAL_QQQ },
 };
 
 TimeType GetTimeTypeFromToken(const std::string& cs)
@@ -44,6 +45,8 @@ TimeType GetTimeTypeFromToken(const std::string& cs)
     { INPUT_TOKEN_DOTTED_QUAVER,     TimeType::DOTTED_QUAVER  },
     { INPUT_TOKEN_SEMIQUAVER,        TimeType::SEMIQUAVER  },
     { INPUT_TOKEN_DOTTED_SEMIQUAVER, TimeType::DOTTED_SEMIQUAVER  },
+    { INPUT_TOKEN_QQQ,               TimeType::QQQ }, 
+    { INPUT_TOKEN_DOTTED_QQQ,        TimeType::DOTTED_QQQ  },
   };
 
   auto it = TIME_TYPES.find(s);
@@ -104,7 +107,9 @@ bool Times::IsDotted() const
           || m_timeType == TimeType::DOTTED_MINIM 
           || m_timeType == TimeType::DOTTED_CROTCHET 
           || m_timeType == TimeType::DOTTED_QUAVER 
-          || m_timeType == TimeType::DOTTED_SEMIQUAVER); 
+          || m_timeType == TimeType::DOTTED_SEMIQUAVER
+          || m_timeType == TimeType::DOTTED_QQQ
+  ); 
 }
 
 void Times::SetStartTime(TimeValue startTime)

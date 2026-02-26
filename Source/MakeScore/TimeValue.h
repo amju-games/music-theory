@@ -25,6 +25,8 @@ enum class TimeType
   NOT_SET,
   ERROR,
 
+  QQQ,
+  DOTTED_QQQ,
   SEMIQUAVER,
   DOTTED_SEMIQUAVER,
   QUAVER,
@@ -44,6 +46,7 @@ static const float TIMEVAL_MINIM = TIMEVAL_SEMIBREVE / 2.f;
 static const float TIMEVAL_CROTCHET = TIMEVAL_MINIM / 2.f;
 static const float TIMEVAL_QUAVER = TIMEVAL_CROTCHET / 2.f;
 static const float TIMEVAL_SEMIQUAVER = TIMEVAL_QUAVER / 2.f;
+static const float TIMEVAL_QQQ = TIMEVAL_SEMIQUAVER / 2.f;
 
 // * Times *
 class Times
