@@ -83,6 +83,9 @@ static int CalcStaveLineForMidiPitch(KeySig keySig, Clef clef, const Pitch& pitc
 
 bool NoteGlyph::IsBeamable() const
 {
+  // A note is beamable if its duration is less than a crotchet.
+  // This comparision works because of the order of TimeType values:
+  //  durations are in ascending order, i.e. smallest first.
   const auto tt = GetTimes().GetTimeType();
   return static_cast<int>(tt) < static_cast<int>(TimeType::CROTCHET);
 }
@@ -615,16 +618,26 @@ void NoteGlyph::SetStem()
     return;
   }
 
-  m_stem.SetDirection(GetStaveLine() < 5 ? 
-    StemDir::UP : StemDir::DOWN);
+  auto beamGroup = GetBeamGroup();
+  if (beamGroup)
+  {
+    // We will calc length if beamed, and ignore direction, as we have
+    //  to connect with the beam!
+    m_stem.SetLengthType(Stem::LengthType::VARIABLE); 
+    m_stem.SetDirection(beamGroup->GetStemDirection());
+  }
+  else
+  {
+    // Super simple algo for deciding stem dir: if note is lower than
+    //  middle line, stem points up.
+    m_stem.SetDirection(GetStaveLine() < 5 ? StemDir::UP : StemDir::DOWN);
+    m_stem.SetLengthType(Stem::LengthType::STANDARD); 
+    m_stem.SetTailFromTimeType(GetTimes().GetTimeType());
+  }
 
-  m_stem.SetLengthType(Stem::LengthType::STANDARD); // TODO VARIABLE if beamed
-
-  // TODO We will calc length if beamed, and ignore direction, as we have
-  //  to connect with the beam!
-
+  // Set stave line for end of stem.
+  // Set min and max: this range is for chords -- for a note, min and
+  //  max are the same. We need to do this whether beamed or not.
   m_stem.SetMinMaxStaveLines(m_staveLine, m_staveLine); // same for min and max
-
-  m_stem.SetTailFromTimeType(GetTimes().GetTimeType());
 }
 

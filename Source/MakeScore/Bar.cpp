@@ -493,3 +493,7 @@ float Bar::GetBarLineX() const
   return m_x + m_width;
 }
 
+void Bar::MakeBeamGroups()
+{
+}
+

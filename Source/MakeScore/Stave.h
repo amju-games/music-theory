@@ -55,6 +55,9 @@ public:
 
   void CalcStartTimes();
 
+  // Called by MakeScore after input has been parsed. 
+  void MakeBeamGroups(); 
+
   void AddBar();
   void AddFirstBar();
   int GetNumBars() const;

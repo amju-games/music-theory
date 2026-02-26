@@ -72,6 +72,8 @@ public:
   // Used to get the total duration for the whole piece.
   TimeValue GetDuration() const;
 
+  void MakeBeamGroups();
+
   // Calc normalised start times and durations for meta data
   void CalcNormalisedTimes(float totalDurationOfPiece);
 

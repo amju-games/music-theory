@@ -154,6 +154,17 @@ std::string Stave::OutputBeats() const
   return res;
 }
 
+void Stave::MakeBeamGroups()
+{
+  // Although beams could extend outside of just one bar, we'll assume
+  //  that beams don't extend across bar lines. So each bar can find the
+  //  beam groups inside itself.
+  for (auto& bar : m_bars)
+  {
+    bar->MakeBeamGroups();
+  }
+}
+
 void Stave::CalcBarSizesAndPositions()
 {
   // Loop over the bars. From the number of glyphs in each bar,

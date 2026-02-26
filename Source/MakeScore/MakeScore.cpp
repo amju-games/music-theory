@@ -526,8 +526,9 @@ void MakeScore::MakeInternal()
 
   for (auto& stave : m_staves)
   {
-    stave->CalcBarSizesAndPositions();
     stave->CalcStartTimes();
+    stave->MakeBeamGroups();
+    stave->CalcBarSizesAndPositions();
   }
 
   ToStringInternal();
