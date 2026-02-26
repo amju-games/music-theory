@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "Glyph.h"
+#include "NoteAndChordBase.h"
 #include "NoteGlyph.h"
 #include "Pitch.h"
 #include "Stem.h"
@@ -18,7 +19,7 @@ bool IsChordEnd(const std::string&);
 
 // * ChordGlyph *
 // This is a type of 'vertical' - maybe we should have a Vertical type.
-class ChordGlyph : public Glyph
+class ChordGlyph : public NoteAndChordBase
 {
 public:
   ChordGlyph(const Chord& ch) : m_chordInfo(ch) {}
@@ -31,6 +32,9 @@ public:
   void SetStem();
 
   void AddNoteGlyph(std::unique_ptr<NoteGlyph>&& noteGlyph);
+
+  // True if each note in the chord is beamable, i.e. < a crotchet
+  bool IsBeamable() const override;
 
 protected:
   std::vector<std::unique_ptr<NoteGlyph>> m_noteGlyphs; 

@@ -8,12 +8,6 @@
 #include "Performance.h"
 #include "Suppress.h"
 
-std::string Glyph::ToString() const
-{
-  return displayGlyphName + ", " + Str(x) + ", " + Str(y) +
-    AddScaleStringIfRequired();
-}
-
 Glyph::Glyph(const std::string& inputToken, int order_) :
   order(order_),
   realGlyphName(inputToken)
@@ -21,6 +15,12 @@ Glyph::Glyph(const std::string& inputToken, int order_) :
   // Calc output (display) text later, but if we want to hide this glyph
   //  for a question (e.g. 'what is this note?'), do it now.
   HandleStar();
+}
+
+std::string Glyph::ToString() const
+{
+  return displayGlyphName + ", " + Str(x) + ", " + Str(y) +
+    AddScaleStringIfRequired();
 }
 
 void Glyph::NormaliseTimes(float scale)

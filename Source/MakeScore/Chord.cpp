@@ -205,3 +205,12 @@ void ChordGlyph::NormaliseTimes(float scale)
   }
 }
 
+bool ChordGlyph::IsBeamable() const
+{
+  for (const auto& noteGlyph : m_noteGlyphs)
+  {
+    if (!noteGlyph->IsBeamable()) return false;
+  }
+  return true; 
+}
+

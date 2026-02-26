@@ -75,8 +75,19 @@ void Stem::SetMinMaxStaveLines(int minStave, int maxStave)
 
 void Stem::SetTailFromTimeType(TimeType tt)
 {
+  if (m_beamGroup)
+  {
+    m_tail = Tail::TAIL_NONE;
+    return;
+  }
+
   switch (tt)
   {
+  case TimeType::QQQ:
+  case TimeType::DOTTED_QQQ:
+    m_tail = Tail::TAIL_QQQ;
+    break;
+ 
   case TimeType::SEMIQUAVER:
   case TimeType::DOTTED_SEMIQUAVER:
     m_tail = Tail::TAIL_QQ;
@@ -129,7 +140,10 @@ std::string Stem::CommentString() const
 std::string Stem::TailUpString() const
 {
   // Urgh, stem goes up, tail goes down, sigh
-  std::string tail = (m_tail == Tail::TAIL_QQ ? "tail-down-2" : "tail-down-1");
+  std::string tail = 
+    (m_tail == Tail::TAIL_QQQ ? "tail-down-3" : 
+    (m_tail == Tail::TAIL_QQ ? "tail-down-2" : 
+      "tail-down-1"));
 
   const float TAIL_STEM_UP_X_OFFSET = 0.06f;
   float xOff = TAIL_STEM_UP_X_OFFSET;
@@ -141,7 +155,11 @@ std::string Stem::TailUpString() const
 std::string Stem::TailDownString() const
 {
   // Stem down, tail up, yuck
-  std::string tail = (m_tail == Tail::TAIL_QQ ? "tail-up-2" : "tail-up-1");
+  std::string tail = 
+    (m_tail == Tail::TAIL_QQQ ? "tail-up-3" : 
+    (m_tail == Tail::TAIL_QQ ? "tail-up-2" : 
+      "tail-up-1"));
+
   // x-coord is correct, calc y 
   float yOff = (m_minStave * .5f - m_length) * STAVE_LINE_GAP;
   return tail + ", " + Str(x) + ", " + Str(y + yOff) + AddScaleStringIfRequired();
@@ -150,6 +168,9 @@ std::string Stem::TailDownString() const
 std::string Stem::TailString() const
 {
   if (m_tail == Tail::TAIL_NONE) return "";
+
+  if (m_beamGroup) return "";
+
   std::string res;
   if (m_direction == Direction::UP) res += TailUpString();
   else if (m_direction == Direction::DOWN) res += TailDownString();  

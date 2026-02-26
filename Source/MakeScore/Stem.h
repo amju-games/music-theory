@@ -15,6 +15,7 @@ enum class Tail
   TAIL_NONE,
   TAIL_Q,
   TAIL_QQ,
+  TAIL_QQQ,
   // ...
 };
 
@@ -47,6 +48,8 @@ public:
 
   void SetTailFromTimeType(TimeType);
 
+  void SetBeamGroup(PBeamGroup& bg) { m_beamGroup = bg; }
+
 private:
   // Make a quad for this stem, if it's variable length.
   Quad MakeQuad() const;
@@ -76,6 +79,9 @@ private:
   int m_minStave = 0;
   int m_maxStave = 0;
 
+  // Tail type -- is overridden if note/chord is part of a beam group.
   Tail m_tail;
+
+  PBeamGroup m_beamGroup;
 };
 

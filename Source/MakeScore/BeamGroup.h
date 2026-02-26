@@ -6,10 +6,11 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
 
-class Glyph;
+struct Glyph;
 
 // * BeamGroup *
 // Stores sequence of <*>Quavers, which are to be beamed.
@@ -34,4 +35,6 @@ public:
 private:
   std::vector<Glyph*> m_notes;
 };
+
+using PBeamGroup = std::shared_ptr<BeamGroup>;
 

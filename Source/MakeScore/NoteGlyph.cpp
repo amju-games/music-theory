@@ -80,6 +80,12 @@ static int CalcStaveLineForMidiPitch(KeySig keySig, Clef clef, const Pitch& pitc
   staveLine += octave;
   return staveLine;
 }
+
+bool NoteGlyph::IsBeamable() const
+{
+  const auto tt = GetTimes().GetTimeType();
+  return static_cast<int>(tt) < static_cast<int>(TimeType::CROTCHET);
+}
  
 int NoteGlyph::CalcStaveLine(KeySig keySig, Clef clef, const Pitch& pitch) 
 {

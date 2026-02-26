@@ -11,17 +11,18 @@
 #include "Glyph.h"
 #include "KeySig.h"
 #include "LedgerLine.h"
+#include "NoteAndChordBase.h"
 #include "Pitch.h"
 #include "Stem.h"
 
 // * NoteGlyph *
-struct NoteGlyph : public Glyph
+struct NoteGlyph : public NoteAndChordBase
 {
   NoteGlyph() = default;
 
   // Construct glyph from input token and position in bar.
   NoteGlyph(const std::string& inputToken, int order) :
-    Glyph(inputToken, order) {}
+    NoteAndChordBase(inputToken, order) {}
 
   // Output final note data
   std::string ToString() const override;
@@ -32,6 +33,8 @@ struct NoteGlyph : public Glyph
   std::string TimeAfter() const;
 
   std::string CommentString() const override;
+
+  bool IsBeamable() const override;
 
   // Functions used to build up full string - these can be called from
   //  chord, so not private.
