@@ -5,8 +5,10 @@
 
 #include <memory>
 #include <string>
+#include "BeamGroup.h"
 #include "Consts.h"
 #include "IGlyph.h"
+#include "StemDir.h"
 
 class Quad;
 
@@ -30,12 +32,8 @@ public:
   };
   void SetLengthType(LengthType lt) { m_lengthType = lt; }
   
-  enum class Direction
-  {
-    NONE, UP, DOWN
-  };
-  void SetDirection(Direction d) { m_direction = d; }
-  Direction GetDirection() const { return m_direction; }
+  void SetDirection(StemDir d) { m_direction = d; }
+  StemDir GetDirection() const { return m_direction; }
 
   std::string ToString() const override;
   std::string CommentString() const override;
@@ -59,7 +57,7 @@ private:
   std::string TailDownString() const;
 
 private:
-  Direction m_direction = Direction::NONE;
+  StemDir m_direction = StemDir::NONE;
   LengthType m_lengthType = LengthType::NONE;
 
   // For a single note, the length of the stem is the default, and 

@@ -9,6 +9,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "StemDir.h"
 
 struct Glyph;
 
@@ -32,8 +33,12 @@ public:
   // Not sure if we need this? 
   std::string ToString();
 
+  // Get direction of stem for all notes/chords in this group.
+  StemDir GetStemDirection() const { return m_stemDir; }
+
 private:
   std::vector<Glyph*> m_notes;
+  StemDir m_stemDir = StemDir::NONE;
 };
 
 using PBeamGroup = std::shared_ptr<BeamGroup>;

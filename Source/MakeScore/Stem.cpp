@@ -37,7 +37,7 @@ Quad Stem::MakeQuad() const
   // See definition of stave lines etc in compound_glyphs
   float yOff = y + QUAD_Y_OFFSET; 
 
-  if (m_direction == Direction::UP)
+  if (m_direction == StemDir::UP)
   {
     //   |  <-- stem
     //  0   <-- note head
@@ -124,8 +124,8 @@ std::string Stem::CommentString() const
   std::string res = "// Stem: ";
 
   res += std::string("Direction: ") + 
-    (m_direction == Direction::NONE ? "none" : 
-      (m_direction == Direction::UP ? "up" : "down"));
+    (m_direction == StemDir::NONE ? "none" : 
+      (m_direction == StemDir::UP ? "up" : "down"));
 
   res += std::string(" LengthType: ") + 
     (m_lengthType == LengthType::NONE ? "none" : 
@@ -172,8 +172,8 @@ std::string Stem::TailString() const
   if (m_beamGroup) return "";
 
   std::string res;
-  if (m_direction == Direction::UP) res += TailUpString();
-  else if (m_direction == Direction::DOWN) res += TailDownString();  
+  if (m_direction == StemDir::UP) res += TailUpString();
+  else if (m_direction == StemDir::DOWN) res += TailDownString();  
   return res;
 }
 

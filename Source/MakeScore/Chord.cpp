@@ -19,7 +19,7 @@ bool IsChordEnd(const std::string& s)
 // Returns offset appied to note, which can be -1, 0, or 1.
 static int CalcOverlapOffset(
   std::unique_ptr<NoteGlyph>& noteGlyph, int& lastStaveLine, int& i,
-  Stem::Direction stemDir)
+  StemDir stemDir)
 {
   // Calc offset to avoid overlap
   int overlap = 0;
@@ -40,7 +40,7 @@ static int CalcOverlapOffset(
   if (i++ == 2) lastStaveLine = thisStaveLine;
 
   // Flip side of stem we offset to depending on its direction
-  if (stemDir == Stem::Direction::DOWN) overlap = -overlap;
+  if (stemDir == StemDir::DOWN) overlap = -overlap;
 
   noteGlyph->SetOverlapOffset(overlap);
 
@@ -165,32 +165,39 @@ void ChordGlyph::SetStem()
       return n1->GetStaveLine() < n2->GetStaveLine(); 
     });
 
-  // Decide direction
   int minStave = (*minIt)->GetStaveLine();
   int maxStave = (*maxIt)->GetStaveLine();
-
-  auto dir = Stem::Direction::DOWN;
-  if (minStave > 4) { } // easy, all notes >= middle line
-  else if (maxStave < 5) { dir = Stem::Direction::UP; }
-  // Pick larger distance from mid line
-  else if (maxStave - 5 > 4 - minStave) { dir = Stem::Direction::UP; }
-
-  m_stem.SetDirection(dir);
-  m_stem.SetLengthType(Stem::LengthType::VARIABLE);
   m_stem.SetMinMaxStaveLines(minStave, maxStave);
-  m_stem.SetTailFromTimeType(GetTimes().GetTimeType());
+
+  // All chords have variable length stems
+  m_stem.SetLengthType(Stem::LengthType::VARIABLE);
 
   // Is this chord beamed? How do we know if a note or chord is
   //  beamed??
   // Something like this, so stem can calc the distance to the beam.
   // NB if beamed, we ignore the direction we decided on - it has to be
   //  in the direction of the beam!
-/*
-  if (IsBeamed())
+
+  auto beamGroup = GetBeamGroup();
+  if (beamGroup)
   {
-    m_stem.SetBeam(GetBeam());
+    // This chord is beamed: - stem dir is set by beam
+    m_stem.SetBeamGroup(beamGroup);
+    m_stem.SetDirection(beamGroup->GetStemDirection());
   }
-*/
+  else
+  {
+    // Decide stem direction
+    auto dir = StemDir::DOWN;
+    if (minStave > 4) { } // easy, all notes >= middle line
+    else if (maxStave < 5) { dir = StemDir::UP; }
+    // Pick larger distance from mid line
+    else if (maxStave - 5 > 4 - minStave) { dir = StemDir::UP; }
+    m_stem.SetDirection(dir);
+ 
+    // Set tail -- no tail if beamed. 
+    m_stem.SetTailFromTimeType(GetTimes().GetTimeType());
+  }
 
   m_stem.SetIsChord();
 }

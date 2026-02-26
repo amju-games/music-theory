@@ -288,7 +288,7 @@ std::string NoteGlyph::StaccatoString() const
     float staccX = x + STACC_X_OFFSET;
     float staccY = y + STACC_Y_OFFSET;
     // Add dot, choosing above or below, avoiding overlapping a line
-    bool stemUp = (m_stem.GetDirection() == Stem::Direction::UP);
+    bool stemUp = (m_stem.GetDirection() == StemDir::UP);
 
     // If on one of these stave lines, we should move up or down to 
     //  avoid overlapping a line.
@@ -616,7 +616,7 @@ void NoteGlyph::SetStem()
   }
 
   m_stem.SetDirection(GetStaveLine() < 5 ? 
-    Stem::Direction::UP : Stem::Direction::DOWN);
+    StemDir::UP : StemDir::DOWN);
 
   m_stem.SetLengthType(Stem::LengthType::STANDARD); // TODO VARIABLE if beamed
 
