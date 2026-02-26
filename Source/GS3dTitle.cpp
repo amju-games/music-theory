@@ -19,7 +19,7 @@ static void OnStart(GuiElement* elem)
 
 GS3dTitle::GS3dTitle()
 {
- m_sceneFilename = "Scene/3d-title.txt";
+ m_sceneFilename = "Scene/title-scene.txt";
  m_guiFilename = "Gui/3d-title.txt";
 }
 

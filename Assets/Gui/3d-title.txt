@@ -11,7 +11,29 @@ gui-comp
 // Name
 title-root
 // Num children
-1
+2
+
+// Fade in title text
+animation
+fade-in-anim
+one-shot
+// Time to set new translation
+3
+linear
+colour
+ffffff00,ffffffff
+
+// Title text
+gui-text
+title-text
+// pos (coords are -1..1)
+-1.0, 1.0
+// size
+1.9, 0.6
+// Text
+Piano Fest
+// Font name, size
+molin, 4.0, fgcol=000000
 
 elastic
 0,-2
@@ -24,4 +46,24 @@ Image/gui-button-2.png
 // START
 $$$83
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
+
+
+curve-anim
+one-shot
+// Time to set new translation
+10
+ease-in-out-elastic
+
+spline
+my spline
+0.2, 0.2 
+style=2, outCol=000000, fillCol=000000, radius=0.010000
+0.500000, 0.500000
+0.360211, 0.640625
+-0.108099, 0.662500
+-0.500000, 0.500000
+-0.585211, 0.053125
+-0.500000, -0.500000
+0.500000, -0.500000
+end
 

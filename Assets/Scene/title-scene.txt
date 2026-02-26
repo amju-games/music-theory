@@ -20,9 +20,9 @@ camera-persp
 // Name
 camera
 // Eye pos
-80, 60, 30
+80, 80, 50
 // Look at pos
-0, 50, 0
+0, 70, 0
 // Up vector
 0, 1, 0
 // FovY, aspect, near, far
