@@ -630,7 +630,7 @@ void NoteGlyph::SetStem()
   {
     // Super simple algo for deciding stem dir: if note is lower than
     //  middle line, stem points up.
-    m_stem.SetDirection(GetStaveLine() < 5 ? StemDir::UP : StemDir::DOWN);
+    DecideStemDirection();
     m_stem.SetLengthType(Stem::LengthType::STANDARD); 
     m_stem.SetTailFromTimeType(GetTimes().GetTimeType());
   }
@@ -639,5 +639,12 @@ void NoteGlyph::SetStem()
   // Set min and max: this range is for chords -- for a note, min and
   //  max are the same. We need to do this whether beamed or not.
   m_stem.SetMinMaxStaveLines(m_staveLine, m_staveLine); // same for min and max
+}
+
+StemDir NoteGlyph::DecideStemDirection() 
+{
+  auto dir = GetStaveLine() < 5 ? StemDir::UP : StemDir::DOWN;
+  m_stem.SetDirection(dir);
+  return dir;
 }
 

@@ -94,6 +94,11 @@ public:
 
   void SetClef(Clef clef);
 
+  // Assuming one clef set at the start of the bar, or a cue clef at the
+  //  end of the previous bar. We don't support changing clef mid way
+  //  through the bar.
+  Clef GetClef() const { return m_currentClef; }
+
   // Return string comprising multiple lines, each line a separate glyph.
   std::string ToString();
 
@@ -115,9 +120,11 @@ public:
   //  rhythm scores). 
   void SetPos(float x, float y);
 
-  // Only required to get final glyph, for Ties. TODO replace with
-  //   GetFinalGlyph
+  // Required for Ties
   const GlyphVec& GetGlyphs() const { return m_glyphs; }
+
+  // Required for BeamGroups
+  GlyphVec& GetGlyphs() { return m_glyphs; }
 
 private:
   // Ret true if we should show clef at front of bar
@@ -165,7 +172,7 @@ private:
   //  for animation and midi events.
   TimeSig m_timeSig = TimeSig::TIME_SIG_NONE;
 
-  // Clef for each stave. Output clef at start of a new line, and a mini-clef
+  // Clef for each stave. Output clef at start of a new line, and a cue-clef
   //  when the clef changes on a stave.
   Clef m_currentClef = Clef::CLEF_TREBLE;
 

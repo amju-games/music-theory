@@ -526,9 +526,13 @@ void MakeScore::MakeInternal()
 
   for (auto& stave : m_staves)
   {
+    // Calc start times of bars and elements in them; normalise times
+    //  for animation meta data.
     stave->CalcStartTimes();
-    stave->MakeBeamGroups();
+
     stave->CalcBarSizesAndPositions();
+
+    stave->MakeBeamGroups(); // Do this last so we have positions of notes?
   }
 
   ToStringInternal();

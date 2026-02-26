@@ -21,6 +21,12 @@ struct Glyph;
 class BeamGroup
 {
 public:
+  BeamGroup() = default;
+
+  // Set index range of glyphs that are members of this beam group.
+  // Range is [first, last) like stl iterators etc.
+  BeamGroup(int first, int last) : m_first(first), m_last(last) {}
+
   // Add a note to be beamed to the group: this must be a quaver,
   //  semiquaver, etc.
   void AddNote(Glyph* g);
@@ -36,12 +42,22 @@ public:
   // Get direction of stem for all notes/chords in this group.
   StemDir GetStemDirection() const { return m_stemDir; }
 
+  // Get num glyph members of group
+  int GetNumMembers() const { return m_last - m_first; }
+
+  void DecideStemDirections(
+    std::vector<std::unique_ptr<Glyph>>& glyphs);
+
 private:
   // No: the notes and chords point to this beam group, with a shared
   //  ptr -- so the members of the beam group own it?!
 //  std::vector<Glyph*> m_notes;
 
   StemDir m_stemDir = StemDir::NONE;
+
+  // Indices into glyph vector, [first, last) range. 
+  int m_first = -1;
+  int m_last = -1;
 };
 
 using PBeamGroup = std::shared_ptr<BeamGroup>;

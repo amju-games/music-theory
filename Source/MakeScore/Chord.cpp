@@ -140,6 +140,21 @@ void ChordGlyph::AddNoteGlyph(std::unique_ptr<NoteGlyph>&& noteGlyph)
   m_noteGlyphs.emplace_back(std::move(noteGlyph));
 }
 
+std::pair<int, int> ChordGlyph::GetMinMaxStaveLines() const
+{
+  const auto [minIt, maxIt] = std::minmax_element(
+    m_noteGlyphs.begin(), m_noteGlyphs.end(), 
+    [](const auto& n1, const auto& n2) 
+    { 
+      return n1->GetStaveLine() < n2->GetStaveLine(); 
+    });
+
+  int minStave = (*minIt)->GetStaveLine();
+  int maxStave = (*maxIt)->GetStaveLine();
+
+  return { minStave, maxStave };
+}
+
 void ChordGlyph::SetStem()
 {
   bool shouldHaveStem = false;
@@ -158,15 +173,7 @@ void ChordGlyph::SetStem()
   }
 
   // Get min and max stave lines
-  const auto [minIt, maxIt] = std::minmax_element(
-    m_noteGlyphs.begin(), m_noteGlyphs.end(), 
-    [](const auto& n1, const auto& n2) 
-    { 
-      return n1->GetStaveLine() < n2->GetStaveLine(); 
-    });
-
-  int minStave = (*minIt)->GetStaveLine();
-  int maxStave = (*maxIt)->GetStaveLine();
+  const auto [minStave, maxStave] = GetMinMaxStaveLines();
   m_stem.SetMinMaxStaveLines(minStave, maxStave);
 
   // All chords have variable length stems
@@ -187,19 +194,27 @@ void ChordGlyph::SetStem()
   }
   else
   {
-    // Decide stem direction
-    auto dir = StemDir::DOWN;
-    if (minStave > 4) { } // easy, all notes >= middle line
-    else if (maxStave < 5) { dir = StemDir::UP; }
-    // Pick larger distance from mid line
-    else if (maxStave - 5 > 4 - minStave) { dir = StemDir::UP; }
-    m_stem.SetDirection(dir);
+    DecideStemDirection();
  
     // Set tail -- no tail if beamed. 
     m_stem.SetTailFromTimeType(GetTimes().GetTimeType());
   }
 
   m_stem.SetIsChord();
+}
+
+StemDir ChordGlyph::DecideStemDirection()
+{
+  const auto [minStave, maxStave] = GetMinMaxStaveLines();
+
+  auto dir = StemDir::DOWN;
+  if (minStave > 4) { } // easy, all notes >= middle line
+  else if (maxStave < 5) { dir = StemDir::UP; }
+  // Pick larger distance from mid line
+  else if (maxStave - 5 > 4 - minStave) { dir = StemDir::UP; }
+  m_stem.SetDirection(dir);
+
+  return dir;
 }
 
 void ChordGlyph::NormaliseTimes(float scale)

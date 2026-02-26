@@ -36,6 +36,11 @@ public:
   // True if each note in the chord is beamable, i.e. < a crotchet
   bool IsBeamable() const override;
 
+  StemDir DecideStemDirection() override;
+
+protected:
+  std::pair<int, int> GetMinMaxStaveLines() const;
+
 protected:
   std::vector<std::unique_ptr<NoteGlyph>> m_noteGlyphs; 
 
