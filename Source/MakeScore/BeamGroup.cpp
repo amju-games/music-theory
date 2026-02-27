@@ -105,6 +105,101 @@ float CalcStaveLineToBeamDistance(vec2 p, std::pair<vec2, vec2> beam)
 }
 
 std::pair<int, int> BeamGroup::CalcYStaveLinesAtEnds(
+  std::vector<std::unique_ptr<Glyph>>& glyphs) 
+{
+#ifdef BEAM_GROUP_DEBUG
+std::cout << "Calc Y StaveLinesAtEnds....\n";
+#endif // BEAM_GROUP_DEBUG
+  
+  const int MIN_STEM_H = 4;
+  const float BEAM_UNIT = 1.0f; // Height of one beam + one gap
+  
+  // 1. Determine the "thickest" part of the beam stack
+  int maxLevel = 1;
+  for (int i = m_first; i < m_last; ++i) 
+  {
+    auto n = dynamic_cast<NoteAndChordBase*>(glyphs[i].get());
+    maxLevel = std::max(maxLevel, n->GetBeamLevel());
+  }
+
+  // Secondary beams sit inside the primary. 
+  // We need the primary beam to be further away to accommodate them.
+  const float stackOffset = (maxLevel - 1) * BEAM_UNIT;
+  const float requiredDist = static_cast<float>(MIN_STEM_H) + stackOffset;
+
+#ifdef BEAM_GROUP_DEBUG
+std::cout << "MaxLevel: " << maxLevel 
+  << "  required dist: " << requiredDist  << "\n";
+#endif // BEAM_GROUP_DEBUG
+
+  int s1 = GetStaveLine(glyphs[m_first], m_stemDir);
+  int s2 = GetStaveLine(glyphs[m_last - 1], m_stemDir);
+  int dh = (m_stemDir == StemDir::DOWN) ? -1 : 1;
+
+  // Initial ideal beam positions
+  float y1 = static_cast<float>(s1 + (MIN_STEM_H * dh));
+  float y2 = static_cast<float>(s2 + (MIN_STEM_H * dh));
+#ifdef BEAM_GROUP_DEBUG
+std::cout << "Starting! y1: " << y1 << " y2: " << y2 << "\n";
+#endif // BEAM_GROUP_DEBUG
+
+  float x1 = glyphs[m_first]->GetPos().x;
+  float x2 = glyphs[m_last - 1]->GetPos().x;
+
+  // 2. The "Intelligent Lift"
+  // Find the note that violates the requiredDist the most and push the whole beam
+  bool adjustmentNeeded = true;
+  while (adjustmentNeeded) {
+    adjustmentNeeded = false;
+    float maxViolation = 0.0f;
+
+    for (int i = m_first; i < m_last; ++i) {
+      float x = glyphs[i]->GetPos().x;
+      float noteY = static_cast<float>(GetStaveLine(glyphs[i], m_stemDir));
+      
+      // Interpolate current beam position at x
+      float t = (x2 == x1) ? 0.0f : (x - x1) / (x2 - x1);
+      float currentBeamY = y1 + t * (y2 - y1);
+#ifdef BEAM_GROUP_DEBUG
+std::cout << "i: " << i << "  noteY: " << noteY 
+  << "  currentBeamY: " << currentBeamY << " (t: " << t << ")\n";
+#endif // BEAM_GROUP_DEBUG
+
+      // Signed distance: positive if stem is long enough
+      float actualH = 
+        (m_stemDir == StemDir::UP) ? (currentBeamY - noteY) : 
+                                     (noteY - currentBeamY);
+
+      if (actualH < requiredDist) {
+        maxViolation = std::max(maxViolation, requiredDist - actualH);
+        adjustmentNeeded = true;
+#ifdef BEAM_GROUP_DEBUG
+std::cout << "  actual H: " << actualH << "  max violation: " << maxViolation << "\n";
+#endif // BEAM_GROUP_DEBUG
+      }
+    }
+
+    if (adjustmentNeeded) {
+#ifdef BEAM_GROUP_DEBUG
+std::cout << "max violation: " << maxViolation << "\n";
+#endif // BEAM_GROUP_DEBUG
+      y1 += maxViolation * dh;
+      y2 += maxViolation * dh;
+#ifdef BEAM_GROUP_DEBUG
+std::cout << "New values for y1 and y2: y1: " << y1 << " y2: " << y2 << "\n";
+#endif // BEAM_GROUP_DEBUG
+    }
+  }
+
+#ifdef BEAM_GROUP_DEBUG
+std::cout << "Finished! y1: " << y1 << " y2: " << y2 << "\n";
+#endif // BEAM_GROUP_DEBUG
+  return { static_cast<int>(std::round(y1)), static_cast<int>(std::round(y2)) };
+}
+
+/* old, human-written version
+
+std::pair<int, int> BeamGroup::CalcYStaveLinesAtEnds(
   std::vector<std::unique_ptr<Glyph>>& glyphs)
 {
   // For start and end member notes/chords:
@@ -167,6 +262,7 @@ std::pair<int, int> BeamGroup::CalcYStaveLinesAtEnds(
 
   return res;
 }
+*/
 
 void BeamGroup::DecideStemDirections(
   std::vector<std::unique_ptr<Glyph>>& glyphs)

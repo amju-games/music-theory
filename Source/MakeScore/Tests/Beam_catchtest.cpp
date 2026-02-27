@@ -1,3 +1,4 @@
+#include <iostream>
 #include "catch.hpp"
 #include "Bar.h"
 #include "BeamGroup.h"
@@ -136,6 +137,17 @@ TEST_CASE("Decide stem direction 1", "[Beam]")
   REQUIRE(beamGroups[1].GetStemDirection() == StemDir::DOWN);
 }
 
+static void SetXCoordsOfGlyphs(Bar& bar)
+{
+  auto& glyphs = bar.GetGlyphs();
+  float x = 0;
+  for (auto& g : glyphs)
+  {
+    g->SetX(x);
+    x += 1.f;
+  }
+}
+
 TEST_CASE("Calc primary beam y coords at ends", "[Beam]")
 {
   Bar bar;
@@ -146,6 +158,7 @@ TEST_CASE("Calc primary beam y coords at ends", "[Beam]")
   bar.AddNote("q", Pitch(60), 0, 0); 
   bar.AddNote("q", Pitch(61), 0, TIMEVAL_QUAVER);
   bar.AddNote("q", Pitch(62), 0, TIMEVAL_CROTCHET);
+  SetXCoordsOfGlyphs(bar);
 
   auto beamGroups = FindBeamGroups(bar.GetGlyphs());
   REQUIRE(beamGroups.size() == 1);
@@ -155,6 +168,7 @@ TEST_CASE("Calc primary beam y coords at ends", "[Beam]")
   // Get the coords of the ends of the primary beam in stave lines:
   //  this is more testable than floats.
   const auto [y1, y2] = bg.CalcYStaveLinesAtEnds(bar.GetGlyphs());
+
   REQUIRE(y1 == 2); // Middle C is stave line -2, plus height 4
   REQUIRE(y2 == 3); // 62 is d4, stave line -1, plus height 4 
 }
@@ -172,6 +186,7 @@ TEST_CASE("Calc primary beam y coords at ends - Advanced", "[Beam]")
     bar.AddNote("q", Pitch(60), 0, 0); 
     bar.AddNote("q", Pitch(67), 0, TIMEVAL_QUAVER);
     bar.AddNote("q", Pitch(62), 0, TIMEVAL_CROTCHET);
+    SetXCoordsOfGlyphs(bar);
 
     auto beamGroups = FindBeamGroups(bar.GetGlyphs());
     auto& bg = beamGroups[0];
@@ -192,6 +207,7 @@ TEST_CASE("Calc primary beam y coords at ends - Advanced", "[Beam]")
     // Level 2 means we need to clear the primary AND secondary beam.
     bar.AddNote("qq", Pitch(60), 0, 0);
     bar.AddNote("qq", Pitch(60), 0, TIMEVAL_SEMIQUAVER);
+    SetXCoordsOfGlyphs(bar);
 
     auto beamGroups = FindBeamGroups(bar.GetGlyphs());
     auto& bg = beamGroups[0];
@@ -207,17 +223,18 @@ TEST_CASE("Calc primary beam y coords at ends - Advanced", "[Beam]")
   }
   
   SECTION("Descending group with StemDir DOWN") {
-    // Higher notes: c5(4) to g4(2). Stems DOWN.
-    // Expected y: c5(4-4) = 0, g4(2-4) = -2
+    // Higher notes: c5(stave line 5) to g4(2). Stems DOWN.
+    // Expected y: c5(5-4) = 1, g4(2-4) = -2
     bar.AddNote("q", Pitch(72), 0, 0);
     bar.AddNote("q", Pitch(67), 0, TIMEVAL_QUAVER);
+    SetXCoordsOfGlyphs(bar);
     
     auto beamGroups = FindBeamGroups(bar.GetGlyphs());
     auto& bg = beamGroups[0];
     bg.SetStemDirection(StemDir::DOWN);
     
     const auto [y1, y2] = bg.CalcYStaveLinesAtEnds(bar.GetGlyphs());
-    REQUIRE(y1 == 0);
+    REQUIRE(y1 == 1);
     REQUIRE(y2 == -2);
   }
 }

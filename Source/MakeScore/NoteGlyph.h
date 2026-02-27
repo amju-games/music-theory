@@ -36,6 +36,8 @@ struct NoteGlyph : public NoteAndChordBase
 
   bool IsBeamable() const override;
 
+  int GetBeamLevel() const override;
+
   StemDir DecideStemDirection() override;
 
   int GetStaveLineForBeam(StemDir dir) override { return m_staveLine; }

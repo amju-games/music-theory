@@ -31,6 +31,9 @@ public:
   //  the direction of all stems in the beam group.
   virtual int GetStaveLineForBeam(StemDir dir) { return 0; }
 
+  // Get beam level: 1 for q, 2 for qq, etc.
+  virtual int GetBeamLevel() const { return 1; }
+
 protected:
   PBeamGroup m_beamGroup;
 };

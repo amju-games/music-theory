@@ -89,7 +89,18 @@ bool NoteGlyph::IsBeamable() const
   const auto tt = GetTimes().GetTimeType();
   return static_cast<int>(tt) < static_cast<int>(TimeType::CROTCHET);
 }
- 
+
+int NoteGlyph::GetBeamLevel() const 
+{
+  // This comparision works because of the order of TimeType values:
+  //  durations are in ascending order, i.e. smallest first.
+  const auto tt = GetTimes().GetTimeType();
+  if (tt <= TimeType::DOTTED_QQQ) return 3;
+  else if (tt <= TimeType::DOTTED_SEMIQUAVER) return 2;
+  else if (tt <= TimeType::DOTTED_QUAVER) return 1;
+  return 0;
+}
+
 int NoteGlyph::CalcStaveLine(KeySig keySig, Clef clef, const Pitch& pitch) 
 {
   if (pitch.m_step.empty())

@@ -35,6 +35,8 @@ public:
 
   // True if each note in the chord is beamable, i.e. < a crotchet
   bool IsBeamable() const override;
+  
+  int GetBeamLevel() const override;
 
   StemDir DecideStemDirection() override;
 

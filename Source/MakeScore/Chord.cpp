@@ -246,3 +246,21 @@ bool ChordGlyph::IsBeamable() const
   return true; 
 }
 
+int ChordGlyph::GetBeamLevel() const
+{
+  if (m_noteGlyphs.empty()) return 0;
+
+  // Get the 0th note: the notes are in descending duration order, so
+  //  this is the note with the longest duration in the chord
+  //  (although ideally they are all the same length, to avoid weirdness).
+  const auto& n = m_noteGlyphs[0];
+
+  // This comparision works because of the order of TimeType values:
+  //  durations are in ascending order, i.e. smallest first.
+  const auto tt = n->GetTimes().GetTimeType();
+  if (tt <= TimeType::DOTTED_QQQ) return 3;
+  else if (tt <= TimeType::DOTTED_SEMIQUAVER) return 2;
+  else if (tt <= TimeType::DOTTED_QUAVER) return 1;
+  return 0;
+}
+
