@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include "StemDir.h"
+#include "vec2.h"
 
 struct Glyph;
 
@@ -39,14 +40,31 @@ public:
   // Not sure if we need this? 
   std::string ToString();
 
-  // Get direction of stem for all notes/chords in this group.
-  StemDir GetStemDirection() const { return m_stemDir; }
-
   // Get num glyph members of group
   int GetNumMembers() const { return m_last - m_first; }
 
+  // Decide which way stems of member notes/chords should go,
+  //  using 'majority vote'.
   void DecideStemDirections(
     std::vector<std::unique_ptr<Glyph>>& glyphs);
+
+  // Set dir of stems of all members: used to override the 
+  //  'majority vote' decision.
+  void SetStemDirection(StemDir dir) { m_stemDir = dir; }
+
+  // Get direction of stem for all notes/chords in this group.
+  StemDir GetStemDirection() const { return m_stemDir; }
+
+  // Calc y-coords for end member stems. Units are stave lines,
+  //  for testability -- then we can convert to actual coords
+  //  when we create quads.
+  std::pair<int, int> CalcYStaveLinesAtEnds(
+    std::vector<std::unique_ptr<Glyph>>& glyphs);
+
+  // Create quad for primary beam -- maybe we could 
+  //  break this down a bit.
+//  Quad MakePrimaryBeam(
+//    std::vector<std::unique_ptr<Glyph>>& glyphs);
 
 private:
   // No: the notes and chords point to this beam group, with a shared
@@ -66,4 +84,9 @@ using PBeamGroup = std::shared_ptr<BeamGroup>;
 // This will be runs of contiguous beamable notes/chords.
 std::vector<BeamGroup> FindBeamGroups(
   const std::vector<std::unique_ptr<Glyph>>& glyphs);
+
+// Helper function: calc vertical distance from given note pos
+//  to a beam defined by its endpoints.
+float CalcStaveLineToBeamDistance(
+  vec2 p, std::pair<vec2, vec2> beamEnds);
 

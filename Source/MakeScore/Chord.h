@@ -38,6 +38,8 @@ public:
 
   StemDir DecideStemDirection() override;
 
+  int GetStaveLineForBeam(StemDir dir) override;
+
 protected:
   std::pair<int, int> GetMinMaxStaveLines() const;
 

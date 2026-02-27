@@ -38,6 +38,8 @@ struct NoteGlyph : public NoteAndChordBase
 
   StemDir DecideStemDirection() override;
 
+  int GetStaveLineForBeam(StemDir dir) override { return m_staveLine; }
+
   // Functions used to build up full string - these can be called from
   //  chord, so not private.
   // These are the final output strings, with coords, scale factors.

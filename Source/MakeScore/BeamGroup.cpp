@@ -4,14 +4,16 @@
 // * MakeScore *
 // Sub-project for human-friendly authoring of musical notation.
 
+#include <algorithm>
 #include <iostream>
+#include <stdexcept> //?
 #include "BeamGroup.h"
 #include "Glyph.h"
 #include "NoteAndChordBase.h"
 
 /* What we need to do for beams:
 
- - Identify runs of beamable glyphs -- done
+ - Identify runs of beamable glyphs -- done!
 
  - Break up runs depending on beat/position in bar 
    Two cases:
@@ -23,6 +25,7 @@
  - For one beam group, decide up/down / Above/below position of beams 
     <==>  same as deciding stem dir for all stems in beam group.
      take majority decision of the glyphs stem dirs.
+  -- done!
 
  - Positioning:
    - Position of primary beam in y at ends of the beam group.
@@ -35,6 +38,10 @@
 
      Once end points are decided, set length of each stem.
      First do end glyphs, then interpolate to do mid glyphs.
+
+ - Rendering:
+   - Generate quad for primary beam
+   - Generate quads for secondary beams and broken beams
 */
 
 
@@ -49,6 +56,116 @@ void BeamGroup::CalcPos()
 std::string BeamGroup::ToString()
 {
   return ""; 
+}
+
+//Quad BeamGroup::MakePrimaryBeam(
+//  std::vector<std::unique_ptr<Glyph>>& glyphs)
+//{
+//}
+
+static int GetStaveLine(std::unique_ptr<Glyph>& g, StemDir dir)
+{
+  auto n = dynamic_cast<NoteAndChordBase*>(g.get());
+  assert(n);
+  
+  return n->GetStaveLineForBeam(dir);
+}
+
+float CalcStaveLineToBeamDistance(vec2 p, std::pair<vec2, vec2> beam) 
+{
+    float x1 = beam.first.x;
+    float x2 = beam.second.x;
+    float y1 = beam.first.y;
+    float y2 = beam.second.y;
+
+    // Ensure x1 is the leftmost point for easier calculation
+    if (x1 > x2) {
+        std::swap(x1, x2);
+        std::swap(y1, y2);
+    }
+
+    // Check if the point is horizontally within the beam's span
+    if (p.x < x1 || p.x > x2) {
+        // Depending on your needs, you might return 0, infinity, 
+        // or the distance to the nearest endpoint.
+        return -1.0f; 
+    }
+
+    // Handle perfectly vertical beams to avoid division by zero
+    if (std::abs(x1 - x2) < 1e-6f) {
+        return std::abs(p.y - std::min(y1, y2));
+    }
+
+    // Linear interpolation: find the y-coordinate on the beam at p.x
+    // formula: y = y1 + (p.x - x1) * (y2 - y1) / (x2 - x1)
+    float beamYAtP = y1 + (p.x - x1) * (y2 - y1) / (x2 - x1);
+
+    // Return the absolute vertical distance
+    return std::abs(beamYAtP - p.y);
+}
+
+std::pair<int, int> BeamGroup::CalcYStaveLinesAtEnds(
+  std::vector<std::unique_ptr<Glyph>>& glyphs)
+{
+  // For start and end member notes/chords:
+  //  - work out direction to go, up or down
+  //  - add stem height to y-pos of note
+  //  - That's it! Not really - iterate until all stems meet minimum length.
+
+  // +ve y is UP
+
+  // We will set the beam end points so all stems are at least this long.
+  const int MIN_STEM_H = 4;
+
+  int h = MIN_STEM_H; // We start with stem this height at both ends
+  if (m_stemDir == StemDir::DOWN) h = -h;
+  int h1 = h;
+  int h2 = h;
+  int s1 = GetStaveLine(glyphs[m_first], m_stemDir);
+  int s2 = GetStaveLine(glyphs[m_last - 1], m_stemDir); 
+
+  // X coords of end glyphs
+  float x1 = glyphs[m_first]->GetPos().x;
+  float x2 = glyphs[m_last - 1]->GetPos().x;
+ 
+  std::pair<int, int> res;
+  bool allHeightsOk = true;
+
+  // Check height of intervening stems, adjust h and iterate until
+  //  all heights are big enough.
+  // Amount to adjust each iteration
+  int dh = (m_stemDir == StemDir::DOWN) ? -1 : 1;
+  do
+  {
+    res = { s1 + h1, s2 + h2 };
+    
+    // Check heights of intervening stems
+    for (int i = m_first + 1; i < (m_last - 1); i++)
+    {
+      allHeightsOk = true;
+      int staveLine = GetStaveLine(glyphs[i], m_stemDir);
+
+      // X coord of this intervening glyph
+      float x = glyphs[i]->GetPos().x;
+
+      // Get vertical distance from this intervening glyph to the beam.
+      float stemH = CalcStaveLineToBeamDistance(
+        vec2(x, staveLine), 
+        { {x1, static_cast<float>(res.first)}, 
+          {x2, static_cast<float>(res.second)} } );
+
+      if (fabs(stemH) < MIN_STEM_H)
+      {
+        allHeightsOk = false;
+        h1 += dh; // TODO adjust more intelligently
+        h2 += dh; 
+        break; // don't consider any more stems: that's only ok if we are
+               //  extending both ends the same amount.
+      }
+    }
+  } while (!allHeightsOk);
+
+  return res;
 }
 
 void BeamGroup::DecideStemDirections(

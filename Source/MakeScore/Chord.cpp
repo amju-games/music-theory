@@ -155,6 +155,16 @@ std::pair<int, int> ChordGlyph::GetMinMaxStaveLines() const
   return { minStave, maxStave };
 }
 
+int ChordGlyph::GetStaveLineForBeam(StemDir dir)
+{
+  // This is for beaming. We want to return the stave line nearer to the
+  //  beam (to measure distance to the beam). 
+  // If dir is UP, the topmost note is closer to the beam.
+  const auto [minStave, maxStave] = GetMinMaxStaveLines();
+  if (dir == StemDir::UP) return maxStave;
+  return minStave;
+}
+
 void ChordGlyph::SetStem()
 {
   bool shouldHaveStem = false;
