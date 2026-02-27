@@ -7,9 +7,12 @@
 #include <algorithm>
 #include <iostream>
 #include <stdexcept> //?
+#include "Beam.h"
 #include "BeamGroup.h"
 #include "Glyph.h"
 #include "NoteAndChordBase.h"
+
+//#define BEAM_GROUP_DEBUG
 
 /* What we need to do for beams:
 
@@ -57,11 +60,6 @@ std::string BeamGroup::ToString()
 {
   return ""; 
 }
-
-//Quad BeamGroup::MakePrimaryBeam(
-//  std::vector<std::unique_ptr<Glyph>>& glyphs)
-//{
-//}
 
 static int GetStaveLine(std::unique_ptr<Glyph>& g, StemDir dir)
 {
@@ -149,12 +147,15 @@ std::cout << "Starting! y1: " << y1 << " y2: " << y2 << "\n";
   // 2. The "Intelligent Lift"
   // Find the note that violates the requiredDist the most and push the whole beam
   bool adjustmentNeeded = true;
-  while (adjustmentNeeded) {
+  while (adjustmentNeeded) 
+  {
     adjustmentNeeded = false;
     float maxViolation = 0.0f;
 
-    for (int i = m_first; i < m_last; ++i) {
-      float x = glyphs[i]->GetPos().x;
+    for (int i = m_first; i < m_last; ++i) 
+    {
+      auto n = dynamic_cast<NoteAndChordBase*>(glyphs[i].get());
+      float x = n->GetPos().x;
       float noteY = static_cast<float>(GetStaveLine(glyphs[i], m_stemDir));
       
       // Interpolate current beam position at x
@@ -170,7 +171,12 @@ std::cout << "i: " << i << "  noteY: " << noteY
         (m_stemDir == StemDir::UP) ? (currentBeamY - noteY) : 
                                      (noteY - currentBeamY);
 
-      if (actualH < requiredDist) {
+      // Set stem length on glyph
+      // TODO
+      //n->SetStemLength(actualH);  
+
+      if (actualH < requiredDist) 
+      {
         maxViolation = std::max(maxViolation, requiredDist - actualH);
         adjustmentNeeded = true;
 #ifdef BEAM_GROUP_DEBUG
@@ -194,7 +200,10 @@ std::cout << "New values for y1 and y2: y1: " << y1 << " y2: " << y2 << "\n";
 #ifdef BEAM_GROUP_DEBUG
 std::cout << "Finished! y1: " << y1 << " y2: " << y2 << "\n";
 #endif // BEAM_GROUP_DEBUG
-  return { static_cast<int>(std::round(y1)), static_cast<int>(std::round(y2)) };
+
+  m_primaryStaveLines = 
+    { static_cast<int>(std::round(y1)), static_cast<int>(std::round(y2)) };
+  return m_primaryStaveLines;
 }
 
 /* old, human-written version
@@ -361,3 +370,15 @@ std::cout << "Glyph " << i << " is NOT beamable\n";
   }
   return res;
 }
+
+void BeamGroup::AddBeams(std::vector<std::unique_ptr<Beam>>& beams)
+{
+  // Add primary beam
+  // left and right are vec2s in final coord space, right?
+  // Or do we do that conversion here?
+  // OR do we do it when we make quads inside Beam??
+
+  //beams.emplace_back(std::make_unique<Beam>(left, right);
+}
+
+

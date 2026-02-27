@@ -12,6 +12,7 @@
 #include "StemDir.h"
 #include "vec2.h"
 
+class Beam;
 struct Glyph;
 
 // * BeamGroup *
@@ -66,16 +67,20 @@ public:
 //  Quad MakePrimaryBeam(
 //    std::vector<std::unique_ptr<Glyph>>& glyphs);
 
-private:
-  // No: the notes and chords point to this beam group, with a shared
-  //  ptr -- so the members of the beam group own it?!
-//  std::vector<Glyph*> m_notes;
+  // Add all beams in this beam group to the given vector.
+  void AddBeams(std::vector<std::unique_ptr<Beam>>& beams);
 
+private:
   StemDir m_stemDir = StemDir::NONE;
 
   // Indices into glyph vector, [first, last) range. 
   int m_first = -1;
   int m_last = -1;
+
+  // Stave line (i.e. y coord) for start and end of the primary beam,
+  //  (which by definition spans the whole beam group).
+  // Set by CalcYStaveLinesAtEnds
+  std::pair<int, int> m_primaryStaveLines;
 };
 
 using PBeamGroup = std::shared_ptr<BeamGroup>;

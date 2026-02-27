@@ -6,7 +6,6 @@
 
 #include <iostream>
 #include "Bar.h"
-#include "Flag.h"
 #include "NoteGlyph.h"
 #include "RestGlyph.h"
 #include "Stem.h"
@@ -240,44 +239,6 @@ void Bar::AddTimeSig(const std::string& s)
 
 void Bar::AddBeam(const std::string& s)
 {
-  // Beams go between 2 glyphs.
-  // Currently we always beam 2 adjacent glyphs, i.e. from n-1 to n
-  int n = static_cast<int>(m_glyphs.size());
-
-  // Flags are attached to one glyph, and can go left or right.
-
-  // Level is quaver/semi etc
-  Beam* beam = new Beam(BeamLevel::BEAM_LEVEL_1, n - 1, n);
-  // TODO Set gradient of beam. But we don't know the positions
-  //  of the beamed notes yet. So this approach is doomed.
-  m_beams.push_back(std::unique_ptr<Beam>(beam));
-
-  if (s == "--" || s == "-")
-  {
-    // Beam 2 quavers, we are done.
-  }
-  else if (s == "==" || s == "=")
-  {
-    // 2 semiquavers, add 2nd beam
-    Beam* beam2 = new Beam(BeamLevel::BEAM_LEVEL_2, n - 1, n);
-    // Set parent, so we can set gradient to same as parent beam
-    beam2->SetParentBeam(beam);
-    m_beams.push_back(std::unique_ptr<Beam>(beam2));
-  }
-  else if (s == "-=")
-  {
-    // Semiq flag, attached to right stem
-    Flag* flag = new Flag(BeamLevel::BEAM_LEVEL_2, n - 1, n, false);
-    flag->SetParentBeam(beam);
-    m_beams.push_back(std::unique_ptr<Beam>(flag));
-  }
-  else if (s == "=-")
-  {
-    // Semiq flag, attached to left stem
-    Flag* flag = new Flag(BeamLevel::BEAM_LEVEL_2, n - 1, n, true);
-    flag->SetParentBeam(beam);
-    m_beams.push_back(std::unique_ptr<Beam>(flag));
-  }
 }
 
 std::string Bar::ToString()
@@ -480,12 +441,11 @@ void Bar::SetPos(float x, float y)
   }
 
   // Set position of beam left and right ends
-  for (auto& b : m_beams)
-  {
-    b->xmin = x + w * static_cast<float>(b->left) + xoff + xfudge;
-    b->xmax = x + w * static_cast<float>(b->right) + xoff + xfudge;
-    b->y += y;
-  }
+  // Maybe we don't need to do anything for Beams now, as a lot of action
+  //  happens in BeamGroup.
+  //for (auto& b : m_beams)
+  //{
+  //}
 }
 
 float Bar::GetBarLineX() const
@@ -495,5 +455,22 @@ float Bar::GetBarLineX() const
 
 void Bar::MakeBeamGroups()
 {
+  auto beamGroups = FindBeamGroups(m_glyphs);
+  for (auto& bg : beamGroups)
+  {
+    // TODO groups all these calls into one big function I suppose
+    bg.DecideStemDirections(m_glyphs);
+    bg.CalcYStaveLinesAtEnds(m_glyphs); // and set stem lengths here too? While we're here
+
+    // Or bg.SetStemLengths(m_glyphs); ?
+
+    // Generate quads for output:
+    //  primary beam
+    //  2nd/3rd beams
+    //  broken beams
+
+    // Add Beams to m_beams
+    bg.AddBeams(m_beams);
+  } 
 }
 
