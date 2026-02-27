@@ -9,6 +9,7 @@
 #include <string>
 #include "Consts.h"
 #include "Utils.h"
+#include "vec2.h"
 
 // * IGlyph *
 // Interface for glyph types
@@ -27,7 +28,12 @@ struct IGlyph
   float GetScaleX() const { return scaleX; }
   float GetScaleY() const { return scaleY; }
 
-  virtual void SetPos(float x_, float y_) { x = x_; y = y_; }
+  void SetPos(float x_, float y_) { x = x_; y = y_; }
+
+  // TODO Ultimately we want to use vec2 throughout.
+  vec2 GetPos() const { return vec2(x, y); }
+  void SetPos(const vec2& v) { x = v.x; y = v.y; }
+
   float GetX() const { return x; }
   float GetY() const { return y; }
   void SetX(float x_) { x = x_; }
