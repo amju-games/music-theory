@@ -465,7 +465,8 @@ void BeamGroup::AddBeams(std::vector<std::unique_ptr<Beam>>& beams,
         // Direction logic: if i is the start of the group, point right. 
         // If i is the end, point left.
         const bool isStart = (i == m_first);
-        float stubX = x_i + (isStart ? 1.0f : -1.0f); 
+        const float stubW = NOTE_HEAD_WIDTH * .45f;
+        float stubX = x_i + stubW * (isStart ? 1.0f : -1.0f); 
         RenderBeamSegment(level, x_i, stubX, x1, x2, beams);
       }
     }
