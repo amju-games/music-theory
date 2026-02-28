@@ -71,6 +71,14 @@ public:
   //  ready for rendering.
   float ConvertY(float yStaveCoord) const;
 
+  // Render a beam segment: at level (q = 1, qq = 2, etc), from xi to xj,
+  //  adding a Beam to the given vector.
+  void RenderBeamSegment(
+    int level, // beam level
+    float xi, float xj, // render beam between xi and xj
+    float x1, float x2, // primary beam leftmost and rightmost x
+    std::vector<std::unique_ptr<Beam>>& beams);
+
 private:
   StemDir m_stemDir = StemDir::NONE;
 

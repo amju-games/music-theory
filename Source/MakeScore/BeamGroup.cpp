@@ -108,6 +108,7 @@ std::cout << "Calc Y StaveLinesAtEnds....\n";
   
   const int MIN_STEM_H = 6;
   const float BEAM_UNIT = .5f; // Height of one beam + one gap
+  const float MAX_RISE = 2.f; // limit gradient
   
   // 1. Determine the "thickest" part of the beam stack
   int maxLevel = 1;
@@ -137,6 +138,14 @@ std::cout << "MaxLevel: " << maxLevel
 #ifdef BEAM_GROUP_DEBUG
 std::cout << "Starting! y1: " << y1 << " y2: " << y2 << "\n";
 #endif // BEAM_GROUP_DEBUG
+
+  // Clamp the initial slope so it's not too crazy
+  float rise = y2 - y1;
+  if (std::abs(rise) > MAX_RISE) 
+  {
+    float direction = (rise > 0) ? 1.0f : -1.0f;
+    y2 = y1 + (MAX_RISE * direction);
+  }
 
   float x1 = glyphs[m_first]->GetPos().x;
   float x2 = glyphs[m_last - 1]->GetPos().x;
@@ -370,14 +379,52 @@ std::cout << "Glyph " << i << " is NOT beamable\n";
   return res;
 }
 
+// Helper to get the Y of a specific beam level at a specific X
+static float GetBeamY(float x, float x1, float y1, float x2, float y2, 
+  int level, StemDir dir) 
+{
+  float t = (x - x1) / (x2 - x1);
+  float primaryY = y1 + t * (y2 - y1);
+  
+  float offset = (level - 1) * 1.0f; // 1.0 is the beam + gap height
+  // Secondary beams are always "inside" the primary beam (closer to notehead)
+  return (dir == StemDir::UP) ? (primaryY - offset) : (primaryY + offset);
+}
+
+void BeamGroup::RenderBeamSegment(
+  int level, // beam level
+  float xi, float xj, // render beam between xi and xj
+  float x1, float x2, // primary beam leftmost and rightmost x
+  std::vector<std::unique_ptr<Beam>>& beams)
+{
+  float xOff = (m_stemDir == StemDir::UP ? STEM_UP_X_OFFSET : STEM_DOWN_X_OFFSET);
+
+  const float y1 = m_primaryStaveLines.first;
+  const float y2 = m_primaryStaveLines.second;
+
+  // Left and right end points of line seg
+  vec2 left(
+    xi + xOff,
+    ConvertY(GetBeamY(xi, x1, y1, x2, y2, level, m_stemDir)));
+
+  vec2 right(
+    xj + xOff,
+    ConvertY(GetBeamY(xj, x1, y1, x2, y2, level, m_stemDir)));
+
+  beams.emplace_back(std::make_unique<Beam>(left, right));
+}
+
 void BeamGroup::AddBeams(std::vector<std::unique_ptr<Beam>>& beams,
  const std::vector<std::unique_ptr<Glyph>>& glyphs)
 {
-  // Add primary beam: we define a line seg in score coord space, not stave lines.
-  // We will need to move the x coords so the beam aligns with the stems - so the
-  //  distance depends on m_stemDir and notehead width.
-  float xOff = (m_stemDir == StemDir::UP ? STEM_UP_X_OFFSET : STEM_DOWN_X_OFFSET);
+  // Left and right x extents
+  const float x1 = glyphs[m_first]->GetPos().x;
+  const float x2 = glyphs[m_last - 1]->GetPos().x;
 
+  // Add primary beam
+  const int PRIMARY = 1;
+  RenderBeamSegment(PRIMARY, x1, x2, x1, x2, beams);
+/*
   // Left and right end points of line seg
   vec2 left(
     glyphs[m_first]->GetPos().x + xOff, 
@@ -388,14 +435,40 @@ void BeamGroup::AddBeams(std::vector<std::unique_ptr<Beam>>& beams,
     ConvertY(m_primaryStaveLines.second));
 
   beams.emplace_back(std::make_unique<Beam>(left, right));
-  
+*/
   // Add secondary beam line segs. Traverse the glyphs in our range [first, last)
   //  and create beams using primary beam to get position and gradient, and
   //  beam level from each glyph to decide the number and type of secondary beams.
 
-  for (const auto& be : m_beamEnds)
+  const int maxLevel = 3; // TODO QQQ increase for QQQQ support etc
+  for (int level = 2; level <= maxLevel; ++level) 
   {
-    beams.emplace_back(std::make_unique<Beam>(be.first, be.second));
+    for (int i = m_first; i < m_last; ++i) 
+    {
+      bool currentHasLevel = dynamic_cast<NoteAndChordBase*>(glyphs[i].get())->
+        GetBeamLevel() >= level;
+
+      bool nextHasLevel = (i + 1 < m_last) && 
+        (dynamic_cast<NoteAndChordBase*>(glyphs[i+1].get())->GetBeamLevel() >= level);
+      
+      float x_i = glyphs[i]->GetPos().x;
+      
+      if (currentHasLevel && nextHasLevel) 
+      {
+        // Draw a full secondary beam segment from i to i+1
+        float x_next = glyphs[i+1]->GetPos().x;
+        RenderBeamSegment(level, x_i, x_next, x1, x2, beams);
+      } 
+      else if (currentHasLevel) 
+      {
+        // Draw a broken beam (stub)
+        // Direction logic: if i is the start of the group, point right. 
+        // If i is the end, point left.
+        const bool isStart = (i == m_first);
+        float stubX = x_i + (isStart ? 1.0f : -1.0f); 
+        RenderBeamSegment(level, x_i, stubX, x1, x2, beams);
+      }
+    }
   }
 }
 
