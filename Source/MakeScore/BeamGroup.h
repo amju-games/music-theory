@@ -62,13 +62,14 @@ public:
   std::pair<int, int> CalcYStaveLinesAtEnds(
     std::vector<std::unique_ptr<Glyph>>& glyphs);
 
-  // Create quad for primary beam -- maybe we could 
-  //  break this down a bit.
-//  Quad MakePrimaryBeam(
-//    std::vector<std::unique_ptr<Glyph>>& glyphs);
+  // Add all beams in this beam group to the given vector of Beams.
+  // We use the glyphs to get x-coord, etc. 
+  void AddBeams(std::vector<std::unique_ptr<Beam>>& beams,
+    const std::vector<std::unique_ptr<Glyph>>& glyphs);
 
-  // Add all beams in this beam group to the given vector.
-  void AddBeams(std::vector<std::unique_ptr<Beam>>& beams);
+  // Convert y-coord in 'stave line space' into coord
+  //  ready for rendering.
+  float ConvertY(float yStaveCoord) const;
 
 private:
   StemDir m_stemDir = StemDir::NONE;
@@ -79,8 +80,15 @@ private:
 
   // Stave line (i.e. y coord) for start and end of the primary beam,
   //  (which by definition spans the whole beam group).
-  // Set by CalcYStaveLinesAtEnds
+  // Set by CalcYStaveLinesAtEnds. Used to calc position and gradient
+  //  of all beam end pairs.
   std::pair<int, int> m_primaryStaveLines;
+
+  // Left and right endpoints of beams.
+  // The points are in final coord space, not stave lines, but will
+  //  need positioning and scaling within the final score.
+  using LineSeg = std::pair<vec2, vec2>;
+  std::vector<LineSeg> m_beamEnds;
 };
 
 using PBeamGroup = std::shared_ptr<BeamGroup>;

@@ -629,13 +629,12 @@ void NoteGlyph::SetStem()
     return;
   }
 
-  auto beamGroup = GetBeamGroup();
-  if (beamGroup)
+  if (IsBeamed())
   {
     // We will calc length if beamed, and ignore direction, as we have
     //  to connect with the beam!
     m_stem.SetLengthType(Stem::LengthType::VARIABLE); 
-    m_stem.SetDirection(beamGroup->GetStemDirection());
+//    m_stem.SetDirection(beamGroup->GetStemDirection());
   }
   else
   {

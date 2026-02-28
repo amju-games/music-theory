@@ -13,7 +13,6 @@
 #include "LedgerLine.h"
 #include "NoteAndChordBase.h"
 #include "Pitch.h"
-#include "Stem.h"
 
 // * NoteGlyph *
 struct NoteGlyph : public NoteAndChordBase
@@ -123,8 +122,6 @@ private:
   int m_accidentalOverlapOffsets = 0;
 
   int m_volume = 127;
-
-  Stem m_stem;
 
   // If true, this note is part of a chord.
   bool m_isPartOfChord = false;

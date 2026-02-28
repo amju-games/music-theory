@@ -9,12 +9,6 @@
 #include "IGlyph.h"
 #include "Utils.h"
 
-enum class BeamLevel
-{
-  BEAM_LEVEL_1 = 0,
-  BEAM_LEVEL_2 = 1,
-};
-
 class Beam : public IGlyph
 {
 public:
@@ -26,6 +20,9 @@ public:
   std::string CommentString() const override;
 
 protected:
+  // Left and right endpoints of beam, in final coordinate space
+  //  (not stave line space!) - but excluding final positioning and scaling, 
+  //  which we apply in ToString.
   vec2 m_left, m_right;
 };
 

@@ -2,7 +2,7 @@
 
 #include "BeamGroup.h"
 #include "Glyph.h"
-#include "StemDir.h"
+#include "Stem.h"
 
 class NoteAndChordBase : public Glyph
 {
@@ -12,29 +12,32 @@ public:
   NoteAndChordBase(const std::string& token, int orderInBar) :
     Glyph(token, orderInBar) {}
 
-  // Return shared ptr to beam group, if in a beam group, else nullptr.
-  PBeamGroup GetBeamGroup() { return m_beamGroup; }
-  
-  // Called when setting up beams
-  void SetBeamGroup(PBeamGroup bg) { m_beamGroup = bg; }
-
   // Set stem dir: this is for beaming.
   // If beamed, the stem dir will be set by the beam group.
-  virtual void SetStemDirection(StemDir) {}
+  void SetStemDirection(StemDir);
 
   // Calculate stem dir for note or chord; set internal stem dir
   //  and return that value for convenience.
   virtual StemDir DecideStemDirection() { return StemDir::NONE; }
 
+  void SetStemLength(float length) { m_stem.SetLength(length); }
+
   // For beaming, get the stave line of the note. If a chord,
   //  get the stave line of the note closest to the beam given
   //  the direction of all stems in the beam group.
+  // This is used for the 'majority vote', but can then be
+  //  overridden by the Beam Group.
   virtual int GetStaveLineForBeam(StemDir dir) { return 0; }
 
   // Get beam level: 1 for q, 2 for qq, etc.
   virtual int GetBeamLevel() const { return 1; }
 
+  void SetIsBeamed() { m_isBeamed = true; }
+
+  bool IsBeamed() const { return m_isBeamed; }
+
 protected:
-  PBeamGroup m_beamGroup;
+  bool m_isBeamed = false;
+  Stem m_stem;
 };
 

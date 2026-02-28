@@ -5,7 +5,6 @@
 #include "NoteAndChordBase.h"
 #include "NoteGlyph.h"
 #include "Pitch.h"
-#include "Stem.h"
 
 // Chord type, populated when we parse the input tokens. 
 // It's just a vec of (pitch, duration) pairs. 
@@ -51,7 +50,5 @@ protected:
   // Do we need this? For comment, at least..?
   // Or, we use this to create the NoteGlyphs.
   Chord m_chordInfo;
-
-  Stem m_stem;
 };
 

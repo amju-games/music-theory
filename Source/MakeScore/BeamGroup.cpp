@@ -17,7 +17,7 @@
 /* What we need to do for beams:
 
  - Identify runs of beamable glyphs -- done!
-
+ 
  - Break up runs depending on beat/position in bar 
    Two cases:
    1. For runs of q, break into 2 runs at the middle of the bar
@@ -32,18 +32,11 @@
 
  - Positioning:
    - Position of primary beam in y at ends of the beam group.
-     This might need to be an iterative algo.
-     Start with regular length stems at the ends.
-     For each mid glyph, calc stem length. If too short, extend the
-      y pos at the end closer to the glyph.
-      - include the height of the beams/flags too, i.e. stem length
-        is regular length + num flags/beams * height of a beam.
-
      Once end points are decided, set length of each stem.
      First do end glyphs, then interpolate to do mid glyphs.
 
  - Rendering:
-   - Generate quad for primary beam
+   - Generate quad for primary beam - done!!
    - Generate quads for secondary beams and broken beams
 */
 
@@ -61,6 +54,10 @@ std::string BeamGroup::ToString()
   return ""; 
 }
 
+// Get the stave line of a note or chord.
+// We need to pass in the stem direction because for a chord,
+//  we choose either the top note (if stem goes up), or bottom
+//  note (if stem goes down).
 static int GetStaveLine(std::unique_ptr<Glyph>& g, StemDir dir)
 {
   auto n = dynamic_cast<NoteAndChordBase*>(g.get());
@@ -109,8 +106,8 @@ std::pair<int, int> BeamGroup::CalcYStaveLinesAtEnds(
 std::cout << "Calc Y StaveLinesAtEnds....\n";
 #endif // BEAM_GROUP_DEBUG
   
-  const int MIN_STEM_H = 4;
-  const float BEAM_UNIT = 1.0f; // Height of one beam + one gap
+  const int MIN_STEM_H = 6;
+  const float BEAM_UNIT = .5f; // Height of one beam + one gap
   
   // 1. Determine the "thickest" part of the beam stack
   int maxLevel = 1;
@@ -173,7 +170,7 @@ std::cout << "i: " << i << "  noteY: " << noteY
 
       // Set stem length on glyph
       // TODO
-      //n->SetStemLength(actualH);  
+      n->SetStemLength(actualH * .5f); // is 2x length?? 
 
       if (actualH < requiredDist) 
       {
@@ -201,6 +198,7 @@ std::cout << "New values for y1 and y2: y1: " << y1 << " y2: " << y2 << "\n";
 std::cout << "Finished! y1: " << y1 << " y2: " << y2 << "\n";
 #endif // BEAM_GROUP_DEBUG
 
+  // Return y-coords of end points, in stave line space.
   m_primaryStaveLines = 
     { static_cast<int>(std::round(y1)), static_cast<int>(std::round(y2)) };
   return m_primaryStaveLines;
@@ -310,6 +308,7 @@ std::cout << "Beam Group stem dir decision: " << (stemUpPositive >= 0 ? "UP" : "
     auto n = dynamic_cast<NoteAndChordBase*>(glyphs[i].get());
     if (n)
     {
+      n->SetIsBeamed();
       n->SetStemDirection(dir);
     }
   } 
@@ -371,14 +370,39 @@ std::cout << "Glyph " << i << " is NOT beamable\n";
   return res;
 }
 
-void BeamGroup::AddBeams(std::vector<std::unique_ptr<Beam>>& beams)
+void BeamGroup::AddBeams(std::vector<std::unique_ptr<Beam>>& beams,
+ const std::vector<std::unique_ptr<Glyph>>& glyphs)
 {
-  // Add primary beam
-  // left and right are vec2s in final coord space, right?
-  // Or do we do that conversion here?
-  // OR do we do it when we make quads inside Beam??
+  // Add primary beam: we define a line seg in score coord space, not stave lines.
+  // We will need to move the x coords so the beam aligns with the stems - so the
+  //  distance depends on m_stemDir and notehead width.
+  float xOff = (m_stemDir == StemDir::UP ? STEM_UP_X_OFFSET : STEM_DOWN_X_OFFSET);
 
-  //beams.emplace_back(std::make_unique<Beam>(left, right);
+  // Left and right end points of line seg
+  vec2 left(
+    glyphs[m_first]->GetPos().x + xOff, 
+    ConvertY(m_primaryStaveLines.first));
+
+  vec2 right(
+    glyphs[m_last - 1]->GetPos().x + xOff, 
+    ConvertY(m_primaryStaveLines.second));
+
+  beams.emplace_back(std::make_unique<Beam>(left, right));
+  
+  // Add secondary beam line segs. Traverse the glyphs in our range [first, last)
+  //  and create beams using primary beam to get position and gradient, and
+  //  beam level from each glyph to decide the number and type of secondary beams.
+
+  for (const auto& be : m_beamEnds)
+  {
+    beams.emplace_back(std::make_unique<Beam>(be.first, be.second));
+  }
 }
 
+float BeamGroup::ConvertY(float yStaveCoord) const
+{
+  // convert to 'render space' y-coord
+  float y = yStaveCoord * STAVE_LINE_GAP * .5f;
+  return y; 
+}
 

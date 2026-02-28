@@ -293,6 +293,7 @@ std::string Bar::ToString()
 
   for (auto& b : m_beams)
   {
+    b->SetPos(m_x, m_y); // set pos of bar, to add to beam coords
     b->SetScale(m_scale);
     if (yesComments)
     {
@@ -470,7 +471,7 @@ void Bar::MakeBeamGroups()
     //  broken beams
 
     // Add Beams to m_beams
-    bg.AddBeams(m_beams);
+    bg.AddBeams(m_beams, m_glyphs);
   } 
 }
 

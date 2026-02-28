@@ -58,14 +58,6 @@ static bool IsDirection(const std::string& s)
   return DIRECTIONS.find(s) != DIRECTIONS.end();
 }
 
-// ???
-// This is called from Beam and Flag ... obviously, TODO
-float GetHeight(BeamLevel bl)
-{
-  // Relies on the int values 0, 1...
-  return static_cast<float>(bl);
-}
-
 bool MakeScore::Load(const std::string& filename)
 {
   std::ifstream inputFile(filename);

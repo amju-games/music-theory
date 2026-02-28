@@ -31,7 +31,10 @@ public:
     STANDARD, // for crotchets, minims, non-beamed qs etc.
   };
   void SetLengthType(LengthType lt) { m_lengthType = lt; }
-  
+
+  // Set stem length - used by BeamGroup 
+  void SetLength(float length) { m_length = length; }
+ 
   void SetDirection(StemDir d) { m_direction = d; }
   StemDir GetDirection() const { return m_direction; }
 
@@ -45,6 +48,9 @@ public:
   void SetMinMaxStaveLines(int minStave, int maxStave);
 
   void SetTailFromTimeType(TimeType);
+
+  // For beaming: set no tail
+  void SetNoTail() { m_tail = Tail::TAIL_NONE; }
 
   void SetBeamGroup(PBeamGroup& bg) { m_beamGroup = bg; }
 
