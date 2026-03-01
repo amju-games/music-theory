@@ -75,17 +75,18 @@ void GSHero::SetUpForResume()
   // If we're in the first bar, we should just restart the game round. TODO
 
   // Convert pauseResumeTime into seconds
-  auto optSongLength = m_scrollScore->GetSongLengthSeconds();
-  float songLength = *optSongLength;
-  float seconds = m_pauseResumeTime * songLength;
+//auto optSongLength = m_scrollScore->GetSongLengthSeconds();
+//float songLength = *optSongLength;
+//  float seconds = m_pauseResumeTime * m_scoreLengthSeconds;
 
   // Immediately set the position of the score where we will restart from.
   // Restart the scrolling score from the resume point
   m_scrollScore->OnResetAnimation(); // wait, does this do anything?
-  m_scoreAnim->SetAnimTimeSeconds(seconds);
-  m_scoreAnim->SetIsPaused(false);
-  m_scoreAnim->Update();
-  m_scoreAnim->SetIsPaused(true);
+
+//  m_scoreAnim->SetAnimTimeSeconds(seconds);
+//  m_scoreAnim->SetIsPaused(false);
+//  m_scoreAnim->Update();
+//  m_scoreAnim->SetIsPaused(true);
 }
 
 void GSHero::ResumeGame()
@@ -149,7 +150,7 @@ void GSHero::OnPauseGame()
   TheMessageQueue::Instance()->Clear();
 
   // Pause scrolling score -- if it was moving
-  m_scoreAnim->SetIsPaused(true);
+//  m_scoreAnim->SetIsPaused(true);
 
   float animTime = m_scrollScore->GetAnimTime();
   if (animTime > 0)
@@ -301,13 +302,23 @@ void GSHero::Update()
   m_playerScore.Update();
   m_lifePercent.Update();
 
-  auto pos = m_scrollScore->GetLocalPos();
-  m_scoreExtras->SetLocalPos(pos);
-
-  float animTime = m_scrollScore->GetAnimTime();
-  if (!m_roundIsOver && animTime > 0.9999f)
+  // Scroll the score if we are playing the song.
+  if (m_state == HeroState::SONG_PLAYING)
   {
-    OnPlayerHasWon();
+    auto sm = TheSoundManager::Instance();
+    float songElapsedSeconds = sm->GetSongElapsedTimeSeconds();
+    float normalisedAnimTime = songElapsedSeconds / m_scoreLengthSeconds;
+    m_scrollScore->Animate(normalisedAnimTime);
+  
+    // Scroll the extras along with the score.
+    auto pos = m_scrollScore->GetLocalPos();
+    m_scoreExtras->SetLocalPos(pos);
+
+    // If we have reached the end, we have won!
+    if (!m_roundIsOver && normalisedAnimTime > 0.999f)
+    {
+      OnPlayerHasWon();
+    }
   }
 }
 
@@ -346,6 +357,8 @@ std::cout << "Player has won this round!\n";
 
   m_roundIsOver = true;
 
+  m_state = HeroState::ROUND_OVER;
+
   TheMessageQueue::Instance()->Clear();
 
   // Go to next game state after short delay
@@ -358,13 +371,15 @@ void GSHero::OnPlayerHasLost()
 {
 std::cout << "Player has lost this round!\n";
 
+  m_state = HeroState::ROUND_OVER;
+
   m_roundIsOver = true;
 
   TheSoundManager::Instance()->StopSong();
   PlayWav("record_scratch");
 
   // Stop scrolling - TODO Grind to a halt, not immediate stop
-  m_scoreAnim->SetIsPaused(true);
+  //m_scoreAnim->SetIsPaused(true);
 
   TheMessageQueue::Instance()->Clear();
 
@@ -400,6 +415,8 @@ void GSHero::InitSound()
 void GSHero::RestartGame()
 {
 std::cout << "Restarting game.\n";
+
+  m_state = HeroState::COUNT_IN;
 
   auto& gameround = GetGameRound();
 
@@ -440,9 +457,11 @@ void GSHero::OnCountInFinished()
 {
 std::cout << "Count in finished!\n";
 
+  m_state = HeroState::SONG_PLAYING;
+
   // Start score animating, and set backing track playing at the same time.
   // The score and the song have to be in perfect sync.
-  m_scoreAnim->SetIsPaused(false);
+//  m_scoreAnim->SetIsPaused(false);
 
   // Start playing the backing track for this song
   auto sm = TheSoundManager::Instance();
@@ -528,19 +547,6 @@ std::cout << "=================================\nGrading note event: Pitch: " <<
   // No newline!
 #endif
 
-  // Get song length
-  auto optSongLength = m_scrollScore->GetSongLengthSeconds();
-  // If we got here, we surely know the song length!
-  if (!optSongLength)
-  {
-#ifdef GRADE_DEBUG
-std::cout << "\n";
-#endif
-    std::cout << "*** Unexpected, can't get song length!!\n";
-    return;
-  }
-  float songLength = *optSongLength;
-
   float animTime = m_scrollScore->GetAnimTime();
   if (animTime >= 1.f)
   {
@@ -573,7 +579,7 @@ std::cout << "  * not even counting in yet bruv!\n";
 std::cout << " -- grade count-in event!\n";
 #endif
     // Convert time in seconds to normalised time
-    animTime = - timeBeforeSecs / songLength;
+    animTime = - timeBeforeSecs / m_scoreLengthSeconds;
 #ifdef GRADE_DEBUG
 std::cout << "  - time before start: " << timeBeforeSecs << " normalised: " << animTime << "\n";
 #endif
@@ -588,7 +594,8 @@ std::cout << " AnimTime now: " << animTime
 
   // Get iterator pointing to the event we think the player is attempting.
   Grader grader;
-  auto optIt = grader.GetClosestMatchingEvent(e, noteEvents, animTime, songLength);
+  auto optIt = grader.GetClosestMatchingEvent(
+    e, noteEvents, animTime, m_scoreLengthSeconds);
   if (optIt)
   {
     const auto it = *optIt;
@@ -610,7 +617,8 @@ std::cout << " - ignoring this player event, already graded.\n";
     const NoteEvent& ne = *it;
     // Grade the time difference between player and note event ne
     const float MAX_ERROR = 0.5f; // Max acceptable time diff, TODO CONFIG
-    auto grade = grader.FinalGrade(e, ne, animTime, songLength, MAX_ERROR);
+    auto grade = grader.FinalGrade(
+      e, ne, animTime, m_scoreLengthSeconds, MAX_ERROR);
 
     // Prevent multiple attempts at the same event: store the iterator
     //  so we can check above.
@@ -647,6 +655,7 @@ std::cout << "** Correct note! " << e.m_note << "\n";
 #ifdef GRADE_DEBUG
 std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << ne.m_note << "\n";
 #endif
+      // Not sure if we should play wav every time
       PlayWav(WAV_INCORRECT);
       Assert(grade.m_type == Grade::BAD_NOTE);
       FeedbackBalloon(grade);
@@ -685,6 +694,8 @@ void GSHero::OnActive()
   GSBase::OnActive();  
 
   m_roundIsOver = false;
+
+  m_state = HeroState::BEFORE_COUNT_IN;
 
   bool ok = TheGameRoundManager::Instance()->Load();
   if (!ok)
@@ -804,6 +815,7 @@ std::cout << "Loading music score: " << score << "...\n";
 
 void GSHero::InitScrollScoreAnim()
 {
+/*
   // Find the animator parent too.
   auto elem = GetElementByName(m_gui, "play-score");
   Assert(elem);
@@ -813,13 +825,15 @@ void GSHero::InitScrollScoreAnim()
     std::cout << "Score does not have an animator.\n";
     Assert(0);
   }
+*/
 
   // Set the animation time from the score meta data
   auto songLength = m_scrollScore->GetSongLengthSeconds();
   if (songLength)
   {
 std::cout << "Song length is: " << *songLength << "\n";
-    m_scoreAnim->SetCycleTime(*songLength);
+//    m_scoreAnim->SetCycleTime(*songLength);
+    m_scoreLengthSeconds = *songLength;
   }
   else
   {
@@ -897,7 +911,7 @@ void GSHero::InitGui()
   ShowFeedbackBalloon(false);
 
   // Pause animation until we finish count-in
-  m_scoreAnim->SetIsPaused(true);
+//  m_scoreAnim->SetIsPaused(true);
 
   SetSongTitle();
 
@@ -974,7 +988,7 @@ void GSHero::FeedbackBalloon(const Grade& g)
 
   if (g.m_score > 0.5f)
   {
-    PlayWav("good1");
+    // Sounds terrible //PlayWav("good1");
   }
   else
   {

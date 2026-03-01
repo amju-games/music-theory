@@ -16,8 +16,19 @@ namespace Amju
 {
 struct Grade;
 
+// Urgh, better to convert this into State pattern once the
+//  structure is clearer.
+enum class HeroState
+{
+  BEFORE_COUNT_IN,
+  COUNT_IN,
+  SONG_PLAYING,
+  ROUND_OVER,
+};
+
 // * GSHero *
-// Hero mode: the game mechanic which is like Guitar Hero, but for keyboard/sheet music.
+// Hero mode: the game mechanic which is like Guitar Hero, but for 
+//  keyboard/sheet music.
 class GSHero : public GSBase
 {
 public:
@@ -114,7 +125,7 @@ protected:
   RCPtr<GuiScrollScore> m_scrollScore;
 
   // The animator parent of scroll score
-  RCPtr<GuiDecAnimation> m_scoreAnim;
+  //RCPtr<GuiDecAnimation> m_scoreAnim;
 
   // The keyboard
   RCPtr<GuiMusicKb> m_keyboard;
@@ -157,6 +168,15 @@ protected:
   // If we paused the game while mid-song, this is the time at which
   //  we paused.
   float m_pauseResumeTime = 0;
+
+  // Length of song in music score. 
+  float m_scoreLengthSeconds = 0;
+
+  // Time into playing the song. This should be both elapsed time in the
+  //  audio track, and the music score.
+  float m_animTimeSeconds = 0;
+
+  HeroState m_state = HeroState::BEFORE_COUNT_IN;
 };
 
 typedef Singleton<GSHero> TheGSHero;

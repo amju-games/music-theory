@@ -79,13 +79,14 @@ translate
 include
 keyboard.txt
 
-// Animate the score
-animation
-play-score
-one-shot
-// Time: placeholder value, set when we know the score length.
-10.0
-linear
+// Animate the score -- now done in code, because we need to
+//  sync with the backing track, it's a special case.
+//animation
+//play-score
+//one-shot
+//// Time: placeholder value, set when we know the score length.
+//10.0
+//linear
 
 scroll-score
 // Name, Position, Size
