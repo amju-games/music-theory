@@ -81,7 +81,9 @@ void GSHero::SetUpForResume()
 
   // Immediately set the position of the score where we will restart from.
   // Restart the scrolling score from the resume point
-  m_scrollScore->OnResetAnimation(); // wait, does this do anything?
+
+  // Done in calling func
+//  m_scrollScore->OnResetAnimation(); // wait, does this do anything?
 
 //  m_scoreAnim->SetAnimTimeSeconds(seconds);
 //  m_scoreAnim->SetIsPaused(false);
@@ -109,6 +111,8 @@ void GSHero::ResumeOrRestartGame()
   // HUD values are restored in ResetHUD.
   // Here we need to set the score position and play the song from the
   //  time we were at when we were paused.
+
+  m_scrollScore->OnResetAnimation(); 
 
   if (m_pauseResumeTime > 0)
   {

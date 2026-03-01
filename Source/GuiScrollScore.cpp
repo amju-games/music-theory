@@ -33,7 +33,7 @@ bool GuiScrollScore::LoadMusicScore(File* f)
     return false;
   }
   AddBeatLines();
-  m_currentX = -GetStartX();
+  m_currentX = GetStartX();
   return true;
 }
 
@@ -44,7 +44,7 @@ bool GuiScrollScore::Load(File* f)
     return false;
   }
   AddBeatLines();
-  m_currentX = -GetStartX();
+  m_currentX = GetStartX();
   return true;
 }
 
@@ -245,8 +245,12 @@ void GuiScrollScore::OnResetAnimation()
   m_animTime = 0; 
 
   m_nextT = 0;
-  m_currentX = 0;
+  m_currentX = -GetStartX();
   m_scrollSpeed = 0;
+
+  auto pos = GetLocalPos();
+  pos.x = GetStartX();
+  SetLocalPos(pos);
 }
 
 void GuiScrollScore::AddBeatLines()
