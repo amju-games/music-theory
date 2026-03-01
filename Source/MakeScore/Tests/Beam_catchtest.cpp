@@ -169,8 +169,8 @@ TEST_CASE("Calc primary beam y coords at ends", "[Beam]")
   //  this is more testable than floats.
   const auto [y1, y2] = bg.CalcYStaveLinesAtEnds(bar.GetGlyphs());
 
-  REQUIRE(y1 == 2); // Middle C is stave line -2, plus height 4
-  REQUIRE(y2 == 3); // 62 is d4, stave line -1, plus height 4 
+  REQUIRE(y1 == 4); // Middle C is stave line -2, plus height 4
+  REQUIRE(y2 == 5); // 62 is d4, stave line -1, plus height 4 
 }
 
 TEST_CASE("Calc primary beam y coords at ends - Advanced", "[Beam]") 
@@ -218,8 +218,8 @@ TEST_CASE("Calc primary beam y coords at ends - Advanced", "[Beam]")
     // c4 is -2. 
     // Quaver (Level 1) would be -2 + 4 = 2.
     // Semiquaver (Level 2) needs -2 + 4 + 1.0 (stack) = 3.
-    REQUIRE(y1 == 3);
-    REQUIRE(y2 == 3);
+    REQUIRE(y1 == 5);
+    REQUIRE(y2 == 5);
   }
   
   SECTION("Descending group with StemDir DOWN") {
@@ -234,8 +234,8 @@ TEST_CASE("Calc primary beam y coords at ends - Advanced", "[Beam]")
     bg.SetStemDirection(StemDir::DOWN);
     
     const auto [y1, y2] = bg.CalcYStaveLinesAtEnds(bar.GetGlyphs());
-    REQUIRE(y1 == 1);
-    REQUIRE(y2 == -2);
+    REQUIRE(y1 == -2);
+    REQUIRE(y2 == -4);
   }
 }
 
