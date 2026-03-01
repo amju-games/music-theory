@@ -440,13 +440,6 @@ void Bar::SetPos(float x, float y)
       xPosInBar + x,  // position within bar + pos of bar in x
       g->GetY() + y); // y-coord of glyph + pos of bar in y
   }
-
-  // Set position of beam left and right ends
-  // Maybe we don't need to do anything for Beams now, as a lot of action
-  //  happens in BeamGroup.
-  //for (auto& b : m_beams)
-  //{
-  //}
 }
 
 float Bar::GetBarLineX() const
@@ -456,21 +449,16 @@ float Bar::GetBarLineX() const
 
 void Bar::MakeBeamGroups()
 {
-  auto beamGroups = FindBeamGroups(m_glyphs);
+  // Find beam groups in this bar. Pass in time sig so we can split
+  //  beams on major beats.
+  auto beamGroups = FindBeamGroups(m_glyphs); //TODO, m_timeSig);
+
   for (auto& bg : beamGroups)
   {
-    // TODO groups all these calls into one big function I suppose
-    bg.DecideStemDirections(m_glyphs);
-    bg.CalcYStaveLinesAtEnds(m_glyphs); // and set stem lengths here too? While we're here
+    bg.DecideStemDirections(m_glyphs); // beam goes above or below?
+    bg.CalcYStaveLinesAtEnds(m_glyphs); // and set stem lengths here too
 
-    // Or bg.SetStemLengths(m_glyphs); ?
-
-    // Generate quads for output:
-    //  primary beam
-    //  2nd/3rd beams
-    //  broken beams
-
-    // Add Beams to m_beams
+    // Add beams for rendering in ToString
     bg.AddBeams(m_beams, m_glyphs);
   } 
 }

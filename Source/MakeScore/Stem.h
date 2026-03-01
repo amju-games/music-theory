@@ -5,7 +5,6 @@
 
 #include <memory>
 #include <string>
-#include "BeamGroup.h"
 #include "Consts.h"
 #include "IGlyph.h"
 #include "StemDir.h"
@@ -52,8 +51,6 @@ public:
   // For beaming: set no tail
   void SetNoTail() { m_tail = Tail::TAIL_NONE; }
 
-  void SetBeamGroup(PBeamGroup& bg) { m_beamGroup = bg; }
-
 private:
   // Make a quad for this stem, if it's variable length.
   Quad MakeQuad() const;
@@ -85,7 +82,5 @@ private:
 
   // Tail type -- is overridden if note/chord is part of a beam group.
   Tail m_tail;
-
-  PBeamGroup m_beamGroup;
 };
 

@@ -75,12 +75,6 @@ void Stem::SetMinMaxStaveLines(int minStave, int maxStave)
 
 void Stem::SetTailFromTimeType(TimeType tt)
 {
-  if (m_beamGroup)
-  {
-    m_tail = Tail::TAIL_NONE;
-    return;
-  }
-
   switch (tt)
   {
   case TimeType::QQQ:
@@ -139,7 +133,7 @@ std::string Stem::CommentString() const
 
 std::string Stem::TailUpString() const
 {
-  // Urgh, stem goes up, tail goes down, sigh
+  // stem goes up -> tail goes down
   std::string tail = 
     (m_tail == Tail::TAIL_QQQ ? "tail-down-3" : 
     (m_tail == Tail::TAIL_QQ ? "tail-down-2" : 
@@ -154,7 +148,7 @@ std::string Stem::TailUpString() const
 
 std::string Stem::TailDownString() const
 {
-  // Stem down, tail up, yuck
+  // Stem down -> tail up
   std::string tail = 
     (m_tail == Tail::TAIL_QQQ ? "tail-up-3" : 
     (m_tail == Tail::TAIL_QQ ? "tail-up-2" : 
@@ -168,8 +162,6 @@ std::string Stem::TailDownString() const
 std::string Stem::TailString() const
 {
   if (m_tail == Tail::TAIL_NONE) return "";
-
-  if (m_beamGroup) return "";
 
   std::string res;
   if (m_direction == StemDir::UP) res += TailUpString();

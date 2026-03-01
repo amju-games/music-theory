@@ -634,12 +634,9 @@ void NoteGlyph::SetStem()
     // We will calc length if beamed, and ignore direction, as we have
     //  to connect with the beam!
     m_stem.SetLengthType(Stem::LengthType::VARIABLE); 
-//    m_stem.SetDirection(beamGroup->GetStemDirection());
   }
   else
   {
-    // Super simple algo for deciding stem dir: if note is lower than
-    //  middle line, stem points up.
     DecideStemDirection();
     m_stem.SetLengthType(Stem::LengthType::STANDARD); 
     m_stem.SetTailFromTimeType(GetTimes().GetTimeType());
@@ -653,6 +650,8 @@ void NoteGlyph::SetStem()
 
 StemDir NoteGlyph::DecideStemDirection() 
 {
+  // Super simple algo for deciding stem dir: if note is lower than
+  //  middle line, stem points up.
   auto dir = GetStaveLine() < 5 ? StemDir::UP : StemDir::DOWN;
   m_stem.SetDirection(dir);
   return dir;

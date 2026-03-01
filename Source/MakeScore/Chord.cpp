@@ -189,20 +189,9 @@ void ChordGlyph::SetStem()
   // All chords have variable length stems
   m_stem.SetLengthType(Stem::LengthType::VARIABLE);
 
-  // Is this chord beamed? How do we know if a note or chord is
-  //  beamed??
-  // Something like this, so stem can calc the distance to the beam.
-  // NB if beamed, we ignore the direction we decided on - it has to be
-  //  in the direction of the beam!
-
-  if (IsBeamed())
-  {
-    // Nothing to do?
-    // This chord is beamed: - stem dir is set by beam
-//    m_stem.SetBeamGroup(beamGroup);
-//    m_stem.SetDirection(beamGroup->GetStemDirection());
-  }
-  else
+  // TODO I don't think this is known yet, so we always treat as
+  //  non-beamed then override later
+  if (!IsBeamed())
   {
     DecideStemDirection();
  
