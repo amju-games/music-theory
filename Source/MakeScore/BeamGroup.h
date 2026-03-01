@@ -48,6 +48,12 @@ public:
   std::pair<int, int> CalcYStaveLinesAtEnds(
     std::vector<std::unique_ptr<Glyph>>& glyphs);
 
+  // Calc end pos for stub on glyph i.
+  // (Essentially we are deciding the direction, L or R.)
+  float CalcStubEndPosX(
+    int i, int level, float stubLen,
+    const std::vector<std::unique_ptr<Glyph>>& glyphs);
+
   // Add all beams in this beam group to the given vector of Beams.
   // We use the glyphs to get x-coord, etc. 
   void AddBeams(std::vector<std::unique_ptr<Beam>>& beams,

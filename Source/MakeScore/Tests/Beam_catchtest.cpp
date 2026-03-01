@@ -239,3 +239,31 @@ TEST_CASE("Calc primary beam y coords at ends - Advanced", "[Beam]")
   }
 }
 
+TEST_CASE("Broken beam stub direction", "[Beam]") 
+{
+  Bar bar;
+
+  // Scenario: Dotted Eighth (Level 1) followed by Sixteenth (Level 2)
+  // The 16th note's level-2 stub MUST point LEFT.
+  bar.AddNote("q.", Pitch(60), 0, 0);                  // Dotted Quaver (8th)
+  bar.AddNote("qq", Pitch(62), 0, TIMEVAL_SEMIQUAVER); // Semiquaver (16th)
+
+  auto beamGroups = FindBeamGroups(bar.GetGlyphs());
+  auto& bg = beamGroups[0];
+  
+  // Let's imagine a function: 
+  // float GetStubX(int glyphIndex, int level, float stubLength)
+  
+  SECTION("Sixteenth at end points left") 
+  {
+    float x_16th = bar.GetGlyphs()[1]->GetPos().x;
+    float stubLength = 1.0f;
+    
+    // This should return x_16th - stubLength because it's at the end
+    float endX = bg.CalcStubEndPosX(1, 2, stubLength, bar.GetGlyphs());
+    
+    REQUIRE(endX < x_16th); 
+    REQUIRE(endX == Approx(x_16th - stubLength));
+  }
+}
+

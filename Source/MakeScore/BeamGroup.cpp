@@ -323,9 +323,8 @@ void BeamGroup::AddBeams(std::vector<std::unique_ptr<Beam>>& beams,
         // Draw a broken beam (stub)
         // Direction logic: if i is the start of the group, point right. 
         // If i is the end, point left.
-        const bool isStart = (i == m_first);
         const float stubW = NOTE_HEAD_WIDTH * .8f;
-        float stubX = x_i + stubW * (isStart ? 1.0f : -1.0f); 
+        float stubX = CalcStubEndPosX(i, level, stubW, glyphs); 
         RenderBeamSegment(level, x_i, stubX, x1, x2, beams);
       }
     }
@@ -337,5 +336,36 @@ float BeamGroup::ConvertY(float yStaveCoord) const
   // convert to 'render space' y-coord
   float y = yStaveCoord * STAVE_LINE_GAP * .5f;
   return y; 
+}
+
+float BeamGroup::CalcStubEndPosX(
+  int i, int level, float stubLen, 
+  const std::vector<std::unique_ptr<Glyph>>& glyphs) 
+{
+  float currentX = glyphs[i]->GetPos().x;
+
+  // Basic heuristic: 
+  // If there's a neighbor to the left within the same BeamGroup, point left.
+  // Otherwise, point right.
+  
+  bool hasLeftNeighbour = (i > m_first);
+  bool hasRightNeighbour = (i < m_last - 1);
+
+  if (hasLeftNeighbour && hasRightNeighbour &&
+      glyphs[i-1]->GetTimes().GetTimeValue() > glyphs[i+1]->GetTimes().GetTimeValue())
+  {
+    // Left neighbour has larger duration than right: point left
+    return currentX - stubLen;
+  }
+
+  // In a 16th-note stub scenario (like 8th + 16th):
+  // The 16th is at the end (idx == m_last - 1), so it must point left.
+  if (hasLeftNeighbour && !hasRightNeighbour) 
+  {
+    return currentX - stubLen;
+  }
+  
+  // If it's at the start of the group, point right.
+  return currentX + stubLen;
 }
 
