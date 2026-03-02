@@ -71,12 +71,15 @@ void GSBase::Update()
 
   TheSerialReqManager::Instance()->Update();
 
+// Not on device
+#ifndef AMJU_IOS
   auto frameStatsText = 
     dynamic_cast<GuiText*>(GetElementByName(m_gui, "frame-stats"));
   if (frameStatsText)
   {
     frameStatsText->SetText(TheGame::Instance()->GetFrameStats());
   }
+#endif
 }
 
 void GSBase::DrawDevMenu()
@@ -112,7 +115,9 @@ void GSBase::OnActive()
     std::cout << "Failed to load: " << m_guiFilename << "\n";
     Assert(false);
   }
-  
+ 
+// Not on device
+#ifndef AMJU_IOS 
   // Extra GUI, to display frame stats, etc
   auto extraGui = LoadGui("Gui/extra-gui.txt");
   if (extraGui)
@@ -126,6 +131,7 @@ void GSBase::OnActive()
   {
     std::cout << "Failed to load extra GUI.\n";
   }
+#endif
 }
 
 GuiElement* GSBase::GetGui()
