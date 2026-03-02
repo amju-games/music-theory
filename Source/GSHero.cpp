@@ -6,8 +6,8 @@
 #include <CommandLineArgs.h>
 #include <GuiDecColour.h>
 #include <GuiText.h>
-#include <MessageQueue.h>
 #include <SoundManager.h>
+#include <Timer.h>
 #include "Consts.h"
 #include "Grader.h"
 #include "HeroGameRound.h"
@@ -30,6 +30,12 @@
 
 namespace Amju
 {
+static const HeroGameRound& GetGameRound()
+{
+  auto& round = TheGameRoundManager::Instance()->GetGameRound(0);
+  return round;
+}
+
 static int IsWhite(int midi)
 {
   int mod = midi % 12;
@@ -67,47 +73,95 @@ GSHero::GSHero()
 
 void GSHero::SetUpForResume()
 {
-  // Do the things for a Resume we need to do immediately: calc
-  //  and show the resume point in the score. 
-
   // Work out how far back we should go from the resume time.
   // We want to find the start of the current bar.
   // If we're in the first bar, we should just restart the game round. TODO
 
-  // Convert pauseResumeTime into seconds
-//auto optSongLength = m_scrollScore->GetSongLengthSeconds();
-//float songLength = *optSongLength;
-//  float seconds = m_pauseResumeTime * m_scoreLengthSeconds;
+std::cout << "*** Pause resume time: " << m_pauseResumeTime << "\n";
 
-  // Immediately set the position of the score where we will restart from.
-  // Restart the scrolling score from the resume point
+  const auto& beats = m_scrollScore->GetBeats();
+  // Find the beat closest to m_pauseResumeTime
+  auto it = std::lower_bound(
+    beats.begin(), beats.end(), m_pauseResumeTime,
+   [] (const auto& beat, float time) { return beat.m_time < time; }
+  );
 
-  // Done in calling func
-//  m_scrollScore->OnResetAnimation(); // wait, does this do anything?
+  if (it == beats.end())
+  {
+    // This is weird, we must have reached the end of the song. So go to
+    //  winner state, right?
+    // TODO
+std::cout << "VERY STRANGE, on resuming, we seem to be at the end of the song?\n";
+  }
+  else
+  {
+    // We have found the next beat after the pause resume time.
+    // (unless the time is __exactly__ on a beat..) 
+    // Go back to the prev beat.
+    if (it != beats.begin()) --it;
 
-//  m_scoreAnim->SetAnimTimeSeconds(seconds);
-//  m_scoreAnim->SetIsPaused(false);
-//  m_scoreAnim->Update();
-//  m_scoreAnim->SetIsPaused(true);
+std::cout << "Pause hit at: bar: " << it->m_bar 
+  << " beat: " << it->m_beat 
+  << " time: " << it->m_time << "\n";
+
+    // Go back to beat 1 in the current bar
+    while (it != beats.begin() && it->m_beat > 1) 
+    {
+      --it; 
+std::cout << "Decrementing.... at: bar: " << it->m_bar 
+  << " beat: " << it->m_beat 
+  << " time: " << it->m_time << "\n";
+    }
+
+    // Off by one?? What?! Why!!!
+    //++it;
+
+    // This time is correct, but we need to go to the next one
+    //  to correctly position the score. I don't know why.
+    m_pauseResumeTime = it->m_time;
+
+    float scoreResumeTime = (++it)->m_time;
+
+std::cout << "DONE! Resuming at: bar: " << it->m_bar 
+  << " beat: " << it->m_beat 
+  << " time: " << it->m_time << "\n";
+
+    // Set the resume point of the score 
+    m_scrollScore->AnimateSpecial(scoreResumeTime, 0);
+  
+    // Hopefully this will update the kb with the upcoming notes now
+    //  we have set the resume point
+    UpdateKeyboardPosition();
+
+  }
 }
 
 void GSHero::ResumeGame()
 {
-  // Play the count-in track, then restart the anim and play backing
-  //  track -- but set the seek position.
-  // Restart the song from the resume point
+  ChangeState(HeroState::COUNT_IN);
 
-  // Ideally, count-in before restarting the song and scroll anim.
-  // Once the count-in is over, we can reset this resume time.
-  // We can reset this now because there is no count-in on resume.
-  m_pauseResumeTime = 0;
+  auto& gameround = GetGameRound();
 
-  // TODO TEMP TEST - un-pause the scroll anim, play track
-  OnCountInFinished();
+  auto sm = TheSoundManager::Instance();
+
+  // Preload main backing track
+  sm->Preload(gameround.m_backingTrack);
+
+  // Start playing the count-in track
+  sm->PlaySong(gameround.m_countIn);  
+
+  // We can't use the count-in feature of GuiMusicScore, because we
+  //  are in the middle of the song somewhere.
+  // We will have to call OnCountInFinished using a timer -- or add a 
+  //  callback to the count-in audio track.
+  //OnCountInFinished()$
+
 }
 
 void GSHero::CancelResumeTime()
 {
+  // Called when player quits from pause menu, so when we re-enter
+  //  Hero Mode, we restart the song from the beginning.
   m_pauseResumeTime = 0;
 }
 
@@ -119,24 +173,24 @@ void GSHero::ResumeOrRestartGame()
 
   m_scrollScore->OnResetAnimation(); 
 
+  const auto& gameround = GetGameRound();
+  m_countInExpiryTime = gameround.m_numCountInBeats / m_scrollScore->GetBpm() * 60.f;
+std::cout << "Count in time: " << m_countInExpiryTime << "\n";
+
   if (m_pauseResumeTime > 0)
   {
     SetUpForResume();
-
-    std::cout << "Resuming game in 3 secs!\n";
-
-    // Resume after a short pause, TODO do anims etc in the mean time
-    TheMessageQueue::Instance()->Add(new FuncMsg(
-      [](){ TheGSHero::Instance()->ResumeGame(); }, SecondsFromNow(3.f)));
+  // TODO Change to this state and then call ResumeGame from Update after
+  //  a delay, if we want a delay. (Not using timed messages.)
+//    ChangeState(HeroState::BEFORE_COUNT_IN_RESUME);
+    ResumeGame();
   }
   else
   {
+//    ChangeState(HeroState::BEFORE_COUNT_IN_RESTART);
     // Nothing to resume -- restart everything.
-std::cout << " ...(re)starting round after this short pause..\n";
-
-    // Start count in after a short pause, TODO do anims etc in the mean time
-    TheMessageQueue::Instance()->Add(new FuncMsg(
-      [](){ TheGSHero::Instance()->RestartGame(); }, SecondsFromNow(1.f)));
+//std::cout << " ...(re)starting round after this short pause..\n";
+    RestartGame();
   }
 }
 
@@ -149,18 +203,21 @@ void GSHero::OnPauseGame()
 
   if (m_roundIsOver)
   {
-    // We were done - allow the timed message in flight to take us go to 
+    // We were done - go immediately to
     //  the appropriate next state, which will not need a pause menu, 
     //  as it's just GUI.
+    if (m_state == HeroState::PLAYER_HAS_WON) 
+    {
+      GoTo<TheGSHeroWin>();
+    }
+    else if (m_state == HeroState::PLAYER_HAS_LOST)
+    {
+      GoTo<TheGSHeroEnd>();
+    }
+
     return;
   }
  
-  // We don't want timed messages messing up the flow! 
-  TheMessageQueue::Instance()->Clear();
-
-  // Pause scrolling score -- if it was moving
-//  m_scoreAnim->SetIsPaused(true);
-
   float animTime = m_scrollScore->GetAnimTime();
   if (animTime > 0)
   {
@@ -223,7 +280,7 @@ void GSHero::UpdateKeyboardPosition()
   }
  
   // Look ahead this many events. 
-  const int lookAhead = 7;
+  const int lookAhead = 3;
   // Reduce the range if we are near the end of the note events.
   auto end = std::next(it, 
     std::min<size_t>(lookAhead, std::distance(it, noteOnEvents.end())));
@@ -304,6 +361,12 @@ void GSHero::Draw2d()
   }
 }
 
+void GSHero::ChangeState(HeroState newState)
+{
+  m_timeInHeroState = 0;
+  m_state = newState;
+}
+
 void GSHero::Update()
 {
   GSBase::Update();
@@ -319,7 +382,8 @@ void GSHero::Update()
     float normalisedAnimTime = songElapsedSeconds / m_scoreLengthSeconds;
 
     // Get 'dt' for animTime
-    float dAnimTime = normalisedAnimTime - m_prevAnimTime;
+    float dAnimTime = (m_prevAnimTime == 0 ? 0 :
+      normalisedAnimTime - m_prevAnimTime);
     m_prevAnimTime = normalisedAnimTime;
 
     // Scroll the score.
@@ -334,6 +398,27 @@ void GSHero::Update()
     {
       OnPlayerHasWon();
     }
+  }
+
+  // Update the time spent in the current 'micro state'
+  m_timeInHeroState += TheTimer::Instance()->GetDt();
+
+  // Check if we should change state -- we are not using timed messages,
+  //  there are too many edge cases to worry about.
+  // TODO config
+  if (m_state == HeroState::PLAYER_HAS_WON && m_timeInHeroState > 3.f) 
+  {
+    // Go to win state after a short delay: not using timed messages,
+    //  too many edge cases to worry about.
+    GoTo<TheGSHeroWin>();
+  }
+  else if (m_state == HeroState::PLAYER_HAS_LOST && m_timeInHeroState > 3.f)
+  {
+    GoTo<TheGSHeroEnd>();
+  }
+  else if (m_state == HeroState::COUNT_IN && m_timeInHeroState >= m_countInExpiryTime)
+  {
+    OnCountInFinished();
   }
 }
 
@@ -371,43 +456,20 @@ void GSHero::OnPlayerHasWon()
 std::cout << "Player has won this round!\n";
 
   m_roundIsOver = true;
-
-  m_state = HeroState::ROUND_OVER;
-
-  TheMessageQueue::Instance()->Clear();
-
-  // Go to next game state after short delay
-  TheMessageQueue::Instance()->Add(new FuncMsg(
-    GoTo<TheGSHeroWin>,
-    SecondsFromNow(2.f)));
+  m_pauseResumeTime = 0;
+  ChangeState(HeroState::PLAYER_HAS_WON);
 }
 
 void GSHero::OnPlayerHasLost()
 {
 std::cout << "Player has lost this round!\n";
 
-  m_state = HeroState::ROUND_OVER;
-
   m_roundIsOver = true;
+  m_pauseResumeTime = 0;
+  ChangeState(HeroState::PLAYER_HAS_LOST);
 
   TheSoundManager::Instance()->StopSong();
   PlayWav("record_scratch");
-
-  // Stop scrolling - TODO Grind to a halt, not immediate stop
-  //m_scoreAnim->SetIsPaused(true);
-
-  TheMessageQueue::Instance()->Clear();
-
-  // Go to next game state after short delay
-  TheMessageQueue::Instance()->Add(new FuncMsg(
-    GoTo<TheGSHeroEnd>,
-    SecondsFromNow(2.f)));
-}
-
-const HeroGameRound& GetGameRound()
-{
-  auto& round = TheGameRoundManager::Instance()->GetGameRound(0);
-  return round;
 }
 
 void GSHero::InitSound()
@@ -431,7 +493,7 @@ void GSHero::RestartGame()
 {
 std::cout << "Restarting game, here comes the count-in...\n";
 
-  m_state = HeroState::COUNT_IN;
+  ChangeState(HeroState::COUNT_IN);
 
   auto& gameround = GetGameRound();
 
@@ -442,13 +504,17 @@ std::cout << "Restarting game, here comes the count-in...\n";
   auto sm = TheSoundManager::Instance();
   // Preload main backing track
   sm->Preload(gameround.m_backingTrack);
+
+  // Start playing the count-in track
   sm->PlaySong(gameround.m_countIn);  
 
   // Callback for when count-in finished
-  auto onFinished = []() { TheGSHero::Instance()->OnCountInFinished(); };
+  // Now we are doing this in Update old school.
+  // TODO Remove this callback stuff.
+  auto onFinished = []() { };
 
   // Start the count-in
-  const int numCountInBeats = GetGameRound().m_numCountInBeats;
+  const int numCountInBeats = gameround.m_numCountInBeats;
 
 std::cout << "Count-in: there are " << numCountInBeats << " beats.\n";
   m_scrollScore->StartCountIn(numCountInBeats, onFinished);
@@ -472,13 +538,20 @@ void GSHero::OnCountInFinished()
 {
 std::cout << "Count in finished!\n";
 
-  m_state = HeroState::SONG_PLAYING;
+  ChangeState(HeroState::SONG_PLAYING);
 
   // Start playing the backing track for this song
   auto sm = TheSoundManager::Instance();
   sm->PlaySong(GetGameRound().m_backingTrack);
-  // make sure pre-existing song starts at beginning, might not be necessary.
-  sm->SetSongSeekPosition(0); 
+
+  // Set start point of song: convert normalised time to seconds
+  float seekPos = m_pauseResumeTime * m_scoreLengthSeconds;
+  sm->SetSongSeekPosition(seekPos); 
+
+  // At this point, the count in has finished, so no more need for this?
+  // Actually it prob doesn't matter, it will get overwritten as we 
+  //  play forward from this point.
+  //m_pauseResumeTime = 0;
 
   ResetMissedNoteCounters();
 }
@@ -706,7 +779,9 @@ void GSHero::OnActive()
   GSBase::OnActive();  
 
   m_roundIsOver = false;
-  m_state = HeroState::BEFORE_COUNT_IN;
+  ChangeState(HeroState::NEW); 
+  // Or should we use the state when hero mode was last active??
+
   m_prevAnimTime = 0; // always reset, right? What about resuming?
 
   // Can we just do this once?!

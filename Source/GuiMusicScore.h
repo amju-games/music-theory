@@ -30,6 +30,8 @@ struct Beat
   bool operator<(const Beat& b) { return m_time < b.m_time; }
 };
 
+using BeatVec = std::vector<Beat>;
+
 // * GuiMusicScore *
 // Display music notation.
 class GuiMusicScore : public GuiElement
@@ -162,8 +164,11 @@ public:
   // Returns true if the score contains time markers for animation.
   bool HasAnimation() const { return m_hasAnimation; }
  
-  // Add meta data telling us there is a beat at normalized time t.
+  // Add meta data telling us there is a beat at normalised time t.
   void AddBeat(const Beat& beat);
+
+  // Get beats in piece, giving info for bars/beats/normalised times.
+  const BeatVec& GetBeats() const { return m_beats; }
  
   // Set the tempo in Beats Per Minute.
   void SetBpm(float bpm);
@@ -294,7 +299,7 @@ protected:
   float m_bpm = 0.f; // 0 means not known
 
   // Meta data: the normalized time of every beat in the piece.
-  std::vector<Beat> m_beats; 
+  BeatVec m_beats; 
 
   NoteEventCallback m_noteEventCallback;
 };

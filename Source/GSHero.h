@@ -20,10 +20,13 @@ struct Grade;
 //  structure is clearer.
 enum class HeroState
 {
-  BEFORE_COUNT_IN,
+  NEW,
+  BEFORE_COUNT_IN_RESUME,
+  BEFORE_COUNT_IN_RESTART,
   COUNT_IN,
   SONG_PLAYING,
-  ROUND_OVER,
+  PLAYER_HAS_WON,
+  PLAYER_HAS_LOST,
 };
 
 // * GSHero *
@@ -54,6 +57,9 @@ public:
   void CancelResumeTime();
 
 protected:
+  // Call to change current 'micro state'
+  void ChangeState(HeroState newState);
+
   // Add an extra GUI element to the score.
   // Specify the event number and type. So you can attach to, say,
   //  the 3rd note on event, or the 2nd rest on event.
@@ -177,13 +183,21 @@ protected:
 
   // Time into playing the song. This should be both elapsed time in the
   //  audio track, and the music score.
+  // Used to resume round
   float m_animTimeSeconds = 0;
 
-  HeroState m_state = HeroState::BEFORE_COUNT_IN;
+  // Current 'micro state'... upgrade to State pattern?
+  HeroState m_state = HeroState::NEW;
 
   // Value of anim time in previous frame, or zero if we have just
   //  started animating.
   float m_prevAnimTime = 0;
+
+  // Time (seconds) we have been in the current Hero State
+  float m_timeInHeroState = 0;
+
+  // Duration of count-in track; after this time, change state to SONG_PLAYING.
+  float m_countInExpiryTime = 0;
 };
 
 typedef Singleton<GSHero> TheGSHero;
