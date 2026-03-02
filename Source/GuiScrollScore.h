@@ -14,9 +14,13 @@ public:
 
   void Draw() override;
   void Update() override;
-  void Animate(float animValue) override;
   void OnResetAnimation() override;
   bool Load(File*) override;
+
+  // Animate: scroll the score to the left.
+  // animValue: position in animation, 0..1
+  // dAnimValue: difference between previous and this value of animValue.
+  void AnimateSpecial(float animValue, float dAnimValue);
 
   // Override to build beat table after loading
   bool LoadMusicScore(File* file) override;

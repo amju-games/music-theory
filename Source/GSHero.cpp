@@ -106,6 +106,11 @@ void GSHero::ResumeGame()
   OnCountInFinished();
 }
 
+void GSHero::CancelResumeTime()
+{
+  m_pauseResumeTime = 0;
+}
+
 void GSHero::ResumeOrRestartGame()
 {
   // HUD values are restored in ResetHUD.
@@ -312,7 +317,13 @@ void GSHero::Update()
     auto sm = TheSoundManager::Instance();
     float songElapsedSeconds = sm->GetSongElapsedTimeSeconds();
     float normalisedAnimTime = songElapsedSeconds / m_scoreLengthSeconds;
-    m_scrollScore->Animate(normalisedAnimTime);
+
+    // Get 'dt' for animTime
+    float dAnimTime = normalisedAnimTime - m_prevAnimTime;
+    m_prevAnimTime = normalisedAnimTime;
+
+    // Scroll the score.
+    m_scrollScore->AnimateSpecial(normalisedAnimTime, dAnimTime);
   
     // Scroll the extras along with the score.
     auto pos = m_scrollScore->GetLocalPos();
@@ -418,7 +429,7 @@ void GSHero::InitSound()
 
 void GSHero::RestartGame()
 {
-std::cout << "Restarting game.\n";
+std::cout << "Restarting game, here comes the count-in...\n";
 
   m_state = HeroState::COUNT_IN;
 
@@ -463,13 +474,11 @@ std::cout << "Count in finished!\n";
 
   m_state = HeroState::SONG_PLAYING;
 
-  // Start score animating, and set backing track playing at the same time.
-  // The score and the song have to be in perfect sync.
-//  m_scoreAnim->SetIsPaused(false);
-
   // Start playing the backing track for this song
   auto sm = TheSoundManager::Instance();
   sm->PlaySong(GetGameRound().m_backingTrack);
+  // make sure pre-existing song starts at beginning, might not be necessary.
+  sm->SetSongSeekPosition(0); 
 
   ResetMissedNoteCounters();
 }
@@ -692,16 +701,16 @@ void GSHero::OnDeactive()
   sm->ClearPreloadedSongs(); 
 }
 
-
 void GSHero::OnActive() 
 {
   GSBase::OnActive();  
 
   m_roundIsOver = false;
-
   m_state = HeroState::BEFORE_COUNT_IN;
+  m_prevAnimTime = 0; // always reset, right? What about resuming?
 
-  bool ok = TheGameRoundManager::Instance()->Load();
+  // Can we just do this once?!
+  static bool ok = TheGameRoundManager::Instance()->Load();
   if (!ok)
   {
 std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
@@ -819,18 +828,6 @@ std::cout << "Loading music score: " << score << "...\n";
 
 void GSHero::InitScrollScoreAnim()
 {
-/*
-  // Find the animator parent too.
-  auto elem = GetElementByName(m_gui, "play-score");
-  Assert(elem);
-  m_scoreAnim = dynamic_cast<GuiDecAnimation*>(elem);
-  if (!m_scoreAnim)
-  {
-    std::cout << "Score does not have an animator.\n";
-    Assert(0);
-  }
-*/
-
   // Set the animation time from the score meta data
   auto songLength = m_scrollScore->GetSongLengthSeconds();
   if (songLength)

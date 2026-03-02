@@ -47,8 +47,11 @@ public:
   // Called when Score sends a note event
   void OnNoteEvent(const NoteEvent& ne);
 
-  // Callback, when count-in finishes
+  // Callback, when count-in finishes - so public.
   void OnCountInFinished();
+
+  // Call this once we know we won't be resuming the current round.
+  void CancelResumeTime();
 
 protected:
   // Add an extra GUI element to the score.
@@ -177,6 +180,10 @@ protected:
   float m_animTimeSeconds = 0;
 
   HeroState m_state = HeroState::BEFORE_COUNT_IN;
+
+  // Value of anim time in previous frame, or zero if we have just
+  //  started animating.
+  float m_prevAnimTime = 0;
 };
 
 typedef Singleton<GSHero> TheGSHero;

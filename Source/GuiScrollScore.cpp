@@ -3,7 +3,7 @@
 #include <Timer.h>
 #include "GuiScrollScore.h"
 
-//#define ANIM_DEBUG
+#define ANIM_DEBUG
 
 namespace Amju
 {
@@ -136,7 +136,7 @@ void GuiScrollScore::Draw()
   GuiMusicScore::Draw();
 }
 
-void GuiScrollScore::Animate(float animValue) 
+void GuiScrollScore::AnimateSpecial(float animValue, float dAnimValue) 
 {
 // We don't want to do this, but if we did, we would need to not overwrite
 //  the colour of glyphs.
@@ -222,15 +222,11 @@ std::cout << " nextT: " << nextTime
   }
 
   // Scroll from right to left
-  // Get 'dt' for the animTime. TODO Should be passed in as a param.
-  static float prevAnimValue = animValue;
-  float dt = animValue - prevAnimValue;
-  if (dt < 0)
+  if (dAnimValue < 0)
   {
-    dt = 0;
+    dAnimValue = 0;
   }
-  prevAnimValue = animValue;
-  float dx = m_scrollSpeed * dt; 
+  float dx = m_scrollSpeed * dAnimValue; 
   if (dx > 0)
   {
     m_currentX += dx;
