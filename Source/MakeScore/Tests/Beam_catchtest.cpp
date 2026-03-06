@@ -7,6 +7,12 @@
 // NB
 // Bar::AddNote(type/duration token, pitch, flags, start time)
 
+// TODO This isn't getting used if REQUIRE fails comparing pairs of ints
+std::ostream& operator<<(std::ostream& os, const std::pair<int, int> p)
+{
+  return os << "(" << p.first << ", " << p.second << ")";
+}
+
 TEST_CASE("Find beam groups in bar 1", "[Beam]")
 {
   Bar bar;
@@ -16,7 +22,7 @@ TEST_CASE("Find beam groups in bar 1", "[Beam]")
   bar.AddNote("q", Pitch(61), 0, TIMEVAL_CROTCHET);
   bar.AddNote("q", Pitch(62), 0, TIMEVAL_CROTCHET + TIMEVAL_QUAVER);
 
-  auto beamGroups = FindBeamGroups(bar.GetGlyphs());
+  auto beamGroups = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_NONE);
   REQUIRE(beamGroups.size() == 1);
 }
 
@@ -30,7 +36,7 @@ TEST_CASE("Find beam groups in bar 2", "[Beam]")
   bar.AddNote("q", Pitch(62), 0, TIMEVAL_CROTCHET + TIMEVAL_QUAVER);
   bar.AddNote("c", Pitch(63), 0, TIMEVAL_CROTCHET * 2);
 
-  auto beamGroups = FindBeamGroups(bar.GetGlyphs());
+  auto beamGroups = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_NONE);
   REQUIRE(beamGroups.size() == 1);
 }
 
@@ -47,7 +53,7 @@ TEST_CASE("Find beam groups in bar 3", "[Beam]")
   bar.AddNote("q", Pitch(65), 0, TIMEVAL_CROTCHET * 3 + TIMEVAL_QUAVER);
   bar.AddNote("q", Pitch(66), 0, TIMEVAL_CROTCHET * 4);
 
-  auto beamGroups = FindBeamGroups(bar.GetGlyphs());
+  auto beamGroups = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_NONE);
   REQUIRE(beamGroups.size() == 2);
 }
 
@@ -59,7 +65,7 @@ TEST_CASE("Find beam groups in bar 4", "[Beam]")
   bar.AddNote("c", Pitch(60), 0, 0);
   bar.AddNote("q", Pitch(61), 0, TIMEVAL_CROTCHET);
 
-  auto beamGroups = FindBeamGroups(bar.GetGlyphs());
+  auto beamGroups = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_NONE);
   REQUIRE(beamGroups.size() == 0);
 }
 
@@ -72,7 +78,7 @@ TEST_CASE("Find beam groups in bar 5", "[Beam]")
   bar.AddNote("q", Pitch(61), 0, TIMEVAL_CROTCHET);
   bar.AddNote("c", Pitch(62), 0, TIMEVAL_CROTCHET + TIMEVAL_QUAVER);
 
-  auto beamGroups = FindBeamGroups(bar.GetGlyphs());
+  auto beamGroups = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_NONE);
   REQUIRE(beamGroups.size() == 0);
 }
 
@@ -85,7 +91,7 @@ TEST_CASE("Find beam groups in bar 6", "[Beam]")
   bar.AddNote("q", Pitch(61), 0, TIMEVAL_QUAVER);
   bar.AddNote("q", Pitch(62), 0, TIMEVAL_CROTCHET);
 
-  auto beamGroups = FindBeamGroups(bar.GetGlyphs());
+  auto beamGroups = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_NONE);
   REQUIRE(beamGroups.size() == 1);
 }
 
@@ -97,7 +103,7 @@ TEST_CASE("Find beam levels 1", "[Beam]")
   bar.AddNote("q", Pitch(61), 0, 0);
   bar.AddNote("q", Pitch(62), 0, TIMEVAL_QUAVER);
 
-  auto beamGroups = FindBeamGroups(bar.GetGlyphs());
+  auto beamGroups = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_NONE);
   REQUIRE(beamGroups.size() == 1);
   const BeamGroup& bg = beamGroups[0];
   REQUIRE(bg.GetNumMembers() == 2);
@@ -124,7 +130,7 @@ TEST_CASE("Decide stem direction 1", "[Beam]")
   bar.AddNote("q", Pitch(60), 0, TIMEVAL_CROTCHET * 3 + TIMEVAL_QUAVER);
   bar.AddNote("q", Pitch(76), 0, TIMEVAL_CROTCHET * 4);
 
-  auto beamGroups = FindBeamGroups(bar.GetGlyphs());
+  auto beamGroups = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_NONE);
   REQUIRE(beamGroups.size() == 2);
 
   beamGroups[0].DecideStemDirections(bar.GetGlyphs());
@@ -160,7 +166,7 @@ TEST_CASE("Calc primary beam y coords at ends", "[Beam]")
   bar.AddNote("q", Pitch(62), 0, TIMEVAL_CROTCHET);
   SetXCoordsOfGlyphs(bar);
 
-  auto beamGroups = FindBeamGroups(bar.GetGlyphs());
+  auto beamGroups = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_NONE);
   REQUIRE(beamGroups.size() == 1);
   auto& bg = beamGroups[0];
 
@@ -188,7 +194,7 @@ TEST_CASE("Calc primary beam y coords at ends - Advanced", "[Beam]")
     bar.AddNote("q", Pitch(62), 0, TIMEVAL_CROTCHET);
     SetXCoordsOfGlyphs(bar);
 
-    auto beamGroups = FindBeamGroups(bar.GetGlyphs());
+    auto beamGroups = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_NONE);
     auto& bg = beamGroups[0];
     bg.SetStemDirection(StemDir::UP); // Force UP for test
 
@@ -209,7 +215,7 @@ TEST_CASE("Calc primary beam y coords at ends - Advanced", "[Beam]")
     bar.AddNote("qq", Pitch(60), 0, TIMEVAL_SEMIQUAVER);
     SetXCoordsOfGlyphs(bar);
 
-    auto beamGroups = FindBeamGroups(bar.GetGlyphs());
+    auto beamGroups = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_NONE);
     auto& bg = beamGroups[0];
     bg.SetStemDirection(StemDir::UP);
 
@@ -229,7 +235,7 @@ TEST_CASE("Calc primary beam y coords at ends - Advanced", "[Beam]")
     bar.AddNote("q", Pitch(67), 0, TIMEVAL_QUAVER);
     SetXCoordsOfGlyphs(bar);
     
-    auto beamGroups = FindBeamGroups(bar.GetGlyphs());
+    auto beamGroups = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_NONE);
     auto& bg = beamGroups[0];
     bg.SetStemDirection(StemDir::DOWN);
     
@@ -248,7 +254,7 @@ TEST_CASE("Broken beam stub direction", "[Beam]")
   bar.AddNote("q.", Pitch(60), 0, 0);                  // Dotted Quaver (8th)
   bar.AddNote("qq", Pitch(62), 0, TIMEVAL_SEMIQUAVER); // Semiquaver (16th)
 
-  auto beamGroups = FindBeamGroups(bar.GetGlyphs());
+  auto beamGroups = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_NONE);
   auto& bg = beamGroups[0];
   
   // Let's imagine a function: 
@@ -267,3 +273,98 @@ TEST_CASE("Broken beam stub direction", "[Beam]")
   }
 }
 
+TEST_CASE("Find split beam groups 1", "[Beam]")
+{
+  Bar bar;
+
+  //  q--q--q--q   => all one beam group, split by middle beat
+  bar.AddNote("q", Pitch(60), 0, 0);
+  bar.AddNote("q", Pitch(61), 0, TIMEVAL_QUAVER);
+  bar.AddNote("q", Pitch(62), 0, TIMEVAL_QUAVER * 2);
+  bar.AddNote("q", Pitch(63), 0, TIMEVAL_QUAVER * 3);
+
+  const auto bgs = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_TWO_FOUR);
+  REQUIRE(bgs.size() == 2);
+  REQUIRE(bgs[0].GetRange() == std::make_pair(0, 2));
+  REQUIRE(bgs[1].GetRange() == std::make_pair(2, 4));
+}
+
+TEST_CASE("Find split beam groups 2", "[Beam]")
+{
+  Bar bar;
+
+  //  q--q--q r  => q--q q r 
+  bar.AddNote("q", Pitch(60), 0, 0);
+  bar.AddNote("q", Pitch(61), 0, TIMEVAL_QUAVER);
+  bar.AddNote("q", Pitch(62), 0, TIMEVAL_QUAVER * 2);
+  bar.AddRest("q", 0, TIMEVAL_QUAVER * 3, false);
+
+  const auto bgs = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_TWO_FOUR);
+  REQUIRE(bgs.size() == 1);
+  REQUIRE(bgs[0].GetRange() == std::make_pair(0, 2));
+}
+
+TEST_CASE("Find split beam groups 3", "[Beam]")
+{
+  Bar bar;
+
+  //  r q--q--q  => r q q--q 
+  bar.AddRest("q", 0, 0, false);
+  bar.AddNote("q", Pitch(60), 0, TIMEVAL_QUAVER);
+  bar.AddNote("q", Pitch(61), 0, TIMEVAL_QUAVER * 2);
+  bar.AddNote("q", Pitch(62), 0, TIMEVAL_QUAVER * 3);
+
+  const auto bgs = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_TWO_FOUR);
+  REQUIRE(bgs.size() == 1);
+  REQUIRE(bgs[0].GetRange() == std::make_pair(2, 4));
+}
+
+TEST_CASE("Find split beam groups 4", "[Beam]")
+{
+  Bar bar;
+
+  //  4/4 q--q--q--q--q--q--q--q   => all one beam group, split by middle beat
+  bar.AddNote("q", Pitch(60), 0, 0);
+  bar.AddNote("q", Pitch(61), 0, TIMEVAL_QUAVER);
+  bar.AddNote("q", Pitch(62), 0, TIMEVAL_QUAVER * 2);
+  bar.AddNote("q", Pitch(63), 0, TIMEVAL_QUAVER * 3);
+  bar.AddNote("q", Pitch(64), 0, TIMEVAL_QUAVER * 4);
+  bar.AddNote("q", Pitch(65), 0, TIMEVAL_QUAVER * 5);
+  bar.AddNote("q", Pitch(66), 0, TIMEVAL_QUAVER * 6);
+  bar.AddNote("q", Pitch(67), 0, TIMEVAL_QUAVER * 7);
+
+  const auto bgs = FindBeamGroups(bar.GetGlyphs(), 0, TimeSig::TIME_SIG_FOUR_FOUR);
+  REQUIRE(bgs.size() == 2);
+  REQUIRE(bgs[0].GetRange() == std::make_pair(0, 4));
+  REQUIRE(bgs[1].GetRange() == std::make_pair(4, 8));
+}
+
+TEST_CASE("IsNoteOnBeamBreak rules", "[Beam]") 
+{
+  TimeValue barStart = 0.0f;
+
+  SECTION("Four-Four (4/4) Rules") 
+  {
+    // Beat 3 (Time 2.0) is a major break point in 4/4
+    REQUIRE(IsNoteOnBeamBreak(2.0f, barStart, TimeSig::TIME_SIG_FOUR_FOUR) == true);
+    // Beat 2 (Time 1.0) is NOT a major break (usually grouped 1+2, 3+4)
+    REQUIRE(IsNoteOnBeamBreak(1.0f, barStart, TimeSig::TIME_SIG_FOUR_FOUR) == false);
+  }
+
+  SECTION("Three-Four (3/4) Rules") 
+  {
+    // In 3/4, we usually don't break the primary beam between beats 
+    // unless the notes are very short, but beat 2 and 3 are technically "breaks" 
+    // if we want to show every crotchet.
+    REQUIRE(IsNoteOnBeamBreak(1.0f, barStart, TimeSig::TIME_SIG_THREE_FOUR) == true);
+    REQUIRE(IsNoteOnBeamBreak(2.0f, barStart, TimeSig::TIME_SIG_THREE_FOUR) == true);
+  }
+
+  SECTION("Compound Time (6/8)") 
+  {
+    // 6/8 is grouped in two beats of 1.5 crotchets each.
+    // Break should happen at Time 1.5
+    REQUIRE(IsNoteOnBeamBreak(1.5f, barStart, TimeSig::TIME_SIG_SIX_EIGHT) == true);
+    REQUIRE(IsNoteOnBeamBreak(0.5f, barStart, TimeSig::TIME_SIG_SIX_EIGHT) == false);
+  }
+}

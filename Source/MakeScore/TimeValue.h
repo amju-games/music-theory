@@ -99,12 +99,12 @@ public:
   std::string GetTimeToken() const;
 
 private:
-  TimeType m_timeType = TimeType::NOT_SET;
-  TimeValue m_timeValue = 0;
-  TimeValue m_startTime = 0; 
+  TimeType m_timeType = TimeType::NOT_SET; // duration type
+  TimeValue m_timeValue = 0; // i.e. duration, in crotchets
+  TimeValue m_startTime = 0; // from start of piece, in crotchets
   float m_normalisedStartTime = 0; // scaled version of m_startTime
   float m_normalisedDuration = 0; // scaled version of m_timeValue
-  std::string m_token;
+  std::string m_token; // duration token, for testing and comments
 };
 
 // Finds the time value for the given string. E.g. "sb" (semibreve) 

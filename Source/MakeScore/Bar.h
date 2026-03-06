@@ -78,6 +78,13 @@ public:
   // Get start time of first beat of bar, in crotchet units.
   TimeValue GetStartTime() const { return m_startTime; }
 
+  // Find beam groups in this bar. 
+  // One beam group is a run of notes less than one crotchet in duration each,
+  //  connected by a primary beam and possibly secondary and broken beams.
+  // Not all runs can be connected as beam groups, depending on beats in 
+  //  this bar.
+  // The output of this function is to add beams to m_beams, and to adjust
+  //  stems of member note glyphs.
   void MakeBeamGroups();
 
   // Calc normalised start times and durations for meta data

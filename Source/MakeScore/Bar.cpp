@@ -451,7 +451,7 @@ void Bar::MakeBeamGroups()
 {
   // Find beam groups in this bar. Pass in time sig so we can split
   //  beams on major beats.
-  auto beamGroups = FindBeamGroups(m_glyphs); //TODO, m_timeSig);
+  auto beamGroups = FindBeamGroups(m_glyphs, m_startTime, m_timeSig);
 
   for (auto& bg : beamGroups)
   {

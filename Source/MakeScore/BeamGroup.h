@@ -7,8 +7,11 @@
 #pragma once
 
 #include <memory>
+#include <utility>
 #include <vector>
 #include "StemDir.h"
+#include "TimeSig.h"
+#include "TimeValue.h"
 #include "vec2.h"
 
 class Beam;
@@ -29,6 +32,9 @@ public:
 
   // Get num glyph members of group
   int GetNumMembers() const { return m_last - m_first; }
+
+  // For testing
+  std::pair<int, int> GetRange() const { return std::make_pair(m_first, m_last); }
 
   // Decide which way stems of member notes/chords should go;
   //  equivalently, whether the beam group goes above or below the notes.
@@ -87,8 +93,17 @@ private:
   std::pair<int, int> m_primaryStaveLines;
 };
 
+// Used to split beams on major beats.
+// Is the note on a 'beam break' beat, e.g. beat 3 in a 4/4 bar.
+bool IsNoteOnBeamBreak(
+  TimeValue noteStartTime,
+  TimeValue barStartTime,
+  TimeSig timeSig);
+
 // Find the beam groups in the given sequence of glyphs.
 // This will be runs of contiguous beamable notes/chords.
 std::vector<BeamGroup> FindBeamGroups(
-  const std::vector<std::unique_ptr<Glyph>>& glyphs);
+  const std::vector<std::unique_ptr<Glyph>>& glyphs, // glyphs in bar
+  TimeValue barStartTime, // start time of first beat of bar
+  TimeSig timeSig); // time sig of bar
 

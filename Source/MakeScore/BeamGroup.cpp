@@ -194,8 +194,66 @@ std::cout << "Beam Group stem dir decision: " << (stemUpPositive >= 0 ? "UP" : "
   m_stemDir = dir;
 }
 
+bool IsNoteOnBeamBreak(
+  TimeValue noteStartTime,
+  TimeValue barStartTime,
+  TimeSig timeSig) 
+{
+  // Local time within the bar
+  TimeValue t = noteStartTime - barStartTime;
+  
+  // Floating point epsilon check
+  auto isAt = [&](TimeValue target) { 
+    return std::abs(t - target) < 0.001f; 
+  };
+
+  switch (timeSig) 
+  {
+    case TimeSig::TIME_SIG_NONE:
+      // No breaks if no time sig; this is for testing and any other
+      //  situation where we don't want breaks.
+      return false;
+
+    case TimeSig::TIME_SIG_FOUR_FOUR:
+    case TimeSig::TIME_SIG_COMMON:
+      // Primary break is at the middle of the bar (Beat 3)
+      return isAt(2.0f);
+
+    case TimeSig::TIME_SIG_TWO_FOUR:
+    case TimeSig::TIME_SIG_CUT_COMMON:
+      // Break on every crotchet beat
+      return isAt(1.0f);
+
+    case TimeSig::TIME_SIG_THREE_FOUR:
+      // Usually beams aren't joined across any crotchet beats in 3/4
+      return isAt(1.0f) || isAt(2.0f);
+
+    case TimeSig::TIME_SIG_SIX_FOUR:
+      // Split at middle of bar
+      return isAt(3.0f);
+
+    case TimeSig::TIME_SIG_SIX_EIGHT:
+      // Two beats of 1.5 crotchets (three quavers) each
+      return isAt(1.5f);
+
+    case TimeSig::TIME_SIG_NINE_EIGHT:
+      // Three beats of 1.5 crotchets each
+      return isAt(1.5f) || isAt(3.0f);
+
+    case TimeSig::TIME_SIG_TWELVE_EIGHT:
+      // Four beats of 1.5 crotchets each
+      return isAt(1.5f) || isAt(3.0f) || isAt(4.5f);
+
+    default:
+      // For unknown signatures, default to breaking on every whole crotchet
+      return std::abs(fmod(t, 1.0f)) < 0.001f && t > 0.001f;
+  }
+}
+
 std::vector<BeamGroup> FindBeamGroups(
-  const std::vector<std::unique_ptr<Glyph>>& glyphs)
+  const std::vector<std::unique_ptr<Glyph>>& glyphs,
+  TimeValue barStartTime, // start time of first beat of bar
+  TimeSig timeSig)
 {
 #ifdef BEAM_GROUP_DEBUG
 std::cout << "Finding beam groups....\n";
@@ -205,6 +263,20 @@ std::cout << "Finding beam groups....\n";
   const auto numGlyphs = glyphs.size();
   for (int i = 0; i < numGlyphs; i++)
   {
+    bool beamBreak = IsNoteOnBeamBreak(
+      glyphs[i]->GetTimes().GetStartTimeValue(), // note start time
+      barStartTime, timeSig);
+
+    if (beamBreak && groupStart != -1)
+    {
+      // Major beat breaks beam we were making, so add it and reset counter.
+      if (i > (groupStart + 1)) // don't add single note as a beam group
+      {
+        res.emplace_back(BeamGroup(groupStart, i));
+      }
+      groupStart = -1;
+    }
+
 #ifdef BEAM_GROUP_DEBUG
 std::cout << "i: " << i << " groupStart: " << groupStart << "\n";
 #endif //  BEAM_GROUP_DEBUG
