@@ -356,6 +356,16 @@ void BeamGroup::RenderBeamSegment(
   beams.emplace_back(std::make_unique<Beam>(left, right));
 }
 
+// Return true if glyph (we assume note or chord) is on a beat.
+static bool IsOnBeat(const std::unique_ptr<Glyph>& g)
+{
+  // Get (non-normalised) start time of note
+  const TimeValue t = g->GetTimes().GetStartTimeValue();
+  // Beats are whole numbers; get distance from nearest whole number
+  //  and compare with epsilon.
+  return std::abs(t - std::round(t)) < 0.001f;
+}
+
 void BeamGroup::AddBeams(std::vector<std::unique_ptr<Beam>>& beams,
  const std::vector<std::unique_ptr<Glyph>>& glyphs)
 {
@@ -380,7 +390,9 @@ void BeamGroup::AddBeams(std::vector<std::unique_ptr<Beam>>& beams,
         GetBeamLevel() >= level;
 
       bool nextHasLevel = (i + 1 < m_last) && 
-        (dynamic_cast<NoteAndChordBase*>(glyphs[i+1].get())->GetBeamLevel() >= level);
+        (dynamic_cast<NoteAndChordBase*>(glyphs[i+1].get())->
+          GetBeamLevel() >= level)  &&
+        !IsOnBeat(glyphs[i+1]);
       
       float x_i = glyphs[i]->GetPos().x;
       
