@@ -3,7 +3,7 @@
 #include <Timer.h>
 #include "GuiScrollScore.h"
 
-#define ANIM_DEBUG
+//#define ANIM_DEBUG
 
 namespace Amju
 {
