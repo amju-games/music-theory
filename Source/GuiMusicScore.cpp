@@ -771,11 +771,7 @@ Colour GuiMusicScore::GetColourForGlyph() const
 {
   if (m_lastNoteParsed != -1 && m_palette)
   {
-    auto colour =  m_palette->GetColour(std::to_string(m_lastNoteParsed));
-    if (colour)
-    {
-      return *colour;
-    }
+    return  m_palette->GetColour(m_lastNoteParsed);
   }
 
   // No palette or colour not defined for this note: use default glyph colour

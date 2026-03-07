@@ -284,13 +284,12 @@ void GuiMusicKb::SetPalette(RCPtr<Palette> palette)
     return;
   }
 
-  for (const auto& [noteStr, colour] : palette->GetColourMap())
+  for (int midiNote = 0; midiNote < 128; midiNote++)
   {
-    int midiNote = ToInt(noteStr);
     PKey key = GetKey(midiNote);
     if (key)
     {
-      key->m_colour = colour;
+      key->m_colour = palette->GetColour(midiNote);
     } 
   }
 }

@@ -1,3 +1,3 @@
 Level	Round	Name	Display title (localised)	Composer (localised)	Backing track	Count-in	Count-in number of beats	Colour palette	Music score	Sound font
-0	0	TheSwan	@@@The Swan	@@@Camille Saint-Saëns	TheSwan/swan-3-64bpm.ogg	TheSwan/swan-count-in-64bpm.ogg	6	palette-c-d-e.txt	TheSwan/TheSwan_score.txt	organ1.sf2
-0	0	Test	Test	Me	TheSwan/swan-3-64bpm.ogg	TheSwan/swan-count-in-64bpm.ogg	2	palette-c-d-e.txt	Test/Lets-go.txt	organ1.sf2
+0	0	TheSwan	@@@The Swan	@@@Camille Saint-Saëns	TheSwan/swan-3-64bpm.ogg	TheSwan/swan-count-in-64bpm.ogg	6	palette-bubblegum-16.png	TheSwan/TheSwan_score.txt	organ1.sf2
+0	0	Test	Test	Me	TheSwan/swan-3-64bpm.ogg	TheSwan/swan-count-in-64bpm.ogg	2	palette-bubblegum-16.png	Test/Lets-go.txt	organ1.sf2

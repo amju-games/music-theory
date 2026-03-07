@@ -59,7 +59,7 @@ bool GameRoundManager::Load()
     round.m_numCountInBeats = ToInt(cells[7]);
     // TODO This is going to change to a list of midi pitches we want
     //       to colour in 
-    round.m_palette = "Gui/Palettes/" + cells[8];
+    round.m_palette = "Image/" + cells[8];
     round.m_musicScore = "Songs/" + cells[9];
     round.m_soundFont = "Sound/" + cells[10];
 std::cout << round;

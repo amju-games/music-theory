@@ -848,15 +848,8 @@ RCPtr<Palette> GSHero::LoadPalette()
 {
   RCPtr<Palette> palette = new Palette;
 
-  File paletteFile;
-  if (!paletteFile.OpenRead(GetGameRound().m_palette))
-  {
-    // TODO Report Error gracefully
-    std::cout << "Failed to open palette file.\n";
-    Assert(false);
-  }
-
-  if (!palette->Load(paletteFile))
+  // TODO Fixed palette across songs but can be changed for accessibility
+  if (!palette->Load(GetGameRound().m_palette))
   {
     // TODO Report Error gracefully
     std::cout << "Failed to load colours from  palette file.\n";
