@@ -347,8 +347,11 @@ std::cout << "  Min note on screen: " << screenMin
   // Copy current value to initial value, and set new desired value.
   // (Copying current to initial sounds like a useful thing to add 
   //  to the GuiDecorator class.)
-  m_keyboardTranslate->SetTranslation(currentPos, 0);
-  m_keyboardTranslate->SetTranslation(desiredPos, 1);
+  // Set current pos second, because GuiDecTranslate sets its value to 
+  //  the last 'endpoint' set. We want to start the anim at currentPos,
+  //  so this avoids a one-frame flicker as the current pos is adjusted.
+  m_keyboardTranslate->SetTranslation(desiredPos, 1); // sets current translation to desired pos
+  m_keyboardTranslate->SetTranslation(currentPos, 0); // sets current translation back to current pos
   m_keyboardAnim->ResetAnimation();
 }
 
