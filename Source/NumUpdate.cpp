@@ -26,10 +26,7 @@ void HudNumber::SetGuiElement(
 
 void HudNumber::ResumeAfterPause()
 {
-  IGuiText* text = dynamic_cast<IGuiText*>(m_guiTextElement.GetPtr());
-  Assert(text); 
-  text->SetText(std::to_string(m_internalNumber));
-  m_increment = 0;
+  Reset(m_internalNumber);
 }
 
 void HudNumber::Reset(int initialValue)
