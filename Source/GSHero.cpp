@@ -80,10 +80,11 @@ void GSHero::SetUpForResume()
 std::cout << "*** Pause resume time: " << m_pauseResumeTime << "\n";
 
   const auto& beats = m_scrollScore->GetBeats();
-  // Find the beat closest to m_pauseResumeTime
-  auto it = std::lower_bound(
+  // Find the beat closest to m_pauseResumeTime:
+  // First, find the beat after m_pauseResumeTime
+  auto it = std::upper_bound(
     beats.begin(), beats.end(), m_pauseResumeTime,
-   [] (const auto& beat, float time) { return beat.m_time < time; }
+   [] (float time, const auto& beat) { return beat.m_time < time; }
   );
 
   if (it == beats.end())
@@ -96,7 +97,6 @@ std::cout << "VERY STRANGE, on resuming, we seem to be at the end of the song?\n
   else
   {
     // We have found the next beat after the pause resume time.
-    // (unless the time is __exactly__ on a beat..) 
     // Go back to the prev beat.
     if (it != beats.begin()) --it;
 
@@ -112,9 +112,6 @@ std::cout << "Decrementing.... at: bar: " << it->m_bar
   << " beat: " << it->m_beat 
   << " time: " << it->m_time << "\n";
     }
-
-    // Off by one?? What?! Why!!!
-    //++it;
 
     // This time is correct, but we need to go to the next one
     //  to correctly position the score. I don't know why.
@@ -132,7 +129,6 @@ std::cout << "DONE! Resuming at: bar: " << it->m_bar
     // Hopefully this will update the kb with the upcoming notes now
     //  we have set the resume point
     UpdateKeyboardPosition();
-
   }
 }
 
@@ -180,16 +176,11 @@ std::cout << "Count in time: " << m_countInExpiryTime << "\n";
   if (m_pauseResumeTime > 0)
   {
     SetUpForResume();
-  // TODO Change to this state and then call ResumeGame from Update after
-  //  a delay, if we want a delay. (Not using timed messages.)
-//    ChangeState(HeroState::BEFORE_COUNT_IN_RESUME);
     ResumeGame();
   }
   else
   {
-//    ChangeState(HeroState::BEFORE_COUNT_IN_RESTART);
     // Nothing to resume -- restart everything.
-//std::cout << " ...(re)starting round after this short pause..\n";
     RestartGame();
   }
 }
@@ -214,7 +205,8 @@ void GSHero::OnPauseGame()
     {
       GoTo<TheGSHeroEnd>();
     }
-
+    // Reset state, riight?
+    ChangeState(HeroState::NEW);
     return;
   }
  
@@ -252,48 +244,50 @@ void GSHero::OnPauseGame()
   //  local message queue.
 }
 
+// TODO const kb
+static float GetOneWhiteKeyWidthScreenSpace(GuiMusicKb* keyboard)
+{
+  return keyboard->GetKey(60)->m_projectedRect.GetSize().x;
+}
+
 void GSHero::UpdateKeyboardPosition()
 {
   // Set keyboard x-coord so that upcoming notes will be playable.
 
   // Look ahead to see what note events will be coming soon.
-  auto noteOnEvents = m_scrollScore->GetNoteEvents();
+  // Get the min/max note pitches in the current section.
+  const auto& noteEvents = m_scrollScore->GetNoteEvents();
 
-  // Just consider note on events 
-  noteOnEvents.erase(
-    std::remove_if(noteOnEvents.begin(), noteOnEvents.end(),
-    [](const NoteEvent& ne)
-    {
-      return !ne.IsNoteOnEvent();
-    }),
-    noteOnEvents.end());
-
-  float animTime = m_scrollScore->GetAnimTime();
-
-  // Get all notes which will occur after the current anim time.
-  auto it = std::upper_bound(noteOnEvents.begin(), noteOnEvents.end(), animTime,
-    [](float t, const NoteEvent& ne) { return t < ne.m_time; });
-
-  if (it == noteOnEvents.end())
+  if (m_sectionIndex >= m_songSections.size()) 
   {
-    return; // no more notes?! 
+std::cout << "ERROR: Section index is " << m_sectionIndex << " but number of sections is: " << m_songSections.size() << "\n";
+
+    return;
   }
- 
-  // Look ahead this many events. 
-  const int lookAhead = 3;
-  // Reduce the range if we are near the end of the note events.
-  auto end = std::next(it, 
-    std::min<size_t>(lookAhead, std::distance(it, noteOnEvents.end())));
+  const Section& s = m_songSections[m_sectionIndex];
 
-  // Not:
-  // auto end = std::min(it + lookAhead, noteOnEvents.end());
-  // Which triggers iterator check and crashes the program in MSVC.
+  // Colourise keyboard: Find all the notes we play in the section.  
+  std::vector<int> keys;
+  for (int i = s.first; i < s.second; ++i)
+  {
+    int note = noteEvents[i].m_note;
+    if (note != -1)
+    {
+      keys.push_back(note);
+    }
+  }
+  m_keyboard->ColouriseKeys(keys);
 
+  // Move the keyboard so all notes in the section are on screen. 
   // Get the min and max notes in the range
-  const auto [minIt, maxIt] = std::minmax_element(it, end,
-    [](const NoteEvent& ne1, const NoteEvent& ne2) { return ne1.m_note < ne2.m_note; });
-  const int minNote = minIt->m_note;
-  const int maxNote = maxIt->m_note;
+  const auto optMinMaxNotes = FindMinMaxPitchInSection(s, noteEvents);
+  if (!optMinMaxNotes) 
+  {
+std::cout << "ERROR: no min/max notes in song section " << m_sectionIndex << "\n";
+    return;
+  }
+  const int minNote = optMinMaxNotes->first;
+  const int maxNote = optMinMaxNotes->second;
 
 #ifdef KEYBOARD_DEBUG
 std::cout << "** Look ahead: min note: " << minNote << " max note: " << maxNote << "\n";
@@ -305,7 +299,12 @@ std::cout << "** Look ahead: min note: " << minNote << " max note: " << maxNote 
 
   // Just get key width once: we won't be changing this, right??
   const float keyWidth = 
-    m_keyboard->GetKey(60)->m_projectedRect.GetSize().x;
+    GetOneWhiteKeyWidthScreenSpace(m_keyboard);
+
+  if (keyWidth == 0)
+  {
+std::cout << "ERROR: key width is zero.\n";
+  }
 
 #ifdef KEYBOARD_DEBUG
 std::cout << "Key width: " << keyWidth << "\n";
@@ -321,25 +320,30 @@ std::cout << "Key width: " << keyWidth << "\n";
     desiredPos.x -= keyWidth * static_cast<float>(whiteNotes);
 
 #ifdef KEYBOARD_DEBUG
-std::cout << "  Max note on screen: " << screenMax 
-  << " max note coming up: " << maxNote 
-  << " white notes: " << whiteNotes 
+std::cout << "  Scroll L: Max on screen: " << screenMax 
+  << " max coming up: " << maxNote 
+//  << " white notes: " << whiteNotes 
+  << " Desired X: " << desiredPos.x 
+  << " Current X: " << currentPos.x 
   << "\n";
 #endif
   }
-  else if (minNote <= screenMin) // both conditions should not be true!
+  if (minNote <= screenMin) // both conditions should not be true!
   {
     int whiteNotes = CountWhiteNotes(minNote, screenMin);
     desiredPos.x += keyWidth * static_cast<float>(whiteNotes);
 
 #ifdef KEYBOARD_DEBUG
-std::cout << "  Min note on screen: " << screenMin
-  << " min note coming up: " << minNote 
-  << " white notes: " << whiteNotes 
+std::cout << "  Scroll R: Min on screen: " << screenMin
+  << " min coming up: " << minNote 
+//  << " white notes: " << whiteNotes 
+  << " Desired X: " << desiredPos.x 
+  << " Current X: " << currentPos.x 
   << "\n";
 #endif
   }
-  else
+ 
+  if (minNote > screenMin && maxNote < screenMax) 
   {
     return; // no need to do anything, let the animation finish
   }
@@ -350,8 +354,13 @@ std::cout << "  Min note on screen: " << screenMin
   // Set current pos second, because GuiDecTranslate sets its value to 
   //  the last 'endpoint' set. We want to start the anim at currentPos,
   //  so this avoids a one-frame flicker as the current pos is adjusted.
-  m_keyboardTranslate->SetTranslation(desiredPos, 1); // sets current translation to desired pos
-  m_keyboardTranslate->SetTranslation(currentPos, 0); // sets current translation back to current pos
+
+  m_keyboardTranslate->SetTranslation(desiredPos, 1); 
+  // ..sets current translation to desired pos
+
+  m_keyboardTranslate->SetTranslation(currentPos, 0); 
+  // ..sets current translation back to current pos
+
   m_keyboardAnim->ResetAnimation();
 }
 
@@ -411,15 +420,14 @@ void GSHero::Update()
   // TODO config
   if (m_state == HeroState::PLAYER_HAS_WON && m_timeInHeroState > 3.f) 
   {
-    // Go to win state after a short delay: not using timed messages,
-    //  too many edge cases to worry about.
     GoTo<TheGSHeroWin>();
   }
   else if (m_state == HeroState::PLAYER_HAS_LOST && m_timeInHeroState > 3.f)
   {
     GoTo<TheGSHeroEnd>();
   }
-  else if (m_state == HeroState::COUNT_IN && m_timeInHeroState >= m_countInExpiryTime)
+  else if (m_state == HeroState::COUNT_IN && 
+           m_timeInHeroState >= m_countInExpiryTime)
   {
     OnCountInFinished();
   }
@@ -501,9 +509,6 @@ std::cout << "Restarting game, here comes the count-in...\n";
   auto& gameround = GetGameRound();
 
   // Play count-in audio
-  // The BPM has to match that of the song. We don't want a huge number of
-  //  count-in audio files, so better to adjust BPM of the count-in song, to 
-  //  match the main song BPM.
   auto sm = TheSoundManager::Instance();
   // Preload main backing track
   sm->Preload(gameround.m_backingTrack);
@@ -516,7 +521,7 @@ std::cout << "Restarting game, here comes the count-in...\n";
   // TODO Remove this callback stuff.
   auto onFinished = []() { };
 
-  // Start the count-in
+  // Start the count-in on the music score.
   const int numCountInBeats = gameround.m_numCountInBeats;
 
 std::cout << "Count-in: there are " << numCountInBeats << " beats.\n";
@@ -543,6 +548,8 @@ std::cout << "Count in finished!\n";
 
   ChangeState(HeroState::SONG_PLAYING);
 
+  UpdateKeyboardPosition();
+
   // Start playing the backing track for this song
   auto sm = TheSoundManager::Instance();
   sm->PlaySong(GetGameRound().m_backingTrack);
@@ -563,10 +570,19 @@ void GSHero::OnNoteEvent(const NoteEvent& ne)
 {
   // This is a callback for a music/note event generated by the Score.
 
+  // Update current section 
+  if (ne.GetId() >= m_songSections[m_sectionIndex].second)
+  {
+    ++m_sectionIndex;
+std::cout << "New song section! " << m_sectionIndex << "\n";
+    UpdateKeyboardPosition();
+  }
+
   if (ne.m_time < m_pauseResumeTime)
   {
     // This happens when resuming: the score sends all note events up to the
     //  pause time.
+    // But use the IDs we get to update to the current section, see above.
     return;
   }
 
@@ -616,10 +632,7 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
 
     // Missed note
     Grade grade(Grade::NO_ATTEMPT, 0);
-    // Show this differently TODO... the problem is the feedback is at
-    //  the end of a note's life, so the feedback is not connecting to 
-    //  the note we missed.
-//  FeedbackBalloon(grade);
+    // Show the missed note TODO
     DecreaseLife(grade); 
   }
 }
@@ -792,10 +805,14 @@ void GSHero::OnActive()
   ChangeState(HeroState::NEW); 
   // Or should we use the state when hero mode was last active??
 
+  // Start at song section 0: but if we are resuming, use all the note
+  //  events we recv to move to the current section.
+  m_sectionIndex = 0;
+
   m_prevAnimTime = 0; // always reset, right? What about resuming?
 
-  // Can we just do this once?!
-  static bool ok = TheGameRoundManager::Instance()->Load();
+  // Can we just do this once?! Yes, but if we reload we get updates to the file.
+  bool ok = TheGameRoundManager::Instance()->Load();
   if (!ok)
   {
 std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
@@ -814,7 +831,7 @@ std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
 
 void GSHero::ResetHud()
 {
-  // Find GUI elements
+  // Find and store pointers to GUI elements
   m_playerScore.SetGuiElement(m_gui, "score-text", "score-text-anim-trigger");
   m_lifePercent.SetGuiElement(
     m_gui, "num-lives-text", "num-lives-text-anim-trigger");
@@ -851,7 +868,6 @@ void GSHero::SetSongTitle()
   {
     songComposerText->SetText(GetGameRound().m_composer);
   }
-  
 }
 
 RCPtr<Palette> GSHero::LoadPalette()
@@ -887,7 +903,7 @@ void GSHero::InitScrollScore()
     Assert(0); 
   }
 
-  // Set callback for note events, so we can spot missed attempts
+  // Set callback for note events generated by the score
   m_scrollScore->SetNoteEventCallback(Amju::OnNoteEvent);
 }
 
@@ -902,6 +918,10 @@ std::cout << "Loading music score: " << score << "...\n";
     std::cout << "Failed to load score: " << score << "\n";
     Assert(0); // TODO better error handling
   }
+
+  // Identify sections (phrases?) between which it is safe to move
+  //  the keyboard (i.e. won't be a bad experience for the player).
+  m_songSections = FindSongSections(m_scrollScore->GetNoteEvents());
 }
 
 void GSHero::InitScrollScoreAnim()
@@ -911,7 +931,6 @@ void GSHero::InitScrollScoreAnim()
   if (songLength)
   {
 std::cout << "Song length is: " << *songLength << "\n";
-//    m_scoreAnim->SetCycleTime(*songLength);
     m_scoreLengthSeconds = *songLength;
   }
   else
@@ -988,9 +1007,6 @@ void GSHero::InitGui()
 
   // Hide GUI elements
   ShowFeedbackBalloon(false);
-
-  // Pause animation until we finish count-in
-//  m_scoreAnim->SetIsPaused(true);
 
   SetSongTitle();
 

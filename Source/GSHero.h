@@ -6,6 +6,7 @@
 #include <GuiDecAnimation.h>
 #include <GuiDecTranslate.h>
 #include <Singleton.h>
+#include "FindSongSections.h"
 #include "GSBase.h"
 #include "GuiMusicKb.h"
 #include "GuiScrollScore.h"
@@ -174,17 +175,13 @@ protected:
   //  second or two before changing game state.
   bool m_roundIsOver = false;
 
-  // If we paused the game while mid-song, this is the time at which
-  //  we paused.
+  // If we paused the game while mid-song, this is the normalised
+  //  time at which we paused.
   float m_pauseResumeTime = 0;
 
-  // Length of song in music score. 
+  // Length of song in music score in seconds -- NOT normalised, which 
+  //  would be 1! 
   float m_scoreLengthSeconds = 0;
-
-  // Time into playing the song. This should be both elapsed time in the
-  //  audio track, and the music score.
-  // Used to resume round
-  float m_animTimeSeconds = 0;
 
   // Current 'micro state'... upgrade to State pattern?
   HeroState m_state = HeroState::NEW;
@@ -198,6 +195,11 @@ protected:
 
   // Duration of count-in track; after this time, change state to SONG_PLAYING.
   float m_countInExpiryTime = 0;
+
+  // Sections of the song: we update the keyboard position and colours
+  //  when entering a new section, (not continuously/every note event).
+  Sections m_songSections;
+  int m_sectionIndex = 0; // index into m_songSections
 };
 
 typedef Singleton<GSHero> TheGSHero;
