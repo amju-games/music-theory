@@ -84,7 +84,7 @@ std::cout << "*** Pause resume time: " << m_pauseResumeTime << "\n";
   // First, find the beat after m_pauseResumeTime
   auto it = std::upper_bound(
     beats.begin(), beats.end(), m_pauseResumeTime,
-   [] (float time, const auto& beat) { return beat.m_time < time; }
+   [] (float time, const auto& beat) { return time < beat.m_time; }
   );
 
   if (it == beats.end())
