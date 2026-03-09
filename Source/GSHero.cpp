@@ -634,6 +634,13 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
 void GSHero::OnMusicKbEvent(const MusicKbEvent& e) 
 {
   // This is a player-generated event
+
+#ifdef MUSIC_EVENT_DEBUG
+std::cout << "Music KB event: " << e.m_note << " " 
+  << (e.m_on? "on" : "off")
+  << "\n";
+#endif  // MUSIC_EVENT_DEBUG
+
   if (m_roundIsOver)
   {
     return;
