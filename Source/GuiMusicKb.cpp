@@ -299,13 +299,8 @@ void GuiMusicKb::ColouriseKeys(std::vector<int> midiNotes)
   }
 }
 
-static Vec2f _project(const Vec3f& v)
+static Vec2f project(const Vec3f& v, const Matrix& m)
 {
-  Matrix modl;
-  Matrix proj;
-  modl.ModelView();
-  proj.Projection();
-  Matrix m = modl * proj;
   float v4[4] = 
   {
     m[0] * v.x + m[4] * v.y + m[8]  * v.z + m[12],
@@ -320,6 +315,12 @@ static Vec2f _project(const Vec3f& v)
 
 void GuiMusicKb::Key::CalcRect()
 {
+  Matrix modl;
+  Matrix proj;
+  modl.ModelView();
+  proj.Projection();
+  Matrix m = modl * proj;
+
   Vec3f corners[8];
   m_mesh->GetAABB().GetCorners(corners);
 
@@ -328,7 +329,7 @@ void GuiMusicKb::Key::CalcRect()
   Rect r(BIG, -BIG, BIG, -BIG);
   for (int i = 0; i < 8; i++)
   {
-    Vec2f p = _project(corners[i]);
+    Vec2f p = project(corners[i], m);
     r.SetIf(p.x, p.y);
   }
 
