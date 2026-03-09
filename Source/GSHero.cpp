@@ -527,6 +527,9 @@ std::cout << "Restarting game, here comes the count-in...\n";
 std::cout << "Count-in: there are " << numCountInBeats << " beats.\n";
   m_scrollScore->StartCountIn(numCountInBeats, onFinished);
 
+  // This should bring the keyboard into the correct pos for the first
+  //  section, but because the key width isn't set yet, it doesn't work.
+  // TODO fix so this works.
   UpdateKeyboardPosition();
 }
 
@@ -548,6 +551,7 @@ std::cout << "Count in finished!\n";
 
   ChangeState(HeroState::SONG_PLAYING);
 
+  // TODO we should already be in position by now, remove this once fixed.
   UpdateKeyboardPosition();
 
   // Start playing the backing track for this song
@@ -589,16 +593,6 @@ std::cout << "New song section! " << m_sectionIndex << "\n";
   if (m_roundIsOver)
   {
     return;
-  }
-
-  if (ne.IsNoteOnEvent())
-  {
-    // Update the position of the keyboard, so that upcoming notes will
-    //  be visible and playable. As an optimisation, we only do this
-    //  update when a note event happens, rather than every frame.
-    // Just update this once per note event, not on both note on and note off
-    //  events. It doesn't really matter which event type we chose.
-    UpdateKeyboardPosition();
   }
 
   // This is logic to detect a missed note, i.e. player does not 
