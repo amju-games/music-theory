@@ -976,7 +976,13 @@ bool GuiMusicScore::LoadMusicScore(File* f)
 
   // We should sort the note events by time!!
   std::sort(m_noteEvents.begin(), m_noteEvents.end());
-
+  // ..and now we can give each NoteEvent a sequential ID.
+  int i = 0;
+  for (auto& ne : m_noteEvents)
+  {
+    ne.m_id = i++;
+  }
+  
   return true;
 }
 

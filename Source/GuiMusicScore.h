@@ -71,8 +71,6 @@ public:
   void SetFgCol(const Colour& col);
 
   // Set palette to use to colourise the score.
-  // The 'colour name' in the palette corresponds here to MIDI note
-  //  values, (stringified).
   // Once palette is set, glyphs subsequently parsed will use it. So
   //  this call needs to come before the score is loaded.
   void SetPalette(RCPtr<Palette> palette);
@@ -177,9 +175,11 @@ public:
 
   // Returns song length, if known - i.e. we need the metadata in the input.
   std::optional<float> GetSongLengthSeconds() const;
- 
+
+  // Get all the note events in the score. 
   const NoteEvents& GetNoteEvents() const;
 
+  // Set a callback for when a new NoteEvent is triggered as we Animate.
   using NoteEventCallback = std::function<void(const NoteEvent&)>;
   void SetNoteEventCallback(NoteEventCallback cb);
 
