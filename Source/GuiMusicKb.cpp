@@ -273,23 +273,28 @@ bool GuiMusicKb::Key::LoadFromString(const std::string& s)
 
 void GuiMusicKb::SetPalette(RCPtr<Palette> palette)
 {
+  m_palette = palette;
+}
+
+void GuiMusicKb::ColouriseKeys(std::vector<int> midiNotes)
+{
   // Reset all keys to their natural colour
   for (auto& key : m_keys)
   {
     key->m_colour = key->m_naturalColour; // a member function would be nice
   }
 
-  if (!palette)
+  if (!m_palette)
   {
     return;
   }
 
-  for (int midiNote = 0; midiNote < 128; midiNote++)
+  for (int midiNote : midiNotes)
   {
     PKey key = GetKey(midiNote);
     if (key)
     {
-      key->m_colour = palette->GetColour(midiNote);
+      key->m_colour = m_palette->GetColour(midiNote);
     } 
   }
 }

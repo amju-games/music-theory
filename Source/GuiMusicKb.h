@@ -30,11 +30,12 @@ public:
   // Release all keys: safety net to make sure no notes playing
   void ReleaseAllKeys();
 
-  // Store palette and apply the contents to the keys.
-  // The "colour names" for this palette are MIDI pitch values, e.g.
-  //  60=ff0000
-  // sets middle C to red.
+  // Store palette 
   void SetPalette(RCPtr<Palette> palette);
+
+  // Using the palette set in SetPalette, apply colours to the given
+  //  keys.
+  void ColouriseKeys(std::vector<int> midiNotes);
 
   // TODO Operations on keys: press, release, highlight, etc.
   // Use the unique name for the key? Or perhaps use the midi value as the unique ID?
@@ -139,6 +140,8 @@ protected:
   // After a Draw call, these are the min and max MIDI notes of the keys on screen. 
   int m_onScreenMin = -1;
   int m_onScreenMax = -1;
+
+  RCPtr<Palette> m_palette;
 };
 }
 
