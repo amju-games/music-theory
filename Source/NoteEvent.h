@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <vector>
 #include <Vec2.h>
 
@@ -14,6 +15,10 @@ namespace Amju
     // TODO Barlines? Every beat?
   };
 
+  // Convenience function for debug messages
+  std::string ToString(NoteEventType net);
+
+  // ** NoteEvent **
   // Music events loaded from Score meta data.
   // Note and rest on/off events, with normalized time and 
   //  (x, y) coord in the score.
@@ -34,13 +39,20 @@ namespace Amju
 
     bool IsNoteOnEvent() const { return m_type == NoteEventType::NOTE_ON; }
     bool IsNoteOffEvent() const { return m_type == NoteEventType::NOTE_OFF; }
+
     bool IsRestOnEvent() const { return m_type == NoteEventType::REST_ON; }
     bool IsRestOffEvent() const { return m_type == NoteEventType::REST_OFF; }
+    bool IsRestEvent() const { return IsRestOnEvent() || IsRestOffEvent(); }
 
     const Vec2f& GetPos() const { return m_pos; }
 
+    // Event ID. The IDs are the same as the indices in a NoteEvents 
+    //  vector, but if we are not iterating over the vector, we don't 
+    //  know the index, so we need this redundancy.
+    int GetId() const { return m_id; }
+
     // Midi note value (if applicable)
-    int m_note = 0;
+    int m_note = -1; // not set 
     // Times are 0..1 animation values, not time in seconds
     float m_time = 0;
     // Type of event
@@ -49,11 +61,13 @@ namespace Amju
     int m_volume = 127;
     // local (x, y) position on the score
     Vec2f m_pos; 
+
+    // ID. Set after the sort by time and so give position in the song.
+    int m_id = -1; // not set yet
   };  
 
   // Vector of note events, sorted by time.
   // NB For polyphony, consecutive events could have the same time.
   using NoteEvents = std::vector<NoteEvent>;
-
 }
 
