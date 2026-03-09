@@ -468,9 +468,11 @@ GuiMusicKb::PKey GuiMusicKb::GetKey(int midiNote)
 
 void GuiMusicKb::Update()
 {
+  float dt = TheTimer::Instance()->GetDt();
+
+#ifdef YES_ALLOW_SWIPE_TO_SCROLL
   // Scroll keyboard left/right if swiped
   Vec2f pos = GetLocalPos();
-  float dt = TheTimer::Instance()->GetDt();
   pos += m_vel * dt;
 
   if (   (m_vel.x > 0 && pos.x > m_desiredX) 
@@ -481,6 +483,7 @@ void GuiMusicKb::Update()
   }
 
   SetLocalPos(pos);
+#endif 
 
   // Update key angles
   const float m_rotVel = 90.0f;
