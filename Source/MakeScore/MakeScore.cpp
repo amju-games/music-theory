@@ -504,6 +504,52 @@ void MakeScore::AddStave()
   m_staves.emplace_back(std::move(stave));
 }
 
+static float CalcBarWidthScale(int numGlyphs)
+{
+  // Rough heuristic to increase scale factor as a bar has more glyphs
+  return std::max(1.f, static_cast<float>(numGlyphs) / 4.f);
+}
+
+void MakeScore::AdjustBarWidths()
+{
+  if (m_staves.empty()) return;
+
+  const int numBars = m_staves.front()->GetNumBars();
+  // Fill construct bar widths -- we start with 1.0 for every bar.
+  m_barWidths = std::vector<float>(numBars, 1.f);
+  float totalW = 0;
+
+  for (int i = 0; i < numBars; i++)
+  {
+    for (auto& stave : m_staves)
+    {
+      // We expect/require numBars to be the same across all staves.
+      if (stave->GetNumBars() != numBars)
+      {
+        std::cout << "ERROR! Num bars different across staves!\n";
+        return;
+      }
+   
+      // Get the number of glyphs in the current bar for this stave.
+      // Calc bar width scale factor depending on the number of glyphs.
+      int numGlyphs = stave->GetBar(i).GetNumGlyphs();
+      float w = CalcBarWidthScale(numGlyphs);
+      // Get the max, so the width depends on the busiest bar vertically.
+      w = std::max(m_barWidths[i], w);
+      m_barWidths[i] = w;
+    }
+    totalW += m_barWidths[i];
+  }
+
+  // Pass 2: normalise so the sum of widths == the number of bars.
+  // So busy bars are wider, not-busy bars are narrower.
+  float scale = static_cast<float>(numBars) / totalW;
+  for (float& w : m_barWidths)
+  {
+    w *= scale;
+  }
+}
+
 void MakeScore::MakeInternal()
 {
   // Tokenise, preprocess, deal with global settings in the input,
@@ -516,13 +562,19 @@ void MakeScore::MakeInternal()
   // At this stage the only tokens should be music notation, not settings.
   Parse(tokens);
 
+  // Get scale factor for each bar (the same value for the
+  //  vertically corresponding bars in all staves).
+  AdjustBarWidths();
+
   for (auto& stave : m_staves)
   {
     // Calc start times of bars and elements in them; normalise times
     //  for animation meta data.
     stave->CalcStartTimes();
 
-    stave->CalcBarSizesAndPositions();
+    // Calc bar sizes, positions, and the positions of the glyphs in
+    //  each bar for this stave.
+    stave->CalcBarSizesAndPositions(m_barWidths);
 
     stave->MakeBeamGroups(); // Do this last so we have positions of notes?
   }

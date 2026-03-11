@@ -326,7 +326,7 @@ float Bar::GetRelativeWidth() const
   return w;
 }
 
-void Bar::CalcWidth(float totalWidth, float pageWidth)
+void Bar::CalcWidth(float totalWidth, float pageWidth, float widthScale)
 {
   float relW = GetRelativeWidth();
 
@@ -337,6 +337,7 @@ void Bar::CalcWidth(float totalWidth, float pageWidth)
   }
 
   m_width = relW / totalWidth * pageWidth / m_scale;
+  m_width *= widthScale;
 }
 
 float Bar::GetWidth() const

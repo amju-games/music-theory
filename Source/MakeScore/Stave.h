@@ -51,7 +51,7 @@ public:
   // Output time marker for each beat; may be unnecessary.
   std::string OutputBeats() const;
 
-  void CalcBarSizesAndPositions();
+  void CalcBarSizesAndPositions(const std::vector<float>& widthScaleFactors);
 
   void CalcStartTimes();
 

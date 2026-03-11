@@ -165,22 +165,25 @@ void Stave::MakeBeamGroups()
   }
 }
 
-void Stave::CalcBarSizesAndPositions()
+void Stave::CalcBarSizesAndPositions(const std::vector<float>& widthScaleFactors)
 {
   // Loop over the bars. From the number of glyphs in each bar,
   //  work out the relative width of each bar.
   // For now, assume only one line.
   float totalWidth = 0;
+  int i = 0;
   for (auto& bar : m_bars)
   {
     float w = bar->GetRelativeWidth();
+    w *= widthScaleFactors[i++];
     totalWidth += w;
   }
 
-  // Bar calculates its width as fraction of s_pageWidth 
+  // Bar calculates its width as fraction of page width
+  i = 0; 
   for (auto& bar : m_bars)
   {
-    bar->CalcWidth(totalWidth, GetPageWidth());
+    bar->CalcWidth(totalWidth, GetPageWidth(), widthScaleFactors[i++]);
   }
 
   // Set (left, bottom) position of each bar

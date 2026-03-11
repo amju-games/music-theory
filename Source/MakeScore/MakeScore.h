@@ -134,6 +134,9 @@ private:
 
   Stave& GetCurrentStave();
 
+  // Populate m_barWidths with scale factor for horizontal scale for each bar.
+  void AdjustBarWidths();
+
 private:
   // If true, all glyphs on one line, separated by ';'
   // Else each is on a separate line.
@@ -172,5 +175,12 @@ private:
   Strings m_outputLines;
 
   float m_bpm = 0.f;
+
+  // For all staves, this is the width of each bar, as a scale factor.
+  // See AdjustBarWidths().
+  // So we start at 1.0 for all bars, then increase the width of bars 
+  //  containing a lot of stuff (getting the max for each stave). 
+  // Finally we normalise so the total is still the number of bars.
+  std::vector<float> m_barWidths;
 };
 

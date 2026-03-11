@@ -122,7 +122,7 @@ public:
 
   // Work out width for this bar, given the total width of all bars, 
   //  and the desired page width.
-  void CalcWidth(float totalWidth, float pageWidth);
+  void CalcWidth(float totalWidth, float pageWidth, float widthScale);
 
   // Used by MakeScore to work out how much of the page width each bar gets
   float GetWidth() const;
@@ -138,6 +138,8 @@ public:
 
   // Required for BeamGroups
   GlyphVec& GetGlyphs() { return m_glyphs; }
+
+  int GetNumGlyphs() const { return static_cast<int>(m_glyphs.size()); }
 
 private:
   // Ret true if we should show clef at front of bar
