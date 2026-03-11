@@ -369,9 +369,6 @@ void Bar::SetPos(float x, float y)
   m_x = x; // Remember for bar lines
   m_y = y;
 
-  // w is the width between glyphs
-  float w = 0;
-
   // Reduce available bar width when we have time sig, key sig, clef.
   float reduction = 0;
 
@@ -399,24 +396,45 @@ void Bar::SetPos(float x, float y)
     x += TIME_SIG_WIDTH;
   }
 
-  // xoff is distance from left edge to first glyph, and also distance
-  //  from last glyph to right bar line.
-  // 'Edge' is the left bar line, OR right side of clef, keysig, timesig,
-  //   whichever is most to the right.
-  int numBeats = GetNumBeats();
-  float xoff = (m_width - reduction) / (numBeats + 1.0f);
+  PositionGlyphs(x, y, m_width - reduction);
+}
 
-  // Reduce total width, and divide this by the number of beats to get 
+void Bar::CentreSingleGlyph(float leftX, float bottomStaveLineY, 
+  float remainingBarWidth)
+{
+  auto& g = m_glyphs[0];
+  float xPosInBar = remainingBarWidth / 2.f;
+  g->SetPos(xPosInBar + leftX, g->GetY() + bottomStaveLineY); 
+}
+
+void Bar::PositionGlyphs(float leftX, float bottomStaveLineY, 
+  float remainingBarWidth)
+{
+  if (   GetNumGlyphs() == 1 
+      && m_glyphs[0]->ShouldCentreIfSingle())
+  {
+    CentreSingleGlyph(leftX, bottomStaveLineY, remainingBarWidth);
+    return;
+  }
+
+  // w is the width between glyphs
+  float w = 0;
+
+  // xoff is distance from leftX to first glyph, and also distance
+  //  from last glyph to right bar line.
+  int numBeats = GetNumBeats();
+  float xoff = remainingBarWidth / (numBeats + 1.0f);
+
+  // Divide remaining width by the number of beats to get 
   //  the distance between each beat.
-  // x-coord is time (in beats - bar start time in beats) * beat width.
-  // TODO Should we use timeMult here?
+  // x-coord is (time in beats - bar start time in beats) * beat width.
   if (numBeats > 1)
   {
-    w = (m_width - reduction - 2 * xoff) / (numBeats - 1.0f);
+    w = (remainingBarWidth - 2 * xoff) / (numBeats - 1.0f);
   }
   else
   {
-    w = (m_width - reduction - 2 * xoff);
+    w = (remainingBarWidth - 2 * xoff);
   }
 
   // OK to get time val of 0th glyph as start time of bar?
@@ -425,21 +443,17 @@ void Bar::SetPos(float x, float y)
   { 
     barStartTime = m_glyphs.front()->GetTimes().GetStartTimeValue();
   }
-  // Set coord of each glyph
+  
   // Compensate for glyph width, move to the left a bit
   // TODO depends on glyph type?, e.g. semibreve is slightly wider.
   float xfudge = -0.2f;
 
   for (auto& g : m_glyphs)
   {
-    // Bar coord is (x, y), we offset by the position we calculate in x,
-    //  and by the glyph's own y-offset in y.
-    TimeValue glyphTimeInBar = g->GetTimes().GetStartTimeValue() - 
-      barStartTime;
+    TimeValue glyphTimeInBar = 
+      g->GetTimes().GetStartTimeValue() - barStartTime;
     float xPosInBar = w * glyphTimeInBar + xoff + xfudge;
-    g->SetPos(
-      xPosInBar + x,  // position within bar + pos of bar in x
-      g->GetY() + y); // y-coord of glyph + pos of bar in y
+    g->SetPos(xPosInBar + leftX, g->GetY() + bottomStaveLineY); 
   }
 }
 

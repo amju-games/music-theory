@@ -142,6 +142,15 @@ public:
   int GetNumGlyphs() const { return static_cast<int>(m_glyphs.size()); }
 
 private:
+  // Position glyphs across bar after 'fixed' elements like clef and time
+  //  sig have taken up some of the width of the bar.
+  void PositionGlyphs(float leftX, float bottomStaveLineY,
+    float remainingBarWidth);
+
+  // For bars with single glyphs that should be centred
+  void CentreSingleGlyph(float leftX, float bottomStaveLineY,
+    float remainingBarWidth);
+  
   // Ret true if we should show clef at front of bar
   bool YesShowClefAtFrontOfBar() const;
 

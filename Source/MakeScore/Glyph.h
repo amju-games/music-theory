@@ -85,6 +85,8 @@ struct Glyph : public IGlyph
 
   virtual bool IsBeamable() const { return false; }
 
+  bool ShouldCentreIfSingle() const { return m_centre; }
+
 private:
   int order = 0; // horiz order in bar 
 
@@ -109,6 +111,11 @@ protected:
 
   // Bit field of flags, e.g. staccato
   int m_switches = 0;
+
+  // centre in bar -- implying that this is the only glyph in the bar
+  //  for this stave. 
+  // Could use m_switches, but easier to follow to use bools?
+  bool m_centre = false; 
 };
 
 using GlyphVec = std::vector<std::unique_ptr<Glyph>>;

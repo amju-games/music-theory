@@ -43,6 +43,7 @@ RestGlyph::RestGlyph(const std::string& inputToken, bool isWholeBar, int order) 
   // `R` means whole bar rest, but inputToken is the duration string
   //  (which should be a time val tho)
   m_isWholeBar = isWholeBar;
+  if (isWholeBar) m_centre = true; // position in centre of bar
 }
 
 std::string RestGlyph::CommentString() const
@@ -115,7 +116,8 @@ std::string RestGlyph::ToString() const
   res += GetGlyphOutputStr() + ", " + CoordString() +
     AddScaleStringIfRequired() + LineEnd();
 
-  if (m_times.IsDotted())
+  if (   m_times.IsDotted()
+      && !m_isWholeBar) // whole bar rest: semibreve rest symbol, no dot
   {
     // TODO These output strings should be Consts.
     std::string dotType = m_staveLine % 2 == 0 ? "raised-dot" : "reg-dot";
@@ -131,6 +133,11 @@ std::string RestGlyph::ToString() const
 
 std::string RestGlyph::GetGlyphOutputStr() const
 {
+  if (m_isWholeBar) // whole bar rest: semibreve rest symbol
+  {
+    return "rest-semibreve";
+  }
+
   // TODO Not sure about these strings, they should be Consts.
 
   auto tt = m_times.GetTimeType();

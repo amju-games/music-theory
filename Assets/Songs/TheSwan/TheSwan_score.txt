@@ -11,9 +11,8 @@ keysig-1sharp-bass, 0.45, 0, 1, 1
 6/4, 0.7, 0
 // Rest, value: sb.: Whole Bar
 TIME, 0.0001, 0.037037
-REST_ON, 1.21564, 0.2
-rest-semibreve, 1.21564, 0.2
-raised-dot, 1.21564, 0.2
+REST_ON, 2.45475, 0.2
+rest-semibreve, 2.45475, 0.2
 REST_OFF
 TIME, -1, -1
 // ** Bar 1 **
