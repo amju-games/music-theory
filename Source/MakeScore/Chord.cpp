@@ -253,3 +253,13 @@ int ChordGlyph::GetBeamLevel() const
   return 0;
 }
 
+int ChordGlyph::GetNumAccidentals() const 
+{
+  int res = 0;
+  for (const auto& n : m_noteGlyphs)
+  {
+    res += n->GetNumAccidentals();
+  }
+  return res;
+}
+

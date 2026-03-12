@@ -36,6 +36,8 @@ public:
 
   bool IsBeamed() const { return m_isBeamed; }
 
+  virtual int GetNumAccidentals() const { return 0; }
+
 protected:
   bool m_isBeamed = false;
   Stem m_stem;

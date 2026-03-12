@@ -139,7 +139,9 @@ public:
   // Required for BeamGroups
   GlyphVec& GetGlyphs() { return m_glyphs; }
 
-  int GetNumGlyphs() const { return static_cast<int>(m_glyphs.size()); }
+  // Get number of glyphs for adjusting the width of bars.
+  // Include any accidentals to try to avoid overlapping.
+  int GetNumGlyphs() const;
 
 private:
   // Position glyphs across bar after 'fixed' elements like clef and time

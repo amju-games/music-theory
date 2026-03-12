@@ -41,6 +41,8 @@ public:
 
   int GetStaveLineForBeam(StemDir dir) override;
 
+  int GetNumAccidentals() const override;
+
 protected:
   std::pair<int, int> GetMinMaxStaveLines() const;
 

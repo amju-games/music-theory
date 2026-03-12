@@ -657,3 +657,8 @@ StemDir NoteGlyph::DecideStemDirection()
   return dir;
 }
 
+int NoteGlyph::GetNumAccidentals() const 
+{
+  return (m_accidental == Accidental::ACCIDENTAL_NONE ? 0 : 1);
+}
+

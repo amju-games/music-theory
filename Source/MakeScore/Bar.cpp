@@ -478,3 +478,21 @@ void Bar::MakeBeamGroups()
   } 
 }
 
+int Bar::GetNumGlyphs() const
+{
+  // Check for accidentals, to try to avoid overlaps.
+  // (TODO Other things we should throw in the count?)
+  int res = 0;
+  for (const auto& g : m_glyphs)
+  {
+    ++res; // 1 for the note/chord/rest 
+    const auto* n = dynamic_cast<const NoteAndChordBase*>(g.get());
+    if (n)
+    {
+      // Add extras for accidentals
+      res += n->GetNumAccidentals();
+    }
+  }
+  return res;
+}
+
