@@ -407,6 +407,25 @@ void Bar::CentreSingleGlyph(float leftX, float bottomStaveLineY,
   g->SetPos(xPosInBar + leftX, g->GetY() + bottomStaveLineY); 
 }
 
+static float CalcBeatWidth(int numBeats, float remainingBarWidth)
+{
+  // Divide remaining width by the number of beats to get 
+  //  the distance between each beat.
+  if (numBeats > 1)
+  {
+    return remainingBarWidth / (numBeats - 1.0f);
+  }
+  else
+  {
+    return remainingBarWidth;
+  }
+}
+
+static float CalcMargin(float remainingBarWidth, int numBeats)
+{
+  return remainingBarWidth / (numBeats + 1.0f);
+}
+
 void Bar::PositionGlyphs(float leftX, float bottomStaveLineY, 
   float remainingBarWidth)
 {
@@ -417,42 +436,30 @@ void Bar::PositionGlyphs(float leftX, float bottomStaveLineY,
     return;
   }
 
-  // w is the width between glyphs
-  float w = 0;
+  const int numBeats = GetNumBeats();
 
-  // xoff is distance from leftX to first glyph, and also distance
+  // margin is distance from leftX to first glyph, and also distance
   //  from last glyph to right bar line.
-  int numBeats = GetNumBeats();
-  float xoff = remainingBarWidth / (numBeats + 1.0f);
+  const float margin = CalcMargin(remainingBarWidth, numBeats);
 
-  // Divide remaining width by the number of beats to get 
-  //  the distance between each beat.
-  // x-coord is (time in beats - bar start time in beats) * beat width.
-  if (numBeats > 1)
-  {
-    w = (remainingBarWidth - 2 * xoff) / (numBeats - 1.0f);
-  }
-  else
-  {
-    w = (remainingBarWidth - 2 * xoff);
-  }
-
-  // OK to get time val of 0th glyph as start time of bar?
-  TimeValue barStartTime  = 0;
-  if (!m_glyphs.empty())
-  { 
-    barStartTime = m_glyphs.front()->GetTimes().GetStartTimeValue();
-  }
+  // Reduce the remaining bar width by the margin at left and right.
+  remainingBarWidth -= 2 * margin;
   
+  // Distance between beats in this bar
+  const float beatWidth = CalcBeatWidth(numBeats, remainingBarWidth);
+
   // Compensate for glyph width, move to the left a bit
   // TODO depends on glyph type?, e.g. semibreve is slightly wider.
   float xfudge = -0.2f;
 
   for (auto& g : m_glyphs)
   {
+    // Get the number of beats into the bar where this glyph lives
     TimeValue glyphTimeInBar = 
-      g->GetTimes().GetStartTimeValue() - barStartTime;
-    float xPosInBar = w * glyphTimeInBar + xoff + xfudge;
+      g->GetTimes().GetStartTimeValue() - m_startTime;
+
+    // Mult beat position by width of one beat to get "final" pos in bar
+    float xPosInBar = beatWidth * glyphTimeInBar + margin + xfudge;
     g->SetPos(xPosInBar + leftX, g->GetY() + bottomStaveLineY); 
   }
 }
@@ -464,8 +471,8 @@ float Bar::GetBarLineX() const
 
 void Bar::MakeBeamGroups()
 {
-  // Find beam groups in this bar. Pass in time sig so we can split
-  //  beams on major beats.
+  // Find beam groups in this bar. 
+  // Pass in time sig so we can split beams on major beats.
   auto beamGroups = FindBeamGroups(m_glyphs, m_startTime, m_timeSig);
 
   for (auto& bg : beamGroups)
@@ -473,7 +480,7 @@ void Bar::MakeBeamGroups()
     bg.DecideStemDirections(m_glyphs); // beam goes above or below?
     bg.CalcYStaveLinesAtEnds(m_glyphs); // and set stem lengths here too
 
-    // Add beams for rendering in ToString
+    // Add beams for rendering later, in ToString()
     bg.AddBeams(m_beams, m_glyphs);
   } 
 }
