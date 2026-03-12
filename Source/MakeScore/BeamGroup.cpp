@@ -391,25 +391,37 @@ void BeamGroup::AddBeams(std::vector<std::unique_ptr<Beam>>& beams,
 
       bool nextHasLevel = (i + 1 < m_last) && 
         (dynamic_cast<NoteAndChordBase*>(glyphs[i+1].get())->
-          GetBeamLevel() >= level)  &&
-        !IsOnBeat(glyphs[i+1]);
+          GetBeamLevel() >= level);
+
+      bool prevHasLevel = (i > m_first) && 
+        (dynamic_cast<NoteAndChordBase*>(glyphs[i-1].get())->
+          GetBeamLevel() >= level);
+
+      bool isNextOnBeat = (i + 1 < m_last) && IsOnBeat(glyphs[i+1]);
       
       float x_i = glyphs[i]->GetPos().x;
       
       if (currentHasLevel && nextHasLevel) 
       {
-        // Draw a full secondary beam segment from i to i+1
-        float x_next = glyphs[i+1]->GetPos().x;
-        RenderBeamSegment(level, x_i, x_next, x1, x2, beams);
+        // Skip rendering this segment if next note is on beat.
+        if (!isNextOnBeat)
+        {
+          // Draw a full secondary beam segment from i to i+1
+          float x_next = glyphs[i+1]->GetPos().x;
+          RenderBeamSegment(level, x_i, x_next, x1, x2, beams);
+        }
       } 
       else if (currentHasLevel) 
       {
-        // Draw a broken beam (stub)
-        // Direction logic: if i is the start of the group, point right. 
-        // If i is the end, point left.
-        const float stubW = NOTE_HEAD_WIDTH * .8f;
-        float stubX = CalcStubEndPosX(i, level, stubW, glyphs); 
-        RenderBeamSegment(level, x_i, stubX, x1, x2, beams);
+        // Draw a broken beam (stub)?
+        bool yesDrawStub = !prevHasLevel; // neither neighbour at same level
+        // TODO Perhaps also draw stub if this note is dotted. 
+        if (yesDrawStub)
+        {
+          const float stubW = NOTE_HEAD_WIDTH * .8f;
+          float stubX = CalcStubEndPosX(i, level, stubW, glyphs); 
+          RenderBeamSegment(level, x_i, stubX, x1, x2, beams);
+        }
       }
     }
   }
@@ -434,6 +446,9 @@ float BeamGroup::CalcStubEndPosX(
   
   bool hasLeftNeighbour = (i > m_first);
   bool hasRightNeighbour = (i < m_last - 1);
+
+  // If we have neighbours on both sides, point to the neighbour with
+  //  longer duration.
 
   if (hasLeftNeighbour && hasRightNeighbour &&
       glyphs[i-1]->GetTimes().GetTimeValue() > glyphs[i+1]->GetTimes().GetTimeValue())
