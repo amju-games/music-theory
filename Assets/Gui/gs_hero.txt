@@ -22,8 +22,8 @@ ease-in-out-elastic
 translate
 2, 0; 0, 0
 gui-comp
-title-subtitle-and-composer
-3
+title-and-composer
+2
 gui-text
 // Name
 song-title
@@ -34,16 +34,6 @@ song-title
 title
 // Font name, size
 molin, 2.0, multi, fgcol=000000
-gui-text
-// Name
-song-subtitle
--1.0, 0.8
-// size
-2.0, 0.3
-// Text
-Subtitle
-// Font name, size
-molin, 1.2, multi, fgcol=000000
 gui-text
 // Name
 song-composer
