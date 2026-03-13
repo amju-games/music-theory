@@ -1,3 +1,4 @@
+#include <DegRad.h>
 #include <SceneGraph.h>
 #include <SoundManager.h>
 #include <Timer.h>
@@ -5,6 +6,7 @@
 #include "GSHero.h"
 #include "GS3dTitle.h"
 #include "PlayWav.h"
+#include "MyTextMaker.h"
 
 namespace Amju
 {
@@ -23,6 +25,34 @@ GS3dTitle::GS3dTitle()
  m_guiFilename = "Gui/3d-title.txt";
 }
 
+void CreateText(const std::string& text, SceneGraph* g)
+{
+  MyTextMaker tm; 
+  PSceneNode node = tm.MakeText(text);
+
+  // Rotate
+  Matrix m;
+//  m.RotateZ(DegToRad(90.0f));
+  node->MultLocalTransform(m);
+
+  // TODO Should combine ?
+  //  node->CombineTransform(); - hmm, this must be being called elsewhere
+  node->RecursivelyTransformAABB(m);
+
+  SceneNode* textParent = new SceneNode;
+  textParent->AddChild(node);
+  textParent->CalcBoundingVol();
+  
+//  SceneGraph* g = GetSceneGraph();
+//  g->Clear();
+//  m_camera = new SceneNodeCamera;
+//  g->SetCamera(m_camera);
+  //g->SetRootNode(SceneGraph::AMJU_OPAQUE, textParent);
+  g->GetRootNode(SceneGraph::AMJU_OPAQUE)->GetNodeByName("text")->AddChild(textParent);
+
+}
+
+
 void GS3dTitle::OnActive()
 {
   GSBase3d::OnActive();
@@ -36,6 +66,16 @@ void GS3dTitle::OnActive()
   GuiElement* startButton = GetElementByName(m_gui, "start-button");
   startButton->SetCommand(OnStart);
   startButton->SetHasFocus(true);
+
+  // Rotate 3d text
+  auto textNode = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE)->GetNodeByName("text");
+  Assert(textNode);
+  Matrix m;
+  m.SetIdentity();
+  m.RotateX(DegToRad(90.f));
+  textNode->MultLocalTransform(m); 
+
+  CreateText("pianofest", GetSceneGraph());
 }
 
 void GS3dTitle::Update()
@@ -52,11 +92,13 @@ void GS3dTitle::Update()
   const float VEL = 1.f; // Units/sec. 
 
   // Get the camera node
+/*
   SceneGraph* sg = GetSceneGraph();
   auto camera = dynamic_cast<SceneNodeCamera*>(sg->GetRootNode(SceneGraph::AMJU_OPAQUE)->GetNodeByName("camera")); //GetCamera(); // ?
   auto pos = camera->GetEyePos();
   pos.z -= (dt * VEL);
   camera->SetEyePos(pos);
+*/
 }
 }
 

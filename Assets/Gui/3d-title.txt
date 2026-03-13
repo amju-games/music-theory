@@ -35,7 +35,7 @@ title-text
 // size
 1.9, 0.6
 // Text
-Piano Fest
+.
 // Font name, size
 molin, 4.0, fgcol=000000
 
@@ -56,7 +56,7 @@ elastic
 // Start button
 gui-button
 start-button
--0.2, -0.4
+0.3, -0.1
 0.4, 0.25
 Image/gui-button-2.png
 // START

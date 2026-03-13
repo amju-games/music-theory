@@ -13,16 +13,16 @@ root
 // Matrix
 I
 // Num children
-2
+3
 
 // Node type
 camera-persp
 // Name
 camera
 // Eye pos
-80, 80, 50
+0, 10, 12
 // Look at pos
-0, 70, 0
+0, 7, 0
 // Up vector
 0, 1, 0
 // FovY, aspect, near, far
@@ -31,15 +31,35 @@ camera
 0
 
 // Node type
+comp
+// Name
+text-up
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 13, 0, 1
+// Num children
+1
+
+// Node type
+comp
+// Name
+text
+// Matrix
+1.5, 0, 0, 0,  0, 1.5, 0, 0,  0, 0, 1.5, 0,  0, 0, 0, 1
+// Num children
+0
+
+// Node type
 mesh
 // Name
 title-piano
 // Matrix
-1,0,0,0,  0,1.2,0,0,  0,0,.8,0, -2,27,6,1
+0.1,0,0,0,  0,0.12,0,0,  0,0,.08,0, 0, 0, 0, 1
 // Obj mesh
 obj/piano1.obj
 // Num children
 0
+
+
 
 // Node type
 mesh
