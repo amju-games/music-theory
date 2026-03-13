@@ -423,7 +423,10 @@ static float CalcBeatWidth(int numBeats, float remainingBarWidth)
 
 static float CalcMargin(float remainingBarWidth, int numBeats)
 {
-  return remainingBarWidth / (numBeats + 1.0f);
+  float m = remainingBarWidth / (numBeats + 2.0f);
+  m = std::max(m, NOTE_HEAD_WIDTH * 1.5f); // minimum margin width
+  // TODO max margin width
+  return m;
 }
 
 void Bar::PositionGlyphs(float leftX, float bottomStaveLineY, 
