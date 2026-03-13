@@ -50,7 +50,7 @@ void NetSendDeviceInfoReq::HandleResult()
       gcf->Set(DEVICE_ID, m_deviceId);
       gcf->Set(DEVICE_OS_VERSION, m_deviceOsVersion);
       gcf->Set(DEVICE_USER_NAME, m_deviceUserName);
-      gcf->Set(CLIENT_VERSION, GetVersionStr());
+      gcf->Set(CLIENT_VERSION, GetVersion().ToString());
       gcf->Save();
     }
   }

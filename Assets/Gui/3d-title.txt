@@ -17,11 +17,15 @@ title-root
 animation
 fade-in-anim
 one-shot
-// Time to set new translation
+// Time to fade in
 3
 linear
 colour
 ffffff00,ffffffff
+
+gui-comp
+title-and-version
+2
 
 // Title text
 gui-text
@@ -34,6 +38,18 @@ title-text
 Piano Fest
 // Font name, size
 molin, 4.0, fgcol=000000
+
+// Version text
+gui-text
+version-text
+// pos (coords are -1..1)
+-1.0, -0.9 
+// size
+1.9, 0.1
+// Text
+Version 0.0.0
+// Font name, size
+molin, 0.6, fgcol=000000
 
 elastic
 0,-2

@@ -9,11 +9,17 @@
 
 namespace Amju
 {
-std::string GetVersionStr()
+Version& GetVersion()
 {
-  return std::to_string(AMJU_VERSION_MAJOR) + "." + 
-    std::to_string(AMJU_VERSION_MINOR) + "." +
-    std::to_string(AMJU_VERSION_PATCH);
+  static Version v;
+  return v;
+}
+
+std::string Version::ToString() const
+{
+  return std::to_string(m_major) + "." + 
+    std::to_string(m_minor) + "." +
+    std::to_string(m_patch);
 }
 }
 

@@ -49,7 +49,7 @@ static bool NetSendDeviceInfo(
     "device_user_name='" + EncodeStr(deviceUserName) + "'&"
     "device_model='" + EncodeStr(deviceModel) + "'&"
     "device_os_version='" + EncodeStr(deviceOsVersion) + "'&"
-    "device_client_version='" + EncodeStr(GetVersionStr()) + "'&"
+    "device_client_version='" + EncodeStr(GetVersion().ToString()) + "'&"
     "device_manufacturer='" + EncodeStr(DeviceManufacturer()) + "'";
 
 std::cout << "Sending device info: " << url << "\n";
@@ -117,7 +117,7 @@ bool NetSendUpdateDeviceInfo()
   std::string prevDeviceUserName = gcf->GetValue(DEVICE_USER_NAME);
   std::string prevVersion = gcf->GetValue(CLIENT_VERSION);
   
-  if (GetVersionStr() != prevVersion ||
+  if (GetVersion().ToString() != prevVersion ||
       deviceOsVersion != prevDeviceOsVersion ||
       deviceUserName != prevDeviceUserName)
   {
