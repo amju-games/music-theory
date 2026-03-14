@@ -23,8 +23,8 @@ Image/white.png, stretch
 
 gui-sprite
 key-top
-0.02, -0.3 
-0.1, 0.3
+0.05, -0.3 
+0.05, 0.3
 Image/white.png, stretch
 // Num cells x, y
 1, 1

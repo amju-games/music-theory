@@ -13,8 +13,8 @@ key-c-f
 
 gui-sprite
 key
-0.025, -0.3 
-0.08, 0.295
+0.03, -0.3 
+0.09, 0.295
 // TODO Make an atlas with key bits and all HUD elements
 Image/white.png, stretch
 // Num cells x, y

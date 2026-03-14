@@ -11,6 +11,9 @@ namespace Amju
 {
 const char* GuiMusic2dKeyboard::NAME = "music-kb-2d";
 
+static const bool white = false;
+static const bool black = true;
+
 void GuiMusic2dKeyboard::Draw() 
 {
   // Draw all keys (can cull here); as they will be a Batched type,
@@ -29,8 +32,22 @@ void GuiMusic2dKeyboard::Draw()
   const auto pos = GetCombinedPos();
   AmjuGL::Translate(pos.x, pos.y, 0);
 
+  // Draw black keys behind white keys so overlap is visually correct.
+  // So long as keys are batched, it's still one draw call.
+  DrawKeys(black);
+  DrawKeys(white);
+
+//  AmjuGL::UseShader(shader);
+  AmjuGL::PopMatrix();
+}
+
+void GuiMusic2dKeyboard::DrawKeys(bool blackNotWhite)
+{
+  const auto pos = GetCombinedPos();
   for (auto key : m_keys)
   {
+    if (key->m_isBlack != blackNotWhite) continue;
+
     Key2d* key2d = dynamic_cast<Key2d*>(key.GetPtr());
 
     auto r = key2d->m_keyComp->CalcRect();
@@ -56,9 +73,6 @@ void GuiMusic2dKeyboard::Draw()
       AmjuGL::PopMatrix();
     }   
   }
-
-//  AmjuGL::UseShader(shader);
-  AmjuGL::PopMatrix();
 }
 
 bool GuiMusic2dKeyboard::Load(File* f) 
@@ -70,8 +84,6 @@ bool GuiMusic2dKeyboard::Load(File* f)
 
   // Load keys
 
-  const bool white = false;
-  const bool black = true;
   const float w = 0.08f;
 
   std::array<std::tuple<std::string, bool, float>, 12> KEY_INFOS = 
@@ -98,7 +110,7 @@ bool GuiMusic2dKeyboard::Load(File* f)
   {
     const auto keyinfo = KEY_INFOS[i % 12];
     auto newKey = new Key2d;
-    std::string keyFile = std::get<0>(keyinfo); //"Gui/key2d-c-f.txt";
+    std::string keyFile = std::get<0>(keyinfo);
     bool isBlack = std::get<1>(keyinfo);
     x += std::get<2>(keyinfo);
     
@@ -131,19 +143,15 @@ bool GuiMusic2dKeyboard::Key2d::Load(const std::string& s, float x, bool isBlack
   m_isBlack = isBlack;
   // Colour (black key or white, which we then override to highlight a key, etc)
   float WHITE_VAL = .85f;
-  float BLACK_VAL = .1f; // 267f;
+  float BLACK_VAL = .1f; 
   Colour KEY_COLOUR[2] = 
   {
     Colour(WHITE_VAL, WHITE_VAL, WHITE_VAL, 1.f),
     Colour(BLACK_VAL, BLACK_VAL, BLACK_VAL, 1.f)
   };  
-  m_colour = KEY_COLOUR[isBlack];
+  m_colour = KEY_COLOUR[isBlack ? 1 : 0];
   m_naturalColour = m_colour;
   return true;
-}
-
-void GuiMusic2dKeyboard::Key2d::CalcRect()
-{
 }
 }
 

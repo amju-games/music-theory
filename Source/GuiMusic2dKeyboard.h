@@ -24,8 +24,10 @@ public:
     RCPtr<GuiComposite> m_keyComp;
 
     bool Load(const std::string& s, float xPos, bool isBlack);
-    void CalcRect();
   };
+
+private:
+  void DrawKeys(bool blackNotWhite);
 };
 }
 
