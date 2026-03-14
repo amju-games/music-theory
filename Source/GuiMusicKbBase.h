@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <GuiComposite.h>
+#include <GuiElement.h>
 #include <ObjMesh.h>
 #include "Palette.h"
 
@@ -11,14 +11,15 @@ namespace Amju
 {
 // * GuiMusicKbBase *
 // Base class for 2D and 3D piano keyboards
-class GuiMusicKbBase : public GuiComposite
+class GuiMusicKbBase : public GuiElement
 {
 public:
   // Make sure all keys which were pressed send final key up events
   virtual ~GuiMusicKbBase();
 
-  virtual bool OnMouseButtonEvent(const MouseButtonEvent&) override;
-  virtual bool OnCursorEvent(const CursorEvent&) override;
+  void Update() override;
+  bool OnMouseButtonEvent(const MouseButtonEvent&) override;
+  bool OnCursorEvent(const CursorEvent&) override;
 
   // Release all keys: safety net to make sure no notes playing
   void ReleaseAllKeys();
@@ -40,23 +41,22 @@ public:
     // Any need for this? The midi value is also unique and is a nice int.
     std::string m_name;
 
-    // Name displayed to user. A#, Bb for B flat?
-    // Vector of strings to allow for enharmonic names. First is the canonical name, e.g. F, not E#
-    Strings m_displayNames;
+    // Name displayed to user. This is set by score, which decides what
+    //  to do about enharmonic names.
+    std::string m_displayName;
 
     int m_midiNote = 0; // note value to play when pressed
     float m_angle = 0; // keys rotate when pressed: angle should be between 0 and 5 (degrees)
     float m_desiredAngle = 0;
     Colour m_colour; // for black, white, and also highlighted etc
     Colour m_naturalColour; // m_colour restores to this colour
-//    PObjMesh m_mesh;
     float m_x = 0; // x-position relative to key to the left
-    Rect m_projectedRect; // Rectangle enclosing the projection of the AABB into screen space
+    // Rectangle enclosing the projection of the AABB of the key into screen space
+    Rect m_projectedRect; 
+
     bool m_isBlack = false; // black key: wins in picking
     bool m_isPressed = false; // true if currently held down
 
-//    bool LoadFromString(const std::string& s);
-//    void CalcRect();
     virtual void Press();
     virtual void Release();
   };
@@ -119,7 +119,9 @@ protected:
   // Total width of keyboard
   float m_kbWidth = 0.f;
 
-  // keys arranged from lowest to highest
+  // Keys arranged from lowest to highest.
+  // TODO Should this be a map - we are binary searching to find the key
+  //  for a midi pitch.
   using PKey = RCPtr<Key>;
   std::vector<PKey> m_keys; // Dynamic type depends on dynamic keyboard type
 

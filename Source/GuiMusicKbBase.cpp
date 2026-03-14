@@ -35,7 +35,49 @@ GuiMusicKbBase::~GuiMusicKbBase()
   // Make sure all keys which were pressed send final key up events
   ReleaseAllKeys();
 }
-  
+
+void GuiMusicKbBase::Update()
+{
+  float dt = TheTimer::Instance()->GetDt();
+
+#ifdef YES_ALLOW_SWIPE_TO_SCROLL
+  // Scroll keyboard left/right if swiped
+  Vec2f pos = GetLocalPos();
+  pos += m_vel * dt;
+
+  if (   (m_vel.x > 0 && pos.x > m_desiredX) 
+      || (m_vel.x < 0 && pos.x < m_desiredX))
+  {
+    m_vel.x = 0;
+    pos.x = m_desiredX;
+  }
+
+  SetLocalPos(pos);
+#endif 
+
+  // Update key angles
+  const float m_rotVel = 90.0f;
+  for (PKey key : m_keys)
+  {
+    if (key->m_angle < key->m_desiredAngle)
+    {
+      key->m_angle += m_rotVel * dt;
+      if (key->m_angle > key->m_desiredAngle)
+      {
+        key->m_angle = key->m_desiredAngle;
+      }
+    }
+    else if (key->m_angle > key->m_desiredAngle)
+    {
+      key->m_angle -= m_rotVel * dt;
+      if (key->m_angle < key->m_desiredAngle)
+      {
+        key->m_angle = key->m_desiredAngle;
+      }
+    }
+  }
+}
+ 
 void GuiMusicKbBase::SetPalette(RCPtr<Palette> palette)
 {
   m_palette = palette;

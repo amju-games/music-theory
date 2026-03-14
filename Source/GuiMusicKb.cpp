@@ -149,9 +149,6 @@ void GuiMusicKb::Draw()
 
   PopColour();
   AmjuGL::UseShader(shader);
-  
-  // Draw descendants
-  GuiComposite::Draw();
 }
 
 GuiMusicKbBase::Key* GuiMusicKb::PickKey(const Vec2f& pos)
@@ -225,13 +222,6 @@ bool GuiMusicKb::Load(File* f)
     m_keys.push_back(key);
   }
 
-  if (!LoadChildren(f))
-  {
-    return false;
-  }
-
-//  QueueFirstTimeMsgs({ TUTORIAL_KB_MIDDLE_C, TUTORIAL_KB_SWIPE }, AMJU_FIRST_TIME_THIS_USER);
-
   return true;
 }
 
@@ -302,90 +292,6 @@ void GuiMusicKb::Key3d::CalcRect()
   }
 
   m_projectedRect = r;
-}
-
-void GuiMusicKb::Key3d::Press()
-{
-  if (m_isPressed)
-  {
-    return;
-  }
-
-  m_isPressed = true;
-  m_desiredAngle = 5.0f;
-
-  PlayMidi(m_midiNote, MIDI_NOTE_MAX_VOLUME); // ?
-
-  TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, true)));
-
-#ifdef MUSIC_KB_DEBUG
-  std::cout << "Playing note: " << m_midiNote << "\n";
-#endif
-}
-
-void GuiMusicKb::Key3d::Release()
-{
-  if (!m_isPressed)
-  {
-    return;
-  }
-
-  m_isPressed = false;
-  m_desiredAngle = 0.0f;
-
-  PlayMidi(m_midiNote, 0); // ?
-
-  TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, false)));
-
-#ifdef MUSIC_KB_DEBUG
-  std::cout << "Releasing note: " << m_midiNote << "\n";
-#endif
-}
-
-void GuiMusicKb::Update()
-{
-  float dt = TheTimer::Instance()->GetDt();
-
-#ifdef YES_ALLOW_SWIPE_TO_SCROLL
-  // Scroll keyboard left/right if swiped
-  Vec2f pos = GetLocalPos();
-  pos += m_vel * dt;
-
-  if (   (m_vel.x > 0 && pos.x > m_desiredX) 
-      || (m_vel.x < 0 && pos.x < m_desiredX))
-  {
-    m_vel.x = 0;
-    pos.x = m_desiredX;
-  }
-
-  SetLocalPos(pos);
-#endif 
-
-  // Update key angles
-  const float m_rotVel = 90.0f;
-  for (PKey pkey : m_keys)
-  {
-    auto key = dynamic_cast<Key3d*>(pkey.GetPtr());
-    if (key->m_angle < key->m_desiredAngle)
-    {
-      key->m_angle += m_rotVel * dt;
-      if (key->m_angle > key->m_desiredAngle)
-      {
-        key->m_angle = key->m_desiredAngle;
-      }
-    }
-    else if (key->m_angle > key->m_desiredAngle)
-    {
-      key->m_angle -= m_rotVel * dt;
-      if (key->m_angle < key->m_desiredAngle)
-      {
-        key->m_angle = key->m_desiredAngle;
-      }
-    }
-  }
-  
-  // Update descendants
-  GuiComposite::Update();
 }
 }
 
