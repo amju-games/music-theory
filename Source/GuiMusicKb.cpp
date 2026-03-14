@@ -37,12 +37,6 @@ namespace Amju
 {
 const char* GuiMusicKb::NAME = "music-kb";
 
-GuiMusicKb::~GuiMusicKb()
-{
-  // Make sure all keys which were pressed send final key up events
-  ReleaseAllKeys();
-}
-  
 void GuiMusicKb::Draw()
 {
   // After drawing/culling, we know which keys are on screen.
@@ -90,35 +84,35 @@ void GuiMusicKb::Draw()
 
   for (PKey pkey: m_keys)
   {
-    Key& key = *pkey;
+    Key3d* key = dynamic_cast<Key3d*>(pkey.GetPtr());
 
     AmjuGL::PushMatrix();
 
-    AmjuGL::RotateX(key.m_angle);
+    AmjuGL::RotateX(key->m_angle);
 
     AmjuGL::Scale(sx, 1, sy);
-    x += key.m_x;
+    x += key->m_x;
 
     Vec2f pos = GetCombinedPos();
     AmjuGL::Translate(pos.x / sx + x, pos.y / sy, 0);
 
-    AmjuGL::SetColour(key.m_colour);
+    AmjuGL::SetColour(key->m_colour);
 
     // Calc projected AABB as a rectangle
-    key.CalcRect();
+    key->CalcRect();
 
     // Cull off-screen keys; store the range of keys which are on screen.
-    if (   key.m_projectedRect.GetMin(0) <  1.f
-        && key.m_projectedRect.GetMax(0) > -1.f)
+    if (   key->m_projectedRect.GetMin(0) <  1.f
+        && key->m_projectedRect.GetMax(0) > -1.f)
     {
-      m_onScreenMin = std::min(m_onScreenMin, key.m_midiNote);
-      m_onScreenMax = std::max(m_onScreenMax, key.m_midiNote);
-      key.m_mesh->Draw();
+      m_onScreenMin = std::min(m_onScreenMin, key->m_midiNote);
+      m_onScreenMax = std::max(m_onScreenMax, key->m_midiNote);
+      key->m_mesh->Draw();
     }
 
 #ifdef DEBUG_SHOW_AABB
     AmjuGL::SetColour(Colour(1, 0, 0, 1));
-    DrawAABB(key.m_mesh->GetAABB());
+    DrawAABB(key->m_mesh->GetAABB());
 #endif
 
     AmjuGL::PopMatrix();
@@ -160,11 +154,12 @@ void GuiMusicKb::Draw()
   GuiComposite::Draw();
 }
 
-GuiMusicKb::PKey GuiMusicKb::PickKey(const Vec2f& pos)
+GuiMusicKbBase::Key* GuiMusicKb::PickKey(const Vec2f& pos)
 {
   std::vector<PKey> pickedKeys; // should be 0, 1 or 2, right?!
-  for (PKey& key : m_keys)
+  for (PKey& pkey : m_keys)
   {
+    auto key = dynamic_cast<GuiMusicKb::Key3d*>(pkey.GetPtr());
     if (key->m_projectedRect.IsPointIn(pos))
     {
       pickedKeys.push_back(key); 
@@ -182,8 +177,9 @@ GuiMusicKb::PKey GuiMusicKb::PickKey(const Vec2f& pos)
   }
 
   // Decide which one to return: for our keyboard, the black key wins
-  for (PKey& key : pickedKeys)
+  for (PKey& pkey : pickedKeys)
   {
+    auto key = dynamic_cast<GuiMusicKb::Key3d*>(pkey.GetPtr());
     if (key->m_isBlack)
     {
       return key;
@@ -216,7 +212,7 @@ bool GuiMusicKb::Load(File* f)
       break;
     }
 
-    PKey key = new Key;
+    auto key = new Key3d;
     if (!key->LoadFromString(line))
     {
       f->ReportError("Bad key data.");
@@ -239,7 +235,7 @@ bool GuiMusicKb::Load(File* f)
   return true;
 }
 
-bool GuiMusicKb::Key::LoadFromString(const std::string& s)
+bool GuiMusicKb::Key3d::LoadFromString(const std::string& s)
 {
   Strings strs = Split(s, ',');
 
@@ -271,34 +267,6 @@ bool GuiMusicKb::Key::LoadFromString(const std::string& s)
   return true;
 }
 
-void GuiMusicKb::SetPalette(RCPtr<Palette> palette)
-{
-  m_palette = palette;
-}
-
-void GuiMusicKb::ColouriseKeys(std::vector<int> midiNotes)
-{
-  // Reset all keys to their natural colour
-  for (auto& key : m_keys)
-  {
-    key->m_colour = key->m_naturalColour; // a member function would be nice
-  }
-
-  if (!m_palette)
-  {
-    return;
-  }
-
-  for (int midiNote : midiNotes)
-  {
-    PKey key = GetKey(midiNote);
-    if (key)
-    {
-      key->m_colour = m_palette->GetColour(midiNote);
-    } 
-  }
-}
-
 static Vec2f project(const Vec3f& v, const Matrix& m)
 {
   float v4[4] = 
@@ -313,7 +281,7 @@ static Vec2f project(const Vec3f& v, const Matrix& m)
   return res;
 }
 
-void GuiMusicKb::Key::CalcRect()
+void GuiMusicKb::Key3d::CalcRect()
 {
   Matrix modl;
   Matrix proj;
@@ -336,7 +304,7 @@ void GuiMusicKb::Key::CalcRect()
   m_projectedRect = r;
 }
 
-void GuiMusicKb::Key::Press()
+void GuiMusicKb::Key3d::Press()
 {
   if (m_isPressed)
   {
@@ -355,7 +323,7 @@ void GuiMusicKb::Key::Press()
 #endif
 }
 
-void GuiMusicKb::Key::Release()
+void GuiMusicKb::Key3d::Release()
 {
   if (!m_isPressed)
   {
@@ -372,98 +340,6 @@ void GuiMusicKb::Key::Release()
 #ifdef MUSIC_KB_DEBUG
   std::cout << "Releasing note: " << m_midiNote << "\n";
 #endif
-}
-
-void GuiMusicKb::ReleaseKey(Key* key)
-{
-  if (key == m_lastKey)
-  {
-    m_lastKey = nullptr;
-  }
-
-  if (key)
-  {
-    key->Release();
-  }
-}
-
-void GuiMusicKb::PressKey(Key* key)
-{
-  if (!key)
-  {
-    ReleaseAllKeys(); // ?
-    return;
-  }
-
-  if (m_lastKey == key)
-  {
-    return;
-  }
-
-  // Don't do this, it prevents polyphony
-//  ReleaseKey(m_lastKey);
-
-  m_lastKey = key;
-
-  if (IsVisible())
-  {
-    key->Press();
-  }
-}
-
-void GuiMusicKb::ReleaseAllKeys()
-{
-  m_lastKey = nullptr;
-  for (PKey pkey : m_keys)
-  {
-    pkey->Release();
-  }
-}
-
-int GuiMusicKb::GetMinKey() const
-{
-  Assert(!m_keys.empty());
-  int minKey = m_keys[0]->m_midiNote;
-  return minKey;
-}
-
-int GuiMusicKb::GetMaxKey() const
-{
-  Assert(!m_keys.empty());
-  int maxKey = m_keys.back()->m_midiNote;
-  return maxKey;
-}
-
-int GuiMusicKb::GetMinKeyOnScreen() const
-{
-  return m_onScreenMin;
-}
-
-int GuiMusicKb::GetMaxKeyOnScreen() const
-{
-  return m_onScreenMax;
-}
-
-GuiMusicKb::PKey GuiMusicKb::GetKey(int midiNote)
-{
-  // Binary search for key with the given midi note value
-  //  (keys are in midi note value order)
-  auto it = std::lower_bound(m_keys.begin(), m_keys.end(), midiNote,
-    [](const PKey& k1, int m) { return k1->m_midiNote < m; }
-  );
-  if (it == m_keys.end())
-  {
-    return nullptr;
-  }
-  PKey key = *it;
-  Assert(key);
-  // If midiNote value is too low, we get the first key, so check we got the
-  //  key we asked for!
-  if (key->m_midiNote != midiNote)
-  {
-    return nullptr;
-  }
-  return key;
 }
 
 void GuiMusicKb::Update()
@@ -489,183 +365,27 @@ void GuiMusicKb::Update()
   const float m_rotVel = 90.0f;
   for (PKey pkey : m_keys)
   {
-    if (pkey->m_angle < pkey->m_desiredAngle)
+    auto key = dynamic_cast<Key3d*>(pkey.GetPtr());
+    if (key->m_angle < key->m_desiredAngle)
     {
-      pkey->m_angle += m_rotVel * dt;
-      if (pkey->m_angle > pkey->m_desiredAngle)
+      key->m_angle += m_rotVel * dt;
+      if (key->m_angle > key->m_desiredAngle)
       {
-        pkey->m_angle = pkey->m_desiredAngle;
+        key->m_angle = key->m_desiredAngle;
       }
     }
-    else if (pkey->m_angle > pkey->m_desiredAngle)
+    else if (key->m_angle > key->m_desiredAngle)
     {
-      pkey->m_angle -= m_rotVel * dt;
-      if (pkey->m_angle < pkey->m_desiredAngle)
+      key->m_angle -= m_rotVel * dt;
+      if (key->m_angle < key->m_desiredAngle)
       {
-        pkey->m_angle = pkey->m_desiredAngle;
+        key->m_angle = key->m_desiredAngle;
       }
     }
   }
   
   // Update descendants
   GuiComposite::Update();
-}
-
-bool GuiMusicKb::OnCursorEvent(const CursorEvent& ce)
-{
-#ifdef YES_ALLOW_SWIPE_TO_SCROLL
-
-  if (m_tapDownScroll)
-  {
-    // Detect swipe
-    const float SWIPE_LIMIT = 0.05f; // TODO CONFIG
-    const float SPEED_MULT = 16.0f;
-    const float OCTAVE_WIDTH = 0.7f;
-
-    float currentX = GetLocalPos().x;
-    float dx = ce.dx; 
-
-    if (fabs(dx) > SWIPE_LIMIT && m_vel.x == 0)
-    {
-      m_vel = Vec2f(dx * SPEED_MULT, 0);
-      if (dx > 0)
-      {
-        // Swipe right => make lower part of the KB visible
-        m_desiredX = currentX + OCTAVE_WIDTH;
-        float x = m_kbWidth + GetParent()->GetLocalPos().x + 0.2f;
-        m_desiredX = std::min(x, m_desiredX); // so we can't go off bottom end
-      }
-      else
-      {
-        // Swipe left => make higher part of the KB visible
-        m_desiredX = currentX - OCTAVE_WIDTH;
-        float x = GetParent()->GetLocalPos().x + 2.1f;
-        m_desiredX = std::max(x, m_desiredX); // so we can't go off top end
-      }
-    }
-    return true;
-  }
-#endif // YES_ALLOW_SWIPE_TO_SCROLL
-
-#ifdef YES_GLISSANDO
-  // Glissando
-  if (m_tapDown) // Not sure this makes any difference
-  {
-    m_tapDownPos = Vec2f(ce.x, ce.y);
-    MoveClosestFinger(m_tapDownPos);
-  }
-#endif // YES_GLISSANDO
-
-  return false;
-}
-
-bool GuiMusicKb::OnMouseButtonEvent(const MouseButtonEvent& mbe)
-{
-  // TODO CONFIG
-  // Anything below this line is treated as a tap on the keyboard.
-  // Above this, we use to scroll L/R
-  const float KEYBOARD_TOP_Y_COORD = -0.2f;
-
-  if (mbe.button != AMJU_BUTTON_MOUSE_LEFT)
-  {
-    return false;
-  }
-  
-  // Find key we pressed or released
-  
-  // Touch down on key or in scroll area?
-  if (mbe.isDown && mbe.y >= KEYBOARD_TOP_Y_COORD)
-  {
-    m_tapDownScroll = true;
-  }
-  else if (mbe.isDown && mbe.y < KEYBOARD_TOP_Y_COORD)
-  {
-    m_tapDown = true;
-
-    // Store most recent tap down pos: useful for glissando..?
-    m_tapDownPos = Vec2f(mbe.x, mbe.y);
-    AddFinger(m_tapDownPos);
-  }
-
-  if (!mbe.isDown)
-  {
-    auto tapDownPos = Vec2f(mbe.x, mbe.y);
-    EraseClosestFinger(tapDownPos);
-
-    m_tapDown = false;
-    m_tapDownScroll = false;
-  }
-
-  return false;
-}
-
-int GuiMusicKb::CountFingersOnKey(PKey key) const 
-{
-  return static_cast<int>(std::count_if(m_fingers.cbegin(), m_fingers.cend(),
-    [&](const Finger& f) { return f.m_key.GetPtr() == key.GetPtr(); }));
-}
-
-// Touch down event: add a new finger
-void GuiMusicKb::AddFinger(const Vec2f& pos)
-{
-  Finger f(pos);
-  f.m_key = PickKey(pos);
-  if (f.m_key)
-  {
-    if (CountFingersOnKey(f.m_key) == 0)
-    {
-      PressKey(f.m_key); // Not if another finger is already on it
-    }
-    m_fingers.push_back(f);
-  }
-}
-  
-// Touch up event: remove finger
-void GuiMusicKb::EraseClosestFinger(const Vec2f& pos)
-{
-  auto it = FindClosestFinger(pos);
-  if (it != m_fingers.end())
-  {
-    if (CountFingersOnKey(it->m_key) == 1)
-    {
-      ReleaseKey(it->m_key); // Not if another finger is still on it
-    }
-    m_fingers.erase(it);
-  }
-}
-
-// Move event: update closest finger
-void GuiMusicKb::MoveClosestFinger(const Vec2f& pos)
-{
-  auto it = FindClosestFinger(pos);
-  if (it != m_fingers.end())
-  {
-    it->m_pos = pos; // Update posision
-    // Has key changed?
-    auto key = PickKey(pos);
-    if (key != it->m_key)
-    {
-      if (CountFingersOnKey(it->m_key) == 1)
-      {
-        ReleaseKey(it->m_key); // Not if another finger is still on it
-      }
-      if (CountFingersOnKey(key) == 0)
-      {
-        PressKey(key); // Not if another finger is still on it
-      }
-      it->m_key = key;
-    }
-  }
-}
-
-GuiMusicKb::Fingers::iterator GuiMusicKb::FindClosestFinger(const Vec2f& pos) 
-{
-  return std::min_element(m_fingers.begin(), m_fingers.end(),
-    [&](const Finger& f1, const Finger& f2) 
-    { 
-      // Compare squared lengths of vectors
-      return (pos - f1.m_pos).SqLen() < (pos - f2.m_pos).SqLen();
-    });
 }
 }
 

@@ -142,7 +142,7 @@ void PagePlayNotes::OnHint()
   {
     int s = m_hintNotes.back();
     m_hintNotes.pop_back();
-    GuiMusicKb::PKey key = kb->GetKey(s);
+    GuiMusicKbBase::Key* key = kb->GetKey(s);
     if (key)
     {
       // TODO Colour black and white keys separately
@@ -162,7 +162,7 @@ void PagePlayNotes::ShowCorrectAnswer()
   // Set colour of correct note
   // TODO This only shows the first note of a multi-note sequence
   int correctNote = m_correctSequence[0];
-  GuiMusicKb::PKey key = kb->GetKey(correctNote);
+  GuiMusicKbBase::Key* key = kb->GetKey(correctNote);
   if (key)
   {
     // TODO Colour black and white keys separately
@@ -184,7 +184,7 @@ void PagePlayNotes::OnMusicKbEvent(const MusicKbEvent& event)
 std::cout << "Playing note " << event.m_note << "\n";
 
     GuiMusicKb* kb = GetKb();
-    GuiMusicKb::PKey key = kb->GetKey(event.m_note);
+    GuiMusicKbBase::Key* key = kb->GetKey(event.m_note);
 
     // Check note against answer string
     int correctNote = m_correctSequence[m_correctSequenceCurrentPos];
