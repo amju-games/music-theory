@@ -236,6 +236,42 @@ GuiMusicKbBase::Key* GuiMusicKbBase::GetKey(int midiNote)
   return key;
 }
 
+GuiMusicKbBase::Key* GuiMusicKbBase::PickKey(const Vec2f& pos)
+{
+  std::vector<PKey> pickedKeys; // should be 0, 1 or 2, right?!
+  for (PKey& key : m_keys)
+  {
+//    auto key = dynamic_cast<GuiMusicKb::Key3d*>(pkey.GetPtr());
+    if (key->m_projectedRect.IsPointIn(pos))
+    {   
+      pickedKeys.push_back(key); 
+    }   
+  }
+
+  int n = pickedKeys.size();
+  if (n == 0)
+  {
+    return nullptr;
+  }
+  if (n == 1)
+  {
+    return pickedKeys[0];
+  }
+
+  // Decide which one to return: for our keyboard, the black key wins
+  for (PKey& key : pickedKeys)
+  {
+    //auto key = dynamic_cast<GuiMusicKb::Key3d*>(pkey.GetPtr());
+    if (key->m_isBlack)
+    {   
+      return key;
+    }   
+  }
+
+  // No key picked
+  return nullptr;
+}
+
 bool GuiMusicKbBase::OnCursorEvent(const CursorEvent& ce)
 {
 #ifdef YES_ALLOW_SWIPE_TO_SCROLL

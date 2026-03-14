@@ -66,6 +66,7 @@
 #include "GSUserDrawSave.h"
 #include "Gui3dScene.h"
 #include "GuiAvatar.h"
+#include "GuiMusic2dKeyboard.h"
 #include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
 #include "GuiScrollScore.h"
@@ -331,6 +332,7 @@ static void SetUpGui()
   AddToGuiFactory<ColourPicker>();
   AddToGuiFactory<Gui3dScene>();
   AddToGuiFactory<GuiAvatar>();
+  AddToGuiFactory<GuiMusic2dKeyboard>();
   AddToGuiFactory<GuiMusicKb>();
   AddToGuiFactory<GuiMusicScore>();
   AddToGuiFactory<GuiScrollScore>();

@@ -245,8 +245,9 @@ void GSHero::OnPauseGame()
 }
 
 // TODO const kb
-static float GetOneWhiteKeyWidthScreenSpace(GuiMusicKb* keyboard)
+static float GetOneWhiteKeyWidthScreenSpace(GuiMusicKbBase* keyboard)
 {
+//  return 0.15f;
   return keyboard->GetKey(60)->m_projectedRect.GetSize().x;
 }
 
@@ -314,6 +315,12 @@ std::cout << "Key width: " << keyWidth << "\n";
   auto desiredPos = currentPos;
   const int screenMin = m_keyboard->GetMinKeyOnScreen();
   const int screenMax = m_keyboard->GetMaxKeyOnScreen();
+#ifdef KEYBOARD_DEBUG
+std::cout << "  KB: Max on screen: " << screenMax  
+  << " min on screen: " << screenMin
+  << "\n";
+#endif
+
   if (maxNote >= screenMax)
   {
     int whiteNotes = CountWhiteNotes(screenMax, maxNote);
@@ -530,7 +537,7 @@ std::cout << "Count-in: there are " << numCountInBeats << " beats.\n";
   // This should bring the keyboard into the correct pos for the first
   //  section, but because the key width isn't set yet, it doesn't work.
   // TODO fix so this works.
-  UpdateKeyboardPosition();
+  //UpdateKeyboardPosition();
 }
 
 void GSHero::ResetMissedNoteCounters()
@@ -952,7 +959,7 @@ void GSHero::InitKeyboard()
     Assert(0); 
   }
  
-  m_keyboard = dynamic_cast<GuiMusicKb*>(elem);
+  m_keyboard = dynamic_cast<GuiMusicKbBase*>(elem);
 
   if (!m_keyboard)
   {

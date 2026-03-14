@@ -1,0 +1,36 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+gui-comp
+key-c-f
+1
+
+// Black keys
+// TODO for now, just a rectangle
+
+gui-sprite
+key
+0.025, -0.3 
+0.08, 0.295
+// TODO Make an atlas with key bits and all HUD elements
+Image/white.png, stretch
+// Num cells x, y
+1, 1
+// Cell
+0
+
+// TODO Shadow across bottom edge, so as key moves/rotates down, the
+//  front part goes into shadow?!??
+gui-sprite
+key-top
+0, 0
+0.1, 0.2
+Image/white.png, stretch
+// Num cells x, y
+1, 1
+// Cell
+0
+

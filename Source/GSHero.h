@@ -8,7 +8,7 @@
 #include <Singleton.h>
 #include "FindSongSections.h"
 #include "GSBase.h"
-#include "GuiMusicKb.h"
+#include "GuiMusicKbBase.h"
 #include "GuiScrollScore.h"
 #include "NumUpdate.h"
 #include "UserProfile.h"
@@ -138,7 +138,7 @@ protected:
   //RCPtr<GuiDecAnimation> m_scoreAnim;
 
   // The keyboard
-  RCPtr<GuiMusicKb> m_keyboard;
+  RCPtr<GuiMusicKbBase> m_keyboard;
 
   // Animation controller for keyboard translate
   RCPtr<GuiDecAnimation> m_keyboardAnim;

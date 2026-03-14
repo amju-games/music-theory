@@ -60,14 +60,15 @@ animation
 keyboard-anim
 one-shot
 // Time to set new translation
-1.5
+0.3
 ease-in-out
 // This is the translation we alter to set the keyboard x-coord
 translate
 0, 0; 0, 0
 // The keyboard!!!
 include
-keyboard.txt
+//keyboard.txt
+keyboard2d.txt
 
 // Animate the score -- now done in code, because we need to
 //  sync with the backing track, it's a special case.

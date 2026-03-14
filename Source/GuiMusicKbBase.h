@@ -72,8 +72,8 @@ public:
   int GetMaxKeyOnScreen() const;
 
 protected:
-  // Find key picked by user
-  virtual Key* PickKey(const Vec2f& pos) = 0;
+  // Find key picked by user; relies on projected rect in Keys.
+  Key* PickKey(const Vec2f& pos);
   
   // Play key: not if KB is disabled. If key is nullptr, release all?
   void PressKey(Key* key);

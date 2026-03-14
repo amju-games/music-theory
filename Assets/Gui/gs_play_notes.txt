@@ -28,6 +28,6 @@ TEXT, 1.0, multi, fgcol=000000
 
 
 include
-keyboard.txt
+keyboard2d.txt
 
 

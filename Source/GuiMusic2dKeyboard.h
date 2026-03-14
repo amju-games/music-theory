@@ -3,13 +3,14 @@
 
 #pragma once
 
+#include <GuiComposite.h>
 #include "GuiMusicKbBase.h"
 
 namespace Amju
 {
-// * GuiMusicKb *
-// Musical piano keyboard, which responds to touch events and plays notes.
-class GuiMusicKb : public GuiMusicKbBase
+// * GuiMusic2dKeyboard *
+// 2D piano keyboard
+class GuiMusic2dKeyboard : public GuiMusicKbBase
 {
 public:
   static const char* NAME;
@@ -18,11 +19,11 @@ public:
   virtual void Draw() override;
   virtual bool Load(File*) override;
 
-  struct Key3d : public GuiMusicKbBase::Key
+  struct Key2d : public GuiMusicKbBase::Key
   {
-    PObjMesh m_mesh;
+    RCPtr<GuiComposite> m_keyComp;
 
-    bool LoadFromString(const std::string& s);
+    bool Load(const std::string& s, float xPos, bool isBlack);
     void CalcRect();
   };
 };

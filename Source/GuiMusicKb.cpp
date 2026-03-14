@@ -151,42 +151,6 @@ void GuiMusicKb::Draw()
   AmjuGL::UseShader(shader);
 }
 
-GuiMusicKbBase::Key* GuiMusicKb::PickKey(const Vec2f& pos)
-{
-  std::vector<PKey> pickedKeys; // should be 0, 1 or 2, right?!
-  for (PKey& pkey : m_keys)
-  {
-    auto key = dynamic_cast<GuiMusicKb::Key3d*>(pkey.GetPtr());
-    if (key->m_projectedRect.IsPointIn(pos))
-    {
-      pickedKeys.push_back(key); 
-    }
-  }
-
-  int n = pickedKeys.size();
-  if (n == 0)
-  {
-    return nullptr;
-  }
-  if (n == 1)
-  {
-    return pickedKeys[0];
-  }
-
-  // Decide which one to return: for our keyboard, the black key wins
-  for (PKey& pkey : pickedKeys)
-  {
-    auto key = dynamic_cast<GuiMusicKb::Key3d*>(pkey.GetPtr());
-    if (key->m_isBlack)
-    {
-      return key;
-    }
-  }
-
-  // No key picked
-  return nullptr;
-}
-
 bool GuiMusicKb::Load(File* f)
 {
   if (!GuiElement::Load(f))

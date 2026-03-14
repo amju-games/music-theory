@@ -1,0 +1,49 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// keyboard2d.txt
+// Reusable **2D** piano keys
+
+// version
+1
+
+animation
+clean-anim
+const
+one
+
+// Element type
+gui-comp
+// Name
+keyboard
+// Num children
+2
+
+// TODO DON'T DO THIS!!!!
+// Background to kb
+// Cover wider range than just the width of the screen, so we can translate the KB.
+gui-image
+kb-bg
+-4.0, -0.26
+0, 0.74
+// size.x was 8
+Image/black.png
+
+gui-comp
+kb-comp
+2
+
+translate
+0, 0
+
+// The keyboard
+music-kb-2d
+the-keyboard
+// Pos
+0, 0
+// Scale
+1, 1
+
+flush
+
+

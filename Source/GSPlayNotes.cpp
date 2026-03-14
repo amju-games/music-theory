@@ -53,7 +53,7 @@ void GSPlayNotes::OnActive()
 
   // Simulate mouse button and cursor (mouse move) events,
   //  to get polyphony working
-
+/*
   TheMessageQueue::Instance()->Add(new FuncMsg(
     SendMouseDownEvents,
     SecondsFromNow(1.f)));
@@ -61,6 +61,7 @@ void GSPlayNotes::OnActive()
   TheMessageQueue::Instance()->Add(new FuncMsg(
     SendMouseUpEvents,
     SecondsFromNow(4.f)));
+*/
 }
 }
 
