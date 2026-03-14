@@ -125,6 +125,10 @@
 		C55726A52F0EFA5400EEB2A5 /* GS3dExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C557269F2F0EFA5400EEB2A5 /* GS3dExample.cpp */; };
 		C55726A62F0EFA5400EEB2A5 /* GuiScrollScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55726A02F0EFA5400EEB2A5 /* GuiScrollScore.cpp */; };
 		C55726A72F0EFA5400EEB2A5 /* GSHero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55726A22F0EFA5400EEB2A5 /* GSHero.cpp */; };
+		C561F3C12F65CCDC003EE425 /* FindSongSections.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C561F3BB2F65CCDB003EE425 /* FindSongSections.cpp */; };
+		C561F3C22F65CCDC003EE425 /* NoteEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C561F3BC2F65CCDB003EE425 /* NoteEvent.cpp */; };
+		C561F3C32F65CCDC003EE425 /* GuiMusic2dKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C561F3BE2F65CCDB003EE425 /* GuiMusic2dKeyboard.cpp */; };
+		C561F3C42F65CCDC003EE425 /* GuiMusicKbBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C561F3BF2F65CCDB003EE425 /* GuiMusicKbBase.cpp */; };
 		C56DAD032EF2CFED00739D75 /* DevMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACEE2EF2CFEC00739D75 /* DevMenu.cpp */; };
 		C56DAD042EF2CFED00739D75 /* GSShowNewLevelNum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACEF2EF2CFED00739D75 /* GSShowNewLevelNum.cpp */; };
 		C56DAD052EF2CFED00739D75 /* GSUserDrawSave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACF12EF2CFED00739D75 /* GSUserDrawSave.cpp */; };
@@ -396,6 +400,13 @@
 		C55726A02F0EFA5400EEB2A5 /* GuiScrollScore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiScrollScore.cpp; path = ../../../../Source/GuiScrollScore.cpp; sourceTree = "<group>"; };
 		C55726A12F0EFA5400EEB2A5 /* GSHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSHero.h; path = ../../../../Source/GSHero.h; sourceTree = "<group>"; };
 		C55726A22F0EFA5400EEB2A5 /* GSHero.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSHero.cpp; path = ../../../../Source/GSHero.cpp; sourceTree = "<group>"; };
+		C561F3B92F65CCDB003EE425 /* GuiMusic2dKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiMusic2dKeyboard.h; path = ../../../../Source/GuiMusic2dKeyboard.h; sourceTree = "<group>"; };
+		C561F3BB2F65CCDB003EE425 /* FindSongSections.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FindSongSections.cpp; path = ../../../../Source/FindSongSections.cpp; sourceTree = "<group>"; };
+		C561F3BC2F65CCDB003EE425 /* NoteEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NoteEvent.cpp; path = ../../../../Source/NoteEvent.cpp; sourceTree = "<group>"; };
+		C561F3BD2F65CCDB003EE425 /* GuiMusicKbBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiMusicKbBase.h; path = ../../../../Source/GuiMusicKbBase.h; sourceTree = "<group>"; };
+		C561F3BE2F65CCDB003EE425 /* GuiMusic2dKeyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiMusic2dKeyboard.cpp; path = ../../../../Source/GuiMusic2dKeyboard.cpp; sourceTree = "<group>"; };
+		C561F3BF2F65CCDB003EE425 /* GuiMusicKbBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiMusicKbBase.cpp; path = ../../../../Source/GuiMusicKbBase.cpp; sourceTree = "<group>"; };
+		C561F3C02F65CCDC003EE425 /* FindSongSections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FindSongSections.h; path = ../../../../Source/FindSongSections.h; sourceTree = "<group>"; };
 		C56DACED2EF2CFEC00739D75 /* Palette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Palette.h; path = ../../../../Source/Palette.h; sourceTree = "<group>"; };
 		C56DACEE2EF2CFEC00739D75 /* DevMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DevMenu.cpp; path = ../../../../Source/DevMenu.cpp; sourceTree = "<group>"; };
 		C56DACEF2EF2CFED00739D75 /* GSShowNewLevelNum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSShowNewLevelNum.cpp; path = ../../../../Source/GSShowNewLevelNum.cpp; sourceTree = "<group>"; };
@@ -572,8 +583,6 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				C514212A2F5357A90009EB23 /* GuiSetFromString.cpp */,
-				C514212C2F5357A90009EB23 /* GuiSetFromString.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */,
@@ -617,6 +626,8 @@
 				69AC40301EB5331300F255A4 /* Dictionary.h */,
 				69C10CD91F17877A009B6836 /* DictionaryPickQuestion.cpp */,
 				69C10CDA1F17877A009B6836 /* DictionaryPickQuestion.h */,
+				C561F3BB2F65CCDB003EE425 /* FindSongSections.cpp */,
+				C561F3C02F65CCDC003EE425 /* FindSongSections.h */,
 				C55726982F0EFA5300EEB2A5 /* Grader.cpp */,
 				C557269E2F0EFA5400EEB2A5 /* Grader.h */,
 				C557269F2F0EFA5400EEB2A5 /* GS3dExample.cpp */,
@@ -675,12 +686,18 @@
 				694519362017368C001C188B /* Gui3dScene.h */,
 				6915CD0B20444A990001CB2E /* GuiAvatar.cpp */,
 				6915CD0920444A990001CB2E /* GuiAvatar.h */,
+				C561F3BE2F65CCDB003EE425 /* GuiMusic2dKeyboard.cpp */,
+				C561F3B92F65CCDB003EE425 /* GuiMusic2dKeyboard.h */,
 				69D58E7C1E86A02B008A8D29 /* GuiMusicKb.cpp */,
 				69D58E7D1E86A02B008A8D29 /* GuiMusicKb.h */,
+				C561F3BF2F65CCDB003EE425 /* GuiMusicKbBase.cpp */,
+				C561F3BD2F65CCDB003EE425 /* GuiMusicKbBase.h */,
 				697A07FB1E82F19B0045CE54 /* GuiMusicScore.cpp */,
 				697A07FC1E82F19B0045CE54 /* GuiMusicScore.h */,
 				C55726A02F0EFA5400EEB2A5 /* GuiScrollScore.cpp */,
 				C557269A2F0EFA5300EEB2A5 /* GuiScrollScore.h */,
+				C514212A2F5357A90009EB23 /* GuiSetFromString.cpp */,
+				C514212C2F5357A90009EB23 /* GuiSetFromString.h */,
 				C55726992F0EFA5300EEB2A5 /* HeroGameRound.cpp */,
 				C557269B2F0EFA5300EEB2A5 /* HeroGameRound.h */,
 				694519442017368E001C188B /* HintType.h */,
@@ -712,6 +729,7 @@
 				695E90791F5AB7260003901E /* NetSend.h */,
 				697F64822051BC7000365E68 /* Notebook.cpp */,
 				697F64842051BC7100365E68 /* Notebook.h */,
+				C561F3BC2F65CCDB003EE425 /* NoteEvent.cpp */,
 				C557269D2F0EFA5400EEB2A5 /* NoteEvent.h */,
 				691D91B71F9E5F1D004D6CED /* NumUpdate.cpp */,
 				691D91B81F9E5F1D004D6CED /* NumUpdate.h */,
@@ -958,6 +976,7 @@
 				69D732971F23DA29007B73C1 /* CorridorModeWait.cpp in Sources */,
 				6959E2D01E958C3C00E251A9 /* GSPages.cpp in Sources */,
 				6959E2F81E9ACE8A00E251A9 /* GSPause.cpp in Sources */,
+				C561F3C22F65CCDC003EE425 /* NoteEvent.cpp in Sources */,
 				69D732931F23DA29007B73C1 /* CorridorModeEnterTappable.cpp in Sources */,
 				C514212D2F5357A90009EB23 /* GuiSetFromString.cpp in Sources */,
 				C5117C4B2F11CE0300952A7B /* GSHeroEnd.cpp in Sources */,
@@ -966,6 +985,7 @@
 				694519482017368F001C188B /* QuestionPicker.cpp in Sources */,
 				6945194D2017368F001C188B /* CorridorModeEnterStairs.cpp in Sources */,
 				691D91B91F9E5F1D004D6CED /* NumUpdate.cpp in Sources */,
+				C561F3C42F65CCDC003EE425 /* GuiMusicKbBase.cpp in Sources */,
 				69D732951F23DA29007B73C1 /* CorridorModeExitTappable.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
 				C56DAD062EF2CFED00739D75 /* BassPlayMidi.cpp in Sources */,
@@ -978,6 +998,7 @@
 				69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */,
 				695E90731F4A13CA0003901E /* GSCopyAssets.cpp in Sources */,
 				C56DAD072EF2CFED00739D75 /* ColourPicker.cpp in Sources */,
+				C561F3C32F65CCDC003EE425 /* GuiMusic2dKeyboard.cpp in Sources */,
 				6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */,
 				69A23A5D1F61E6970021BF88 /* TutorialManager.cpp in Sources */,
 				C55726A72F0EFA5400EEB2A5 /* GSHero.cpp in Sources */,
@@ -987,6 +1008,7 @@
 				69D58E851E86A02B008A8D29 /* GuiMusicKb.cpp in Sources */,
 				C56DAD032EF2CFED00739D75 /* DevMenu.cpp in Sources */,
 				69D58E491E833741008A8D29 /* ViewController.mm in Sources */,
+				C561F3C12F65CCDC003EE425 /* FindSongSections.cpp in Sources */,
 				C56DAD0D2EF2CFED00739D75 /* Wallpaper.cpp in Sources */,
 				69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */,
 				69D732941F23DA29007B73C1 /* CorridorModeExitClassroom.cpp in Sources */,
