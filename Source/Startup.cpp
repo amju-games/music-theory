@@ -69,6 +69,7 @@
 #include "GuiMusic2dKeyboard.h"
 #include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
+#include "GuiPatch.h"
 #include "GuiScrollScore.h"
 #include "Md2SceneNode.h"
 #include "NetSend.h"
@@ -330,11 +331,12 @@ static void SetUpGui()
 
   // Add game-specific types to Gui factory
   AddToGuiFactory<ColourPicker>();
-  AddToGuiFactory<Gui3dScene>();
+  AddToGuiFactory<Gui3dScene>(); // TODO Add to amjulib
   AddToGuiFactory<GuiAvatar>();
   AddToGuiFactory<GuiMusic2dKeyboard>();
   AddToGuiFactory<GuiMusicKb>();
   AddToGuiFactory<GuiMusicScore>();
+  AddToGuiFactory<GuiPatch>(); // TODO Add to amjulib
   AddToGuiFactory<GuiScrollScore>();
 
   //Add game-specific types to Scene node factory

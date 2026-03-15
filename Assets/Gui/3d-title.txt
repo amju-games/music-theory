@@ -63,6 +63,23 @@ Image/gui-button-2.png
 $$$83
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
+colour 
+ff8000ff
+// Patch -- test
+patch
+my-patch
+-.8, 0
+.8, .4
+Image/rough-circle.png, stretch
+// Patch is a sprite, so we have to specify cell info - this should be 
+//  good for batching: we can have multiple different patches and other
+//  HUD elements on the same atlas.
+// Num cells
+1,1
+// Cell
+0
+// Corner size: TODO: should this be auto-adjusted so equal coords give squares?
+0.1, 0.15
 
 curve-anim
 one-shot
