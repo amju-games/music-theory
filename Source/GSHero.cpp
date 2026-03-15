@@ -448,6 +448,17 @@ void GSHero::ReloadGui()
   GSBase::ReloadGui();
 }
 
+static int GetNumDigits(int s)
+{
+  int res = (s == 0 ? 1 : 0);
+  while (s > 0)
+  {
+    s /= 10;
+    ++res;
+  }
+  return res;
+}
+
 // TODO This is no good, it should be time, not number of frames, surely?!
 static const int NUM_UPDATE_NUM_FRAMES = 50;
 
@@ -457,6 +468,10 @@ void GSHero::IncreaseScore(const Grade& grade)
   amount *= 100;
 
   m_playerScore.Add(amount, NUM_UPDATE_NUM_FRAMES);
+
+  auto size = m_playerScoreBg->GetSize();
+  size.x = 0.08f + 0.07f * GetNumDigits(m_playerScore.m_internalNumber);
+  m_playerScoreBg->SetSize(size);
 }
 
 void GSHero::DecreaseLife(const Grade& grade)
@@ -856,6 +871,8 @@ void GSHero::ResetHud()
     m_playerScore.ResumeAfterPause();
     m_lifePercent.ResumeAfterPause();
   }
+
+  m_playerScoreBg = dynamic_cast<GuiPatch*>(GetElementByName(m_gui, "score-bg-patch"));
 }
 
 void GSHero::SetSongTitle()

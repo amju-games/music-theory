@@ -19,7 +19,7 @@ gui-comp
 // Name
 player-score-comp
 // Num children
-2
+3
 
 colour
 4D68F1
@@ -28,11 +28,25 @@ scale
 0.9, 0.9; 1.1, 1.1
 .5,.5
 
-gui-image
-score-bg
+// Patch -- test
+patch
+score-bg-patch
 0.65, 0.6
-.3, .3
-Image/rough-oval.png, stretch
+.3, .25
+Image/rough-circle.png, stretch
+// Patch is a sprite, so we have to specify cell info - this should be  
+//  good for batching: we can have multiple different patches and other
+//  HUD elements on the same atlas.
+// Num cells
+1,1
+// Cell
+0
+// Corner size
+0.1, 0.125
+
+// Not ideal; if we move things around we should be able to flush a lot
+//  of batched elements at once.
+flush
 
 gui-comp
 score-comp
@@ -60,8 +74,9 @@ one-shot
 linear
 
 scale
-1, 1 ; 2, 2
-0, 0.5
+3, 3 ; 2, 2
+// Pivot
+0, .5
 
 gui-text
 // Element name

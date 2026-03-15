@@ -9,6 +9,7 @@
 #include "FindSongSections.h"
 #include "GSBase.h"
 #include "GuiMusicKbBase.h"
+#include "GuiPatch.h"
 #include "GuiScrollScore.h"
 #include "NumUpdate.h"
 #include "UserProfile.h"
@@ -150,6 +151,8 @@ protected:
   // A composite on to which we can hang extra stuff we want the score
   //  to display
   RCPtr<GuiComposite> m_scoreExtras;
+
+  RCPtr<GuiPatch> m_playerScoreBg;
 
   // This is for when we grade player input events.
   // This iterator points to the last note event (in m_scrollScore) which
