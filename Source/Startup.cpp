@@ -35,6 +35,7 @@
 #include <Font.h>
 #include <Game.h>
 #include <GlueFileMem.h>
+#include <GuiButton.h>
 #include <GuiFactory.h>
 #include <GuiRect.h>
 #include <iOSUtils.h>
@@ -44,26 +45,17 @@
 #include <ROConfig.h>
 #include <SceneNodeFactory.h>
 #include <SoundManager.h>
-#include "ColourPicker.h"
-#include "ComposerList.h"
 #include "Consts.h"
-#include "Course.h"
-#include "Dictionary.h"
 #include "GS3dExample.h"
 #include "GS3dTitle.h"
-#include "GSAvatarMod.h"
 #include "GSCopyAssets.h"
 #include "GSFirstUser.h"
 #include "GSHero.h"
-#include "GSMainCorridor.h"
-#include "GSPages.h"
 #include "GSPlayNotes.h"
 #include "GSShowGui.h"
 #include "GSShowMusicScore.h"
 #include "GSTestShowScore.h"
 #include "GSTitle.h"
-#include "GSTopicEnd.h"
-#include "GSUserDrawSave.h"
 #include "Gui3dScene.h"
 #include "GuiAvatar.h"
 #include "GuiMusic2dKeyboard.h"
@@ -284,10 +276,10 @@ static void SetUpResourceLoaders()
 #endif
 
   // To load dictionaries for tests 
-  rm->AddLoader("dictionary", DictionaryLoader);
+  //rm->AddLoader("dictionary", DictionaryLoader);
 
   // Course 
-  rm->AddLoader("course", CourseLoader);
+  //rm->AddLoader("course", CourseLoader);
 }
 
 static void SetUpSound()
@@ -330,7 +322,7 @@ static void SetUpGui()
   GuiRect::SetCornerImage("Image/circle.png");
 
   // Add game-specific types to Gui factory
-  AddToGuiFactory<ColourPicker>();
+  //AddToGuiFactory<ColourPicker>();
   AddToGuiFactory<Gui3dScene>(); // TODO Add to amjulib
   AddToGuiFactory<GuiAvatar>();
   AddToGuiFactory<GuiMusic2dKeyboard>();
@@ -485,7 +477,7 @@ void StartUpAfterCreateWindow()
   SetInitialState();
 
   // Load this file one time only (but we can reload for development)
-  GetComposerList().Load("Gui/composers.txt");
+  //GetComposerList().Load("Gui/composers.txt");
 }
 }
 

@@ -5,8 +5,6 @@
 #include <Directory.h>
 #include <ReportError.h>
 #include "Consts.h"
-#include "Course.h"
-#include "CourseManager.h"
 #include "UserProfile.h"
 
 namespace Amju
@@ -113,24 +111,18 @@ int UserProfile::GetCurrentTopic() const
 
 std::string UserProfile::GetCurrentTopicDisplayName() const
 {
-  Course* course = GetCourseManager().GetCourse();
-  Assert(course);
-  Topic* topic = course->GetTopic(m_currentTopic);
-  Assert(topic);
-  return topic->GetDisplayName();
+  return "";
 }
 
 int UserProfile::GetHints(HintType ht)
 {
-  auto userConfig = GetConfigFile();
-  const std::string key = HINTS_AVAILABLE_KEY + ToString(static_cast<int>(ht));
-  return userConfig->GetInt(key, DEFAULT_HINTS_AVAIL);
+  return 0;
 }
 
 void UserProfile::AddHints(HintType ht, int add)
 {
   auto userConfig = GetConfigFile();
-  const std::string key = HINTS_AVAILABLE_KEY + ToString(static_cast<int>(ht));
+  const std::string key = HINTS_AVAILABLE_KEY + std::to_string(static_cast<int>(ht));
   int hints = userConfig->GetInt(key, DEFAULT_HINTS_AVAIL);
   const int prevHints = hints;
 

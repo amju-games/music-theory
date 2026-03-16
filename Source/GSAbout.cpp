@@ -5,14 +5,13 @@
 #include <GuiDecAnimation.h>
 #include <MessageQueue.h>
 #include "GSAbout.h"
-#include "GSMainCorridor.h"
 #include "PrintGui.h"
 
 namespace Amju
 {
 static void OnOK(GuiElement* elem)
 {
-  TheMessageQueue::Instance()->Add(new FuncMsg(GoTo<TheGSMainCorridor>, SecondsFromNow(0.5f)));
+  // TODO go back
 }
 
 GSAbout::GSAbout()
