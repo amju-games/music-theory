@@ -11,17 +11,6 @@ key-g
 // TODO for now, make basic shape out of 2 rectangles
 
 gui-sprite
-key-bottom
-0, -0.6
-0.15, 0.3
-// TODO Make an atlas with key bits and all HUD elements
-Image/white.png, stretch
-// Num cells x, y
-1, 1
-// Cell
-0
-
-gui-sprite
 key-top
 0.05, -0.3 
 0.05, 0.3
@@ -31,3 +20,5 @@ Image/white.png, stretch
 // Cell
 0
 
+include
+key2d-bottom.txt

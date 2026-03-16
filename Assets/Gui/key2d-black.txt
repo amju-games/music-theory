@@ -6,7 +6,7 @@
 
 gui-comp
 key-c-f
-1
+2
 
 // Black keys
 // TODO for now, just a rectangle
@@ -21,6 +21,48 @@ Image/white.png, stretch
 1, 1
 // Cell
 0
+
+// Black edge around key
+colour
+ffc000ff
+
+gui-comp
+margin-comp
+3
+
+// right edge
+gui-sprite
+key-margin
+0.12, -0.299
+0.012, 0.3
+Image/white.png, stretch
+// Num cells x, y
+1, 1
+// Cell
+0
+
+// left edge
+gui-sprite
+key-margin
+0.02, -0.299
+0.01, 0.3
+Image/white.png, stretch
+// Num cells x, y
+1, 1
+// Cell
+0
+
+// bottom edge
+gui-sprite
+key-margin
+0.02, -0.594
+0.12, 0.025
+Image/white.png, stretch
+// Num cells x, y
+1, 1
+// Cell
+0
+
 
 // TODO Shadow across bottom edge, so as key moves/rotates down, the
 //  front part goes into shadow?!??

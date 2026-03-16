@@ -19,15 +19,36 @@ keyboard
 // Num children
 2
 
-// TODO DON'T DO THIS!!!!
-// Background to kb
+// Background strip at top and bottom
+colour
+0080ffff
+
+gui-comp
+bg-strips
+2
+
 // Cover wider range than just the width of the screen, so we can translate the KB.
-gui-image
+gui-sprite
 kb-bg
--4.0, -0.26
-0, 0.74
-// size.x was 8
-Image/black.png
+-4.0, -0.29
+8, 0.03
+Image/white.png, stretch
+// Cells
+1, 1
+// Cell
+0
+
+// Cover wider range than just the width of the screen, so we can translate the KB.
+gui-sprite
+kb-bg
+-4.0, -0.9
+8, 0.05
+Image/white.png, stretch
+// Cells
+1, 1
+// Cell
+0
+
 
 gui-comp
 kb-comp
