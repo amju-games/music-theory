@@ -24,7 +24,7 @@ Image/white.png, stretch
 
 // Black edge around key
 colour
-ffc000ff
+000000ff
 
 gui-comp
 margin-comp

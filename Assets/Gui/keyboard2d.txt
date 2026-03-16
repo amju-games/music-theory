@@ -21,7 +21,7 @@ keyboard
 
 // Background strip at top and bottom
 colour
-0080ffff
+000000ff
 
 gui-comp
 bg-strips
@@ -29,20 +29,19 @@ bg-strips
 
 // Cover wider range than just the width of the screen, so we can translate the KB.
 gui-sprite
-kb-bg
--4.0, -0.29
-8, 0.03
+kb-bg-top-strip
+-4.0, -0.25
+8, 0.07
 Image/white.png, stretch
 // Cells
 1, 1
 // Cell
 0
 
-// Cover wider range than just the width of the screen, so we can translate the KB.
 gui-sprite
-kb-bg
+kb-bg-bottom-strip
 -4.0, -0.9
-8, 0.05
+8, 0.1
 Image/white.png, stretch
 // Cells
 1, 1

@@ -25,12 +25,12 @@ key2d-bottom.txt
 
 // Top black edge
 colour
-ff0000ff
+000000ff
 
 gui-sprite
 key-margin
--0.013, -0.3
-0.013, 0.32
+-0.011, -0.3
+0.011, 0.32
 Image/white.png, stretch
 // Num cells x, y
 1, 1
