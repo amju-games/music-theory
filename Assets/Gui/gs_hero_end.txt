@@ -18,7 +18,7 @@ gui-button
 retry-button
 -0.2, -0.2
 0.4, 0.25
-Image/gui-button-2.png
+Image/rough-oval.png
 // START
 @@@Retry
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
@@ -30,7 +30,7 @@ gui-button
 quit-button
 -0.2, -0.5
 0.4, 0.25
-Image/gui-button-2.png
+Image/rough-oval.png
 // START
 @@@Quit
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4

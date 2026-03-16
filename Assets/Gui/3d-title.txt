@@ -58,7 +58,7 @@ gui-button
 start-button
 -0.2, -0.4
 0.4, 0.25
-Image/gui-button-2.png
+Image/rough-oval.png
 // START
 $$$83
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4

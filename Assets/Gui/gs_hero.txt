@@ -140,7 +140,7 @@ pause-button
 // size
 0.12, 0.12
 // Image 
-Image/gui-button-1.png
+Image/rough-circle.png
 // Quit "X" 
 G
 // Font name, size
