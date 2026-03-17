@@ -66,7 +66,13 @@ int main(int argc, const char** argv)
 
   MidiFile midifile;
   // 0th arg is exe name, 1th arg is midi filename
-  midifile.read(cl.get(1).value()); 
+  std::string filename(argv[1]);
+
+  if (!midifile.read(filename))
+  {
+    std::cout << "Failed to read midi file \"" << filename << "\"\n";
+    return 1;
+  }
 
   // If "info" arg exists, output info about the midi file.
   if (check_flag(cl, "--info"))
