@@ -28,12 +28,6 @@ void GuiPatch::AddToTrilist(AmjuGL::Tris& triList)
   Vec2f size = GetSize();
   Vec2f pos = GetCombinedPos();
 
-//  AmjuGL::Tri tri;
-
-  // Set the vertex colours to the colour which was current when Draw was called.
-  // TODO Do this for each tri we add to tris
-  //tri.SetColour(m_combinedColour.m_r, m_combinedColour.m_g, m_combinedColour.m_b, m_combinedColour.m_a);
-
   // Get aspect ratio so corners are square -- don't think we want this
   //int vx, vy, vw, vh; 
   //AmjuGL::GetViewport(&vx, &vy, &vw, &vh);
@@ -42,7 +36,6 @@ void GuiPatch::AddToTrilist(AmjuGL::Tris& triList)
 
   // 4 x-coords, left to right
   float x[4] = { pos.x, pos.x + m_cornerSize.x, pos.x + size.x - m_cornerSize.x, pos.x + size.x };
-    //float y[4] = { pos.y, pos.y - m_cornerRadius * asp, pos.y - size.y + m_cornerRadius * asp, pos.y - size.y };
 
   // 4 y-coords, top to bottom (+ve y is UP)
   float y[4] = { pos.y, pos.y - m_cornerSize.y * asp, pos.y - size.y + m_cornerSize.y * asp, pos.y - size.y };
