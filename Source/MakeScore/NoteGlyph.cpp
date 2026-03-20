@@ -4,6 +4,7 @@
 // * MakeScore *
 // Sub-project for human-friendly authoring of musical notation.
 
+#include <algorithm>
 #include <array>
 #include <cassert>
 #include <iostream>

@@ -260,7 +260,7 @@ std::cout << "Finding beam groups....\n";
 #endif //  BEAM_GROUP_DEBUG
   std::vector<BeamGroup> res;
   int groupStart = -1;
-  const auto numGlyphs = glyphs.size();
+  const int numGlyphs = static_cast<int>(glyphs.size());
   for (int i = 0; i < numGlyphs; i++)
   {
     bool beamBreak = IsNoteOnBeamBreak(
@@ -341,8 +341,8 @@ void BeamGroup::RenderBeamSegment(
 {
   float xOff = (m_stemDir == StemDir::UP ? STEM_UP_X_OFFSET : STEM_DOWN_X_OFFSET);
 
-  const float y1 = m_primaryStaveLines.first;
-  const float y2 = m_primaryStaveLines.second;
+  const float y1 = static_cast<float>(m_primaryStaveLines.first);
+  const float y2 = static_cast<float>(m_primaryStaveLines.second);
 
   // Left and right end points of line seg
   vec2 left(

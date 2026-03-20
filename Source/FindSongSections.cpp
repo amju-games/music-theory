@@ -53,7 +53,7 @@ std::cout << "Final section: " << res.back() << "\n";
 std::optional<std::pair<int, int>> FindMinMaxPitchInSection(
   const Section& s, const NoteEvents& events)
 {
-  if (events.empty() || s.second <= s.first || s.first >= events.size()) 
+  if (events.empty() || s.second <= s.first || s.first >= static_cast<int>(events.size())) 
   {
     return std::nullopt;
   }
