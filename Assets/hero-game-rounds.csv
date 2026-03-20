@@ -1,3 +1,3 @@
 Level	Round	Name	Display title (localised)	Composer (localised)	Backing track	Count-in	Count-in number of beats	Colour palette	Music score	Sound font
-0	0	TheSwan	@@@The Swan	@@@Camille Saint-Saëns	TheSwan/swan-3-64bpm.ogg	TheSwan/swan-count-in-64bpm.ogg	6	Palette-notes-12-1.png	TheSwan/TheSwan_score.txt	organ1.sf2
-0	0	Test	Test	Me	TheSwan/swan-3-64bpm.ogg	TheSwan/swan-count-in-64bpm.ogg	2	Palette-notes-12-1.png	Test/Lets-go.txt	organ1.sf2
+0	0	Bach-Air	@@@Air	@@@J. S. Bach	Bach-Air/bach-air-30bpm.mp3	Bach-Air/bach-air-count-in-30bpm.ogg	2	Palette-notes-12-1.png	Bach-Air/bach-air-score.txt	piano9ftgrand.sf2
+0	1	TheSwan	@@@The Swan	@@@Camille Saint-Saëns	TheSwan/swan-3-64bpm.ogg	TheSwan/swan-count-in-64bpm.ogg	6	Palette-notes-12-1.png	TheSwan/TheSwan_score.txt	piano9ftgrand.sf2
