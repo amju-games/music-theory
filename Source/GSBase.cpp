@@ -116,7 +116,7 @@ void GSBase::OnActive()
 // Not on device
 #ifndef AMJU_IOS 
   // Extra GUI, to display frame stats, etc
-  auto extraGui = LoadGui("Gui/extra-gui.txt");
+  auto extraGui = LoadGui("Gui/extra-gui.txt", false);
   if (extraGui)
   {
     auto newRoot = new GuiComposite;

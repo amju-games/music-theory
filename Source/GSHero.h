@@ -131,12 +131,14 @@ protected:
   void OnPlayerHasLost();
   void OnPlayerHasWon();
 
+  void ShowCountInGui();
+
+  // Set size of patch behind player numeric score, and any others in future.
+  void SetPatchSizes();
+
 protected:
   // The scroll score child of m_gui (get after gui is loaded)
   RCPtr<GuiScrollScore> m_scrollScore;
-
-  // The animator parent of scroll score
-  //RCPtr<GuiDecAnimation> m_scoreAnim;
 
   // The keyboard
   RCPtr<GuiMusicKbBase> m_keyboard;
@@ -152,7 +154,11 @@ protected:
   //  to display
   RCPtr<GuiComposite> m_scoreExtras;
 
+  // Patch behind player score (numeric points)
   RCPtr<GuiPatch> m_playerScoreBg;
+
+  // Count-in GUI
+  PGuiElement m_countInGui;
 
   // This is for when we grade player input events.
   // This iterator points to the last note event (in m_scrollScore) which
