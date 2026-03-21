@@ -394,29 +394,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\CentreMsg.h" />
-    <ClInclude Include="..\..\..\..\Source\ColourPicker.h" />
-    <ClInclude Include="..\..\..\..\Source\ComposerList.h" />
     <ClInclude Include="..\..\..\..\Source\Consts.h" />
-    <ClInclude Include="..\..\..\..\Source\CorridorCamController.h" />
-    <ClInclude Include="..\..\..\..\Source\CorridorMode.h" />
-    <ClInclude Include="..\..\..\..\Source\CorridorModeEnterClassroom.h" />
-    <ClInclude Include="..\..\..\..\Source\CorridorModeEnterStairs.h" />
-    <ClInclude Include="..\..\..\..\Source\CorridorModeEnterTappable.h" />
-    <ClInclude Include="..\..\..\..\Source\CorridorModeExitClassroom.h" />
-    <ClInclude Include="..\..\..\..\Source\CorridorModeExitStairs.h" />
-    <ClInclude Include="..\..\..\..\Source\CorridorModeExitTappable.h" />
-    <ClInclude Include="..\..\..\..\Source\CorridorModeLerpCam.h" />
-    <ClInclude Include="..\..\..\..\Source\CorridorModeShowTappable.h" />
-    <ClInclude Include="..\..\..\..\Source\CorridorModeWait.h" />
-    <ClInclude Include="..\..\..\..\Source\Course.h" />
-    <ClInclude Include="..\..\..\..\Source\DevMenu.h" />
-    <ClInclude Include="..\..\..\..\Source\DictionaryPickQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\FindSongSections.h" />
     <ClInclude Include="..\..\..\..\Source\Grader.h" />
     <ClInclude Include="..\..\..\..\Source\GS3dExample.h" />
     <ClInclude Include="..\..\..\..\Source\GS3dTitle.h" />
     <ClInclude Include="..\..\..\..\Source\GSAbout.h" />
-    <ClInclude Include="..\..\..\..\Source\GSAvatarMod.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase3d.h" />
     <ClInclude Include="..\..\..\..\Source\GSCopyAssets.h" />
@@ -425,9 +408,6 @@
     <ClInclude Include="..\..\..\..\Source\GSHero.h" />
     <ClInclude Include="..\..\..\..\Source\GSHeroEnd.h" />
     <ClInclude Include="..\..\..\..\Source\GSHeroWin.h" />
-    <ClInclude Include="..\..\..\..\Source\GSMainCorridor.h" />
-    <ClInclude Include="..\..\..\..\Source\GSPages.h" />
-    <ClInclude Include="..\..\..\..\Source\GSPagesEdit.h" />
     <ClInclude Include="..\..\..\..\Source\GSPause.h" />
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowGui.h" />
@@ -435,28 +415,17 @@
     <ClInclude Include="..\..\..\..\Source\GSShowNewLevelNum.h" />
     <ClInclude Include="..\..\..\..\Source\GSTestShowScore.h" />
     <ClInclude Include="..\..\..\..\Source\GSTitle.h" />
-    <ClInclude Include="..\..\..\..\Source\GSTopicEnd.h" />
-    <ClInclude Include="..\..\..\..\Source\GSTopicStart.h" />
-    <ClInclude Include="..\..\..\..\Source\GSUserDraw.h" />
-    <ClInclude Include="..\..\..\..\Source\GSUserDrawSave.h" />
     <ClInclude Include="..\..\..\..\Source\Gui3dScene.h" />
-    <ClInclude Include="..\..\..\..\Source\GuiAvatar.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusic2dKeyboard.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKbBase.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h" />
-    <ClInclude Include="..\..\..\..\Source\CourseManager.h" />
     <ClInclude Include="..\..\..\..\Source\GuiPatch.h" />
     <ClInclude Include="..\..\..\..\Source\GuiScrollScore.h" />
     <ClInclude Include="..\..\..\..\Source\GuiSetFromString.h" />
     <ClInclude Include="..\..\..\..\Source\HeroGameRound.h" />
-    <ClInclude Include="..\..\..\..\Source\HintType.h" />
-    <ClInclude Include="..\..\..\..\Source\LevelManager.h" />
     <ClInclude Include="..\..\..\..\Source\LurkMsg.h" />
     <ClInclude Include="..\..\..\..\Source\Md2SceneNode.h" />
-    <ClInclude Include="..\..\..\..\Source\MultiChoiceQuestion.h" />
-    <ClInclude Include="..\..\..\..\Source\MusicalTermQuestion.h" />
-    <ClInclude Include="..\..\..\..\Source\Dictionary.h" />
     <ClInclude Include="..\..\..\..\Source\MusicEvent.h" />
     <ClInclude Include="..\..\..\..\Source\MySceneGraph.h" />
     <ClInclude Include="..\..\..\..\Source\NetRequest.h" />
@@ -464,41 +433,24 @@
     <ClInclude Include="..\..\..\..\Source\Notebook.h" />
     <ClInclude Include="..\..\..\..\Source\NoteEvent.h" />
     <ClInclude Include="..\..\..\..\Source\NumUpdate.h" />
-    <ClInclude Include="..\..\..\..\Source\Page.h" />
-    <ClInclude Include="..\..\..\..\Source\PageDrawOnStave.h" />
-    <ClInclude Include="..\..\..\..\Source\PageFactory.h" />
-    <ClInclude Include="..\..\..\..\Source\PageMultiChoice.h" />
-    <ClInclude Include="..\..\..\..\Source\PagePlayNotes.h" />
-    <ClInclude Include="..\..\..\..\Source\PageQuestion.h" />
     <ClInclude Include="..\..\..\..\Source\Palette.h" />
-    <ClInclude Include="..\..\..\..\Source\Panel.h" />
     <ClInclude Include="..\..\..\..\Source\ParticleFx.h" />
     <ClInclude Include="..\..\..\..\Source\PlayMidi.h" />
     <ClInclude Include="..\..\..\..\Source\PlayWav.h" />
     <ClInclude Include="..\..\..\..\Source\PrintGui.h" />
-    <ClInclude Include="..\..\..\..\Source\Question.h" />
-    <ClInclude Include="..\..\..\..\Source\QuestionPicker.h" />
-    <ClInclude Include="..\..\..\..\Source\QuestionProgress.h" />
     <ClInclude Include="..\..\..\..\Source\SceneNodeGui.h" />
     <ClInclude Include="..\..\..\..\Source\ScoreBuilder.h" />
     <ClInclude Include="..\..\..\..\Source\SerialReqManager.h" />
     <ClInclude Include="..\..\..\..\Source\ShareManager.h" />
-    <ClInclude Include="..\..\..\..\Source\Tappable.h" />
-    <ClInclude Include="..\..\..\..\Source\TappableFactory.h" />
-    <ClInclude Include="..\..\..\..\Source\TappableZoom.h" />
-    <ClInclude Include="..\..\..\..\Source\TappableHint.h" />
-    <ClInclude Include="..\..\..\..\Source\TappableZoomInfoLeaf.h" />
     <ClInclude Include="..\..\..\..\Source\Tests\CreateDictionary.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\Topic.h" />
     <ClInclude Include="..\..\..\..\Source\TutorialIds.h" />
     <ClInclude Include="..\..\..\..\Source\TutorialManager.h" />
     <ClInclude Include="..\..\..\..\Source\UserProfile.h" />
     <ClInclude Include="..\..\..\..\Source\UseVertexColourShader.h" />
     <ClInclude Include="..\..\..\..\Source\Version.h" />
-    <ClInclude Include="..\..\..\..\Source\Wallpaper.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Curl\Win32\lib\libcurl.lib" />
