@@ -6,6 +6,22 @@
 
 namespace Amju
 {
+// TODO Promote this handy function
+template <typename T = int>
+std::vector<T> SplitIntoVec(const std::string& str, char splitChar = ',')
+{
+  const auto strs = Split(str, splitChar);
+  std::vector<T> res;
+  for (const auto& s : strs)
+  {
+    std::istringstream is(s);
+    T t;
+    is >> t;
+    res.push_back(t);
+  }
+  return res;
+}
+
 bool GameRoundManager::Load()
 {
   m_gameRounds.clear();
@@ -17,7 +33,7 @@ bool GameRoundManager::Load()
     return false;
   }
   // Identify lines we don't want to include by counting the number of cells.
-  const int EXPECTED_NUM_CELLS = 11;
+  const int EXPECTED_NUM_CELLS = 15;
   std::string line;
   bool isFirstLine = true;
   while (f.GetDataLine(&line))
@@ -53,16 +69,19 @@ bool GameRoundManager::Load()
     round.m_round = ToInt(cells[1]);
     round.m_name = cells[2];
     round.m_title = Lookup(cells[3]); // Get localised string
-    round.m_composer = Lookup(cells[4]); // Get localised string
-    round.m_backingTrack = "Songs/" + cells[5];
-    round.m_countIn = "Songs/" + cells[6];
-    round.m_numCountInBeats = ToInt(cells[7]);
-    // TODO This is going to change to a list of midi pitches we want
-    //       to colour in 
-    round.m_palette = "Image/" + cells[8];
-    round.m_musicScore = "Songs/" + cells[9];
-    round.m_soundFont = "Sound/" + cells[10];
-std::cout << round;
+    round.m_subtitle = Lookup(cells[4]); // Get localised string
+    round.m_composer = Lookup(cells[5]); // Get localised string
+    round.m_backingTrack = "Songs/" + cells[6];
+    round.m_countIn = "Songs/" + cells[7];
+    round.m_numCountInBeats = ToInt(cells[8]);
+    round.m_countInGui = "Gui/" + cells[9];
+    round.m_palette = "Image/" + cells[10];
+    round.m_musicScore = "Songs/" + cells[11];
+    round.m_soundFont = "Sound/" + cells[12];
+    round.m_lifeDecrease = ToInt(cells[13]);
+    round.m_sectionEndBarNumbers = SplitIntoVec(cells[14]);
+
+//std::cout << round;
 
     m_gameRounds.push_back(round);
   }

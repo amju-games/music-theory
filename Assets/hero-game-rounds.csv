@@ -1,3 +1,3 @@
-Level	Round	Name	Display title (localised)	Composer (localised)	Backing track	Count-in	Count-in number of beats	Colour palette	Music score	Sound font
-0	0	Bach-Air	@@@Air	@@@J. S. Bach	Bach-Air/bach-air-30bpm.mp3	Bach-Air/bach-air-count-in-30bpm.ogg	2	Palette-notes-12-1.png	Bach-Air/bach-air-score.txt	piano9ftgrand.sf2
-0	1	TheSwan	@@@The Swan	@@@Camille Saint-Saëns	TheSwan/swan-3-64bpm.ogg	TheSwan/swan-count-in-64bpm.ogg	6	Palette-notes-12-1.png	TheSwan/TheSwan_score.txt	piano9ftgrand.sf2
+Level	Round	Name	Display title (localised)	Subtitle (localised)	Composer (localised)	Backing track	Count-in	Count-in number of beats	Count-in GUI	Colour palette	Music score	Sound font	Life Decrease	Section end bar numbers (ZB)
+0	0	Bach-Air	@@@Air	@@@From Orchestral Suite number 3	@@@J. S. Bach	Bach-Air/bach-air-30bpm.mp3	Bach-Air/bach-air-count-in-30bpm.ogg	2	Count-in-4.txt	Palette-notes-12-1.png	Bach-Air/bach-air-score.txt	piano9ftgrand.sf2	1	5, 10, 15, 20
+0	1	TheSwan	@@@The Swan	@@@From The Carnival of the Animals	@@@Camille Saint-Saëns	TheSwan/swan-3-64bpm.ogg	TheSwan/swan-count-in-64bpm.ogg	6	Count-in-6.txt	Palette-notes-12-1.png	TheSwan/TheSwan_score.txt	piano9ftgrand.sf2	3	-1

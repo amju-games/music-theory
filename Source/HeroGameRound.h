@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ostream>
+#include <string>
 #include <vector>
 #include "Singleton.h"
 
@@ -19,8 +20,10 @@ struct HeroGameRound
   // Internal (non-display) name for this round
   std::string m_name;
 
-  // Localised title string: should these be wstrings?
+  // Localised title string
   std::string m_title;
+  // Localised subtitle
+  std::string m_subtitle;
 
   // Localised composer string
   std::string m_composer;
@@ -32,6 +35,8 @@ struct HeroGameRound
   std::string m_countIn;
   // Number of beats in count-in
   int m_numCountInBeats = 1;
+  // Count-in GUI 
+  std::string m_countInGui;
 
   // Filename of palette for score and keyboard
   std::string m_palette;
@@ -41,6 +46,12 @@ struct HeroGameRound
 
   // Filename of sound font
   std::string m_soundFont;
+
+  // Amount by which we reduce life if player makes a mistake
+  int m_lifeDecrease = 1;
+
+  // Zero-based bar numbers; the end of each bar is treated as the end of a section.
+  std::vector<int> m_sectionEndBarNumbers;
 };
 
 std::ostream& operator<<(std::ostream& os, const HeroGameRound& round);
