@@ -77,5 +77,8 @@ std::optional<std::pair<int, int>> FindMinMaxPitchInSection(
   }
   return std::make_pair(minNote, maxNote); 
 }
-}
 
+void AddGameRoundSections(Sections& sections, const std::vector<int>& bars)
+{
+}
+}

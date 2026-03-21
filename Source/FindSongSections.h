@@ -20,5 +20,12 @@ Sections FindSongSections(const NoteEvents& song);
 // Return value is (min, max), if the section contains notes. 
 std::optional<std::pair<int, int>> FindMinMaxPitchInSection(
   const Section&, const NoteEvents&);
+
+// We can manually define section ends in the game round file.
+// This function adds extra sections to the given list, using the list of
+//  bar numbers (zero-based). The end of each bar number is the end of
+//  a section.
+// TODO Make this work: find events in bars!
+void AddGameRoundSections(Sections& sections, const std::vector<int>& bars);
 }
 
