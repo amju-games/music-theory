@@ -6,3 +6,6 @@
 
 // BM Font .fnt file (txt appended for glue file)
 font2d/bmcatcomic/catcomic2.fnt.txt
+
+// y-offset 
+-0.08

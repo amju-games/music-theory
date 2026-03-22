@@ -6,3 +6,6 @@
 
 // BM Font .fnt file (txt appended for glue file)
 font2d/bmmolin/molin-bmfont.fnt.txt
+
+// y-offset
+0

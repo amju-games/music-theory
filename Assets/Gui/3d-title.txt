@@ -61,7 +61,7 @@ start-button
 Image/rough-oval.png
 // START
 $$$83
-BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
+BUTTON, 3.5, fgcol=ffffff, bgcol=4E69F4
 
 colour 
 ff8000ff
