@@ -96,6 +96,8 @@ std::cout << "VERY STRANGE, on resuming, we seem to be at the end of the song?\n
   }
   else
   {
+    Assert(it->m_time > m_pauseResumeTime);
+
     // We have found the next beat after the pause resume time.
     // Go back to the prev beat.
     if (it != beats.begin()) --it;
@@ -113,20 +115,14 @@ std::cout << "Decrementing.... at: bar: " << it->m_bar
   << " time: " << it->m_time << "\n";
     }
 
-    // This time is correct, but we need to go to the next one
-    //  to correctly position the score. I don't know why.
-    // TODO Sometimes this is wrong!!! So there is something really weird
-    //  going on.
-    m_pauseResumeTime = it->m_time;
-
-    float scoreResumeTime = (++it)->m_time;
+    m_pauseResumeTime = it->m_time; // (why do this? )
 
 std::cout << "DONE! Resuming at: bar: " << it->m_bar 
   << " beat: " << it->m_beat 
   << " time: " << it->m_time << "\n";
 
     // Set the resume point of the score 
-    m_scrollScore->AnimateSpecial(scoreResumeTime, 0);
+    m_scrollScore->AnimateSpecial(m_pauseResumeTime, 0);
   
     // Hopefully this will update the kb with the upcoming notes now
     //  we have set the resume point

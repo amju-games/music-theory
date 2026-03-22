@@ -159,11 +159,12 @@ void GuiScrollScore::AnimateSpecial(float animValue, float dAnimValue)
     }),
     noteOnEvents.end());
 
-
   // Find the next entry in the note events sequence
   auto it = std::lower_bound(noteOnEvents.begin(), noteOnEvents.end(), animValue,
     [](const NoteEvent& ne, float f) { return ne.m_time < f; });
-  if (it != noteOnEvents.begin()) // go to event before anim time if it exists
+
+  if (it != noteOnEvents.begin() &&
+      it->m_time > m_animTime) // go to event before anim time if it exists
   {
     --it;
   }
