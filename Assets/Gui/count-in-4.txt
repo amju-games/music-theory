@@ -50,7 +50,7 @@ count-1
 // Text
 1
 // Font name, size
-molin, 2.0, multi, fgcol=000000
+bmmolin, 2.0, multi, fgcol=000000
 
 
 
@@ -90,7 +90,7 @@ count-2
 // Text
 2
 // Font name, size
-molin, 2.0, multi, fgcol=000000
+bmmolin, 2.0, multi, fgcol=000000
 
 
 // Child 3
@@ -129,7 +129,7 @@ count-3
 // Text
 3
 // Font name, size
-molin, 2.0, multi, fgcol=000000
+bmmolin, 2.0, multi, fgcol=000000
 
 
 // Child 4
@@ -168,6 +168,6 @@ count-4
 // Text
 4
 // Font name, size
-molin, 2.0, multi, fgcol=000000
+bmmolin, 2.0, multi, fgcol=000000
 
 

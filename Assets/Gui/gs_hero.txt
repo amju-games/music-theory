@@ -33,7 +33,7 @@ song-title
 // Text
 title
 // Font name, size
-molin, 2.0, multi, fgcol=000000
+bmmolin, 2.0, multi, fgcol=000000
 gui-text
 // Name
 song-composer
@@ -43,7 +43,7 @@ song-composer
 // Text
 Composer
 // Font name, size
-molin, 1, multi, fgcol=000000, right
+bmmolin, 1, multi, fgcol=000000, right
 
 // Text balloon giving feedback on player's input
 include

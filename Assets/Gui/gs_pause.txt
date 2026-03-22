@@ -39,5 +39,5 @@ paused-text
 -1, .5 
 2, 0.1 
 Paused
-molin, 4.0, fgcol=000000
+bmmolin, 4.0, fgcol=000000
 

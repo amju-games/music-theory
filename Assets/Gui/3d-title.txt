@@ -37,7 +37,7 @@ title-text
 // Text
 Piano Fest
 // Font name, size
-molin, 4.0, fgcol=000000
+bmmolin, 4.0, fgcol=000000
 
 // Version text
 gui-text
@@ -49,7 +49,7 @@ version-text
 // Text
 Version 0.0.0
 // Font name, size
-molin, 0.6, fgcol=000000
+bmmolin, 0.6, fgcol=000000
 
 elastic
 0,-2
