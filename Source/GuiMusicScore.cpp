@@ -242,6 +242,7 @@ GuiMusicScore::GuiMusicScore()
     Texture* tex = (Texture*)TheResourceManager::Instance()->GetRes(FONT_TEXTURE_FILE_NAME);
     bm->Set(tex, 1, 1, 1, 1);
     bm->LoadBmFont(FONT_INFO_FILE_NAME); 
+    bm->SetGlyphFatness(1.5f); // glyphs look too thin without this?
   }
   m_atlas = bm.GetPtr();
 #else // USE_BM_FONT
