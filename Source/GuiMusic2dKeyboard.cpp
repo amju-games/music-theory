@@ -65,7 +65,7 @@ void GuiMusic2dKeyboard::DrawKeys(bool blackNotWhite)
       PushColour();
       AmjuGL::PushMatrix();
 
-      AmjuGL::SetColour(key->m_colour);
+      MultColour(key->m_colour);
       AmjuGL::Translate(0, key->m_angle * -0.003f, 0);
       key2d->m_keyComp->Draw();
 
