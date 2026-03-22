@@ -1,19 +1,8 @@
-// font
-// version
-1
-// size
-0.5
+// CAT COMIC font
 
-// bitmap + alpha
-font2d/CatComic/catcomic_2048_64pt.png
+// BM font
+// version: 2 => BM font (TODO s/b e.g. 10-19?)
+2
 
-// no of chars in x
-16
-// no of chars in y
-8
-
-// start char
-32
-
-// widths
-font2d/CatComic/catcomic_2048_64pt_widths.txt
+// BM Font .fnt file (txt appended for glue file)
+font2d/bmcatcomic/catcomic2.fnt.txt
