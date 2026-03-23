@@ -50,7 +50,7 @@ KeySig GuessKeySig(const Events& events, bool preferFlatKey)
   // Make frequency distribution of pitches, all shifted to the same octave
   for (const Event& e : events)
   {
-    if (e.IsRest()) continue;
+    if (e.m_pitch == 0) continue;
 
     int p = e.m_pitch % 12;
     pitchDistribution[p]++;
@@ -96,13 +96,14 @@ KeySig GuessKeySig(const Events& events, bool preferFlatKey)
     {  0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1 }, // cb maj
   };
 
-  [[maybe_unused]]const std::vector<std::string> NAMES = 
+  const std::vector<std::string> NAMES = 
   {
     "0 sharps", "1 sharp", "2 sharps", "3 sharps", "4 sharps",
     "5 sharps", "6 sharps", "7 sharps",
     "0 flats", "1 flat", "2 flats", "3 flats", "4 flats",
     "5 flats", "6 flats", "7 flats",
   };
+
   // Get the dot product of the piece distrib with each scale.
   // Pick the scale with the highest dot prod.
   int bestI = 0;
@@ -122,8 +123,13 @@ KeySig GuessKeySig(const Events& events, bool preferFlatKey)
 
     if (foundBetter)
     {
+std::cout << "// Guessing key sig.. " << NAMES[i] << " looks good, score is " << d << "\n";
       bestDot = d;
       bestI = i;
+    }
+    else
+    {
+std::cout << "//  (" << NAMES[i] << " has score " << d << ", discarding)\n";
     }
   }
 
