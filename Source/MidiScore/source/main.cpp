@@ -22,7 +22,7 @@ static const auto BPM = "--bpm";
 static const auto USAGE_STRING = 
 R"(midiscore - convert midi file to juliet compact notation.
 Usage:
-  midiscore <midifile> [options]
+  midiscore <midifile> --bpm <f> [options]
 
 Options:
   --info        Output info about the midi file.
@@ -123,8 +123,13 @@ int main(int argc, const char** argv)
   // Debug option
   const bool debug = check_flag(cl, DEBUG);
 
-  // BPM tempo -- passed through to MakeScore. 
+  // BPM tempo -- passed through to MakeScore, and is required.
   const auto bpm = cl.get_value<float>(BPM);
+  if (!bpm)
+  {
+    std::cout << "No BPM specified! (e.g.: --bpm 120)\n";
+    return 1;
+  }
 
   std::cout << MidiScore::ToString(
     midifile, track, timeSig, keySig, quant, debug, bpm);
