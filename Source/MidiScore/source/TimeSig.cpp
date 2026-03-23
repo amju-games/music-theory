@@ -7,6 +7,15 @@
 
 namespace MidiScore
 {
+bool IsCompoundTimeSig(TimeSig ts)
+{
+  return (
+    ts == TimeSig::TS_6_8 ||
+    ts == TimeSig::TS_9_8 ||
+    ts == TimeSig::TS_12_8
+  );
+}
+
 TimeSig GetTimeSigFromString(const std::string& s)
 {
   static const std::map<std::string, TimeSig> TS_MAP = 

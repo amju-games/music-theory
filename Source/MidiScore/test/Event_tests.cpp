@@ -341,6 +341,38 @@ TEST_CASE("Quantise duration, split note if required", "[Events]")
   }
 }
 
+TEST_CASE("Notes split on beats", "[Events]")
+{ 
+  // Notes should be split so that the duration is reduced until it is a 
+  //  multiple of the start time. Then we repeat for the rest of the note
+  //  duration, adding ties.
+
+  const int tpq = 100; // ticks per quarter note
+  Events events;
+
+  // pitch, start, duration, tpq
+  auto event1 = n(60, 0,       tpq / 2, tpq); // q
+  auto event2 = n(62, tpq / 2, tpq * 2, tpq); // m
+
+  // We need to go through this function to split the notes.
+  // This is what gets called for midi events.
+  AppendNoteEventToEvents(tpq, event1, events);
+  AppendNoteEventToEvents(tpq, event2, events);
+
+//std::cout << OutputEvents(events);
+  // <q> 60 62 t <c> 62 t <q> 62 
+  //     0  1  2     3  4     5
+  //  -- minim is split and tied.
+
+  REQUIRE(events.size() == 6);
+  REQUIRE(events[0].IsNote());  // 60
+  REQUIRE(events[1].IsNote());  // 62
+  REQUIRE(events[2].IsTie());  
+  REQUIRE(events[3].IsNote());  
+  REQUIRE(events[4].IsTie());  
+  REQUIRE(events[5].IsNote());  
+}
+
 TEST_CASE("Insert one rest", "[Events]")
 { 
   const int tpq = 1; // ticks per quarter note
@@ -353,7 +385,7 @@ TEST_CASE("Insert one rest", "[Events]")
     n(64, 8, 4, tpq), // sb
   };
 
-  InsertRests(tpq, events);
+  InsertRests(tpq, events, TimeSig::TS_4_4);
 
   //std::cout << OutputEvents(events);
 
@@ -379,12 +411,16 @@ TEST_CASE("Insert rests with bar lines", "[Events]")
 
   // Add bar lines as this is the 'real world' situation
   InsertBarLines(tpq, TimeSig::TS_4_4, events);
-  InsertRests(tpq, events);
+  InsertRests(tpq, events, TimeSig::TS_4_4);
 
   //std::cout << OutputEvents(events);
-  // cr <c> 60 mr | cr <m> 62 cr | mr. <c> 64 | <c> 65 mr. | 
+  // NOT: cr <c> 60 mr | cr <m> 62 cr | mr. <c> 64 | <c> 65 mr. | 
+  // Because we now don't add dotted rests, except in compound time sigs.
+  // Output is:
+  // <c> r 60 <m> r | <c> r <m> 62 <c> r | <m> r <c> r 64 | <c> 65 r <m> r | 
+  //     0 1      2 3     4     5      6 7     8     9 10 11    12 13   14 15
 
-  REQUIRE(events.size() == 14);
+  REQUIRE(events.size() == 16);
   REQUIRE(events[0].IsRest());
   REQUIRE(events[1].IsNote());
   REQUIRE(events[2].IsRest());
@@ -394,17 +430,19 @@ TEST_CASE("Insert rests with bar lines", "[Events]")
   REQUIRE(events[6].IsRest());
   REQUIRE(events[7].IsBarLine());
   REQUIRE(events[8].IsRest());
-  REQUIRE(events[9].IsNote());
-  REQUIRE(events[10].IsBarLine());
-  REQUIRE(events[11].IsNote());
-  REQUIRE(events[12].IsRest());
-  REQUIRE(events[13].IsBarLine());
+  REQUIRE(events[9].IsRest());
+  REQUIRE(events[10].IsNote());
+  REQUIRE(events[11].IsBarLine());
+  REQUIRE(events[12].IsNote());
+  REQUIRE(events[13].IsRest());
+  REQUIRE(events[14].IsRest());
+  REQUIRE(events[15].IsBarLine());
 }
 
-TEST_CASE("Insert rests, split and reverse", "[Events]")
+TEST_CASE("Insert rests, split on beats", "[Events]")
 {
-  // Sometimes adding rests we should split the rest, and then reverse
-  //  so that the order is from smallest to largest duration.
+  // Rests are split on beats, so the order is from smallest 
+  //  to largest duration.
   const int tpq = 32; // ticks per quarter note
   Events events
   { 
@@ -420,22 +458,32 @@ TEST_CASE("Insert rests, split and reverse", "[Events]")
 
   // Expect: <qqq> 60 |
 
-  InsertRests(tpq, events);
+  InsertRests(tpq, events, TimeSig::TS_4_4);
  
-  // Expect: <qqq> 60 r q. m. |  -- i.e. split rests are reversed
- 
-  REQUIRE(events.size() == 5); // 3 rests added
+//  std::cout << OutputEvents(events);
+  // Output is:
+  // <qqq> 60 r <qq> r <q> r <c> r <m> r | 
+  //       0 1       2     3     4     5 6
+  //  -- no dotted rests because not a compound time sig.
+
+  REQUIRE(events.size() == 7); 
   REQUIRE(events[0].IsNote()); // unchanged 
   REQUIRE(events[1].IsRest());
   REQUIRE(events[1].m_timeVal == TimeVal::QQQ);
   REQUIRE(events[1].m_dots == 0);
   REQUIRE(events[2].IsRest());
-  REQUIRE(events[2].m_timeVal == TimeVal::QUAVER);
-  REQUIRE(events[2].m_dots == 1);
+  REQUIRE(events[2].m_timeVal == TimeVal::SEMIQUAVER);
+  REQUIRE(events[2].m_dots == 0);
   REQUIRE(events[3].IsRest());
-  REQUIRE(events[3].m_timeVal == TimeVal::MINIM);
-  REQUIRE(events[3].m_dots == 1);
-  REQUIRE(events[4].IsBarLine());
+  REQUIRE(events[3].m_timeVal == TimeVal::QUAVER);
+  REQUIRE(events[3].m_dots == 0);
+  REQUIRE(events[4].IsRest());
+  REQUIRE(events[4].m_timeVal == TimeVal::CROTCHET);
+  REQUIRE(events[4].m_dots == 0);
+  REQUIRE(events[5].IsRest());
+  REQUIRE(events[5].m_timeVal == TimeVal::MINIM);
+  REQUIRE(events[5].m_dots == 0);
+  REQUIRE(events[6].IsBarLine());
 }
 
 TEST_CASE("Reverse", "[Events]")
@@ -467,7 +515,7 @@ TEST_CASE("Reverse", "[Events]")
 TEST_CASE("Insert rest, duration means it must be split", "[Events]")
 {
   // Some durations are not expressible as a [dotted] TimeVal, and must
-  //  be split.
+  //  be split. Also we split on beats.
   // In this test, there is one c, then another qqq at the end of 4 beats.
   // So to fill the gap, with dots, the rest could be 
   //  m + q + qq. OR m + q. + qqq
@@ -481,41 +529,31 @@ TEST_CASE("Insert rest, duration means it must be split", "[Events]")
     // gap here! 2.75 crotchets long
     n(64, tpq * 31 / 8, tpq / 8, tpq), // qqq at end of 4/4 bar
   };
+  //  4/4 c ...  qqq |
 
-  InsertRests(tpq, events);
+  InsertRests(tpq, events, TimeSig::TS_4_4);
  
-  // Expect rests: m q qq qqq (if dots are turned off)
+  // Expect rests: c c  q qq qqq (no dots, not compound time sig)
+  //std::cout << OutputEvents(events);
 
-#ifdef NO_DOTS
-  REQUIRE(events.size() == 6); // 4 rests added
+  REQUIRE(events.size() == 7); // 5 rests added
   REQUIRE(events[0].IsNote()); // unchanged 
   REQUIRE(events[1].IsRest());
-  REQUIRE(events[1].m_timeVal == TimeVal::MINIM);
+  REQUIRE(events[1].m_timeVal == TimeVal::CROTCHET);
   REQUIRE(events[1].m_dots == 0);
   REQUIRE(events[2].IsRest());
-  REQUIRE(events[2].m_timeVal == TimeVal::QUAVER);
+  REQUIRE(events[2].m_timeVal == TimeVal::CROTCHET);
   REQUIRE(events[2].m_dots == 0);
   REQUIRE(events[3].IsRest());
-  REQUIRE(events[3].m_timeVal == TimeVal::SEMIQUAVER);
+  REQUIRE(events[3].m_timeVal == TimeVal::QUAVER);
   REQUIRE(events[3].m_dots == 0);
   REQUIRE(events[4].IsRest());
-  REQUIRE(events[4].m_timeVal == TimeVal::QQQ);
+  REQUIRE(events[4].m_timeVal == TimeVal::SEMIQUAVER);
   REQUIRE(events[4].m_dots == 0);
-  REQUIRE(events[5].IsNote()); // unchanged 
-#else
-  REQUIRE(events.size() == 5); // 3 rests added
-  REQUIRE(events[0].IsNote()); // unchanged 
-  REQUIRE(events[1].IsRest());
-  REQUIRE(events[1].m_timeVal == TimeVal::MINIM);
-  REQUIRE(events[1].m_dots == 0);
-  REQUIRE(events[2].IsRest());
-  REQUIRE(events[2].m_timeVal == TimeVal::QUAVER);
-  REQUIRE(events[2].m_dots == 1);
-  REQUIRE(events[3].IsRest());
-  REQUIRE(events[3].m_timeVal == TimeVal::QQQ);
-  REQUIRE(events[3].m_dots == 0);
-  REQUIRE(events[4].IsNote()); // unchanged 
-#endif // NO_DOTS
+  REQUIRE(events[5].IsRest());
+  REQUIRE(events[5].m_timeVal == TimeVal::QQQ);
+  REQUIRE(events[5].m_dots == 0);
+  REQUIRE(events[6].IsNote()); // unchanged 
 }
 
 TEST_CASE("Add bar lines 4/4", "[Events]")
@@ -566,13 +604,14 @@ TEST_CASE("Add bar lines 3/4", "[Events]")
   // Same note events as in the 4/4 test, but now 
   //  the notes don't fall nicely within bars - add rests to show
   //  the timing, or it's hard to make sense of the result.
-  InsertRests(tpq, events);
+  InsertRests(tpq, events, TimeSig::TS_3_4);
 
-  //std::cout << OutputEvents(events);
+//std::cout << OutputEvents(events);
   // Each bar is 3 crotchets duration; notes are split and tied across bar lines.
-  // <m.> 60 | t <c> 60 <m> 62 | t <c> 62 cr <c> 64 | t <c> 64 mr | <c> 65 mr |
-
-  REQUIRE(events.size() == 18);
+  // Final rest is split, because as a minim, the start is not a multiple of
+  //  its duration.
+  // <m.> 60 | t <c> 60 <m> 62 | t <c> 62 r  64 | t <c> 64 <m> r | <c> 65 r r | 
+  REQUIRE(events.size() == 19);
   REQUIRE(events[0].IsNote());
   REQUIRE(events[1].IsBarLine());
   REQUIRE(events[2].IsTie());
@@ -590,7 +629,8 @@ TEST_CASE("Add bar lines 3/4", "[Events]")
   REQUIRE(events[14].IsBarLine());
   REQUIRE(events[15].IsNote());
   REQUIRE(events[16].IsRest());
-  REQUIRE(events[17].IsBarLine());
+  REQUIRE(events[17].IsRest());
+  REQUIRE(events[18].IsBarLine());
 }
 
 TEST_CASE("Adding bar lines splits notes", "[Events]")
@@ -848,7 +888,7 @@ TEST_CASE("Time Set: Chord, different durations, with extra note in chord", "[Ev
 
   InsertChordMarkers(events);
   InsertBarLines(tpq, TimeSig::TS_4_4, events);
-  InsertRests(tpq, events);
+  InsertRests(tpq, events, TimeSig::TS_4_4);
   InsertTimeSetEvents(tpq, events); // need time set event to correctly place final note
 
   auto str = OutputEvents(events);
@@ -873,7 +913,7 @@ TEST_CASE("Time Set: Chord, different durations, with note after shorter note in
 
   InsertChordMarkers(events);
   InsertBarLines(tpq, TimeSig::TS_4_4, events);
-  InsertRests(tpq, events);
+  InsertRests(tpq, events, TimeSig::TS_4_4);
   InsertTimeSetEvents(tpq, events);
 
   auto str = OutputEvents(events);
@@ -895,7 +935,7 @@ TEST_CASE("Time Set event, not within chord", "[Events]")
 
   InsertChordMarkers(events);
   InsertBarLines(tpq, TimeSig::TS_4_4, events);
-  InsertRests(tpq, events);
+  InsertRests(tpq, events, TimeSig::TS_4_4);
   InsertTimeSetEvents(tpq, events);
 
   auto str = OutputEvents(events);
@@ -917,7 +957,7 @@ TEST_CASE("Time Set event, fractional value", "[Events]")
 
   InsertChordMarkers(events);
   InsertBarLines(tpq, TimeSig::TS_4_4, events);
-  InsertRests(tpq, events);
+  InsertRests(tpq, events, TimeSig::TS_4_4);
   InsertTimeSetEvents(tpq, events);
 
   auto str = OutputEvents(events);

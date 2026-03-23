@@ -89,7 +89,8 @@ void InsertDynamics(Events& events);
 //  the end and start time of two consecutive events.
 // NB we may split rests to make up the time value, as for
 //  AppendNoteEventToEvents above. e.g. <m.> r <q> r
-void InsertRests(int tpq, Events& events);
+// Time sig is required so we know if dotted rests are allowed.
+void InsertRests(int tpq, Events& events, TimeSig ts);
 
 void InsertBarLines(int tpq, TimeSig ts, Events& events);
 

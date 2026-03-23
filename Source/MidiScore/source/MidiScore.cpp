@@ -100,7 +100,7 @@ std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks, bool deb
 //std::cout << "With bar lines: " << OutputEvents(events) << "\n";
 
   // Fill 'gaps' between note events with rests
-  InsertRests(tpq, events);
+  InsertRests(tpq, events, ts);
 //std::cout << "With rests: " << OutputEvents(events) << "\n";
 
   InsertTimeSetEvents(tpq, events);

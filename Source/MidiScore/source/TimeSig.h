@@ -36,5 +36,8 @@ float BeatsInBar(TimeSig ts);
 
 // From the given events and tpq, guess the time sig.
 TimeSig GuessTimeSig(int tpq, const Events& events);
+
+// Return true for compound time, i.e. 6/8, 9/8, 12/8
+bool IsCompoundTimeSig(TimeSig ts);
 }
 

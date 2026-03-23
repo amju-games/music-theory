@@ -157,6 +157,16 @@ void AppendNoteEventToEvents(int tpq, Event e, Events& events)
     }
 //std::cout << "Tail duration: " << tailDuration << " lower_bound dur: " << std::get<0>(*it) << "\n";
 
+    // Split/tie notes on beats:
+    // Split note further, (decrement `it`) until the end time of the
+    //  head note falls on a multiple of its duration. Riiiight????
+    // SPLIT_ON_BEAT
+    while (it != multiples.begin() && 
+           (start % std::get<0>(*it)) != 0) // start should be multiple of duration
+    {
+      --it;
+    }
+
     Event head(e);
     head.m_start = start;
     const auto [duration, timeVal, dots] = *it;
@@ -462,16 +472,17 @@ void Reverse(Events& events)
   }
 }
 
-Events::iterator SplitInsertRest(
+static Events::iterator SplitInsertRest(
   Events& events, // container we will insert into 
   Events::iterator it, // insertion point
-  int tpq, int duration, int start, bool wholeBar)
+  int tpq, int duration, int start, bool wholeBar,
+  bool allowDottedRests)
 {
   // Insert the rest with given start time and duration, splitting
   //  it if duration is not a nice tpq multiple.
 
-  const bool DO_USE_DOTS = true;
-  const auto multiples = GetTpqMultiples(tpq, DO_USE_DOTS);
+  // Only use dotted rests in compound time sigs
+  const auto multiples = GetTpqMultiples(tpq, allowDottedRests);
   int tailDuration = duration;
 
   // Result rests go in here first, then we add the whole lot at the end.
@@ -497,6 +508,16 @@ Events::iterator SplitInsertRest(
     { 
       --mit;
     }
+
+    // Split rests on beats
+    // SPLIT_ON_BEAT
+    while (mit != multiples.begin() && 
+           (start % std::get<0>(*mit)) != 0) // start should be multiple of duration
+    {
+      --mit;
+    }
+
+
     const auto [headDuration, timeVal, dots] = *mit;
     tailDuration -= headDuration;
 
@@ -514,19 +535,11 @@ Events::iterator SplitInsertRest(
     start += headDuration; 
   }
 
-  // The rests to add go from largest to smallest duration. We want to reverse
-  //  that, if the next event is a bar line, or if the rest(s) are between
-  //  notes, it will depend on the note durations...
-  // First fix: reverse rests to add if next event is a bar line.
-  if (it != events.end() && it->IsBarLine())
-  {
-    Reverse(toAdd);
-  }
   it = events.insert(it, toAdd.begin(), toAdd.end());
   return it;
 }
 
-void InsertRests(int tpq, Events& events)
+void InsertRests(int tpq, Events& events, TimeSig ts)
 {
   // To insert rests, we get the end time of each event, and compare it
   //  with the start time of the next event. If there is a gap, we should
@@ -535,6 +548,9 @@ void InsertRests(int tpq, Events& events)
   //  could have different durations. We don't want to insert a rest after 
   //  the shorter note, because it could clash with another note being
   //  played at the same time as the rest.
+
+  // Dotted rests in compound time sigs only.
+  const bool allowDottedRests = IsCompoundTimeSig(ts);
 
   int t = 0;  // accumulated time ticks through the piece
   bool chord = false; // true if we are parsing between ( ) chord markers
@@ -562,7 +578,8 @@ void InsertRests(int tpq, Events& events)
      
         // If the duration can't be expressed as a [dotted] TimeVal,
         //  we have to insert multiple rests
-        it = SplitInsertRest(events, it, tpq, restDuration, t, wholeBar);
+        it = SplitInsertRest(events, it, tpq, restDuration, t, wholeBar, 
+               allowDottedRests);
         ++it;
       }
     }
@@ -764,7 +781,7 @@ void InsertChordMarkers(Events& events)
   for (auto it = events.begin() + 1; it != events.end(); ++it)
   {
     // Only valid when we compare the start times of two
-    //  continguous notes... this could be broken by note lengths
+    //  contiguous notes... this could be broken by note lengths
     //  that require tied notes I expect. :|
     if (!it->IsNote()) continue;
     if (!(it - 1)->IsNote()) continue;
