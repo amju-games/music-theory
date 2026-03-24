@@ -77,9 +77,11 @@ struct Glyph : public IGlyph
   // Ties: notes and chords only, not rests.
   // Call to set this glyph as the left hand side of the given tie
   void SetTieLeft(Tie* tie) { m_tieLeft = tie; }
+  Tie* GetTieLeft() { return m_tieLeft; }
 
   // Set this glyph as the right hand side of the given tie
   void SetTieRight(Tie* tie) { m_tieRight = tie; }
+  Tie* GetTieRight() { return m_tieRight; }
 
   void SetPerformance(int switches) { m_switches = switches; }
 

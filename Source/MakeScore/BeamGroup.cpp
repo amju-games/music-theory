@@ -259,9 +259,15 @@ std::cout << "Finding beam groups....\n";
   const int numGlyphs = static_cast<int>(glyphs.size());
   for (int i = 0; i < numGlyphs; i++)
   {
+    // Break beam if we are on a new beat, (which depends on time sig).
     bool beamBreak = IsNoteOnBeamBreak(
       glyphs[i]->GetTimes().GetStartTimeValue(), // note start time
       barStartTime, timeSig);
+
+    // BREAK_BEAM_ON_TIE
+    // Also break beam if note glyph is tied to another note.
+    beamBreak |= ((glyphs[i]->GetTieLeft() != nullptr) ||
+                  (glyphs[i]->GetTieRight() != nullptr)); 
 
     if (beamBreak && groupStart != -1)
     {
