@@ -42,7 +42,7 @@ std::cout << "Calc Y StaveLinesAtEnds....\n";
   //  but longer stems maybe look better?
   const float BEAM_UNIT = 1.5f; // Height of one beam + one gap
 
-  const float MAX_RISE = 3.f; // limit beam gradient: this is max height diff.
+  const float MAX_RISE = 2.f; // limit beam gradient: this is max height diff.
   
   // 1. Determine the "thickest" part of the beam stack
   int maxLevel = 1;
