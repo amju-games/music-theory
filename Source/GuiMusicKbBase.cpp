@@ -214,7 +214,7 @@ int GuiMusicKbBase::GetMaxKeyOnScreen() const
   return m_onScreenMax;
 }
 
-GuiMusicKbBase::Key* GuiMusicKbBase::GetKey(int midiNote)
+GuiMusicKbBase::Key* GuiMusicKbBase::GetKey(int midiNote) const
 {
   // Binary search for key with the given midi note value
   //  (keys are in midi note value order)
@@ -234,6 +234,13 @@ GuiMusicKbBase::Key* GuiMusicKbBase::GetKey(int midiNote)
     return nullptr;
   }
   return key;
+}
+
+float GuiMusicKbBase::GetKeyMidX(int midiKey) const
+{
+  const auto key = GetKey(midiKey);
+  const auto& rect = key->m_projectedRect;
+  return rect.GetCentre().x;
 }
 
 GuiMusicKbBase::Key* GuiMusicKbBase::PickKey(const Vec2f& pos)

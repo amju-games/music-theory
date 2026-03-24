@@ -30,29 +30,12 @@
 
 namespace Amju
 {
+static int frameCount = 0;
+
 static const HeroGameRound& GetGameRound()
 {
   auto& round = TheGameRoundManager::Instance()->GetGameRound(0);
   return round;
-}
-
-static int IsWhite(int midi)
-{
-  int mod = midi % 12;
-  return mod != 1 && mod != 3 && mod != 6 && mod != 8 && mod != 10;
-}
-
-// Count the white notes in the given range of midi notes. Inclusive range.
-static int CountWhiteNotes(int midi1, int midi2)
-{
-  Assert(midi1 <= midi2);
-  int white = 0;
-  while (midi1 <= midi2)
-  {
-    white += IsWhite(midi1);
-    midi1++;
-  }
-  return white;
 }
 
 static void OnNoteEvent(const NoteEvent& ne)
@@ -62,7 +45,6 @@ static void OnNoteEvent(const NoteEvent& ne)
 
 static void OnPauseButton(PGuiElement)
 {
-  // TODO Notify via Game?
   TheGSHero::Instance()->OnPauseGame();
 }
 
@@ -81,7 +63,7 @@ std::cout << "*** Pause resume time: " << m_pauseResumeTime << "\n";
 
   const auto& beats = m_scrollScore->GetBeats();
   // Find the beat closest to m_pauseResumeTime:
-  // First, find the beat after m_pauseResumeTime
+  //  first, find the beat after m_pauseResumeTime
   auto it = std::upper_bound(
     beats.begin(), beats.end(), m_pauseResumeTime,
    [] (float time, const auto& beat) { return time < beat.m_time; }
@@ -123,10 +105,6 @@ std::cout << "DONE! Resuming at: bar: " << it->m_bar
 
     // Set the resume point of the score 
     m_scrollScore->AnimateSpecial(m_pauseResumeTime, 0);
-  
-    // Hopefully this will update the kb with the upcoming notes now
-    //  we have set the resume point
-    UpdateKeyboardPosition();
   }
 }
 
@@ -148,12 +126,6 @@ void GSHero::ResumeGame()
 
   // Set size of patch behind player numeric score count
   SetPatchSizes();
-
-  // We can't use the count-in feature of GuiMusicScore, because we
-  //  are in the middle of the song somewhere.
-  // We will have to call OnCountInFinished using a timer -- or add a 
-  //  callback to the count-in audio track.
-  //OnCountInFinished()
 }
 
 void GSHero::CancelResumeTime()
@@ -166,7 +138,7 @@ void GSHero::CancelResumeTime()
 void GSHero::ResumeOrRestartGame()
 {
   // HUD values are restored in ResetHUD.
-  // Here we need to set the score position and play the song from the
+  // Here we need to set the score position so we play the song from the
   //  time we were at when we were paused.
 
   m_scrollScore->OnResetAnimation(); 
@@ -226,31 +198,13 @@ void GSHero::OnPauseGame()
   }
 
   GoTo<TheGSPause>();
-
-  // Resume options:
-  // If we were before count-in started, restart the state.
-  // If we are counting-in from the start of the song, just restart
-  //  the song - also just restart the state.
-  // If we pause during the song, it would be nice to restart with a 
-  //  new count-in into the bar where we were paused.
-  // If we pause during the 'resume count-in', restart the resume count-in.
-  // If we pause after the song has finished, or if we lost and the song
-  //  has stopped, we should go to the next state.
-  // ... so it sounds like we need a state enum, sigh, to keep track of
-  //  the current state, so we know how to resume.
-
-  // OK how about this: we DO go to a separate paused state. 
-  // The only info we need to resume is the time into the song, right?
-  // In OnActive, we restore the state.
-  // The global message queue still fucks it up, so we have to use a 
-  //  local message queue.
 }
 
-// TODO const kb
-static float GetOneWhiteKeyWidthScreenSpace(GuiMusicKbBase* keyboard)
+// TODO promote handy function
+template <typename T> 
+T Mean(T t1, T t2)
 {
-//  return 0.15f;
-  return keyboard->GetKey(60)->m_projectedRect.GetSize().x;
+  return (t1 + t2) / T(2);
 }
 
 void GSHero::UpdateKeyboardPosition()
@@ -263,8 +217,6 @@ void GSHero::UpdateKeyboardPosition()
 
   if (m_sectionIndex >= static_cast<int>(m_songSections.size()))
   {
-std::cout << "ERROR: Section index is " << m_sectionIndex << " but number of sections is: " << m_songSections.size() << "\n";
-
     return;
   }
   const Section& s = m_songSections[m_sectionIndex];
@@ -281,81 +233,33 @@ std::cout << "ERROR: Section index is " << m_sectionIndex << " but number of sec
   }
   m_keyboard->ColouriseKeys(keys);
 
-  // Move the keyboard so all notes in the section are on screen. 
+  // Move the keyboard so all notes in the section are centred on screen. 
   // Get the min and max notes in the range
-  const auto optMinMaxNotes = FindMinMaxPitchInSection(s, noteEvents);
-  if (!optMinMaxNotes) 
+  const auto optSectionMinMaxNotes = FindMinMaxPitchInSection(s, noteEvents);
+  if (!optSectionMinMaxNotes) 
   {
 std::cout << "ERROR: no min/max notes in song section " << m_sectionIndex << "\n";
     return;
   }
-  const int minNote = optMinMaxNotes->first;
-  const int maxNote = optMinMaxNotes->second;
+  const int sectionMin = optSectionMinMaxNotes->first;
+  const int sectionMax = optSectionMinMaxNotes->second;
 
-#ifdef KEYBOARD_DEBUG
-std::cout << "** Look ahead: min note: " << minNote << " max note: " << maxNote << "\n";
-#endif
+  // Get mid point in screen coords of notes in section
+  float sectionMiddle = Mean(m_keyboard->GetKeyMidX(sectionMin), 
+                             m_keyboard->GetKeyMidX(sectionMax));
 
-  // Convert distance in midi note values to screen space distance in x:
-  // We use the screen space width of a white key. Count how many
-  //  white keys we need to move, and mult by width.
-
-  // Just get key width once: we won't be changing this, right??
-  const float keyWidth = 
-    GetOneWhiteKeyWidthScreenSpace(m_keyboard);
-
-  if (keyWidth == 0)
-  {
-std::cout << "ERROR: key width is zero.\n";
-  }
-
-#ifdef KEYBOARD_DEBUG
-std::cout << "Key width: " << keyWidth << "\n";
-#endif
-
-  const auto& currentPos = m_keyboardTranslate->GetLocalPos();
-  auto desiredPos = currentPos;
   const int screenMin = m_keyboard->GetMinKeyOnScreen();
   const int screenMax = m_keyboard->GetMaxKeyOnScreen();
-#ifdef KEYBOARD_DEBUG
-std::cout << "  KB: Max on screen: " << screenMax  
-  << " min on screen: " << screenMin
-  << "\n";
-#endif
 
-  if (maxNote >= screenMax)
-  {
-    int whiteNotes = CountWhiteNotes(screenMax, maxNote);
-    desiredPos.x -= keyWidth * static_cast<float>(whiteNotes);
+  // Get mid point in screen coords of notes currently on screen
+  const int screenMiddle = Mean(m_keyboard->GetKeyMidX(screenMin),
+                                m_keyboard->GetKeyMidX(screenMax));
 
-#ifdef KEYBOARD_DEBUG
-std::cout << "  Scroll L: Max on screen: " << screenMax 
-  << " max coming up: " << maxNote 
-//  << " white notes: " << whiteNotes 
-  << " Desired X: " << desiredPos.x 
-  << " Current X: " << currentPos.x 
-  << "\n";
-#endif
-  }
-  if (minNote <= screenMin) // both conditions should not be true!
-  {
-    int whiteNotes = CountWhiteNotes(minNote, screenMin);
-    desiredPos.x += keyWidth * static_cast<float>(whiteNotes);
-
-#ifdef KEYBOARD_DEBUG
-std::cout << "  Scroll R: Min on screen: " << screenMin
-  << " min coming up: " << minNote 
-//  << " white notes: " << whiteNotes 
-  << " Desired X: " << desiredPos.x 
-  << " Current X: " << currentPos.x 
-  << "\n";
-#endif
-  }
- 
-  if (minNote > screenMin && maxNote < screenMax) 
-  {
-    return; // no need to do anything, let the animation finish
-  }
+  // Try to get middle note of section in the middle of the screen
+  const auto& currentPos = m_keyboardTranslate->GetLocalPos();
+  auto desiredPos = currentPos;
+  float distance = screenMiddle - sectionMiddle;
+  desiredPos.x += distance;
 
   // Copy current value to initial value, and set new desired value.
   // (Copying current to initial sounds like a useful thing to add 
@@ -419,6 +323,13 @@ void GSHero::Update()
     {
       OnPlayerHasWon();
     }
+  }
+
+  // Update keyboard pos after state has initialised
+  frameCount++;
+  if (frameCount == 2)
+  {
+    UpdateKeyboardPosition();
   }
 
   // Update the time spent in the current 'micro state'
@@ -558,11 +469,6 @@ std::cout << "Restarting game, here comes the count-in...\n";
 
 std::cout << "Count-in: there are " << numCountInBeats << " beats.\n";
   m_scrollScore->StartCountIn(numCountInBeats, onFinished);
-
-  // This should bring the keyboard into the correct pos for the first
-  //  section, but because the key width isn't set yet, it doesn't work.
-  // TODO fix so this works.
-  //UpdateKeyboardPosition();
 }
 
 void GSHero::ResetMissedNoteCounters()
@@ -582,9 +488,6 @@ void GSHero::OnCountInFinished()
 std::cout << "Count in finished!\n";
 
   ChangeState(HeroState::SONG_PLAYING);
-
-  // TODO we should already be in position by now, remove this once fixed.
-  UpdateKeyboardPosition();
 
   // Start playing the backing track for this song
   auto sm = TheSoundManager::Instance();
@@ -867,6 +770,8 @@ void GSHero::OnDeactive()
 void GSHero::OnActive() 
 {
   GSBase::OnActive();  
+
+  frameCount = 0;
 
   m_roundIsOver = false;
   ChangeState(HeroState::NEW); 

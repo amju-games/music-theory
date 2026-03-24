@@ -62,7 +62,7 @@ public:
   };
 
   // Get key: midi note is unique ID
-  Key* GetKey(int midiNote);
+  Key* GetKey(int midiNote) const;
 
   // Get range of midi notes covered by this keyboard
   int GetMinKey() const;
@@ -70,6 +70,9 @@ public:
 
   int GetMinKeyOnScreen() const;
   int GetMaxKeyOnScreen() const;
+
+  // Get screen x-coord of middle of key
+  float GetKeyMidX(int midiKey) const;
 
 protected:
   // Find key picked by user; relies on projected rect in Keys.

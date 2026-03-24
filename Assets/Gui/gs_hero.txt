@@ -60,7 +60,7 @@ animation
 keyboard-anim
 one-shot
 // Time to set new translation
-0.3
+0.5
 ease-in-out
 // This is the translation we alter to set the keyboard x-coord
 translate
