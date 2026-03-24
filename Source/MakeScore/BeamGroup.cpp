@@ -13,18 +13,6 @@
 
 //#define BEAM_GROUP_DEBUG
 
-/* What we need to do for beams:
-
- - Break up runs depending on beat/position in bar 
-   Two cases:
-   1. For runs of q, break into 2 runs at the middle of the bar
-   2. For <q, only the primary beam can span the middle of the bar.
-      So the beam group is intact, but beam level between mid-point
-      glyphs is 1.
-
- - Broken beam left or rigth dir
-*/
-
 // Get the stave line of a note or chord.
 // We need to pass in the stem direction because for a chord,
 //  we choose either the top note (if stem goes up), or bottom
@@ -37,6 +25,10 @@ static int GetStaveLine(std::unique_ptr<Glyph>& g, StemDir dir)
   return n->GetStaveLineForBeam(dir);
 }
 
+// Calc y-position of ends of a primary beam, grouping all the given 
+//  glyphs.
+// The return value is (left y-coord, right y-coord), in stave line
+//  coord system.
 std::pair<int, int> BeamGroup::CalcYStaveLinesAtEnds(
   std::vector<std::unique_ptr<Glyph>>& glyphs) 
 {
@@ -45,8 +37,12 @@ std::cout << "Calc Y StaveLinesAtEnds....\n";
 #endif // BEAM_GROUP_DEBUG
   
   const int MIN_STEM_H = 6;
-  const float BEAM_UNIT = .5f; // Height of one beam + one gap
-  const float MAX_RISE = 2.f; // limit gradient
+
+  // This one is too big, it should be BEAM_THICKNESS + BEAM_GAP,
+  //  but longer stems maybe look better?
+  const float BEAM_UNIT = 1.5f; // Height of one beam + one gap
+
+  const float MAX_RISE = 3.f; // limit beam gradient: this is max height diff.
   
   // 1. Determine the "thickest" part of the beam stack
   int maxLevel = 1;
@@ -327,8 +323,10 @@ static float GetBeamY(float x, float x1, float y1, float x2, float y2,
 {
   float t = (x - x1) / (x2 - x1);
   float primaryY = y1 + t * (y2 - y1);
-  
-  float offset = (level - 1) * 1.0f; // 1.0 is the beam + gap height
+ 
+  const float BEAM_PLUS_GAP_HEIGHT = 1.5f; // in stave line coord system
+ 
+  float offset = (level - 1) * BEAM_PLUS_GAP_HEIGHT;
   // Secondary beams are always "inside" the primary beam (closer to notehead)
   return (dir == StemDir::UP) ? (primaryY - offset) : (primaryY + offset);
 }

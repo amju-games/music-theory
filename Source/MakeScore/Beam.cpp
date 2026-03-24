@@ -14,8 +14,8 @@ std::string Beam::CommentString() const
 
 std::string Beam::ToString() const
 {
-  // Half height of beam, so we centre vertically?
-  const float h = 0.02f; // TODO
+  // Half height of beam, so we centre vertically
+  const float h = BEAM_THICKNESS * 0.5f;
 
   // Add y-coord which is set by Bar, and offset which we add to all quads.
   const float q = QUAD_Y_OFFSET + GetPos().y;

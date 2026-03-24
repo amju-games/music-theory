@@ -76,6 +76,12 @@ static const float DEFAULT_SCALE = 1.0f;
 //  stave lines, of course).
 static const float DOUBLE_STAVE_DISTANCE = -0.9f;
 
+// Beams
+
+// Beam thickness: half the stave line gap
+static const float BEAM_THICKNESS = STAVE_LINE_GAP * 0.5f;
+static const float BEAM_GAP = BEAM_THICKNESS * 0.8f;
+
 // This is the full list of time types supported in the input.
 extern const char* INPUT_TOKEN_QQQ;
 extern const char* INPUT_TOKEN_DOTTED_QQQ;
