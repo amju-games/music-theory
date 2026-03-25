@@ -13,6 +13,7 @@ public:
   static const char* NAME;
   std::string GetTypeName() const override { return NAME; }
 
+  void Draw() override;
   bool Load(File*) override;
 
 private:
