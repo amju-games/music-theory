@@ -4,23 +4,10 @@
 // version
 1
 
-gui-comp
-key-c-f
-2
-
 // Black keys
-// TODO for now, just a rectangle
-
-gui-sprite
-key
-0.03, -0.3 
-0.09, 0.295
-// TODO Make an atlas with key bits and all HUD elements
-Image/white.png, stretch
-// Num cells x, y
-1, 1
-// Cell
-0
+gui-comp
+key-black
+3
 
 // Black edge around key
 colour
@@ -34,34 +21,99 @@ margin-comp
 gui-sprite
 key-margin
 0.12, -0.299
-0.012, 0.3
-Image/white.png, stretch
+0.012, 0.4
+Image/keys2.png, stretch
+// This is the cell to use for a generic white block
 // Num cells x, y
-1, 1
+8, 8
 // Cell
-0
+1
 
 // left edge
 gui-sprite
 key-margin
 0.02, -0.299
-0.01, 0.3
-Image/white.png, stretch
+0.01, 0.4
+Image/keys2.png, stretch
 // Num cells x, y
-1, 1
+8, 8
 // Cell
-0
+1
 
 // bottom edge
 gui-sprite
 key-margin
-0.02, -0.594
-0.12, 0.025
-Image/white.png, stretch
+0.02, -0.68
+0.12, 0.035
+Image/keys2.png, stretch
 // Num cells x, y
-1, 1
+8, 8
 // Cell
-0
+1
+
+
+// The key: Just a block, with a highlight
+gui-sprite
+key-top-1
+0.03, -0.3 
+0.09, 0.382
+// TODO Make an atlas with key bits and all HUD elements
+Image/keys2.png, stretch
+// Num cells x, y
+8, 8
+// Cell
+1
+
+//gui-sprite
+//key-top-1
+//0.03, -0.3 
+//0.09, 0.2
+//// TODO Make an atlas with key bits and all HUD elements
+//Image/keys2.png, stretch
+//// Num cells x, y
+//2, 4
+//// Cell
+//1
+//
+//gui-sprite
+//key-top-2
+//0.03, -0.5
+//0.09, 0.1
+//// TODO Make an atlas with key bits and all HUD elements
+//Image/keys2.png, stretch
+//// Num cells x, y
+//2, 4
+//// Cell
+//3
+//
+//gui-sprite
+//key-top-3
+//0.03, -0.6
+//0.09, 0.1
+//// TODO Make an atlas with key bits and all HUD elements
+//Image/keys2.png, stretch
+//// Num cells x, y
+//2, 2
+//// Cell
+//3
+
+
+// Highlights
+
+colour
+// Additive colour mode: NOT a change to the fragment blend mode,
+//  but a change to the calculation of the the colour applied to the sprite.
+ffffffff, add
+
+gui-sprite
+black-key-highlight
+0.031, -0.6
+0.004, 0.008
+Image/keys2.png, stretch
+// Num cells x, y
+2, 2
+// Cell
+2
 
 
 // TODO Shadow across bottom edge, so as key moves/rotates down, the

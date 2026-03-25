@@ -6,22 +6,21 @@
 
 gui-comp
 key-bottom
-3
+5
 
-// TODO for now, make basic shape out of 2 rectangles
-
-
+// Big block for the widest part of the white key
 gui-sprite
 key-bottom
-0, -0.6
-0.15, 0.3
-// TODO Make an atlas with key bits and all HUD elements
-Image/white.png, stretch
+0, -0.7
+0.15, 0.1
+Image/keys2.png, stretch
+// This is the cell to use for a generic white block
 // Num cells x, y
-1, 1
+8, 8
 // Cell
-0
+1
 
+// Front: dial down colour
 colour
 ccccccff
 
@@ -30,11 +29,44 @@ key-front
 0, -0.9
 0.15, 0.1
 // TODO Make an atlas with key bits and all HUD elements
-Image/white.png, stretch
+Image/keys2.png, stretch
+// This is the cell to use for a generic white block
 // Num cells x, y
-1, 1
+8, 8
+// Cell
+1
+
+// Bottom curved edge of white key
+patch
+white-key-bottom-patch
+0.0, -0.8
+.15, .15
+Image/keys2.png, stretch
+// Num cells
+2, 2
 // Cell
 0
+// Corner size
+0.015, 0.015
+
+
+// Left edge highlight
+colour
+// Additive colour mode: NOT a change to the fragment blend mode,
+//  but a change to the calculation of the the colour applied to the sprite.
+808080ff, add
+
+// left edge
+gui-sprite
+key-left-edge-highlight
+0.001, -0.939
+0.004, 0.008
+Image/keys2.png, stretch
+// Num cells x, y
+2, 2
+// Cell
+2
+
 
 // Black edge
 colour
@@ -42,11 +74,13 @@ colour
 
 gui-sprite
 key-margin
-0.149, -0.599
+0.148, -0.7
 0.013, 0.3
-Image/white.png, stretch
+Image/keys2.png, stretch
+// This is the cell to use for a generic white block
 // Num cells x, y
-1, 1
+8, 8
 // Cell
-0
+1
+
 

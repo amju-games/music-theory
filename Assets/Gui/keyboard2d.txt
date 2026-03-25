@@ -19,34 +19,24 @@ keyboard
 // Num children
 2
 
-// Background strip at top and bottom
+// Background strip at top 
 colour
 000000ff
 
 gui-comp
 bg-strips
-2
+1
 
 // Cover wider range than just the width of the screen, so we can translate the KB.
 gui-sprite
 kb-bg-top-strip
 -4.0, -0.25
 8, 0.07
-Image/white.png, stretch
-// Cells
-1, 1
+Image/keys2.png, stretch
+// Num cells x, y
+8, 8
 // Cell
-0
-
-gui-sprite
-kb-bg-bottom-strip
--4.0, -0.9
-8, 0.1
-Image/white.png, stretch
-// Cells
-1, 1
-// Cell
-0
+1
 
 
 gui-comp

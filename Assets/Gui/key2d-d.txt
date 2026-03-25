@@ -13,12 +13,14 @@ key-d
 gui-sprite
 key-top
 0.05, -0.3 
-0.05, 0.3
-Image/white.png, stretch
+0.05, 0.4
+Image/keys2.png, stretch
+// This is the cell to use for a generic white block
 // Num cells x, y
-1, 1
+8, 8
 // Cell
-0
+1
+
 
 include
 key2d-bottom.txt

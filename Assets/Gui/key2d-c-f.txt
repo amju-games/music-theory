@@ -13,27 +13,31 @@ key-c-f
 gui-sprite
 key-top
 0, -0.3 
-0.1, 0.3
-Image/white.png, stretch
+0.1, 0.4
+Image/keys2.png, stretch
+// This is the cell to use for a generic white block
 // Num cells x, y
-1, 1
+8, 8
 // Cell
-0
+1
+
 
 include
 key2d-bottom.txt
 
-// Top black edge
+// Side black edge
 colour
 000000ff
 
 gui-sprite
 key-margin
--0.011, -0.3
-0.011, 0.32
-Image/white.png, stretch
+-0.012, -0.3
+0.012, 0.7
+Image/keys2.png, stretch
+// This is the cell to use for a generic white block
 // Num cells x, y
-1, 1
+8, 8
 // Cell
-0
+1
+
 
