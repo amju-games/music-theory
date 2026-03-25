@@ -1,0 +1,255 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+translate 
+-0.6, 0
+
+// Element type
+gui-comp
+// Name
+count-in-comp
+// Num children
+6
+
+// Child 1
+animation
+step-1
+one-shot
+// Count-in time: set in code?
+0.0001
+step
+
+animation
+ease-1
+one-shot
+// Scale time
+0.2
+linear
+
+// Switch on visibility
+colour
+00000000, ffffffff
+
+// animated scale for number
+scale
+2, 2; 1, 1
+.5,.5
+
+// TODO Use sprite, big atlas
+// TODO Actually we should include this - it will be the same for all count-ins.
+//  The timing above will be different.
+gui-text
+// Name
+count-1
+0, 0
+// size
+.1, .1
+// Text
+1
+// Font name, size
+molin, 2.0, multi, fgcol=000000
+
+
+
+// Child 2
+animation
+step-2
+one-shot
+// Count-in time: set in code
+0.166666
+step
+
+animation
+ease-2
+one-shot
+// Scale time
+0.2
+linear
+
+// Switch on visibility
+colour
+00000000, ffffffff
+
+// animated scale for number
+scale
+2, 2; 1, 1
+.5,.5
+
+// TODO Use sprite, big atlas
+// TODO Actually we should include this - it will be the same for all count-ins.
+//  The timing above will be different.
+gui-text
+// Name
+count-2
+0.2, 0
+// size
+.1, .1
+// Text
+2
+// Font name, size
+molin, 2.0, multi, fgcol=000000
+
+
+// Child 3
+animation
+step-3
+one-shot
+// Count-in time: set in code
+.333333
+step
+
+animation
+ease-3
+one-shot
+// Scale time
+0.2
+linear
+
+// Switch on visibility
+colour
+00000000, ffffffff
+
+// animated scale for number
+scale
+2, 2; 1, 1
+.5,.5
+
+// TODO Use sprite, big atlas
+// TODO Actually we should include this - it will be the same for all count-ins.
+//  The timing above will be different.
+gui-text
+// Name
+count-3
+0.4, 0
+// size
+.1, .1
+// Text
+3
+// Font name, size
+molin, 2.0, multi, fgcol=000000
+
+
+// Child 4
+animation
+step-4
+one-shot
+// Count-in time: set in code
+.5
+step
+
+animation
+ease-4
+one-shot
+// Scale time
+0.2
+linear
+
+// Switch on visibility
+colour
+00000000, ffffffff
+
+// animated scale for number
+scale
+2, 2; 1, 1
+.5,.5
+
+// TODO Use sprite, big atlas
+// TODO Actually we should include this - it will be the same for all count-ins.
+//  The timing above will be different.
+gui-text
+// Name
+count-4
+0.6, 0
+// size
+.1, .1
+// Text
+4
+// Font name, size
+molin, 2.0, multi, fgcol=000000
+
+
+
+
+// Child 5
+animation
+step-5
+one-shot
+// Count-in time: set in code
+.666666
+step
+
+animation
+ease-5
+one-shot
+// Scale time
+0.2
+linear
+
+// Switch on visibility
+colour
+00000000, ffffffff
+
+// animated scale for number
+scale
+2, 2; 1, 1
+.5,.5
+
+// TODO Use sprite, big atlas
+// TODO Actually we should include this - it will be the same for all count-ins.
+//  The timing above will be different.
+gui-text
+// Name
+count-5
+0.8, 0
+// size
+.1, .1
+// Text
+5
+// Font name, size
+molin, 2.0, multi, fgcol=000000
+
+
+
+
+// Child 6
+animation
+step-6
+one-shot
+// Count-in time: set in code
+.8333333
+step
+
+animation
+ease-6
+one-shot
+// Scale time
+0.2
+linear
+
+// Switch on visibility
+colour
+00000000, ffffffff
+
+// animated scale for number
+scale
+2, 2; 1, 1
+.5,.5
+
+// TODO Use sprite, big atlas
+// TODO Actually we should include this - it will be the same for all count-ins.
+//  The timing above will be different.
+gui-text
+// Name
+count-6
+1.0, 0
+// size
+.1, .1
+// Text
+6
+// Font name, size
+molin, 2.0, multi, fgcol=000000
+
+
