@@ -1,0 +1,10 @@
+// ./midiscore ../../Assets/Songs/Satie-Gymnopedie-1/PLAYER.mid --bpm 70 --timesig 3/4 --quant c 
+// Quantising to: c
+// TPQ: 480
+// Num bars: 76
+// Guessing clef... min pitch: 64 max pitch: 81
+page-w 228
+bpm 70
+// ** STAVE 0 **
+stave clef-t 3/4 key-s-2 <m.> R | <m.> R | <m.> R | <m.> R | <c> r 78 mp 81 | <c> 79 78 73 | <c> 71 73 f 74 | <m.> 69 | <m.> 66 | t <m.> 66 | t <m.> 66 | t <m.> 66 | <c> r 78 mp 81 | <c> 79 78 73 | <c> 71 73 74 f | <m.> 69 | <m.> 73 | <m.> 78 | <m.> 64 | t <m.> 64 t | <m.> 64 mp | <c> 69 71 72 | <c> 76 74 71 | <c> 74 72 71 f | <m.> 74 | t <c> 74 t <c> 74 74 mp | <c> 76 77 79 | <c> 81 72 74 f | <c> 76 74 71 | <m.> 74 t | <m> 74 mp <c> 74 | <m.> 79 | <m.> 78 f | <c> 71 69 71 | <c> 73 74 76 | <c> 73 74 76 | <m.> 66 | <m.> R | <m.> R | <m.> R | <m.> R | <m.> R | <m.> R | <c> r 78 mp 81 | <c> 79 78 73 | <c> 71 73 f 74 | <m.> 69 | <m.> 66 t | <m.> 66 | t <m.> 66 | t <m.> 66 | <c> r 78 mp 81 | <c> 79 78 73 | <c> 71 73 74 f | <m.> 69 | <m.> 73 | <m.> 78 | <m.> 64 t | <m.> 64 mp | t <m.> 64 | <c> 69 71 72 | <c> 76 74 71 | <c> 74 72 71 f | <m.> 74 t | <m> 74 <c> 74 mp | <c> 76 77 79 | <c> 81 72 74 f | <c> 76 74 71 | <m.> 74 | t <c> 74 t <c> 74 mp 74 | <m.> 79 | <m.> 77 f | <c> 71 72 77 | <c> 76 74 72 | <c> 76 74 72 | <m.> 65 | <m.> R | <m.> R |
+
