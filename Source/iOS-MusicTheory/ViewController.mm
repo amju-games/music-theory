@@ -222,6 +222,18 @@ void PopulateCursorEvent(Amju::CursorEvent* ce, int x, int y)
   [self touchesEnded:touches withEvent:event];
 }
 
+// Defer system gestures to the second swipe
+- (UIRectEdge)preferredScreenEdgesDeferringSystemGestures
+{
+  // Returns .bottom to prioritize your game's input at the bottom edge
+  return UIRectEdgeBottom;
+}
+
+// Auto-hide the Home Indicator (the horizontal bar)
+- (BOOL)prefersHomeIndicatorAutoHidden {
+  return YES;
+}
+
 // Landscape only, but we want to auto rotate to support Left and Right.
 - (BOOL)shouldAutorotate {
   return YES;
