@@ -34,6 +34,10 @@ for f in Songs/**/*.ogg; do
   $GLUE_EXE -a $GLUE_FILE "$f"
 done
 
+for f in Songs/**/*.mp3; do
+  $GLUE_EXE -a $GLUE_FILE "$f"
+done
+
 # Verify glue file contents
 $GLUE_EXE -d $GLUE_FILE
 cd $THIS_DIR
