@@ -250,6 +250,10 @@ std::cout << "ERROR: no min/max notes in song section " << m_sectionIndex << "\n
 
   const int screenMin = m_keyboard->GetMinKeyOnScreen();
   const int screenMax = m_keyboard->GetMaxKeyOnScreen();
+  if (screenMin == -1 || screenMax == -1)
+  {
+    return;
+  }
 
   // Get mid point in screen coords of notes currently on screen
   const int screenMiddle = Mean(m_keyboard->GetKeyMidX(screenMin),
