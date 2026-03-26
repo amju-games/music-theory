@@ -8,8 +8,6 @@ gui-comp
 key-c-f
 3
 
-// TODO for now, make basic shape out of 2 rectangles
-
 gui-sprite
 key-top
 0, -0.3 
@@ -21,7 +19,6 @@ Image/keys2.png, stretch
 // Cell
 1
 
-
 include
 key2d-bottom.txt
 
@@ -31,13 +28,12 @@ colour
 
 gui-sprite
 key-margin
--0.012, -0.3
-0.012, 0.7
+-0.012, -0.28
+0.012, 0.72
 Image/keys2.png, stretch
 // This is the cell to use for a generic white block
 // Num cells x, y
 8, 8
 // Cell
-1
-
+9
 

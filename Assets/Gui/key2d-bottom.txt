@@ -6,19 +6,7 @@
 
 gui-comp
 key-bottom
-5
-
-// Big block for the widest part of the white key
-gui-sprite
-key-bottom
-0, -0.7
-0.15, 0.1
-Image/keys2.png, stretch
-// This is the cell to use for a generic white block
-// Num cells x, y
-8, 8
-// Cell
-1
+4
 
 // Front: dial down colour
 colour
@@ -36,11 +24,11 @@ Image/keys2.png, stretch
 // Cell
 1
 
-// Bottom curved edge of white key
+// Bottom of white key: large block and curved bottom edge
 patch
 white-key-bottom-patch
-0.0, -0.8
-.15, .15
+0.0, -0.699
+.15, .26
 Image/keys2.png, stretch
 // Num cells
 2, 2
@@ -59,7 +47,7 @@ colour
 // left edge
 gui-sprite
 key-left-edge-highlight
-0.001, -0.939
+0.004, -0.939
 0.004, 0.008
 Image/keys2.png, stretch
 // Num cells x, y
@@ -75,12 +63,13 @@ colour
 gui-sprite
 key-margin
 0.148, -0.7
-0.013, 0.3
+0.0126, 0.3
 Image/keys2.png, stretch
 // This is the cell to use for a generic white block
+//  for this image/cell layout
 // Num cells x, y
 8, 8
 // Cell
-1
+9
 
 
