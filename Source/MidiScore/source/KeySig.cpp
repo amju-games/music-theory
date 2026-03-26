@@ -5,6 +5,8 @@
 #include <iostream>
 #include "KeySig.h"
 
+//#define KEYSIG_GUESS_DEBUG
+
 namespace MidiScore
 {
 KeySig IntToKeySig(int k)
@@ -123,13 +125,17 @@ KeySig GuessKeySig(const Events& events, bool preferFlatKey)
 
     if (foundBetter)
     {
+#ifdef KEYSIG_GUESS_DEBUG
 std::cout << "// Guessing key sig.. " << NAMES[i] << " looks good, score is " << d << "\n";
+#endif
       bestDot = d;
       bestI = i;
     }
     else
     {
+#ifdef KEYSIG_GUESS_DEBUG
 std::cout << "//  (" << NAMES[i] << " has score " << d << ", discarding)\n";
+#endif
     }
   }
 
