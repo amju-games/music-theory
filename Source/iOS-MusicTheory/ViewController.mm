@@ -57,6 +57,8 @@ static ViewController* s_theVc = NULL;
   
     [super viewDidLoad];
     
+    self.preferredFramesPerSecond = 60; // oh yeah
+  
     // Enable multi-touch on the main view
     self.view.multipleTouchEnabled = YES;
   
