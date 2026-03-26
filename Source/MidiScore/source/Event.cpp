@@ -158,8 +158,8 @@ void AppendNoteEventToEvents(int tpq, Event e, Events& events)
 //std::cout << "Tail duration: " << tailDuration << " lower_bound dur: " << std::get<0>(*it) << "\n";
 
     // Split/tie notes on beats:
-    // Split note further, (decrement `it`) until the end time of the
-    //  head note falls on a multiple of its duration. Riiiight????
+    // Split note further, (decrement `it`) until the start and end times of the
+    //  head note falls on a multiple of its duration. 
     // SPLIT_ON_BEAT
     while (it != multiples.begin() && 
            (start % std::get<0>(*it)) != 0) // start should be multiple of duration
@@ -482,6 +482,7 @@ static Events::iterator SplitInsertRest(
   //  it if duration is not a nice tpq multiple.
 
   // Only use dotted rests in compound time sigs
+  //  OR if it's a whole bar rest.
   const auto multiples = GetTpqMultiples(tpq, allowDottedRests);
   int tailDuration = duration;
 
@@ -509,14 +510,16 @@ static Events::iterator SplitInsertRest(
       --mit;
     }
 
-    // Split rests on beats
-    // SPLIT_ON_BEAT
-    while (mit != multiples.begin() && 
-           (start % std::get<0>(*mit)) != 0) // start should be multiple of duration
+    // Split rests on beats -- but not whole bar rests.
+    if (!wholeBar)
     {
-      --mit;
+      // SPLIT_ON_BEAT
+      while (mit != multiples.begin() && 
+             (start % std::get<0>(*mit)) != 0) // start should be multiple of duration
+      {
+        --mit;
+      }
     }
-
 
     const auto [headDuration, timeVal, dots] = *mit;
     tailDuration -= headDuration;
@@ -549,8 +552,9 @@ void InsertRests(int tpq, Events& events, TimeSig ts)
   //  the shorter note, because it could clash with another note being
   //  played at the same time as the rest.
 
-  // Dotted rests in compound time sigs only.
-  const bool allowDottedRests = IsCompoundTimeSig(ts);
+  // Dotted rests in compound time sigs only, or if we decide this is a 
+  //  whole bar rest.
+  bool allowDottedRests = IsCompoundTimeSig(ts);
 
   int t = 0;  // accumulated time ticks through the piece
   bool chord = false; // true if we are parsing between ( ) chord markers
@@ -575,7 +579,12 @@ void InsertRests(int tpq, Events& events, TimeSig ts)
           (it != events.begin() && // after start of stave..
           (it - 1)->IsBarLine() && // ..and there's a bar line before..
            it->IsBarLine()); // ..and a bar line after.
-     
+
+        // A whole bar rest can be dotted. What this means in practice
+        //  is that we only get one rest for a whole bar rest for
+        //  keysigs like 3/4 - it doesn't get split into <m> r <c> r
+        allowDottedRests |= wholeBar;
+
         // If the duration can't be expressed as a [dotted] TimeVal,
         //  we have to insert multiple rests
         it = SplitInsertRest(events, it, tpq, restDuration, t, wholeBar, 

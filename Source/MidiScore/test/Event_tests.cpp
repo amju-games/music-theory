@@ -36,6 +36,18 @@ static Event r(int start, int duration, int tpq)
   return e;
 }
 
+// Create a barline event
+static Event barline(int start, int tpq)
+{
+  Event e;
+  e.m_type = EventType::BARLINE;
+  e.m_start = start;
+  e.m_duration = 0; 
+  e.m_end = start + e.m_duration;
+  e.SetTimeVal(tpq);
+  return e;
+}
+
 // Test basic stuff, the output string for notes etc.
 TEST_CASE("Output strings", "[Events]")
 {
@@ -510,6 +522,26 @@ TEST_CASE("Reverse", "[Events]")
   REQUIRE(events[2].m_end == 3 * tpq);
   REQUIRE(events[3].m_start == 3 * tpq);
   REQUIRE(events[3].m_end == 4 * tpq);
+}
+
+TEST_CASE("Insert whole bar rest, not split", "[Events]")
+{
+  const int tpq = 32; // ticks per quarter note
+  Events events
+  {
+    barline(3 * tpq, tpq),
+  };
+
+  InsertRests(tpq, events, TimeSig::TS_3_4);
+
+//  std::cout << OutputEvents(events);
+  // Expect dotted minim whole bar rest
+  REQUIRE(events.size() == 2);
+  REQUIRE(events[0].IsRest());
+  REQUIRE(events[0].m_timeVal == TimeVal::MINIM);
+  REQUIRE(events[0].m_dots == 1);
+  REQUIRE(events[0].m_isWholeBar);
+  REQUIRE(events[1].IsBarLine());
 }
 
 TEST_CASE("Insert rest, duration means it must be split", "[Events]")
