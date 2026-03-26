@@ -1,0 +1,134 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+translate 
+-0.2, 0
+
+// Element type
+gui-comp
+// Name
+count-in-comp
+// Num children
+3
+
+// Child 1
+animation
+step-1
+one-shot
+// Count-in time: set in code?
+0.0001
+step
+
+animation
+ease-1
+one-shot
+// Scale time
+0.2
+linear
+
+// Switch on visibility
+colour
+00000000, ffffffff
+
+// animated scale for number
+scale
+2, 2; 1, 1
+.5,.5
+
+// TODO Use sprite, big atlas
+// TODO Actually we should include this - it will be the same for all count-ins.
+//  The timing above will be different.
+gui-text
+// Name
+count-1
+0, 0
+// size
+.1, .1
+// Text
+1
+// Font name, size
+bmmolin, 2.0, multi, fgcol=000000
+
+
+
+// Child 2
+animation
+step-2
+one-shot
+// Count-in time: set in code
+0.25
+step
+
+animation
+ease-2
+one-shot
+// Scale time
+0.2
+linear
+
+// Switch on visibility
+colour
+00000000, ffffffff
+
+// animated scale for number
+scale
+2, 2; 1, 1
+.5,.5
+
+// TODO Use sprite, big atlas
+// TODO Actually we should include this - it will be the same for all count-ins.
+//  The timing above will be different.
+gui-text
+// Name
+count-2
+0.2, 0
+// size
+.1, .1
+// Text
+2
+// Font name, size
+bmmolin, 2.0, multi, fgcol=000000
+
+
+// Child 3
+animation
+step-3
+one-shot
+// Count-in time: set in code
+.5
+step
+
+animation
+ease-3
+one-shot
+// Scale time
+0.2
+linear
+
+// Switch on visibility
+colour
+00000000, ffffffff
+
+// animated scale for number
+scale
+2, 2; 1, 1
+.5,.5
+
+// TODO Use sprite, big atlas
+// TODO Actually we should include this - it will be the same for all count-ins.
+//  The timing above will be different.
+gui-text
+// Name
+count-3
+0.4, 0
+// size
+.1, .1
+// Text
+3
+// Font name, size
+bmmolin, 2.0, multi, fgcol=000000
+
+
