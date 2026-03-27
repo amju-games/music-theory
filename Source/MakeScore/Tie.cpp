@@ -7,6 +7,7 @@
 #include <cassert>
 #include <vector>
 #include "Glyph.h"
+#include "NoteAndChordBase.h"
 #include "Tie.h"
 
 void Tie::CalcPos()
@@ -34,31 +35,51 @@ std::string Tie::ToString() const
   //  desired shape.
 
   bool stemUp = (m_leftGlyph->GetStaveLine() < 5);
+  // We can assume the glyphs are notes/chords?
+  if (auto n = dynamic_cast<NoteAndChordBase*>(m_leftGlyph))
+  {
+    stemUp = n->GetStem().GetDirection() == StemDir::UP;
+  }
 
   bool curveIsU = stemUp;
   float y = m_leftGlyph->y;  // same as right side -- RIGHT?!
   // Don't know why, but we are off by 0.5 here.
+  // Yes I do, it's QUAD_Y_OFFSET -- this is a curve, not a quad, but
+  //  I'm guessing it's the same deal.
+  y += QUAD_Y_OFFSET;
+
   // Add or subtract to get above/below note head.
-  y += 0.5f + (curveIsU ? -0.1f : 0.1f);
+  const float Y_ADJUST = 0.06f;
+  y += Y_ADJUST * (curveIsU ? -1.f : 1.f);
+
   float w = m_rightX - m_leftX;
   const float TIE_ASPECT_RATIO = 8.f;
-  float h = w / TIE_ASPECT_RATIO;
+  const float MAX_H = 0.2f; // In final print coords, so this is 2 stave gaps
+  float h = std::min(w / TIE_ASPECT_RATIO, MAX_H);
   if (curveIsU)
   {
     h = -h;
   }
+
+  // Offset the whole thing to the right
   float xoff = X_OFFSET_RIGHT * .6f;
 
-  const float CP = 0.18f; // control point, for shape
+  // Squish the end points together a bit.
+  float xSquish = NOTE_HEAD_WIDTH * 0.7f;
+
+  const float CP = 0.22f; // control point, for shape
   std::vector<float> coords =
   {
-    m_leftX + xoff,  y, // we need to duplicate the first for spline calc
-    m_leftX + xoff,  y,
-    Interp(m_leftX, m_rightX, CP) + xoff, y + (h * 0.8f), // give shape
-    Interp(m_leftX, m_rightX, .5f) + xoff, y + h, // centre
-    Interp(m_leftX, m_rightX, (1.f - CP)) + xoff, y + (h * 0.8f), // give shape
-    m_rightX + xoff, y,
-    m_rightX + xoff, y, // TODO do we need this last one?
+    // Left end point
+    m_leftX + xoff + xSquish,  y,
+    // Control point: gives desired shape to curve
+    Interp(m_leftX + xSquish, m_rightX - xSquish, CP) + xoff, y + (h * 0.8f), 
+    // Centre point of curve
+    Interp(m_leftX, m_rightX, .5f) + xoff, y + h, 
+    // Symmetrical control point to give shape
+    Interp(m_leftX + xSquish, m_rightX - xSquish, (1.f - CP)) + xoff, y + (h * 0.8f), 
+    // Right end point
+    m_rightX + xoff - xSquish, y
   };
 
   std::string res = "curve, ";

@@ -22,6 +22,8 @@ public:
 
   void SetStemLength(float length) { m_stem.SetLength(length); }
 
+  const Stem& GetStem() const { return m_stem; }
+
   // For beaming, get the stave line of the note. If a chord,
   //  get the stave line of the note closest to the beam given
   //  the direction of all stems in the beam group.

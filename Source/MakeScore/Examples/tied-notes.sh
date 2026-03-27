@@ -2,7 +2,7 @@
 # (c) Copyright 2026 Juliet Colman
 
 
-../makescore "page-w 4 [Tied notes] <d4> c t c | <g5> c t c " > out.txt
+../makescore --scale 0.8 "page-w 5 [Tied notes] <d4> c t m t c | <g5> sb t c " > out.txt
 
 cat out.txt
 
