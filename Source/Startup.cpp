@@ -383,16 +383,10 @@ static void SetInitialState()
     return;
   }
 
-//  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
-//  TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());
-//  TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
-//  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
-//  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
-//  TheGame::Instance()->SetCurrentState(TheGSAvatarMod::Instance());
-//  TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
-
-  // Developing Hero Mode
-  TheGame::Instance()->SetCurrentState(TheGS3dTitle::Instance());
+  // On a fresh device, we have to go to this state first. It copies
+  //  ROConfig.txt to the save dir. TODO Why bother?!
+  TheGSCopyAssets::Instance()->SetPrevState(TheGS3dTitle::Instance());
+  TheGame::Instance()->SetCurrentState(TheGSCopyAssets::Instance());
 }
 
 static void LoadStringTableForPreferredLanguage()

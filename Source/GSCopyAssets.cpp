@@ -160,8 +160,9 @@ std::cout << "\nSave Dir: " << saveDir << "\n";
 
     CopyFromGlueFile(saveDir);
 
-    // All copied - go to next state 
-    TheGame::Instance()->SetCurrentState(TheGSTitle::Instance());
+    // All copied - go to next state: set up prevstate before going 
+    //  to this state.
+    GoBack();
   }
 }
 

@@ -9,7 +9,6 @@
 #include <SoundManager.h>
 #include "Consts.h"
 #include "GSCopyAssets.h" // for CopyFromGlueFile, DEPRECATED
-#include "GSFirstUser.h" // TODO Use it or lose it
 #include "GSTitle.h"
 #include "PlayWav.h"
 #include "UserProfile.h"

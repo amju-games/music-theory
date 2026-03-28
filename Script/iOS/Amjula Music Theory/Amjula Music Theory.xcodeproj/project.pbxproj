@@ -30,7 +30,6 @@
 		6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2EA1E97F6F800E251A9 /* UserProfile.cpp */; };
 		6959E2F81E9ACE8A00E251A9 /* GSPause.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2F41E9ACE8A00E251A9 /* GSPause.cpp */; };
 		6959E3031EA1091500E251A9 /* GSAbout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E2FB1EA1091500E251A9 /* GSAbout.cpp */; };
-		6959E30B1EA7CFF200E251A9 /* GSFirstUser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3081EA7CFF200E251A9 /* GSFirstUser.cpp */; };
 		6959E3191EA7F44600E251A9 /* iOSGuiTextEdit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3161EA7F44600E251A9 /* iOSGuiTextEdit.mm */; };
 		6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */; };
 		6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E31C1EAB5BA500E251A9 /* PrintGui.cpp */; };
@@ -181,8 +180,6 @@
 		6959E2F51E9ACE8A00E251A9 /* GSPause.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSPause.h; path = ../../../../Source/GSPause.h; sourceTree = "<group>"; };
 		6959E2FB1EA1091500E251A9 /* GSAbout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSAbout.cpp; path = ../../../../Source/GSAbout.cpp; sourceTree = "<group>"; };
 		6959E2FC1EA1091500E251A9 /* GSAbout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSAbout.h; path = ../../../../Source/GSAbout.h; sourceTree = "<group>"; };
-		6959E3081EA7CFF200E251A9 /* GSFirstUser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSFirstUser.cpp; path = ../../../../Source/GSFirstUser.cpp; sourceTree = "<group>"; };
-		6959E3091EA7CFF200E251A9 /* GSFirstUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSFirstUser.h; path = ../../../../Source/GSFirstUser.h; sourceTree = "<group>"; };
 		6959E3151EA7F44600E251A9 /* iOSGuiTextEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iOSGuiTextEdit.h; path = "../../../../Source/iOS-MusicTheory/iOSGuiTextEdit.h"; sourceTree = "<group>"; };
 		6959E3161EA7F44600E251A9 /* iOSGuiTextEdit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSGuiTextEdit.mm; path = "../../../../Source/iOS-MusicTheory/iOSGuiTextEdit.mm"; sourceTree = "<group>"; };
 		6959E3171EA7F44600E251A9 /* iOSKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iOSKeyboard.h; path = "../../../../Source/iOS-MusicTheory/iOSKeyboard.h"; sourceTree = "<group>"; };
@@ -478,8 +475,6 @@
 				6951CF121F0B932300140095 /* GSBase3d.h */,
 				695E90711F4A13CA0003901E /* GSCopyAssets.cpp */,
 				695E90721F4A13CA0003901E /* GSCopyAssets.h */,
-				6959E3081EA7CFF200E251A9 /* GSFirstUser.cpp */,
-				6959E3091EA7CFF200E251A9 /* GSFirstUser.h */,
 				C56DACF82EF2CFED00739D75 /* GSGuiEdit.cpp */,
 				C56DACF02EF2CFED00739D75 /* GSGuiEdit.h */,
 				C55726A22F0EFA5400EEB2A5 /* GSHero.cpp */,
@@ -782,7 +777,6 @@
 				6955431C1F3B526D007C23EA /* MySceneGraph.cpp in Sources */,
 				69A23A611F641AA40021BF88 /* TutorialIds.cpp in Sources */,
 				69C10CD61F122197009B6836 /* PlayWav.cpp in Sources */,
-				6959E30B1EA7CFF200E251A9 /* GSFirstUser.cpp in Sources */,
 				C55726A52F0EFA5400EEB2A5 /* GS3dExample.cpp in Sources */,
 				697F64852051BC7100365E68 /* Notebook.cpp in Sources */,
 				69D58E871E86A02B008A8D29 /* ScoreBuilder.cpp in Sources */,
@@ -1015,7 +1009,7 @@
 					../../../../amjulib/Source/SoundBass/Bass2.4/iPhone,
 					"../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory-2025-12-22";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory-2026-03-28";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1048,7 +1042,7 @@
 					../../../../amjulib/Source/SoundBass/Bass2.4/iPhone,
 					"../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory-2025-12-22";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-Theory-2026-03-28";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
