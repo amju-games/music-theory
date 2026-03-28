@@ -59,6 +59,9 @@ const char* BEAT_NAME = "BEAT"; // Sets the prevailing time mark as a beat,
 // For adding curve (LineDrawing) children
 const char* CURVE_NAME = "curve";
 
+// Bar number meta data
+const char* BAR_NUMBER = "BAR_NUMBER";
+
 // For adding text children
 const char* TEXT_NAME = "text";
 const char* FONT_NAME = "text_font";
@@ -671,6 +674,24 @@ float GuiMusicScore::GetBpm() const
   return m_bpm;
 }
 
+bool GuiMusicScore::ParseBarNumber(const Strings& strs)
+{
+  if (strs.size() != 4)
+  {
+    ReportError("Bad number of params for bar number.");
+    return false;
+  }
+
+  // Format is: BAR_NUMBER, <bar number>, x, y
+
+  // Store bar numbers in simple form. Client can decide how to render.
+  // (Important to batch them, whatever we do!)
+
+  Vec2f pos(ToFloat(strs[2]), ToFloat(strs[3]));
+  m_barNumbers.emplace_back(BarNumber { ToInt(strs[1]), pos });
+  return true;
+}
+
 bool GuiMusicScore::ParseBpm(const Strings& strs)
 {
   if (strs.size() != 2)
@@ -701,6 +722,10 @@ bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* re
   else if (strs[0] == BPM_NAME)
   {
     return ParseBpm(strs);
+  }
+  else if (strs[0] == BAR_NUMBER)
+  {
+    return ParseBarNumber(strs);
   }
   else if (strs[0] == BEAT_NAME)
   {

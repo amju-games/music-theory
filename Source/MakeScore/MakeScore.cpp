@@ -343,10 +343,6 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
       //  won't work. -- Fixed by preprocessing the tokens.
       AddDirection(s);
     }
-    else if (IsBeam(s))
-    {
-      //// TODO /////GetCurrentStave().AddBeam(s);
-    }
     else if (IsClef(s))
     {
       GetCurrentStave().AddClef(s);

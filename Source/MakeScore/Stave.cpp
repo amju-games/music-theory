@@ -63,6 +63,8 @@ std::string Stave::ToString() const
     if (yesComments)
       res += "// ** Bar " + std::to_string(barNum++) + " **" + LineEnd();
 
+    res += b->BarNumberString(barNum);
+
     res += b->ToString();
   }
 

@@ -103,8 +103,6 @@ public:
 
   void AddTimeSig(const std::string& token);
 
-  void AddBeam(const std::string& s);
-
   void SetClef(Clef clef);
 
   // Assuming one clef set at the start of the bar, or a cue clef at the
@@ -142,6 +140,10 @@ public:
   // Get number of glyphs for adjusting the width of bars.
   // Include any accidentals to try to avoid overlapping.
   int GetNumGlyphs() const;
+
+  // Return string of given bar number and the top left coords of this bar.
+  // So client code can draw all or some bar numbers.
+  std::string BarNumberString(int barNum) const;
 
 private:
   // Position glyphs across bar after 'fixed' elements like clef and time

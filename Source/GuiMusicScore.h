@@ -32,6 +32,16 @@ struct Beat
 
 using BeatVec = std::vector<Beat>;
 
+// * BarNumber *
+// Parsed at load time, then client code can decide how to draw them.
+struct BarNumber
+{
+  int m_number; // one-based
+  Vec2f m_pos; // position relative to stave
+};
+
+using BarNumberVec = std::vector<BarNumber>;
+
 // * GuiMusicScore *
 // Display music notation.
 class GuiMusicScore : public GuiElement
@@ -183,6 +193,8 @@ public:
   using NoteEventCallback = std::function<void(const NoteEvent&)>;
   void SetNoteEventCallback(NoteEventCallback cb);
 
+  const auto& GetBarNumbers() const { return m_barNumbers; }
+
 protected:
   // Draw child GUI elements (curves, text, etc)
   virtual void DrawChildren(); // not const because GuiElement::Draw not const, why tho
@@ -234,6 +246,7 @@ protected:
   // Tempo and beat meta data 
   bool ParseBpm(const Strings& strs);
   bool ParseBeat(const Strings& strs);
+  bool ParseBarNumber(const Strings& strs);
   
   // Check for new note events, send them, and advance m_nextNoteEvent appropriately.
   void UpdateNoteEvents(float animValue);
@@ -302,6 +315,8 @@ protected:
   BeatVec m_beats; 
 
   NoteEventCallback m_noteEventCallback;
+
+  BarNumberVec m_barNumbers;
 };
 
 inline bool operator<(

@@ -237,8 +237,13 @@ void Bar::AddTimeSig(const std::string& s)
   m_timeSigGlyph = std::unique_ptr<Glyph>(glyph);
 }
 
-void Bar::AddBeam(const std::string& s)
+std::string Bar::BarNumberString(int barNum) const
 {
+  // Output bar number and position of this bar -- called by Stave.
+  return "BAR_NUMBER, " + std::to_string(barNum) + ", " + 
+    std::to_string(m_x * m_scale) + ", " + 
+    std::to_string(m_y * m_scale) + 
+    LineEnd(); 
 }
 
 std::string Bar::ToString()
