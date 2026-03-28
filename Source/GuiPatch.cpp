@@ -22,7 +22,7 @@ bool GuiPatch::Load(File* f)
 
 void GuiPatch::Draw()
 {
-  AddToBatch();
+  AddToBatch(this);
 
   // Store current state of transform and colour, which we use later when
   //  we draw the batch of all tris using the current texture.

@@ -1,0 +1,103 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+batch-test
+// Num children
+2
+
+translate
+0, 0
+
+gui-comp
+left-side
+2
+
+colour 
+ff8000ff
+// Patch -- test
+patch
+my-patch
+// *********************
+// NB z-coord!!!!
+-.7, 0.5, -1
+// *********************
+0.5, 0.5 
+Image/rough-circle.png, stretch
+// Num cells
+1,1
+// Cell
+0
+// Corner size: TODO: should this be auto-adjusted so equal coords give squares?
+0.1, 0.15
+
+
+colour 
+00ff80ff
+// Patch -- test
+patch
+my-patch
+// *********************
+-.9, 0.2, 1
+// *********************
+0.5, 0.5 
+Image/rough-circle.png, stretch
+// Num cells
+1,1
+// Cell
+0
+// Corner size: TODO: should this be auto-adjusted so equal coords give squares?
+0.1, 0.15
+
+translate
+1.0, -0.1
+
+gui-comp
+right-side
+2
+
+// Right side is the same as left side except that the z-coord of the patches
+//  have been swapped.
+
+colour 
+ff8000ff
+// Patch -- test
+patch
+my-patch
+// *********************
+// NB z-coord!!!!
+-.7, 0.5, 1
+// *********************
+0.5, 0.5 
+Image/rough-circle.png, stretch
+// Num cells
+1,1
+// Cell
+0
+// Corner size: TODO: should this be auto-adjusted so equal coords give squares?
+0.1, 0.15
+
+
+colour 
+00ff80ff
+// Patch -- test
+patch
+my-patch
+// *********************
+-.9, 0.2, -1
+// *********************
+0.5, 0.5 
+Image/rough-circle.png, stretch
+// Num cells
+1,1
+// Cell
+0
+// Corner size: TODO: should this be auto-adjusted so equal coords give squares?
+0.1, 0.15
+
+
