@@ -1,0 +1,26 @@
+// ./midiscore ../../Assets/Songs/Bach-Air/bach-air-player-track.mid --quant qqq --bpm 30 
+// Quantising to: qqq
+// TPQ: 480
+// Guessing key sig.. 0 sharps looks good, score is 226
+// Guessing key sig.. 1 sharp looks good, score is 278
+// Guessing key sig.. 2 sharps looks good, score is 320
+//  (3 sharps has score 284, discarding)
+//  (4 sharps has score 234, discarding)
+//  (5 sharps has score 194, discarding)
+//  (6 sharps has score 152, discarding)
+//  (7 sharps has score 114, discarding)
+//  (0 flats has score 226, discarding)
+//  (1 flat has score 184, discarding)
+//  (2 flats has score 144, discarding)
+//  (3 flats has score 106, discarding)
+//  (4 flats has score 102, discarding)
+//  (5 flats has score 114, discarding)
+//  (6 flats has score 152, discarding)
+//  (7 flats has score 194, discarding)
+// Num bars: 36
+// Guessing clef... min pitch: 69 max pitch: 84
+page-w 216
+bpm 30
+// ** STAVE 0 **
+stave clef-t 4/4 key-s-2 <sb> 78 fff t | <q> 78 <qq> 83 <qqq> 79 78 <qq> 76 74 73 74 <q.> 73 t <qqq> 73 71 <c> 69 | <m> 81 t <qq> 81 78 72 71 76 75 81 79 | <m> 79 t <qq> 79 76 71 69 74 73 79 78 | <c> 78 t <q> 78 <qq> 80 81 <q> 74 <qqq> 74 76 <qq.> 78 t <qqq> 78 <qq> 76 76 74 | <qq> 73 71 <qqq> 71 73 <qq> 74 t <q> 74 <qq> 73 71 <m> 69 | <sb> 78 t | <q> 78 <qq> 83 <qqq> 79 78 <qq> 76 74 73 74 <q.> 73 t <qqq> 73 71 <c> 69 | <m> 81 t <qq> 81 78 72 71 76 75 81 79 | <m> 79 t <qq> 79 76 71 69 74 73 79 78 | <c> 78 t <q> 78 <qq> 80 81 <q> 74 <qqq> 74 76 <qq.> 78 t <qqq> 78 <qq> 76 76 74 | <qq> 73 71 <qqq> 71 73 <qq> 74 t <q> 74 <qq> 73 71 <m> 69 | <c> 73 t <qq> 73 <qqq> 74 73 71 73 <qq> 69 <c> 81 t <q> 81 72 | <q> 71 <q.> 83 <qq> 81 79 78 <c> 79 t <qqq> 79 78 76 74 <qq> 73 71 | <qq> 70 71 <q> 73 t <qq> 73 74 <q> 76 t <qq> 76 78 <q.> 79 t <qq> 79 <q> 78 | <qq> 76 74 73 71 73 <qqq> 74 76 <q> 74 <m> 71 | <c> 74 t <qq> 74 78 76 74 <c.> 83 <qq> 81 <qqq> 80 78 | <qq> 76 81 <q> 69 <q.> 71 <qqq> 73 74 <q> 73 t <qq> 73 71 <c> 69 | <c.> 74 <qq> 78 76 <c> 76 t <q> 76 <qq> 79 78 | <c> 78 t <q> 78 <qq> 81 79 <m> 79 | <c> 69 t <qq> 69 73 76 79 79 76 <q.> 78 t <qq.> 78 t <qqq> 78 79 81 | <c> 74 t <qq> 74 78 81 84 <c> 83 t <q> 83 74 | <qq> 73 76 <q.> 79 t <qq> 79 <q> 71 69 <qq> 76 <qqq> 78 79 t <qq> 79 78 t <qq> 78 76 | <qqq> 74 73 <qq.> 71 t <qqq> 71 <qq> 73 <q> 74 <qq> 73 74 <m> 74 | <c> 73 t <qq> 73 <qqq> 74 73 71 73 <qq> 69 <c> 81 t <q> 81 72 | <q> 71 <q.> 83 <qq> 81 79 78 <c> 79 t <qqq> 79 78 76 74 <qq> 73 71 | <qq> 70 71 <q> 73 t <qq> 73 74 <q> 76 t <qq> 76 78 <q.> 79 t <qq> 79 <q> 78 | <qq> 76 74 73 71 73 <qqq> 74 76 <q> 74 <m> 71 | <c> 74 t <qq> 74 78 76 74 <c.> 83 <qq> 81 <qqq> 80 78 | <qq> 76 81 <q> 69 <q.> 71 <qqq> 73 74 <q> 73 t <qq> 73 71 <c> 69 | <c.> 74 <qq> 78 76 <c> 76 t <q> 76 <qq> 79 78 | <c> 78 t <q> 78 <qq> 81 79 <m> 79 | <c> 69 t <qq> 69 73 76 79 79 76 <q.> 78 t <qq.> 78 t <qqq> 78 79 81 | <c> 74 t <qq> 74 78 81 84 <c> 83 t <q> 83 74 | <qq> 73 76 <q.> 79 t <qq> 79 <q> 71 69 <qq> 76 <qqq> 78 79 t <qq> 79 78 t <qq> 78 76 | <qqq> 74 73 <qq.> 71 t <qqq> 71 <qq> 73 <q> 74 <qq> 73 74 <m> 74 | 
+
