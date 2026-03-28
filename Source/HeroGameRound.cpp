@@ -1,4 +1,3 @@
-#include <sstream>
 #include <File.h>
 #include <Localise.h>
 #include <StringUtils.h>
@@ -6,22 +5,6 @@
 
 namespace Amju
 {
-// TODO Promote this handy function
-template <typename T = int>
-std::vector<T> SplitIntoVec(const std::string& str, char splitChar = ',')
-{
-  const auto strs = Split(str, splitChar);
-  std::vector<T> res;
-  for (const auto& s : strs)
-  {
-    std::istringstream is(s);
-    T t;
-    is >> t;
-    res.push_back(t);
-  }
-  return res;
-}
-
 bool GameRoundManager::Load()
 {
   m_gameRounds.clear();
