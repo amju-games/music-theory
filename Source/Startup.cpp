@@ -49,9 +49,8 @@
 #include "GS3dExample.h"
 #include "GS3dTitle.h"
 #include "GSCopyAssets.h"
-#include "GSFirstUser.h"
 #include "GSHero.h"
-#include "GSPlayNotes.h"
+#include "GSPlayNotes.h" // --keyboard mode
 #include "GSShowGui.h"
 #include "GSShowMusicScore.h"
 #include "GSTestShowScore.h"
@@ -387,7 +386,6 @@ static void SetInitialState()
 //  TheGame::Instance()->SetCurrentState(TheGSUserDraw::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSUserDrawSave::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSTopicEnd::Instance());
-//  TheGame::Instance()->SetCurrentState(TheGSFirstUser::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSTestShowScore::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSMainCorridor::Instance());
 //  TheGame::Instance()->SetCurrentState(TheGSAvatarMod::Instance());
