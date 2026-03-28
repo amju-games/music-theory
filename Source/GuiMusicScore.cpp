@@ -981,8 +981,10 @@ bool GuiMusicScore::LoadMusicScore(File* f)
   // if the name is not recognised. The names are just a way to make the
   // characters human-readable.
   std::string line;
+  int numLines = 0;
   while (f->GetDataLine(&line))
   {
+    ++numLines;
     if (line == "end")
     {
       break;
@@ -990,9 +992,15 @@ bool GuiMusicScore::LoadMusicScore(File* f)
 
     if (!AddMultipleGlyphsFromString(line))
     {
-      f->ReportError("Failed to load score :(");
+      f->ReportError("Failed to load score because of this: " + line);
       return false;
     }
+  }
+
+  if (numLines == 0)
+  {
+    f->ReportError("Score is empty!! You broke MakeScore, you fool!!");
+    return false;
   }
 
   // Sort the glyphs by start time, for animation.
