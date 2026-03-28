@@ -55,21 +55,15 @@ bool GameRoundManager::Load()
       continue;
     }
 
-    for (const auto& cell : cells)
-    {
-      if (cell.empty())
-      {
-        f.ReportError("Bad game round data, some fields are blank.");
-        return false;
-      }   
-    }
-
     HeroGameRound round;
     round.m_level = ToInt(cells[0]);
     round.m_round = ToInt(cells[1]);
     round.m_name = cells[2];
     round.m_title = Lookup(cells[3]); // Get localised string
-    round.m_subtitle = Lookup(cells[4]); // Get localised string
+    if (!cells[4].empty())
+    {
+      round.m_subtitle = Lookup(cells[4]); // Get localised string
+    }
     round.m_composer = Lookup(cells[5]); // Get localised string
     round.m_backingTrack = "Songs/" + cells[6];
     round.m_countIn = "Songs/" + cells[7];
@@ -79,7 +73,10 @@ bool GameRoundManager::Load()
     round.m_musicScore = "Songs/" + cells[11];
     round.m_soundFont = "Sound/" + cells[12];
     round.m_lifeDecrease = ToInt(cells[13]);
-    round.m_sectionEndBarNumbers = SplitIntoVec(cells[14]);
+    if (!cells[14].empty())
+    {
+      round.m_sectionEndBarNumbers = SplitIntoVec(cells[14]);
+    }
 
 //std::cout << round;
 
