@@ -238,6 +238,7 @@ GuiMusicKbBase::Key* GuiMusicKbBase::GetKey(int midiNote) const
 
 float GuiMusicKbBase::GetKeyMidX(int midiKey) const
 {
+  Assert(midiKey >= 0 && midiKey <= 127);
   const auto key = GetKey(midiKey);
   Assert(key); // make sure midiKey is a valid note?
   const auto& rect = key->m_projectedRect;

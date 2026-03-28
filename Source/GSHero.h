@@ -58,6 +58,9 @@ public:
   // Call this once we know we won't be resuming the current round.
   void CancelResumeTime();
 
+  // Callback, when keyboard stops moving to new position
+  void OnKeyboardHasFinishedMoving();
+
 protected:
   // Call to change current 'micro state'
   void ChangeState(HeroState newState);
@@ -209,6 +212,9 @@ protected:
   //  when entering a new section, (not continuously/every note event).
   Sections m_songSections;
   int m_sectionIndex = 0; // index into m_songSections
+
+  // While true, keyboard is moving to a new position
+  bool m_keyboardIsMoving = false;
 };
 
 typedef Singleton<GSHero> TheGSHero;

@@ -1,12 +1,19 @@
 #pragma once
 
 #include <optional>
+#include <ostream>
+#include "GuiMusicScore.h"
 #include "NoteEvent.h"
 
 namespace Amju
 {
 using Section = std::pair<int, int>;
 using Sections = std::vector<Section>;
+
+inline std::ostream& operator<<(std::ostream& os, const Section& s)
+{
+  return os << "[" << s.first << ", " << s.second << ")";
+}
 
 // ** FindSongSections **
 // Identify sections in a song, defined by a sequence of NoteEvents.
@@ -26,6 +33,12 @@ std::optional<std::pair<int, int>> FindMinMaxPitchInSection(
 //  bar numbers (zero-based). The end of each bar number is the end of
 //  a section.
 // TODO Make this work: find events in bars!
-void AddGameRoundSections(Sections& sections, const std::vector<int>& bars);
+void AddGameRoundSections(Sections& sections, const std::vector<int>& bars,
+  const NoteEvents& song, const BeatVec& beats);
+
+// Helper: given existing sections and a list of (possibly) additional IDs,
+//  split existing sections and add new sections as appropriate.
+void InsertNewSections(Sections& sections, const std::vector<int>& ids,
+  const NoteEvents& song);
 }
 

@@ -171,8 +171,9 @@ void GuiScrollScore::AnimateSpecial(float animValue, float dAnimValue)
 
   if (it == noteOnEvents.end())
   {
-    // Have we reached the end of the piece?
-std::cout << "End of the piece?\n";
+#ifdef ANIM_DEBUG    
+std::cout << "End of the piece\n";
+#endif
   }
   else
   {

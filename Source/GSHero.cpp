@@ -48,6 +48,11 @@ static void OnPauseButton(PGuiElement)
   TheGSHero::Instance()->OnPauseGame();
 }
 
+static void OnKeyboardHasFinishedMoving(Animator*)
+{
+  TheGSHero::Instance()->OnKeyboardHasFinishedMoving();
+}
+
 GSHero::GSHero()
 {
   m_guiFilename = "Gui/gs_hero.txt";
@@ -234,6 +239,8 @@ void GSHero::UpdateKeyboardPosition()
   m_keyboard->ColouriseKeys(keys);
 
   // Move the keyboard so all notes in the section are centred on screen. 
+  // Although, centring looks good, it is bad for playability :(
+
   // Get the min and max notes in the range
   const auto optSectionMinMaxNotes = FindMinMaxPitchInSection(s, noteEvents);
   if (!optSectionMinMaxNotes) 
@@ -243,6 +250,17 @@ std::cout << "ERROR: no min/max notes in song section " << m_sectionIndex << "\n
   }
   const int sectionMin = optSectionMinMaxNotes->first;
   const int sectionMax = optSectionMinMaxNotes->second;
+  if (   sectionMin == -1 || sectionMax == -1
+      || sectionMin == 0  || sectionMax == 0) // non-note events in section
+  {
+std::cout << "ERROR: non-note events in song section " << m_sectionIndex << "\n";
+    return;
+  }
+std::cout << "Section min note pitch: " << sectionMin 
+  << " section max: " << sectionMax << "\n";
+
+  Assert(m_keyboard->GetKey(sectionMin)); // bad section, contains non-notes?
+  Assert(m_keyboard->GetKey(sectionMax)); // bad section, contains non-notes?
 
   // Get mid point in screen coords of notes in section
   float sectionMiddle = Mean(m_keyboard->GetKeyMidX(sectionMin), 
@@ -252,7 +270,14 @@ std::cout << "ERROR: no min/max notes in song section " << m_sectionIndex << "\n
   const int screenMax = m_keyboard->GetMaxKeyOnScreen();
   if (screenMin == -1 || screenMax == -1)
   {
+std::cout << "ERROR: keyboard: no min/max keys on screen?\n";
     return;
+  }
+
+  if (sectionMin > screenMin && sectionMax < screenMax) 
+  {
+    // Don't centre... it looks great but makes it harder to play.
+    return; // no need to do anything, let the animation finish
   }
 
   // Get mid point in screen coords of notes currently on screen
@@ -279,6 +304,19 @@ std::cout << "ERROR: no min/max notes in song section " << m_sectionIndex << "\n
   // ..sets current translation back to current pos
 
   m_keyboardAnim->ResetAnimation();
+  m_keyboardIsMoving = true;
+  // Urgh, set and reset this callback, or it keeps getting called
+  //  every frame! TODO Fix that, in Animator.
+  m_keyboardAnim->SetOnCompleteCallback(Amju::OnKeyboardHasFinishedMoving);
+}
+
+void GSHero::OnKeyboardHasFinishedMoving()
+{
+  // Urgh, set and reset this callback, or it keeps getting called
+  //  every frame! TODO Fix that, in Animator.
+  m_keyboardAnim->SetOnCompleteCallback(nullptr);
+
+  m_keyboardIsMoving = false;
 }
 
 void GSHero::Draw2d()
@@ -609,7 +647,8 @@ void GSHero::OnMusicKbEvent(const MusicKbEvent& e)
   // This is a player-generated event
 
 #ifdef MUSIC_EVENT_DEBUG
-std::cout << "Music KB event: " << e.m_note << " " 
+std::cout << "Music KB event: " 
+  << e.m_note << " " 
   << (e.m_on? "on" : "off")
   << "\n";
 #endif  // MUSIC_EVENT_DEBUG
@@ -619,7 +658,20 @@ std::cout << "Music KB event: " << e.m_note << " "
     return;
   }
 
-  GradeEvent(e);
+  if (m_keyboardIsMoving)
+  {
+#ifdef MUSIC_EVENT_DEBUG
+std::cout << "Not grading event, keyboard is moving. (" 
+  << e.m_note << " " 
+  << (e.m_on? "on" : "off")
+  << ")\n";
+#endif  // MUSIC_EVENT_DEBUG
+
+  }
+  else
+  {
+    GradeEvent(e);
+  }
 }
 
 void GSHero::GradeEvent(const MusicKbEvent& e)
@@ -776,7 +828,7 @@ void GSHero::OnActive()
   GSBase::OnActive();  
 
   frameCount = 0;
-
+  m_keyboardIsMoving = false;
   m_roundIsOver = false;
   ChangeState(HeroState::NEW); 
   // Or should we use the state when hero mode was last active??
@@ -899,10 +951,22 @@ std::cout << "Loading music score: " << score << "...\n";
 
   // Identify sections (phrases?) between which it is safe to move
   //  the keyboard (i.e. won't be a bad experience for the player).
-  m_songSections = FindSongSections(m_scrollScore->GetNoteEvents());
-  // Add sections added manually to the game round. This is necessary if there are no
-  //  identifiable sections, but can be a mixture.
-  AddGameRoundSections(m_songSections, GetGameRound().m_sectionEndBarNumbers);
+  const auto& events = m_scrollScore->GetNoteEvents();
+  m_songSections = FindSongSections(events);
+
+  // Add sections added manually to the game round. This is necessary 
+  //  if there are no identifiable sections, but can be a mixture.
+  AddGameRoundSections(
+    m_songSections, 
+    GetGameRound().m_sectionEndBarNumbers, // list of bar numbers
+    events, // all note (and rest) events 
+    m_scrollScore->GetBeats()); // time for each bar
+
+std::cout << "Here are the final sections:\n";
+for (const auto& s : m_songSections)
+{
+  std::cout << s << "\n";
+}
 }
 
 void GSHero::InitScrollScoreAnim()
@@ -1028,9 +1092,7 @@ std::cout << "Failed to find score-extras!\n";
   m_scoreExtras->AddChild(extra);
 
   const auto& noteEvents = m_scrollScore->GetNoteEvents();
-  // Get rid of note up events, so we just have note down events.
-  // Probably best to just iterate over the events, counting the type
-  //  we are interested in.
+  // Get rid of all events except for the type we are looking for.
   auto notesCopy(noteEvents);
   notesCopy.erase(
     std::remove_if(notesCopy.begin(), notesCopy.end(), 

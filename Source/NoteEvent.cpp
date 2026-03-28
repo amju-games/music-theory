@@ -13,5 +13,15 @@ std::string ToString(NoteEventType net)
   // No default, get compiler warning if we miss one
   }
 }
+
+std::string NoteEvent::ToString() const
+{
+  return 
+    "ID: " + std::to_string(m_id) + " " +
+    Amju::ToString(m_type) + 
+    ": time: " + std::to_string(m_time) + 
+    " pitch: " + std::to_string(m_note) + 
+    " vol: " + std::to_string(m_volume);
+}
 }
 

@@ -39,7 +39,8 @@ namespace Amju
 
     bool IsNoteOnEvent() const { return m_type == NoteEventType::NOTE_ON; }
     bool IsNoteOffEvent() const { return m_type == NoteEventType::NOTE_OFF; }
-
+    bool IsNoteEvent() const { return IsNoteOnEvent() || IsNoteOffEvent(); }
+ 
     bool IsRestOnEvent() const { return m_type == NoteEventType::REST_ON; }
     bool IsRestOffEvent() const { return m_type == NoteEventType::REST_OFF; }
     bool IsRestEvent() const { return IsRestOnEvent() || IsRestOffEvent(); }
@@ -50,6 +51,9 @@ namespace Amju
     //  vector, but if we are not iterating over the vector, we don't 
     //  know the index, so we need this redundancy.
     int GetId() const { return m_id; }
+
+    // Convenience for debugging
+    std::string ToString() const;
 
     // Midi note value (if applicable)
     int m_note = -1; // not set 
