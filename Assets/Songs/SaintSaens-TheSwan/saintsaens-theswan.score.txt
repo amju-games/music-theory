@@ -1,6 +1,6 @@
 // ./makescore "--file ../../Assets/Songs/SaintSaens-TheSwan/saintsaens-theswan.makescore.txt "
 // Final input as one line:
-// page-w 162 bpm 64 stave clef-t 6/4 key-s-1 <sb> r <m> r | <c> 67 f 66 59 64 62 55 | <m> 57 ff t <q> 57 59 <c.> 60 t <q> 60 <c> r | <m> 52 <q> 54 55 57 59 60 62 64 66 | <m.> 71 t <q> 71 r <m> r | <c> 67 66 59 64 62 55 | <m> 58 t <q> 58 59 <m.> 61 | <c.> 54 <q> 56 58 59 61 62 64 66 68 70 | <m.> 74 t <q> 74 r <m> r | <c> 74 71 67 64 66 67 | <m> 62 t <q> 62 64 <c.> 66 t <q> 66 <c> r | <c> 72 69 65 62 64 65 | <m> 60 t <q> 60 62 <c.> 64 t <q> 64 <c> r | <c> 64 57 59 <c.> 60 t <q> 60 62 64 | <m.> 66 <c.> 64 t <q> 64 <c> r | <c> 64 57 59 <c.> 61 t <q> 61 62 64 | <m.> 65 66 | <c> 67 66 59 64 62 55 | <m> 57 t <q> 57 59 <c.> 60 t <q> 60 <c> r | <m> 52 <q> 54 55 57 59 60 62 64 66 | <sb.> 71 fff | <c> 71 69 64 67 66 60 | <c> 64 62 55 57 59 55 f | <m.> 59 ff <c> 60 62 59 | <m.> 64 <c> 64 66 62 | <sb.> 67 t | <m.> 67 t <q> 67 r <m> r |   
+// page-w 162 bpm 64 stave clef-t 6/4 key-s-1 <sb.> R | <c> 67 f 66 59 64 62 55 | <m> 57 ff t <q> 57 59 <c.> 60 t <q> 60 <c> r | <m> 52 <q> 54 55 57 59 60 62 64 66 | <m.> 71 t <q> 71 r <m> r | <c> 67 66 59 64 62 55 | <m> 58 t <q> 58 59 <m.> 61 | <c.> 54 <q> 56 58 59 61 62 64 66 68 70 | <m.> 74 t <q> 74 r <m> r | <c> 74 71 67 64 66 67 | <m> 62 t <q> 62 64 <c.> 66 t <q> 66 <c> r | <c> 72 69 65 62 64 65 | <m> 60 t <q> 60 62 <c.> 64 t <q> 64 <c> r | <c> 64 57 59 <c.> 60 t <q> 60 62 64 | <m.> 66 <c.> 64 t <q> 64 <c> r | <c> 64 57 59 <c.> 61 t <q> 61 62 64 | <m.> 65 66 | <c> 67 66 59 64 62 55 | <m> 57 t <q> 57 59 <c.> 60 t <q> 60 <c> r | <m> 52 <q> 54 55 57 59 60 62 64 66 | <sb.> 71 fff | <c> 71 69 64 67 66 60 | <c> 64 62 55 57 59 55 f | <m.> 59 ff <c> 60 62 59 | <m.> 64 <c> 64 66 62 | <sb.> 67 t | <m.> 67 t <q> 67 r <m> r |   
 BPM, 64.000000
 // *** STAVE 0  ***
 stave, 0, 0, 162, 1
@@ -10,16 +10,10 @@ treble-clef, 0, 0, 1, 1
 keysig-1sharp-treble, 0.45, 0, 1, 1
 // Time sig: 6/4
 6/4, 0.7, 0
-// Rest, value: sb
-TIME, 0.0001, 0.0246914
-REST_ON, 1.3403, 0.2
-rest-semibreve, 1.3403, 0.2
-REST_OFF
-TIME, -1, -1
-// Rest, value: m
-TIME, 0.0246914, 0.037037
-REST_ON, 3.93373, 0.2
-rest-minim, 3.93373, 0.2
+// Rest, value: sb.: Whole Bar
+TIME, 0.0001, 0.037037
+REST_ON, 3.16119, 0.2
+rest-semibreve, 3.16119, 0.2
 REST_OFF
 TIME, -1, -1
 // ** Bar 1 **
