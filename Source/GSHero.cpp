@@ -884,7 +884,7 @@ void GSHero::SetSongTitle()
 {
   // Set song title. This could do with a bit more razzle dazzle.
   auto elem = GetElementByName(m_gui, "song-title");
-  auto songTitleText = dynamic_cast<GuiText*>(elem);
+  auto songTitleText = dynamic_cast<IGuiText*>(elem);
   if (songTitleText)
   {
     songTitleText->SetText(GetGameRound().m_title);
@@ -893,7 +893,7 @@ void GSHero::SetSongTitle()
   // Set Composer - also subtitle, TODO. Maybe there isn't space, and
   //  we just show subtitle when we choose piece.
   elem = GetElementByName(m_gui, "song-composer");
-  auto songComposerText = dynamic_cast<GuiText*>(elem);
+  auto songComposerText = dynamic_cast<IGuiText*>(elem);
   if (songComposerText)
   {
     songComposerText->SetText(GetGameRound().m_composer);
@@ -1138,7 +1138,7 @@ void GSHero::FeedbackBalloon(const Grade& g)
   auto elem = GetElementByName(m_gui, "feedback-text");
   if (elem)
   {
-    auto t = dynamic_cast<GuiText*>(elem);
+    auto t = dynamic_cast<IGuiText*>(elem);
     if (t)
     {
       t->SetText(g.m_feedback);

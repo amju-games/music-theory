@@ -71,7 +71,7 @@ void GSBase::Update()
 // Not on device
 #ifndef AMJU_IOS
   auto frameStatsText = 
-    dynamic_cast<GuiText*>(GetElementByName(m_gui, "frame-stats"));
+    dynamic_cast<IGuiText*>(GetElementByName(m_gui, "frame-stats"));
   if (frameStatsText)
   {
     frameStatsText->SetText(TheGame::Instance()->GetFrameStats());

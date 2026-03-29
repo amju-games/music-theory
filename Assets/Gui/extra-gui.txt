@@ -6,15 +6,19 @@
 
 // EXTRA GUI
 
-gui-text
+colour
+000000ff
+
+//gui-text
+text2
 // Element name
 frame-stats
 // pos (coords are -1..1)
--1, 0.95 
+-1, 0.85
 1, .05
 // Text
 Hello, I am extra
 // Font name, size
-bmmolin, 0.7, fgcol=ff0000, bgcol=000000, left, multi
+bmmolin, 1.5
 
 

@@ -571,7 +571,7 @@ void GSGuiEdit::OnGuiItemDecorate(GuiElement* menuItem)
       GuiComposite* compParent = dynamic_cast<GuiComposite*>(m_selectedElements[0]->GetParent());
       if (compParent)
       {
-        GuiText* t = dynamic_cast<GuiText*>(menuItem);
+        IGuiText* t = dynamic_cast<IGuiText*>(menuItem);
         if (t)
         {
           std::string str = Trim(t->GetText());
@@ -603,7 +603,7 @@ void GSGuiEdit::OnGuiItemNew(GuiElement* menuItem)
       GuiTextMenuItem* gtmi = dynamic_cast<GuiTextMenuItem*>(menuItem);
       if (gtmi)
       {
-        GuiText* t = dynamic_cast<GuiText*>(gtmi->GetChild());
+        IGuiText* t = dynamic_cast<IGuiText*>(gtmi->GetChild());
         if (t)
         {
           std::string str = Trim(t->GetText());
