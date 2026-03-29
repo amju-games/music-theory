@@ -1,11 +1,18 @@
 // Molin font
 
 // BM font
-// version: 2 => BM font (TODO s/b e.g. 10-19?)
+// font file version: 2 => BM font 
 2
 
-// BM Font .fnt file (txt appended for glue file)
+// BM Font .fnt file (.txt appended)
 font2d/bmmolin/molin-bmfont.fnt.txt
 
 // y-offset
 0
+
+// x-advance
+0.85
+
+// fatness
+1
+

@@ -69,11 +69,11 @@ gui-text
 // Element name
 num-lives-text
 // pos (coords are -1..1)
-0.6, 0.85
+0.6, 0.93
 .4, .1
 // Text
 3
 // Font name, size
-NUMERIC, 1.5, fgcol=ffffff
+catcomic, 1.5, fgcol=ffffff
 
 

@@ -9,3 +9,10 @@ font2d/bmcatcomic/catcomic2.fnt.txt
 
 // y-offset 
 -0.08
+
+// x advance
+0.85
+
+// Fatness
+1
+

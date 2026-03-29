@@ -82,10 +82,10 @@ gui-text
 // Element name
 score-text
 // pos (coords are -1..1)
-0.7, .5
+0.7, .61
 .4, .1
 // Text
 25600
 // Font name, size
-NUMERIC, 1.5, fgcol=ffffff, left
+catcomic, 1.5, fgcol=ffffff, left
 
