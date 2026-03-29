@@ -15,6 +15,6 @@ frame-stats
 // Text
 Hello, I am extra
 // Font name, size
-TEXT, 0.7, fgcol=ff0000, bgcol=000000, left, multi
+bmmolin, 0.7, fgcol=ff0000, bgcol=000000, left, multi
 
 
