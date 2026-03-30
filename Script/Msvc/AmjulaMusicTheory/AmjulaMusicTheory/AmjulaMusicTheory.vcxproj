@@ -291,7 +291,6 @@
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase3d.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSCopyAssets.cpp" />
-    <ClCompile Include="..\..\..\..\Source\GSFirstUser.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPause.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSShowGui.cpp" />
@@ -403,7 +402,6 @@
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase3d.h" />
     <ClInclude Include="..\..\..\..\Source\GSCopyAssets.h" />
-    <ClInclude Include="..\..\..\..\Source\GSFirstUser.h" />
     <ClInclude Include="..\..\..\..\Source\GSGuiEdit.h" />
     <ClInclude Include="..\..\..\..\Source\GSHero.h" />
     <ClInclude Include="..\..\..\..\Source\GSHeroEnd.h" />
