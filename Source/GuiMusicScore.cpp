@@ -816,8 +816,11 @@ static PGuiElement CreateTextGui()
   // We load a prototype from file, so we don't hardcode font etc.
   // Then we clone the prototype each call, so we don't parse a gui file
   //  every time.
-  auto elem = LoadGui(TEXT_CHILD_FILENAME, false);
-  return elem; //->Clone();
+  static auto elem = LoadGui(TEXT_CHILD_FILENAME, false);
+  Assert(elem);
+  auto clone = elem->Clone();
+  Assert(clone);
+  return clone;
 }
 
 static GuiTextBase* FindTextNode(PGuiElement elem)
