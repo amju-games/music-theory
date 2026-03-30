@@ -22,21 +22,25 @@ ffffffff, ffffff00
 scale
 .9, .9; 1.5, 1.5
 .5, .5
-gui-image
+gui-sprite
 fading-pulsing-heart
 0.65, 1.0
 .3, .4
 Image/heart.png, stretch
+1, 1
+0
 
 scale
 .9, .9; 1.1, 1.1
 .5, .5
 
-gui-image
+gui-sprite
 pulsing-heart
 0.65, 1.0
 .3, .4
 Image/heart.png, stretch
+1, 1
+0
 
 // Bob up and down
 animation

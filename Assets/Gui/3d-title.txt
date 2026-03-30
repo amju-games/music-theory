@@ -21,17 +21,17 @@ one-shot
 3
 linear
 colour
-ffffff00,ffffffff
+ffffff00,000000ff
 
 gui-comp
 title-and-version
 2
 
 // Title text
-gui-text
+text2
 title-text
 // pos (coords are -1..1)
--1.0, 1.0
+-1.0, 0.2
 // size
 1.9, 0.6
 // Text
@@ -40,7 +40,7 @@ Piano Fest
 bmmolin, 4.0, fgcol=000000
 
 // Version text
-gui-text
+text2
 version-text
 // pos (coords are -1..1)
 -1.0, -0.9 

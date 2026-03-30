@@ -12,90 +12,7 @@ gui-comp
 // Name
 score-comp
 // Num children
-2
-
-animation
-cell-animation-test
-repeat
-2.0
-linear
-
-rotate
-0,360
-0.5,.5
-
-//animation
-//cell-animation-test
-//repeat
-//2.0
-//linear
-
-// Sprite test
-gui-sprite
-test-sprite
-// Pos, size
--.5, .5 
-.25,.25
-Image/spritetest.png,stretch
-// Num cells in x and y
-2, 2
-// Cell (can be a range, e.g. 0, 7, inclusive)
-0, 3
-
-
-scale
--.25,.25
-// Pivot, unlikely to work here
-0.5,0.5
-
-gui-avatar
-// Name
-test-avatar
-// Avatar string: sets values on nodes in the avatar GUI tree
-colour;colour-scale-head;F9EBA9|colour;colour-scale-hair;a0a0a0|cell;nose;12|cell;hair;12|cell;mouth;0|scale;scale-iris;0.8,0.8|colour;colour-scale-iris;0000ff|colour;colour-scale-eyelid-upper;c08040
-
-include
-avatar.txt
-
-translate
-0, 0
-scale
-2, 2
-.5, .5
-gui-image
-test1
-.5, 0.3 
-.25, .25
-Image/blackboard.png
-
-gui-image
-test1
-.5, 0.3
-.25, .25
-Image/blackboard.png
-
-scale
--1, 1
-0, 0
-include
-avatar.txt
-
-// Font test
-
-//gui-text
-//// Element name
-//about-text
-//// pos (coords are -1..1)
-//-1.0, 0
-//// size
-//2.0, 1.0 
-//// Text
-//Amjula Music Theory\n\nVersion 0.1 
-//// Font name, size
-//bmtest, 1.0, multi, fgcol=000000
-
-
-// Child 2 - animated score
+1
 
 // Animate the score: the anim value is used to highlight glyphs.
 // (TODO And play note values?!)
@@ -108,16 +25,15 @@ linear
 music-score
 // Name, Position, Size
 music-score
--0.5, 0 
-//.25, .55
+-1, 0 
 .5, 1.1 
 // Colour
 000000
 
 // Glyphs start here
 
-"Andante (\xc2\x85=120)", 0, 1.1, 4, 1.5 
-
+"Andante", 0, 0, 4, 1.5 
+"Here is a quaver", .7, 0, .5, .5
 4/4, 0.000000, 0.000000, 0.500000, 0.500000
 quaver-up, 0.700000, 0.200000, 0.500000, 0.500000
 quaver-down, 1.600000, 0.200000, 0.500000, 0.500000
