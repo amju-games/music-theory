@@ -1,0 +1,22 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+// music text child template
+
+colour
+000000ff
+
+text2
+// Element name
+music-text-child
+// pos (coords are -1..1)
+0, 0
+1, 1
+// Text
+Hello
+// Font name, size
+bmmolin, 1.
+

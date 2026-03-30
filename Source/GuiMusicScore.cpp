@@ -7,7 +7,7 @@
 #include <BmFont.h>
 #include <DrawRect.h>
 #include <GuiFactory.h>
-#include <GuiText.h>
+#include <GuiText2.h>
 #include <ReportError.h>
 #include <StringsFile.h>
 #include <StringUtils.h>
@@ -34,6 +34,11 @@ const char* FONT_INFO_FILE_NAME = "font2d/Guido2compressed/guido2.txt";
 #else
 const char* FONT_TEXTURE_FILE_NAME = "font2d/Guido2/guido2-60pt.png";
 #endif
+
+// GUI file containing a single text element: this is the template
+//  for text children.
+const char* TEXT_CHILD_FILENAME = "Gui/music-text-child.txt";
+const char* TEXT_CHILD_ELEMENT_NAME = "music-text-child";
 
 #ifdef DEBUG_DRAW_GLYPH_RECTS
 static std::vector<Rect> glyphRects;
@@ -242,7 +247,8 @@ GuiMusicScore::GuiMusicScore()
   if (!bm)
   {
     bm = new BmFontTextureSequence;
-    Texture* tex = (Texture*)TheResourceManager::Instance()->GetRes(FONT_TEXTURE_FILE_NAME);
+    Texture* tex = dynamic_cast<Texture*>(
+      TheResourceManager::Instance()->GetRes(FONT_TEXTURE_FILE_NAME));
     bm->Set(tex, 1, 1, 1, 1);
     bm->LoadBmFont(FONT_INFO_FILE_NAME); 
     bm->SetGlyphFatness(1.5f); // glyphs look too thin without this?
@@ -804,6 +810,30 @@ Colour GuiMusicScore::GetColourForGlyph() const
   return m_fgCol;
 }
 
+// Create a new gui tree to display one piece of text. 
+static PGuiElement CreateTextGui()
+{
+  // We load a prototype from file, so we don't hardcode font etc.
+  // Then we clone the prototype each call, so we don't parse a gui file
+  //  every time.
+  auto elem = LoadGui(TEXT_CHILD_FILENAME, false);
+  return elem; //->Clone();
+}
+
+static GuiTextBase* FindTextNode(PGuiElement elem)
+{
+  // Find the text node in a (presumably) simple gui tree.
+  auto textGui = Amju::GetElementByName(elem, TEXT_CHILD_ELEMENT_NAME);
+  GuiTextBase* t = dynamic_cast<GuiTextBase*>(textGui);
+  if (!t)
+  {
+    ReportError(std::string("Failed to find text node in GUI: ") + 
+      TEXT_CHILD_FILENAME);
+    // This is going to crash :(
+  }
+  return t;
+}
+   
 bool GuiMusicScore::AddTextFromString(
   const std::string& line, const Vec2f& pos_, const Vec2f& scale_)
 {
@@ -826,6 +856,11 @@ bool GuiMusicScore::AddTextFromString(
     // Now we should have position and optional scale
     Assert(strs.size() == 2 || strs.size() == 4);
     Vec2f pos(ToFloat(strs[0]), ToFloat(strs[1]));
+
+    // This might not be what we need. We set local pos, not global pos.
+    //pos *= GetSize(); // ? This is what happens in curves.
+    //pos += GetCombinedPos();
+
     Vec2f scale(1, 1);
     if (strs.size() == 4)
     {
@@ -834,22 +869,15 @@ bool GuiMusicScore::AddTextFromString(
     scale *= scale_;
     pos = (pos + pos_) * scale;
 
-    GuiText* t = new GuiText;
-    Font* font = (Font*)TheResourceManager::Instance()->GetRes("font2d/times-font.font");
-    t->SetFont(font);
-    t->SetFgCol(m_fgCol);
-    // Scale text to work with music glyphs
-    const float X_SCALE_MULT = 2.5f;
-    const float Y_SCALE_MULT = 3.f;
-    t->SetFontSize(scale.y * Y_SCALE_MULT);
-    t->SetScaleX(scale.x  * X_SCALE_MULT / scale.y);
+    // Load text elements from a file; don't set font etc in code.
+    auto elem = CreateTextGui();
+    // Find the text element - which might not be the root node - 
+    //  and set the string to draw and its position.
+    auto t = FindTextNode(elem); // find the text node
     t->SetLocalPos(pos);
-    t->SetSize(Vec2f(2, 2));
-    t->SetJust(GuiText::AMJU_JUST_LEFT);
     t->SetText(str);
-    t->SizeToText();
-
-    m_children.push_back(t);
+    t->SetParent(this);
+    m_children.push_back(elem); // add the whole gui tree, not just t!
 
     return true;
   }
