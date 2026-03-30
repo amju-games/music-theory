@@ -19,8 +19,8 @@ next-button
 -0.2, -0.2
 0.4, 0.25
 Image/rough-oval.png
-// START
-@@@Next
+// Next
+$$$11
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
 elastic
@@ -31,8 +31,8 @@ quit-button
 -0.2, -0.5
 0.4, 0.25
 Image/rough-oval.png
-// START
-@@@Quit
+// Quit
+$$$10
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
 

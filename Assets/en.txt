@@ -1,4 +1,17 @@
 // version
 1
 // number of strings
-0
+13
+1=The Swan
+2=From The Carnival of the Animals
+3=Camille Saint-Saëns
+4=Air
+5=From Orchestral Suite number 3
+6=J. S. Bach
+7=Gymnopédie no. 1
+8=Erik Satie
+9=Resume
+10=Quit
+11=Next
+12=Start
+13=Retry

@@ -19,7 +19,8 @@ resume-button
 -0.5, -0.2
 0.4, 0.25
 Image/rough-oval.png
-@@@Resume
+// Resume
+$$$9
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
 elastic
@@ -30,9 +31,9 @@ quit-button
 0.2, -0.2
 0.4, 0.25
 Image/rough-oval.png
-@@@Quit
+// Quit
+$$$10
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
-
 
 gui-text
 paused-text
