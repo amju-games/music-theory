@@ -8,7 +8,7 @@
 font2d/bmmolin/molin-bmfont.fnt.txt
 
 // y-offset
-0
+-0.02
 
 // x-advance
 0.85
