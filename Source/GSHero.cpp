@@ -32,10 +32,16 @@ namespace Amju
 {
 static int frameCount = 0;
 
+static const HeroGameRound* s_gameRound = nullptr;
+
 static const HeroGameRound& GetGameRound()
 {
-  auto& round = TheGameRoundManager::Instance()->GetGameRound(0);
-  return round;
+  if (s_gameRound == nullptr)
+  {
+    s_gameRound = &TheGameRoundManager::Instance()->GetGameRound(0);
+  }
+
+  return *s_gameRound;
 }
 
 static void OnNoteEvent(const NoteEvent& ne)
@@ -56,6 +62,11 @@ static void OnKeyboardHasFinishedMoving(Animator*)
 GSHero::GSHero()
 {
   m_guiFilename = "Gui/gs_hero.txt";
+}
+
+void GSHero::SetGameRound(const HeroGameRound* gameRound)
+{
+  s_gameRound = gameRound;
 }
 
 void GSHero::SetUpForResume()

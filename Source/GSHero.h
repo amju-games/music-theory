@@ -16,6 +16,7 @@
 namespace Amju
 {
 struct Grade;
+struct HeroGameRound;
 
 // Urgh, better to convert this into State pattern once the
 //  structure is clearer.
@@ -59,6 +60,8 @@ public:
 
   // Callback, when keyboard stops moving to new position
   void OnKeyboardHasFinishedMoving();
+
+  void SetGameRound(const HeroGameRound* gameRound);
 
 protected:
   // Call to change current 'micro state'

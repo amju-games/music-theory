@@ -1,0 +1,130 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+one-song
+// Num children
+3
+
+colour 
+ff8000ff
+// Patch -- test
+patch
+my-patch
+-.7, 0.5
+1.4, 0.4
+Image/rough-circle.png, stretch
+// Patch is a sprite, so we have to specify cell info - this should be  
+//  good for batching: we can have multiple different patches and other
+//  HUD elements on the same atlas.
+// Num cells
+1,1
+// Cell
+0
+// Corner size: TODO: should this be auto-adjusted so equal coords give squares?
+0.1, 0.15
+
+translate
+0, 0.2
+
+colour
+000000ff
+
+gui-comp
+text-in-patch
+3
+
+// Title of song/piece
+//gui-text
+text2
+// Name
+song-title
+-1.0, 0.0
+// size
+2.0, 0.2
+// Text
+title
+// Font name, size
+bmmolin, 3.0, multi, fgcol=ffffffff
+
+// Subtitle
+text2
+// Name
+song-subtitle
+-1.0, -0.05
+// size
+2.0, 0.2
+// Text
+title
+// Font name, size
+bmmolin, 1.0, multi, fgcol=ffffffff
+
+// Composer
+//gui-text
+text2
+// Name
+song-composer
+-1.0, -0.2
+// size
+2.0, 0.2
+// Text
+Composer
+// Font name, size
+bmmolin, 1.5, multi, fgcol=ffffffff
+
+// Next button
+gui-button
+song-start-button
+-0.2, 0.1
+0.4, 0.25
+Image/rough-oval.png
+// Go! 
+@@@Go!
+BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
+
+music-score
+// Name, Position, Size
+music-score
+-1, -.35
+.3, .6
+// Colour
+000000
+// Empty - no glyphs
+end
+
+elastic
+0,-2
+// Quit button
+gui-button
+quit-button
+-0.2, -0.5
+0.4, 0.25
+Image/rough-oval.png
+// START
+$$$10
+BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
+
+
+rotate
+10
+.5, .5
+gui-text
+mega-text-test
+-1, 1
+2, 2
+WINNER!
+BUTTON, 10.0, multi, fgcol=404080
+
+// Player score for the round
+elastic
+-2, 0
+translate
+-1.57, .35
+include 
+player-score.txt
+

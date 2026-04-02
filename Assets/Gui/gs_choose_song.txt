@@ -1,0 +1,22 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// Choose Song GUI
+
+// version
+1
+
+gui-scroll
+song-scroller
+0,0
+// Extents
+0,4
+
+// Element type
+gui-comp
+// Name
+songs-root
+// Num children
+0
+// We add one child per song to the root.
+
