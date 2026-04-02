@@ -78,7 +78,8 @@ scale
 // Pivot
 0, .5
 
-gui-text
+//gui-text
+text2
 // Element name
 score-text
 // pos (coords are -1..1)

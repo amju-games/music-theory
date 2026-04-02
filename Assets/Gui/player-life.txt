@@ -69,7 +69,8 @@ scale
 0.5, 0.5 
 
 
-gui-text
+//gui-text
+text2
 // Element name
 num-lives-text
 // pos (coords are -1..1)

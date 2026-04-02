@@ -3,14 +3,14 @@
 
 #pragma once
 
-#include "GSBase.h"
 #include <Singleton.h>
+#include "GSBaseWithHud.h"
 
 namespace Amju
 {
 // * GSPause *
 // Pause menu state, reached when learning a topic. Options to go back to main menu, etc.
-class GSPause : public GSBase
+class GSPause : public GSBaseWithHud
 {
 public:
   GSPause();

@@ -1,0 +1,25 @@
+// HUD 
+// version
+1
+
+gui-comp
+hud-root
+2
+
+// Player score for the round
+elastic
+-2, 0
+translate
+-1.57, .35 
+include 
+player-score.txt
+
+// Player lives
+elastic
+-1, 0
+translate
+-1.6, -0.3
+include
+player-life.txt
+
+

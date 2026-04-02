@@ -46,14 +46,6 @@ mega-text-test
 The end!
 BUTTON, 10.0, multi, fgcol=404080
 
-// Player score for the round
-elastic
--2, 0
-translate
--1.57, .35
-include 
-player-score.txt
-
 // Title of song/piece
 gui-text
 // Name
@@ -65,4 +57,7 @@ song-title
 title
 // Font name, size
 BUTTON, 2.0, multi, fgcol=000000
+
+include
+hud.txt
 

@@ -9,7 +9,10 @@ gui-comp
 // Name
 gs-pause-root
 // Num children
-3
+5
+
+include
+keyboard2d.txt
 
 elastic
 0,-2
@@ -39,6 +42,9 @@ gui-text
 paused-text
 -1, .5 
 2, 0.1 
-Paused
+@@@Paused
 bmmolin, 4.0, fgcol=000000
+
+include
+hud.txt
 

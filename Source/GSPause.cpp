@@ -37,5 +37,7 @@ void GSPause::OnActive()
   elem = GetElementByName(m_gui, "quit-button");
   Assert(elem);
   elem->SetCommand(OnQuit);
+
+  InitHud();
 }
 };

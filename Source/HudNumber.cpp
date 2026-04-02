@@ -5,7 +5,7 @@
 #include <GuiText.h>
 #include <Sign.h>
 #include <StringUtils.h>
-#include "NumUpdate.h"
+#include "HudNumber.h"
 
 namespace Amju
 {
@@ -80,7 +80,7 @@ void HudNumber::Add(int amountToAdd, int numFrames)
     anim->ResetAnimation();
   }
 }
-
+/*
 void NumUpdate(PGuiElement gui, const std::string& elemName, int value)
 {
   NumUpdate(gui, elemName, ToString(value));
@@ -103,4 +103,5 @@ void NumUpdate(PGuiElement gui, const std::string& elemName, const std::string& 
     }
   }
 }
+*/
 }

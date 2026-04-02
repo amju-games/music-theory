@@ -7,11 +7,10 @@
 #include <GuiDecTranslate.h>
 #include <Singleton.h>
 #include "FindSongSections.h"
-#include "GSBase.h"
+#include "GSBaseWithHud.h"
 #include "GuiMusicKbBase.h"
 #include "GuiPatch.h"
 #include "GuiScrollScore.h"
-#include "NumUpdate.h"
 #include "UserProfile.h"
 
 namespace Amju
@@ -34,7 +33,7 @@ enum class HeroState
 // * GSHero *
 // Hero mode: the game mechanic which is like Guitar Hero, but for 
 //  keyboard/sheet music.
-class GSHero : public GSBase
+class GSHero : public GSBaseWithHud
 {
 public:
   GSHero();
@@ -171,12 +170,6 @@ protected:
 
   // User profile, store progress
   RCPtr<UserProfile> m_userProfile;
-
-  // Score this round - to add to player profile
-  HudNumber m_playerScore;
-
-  // Remaining life left this round, as a percentage
-  HudNumber m_lifePercent;
 
   // Counters for detecting missed notes, i.e. no attempt made by
   //  player.

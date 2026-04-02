@@ -15,7 +15,7 @@
 #include "GSHeroEnd.h"
 #include "GSHeroWin.h"
 #include "GSPause.h"
-#include "NumUpdate.h"
+#include "Hud.h"
 #include "PlayWav.h"
 #include "UseVertexColourShader.h"
 
@@ -336,10 +336,7 @@ void GSHero::ChangeState(HeroState newState)
 
 void GSHero::Update()
 {
-  GSBase::Update();
-
-  m_playerScore.Update();
-  m_lifePercent.Update();
+  GSBaseWithHud::Update();
 
   // Scroll the score if we are playing the song.
   if (m_state == HeroState::SONG_PLAYING)
@@ -422,7 +419,7 @@ void GSHero::IncreaseScore(const Grade& grade)
   int amount = static_cast<int>(std::round(grade.m_score * 1000.f));
   amount *= 100;
 
-  m_playerScore.Add(amount, NUM_UPDATE_NUM_FRAMES);
+  GetHud().m_playerScore.Add(amount, NUM_UPDATE_NUM_FRAMES);
 
   SetPatchSizes();
 }
@@ -430,7 +427,9 @@ void GSHero::IncreaseScore(const Grade& grade)
 void GSHero::SetPatchSizes()
 {
   auto size = m_playerScoreBg->GetSize();
-  size.x = 0.08f + 0.07f * GetNumDigits(m_playerScore.m_internalNumber);
+
+  // TODO Get this into HUD!
+  size.x = 0.08f + 0.07f * GetNumDigits(GetHud().m_playerScore.m_internalNumber);
   m_playerScoreBg->SetSize(size);
 }
 
@@ -438,9 +437,10 @@ void GSHero::DecreaseLife(const Grade& grade)
 {
   int dec = GetGameRound().m_lifeDecrease;
   dec = std::abs(dec);
-  m_lifePercent.Add(-dec, NUM_UPDATE_NUM_FRAMES); 
+  auto& life = GetHud().m_playerLife;
+  life.Add(-dec, NUM_UPDATE_NUM_FRAMES); 
 
-  if (m_lifePercent.m_internalNumber <= 0)
+  if (life.m_internalNumber <= 0)
   {
     OnPlayerHasLost();
   }
@@ -859,23 +859,8 @@ std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
 
 void GSHero::ResetHud()
 {
-  // Find and store pointers to GUI elements
-  m_playerScore.SetGuiElement(m_gui, "score-text", "score-text-anim-trigger");
-  m_lifePercent.SetGuiElement(
-    m_gui, "num-lives-text", "num-lives-text-anim-trigger");
-
-  // Reset score and life values: but only if we are not resuming 
-  //  from being paused.
-  if (m_pauseResumeTime == 0)
-  {
-    m_playerScore.Reset(0);
-    m_lifePercent.Reset(100); 
-  }
-  else
-  {
-    m_playerScore.ResumeAfterPause();
-    m_lifePercent.ResumeAfterPause();
-  }
+  bool reset = (m_pauseResumeTime == 0);
+  InitHud(reset);
 
   m_playerScoreBg = dynamic_cast<GuiPatch*>(GetElementByName(m_gui, "score-bg-patch"));
 }

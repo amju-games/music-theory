@@ -42,10 +42,12 @@ struct HudNumber
   void ResumeAfterPause();
 };
 
+/*
 // Update a number displayed in the HUD.
 void NumUpdate(PGuiElement gui, const std::string& elemName, int value);
 
 // Update a string displayed in the HUD.
 void NumUpdate(PGuiElement gui, const std::string& elemName, const std::string& value);
+*/
 }
 

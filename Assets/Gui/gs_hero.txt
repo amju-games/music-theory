@@ -9,7 +9,7 @@ gui-comp
 // Name
 gs-hero-root
 // Num children
-9
+8
 
 // Title of song/piece
 animation
@@ -115,22 +115,6 @@ style=2, outCol=ffffff, fillCol=ffffff, radius=0.01
 0.0, 0.7
 end
 
-// Player score for the round
-elastic
--2, 0
-translate
--1.57, .35
-include 
-player-score.txt
-
-// Player lives
-elastic
--1, 0
-translate
--1.6, -0.3
-include
-hearts.txt
-
 // Pause button
 elastic
 3, 0
@@ -145,4 +129,8 @@ Image/rough-circle.png
 G
 // Font name, size
 icon, 1.5, fgcol=ffffff, bgcol=FF0949
+
+// HUD: This state uses the elastic version
+include
+elastic-hud.txt
 

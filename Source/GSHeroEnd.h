@@ -1,11 +1,12 @@
 #pragma once
 
 #include <Singleton.h>
-#include "GSBase.h"
+#include "GSBaseWithHud.h"
 
 namespace Amju
 {
-class GSHeroEnd : public GSBase
+// Lose state: player did not successfully complete song in GSHero state.
+class GSHeroEnd : public GSBaseWithHud
 {
 public:
   GSHeroEnd();

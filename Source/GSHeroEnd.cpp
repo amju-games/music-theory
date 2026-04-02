@@ -36,6 +36,8 @@ void GSHeroEnd::OnActive()
   GuiElement* quitButton = GetElementByName(m_gui, "quit-button");
   quitButton->SetCommand(OnQuit);
 
+  InitHud();
+
   // Go back to title after a while?
   // NB We need to clear the message queue if we get a button click
 /*
