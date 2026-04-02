@@ -2,6 +2,7 @@
 #include <SoundManager.h>
 #include <Timer.h>
 #include "Consts.h"
+#include "GSChooseSong.h"
 #include "GSHero.h"
 #include "GS3dTitle.h"
 #include "PlayWav.h"
@@ -14,7 +15,7 @@ static void OnStart(GuiElement* elem)
 
   PlayWav(WAV_START_BUTTON); // This wav should blend nicely with the title music
   TheGSHero::Instance()->SetPrevState(TheGS3dTitle::Instance());
-  GoTo<TheGSHero>();
+  GoTo<TheGSChooseSong>();
 }
 
 GS3dTitle::GS3dTitle()
