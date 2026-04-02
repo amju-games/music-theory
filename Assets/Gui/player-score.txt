@@ -19,7 +19,7 @@ gui-comp
 // Name
 player-score-comp
 // Num children
-3
+2
 
 colour
 4D68F1
@@ -43,10 +43,6 @@ Image/rough-circle.png, stretch
 0
 // Corner size
 0.1, 0.125
-
-// Not ideal; if we move things around we should be able to flush a lot
-//  of batched elements at once.
-flush
 
 gui-comp
 score-comp
@@ -83,10 +79,10 @@ text2
 // Element name
 score-text
 // pos (coords are -1..1)
-0.7, .61
+0.7, .375
 .4, .1
 // Text
-25600
+00
 // Font name, size
-catcomic, 1.5, fgcol=ffffff, left
+catcomic, 2.5, fgcol=ffffff, left
 

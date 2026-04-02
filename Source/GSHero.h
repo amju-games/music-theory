@@ -135,9 +135,6 @@ protected:
 
   void ShowCountInGui();
 
-  // Set size of patch behind player numeric score, and any others in future.
-  void SetPatchSizes();
-
 protected:
   // The scroll score child of m_gui (get after gui is loaded)
   RCPtr<GuiScrollScore> m_scrollScore;
@@ -152,12 +149,9 @@ protected:
   //  the keyboard so needed notes are on screen.
   RCPtr<GuiDecTranslate> m_keyboardTranslate;
 
-  // A composite on to which we can hang extra stuff we want the score
-  //  to display
+  // A composite on to which we can hang extra stuff we want the 
+  //  musical score to display. E.g. bonus at end of section, etc.
   RCPtr<GuiComposite> m_scoreExtras;
-
-  // Patch behind player score (numeric points)
-  RCPtr<GuiPatch> m_playerScoreBg;
 
   // Count-in GUI
   PGuiElement m_countInGui;

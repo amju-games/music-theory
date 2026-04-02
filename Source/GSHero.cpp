@@ -128,9 +128,6 @@ void GSHero::ResumeGame()
   sm->PlaySong(gameround.m_countIn);  
 
   ShowCountInGui();
-
-  // Set size of patch behind player numeric score count
-  SetPatchSizes();
 }
 
 void GSHero::CancelResumeTime()
@@ -400,17 +397,6 @@ void GSHero::ReloadGui()
   GSBase::ReloadGui();
 }
 
-static int GetNumDigits(int s)
-{
-  int res = (s == 0 ? 1 : 0);
-  while (s > 0)
-  {
-    s /= 10;
-    ++res;
-  }
-  return res;
-}
-
 // TODO This is no good, it should be time, not number of frames, surely?!
 static const int NUM_UPDATE_NUM_FRAMES = 50;
 
@@ -421,16 +407,7 @@ void GSHero::IncreaseScore(const Grade& grade)
 
   GetHud().m_playerScore.Add(amount, NUM_UPDATE_NUM_FRAMES);
 
-  SetPatchSizes();
-}
-
-void GSHero::SetPatchSizes()
-{
-  auto size = m_playerScoreBg->GetSize();
-
-  // TODO Get this into HUD!
-  size.x = 0.08f + 0.07f * GetNumDigits(GetHud().m_playerScore.m_internalNumber);
-  m_playerScoreBg->SetSize(size);
+  GetHud().SetPatchSizes();
 }
 
 void GSHero::DecreaseLife(const Grade& grade)
@@ -442,6 +419,7 @@ void GSHero::DecreaseLife(const Grade& grade)
 
   if (life.m_internalNumber <= 0)
   {
+    life.m_internalNumber = 0;
     OnPlayerHasLost();
   }
 }
@@ -861,8 +839,6 @@ void GSHero::ResetHud()
 {
   bool reset = (m_pauseResumeTime == 0);
   InitHud(reset);
-
-  m_playerScoreBg = dynamic_cast<GuiPatch*>(GetElementByName(m_gui, "score-bg-patch"));
 }
 
 void GSHero::SetSongTitle()

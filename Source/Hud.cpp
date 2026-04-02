@@ -22,7 +22,17 @@ void Hud::InitGui(PGuiElement gui, bool reset)
     m_playerLife.ResumeAfterPause();
   }
 
-//  m_playerScoreBg = dynamic_cast<GuiPatch*>(GetElementByName(m_gui, "score-bg-patch"));
+  m_playerScoreBg = dynamic_cast<GuiPatch*>(GetElementByName(gui, "score-bg-patch"));
+
+  SetPatchSizes();
+}
+
+void Hud::SetPatchSizes()
+{
+  auto bgSize = m_playerScoreBg->GetSize();
+  auto numSize = m_playerScore.m_guiTextElement->GetSize(); 
+  bgSize.x = numSize.x; 
+  m_playerScoreBg->SetSize(bgSize);
 }
 
 void Hud::Update()
