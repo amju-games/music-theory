@@ -7,13 +7,12 @@
 #include <GuiComposite.h>
 #include <GuiDecAnimation.h>
 #include <GuiMenu.h>
-#include <ROConfig.h>
+#include <MyROConfig.h>
 #include "GSBase.h"
 #include "GSGuiEdit.h"
 #include "LurkMsg.h"
 #include "Notebook.h" // TODO TEMP TEST for debugging
 #include "PrintGui.h"
-#include "SerialReqManager.h"
 #include "ShareManager.h"
 #include "UseVertexColourShader.h"
 
@@ -54,7 +53,7 @@ void GSBase::Update()
   if (reload)
   {
     reload = false;
-    ReloadROConfig();
+    ReloadMyROConfig();
     ReloadGui();
   }
 #endif
@@ -65,8 +64,6 @@ void GSBase::Update()
   }
 
   TheLurker::Instance()->Update();
-
-  TheSerialReqManager::Instance()->Update();
 
 // Not on device
 #ifndef AMJU_IOS

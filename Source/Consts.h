@@ -40,13 +40,13 @@ static const float STAIRS_ZOOM_DIST = -100.f;
 
 // Keys for map/config file lookups etc
 
-#define APPNAME  "amjula-mt"
+#define APPNAME  "amju-pf"
 
 #define KEY_GENERAL "general"
 #define KEY_USER_NAME "user_name"
 
 #define DEFAULT_SHARE_TEXT_KEY "default_share_text"
-#define DEFAULT_SHARE_TEXT "I'm learning stuff at Amjula Music School! amjula.com #amjula"
+extern const std::string DEFAULT_SHARE_TEXT;
 
 #define MIDI_SOUND_FONT "Grand Piano"
 // "Jv_drums"

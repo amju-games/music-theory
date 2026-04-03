@@ -10,7 +10,7 @@
 #include "CentreMsg.h"
 #include "CentreMsg.h"
 #include "PlayWav.h"
-#include "ROConfig.h"
+#include "MyROConfig.h"
 #include <AmjuFinal.h>
 
 //#define TEXT_TO_SPEECH
@@ -120,7 +120,7 @@ void CentreMsg::Update()
   {
   case LURK_NEW:
     {
-      static std::string soundfx = ROConfig()->GetValue("sound-new-lurkmsg");
+      static std::string soundfx = MyROConfig()->GetValue("sound-new-lurkmsg");
       PlayWav(soundfx);
 
       m_state = LURK_SHOWING;
@@ -226,8 +226,8 @@ GuiText* CentreMsg::MakeGuiText(const std::string& str, const Colour& fgCol, con
   GuiText* text = new GuiText;
   text->SetIsMulti(true);
 
-  static const float fontX = ROConfig()->GetFloat("lurk-font-x");
-  static const float fontY = ROConfig()->GetFloat("lurk-font-y");
+  static const float fontX = MyROConfig()->GetFloat("lurk-font-x");
+  static const float fontY = MyROConfig()->GetFloat("lurk-font-y");
 
   text->SetFont(nullptr); // cancel default font - obvs should not be required
   text->SetFont(fontName);

@@ -1,7 +1,6 @@
 // * Amjula music theory *
 // (c) Copyright 2024 Juliet Colman
 
-#include <ROConfig.h>
 #include <Screen.h>
 #include <Timer.h>
 #include <Unproject.h>

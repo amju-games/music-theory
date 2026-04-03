@@ -6,7 +6,7 @@
 #include <EventPoller.h>
 #include <SoundManager.h>
 #include <TextToSpeech.h>
-#include "ROConfig.h"
+#include "MyROConfig.h"
 #include "LurkMsg.h"
 #include "PlayWav.h"
 #include <AmjuFinal.h>
@@ -125,7 +125,7 @@ void LurkMsg::Update()
   {
   case LURK_NEW:
     {
-      static std::string soundfx = ROConfig()->GetValue("sound-new-lurkmsg");
+      static std::string soundfx = MyROConfig()->GetValue("sound-new-lurkmsg");
       PlayWav(soundfx);
 
       m_state = LURK_SHOWING;
@@ -245,8 +245,8 @@ void LurkMsg::Set(const std::string& str, const Colour& fgCol, const Colour& bgC
   
   GuiText* text = new GuiText;
 
-  static const float fontX = ROConfig()->GetFloat("lurk-font-x");
-  static const float fontY = ROConfig()->GetFloat("lurk-font-y");
+  static const float fontX = MyROConfig()->GetFloat("lurk-font-x");
+  static const float fontY = MyROConfig()->GetFloat("lurk-font-y");
 
   text->SetFont(nullptr); // cancel default font - obvs should not be required
   text->SetFont(m_fontName);

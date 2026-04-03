@@ -42,13 +42,11 @@
 #include <Localise.h>
 #include <ObjMesh.h>
 #include <ResourceManager.h>
-#include <ROConfig.h>
 #include <SceneNodeFactory.h>
 #include <SoundManager.h>
 #include "Consts.h"
 #include "GS3dExample.h"
 #include "GS3dTitle.h"
-#include "GSCopyAssets.h"
 #include "GSHero.h"
 #include "GSPlayNotes.h" // --keyboard mode
 #include "GSShowGui.h"
@@ -63,7 +61,6 @@
 #include "GuiPatch.h"
 #include "GuiScrollScore.h"
 #include "Md2SceneNode.h"
-#include "NetSend.h"
 #include "ParticleFx.h"
 #include "SceneNodeGui.h"
 
@@ -201,21 +198,6 @@ void SetUpGlueFile()
 #endif // YES_GLUE_FILE
 }
 
-// Send info about this device to the server.
-void SendDeviceInfo(bool isFirstTime)
-{
-  if (isFirstTime)
-  {
-    std::cout << "Sending device info, first time ever.\n";
-    NetSendDeviceInfoFirstRunEver();
-  }
-  else
-  {
-    std::cout << "Sending updated device info, NOT first time ever.\n";
-    NetSendUpdateDeviceInfo();
-  }
-}
-
 // Load the Game Config File, which is writable, so used to persist 
 //  game-wide info.
 void LoadWritableConfig()
@@ -241,8 +223,6 @@ void LoadWritableConfig()
       }
     }
   }
-
-  SendDeviceInfo(isFirstTime);
 }
 } // anon namespace
 
@@ -257,8 +237,6 @@ void StartUpBeforeCreateWindow()
   
   SetUpRootDir();
   
-  SetROConfigFilename(GetSaveDir(APPNAME) + "/roconfig.txt");
-
   LoadWritableConfig();
 }
 
@@ -273,18 +251,11 @@ static void SetUpResourceLoaders()
 #else
   rm->AddLoader("obj", TextObjLoader);
 #endif
-
-  // To load dictionaries for tests 
-  //rm->AddLoader("dictionary", DictionaryLoader);
-
-  // Course 
-  //rm->AddLoader("course", CourseLoader);
 }
 
 static void SetUpSound()
 {
 #ifdef AMJU_USE_BASS
-
   // Set sound player
   SoundManager* sm = TheSoundManager::Instance();
   BassSoundPlayer* bsp = new BassSoundPlayer;
@@ -321,7 +292,6 @@ static void SetUpGui()
   GuiRect::SetCornerImage("Image/circle.png");
 
   // Add game-specific types to Gui factory
-  //AddToGuiFactory<ColourPicker>();
   AddToGuiFactory<Gui3dScene>(); // TODO Add to amjulib
   AddToGuiFactory<GuiAvatar>();
   AddToGuiFactory<GuiMusic2dKeyboard>();
@@ -383,10 +353,7 @@ static void SetInitialState()
     return;
   }
 
-  // On a fresh device, we have to go to this state first. It copies
-  //  ROConfig.txt to the save dir. TODO Why bother?!
-  TheGSCopyAssets::Instance()->SetPrevState(TheGS3dTitle::Instance());
-  TheGame::Instance()->SetCurrentState(TheGSCopyAssets::Instance());
+  TheGame::Instance()->SetCurrentState(TheGS3dTitle::Instance());
 }
 
 static void LoadStringTableForPreferredLanguage()
@@ -467,9 +434,6 @@ void StartUpAfterCreateWindow()
   SetUpGui();
 
   SetInitialState();
-
-  // Load this file one time only (but we can reload for development)
-  //GetComposerList().Load("Gui/composers.txt");
 }
 }
 

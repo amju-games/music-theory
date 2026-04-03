@@ -2,11 +2,15 @@
 // (c) Copyright 2024 Juliet Colman
 
 #include <AmjuAssert.h>
-#include <ROConfig.h>
+#include <MyROConfig.h>
 #include "Consts.h"
 
 namespace Amju
 {
+// OK to update this from version to version, and would be
+//  good to define it in a text file. 
+const std::string DEFAULT_SHARE_TEXT = "I'm playing Amju Piano Fest! #amjupianofest @amjugames";
+
 const std::string VIEWSCORE = "--viewscore";
 const std::string KEYBOARD = "--keyboard";
 
@@ -26,8 +30,8 @@ const std::string WAV_EXIT_TAPPABLE = "wow2";
 
 Colour GetConstColour(const char* colourName)
 {
-  Assert(ROConfig()->Exists(colourName));
-  const std::string& colourString = ROConfig()->GetValue(colourName);
+  Assert(MyROConfig()->Exists(colourName));
+  const std::string& colourString = MyROConfig()->GetValue(colourName);
   auto optionalColour = FromHexString(colourString);
   Assert(optionalColour);
   return *optionalColour;
