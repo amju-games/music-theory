@@ -24,7 +24,7 @@ text2
 level
 -1.0, 0.0
 // size
-2.0, 0.2
+0.5, 0.2
 // Text
 LEVEL_NUM_REPLACED_IN_CODE
 // Font name, size

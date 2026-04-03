@@ -1,3 +1,5 @@
+#include <DrawRect.h>
+#include <GuiButton.h>
 #include <GuiComposite.h>
 #include <GuiScroll.h>
 #include <GuiText.h>
@@ -5,6 +7,9 @@
 #include "GSHero.h"
 #include "GuiMusicScore.h"
 #include "HeroGameRound.h"
+#include "UserProfile.h"
+
+//#define DEBUG_DRAW_RECTS
 
 namespace Amju
 {
@@ -16,12 +21,39 @@ static void OnSongStart(GuiElement* button)
   GoTo<TheGSHero>();  
 }
 
+void DrawBoxes(GuiElement* elem)
+{
+#ifdef DEBUG_DRAW_RECTS
+  AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
+  AmjuGL::SetColour(Colour(0, 1, 0, 1)); 
+  AmjuGL::UseShader(nullptr);
+  DrawRect(elem->CalcRect());
+  // TODO Draw child bounding rects too
+
+  auto comp = dynamic_cast<GuiComposite*>(elem);
+  if (comp)
+  {
+    for (int i = 0; i < comp->GetNumChildren(); i++)
+    {
+      DrawBoxes(comp->GetChild(i));
+    }
+  }
+#endif
+  AmjuGL::Enable(AmjuGL::AMJU_TEXTURE_2D);
+}
+
 GSChooseSong::GSChooseSong()
 {
   m_guiFilename = "Gui/gs_choose_song.txt";
 }
 
-void SetLevelGui(const HeroGameRound& r, PGuiElement gui)
+void GSChooseSong::Draw2d()
+{
+  GSBase::Draw2d();
+  DrawBoxes(GetGui());
+}
+
+static void SetLevelGui(const HeroGameRound& r, PGuiElement gui)
 {
   // We want the whole string localised. So our design should have
   //  a fixed number of levels, say 8 or 10..? It won't be hundreds.
@@ -34,7 +66,8 @@ void SetLevelGui(const HeroGameRound& r, PGuiElement gui)
   t->SetText(str); 
 }
 
-void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum)
+static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
+  bool isUnlocked)
 {
   auto t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-title"));
   Assert(t); // this is all stuff that is fixed at compile time
@@ -49,11 +82,12 @@ void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum)
   Assert(t); 
   t->SetText(std::to_string(songNum) + "."); 
 
-  //auto b = dynamic_cast<GuiButton*>(gui->GetElementByName("start-button"));
-  auto b = gui->GetElementByName("song-start-button");
+  auto elem = gui->GetElementByName("song-start-button");
+  auto b = dynamic_cast<GuiButton*>(elem);
   Assert(b);
   b->SetUserData(const_cast<HeroGameRound*>(&r)); // element in a singleton vector, so ok, riight?
   b->SetCommand(Amju::OnSongStart);
+  b->SetIsEnabled(isUnlocked);
 
   // Hmm, should we show a preview of the score?
 /*
@@ -112,11 +146,13 @@ void GSChooseSong::InitGui()
       rootNode->AddChild(elem);
     }
 
-    auto elem = LoadGui("Gui/one-song.txt");
+    bool isUnlocked = (level < 1);
+
+    auto elem = LoadGui(isUnlocked ? "Gui/one-song.txt" : "gui/one-song-locked.txt");
     // Populate text etc in this song GUI
     elem->SetLocalPos(Vec2f(0, y));
     y -= oneSongHeight; // TODO Get extent of song gui
-    SetSongGui(gameround, elem, songNum);
+    SetSongGui(gameround, elem, songNum, isUnlocked);
     ++songNum;
     rootNode->AddChild(elem);
   }
@@ -124,7 +160,14 @@ void GSChooseSong::InitGui()
   // Set scroll bar extents
   auto scroller = dynamic_cast<GuiScroll*>(m_gui->GetElementByName("song-scroller"));
   Assert(scroller);
-  scroller->SetExtents(Vec2f(0, -y));
+
+  // Set scroll region so it just covers the GUI we made above.
+  auto size = rootNode->CalcRect().GetSize();
+#ifdef _DEBUG
+std::cout << "Scroll region size: " << size.x << ", " << size.y << "\n";
+#endif
+  scroller->SetExtents(Vec2f(0, size.y)); 
 }
+
 }
 

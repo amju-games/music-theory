@@ -10,6 +10,7 @@ public:
   GSChooseSong();
 
   void OnActive() override;
+  void Draw2d() override;
 
 protected:
   void InitGui();
