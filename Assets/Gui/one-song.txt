@@ -37,14 +37,26 @@ colour
 
 gui-comp
 text-in-patch
-3
+4
+
+// Song number
+text2
+// Name
+song-number
+-1.0, 0.03
+// size
+0.2, 0.2
+// Text
+number
+// Font name, size
+bmmolin, 1.5, multi, fgcol=ffffffff
 
 // Title of song/piece
 //gui-text
 text2
 // Name
 song-title
--1.0, 0.0
+-0.9, 0.0
 // size
 2.0, 0.2
 // Text

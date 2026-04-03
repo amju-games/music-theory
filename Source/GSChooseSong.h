@@ -10,6 +10,9 @@ public:
   GSChooseSong();
 
   void OnActive() override;
+
+protected:
+  void InitGui();
 };
 
 using TheGSChooseSong = Singleton<GSChooseSong>;

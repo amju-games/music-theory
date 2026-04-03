@@ -1,0 +1,32 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+level-info
+// Num children
+1
+
+colour
+000000ff
+
+gui-comp
+level-text
+1
+
+// Title of song/piece
+text2
+// Name
+level
+-1.0, 0.0
+// size
+2.0, 0.2
+// Text
+LEVEL_NUM_REPLACED_IN_CODE
+// Font name, size
+bmmolin, 2.5
+
