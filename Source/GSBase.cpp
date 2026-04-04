@@ -9,9 +9,6 @@
 #include <GuiMenu.h>
 #include <MyROConfig.h>
 #include "GSBase.h"
-#include "GSGuiEdit.h"
-#include "LurkMsg.h"
-#include "Notebook.h" // TODO TEMP TEST for debugging
 #include "PrintGui.h"
 #include "ShareManager.h"
 #include "UseVertexColourShader.h"
@@ -63,8 +60,6 @@ void GSBase::Update()
     m_gui->Update();
   }
 
-  TheLurker::Instance()->Update();
-
 // Not on device
 #ifndef AMJU_IOS
   auto frameStatsText = 
@@ -76,10 +71,6 @@ void GSBase::Update()
 #endif
 }
 
-void GSBase::DrawDevMenu()
-{
-}
-
 void GSBase::Draw2d() 
 {
   AmjuGL::SetClearColour(Colour(.95f, .95f, .95f, 1.f));
@@ -89,10 +80,6 @@ void GSBase::Draw2d()
     UseVertexColourShader();
     m_gui->Draw();
   }
-
-  TheLurker::Instance()->Draw();
-
-  DrawDevMenu();
 
 #ifdef GEKKO
   TheCursorManager::Instance()->Draw();
@@ -215,40 +202,6 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
       std::cout << "Null GUI!\n";
     }
   }
-
-/*
-  // Show notebook
-  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
-    (ke.key == 'n' || ke.key == 'N'))
-  {
-    TheLurker::Instance()->Queue(new Notebook);
-  }
-
-  // Avatar mod
-  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
-     (ke.key == 'a' || ke.key == 'A'))
-  {
-    GSAvatarMod* a = TheGSAvatarMod::Instance();
-    if (a->GetPrevState() != this)
-    {
-      a->SetPrevState(this);
-    }
-    TheGame::Instance()->SetCurrentState(a);
-  }
-
-  // Gui Edit mode
-  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
-     (ke.key == 'e' || ke.key == 'E'))
-  {
-    GSGuiEdit* a = TheGSGuiEdit::Instance();
-    if (a->GetPrevState() != this)
-    {
-      a->SetPrevState(this);
-    }
-    a->SetEditGuiFilename(m_guiFilename);
-    TheGame::Instance()->SetCurrentState(a);
-  }
-*/
 
   if (CheckForKey_B_BackToPrevState(ke))
   {

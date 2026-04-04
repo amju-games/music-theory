@@ -10,7 +10,6 @@
 #include "Consts.h"
 #include "GSTitle.h"
 #include "PlayWav.h"
-#include "UserProfile.h"
 
 namespace Amju
 {

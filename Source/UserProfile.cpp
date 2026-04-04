@@ -12,27 +12,12 @@ namespace Amju
 
 namespace
 {
-const int MAX_NUM_HINTS = 10; // TODO OK?
-
-const char* HINTS_AVAILABLE_KEY = "hints_avail";
-
-// Start life with 3 hints
-int DEFAULT_HINTS_AVAIL = 3;
-
-const char* PLAYER_SCORE_KEY = "score";
-
-const char* KEY_TOPIC_BEST = "topic_best_";
-
-const char* KEY_TOPIC_UNLOCKED = "topic_unlocked_";
-
 const char* FILENAME_SUFFIX = "_user_profile.txt";
-
-const char* KEY_LEVEL = "level";
-
 } // anon namespace
 
 UserProfile* TheUserProfile()
 {
+  // TODO Different named profiles
   static UserProfile up;
   return &up;
 }
@@ -70,133 +55,34 @@ ConfigFile* UserProfile::GetConfigFile()
   return cf;
 }
 
-int UserProfile::GetScore() 
+std::string hiScore(const std::string prefix) { return prefix + "-hiscore"; }
+std::string completed(const std::string prefix) { return prefix + "-completed"; }
+std::string like(const std::string prefix) { return prefix + "-like"; }
+
+void SongPlayerInfo::GetFromConfig(const ConfigFile* cf)
 {
-  auto userConfig = GetConfigFile();
-  return userConfig->GetInt(PLAYER_SCORE_KEY, 0);
+  m_hiScore = cf->GetInt(hiScore(m_name), 0);
+  m_completed = cf->GetInt(completed(m_name), 0) != 0;
+  m_like = cf->GetInt(like(m_name), 0) != 0;
 }
 
-void UserProfile::SetTopicScore(int score, const std::string& topicId)
+void SongPlayerInfo::SetToConfig(ConfigFile* cf) const
 {
-  Assert(!topicId.empty());
-  m_topicScore = score;
-
-  auto userConfig = GetConfigFile();
-  int best = userConfig->GetInt(KEY_TOPIC_BEST + topicId, 0);
-  if (m_topicScore > best)
-  {
-
-std::cout << "New best score for " << m_currentTopic << ": " 
-  << m_topicScore << "\n";
-
-    userConfig->SetInt(KEY_TOPIC_BEST + topicId, m_topicScore);
-    Save();
-  } 
+  cf->SetInt(hiScore(m_name), m_hiScore);
+  cf->SetInt(completed(m_name), m_completed ? 0 : 1);
+  cf->SetInt(like(m_name), m_like ? 0 : 1);
 }
 
-int UserProfile::GetCurrentTopicScore() const
+SongPlayerInfo UserProfile::GetSongPlayerInfo(const std::string songName)
 {
-  return m_topicScore;
+  SongPlayerInfo spi;
+  spi.GetFromConfig(GetConfigFile());
+  return spi;
 }
 
-void UserProfile::SetCurrentTopic(int topicIndex)
-{ 
-  m_currentTopic = topicIndex;
-}
-
-int UserProfile::GetCurrentTopic() const
+void UserProfile::SetSongPlayerInfo(const SongPlayerInfo& spi)
 {
-  return m_currentTopic;
-}
-
-std::string UserProfile::GetCurrentTopicDisplayName() const
-{
-  return "";
-}
-
-int UserProfile::GetHints(HintType ht)
-{
-  return 0;
-}
-
-void UserProfile::AddHints(HintType ht, int add)
-{
-  auto userConfig = GetConfigFile();
-  const std::string key = HINTS_AVAILABLE_KEY + std::to_string(static_cast<int>(ht));
-  int hints = userConfig->GetInt(key, DEFAULT_HINTS_AVAIL);
-  const int prevHints = hints;
-
-  hints += add;
-  if (hints < 0)
-  {
-    Assert(0); // -ve hints not allowed
-    hints = 0;
-  }
-
-  if (hints > MAX_NUM_HINTS)
-  {
-    hints = MAX_NUM_HINTS;
-  }
-
-  if (hints != prevHints)
-  {
-    userConfig->SetInt(key, hints);
-    Save();
-  }
-}
-
-int UserProfile::GetBestTopicScore(const std::string& topicId) 
-{
-  Assert(!topicId.empty());
-  auto userConfig = GetConfigFile();
-  int best = userConfig->GetInt(KEY_TOPIC_BEST + topicId, 0);
-  return best;
-}
-
-bool UserProfile::IsTopicUnlocked(const std::string& topicId) 
-{
-  Assert(!topicId.empty());
-  auto userConfig = GetConfigFile();
-  return userConfig->Exists(KEY_TOPIC_UNLOCKED + topicId);
-}
-
-bool UserProfile::WasTopicEverPassed(const std::string& topicId) 
-{
-  Assert(!topicId.empty());
-  int best = GetBestTopicScore(topicId);
-  const int TOPIC_PASS_MARK = 70; // TODO ok here? Per-topic??
-  return best > TOPIC_PASS_MARK;
-}
-
-bool UserProfile::IsCurrentTopicPassed() const 
-{
-  // We want to know if the current attempt is a pass, not 
-  //  whether the topic was _ever_ passed
-  const int TOPIC_PASS_MARK = 70; // TODO ok here? Per-topic??
-  return m_topicScore > TOPIC_PASS_MARK;
-}
-
-void UserProfile::UnlockTopic(const std::string& topicId)
-{
-  Assert(!topicId.empty());
-  auto userConfig = GetConfigFile();
-  userConfig->SetInt(KEY_TOPIC_UNLOCKED + topicId, 1);
-}
-
-void UserProfile::SetCurrentLevel(int level)
-{
-  Assert(m_levelNum != level); // LevelManager guards this -- unless we change users
-  auto userConfig = GetConfigFile();
-  userConfig->SetInt(KEY_LEVEL, level);
-  Save();
-  m_levelNum = level;
-}
-
-int UserProfile::GetCurrentLevel() const
-{
-  const ConfigFile* userConfig = const_cast<UserProfile*>(this)->GetConfigFile();
-  const int DEFAULT_LEVEL = 1; // TODO 0 when we have tutorial level
-  return userConfig->GetInt(KEY_LEVEL, DEFAULT_LEVEL);
+  spi.SetToConfig(GetConfigFile());
 }
 }
 

@@ -28,6 +28,7 @@
 #include <AmjuRand.h>
 #include <BassSoundPlayer.h>
 #include <CommandLineArgs.h>
+#include <ConfigFile.h>
 #include <CursorManager.h>
 #include <Directory.h>
 #include <EventPoller.h>
@@ -49,14 +50,11 @@
 #include "GS3dTitle.h"
 #include "GSHero.h"
 #include "GSPlayNotes.h" // --keyboard mode
-#include "GSShowGui.h"
-#include "GSShowMusicScore.h"
+#include "GSShowGui.h" // for quick dev/test of a new GUI
 #include "GSTestShowScore.h"
 #include "GSTitle.h"
 #include "Gui3dScene.h"
-#include "GuiAvatar.h"
 #include "GuiMusic2dKeyboard.h"
-#include "GuiMusicKb.h"
 #include "GuiMusicScore.h"
 #include "GuiPatch.h"
 #include "GuiScrollScore.h"
@@ -293,9 +291,7 @@ static void SetUpGui()
 
   // Add game-specific types to Gui factory
   AddToGuiFactory<Gui3dScene>(); // TODO Add to amjulib
-  AddToGuiFactory<GuiAvatar>();
   AddToGuiFactory<GuiMusic2dKeyboard>();
-  AddToGuiFactory<GuiMusicKb>();
   AddToGuiFactory<GuiMusicScore>();
   AddToGuiFactory<GuiPatch>(); // TODO Add to amjulib
   AddToGuiFactory<GuiScrollScore>();

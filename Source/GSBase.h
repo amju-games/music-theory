@@ -48,8 +48,6 @@ protected:
   // If B key pressed, go to previous state: return true if we do.
   bool CheckForKey_B_BackToPrevState(const KeyEvent& ke);
 
-  void DrawDevMenu();
-
 protected: 
   // 2D GUI
   PGuiElement m_gui;

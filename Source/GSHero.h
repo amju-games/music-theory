@@ -11,7 +11,6 @@
 #include "GuiMusicKbBase.h"
 #include "GuiPatch.h"
 #include "GuiScrollScore.h"
-#include "UserProfile.h"
 
 namespace Amju
 {
@@ -164,9 +163,6 @@ protected:
   //  the player attempted, so the player can't spam keys to get lots
   //  of points or make lots of attempts.
   NoteEvents::const_iterator m_prevAttempt;
-
-  // User profile, store progress
-  RCPtr<UserProfile> m_userProfile;
 
   // Counters for detecting missed notes, i.e. no attempt made by
   //  player.
