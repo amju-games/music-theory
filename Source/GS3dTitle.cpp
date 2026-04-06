@@ -14,7 +14,7 @@ static void OnStart(GuiElement* elem)
   TheSoundManager::Instance()->StopSong(); // TODO play next song
 
   PlayWav(WAV_START_BUTTON); // This wav should blend nicely with the title music
-  TheGSHero::Instance()->SetPrevState(TheGS3dTitle::Instance());
+  TheGSChooseSong::Instance()->SetPrevState(TheGS3dTitle::Instance());
   GoTo<TheGSChooseSong>();
 }
 

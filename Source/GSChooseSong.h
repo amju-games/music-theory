@@ -17,6 +17,8 @@ public:
 
 protected:
   void InitGui();
+  void InitQuitButton();
+  void InitScrollingGui();
 };
 
 using TheGSChooseSong = Singleton<GSChooseSong>;

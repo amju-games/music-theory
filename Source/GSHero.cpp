@@ -1005,7 +1005,7 @@ void GSHero::InitKeyboard()
 
 void GSHero::InitPauseButton()
 {
-  GuiElement* elem = GetElementByName(m_gui, "pause-button");
+  GuiElement* elem = GetElementByName(m_gui, "quit-button");
   Assert(elem);
   elem->SetCommand(Amju::OnPauseButton);
 }

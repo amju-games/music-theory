@@ -13,6 +13,11 @@
 
 namespace Amju
 {
+static void OnQuitButton(GuiElement* button)
+{
+  TheGame::Instance()->GetState()->GoBack();
+}
+
 static void OnSongStart(GuiElement* button)
 {
   HeroGameRound* r = static_cast<HeroGameRound*>(button->GetUserData());
@@ -87,6 +92,19 @@ void GSChooseSong::OnActive()
 
 void GSChooseSong::InitGui()
 {
+  InitQuitButton();
+  InitScrollingGui();
+}
+
+void GSChooseSong::InitQuitButton()
+{
+  GuiElement* elem = GetElementByName(m_gui, "quit-button");
+  Assert(elem); // include quit-button.txt!
+  elem->SetCommand(Amju::OnQuitButton);
+}
+
+void GSChooseSong::InitScrollingGui()
+{
   auto grm = TheGameRoundManager::Instance();
   // Make sure the game round csv file is loaded; load only happens
   //  once, right?
@@ -110,7 +128,9 @@ void GSChooseSong::InitGui()
 
   const float oneSongHeight = 0.9f; // TODO get extent of GUI
   const float levelHeight = 0.5f; 
-  float y = 0; // cumulative y-extent of GUI as we add to it.
+  float x = 0;
+  const float TOP_Y = 0.5f;
+  float y = 0; // cumulative extent of GUI as we add to it.
   int songNum = 1; // song num in current level; one-based as we display it.
 
   for (int i = 0; i < numSongs; i++)
@@ -127,7 +147,8 @@ void GSChooseSong::InitGui()
       // Consider having a different gui file per level
       auto elem = LoadGui("Gui/level-info.txt");
       // Set pos, init gui and add to root
-      elem->SetLocalPos(Vec2f(0, y));
+      y = TOP_Y;
+      elem->SetLocalPos(Vec2f(x, y));
       y -= levelHeight;
       SetLevelGui(gameround, elem);
       rootNode->AddChild(elem);
@@ -137,8 +158,9 @@ void GSChooseSong::InitGui()
 
     auto elem = LoadGui(isUnlocked ? "Gui/one-song.txt" : "gui/one-song-locked.txt");
     // Populate text etc in this song GUI
-    elem->SetLocalPos(Vec2f(0, y));
-    y -= oneSongHeight; // TODO Get extent of song gui
+    elem->SetLocalPos(Vec2f(x, y));
+    //y -= oneSongHeight; // TODO Get extent of song gui
+    x += 1.8f; // TODO TEMP TEST
     // TODO player like flag, hi score, completed flag
     SetSongGui(gameround, elem, songNum, isUnlocked);
     ++songNum;
@@ -154,7 +176,7 @@ void GSChooseSong::InitGui()
 #ifdef _DEBUG
 std::cout << "Scroll region size: " << size.x << ", " << size.y << "\n";
 #endif
-  scroller->SetExtents(Vec2f(0, size.y)); 
+  scroller->SetExtents(size);
 }
 }
 
