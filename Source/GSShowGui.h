@@ -16,6 +16,7 @@ class GSShowGui : public GSBase
 {
 public:
   GSShowGui();
+  void Draw2d() override;
 };
 
 typedef Singleton<GSShowGui> TheGSShowGui;

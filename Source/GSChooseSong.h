@@ -1,10 +1,13 @@
 #pragma once
 
-#include "GSBase.h"
+#include "GSShowGui.h"
 
 namespace Amju
 {
-class GSChooseSong : public GSBase
+// ** Choose song **
+// We are building a GUI in code, and to look at extents, we
+//  inherit from GSShowGui.
+class GSChooseSong : public GSShowGui
 {
 public:
   GSChooseSong();

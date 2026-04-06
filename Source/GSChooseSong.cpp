@@ -21,27 +21,6 @@ static void OnSongStart(GuiElement* button)
   GoTo<TheGSHero>();  
 }
 
-void DrawBoxes(GuiElement* elem)
-{
-#ifdef DEBUG_DRAW_RECTS
-  AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
-  AmjuGL::SetColour(Colour(0, 1, 0, 1)); 
-  AmjuGL::UseShader(nullptr);
-  DrawRect(elem->CalcRect());
-  // TODO Draw child bounding rects too
-
-  auto comp = dynamic_cast<GuiComposite*>(elem);
-  if (comp)
-  {
-    for (int i = 0; i < comp->GetNumChildren(); i++)
-    {
-      DrawBoxes(comp->GetChild(i));
-    }
-  }
-#endif
-  AmjuGL::Enable(AmjuGL::AMJU_TEXTURE_2D);
-}
-
 GSChooseSong::GSChooseSong()
 {
   m_guiFilename = "Gui/gs_choose_song.txt";
@@ -49,8 +28,11 @@ GSChooseSong::GSChooseSong()
 
 void GSChooseSong::Draw2d()
 {
+#ifdef DEBUG_DRAW_RECTS
+  GSShowGui::Draw2d();
+#else
   GSBase::Draw2d();
-  DrawBoxes(GetGui());
+#endif
 }
 
 static void SetLevelGui(const HeroGameRound& r, PGuiElement gui)
@@ -99,8 +81,7 @@ static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
 
 void GSChooseSong::OnActive()
 {
-  GSBase::OnActive();
- 
+  GSShowGui::OnActive();
   InitGui();
 }
 
