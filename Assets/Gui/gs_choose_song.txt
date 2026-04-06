@@ -6,11 +6,41 @@
 // version
 1
 
+gui-comp
+choose-song-comp
+3
+
+gui-comp
+top-bar
+2
+// Black bar at top
+colour
+808080ff
+gui-sprite
+black-bar
+// NB z coord
+-1,1,   -1
+2,0.1
+Image/white.png, stretch
+1,1
+0
+
+// Text at top, should be "piano fest deluxe" if deluxe version is unlocked
+text2
+piano-fest-text
+-1,0.7
+2, 0.2
+Piano Fest
+bmmolin, 3
+
+include
+quit-button.txt
+
 gui-scroll
 song-scroller
 0,0
 // Extents
-0,4
+0,0
 
 // Element type
 gui-comp
