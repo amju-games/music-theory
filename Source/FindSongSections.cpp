@@ -75,39 +75,82 @@ std::optional<std::pair<int, int>> FindMinMaxPitchInSection(
   return std::make_pair(minNote, maxNote); 
 }
 
-void InsertNewSections(Sections& sections, const std::vector<int>& ids,
-  const NoteEvents& events)
+// Convenience function for InsertNewSections below: return true
+//  if indexed NoteEvent is a note event, rather than a rest.
+static bool IsNoteEvent(const NoteEvents& events, int i)
 {
-  auto newIds(ids);
+  if (i >= events.size()) 
+  {
+    // This happens in testing (saving us having to set up a whole
+    //  vec of note events) - but shouldn't happen in a non-test
+    //  scenario.
+#ifndef CATCH // sorry about this: must recompile for test exe
+    Assert(0); // unexpected: index into note events is out of range
+#endif
+    return true;
+  }
+  
+  return events[i].IsNoteEvent();
+}
+
+// Insert new sections into the given vector of existing sections.
+// Sections are defined by two IDs into a NoteEvents vec, [first, last).
+// A new ID can split an existing section into two, or add a new section
+//  at the beginning or end of all the sections. (Those are the only
+//  possible cases, riight?)
+// `ids` are extra IDs, which define the ends of new sections we want to add.
+// The IDs are indices into `events`. We need the events because
+//  we adjust the IDs so that we don't include rest events in sections.
+void InsertNewSections(
+  Sections& sections,  // existing sections, to which we will add more
+  const std::vector<int>& ids, // IDs of ends of sections
+  const NoteEvents& events)  // IDs index into this vector
+{
+  auto newIds(ids); // copy the IDs, because we will add to the vector..
+
+  // ..add the first and last IDs from the existing sections.
   for (const auto& s : sections)
   {
     newIds.push_back(s.first);
     newIds.push_back(s.second);
   }
+
+  // Now we have a jumble of IDs, so sort them..
   std::sort(newIds.begin(), newIds.end());
+  // ..and make sure the list only contains unique IDs.
   newIds.erase(std::unique(newIds.begin(), newIds.end()), newIds.end());
-  
+ 
+  // Now we will identify the sections defined by the new list of IDs. 
+  // Each pair of IDs (IDs i-1 and i) define one section.
   Sections newSections;
   
+  // Loop through the IDs. 
   for (int i = 1; i < newIds.size(); ++i)
   {
     int begin = newIds[i - 1];
     int end = newIds[i];
-    while (begin <= end && !events[begin].IsNoteEvent())
+    // Adjust begin and end: we only want notes in each section, not rests
+    //  (or anything else that is a "NoteEvent").
+    // We can adjust a section out of existence - that's ok.
+    while (begin <= end && !IsNoteEvent(events, begin))
     {
+      // Remove rest(s) at start of section
       ++begin;
     }
-    while (end >= begin && !events[end].IsNoteEvent())
+    while (end >= begin && !IsNoteEvent(events, end))
     {
+      // Remove rest(s) at end of section
       --end;
     }
 
+    // Store the new section if there are any events left in the range.
     if (end > begin)
     {
       newSections.emplace_back(Section(newIds[i - 1], newIds[i]));
     }
   }
 
+  // (This was a lot easier than trying to add new sections in place!!)
   sections = newSections;
 }
 
