@@ -17,6 +17,7 @@
 #include "GSPause.h"
 #include "Hud.h"
 #include "PlayWav.h"
+#include "UserProfile.h"
 #include "UseVertexColourShader.h"
 
 #ifdef WIN32
@@ -442,6 +443,17 @@ std::cout << "Player has won this round!\n";
   m_roundIsOver = true;
   m_pauseResumeTime = 0;
   ChangeState(HeroState::PLAYER_HAS_WON);
+
+  // Save progress -- TODO is there a better approach? We don't want
+  //  to lose the player progress if the process terminates.
+  auto user = GetUserProfile();
+  auto song = user->GetSongPlayerInfo(GetGameRound().m_name);
+  if (song.m_completed == false) // first time completing the song?
+  {
+    song.m_completed = true;
+    user->SetSongPlayerInfo(song);
+    user->Save();
+  }
 }
 
 void GSHero::OnPlayerHasLost()
