@@ -70,6 +70,9 @@ public:
   // OK for now but we might want to get by level and index.
   const HeroGameRound& GetGameRound(int index);
 
+  // Public for testing
+  void AddGameRound(const HeroGameRound&);
+
 private:
   std::vector<HeroGameRound> m_gameRounds;
 };

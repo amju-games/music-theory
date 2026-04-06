@@ -3,11 +3,14 @@
 
 #pragma once
 
+#include <set>
+#include <string>
 #include <ConfigFile.h>
 #include <RCPtr.h>
 
 namespace Amju
 {
+// Represents player info for one song.
 struct SongPlayerInfo
 {
   std::string m_name; // song name == unique ID
@@ -20,11 +23,15 @@ struct SongPlayerInfo
 };
 
 // * UserProfile *
-// This represents the student's progress through the game.
+// This represents the player's progress through the game, 
+//  it's a set of convenience functions around a ConfigFile.
 class UserProfile : public RefCounted
 {
 public:
-  bool Save();
+  virtual ~UserProfile() = default;
+
+  // Override to mock for testing.
+  virtual bool Save();
 
   // Get the song player info for the given song name, which is its unique ID.
   SongPlayerInfo GetSongPlayerInfo(const std::string songName);
@@ -33,12 +40,28 @@ public:
   void SetSongPlayerInfo(const SongPlayerInfo& spi);
 
   // Direct access to single config file for storing any persistent data
-  ConfigFile* GetConfigFile();
+  // Override to mock for testing.
+  virtual ConfigFile* GetConfigFile();
 
 private:
   RCPtr<ConfigFile> m_configFile;
 };
 
+// For testing: doesn't access filesystem.
+class MockUserProfile : public UserProfile
+{
+public:
+  bool Save() override { return true; }
+  ConfigFile* GetConfigFile() override;
+};
+
 // Get profile for current user, TODO might redo this a bit
-UserProfile* TheUserProfile();
+UserProfile* GetUserProfile();
+
+class GameRoundManager;
+// From the given songs (game rounds) manager and user profile, 
+//  return the names of unlocked songs.
+std::set<std::string> CalcUnlockedSongNames(
+  GameRoundManager* grm, UserProfile* user);
 }
+

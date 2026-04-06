@@ -5,6 +5,11 @@
 
 namespace Amju
 {
+void GameRoundManager::AddGameRound(const HeroGameRound& round)
+{
+  m_gameRounds.emplace_back(round);
+}
+
 bool GameRoundManager::Load()
 {
   m_gameRounds.clear();
@@ -62,8 +67,7 @@ bool GameRoundManager::Load()
     }
 
 //std::cout << round;
-
-    m_gameRounds.push_back(round);
+    AddGameRound(round);
   }
 
   if (m_gameRounds.empty()) return false;

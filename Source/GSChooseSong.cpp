@@ -87,16 +87,19 @@ void GSChooseSong::OnActive()
 
 void GSChooseSong::InitGui()
 {
-  // Load GUI for each game round
   auto grm = TheGameRoundManager::Instance();
+  // Make sure the game round csv file is loaded; load only happens
+  //  once, right?
+  grm->Load();
+
+  // Get the user profile, i.e. saved game state for current player.
+  auto user = GetUserProfile();
+
+  auto unlocked = CalcUnlockedSongNames(grm, user);
 
   // TODO In this situation, we want songs ordered by Level then Round.
   // Conceivably, we might want another sort order in a different 
   //  situation. How about GetGameRound has a sort order param?
-
-  // Make sure the game round csv file is loaded; load only happens
-  //  once, right?
-  grm->Load();
 
   auto rootNode = dynamic_cast<GuiComposite*>(
     m_gui->GetElementByName("songs-root"));
@@ -107,8 +110,8 @@ void GSChooseSong::InitGui()
 
   const float oneSongHeight = 0.9f; // TODO get extent of GUI
   const float levelHeight = 0.5f; 
-  float y = 0;
-  int songNum = 1;
+  float y = 0; // cumulative y-extent of GUI as we add to it.
+  int songNum = 1; // song num in current level; one-based as we display it.
 
   for (int i = 0; i < numSongs; i++)
   {
@@ -118,21 +121,25 @@ void GSChooseSong::InitGui()
     if (gameround.m_level != level)
     {
       level = gameround.m_level;
+      // New level; reset counters
       songNum = 1;
+
       // Consider having a different gui file per level
       auto elem = LoadGui("Gui/level-info.txt");
+      // Set pos, init gui and add to root
       elem->SetLocalPos(Vec2f(0, y));
       y -= levelHeight;
       SetLevelGui(gameround, elem);
       rootNode->AddChild(elem);
     }
-
-    bool isUnlocked = (level < 1);
+     
+    bool isUnlocked = unlocked.contains(gameround.m_name);
 
     auto elem = LoadGui(isUnlocked ? "Gui/one-song.txt" : "gui/one-song-locked.txt");
     // Populate text etc in this song GUI
     elem->SetLocalPos(Vec2f(0, y));
     y -= oneSongHeight; // TODO Get extent of song gui
+    // TODO player like flag, hi score, completed flag
     SetSongGui(gameround, elem, songNum, isUnlocked);
     ++songNum;
     rootNode->AddChild(elem);
@@ -149,6 +156,5 @@ std::cout << "Scroll region size: " << size.x << ", " << size.y << "\n";
 #endif
   scroller->SetExtents(Vec2f(0, size.y)); 
 }
-
 }
 
