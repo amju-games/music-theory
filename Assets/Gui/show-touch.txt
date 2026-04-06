@@ -1,0 +1,61 @@
+// v
+1
+
+// Fade in then disappear, to show where to tap
+
+// Colour of whole thing
+colour
+20ff20ff
+
+animation
+wait-to-fade-out
+one-shot
+// Time until fade out starts
+1
+step
+
+animation
+fade-out
+one-shot
+// Fade-out time
+.1
+linear
+
+scale
+1, 1; 0, 0
+0, 0
+
+colour
+ffffffff, ffffff00
+
+animation
+clean
+const
+one
+
+animation
+fade-in
+one-shot
+// Fade-in time
+.1
+linear
+
+scale
+0,0; 1, 1
+0, 0
+
+colour
+ffffff00, ffffffff
+
+gui-sprite
+circle
+-.1, .1
+.2, .2
+// No "stretch" here to get a nice circular shape; but this somehow gives
+//  us the wrong centre point! Can't win - but this looks ok.
+Image/circle.png
+// Num cells x, y
+1, 1
+// Cell
+0
+
