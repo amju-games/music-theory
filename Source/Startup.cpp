@@ -52,7 +52,6 @@
 #include "GSPlayNotes.h" // --keyboard mode
 #include "GSShowGui.h" // for quick dev/test of a new GUI
 #include "GSTestShowScore.h"
-#include "GSTitle.h"
 #include "Gui3dScene.h"
 #include "GuiMusic2dKeyboard.h"
 #include "GuiMusicScore.h"
