@@ -171,12 +171,17 @@ void GSChooseSong::InitScrollingGui()
   auto scroller = dynamic_cast<GuiScroll*>(m_gui->GetElementByName("song-scroller"));
   Assert(scroller);
 
+/*
   // Set scroll region so it just covers the GUI we made above.
   auto size = rootNode->CalcRect().GetSize();
 #ifdef _DEBUG
 std::cout << "Scroll region size: " << size.x << ", " << size.y << "\n";
 #endif
   scroller->SetExtents(size);
+*/
+
+  // Smaller extent is better
+  scroller->SetExtents(Vec2f(x, 0)); 
 }
 }
 
