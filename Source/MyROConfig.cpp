@@ -20,7 +20,8 @@ void ReloadMyROConfig()
 {
   auto ro = MyROConfig();
   ro->Clear();
-  if (!ro->Load("roconfig.txt"))
+  // This config file lives in the glue file, if we have one.
+  if (!ro->Load("roconfig.txt", true, File::GLUE))
   {
     Assert(0);
   }
