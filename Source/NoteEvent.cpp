@@ -12,6 +12,7 @@ std::string ToString(NoteEventType net)
   case NoteEventType::REST_OFF: return "REST_OFF";
   // No default, get compiler warning if we miss one
   }
+  return "Fix NoteEvent::ToString";
 }
 
 std::string NoteEvent::ToString() const

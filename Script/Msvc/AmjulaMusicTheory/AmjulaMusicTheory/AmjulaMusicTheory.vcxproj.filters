@@ -28,9 +28,6 @@
     <Filter Include="Assets\Gui\Stroke">
       <UniqueIdentifier>{84a3835c-428f-4394-8591-b2957993e95c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets\Course">
-      <UniqueIdentifier>{1852cf61-39d7-446d-ad98-d2ea2fd0ea31}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Docs">
       <UniqueIdentifier>{389502a0-4ed0-4cea-a477-3e3400506ecb}</UniqueIdentifier>
     </Filter>
@@ -61,24 +58,6 @@
     <Filter Include="Assets\Gui\CorridorModes">
       <UniqueIdentifier>{06975070-ae9d-4e45-8be1-65b1289afc63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets\Course\expl">
-      <UniqueIdentifier>{afc6d3ec-57f5-42f2-b999-77e7b9df283e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Course\expl\tonic-triads">
-      <UniqueIdentifier>{e11ce825-8bcc-42a8-90b2-20013a4fd2ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Course\Level1">
-      <UniqueIdentifier>{f432f62c-1746-45bf-8aaf-cc2e3cb99236}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Course\Level2">
-      <UniqueIdentifier>{5590a80d-0bdb-4ee5-98ca-0638115ad242}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Course\Level3">
-      <UniqueIdentifier>{d661259d-39c4-489e-a3d7-bd1da5567a3a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Course\Level4">
-      <UniqueIdentifier>{4675da55-540f-44ff-9112-5ba0f2661ab5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Assets\Gui\AvatarMod">
       <UniqueIdentifier>{dd2add74-0e35-4f95-a943-b0620b29e2bc}</UniqueIdentifier>
     </Filter>
@@ -93,16 +72,7 @@
     <ClCompile Include="..\..\..\..\Source\GuiMusicScore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\GSShowMusicScore.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\GSShowGui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\GuiMusicKb.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\ScoreBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Startup.cpp">
@@ -119,9 +89,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Tests\CatchTestMain.cpp">
       <Filter>CatchTests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\GSTitle.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\UserProfile.cpp">
       <Filter>Source Files</Filter>
@@ -162,34 +129,10 @@
     <ClCompile Include="..\..\..\..\Source\MySceneGraph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\GSCopyAssets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\LurkMsg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\NetSend.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\SerialReqManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Version.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Consts.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\TutorialIds.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\TutorialManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\CentreMsg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\NumUpdate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Gui3dScene.cpp">
@@ -222,20 +165,8 @@
     <ClCompile Include="..\..\..\..\Source\UseVertexColourShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\NetRequest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Tests\Localisation_catchtest.cpp">
       <Filter>CatchTests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\GuiAvatar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Notebook.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\GSGuiEdit.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Palette.cpp">
       <Filter>Source Files</Filter>
@@ -279,6 +210,24 @@
     <ClCompile Include="..\..\..\..\Source\GuiPatch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MyROConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Hud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\HudNumber.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GSBaseWithHud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GSChooseSong.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\NoteEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\GLUT\glut32.lib">
@@ -304,25 +253,16 @@
     <ClInclude Include="..\..\..\..\Source\GuiMusicScore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\GSShowMusicScore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GSShowGui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\ScoreBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\PlayMidi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GSTestShowScore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\GSTitle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\UserProfile.h">
@@ -358,25 +298,7 @@
     <ClInclude Include="..\..\..\..\Source\GSCopyAssets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\LurkMsg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\NetSend.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\SerialReqManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\TutorialIds.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\TutorialManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\CentreMsg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\NumUpdate.h">
@@ -397,26 +319,11 @@
     <ClInclude Include="..\..\..\..\Source\UseVertexColourShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\NetRequest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\Notebook.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GSGuiEdit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\GSShowNewLevelNum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Palette.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\GSHero.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\GuiScrollScore.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Grader.h">
       <Filter>Header Files</Filter>
@@ -445,16 +352,37 @@
     <ClInclude Include="..\..\..\..\Source\GuiSetFromString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\FindSongSections.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MyROConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GSHero.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GuiMusic2dKeyboard.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GuiMusicKbBase.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GuiPatch.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\FindSongSections.h">
+    <ClInclude Include="..\..\..\..\Source\GuiScrollScore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Hud.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\HudNumber.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GSBaseWithHud.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GSChooseSong.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -642,30 +570,6 @@
     <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_square_symbol_4_landscape.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-cmaj-treb.txt">
-      <Filter>Assets\Course\expl\tonic-triads</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-dmaj-treb.txt">
-      <Filter>Assets\Course\expl\tonic-triads</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-fmaj-treb.txt">
-      <Filter>Assets\Course\expl\tonic-triads</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-gmaj-treb.txt">
-      <Filter>Assets\Course\expl\tonic-triads</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-cmaj-bass.txt">
-      <Filter>Assets\Course\expl\tonic-triads</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-dmaj-bass.txt">
-      <Filter>Assets\Course\expl\tonic-triads</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-fmaj-bass.txt">
-      <Filter>Assets\Course\expl\tonic-triads</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\expl\ttriad-gmaj-bass.txt">
-      <Filter>Assets\Course\expl\tonic-triads</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt">
       <Filter>Assets\Gui\PageLayout\Landscape</Filter>
     </Text>
@@ -696,246 +600,6 @@
     <Text Include="..\..\..\..\Assets\Gui\tappables-2.txt">
       <Filter>Assets\Gui\Tappables</Filter>
     </Text>
-    <Text Include="..\..\..\..\Assets\Course\grade-1-level-1.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\grade-1-level-2.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\grade-1-level-3.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\grade-1-level-4.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\higher_or_lower.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\intervals.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\missing_rest.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\missing_time_sig.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\musical_symbols.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\musical_terms.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\note_lengths.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\note-equivs.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\note-rest-names.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\note-rest-symbols.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\rest-equivs.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\time_sigs.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\whats_the_key_sig.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\whats_the_scale.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\whats_the_tonic_triad.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\which_clef.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\higher_or_lower.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\intervals.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\missing_rest.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\missing_time_sig.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\musical_symbols.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\musical_terms.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\name_the_note.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\note_lengths.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\note-equivs.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\note-rest-names.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\note-rest-symbols.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\notes_on_bass_clef_with_accidentals.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\notes_on_treble_clef.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\notes_on_treble_clef_with_accidentals.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\rest-equivs.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\time_sigs.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\whats_the_key_sig.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\whats_the_scale.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\whats_the_tonic_triad.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level2\which_clef.txt">
-      <Filter>Assets\Course\Level2</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\higher_or_lower.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\intervals.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\missing_rest.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\missing_time_sig.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\musical_symbols.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\musical_terms.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\name_the_note.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\note_lengths.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\note-equivs.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\note-rest-names.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\note-rest-symbols.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\notes_on_bass_clef_with_accidentals.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\notes_on_treble_clef.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\notes_on_treble_clef_with_accidentals.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\rest-equivs.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\time_sigs.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\whats_the_key_sig.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\whats_the_scale.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\whats_the_tonic_triad.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level3\which_clef.txt">
-      <Filter>Assets\Course\Level3</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\higher_or_lower.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\intervals.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\missing_rest.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\missing_time_sig.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\musical_symbols.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\musical_terms.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\name_the_note.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\note_lengths.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\note-equivs.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\note-rest-names.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\note-rest-symbols.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\notes_on_bass_clef_with_accidentals.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\notes_on_treble_clef.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\notes_on_treble_clef_with_accidentals.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\rest-equivs.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\time_sigs.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\whats_the_key_sig.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\whats_the_scale.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\whats_the_tonic_triad.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level4\which_clef.txt">
-      <Filter>Assets\Course\Level4</Filter>
-    </Text>
     <Text Include="..\..\..\..\Assets\Gui\tap-picture-treb-clef.txt">
       <Filter>Assets\Gui\Tappables</Filter>
     </Text>
@@ -944,15 +608,6 @@
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\tap-pic-notes-on-treb-clef-1.txt">
       <Filter>Assets\Gui\Tappables</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\name-the-note-treb-clef.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\name-the-note-bass-clef.txt">
-      <Filter>Assets\Course\Level1</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Course\level1\notes-on-treble-clef.txt">
-      <Filter>Assets\Course\Level1</Filter>
     </Text>
     <Text Include="..\..\..\..\Assets\Gui\tap-picture-semibreve.txt">
       <Filter>Assets\Gui\Tappables</Filter>

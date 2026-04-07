@@ -7,8 +7,8 @@
 #include <GuiComposite.h>
 #include <GuiDecAnimation.h>
 #include <GuiMenu.h>
-#include <MyROConfig.h>
 #include "GSBase.h"
+#include "MyROConfig.h"
 #include "PrintGui.h"
 #include "ShareManager.h"
 #include "UseVertexColourShader.h"

@@ -2,8 +2,8 @@
 // (c) Copyright 2024 Juliet Colman
 
 #include <AmjuAssert.h>
-#include <MyROConfig.h>
 #include "Consts.h"
+#include "MyROConfig.h"
 
 namespace Amju
 {

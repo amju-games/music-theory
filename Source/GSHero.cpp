@@ -290,8 +290,8 @@ std::cout << "ERROR: keyboard: no min/max keys on screen?\n";
   }
 
   // Get mid point in screen coords of notes currently on screen
-  const int screenMiddle = Mean(m_keyboard->GetKeyMidX(screenMin),
-                                m_keyboard->GetKeyMidX(screenMax));
+  const float screenMiddle = Mean(m_keyboard->GetKeyMidX(screenMin),
+                                  m_keyboard->GetKeyMidX(screenMax));
 
   // Try to get middle note of section in the middle of the screen
   const auto& currentPos = m_keyboardTranslate->GetLocalPos();

@@ -79,7 +79,7 @@ std::optional<std::pair<int, int>> FindMinMaxPitchInSection(
 //  if indexed NoteEvent is a note event, rather than a rest.
 static bool IsNoteEvent(const NoteEvents& events, int i)
 {
-  if (i >= events.size()) 
+  if (i >= static_cast<int>(events.size())) 
   {
     // This happens in testing (saving us having to set up a whole
     //  vec of note events) - but shouldn't happen in a non-test
@@ -125,7 +125,7 @@ void InsertNewSections(
   Sections newSections;
   
   // Loop through the IDs. 
-  for (int i = 1; i < newIds.size(); ++i)
+  for (int i = 1; i < static_cast<int>(newIds.size()); ++i)
   {
     int begin = newIds[i - 1];
     int end = newIds[i];
