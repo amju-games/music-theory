@@ -43,6 +43,9 @@ public:
   void Update() override;
   void Draw2d() override;
 
+  // Debug: win/lose cheat buttons
+  bool OnKeyEvent(const KeyEvent&) override;
+
   void OnPauseGame() override;
 
   // Called when player triggers a keyboard event
@@ -61,6 +64,7 @@ public:
   void OnKeyboardHasFinishedMoving();
 
   void SetGameRound(const HeroGameRound* gameRound);
+  const HeroGameRound& GetGameRound() const;
 
 protected:
   // Call to change current 'micro state'

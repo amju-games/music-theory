@@ -35,7 +35,7 @@ static int frameCount = 0;
 
 static const HeroGameRound* s_gameRound = nullptr;
 
-static const HeroGameRound& GetGameRound()
+const HeroGameRound& GSHero::GetGameRound() const
 {
   if (s_gameRound == nullptr)
   {
@@ -63,6 +63,22 @@ static void OnKeyboardHasFinishedMoving(Animator*)
 GSHero::GSHero()
 {
   m_guiFilename = "Gui/gs_hero.txt";
+}
+
+bool GSHero::OnKeyEvent(const KeyEvent& ke)
+{
+  // Debug cheat buttons
+#ifdef _DEBUG
+  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
+     (std::tolower(ke.key) == 'w'))
+  {
+    OnPlayerHasWon();
+    return true;
+  }
+#endif
+ 
+  if (GSBase::OnKeyEvent(ke)) return true;
+  return false;
 }
 
 void GSHero::SetGameRound(const HeroGameRound* gameRound)

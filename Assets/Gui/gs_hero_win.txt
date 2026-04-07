@@ -9,7 +9,7 @@ gui-comp
 // Name
 gs-hero-win-root
 // Num children
-5
+3
 
 elastic
 0,-2
@@ -23,28 +23,19 @@ Image/rough-oval.png
 $$$11
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
-elastic
-0,-2
-// Quit button
-gui-button
-quit-button
--0.2, -0.5
-0.4, 0.25
-Image/rough-oval.png
-// Quit
-$$$10
-BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
+colour
+000000ff
 
+gui-comp
+text-comp
+2
 
-rotate
-10
-.5, .5
 gui-text
-mega-text-test
--1, 1
-2, 2
-WINNER!
-BUTTON, 10.0, multi, fgcol=404080
+you-won-text
+-1, .3
+2, .1 
+@@@Bravo!!!
+bmmolin, 6.0
 
 // Title of song/piece
 gui-text
@@ -56,7 +47,7 @@ song-title
 // Text
 title
 // Font name, size
-BUTTON, 2.0, multi, fgcol=000000
+bmmolin, 2.0
 
 include
 hud.txt
