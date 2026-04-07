@@ -105,6 +105,8 @@ void GSChooseSong::InitQuitButton()
 
 void GSChooseSong::InitScrollingGui()
 {
+  GuiScroll::SetTabStopSoundFilename("Sound/wav/waterdrop.wav");
+
   auto grm = TheGameRoundManager::Instance();
   // Make sure the game round csv file is loaded; load only happens
   //  once, right?
@@ -126,6 +128,7 @@ void GSChooseSong::InitScrollingGui()
 
   int level = -1; // show level info when level of current song is different
 
+  const float oneSongWidth = 1.7f;
   const float oneSongHeight = 0.9f; // TODO get extent of GUI
   const float levelHeight = 0.5f; 
   float x = 0;
@@ -160,7 +163,7 @@ void GSChooseSong::InitScrollingGui()
     // Populate text etc in this song GUI
     elem->SetLocalPos(Vec2f(x, y));
     //y -= oneSongHeight; // TODO Get extent of song gui
-    x += 1.8f; // TODO TEMP TEST
+    x += oneSongWidth;
     // TODO player like flag, hi score, completed flag
     SetSongGui(gameround, elem, songNum, isUnlocked);
     ++songNum;
@@ -171,17 +174,8 @@ void GSChooseSong::InitScrollingGui()
   auto scroller = dynamic_cast<GuiScroll*>(m_gui->GetElementByName("song-scroller"));
   Assert(scroller);
 
-/*
-  // Set scroll region so it just covers the GUI we made above.
-  auto size = rootNode->CalcRect().GetSize();
-#ifdef _DEBUG
-std::cout << "Scroll region size: " << size.x << ", " << size.y << "\n";
-#endif
-  scroller->SetExtents(size);
-*/
-
-  // Smaller extent is better
-  scroller->SetExtents(Vec2f(x, 0)); 
+  scroller->SetExtents(Vec2f(x - oneSongWidth, 0));
+  scroller->SetTabStopSize(Vec2f(oneSongWidth, 0));
 }
 }
 
