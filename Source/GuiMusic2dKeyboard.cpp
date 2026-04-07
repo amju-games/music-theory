@@ -119,8 +119,8 @@ bool GuiMusic2dKeyboard::Load(File* f)
       f->ReportError("Failed to load key " + keyFile);
       return false;
     }
-    newKey->m_name = "c";
-    newKey->m_displayName = "c";
+    newKey->m_name = "c"; // TODO
+    newKey->m_displayName = "c"; // TODO
     newKey->m_midiNote = midi++;
 
     m_keys.push_back(newKey);

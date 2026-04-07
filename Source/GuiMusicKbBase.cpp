@@ -250,14 +250,13 @@ GuiMusicKbBase::Key* GuiMusicKbBase::PickKey(const Vec2f& pos)
   std::vector<PKey> pickedKeys; // should be 0, 1 or 2, right?!
   for (PKey& key : m_keys)
   {
-//    auto key = dynamic_cast<GuiMusicKb::Key3d*>(pkey.GetPtr());
     if (key->m_projectedRect.IsPointIn(pos))
     {   
       pickedKeys.push_back(key); 
     }   
   }
 
-  int n = pickedKeys.size();
+  int n = static_cast<int>(pickedKeys.size());
   if (n == 0)
   {
     return nullptr;
@@ -277,8 +276,11 @@ GuiMusicKbBase::Key* GuiMusicKbBase::PickKey(const Vec2f& pos)
     }   
   }
 
-  // No key picked
-  return nullptr;
+  // Overlapping white keys: choose the one we are closest to the centre of, just in x axis
+  Assert(pickedKeys.size() > 1); // from logic above
+  float dist0 = pickedKeys[0]->m_projectedRect.GetCentre().x - pos.x;
+  float dist1 = pickedKeys[1]->m_projectedRect.GetCentre().x - pos.x;
+  return (dist0 < dist1) ? pickedKeys[0] : pickedKeys[1];
 }
 
 bool GuiMusicKbBase::OnCursorEvent(const CursorEvent& ce)
@@ -318,12 +320,11 @@ bool GuiMusicKbBase::OnCursorEvent(const CursorEvent& ce)
 #endif // YES_ALLOW_SWIPE_TO_SCROLL
 
 #ifdef YES_GLISSANDO
+  
   // Glissando
-  if (m_tapDown) // Not sure this makes any difference
-  {
-    m_tapDownPos = Vec2f(ce.x, ce.y);
-    MoveClosestFinger(m_tapDownPos);
-  }
+  m_tapDownPos = Vec2f(ce.x, ce.y);
+  MoveClosestFinger(m_tapDownPos);
+
 #endif // YES_GLISSANDO
 
   return false;
@@ -382,6 +383,10 @@ void GuiMusicKbBase::AddFinger(const Vec2f& pos)
   f.m_key = PickKey(pos);
   if (f.m_key)
   {
+#ifdef MUSIC_KB_DEBUG
+    std::cout << "Adding a finger to key " << f.m_key->m_midiNote << "\n";
+#endif
+    
     if (CountFingersOnKey(f.m_key) == 0)
     {
       PressKey(f.m_key); // Not if another finger is already on it
@@ -396,6 +401,10 @@ void GuiMusicKbBase::EraseClosestFinger(const Vec2f& pos)
   auto it = FindClosestFinger(pos);
   if (it != m_fingers.end())
   {
+#ifdef MUSIC_KB_DEBUG
+    std::cout << "Erasing finger from key " << it->m_key->m_midiNote << "\n";
+#endif
+    
     if (CountFingersOnKey(it->m_key) == 1)
     {
       ReleaseKey(it->m_key); // Not if another finger is still on it
@@ -413,8 +422,12 @@ void GuiMusicKbBase::MoveClosestFinger(const Vec2f& pos)
     it->m_pos = pos; // Update posision
     // Has key changed?
     auto key = PickKey(pos);
-    if (key != it->m_key)
+    if (key && key != it->m_key)
     {
+#ifdef MUSIC_KB_DEBUG
+      std::cout << "Moving a finger from " << key->m_midiNote << " to key " << it->m_key->m_midiNote << "\n";
+#endif
+      
       if (CountFingersOnKey(it->m_key) == 1)
       {
         ReleaseKey(it->m_key); // Not if another finger is still on it

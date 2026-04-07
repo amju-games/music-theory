@@ -173,17 +173,18 @@ void PopulateCursorEvent(Amju::CursorEvent* ce, int x, int y)
   {
     CGPoint touchPoint = [touch locationInView:self.view];
 
-   // Why do we want a cursor event as well as a mouse down event?
-   //Amju::CursorEvent* ce = new Amju::CursorEvent;
-   //PopulateCursorEvent(ce, touchPoint.x * s, touchPoint.y * s);
-   //QueueEvent(ce);
-
     // Touch down events are treated as left mouse button down events
     Amju::MouseButtonEvent* mbe = new Amju::MouseButtonEvent;
     mbe->button = Amju::AMJU_BUTTON_MOUSE_LEFT;
     mbe->isDown = true;
     PopulateMBEvent(mbe, touchPoint.x * s, touchPoint.y * s);
     QueueEvent(mbe);
+    
+    // Why do we want a cursor event as well as a mouse down event?
+    // Ohh, maybe it is for dx and dy
+    Amju::CursorEvent* ce = new Amju::CursorEvent;
+    PopulateCursorEvent(ce, touchPoint.x * s, touchPoint.y * s);
+    QueueEvent(ce);
   }
 }
 
