@@ -228,8 +228,9 @@ void PopulateCursorEvent(Amju::CursorEvent* ce, int x, int y)
 // Defer system gestures to the second swipe
 - (UIRectEdge)preferredScreenEdgesDeferringSystemGestures
 {
-  // Returns .bottom to prioritize your game's input at the bottom edge
-  return UIRectEdgeBottom;
+  // Return .bottom to prioritize your game's input at the bottom edge
+  // Return bottom and sides: music keys at edge of screen are affected.
+  return UIRectEdgeLeft | UIRectEdgeBottom | UIRectEdgeRight;
 }
 
 // Auto-hide the Home Indicator (the horizontal bar)
