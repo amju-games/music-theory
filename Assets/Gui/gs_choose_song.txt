@@ -8,7 +8,7 @@
 
 gui-comp
 choose-song-comp
-3
+4
 
 gui-comp
 top-bar
@@ -49,4 +49,10 @@ songs-root
 // Num children
 0
 // We add one child per song to the root.
+
+// Show swipe - should be first time only
+translate
+0.4, 0
+include
+show-swipeRL.txt
 
