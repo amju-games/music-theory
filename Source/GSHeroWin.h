@@ -1,16 +1,18 @@
 #pragma once
 
 #include <Singleton.h>
-#include "GSBaseWithHud.h"
+#include "GSBase.h"
+#include "WithHud.h"
 
 namespace Amju
 {
 // WIN state, following successful song rendition in GSHero
-class GSHeroWin : public GSBaseWithHud
+class GSHeroWin : public GSBase, public WithHud
 {
 public:
   GSHeroWin();
 
+  void Update() override;
   void OnActive() override;
 };
 

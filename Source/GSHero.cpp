@@ -361,7 +361,8 @@ void GSHero::ChangeState(HeroState newState)
 
 void GSHero::Update()
 {
-  GSBaseWithHud::Update();
+  GSBase::Update();
+  UpdateHud();
 
   // Scroll the score if we are playing the song.
   if (m_state == HeroState::SONG_PLAYING)
@@ -877,7 +878,7 @@ std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
 void GSHero::ResetHud()
 {
   bool reset = (m_pauseResumeTime == 0);
-  InitHud(reset);
+  InitHud(m_gui, reset);
 }
 
 void GSHero::SetSongTitle()

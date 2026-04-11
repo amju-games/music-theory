@@ -20,6 +20,12 @@ GSHeroEnd::GSHeroEnd()
   m_guiFilename = "Gui/gs_hero_end.txt";
 }
 
+void GSHeroEnd::Update()
+{
+  UpdateHud();
+  GSBase::Update();
+}
+
 void GSHeroEnd::OnActive()
 {
   GSBase::OnActive();
@@ -36,7 +42,7 @@ void GSHeroEnd::OnActive()
   GuiElement* quitButton = GetElementByName(m_gui, "quit-button");
   quitButton->SetCommand(OnQuit);
 
-  InitHud();
+  InitHud(m_gui);
 
   // Go back to title after a while?
   // NB We need to clear the message queue if we get a button click

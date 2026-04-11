@@ -4,17 +4,21 @@
 #pragma once
 
 #include <Singleton.h>
-#include "GSBaseWithHud.h"
+#include "GSBase.h"
+#include "WithHud.h"
 
 namespace Amju
 {
 // * GSPause *
-// Pause menu state, reached when learning a topic. Options to go back to main menu, etc.
-class GSPause : public GSBaseWithHud
+// Pause menu state, reached when learning a topic. 
+// Options to go back to main menu, etc.
+class GSPause : public GSBase, public WithHud
 {
 public:
   GSPause();
-  virtual void OnActive() override;
+
+  void Update() override;
+  void OnActive() override;
 };
 
 typedef Singleton<GSPause> TheGSPause;

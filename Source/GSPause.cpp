@@ -26,6 +26,12 @@ GSPause::GSPause()
   m_guiFilename = "Gui/gs_pause.txt";
 }
 
+void GSPause::Update()
+{
+  UpdateHud();
+  GSBase::Update();
+}
+
 void GSPause::OnActive()
 {
   GSBase::OnActive();
@@ -38,6 +44,6 @@ void GSPause::OnActive()
   Assert(elem);
   elem->SetCommand(OnQuit);
 
-  InitHud();
+  InitHud(m_gui);
 }
 };

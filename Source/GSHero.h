@@ -7,10 +7,11 @@
 #include <GuiDecTranslate.h>
 #include <Singleton.h>
 #include "FindSongSections.h"
-#include "GSBaseWithHud.h"
+#include "GSBase.h"
 #include "GuiMusicKbBase.h"
 #include "GuiPatch.h"
 #include "GuiScrollScore.h"
+#include "WithHud.h"
 
 namespace Amju
 {
@@ -33,7 +34,7 @@ enum class HeroState
 // * GSHero *
 // Hero mode: the game mechanic which is like Guitar Hero, but for 
 //  keyboard/sheet music.
-class GSHero : public GSBaseWithHud
+class GSHero : public GSBase, public WithHud
 {
 public:
   GSHero();

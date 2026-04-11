@@ -20,6 +20,12 @@ GSHeroWin::GSHeroWin()
   m_guiFilename = "Gui/gs_hero_win.txt";
 }
 
+void GSHeroWin::Update()
+{
+  UpdateHud();
+  GSBase::Update();
+}
+
 void GSHeroWin::OnActive()
 {
   GSBase::OnActive();
@@ -38,7 +44,7 @@ void GSHeroWin::OnActive()
   Assert(t);
   t->SetText(TheGSHero::Instance()->GetGameRound().m_title);
 
-  InitHud();
+  InitHud(m_gui);
 }
 }
 
