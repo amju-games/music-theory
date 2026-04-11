@@ -5,6 +5,7 @@
 #include <GuiFactory.h>
 #include <LoadScene.h>
 #include "Gui3dScene.h"
+#include "UseVertexColourShader.h"
 
 namespace Amju
 {
@@ -27,7 +28,19 @@ void Gui3dScene::Draw()
   const Vec2f& pos = GetCombinedPos();
   const Vec2f& size = GetSize();
 
+  PushShader();
+
+  AmjuGL::PushAttrib(
+    AmjuGL::AMJU_LIGHTING |
+    AmjuGL::AMJU_TEXTURE_2D |
+    AmjuGL::AMJU_DEPTH_READ |
+    AmjuGL::AMJU_DEPTH_WRITE);
+
+  AmjuGL::SetMatrixMode(AmjuGL::AMJU_PROJECTION_MATRIX);
   AmjuGL::PushMatrix();
+  AmjuGL::SetMatrixMode(AmjuGL::AMJU_MODELVIEW_MATRIX);
+  AmjuGL::PushMatrix();
+
   AmjuGL::Translate(pos.x, pos.y, 0);
   AmjuGL::Scale(size.x, size.y, 1);
 
@@ -37,11 +50,14 @@ void Gui3dScene::Draw()
 
   m_sceneGraph->Draw();
 
-  // Disable depth test again, as we are in GUI rendering
-  //AmjuGL::Disable(AmjuGL::AMJU_DEPTH_WRITE);
-  AmjuGL::Disable(AmjuGL::AMJU_DEPTH_READ);
-
   AmjuGL::PopMatrix();
+  AmjuGL::SetMatrixMode(AmjuGL::AMJU_PROJECTION_MATRIX);
+  AmjuGL::PopMatrix();
+  AmjuGL::SetMatrixMode(AmjuGL::AMJU_MODELVIEW_MATRIX);
+
+  AmjuGL::PopAttrib();
+
+  PopShader();
 }
 
 void Gui3dScene::Update()
