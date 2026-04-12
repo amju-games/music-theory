@@ -392,7 +392,6 @@
     <ClInclude Include="..\..\..\..\Source\GSBase3d.h" />
     <ClInclude Include="..\..\..\..\Source\GSBaseWithHud.h" />
     <ClInclude Include="..\..\..\..\Source\GSChooseSong.h" />
-    <ClInclude Include="..\..\..\..\Source\GSCopyAssets.h" />
     <ClInclude Include="..\..\..\..\Source\GSGuiEdit.h" />
     <ClInclude Include="..\..\..\..\Source\GSHero.h" />
     <ClInclude Include="..\..\..\..\Source\GSHeroEnd.h" />

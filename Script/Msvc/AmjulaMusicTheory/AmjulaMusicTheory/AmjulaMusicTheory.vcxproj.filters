@@ -295,9 +295,6 @@
     <ClInclude Include="..\..\..\..\Source\MySceneGraph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\GSCopyAssets.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
