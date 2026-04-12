@@ -45,6 +45,7 @@
 #include <ResourceManager.h>
 #include <SceneNodeFactory.h>
 #include <SoundManager.h>
+#include "BlinkSceneNode.h"
 #include "Consts.h"
 #include "GS3dExample.h"
 #include "GS3dTitle.h"
@@ -277,37 +278,39 @@ static void AddToGuiFactory()
   TheGuiFactory::Instance()->Add(T::NAME, []()->GuiElement* { return new T; });
 }
 
+template <class T>
+static void AddToSceneNodeFactory()
+{
+  TheSceneNodeFactory::Instance()->Add(T::NAME, 
+    []()->SceneNode* { return new T; });
+}
+
 static void SetUpGui()
 {
+// Urgh, TODO remove the need for this.
 #if defined(WIN32) || defined(MACOSX)
-  TheCursorManager::Instance()->Load("Image/hand.png", Vec2f(0.025f, -0.08f)); // hotspot position
+  // Set image for cursor (e.g. hand with pointing finger for Wii controller).
+  // If we don't care, just set any texture we have.
+  // 2nd param is 'hotspot' pixel position.
+  TheCursorManager::Instance()->Load("Image/hand.png", Vec2f()); 
 #endif
 
   GuiButton::SetClickFilename(WAV_BUTTON_CLICK);
 
-  // Set image used for rounded rectangles
-  GuiRect::SetCornerImage("Image/circle.png");
-
   // Add game-specific types to Gui factory
-  AddToGuiFactory<Gui3dScene>(); // TODO Add to amjulib
+  AddToGuiFactory<Gui3dScene>(); // TODO Promote to amjulib
   AddToGuiFactory<GuiMusic2dKeyboard>();
   AddToGuiFactory<GuiMusicScore>();
-  AddToGuiFactory<GuiPatch>(); // TODO Add to amjulib
+  AddToGuiFactory<GuiPatch>(); // TODO Promote to amjulib
   AddToGuiFactory<GuiScrollScore>();
 
   //Add game-specific types to Scene node factory
   // TODO These are not game specific! Add to amjulib!!
   ParticleFx::AddToFactory();
 
-  TheSceneNodeFactory::Instance()->Add(
-    SceneNodeGui::NAME, 
-    []()->SceneNode* { return new SceneNodeGui; } 
-  );
-
-  TheSceneNodeFactory::Instance()->Add(
-    "md2", 
-    []()->SceneNode* { return new Md2SceneNode; } 
-  );
+  AddToSceneNodeFactory<SceneNodeGui>(); // TODO Promote to amjulib
+  AddToSceneNodeFactory<Md2SceneNode>(); // TODO Promote to amjulib
+  AddToSceneNodeFactory<BlinkSceneNode>(); // TODO Promote to amjulib
 }
 
 static void SetInitialState()
