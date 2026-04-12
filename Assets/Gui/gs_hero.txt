@@ -24,26 +24,26 @@ translate
 gui-comp
 title-and-composer
 2
-gui-text
+text2
 // Name
 song-title
--1.0, 0.95
+-1.0, 0.75
 // size
 2.0, 0.3
 // Text
 title
 // Font name, size
-bmmolin, 2.0, multi, fgcol=000000
-gui-text
+bmmolin, 2.0, centre, fgcol=000000
+text2
 // Name
 song-composer
--.9, 0.7
+-.9, 0.65
 // size
 1.8, 0.1
 // Text
 Composer
 // Font name, size
-bmmolin, 1, multi, fgcol=000000, right
+bmmolin, 1, right, fgcol=000000
 
 // Text balloon giving feedback on player's input
 include
@@ -123,3 +123,4 @@ quit-button.txt
 include
 elastic-hud.txt
 
+	
