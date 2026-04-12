@@ -15,10 +15,16 @@ public:
   void OnActive() override;
   void Draw2d() override;
 
+  // Callback for when we stop on a song in the scrolling list.
+  void OnTabStop(int tabStop);
+
 protected:
   void InitGui();
   void InitQuitButton();
   void InitScrollingGui();
+
+protected:
+  int m_lastTabStop = 0; // track most recent tab stop in scrolling list.
 };
 
 using TheGSChooseSong = Singleton<GSChooseSong>;

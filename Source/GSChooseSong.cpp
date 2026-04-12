@@ -1,3 +1,4 @@
+#include <iostream>
 #include <DrawRect.h>
 #include <GuiButton.h>
 #include <GuiComposite.h>
@@ -13,6 +14,11 @@
 
 namespace Amju
 {
+static void OnTabStop(GuiElement* scroller, int tabStop)
+{
+  TheGSChooseSong::Instance()->OnTabStop(tabStop);
+}
+
 static void OnQuitButton(GuiElement* button)
 {
   TheGame::Instance()->GetState()->GoBack();
@@ -105,7 +111,7 @@ void GSChooseSong::InitQuitButton()
 
 void GSChooseSong::InitScrollingGui()
 {
-  GuiScroll::SetTabStopSoundFilename("Sound/wav/waterdrop.wav");
+  GuiScroll::SetTabStopSoundFilename("Sound/wav/click.wav");
 
   auto grm = TheGameRoundManager::Instance();
   // Make sure the game round csv file is loaded; load only happens
@@ -176,6 +182,17 @@ void GSChooseSong::InitScrollingGui()
 
   scroller->SetExtents(Vec2f(x - oneSongWidth, 0));
   scroller->SetTabStopSize(Vec2f(oneSongWidth, 0));
+  scroller->SetTabStopCallback(Amju::OnTabStop);
+  if (m_lastTabStop != 0)
+  {
+    scroller->SetTabStop(m_lastTabStop);
+  }
+}
+
+void GSChooseSong::OnTabStop(int tabStop)
+{
+  m_lastTabStop = tabStop; // TODO persist this in game config file? Hmm
+  std::cout << "Hit tab stop " << tabStop << "\n";
 }
 }
 
