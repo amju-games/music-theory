@@ -2,6 +2,7 @@
 // (c) Copyright 2024 Juliet Colman
 
 #include <Game.h>
+#include <GuiButton.h>
 #include "GS3dTitle.h"
 #include "GSHero.h"
 #include "GSPause.h"
@@ -39,6 +40,9 @@ void GSPause::OnActive()
   GuiElement* elem = GetElementByName(m_gui, "resume-button");
   Assert(elem);
   elem->SetCommand(OnResume);
+  auto button = dynamic_cast<GuiButton*>(elem);
+  Assert(button);
+  button->SetHasFocus(true);
 
   elem = GetElementByName(m_gui, "quit-button");
   Assert(elem);
