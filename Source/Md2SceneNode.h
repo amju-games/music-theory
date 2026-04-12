@@ -13,6 +13,8 @@ namespace Amju
 class Md2SceneNode : public SceneNode
 {
 public:
+  static const char* NAME;
+
   Md2SceneNode();
 
   void Draw() override;

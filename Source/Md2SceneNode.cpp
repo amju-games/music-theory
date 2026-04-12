@@ -15,6 +15,8 @@
 
 namespace Amju
 {
+const char* Md2SceneNode::NAME = "md2";
+
 Md2SceneNode::Md2SceneNode()
 {
   m_frame = 0;
