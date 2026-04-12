@@ -625,7 +625,7 @@ bool GuiMusicScore::ParseNoteOn(const Strings& strs)
 
   int pitch = ToInt(strs[1]);
   float time = ToFloat(strs[2]);
-  int volume = ToFloat(strs[3]);
+  int volume = ToInt(strs[3]);
   float x = ToFloat(strs[4]);
   float y = ToFloat(strs[5]);
 
@@ -705,7 +705,7 @@ bool GuiMusicScore::ParseBpm(const Strings& strs)
     ReportError("Bad number of params for BPM.");
     return false;
   }
-  int bpm = ToFloat(strs[1]);
+  float bpm = ToFloat(strs[1]);
   if (bpm < 1.f || bpm > 300.f)
   {
     ReportError("Invalid value for BPM.");
