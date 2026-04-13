@@ -6,11 +6,57 @@
 //  Copyright (c) 2013 Juliet Colman. All rights reserved.
 //
 
+#import <dlfcn.h> // Required for dlopen
 #include <Game.h>
 #include <ConfigFile.h>
-//#include "NetSend.h"
 #import "AppDelegate.h"
 #import "ViewController.h"
+
+/**
+ * Encapsulates the dynamic loading of BugSplat to prevent dyld crashes
+ * on legacy devices (iOS < 13.0).
+ */
+void InitializeBugSplat() {
+  // Only attempt to load on iOS 13+ to avoid UIWindowScene symbol issues
+  if (@available(iOS 13.0, *)) {
+    
+    // Path to the framework inside the app bundle
+    NSString *frameworkPath = [[[NSBundle mainBundle] privateFrameworksPath]
+                               stringByAppendingPathComponent:@"BugSplat.framework/BugSplat"];
+    
+    // RTLD_NOW ensures symbols are resolved immediately
+    void *libHandle = dlopen([frameworkPath UTF8String], RTLD_NOW);
+    
+    if (libHandle) {
+      Class bugSplatClass = NSClassFromString(@"BugSplat");
+      if (bugSplatClass) {
+        // Use KVC and Selectors to avoid needing the header file
+        id bugSplat = [bugSplatClass performSelector:NSSelectorFromString(@"shared")];
+        
+        // This is equivalent to: bugSplat.autoSubmitCrashReport = YES;
+        [bugSplat setValue:@YES forKey:@"autoSubmitCrashReport"];
+        
+        NSString *appName = @"piano-fest";
+        
+        NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+        NSString *build = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+        NSString *fullVersion = [NSString stringWithFormat:@"%@.%@", version, build];
+        
+        [bugSplat setValue:appName forKey:@"applicationName"];
+        [bugSplat setValue:fullVersion forKey:@"applicationVersion"];
+        
+        [bugSplat performSelector:NSSelectorFromString(@"start")];
+        
+        NSLog(@"[BugSplat] Successfully initialized at runtime.");
+      }
+    } else {
+      const char *error = dlerror();
+      NSLog(@"[BugSplat] Library load failed: %s", error ? error : "Unknown error");
+    }
+  } else {
+    NSLog(@"[BugSplat] Initialization skipped (Legacy iOS detected).");
+  }
+}
 
 @implementation AppDelegate
 
@@ -32,12 +78,15 @@
       self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController_iPad" bundle:nil] autorelease];
   }
   self.window.rootViewController = self.viewController;
-    [self.window makeKeyAndVisible];
+  [self.window makeKeyAndVisible];
   
   // j.c. keep back light on - but TODO allow idle in menus
   [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
   
-    return YES;
+  // j.c. Start bugsplat if iOS version is >= 13
+  InitializeBugSplat();
+  
+  return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

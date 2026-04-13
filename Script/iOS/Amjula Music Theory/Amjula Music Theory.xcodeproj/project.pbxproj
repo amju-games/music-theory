@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -69,6 +69,7 @@
 		C5117C4B2F11CE0300952A7B /* GSHeroEnd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5117C462F11CE0300952A7B /* GSHeroEnd.cpp */; };
 		C5117C4C2F11CE0300952A7B /* GS3dTitle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5117C4A2F11CE0300952A7B /* GS3dTitle.cpp */; };
 		C514212D2F5357A90009EB23 /* GuiSetFromString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C514212A2F5357A90009EB23 /* GuiSetFromString.cpp */; };
+		C5547F972F8C0388003AB05C /* BugSplat.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5547F942F8C0388003AB05C /* BugSplat.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C55726A32F0EFA5400EEB2A5 /* Grader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55726982F0EFA5300EEB2A5 /* Grader.cpp */; };
 		C55726A42F0EFA5400EEB2A5 /* HeroGameRound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55726992F0EFA5300EEB2A5 /* HeroGameRound.cpp */; };
 		C55726A52F0EFA5400EEB2A5 /* GS3dExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C557269F2F0EFA5400EEB2A5 /* GS3dExample.cpp */; };
@@ -81,11 +82,19 @@
 		C56DAD062EF2CFED00739D75 /* BassPlayMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */; };
 		C56DAD082EF2CFED00739D75 /* Palette.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACF72EF2CFED00739D75 /* Palette.cpp */; };
 		C56DAD0A2EF2CFED00739D75 /* GSShowGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACFB2EF2CFED00739D75 /* GSShowGui.cpp */; };
+		C5732A692F8C1344000BD8A4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5732A682F8C1344000BD8A4 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C579D4782F12DBEE0042461C /* GSHeroWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C579D4772F12DBED0042461C /* GSHeroWin.cpp */; };
+		C5810E9F2F8C0C5000047856 /* Bird.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E902F8C0C4F00047856 /* Bird.cpp */; };
+		C5810EA02F8C0C5000047856 /* BlinkSceneNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E932F8C0C4F00047856 /* BlinkSceneNode.cpp */; };
+		C5810EA12F8C0C5000047856 /* AI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E962F8C0C5000047856 /* AI.cpp */; };
+		C5810EA22F8C0C5000047856 /* Npc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E972F8C0C5000047856 /* Npc.cpp */; };
+		C5810EA32F8C0C5000047856 /* AIFalling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E992F8C0C5000047856 /* AIFalling.cpp */; };
+		C5810EA42F8C0C5000047856 /* AIFly.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E9A2F8C0C5000047856 /* AIFly.cpp */; };
+		C5810EA52F8C0C5000047856 /* AIIdle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E9C2F8C0C5000047856 /* AIIdle.cpp */; };
+		C5810EA62F8C0C5000047856 /* WithHud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E9E2F8C0C5000047856 /* WithHud.cpp */; };
 		C58E3BF82F8572930013E626 /* GSChooseSong.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BEE2F8572930013E626 /* GSChooseSong.cpp */; };
 		C58E3BF92F8572930013E626 /* Hud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF02F8572930013E626 /* Hud.cpp */; };
 		C58E3BFA2F8572930013E626 /* MyROConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF22F8572930013E626 /* MyROConfig.cpp */; };
-		C58E3BFB2F8572930013E626 /* GSBaseWithHud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF52F8572930013E626 /* GSBaseWithHud.cpp */; };
 		C58E3BFC2F8572930013E626 /* HudNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF62F8572930013E626 /* HudNumber.cpp */; };
 		C5DB7D6D2F757E7C008CA51E /* GuiPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5DB7D6A2F757E7C008CA51E /* GuiPatch.cpp */; };
 /* End PBXBuildFile section */
@@ -122,6 +131,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				69D58E8D1E86E867008A8D29 /* MIKMIDI.framework in Embed Frameworks */,
+				C5547F972F8C0388003AB05C /* BugSplat.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,6 +237,7 @@
 		C5117C4A2F11CE0300952A7B /* GS3dTitle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GS3dTitle.cpp; path = ../../../../Source/GS3dTitle.cpp; sourceTree = "<group>"; };
 		C514212A2F5357A90009EB23 /* GuiSetFromString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiSetFromString.cpp; path = ../../../../Source/GuiSetFromString.cpp; sourceTree = "<group>"; };
 		C514212C2F5357A90009EB23 /* GuiSetFromString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiSetFromString.h; path = ../../../../Source/GuiSetFromString.h; sourceTree = "<group>"; };
+		C5547F942F8C0388003AB05C /* BugSplat.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = BugSplat.xcframework; path = ../../../Source/ThirdParty/BugSplat.xcframework; sourceTree = "<group>"; };
 		C55726982F0EFA5300EEB2A5 /* Grader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Grader.cpp; path = ../../../../Source/Grader.cpp; sourceTree = "<group>"; };
 		C55726992F0EFA5300EEB2A5 /* HeroGameRound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HeroGameRound.cpp; path = ../../../../Source/HeroGameRound.cpp; sourceTree = "<group>"; };
 		C557269A2F0EFA5300EEB2A5 /* GuiScrollScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiScrollScore.h; path = ../../../../Source/GuiScrollScore.h; sourceTree = "<group>"; };
@@ -250,16 +261,31 @@
 		C56DACF72EF2CFED00739D75 /* Palette.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Palette.cpp; path = ../../../../Source/Palette.cpp; sourceTree = "<group>"; };
 		C56DACFB2EF2CFED00739D75 /* GSShowGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSShowGui.cpp; path = ../../../../Source/GSShowGui.cpp; sourceTree = "<group>"; };
 		C56DAD012EF2CFED00739D75 /* GSShowGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSShowGui.h; path = ../../../../Source/GSShowGui.h; sourceTree = "<group>"; };
+		C5732A682F8C1344000BD8A4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C579D4762F12DBED0042461C /* GSHeroWin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSHeroWin.h; path = ../../../../Source/GSHeroWin.h; sourceTree = "<group>"; };
 		C579D4772F12DBED0042461C /* GSHeroWin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSHeroWin.cpp; path = ../../../../Source/GSHeroWin.cpp; sourceTree = "<group>"; };
+		C5810E8F2F8C0C4F00047856 /* Bird.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bird.h; path = ../../../../Source/Bird.h; sourceTree = "<group>"; };
+		C5810E902F8C0C4F00047856 /* Bird.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Bird.cpp; path = ../../../../Source/Bird.cpp; sourceTree = "<group>"; };
+		C5810E912F8C0C4F00047856 /* AI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AI.h; path = ../../../../Source/AI.h; sourceTree = "<group>"; };
+		C5810E922F8C0C4F00047856 /* AIFly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIFly.h; path = ../../../../Source/AIFly.h; sourceTree = "<group>"; };
+		C5810E932F8C0C4F00047856 /* BlinkSceneNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BlinkSceneNode.cpp; path = ../../../../Source/BlinkSceneNode.cpp; sourceTree = "<group>"; };
+		C5810E942F8C0C4F00047856 /* BlinkSceneNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlinkSceneNode.h; path = ../../../../Source/BlinkSceneNode.h; sourceTree = "<group>"; };
+		C5810E952F8C0C5000047856 /* Npc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Npc.h; path = ../../../../Source/Npc.h; sourceTree = "<group>"; };
+		C5810E962F8C0C5000047856 /* AI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AI.cpp; path = ../../../../Source/AI.cpp; sourceTree = "<group>"; };
+		C5810E972F8C0C5000047856 /* Npc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Npc.cpp; path = ../../../../Source/Npc.cpp; sourceTree = "<group>"; };
+		C5810E982F8C0C5000047856 /* AIIdle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIIdle.h; path = ../../../../Source/AIIdle.h; sourceTree = "<group>"; };
+		C5810E992F8C0C5000047856 /* AIFalling.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIFalling.cpp; path = ../../../../Source/AIFalling.cpp; sourceTree = "<group>"; };
+		C5810E9A2F8C0C5000047856 /* AIFly.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIFly.cpp; path = ../../../../Source/AIFly.cpp; sourceTree = "<group>"; };
+		C5810E9B2F8C0C5000047856 /* AIFalling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIFalling.h; path = ../../../../Source/AIFalling.h; sourceTree = "<group>"; };
+		C5810E9C2F8C0C5000047856 /* AIIdle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIIdle.cpp; path = ../../../../Source/AIIdle.cpp; sourceTree = "<group>"; };
+		C5810E9D2F8C0C5000047856 /* WithHud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WithHud.h; path = ../../../../Source/WithHud.h; sourceTree = "<group>"; };
+		C5810E9E2F8C0C5000047856 /* WithHud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WithHud.cpp; path = ../../../../Source/WithHud.cpp; sourceTree = "<group>"; };
 		C58E3BEE2F8572930013E626 /* GSChooseSong.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSChooseSong.cpp; path = ../../../../Source/GSChooseSong.cpp; sourceTree = "<group>"; };
-		C58E3BEF2F8572930013E626 /* GSBaseWithHud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSBaseWithHud.h; path = ../../../../Source/GSBaseWithHud.h; sourceTree = "<group>"; };
 		C58E3BF02F8572930013E626 /* Hud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Hud.cpp; path = ../../../../Source/Hud.cpp; sourceTree = "<group>"; };
 		C58E3BF12F8572930013E626 /* Hud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hud.h; path = ../../../../Source/Hud.h; sourceTree = "<group>"; };
 		C58E3BF22F8572930013E626 /* MyROConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MyROConfig.cpp; path = ../../../../Source/MyROConfig.cpp; sourceTree = "<group>"; };
 		C58E3BF32F8572930013E626 /* HudNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HudNumber.h; path = ../../../../Source/HudNumber.h; sourceTree = "<group>"; };
 		C58E3BF42F8572930013E626 /* GSChooseSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSChooseSong.h; path = ../../../../Source/GSChooseSong.h; sourceTree = "<group>"; };
-		C58E3BF52F8572930013E626 /* GSBaseWithHud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSBaseWithHud.cpp; path = ../../../../Source/GSBaseWithHud.cpp; sourceTree = "<group>"; };
 		C58E3BF62F8572930013E626 /* HudNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HudNumber.cpp; path = ../../../../Source/HudNumber.cpp; sourceTree = "<group>"; };
 		C58E3BF72F8572930013E626 /* MyROConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyROConfig.h; path = ../../../../Source/MyROConfig.h; sourceTree = "<group>"; };
 		C5DB7D6A2F757E7C008CA51E /* GuiPatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiPatch.cpp; path = ../../../../Source/GuiPatch.cpp; sourceTree = "<group>"; };
@@ -271,6 +297,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5732A692F8C1344000BD8A4 /* UIKit.framework in Frameworks */,
 				697A080D1E8307590045CE54 /* libAmjulib.a in Frameworks */,
 				69D58E521E84844F008A8D29 /* libbass.a in Frameworks */,
 				69D58E501E848439008A8D29 /* libbassmidi.a in Frameworks */,
@@ -396,6 +423,8 @@
 		69D58E4A1E848318008A8D29 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5732A682F8C1344000BD8A4 /* UIKit.framework */,
+				C5547F942F8C0388003AB05C /* BugSplat.xcframework */,
 				69D58E661E8488E3008A8D29 /* Accelerate.framework */,
 				69D58E641E84884E008A8D29 /* CoreAudioKit.framework */,
 				69D58E621E84878A008A8D29 /* CoreMotion.framework */,
@@ -416,9 +445,21 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C5810E962F8C0C5000047856 /* AI.cpp */,
+				C5810E912F8C0C4F00047856 /* AI.h */,
+				C5810E992F8C0C5000047856 /* AIFalling.cpp */,
+				C5810E9B2F8C0C5000047856 /* AIFalling.h */,
+				C5810E9A2F8C0C5000047856 /* AIFly.cpp */,
+				C5810E922F8C0C4F00047856 /* AIFly.h */,
+				C5810E9C2F8C0C5000047856 /* AIIdle.cpp */,
+				C5810E982F8C0C5000047856 /* AIIdle.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */,
+				C5810E902F8C0C4F00047856 /* Bird.cpp */,
+				C5810E8F2F8C0C4F00047856 /* Bird.h */,
+				C5810E932F8C0C4F00047856 /* BlinkSceneNode.cpp */,
+				C5810E942F8C0C4F00047856 /* BlinkSceneNode.h */,
 				69A23A591F61E6970021BF88 /* Consts.cpp */,
 				69D732821F23DA28007B73C1 /* Consts.h */,
 				C561F3BB2F65CCDB003EE425 /* FindSongSections.cpp */,
@@ -435,8 +476,6 @@
 				697A07F01E82F19B0045CE54 /* GSBase.h */,
 				6951CF111F0B932300140095 /* GSBase3d.cpp */,
 				6951CF121F0B932300140095 /* GSBase3d.h */,
-				C58E3BF52F8572930013E626 /* GSBaseWithHud.cpp */,
-				C58E3BEF2F8572930013E626 /* GSBaseWithHud.h */,
 				C58E3BEE2F8572930013E626 /* GSChooseSong.cpp */,
 				C58E3BF42F8572930013E626 /* GSChooseSong.h */,
 				C55726A22F0EFA5400EEB2A5 /* GSHero.cpp */,
@@ -491,6 +530,8 @@
 				695543131F3B526D007C23EA /* MySceneGraph.h */,
 				C561F3BC2F65CCDB003EE425 /* NoteEvent.cpp */,
 				C557269D2F0EFA5400EEB2A5 /* NoteEvent.h */,
+				C5810E972F8C0C5000047856 /* Npc.cpp */,
+				C5810E952F8C0C5000047856 /* Npc.h */,
 				C56DACF72EF2CFED00739D75 /* Palette.cpp */,
 				C56DACED2EF2CFEC00739D75 /* Palette.h */,
 				694519452017368F001C188B /* ParticleFx.cpp */,
@@ -513,6 +554,8 @@
 				695E907D1F5AB7260003901E /* Version.h */,
 				69D58E451E833741008A8D29 /* ViewController.h */,
 				69D58E461E833741008A8D29 /* ViewController.mm */,
+				C5810E9E2F8C0C5000047856 /* WithHud.cpp */,
+				C5810E9D2F8C0C5000047856 /* WithHud.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -681,6 +724,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6945194C2017368F001C188B /* Gui3dScene.cpp in Sources */,
+				C5810EA62F8C0C5000047856 /* WithHud.cpp in Sources */,
 				C55726A32F0EFA5400EEB2A5 /* Grader.cpp in Sources */,
 				C56DAD0A2EF2CFED00739D75 /* GSShowGui.cpp in Sources */,
 				69AC40371EB5331300F255A4 /* MusicEvent.cpp in Sources */,
@@ -691,8 +735,10 @@
 				C561F3C22F65CCDC003EE425 /* NoteEvent.cpp in Sources */,
 				C514212D2F5357A90009EB23 /* GuiSetFromString.cpp in Sources */,
 				C58E3BFC2F8572930013E626 /* HudNumber.cpp in Sources */,
+				C5810EA42F8C0C5000047856 /* AIFly.cpp in Sources */,
 				C5117C4B2F11CE0300952A7B /* GSHeroEnd.cpp in Sources */,
 				C561F3C42F65CCDC003EE425 /* GuiMusicKbBase.cpp in Sources */,
+				C5810EA12F8C0C5000047856 /* AI.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
 				C56DAD062EF2CFED00739D75 /* BassPlayMidi.cpp in Sources */,
 				C58E3BF92F8572930013E626 /* Hud.cpp in Sources */,
@@ -701,14 +747,17 @@
 				C561F3C32F65CCDC003EE425 /* GuiMusic2dKeyboard.cpp in Sources */,
 				6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */,
 				C5DB7D6D2F757E7C008CA51E /* GuiPatch.cpp in Sources */,
+				C5810EA22F8C0C5000047856 /* Npc.cpp in Sources */,
 				C55726A72F0EFA5400EEB2A5 /* GSHero.cpp in Sources */,
-				C58E3BFB2F8572930013E626 /* GSBaseWithHud.cpp in Sources */,
 				6951CF191F0B932300140095 /* Md2SceneNode.cpp in Sources */,
+				C5810EA02F8C0C5000047856 /* BlinkSceneNode.cpp in Sources */,
+				C5810EA52F8C0C5000047856 /* AIIdle.cpp in Sources */,
 				69D58E491E833741008A8D29 /* ViewController.mm in Sources */,
 				C561F3C12F65CCDC003EE425 /* FindSongSections.cpp in Sources */,
 				69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */,
 				6959E3191EA7F44600E251A9 /* iOSGuiTextEdit.mm in Sources */,
 				6945194F2017368F001C188B /* ParticleFx.cpp in Sources */,
+				C5810EA32F8C0C5000047856 /* AIFalling.cpp in Sources */,
 				697A08031E82F19B0045CE54 /* GuiMusicScore.cpp in Sources */,
 				C58E3BF82F8572930013E626 /* GSChooseSong.cpp in Sources */,
 				69D58E4E1E84836B008A8D29 /* Startup.cpp in Sources */,
@@ -725,6 +774,7 @@
 				C579D4782F12DBEE0042461C /* GSHeroWin.cpp in Sources */,
 				69A23A5C1F61E6970021BF88 /* Consts.cpp in Sources */,
 				695E90811F5AB7260003901E /* Version.cpp in Sources */,
+				C5810E9F2F8C0C5000047856 /* Bird.cpp in Sources */,
 				6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */,
 				C58E3BFA2F8572930013E626 /* MyROConfig.cpp in Sources */,
 				69D58E481E833741008A8D29 /* main.m in Sources */,
@@ -936,11 +986,15 @@
 				HEADER_SEARCH_PATHS = "/Users/juliet/repos/amjulib/Source/**";
 				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					../../../../amjulib/Source/SoundBass/Bass2.4/iPhone,
 					"../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
 				);
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.amju.pianofest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -969,11 +1023,15 @@
 				HEADER_SEARCH_PATHS = "/Users/juliet/repos/amjulib/Source/**";
 				INFOPLIST_FILE = "Amjula Music Theory/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					../../../../amjulib/Source/SoundBass/Bass2.4/iPhone,
 					"../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
 				);
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.amju.pianofest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -985,7 +1043,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Amjula Music TheoryTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-TheoryTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Amjula Music Theory.app/Amjula Music Theory";
@@ -997,7 +1059,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Amjula Music TheoryTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-TheoryTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Amjula Music Theory.app/Amjula Music Theory";
@@ -1008,7 +1074,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "Amjula Music TheoryUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-TheoryUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = "Amjula Music Theory";
@@ -1019,7 +1089,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "Amjula Music TheoryUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.amju.Amjula-Music-TheoryUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = "Amjula Music Theory";
