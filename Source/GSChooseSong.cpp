@@ -5,6 +5,7 @@
 #include <GuiScroll.h>
 #include <GuiText.h>
 #include "GSChooseSong.h"
+#include "GSConfirmSong.h"
 #include "GSHero.h"
 #include "GuiMusicScore.h"
 #include "HeroGameRound.h"
@@ -29,7 +30,9 @@ static void OnSongStart(GuiElement* button)
   HeroGameRound* r = static_cast<HeroGameRound*>(button->GetUserData());
   Assert(r);
   TheGSHero::Instance()->SetGameRound(r);
-  GoTo<TheGSHero>();  
+
+  // Confirm song choice before starting
+  GoTo<TheGSConfirmSong>();  
 }
 
 GSChooseSong::GSChooseSong()
@@ -60,7 +63,7 @@ static void SetLevelGui(const HeroGameRound& r, PGuiElement gui)
 }
 
 static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
-  bool isUnlocked)
+  bool isUnlocked, const SongPlayerInfo& spi, bool hasFocus)
 {
   auto t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-title"));
   Assert(t); // this is all stuff that is fixed at compile time
@@ -81,6 +84,7 @@ static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
   b->SetUserData(const_cast<HeroGameRound*>(&r)); // element in a singleton vector, so ok, riight?
   b->SetCommand(Amju::OnSongStart);
   b->SetIsEnabled(isUnlocked);
+  b->SetHasFocus(hasFocus); 
 
   // Hmm, should we show a preview of the score?
 /*
@@ -135,13 +139,13 @@ void GSChooseSong::InitScrollingGui()
   int level = -1; // show level info when level of current song is different
 
   const float oneSongWidth = 1.7f;
-  const float oneSongHeight = 0.9f; // TODO get extent of GUI
   const float levelHeight = 0.5f; 
   float x = 0;
   const float TOP_Y = 0.5f;
   float y = 0; // cumulative extent of GUI as we add to it.
   int songNum = 1; // song num in current level; one-based as we display it.
-
+  bool focusHasBeenSet = false; // flag for setting focus on next song. 
+  int tabStopForFocusSong = 0; // set tab stop so song with focus is selected.
   for (int i = 0; i < numSongs; i++)
   {
     const auto& gameround = grm->GetGameRound(i);
@@ -171,7 +175,15 @@ void GSChooseSong::InitScrollingGui()
     //y -= oneSongHeight; // TODO Get extent of song gui
     x += oneSongWidth;
     // TODO player like flag, hi score, completed flag
-    SetSongGui(gameround, elem, songNum, isUnlocked);
+    const auto& spi = user->GetSongPlayerInfo(gameround.m_name);
+    bool hasFocus = false;
+    if (isUnlocked && !spi.m_completed && !focusHasBeenSet)
+    {
+      hasFocus = true;
+      focusHasBeenSet = true;
+      tabStopForFocusSong = -i; // tab stops go negative, should we change
+    }
+    SetSongGui(gameround, elem, songNum, isUnlocked, spi, hasFocus);
     ++songNum;
     rootNode->AddChild(elem);
   }
@@ -183,10 +195,7 @@ void GSChooseSong::InitScrollingGui()
   scroller->SetExtents(Vec2f(x - oneSongWidth, 0));
   scroller->SetTabStopSize(Vec2f(oneSongWidth, 0));
   scroller->SetTabStopCallback(Amju::OnTabStop);
-  if (m_lastTabStop != 0)
-  {
-    scroller->SetTabStop(m_lastTabStop);
-  }
+  scroller->SetTabStop(tabStopForFocusSong);
 }
 
 void GSChooseSong::OnTabStop(int tabStop)

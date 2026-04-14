@@ -31,16 +31,16 @@ piano-fest-text
 -1,0.7
 2, 0.2
 Piano Fest
-bmmolin, 3
+bmmolin, 3, centre, fgcol=ffffffff
 
 include
 quit-button.txt
 
 gui-scroll
 song-scroller
-0,0
+-1, 1
 // Extents
-0,0
+2, 2
 
 // Element type
 gui-comp

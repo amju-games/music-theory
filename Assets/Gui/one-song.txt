@@ -1,4 +1,4 @@
-// * Amjula music theory *
+// * PIANO FEST *
 // (c) Copyright 2026 Juliet Colman
 
 // version
@@ -9,90 +9,66 @@ gui-comp
 // Name
 one-song
 // Num children
-3
-
-colour 
-ff8000ff
-// Patch -- test
-patch
-my-patch
--.7, 0.5
-1.4, 0.4
-Image/rough-circle.png, stretch
-// Patch is a sprite, so we have to specify cell info - this should be  
-//  good for batching: we can have multiple different patches and other
-//  HUD elements on the same atlas.
-// Num cells
-1,1
-// Cell
-0
-// Corner size: TODO: should this be auto-adjusted so equal coords give squares?
-0.1, 0.15
-
-translate
-0, 0.2
-
-colour
-000000ff
+2
 
 gui-comp
-text-in-patch
+text-group
 4
 
 // Song number
 text2
 // Name
 song-number
--1.0, 0.03
+-1.0, 0.13
 // size
 0.2, 0.2
 // Text
 number
 // Font name, size
-bmmolin, 1.5, multi, fgcol=ffffffff
+bmmolin, 1.5, multi, left, fgcol=000000
 
 // Title of song/piece
 //gui-text
 text2
 // Name
 song-title
--0.9, 0.0
+-0.8, 0.1
 // size
-2.0, 0.2
+1.8, 0.2
 // Text
 title
 // Font name, size
-bmmolin, 3.0, multi, fgcol=ffffffff
+bmmolin, 3.0, multi, left, fgcol=000000
 
 // Subtitle
 text2
 // Name
 song-subtitle
--1.0, -0.05
+-0.8, 0
 // size
-2.0, 0.2
+1.8, 0.2
 // Text
 title
 // Font name, size
-bmmolin, 1.0, multi, fgcol=ffffffff
+bmmolin, 1.0, multi, left, fgcol=000000
 
 // Composer
 //gui-text
 text2
 // Name
 song-composer
--1.0, -0.2
+-0.8, -0.2
 // size
-2.0, 0.2
+1.8, 0.2
 // Text
 Composer
 // Font name, size
-bmmolin, 1.5, multi, fgcol=ffffffff
+bmmolin, 1.5, multi, left, fgcol=000000
 
 // Next button
 gui-button
 song-start-button
--0.2, 0.1
+-0.8, -0.3
 0.4, 0.25
 Image/rough-oval.png
 // Go! 
@@ -114,7 +90,7 @@ elastic
 // Quit button
 gui-button
 quit-button
--0.2, -0.5
+-0.2, -0.7
 0.4, 0.25
 Image/rough-oval.png
 // START
