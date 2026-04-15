@@ -1,0 +1,23 @@
+// AUTO-GENERATED
+// * Amjula music theory *
+// (c) Copyright 2024 Juliet Colman
+
+#pragma once
+
+#include <tuple>
+
+namespace Amju
+{
+static const char* const VERSION_STRING = "VERSION_TOKEN";
+static const int MAJOR = MAJOR_TOKEN;
+static const int MINOR = MINOR_TOKEN;
+static const int PATCH = PATCH_TOKEN;
+static const int BUILD = BUILD_TOKEN;
+
+// Version comparison helper
+bool IsVersionAtLeast(int major, int minor, int patch) 
+{
+  return std::tie(MAJOR, MINOR, PATCH) >= std::tie(major, minor, patch);
+}
+}
+
