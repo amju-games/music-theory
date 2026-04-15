@@ -10,6 +10,7 @@
 #  - Generate Source/Version.h with version number.
 #  - Builds xcode archive of game.
 #  - Uploads symbols to BugSplat.
+#  - Git commits the new build number.
 #  - TODO Use fastlane to send .ipa file to Apple App Store.
 
 # Check for uncommitted changes
@@ -58,6 +59,8 @@ sed -e "s/VERSION_TOKEN/$VER/g" \
     -e "s/BUILD_TOKEN/$BUILD/g" \
     ../../../Source/Version.h.template > ../../../Source/Version.h
 
+echo "--- ✅ New Version.h written."
+
 # Format version and build num like this: "1.2.3 (4)"
 VER="$APP_VERSION ($APP_BUILD)"
 
@@ -68,13 +71,41 @@ DB="amju-games"
 APP="piano-fest"
 SCHEME="Amjula Music Theory"
 ARCHIVE_PATH="../../../Build/iOS/amju-piano-fest.xcarchive"
+LOG_FILE="build.log"
 
 echo "--- 🛠️ Building Archive ---"
 xcodebuild archive \
   -project Amjula\ Music\ Theory.xcodeproj \
   -scheme "$SCHEME" \
   -archivePath "$ARCHIVE_PATH" \
-  -allowProvisioningUpdates
+  -allowProvisioningUpdates > "$LOG_FILE" 2>&1 &
+
+pid=$! 
+spin='-\|/'
+i=0
+
+# 2. The loop - Check if the PID is still active
+while kill -0 $pid 2>/dev/null; do
+  i=$(( (i+1) % 4 ))
+  printf "\r--- 🛠️  Building Archive... ${spin:$i:1}"
+  sleep .1
+done
+
+# 3. CRITICAL: Capture the exit status of the background process
+wait $pid
+build_status=$?
+
+# 4. Clear the line entirely so the next echo doesn't look messy
+printf "\r\033[K" 
+
+if [ $build_status -eq 0 ]; then
+    echo "--- ✅ Building Archive... Done!"
+else
+    echo "--- ❌ Building Archive... FAILED!"
+    echo "Check $(pwd)/$LOG_FILE for details."
+    exit 1
+fi
+
 
 echo "--- 📤 Uploading Symbols to BugSplat ---"
 # Path to the tool you downloaded
