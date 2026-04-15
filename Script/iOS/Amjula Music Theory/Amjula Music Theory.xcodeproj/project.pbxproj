@@ -96,6 +96,7 @@
 		C58E3BF92F8572930013E626 /* Hud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF02F8572930013E626 /* Hud.cpp */; };
 		C58E3BFA2F8572930013E626 /* MyROConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF22F8572930013E626 /* MyROConfig.cpp */; };
 		C58E3BFC2F8572930013E626 /* HudNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF62F8572930013E626 /* HudNumber.cpp */; };
+		C5D13B642F8EA48D00046430 /* GSConfirmSong.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D13B612F8EA48D00046430 /* GSConfirmSong.cpp */; };
 		C5DB7D6D2F757E7C008CA51E /* GuiPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5DB7D6A2F757E7C008CA51E /* GuiPatch.cpp */; };
 /* End PBXBuildFile section */
 
@@ -288,6 +289,8 @@
 		C58E3BF42F8572930013E626 /* GSChooseSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSChooseSong.h; path = ../../../../Source/GSChooseSong.h; sourceTree = "<group>"; };
 		C58E3BF62F8572930013E626 /* HudNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HudNumber.cpp; path = ../../../../Source/HudNumber.cpp; sourceTree = "<group>"; };
 		C58E3BF72F8572930013E626 /* MyROConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyROConfig.h; path = ../../../../Source/MyROConfig.h; sourceTree = "<group>"; };
+		C5D13B612F8EA48D00046430 /* GSConfirmSong.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSConfirmSong.cpp; path = ../../../../Source/GSConfirmSong.cpp; sourceTree = "<group>"; };
+		C5D13B632F8EA48D00046430 /* GSConfirmSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSConfirmSong.h; path = ../../../../Source/GSConfirmSong.h; sourceTree = "<group>"; };
 		C5DB7D6A2F757E7C008CA51E /* GuiPatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiPatch.cpp; path = ../../../../Source/GuiPatch.cpp; sourceTree = "<group>"; };
 		C5DB7D6C2F757E7C008CA51E /* GuiPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiPatch.h; path = ../../../../Source/GuiPatch.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -445,6 +448,8 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C5D13B612F8EA48D00046430 /* GSConfirmSong.cpp */,
+				C5D13B632F8EA48D00046430 /* GSConfirmSong.h */,
 				C5810E962F8C0C5000047856 /* AI.cpp */,
 				C5810E912F8C0C4F00047856 /* AI.h */,
 				C5810E992F8C0C5000047856 /* AIFalling.cpp */,
@@ -571,6 +576,7 @@
 				699058B91E7D3BF400E528B4 /* Frameworks */,
 				699058BA1E7D3BF400E528B4 /* Resources */,
 				69D58E8E1E86E867008A8D29 /* Embed Frameworks */,
+				C573543E2F8F91E2000C67ED /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -718,6 +724,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C573543E2F8F91E2000C67ED /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Upload symbols to BugSplat\n\n# Define where the secrets file lives\nENV_PATH=\"$PROJECT_DIR/secrets\"\n\nif [ -f \"$ENV_PATH\" ]; then\n    # Load the variables\n    export $(grep -v '^#' \"$ENV_PATH\" | xargs)\n    \n    if [ \"$CONFIGURATION\" == \"Debug\" ] || [ \"$CONFIGURATION\" == \"Release\" ]; then\n        \"/Users/juliet/Tools/BugSplat/symbol-upload-macos-intel\" \\\n          -a \"piano-fest\" \\\n          -b \"amju-games\" \\\n          -v \"$MARKETING_VERSION ($CURRENT_PROJECT_VERSION)\" \\\n          -d \"$BUILT_PRODUCTS_DIR\" \\\n          -f \"**/*.dSYM\" \\\n          -i \"$BUGSPLAT_ID\" \\\n          -s \"$BUGSPLAT_SECRET\"\n    fi\nelse\n    echo \"Warning: secrets file missing, skipping BugSplat upload.\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		699058B81E7D3BF400E528B4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -774,6 +800,7 @@
 				C579D4782F12DBEE0042461C /* GSHeroWin.cpp in Sources */,
 				69A23A5C1F61E6970021BF88 /* Consts.cpp in Sources */,
 				695E90811F5AB7260003901E /* Version.cpp in Sources */,
+				C5D13B642F8EA48D00046430 /* GSConfirmSong.cpp in Sources */,
 				C5810E9F2F8C0C5000047856 /* Bird.cpp in Sources */,
 				6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */,
 				C58E3BFA2F8572930013E626 /* MyROConfig.cpp in Sources */,
@@ -966,6 +993,8 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AVUUC7C85U;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -994,10 +1023,11 @@
 					../../../../amjulib/Source/SoundBass/Bass2.4/iPhone,
 					"../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.amju.pianofest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -1009,6 +1039,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AVUUC7C85U;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1031,10 +1062,11 @@
 					../../../../amjulib/Source/SoundBass/Bass2.4/iPhone,
 					"../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.amju.pianofest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};

@@ -37,14 +37,17 @@ void InitializeBugSplat() {
         [bugSplat setValue:@YES forKey:@"autoSubmitCrashReport"];
         
         NSString *appName = @"piano-fest";
-        
-        NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-        NSString *build = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-        NSString *fullVersion = [NSString stringWithFormat:@"%@.%@", version, build];
-        
         [bugSplat setValue:appName forKey:@"applicationName"];
+
+        // Get the Marketing Version (e.g., 1.0.2)
+        NSString *marketingVer = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+        // Get the Build Number (e.g., 42)
+        NSString *buildVer = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+        // Combine them to match the script's output: "1.0.2 (42)"
+        NSString *fullVersion = [NSString stringWithFormat:@"%@ (%@)", marketingVer, buildVer];
         [bugSplat setValue:fullVersion forKey:@"applicationVersion"];
         
+        // Start up BugSplat.
         [bugSplat performSelector:NSSelectorFromString(@"start")];
         
         NSLog(@"[BugSplat] Successfully initialized at runtime.");
