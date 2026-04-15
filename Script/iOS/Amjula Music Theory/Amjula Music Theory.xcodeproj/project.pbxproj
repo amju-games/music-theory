@@ -29,7 +29,6 @@
 		6959E3191EA7F44600E251A9 /* iOSGuiTextEdit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3161EA7F44600E251A9 /* iOSGuiTextEdit.mm */; };
 		6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */; };
 		6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6959E31C1EAB5BA500E251A9 /* PrintGui.cpp */; };
-		695E90811F5AB7260003901E /* Version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 695E907C1F5AB7260003901E /* Version.cpp */; };
 		697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07EF1E82F19B0045CE54 /* GSBase.cpp */; };
 		697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */; };
 		697A08031E82F19B0045CE54 /* GuiMusicScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 697A07FB1E82F19B0045CE54 /* GuiMusicScore.cpp */; };
@@ -177,7 +176,6 @@
 		6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSKeyboard.mm; path = "../../../../Source/iOS-MusicTheory/iOSKeyboard.mm"; sourceTree = "<group>"; };
 		6959E31C1EAB5BA500E251A9 /* PrintGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintGui.cpp; path = ../../../../Source/PrintGui.cpp; sourceTree = "<group>"; };
 		6959E31D1EAB5BA500E251A9 /* PrintGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintGui.h; path = ../../../../Source/PrintGui.h; sourceTree = "<group>"; };
-		695E907C1F5AB7260003901E /* Version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Version.cpp; path = ../../../../Source/Version.cpp; sourceTree = "<group>"; };
 		695E907D1F5AB7260003901E /* Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Version.h; path = ../../../../Source/Version.h; sourceTree = "<group>"; };
 		697A07EF1E82F19B0045CE54 /* GSBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSBase.cpp; path = ../../../../Source/GSBase.cpp; sourceTree = "<group>"; };
 		697A07F01E82F19B0045CE54 /* GSBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSBase.h; path = ../../../../Source/GSBase.h; sourceTree = "<group>"; };
@@ -448,8 +446,6 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				C5D13B612F8EA48D00046430 /* GSConfirmSong.cpp */,
-				C5D13B632F8EA48D00046430 /* GSConfirmSong.h */,
 				C5810E962F8C0C5000047856 /* AI.cpp */,
 				C5810E912F8C0C4F00047856 /* AI.h */,
 				C5810E992F8C0C5000047856 /* AIFalling.cpp */,
@@ -483,6 +479,8 @@
 				6951CF121F0B932300140095 /* GSBase3d.h */,
 				C58E3BEE2F8572930013E626 /* GSChooseSong.cpp */,
 				C58E3BF42F8572930013E626 /* GSChooseSong.h */,
+				C5D13B612F8EA48D00046430 /* GSConfirmSong.cpp */,
+				C5D13B632F8EA48D00046430 /* GSConfirmSong.h */,
 				C55726A22F0EFA5400EEB2A5 /* GSHero.cpp */,
 				C55726A12F0EFA5400EEB2A5 /* GSHero.h */,
 				C5117C462F11CE0300952A7B /* GSHeroEnd.cpp */,
@@ -555,7 +553,6 @@
 				6959E2EB1E97F6F800E251A9 /* UserProfile.h */,
 				6945193A2017368D001C188B /* UseVertexColourShader.cpp */,
 				694519422017368E001C188B /* UseVertexColourShader.h */,
-				695E907C1F5AB7260003901E /* Version.cpp */,
 				695E907D1F5AB7260003901E /* Version.h */,
 				69D58E451E833741008A8D29 /* ViewController.h */,
 				69D58E461E833741008A8D29 /* ViewController.mm */,
@@ -572,11 +569,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 699058ED1E7D3BF500E528B4 /* Build configuration list for PBXNativeTarget "Amjula Music Theory" */;
 			buildPhases = (
+				C57354422F8FC7D3000C67ED /* J.C.: Generate Version.h */,
 				699058B81E7D3BF400E528B4 /* Sources */,
 				699058B91E7D3BF400E528B4 /* Frameworks */,
 				699058BA1E7D3BF400E528B4 /* Resources */,
 				69D58E8E1E86E867008A8D29 /* Embed Frameworks */,
-				C573543E2F8F91E2000C67ED /* ShellScript */,
+				C573543E2F8F91E2000C67ED /* J.C.: BUGSPLAT: upload symbols */,
 			);
 			buildRules = (
 			);
@@ -725,7 +723,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		C573543E2F8F91E2000C67ED /* ShellScript */ = {
+		C573543E2F8F91E2000C67ED /* J.C.: BUGSPLAT: upload symbols */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -734,6 +732,7 @@
 			);
 			inputPaths = (
 			);
+			name = "J.C.: BUGSPLAT: upload symbols";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -741,6 +740,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Upload symbols to BugSplat\n\n# Define where the secrets file lives\nENV_PATH=\"$PROJECT_DIR/secrets\"\n\nif [ -f \"$ENV_PATH\" ]; then\n    # Load the variables\n    export $(grep -v '^#' \"$ENV_PATH\" | xargs)\n    \n    if [ \"$CONFIGURATION\" == \"Debug\" ] || [ \"$CONFIGURATION\" == \"Release\" ]; then\n        \"/Users/juliet/Tools/BugSplat/symbol-upload-macos-intel\" \\\n          -a \"piano-fest\" \\\n          -b \"amju-games\" \\\n          -v \"$MARKETING_VERSION ($CURRENT_PROJECT_VERSION)\" \\\n          -d \"$BUILT_PRODUCTS_DIR\" \\\n          -f \"**/*.dSYM\" \\\n          -i \"$BUGSPLAT_ID\" \\\n          -s \"$BUGSPLAT_SECRET\"\n    fi\nelse\n    echo \"Warning: secrets file missing, skipping BugSplat upload.\"\nfi\n";
+		};
+		C57354422F8FC7D3000C67ED /* J.C.: Generate Version.h */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "J.C.: Generate Version.h";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/bin/sh\nIFS='.' read -r MAJOR MINOR PATCH <<< \"$APP_VERSION\"\n\n# Fallback for missing components (e.g., if version is just \"1.0\")\nMAJOR=${MAJOR:-0}\nMINOR=${MINOR:-0}\nPATCH=${PATCH:-0}\nBUILD=${APP_BUILD:-0}\n\n# Generate the header using multiple sed replacements\nsed -e \"s/VERSION_TOKEN/$VER/g\" \\\n    -e \"s/MAJOR_TOKEN/$MAJOR/g\" \\\n    -e \"s/MINOR_TOKEN/$MINOR/g\" \\\n    -e \"s/PATCH_TOKEN/$PATCH/g\" \\\n    -e \"s/BUILD_TOKEN/$BUILD/g\" \\\n    Version.h.template > ./Source/Version.h";
+			shellScript = "# 1. Define paths relative to the Project Directory\n# This ensures it works for everyone on the team\nTEMPLATE_PATH=\"$PROJECT_DIR/../../../Source/Version.h.template\"\nOUTPUT_PATH=\"$PROJECT_DIR/../../../Source/Version.h\"\n\n# 2. Extract version info from Xcode's internal variables\n# Xcode provides these automatically to the build phase\nVER=\"$MARKETING_VERSION ($CURRENT_PROJECT_VERSION)\"\n\n# 3. Parse the Version (1.2.3) into Major, Minor, Patch\n# We use 'cut' because it's more reliable in Xcode's shell\nMAJOR=$(echo $MARKETING_VERSION | cut -d. -f1)\nMINOR=$(echo $MARKETING_VERSION | cut -d. -f2)\nPATCH=$(echo $MARKETING_VERSION | cut -d. -f3)\nBUILD=$CURRENT_PROJECT_VERSION\n\n# Fallbacks if the version doesn't have 3 parts (e.g. \"1.0\")\nMAJOR=${MAJOR:-0}\nMINOR=${MINOR:-0}\nPATCH=${PATCH:-0}\n\n# 4. Generate the header\nif [ -f \"$TEMPLATE_PATH\" ]; then\n    echo \"Generating Version.h at $OUTPUT_PATH\"\n    sed -e \"s/VERSION_TOKEN/$VER/g\" \\\n        -e \"s/MAJOR_TOKEN/$MAJOR/g\" \\\n        -e \"s/MINOR_TOKEN/$MINOR/g\" \\\n        -e \"s/PATCH_TOKEN/$PATCH/g\" \\\n        -e \"s/BUILD_TOKEN/$BUILD/g\" \\\n        \"$TEMPLATE_PATH\" > \"$OUTPUT_PATH\"\nelse\n    echo \"error: Version.h.template not found at $TEMPLATE_PATH\"\n    exit 1\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -799,7 +816,6 @@
 				C55726A62F0EFA5400EEB2A5 /* GuiScrollScore.cpp in Sources */,
 				C579D4782F12DBEE0042461C /* GSHeroWin.cpp in Sources */,
 				69A23A5C1F61E6970021BF88 /* Consts.cpp in Sources */,
-				695E90811F5AB7260003901E /* Version.cpp in Sources */,
 				C5D13B642F8EA48D00046430 /* GSConfirmSong.cpp in Sources */,
 				C5810E9F2F8C0C5000047856 /* Bird.cpp in Sources */,
 				6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */,
@@ -993,7 +1009,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AVUUC7C85U;
 				ENABLE_BITCODE = NO;
@@ -1039,7 +1055,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = AVUUC7C85U;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

@@ -6,7 +6,8 @@
 # What this script does:
 #  - Check for uncommitted changes: repo should be clean.
 #  - TODO Build glue files
-#  - Increment build number. This shows up after the version number, in parens.
+#  - Increment build number. 
+#  - Generate Source/Version.h with version number.
 #  - Builds xcode archive of game.
 #  - Uploads symbols to BugSplat.
 #  - TODO Use fastlane to send .ipa file to Apple App Store.
@@ -27,18 +28,37 @@ fi
 
 # Increment build number
 echo "--- 📈 Incrementing Build Number ---"
-# agvtool will now find the .xcodeproj in this folder
-xcrun agvtool next-version -nosave "Amjula Music Theory.xcodeproj"
+#xcrun agvtool next-version -nosave "Amjula Music Theory.xcodeproj"
+# This is for XCode v. 13; the above might be better for subsequent versions. 
+xcrun agvtool -noscm bump
 
 # First we get the version string, in the format "1.2.3 (444)" 
 # 1.2.3 is the "Marketing version" - what we see in the app store.
 # 444 is the build number.
 
-# 1. Extract the values directly from Xcode's build settings
+# Extract version string and build num from Xcode's build settings
 APP_VERSION=$(xcodebuild -project "Amjula Music Theory.xcodeproj" -sdk iphoneos -scheme "Amjula Music Theory" -showBuildSettings 2>/dev/null | grep " MARKETING_VERSION = " | sed 's/.*= //')
 APP_BUILD=$(xcodebuild -project "Amjula Music Theory.xcodeproj" -sdk iphoneos -scheme "Amjula Music Theory" -showBuildSettings 2>/dev/null | grep " CURRENT_PROJECT_VERSION = " | sed 's/.*= //')
 
-# 2. Format them exactly like the BugSplat string created in Build Phase script.
+# Create Version.h 
+# Split "1.2.3" into variables
+IFS='.' read -r MAJOR MINOR PATCH <<< "$APP_VERSION"
+
+# Fallback for missing components (e.g., if version is just "1.0")
+MAJOR=${MAJOR:-0}
+MINOR=${MINOR:-0}
+PATCH=${PATCH:-0}
+BUILD=${APP_BUILD:-0}
+
+# Generate the header using multiple sed replacements
+sed -e "s/VERSION_TOKEN/$VER/g" \
+    -e "s/MAJOR_TOKEN/$MAJOR/g" \
+    -e "s/MINOR_TOKEN/$MINOR/g" \
+    -e "s/PATCH_TOKEN/$PATCH/g" \
+    -e "s/BUILD_TOKEN/$BUILD/g" \
+    ../../../Source/Version.h.template > ../../../Source/Version.h
+
+# Format version and build num like this: "1.2.3 (4)"
 VER="$APP_VERSION ($APP_BUILD)"
 
 echo "Extracted Version: $VER"
