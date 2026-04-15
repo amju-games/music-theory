@@ -1,3 +1,7 @@
+#ifdef GAME_ROUND_DEBUG
+#include <iostream>
+#endif
+
 #include <algorithm>
 #include <cmath> // round()
 #include <map>
@@ -182,8 +186,10 @@ std::optional<NoteEvents::const_iterator> Grader::GetClosestMatchingEvent(
 {
   if (noteEvents.empty())
   {
+#ifdef GRADER_DEBUG
     // There are no note events! Hmm, not sure what this would mean.
 std::cout << "No note events, so don't know what to do!\n";
+#endif
     return std::nullopt;
   }
 

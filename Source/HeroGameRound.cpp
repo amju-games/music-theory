@@ -1,3 +1,7 @@
+#ifdef GAME_ROUND_DEBUG
+#include <iostream>
+#endif
+
 #include <File.h>
 #include <Localise.h>
 #include <StringUtils.h>
@@ -66,13 +70,13 @@ bool GameRoundManager::Load()
       round.m_sectionEndBarNumbers = SplitIntoVec(cells[14]);
     }
 
-//std::cout << round;
     AddGameRound(round);
   }
 
   if (m_gameRounds.empty()) return false;
-  
+#ifdef GAME_ROUND_DEBUG
 std::cout << "Loaded game round .csv file ok! There are: " << m_gameRounds.size() << " rounds.\n";
+#endif
   return true;
 }
 
