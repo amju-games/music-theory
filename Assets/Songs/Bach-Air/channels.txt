@@ -1,0 +1,6 @@
+2:1   # Track 2 -> Ch 1 (Player)
+3:2   # Track 3 -> Ch 2 (Piano Left)
+4:3   # Track 4 -> Ch 3 (Piano Right)
+5:8   # Track 5 -> Ch 8 (Bass)
+6:10  # Drums (Ch 10)
+
