@@ -3,6 +3,7 @@
 
 #include <EventPoller.h>
 #include <Timer.h>
+#include "BassPlayMidi.h"
 #include "GSPlayNotes.h"
 
 namespace Amju
@@ -50,6 +51,8 @@ void GSPlayNotes::Update()
 void GSPlayNotes::OnActive()
 {
   GSBase::OnActive();
+
+  PlayMidiTrack(File::GetRoot() + "Songs/Bach-Air/bach-air-fixed.mid");
 
   // Simulate mouse button and cursor (mouse move) events,
   //  to get polyphony working
