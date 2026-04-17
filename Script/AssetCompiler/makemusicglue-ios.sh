@@ -12,11 +12,12 @@ export GLUE_EXE=$THIS_DIR/glue
 export GLUE_FILE=$DEST_DIR/../music-$PLATFORM.glue
 
 mkdir $COMPILED_ASSETS
-mkdir -p $DEST_DIR/Music
+# No need for Music - use Songs for game state music.
 mkdir -p $DEST_DIR/Sound/wav
-
-cp $SRC_DIR/Music/*.it $DEST_DIR/Music
+rm $DEST_DIR/Sound/wav/*.wav
 cp $SRC_DIR/Sound/wav/*.wav $DEST_DIR/Sound/wav
+
+rm $DEST_DIR/Songs/**/*.mid
 cp -R $SRC_DIR/Songs $DEST_DIR
 
 cd $DEST_DIR
@@ -24,17 +25,13 @@ cd $DEST_DIR
 # Create empty glue file
 $GLUE_EXE -c $GLUE_FILE
 
-for f in Sound/wav/*.wav Music/*.it
+for f in Sound/wav/*.wav 
 do
   echo "Adding file: " $f
   $GLUE_EXE -a $GLUE_FILE $f
 done
 
-for f in Songs/**/*.ogg; do
-  $GLUE_EXE -a $GLUE_FILE "$f"
-done
-
-for f in Songs/**/*.mp3; do
+for f in Songs/**/*.mid; do
   $GLUE_EXE -a $GLUE_FILE "$f"
 done
 
