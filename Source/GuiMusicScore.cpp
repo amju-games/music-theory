@@ -14,7 +14,7 @@
 #include "Consts.h"
 #include "GuiSpline.h"
 #include "GuiMusicScore.h"
-#include "PlayMidi.h"
+#include "BassPlayMidi.h"
 
 // Draw bounding rect for entire score
 //#define DEBUG_DRAW_BOUNDING_RECT
@@ -317,7 +317,7 @@ void GuiMusicScore::SendNoteEvent(const NoteEvent& ne)
   if (ne.IsNoteOnEvent())
   {
     // TODO better MIDI API
-    PlayMidi(ne.m_note, MIDI_NOTE_MAX_VOLUME);
+    PlayMidi(ne.m_note, ne.m_volume);
   }
   else if (ne.IsNoteOffEvent())
   {

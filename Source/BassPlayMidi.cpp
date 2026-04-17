@@ -17,12 +17,13 @@
 
 #include <Directory.h>
 #include <File.h>
+#include <GlueFile.h>
 #include <SoundManager.h>
 
+namespace Amju
+{
 void PlayMidi(int note, int velocity)
 {
-  using namespace Amju; // jfc
-
 #ifdef PLAY_MIDI_DEBUG
   std::cout << "Playing midi note: " << note << " vel: " << velocity << "\n";
 #endif
@@ -44,11 +45,16 @@ void PlayMidi(int note, int velocity)
   }
 }
 
-namespace Amju
-{
 HSOUNDFONT LoadSoundFont(const std::string fontFileName)
 {
-  auto font = BASS_MIDI_FontInit(fontFileName.c_str(), 0);
+#ifdef AMJU_IOS
+  std::string prefix = File::GetRoot();
+#else
+  std::string prefix = File::GetRoot() + "Sound/";
+#endif
+
+  auto filename = prefix + fontFileName;
+  auto font = BASS_MIDI_FontInit(filename.c_str(), 0);
   if (font) 
   {
     std::cout << "Loaded soundfont: " << fontFileName << "\n";
@@ -57,7 +63,7 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
   {
     std::cout << "Failed to load soundfont: " << fontFileName << ": ";
     std::cout << "Bass error code: " << BASS_ErrorGetCode() << "\n";
-    Assert(0);
+      Assert(0);
   }
   return font;
 }
@@ -72,9 +78,9 @@ void MapSoundFontsToChannels(HSTREAM stream)
   // Channel 4: backing piano CENTRE (set up the panning in code/config)
   // Channel 8: backing bass 
   // Channel 10: backing percussion
-  auto pianoFont = LoadSoundFont(File::GetRoot() + "Sound/Grand Piano.sf2");
-  auto bassFont = LoadSoundFont(File::GetRoot() + "Sound/Colin_s_Double_Bass.sf2");
-  auto drumFont = LoadSoundFont(File::GetRoot() + "Sound/Jazz Kit.sf2");
+  auto pianoFont = LoadSoundFont("Grand Piano.sf2");
+  auto bassFont = LoadSoundFont("Colin_s_Double_Bass.sf2");
+  auto drumFont = LoadSoundFont("Jazz Kit.sf2");
 
   BASS_MIDI_FONT fonts[3]; // piano, bass, percussion 
 
@@ -145,16 +151,47 @@ void MapSoundFontsToChannels(HSTREAM stream)
   
   BASS_FXSetParameters(reverbFX, &params);
 }
-  
-void PlayMidiTrack(const std::string& filename)
-{
-  // TODO Load from glue file
-  HSTREAM mainStream = BASS_MIDI_StreamCreateFile(
-    FALSE, 
-    filename.c_str(),
-    0, 0, BASS_SAMPLE_FLOAT, 1);
 
-  if (mainStream)
+static HSTREAM s_songStream = 0;
+ 
+void PlayMidiSong(const std::string& filename)
+{
+  auto sm = TheSoundManager::Instance();
+  // Loading song from Glue file, or file system?
+  if (auto glueFile = sm->GetGlueFile())
+  {
+#ifdef _DEBUG
+std::cout << "BASS MIDI: using glue file.\n";
+#endif
+    // Find the start of the song in the glue file, and find the length
+    uint32 songPos = 0;
+    if (!glueFile->GetSeekBase(filename, &songPos))
+    {   
+      std::cout << "BASS MIDI: Song not in Glue File: " << filename << "\n";
+      Assert(0);
+    }   
+
+    // Use GlueFileBinaryData to get the data without copying it
+    uint32 length = glueFile->GetSize(filename);
+    GlueFileBinaryData data = glueFile->GetBinary(songPos, length);
+
+    s_songStream = BASS_MIDI_StreamCreateFile(
+        TRUE, // in memory ?
+        data.GetBuffer(), // start of song data 
+        0, // offset
+        length, // length
+        BASS_SAMPLE_FLOAT, 
+        1);  // sample rate
+  }   
+  else
+  {
+    s_songStream = BASS_MIDI_StreamCreateFile(
+      FALSE, 
+      (File::GetRoot() + filename).c_str(),
+      0, 0, BASS_SAMPLE_FLOAT, 1);
+  }
+
+  if (s_songStream)
   {
     std::cout << "Loaded midi file ok?!? " << filename << "\n";
   }
@@ -164,9 +201,34 @@ void PlayMidiTrack(const std::string& filename)
     Assert(0);
   }
 
-  MapSoundFontsToChannels(mainStream);
+  MapSoundFontsToChannels(s_songStream);
 
-  BASS_ChannelPlay(mainStream, FALSE /* don't restart the channel */);
+  BASS_ChannelPlay(s_songStream, FALSE /* don't restart */);
 }
+
+float GetMidiSongElapsedTimeSeconds()
+{
+  QWORD pos = BASS_ChannelGetPosition(s_songStream, BASS_POS_BYTE); // Get current position
+  double elapsedSeconds = BASS_ChannelBytes2Seconds(s_songStream, pos); // Convert to seconds
+  return static_cast<float>(elapsedSeconds);
+}
+
+void MidiMutePlayerChannel(bool mute)
+{
+  // Mute player channel (always first channel)
+  const int PLAYER_CHANNEL = 0;
+  BASS_MIDI_StreamEvent(s_songStream, PLAYER_CHANNEL, MIDI_EVENT_MIXLEVEL, 
+    (mute ? 0 : 1000));
+}
+
+void MidiSeek(float seconds)
+{
+  // Convert seconds to a byte position
+  QWORD bytes = BASS_ChannelSeconds2Bytes(s_songStream, seconds);
+
+  // Set the position
+  BASS_ChannelSetPosition(s_songStream, bytes, BASS_POS_BYTE);
+}
+
 }
 

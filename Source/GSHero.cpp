@@ -8,6 +8,7 @@
 #include <GuiText.h>
 #include <SoundManager.h>
 #include <Timer.h>
+#include "BassPlayMidi.h"
 #include "Consts.h"
 #include "Grader.h"
 #include "HeroGameRound.h"
@@ -147,13 +148,15 @@ void GSHero::ResumeGame()
 
   auto& gameround = GetGameRound();
 
-  auto sm = TheSoundManager::Instance();
+  //auto sm = TheSoundManager::Instance();
 
   // Preload main backing track
-  sm->Preload(gameround.m_backingTrack);
+  // Not req for midi
+  //sm->Preload(gameround.m_backingTrack);
 
   // Start playing the count-in track
-  sm->PlaySong(gameround.m_countIn);  
+  //sm->PlaySong(gameround.m_countIn);  
+  PlayMidiSong(gameround.m_countIn);  
 
   ShowCountInGui();
 }
@@ -368,7 +371,8 @@ void GSHero::Update()
   if (m_state == HeroState::SONG_PLAYING)
   {
     auto sm = TheSoundManager::Instance();
-    float songElapsedSeconds = sm->GetSongElapsedTimeSeconds();
+    float songElapsedSeconds = //sm->GetSongElapsedTimeSeconds();
+      GetMidiSongElapsedTimeSeconds();
     float normalisedAnimTime = songElapsedSeconds / m_scoreLengthSeconds;
 
     // Get 'dt' for animTime
@@ -490,7 +494,7 @@ void GSHero::InitSound()
   auto sm = TheSoundManager::Instance();
   sm->SetSongMaxVolume(0.1f); // for some reason it's deafening on Mac
 
-#ifdef AMJU_USE_BASS_MIDI
+#if defined(AMJU_USE_BASS_MIDI) && !defined(AMJU_IOS)
   // Set sound font for this round (so there is variety in player sound, and
   //  can fit the song better)
   std::string soundFont = File::GetRoot() + GetGameRound().m_soundFont;
@@ -513,10 +517,10 @@ std::cout << "Restarting game, here comes the count-in...\n";
   // Play count-in audio
   auto sm = TheSoundManager::Instance();
   // Preload main backing track
-  sm->Preload(gameround.m_backingTrack);
+  //sm->Preload(gameround.m_backingTrack);
 
   // Start playing the count-in track
-  sm->PlaySong(gameround.m_countIn);
+  PlayMidiSong(gameround.m_countIn);
   ShowCountInGui();
 
   // Callback for when count-in finished
@@ -551,11 +555,12 @@ std::cout << "Count in finished!\n";
 
   // Start playing the backing track for this song
   auto sm = TheSoundManager::Instance();
-  sm->PlaySong(GetGameRound().m_backingTrack);
+  PlayMidiSong(GetGameRound().m_backingTrack);
+  MidiMutePlayerChannel(true);
 
   // Set start point of song: convert normalised time to seconds
   float seekPos = m_pauseResumeTime * m_scoreLengthSeconds;
-  sm->SetSongSeekPosition(seekPos); 
+  MidiSeek(seekPos); 
 
   // At this point, the count in has finished, so no more need for this?
   // Actually it prob doesn't matter, it will get overwritten as we 

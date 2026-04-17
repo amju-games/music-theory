@@ -1,6 +1,8 @@
 // * Amjula music theory *
 // (c) Copyright 2017 Juliet Colman
 
+#ifdef AMJU_USE_MIKMIDI
+
 #import <MIKMIDI/MIKMIDI.h>
 
 // TEST
@@ -22,7 +24,7 @@ static MIKMIDISynthesizer* Synthesizer()
     }
   }
   return _synthesizer;
-}
+} 
 
 void PlayMidi(int note, int vol)
 {
@@ -35,3 +37,4 @@ void PlayMidi(int note, int vol)
   [Synthesizer() handleMIDIMessages:@[noteOn]];
 }
 
+#endif // AMJU_USE_MIKMIDI

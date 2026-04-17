@@ -257,18 +257,20 @@ static void SetUpSound()
   // Set sound player
   SoundManager* sm = TheSoundManager::Instance();
   BassSoundPlayer* bsp = new BassSoundPlayer;
+  sm->SetImpl(bsp);
 
-#ifdef AMJU_USE_BASS_MIDI
+#ifdef AMJU_IOS
+  std::string soundFont = File::GetRoot() + MIDI_SOUND_FONT + ".sf2"; // no "Sound" dir
+#else
   std::string soundFont = File::GetRoot() + "Sound/" + MIDI_SOUND_FONT + ".sf2";
+#endif
   //std::string soundFont = File::GetRoot() + "Sound/organ1.sf2";
-  bool ok = bsp->MidiSetSoundFont(soundFont.c_str());
+  bool ok = sm->MidiSetSoundFont(soundFont.c_str());
   if (!ok)
   {
     std::cout << "\nSETTING SOUND FONT FAILED!\n";
   }
-#endif // AMJU_USE_BASS_MIDI
 
-  sm->SetImpl(bsp); 
 #endif // AMJU_USE_BASS
 }
 

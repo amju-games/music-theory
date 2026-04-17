@@ -9,7 +9,7 @@
 #include <Timer.h>
 #include "GuiMusicKbBase.h"
 #include "MusicEvent.h"
-#include "PlayMidi.h"
+#include "BassPlayMidi.h"
 
 #ifdef min
 #undef min
@@ -116,7 +116,8 @@ void GuiMusicKbBase::Key::Press()
   m_isPressed = true;
   m_desiredAngle = 5.0f;
 
-  PlayMidi(m_midiNote, MIDI_NOTE_MAX_VOLUME); // ?
+  int vol = 100; // TODO Humanise
+  PlayMidi(m_midiNote, vol); 
 
   TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, true)));
 

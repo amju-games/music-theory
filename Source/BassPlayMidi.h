@@ -6,10 +6,16 @@ namespace Amju
 // Play individual MIDI notes and MIDI backing tracks, using BASS.
 void PlayMidi(int midiNote, int velocity); //, int channel);
 
-// Map sound fonts to channels for this game.
-//void MapSoundFontsToChannels();
+void PlayMidiSong(const std::string& filename);
 
-void PlayMidiTrack(const std::string& filename);
+float GetMidiSongElapsedTimeSeconds();
 
+// For GSHero, call with true to mute the player channel in the backing
+//  track. 
+// To preview the song, including the player melody, call with false.
+void MidiMutePlayerChannel(bool mute = true);
+
+// Seek to a position in current song -- for pause resume.
+void MidiSeek(float seconds);
 }
 
