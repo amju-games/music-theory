@@ -8,6 +8,8 @@ void PlayMidi(int midiNote, int velocity); //, int channel);
 
 void PlayMidiSong(const std::string& filename);
 
+void StopMidiSong();
+
 float GetMidiSongElapsedTimeSeconds();
 
 // For GSHero, call with true to mute the player channel in the backing

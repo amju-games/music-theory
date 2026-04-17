@@ -4,6 +4,7 @@
 // Implement PlayMidi() using the BASS library.
 
 #include <iostream>
+#include <unordered_map>
 
 #if defined(MACOSX)|| defined(AMJU_IOS)
 // TODO Just for dev - then move this to BassSoundPlayer.
@@ -54,6 +55,16 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
 #endif
 
   auto filename = prefix + fontFileName;
+
+  // TODO Use this map so we only ever load a soundfont once.
+  static std::unordered_map<std::string, HSOUNDFONT> fontPool;
+  auto it = fontPool.find(filename);
+  if (it != fontPool.end())
+  {
+    std::cout << "Sound font already loaded and in pool: " << fontFileName << "\n";
+    return it->second;
+  }
+
   auto font = BASS_MIDI_FontInit(filename.c_str(), 0);
   if (font) 
   {
@@ -65,7 +76,67 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
     std::cout << "Bass error code: " << BASS_ErrorGetCode() << "\n";
       Assert(0);
   }
+
+  fontPool[filename] = font; // store for next time
   return font;
+}
+
+void RouteInstruments(HSTREAM stream)
+{
+  // Apply our routing so channel 8 is bass, channel 10 is drums.
+
+  // Route Bass (Ch 8 / Index 7) back to Bank 1
+  BASS_MIDI_StreamEvent(stream, 7, MIDI_EVENT_BANK, 1);
+    
+  // Force Channel 8 to play the Acoustic Bass preset (32)
+  // Just in case the MIDI file sends a program change that messes it up
+  BASS_MIDI_StreamEvent(stream, 7, MIDI_EVENT_PROGRAM, 32);
+
+  // Route Drums (Ch 10 / Index 9) back to Bank 128
+  BASS_MIDI_StreamEvent(stream, 9, MIDI_EVENT_BANK, 128);
+
+  // Re-force the Program (Instrument) 
+  // This ensures they don't default to Piano (0) if the seek 
+  // landed exactly after a Program Change event.
+  BASS_MIDI_StreamEvent(stream, 7, MIDI_EVENT_PROGRAM, 32); 
+  BASS_MIDI_StreamEvent(stream, 9, MIDI_EVENT_PROGRAM, 0);
+
+  // ** Panning **
+  // Channel 2 (Index 1) -> Hard Left
+  BASS_MIDI_StreamEvent(stream, 1, MIDI_EVENT_PAN, 0); 
+  // Channel 3 (Index 2) -> Hard Right
+  BASS_MIDI_StreamEvent(stream, 2, MIDI_EVENT_PAN, 127);
+  // Channel 8 (Index 7) -> Center
+  BASS_MIDI_StreamEvent(stream, 7, MIDI_EVENT_PAN, 64);
+  
+  // Force the "Jazz Kit" (32) or "Brush Kit" (40) on Channel 10
+//  BASS_MIDI_StreamEvent(stream, 9, MIDI_EVENT_PROGRAM, 32);
+  
+  // Reverb
+  // 0 = No Reverb, 127 = Drowning in a cathedral
+  // 40-50 is usually a nice "Small Jazz Club" vibe
+  int reverbLevel = 110; //45; 
+  
+  BASS_MIDI_StreamEvent(stream, 1, MIDI_EVENT_REVERB, reverbLevel); // Piano L
+  BASS_MIDI_StreamEvent(stream, 2, MIDI_EVENT_REVERB, reverbLevel); // Piano R
+  BASS_MIDI_StreamEvent(stream, 3, MIDI_EVENT_REVERB, reverbLevel); // Piano C
+  // Less reverb on low freq instruments..?
+  BASS_MIDI_StreamEvent(stream, 7, MIDI_EVENT_REVERB, reverbLevel / 4); // Bass
+  BASS_MIDI_StreamEvent(stream, 9, MIDI_EVENT_REVERB, reverbLevel / 4); // Drums
+  
+  // Add the Reverb effect to the stream
+  HFX reverbFX = BASS_ChannelSetFX(stream, BASS_FX_DX8_REVERB, 0);
+  
+  BASS_DX8_REVERB params;
+  params.fInGain = 0.0f;        // Input level
+  params.fReverbMix = -20.0f;   // The "Smidgen" (in dB). Try -30 for less, -10 for more.
+  params.fReverbTime = 1000.0f; // 1 second decay (good for jazz)
+  params.fHighFreqRTRatio = 0.1f;
+  
+  BASS_FXSetParameters(reverbFX, &params);
+
+  // Final thing: update everything now.
+  BASS_ChannelUpdate(stream, 0);
 }
 
 // Apply sound font/channel mapping to the given stream
@@ -103,59 +174,28 @@ void MapSoundFontsToChannels(HSTREAM stream)
   
   // Apply the fonts to the stream
   BASS_MIDI_StreamSetFonts(stream, fonts, 3);
-  
-  // --- THE ROUTING ---
-  // Piano (Ch 1-4) is already on Bank 0.
-  
-  // Tell Channel 8 (Index 7) to look in Bank 1 instead of Bank 0!
-  BASS_MIDI_StreamEvent(stream, 7, MIDI_EVENT_BANK, 1);
-  
-  // Optional but highly recommended: Force Channel 8 to play the Acoustic Bass preset (32)
-  // Just in case the MIDI file sends a program change that messes it up
-  BASS_MIDI_StreamEvent(stream, 7, MIDI_EVENT_PROGRAM, 32);
-  
-  // Route Drums (Ch 10 / Index 9) to Bank 128
-  BASS_MIDI_StreamEvent(stream, 9, MIDI_EVENT_BANK, 128);
-  
-  // ** Panning **
-  // Channel 2 (Index 1) -> Hard Left
-  BASS_MIDI_StreamEvent(stream, 1, MIDI_EVENT_PAN, 0); 
-  // Channel 3 (Index 2) -> Hard Right
-  BASS_MIDI_StreamEvent(stream, 2, MIDI_EVENT_PAN, 127);
-  // Channel 8 (Index 7) -> Center
-  BASS_MIDI_StreamEvent(stream, 7, MIDI_EVENT_PAN, 64);
-  
-  // Force the "Jazz Kit" (32) or "Brush Kit" (40) on Channel 10
-  BASS_MIDI_StreamEvent(stream, 9, MIDI_EVENT_PROGRAM, 32);
-  
-  // Reverb
-  // 0 = No Reverb, 127 = Drowning in a cathedral
-  // 40-50 is usually a nice "Small Jazz Club" vibe
-  int reverbLevel = 110; //45; 
-  
-  BASS_MIDI_StreamEvent(stream, 1, MIDI_EVENT_REVERB, reverbLevel); // Piano L
-  BASS_MIDI_StreamEvent(stream, 2, MIDI_EVENT_REVERB, reverbLevel); // Piano R
-  BASS_MIDI_StreamEvent(stream, 3, MIDI_EVENT_REVERB, reverbLevel); // Piano C
-  // Less reverb on low freq instruments..?
-  BASS_MIDI_StreamEvent(stream, 7, MIDI_EVENT_REVERB, reverbLevel / 4); // Bass
-  BASS_MIDI_StreamEvent(stream, 9, MIDI_EVENT_REVERB, reverbLevel / 4); // Drums
-  
-  // Add the Reverb effect to the stream
-  HFX reverbFX = BASS_ChannelSetFX(stream, BASS_FX_DX8_REVERB, 0);
-  
-  BASS_DX8_REVERB params;
-  params.fInGain = 0.0f;        // Input level
-  params.fReverbMix = -20.0f;   // The "Smidgen" (in dB). Try -30 for less, -10 for more.
-  params.fReverbTime = 1000.0f; // 1 second decay (good for jazz)
-  params.fHighFreqRTRatio = 0.1f;
-  
-  BASS_FXSetParameters(reverbFX, &params);
+
+  RouteInstruments(stream);
 }
 
 static HSTREAM s_songStream = 0;
+
+void StopMidiSong()
+{
+std::cout << "** Stopping MIDI song!\n";
+
+  BASS_ChannelStop(s_songStream);
+  BASS_StreamFree(s_songStream);
+  s_songStream = 0;
+}
  
 void PlayMidiSong(const std::string& filename)
 {
+  if (s_songStream) 
+    StopMidiSong();
+
+std::cout << "** Play MIDI song: " << filename << "\n";
+
   auto sm = TheSoundManager::Instance();
   // Loading song from Glue file, or file system?
   if (auto glueFile = sm->GetGlueFile())
@@ -228,7 +268,8 @@ void MidiSeek(float seconds)
 
   // Set the position
   BASS_ChannelSetPosition(s_songStream, bytes, BASS_POS_BYTE);
-}
 
+  RouteInstruments(s_songStream); // seeking resets the bank mappings
+}
 }
 

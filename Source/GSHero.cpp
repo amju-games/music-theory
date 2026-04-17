@@ -155,7 +155,6 @@ void GSHero::ResumeGame()
   //sm->Preload(gameround.m_backingTrack);
 
   // Start playing the count-in track
-  //sm->PlaySong(gameround.m_countIn);  
   PlayMidiSong(gameround.m_countIn);  
 
   ShowCountInGui();
@@ -196,8 +195,7 @@ void GSHero::OnPauseGame()
 {
   TheGSPause::Instance()->SetPrevState(this);
 
-  auto sm = TheSoundManager::Instance();
-  sm->StopSong();
+  StopMidiSong();
 
   if (m_roundIsOver)
   {
@@ -370,9 +368,7 @@ void GSHero::Update()
   // Scroll the score if we are playing the song.
   if (m_state == HeroState::SONG_PLAYING)
   {
-    auto sm = TheSoundManager::Instance();
-    float songElapsedSeconds = //sm->GetSongElapsedTimeSeconds();
-      GetMidiSongElapsedTimeSeconds();
+    float songElapsedSeconds = GetMidiSongElapsedTimeSeconds();
     float normalisedAnimTime = songElapsedSeconds / m_scoreLengthSeconds;
 
     // Get 'dt' for animTime
@@ -485,25 +481,14 @@ std::cout << "Player has lost this round!\n";
   m_pauseResumeTime = 0;
   ChangeState(HeroState::PLAYER_HAS_LOST);
 
-  TheSoundManager::Instance()->StopSong();
+  StopMidiSong();
+
   PlayWav("record_scratch");
 }
 
 void GSHero::InitSound()
 {
-  auto sm = TheSoundManager::Instance();
-  sm->SetSongMaxVolume(0.1f); // for some reason it's deafening on Mac
-
-#if defined(AMJU_USE_BASS_MIDI) && !defined(AMJU_IOS)
-  // Set sound font for this round (so there is variety in player sound, and
-  //  can fit the song better)
-  std::string soundFont = File::GetRoot() + GetGameRound().m_soundFont;
-  bool ok = sm->MidiSetSoundFont(soundFont.c_str());
-  if (!ok)
-  {
-    std::cout << "Bad news, couldn't set sound font.\n";
-  }
-#endif
+  // Oh, nothing to do here?!
 }
 
 void GSHero::RestartGame()
@@ -515,11 +500,6 @@ std::cout << "Restarting game, here comes the count-in...\n";
   auto& gameround = GetGameRound();
 
   // Play count-in audio
-  auto sm = TheSoundManager::Instance();
-  // Preload main backing track
-  //sm->Preload(gameround.m_backingTrack);
-
-  // Start playing the count-in track
   PlayMidiSong(gameround.m_countIn);
   ShowCountInGui();
 
@@ -554,7 +534,6 @@ std::cout << "Count in finished!\n";
   ChangeState(HeroState::SONG_PLAYING);
 
   // Start playing the backing track for this song
-  auto sm = TheSoundManager::Instance();
   PlayMidiSong(GetGameRound().m_backingTrack);
   MidiMutePlayerChannel(true);
 
