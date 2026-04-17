@@ -13,7 +13,7 @@ rm -rf $DEST_DIR
 
 ./makeobjsbin-ios.sh
 
-./makeglue-ios.new.sh
+./makeglue-ios.sh
 
 ./makemusicglue-ios.sh
 
