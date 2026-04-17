@@ -83,6 +83,8 @@
 		C56DAD0A2EF2CFED00739D75 /* GSShowGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACFB2EF2CFED00739D75 /* GSShowGui.cpp */; };
 		C5732A692F8C1344000BD8A4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5732A682F8C1344000BD8A4 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C579D4782F12DBEE0042461C /* GSHeroWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C579D4772F12DBED0042461C /* GSHeroWin.cpp */; };
+		C57A6EEA2F925549002D4DB4 /* Jazz Kit.sf2 in Resources */ = {isa = PBXBuildFile; fileRef = C57A6EE72F925548002D4DB4 /* Jazz Kit.sf2 */; };
+		C57A6EEB2F925549002D4DB4 /* Colin_s_Double_Bass.sf2 in Resources */ = {isa = PBXBuildFile; fileRef = C57A6EE92F925549002D4DB4 /* Colin_s_Double_Bass.sf2 */; };
 		C5810E9F2F8C0C5000047856 /* Bird.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E902F8C0C4F00047856 /* Bird.cpp */; };
 		C5810EA02F8C0C5000047856 /* BlinkSceneNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E932F8C0C4F00047856 /* BlinkSceneNode.cpp */; };
 		C5810EA12F8C0C5000047856 /* AI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E962F8C0C5000047856 /* AI.cpp */; };
@@ -263,6 +265,8 @@
 		C5732A682F8C1344000BD8A4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C579D4762F12DBED0042461C /* GSHeroWin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSHeroWin.h; path = ../../../../Source/GSHeroWin.h; sourceTree = "<group>"; };
 		C579D4772F12DBED0042461C /* GSHeroWin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSHeroWin.cpp; path = ../../../../Source/GSHeroWin.cpp; sourceTree = "<group>"; };
+		C57A6EE72F925548002D4DB4 /* Jazz Kit.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Jazz Kit.sf2"; path = "../../../../Assets/Sound/Jazz Kit.sf2"; sourceTree = "<group>"; };
+		C57A6EE92F925549002D4DB4 /* Colin_s_Double_Bass.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = Colin_s_Double_Bass.sf2; path = ../../../../Assets/Sound/Colin_s_Double_Bass.sf2; sourceTree = "<group>"; };
 		C5810E8F2F8C0C4F00047856 /* Bird.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bird.h; path = ../../../../Source/Bird.h; sourceTree = "<group>"; };
 		C5810E902F8C0C4F00047856 /* Bird.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Bird.cpp; path = ../../../../Source/Bird.cpp; sourceTree = "<group>"; };
 		C5810E912F8C0C4F00047856 /* AI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AI.h; path = ../../../../Source/AI.h; sourceTree = "<group>"; };
@@ -414,6 +418,8 @@
 		69D10FE81F43955800F18EF1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C57A6EE92F925549002D4DB4 /* Colin_s_Double_Bass.sf2 */,
+				C57A6EE72F925548002D4DB4 /* Jazz Kit.sf2 */,
 				69A23A621F686C010021BF88 /* Grand Piano.sf2 */,
 				69D10FEA1F43957F00F18EF1 /* data-iOS.glue */,
 				69D10FEB1F43957F00F18EF1 /* music-iOS.glue */,
@@ -690,6 +696,7 @@
 			files = (
 				69568DB31F706B6100F1B528 /* Default-Portrait@2x~ipad.png in Resources */,
 				69568DB61F706B6100F1B528 /* Default~ipad.png in Resources */,
+				C57A6EEB2F925549002D4DB4 /* Colin_s_Double_Bass.sf2 in Resources */,
 				69D58E6C1E848A0E008A8D29 /* ViewController_iPad.xib in Resources */,
 				69568DB21F706B6100F1B528 /* Default-Landscape~ipad.png in Resources */,
 				69D10FED1F43957F00F18EF1 /* music-iOS.glue in Resources */,
@@ -700,6 +707,7 @@
 				69568DB11F706B6100F1B528 /* Default-Landscape@2x~ipad.png in Resources */,
 				699058D01E7D3BF500E528B4 /* Assets.xcassets in Resources */,
 				699058D31E7D3BF500E528B4 /* LaunchScreen.storyboard in Resources */,
+				C57A6EEA2F925549002D4DB4 /* Jazz Kit.sf2 in Resources */,
 				69D10FEC1F43957F00F18EF1 /* data-iOS.glue in Resources */,
 				69568DB51F706B6100F1B528 /* Default@2x.png in Resources */,
 				69D58E6D1E848A0E008A8D29 /* ViewController_iPhone.xib in Resources */,
