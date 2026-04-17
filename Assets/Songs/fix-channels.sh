@@ -27,6 +27,7 @@ awk -F ', ' -v OFS=', ' "{
 ./csvmidi fixed.csv "$3"
 
 # Clean up
-rm temp.csv fixed.csv
+rm temp.csv 
+#rm fixed.csv
 echo "Processed $1 into $3 using $2"
 
