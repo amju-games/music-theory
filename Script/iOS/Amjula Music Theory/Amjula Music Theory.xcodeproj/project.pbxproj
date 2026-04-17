@@ -739,7 +739,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Upload symbols to BugSplat\n\n# Define where the secrets file lives\nENV_PATH=\"$PROJECT_DIR/secrets\"\n\nif [ -f \"$ENV_PATH\" ]; then\n    # Load the variables\n    export $(grep -v '^#' \"$ENV_PATH\" | xargs)\n    \n    if [ \"$CONFIGURATION\" == \"Debug\" ] || [ \"$CONFIGURATION\" == \"Release\" ]; then\n        \"/Users/juliet/Tools/BugSplat/symbol-upload-macos-intel\" \\\n          -a \"piano-fest\" \\\n          -b \"amju-games\" \\\n          -v \"$MARKETING_VERSION ($CURRENT_PROJECT_VERSION)\" \\\n          -d \"$BUILT_PRODUCTS_DIR\" \\\n          -f \"**/*.dSYM\" \\\n          -i \"$BUGSPLAT_ID\" \\\n          -s \"$BUGSPLAT_SECRET\"\n    fi\nelse\n    echo \"Warning: secrets file missing, skipping BugSplat upload.\"\nfi\n";
+			shellScript = "# Upload symbols to BugSplat\n\n# Define where the secrets file lives\nENV_PATH=\"$PROJECT_DIR/secrets\"\n\nif [ -f \"$ENV_PATH\" ]; then\n    # Load the variables\n    export $(grep -v '^#' \"$ENV_PATH\" | xargs)\n    \n    if [ \"$CONFIGURATION\" == \"Release\" ]; then\n        \"/Users/juliet/Tools/BugSplat/symbol-upload-macos-intel\" \\\n          -a \"piano-fest\" \\\n          -b \"amju-games\" \\\n          -v \"$MARKETING_VERSION ($CURRENT_PROJECT_VERSION)\" \\\n          -d \"$BUILT_PRODUCTS_DIR\" \\\n          -f \"**/*.dSYM\" \\\n          -i \"$BUGSPLAT_ID\" \\\n          -s \"$BUGSPLAT_SECRET\"\n    fi\nelse\n    echo \"Warning: secrets file missing, skipping BugSplat upload.\"\nfi\n";
 		};
 		C57354422F8FC7D3000C67ED /* J.C.: Generate Version.h */ = {
 			isa = PBXShellScriptBuildPhase;
