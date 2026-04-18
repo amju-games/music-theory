@@ -31,6 +31,17 @@ camera
 0
 
 // Node type
+md2
+// Name
+md2-piano
+// Matrix
+.05,0,0,0,  0,.05,0,0,  0,0,.05,0, 0, 0, 8,1
+// Obj mesh
+md2/piano1.md2
+// Num children
+0
+
+// Node type
 mesh
 // Name
 title-piano
