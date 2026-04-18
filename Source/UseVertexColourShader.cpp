@@ -7,22 +7,6 @@
 
 namespace Amju
 {
-static std::vector<PShader> s_shaderVec;
-
-// TODO promote to AmjuGL
-void PushShader()
-{
-  s_shaderVec.push_back(AmjuGL::GetCurrentShader());
-}
-
-// TODO promote to AmjuGL
-void PopShader()
-{
-  auto shader = s_shaderVec.back();
-  s_shaderVec.pop_back();
-  AmjuGL::UseShader(shader);
-}
-
 void UseVertexColourShader()
 {
 #if defined(WIN32) || defined(MACOSX)
