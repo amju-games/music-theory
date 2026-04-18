@@ -275,14 +275,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\AI.cpp" />
+    <ClCompile Include="..\..\..\..\Source\AIFalling.cpp" />
+    <ClCompile Include="..\..\..\..\Source\AIFly.cpp" />
+    <ClCompile Include="..\..\..\..\Source\AIIdle.cpp" />
     <ClCompile Include="..\..\..\..\Source\BassPlayMidi.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Bird.cpp" />
+    <ClCompile Include="..\..\..\..\Source\BlinkSceneNode.cpp" />
     <ClCompile Include="..\..\..\..\Source\Consts.cpp" />
     <ClCompile Include="..\..\..\..\Source\FindSongSections.cpp" />
     <ClCompile Include="..\..\..\..\Source\Grader.cpp" />
     <ClCompile Include="..\..\..\..\Source\GS3dExample.cpp" />
     <ClCompile Include="..\..\..\..\Source\GS3dTitle.cpp" />
-    <ClCompile Include="..\..\..\..\Source\GSBaseWithHud.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSChooseSong.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSConfirmSong.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSHero.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSHeroEnd.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSHeroWin.cpp" />
@@ -308,6 +314,7 @@
     <ClCompile Include="..\..\..\..\Source\MyROConfig.cpp" />
     <ClCompile Include="..\..\..\..\Source\MySceneGraph.cpp" />
     <ClCompile Include="..\..\..\..\Source\NoteEvent.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Npc.cpp" />
     <ClCompile Include="..\..\..\..\Source\Palette.cpp" />
     <ClCompile Include="..\..\..\..\Source\ParticleFx.cpp" />
     <ClCompile Include="..\..\..\..\Source\PlayWav.cpp" />
@@ -379,9 +386,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\UserProfile.cpp" />
     <ClCompile Include="..\..\..\..\Source\UseVertexColourShader.cpp" />
-    <ClCompile Include="..\..\..\..\Source\Version.cpp" />
+    <ClCompile Include="..\..\..\..\Source\WithHud.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Source\AI.h" />
+    <ClInclude Include="..\..\..\..\Source\AIFalling.h" />
+    <ClInclude Include="..\..\..\..\Source\AIFly.h" />
+    <ClInclude Include="..\..\..\..\Source\AIIdle.h" />
+    <ClInclude Include="..\..\..\..\Source\Bird.h" />
+    <ClInclude Include="..\..\..\..\Source\BlinkSceneNode.h" />
     <ClInclude Include="..\..\..\..\Source\Consts.h" />
     <ClInclude Include="..\..\..\..\Source\FindSongSections.h" />
     <ClInclude Include="..\..\..\..\Source\Grader.h" />
@@ -390,8 +403,8 @@
     <ClInclude Include="..\..\..\..\Source\GSAbout.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase.h" />
     <ClInclude Include="..\..\..\..\Source\GSBase3d.h" />
-    <ClInclude Include="..\..\..\..\Source\GSBaseWithHud.h" />
     <ClInclude Include="..\..\..\..\Source\GSChooseSong.h" />
+    <ClInclude Include="..\..\..\..\Source\GSConfirmSong.h" />
     <ClInclude Include="..\..\..\..\Source\GSGuiEdit.h" />
     <ClInclude Include="..\..\..\..\Source\GSHero.h" />
     <ClInclude Include="..\..\..\..\Source\GSHeroEnd.h" />
@@ -416,6 +429,7 @@
     <ClInclude Include="..\..\..\..\Source\MyROConfig.h" />
     <ClInclude Include="..\..\..\..\Source\MySceneGraph.h" />
     <ClInclude Include="..\..\..\..\Source\NoteEvent.h" />
+    <ClInclude Include="..\..\..\..\Source\Npc.h" />
     <ClInclude Include="..\..\..\..\Source\NumUpdate.h" />
     <ClInclude Include="..\..\..\..\Source\Palette.h" />
     <ClInclude Include="..\..\..\..\Source\ParticleFx.h" />
@@ -431,6 +445,7 @@
     <ClInclude Include="..\..\..\..\Source\UserProfile.h" />
     <ClInclude Include="..\..\..\..\Source\UseVertexColourShader.h" />
     <ClInclude Include="..\..\..\..\Source\Version.h" />
+    <ClInclude Include="..\..\..\..\Source\WithHud.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Curl\Win32\lib\libcurl.lib" />
