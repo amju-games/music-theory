@@ -1,0 +1,26 @@
+// PIANO FEST
+// Juliet Colman 2026
+// Title piano frag shader
+
+varying vec2 vUV;
+varying vec3 vNormal;
+//varying vec3 vTangent;
+
+uniform vec4 colour;
+
+uniform sampler2D diffuseMap;
+//uniform sampler2D normalMap;
+
+
+void main()
+{
+    //vec3 normal = vNormal; //CalcBumpedNormal();
+
+    //const vec3 lightDir = vec3(1.0, 1.0, -1.0);
+
+    //float nDotL = max(0.0, dot(normalize(normal), normalize(lightDir)));
+    //vec4 diffuseColour = texture2D(diffuseMap, vUV);
+    //vec3 col = diffuseColour.rgb * nDotL;
+    gl_FragColor = vec4(1.0, 0.0, 0.5, 1.0);
+}
+

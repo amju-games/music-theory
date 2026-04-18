@@ -13,14 +13,14 @@ root
 // Matrix
 I
 // Num children
-2
+3
 
 // Node type
 camera-persp
 // Name
 camera
 // Eye pos
-80, 80, 50
+120, 80, 50
 // Look at pos
 0, 70, 0
 // Up vector
@@ -31,42 +31,25 @@ camera
 0
 
 // Node type
-md2
+md2-1tex
 // Name
-md2-piano
+piano
 // Matrix
-.05,0,0,0,  0,.05,0,0,  0,0,.05,0, 0, 0, 8,1
+1,0,0,0,  0,1.4,0,0,  0,0,1,0, 0, -8, 0,1
 // Obj mesh
 md2/piano1.md2
 // Num children
 0
+// Texture
+md2/piano1-uvmap.png
+// Shader ("default" for the default	 shader)
+default
+//piano
 
-// Node type
-mesh
-// Name
-title-piano
-// Matrix
-1,0,0,0,  0,1.2,0,0,  0,0,.8,0, -2,27,6,1
-// Obj mesh
-obj/piano1.obj
-// Num children
-0
-
-// Node type
-mesh
-// Name
-title-piano-text
-// Matrix
-1,0,0,0,  0,1,0,0,  0,0,1,0, 0,0,0,1
-// Obj mesh
-//obj/schoolhouse.obj
-obj/title/title.obj
-// Num children
-0
 
 mesh
 piano-shadow
-1.5, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, 0, -2, 1
+1.7, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, 23, 0, 1
 obj/shadow-sq.obj
 0
 
