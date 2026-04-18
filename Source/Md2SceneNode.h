@@ -5,6 +5,8 @@
 
 #include "SceneNode.h"
 #include "Md2Model.h"
+#include "Shader.h"
+#include "Texture.h"
 
 namespace Amju
 {
@@ -31,7 +33,8 @@ public:
 protected:
   // No texture data here - we don't know how many textures 
 
-  PMd2Model m_pModel;
+  PMd2Model m_model;
+  PShader m_shader; // if null, we use default
 
 private:
   int m_anim;
@@ -39,5 +42,15 @@ private:
   int m_frame;
   int m_nextFrame;
   float m_t; // varies from 0..1
+};
+
+class Md2SceneNodeWith1Texture : public Md2SceneNode
+{
+public:
+  bool Load(File* f) override;
+  void Draw() override;
+
+protected:
+  PTexture m_tex;
 };
 }
