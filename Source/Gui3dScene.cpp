@@ -4,6 +4,7 @@
 #include <AmjuGL.h>
 #include <GuiFactory.h>
 #include <LoadScene.h>
+#include <Shader.h>
 #include "Gui3dScene.h"
 #include "UseVertexColourShader.h"
 

@@ -310,6 +310,7 @@ static void SetUpGui()
 
   AddToSceneNodeFactory<SceneNodeGui>(); // TODO Promote to amjulib
   AddToSceneNodeFactory<Md2SceneNode>(); // TODO Promote to amjulib
+  AddToSceneNodeFactory<Md2SceneNodeWith1Texture>(); // TODO Promote to amjulib? I think?
   AddToSceneNodeFactory<BlinkSceneNode>(); // TODO Promote to amjulib
 }
 

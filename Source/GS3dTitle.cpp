@@ -1,3 +1,4 @@
+#include <Md2Model.h>
 #include <SceneGraph.h>
 #include <SoundManager.h>
 #include <Timer.h>
@@ -5,6 +6,7 @@
 #include "GSChooseSong.h"
 #include "GSHero.h"
 #include "GS3dTitle.h"
+#include "Md2SceneNode.h"
 #include "PlayWav.h"
 
 namespace Amju
@@ -37,6 +39,12 @@ void GS3dTitle::OnActive()
   GuiElement* startButton = GetElementByName(m_gui, "start-button");
   startButton->SetCommand(OnStart);
   startButton->SetHasFocus(true);
+
+  auto pianoNode = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE)->
+    GetNodeByName("piano");
+  auto pianoMd2 = dynamic_cast<Md2SceneNode*>(pianoNode);
+  Assert(pianoMd2);
+  m_piano.SetMd2Node(pianoMd2);
 }
 
 void GS3dTitle::Update()
@@ -50,7 +58,7 @@ void GS3dTitle::Update()
   // The scale of the town is: 1 unit high, 4 units wide.
 
   const float dt = TheTimer::Instance()->GetDt();
-  const float VEL = 1.f; // Units/sec. 
+  const float VEL = -10.f; // Units/sec. 
 
   // Get the camera node
   SceneGraph* sg = GetSceneGraph();
@@ -58,6 +66,39 @@ void GS3dTitle::Update()
   auto pos = camera->GetEyePos();
   pos.z -= (dt * VEL);
   camera->SetEyePos(pos);
+
+  m_piano.Update();
+}
+
+void GS3dTitle::Piano::SetMd2Node(Md2SceneNode* md2)
+{
+  m_sceneNode = md2;
+
+  // The model just has static/const data; no current anim frame etc.
+  auto model = md2->GetMd2();
+
+  m_stand = model->GetAnimationFromName("stand");
+  m_open = model->GetAnimationFromName("open");
+  m_close = model->GetAnimationFromName("close");
+
+  model->SetDoesFreeze(m_stand, true); // these anims don't loop!
+  model->SetDoesFreeze(m_open, true);
+  model->SetDoesFreeze(m_close, true);
+
+  md2->SetAnim(m_stand);
+
+  Reset();
+}
+
+void GS3dTitle::Piano::Update()
+{
+  m_elapsedTime += TheTimer::Instance()->GetDt();
+  
+}
+
+void GS3dTitle::Piano::Reset()
+{
+  m_elapsedTime = 0;
 }
 }
 

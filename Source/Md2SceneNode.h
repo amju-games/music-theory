@@ -47,6 +47,7 @@ private:
 class Md2SceneNodeWith1Texture : public Md2SceneNode
 {
 public:
+  static const char* NAME;
   bool Load(File* f) override;
   void Draw() override;
 

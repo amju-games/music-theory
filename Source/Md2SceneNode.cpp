@@ -176,6 +176,8 @@ bool Md2SceneNode::Load(File* f)
   return true;
 }
 
+const char* Md2SceneNodeWith1Texture::NAME = "md2-1tex";
+
 bool Md2SceneNodeWith1Texture::Load(File* f)
 {
   if (!Md2SceneNode::Load(f))
@@ -198,10 +200,11 @@ bool Md2SceneNodeWith1Texture::Load(File* f)
   // Shader name needs to be able to specify default shader.
   if (shaderName != "default")
   {
-    m_shader = AmjuGL::LoadShader(shaderName); // TODO should be a Resource, no??
+    std::string fullName = "Shaders/" + AmjuGL::GetShaderDir() + "/" + shaderName;
+    m_shader = AmjuGL::LoadShader(fullName); // TODO should be a Resource, no??
     if (!m_shader)
     {
-      f->ReportError("Bad shader for md2 with 1 texture?")
+      f->ReportError("Bad shader for md2 with 1 texture?");
     }
   }
   return true;
@@ -210,8 +213,17 @@ bool Md2SceneNodeWith1Texture::Load(File* f)
 void Md2SceneNodeWith1Texture::Draw()
 {
   // TODO Batch this (batching needs to take shader into account)
+  Assert(m_tex);
   m_tex->UseThisTexture();
-  m_shader->UseThisShader();
+  if (m_shader)
+  {
+    PushShader();
+    m_shader->UseThisShader();
+  }
   Md2SceneNode::Draw();
+  if (m_shader)
+  {
+    PopShader();
+  }
 }
 }
