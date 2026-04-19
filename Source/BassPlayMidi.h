@@ -15,7 +15,7 @@ float GetMidiSongElapsedTimeSeconds();
 // For GSHero, call with true to mute the player channel in the backing
 //  track. 
 // To preview the song, including the player melody, call with false.
-void MidiMutePlayerChannel(bool mute = true);
+void MidiMutePlayerChannel(bool mute = true, int channelZB = 0);
 
 // Seek to a position in current song -- for pause resume.
 void MidiSeek(float seconds);

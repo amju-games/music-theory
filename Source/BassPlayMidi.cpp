@@ -233,7 +233,7 @@ std::cout << "BASS MIDI: using glue file.\n";
 
   if (s_songStream)
   {
-    std::cout << "Loaded midi file ok?!? " << filename << "\n";
+    std::cout << "Loaded midi file ok: " << filename << "\n";
   }
   else
   {
@@ -253,12 +253,11 @@ float GetMidiSongElapsedTimeSeconds()
   return static_cast<float>(elapsedSeconds);
 }
 
-void MidiMutePlayerChannel(bool mute)
+void MidiMutePlayerChannel(bool mute, int channel)
 {
-  // Mute player channel (always first channel)
-  const int PLAYER_CHANNEL = 0;
-  BASS_MIDI_StreamEvent(s_songStream, PLAYER_CHANNEL, MIDI_EVENT_MIXLEVEL, 
+  BASS_MIDI_StreamEvent(s_songStream, channel, MIDI_EVENT_MIXLEVEL, 
     (mute ? 0 : 1000));
+  BASS_ChannelUpdate(s_songStream, 0);
 }
 
 void MidiSeek(float seconds)
