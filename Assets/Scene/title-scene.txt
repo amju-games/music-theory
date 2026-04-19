@@ -13,7 +13,7 @@ root
 // Matrix
 I
 // Num children
-3
+4
 
 // Node type
 camera-persp
@@ -38,13 +38,13 @@ piano
 1,0,0,0,  0,1.4,0,0,  0,0,1,0, 0, -8, 0,1
 // Obj mesh
 md2/piano1.md2
-// Num children
-0
 // Texture
 md2/piano1-uvmap.png
-// Shader ("default" for the default	 shader)
+// Shader ("default" for the default shader)
 default
 //piano
+// Num children
+0
 
 
 mesh
@@ -53,4 +53,15 @@ piano-shadow
 obj/shadow-sq.obj
 0
 
+
+// Node type
+mesh
+// Name
+title-piano
+// Matrix
+1,0,0,0,  0,1.2,0,0,  0,0,.8,0, 60,23,0,1
+// Obj mesh
+obj/piano1.obj
+// Num children
+0
 

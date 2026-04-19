@@ -145,6 +145,19 @@ void Md2SceneNode::Update()
   }
 }
 
+bool Md2SceneNode::LoadMd2(File* f)
+{
+  // Get md2 resource name, and load it
+  std::string md2Name;
+  if (!f->GetDataLine(&md2Name))
+  {
+    f->ReportError("Expected .md2 filename");
+    return false;
+  }
+  LoadMd2(md2Name);
+  return true;
+}
+
 bool Md2SceneNode::Load(File* f)
 {
   if (!f->GetDataLine(&m_name))
@@ -157,17 +170,12 @@ bool Md2SceneNode::Load(File* f)
   {
     return false;
   }
-
-  // Get md2 resource name
-  std::string md2Name;
-  if (!f->GetDataLine(&md2Name))
+ 
+  if (!LoadMd2(f))
   {
     return false;
   }
-  LoadMd2(md2Name);
 
-  // TODO Should an MD2 node be able to have children ? 
-  // I guess so..
   if (!LoadChildren(f))
   {
     return false;
@@ -180,17 +188,32 @@ const char* Md2SceneNodeWith1Texture::NAME = "md2-1tex";
 
 bool Md2SceneNodeWith1Texture::Load(File* f)
 {
-  if (!Md2SceneNode::Load(f))
+  if (!f->GetDataLine(&m_name))
+  {
+    f->ReportError("Expected md2-1tex scene node name");
     return false;
+  }
 
+  if (!LoadMatrix(f))
+  {
+    return false;
+  }
+ 
+  if (!LoadMd2(f))
+  {
+    return false;
+  }
+
+  auto rm = TheResourceManager::Instance();
   std::string texName;
   if (!f->GetDataLine(&texName))
   {
     f->ReportError("Expected texture name for md2 with 1 texture.");
     return false;
   }
-  m_tex = dynamic_cast<Texture*>(TheResourceManager::Instance()->GetRes(texName));
+  m_tex = dynamic_cast<Texture*>(rm->GetRes(texName));
 
+  // TODO Factor this out
   std::string shaderName;
   if (!f->GetDataLine(&shaderName))
   {
@@ -200,13 +223,18 @@ bool Md2SceneNodeWith1Texture::Load(File* f)
   // Shader name needs to be able to specify default shader.
   if (shaderName != "default")
   {
-    std::string fullName = "Shaders/" + AmjuGL::GetShaderDir() + "/" + shaderName;
-    m_shader = AmjuGL::LoadShader(fullName); // TODO should be a Resource, no??
+    m_shader = dynamic_cast<Shader*>(rm->GetRes(shaderName + ".shader"));
     if (!m_shader)
     {
       f->ReportError("Bad shader for md2 with 1 texture?");
     }
   }
+
+  if (!LoadChildren(f))
+  {
+    return false;
+  }
+
   return true;
 }
 

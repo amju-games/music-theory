@@ -31,6 +31,9 @@ public:
   Md2Model* GetMd2();
 
 protected:
+  bool LoadMd2(File* f); // called from Load - gets md2 name and loads it
+
+protected:
   // No texture data here - we don't know how many textures 
 
   PMd2Model m_model;

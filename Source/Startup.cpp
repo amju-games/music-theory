@@ -287,6 +287,17 @@ static void AddToSceneNodeFactory()
     []()->SceneNode* { return new T; });
 }
 
+Resource* PianoShaderLoader(const std::string& resName)
+{
+  // Unfortunately we need this to specify the directory.
+  // Strip off ".shader" from the name which is added to identify the resource type.
+  std::string fullName = "Shaders/" + 
+    AmjuGL::GetShaderDir() + "/" + 
+    GetFileNoExt(resName);
+  auto shader = AmjuGL::LoadShader(fullName); 
+  return shader; 
+}
+
 static void SetUpGui()
 {
 // Urgh, TODO remove the need for this.
@@ -314,6 +325,9 @@ static void SetUpGui()
   AddToSceneNodeFactory<Md2SceneNode>(); // TODO Promote to amjulib
   AddToSceneNodeFactory<Md2SceneNodeWith1Texture>(); // TODO Promote to amjulib? I think?
   AddToSceneNodeFactory<BlinkSceneNode>(); // TODO Promote to amjulib
+
+  // Overwrite default shader resource loader so we can specify the path.
+  TheResourceManager::Instance()->AddLoader("shader", PianoShaderLoader);
 }
 
 static void SetInitialState()
