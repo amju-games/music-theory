@@ -52,7 +52,7 @@ void GSPlayNotes::OnActive()
 {
   GSBase::OnActive();
 
-  PlayMidiSong("Songs/Bach-Air/bach-air.mid");
+  PlayMidiSong("Songs/Bach-Air/bach-air.mid", 0, false);
 
   // Simulate mouse button and cursor (mouse move) events,
   //  to get polyphony working

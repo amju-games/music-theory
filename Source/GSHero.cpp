@@ -148,14 +148,10 @@ void GSHero::ResumeGame()
 
   auto& gameround = GetGameRound();
 
-  //auto sm = TheSoundManager::Instance();
-
-  // Preload main backing track
-  // Not req for midi
-  //sm->Preload(gameround.m_backingTrack);
-
   // Start playing the count-in track
-  PlayMidiSong(gameround.m_countIn);  
+  const float startTime = 0;
+  const bool noMute = false;
+  PlayMidiSong(gameround.m_countIn, startTime, noMute);   // TODO on a sep channel
 
   ShowCountInGui();
 }
@@ -495,13 +491,8 @@ void GSHero::RestartGame()
 {
 std::cout << "Restarting game, here comes the count-in...\n";
 
-  ChangeState(HeroState::COUNT_IN);
-
-  auto& gameround = GetGameRound();
-
-  // Play count-in audio
-  PlayMidiSong(gameround.m_countIn);
-  ShowCountInGui();
+  // Restart is the same as resuming, except we scroll the score into the first beat.
+  ResumeGame(); 
 
   // Callback for when count-in finished
   // Now we are doing this in Update old school.
@@ -509,6 +500,7 @@ std::cout << "Restarting game, here comes the count-in...\n";
   auto onFinished = []() { };
 
   // Start the count-in on the music score.
+  auto& gameround = GetGameRound();
   const int numCountInBeats = gameround.m_numCountInBeats;
 
 std::cout << "Count-in: there are " << numCountInBeats << " beats.\n";
@@ -534,12 +526,9 @@ std::cout << "Count in finished!\n";
   ChangeState(HeroState::SONG_PLAYING);
 
   // Start playing the backing track for this song
-  PlayMidiSong(GetGameRound().m_backingTrack);
-  MidiMutePlayerChannel(true);
-
-  // Set start point of song: convert normalised time to seconds
-  float seekPos = m_pauseResumeTime * m_scoreLengthSeconds;
-  MidiSeek(seekPos); 
+  float seekTime = m_pauseResumeTime * m_scoreLengthSeconds;
+  const bool mutePlayerTrack = true;
+  PlayMidiSong(GetGameRound().m_backingTrack, seekTime, mutePlayerTrack);
 
   // At this point, the count in has finished, so no more need for this?
   // Actually it prob doesn't matter, it will get overwritten as we 
