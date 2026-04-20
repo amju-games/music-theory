@@ -6,9 +6,6 @@
 //  Copyright (c) 2013 Juliet Colman. All rights reserved.
 //
 
-// j.c. TODO TEMP TEST
-#import <MIKMIDI/MIKMIDI.h>
-
 #import "ViewController.h"
 
 #include <AmjuGL.h>

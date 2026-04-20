@@ -49,8 +49,6 @@
 		69D58E491E833741008A8D29 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E461E833741008A8D29 /* ViewController.mm */; };
 		69D58E4C1E848318008A8D29 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E4B1E848318008A8D29 /* GLKit.framework */; };
 		69D58E4E1E84836B008A8D29 /* Startup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69D58E4D1E84836B008A8D29 /* Startup.cpp */; };
-		69D58E501E848439008A8D29 /* libbassmidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E4F1E848439008A8D29 /* libbassmidi.a */; };
-		69D58E521E84844F008A8D29 /* libbass.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E511E84844F008A8D29 /* libbass.a */; };
 		69D58E551E8484EA008A8D29 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E541E8484EA008A8D29 /* OpenGLES.framework */; };
 		69D58E571E848642008A8D29 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E561E848642008A8D29 /* CFNetwork.framework */; };
 		69D58E591E84864F008A8D29 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E581E84864F008A8D29 /* AudioToolbox.framework */; };
@@ -61,10 +59,7 @@
 		69D58E671E8488E3008A8D29 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E661E8488E3008A8D29 /* Accelerate.framework */; };
 		69D58E6C1E848A0E008A8D29 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D58E681E848A0E008A8D29 /* ViewController_iPad.xib */; };
 		69D58E6D1E848A0E008A8D29 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D58E6A1E848A0E008A8D29 /* ViewController_iPhone.xib */; };
-		69D58E8C1E86E867008A8D29 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */; };
-		69D58E8D1E86E867008A8D29 /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */; };
-		69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */; };
 		C5117C4B2F11CE0300952A7B /* GSHeroEnd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5117C462F11CE0300952A7B /* GSHeroEnd.cpp */; };
 		C5117C4C2F11CE0300952A7B /* GS3dTitle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5117C4A2F11CE0300952A7B /* GS3dTitle.cpp */; };
 		C514212D2F5357A90009EB23 /* GuiSetFromString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C514212A2F5357A90009EB23 /* GuiSetFromString.cpp */; };
@@ -99,6 +94,10 @@
 		C58E3BFC2F8572930013E626 /* HudNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF62F8572930013E626 /* HudNumber.cpp */; };
 		C5D13B642F8EA48D00046430 /* GSConfirmSong.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D13B612F8EA48D00046430 /* GSConfirmSong.cpp */; };
 		C5DB7D6D2F757E7C008CA51E /* GuiPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5DB7D6A2F757E7C008CA51E /* GuiPatch.cpp */; };
+		C5EA2CA82F953F720063AEBD /* bass.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5EA2CA42F953ED60063AEBD /* bass.xcframework */; };
+		C5EA2CA92F953F720063AEBD /* bass.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5EA2CA42F953ED60063AEBD /* bass.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C5EA2CAA2F953F740063AEBD /* bassmidi.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5EA2CA62F953EF00063AEBD /* bassmidi.xcframework */; };
+		C5EA2CAB2F953F740063AEBD /* bassmidi.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5EA2CA62F953EF00063AEBD /* bassmidi.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,7 +131,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				69D58E8D1E86E867008A8D29 /* MIKMIDI.framework in Embed Frameworks */,
+				C5EA2CAB2F953F740063AEBD /* bassmidi.xcframework in Embed Frameworks */,
+				C5EA2CA92F953F720063AEBD /* bass.xcframework in Embed Frameworks */,
 				C5547F972F8C0388003AB05C /* BugSplat.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -212,8 +212,6 @@
 		69D58E461E833741008A8D29 /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ViewController.mm; path = "../../../../Source/iOS-MusicTheory/ViewController.mm"; sourceTree = "<group>"; };
 		69D58E4B1E848318008A8D29 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		69D58E4D1E84836B008A8D29 /* Startup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Startup.cpp; path = ../../../../Source/Startup.cpp; sourceTree = "<group>"; };
-		69D58E4F1E848439008A8D29 /* libbassmidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbassmidi.a; path = ../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/libbassmidi.a; sourceTree = "<group>"; };
-		69D58E511E84844F008A8D29 /* libbass.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbass.a; path = "../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free/libbass.a"; sourceTree = "<group>"; };
 		69D58E541E8484EA008A8D29 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		69D58E561E848642008A8D29 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		69D58E581E84864F008A8D29 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -226,12 +224,10 @@
 		69D58E661E8488E3008A8D29 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		69D58E691E848A0E008A8D29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		69D58E6B1E848A0E008A8D29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
-		69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MIKMIDI.framework; sourceTree = "<group>"; };
 		69D732821F23DA28007B73C1 /* Consts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Consts.h; path = ../../../../Source/Consts.h; sourceTree = "<group>"; };
 		69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSTestShowScore.cpp; path = ../../../../Source/GSTestShowScore.cpp; sourceTree = "<group>"; };
 		69F5E0871E8C09C000E7BF93 /* GSTestShowScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSTestShowScore.h; path = ../../../../Source/GSTestShowScore.h; sourceTree = "<group>"; };
 		69F5E08A1E8C09C000E7BF93 /* PlayMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayMidi.h; path = ../../../../Source/PlayMidi.h; sourceTree = "<group>"; };
-		69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSPlayMidi.mm; path = "../../../../Source/iOS-MusicTheory/iOSPlayMidi.mm"; sourceTree = "<group>"; };
 		C5117C462F11CE0300952A7B /* GSHeroEnd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSHeroEnd.cpp; path = ../../../../Source/GSHeroEnd.cpp; sourceTree = "<group>"; };
 		C5117C482F11CE0300952A7B /* GS3dTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GS3dTitle.h; path = ../../../../Source/GS3dTitle.h; sourceTree = "<group>"; };
 		C5117C492F11CE0300952A7B /* GSHeroEnd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSHeroEnd.h; path = ../../../../Source/GSHeroEnd.h; sourceTree = "<group>"; };
@@ -295,6 +291,9 @@
 		C5D13B632F8EA48D00046430 /* GSConfirmSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSConfirmSong.h; path = ../../../../Source/GSConfirmSong.h; sourceTree = "<group>"; };
 		C5DB7D6A2F757E7C008CA51E /* GuiPatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiPatch.cpp; path = ../../../../Source/GuiPatch.cpp; sourceTree = "<group>"; };
 		C5DB7D6C2F757E7C008CA51E /* GuiPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiPatch.h; path = ../../../../Source/GuiPatch.h; sourceTree = "<group>"; };
+		C5EA2CA42F953ED60063AEBD /* bass.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = bass.xcframework; sourceTree = "<group>"; };
+		C5EA2CA62F953EF00063AEBD /* bassmidi.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = bassmidi.xcframework; sourceTree = "<group>"; };
+		C5EA2CAC2F9540430063AEBD /* BassPlayMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BassPlayMidi.h; path = ../../../../Source/BassPlayMidi.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,13 +301,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5EA2CAA2F953F740063AEBD /* bassmidi.xcframework in Frameworks */,
 				C5732A692F8C1344000BD8A4 /* UIKit.framework in Frameworks */,
 				697A080D1E8307590045CE54 /* libAmjulib.a in Frameworks */,
-				69D58E521E84844F008A8D29 /* libbass.a in Frameworks */,
-				69D58E501E848439008A8D29 /* libbassmidi.a in Frameworks */,
 				69D58E671E8488E3008A8D29 /* Accelerate.framework in Frameworks */,
-				69D58E8C1E86E867008A8D29 /* MIKMIDI.framework in Frameworks */,
 				69D58E611E84873C008A8D29 /* CoreMIDI.framework in Frameworks */,
+				C5EA2CA82F953F720063AEBD /* bass.xcframework in Frameworks */,
 				69D58E571E848642008A8D29 /* CFNetwork.framework in Frameworks */,
 				69D58E591E84864F008A8D29 /* AudioToolbox.framework in Frameworks */,
 				69D58E5F1E84869F008A8D29 /* SystemConfiguration.framework in Frameworks */,
@@ -354,7 +352,6 @@
 				69568DAD1F706B6100F1B528 /* Default.png */,
 				69568DAE1F706B6100F1B528 /* Default@2x.png */,
 				69568DAF1F706B6100F1B528 /* Default~ipad.png */,
-				69D58E8B1E86E867008A8D29 /* MIKMIDI.framework */,
 				697A08061E82F3980045CE54 /* Amjulib.xcodeproj */,
 				699058BE1E7D3BF400E528B4 /* Amjula Music Theory */,
 				699058DC1E7D3BF500E528B4 /* Amjula Music TheoryTests */,
@@ -430,6 +427,8 @@
 		69D58E4A1E848318008A8D29 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5EA2CA62F953EF00063AEBD /* bassmidi.xcframework */,
+				C5EA2CA42F953ED60063AEBD /* bass.xcframework */,
 				C5732A682F8C1344000BD8A4 /* UIKit.framework */,
 				C5547F942F8C0388003AB05C /* BugSplat.xcframework */,
 				69D58E661E8488E3008A8D29 /* Accelerate.framework */,
@@ -442,8 +441,6 @@
 				69D58E581E84864F008A8D29 /* AudioToolbox.framework */,
 				69D58E561E848642008A8D29 /* CFNetwork.framework */,
 				69D58E541E8484EA008A8D29 /* OpenGLES.framework */,
-				69D58E511E84844F008A8D29 /* libbass.a */,
-				69D58E4F1E848439008A8D29 /* libbassmidi.a */,
 				69D58E4B1E848318008A8D29 /* GLKit.framework */,
 			);
 			name = Frameworks;
@@ -463,6 +460,7 @@
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */,
+				C5EA2CAC2F9540430063AEBD /* BassPlayMidi.h */,
 				C5810E902F8C0C4F00047856 /* Bird.cpp */,
 				C5810E8F2F8C0C4F00047856 /* Bird.h */,
 				C5810E932F8C0C4F00047856 /* BlinkSceneNode.cpp */,
@@ -525,7 +523,6 @@
 				6959E3161EA7F44600E251A9 /* iOSGuiTextEdit.mm */,
 				6959E3171EA7F44600E251A9 /* iOSKeyboard.h */,
 				6959E3181EA7F44600E251A9 /* iOSKeyboard.mm */,
-				69F5E0911E8C09DF00E7BF93 /* iOSPlayMidi.mm */,
 				695543211F3B52C6007C23EA /* iOSShare.h */,
 				695543221F3B52C6007C23EA /* iOSShare.mm */,
 				69D58E441E833741008A8D29 /* main.m */,
@@ -794,7 +791,6 @@
 				C56DAD062EF2CFED00739D75 /* BassPlayMidi.cpp in Sources */,
 				C58E3BF92F8572930013E626 /* Hud.cpp in Sources */,
 				6945194A2017368F001C188B /* UseVertexColourShader.cpp in Sources */,
-				69F5E0931E8C09DF00E7BF93 /* iOSPlayMidi.mm in Sources */,
 				C561F3C32F65CCDC003EE425 /* GuiMusic2dKeyboard.cpp in Sources */,
 				6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */,
 				C5DB7D6D2F757E7C008CA51E /* GuiPatch.cpp in Sources */,
