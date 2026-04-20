@@ -13,7 +13,7 @@ root
 // Matrix
 I
 // Num children
-4
+5
 
 // Node type
 camera-persp
@@ -36,32 +36,48 @@ md2-1tex
 piano
 // Matrix
 1,0,0,0,  0,1.4,0,0,  0,0,1,0, 0, -8, 0,1
-// Obj mesh
+// MD2 model 
 md2/piano1.md2
 // Texture
 md2/piano1-uvmap.png
 // Shader ("default" for the default shader)
-default
-//piano
+//default
+piano
 // Num children
 0
 
-
+// Shadow under md2 piano
 mesh
 piano-shadow
-1.7, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.5, 0,  0, 23, 0, 1
+1.7, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.6, 0,  0, 23, 0, 1
 obj/shadow-sq.obj
 0
 
+// Bird
+// Node type
+blink
+// Name
+bird-test
+// Matrix
+.1,0,0,0,  0,.1,0,0,  0,0,.1,0, 0, 120, 0,1 
+// Obj mesh
+md2/pz-bird.md2
+// Num children
+0
+// 2 textures, for blinking
+Image/bird1a.png
+Image/bird1.png
 
+
+// TODO TEMP TEST -- static .obj 
 // Node type
 mesh
 // Name
-title-piano
+test-mesh
 // Matrix
-1,0,0,0,  0,1.2,0,0,  0,0,.8,0, 60,23,0,1
+1,0,0,0,  0,1.2,0,0,  0,0,.8,0, 60,70,0,1
 // Obj mesh
-obj/piano1.obj
+obj/pz-fence.obj
 // Num children
 0
 
