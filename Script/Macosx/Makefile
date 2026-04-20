@@ -8,12 +8,14 @@ BUILD		:=	../../Build/Mac
 TARGET		:=	$(BUILD)/macgame
 LIBDIRS   	:= 	$(AMJULIB)/Releases/amjulib-v.0.5-macosx
 SOURCES		:=	../../Source 
-BASSPATH	:=	$(AMJULIB)/3rdPartyLibs/Bass/Bass2.4.16.7/Macosx
+BASSPATH	:=	$(AMJULIB)/3rdPartyLibs/Bass/2.4.18.3/bass24-osx
+BASSMIDIPATH	:=	$(AMJULIB)/3rdPartyLibs/Bass/BassMidi/2.4.15.3/bassmidi24-osx
+
 
 LIBS	:= \
 	-lamju \
 	$(BASSPATH)/libbass.dylib \
-	$(BASSPATH)/libbassmidi.dylib \
+	$(BASSMIDIPATH)/libbassmidi.dylib \
 	-framework OpenGL \
 	-framework GLUT \
 	-framework Carbon \
@@ -23,35 +25,29 @@ LIBS	:= \
 include $(AMJULIB_MAC_SCRIPT_PATH)/GenMakefile
 CFLAGS += -D_DEBUG -DAMJU_USE_BASS_MIDI -DAMJU_USE_BASS -Wno-deprecated-declarations
 
+# Add path to exe to search path for dylibs.
+LDFLAGS += -Wl,-rpath,@executable_path/
+
 run:
 	$(TARGET)
 
-# Use runsetup first time
-
-
-#	cp $(TARGET) $(RUNDIR); \
-#	cp $(BASSPATH)/libbassmidi.dylib $(RUNDIR); \
-#	cp $(BASSPATH)/libbass.dylib $(RUNDIR); \
-#	cd $(RUNDIR); \
-#	./macgame
+# Use runsetup after a make clean or first ever build
 
 
 runnoglue:
 	cp $(TARGET) $(RUNDIR)/Mac/; \
-	cp $(BASSPATH)/libbassmidi.dylib $(RUNDIR)/Mac/; \
+	cp $(BASSMIDIPATH)/libbassmidi.dylib $(RUNDIR)/Mac/; \
 	cp $(BASSPATH)/libbass.dylib $(RUNDIR)/Mac/; \
 	cd $(RUNDIR)/Mac/; \
 	./macgame
 
 
-runsetupold:
-	cp $(TARGET) $(RUNDIR); \
-	cp $(BASSPATH)/libbassmidi.dylib $(RUNDIR); \
-	cp $(BASSPATH)/libbass.dylib $(RUNDIR); 
-
+# Copy dylibs; remove "quarantine" security flag added by Macos on download.
 runsetup:
-	cp $(BASSPATH)/libbassmidi.dylib $(BUILD); \
-	cp $(BASSPATH)/libbass.dylib $(BUILD); 
+	cp $(BASSMIDIPATH)/libbassmidi.dylib $(BUILD); \
+	cp $(BASSPATH)/libbass.dylib $(BUILD); \
+	xattr -d com.apple.quarantine $(BUILD)/libbass.dylib; \
+	xattr -d com.apple.quarantine $(BUILD)/libbassmidi.dylib
 
 viewscore:
 	$(TARGET) --viewscore
