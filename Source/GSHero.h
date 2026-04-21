@@ -85,8 +85,9 @@ protected:
   //  paused.
   void ResumeOrRestartGame();
 
-  // Do immediate set up required to resume after a delay
-  void SetUpForResume();
+  // Find time at which we should resume: the start of the bar, where there
+  //  is a note or rest on event.
+  void FindResumePoint();
 
   // Restart - if we are not returning from the pause state and so not
   //  resuming
@@ -141,6 +142,9 @@ protected:
   void OnPlayerHasWon();
 
   void ShowCountInGui();
+
+  // Calls the above and starts the count-in song
+  void StartCountInSongAndGui();
 
 protected:
   // The scroll score child of m_gui (get after gui is loaded)
