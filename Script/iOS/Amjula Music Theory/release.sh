@@ -5,7 +5,7 @@
 # Juliet Colman 2026
 # What this script does:
 #  - Check for uncommitted changes: repo should be clean.
-#  - TODO Build glue files
+#  - Build glue files.
 #  - Increment build number. 
 #  - Generate Source/Version.h with version number.
 #  - Builds xcode archive of game.
@@ -26,6 +26,13 @@ else
     echo "❌ Error: secrets file not found!"
     exit 1
 fi
+
+# Build .glue files
+echo "--- 🛠️ Building glue files ---"
+GLUE_LOG="glue.log"
+pushd ../../AssetCompiler
+./make-everything-ios.sh > "$GLUE_LOG" 2>&1
+popd
 
 # Increment build number
 echo "--- 📈 Incrementing Build Number ---"
