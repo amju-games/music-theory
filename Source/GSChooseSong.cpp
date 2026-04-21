@@ -83,8 +83,14 @@ static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
   Assert(b);
   b->SetUserData(const_cast<HeroGameRound*>(&r)); // element in a singleton vector, so ok, riight?
   b->SetCommand(Amju::OnSongStart);
-  b->SetIsEnabled(isUnlocked);
   b->SetHasFocus(hasFocus); 
+
+  // All songs are selectable in debug builds
+#ifdef _DEBUG
+  b->SetIsEnabled(true); 
+#else
+  b->SetIsEnabled(isUnlocked);
+#endif
 
   // Hmm, should we show a preview of the score?
 /*
