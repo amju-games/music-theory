@@ -448,10 +448,10 @@
     <ClInclude Include="..\..\..\..\Source\WithHud.h" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\2.4.18.3\bass24-win\c\bass.lib" />
+    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\BassMidi\2.4.15.3\bassmidi24-win\c\bassmidi.lib" />
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Curl\Win32\lib\libcurl.lib" />
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\GLUT\glut32.lib" />
-    <Library Include="..\..\..\..\..\amjulib\Source\SoundBass\Bass2.4\Win\bass.lib" />
-    <Library Include="..\..\..\..\..\amjulib\Source\SoundBass\Bass2.4\Win\bassmidi.lib" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Assets\en.txt" />
