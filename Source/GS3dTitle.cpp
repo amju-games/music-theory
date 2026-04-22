@@ -9,7 +9,9 @@
 #include "GS3dTitle.h"
 #include "Md2SceneNode.h"
 #include "PlayWav.h"
+#ifdef AMJU_IOS
 #include "Version.h"
+#endif
 
 namespace Amju
 {
@@ -42,10 +44,12 @@ void GS3dTitle::OnActive()
   startButton->SetCommand(OnStart);
   startButton->SetHasFocus(true);
 
+#ifdef AMJU_IOS
   // Set version text (TODO move to a better place)
   auto versionText = dynamic_cast<GuiTextBase*>(GetElementByName(m_gui, "version-text"));
   Assert(versionText);
   versionText->SetText(VERSION_STRING);
+#endif
 
   auto pianoNode = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE)->
     GetNodeByName("piano");
