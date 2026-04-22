@@ -60,6 +60,11 @@
 #include "SceneNodeGui.h"
 
 #ifdef AMJU_IOS
+// just on device, where we create Version.h in release script
+#include "Version.h"
+#endif
+
+#ifdef AMJU_IOS
 #define YES_GLUE_FILE
 #define YES_BINARY_OBJ_FILES
 #define GLUE_FILE "data-iOS.glue"
@@ -197,6 +202,8 @@ void SetUpGlueFile()
 //  game-wide info.
 void LoadWritableConfig()
 {
+  const std::string FIRST_TIME_VERSION = "first-time-version";
+
   GameConfigFile* gcf = TheGameConfigFile::Instance();
   std::string filename = ConfigFilename();
   gcf->SetFilePath(filename);
@@ -208,16 +215,19 @@ void LoadWritableConfig()
     if (gcf->Load())
     {
       std::cout << "Loaded game config file OK: " << filename << "\n";
-      // Send updated device info if anything has changed since we last sent.
-
-      if (gcf->Exists(DEVICE_ID))
-      {
-        std::cout << "Device ID exists in config file: " <<
-          gcf->GetValue(DEVICE_ID) << "\n";
-        isFirstTime = false; // we have run before!
-      }
+      isFirstTime = false; // we have run before!
+      std::cout << "First version was: \"" << gcf->GetValue(FIRST_TIME_VERSION, "**NOT SET**") << "\"\n";
     }
   }
+
+#ifdef AMJU_IOS
+  if (isFirstTime)
+  {
+    gcf->Set(FIRST_TIME_VERSION, VERSION_STRING);
+    gcf->Save();
+    std::cout << "First time run! Setting first time version in game config.\n";
+  }
+#endif
 }
 } // anon namespace
 

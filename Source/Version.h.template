@@ -15,7 +15,7 @@ static const int PATCH = PATCH_TOKEN;
 static const int BUILD = BUILD_TOKEN;
 
 // Version comparison helper
-bool IsVersionAtLeast(int major, int minor, int patch) 
+inline bool IsVersionAtLeast(int major, int minor, int patch) 
 {
   return std::tie(MAJOR, MINOR, PATCH) >= std::tie(major, minor, patch);
 }
