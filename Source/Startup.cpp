@@ -31,9 +31,7 @@
 #include <ConfigFile.h>
 #include <CursorManager.h>
 #include <Directory.h>
-#include <EventPoller.h>
 #include <FileImplGlue.h>
-#include <Font.h>
 #include <Game.h>
 #include <GlueFileMem.h>
 #include <GuiButton.h>
@@ -41,8 +39,6 @@
 #include <GuiRect.h>
 #include <iOSUtils.h>
 #include <Localise.h>
-#include <ObjMesh.h>
-#include <ResourceManager.h>
 #include <SceneNodeFactory.h>
 #include <SoundManager.h>
 #include "BassPlayMidi.h"
