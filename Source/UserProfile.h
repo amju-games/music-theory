@@ -58,6 +58,11 @@ public:
 // Get profile for current user, TODO might redo this a bit
 UserProfile* GetUserProfile();
 
+// Set player name, which is prepended to the user config filename.
+// So we can have different configs for individual players - not
+//  expecting to need to do this, on iOS.
+void SetPlayerName(const std::string& playerName);
+
 class GameRoundManager;
 // From the given songs (game rounds) manager and user profile, 
 //  return the names of unlocked songs.

@@ -16,6 +16,14 @@ namespace
 const char* FILENAME_SUFFIX = "_user_profile.txt";
 } // anon namespace
 
+// Default player name, meaning 'for all players'
+static std::string s_playerName = "all";
+
+void SetPlayerName(const std::string& playerName)
+{
+  s_playerName = playerName;
+}
+
 UserProfile* GetUserProfile()
 {
   // TODO Different named profiles
@@ -25,7 +33,7 @@ UserProfile* GetUserProfile()
 
 bool UserProfile::Save()
 {
-  std::string filename = GetSaveDir(APPNAME) + FILENAME_SUFFIX;
+  std::string filename = GetSaveDir(APPNAME) + s_playerName + FILENAME_SUFFIX;
 
 std::cout << "Saving config file " << filename << "\n";
 
