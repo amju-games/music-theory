@@ -20,27 +20,15 @@
 
 namespace Amju
 {
+static HSTREAM s_playerStream = 0;
+
 void PlayMidi(int note, int velocity)
 {
 #ifdef PLAY_MIDI_DEBUG
   std::cout << "Playing midi note: " << note << " vel: " << velocity << "\n";
 #endif
 
-  SoundManager* sm = TheSoundManager::Instance();
-  if (velocity == 0)
-  {
-    if (!sm->MidiNoteOff(note)) // Not a great interface
-    {
-      std::cout << "..midi call failed :(\n";
-    }
-  }
-  else
-  {
-    if (!sm->MidiNoteOn(note, velocity))
-    {
-      std::cout << "..midi call failed :(\n";
-    }
-  }
+  BASS_MIDI_StreamEvent(s_playerStream, 0, MIDI_EVENT_NOTE, MAKEWORD(note, velocity));
 }
 
 HSOUNDFONT LoadSoundFont(const std::string fontFileName)
@@ -128,7 +116,10 @@ void RouteInstruments(HSTREAM stream)
   // Apply our routing so channel 8 is bass, channel 10 is drums.
   RouteBass(stream);
   RouteDrums(stream);
+}
 
+void SetPanningAndReverb(HSTREAM stream)
+{
   // ** Panning **
   // Channel 2 (Index 1) -> Hard Left
   BASS_MIDI_StreamEvent(stream, 1, MIDI_EVENT_PAN, 0); 
@@ -329,6 +320,38 @@ void MidiSeek(float seconds)
   BASS_ChannelSetPosition(s_songStream, bytes, BASS_POS_BYTE);
 
   RouteInstruments(s_songStream); // seeking resets the bank mappings
+  SetPanningAndReverb(s_songStream);
+}
+
+bool SetUpPlayerStream()
+{
+  const int numMidiChannels = 16; // ?
+  s_playerStream = BASS_MIDI_StreamCreate(
+    numMidiChannels, 
+    BASS_SAMPLE_FLOAT, 
+    0); 
+
+  if (s_playerStream == 0)
+  {
+    std::cout << "BASS error code: " << BASS_ErrorGetCode() << "\n";
+    return false;
+  }
+
+#ifdef MACOSX
+  // Attempting to reduce latency...
+  BASS_ChannelSetAttribute(s_playerStream, BASS_ATTRIB_NOBUFFER, 1); 
+#endif
+
+  // Use same piano sound font as backing tracks. (Do we want this?)
+  MapSoundFontsToChannelsUsingFONTEX(s_playerStream);
+
+  // Do we want to add reverb to match backing tracks?
+  // Panning: should be centred.
+  SetPanningAndReverb(s_playerStream);
+
+  BASS_ChannelPlay(s_playerStream, FALSE);
+
+  return true;
 }
 }
 

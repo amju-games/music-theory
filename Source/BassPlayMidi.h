@@ -6,6 +6,10 @@ namespace Amju
 // Eventually, promote bits of this to amjulib.
 // Play individual MIDI notes and MIDI backing tracks, using BASS.
 
+// Set up stream for player's piano. It's independent of other
+//  streams, i.e. the backing tracks.
+bool SetUpPlayerStream();
+
 // Play a note on the 'player stream', separate from song.
 void PlayMidi(int midiNote, int velocity); 
 

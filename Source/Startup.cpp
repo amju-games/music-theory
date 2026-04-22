@@ -45,6 +45,7 @@
 #include <ResourceManager.h>
 #include <SceneNodeFactory.h>
 #include <SoundManager.h>
+#include "BassPlayMidi.h"
 #include "BlinkSceneNode.h"
 #include "Consts.h"
 #include "GS3dExample.h"
@@ -259,16 +260,18 @@ static void SetUpSound()
   BassSoundPlayer* bsp = new BassSoundPlayer;
   sm->SetImpl(bsp);
 
-#ifdef AMJU_IOS
-  std::string soundFont = File::GetRoot() + MIDI_SOUND_FONT + ".sf2"; // no "Sound" dir
-#else
-  std::string soundFont = File::GetRoot() + "Sound/" + MIDI_SOUND_FONT + ".sf2";
-#endif
-  //std::string soundFont = File::GetRoot() + "Sound/organ1.sf2";
-  bool ok = sm->MidiSetSoundFont(soundFont.c_str());
-  if (!ok)
+  // This is the player piano sound, running as a separate channel, independently
+  //  of the currently playing song. 
+  // TODO:
+  // All soundfont names should be runtime configurable (by me, not player) 
+std::cout << "Setting up player MIDI stream...\n";
+  if (SetUpPlayerStream())
   {
-    std::cout << "\nSETTING SOUND FONT FAILED!\n";
+std::cout << "  ..player MIDI stream is ok?\n";
+  }
+  else
+  {
+    std::cout << "\nSETTING PLAYER MIDI STREAM FAILED!\n";
   }
 
 #endif // AMJU_USE_BASS
