@@ -283,6 +283,7 @@ std::cout << "BASS MIDI: using glue file.\n";
   else
   {
     std::cout << "Failed to load midi file: " << filename << "\n";
+    std::cout << "Bass error code: " << BASS_ErrorGetCode() << "\n";
     Assert(0);
   }
 
