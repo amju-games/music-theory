@@ -13,7 +13,7 @@ root
 // Matrix
 I
 // Num children
-5
+3
 
 // Node type
 camera-persp
@@ -38,11 +38,9 @@ piano
 1,0,0,0,  0,1.4,0,0,  0,0,1,0, 0, -8, 0,1
 // MD2 model 
 md2/piano1.md2
-//md2/cube.md2
 // Texture
 md2/piano1-uvmap.png
 // Shader ("default" for the default shader)
-//default
 piano
 // Num children
 0
@@ -69,16 +67,4 @@ md2/pz-bird.md2
 Image/bird1a.png
 Image/bird1.png
 
-
-// TODO TEMP TEST -- static .obj 
-// Node type
-mesh
-// Name
-test-mesh
-// Matrix
-1,0,0,0,  0,1.2,0,0,  0,0,.8,0, 60,70,0,1
-// Obj mesh
-obj/pz-fence.obj
-// Num children
-0
 
