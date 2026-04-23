@@ -17,6 +17,12 @@ public:
   GSConfirmSong();
 
   void OnActive() override;
+
+private:
+  void InitButtons();
+  void InitText();
+  void InitScore();
+  void StartSong();
 };
 
 typedef Singleton<GSConfirmSong> TheGSConfirmSong;

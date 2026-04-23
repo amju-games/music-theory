@@ -85,7 +85,6 @@ the-score
 0, -.2
 .4, .75 
 // Colour
-// 1DA2FF
 000000
 // Glyphs start here; or just "end" and load from file later.
 end
