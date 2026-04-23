@@ -34,10 +34,7 @@ void GS3dTitle::OnActive()
 {
   GSBase3d::OnActive();
 
-  // Start playing title music
-  auto sm = TheSoundManager::Instance();
-  sm->SetSongMaxVolume(0.1f); // for some reason it's deafening on Mac
-  sm->PlaySong("Music/amt-title.it");
+  // TODO Start playing title music (could be a timeline event)
 
   // Set up start button
   GuiElement* startButton = GetElementByName(m_gui, "start-button");
@@ -62,18 +59,20 @@ void GS3dTitle::Update()
 {
   GSBase3d::Update();
 
-  // Get the camera node, track backwards (through the town)
+  // Get the camera node, track backwards 
   // Not animated in scene node data because there aren't animation
   //  nodes, etc. :(
-
-  // The scale of the town is: 1 unit high, 4 units wide.
 
   const float dt = TheTimer::Instance()->GetDt();
   const float VEL = -10.f; // Units/sec. 
 
   // Get the camera node
   SceneGraph* sg = GetSceneGraph();
-  auto camera = dynamic_cast<SceneNodeCamera*>(sg->GetRootNode(SceneGraph::AMJU_OPAQUE)->GetNodeByName("camera")); //GetCamera(); // ?
+  auto camera = dynamic_cast<SceneNodeCamera*>(
+    sg->GetRootNode(SceneGraph::AMJU_OPAQUE)->GetNodeByName("camera")); 
+
+  // Move eye pos - TODO animations should be applicable to scene nodes,
+  //  not just Gui nodes.
   auto pos = camera->GetEyePos();
   pos.z -= (dt * VEL);
   camera->SetEyePos(pos);
