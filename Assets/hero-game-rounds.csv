@@ -1,4 +1,4 @@
 Level	Round	Name	Display title (localised)	Subtitle (localised)	Composer (localised)	Backing track	Count-in	Count-in number of beats	Count-in GUI	Colour palette	Music score	Sound font	Life Decrease	Section end bar numbers (ZB)
-0	1	satie-gymnopedie-1	$$$7		$$$8	Satie-Gymnopedie-1/Satie-Gymnopedie-1.mp3	Satie-Gymnopedie-1/count-in-3.mp3	3	Count-in-3.txt	Palette-notes-12-1.png	Satie-Gymnopedie-1/satie-gymnopedie-1.score.txt	piano9ftgrand.sf2	5	
+0	1	satie-gymnopedie-1	$$$7		$$$8	Satie-Gymnopedie-1/satie-gymnopedie-1.fixed3.mid	Satie-Gymnopedie-1/satie-gymnopedie-1.count-in.mid	3	Count-in-3.txt	Palette-notes-12-1.png	Satie-Gymnopedie-1/satie-gymnopedie-1.score.txt	piano9ftgrand.sf2	1	
 1	0	saint-saens-the-swan	$$$1	$$$2	$$$3	SaintSaens-TheSwan/swan-3-64bpm.ogg	SaintSaens-TheSwan/swan-count-in-64bpm.ogg	6	Count-in-6.txt	Palette-notes-12-2.png	SaintSaens-TheSwan/saintsaens-theswan.score.txt	piano9ftgrand.sf2	3	2
 1	1	bach-air	$$$4	$$$5	$$$6	Bach-Air/bach-air.mid	Bach-Air/bach-air.count-in.mid	2	Count-in-4.txt	Palette-notes-12-1.png	Bach-Air/bach-air.score.txt	piano9ftgrand.sf2	1	
