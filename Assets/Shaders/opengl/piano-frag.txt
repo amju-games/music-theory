@@ -3,24 +3,26 @@
 // Title piano frag shader
 
 varying vec2 vUV;
-varying vec3 vNormal;
-//varying vec3 vTangent;
+uniform vec4 colourUniform;
+uniform sampler2D tex;
+in vec4 clipSpacePos;
 
-uniform vec4 colour;
+void main() {
+    // Convert clip space to screen-space UVs
+    vec2 screenUV = (clipSpacePos.xy / clipSpacePos.w);
+    // reflection image is on right hand side of texture
+    screenUV.x = screenUV.x * 0.25 + 0.75; 
+    screenUV.y = screenUV.y * 0.5 + 0.5;
+    
+    vec3 reflectionColor = texture2D(tex, screenUV).rgb;
 
-uniform sampler2D diffuseMap;
-//uniform sampler2D normalMap;
+    vec3 diffuseColour = texture2D(tex, vUV).rgb;
 
+    // Don't mix, *add* the shiny colour to the main piano colour. Looks much better.
+    vec3 col = (diffuseColour + reflectionColor * .5).rgb;
+    // Apply global colour to the piano -- but not the keys, which are
+    //  on the right of .37 in x.
+    col *= (vUV.x > 0.37 ? vec3(1.0, 1.0, 1.0) : colourUniform.rgb);
 
-void main()
-{
-    //vec3 normal = vNormal; //CalcBumpedNormal();
-
-    //const vec3 lightDir = vec3(1.0, 1.0, -1.0);
-
-    //float nDotL = max(0.0, dot(normalize(normal), normalize(lightDir)));
-    //vec4 diffuseColour = texture2D(diffuseMap, vUV);
-    //vec3 col = diffuseColour.rgb * nDotL;
-    gl_FragColor = vec4(1.0, 0.0, 0.5, 1.0);
+    gl_FragColor = vec4(col, 1.0);
 }
-

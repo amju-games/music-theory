@@ -1,5 +1,5 @@
 // * Amjula music theory *
-// (c) Copyright 2017 Juliet Colman
+// (c) Copyright 2026 Juliet Colman
 
 // Title scene: piano with text
 
@@ -38,6 +38,7 @@ piano
 1,0,0,0,  0,1.4,0,0,  0,0,1,0, 0, -8, 0,1
 // MD2 model 
 md2/piano1.md2
+//md2/cube.md2
 // Texture
 md2/piano1-uvmap.png
 // Shader ("default" for the default shader)
@@ -49,7 +50,7 @@ piano
 // Shadow under md2 piano
 mesh
 piano-shadow
-1.7, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1.6, 0,  0, 23, 0, 1
+2, 0, 0, 0,  0, 1, 0, 0,  0, 0, 2, 0,  0, 25, 0, 1
 obj/shadow-sq.obj
 0
 
