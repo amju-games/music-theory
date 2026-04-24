@@ -58,6 +58,7 @@
 #include "Md2SceneNode.h"
 #include "ParticleFx.h"
 #include "SceneNodeGui.h"
+#include "SceneTimeline.h"
 
 #ifdef AMJU_IOS
 // just on device, where we create Version.h in release script
@@ -296,6 +297,13 @@ static void AddToSceneNodeFactory()
     []()->SceneNode* { return new T; });
 }
 
+template <class T>
+static void AddToTimelineFactory()
+{
+  TheTimelineEventFactory::Instance()->Add(T::NAME, 
+    []()->TimelineEvent* { return new T; });
+}
+
 Resource* PianoShaderLoader(const std::string& resName)
 {
   // Unfortunately we need this to specify the directory.
@@ -307,7 +315,7 @@ Resource* PianoShaderLoader(const std::string& resName)
   return shader; 
 }
 
-static void SetUpGui()
+static void SetUpFactories()
 {
 // Urgh, TODO remove the need for this.
 #if defined(WIN32) || defined(MACOSX)
@@ -334,6 +342,10 @@ static void SetUpGui()
   AddToSceneNodeFactory<Md2SceneNode>(); // TODO Promote to amjulib
   AddToSceneNodeFactory<Md2SceneNodeWith1Texture>(); // TODO Promote to amjulib? I think?
   AddToSceneNodeFactory<BlinkSceneNode>(); // TODO Promote to amjulib
+
+  // Timeline types (cut scene anims)
+  AddToSceneNodeFactory<SceneTimeline>(); // TODO Promote to amjulib
+  AddToTimelineFactory<EventSetAnim>(); // TODO Promote
 
   // Overwrite default shader resource loader so we can specify the path.
   TheResourceManager::Instance()->AddLoader("shader", PianoShaderLoader);
@@ -455,7 +467,7 @@ void StartUpAfterCreateWindow()
 
   LoadStringTableForPreferredLanguage();
 
-  SetUpGui();
+  SetUpFactories();
 
   SetInitialState();
 }

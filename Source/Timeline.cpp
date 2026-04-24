@@ -1,9 +1,21 @@
 #include <iostream>
 #include <File.h>
+#include <StringUtils.h>
 #include "Timeline.h"
 
 namespace Amju
 {
+TimelineEventFactory::TimelineEventFactory()
+{
+  // Add game-agnostic event types here
+}
+
+RCPtr<TimelineEvent> Timeline::CreateTimelineEvent(const std::string& eventType)
+{
+  // Override to set data in event
+  return TheTimelineEventFactory::Instance()->Create(eventType);
+}
+
 bool Timeline::Load(File* f)
 {
   // Load a timeline.
@@ -14,11 +26,6 @@ bool Timeline::Load(File* f)
     f->ReportError("Expected timeline name.");
     return false;
   }
-
-  // Accumulated execution time for each event.
-  // We can specify execution times as absolute times, or as offsets
-  //  from the accumulated time.
-  float accTime = 0;
 
   while (true) // "end" in file breaks out of loop
   {
@@ -35,7 +42,7 @@ bool Timeline::Load(File* f)
     if (eventType == "end")
       break;
 
-    auto event = TheTimelineEventFactory::Instance()->Create(eventType);
+    auto event = CreateTimelineEvent(eventType);
 
     if (!event)
     {
@@ -53,8 +60,8 @@ bool Timeline::Load(File* f)
     // We want to set absolute times, and also relative to the time
     //  accumulated so far. To do this, negative time means absolute;
     //  positive time means added to time so far.
-    float secondsFromNow = 0;
-    if (!f->GetFloat(&secondsFromNow))
+    std::string timeStr;
+    if (!f->GetDataLine(&timeStr))
     {
       f->ReportError(
         "Expected event time (seconds from now) for event: " + 
@@ -63,6 +70,11 @@ bool Timeline::Load(File* f)
         timelineName);
       return false;
     }
+
+    // If the time string contains anything like "absolute", set the flag.
+    event->m_isAbsolute = StringContains(timeStr, "abs");
+    float secondsFromNow = ToFloat(timeStr); // ignoring anything past the number
+    event->m_time = secondsFromNow;
 
     // Event can load extra data it needs.
     if (!event->Load(f))
@@ -75,28 +87,59 @@ bool Timeline::Load(File* f)
       return false;
     }
 
-    // Set the event execution time from now.
-    // Negative time means absolute;
-    //  positive time means added to time so far.
-    if (secondsFromNow >= 0)
-    {
-      secondsFromNow += accTime;
-    }
-    else
-    {
-      secondsFromNow = std::abs(secondsFromNow);
-    }
-    accTime = secondsFromNow;
+    m_events.push_back(event);
+  }
 
-std::cout << "Acc time: " << accTime << "\n";
-std::cout << "Time for event " << eventType << " is " << secondsFromNow << "\n";
-
-    event->m_time = SecondsFromNow(secondsFromNow);
-
-    // Add the event to the message queue.
-    TheMessageQueue::Instance()->Add(event);
+  // Start timeline now or later (triggered by code or another timeline)?
+  std::string nowOrLater;
+  if (!f->GetDataLine(&nowOrLater))
+  {
+    f->ReportError("Expected 'now' or 'later' timeline string");
+    return false;
+  }
+  if (nowOrLater == "now")
+  {
+    Start();
+  }
+  else if (nowOrLater != "later")
+  {
+    f->ReportError("Expected 'now' or 'later' timeline string");
+    return false;
   }
   return true;
+}
+
+void Timeline::Start()
+{
+  // Accumulated execution time for each event.
+  // We can specify execution times as absolute times, or as offsets
+  //  from the accumulated time.
+  float accTime = 0;
+
+  for (const auto& event : m_events)
+  {
+    // Set the event execution time from now.
+    // Time can be followed by ", absolute" to set an absolute time,
+    //  else the time is added on to the accumulated timeline time so far.
+    if (!event->m_isAbsolute)
+    {
+      event->m_time += accTime;
+    }
+    accTime = event->m_time;
+
+std::cout << "Acc time: " << accTime << "\n";
+std::cout << "Time for event is " << event->m_time << "\n";
+
+    // Convert 'time from now' into actual elapsed game seconds
+    event->m_time = SecondsFromNow(event->m_time);
+
+    event->OnAddToMessageQueue();
+
+    // Add the event to the message queue.
+    TheMessageQueue::Instance()->Add(event.GetPtr());
+  }
+
+  // Don't clear m_events: we can re-trigger the timeline again.
 }
 }
 

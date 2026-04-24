@@ -6,6 +6,53 @@
 // version
 1
 
+// Timeline for animations.
+// This is the root node so we can search under it for named nodes.
+// Node type
+timeline
+// Name
+title-timeline
+// Timeline instructions start here, until we reach "end".
+// (For each event: 
+//  type;
+//  seconds from now (+ve for accumulated; -ve for an absolute);
+//  event-specific data.
+set-anim
+4.0
+piano
+open
+
+set-anim
+4.0
+piano
+close
+
+set-anim
+4.0
+piano
+open
+
+set-anim
+4.0
+piano
+close
+
+set-anim
+4.0
+piano
+open
+
+set-anim
+4.0
+piano
+close
+
+end
+// now or later
+now
+// Num children
+1
+
 // Node type
 comp
 // Name

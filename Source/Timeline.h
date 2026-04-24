@@ -10,51 +10,62 @@ namespace Amju
 {
 class File;
 
+// * TimelineEvent *
+// A message type which is used to trigger animations etc in a scripted
+//  timeline (e.g. for a cut scene).
 struct TimelineEvent : public Message
 {
-  virtual ~TimelineEvent() = default;
-
   virtual bool Load(File*) { return true; }
+
+  virtual void OnAddToMessageQueue() {}
 
   void SetTimelineName(const std::string& s) { m_timelineName = s; }
 
   std::string m_timelineName;
+  bool m_isAbsolute = false; // time can be absolute or relative to prev event.
 };
 
-/*
-// TODO This goes in TimelineSceneNode or SceneNodeTimeline 
-
-// Events are messages which act on a scene node..?
-struct SceneNodeTimelineEvent : public TimelineEvent
+// * TimelineEventFactory *
+// Registers known timeline event types in ctor.
+// For other types, call Add in game-specific code.
+class TimelineEventFactory : public Factory<TimelineEvent>
 {
-  SceneNode* m_sceneNode = nullptr;
+public:
+  TimelineEventFactory();
 };
-
-struct EventSetAnim : public SceneNodeTimelineEvent
-{
-  std::string m_animName;
-
-  // Example:
-  void Execute() override
-  {
-    auto md2Node = dynamic_cast<Md2SceneNode*>(m_sceneNode);
-    Assert(md2Node);
-    md2Node->SetAnim(m_animName);
-  }
-};
-*/
-
-using TimelineEventFactory = Factory<TimelineEvent>;
 using TheTimelineEventFactory = Singleton<TimelineEventFactory>;
 
 // * Timeline *
 // Load a timeline of events from file. Each event has a time and a 
-//  payload, which sets an anim on a scene node, or sets some other state.
+//  payload, which could e.g. set an anim on a scene node, 
+//  or set some other state.
 class Timeline
 {
 public:
+  virtual ~Timeline() = default;
+
   // Load events; add them to the game message queue.
   bool Load(File* f);
+
+  // Start triggering the events, by setting their start times from
+  //  'now' and adding them to the global MessageQueue.
+  virtual void Start();
+
+protected:
+  // By default, calls factory create function.
+  // Override to set extra data on timeline event immediately after creation.
+  virtual RCPtr<TimelineEvent> CreateTimelineEvent(const std::string& eventType);
+
+  // Name of this timeline, for error reporting, (and also could be so we
+  //  can trigger a named timeline)
+  std::string m_timelineName;
+
+  // Store the events until we want to start triggering them.
+  // This lets us do post-loading processing on each event (e.g. find node
+  //  for name, once all nodes are loaded). It also gives us the option
+  //  to start the timeline now or later - triggered in code, say, or
+  //  by another timeline(!)
+  std::vector<RCPtr<TimelineEvent>> m_events;
 };
 }
 
