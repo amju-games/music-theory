@@ -99,13 +99,14 @@ bool Timeline::Load(File* f)
   }
   if (nowOrLater == "now")
   {
-    Start();
+    m_startNow = true;
   }
   else if (nowOrLater != "later")
   {
     f->ReportError("Expected 'now' or 'later' timeline string");
     return false;
   }
+
   return true;
 }
 

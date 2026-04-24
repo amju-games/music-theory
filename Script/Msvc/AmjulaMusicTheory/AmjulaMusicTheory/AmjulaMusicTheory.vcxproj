@@ -320,6 +320,7 @@
     <ClCompile Include="..\..\..\..\Source\PlayWav.cpp" />
     <ClCompile Include="..\..\..\..\Source\PrintGui.cpp" />
     <ClCompile Include="..\..\..\..\Source\SceneNodeGui.cpp" />
+    <ClCompile Include="..\..\..\..\Source\SceneTimeline.cpp" />
     <ClCompile Include="..\..\..\..\Source\ShareManager.cpp" />
     <ClCompile Include="..\..\..\..\Source\Startup.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
@@ -384,6 +385,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Catch|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Timeline.cpp" />
     <ClCompile Include="..\..\..\..\Source\UserProfile.cpp" />
     <ClCompile Include="..\..\..\..\Source\UseVertexColourShader.cpp" />
     <ClCompile Include="..\..\..\..\Source\WithHud.cpp" />
@@ -437,11 +439,13 @@
     <ClInclude Include="..\..\..\..\Source\PlayWav.h" />
     <ClInclude Include="..\..\..\..\Source\PrintGui.h" />
     <ClInclude Include="..\..\..\..\Source\SceneNodeGui.h" />
+    <ClInclude Include="..\..\..\..\Source\SceneTimeline.h" />
     <ClInclude Include="..\..\..\..\Source\ShareManager.h" />
     <ClInclude Include="..\..\..\..\Source\Tests\CreateDictionary.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Timeline.h" />
     <ClInclude Include="..\..\..\..\Source\UserProfile.h" />
     <ClInclude Include="..\..\..\..\Source\UseVertexColourShader.h" />
     <ClInclude Include="..\..\..\..\Source\Version.h" />
