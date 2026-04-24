@@ -35,7 +35,7 @@ colour
 // Name
 piano-colour
 // Colour
-ff8000ff
+202020ff
 // Num children
 1
 
