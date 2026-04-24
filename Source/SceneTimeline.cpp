@@ -24,6 +24,9 @@ bool SceneTimeline::Load(File* f)
     return false;
   }
 
+  if (m_startNow)
+    Start();
+
   return true;  
 }
 
@@ -39,7 +42,7 @@ SceneTimeline::CreateTimelineEvent(const std::string& eventType)
   {
     return nullptr;
   }
-  sceneTimelineEvent->m_sceneRoot = this;
+  sceneTimelineEvent->m_sceneRoot = dynamic_cast<SceneNode*>(this);
   return res;
 }
 

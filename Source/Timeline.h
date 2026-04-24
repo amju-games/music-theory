@@ -66,6 +66,9 @@ protected:
   //  to start the timeline now or later - triggered in code, say, or
   //  by another timeline(!)
   std::vector<RCPtr<TimelineEvent>> m_events;
+
+  // If true, start timeline after loading finished.
+  bool m_startNow = false;
 };
 }
 
