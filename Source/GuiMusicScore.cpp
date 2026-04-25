@@ -363,7 +363,7 @@ void GuiMusicScore::Animate(float animValue)
   // Keep track of glyphs we highlight, and compare with previous frame
   HighlightedSet thisHighlightedSet;
 
-  int numGlyphs = m_glyphs.size();
+  int numGlyphs = GetNumGlyphs();
   for (int i = 0; i < numGlyphs; i++)
   {
     Glyph& g = m_glyphs[i];
@@ -485,7 +485,7 @@ bool GuiMusicScore::IsCompoundGlyphName(const std::string& glyphName) const
 
 bool GuiMusicScore::ExpandCompoundGlyph(const Strings& strs, const Vec2f& pos_, const Vec2f& scale_)
 {
-  int n = strs.size();
+  auto n = strs.size();
   if (n != 3 && n != 5)
   {
     ReportError("Unexpected compound glyph format (missing position?)");
@@ -719,7 +719,7 @@ bool GuiMusicScore::ParseGlyph(const std::string& line, GuiMusicScore::Glyph* re
 {
   // Split line. Format OK? Has optional scale?
   Strings strs = Split(line, ',');
-  int n = strs.size();
+  auto n = strs.size();
 
   if (strs[0] == TIME_NAME)
   {
@@ -843,7 +843,7 @@ bool GuiMusicScore::AddTextFromString(
   if (line.size() > 1 && line[0] == '"')
   {
     // Search from end of string to find terminating quote
-    int p = line.rfind('"');
+    auto p = line.rfind('"');
     Assert(p != std::string::npos);
     std::string str = line.substr(1, p - 1);
 
@@ -892,7 +892,7 @@ bool GuiMusicScore::AddCurveFromString(
   const std::string& line, const Vec2f& /* pos */, const Vec2f& /* scale */)
 {
   Strings strs = Split(line, ',');
-  int n = strs.size();
+  int n = static_cast<int>(strs.size());
 
   if (strs[0] == CURVE_NAME)
   {
@@ -1056,7 +1056,7 @@ void GuiMusicScore::SetFgCol(const Colour& col)
   m_fgCol = col;
 
   // Set this colour on each glyph
-  int numGlyphs = m_glyphs.size();
+  int numGlyphs = GetNumGlyphs();
   for (int i = 0; i < numGlyphs; i++)
   {
     Glyph& g = m_glyphs[i];
@@ -1191,7 +1191,7 @@ void GuiMusicScore::RefreshColours()
 
 int GuiMusicScore::GetNumGlyphs() const
 {
-  return m_glyphs.size();
+  return static_cast<int>(m_glyphs.size());
 }
 
 GuiMusicScore::Glyph& GuiMusicScore::GetGlyph(int i)

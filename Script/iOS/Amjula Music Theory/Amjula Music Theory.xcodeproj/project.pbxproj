@@ -63,6 +63,8 @@
 		C5117C4B2F11CE0300952A7B /* GSHeroEnd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5117C462F11CE0300952A7B /* GSHeroEnd.cpp */; };
 		C5117C4C2F11CE0300952A7B /* GS3dTitle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5117C4A2F11CE0300952A7B /* GS3dTitle.cpp */; };
 		C514212D2F5357A90009EB23 /* GuiSetFromString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C514212A2F5357A90009EB23 /* GuiSetFromString.cpp */; };
+		C54B4BD02F9CAA27001286FA /* SceneTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C54B4BCB2F9CAA27001286FA /* SceneTimeline.cpp */; };
+		C54B4BD12F9CAA27001286FA /* Timeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C54B4BCF2F9CAA27001286FA /* Timeline.cpp */; };
 		C5547F972F8C0388003AB05C /* BugSplat.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5547F942F8C0388003AB05C /* BugSplat.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C55726A32F0EFA5400EEB2A5 /* Grader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55726982F0EFA5300EEB2A5 /* Grader.cpp */; };
 		C55726A42F0EFA5400EEB2A5 /* HeroGameRound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55726992F0EFA5300EEB2A5 /* HeroGameRound.cpp */; };
@@ -234,6 +236,10 @@
 		C5117C4A2F11CE0300952A7B /* GS3dTitle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GS3dTitle.cpp; path = ../../../../Source/GS3dTitle.cpp; sourceTree = "<group>"; };
 		C514212A2F5357A90009EB23 /* GuiSetFromString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiSetFromString.cpp; path = ../../../../Source/GuiSetFromString.cpp; sourceTree = "<group>"; };
 		C514212C2F5357A90009EB23 /* GuiSetFromString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiSetFromString.h; path = ../../../../Source/GuiSetFromString.h; sourceTree = "<group>"; };
+		C54B4BCB2F9CAA27001286FA /* SceneTimeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneTimeline.cpp; path = ../../../../Source/SceneTimeline.cpp; sourceTree = "<group>"; };
+		C54B4BCD2F9CAA27001286FA /* SceneTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneTimeline.h; path = ../../../../Source/SceneTimeline.h; sourceTree = "<group>"; };
+		C54B4BCE2F9CAA27001286FA /* Timeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Timeline.h; path = ../../../../Source/Timeline.h; sourceTree = "<group>"; };
+		C54B4BCF2F9CAA27001286FA /* Timeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Timeline.cpp; path = ../../../../Source/Timeline.cpp; sourceTree = "<group>"; };
 		C5547F942F8C0388003AB05C /* BugSplat.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = BugSplat.xcframework; path = ../../../Source/ThirdParty/BugSplat.xcframework; sourceTree = "<group>"; };
 		C55726982F0EFA5300EEB2A5 /* Grader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Grader.cpp; path = ../../../../Source/Grader.cpp; sourceTree = "<group>"; };
 		C55726992F0EFA5300EEB2A5 /* HeroGameRound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HeroGameRound.cpp; path = ../../../../Source/HeroGameRound.cpp; sourceTree = "<group>"; };
@@ -549,9 +555,13 @@
 				6959E31D1EAB5BA500E251A9 /* PrintGui.h */,
 				694519472017368F001C188B /* SceneNodeGui.cpp */,
 				694519392017368D001C188B /* SceneNodeGui.h */,
+				C54B4BCB2F9CAA27001286FA /* SceneTimeline.cpp */,
+				C54B4BCD2F9CAA27001286FA /* SceneTimeline.h */,
 				695543141F3B526D007C23EA /* ShareManager.cpp */,
 				695543151F3B526D007C23EA /* ShareManager.h */,
 				69D58E4D1E84836B008A8D29 /* Startup.cpp */,
+				C54B4BCF2F9CAA27001286FA /* Timeline.cpp */,
+				C54B4BCE2F9CAA27001286FA /* Timeline.h */,
 				6959E2EA1E97F6F800E251A9 /* UserProfile.cpp */,
 				6959E2EB1E97F6F800E251A9 /* UserProfile.h */,
 				6945193A2017368D001C188B /* UseVertexColourShader.cpp */,
@@ -783,6 +793,7 @@
 				C561F3C22F65CCDC003EE425 /* NoteEvent.cpp in Sources */,
 				C514212D2F5357A90009EB23 /* GuiSetFromString.cpp in Sources */,
 				C58E3BFC2F8572930013E626 /* HudNumber.cpp in Sources */,
+				C54B4BD12F9CAA27001286FA /* Timeline.cpp in Sources */,
 				C5810EA42F8C0C5000047856 /* AIFly.cpp in Sources */,
 				C5117C4B2F11CE0300952A7B /* GSHeroEnd.cpp in Sources */,
 				C561F3C42F65CCDC003EE425 /* GuiMusicKbBase.cpp in Sources */,
@@ -796,6 +807,7 @@
 				C5DB7D6D2F757E7C008CA51E /* GuiPatch.cpp in Sources */,
 				C5810EA22F8C0C5000047856 /* Npc.cpp in Sources */,
 				C55726A72F0EFA5400EEB2A5 /* GSHero.cpp in Sources */,
+				C54B4BD02F9CAA27001286FA /* SceneTimeline.cpp in Sources */,
 				6951CF191F0B932300140095 /* Md2SceneNode.cpp in Sources */,
 				C5810EA02F8C0C5000047856 /* BlinkSceneNode.cpp in Sources */,
 				C5810EA52F8C0C5000047856 /* AIIdle.cpp in Sources */,
