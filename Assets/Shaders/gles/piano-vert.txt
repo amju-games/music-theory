@@ -2,8 +2,13 @@
 // Juliet Colman 2026
 // Title piano vert shader
 
+precision highp float;
+
 attribute vec4 position;
 attribute vec2 uv;
+attribute vec2 normal;
+attribute vec2 colourAttrib;
+
 varying vec2 vUV;
 varying vec4 clipSpacePos;
 uniform mat4 modelViewProjectionMatrix;
