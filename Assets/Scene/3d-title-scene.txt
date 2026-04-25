@@ -18,24 +18,9 @@ title-timeline
 //  seconds from now (+ve for accumulated; -ve for an absolute);
 //  event-specific data.
 set-anim
-4.0
-piano
-open
-
-set-anim
-4.0
-piano
-close
-
-set-anim
-4.0
-piano
-open
-
-set-anim
-4.0
-piano
-close
+1.0
+dino
+eat
 
 set-anim
 4.0
@@ -60,7 +45,7 @@ root
 // Matrix
 I
 // Num children
-3
+4
 
 // Node type
 camera-persp
@@ -82,7 +67,7 @@ colour
 // Name
 piano-colour
 // Colour
-202020ff
+ff2020ff
 // Num children
 1
 
@@ -95,7 +80,7 @@ piano
 // MD2 model 
 md2/piano1.md2
 // Texture
-md2/piano1-uvmap.png
+Image/piano1-uvmap.png
 // Shader ("default" for the default shader)
 piano
 // Num children
@@ -108,15 +93,31 @@ piano-shadow
 obj/shadow-sq.obj
 0
 
+// Dino
+// Node type
+blink
+// Name
+dino
+// Matrix
+.5,0,0,0,  0,.5,0,0,  0,0,.5,0, 0, 120, 0,1 
+// Obj mesh
+md2/dino.md2
+// Num children
+0
+// 2 textures, for blinking
+Image/dino1a.png
+Image/dino1.png
+
+
 // Bird
 // Node type
 blink
 // Name
 bird-test
 // Matrix
-.1,0,0,0,  0,.1,0,0,  0,0,.1,0, 0, 120, 0,1 
+1,0,0,0,  0,1,0,0,  0,0,1,0, 0, 120, 0,1 
 // Obj mesh
-md2/pz-bird.md2
+md2/bird.md2
 // Num children
 0
 // 2 textures, for blinking
