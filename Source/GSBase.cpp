@@ -50,6 +50,7 @@ void GSBase::Update()
   if (reload)
   {
     reload = false;
+    TheMessageQueue::Instance()->Clear();
     ReloadMyROConfig();
     ReloadGui();
   }

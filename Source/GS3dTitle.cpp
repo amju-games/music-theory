@@ -21,6 +21,7 @@ static void OnStart(GuiElement* elem)
 
   PlayWav(WAV_START_BUTTON); // This wav should blend nicely with the title music
   TheGSChooseSong::Instance()->SetPrevState(TheGS3dTitle::Instance());
+  TheMessageQueue::Instance()->Clear(); // kill timeline events
   GoTo<TheGSChooseSong>();
 }
 
