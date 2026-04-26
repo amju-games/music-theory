@@ -2,27 +2,27 @@
 // Juliet Colman 2026
 // Title piano frag shader
 
-varying vec2 vUV;
 uniform vec4 colourUniform;
 uniform sampler2D tex;
-varying vec4 clipSpacePos;
 
-void main() {
-    // Convert clip space to screen-space UVs
-    vec2 screenUV = (clipSpacePos.xy / clipSpacePos.w);
-    // reflection image is on right hand side of texture
-    screenUV.x = screenUV.x * 0.25 + 0.75; 
-    screenUV.y = screenUV.y * 0.5 + 0.5;
-    
-    vec3 reflectionColor = texture2D(tex, screenUV).rgb;
+varying vec2 vUV;
+varying vec2 vUVReflect;
 
+void main() 
+{    
+    // Look up reflection colour (sphere mapping)
+    vec3 reflectionColor = texture2D(tex, vUVReflect).rgb;
+
+    // Look up diffuse map -- on the same texture.
     vec3 diffuseColour = texture2D(tex, vUV).rgb;
 
-    // Don't mix, *add* the shiny colour to the main piano colour. Looks much better.
-    vec3 col = (diffuseColour + reflectionColor * .5).rgb;
+    vec3 col = diffuseColour;
     // Apply global colour to the piano -- but not the keys, which are
     //  on the right of .37 in x.
     col *= (vUV.x > 0.37 ? vec3(1.0, 1.0, 1.0) : colourUniform.rgb);
+
+    // Add a bit of reflection colour: doesn't look great tbh.
+    col += reflectionColor * 0.1;
 
     gl_FragColor = vec4(col, 1.0);
 }

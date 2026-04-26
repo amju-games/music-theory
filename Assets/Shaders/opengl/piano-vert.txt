@@ -2,18 +2,35 @@
 // Juliet Colman 2026
 // Title piano vert shader
 
+uniform mat4 modelViewProjectionMatrix;
+uniform mat4 modelViewMatrix;
+uniform mat3 normalMatrix;
+uniform vec3 eyePos;
+
 attribute vec4 position;
 attribute vec2 uv;
+attribute vec3 normal;
+
 varying vec2 vUV;
-varying vec4 clipSpacePos;
-uniform mat4 modelViewProjectionMatrix;
+varying vec2 vUVReflect;
 
 void main()
 {
-  // Use the screen space position as UV to give fake reflection effect...
-  //  Not a great effect, would be better if piano rotating?
-  clipSpacePos = modelViewProjectionMatrix * position;
-  gl_Position = clipSpacePos;
+  gl_Position = modelViewProjectionMatrix * position;
 
   vUV = uv;
+
+  // sphere map: doesn't look great on this MD2 model, as the normals
+  //  are not perpendicular to the sides of the piano :(
+
+  vec3 eyeNormal = normalize(normalMatrix * normal);
+  vec3 wPos = (modelViewMatrix * position).xyz;
+  vec3 u = normalize(eyePos - wPos);
+  vec3 r = reflect(u, eyeNormal);
+  r.z += 1.0;
+  r = normalize(r);
+
+  // The sphere map is on the right hand half of the texture,
+  //  so adjust the x coord.
+  vUVReflect = vec2(r.x * 0.25 + 0.75,  r.y * 0.5 + 0.5);
 }

@@ -28,7 +28,7 @@ play-wav
 doorcreak
 
 set-anim
-.5
+2
 dino
 piano-up
 
@@ -86,7 +86,7 @@ colour
 // Name
 piano-colour
 // Colour
-ff2020ff
+303030ff
 // Num children
 1
 
