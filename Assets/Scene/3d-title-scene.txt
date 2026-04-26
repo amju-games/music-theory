@@ -17,18 +17,29 @@ title-timeline
 //  type;
 //  seconds from now (+ve for accumulated; -ve for an absolute);
 //  event-specific data.
+
 set-anim
-2.0
+1.0
 piano
 open
 
 set-anim
-4.0
+.5
 dino
-eat
+piano-up
 
 set-anim
-6.0
+1.5
+dino
+piano-eat
+
+set-anim
+.75
+dino
+piano-down
+
+set-anim
+.5
 piano
 close
 
@@ -52,7 +63,7 @@ camera-persp
 // Name
 camera
 // Eye pos
-120, 80, 50
+120, 100, 50
 // Look at pos
 0, 70, 0
 // Up vector
@@ -83,6 +94,8 @@ md2/piano1.md2
 open, close
 // Loop list
 none
+// Initial anim
+stand
 // Texture
 Image/piano1-uvmap.png
 // Shader ("default" for the default shader)
@@ -103,14 +116,16 @@ blink
 // Name
 dino
 // Matrix
-.5,0,0,0,  0,.5,0,0,  0,0,.5,0, 0, 120, 0,1 
+.5,0,0,0,  0,.5,0,0,  0,0,.5,0,   0, 106, -2,  1 
 // MD2 mesh
 md2/dino.md2
 // Freeze list: comma-sep anim names
-//piano-hide, piano-up, piano-eat, piano-down
-none
+piano-hide, piano-eat, piano-down
+//none
 // Loop list
 none
+// Initial anim
+piano-hide
 // 2 textures, for blinking
 Image/dino1a.png
 Image/dino1.png

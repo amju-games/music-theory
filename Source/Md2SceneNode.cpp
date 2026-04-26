@@ -172,6 +172,7 @@ bool Md2SceneNode::LoadEverythingExceptChildren(File* f)
   if (!LoadMd2(f)) return false; 
   if (!LoadFreezeList(f)) return false;
   if (!LoadLoopList(f)) return false;
+  if (!LoadInitialAnim(f)) return false;
   return true;
 }
 
@@ -179,6 +180,25 @@ bool Md2SceneNode::Load(File* f)
 {
   if (!LoadEverythingExceptChildren(f)) return false;
   if (!LoadChildren(f)) return false; 
+  return true;
+}
+
+bool Md2SceneNode::LoadInitialAnim(File* f)
+{
+  std::string initialAnimName;
+  if (!f->GetDataLine(&initialAnimName))
+  {
+    f->ReportError("Expected initial anim name for md2 node.");
+    return false;
+  }
+  auto anim = m_model->GetAnimationFromName(initialAnimName);
+  if (anim == -1)
+  {
+    f->ReportError("Md2: unrecognised anim name for initial anim: " + initialAnimName);
+    return false;
+  }
+  m_frame = m_model->GetStartFrame(anim);
+  m_nextFrame = m_frame + 1;
   return true;
 }
 
