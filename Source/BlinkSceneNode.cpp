@@ -14,7 +14,8 @@ BlinkSceneNode::BlinkSceneNode()
 
 bool BlinkSceneNode::Load(File* f)
 {
-  if (!Md2SceneNode::Load(f)) return false;
+  if (!LoadEverythingExceptChildren(f)) return false;
+
   // Get two texture names
   std::string tex[2];
   if (   !f->GetDataLine(&tex[0])
@@ -28,6 +29,8 @@ bool BlinkSceneNode::Load(File* f)
     f->ReportError("Blinker: failed to load two textures.");
     return false;
   }
+
+  if (!LoadChildren(f)) return false;
   return true;
 }
 

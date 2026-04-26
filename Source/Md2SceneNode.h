@@ -31,7 +31,15 @@ public:
   Md2Model* GetMd2();
 
 protected:
+  bool LoadEverythingExceptChildren(File* f); 
+
   bool LoadMd2(File* f); // called from Load - gets md2 name and loads it
+
+  // Load comma-sep list of names of anims which should freeze.
+  bool LoadFreezeList(File* f);
+
+  // Load comma-sep list of names of anims which should repeat/loop.
+  bool LoadLoopList(File* f);
 
 protected:
   // No texture data here - we don't know how many textures 

@@ -9,6 +9,7 @@
 #include <ReportError.h>
 #include <ResourceManager.h>
 #include <Sign.h>
+#include <StringUtils.h>
 #include <Timer.h>
 #include "Md2SceneNode.h"
 #include <AmjuFinal.h>
@@ -62,7 +63,8 @@ Md2Model* Md2SceneNode::GetMd2()
 
 bool Md2SceneNode::LoadMd2(const std::string& md2name)
 {
-  m_model = (Md2Model*)TheResourceManager::Instance()->GetRes(md2name);
+  m_model = dynamic_cast<Md2Model*>(
+    TheResourceManager::Instance()->GetRes(md2name));
   if (!m_model)
   {
     ReportError("Failed to load MD2: " + md2name);
@@ -158,7 +160,7 @@ bool Md2SceneNode::LoadMd2(File* f)
   return true;
 }
 
-bool Md2SceneNode::Load(File* f)
+bool Md2SceneNode::LoadEverythingExceptChildren(File* f)
 {
   if (!f->GetDataLine(&m_name))
   {
@@ -166,21 +168,67 @@ bool Md2SceneNode::Load(File* f)
     return false;
   }
 
-  if (!LoadMatrix(f))
-  {
-    return false;
-  }
- 
-  if (!LoadMd2(f))
-  {
-    return false;
-  }
+  if (!LoadMatrix(f)) return false; 
+  if (!LoadMd2(f)) return false; 
+  if (!LoadFreezeList(f)) return false;
+  if (!LoadLoopList(f)) return false;
+  return true;
+}
 
-  if (!LoadChildren(f))
+bool Md2SceneNode::Load(File* f)
+{
+  if (!LoadEverythingExceptChildren(f)) return false;
+  if (!LoadChildren(f)) return false; 
+  return true;
+}
+
+bool Md2SceneNode::LoadFreezeList(File* f)
+{
+  std::string list;
+  if (!f->GetDataLine(&list))
   {
+    f->ReportError("Expected freeze list for md2 node.");
     return false;
   }
+  // "none" if none of the anims on this model freeze
+  if (list == "none") return true;
 
+  const auto names = Split(list, ',');
+  for (const auto& name : names)
+  {
+    auto anim = m_model->GetAnimationFromName(name);
+    if (anim == -1)
+    {
+      f->ReportError("Md2: unrecognised anim name for freeze list: " + name);
+      return false;
+    }
+    m_model->SetDoesFreeze(anim, true);
+  }
+  return true;
+}
+
+bool Md2SceneNode::LoadLoopList(File* f)
+{
+  std::string list;
+  if (!f->GetDataLine(&list))
+  {
+    f->ReportError("Expected loop list for md2 node.");
+    return false;
+  }
+  // "none" if none of the anims on this model loop
+  if (list == "none") return true;
+
+  const auto names = Split(list, ',');
+  for (const auto& name : names)
+  {
+    auto anim = m_model->GetAnimationFromName(name);
+    if (anim == -1)
+    {
+      f->ReportError("Md2: unrecognised anim name for loop list: " + name);
+      return false;
+    }
+    m_model->SetDoesRepeat(anim, true);
+  }
   return true;
 }
 
@@ -188,21 +236,7 @@ const char* Md2SceneNodeWith1Texture::NAME = "md2-1tex";
 
 bool Md2SceneNodeWith1Texture::Load(File* f)
 {
-  if (!f->GetDataLine(&m_name))
-  {
-    f->ReportError("Expected md2-1tex scene node name");
-    return false;
-  }
-
-  if (!LoadMatrix(f))
-  {
-    return false;
-  }
- 
-  if (!LoadMd2(f))
-  {
-    return false;
-  }
+  if (!LoadEverythingExceptChildren(f)) return false;
 
   auto rm = TheResourceManager::Instance();
   std::string texName;
@@ -230,10 +264,7 @@ bool Md2SceneNodeWith1Texture::Load(File* f)
     }
   }
 
-  if (!LoadChildren(f))
-  {
-    return false;
-  }
+  if (!LoadChildren(f)) return false;
 
   return true;
 }
