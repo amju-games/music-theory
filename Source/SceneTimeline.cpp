@@ -38,11 +38,10 @@ SceneTimeline::CreateTimelineEvent(const std::string& eventType)
   // I.e., the timeline is the root node of everything we animate.
   auto res = Timeline::CreateTimelineEvent(eventType);
   auto sceneTimelineEvent = dynamic_cast<SceneNodeTimelineEvent*>(res.GetPtr());
-  if (!sceneTimelineEvent)
+  if (sceneTimelineEvent)
   {
-    return nullptr;
+    sceneTimelineEvent->m_sceneRoot = dynamic_cast<SceneNode*>(this);
   }
-  sceneTimelineEvent->m_sceneRoot = dynamic_cast<SceneNode*>(this);
   return res;
 }
 

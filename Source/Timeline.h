@@ -17,8 +17,10 @@ struct TimelineEvent : public Message
 {
   virtual bool Load(File*) { return true; }
 
+  // Override to do something when this event is added to queue.
   virtual void OnAddToMessageQueue() {}
 
+  // Set owning timeline name, for debugging
   void SetTimelineName(const std::string& s) { m_timelineName = s; }
 
   std::string m_timelineName;

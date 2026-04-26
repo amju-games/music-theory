@@ -23,6 +23,10 @@ set-anim
 piano
 open
 
+play-wav
+0
+doorcreak
+
 set-anim
 .5
 dino
@@ -42,6 +46,10 @@ set-anim
 .5
 piano
 close
+
+play-wav
+0.3
+doorslam
 
 end
 // now or later

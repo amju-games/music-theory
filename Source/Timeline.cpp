@@ -2,12 +2,15 @@
 #include <File.h>
 #include <StringUtils.h>
 #include "Timeline.h"
+#include "TimelineEventPlayWav.h"
 
 namespace Amju
 {
 TimelineEventFactory::TimelineEventFactory()
 {
   // Add game-agnostic event types here
+  Add(TimelineEventPlayWav::NAME,
+    []()->TimelineEvent* {return new TimelineEventPlayWav; });
 }
 
 RCPtr<TimelineEvent> Timeline::CreateTimelineEvent(const std::string& eventType)
