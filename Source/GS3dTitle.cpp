@@ -84,19 +84,6 @@ void GS3dTitle::Piano::SetMd2Node(Md2SceneNode* md2)
 {
   m_sceneNode = md2;
 
-  // The model just has static/const data; no current anim frame etc.
-  auto model = md2->GetMd2();
-
-  m_stand = model->GetAnimationFromName("stand");
-  m_open = model->GetAnimationFromName("open");
-  m_close = model->GetAnimationFromName("close");
-
-  model->SetDoesFreeze(m_stand, true); // these anims don't loop!
-  model->SetDoesFreeze(m_open, true);
-  model->SetDoesFreeze(m_close, true);
-
-  md2->SetAnim(m_stand);
-
   Reset();
 }
 
