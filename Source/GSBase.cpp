@@ -123,6 +123,9 @@ GuiElement* GSBase::GetGui()
 
 void GSBase::OnDeactive()
 {
+  // Anim messages in the queue need to be cleared!
+  TheMessageQueue::Instance()->Clear();
+
   GameState::OnDeactive();
   m_gui = nullptr;
 }
