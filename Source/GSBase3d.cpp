@@ -19,6 +19,12 @@ SceneGraph* GSBase3d::GetSceneGraph()
   return sg;
 }
 
+void GSBase3d::OnDeactive()
+{
+  GetSceneGraph()->Clear(); 
+  GSBase::OnDeactive();
+}
+
 void GSBase3d::Reload3d()
 {
   if (m_sceneFilename.empty())

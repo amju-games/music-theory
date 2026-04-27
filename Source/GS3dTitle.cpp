@@ -3,6 +3,7 @@
 #include <SceneGraph.h>
 #include <SoundManager.h>
 #include <Timer.h>
+#include "BassPlayMidi.h"
 #include "Consts.h"
 #include "GSChooseSong.h"
 #include "GSHero.h"
@@ -31,11 +32,25 @@ GS3dTitle::GS3dTitle()
  m_guiFilename = "Gui/gs_3dtitle.txt";
 }
 
+void GS3dTitle::OnDeactive()
+{
+  // This title state is quite resource heavy, what with the MD2s etc.
+  // So try dumping the current resources. This is a two-step process:
+  // 1. Clear the res mananger
+  // 2. Zero the shared ptrs to the resources.
+
+  TheResourceManager::Instance()->Clear();
+  //GetSceneGraph()->Clear(); // done in GSBase3d::OnDeactive
+  StopMidiSong(); // TODO Fade?!
+
+  GSBase3d::OnDeactive();
+}
+
 void GS3dTitle::OnActive()
 {
   GSBase3d::OnActive();
 
-  // TODO Start playing title music (could be a timeline event)
+  // Start playing title music is performed by a timeline event
 
   // Set up start button
   GuiElement* startButton = GetElementByName(m_gui, "start-button");
@@ -48,12 +63,6 @@ void GS3dTitle::OnActive()
   Assert(versionText);
   versionText->SetText(VERSION_STRING);
 #endif
-
-  auto pianoNode = GetSceneGraph()->GetRootNode(SceneGraph::AMJU_OPAQUE)->
-    GetNodeByName("piano");
-  auto pianoMd2 = dynamic_cast<Md2SceneNode*>(pianoNode);
-  Assert(pianoMd2);
-  m_piano.SetMd2Node(pianoMd2);
 }
 
 void GS3dTitle::Update()
@@ -63,6 +72,7 @@ void GS3dTitle::Update()
   // Get the camera node, track backwards 
   // Not animated in scene node data because there aren't animation
   //  nodes, etc. :(
+  // TODO Add animation node(s) and timeline events to control it
 
   const float dt = TheTimer::Instance()->GetDt();
   const float VEL = -10.f; // Units/sec. 
@@ -77,26 +87,6 @@ void GS3dTitle::Update()
   auto pos = camera->GetEyePos();
   pos.z -= (dt * VEL);
   camera->SetEyePos(pos);
-
-  m_piano.Update();
-}
-
-void GS3dTitle::Piano::SetMd2Node(Md2SceneNode* md2)
-{
-  m_sceneNode = md2;
-
-  Reset();
-}
-
-void GS3dTitle::Piano::Update()
-{
-  m_elapsedTime += TheTimer::Instance()->GetDt();
-  
-}
-
-void GS3dTitle::Piano::Reset()
-{
-  m_elapsedTime = 0;
 }
 }
 

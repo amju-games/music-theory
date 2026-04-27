@@ -14,22 +14,9 @@ public:
 
   void Update() override;
   void OnActive() override;
+  void OnDeactive() override;
 
 protected:
-  struct Piano
-  {
-    void SetMd2Node(Md2SceneNode* md2);
-    void Update();
-    void Reset();
-
-    float m_elapsedTime = 0;
-    int m_stand = 0;
-    int m_open = 0;
-    int m_close = 0;
-    Md2SceneNode* m_sceneNode = nullptr;
-  };
-
-  Piano m_piano;
 };
 
 using TheGS3dTitle = Singleton<GS3dTitle>;

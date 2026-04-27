@@ -14,13 +14,16 @@ class SceneGraph;
 class GSBase3d : public GSBase
 {
 public:
-  virtual void Update() override;
-  virtual void Draw() override;
+  void Update() override;
+  void Draw() override;
 
   // Key input: this is for debug camera
-  virtual bool OnKeyEvent(const KeyEvent& ke) override;
+  bool OnKeyEvent(const KeyEvent& ke) override;
 
-  virtual void OnActive() override;
+  void OnActive() override;
+
+  // As 3d scene can be resource-heavy, trash resources here.
+  void OnDeactive() override;
 
 protected:
   SceneGraph* GetSceneGraph();
