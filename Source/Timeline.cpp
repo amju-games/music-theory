@@ -11,6 +11,12 @@ TimelineEventFactory::TimelineEventFactory()
   // Add game-agnostic event types here
   Add(TimelineEventPlayWav::NAME,
     []()->TimelineEvent* {return new TimelineEventPlayWav; });
+
+  Add(TimelineEventPlayMidiSong::NAME,
+    []()->TimelineEvent* {return new TimelineEventPlayMidiSong; });
+
+  Add(TimelineEventStopMidiSong::NAME,
+    []()->TimelineEvent* {return new TimelineEventStopMidiSong; });
 }
 
 RCPtr<TimelineEvent> Timeline::CreateTimelineEvent(const std::string& eventType)
@@ -131,8 +137,10 @@ void Timeline::Start()
     }
     accTime = event->m_time;
 
+#ifdef TIMELINE_DEBUG
 std::cout << "Acc time: " << accTime << "\n";
 std::cout << "Time for event is " << event->m_time << "\n";
+#endif
 
     // Convert 'time from now' into actual elapsed game seconds
     event->m_time = SecondsFromNow(event->m_time);

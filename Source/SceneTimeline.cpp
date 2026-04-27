@@ -92,7 +92,9 @@ bool EventSetAnim::Load(File* f)
 
 void EventSetAnim::Execute()
 {
+#ifdef TIMELINE_DEBUG
 std::cout << "EXECUTING SET ANIM TIMELINE EVENT!\n";
+#endif
 
   // Set anim on md2 scene node.
   auto md2Node = dynamic_cast<Md2SceneNode*>(m_sceneNode);

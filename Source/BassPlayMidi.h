@@ -22,10 +22,12 @@ void PlayMidi(int midiNote, int velocity);
 // Channel 8: backing bass 
 // Channel 10: backing percussion
 
-// Play the given MIDI song (file is loaded from filesys or glue file);
-//  start the song at the given time.
-// If mutePlayer is true, the player melody is muted.
-void PlayMidiSong(const std::string& filename, float startTimeSeconds, bool mutePlayer);
+// Play the given MIDI song (file is loaded from filesys or glue file).
+// Start the song at the given seek time. (I.e. this is position in song,
+//  not a delay before we start playing.)
+// If mutePlayer is true, the player melody (channel 0) is muted.
+void PlayMidiSong(const std::string& filename, 
+  float seekTimeSeconds = 0, bool mutePlayer = false);
 
 // Stop the currently playing song.
 void StopMidiSong();

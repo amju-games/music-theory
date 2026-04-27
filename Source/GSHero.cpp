@@ -898,7 +898,8 @@ void GSHero::OnActive()
 
   m_prevAnimTime = 0; // always reset, right? What about resuming?
 
-  // Can we just do this once?! Yes, but if we reload we get updates to the file.
+  // Can we just do this once?! Yes, we could do, but this way if 
+  //  we reload we get updates to the file.
   bool ok = TheGameRoundManager::Instance()->Load();
   if (!ok)
   {

@@ -18,6 +18,10 @@ title-timeline
 //  seconds from now (+ve for accumulated; -ve for an absolute);
 //  event-specific data.
 
+play-midi
+0.001
+Songs/Bach-Air/bach-air.mid
+
 set-anim
 1.0
 piano
