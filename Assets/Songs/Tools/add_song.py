@@ -132,6 +132,76 @@ def process_score_pipeline(input_path, output_path, player_idx, resolution):
             new_mid.tracks.append(track.copy())
     new_mid.save(output_path)
 
+def get_time_signature(mid):
+    """Scans the MIDI file for a time signature meta-message."""
+    for track in mid.tracks:
+        for msg in track:
+            if msg.type == 'time_signature':
+                return msg.numerator, msg.denominator
+    return None, None
+
+def update_songs_database(composer, piece, target_dir, audio_path, num, den):
+    """Appends a new song entry to the tab-separated songs.csv file."""
+    db_path = Path("songs.csv")
+    
+    level = "1"
+    new_round = 1
+    
+    # 1. Read the last row to get the previous Level and Round
+    if db_path.exists():
+        with open(db_path, 'r', encoding='utf-8') as f:
+            lines = [line.strip() for line in f if line.strip()]
+            if lines:
+                last_row = lines[-1].split('\t')
+                if len(last_row) >= 2:
+                    level = last_row[0]
+                    try:
+                        new_round = int(last_row[1]) + 1
+                    except ValueError:
+                        pass
+                        
+    # 2. Get the Subtitle interactively
+    print("\n" + "-" * 40)
+    subtitle = input("📝 Enter the Subtitle (or leave blank if none): ").strip()
+    
+    # 3. Format the data
+    internal_name = audio_path.stem
+    loc_title = f"@@@{piece}"
+    loc_subtitle = f"@@@{subtitle}" if subtitle else ""
+    loc_composer = f"@@@{composer}"
+    midi_file_path = f"{target_dir.name}/{audio_path.name}"
+    
+    # --- NEW: Count-in Columns ---
+    # e.g., Songs/Count-in/count-in-4-4.mid
+    count_in_midi = f"Songs/Count-in/count-in-{num}-{den}.mid"
+    # e.g., 4
+    count_in_beats = str(num)
+    # e.g., count-in-4.txt
+    count_in_gui = f"count-in-{num}.txt"
+    
+    # 4. Build the row array
+    new_row = [
+        level,
+        str(new_round),
+        internal_name,
+        loc_title,
+        loc_subtitle,
+        loc_composer,
+        midi_file_path,
+        count_in_midi,
+        count_in_beats,
+        count_in_gui
+    ]
+    
+    # 5. Append to the file
+    with open(db_path, 'a', encoding='utf-8') as f:
+        f.write("\t".join(new_row) + "\n")
+        
+    print(f"\n✅ Added '{internal_name}' to songs.csv (Level {level}, Round {new_round})")
+    print(f"⏱️  Count-in set to: {num}/{den}")
+    
+    return new_row
+
 def main():
     if len(sys.argv) < 2: sys.exit("Usage: python3 add_song.py <file.mid>")
     input_path = Path(sys.argv[1])
@@ -148,9 +218,28 @@ def main():
 
     process_audio_pipeline(input_path, audio_path, mapping)
     process_score_pipeline(input_path, score_path, player_idx, resolution)
-    
+
+    # --- Get Time Signature - extract from midi data if poss.  ---
+    num, den = get_time_signature(mid)
+    if num is not None and den is not None:
+        print(f"\n⏱️ Detected Time Signature: {num}/{den}")
+    else:
+        print("\n⚠️ No time signature found in the MIDI file.")
+        while True:
+            ts_input = input("⏱️ Enter the time signature (e.g., 4/4, 3/4, 6/4): ").strip()
+            try:
+                num_str, den_str = ts_input.split('/')
+                num, den = int(num_str), int(den_str)
+                break
+            except ValueError:
+                print("❌ Invalid format. Please use numerator/denominator (e.g., 4/4).")
+
     with open(target_dir / "song_meta.txt", 'w') as f:
         f.write(f"Composer={composer}\nPiece={piece}\nQuantization={resolution}\n")
+
+    # --- Update the game database ---
+    # Pass num and den into the database function
+    update_songs_database(composer, piece, target_dir, audio_path, num, den)
     
     print(f"\n🎉 Finished! Files ready in {target_dir}")
 
