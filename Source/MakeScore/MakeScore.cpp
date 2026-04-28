@@ -256,7 +256,7 @@ void MakeScore::ParseGlobalSettings(std::vector<std::string>& tokens)
 
 void MakeScore::Parse(std::vector<std::string>& tokens)
 {
-  int n = tokens.size();
+  auto n = tokens.size();
 
   bool isText = false;
   std::string text;
@@ -268,7 +268,7 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
   // Set from duration of tokens, and explicitly by the 'time' token. 
   float crotchetTime = 0;
 
-  for (int i = 0; i < n; i++)
+  for (auto i = 0; i < n; i++)
   {
     std::string s = tokens[i]; // copy so we can strip quotes off etc
 
@@ -410,20 +410,20 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
     else if (s == "page-w")
     {
       i++;
-      float pageWidth = atof(tokens[i].c_str());
+      float pageWidth = static_cast<float>(atof(tokens[i].c_str()));
       SetPageWidth(pageWidth);
       Stave::SetPageWidth(pageWidth);
     }
     else if (s == "time")
     {
       i++;
-      crotchetTime = atof(tokens[i].c_str());
+      crotchetTime = static_cast<float>(atof(tokens[i].c_str()));
     }
     else if (s == "bpm")
     {
       // If set in input, we will output bpm tempo.
       i++;
-      m_bpm = atof(tokens[i].c_str());
+      m_bpm = static_cast<float>(atof(tokens[i].c_str()));
     }
     // FINAL ELSE
     else if (!isText)

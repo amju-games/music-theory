@@ -61,8 +61,8 @@ std::string Curve::ToString() const
   };
 
   std::string res = "curve, ";
-  int n = coords.size();
-  for (int i = 0; i < n; i += 2)
+  auto n = coords.size();
+  for (auto i = 0; i < n; i += 2)
   {
     res += Str(coords[i] * scaleX) + ",";
     res += Str(coords[i + 1] * scaleY) + (i < (n - 2) ? ", " : "");
