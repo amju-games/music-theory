@@ -7,7 +7,7 @@
 #include <algorithm> // remove
 #include "Utils.h"
 
-std::string LineEnd(bool oneLine)
+std::string LineEnd([[maybe_unused]] bool oneLine)
 {
   // ";" as delimiter is deprecated; we can string all the lines together
   //  as a simple postprocessing step if we need to.

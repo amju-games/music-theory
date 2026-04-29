@@ -439,7 +439,7 @@ float BeamGroup::ConvertY(float yStaveCoord) const
 }
 
 float BeamGroup::CalcStubEndPosX(
-  int i, int level, float stubLen, 
+  int i, [[maybe_unused]]int level, float stubLen, 
   const std::vector<std::unique_ptr<Glyph>>& glyphs) 
 {
   float currentX = glyphs[i]->GetPos().x;

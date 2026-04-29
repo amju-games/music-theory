@@ -250,7 +250,7 @@ std::vector<std::string>  MakeScore::Tokenise()
   return tokens;
 }
 
-void MakeScore::ParseGlobalSettings(std::vector<std::string>& tokens)
+void MakeScore::ParseGlobalSettings([[maybe_unused]] std::vector<std::string>& tokens)
 {
 }
 
@@ -262,7 +262,7 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
   std::string text;
 
   Chord chord;
-  bool inChord; // If true, we are within ( ) chord markers
+  bool inChord = false; // If true, we are within ( ) chord markers
 
   // Current time in piece, units are number of crotchets from start.
   // Set from duration of tokens, and explicitly by the 'time' token. 

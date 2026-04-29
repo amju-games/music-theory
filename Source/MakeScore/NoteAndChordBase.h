@@ -29,7 +29,7 @@ public:
   //  the direction of all stems in the beam group.
   // This is used for the 'majority vote', but can then be
   //  overridden by the Beam Group.
-  virtual int GetStaveLineForBeam(StemDir dir) { return 0; }
+  virtual int GetStaveLineForBeam(StemDir) { return 0; }
 
   // Get beam level: 1 for q, 2 for qq, etc.
   virtual int GetBeamLevel() const { return 1; }

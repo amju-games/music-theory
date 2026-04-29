@@ -13,7 +13,7 @@
 #include "Performance.h"
 
 static int CalcStaveLineForStepOctaveAlterPitch(
- KeySig keySig, Clef clef, const Pitch& pitch) 
+  [[maybe_unused]] KeySig keySig, Clef clef, const Pitch& pitch)
 {
   if (clef == Clef::CLEF_PERCUSSION)
     return PERCUSSION_STAVE_LINE;
@@ -123,9 +123,9 @@ void NoteGlyph::CalcY(KeySig keySig, Clef clef)
   // Convert stave line unit into distance: Each stave line unit is
   //  half the distance between two adjacent stave lines, because the
   //  gaps are counted too. (e.g. c4 = -2, d4 = -1, e4 = 0 etc.)
-  float y = static_cast<float>(staveLine) * STAVE_LINE_GAP * .5f;
+  float noteY = static_cast<float>(staveLine) * STAVE_LINE_GAP * .5f;
   // TODO Offset y for stave > 1? Should be done in Bar.
-  SetY(y);
+  SetY(noteY);
 }
 
 void NoteGlyph::AdjustAccidental(Accidental previousAcc)

@@ -241,16 +241,16 @@ void Stave::AddTie()
     // Try prev bar
     if (m_bars.size() > 1)
     {   
-      auto& b = m_bars[m_bars.size() - 2]; 
-      auto& g = b->GetGlyphs();
-      if (g.empty())
+      auto& prevBar = m_bars[m_bars.size() - 2]; 
+      auto& prevBarGlyphs = prevBar->GetGlyphs();
+      if (prevBarGlyphs.empty())
       {
         std::cout << "// *** Error, no left glyph for tie to refer to (not first bar).\n";
         return;
       }
       else
       {
-        tie->SetLeftGlyph(g.back().get());
+        tie->SetLeftGlyph(prevBarGlyphs.back().get());
       }
     }   
     else
@@ -332,9 +332,9 @@ void Stave::Attach(Attachment* t, int leftOrRight)
     // Try prev bar
     if (m_bars.size() > 1)
     {   
-      auto& b = m_bars[m_bars.size() - 2]; 
-      auto& g = b->GetGlyphs();
-      t->SetParent(g.back().get(), leftOrRight);
+      auto& prevBar = m_bars[m_bars.size() - 2]; 
+      auto& prevBarGlyphs = prevBar->GetGlyphs();
+      t->SetParent(prevBarGlyphs.back().get(), leftOrRight);
     }   
   }
   else

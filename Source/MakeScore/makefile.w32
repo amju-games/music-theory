@@ -1,0 +1,33 @@
+# Use: nmake -f makefile.w32
+# Ensure you are running this from the "Developer Command Prompt for VS"
+
+# --- Compiler and Tool Settings ---
+CC = cl.exe
+LINKER = link.exe
+EXECUTABLE = makescore.exe
+
+# --- MSVC Compiler Flags ---
+# /W4: Strong warnings (equivalent to -Wall)
+# /I..: Include directory
+# /std:c++20: C++20 standard
+# /Zi /Od: Debug info and no optimization (-g -O0)
+# /EHsc: Standard exception handling (required for most C++)
+# /c: Compile only (produce .obj)
+CFLAGS = /nologo /W4 /I.. /std:c++20 /Zi /Od /EHsc /c
+
+# --- Automating Source Files ---
+# NMAKE expands wildcards in dependency lines. 
+# This rule says "makescore.exe depends on all .cpp files in the folder"
+SOURCES = *.cpp
+
+all: $(EXECUTABLE)
+
+$(EXECUTABLE): $(SOURCES)
+    $(CC) $(CFLAGS) $(SOURCES)
+    $(LINKER) /nologo /OUT:$@ *.obj
+
+clean:
+    -del /f /q $(EXECUTABLE) *.obj *.pdb *.ilk 2>nul
+
+run:
+    $(EXECUTABLE)

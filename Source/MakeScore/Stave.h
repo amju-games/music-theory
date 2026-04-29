@@ -78,8 +78,8 @@ public:
   //  right parent.
   void Attach(Attachment* t, int leftOrRight = 0);
 
-  void SetPerformance(int performanceSwitch) {}
-  void ClearPerformance(int performanceSwitch) {}
+  void SetPerformance([[maybe_unused]] int performanceSwitch) {}
+  void ClearPerformance([[maybe_unused]] int performanceSwitch) {}
 
 private:
   int GetTotalNumBeats() const;

@@ -39,7 +39,7 @@ struct NoteGlyph : public NoteAndChordBase
 
   StemDir DecideStemDirection() override;
 
-  int GetStaveLineForBeam(StemDir dir) override { return m_staveLine; }
+  int GetStaveLineForBeam(StemDir) override { return m_staveLine; }
 
   int GetNumAccidentals() const override;
 

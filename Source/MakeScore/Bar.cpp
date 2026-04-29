@@ -107,7 +107,7 @@ void Bar::SetScale(float scale)
   m_scale = scale;
 }
 
-float Bar::AddRest(const std::string& token, int switches, float startTimeValue, bool isWholeBar)
+float Bar::AddRest(const std::string& token, [[maybe_unused]]int switches, float startTimeValue, bool isWholeBar)
 {
   int order = static_cast<int>(m_glyphs.size());
 

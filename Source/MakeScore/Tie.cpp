@@ -42,15 +42,15 @@ std::string Tie::ToString() const
   }
 
   bool curveIsU = stemUp;
-  float y = m_leftGlyph->y;  // same as right side -- RIGHT?!
+  float tieY = m_leftGlyph->y;  // same as right side -- RIGHT?!
   // Don't know why, but we are off by 0.5 here.
   // Yes I do, it's QUAD_Y_OFFSET -- this is a curve, not a quad, but
   //  I'm guessing it's the same deal.
-  y += QUAD_Y_OFFSET;
+  tieY += QUAD_Y_OFFSET;
 
   // Add or subtract to get above/below note head.
   const float Y_ADJUST = 0.06f;
-  y += Y_ADJUST * (curveIsU ? -1.f : 1.f);
+  tieY += Y_ADJUST * (curveIsU ? -1.f : 1.f);
 
   float w = m_rightX - m_leftX;
   const float TIE_ASPECT_RATIO = 8.f;
@@ -71,15 +71,15 @@ std::string Tie::ToString() const
   std::vector<float> coords =
   {
     // Left end point
-    m_leftX + xoff + xSquish,  y,
+    m_leftX + xoff + xSquish,  tieY,
     // Control point: gives desired shape to curve
-    Interp(m_leftX + xSquish, m_rightX - xSquish, CP) + xoff, y + (h * 0.8f), 
+    Interp(m_leftX + xSquish, m_rightX - xSquish, CP) + xoff, tieY + (h * 0.8f), 
     // Centre point of curve
-    Interp(m_leftX, m_rightX, .5f) + xoff, y + h, 
+    Interp(m_leftX, m_rightX, .5f) + xoff, tieY + h, 
     // Symmetrical control point to give shape
-    Interp(m_leftX + xSquish, m_rightX - xSquish, (1.f - CP)) + xoff, y + (h * 0.8f), 
+    Interp(m_leftX + xSquish, m_rightX - xSquish, (1.f - CP)) + xoff, tieY + (h * 0.8f), 
     // Right end point
-    m_rightX + xoff - xSquish, y
+    m_rightX + xoff - xSquish, tieY
   };
 
   std::string res = "curve, ";
