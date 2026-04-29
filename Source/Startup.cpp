@@ -275,6 +275,7 @@ std::cout << "Setting up player MIDI stream...\n";
   if (SetUpPlayerStream())
   {
 std::cout << "  ..player MIDI stream is ok?\n";
+    MidiExternalConnect();
   }
   else
   {

@@ -46,5 +46,8 @@ void MidiSeek(float seconds);
 //  that a song is playing, if in the awful position of not hearing
 //  anything :(
 void MidiLog();
+
+bool MidiExternalConnect();
+
 }
 

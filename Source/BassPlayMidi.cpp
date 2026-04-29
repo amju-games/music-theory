@@ -15,8 +15,10 @@
 #include <Directory.h>
 #include <File.h>
 #include <GlueFile.h>
+#include <MessageQueue.h>
 #include <SoundManager.h>
 #include "BassPlayMidi.h"
+#include "MusicEvent.h"
 
 namespace Amju
 {
@@ -351,6 +353,68 @@ bool SetUpPlayerStream()
   SetPanningAndReverb(s_playerStream);
 
   BASS_ChannelPlay(s_playerStream, FALSE);
+
+  return true;
+}
+
+// External MIDI event callback
+static void CALLBACK MidiInProc(
+  DWORD device, double time, const BYTE* buffer, DWORD length, void* user)
+{
+  if (length == 0) return;
+  if (length == 1 && buffer[0] == 0xf8) return; // timing signal - 1 byte
+
+  if (length == 3 && (buffer[0] & 0xf0) == 0x90)
+  {
+    // Note event
+    [[maybe_unused]]int channel = buffer[0] & 0x0f; // worry about that later
+    int midiNote = buffer[1];
+    int velocity = buffer[2];
+
+    bool isNoteOn = (velocity > 0);
+    // Good news, MessageQueue::Add is thread safe
+    TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(midiNote, isNoteOn)));
+  }
+
+#ifdef MIDI_INPUT_DEBUG
+  // Out of interest, print the message
+  std::cout << "MIDI Data: ";
+  for (DWORD i = 0; i < length; ++i)
+  {
+    std::cout << static_cast<int>(buffer[i]) << "  ";
+  }
+  std::cout << length << " bytes.\n";
+#endif // MIDI_INPUT_DEBUG
+}
+
+bool MidiExternalConnect()
+{
+  BASS_MIDI_DEVICEINFO info;
+
+  DWORD device = 0; // index of device we want
+  if (!BASS_MIDI_InGetDeviceInfo(device, &info))
+  {
+    std::cout << "BASS MIDI failed to get midi device info. Error code: " << BASS_ErrorGetCode() << "\n";
+    return false;
+  }
+
+  // Would be good to get this to display in setup?
+  std::cout << "BASS MIDI Input device: "
+    << info.name
+    << "\n";
+
+  // initialize the MIDI input device
+  if (!BASS_MIDI_InInit(device, MidiInProc, 0))
+  {
+    std::cout << "BASS MIDI failed to initialise midi device. Error code: " << BASS_ErrorGetCode() << "\n";
+    return false;
+  }
+
+  if (!BASS_MIDI_InStart(device))
+  {
+    std::cout << "BASS MIDI failed to start recv from midi device. Error code: " << BASS_ErrorGetCode() << "\n";
+    return false;
+  }
 
   return true;
 }
