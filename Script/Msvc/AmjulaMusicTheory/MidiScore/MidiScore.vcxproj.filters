@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\midifile">
+      <UniqueIdentifier>{9b5390d7-a268-47f7-aea7-5ebaceb438c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\midifile">
+      <UniqueIdentifier>{7419db25-7029-4538-a4c7-5a320d040e6b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\MidiScore\source\Clef.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MidiScore\source\Dynamics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MidiScore\source\Event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MidiScore\source\KeySig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MidiScore\source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MidiScore\source\MidiScore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MidiScore\source\TimeSig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MidiScore\midifile\src\Binasc.cpp">
+      <Filter>Source Files\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MidiScore\midifile\src\MidiEvent.cpp">
+      <Filter>Source Files\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MidiScore\midifile\src\MidiEventList.cpp">
+      <Filter>Source Files\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MidiScore\midifile\src\MidiFile.cpp">
+      <Filter>Source Files\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MidiScore\midifile\src\MidiMessage.cpp">
+      <Filter>Source Files\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MidiScore\midifile\src\Options.cpp">
+      <Filter>Source Files\midifile</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Source\MidiScore\source\Clef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MidiScore\source\commandline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MidiScore\source\Dynamics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MidiScore\source\Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MidiScore\source\KeySig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MidiScore\source\MidiScore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MidiScore\source\TimeSig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MidiScore\midifile\include\Binasc.h">
+      <Filter>Header Files\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MidiScore\midifile\include\MidiEvent.h">
+      <Filter>Header Files\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MidiScore\midifile\include\MidiEventList.h">
+      <Filter>Header Files\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MidiScore\midifile\include\MidiFile.h">
+      <Filter>Header Files\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MidiScore\midifile\include\MidiMessage.h">
+      <Filter>Header Files\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MidiScore\midifile\include\Options.h">
+      <Filter>Header Files\midifile</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
