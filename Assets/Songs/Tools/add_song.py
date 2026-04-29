@@ -177,7 +177,16 @@ def quantize_track(track, ticks_per_beat, resolution):
         last_time = event['abs_time']
     return new_track
 
+# Output new midi file with remapped channels, and tracks renamed to
+#  reflect the mapping.
 def process_audio_pipeline(input_path, output_path, mapping):
+    # Create a reverse map for naming: {0: 'Player', 7: 'Bass', ...}
+    # We capitalize the keys (Piano-C, etc.)
+    chan_to_name = {v: k.replace('-', ' ').title().replace(' ', '-') for k, v in ROLE_CHANNELS.items()}
+    
+    # Track name counters to handle duplicates
+    name_counters = {}
+
     mid = mido.MidiFile(input_path)
     new_mid = mido.MidiFile(ticks_per_beat=mid.ticks_per_beat, type=mid.type)
     keep = list(mapping.keys())
@@ -188,21 +197,41 @@ def process_audio_pipeline(input_path, output_path, mapping):
         new_track = mido.MidiTrack()
         new_mid.tracks.append(new_track)
         chan = mapping.get(i)
+
+        # Rename track
+        if chan is not None:
+            base_name = chan_to_name.get(chan, f"Channel-{chan}")
+    
+            # Increment counter for this name
+            name_counters[base_name] = name_counters.get(base_name, 0) + 1 
+    
+            # Append number if it's a duplicate
+            final_name = base_name
+            if name_counters[base_name] > 1:
+                final_name = f"{base_name} {name_counters[base_name]}"
+    
+            # Insert the track name meta message at the very beginning
+            new_track.append(mido.MetaMessage('track_name', name=final_name, time=0))
         for msg in track:
+            # Skip existing track names so they don't conflict with our new ones
+            # STRIP: Text, Lyrics, Markers, Cue Points, and old Track Names 
+            if msg.is_meta and msg.type in ('text', 'lyrics', 'marker', 'cue_marker', 'track_name', 'copyright'):
+                continue
+
             if msg.type == 'control_change' and msg.control in (7, 10, 11): continue
+
             new_track.append(msg.copy(channel=chan) if hasattr(msg, 'channel') and chan is not None else msg.copy())
     new_mid.save(output_path)
 
+# Create midi file with only the player track, quantised -- 
+#  this is for midiscore to process.
 def process_score_pipeline(input_path, output_path, player_idx, resolution):
     mid = mido.MidiFile(input_path)
     new_mid = mido.MidiFile(ticks_per_beat=mid.ticks_per_beat, type=mid.type)
     for i, track in enumerate(mid.tracks):
-        if i not in (0, player_idx): continue
-        if i == player_idx:
-            q_track = quantize_track(track, mid.ticks_per_beat, resolution)
-            new_mid.tracks.append(mido.MidiTrack([m.copy(channel=0) if hasattr(m, 'channel') else m for m in q_track]))
-        else:
-            new_mid.tracks.append(track.copy())
+        if i != player_idx: continue
+        q_track = quantize_track(track, mid.ticks_per_beat, resolution)
+        new_mid.tracks.append(mido.MidiTrack([m.copy(channel=0) if hasattr(m, 'channel') else m for m in q_track]))
     new_mid.save(output_path)
 
 def get_time_signature(mid):
@@ -245,7 +274,7 @@ def update_songs_database(composer, piece, target_dir, audio_path, num, den, sco
     loc_composer = f"@@@{composer}"
     midi_file_path = f"{target_dir.name}/{audio_path.name}"
     
-    # --- NEW: Count-in Columns ---
+    # --- Count-in Columns ---
     # e.g., Songs/Count-in/count-in-4-4.mid
     count_in_midi = f"Songs/Count-in/count-in-{num}-{den}.mid"
     # e.g., 4
