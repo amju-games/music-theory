@@ -1,0 +1,25 @@
+# Use: nmake -f makefile.w32
+# Run within the "Developer Command Prompt for VS"
+
+CC = cl.exe
+LINKER = link.exe
+EXECUTABLE = midiscore.exe
+
+# /I source /I midifile/include: Include paths
+# /Fo: Force all .obj files to be created in the current directory
+CFLAGS = /nologo /W4 /I source /I midifile/include /std:c++20 /Zi /Od /EHsc /c /Fo".\\"
+
+# Nmake expands these wildcards in the dependency line
+SOURCES = source\*.cpp midifile\src\*.cpp
+
+all: $(EXECUTABLE)
+
+$(EXECUTABLE): $(SOURCES)
+    $(CC) $(CFLAGS) $(SOURCES)
+    $(LINKER) /nologo /OUT:$@ *.obj
+
+clean:
+    -del /f /q $(EXECUTABLE) *.obj *.pdb *.ilk 2>nul
+
+run:
+    $(EXECUTABLE)

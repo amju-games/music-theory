@@ -1,7 +1,9 @@
 // * MidiScore *
 // (c) Copyright 2026 Juliet Colman
 
+#include <algorithm>
 #include <array>
+#include <cassert>
 #include <cmath>
 #include <iostream>
 #include <map>
@@ -421,10 +423,10 @@ void Event::QuantiseDuration(int tpq, TimeVal resolution)
   // Here we ensure that duration is at least the quant resolution --
   //  otherwise the note would disappear, and surely we don't want 
   //  that, right???
-  m_duration = mult * std::max(1.f,  // duration is at least resolution
+  m_duration = mult * static_cast<int>(std::max(1.f,  // duration is at least resolution
     std::round(
       static_cast<float>(m_unquantisedDuration) / 
-      static_cast<float>(mult)));
+      static_cast<float>(mult))));
  
   // DON'T set time val! First we need to consider splitting the
   //  note into two or more tied notes.
@@ -447,9 +449,9 @@ void Event::QuantiseStartTime(int tpq, TimeVal resolution)
   int mult = MULTS[static_cast<int>(resolution)];
 
   // Get closest multiple of mult to the unquantised start time.
-  m_start = mult * std::round(
+  m_start = mult * static_cast<int>(std::round(
     static_cast<float>(m_unquantisedStart) / 
-    static_cast<float>(mult));
+    static_cast<float>(mult)));
 }
 
 void Reverse(Events& events)
@@ -742,7 +744,7 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events)
   //  rest??) - so let the user specify an anacrusis, otherwise just
   //  start adding bar lines every time sig worth of tpq.
 
-  int ticksForOneBar = static_cast<float>(tpq) * BeatsInBar(ts);
+  int ticksForOneBar = static_cast<int>(static_cast<float>(tpq) * BeatsInBar(ts));
   int bar = 1; // don't add barline at start  
   bool chord = false; // true if we are parsing between ( ) chord markers
   for (auto it = events.begin(); it != events.end(); ++it)

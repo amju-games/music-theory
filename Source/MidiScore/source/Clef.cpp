@@ -1,6 +1,7 @@
 // * MidiScore *
 // (c) Copyright 2026 Juliet Colman
 
+#include <algorithm>
 #include <iostream>
 #include "Clef.h"
 

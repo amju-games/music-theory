@@ -20,7 +20,7 @@ void AddEventToVec(int tpq, const smf::MidiEvent& mev, Events& events)
 {
   if (mev.isNoteOn())
   {
-    int numBytes = mev.size();
+    auto numBytes = mev.size();
     if (numBytes > 1)
     {   
       // Add note event to vec of events
@@ -151,7 +151,7 @@ std::string OutputEventsDebug(int tpq, const std::string& bar1Preamble, const Ev
     }
     else if (e.IsNote() || e.IsRest())
     {
-      float startFromBar = (e.m_start - lastBarStart) / tpq;
+      auto startFromBar = (e.m_start - lastBarStart) / tpq;
       std::stringstream ss;
       ss << startFromBar;
       res += "// (Start: " + ss.str() + " c in bar)";
@@ -349,11 +349,11 @@ std::string ToString(
     ks = IntToKeySig(*keySig);
   }
 
-  int numBars = 
+  int numBars = static_cast<int>(
     std::ceil(
     static_cast<float>(allEvents.back().m_end) / 
     static_cast<float>(tpq) / 
-    static_cast<float>(BeatsInBar(ts)));
+    static_cast<float>(BeatsInBar(ts))));
 
   std::cout << "// Num bars: " << numBars << "\n";
 
