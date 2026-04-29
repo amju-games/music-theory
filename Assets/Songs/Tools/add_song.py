@@ -3,6 +3,56 @@ import mido
 import re
 from pathlib import Path
 import shutil
+import subprocess
+
+def generate_score_files(comp_camel, piece_camel, target_dir, score_midi_path, num, den, resolution, bpm):
+    """
+    Step 1: Runs ./midiscore to create .makescore.txt
+    Step 2: Runs ./makescore to create .score.txt
+    """
+    base_name = f"{comp_camel.lower()}-{piece_camel.lower()}"
+    makescore_path = target_dir / f"{base_name}.makescore.txt"
+    final_score_path = target_dir / f"{base_name}.score.txt"
+    
+    # --- STEP 1: midiscore ---
+    # We use a default BPM of 60, but you could prompt for this if needed
+    cmd1 = [
+        "./midiscore",
+        str(score_midi_path),
+        "--timesig", f"{num}/{den}",
+        "--quant", "q",
+        "--bpm", str(bpm)
+    ]
+    
+    print(f"🎼 Step 1: Running midiscore...")
+    try:
+        with open(makescore_path, "w") as f:
+            subprocess.run(cmd1, stdout=f, check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"❌ midiscore failed: {e}")
+        return None
+
+    # --- STEP 2: makescore ---
+    # Note: We pass the path to the .makescore.txt we just created
+    cmd2 = [
+        "./makescore",
+        "--file", str(makescore_path)
+    ]
+    
+    print(f"🎼 Step 2: Running makescore...")
+    try:
+        # Assuming makescore writes the .score.txt file itself or to stdout
+        # If it writes to stdout, we redirect it:
+        with open(final_score_path, "w") as f:
+            subprocess.run(cmd2, stdout=f, check=True)
+        print(f"✅ Created: {final_score_path.name}")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ makescore failed: {e}")
+        return None
+
+    # Return the string formatted for the CSV column: 'Composer-Piece/composer-piece.score.txt'
+    return f"{target_dir.name}/{final_score_path.name}"
+
 
 ROLE_CHANNELS = {
     'player': 0,
@@ -140,11 +190,11 @@ def get_time_signature(mid):
                 return msg.numerator, msg.denominator
     return None, None
 
-def update_songs_database(composer, piece, target_dir, audio_path, num, den):
-    """Appends a new song entry to the tab-separated songs.csv file."""
+
+def update_songs_database(composer, piece, target_dir, audio_path, num, den, score_path_string):
+    """Appends the new columns to songs.csv."""
     db_path = Path("songs.csv")
     
-    level = "1"
     new_round = 1
     
     # 1. Read the last row to get the previous Level and Round
@@ -179,70 +229,153 @@ def update_songs_database(composer, piece, target_dir, audio_path, num, den):
     # e.g., count-in-4.txt
     count_in_gui = f"count-in-{num}.txt"
     
-    # 4. Build the row array
-    new_row = [
-        level,
-        str(new_round),
-        internal_name,
-        loc_title,
-        loc_subtitle,
-        loc_composer,
-        midi_file_path,
-        count_in_midi,
-        count_in_beats,
-        count_in_gui
-    ]
-    
-    # 5. Append to the file
-    with open(db_path, 'a', encoding='utf-8') as f:
-        f.write("\t".join(new_row) + "\n")
-        
     print(f"\n✅ Added '{internal_name}' to songs.csv (Level {level}, Round {new_round})")
     print(f"⏱️  Count-in set to: {num}/{den}")
     
+    # Columns so far:
+    # 0:Level, 1:Round, 2:Internal, 3:Title, 4:Subtitle, 5:Composer, 6:MidiPath
+    # 7:CountInMidi, 8:CountInBeats, 9:CountInGui
+    
+    # 10. Palette
+    palette = "palette-notes-12-1.png"
+    # 11. Score Filename
+    score_file = score_path_string
+    
+    new_row = [
+        level, str(new_round), internal_name, loc_title, loc_subtitle, loc_composer,
+        midi_file_path, count_in_midi, count_in_beats, count_in_gui,
+        palette, score_file
+    ]
+    
+    with open(db_path, 'a', encoding='utf-8') as f:
+        f.write("\t".join(new_row) + "\n")
+        
+    print(f"📊 Database updated with score path: {score_file}")
+
+    
+    level = "1"
     return new_row
 
+
+def get_or_prompt_time_signature(mid):
+    """Scans for a time signature meta-message, or asks the user if missing."""
+    # Try to detect automatically first
+    for track in mid.tracks:
+        for msg in track:
+            if msg.type == 'time_signature':
+                print(f"\n⏱️ Detected Time Signature: {msg.numerator}/{msg.denominator}")
+                return msg.numerator, msg.denominator
+                
+    # Fallback if not found
+    print("\n⚠️ No time signature found in the MIDI file.")
+    while True:
+        ts_input = input("⏱️ Enter the time signature (e.g., 4/4, 3/4, 6/4): ").strip()
+        try:
+            num_str, den_str = ts_input.split('/')
+            num, den = int(num_str), int(den_str)
+            return num, den
+        except ValueError:
+            print("❌ Invalid format. Please use numerator/denominator (e.g., 4/4).")
+
+def get_or_prompt_bpm(mid):
+    """Scans for a tempo meta-message, converts to BPM, and asks user to confirm."""
+    extracted_bpm = None
+    
+    # Try to detect automatically first
+    for track in mid.tracks:
+        for msg in track:
+            if msg.type == 'set_tempo':
+                # mido.tempo2bpm returns a float, so we round it to a clean integer
+                extracted_bpm = round(mido.tempo2bpm(msg.tempo))
+                break 
+        if extracted_bpm:
+            break
+
+    # Set our default display string
+    default_bpm_str = str(extracted_bpm) if extracted_bpm else "120"
+    
+    if extracted_bpm:
+        print(f"\n🎵 Detected Tempo: {extracted_bpm} BPM")
+    else:
+        print("\n⚠️ No tempo found in the MIDI file.")
+        
+    while True:
+        bpm_input = input(f"⏱️ Enter the BPM [{default_bpm_str}]: ").strip()
+        
+        # If the user just hits Enter, use the default
+        if not bpm_input:
+            return default_bpm_str
+            
+        if bpm_input.isdigit():
+            return bpm_input
+        else:
+            print("❌ Please enter a valid number for BPM.")
+
+
 def main():
-    if len(sys.argv) < 2: sys.exit("Usage: python3 add_song.py <file.mid>")
+    # 1. Setup and Validation
+    if len(sys.argv) < 2:
+        print("Usage: python3 add_song.py <input.mid>")
+        sys.exit(1)
+
     input_path = Path(sys.argv[1])
+    if not input_path.exists():
+        print(f"❌ File not found: {input_path}")
+        sys.exit(1)
+
+    print(f"🎵 Initializing One-Minute Importer for: {input_path.name}")
     mid = mido.MidiFile(input_path)
     
+    # 2. Track Analysis and Routing
     track_data = analyze_tracks(mid)
     mapping, player_idx, resolution = get_user_mapping(track_data)
     
-    piece = input("\n📝 Piece Name: ")
-    composer = input("📝 Composer: ")
+    # 3. Time Signature and Tempo
+    num, den = get_or_prompt_time_signature(mid)
+    bpm = get_or_prompt_bpm(mid)
+    
+    # 4. Metadata Gathering
+    piece_name = input("\n📝 Enter the name of the Piece: ")
+    composer_name = input("📝 Enter the name of the Composer: ")
 
-    target_dir, audio_path, score_path = setup_paths(composer, piece)
+    comp_camel = to_camel_case(composer_name)
+    piece_camel = to_camel_case(piece_name)
+
+    # 5. File System Setup
+    target_dir, audio_path, score_midi_path = setup_paths(composer_name, piece_name)
+    print(f"\n📁 Created directory: {target_dir}")
     shutil.copy(input_path, target_dir / "original_backup.mid")
 
+    # 6. MIDI Pipeline Processing
+    print(f"⚙️ Generating Audio File: {audio_path.name}...")
     process_audio_pipeline(input_path, audio_path, mapping)
-    process_score_pipeline(input_path, score_path, player_idx, resolution)
-
-    # --- Get Time Signature - extract from midi data if poss.  ---
-    num, den = get_time_signature(mid)
-    if num is not None and den is not None:
-        print(f"\n⏱️ Detected Time Signature: {num}/{den}")
-    else:
-        print("\n⚠️ No time signature found in the MIDI file.")
-        while True:
-            ts_input = input("⏱️ Enter the time signature (e.g., 4/4, 3/4, 6/4): ").strip()
-            try:
-                num_str, den_str = ts_input.split('/')
-                num, den = int(num_str), int(den_str)
-                break
-            except ValueError:
-                print("❌ Invalid format. Please use numerator/denominator (e.g., 4/4).")
-
-    with open(target_dir / "song_meta.txt", 'w') as f:
-        f.write(f"Composer={composer}\nPiece={piece}\nQuantization={resolution}\n")
-
-    # --- Update the game database ---
-    # Pass num and den into the database function
-    update_songs_database(composer, piece, target_dir, audio_path, num, den)
     
-    print(f"\n🎉 Finished! Files ready in {target_dir}")
+    print(f"🎼 Generating UI Score File: {score_midi_path.name}...")
+    process_score_pipeline(input_path, score_midi_path, player_idx, resolution)
+    
+    # 7. Local Metadata Text File
+    with open(target_dir / "song_meta.txt", 'w') as f:
+        f.write(f"Composer={composer_name}\n")
+        f.write(f"Piece={piece_name}\n")
+        f.write(f"Quantization={resolution}\n")
+        f.write(f"PlayerChannel={ROLE_CHANNELS['player']}\n")
+        
+    # 8. Execute External Score Binaries (midiscore & makescore)
+    score_csv_string = generate_score_files(
+        comp_camel, piece_camel, target_dir, score_midi_path, num, den, resolution, bpm
+    )
+    
+    # 9. Update the Game Database
+    if score_csv_string:
+        update_songs_database(
+            composer_name, piece_name, target_dir, audio_path, num, den, score_csv_string
+        )
+    else:
+        print("\n⚠️ Database update skipped due to score generation failure.")
+        
+    print(f"\n🎉 Finished! Song successfully added to the game pipeline.")
 
 if __name__ == "__main__":
     main()
+
 
