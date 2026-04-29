@@ -15,12 +15,11 @@ def generate_score_files(comp_camel, piece_camel, target_dir, score_midi_path, n
     final_score_path = target_dir / f"{base_name}.score.txt"
     
     # --- STEP 1: midiscore ---
-    # We use a default BPM of 60, but you could prompt for this if needed
     cmd1 = [
         "./midiscore",
         str(score_midi_path),
         "--timesig", f"{num}/{den}",
-        "--quant", "q",
+        "--quant", resolution,
         "--bpm", str(bpm)
     ]
     
@@ -62,6 +61,34 @@ ROLE_CHANNELS = {
     'bass': 7,
     'percussion': 9
 }
+
+# Maps your shorthand to (Numerical Resolution, Midiscore Flag)
+QUANT_MAP = {
+    "c": (4, "c"),      # Crotchet (1/4)
+    "q": (8, "q"),      # Quaver (1/8)
+    "qq": (16, "qq"),    # Semiquaver (1/16)
+    "qqq": (32, "qqq")   # Demisemiquaver (1/32)
+}
+
+def get_quantization_setting():
+    """Prompts the user for a musical quantization code."""
+    print("\n⏱️  Quantization Settings:")
+    print("   c   = Crotchet     (1/4)")
+    print("   q   = Quaver       (1/8)")
+    print("   qq  = Semiquaver   (1/16)")
+    print("   qqq = Demisemiquaver (1/32)")
+    
+    while True:
+        q_code = input("\nEnter resolution code [qq]: ").strip().lower()
+        if not q_code: 
+            q_code = "qq" # Default to Semiquaver
+        
+        if q_code in QUANT_MAP:
+            num_res, flag = QUANT_MAP[q_code]
+            print(f"   ✅ Set to {q_code.upper()}")
+            return num_res, flag
+        else:
+            print("   ❌ Invalid code. Please use c, q, qq, or qqq.")
 
 def to_camel_case(text):
     return "".join(word.capitalize() for word in re.split(r'[^a-zA-Z0-9]', text) if word)
@@ -107,11 +134,7 @@ def get_user_mapping(track_data):
             mapping[int(trk)] = ROLE_CHANNELS[role.strip()]
         except: print("❌ Use format 2:bass")
     
-    # NEW: Resolution prompt
-    res = input("\n⏱️ Enter quantization resolution (8, 16, or 32 - default 16): ").strip()
-    resolution = int(res) if res.isdigit() else 16
-    
-    return mapping, player_idx, resolution
+    return mapping, player_idx
 
 def quantize_track(track, ticks_per_beat, resolution):
     """Snaps Note On/Off to grid and ensures a minimum duration."""
@@ -328,8 +351,9 @@ def main():
     
     # 2. Track Analysis and Routing
     track_data = analyze_tracks(mid)
-    mapping, player_idx, resolution = get_user_mapping(track_data)
-    
+    mapping, player_idx = get_user_mapping(track_data)
+    num_res, q_flag = get_quantization_setting()
+
     # 3. Time Signature and Tempo
     num, den = get_or_prompt_time_signature(mid)
     bpm = get_or_prompt_bpm(mid)
@@ -351,18 +375,18 @@ def main():
     process_audio_pipeline(input_path, audio_path, mapping)
     
     print(f"🎼 Generating UI Score File: {score_midi_path.name}...")
-    process_score_pipeline(input_path, score_midi_path, player_idx, resolution)
+    process_score_pipeline(input_path, score_midi_path, player_idx, num_res)
     
     # 7. Local Metadata Text File
     with open(target_dir / "song_meta.txt", 'w') as f:
         f.write(f"Composer={composer_name}\n")
         f.write(f"Piece={piece_name}\n")
-        f.write(f"Quantization={resolution}\n")
+        f.write(f"Quantization={num_res}\n")
         f.write(f"PlayerChannel={ROLE_CHANNELS['player']}\n")
         
     # 8. Execute External Score Binaries (midiscore & makescore)
     score_csv_string = generate_score_files(
-        comp_camel, piece_camel, target_dir, score_midi_path, num, den, resolution, bpm
+        comp_camel, piece_camel, target_dir, score_midi_path, num, den, q_flag, bpm
     )
     
     # 9. Update the Game Database
