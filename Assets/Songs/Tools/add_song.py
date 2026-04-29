@@ -16,7 +16,7 @@ def generate_score_files(comp_camel, piece_camel, target_dir, score_midi_path, n
     
     # --- STEP 1: midiscore ---
     cmd1 = [
-        "./midiscore",
+        "midiscore",
         str(score_midi_path),
         "--timesig", f"{num}/{den}",
         "--quant", resolution,
@@ -34,7 +34,7 @@ def generate_score_files(comp_camel, piece_camel, target_dir, score_midi_path, n
     # --- STEP 2: makescore ---
     # Note: We pass the path to the .makescore.txt we just created
     cmd2 = [
-        "./makescore",
+        "makescore",
         "--file", str(makescore_path)
     ]
     
@@ -218,6 +218,7 @@ def update_songs_database(composer, piece, target_dir, audio_path, num, den, sco
     """Appends the new columns to songs.csv."""
     db_path = Path("songs.csv")
     
+    level = "1"
     new_round = 1
     
     # 1. Read the last row to get the previous Level and Round
