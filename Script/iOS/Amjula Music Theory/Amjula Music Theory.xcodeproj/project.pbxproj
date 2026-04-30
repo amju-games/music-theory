@@ -75,6 +75,7 @@
 		C561F3C22F65CCDC003EE425 /* NoteEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C561F3BC2F65CCDB003EE425 /* NoteEvent.cpp */; };
 		C561F3C32F65CCDC003EE425 /* GuiMusic2dKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C561F3BE2F65CCDB003EE425 /* GuiMusic2dKeyboard.cpp */; };
 		C561F3C42F65CCDC003EE425 /* GuiMusicKbBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C561F3BF2F65CCDB003EE425 /* GuiMusicKbBase.cpp */; };
+		C5654CAD2FA3855B0071DEAF /* TimelineEventPlayWav.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5654CAC2FA3855B0071DEAF /* TimelineEventPlayWav.cpp */; };
 		C56DAD062EF2CFED00739D75 /* BassPlayMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */; };
 		C56DAD082EF2CFED00739D75 /* Palette.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACF72EF2CFED00739D75 /* Palette.cpp */; };
 		C56DAD0A2EF2CFED00739D75 /* GSShowGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C56DACFB2EF2CFED00739D75 /* GSShowGui.cpp */; };
@@ -259,6 +260,8 @@
 		C561F3BE2F65CCDB003EE425 /* GuiMusic2dKeyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiMusic2dKeyboard.cpp; path = ../../../../Source/GuiMusic2dKeyboard.cpp; sourceTree = "<group>"; };
 		C561F3BF2F65CCDB003EE425 /* GuiMusicKbBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiMusicKbBase.cpp; path = ../../../../Source/GuiMusicKbBase.cpp; sourceTree = "<group>"; };
 		C561F3C02F65CCDC003EE425 /* FindSongSections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FindSongSections.h; path = ../../../../Source/FindSongSections.h; sourceTree = "<group>"; };
+		C5654CAA2FA3855A0071DEAF /* TimelineEventPlayWav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimelineEventPlayWav.h; path = ../../../../Source/TimelineEventPlayWav.h; sourceTree = "<group>"; };
+		C5654CAC2FA3855B0071DEAF /* TimelineEventPlayWav.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TimelineEventPlayWav.cpp; path = ../../../../Source/TimelineEventPlayWav.cpp; sourceTree = "<group>"; };
 		C56DACED2EF2CFEC00739D75 /* Palette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Palette.h; path = ../../../../Source/Palette.h; sourceTree = "<group>"; };
 		C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BassPlayMidi.cpp; path = ../../../../Source/BassPlayMidi.cpp; sourceTree = "<group>"; };
 		C56DACF72EF2CFED00739D75 /* Palette.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Palette.cpp; path = ../../../../Source/Palette.cpp; sourceTree = "<group>"; };
@@ -562,6 +565,8 @@
 				69D58E4D1E84836B008A8D29 /* Startup.cpp */,
 				C54B4BCF2F9CAA27001286FA /* Timeline.cpp */,
 				C54B4BCE2F9CAA27001286FA /* Timeline.h */,
+				C5654CAC2FA3855B0071DEAF /* TimelineEventPlayWav.cpp */,
+				C5654CAA2FA3855A0071DEAF /* TimelineEventPlayWav.h */,
 				6959E2EA1E97F6F800E251A9 /* UserProfile.cpp */,
 				6959E2EB1E97F6F800E251A9 /* UserProfile.h */,
 				6945193A2017368D001C188B /* UseVertexColourShader.cpp */,
@@ -829,6 +834,7 @@
 				69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */,
 				6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */,
 				C55726A42F0EFA5400EEB2A5 /* HeroGameRound.cpp in Sources */,
+				C5654CAD2FA3855B0071DEAF /* TimelineEventPlayWav.cpp in Sources */,
 				C55726A62F0EFA5400EEB2A5 /* GuiScrollScore.cpp in Sources */,
 				C579D4782F12DBEE0042461C /* GSHeroWin.cpp in Sources */,
 				69A23A5C1F61E6970021BF88 /* Consts.cpp in Sources */,
