@@ -18,6 +18,18 @@ import re
 from pathlib import Path
 import shutil
 import subprocess
+import platform
+
+def get_exec_path(base_name):
+    """Adjusts executable path based on the Operating System."""
+    system = platform.system() # Returns 'Windows', 'Darwin' (Mac), or 'Linux'
+    
+    if system == "Windows":
+        # Windows doesn't need ./ and expects .exe (though .exe is often optional)
+        return f"{base_name}.exe" 
+    else:
+        # Mac and Linux require the relative path prefix
+        return f"./{base_name}"
 
 def generate_score_files(comp_camel, piece_camel, target_dir, score_midi_path, num, den, resolution, bpm):
     """
@@ -27,10 +39,14 @@ def generate_score_files(comp_camel, piece_camel, target_dir, score_midi_path, n
     base_name = f"{comp_camel.lower()}-{piece_camel.lower()}"
     makescore_path = target_dir / f"{base_name}.makescore.txt"
     final_score_path = target_dir / f"{base_name}.score.txt"
+
+    # Get the correct executable names for the current OS
+    midiscore_exec = get_exec_path("midiscore")
+    makescore_exec = get_exec_path("makescore")
     
     # --- STEP 1: midiscore ---
     cmd1 = [
-        "midiscore",
+        midiscore_exec,
         str(score_midi_path),
         "--timesig", f"{num}/{den}",
         "--quant", resolution,
@@ -48,7 +64,7 @@ def generate_score_files(comp_camel, piece_camel, target_dir, score_midi_path, n
     # --- STEP 2: makescore ---
     # Note: We pass the path to the .makescore.txt we just created
     cmd2 = [
-        "makescore",
+        makescore_exec,
         "--file", str(makescore_path)
     ]
     
@@ -288,8 +304,8 @@ def update_songs_database(composer, piece, target_dir, audio_path, num, den, sco
     midi_file_path = f"{target_dir.name}/{audio_path.name}"
     
     # --- Count-in Columns ---
-    # e.g., Songs/Count-in/count-in-4-4.mid
-    count_in_midi = f"Songs/Count-in/count-in-{num}-{den}.mid"
+    # e.g., Count-in/count-in-4-4.mid
+    count_in_midi = f"Count-in/count-in-{num}-{den}.mid"
     # e.g., 4
     count_in_beats = str(num)
     # e.g., count-in-4.txt

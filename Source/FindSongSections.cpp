@@ -2,6 +2,9 @@
 #include <iostream>
 #include "FindSongSections.h"
 
+// This is a bit unforgiving with section numbers in songs.csv
+//#define ASSERT_ON_BAD_NOTE_EVENT_INDEX
+
 namespace Amju
 {
 Sections FindSongSections(const NoteEvents& events)
@@ -85,7 +88,9 @@ static bool IsNoteEvent(const NoteEvents& events, int i)
     //  vec of note events) - but shouldn't happen in a non-test
     //  scenario.
 #ifndef CATCH // sorry about this: must recompile for test exe
+#ifdef ASSERT_ON_BAD_NOTE_EVENT_INDEX
     Assert(0); // unexpected: index into note events is out of range
+#endif
 #endif
     return true;
   }

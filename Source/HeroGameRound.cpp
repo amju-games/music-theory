@@ -7,6 +7,8 @@
 #include <StringUtils.h>
 #include "HeroGameRound.h"
 
+#define GAME_ROUND_DEBUG
+
 namespace Amju
 {
 void GameRoundManager::AddGameRound(const HeroGameRound& round)
