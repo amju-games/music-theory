@@ -1,3 +1,17 @@
+# add_song.py
+# Add a new song to the game. 
+
+# To install mido, the recommendation is to create a virtual env and install it 
+#  there.
+# On mac:
+#   python3 -m venv .venv       # create virtual environment
+#   source .venv/bin/activate   # activate it
+#   pip3 install mido           # install mido library
+#
+# Or just:
+#   pip3 install mido 
+# to install system-wide.
+
 import sys
 import mido
 import re
@@ -97,7 +111,7 @@ def setup_paths(composer, piece):
     comp_camel = to_camel_case(composer)
     piece_camel = to_camel_case(piece)
     folder_name = f"{comp_camel}-{piece_camel}"
-    target_dir = Path("Songs") / folder_name
+    target_dir = Path("..") / folder_name
     target_dir.mkdir(parents=True, exist_ok=True)
     
     file_name = f"{comp_camel.lower()}-{piece_camel.lower()}.mid"
@@ -245,10 +259,9 @@ def get_time_signature(mid):
 
 def update_songs_database(composer, piece, target_dir, audio_path, num, den, score_path_string):
     """Appends the new columns to songs.csv."""
-    db_path = Path("songs.csv")
-    
     level = "1"
     new_round = 1
+    db_path = Path("..") / "songs.csv" 
     
     # 1. Read the last row to get the previous Level and Round
     if db_path.exists():

@@ -20,7 +20,7 @@ bool GameRoundManager::Load()
 
   // Load .csv file
   File f(File::NO_VERSION); // .csv file doesn't have version number at top
-  if (!f.OpenRead("hero-game-rounds.csv"))
+  if (!f.OpenRead("Songs/songs.csv"))
   {
     return false;
   }
