@@ -4,3 +4,4 @@ Level	Round	Name	Display title (localised)	Subtitle (localised)	Composer (locali
 1	1	bach-air	$$$4	$$$5	$$$6	Bach-Air/bach-air.mid	Bach-Air/bach-air.count-in.mid	2	Count-in-4.txt	Palette-notes-12-1.png	Bach-Air/bach-air.score.txt	piano9ftgrand.sf2	1	
 1	7	camss-ultraswan	@@@UltraSwan	@@@From Carnival of the Animals	@@@Cam SS	CamSs-Ultraswan/camss-ultraswan.mid	Songs/Count-in/count-in-6-4.mid	6	count-in-6.txt	palette-notes-12-1.png	CamSs-Ultraswan/camss-ultraswan.score.txt			
 1	8	camss-ultra2	@@@Ultra2	@@@From Carne	@@@Cam SS	CamSs-Ultra2/camss-ultra2.mid	Songs/Count-in/count-in-6-4.mid	6	count-in-6.txt	palette-notes-12-1.png	CamSs-Ultra2/camss-ultra2.score.txt			
+1	9	pachelbel-canonind	@@@Canon in D		@@@Johann Pachelbel	Pachelbel-CanonInD/pachelbel-canonind.mid	Count-in/count-in-4-4.mid	4	count-in-4.txt	palette-notes-12-1.png	Pachelbel-CanonInD/pachelbel-canonind.score.txt	x	y	z
