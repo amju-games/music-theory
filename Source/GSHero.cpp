@@ -452,7 +452,7 @@ void GSHero::Update()
     m_scoreExtras->SetLocalPos(pos);
 
     // If we have reached the end, we have won!
-    if (!m_roundIsOver && normalisedAnimTime > 0.999f)
+    if (!m_roundIsOver && normalisedAnimTime > 0.99f)
     {
       OnPlayerHasWon();
     }
