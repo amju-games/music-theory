@@ -202,6 +202,11 @@ void GSChooseSong::InitScrollingGui()
   scroller->SetTabStopSize(Vec2f(oneSongWidth, 0));
   scroller->SetTabStopCallback(Amju::OnTabStop);
   scroller->SetTabStop(tabStopForFocusSong);
+  
+  // Set consts so we click each song into place
+  scroller->SetStoppingVel(.5f);
+  scroller->SetSpeedBumpMult(.25f);
+  scroller->SetStoppingDistance(.03f);
 }
 
 void GSChooseSong::OnTabStop(int tabStop)
