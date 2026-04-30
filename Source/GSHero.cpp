@@ -733,6 +733,14 @@ std::cout << "Not grading event, keyboard is moving. ("
   }
 }
 
+// TODO tie this to difficulty setting, when we add that.
+static bool IsPlayerPitchCorrect(int playerNote, int scoreNote)
+{
+  // Crazy idea: ignore the octave, just grade on the step.
+  // This solves the problems of fitting all the keys on screen, etc.
+  return (playerNote % 12) == (scoreNote % 12);
+}
+
 void GSHero::GradeEvent(const MusicKbEvent& e)
 {
 #ifdef GRADE_DEBUG
@@ -834,7 +842,7 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
       m_prevAttempt = it;
     }
 
-    if (e.m_on && e.m_note == ne.m_note)
+    if (e.m_on && IsPlayerPitchCorrect(e.m_note, ne.m_note))
     {
       // Note on event, pitch is correct
 #ifdef GRADE_DEBUG
