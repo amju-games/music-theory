@@ -163,6 +163,8 @@ void GuiScrollScore::AnimateSpecial(float animValue, float dAnimValue)
   auto it = std::lower_bound(noteOnEvents.begin(), noteOnEvents.end(), animValue,
     [](const NoteEvent& ne, float f) { return ne.m_time < f; });
 
+  if (it == noteOnEvents.end()) return;
+
   if (it != noteOnEvents.begin() &&
       it->m_time > m_animTime) // go to event before anim time if it exists
   {
