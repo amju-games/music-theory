@@ -32,8 +32,8 @@ void PlayMidiSong(const std::string& filename,
 // Stop the currently playing song.
 void StopMidiSong();
 
-// Play count-in MIDI song
-void PlayCountIn(const std::string& filename);
+// Play count-in MIDI song, at the given tempo.
+void PlayCountIn(const std::string& filename, float bpm);
 
 // Get elapsed time in seconds that the currently playing song has
 //  been playing. We sync visuals to this, not some other time measure.

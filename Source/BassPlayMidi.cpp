@@ -224,6 +224,7 @@ void MapSoundFontsToChannelsUsingFONTEX(HSTREAM stream)
 }
 
 static HSTREAM s_songStream = 0;
+static HSTREAM s_countInStream = 0;
 
 void StopMidiSong()
 {
@@ -234,13 +235,14 @@ std::cout << "** Stopping MIDI song!\n";
   s_songStream = 0;
 }
  
-void PlayMidiSong(const std::string& filename, float seekTime, bool mutePlayer)
-{
-  if (s_songStream) 
-    StopMidiSong();
-
-std::cout << "** Play MIDI song: " << filename << "\n";
-
+// Common code for playing a song and playing a count-in
+void LoadAndStartMidiSong(
+  HSTREAM& stream, 
+  const std::string& filename, 
+  float seekTime, 
+  bool mutePlayer, 
+  float bpm)
+{ 
   auto sm = TheSoundManager::Instance();
   // Loading song from Glue file, or file system?
   if (auto glueFile = sm->GetGlueFile())
@@ -260,7 +262,7 @@ std::cout << "BASS MIDI: using glue file.\n";
     uint32 length = glueFile->GetSize(filename);
     GlueFileBinaryData data = glueFile->GetBinary(songPos, length);
 
-    s_songStream = BASS_MIDI_StreamCreateFile(
+    stream = BASS_MIDI_StreamCreateFile(
         TRUE, // in memory ?
         data.GetBuffer(), // start of song data 
         0, // offset
@@ -270,7 +272,7 @@ std::cout << "BASS MIDI: using glue file.\n";
   }   
   else
   {
-    s_songStream = BASS_MIDI_StreamCreateFile(
+    stream = BASS_MIDI_StreamCreateFile(
       FALSE, 
       (File::GetRoot() + filename).c_str(),
       0, 0, 
@@ -278,7 +280,7 @@ std::cout << "BASS MIDI: using glue file.\n";
       44100);
   }
 
-  if (s_songStream)
+  if (stream)
   {
     std::cout << "Loaded midi file ok: " << filename << "\n";
   }
@@ -289,14 +291,42 @@ std::cout << "BASS MIDI: using glue file.\n";
     Assert(0);
   }
 
-  MapSoundFontsToChannelsUsingFONTEX(s_songStream);
+  MapSoundFontsToChannelsUsingFONTEX(stream);
   if (mutePlayer)
   {
     const int playerTrack = 0; // player melody should be first track
     BASS_MIDI_StreamEvent(s_songStream, playerTrack, MIDI_EVENT_MIXLEVEL, 0); 
   }
+
+  // Set tempo
+  if (bpm > 0)
+  {
+    // Oh, it looks like we need to know the MIDI file bpm, and then multiply
+    //  up or down. TODO
+  }
+
   MidiSeek(seekTime); // RouteInstruments happens in here too.
   BASS_ChannelPlay(s_songStream, FALSE); 
+}
+
+void PlayCountIn(const std::string& filename, float bpm)
+{
+std::cout << "** Play MIDI count-in: " << filename << " tempo: " << bpm << " BPM.\n";
+
+  const float seekTime = 0;
+  const bool mutePlayer = false;
+  LoadAndStartMidiSong(s_countInStream, filename, seekTime, mutePlayer, bpm);
+}
+
+void PlayMidiSong(const std::string& filename, float seekTime, bool mutePlayer)
+{
+std::cout << "** Play MIDI song: " << filename << "\n";
+
+  if (s_songStream) 
+    StopMidiSong();
+
+  const float bpm = 0; // TODO - zero means don't set
+  LoadAndStartMidiSong(s_songStream, filename, seekTime, mutePlayer, bpm);
 }
 
 void MidiLog()
