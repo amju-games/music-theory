@@ -6,9 +6,14 @@
 
 namespace Amju
 {
+const char* TimelineEventWait::NAME = "wait";
+
 TimelineEventFactory::TimelineEventFactory()
 {
   // Add game-agnostic event types here
+  Add(TimelineEventWait::NAME,
+    []()->TimelineEvent* {return new TimelineEventWait; });
+
   Add(TimelineEventPlayWav::NAME,
     []()->TimelineEvent* {return new TimelineEventPlayWav; });
 
@@ -126,8 +131,17 @@ void Timeline::Start()
   //  from the accumulated time.
   float accTime = 0;
 
-  for (const auto& event : m_events)
+  for (int i = m_eventIndex; i < static_cast<int>(m_events.size()); ++i)
   {
+    const auto& event = m_events[i];
+
+    // If this is a wait event, stop queueing the events.
+    if (dynamic_cast<const TimelineEventWait*>(event.GetPtr()))
+    {
+      m_eventIndex = i + 1; // remember place for resume
+      return;
+    }
+
     // Set the event execution time from now.
     // Time can be followed by ", absolute" to set an absolute time,
     //  else the time is added on to the accumulated timeline time so far.
@@ -151,7 +165,6 @@ std::cout << "Time for event is " << event->m_time << "\n";
     TheMessageQueue::Instance()->Add(event.GetPtr());
   }
 
-  // Don't clear m_events: we can re-trigger the timeline again.
+  // Don't clear m_events: we can resume and restart the timeline.
 }
 }
-

@@ -27,6 +27,14 @@ struct TimelineEvent : public Message
   bool m_isAbsolute = false; // time can be absolute or relative to prev event.
 };
 
+// * TimelineEventWait *
+// Pause the current timeline until a resume event is triggered.
+struct TimelineEventWait : public TimelineEvent
+{
+  static const char* NAME;
+  void Execute() override {}
+};
+
 // * TimelineEventFactory *
 // Registers known timeline event types in ctor.
 // For other types, call Add in game-specific code.
@@ -46,12 +54,17 @@ class Timeline
 public:
   virtual ~Timeline() = default;
 
-  // Load events; add them to the game message queue.
+  // Load events; add them to the game message queue in Start.
   bool Load(File* f);
 
-  // Start triggering the events, by setting their start times from
-  //  'now' and adding them to the global MessageQueue.
+  // Start queueing the events, by setting their start times from
+  //  now and adding them to the global MessageQueue.
+  // Stop if we get a Wait event. Call again to resume.
   virtual void Start();
+
+  // Reset index so next call to Start restarts the timeline.
+  // (Maybe clear message queue if doing this.)
+  void Reset() { m_eventIndex = 0; }
 
 protected:
   // By default, calls factory create function.
@@ -71,6 +84,10 @@ protected:
 
   // If true, start timeline after loading finished.
   bool m_startNow = false;
+
+  // Index into m_events. If we get a wait event, we save this index,
+  //  and resume from it (after the wait event) when resumed.
+  int m_eventIndex = 0;
 };
 }
 
