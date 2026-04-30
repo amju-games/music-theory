@@ -388,7 +388,7 @@ bool SetUpPlayerStream()
 }
 
 // External MIDI event callback
-static void CALLBACK MidiInProc(
+static void CALLBACK BassMidiInputCallback(
   DWORD device, double time, const BYTE* buffer, DWORD length, void* user)
 {
   if (length == 0) return;
@@ -417,7 +417,7 @@ static void CALLBACK MidiInProc(
 #endif // MIDI_INPUT_DEBUG
 }
 
-bool MidiExternalConnect()
+bool BassMidiInput::Connect()
 {
   BASS_MIDI_DEVICEINFO info;
 
@@ -434,10 +434,24 @@ bool MidiExternalConnect()
     << "\n";
 
   // initialize the MIDI input device
-  if (!BASS_MIDI_InInit(device, MidiInProc, 0))
+  while (true)
   {
-    std::cout << "BASS MIDI failed to initialise midi device. Error code: " << BASS_ErrorGetCode() << "\n";
-    return false;
+    bool res = BASS_MIDI_InInit(device, BassMidiInputCallback, 0);
+    if (res)
+    {
+      break;
+    }
+
+    if (BASS_ErrorGetCode() == BASS_ERROR_ALREADY)
+    {
+      // Already initialised: free up and try again.
+      BASS_MIDI_InFree(device);
+    }
+    else
+    {
+      std::cout << "BASS MIDI failed to initialise midi device. Error code: " << BASS_ErrorGetCode() << "\n";
+      return false;
+    }
   }
 
   if (!BASS_MIDI_InStart(device))
@@ -448,5 +462,10 @@ bool MidiExternalConnect()
 
   return true;
 }
-}
 
+bool BassMidiInput::IsConnected() const
+{
+  return false; // This needs some thought. Should we have a timer which times
+    //  out if not kept alive by timing events?
+}
+}

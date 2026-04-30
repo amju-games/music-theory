@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Singleton.h>
+
 namespace Amju
 {
 // * BassPlayMidi *
@@ -47,7 +49,22 @@ void MidiSeek(float seconds);
 //  anything :(
 void MidiLog();
 
-bool MidiExternalConnect();
+// TODO Move to its own file
+class MidiInput
+{
+public:
+  virtual ~MidiInput() = default;
+  virtual bool IsConnected() const = 0;
+  virtual bool Connect() = 0;
+};
 
+class BassMidiInput : public MidiInput
+{
+public:
+  bool IsConnected() const override;
+  bool Connect() override;
+};
+
+using TheBassMidiInput = Singleton<BassMidiInput>;
 }
 
