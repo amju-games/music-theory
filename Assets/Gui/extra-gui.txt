@@ -19,6 +19,6 @@ frame-stats
 // Text
 Hello, I am extra
 // Font name, size
-bmmolin, 1.5
+bmmolin, 1.0
 
 
