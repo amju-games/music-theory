@@ -44,9 +44,6 @@ struct HeroGameRound
   // Filename of music score
   std::string m_musicScore;
 
-  // Filename of sound font
-  std::string m_soundFont;
-
   // Amount by which we reduce life if player makes a mistake
   int m_lifeDecrease = 1;
 

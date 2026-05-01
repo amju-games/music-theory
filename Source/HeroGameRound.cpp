@@ -1,3 +1,5 @@
+//#define GAME_ROUND_DEBUG
+
 #ifdef GAME_ROUND_DEBUG
 #include <iostream>
 #endif
@@ -6,8 +8,6 @@
 #include <Localise.h>
 #include <StringUtils.h>
 #include "HeroGameRound.h"
-
-#define GAME_ROUND_DEBUG
 
 namespace Amju
 {
@@ -65,7 +65,6 @@ bool GameRoundManager::Load()
     round.m_countInGui = "Gui/" + cells[9];
     round.m_palette = "Image/" + cells[10];
     round.m_musicScore = "Songs/" + cells[11];
-    //round.m_soundFont = "Sound/" + cells[12];
     round.m_lifeDecrease = ToInt(cells[12]);
     // Zero-based bar numbers for ends of sections.
     // If none specified, the cell could be empty, or have, -1 as the content.
@@ -98,7 +97,6 @@ std::ostream& operator<<(std::ostream& os, const HeroGameRound& round)
     << round.m_numCountInBeats << ", "
     << round.m_palette << ", "
     << round.m_musicScore << ", "
-    //<< round.m_soundFont  << ", "
     << round.m_lifeDecrease  << ", "
     << round.m_sectionEndBarNumbers.size() << " section ends, "
     << ".\n";
