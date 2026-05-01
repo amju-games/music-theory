@@ -14,6 +14,12 @@
 #include "ShareManager.h"
 #include "UseVertexColourShader.h"
 
+#define YES_FRAME_STATS
+// Not on device/release tho, right?
+#if defined(AMJU_IOS) && !defined(_DEBUG)
+#undef YES_FRAME_STATS
+#endif 
+
 namespace Amju
 {
 static bool reload = false;
@@ -62,8 +68,8 @@ void GSBase::Update()
     m_gui->Update();
   }
 
-// Not on device
-#ifndef AMJU_IOS
+// Not on device?
+#ifdef YES_FRAME_STATS
   auto frameStatsText = 
     dynamic_cast<IGuiText*>(GetElementByName(m_gui, "frame-stats"));
   if (frameStatsText)
@@ -101,8 +107,8 @@ void GSBase::OnActive()
     Assert(false);
   }
  
-// Not on device
-#ifndef AMJU_IOS 
+// Not on device?
+#ifdef YES_FRAME_STATS
   // Extra GUI, to display frame stats, etc
   auto extraGui = LoadGui("Gui/extra-gui.txt", false);
   if (extraGui)
