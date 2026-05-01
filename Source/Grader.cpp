@@ -146,9 +146,18 @@ std::optional<NoteEvents::const_iterator> Grader::FindBestMatch(
   {
     float diff = std::abs(animTime - it->m_time);
 
+    // Tricky logic alert.
+    // We're looking for the best match in the score events for the event the 
+    //  player has initiated. So the type should match, the time should be an
+    //  improvement on the best match so far, and if it's a note off event,
+    //  check the pitches match. If it's a note on event, the pitch could be 
+    //  wrong, (but then so could the note off event? I'm not sure about this.)
+
     if (   EventTypesMatch(*it, e)  // event types match?
         && diff < bestDiff // closer time?
-        && (e.m_on || it->m_note == e.m_note)) // if note off, pitches match?
+        && (e.m_on || IsPlayerPitchCorrect(it->m_note, e.m_note)))
+          // if note off, do pitches match? (We are looking for the matching event here.)
+          // if note is on, the match is the closest note on event.
     {
       bestDiff = diff;
       bestIt = it;
@@ -202,7 +211,7 @@ Grade Grader::FinalGrade(
   const MusicKbEvent& e, const NoteEvent& ne, float animTime, float songLength,
   float maxErrorSecs)
 {
-  if (e.m_note != ne.m_note)
+  if (!IsPlayerPitchCorrect(e.m_note, ne.m_note))
   {
     return Grade(Grade::BAD_NOTE, 0);
   }

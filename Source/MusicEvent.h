@@ -7,6 +7,12 @@
 
 namespace Amju
 {
+// Compare two MIDI note pitches. Return true if the player
+//  note is correct wrt the note on the score.
+// We can ignore octave to make this easier, or be strict
+//  depending on difficulty.
+bool IsPlayerPitchCorrect(int playerNote, int scoreNote);
+
 // Music KB Event fired when we key up or down.
 struct MusicKbEvent 
 {

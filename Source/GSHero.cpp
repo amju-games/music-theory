@@ -733,14 +733,6 @@ std::cout << "Not grading event, keyboard is moving. ("
   }
 }
 
-// TODO tie this to difficulty setting, when we add that.
-static bool IsPlayerPitchCorrect(int playerNote, int scoreNote)
-{
-  // Crazy idea: ignore the octave, just grade on the step.
-  // This solves the problems of fitting all the keys on screen, etc.
-  return (playerNote % 12) == (scoreNote % 12);
-}
-
 void GSHero::GradeEvent(const MusicKbEvent& e)
 {
 #ifdef GRADE_DEBUG
@@ -842,7 +834,8 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
       m_prevAttempt = it;
     }
 
-    if (e.m_on && IsPlayerPitchCorrect(e.m_note, ne.m_note))
+    bool isPitchCorrect = IsPlayerPitchCorrect(e.m_note, ne.m_note);
+    if (e.m_on && isPitchCorrect)
     {
       // Note on event, pitch is correct
 #ifdef GRADE_DEBUG
@@ -851,7 +844,7 @@ std::cout << "** Correct note! " << e.m_note << "\n";
       FeedbackBalloon(grade);
       IncreaseScore(grade);
     }
-    else if (e.m_on && e.m_note != ne.m_note)
+    else if (e.m_on && !isPitchCorrect)
     {
       // Note on event, pitch is INCORRECT
 #ifdef GRADE_DEBUG
@@ -865,9 +858,9 @@ std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << 
     }
     else
     {
-      // Note off event - the pitches must match. We grade on time.
+      // Note off event. We grade on time.
       Assert(!e.m_on);
-      Assert(e.m_note == ne.m_note);
+      Assert(isPitchCorrect); // sanity check
       // The visual feedback is different: show note trail and increasing
       //  score while note is being played.
       //FeedbackBalloon(grade);
