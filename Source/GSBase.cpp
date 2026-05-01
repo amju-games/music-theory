@@ -7,6 +7,7 @@
 #include <GuiComposite.h>
 #include <GuiDecAnimation.h>
 #include <GuiMenu.h>
+#include <GuiPoly.h> // to set global texture on poly outlines
 #include "GSBase.h"
 #include "MyROConfig.h"
 #include "PrintGui.h"
@@ -91,6 +92,8 @@ void GSBase::OnActive()
 {
   GameState::OnActive();
 
+  IGuiPoly::SetPolyOutlineTextureName("Image/white.png");
+  
   m_gui = LoadGui(m_guiFilename);
   if (!m_gui)
   {
