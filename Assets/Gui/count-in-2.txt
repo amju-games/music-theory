@@ -88,7 +88,7 @@ count-2
 // size
 .1, .1
 // Text
-2
+&
 // Font name, size
 bmmolin, 2.0, multi, fgcol=000000
 
@@ -127,7 +127,7 @@ count-3
 // size
 .1, .1
 // Text
-3
+2
 // Font name, size
 bmmolin, 2.0, multi, fgcol=000000
 
@@ -166,7 +166,7 @@ count-4
 // size
 .1, .1
 // Text
-4
+&
 // Font name, size
 bmmolin, 2.0, multi, fgcol=000000
 
