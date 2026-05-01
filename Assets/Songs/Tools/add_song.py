@@ -322,11 +322,15 @@ def update_songs_database(composer, piece, target_dir, audio_path, num, den, sco
     palette = "palette-notes-12-1.png"
     # 11. Score Filename
     score_file = score_path_string
-    
+    # 12. Life decrease
+    life_decrease = "1"
+    # 13. Zero-based bar numbers at the ends of sections, or -1
+    sections = "-1"
+ 
     new_row = [
         level, str(new_round), internal_name, loc_title, loc_subtitle, loc_composer,
         midi_file_path, count_in_midi, count_in_beats, count_in_gui,
-        palette, score_file
+        palette, score_file, life_decrease, sections
     ]
     
     with open(db_path, 'a', encoding='utf-8') as f:
