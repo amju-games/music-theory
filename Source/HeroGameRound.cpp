@@ -27,7 +27,7 @@ bool GameRoundManager::Load()
     return false;
   }
   // Identify lines we don't want to include by counting the number of cells.
-  const int EXPECTED_NUM_CELLS = 15;
+  const int EXPECTED_NUM_CELLS = 14;
   std::string line;
   bool isFirstLine = true;
   while (f.GetDataLine(&line))
@@ -65,11 +65,14 @@ bool GameRoundManager::Load()
     round.m_countInGui = "Gui/" + cells[9];
     round.m_palette = "Image/" + cells[10];
     round.m_musicScore = "Songs/" + cells[11];
-    round.m_soundFont = "Sound/" + cells[12];
-    round.m_lifeDecrease = ToInt(cells[13]);
-    if (!cells[14].empty())
+    //round.m_soundFont = "Sound/" + cells[12];
+    round.m_lifeDecrease = ToInt(cells[12]);
+    // Zero-based bar numbers for ends of sections.
+    // If none specified, the cell could be empty, or have, -1 as the content.
+    const auto cell = cells[13];
+    if (!cell.empty() && ToInt(cell) > 0)
     {
-      round.m_sectionEndBarNumbers = SplitIntoVec(cells[14]);
+      round.m_sectionEndBarNumbers = SplitIntoVec(cell);
     }
 
     AddGameRound(round);
@@ -95,7 +98,10 @@ std::ostream& operator<<(std::ostream& os, const HeroGameRound& round)
     << round.m_numCountInBeats << ", "
     << round.m_palette << ", "
     << round.m_musicScore << ", "
-    << round.m_soundFont << ".\n";
+    //<< round.m_soundFont  << ", "
+    << round.m_lifeDecrease  << ", "
+    << round.m_sectionEndBarNumbers.size() << " section ends, "
+    << ".\n";
 }
 
 int GameRoundManager::GetNumGameRounds() const

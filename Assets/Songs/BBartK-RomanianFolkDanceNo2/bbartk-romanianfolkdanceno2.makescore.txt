@@ -1,0 +1,10 @@
+// ./midiscore ../BBartK-RomanianFolkDanceNo2/bbartk-romanianfolkdanceno2-score.mid --timesig 2/4 --quant qq --bpm 150 
+// Quantising to: qq
+// TPQ: 384
+// Num bars: 16
+// Guessing clef... min pitch: 57 max pitch: 72
+page-w 96
+bpm 150
+// ** STAVE 0 **
+stave clef-t 2/4 key-s-0 <q> 62 f 64 65 67 | <q> 69 67 62 67 | <c> 69 <q> 69 <qq> r 71 | <m> 69 | <q> 67 69 71 67 | <c> 72 <qq> 72 71 ( <qq> 69 67 ) <qq> 65 | <c> 67 <q> 67 <qq> r 69 | <m> 67 | <q> 67 69 71 67 | <c> 72 <qq> 72 71 69 67 | <q> 65 64 65 67 | <q> 65 64 <c> 62 | <q> 62 64 65 69 | <q> 67 65 64 65 | <c> 62 <q> 62 <qq> r 57 | <m> 62 | 
+
