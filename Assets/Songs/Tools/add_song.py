@@ -100,18 +100,73 @@ QUANT_MAP = {
     "qqq": (32, "qqq")   # Demisemiquaver (1/32)
 }
 
-def get_quantization_setting():
-    """Prompts the user for a musical quantization code."""
+def detect_suggested_quantization(player_track, ticks_per_beat):
+    """Scans the track for the shortest gap between notes to suggest a grid size."""
+    abs_time = 0
+    onsets = []
+    
+    for msg in player_track:
+        abs_time += msg.time
+        if msg.type == 'note_on' and msg.velocity > 0:
+            onsets.append(abs_time)
+            
+    if len(onsets) < 2:
+        return "qq", False # Default with no warning
+        
+    # We ignore gaps smaller than a 128th note (ticks_per_beat / 32). 
+    # Anything faster than that is almost certainly a human playing a chord.
+    slop_threshold = ticks_per_beat / 32 
+    
+    intervals = []
+    for i in range(1, len(onsets)):
+        diff = onsets[i] - onsets[i-1]
+        if diff > slop_threshold:
+            intervals.append(diff)
+            
+    if not intervals:
+        return "qq", False
+        
+    min_interval = min(intervals)
+    
+    # --- Resolution Check ---
+    # A 32nd note is exactly ticks_per_beat / 8. 
+    # If the gap is smaller than this, 'qqq' won't be enough!
+    resolution_warning = min_interval < (ticks_per_beat / 8)
+    
+    # Match to the grid
+    if min_interval <= ticks_per_beat / 6: 
+        return "qqq", resolution_warning
+    elif min_interval <= ticks_per_beat / 3:
+        return "qq", resolution_warning
+    elif min_interval <= ticks_per_beat / 1.5:
+        return "q", resolution_warning
+    else:
+        return "c", resolution_warning
+
+def get_quantization_setting(player_track, ticks_per_beat):
+    """Prompts the user, auto-detects best values, displaying a warning if runs are too fast for the grid."""
+    
+    # Unpack the new warning flag
+    suggested_code, warning = detect_suggested_quantization(player_track, ticks_per_beat)
+
     print("\n⏱️  Quantization Settings:")
     print("   c   = Crotchet     (1/4)")
     print("   q   = Quaver       (1/8)")
     print("   qq  = Semiquaver   (1/16)")
     print("   qqq = Demisemiquaver (1/32)")
-    
+    print(f"   💡 Auto-detected suggestion: {suggested_code.upper()}")
+   
+    # --- Display the warning ---
+    if warning:
+        print("   ⚠️  WARNING: Detected notes faster than 1/32nd resolution!")
+        print("       These fast notes/trills will likely render as chords.")
+ 
     while True:
-        q_code = input("\nEnter resolution code [qq]: ").strip().lower()
+        # Inject our dynamic suggestion into the input prompt
+        q_code = input(f"\nEnter resolution code [{suggested_code}]: ").strip().lower()
+        
         if not q_code: 
-            q_code = "qq" # Default to Semiquaver
+            q_code = suggested_code # Use the dynamic default
         
         if q_code in QUANT_MAP:
             num_res, flag = QUANT_MAP[q_code]
@@ -415,7 +470,9 @@ def main():
     # 2. Track Analysis and Routing
     track_data = analyze_tracks(mid)
     mapping, player_idx = get_user_mapping(track_data)
-    num_res, q_flag = get_quantization_setting()
+    # Grab the specific player track and pass it to the setting prompt
+    player_track = mid.tracks[player_idx]
+    num_res, q_flag = get_quantization_setting(player_track, mid.ticks_per_beat)
 
     # 3. Time Signature and Tempo
     num, den = get_or_prompt_time_signature(mid)
