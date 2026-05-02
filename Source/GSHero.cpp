@@ -230,9 +230,11 @@ void GSHero::StartCountInSongAndGui()
   auto& gameround = GetGameRound();
 
   // Start playing the count-in track
-  const float startTime = 0;
-  const bool noMute = false;
-  PlayMidiSong(gameround.m_countIn, startTime, noMute);   // TODO on a sep channel
+  const float bpm = m_scrollScore->GetBpm();
+
+std::cout << "Playing midi count in: " << gameround.m_countIn << " at bpm: " << bpm << "\n";
+
+  PlayMidiCountIn(gameround.m_countIn, bpm);
 
   ShowCountInGui();
 }

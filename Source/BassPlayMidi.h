@@ -35,14 +35,16 @@ void PlayMidiSong(const std::string& filename,
 void StopMidiSong();
 
 // Play count-in MIDI song, at the given tempo.
-void PlayCountIn(const std::string& filename, float bpm);
+// Count-in midi files should be set to play at 60 BPM. 
+// `bpm` is the desired tempo.
+void PlayMidiCountIn(const std::string& filename, float bpm);
 
 // Get elapsed time in seconds that the currently playing song has
 //  been playing. We sync visuals to this, not some other time measure.
 float GetMidiSongElapsedTimeSeconds();
 
 // Seek to a position in current song -- for pause resume.
-void MidiSeek(float seconds);
+void MidiSongSeek(float seconds);
 
 // Call to log current song position to console; used to sanity check
 //  that a song is playing, if in the awful position of not hearing

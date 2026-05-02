@@ -235,13 +235,27 @@ std::cout << "** Stopping MIDI song!\n";
   s_songStream = 0;
 }
  
+// Seek to position in given stream, then redo instrument mapping etc
+//  as this is trashed when we seek?!
+static void MidiSeek(float seconds, HSTREAM stream)
+{
+  // Convert seconds to a byte position
+  QWORD bytes = BASS_ChannelSeconds2Bytes(stream, seconds);
+
+  // Set the position
+  BASS_ChannelSetPosition(stream, bytes, BASS_POS_BYTE);
+
+  RouteInstruments(stream); // seeking resets the bank mappings
+  SetPanningAndReverb(stream);
+}
+
 // Common code for playing a song and playing a count-in
 void LoadAndStartMidiSong(
   HSTREAM& stream, 
   const std::string& filename, 
   float seekTime, 
   bool mutePlayer, 
-  float bpm)
+  float bpmMultiplier)
 { 
   auto sm = TheSoundManager::Instance();
   // Loading song from Glue file, or file system?
@@ -292,30 +306,35 @@ std::cout << "BASS MIDI: using glue file.\n";
   }
 
   MapSoundFontsToChannelsUsingFONTEX(stream);
+
   if (mutePlayer)
   {
     const int playerTrack = 0; // player melody should be first track
-    BASS_MIDI_StreamEvent(s_songStream, playerTrack, MIDI_EVENT_MIXLEVEL, 0); 
+    BASS_MIDI_StreamEvent(stream, playerTrack, MIDI_EVENT_MIXLEVEL, 0); 
   }
 
-  // Set tempo
-  if (bpm > 0)
+  // Set tempo multiplier
+  if (bpmMultiplier > 0)
   {
-    // Oh, it looks like we need to know the MIDI file bpm, and then multiply
-    //  up or down. TODO
+    // Multiply the tempo up or down
+    BASS_ChannelSetAttribute(stream, BASS_ATTRIB_MIDI_SPEED, bpmMultiplier);
   }
 
-  MidiSeek(seekTime); // RouteInstruments happens in here too.
-  BASS_ChannelPlay(s_songStream, FALSE); 
+  MidiSeek(seekTime, stream); // RouteInstruments happens in here too.
+  BASS_ChannelPlay(stream, FALSE); 
 }
 
-void PlayCountIn(const std::string& filename, float bpm)
+void PlayMidiCountIn(const std::string& filename, float bpm)
 {
 std::cout << "** Play MIDI count-in: " << filename << " tempo: " << bpm << " BPM.\n";
 
   const float seekTime = 0;
   const bool mutePlayer = false;
-  LoadAndStartMidiSong(s_countInStream, filename, seekTime, mutePlayer, bpm);
+
+  // Count-in midi files are set to 60 BPM. To get the desired tempo, mult
+  //  by bpm/60. This is specific to count-in files.
+  const float bpmMult = bpm / 60.f;
+  LoadAndStartMidiSong(s_countInStream, filename, seekTime, mutePlayer, bpmMult);
 }
 
 void PlayMidiSong(const std::string& filename, float seekTime, bool mutePlayer)
@@ -344,16 +363,9 @@ float GetMidiSongElapsedTimeSeconds()
   return static_cast<float>(elapsedSeconds);
 }
 
-void MidiSeek(float seconds)
+void MidiSongSeek(float seconds)
 {
-  // Convert seconds to a byte position
-  QWORD bytes = BASS_ChannelSeconds2Bytes(s_songStream, seconds);
-
-  // Set the position
-  BASS_ChannelSetPosition(s_songStream, bytes, BASS_POS_BYTE);
-
-  RouteInstruments(s_songStream); // seeking resets the bank mappings
-  SetPanningAndReverb(s_songStream);
+  MidiSeek(seconds, s_songStream);
 }
 
 bool SetUpPlayerStream()
