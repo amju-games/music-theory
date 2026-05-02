@@ -27,6 +27,10 @@ protected:
   int m_lastTabStop = 0; // track most recent tab stop in scrolling list.
 };
 
+// Use this to move title up if on two lines; poor substitute for 
+//  decent vertical justification
+void MoveUpMultiLineTitle(GuiTextBase* t);
+
 using TheGSChooseSong = Singleton<GSChooseSong>;
 }
 

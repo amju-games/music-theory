@@ -27,11 +27,10 @@ include
 quit-button.txt
 
 // Title of song/piece
-//gui-text
 text2
 // Name
 song-title
--0.9, 0.6
+-0.9, 0.1
 // size
 1.8, 0.2 
 // Text
@@ -43,9 +42,9 @@ bmmolin, 3.0, multi, centre, fgcol=000000
 text2
 // Name
 song-subtitle
--0.9, 0.55
+-1, 0
 // size
-1.8, 0.2 
+2, 0.2 
 // Text
 title
 // Font name, size
@@ -56,9 +55,9 @@ bmmolin, 1.0, multi, centre, fgcol=000000
 text2
 // Name
 song-composer
--0.8, 0.4
+-1, -.2
 // size
-1.8, 0.2 
+2, 0.2 
 // Text
 Composer
 // Font name, size

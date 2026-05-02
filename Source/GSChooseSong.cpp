@@ -62,12 +62,8 @@ static void SetLevelGui(const HeroGameRound& r, PGuiElement gui)
   t->SetText(str); 
 }
 
-static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
-  bool isUnlocked, const SongPlayerInfo& spi, bool hasFocus)
+void MoveUpMultiLineTitle(GuiTextBase* t)
 {
-  auto t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-title"));
-  Assert(t); // this is all stuff that is fixed at compile time
-  t->SetText(r.m_title); 
   // Title can span two lines (only two, right?!) Go UP if necessary.
   // So the GUI underneath is not disturbed.
   // TODO This would be better handled by a vertical just setting in GuiTextBase :(
@@ -79,6 +75,15 @@ static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
     pos.y += yInc; // +ve y is UP
     t->SetLocalPos(pos);
   }
+}
+
+static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
+  bool isUnlocked, const SongPlayerInfo& spi, bool hasFocus)
+{
+  auto t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-title"));
+  Assert(t); // this is all stuff that is fixed at compile time
+  t->SetText(r.m_title); 
+  MoveUpMultiLineTitle(t);
 
   t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-subtitle"));
   Assert(t); 

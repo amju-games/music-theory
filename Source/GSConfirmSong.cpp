@@ -67,6 +67,8 @@ void GSConfirmSong::InitText()
   auto t = dynamic_cast<GuiTextBase*>(GetElementByName(m_gui, "song-title"));
   Assert(t); // this is all stuff that is fixed at compile time
   t->SetText(r.m_title); 
+  MoveUpMultiLineTitle(t);
+
   t = dynamic_cast<GuiTextBase*>(GetElementByName(m_gui, "song-subtitle"));
   Assert(t); 
   t->SetText(r.m_subtitle); 
