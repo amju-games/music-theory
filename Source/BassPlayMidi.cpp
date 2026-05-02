@@ -164,34 +164,6 @@ void SetPanningAndReverb(HSTREAM stream)
   BASS_ChannelUpdate(stream, 0);
 }
 
-// Apply sound font/channel mapping to the given stream
-void MapSoundFontsToChannels(HSTREAM stream)
-{
-  auto pianoFont = LoadSoundFont("Grand Piano.sf2");
-  auto bassFont = LoadSoundFont("Colin_s_Double_Bass.sf2");
-  auto drumFont = LoadSoundFont("Jazz Kit.sf2");
-
-  BASS_MIDI_FONT fonts[3]; // Piano, Bass, and now Drums
-
-  // 1. Piano (Bank 0)
-  fonts[0].font = pianoFont;
-  fonts[0].preset = -1; 
-  fonts[0].bank = 0;    
-
-  // 2. Bass (Bank 1)
-  fonts[1].font = bassFont;
-  fonts[1].preset = -1; 
-  fonts[1].bank = 1;    
-
-  // 3. Drums (Bank 128) 
-  // Even if your font only has one drum kit, Bank 128 is the MIDI standard for drums.
-  fonts[2].font = drumFont;
-  fonts[2].preset = -1; 
-  fonts[2].bank = 128; 
-
-  BASS_MIDI_StreamSetFonts(stream, fonts, 3);
-}
-
 void MapSoundFontsToChannelsUsingFONTEX(HSTREAM stream)
 {
   // Convention for this game:
