@@ -13,10 +13,10 @@ gs-hero-end-root
 
 elastic
 0,-2
-// Retry button
+// Next button
 gui-button
 retry-button
--0.2, -0.2
+-0.5, -0.2 
 0.4, 0.25
 Image/rough-oval.png
 // Retry
@@ -28,23 +28,19 @@ elastic
 // Quit button
 gui-button
 quit-button
--0.2, -0.5
+0.2, -0.2 
 0.4, 0.25
 Image/rough-oval.png
 // Quit
 $$$10
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
-
-rotate
-10
-.5, .5
 gui-text
-mega-text-test
--1, 1
-2, 2
-The end!
-BUTTON, 10.0, multi, fgcol=404080
+the-end-text
+-1, 0.3 
+2, 0.1 
+@@@The End!
+bmmolin, 6.0, fgcol=000000, centre
 
 // Title of song/piece
 gui-text
@@ -56,7 +52,7 @@ song-title
 // Text
 title
 // Font name, size
-BUTTON, 2.0, multi, fgcol=000000
+bmmolin, 2.0, multi, fgcol=000000, centre
 
 include
 hud.txt

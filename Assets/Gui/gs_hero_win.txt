@@ -9,7 +9,7 @@ gui-comp
 // Name
 gs-hero-win-root
 // Num children
-3
+4
 
 elastic
 0,-2
@@ -23,19 +23,12 @@ Image/rough-oval.png
 $$$11
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
-colour
-000000ff
-
-gui-comp
-text-comp
-2
-
 gui-text
 you-won-text
 -1, .3
 2, .1 
 @@@Bravo!!!
-bmmolin, 6.0
+bmmolin, 6.0, fgcol=000000, centre
 
 // Title of song/piece
 gui-text
@@ -47,7 +40,7 @@ song-title
 // Text
 title
 // Font name, size
-bmmolin, 2.0
+bmmolin, 2.0, fgcol=000000, centre
 
 include
 hud.txt

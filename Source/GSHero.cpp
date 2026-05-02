@@ -70,6 +70,15 @@ bool GSHero::OnKeyEvent(const KeyEvent& ke)
 {
   // Debug cheat buttons
 #ifdef _DEBUG
+  // Lose the round
+  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
+     (std::tolower(ke.key) == 'l')) // L for Lose
+  {
+    OnPlayerHasLost();
+    return true;
+  }
+
+  // Win the round
   if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
      (std::tolower(ke.key) == 'w'))
   {

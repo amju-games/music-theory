@@ -1,7 +1,10 @@
+#include <GuiText.h>
 #include <SoundManager.h>
 #include "GS3dTitle.h"
+#include "GSChooseSong.h"
 #include "GSHero.h"
 #include "GSHeroEnd.h"
+#include "HeroGameRound.h"
 
 namespace Amju
 {
@@ -12,7 +15,7 @@ static void OnRetry(PGuiElement)
 
 static void OnQuit(PGuiElement)
 {
-  GoTo<TheGS3dTitle>();
+  GoTo<TheGSChooseSong>();
 }
 
 GSHeroEnd::GSHeroEnd()
@@ -42,16 +45,19 @@ void GSHeroEnd::OnActive()
   GuiElement* quitButton = GetElementByName(m_gui, "quit-button");
   quitButton->SetCommand(OnQuit);
 
+  // Set song title text
+  auto t = dynamic_cast<GuiTextBase*>(GetElementByName(m_gui, "song-title"));
+  Assert(t);
+  t->SetText(TheGSHero::Instance()->GetGameRound().m_title);
   InitHud(m_gui);
 
   // Go back to title after a while?
-  // NB We need to clear the message queue if we get a button click
-/*
+  // NB We do clear message queue in OnDeactive so we won't have this 
+  //  event hanging around.. right?! 
+  const float TIME_UNTIL_WE_GO_BACK_TO_TITLE = 20.f;
   TheMessageQueue::Instance()->Add(new FuncMsg(
     GoTo<TheGS3dTitle>,
-    SecondsFromNow(5.f)));
-*/
+    SecondsFromNow(TIME_UNTIL_WE_GO_BACK_TO_TITLE)));
 }
-
 }
 
