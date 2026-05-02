@@ -42,7 +42,7 @@ text2
 paused-text
 -1, 0.3 
 2, 0.1 
-@@@Paused
+$$$19
 bmmolin, 4.0, fgcol=000000, centre
 
 include

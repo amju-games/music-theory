@@ -39,7 +39,7 @@ gui-text
 the-end-text
 -1, 0.3 
 2, 0.1 
-@@@The End!
+$$$22
 bmmolin, 6.0, fgcol=000000, centre
 
 // Title of song/piece

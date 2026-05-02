@@ -20,7 +20,7 @@ start-button
 0.4, 0.25
 Image/rough-oval.png
 // Start
-@@@Start
+$$$12
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
 include
