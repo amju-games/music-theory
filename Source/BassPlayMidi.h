@@ -58,10 +58,15 @@ public:
   virtual bool Connect() = 0;
 };
 
+// * BassMidiInput *
+// Get input from MIDI device
 class BassMidiInput : public MidiInput
 {
 public:
+  // Return true if device is connected; call sparingly
   bool IsConnected() const override;
+
+  // Call to connect to midi input device
   bool Connect() override;
 };
 

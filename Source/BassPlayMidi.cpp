@@ -394,14 +394,18 @@ static void CALLBACK BassMidiInputCallback(
   if (length == 0) return;
   if (length == 1 && buffer[0] == 0xf8) return; // timing signal - 1 byte
 
+  // Note on/off events
   if (length == 3 && (buffer[0] & 0xf0) == 0x90)
   {
     // Note event
     [[maybe_unused]]int channel = buffer[0] & 0x0f; // worry about that later
-    int midiNote = buffer[1];
-    int velocity = buffer[2];
+    BYTE midiNote = buffer[1];
+    if (midiNote > 127) return;
 
-    bool isNoteOn = (velocity > 0);
+    BYTE velocity = buffer[2];
+    if (velocity > 127) return;
+
+    bool isNoteOn = (velocity > 0); // velocity 0 means note off
     // Good news, MessageQueue::Add is thread safe
     TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(midiNote, isNoteOn)));
   }
@@ -465,7 +469,18 @@ bool BassMidiInput::Connect()
 
 bool BassMidiInput::IsConnected() const
 {
-  return false; // This needs some thought. Should we have a timer which times
-    //  out if not kept alive by timing events?
+  BASS_MIDI_DEVICEINFO info;
+  DWORD device = 0; // index of device we want -- TODO
+  if (!BASS_MIDI_InGetDeviceInfo(device, &info))
+  {
+    std::cout << "BASS MIDI failed to get midi device info. Error code: " << BASS_ErrorGetCode() << "\n";
+    return false;
+  }
+
+  // BASS_DEVICE_ENABLED indicates if the device is currently usable/present.
+  // BASS_DEVICE_INIT indicates if you have already successfully called BASS_MIDI_InInit.
+  return (info.flags & BASS_DEVICE_ENABLED);
+
+  // TODO Also check for signals from device in callback?
 }
 }
