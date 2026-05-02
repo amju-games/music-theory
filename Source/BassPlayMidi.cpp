@@ -22,6 +22,10 @@
 
 namespace Amju
 {
+static const auto PIANO_FONT = "steinway_concert_piano.sf2";
+static const auto BASS_FONT = "Colin_s_Double_Bass.sf2";
+static const auto DRUM_FONT = "Jazz Kit.sf2";
+
 static HSTREAM s_playerStream = 0;
 
 void PlayMidi(int note, int velocity)
@@ -30,7 +34,11 @@ void PlayMidi(int note, int velocity)
   std::cout << "Playing midi note: " << note << " vel: " << velocity << "\n";
 #endif
 
-  BASS_MIDI_StreamEvent(s_playerStream, 0, MIDI_EVENT_NOTE, MAKEWORD(note, velocity));
+  const int pianoChannel = 0;
+  const int drumChannel = 9;
+
+  const int channel = pianoChannel;
+  BASS_MIDI_StreamEvent(s_playerStream, channel, MIDI_EVENT_NOTE, MAKEWORD(note, velocity));
 }
 
 HSOUNDFONT LoadSoundFont(const std::string fontFileName)
@@ -74,9 +82,15 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
   if (BASS_MIDI_FontGetInfo(font, &info)) 
   {
 #ifdef SOUND_FONT_INFO
-    std::cout << "  Name: " << info.name << "\n";
-    std::cout << "  Copyright: " << info.copyright << "\n"; 
-    std::cout << "  Comment: " << info.comment << "\n"; 
+    if (info.name )
+      std::cout << "  Name: " << info.name << "\n";
+
+    if (info.copyright)
+      std::cout << "  Copyright: " << info.copyright << "\n"; 
+
+    if (info.comment)
+      std::cout << "  Comment: " << info.comment << "\n"; 
+
     std::cout << "  Num presets: " << info.presets << "\n";
 #endif // SOUND_FONT_INFO
 
@@ -173,9 +187,9 @@ void MapSoundFontsToChannelsUsingFONTEX(HSTREAM stream)
   // Channel 4: backing piano CENTRE (set up the panning in code/config)
   // Channel 8: backing bass 
   // Channel 10: backing percussion
-  auto pianoFont = LoadSoundFont("Grand Piano.sf2");
-  auto bassFont = LoadSoundFont("Colin_s_Double_Bass.sf2");
-  auto drumFont = LoadSoundFont("Jazz Kit.sf2");
+  auto pianoFont = LoadSoundFont(PIANO_FONT);
+  auto bassFont = LoadSoundFont(BASS_FONT);
+  auto drumFont = LoadSoundFont(DRUM_FONT);
 
   // 1. Create your font array (Extended version)
   BASS_MIDI_FONTEX fonts[3] = {{0}};
