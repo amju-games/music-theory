@@ -25,16 +25,16 @@ song-number
 // Text
 number
 // Font name, size
-bmmolin, 1.5, multi, left, fgcol=000000
+// HIDDEN FOR NOW: 0 alpha culls
+bmmolin, 1.5, multi, left, fgcol=00000000
 
 // Title of song/piece
-//gui-text
 text2
 // Name
 song-title
 -0.8, 0.1
 // size
-1.8, 0.2
+1.6, 0.2
 // Text
 title
 // Font name, size
@@ -53,7 +53,6 @@ title
 bmmolin, 1.0, multi, left, fgcol=000000
 
 // Composer
-//gui-text
 text2
 // Name
 song-composer
@@ -68,13 +67,16 @@ bmmolin, 1.5, multi, left, fgcol=000000
 // Next button
 gui-button
 song-start-button
--0.8, -0.3
+-0.8, -0.4
 0.4, 0.25
 Image/rough-oval.png
 // Go! 
-@@@Go!
+$$$20
 BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
 
+
+// MAYBE IN FUTURE
+// ---------------
 music-score
 // Name, Position, Size
 music-score
@@ -84,35 +86,4 @@ music-score
 000000
 // Empty - no glyphs
 end
-
-elastic
-0,-2
-// Quit button
-gui-button
-quit-button
--0.2, -0.7
-0.4, 0.25
-Image/rough-oval.png
-// START
-$$$10
-BUTTON, 3., fgcol=ffffff, bgcol=4E69F4
-
-
-rotate
-10
-.5, .5
-gui-text
-mega-text-test
--1, 1
-2, 2
-WINNER!
-BUTTON, 10.0, multi, fgcol=404080
-
-// Player score for the round
-elastic
--2, 0
-translate
--1.57, .35
-include 
-player-score.txt
 

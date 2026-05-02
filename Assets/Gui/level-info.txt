@@ -22,11 +22,11 @@ level-text
 text2
 // Name
 level
--1.0, 0.0
+-.8, 0.0
 // size
 0.5, 0.2
 // Text
 LEVEL_NUM_REPLACED_IN_CODE
 // Font name, size
-bmmolin, 2.5
+bmmolin, 1.5
 

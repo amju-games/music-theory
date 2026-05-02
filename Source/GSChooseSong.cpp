@@ -68,6 +68,18 @@ static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
   auto t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-title"));
   Assert(t); // this is all stuff that is fixed at compile time
   t->SetText(r.m_title); 
+  // Title can span two lines (only two, right?!) Go UP if necessary.
+  // So the GUI underneath is not disturbed.
+  // TODO This would be better handled by a vertical just setting in GuiTextBase :(
+  if (t->GetNumLines() > 1)
+  {
+    const float ONE_LINE_Y_INC = .3f;
+    float yInc = static_cast<float>(t->GetNumLines() - 1) * ONE_LINE_Y_INC;
+    auto pos = t->GetLocalPos();
+    pos.y += yInc; // +ve y is UP
+    t->SetLocalPos(pos);
+  }
+
   t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-subtitle"));
   Assert(t); 
   t->SetText(r.m_subtitle); 
