@@ -1,0 +1,26 @@
+// * Amjula music theory *
+// (c) Copyright 2024 Juliet Colman
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+gs-verify-root
+// Num children
+1
+
+// Element type
+gui-text
+// Element name
+verify-text
+// pos (coords are -1..1)
+-0.9, 0.9
+// size
+1.8, 2.0
+// Text
+Verifying... 
+// Font name, size
+bmmolin, 1.0, multi, fgcol=000000, left
+

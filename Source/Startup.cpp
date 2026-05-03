@@ -44,12 +44,13 @@
 #include "BassPlayMidi.h"
 #include "BlinkSceneNode.h"
 #include "Consts.h"
-#include "GS3dExample.h"
+#include "GS3dExample.h" // for dev/test of 3d scene
 #include "GS3dTitle.h"
 #include "GSHero.h"
 #include "GSPlayNotes.h" // --keyboard mode
 #include "GSShowGui.h" // for quick dev/test of a new GUI
 #include "GSTestShowScore.h"
+#include "GSVerify.h" // check music assets at start
 #include "Gui3dScene.h"
 #include "GuiMusic2dKeyboard.h"
 #include "GuiMusicScore.h"
@@ -374,7 +375,7 @@ static void SetInitialState()
 
   if (args.Contains("--3d"))
   {
-    // Show an example 3d scene
+    // Show a 3d scene; the scene filename should be the 3rd command-line param.
     TheGame::Instance()->SetCurrentState(TheGS3dExample::Instance());
     return;
   }
@@ -393,7 +394,11 @@ static void SetInitialState()
     return;
   }
 
+#ifdef _DEBUG
+  TheGame::Instance()->SetCurrentState(TheGSVerify::Instance());
+#else
   TheGame::Instance()->SetCurrentState(TheGS3dTitle::Instance());
+#endif
 }
 
 static void LoadStringTableForPreferredLanguage()
