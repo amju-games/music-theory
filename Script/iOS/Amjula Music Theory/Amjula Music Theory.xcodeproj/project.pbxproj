@@ -39,7 +39,6 @@
 		699058DE1E7D3BF500E528B4 /* Amjula_Music_TheoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058DD1E7D3BF500E528B4 /* Amjula_Music_TheoryTests.m */; };
 		699058E91E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 699058E81E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m */; };
 		69A23A5C1F61E6970021BF88 /* Consts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69A23A591F61E6970021BF88 /* Consts.cpp */; };
-		69A23A631F686C010021BF88 /* Grand Piano.sf2 in Resources */ = {isa = PBXBuildFile; fileRef = 69A23A621F686C010021BF88 /* Grand Piano.sf2 */; };
 		69AC40371EB5331300F255A4 /* MusicEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69AC40311EB5331300F255A4 /* MusicEvent.cpp */; };
 		69C10CD61F122197009B6836 /* PlayWav.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69C10CD41F122197009B6836 /* PlayWav.cpp */; };
 		69D10FEC1F43957F00F18EF1 /* data-iOS.glue in Resources */ = {isa = PBXBuildFile; fileRef = 69D10FEA1F43957F00F18EF1 /* data-iOS.glue */; };
@@ -63,6 +62,8 @@
 		C5117C4B2F11CE0300952A7B /* GSHeroEnd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5117C462F11CE0300952A7B /* GSHeroEnd.cpp */; };
 		C5117C4C2F11CE0300952A7B /* GS3dTitle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5117C4A2F11CE0300952A7B /* GS3dTitle.cpp */; };
 		C514212D2F5357A90009EB23 /* GuiSetFromString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C514212A2F5357A90009EB23 /* GuiSetFromString.cpp */; };
+		C53572E02FA7D17600E61A26 /* GSVerify.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C53572DF2FA7D17600E61A26 /* GSVerify.cpp */; };
+		C53572E22FA7D1BF00E61A26 /* steinway_concert_piano.sf2 in Resources */ = {isa = PBXBuildFile; fileRef = C53572E12FA7D1BF00E61A26 /* steinway_concert_piano.sf2 */; };
 		C54B4BD02F9CAA27001286FA /* SceneTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C54B4BCB2F9CAA27001286FA /* SceneTimeline.cpp */; };
 		C54B4BD12F9CAA27001286FA /* Timeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C54B4BCF2F9CAA27001286FA /* Timeline.cpp */; };
 		C5547F972F8C0388003AB05C /* BugSplat.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5547F942F8C0388003AB05C /* BugSplat.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -201,7 +202,6 @@
 		699058E81E7D3BF500E528B4 /* Amjula_Music_TheoryUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Amjula_Music_TheoryUITests.m; sourceTree = "<group>"; };
 		699058EA1E7D3BF500E528B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69A23A591F61E6970021BF88 /* Consts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Consts.cpp; path = ../../../../Source/Consts.cpp; sourceTree = "<group>"; };
-		69A23A621F686C010021BF88 /* Grand Piano.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Grand Piano.sf2"; path = "../../../../Assets/Sound/Grand Piano.sf2"; sourceTree = "<group>"; };
 		69AC40311EB5331300F255A4 /* MusicEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MusicEvent.cpp; path = ../../../../Source/MusicEvent.cpp; sourceTree = "<group>"; };
 		69AC40321EB5331300F255A4 /* MusicEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicEvent.h; path = ../../../../Source/MusicEvent.h; sourceTree = "<group>"; };
 		69C10CD41F122197009B6836 /* PlayWav.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlayWav.cpp; path = ../../../../Source/PlayWav.cpp; sourceTree = "<group>"; };
@@ -237,6 +237,9 @@
 		C5117C4A2F11CE0300952A7B /* GS3dTitle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GS3dTitle.cpp; path = ../../../../Source/GS3dTitle.cpp; sourceTree = "<group>"; };
 		C514212A2F5357A90009EB23 /* GuiSetFromString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiSetFromString.cpp; path = ../../../../Source/GuiSetFromString.cpp; sourceTree = "<group>"; };
 		C514212C2F5357A90009EB23 /* GuiSetFromString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiSetFromString.h; path = ../../../../Source/GuiSetFromString.h; sourceTree = "<group>"; };
+		C53572DD2FA7D17600E61A26 /* GSVerify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSVerify.h; path = ../../../../Source/GSVerify.h; sourceTree = "<group>"; };
+		C53572DF2FA7D17600E61A26 /* GSVerify.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSVerify.cpp; path = ../../../../Source/GSVerify.cpp; sourceTree = "<group>"; };
+		C53572E12FA7D1BF00E61A26 /* steinway_concert_piano.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = steinway_concert_piano.sf2; path = ../../../../Assets/Sound/steinway_concert_piano.sf2; sourceTree = "<group>"; };
 		C54B4BCB2F9CAA27001286FA /* SceneTimeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneTimeline.cpp; path = ../../../../Source/SceneTimeline.cpp; sourceTree = "<group>"; };
 		C54B4BCD2F9CAA27001286FA /* SceneTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneTimeline.h; path = ../../../../Source/SceneTimeline.h; sourceTree = "<group>"; };
 		C54B4BCE2F9CAA27001286FA /* Timeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Timeline.h; path = ../../../../Source/Timeline.h; sourceTree = "<group>"; };
@@ -424,9 +427,9 @@
 		69D10FE81F43955800F18EF1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C53572E12FA7D1BF00E61A26 /* steinway_concert_piano.sf2 */,
 				C57A6EE92F925549002D4DB4 /* Colin_s_Double_Bass.sf2 */,
 				C57A6EE72F925548002D4DB4 /* Jazz Kit.sf2 */,
-				69A23A621F686C010021BF88 /* Grand Piano.sf2 */,
 				69D10FEA1F43957F00F18EF1 /* data-iOS.glue */,
 				69D10FEB1F43957F00F18EF1 /* music-iOS.glue */,
 			);
@@ -458,6 +461,8 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C53572DF2FA7D17600E61A26 /* GSVerify.cpp */,
+				C53572DD2FA7D17600E61A26 /* GSVerify.h */,
 				C5810E962F8C0C5000047856 /* AI.cpp */,
 				C5810E912F8C0C4F00047856 /* AI.h */,
 				C5810E992F8C0C5000047856 /* AIFalling.cpp */,
@@ -714,7 +719,7 @@
 				69D10FED1F43957F00F18EF1 /* music-iOS.glue in Resources */,
 				69568DB01F706B6100F1B528 /* Default-568h@2x.png in Resources */,
 				699058CE1E7D3BF500E528B4 /* Main.storyboard in Resources */,
-				69A23A631F686C010021BF88 /* Grand Piano.sf2 in Resources */,
+				C53572E22FA7D1BF00E61A26 /* steinway_concert_piano.sf2 in Resources */,
 				69568DB41F706B6100F1B528 /* Default.png in Resources */,
 				69568DB11F706B6100F1B528 /* Default-Landscape@2x~ipad.png in Resources */,
 				699058D01E7D3BF500E528B4 /* Assets.xcassets in Resources */,
@@ -826,6 +831,7 @@
 				C58E3BF82F8572930013E626 /* GSChooseSong.cpp in Sources */,
 				69D58E4E1E84836B008A8D29 /* Startup.cpp in Sources */,
 				6955431D1F3B526D007C23EA /* ShareManager.cpp in Sources */,
+				C53572E02FA7D17600E61A26 /* GSVerify.cpp in Sources */,
 				6955431C1F3B526D007C23EA /* MySceneGraph.cpp in Sources */,
 				69C10CD61F122197009B6836 /* PlayWav.cpp in Sources */,
 				C55726A52F0EFA5400EEB2A5 /* GS3dExample.cpp in Sources */,
