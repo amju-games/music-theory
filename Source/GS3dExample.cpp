@@ -1,4 +1,5 @@
 #include <AmjuGL.h>
+#include <CommandLineArgs.h>
 #include <Teapot.h>
 #include <Timer.h>
 #include "GS3dExample.h"
@@ -7,7 +8,15 @@ namespace Amju
 {
 GS3dExample::GS3dExample()
 {
-  m_sceneFilename = "Scene/title-scene.txt";
+  const auto& args = GetCommandLineArgs();
+  
+  // Get the final command line arg string and use it as scene filename
+  const auto& strings = args.GetArgs();
+  if (!strings.empty())
+  {   
+    m_sceneFilename = strings.back();
+  }   
+
   m_guiFilename = "Gui/hearts.txt";
 }
 
@@ -50,6 +59,5 @@ void GS3dExample::Draw()
   tp.Draw();
 */
 }
-
 }
 
