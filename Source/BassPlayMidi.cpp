@@ -35,10 +35,9 @@ void PlayMidi(int note, int velocity)
 #endif
 
   const int pianoChannel = 0;
-  const int drumChannel = 9;
 
-  const int channel = pianoChannel;
-  BASS_MIDI_StreamEvent(s_playerStream, channel, MIDI_EVENT_NOTE, MAKEWORD(note, velocity));
+  BASS_MIDI_StreamEvent(
+    s_playerStream, pianoChannel, MIDI_EVENT_NOTE, MAKEWORD(note, velocity));
 }
 
 HSOUNDFONT LoadSoundFont(const std::string fontFileName)
