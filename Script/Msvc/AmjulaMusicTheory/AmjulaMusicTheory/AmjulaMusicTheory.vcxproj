@@ -299,6 +299,7 @@
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSShowGui.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSTestShowScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSVerify.cpp" />
     <ClCompile Include="..\..\..\..\Source\Gui3dScene.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusic2dKeyboard.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiMusicKbBase.cpp" />
@@ -416,6 +417,7 @@
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowGui.h" />
     <ClInclude Include="..\..\..\..\Source\GSTestShowScore.h" />
+    <ClInclude Include="..\..\..\..\Source\GSVerify.h" />
     <ClInclude Include="..\..\..\..\Source\Gui3dScene.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusic2dKeyboard.h" />
     <ClInclude Include="..\..\..\..\Source\GuiMusicKb.h" />
