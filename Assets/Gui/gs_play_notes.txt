@@ -1,8 +1,6 @@
 // * Amjula music theory *
 // (c) Copyright 2024 Juliet Colman
 
-// Line drawing test
-
 // version
 1
 
