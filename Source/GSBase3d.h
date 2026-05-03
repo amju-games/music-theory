@@ -25,6 +25,9 @@ public:
   // As 3d scene can be resource-heavy, trash resources here.
   void OnDeactive() override;
 
+  bool OnMouseButtonEvent(const MouseButtonEvent&) override;
+  bool OnCursorEvent(const CursorEvent&) override;
+
 protected:
   SceneGraph* GetSceneGraph();
 

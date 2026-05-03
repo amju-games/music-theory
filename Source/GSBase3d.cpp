@@ -9,6 +9,10 @@
 
 namespace Amju
 {
+static float xrot = 0; 
+static float yrot = 0;
+static bool drag = false;
+
 SceneGraph* GSBase3d::GetSceneGraph()
 {
   static SceneGraph* sg = nullptr;
@@ -55,7 +59,52 @@ void GSBase3d::Draw()
   // Use standard/default shader for 3D scene
   AmjuGL::UseShader(nullptr);
 
+  AmjuGL::PushMatrix();
+
+  AmjuGL::SetMatrixMode(AmjuGL::AMJU_PROJECTION_MATRIX);
+  AmjuGL::SetIdentity();
+  const float CAM_FOVY = 60.0f;
+  const float CAM_NEAR = 1.0f;
+  const float CAM_FAR = 3000.0f;
+  float aspect = 1.3f;
+  AmjuGL::SetPerspectiveProjection(CAM_FOVY, aspect, CAM_NEAR, CAM_FAR);
+
+  AmjuGL::SetMatrixMode(AmjuGL::AMJU_MODELVIEW_MATRIX);
+  AmjuGL::SetIdentity();
+  AmjuGL::LookAt(0, 10, 100, 0, 0, 0, 0, 1, 0);
+
+  AmjuGL::RotateY(yrot);
+  AmjuGL::RotateX(xrot);
+
   GetSceneGraph()->Draw();
+  AmjuGL::PopMatrix();
+}
+
+bool GSBase3d::OnMouseButtonEvent(const MouseButtonEvent& mbe)
+{
+  if (mbe.button == AMJU_BUTTON_MOUSE_LEFT)
+  {
+    drag = mbe.isDown;
+  }
+  return false;
+}
+
+bool GSBase3d::OnCursorEvent(const CursorEvent& ce)
+{
+  static float oldx = ce.x;
+  static float oldy = ce.y;
+
+  if (drag)
+  {
+    float xdiff = ce.x - oldx;
+    yrot += xdiff * 100.0f;
+
+    float ydiff = ce.y - oldy;
+    xrot += ydiff * 100.0f;
+  }
+  oldx = ce.x;
+  oldy = ce.y;
+  return false;
 }
 
 void GSBase3d::DebugCamera(char key)
