@@ -49,14 +49,18 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
   auto it = fontPool.find(filename);
   if (it != fontPool.end())
   {
+#ifdef PLAY_MIDI_DEBUG
     std::cout << "Sound font already loaded and in pool: " << fontFileName << "\n";
+#endif
     return it->second;
   }
 
   auto font = BASS_MIDI_FontInit(filename.c_str(), 0);
   if (font) 
   {
+#ifdef PLAY_MIDI_DEBUG
     std::cout << "Loaded soundfont: " << fontFileName << "\n";
+#endif
   }
   else
   {
@@ -69,13 +73,16 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
   BASS_MIDI_FONTINFO info;
   if (BASS_MIDI_FontGetInfo(font, &info)) 
   {
+#ifdef SOUND_FONT_INFO
     std::cout << "  Name: " << info.name << "\n";
     std::cout << "  Copyright: " << info.copyright << "\n"; 
     std::cout << "  Comment: " << info.comment << "\n"; 
     std::cout << "  Num presets: " << info.presets << "\n";
+#endif // SOUND_FONT_INFO
+
     if (info.presets == 0)
     {
-      std::cout << "There are no presets in this sound font!\n";
+      std::cout << "There are no presets in this sound font: " << fontFileName << "\n";
       Assert(0);
     }
   }
@@ -228,7 +235,9 @@ static HSTREAM s_countInStream = 0;
 
 void StopMidiSong()
 {
+#ifdef PLAY_MIDI_DEBUG
 std::cout << "** Stopping MIDI song!\n";
+#endif
 
   BASS_ChannelStop(s_songStream);
   BASS_StreamFree(s_songStream);
@@ -261,7 +270,7 @@ void LoadAndStartMidiSong(
   // Loading song from Glue file, or file system?
   if (auto glueFile = sm->GetGlueFile())
   {
-#ifdef _DEBUG
+#ifdef PLAY_MIDI_DEBUG
 std::cout << "BASS MIDI: using glue file.\n";
 #endif
     // Find the start of the song in the glue file, and find the length
@@ -296,7 +305,9 @@ std::cout << "BASS MIDI: using glue file.\n";
 
   if (stream)
   {
+#ifdef PLAY_MIDI_DEBUG
     std::cout << "Loaded midi file ok: " << filename << "\n";
+#endif
   }
   else
   {
@@ -326,7 +337,9 @@ std::cout << "BASS MIDI: using glue file.\n";
 
 void PlayMidiCountIn(const std::string& filename, float bpm)
 {
+#ifdef PLAY_MIDI_DEBUG
 std::cout << "** Play MIDI count-in: " << filename << " tempo: " << bpm << " BPM.\n";
+#endif
 
   const float seekTime = 0;
   const bool mutePlayer = false;
@@ -339,7 +352,9 @@ std::cout << "** Play MIDI count-in: " << filename << " tempo: " << bpm << " BPM
 
 void PlayMidiSong(const std::string& filename, float seekTime, bool mutePlayer)
 {
+#ifdef PLAY_MIDI_DEBUG
 std::cout << "** Play MIDI song: " << filename << "\n";
+#endif
 
   if (s_songStream) 
     StopMidiSong();
@@ -440,7 +455,9 @@ bool BassMidiInput::Connect()
   DWORD device = 0; // index of device we want
   if (!BASS_MIDI_InGetDeviceInfo(device, &info))
   {
+#ifdef MIDI_CONNECT_DEBUG
     std::cout << "BASS MIDI failed to get midi device info. Error code: " << BASS_ErrorGetCode() << "\n";
+#endif
     return false;
   }
 
@@ -485,7 +502,9 @@ bool BassMidiInput::IsConnected() const
   DWORD device = 0; // index of device we want -- TODO
   if (!BASS_MIDI_InGetDeviceInfo(device, &info))
   {
+#ifdef MIDI_CONNECT_DEBUG
     std::cout << "BASS MIDI failed to get midi device info. Error code: " << BASS_ErrorGetCode() << "\n";
+#endif
     return false;
   }
 
