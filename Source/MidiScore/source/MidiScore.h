@@ -14,7 +14,7 @@ class MidiFile;
 
 namespace MidiScore
 {
-// Output text info abou the given midi file.
+// Output text info about the given midi file.
 std::string InfoString(smf::MidiFile& mf);
 
 // Output midi file as juliet shorthand notation, for reading 
@@ -24,7 +24,8 @@ std::string InfoString(smf::MidiFile& mf);
 // timeSig: optional time signature, overrides guessing.
 // keySig: optional key signature, overrides guessing.
 // quantResolution: optional, sets quantisation on and resolution level.
-// debug: true for debug mode, verbose for debugging
+// debug: true for debug mode, verbose for debugging.
+// bpm: optional bpm tempo.
 std::string ToString(
   smf::MidiFile& mf,
   std::optional<int> track,
