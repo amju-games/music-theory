@@ -265,6 +265,10 @@ def quantize_track(track, ticks_per_beat, resolution):
 # Output new midi file with remapped channels, and tracks renamed to
 #  reflect the mapping.
 def process_audio_pipeline(input_path, output_path, mapping):
+
+    # the track->channel mapping after we chop unwanted tracks
+    new_mapping = {} 
+
     # Create a reverse map for naming: {0: 'Player', 7: 'Bass', ...}
     # We capitalize the keys (Piano-C, etc.)
     chan_to_name = {v: k.replace('-', ' ').title().replace(' ', '-') for k, v in ROLE_CHANNELS.items()}
@@ -277,11 +281,20 @@ def process_audio_pipeline(input_path, output_path, mapping):
     keep = list(mapping.keys())
     if 0 not in keep: keep.append(0)
 
+    # New track numbers: starting at 1 because these are 1-based. 
+    #  Track 0 (=> 1, sigh) is the control track 
+    track_num_1based = 1 
+
     for i, track in enumerate(mid.tracks):
         if i not in keep: continue
         new_track = mido.MidiTrack()
         new_mid.tracks.append(new_track)
         chan = mapping.get(i)
+
+        # Store track num -> channel mapping
+        if chan is not None:
+            new_mapping[track_num_1based] = chan
+        track_num_1based += 1
 
         # Rename track
         if chan is not None:
@@ -307,6 +320,8 @@ def process_audio_pipeline(input_path, output_path, mapping):
 
             new_track.append(msg.copy(channel=chan) if hasattr(msg, 'channel') and chan is not None else msg.copy())
     new_mid.save(output_path)
+    return new_mapping
+
 
 # Create midi file with only the player track, quantised -- 
 #  this is for midiscore to process.
@@ -453,6 +468,16 @@ def get_or_prompt_bpm(mid):
             print("❌ Please enter a valid number for BPM.")
 
 
+def write_channels_txt(target_dir, mapping):
+    # Create a reverse map for naming: {0: 'Player', 7: 'Bass', ...}
+    # We capitalize the keys (Piano-C, etc.)
+    chan_to_name = {v: k.replace('-', ' ').title().replace(' ', '-') for k, v in ROLE_CHANNELS.items()}
+    
+    with open(target_dir / "channels.txt", 'w') as f:
+        for k in mapping:
+            f.write(f"{k}: {mapping[k]} # Track {k} -> {chan_to_name[mapping[k]]}\n")
+
+
 def main():
     # 1. Setup and Validation
     if len(sys.argv) < 2:
@@ -492,7 +517,8 @@ def main():
 
     # 6. MIDI Pipeline Processing
     print(f"⚙️ Generating Audio File: {audio_path.name}...")
-    process_audio_pipeline(input_path, audio_path, mapping)
+    # returns new track->channel mapping
+    new_mapping = process_audio_pipeline(input_path, audio_path, mapping)
     
     print(f"🎼 Generating UI Score File: {score_midi_path.name}...")
     process_score_pipeline(input_path, score_midi_path, player_idx, num_res)
@@ -516,7 +542,10 @@ def main():
         )
     else:
         print("\n⚠️ Database update skipped due to score generation failure.")
-        
+    
+    # 10. Write channels.txt in case fix_channels.py is required
+    write_channels_txt(target_dir, new_mapping)
+
     print(f"\n🎉 Finished! Song successfully added to the game pipeline.")
 
 if __name__ == "__main__":
