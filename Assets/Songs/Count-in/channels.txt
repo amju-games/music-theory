@@ -1,0 +1,4 @@
+# Map track 2 (one-based, i.e., the track after the control track)
+#  to channel 10, drums.
+2:10  # Drums (Ch 10)
+
