@@ -73,7 +73,7 @@ std::string OutputEvent(int& prevDuration, const Event& e)
   return e.ToString();
 }
 
-std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks, bool debug)
+std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks, bool debug, int numBars)
 {
   if (events.empty())
   {
@@ -97,7 +97,7 @@ std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks, bool deb
   InsertChordMarkers(events);
 //std::cout << "With chord markers: " << OutputEvents(events) << "\n";
 
-  InsertBarLines(tpq, ts, events);
+  InsertBarLines(tpq, ts, events, numBars);
 //std::cout << "With bar lines: " << OutputEvents(events) << "\n";
 
   // Fill 'gaps' between note events with rests
@@ -396,7 +396,7 @@ std::string ToString(
     Events events = GetEventsFromTrack(tpq, midifile[*track], ts);
     if (!events.empty()) 
     {
-      res += "stave " + OutputTrack(tpq, events, ts, ks, debug) + "\n";
+      res += "stave " + OutputTrack(tpq, events, ts, ks, debug, numBars) + "\n";
     }
   }
   else
@@ -409,7 +409,7 @@ std::string ToString(
       Events events = GetEventsFromTrack(tpq, midifile[t], ts);
       if (events.empty()) continue;
       res += "// ** STAVE " + std::to_string(stave++) + " **\n";
-      res += "stave " + OutputTrack(tpq, events, ts, ks, debug) + "\n";
+      res += "stave " + OutputTrack(tpq, events, ts, ks, debug, numBars) + "\n";
     }
   }
 

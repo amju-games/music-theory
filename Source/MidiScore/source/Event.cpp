@@ -758,13 +758,8 @@ int SplitNote(int tpq, Events& events, Events::iterator& it, int barLineTicks,
   return bar;
 }
 
-void InsertBarLines(int tpq, TimeSig ts, Events& events)
+void InsertBarLines(int tpq, TimeSig ts, Events& events, int numBars)
 {
-  // We don't know where the bar lines should fall (although after the 
-  //  last note is probable, i.e. the last event is unlikely to be a 
-  //  rest??) - so let the user specify an anacrusis, otherwise just
-  //  start adding bar lines every time sig worth of tpq.
-
   int ticksForOneBar = static_cast<int>(static_cast<float>(tpq) * BeatsInBar(ts));
   int bar = 1; // don't add barline at start  
   bool chord = false; // true if we are parsing between ( ) chord markers
@@ -801,8 +796,11 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events)
       bar++;
     }
   }
-  // Add final bar line
-  events.push_back(MakeBarLine(bar * ticksForOneBar));
+  // Add final bar lines
+  for (int b = bar; b < numBars; b++)
+  {
+    events.push_back(MakeBarLine(b * ticksForOneBar));
+  }
 }
 
 void InsertChordMarkers(Events& events)

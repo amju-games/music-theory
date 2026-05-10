@@ -96,7 +96,7 @@ void InsertDynamics(Events& events);
 // Time sig is required so we know if dotted rests are allowed.
 void InsertRests(int tpq, Events& events, TimeSig ts);
 
-void InsertBarLines(int tpq, TimeSig ts, Events& events);
+void InsertBarLines(int tpq, TimeSig ts, Events& events, int numBars);
 
 void InsertChordMarkers(Events& events);
 
