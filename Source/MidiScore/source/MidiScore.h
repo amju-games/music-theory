@@ -38,6 +38,9 @@ std::string ToString(
 // Used internally and for testing
 std::string OutputEvents(const Events& events);
 
+// For tests: we want to check strings like "c t c" for note duration tests
+std::string OutputNoteDurations(const Events& events);
+
 // Output with as much info as poss
 std::string OutputEventsDebug(int tpq, 
   const std::string& bar1Preamble, const Events& events);

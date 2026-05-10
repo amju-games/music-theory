@@ -252,19 +252,22 @@ TEST_CASE("Quantise start time", "[Events]")
 
 TEST_CASE("Quantise duration, split note if required", "[Events]")
 {
-  // Say we've got a long note and then a short note. We might
-  //  need to split the long note to get the time right.
-  // E.g. 4/4 <60> m t c t q <61>  q |
+  // As we add notes from the midi file, we split them: some note lengths
+  //  cannot be represented by one time value. 
+  // We need to also take bar length into account, so the split is not
+  //  problematic when we add bar lines. (We don't re-join split notes,
+  //  so splits need to be in the right place.)
 
   const int tpq = 8;
 
+  SECTION("split notes fit in one bar")
   {
     Events events;
     Event e;
     // 3.5 (7/2) tpqs: = m + c + q   (m is 2, m. is 3, q is 0.5)
     // Result: m. q
     e.m_end = e.m_duration = tpq * 7 / 2;
-    AppendNoteEventToEvents(tpq, e, events);
+    AppendNoteEventToEvents(tpq, e, events, TimeSig::TS_4_4);
     REQUIRE(events.size() == 3);
     REQUIRE(events[0].IsNote());
     REQUIRE(events[0].m_timeVal == TimeVal::MINIM);
@@ -287,69 +290,94 @@ TEST_CASE("Quantise duration, split note if required", "[Events]")
     REQUIRE(eventsBeforeChord.size() == events.size());
   }
 
+  SECTION("split notes don't fit in one bar")
+  {
+    Events events;
+    Event e;
+    // 3.5 again but start 1 crotchet before notional bar line
+    // 3.5 (7/2) tpqs: = m + c + q   (m is 2, m. is 3, q is 0.5)
+    // Result: c t [notional bar line] m t q
+    e.m_start = 3 * tpq;
+    e.m_duration = tpq * 7 / 2;
+    AppendNoteEventToEvents(tpq, e, events, TimeSig::TS_4_4);
+std::cout << OutputNoteDurations(events) << "\n";
+    REQUIRE(events.size() == 5);
+    REQUIRE(OutputNoteDurations(events) == "c t m t q");
+
+    // The notes should not overlap, so there should not be any chord
+    //  markers. (This was going wrong before as ties and notes were
+    //  incorrectly identified as a chord.)
+    Events eventsBeforeChord(events);
+    InsertChordMarkers(events);
+    REQUIRE(eventsBeforeChord.size() == events.size());
+  }
+
+  SECTION("Note duration 2.5 fits in bar")
   {
     Events events;
     Event e;
     // 2.5 (5/2) tpqs: = m + q   (m is 2, q is 0.5)
     // Result: m t q
     e.m_end = e.m_duration = tpq * 5 / 2;
-    AppendNoteEventToEvents(tpq, e, events);
-    REQUIRE(events.size() == 3);
-    REQUIRE(events[0].IsNote());
-    REQUIRE(events[0].m_timeVal == TimeVal::MINIM);
-    REQUIRE(events[0].m_dots == 0);
-    REQUIRE(events[0].m_duration == tpq * 2);
-    REQUIRE(events[0].m_end == tpq * 2); 
-    REQUIRE(events[1].IsTie());
-    REQUIRE(events[1].m_start == tpq * 2);
-    REQUIRE(events[2].IsNote());
-    REQUIRE(events[2].m_timeVal == TimeVal::QUAVER);
-    REQUIRE(events[2].m_start == tpq * 2);
-    REQUIRE(events[2].m_duration == tpq / 2); 
-    REQUIRE(events[2].m_end == tpq * 2 + tpq / 2); 
+    AppendNoteEventToEvents(tpq, e, events, TimeSig::TS_4_4);
+    REQUIRE(OutputNoteDurations(events) == "m t q");
   }
 
+  SECTION("Note duration 2.5 doesn't fit in bar, 2/4")
+  {
+    Events events;
+    Event e;
+    // 2.5 (5/2) tpqs: = m + q   (m is 2, q is 0.5)
+    // Result: c t [|] c t q
+    e.m_start = 1 * tpq;
+    e.m_duration = tpq * 5 / 2;
+    AppendNoteEventToEvents(tpq, e, events, TimeSig::TS_3_4);
+    REQUIRE(OutputNoteDurations(events) == "c t c t q");
+  }
+
+  SECTION("Note duration 2.5 doesn't fit in bar, 3/4")
+  {
+    Events events;
+    Event e;
+    // 2.5 (5/2) tpqs: = m + q   (m is 2, q is 0.5)
+    // Result: c t [|] c t q
+    e.m_start = 2 * tpq;
+    e.m_duration = tpq * 5 / 2;
+    AppendNoteEventToEvents(tpq, e, events, TimeSig::TS_3_4);
+    REQUIRE(OutputNoteDurations(events) == "c t c t q");
+  }
+
+  SECTION("Note doesn't fit: 4/4")
   {
     Events events;
     Event e;
     // 6.5 tpqs: = sb + m + q   (sb is 4, m is 2, q is 0.5)
-    // Result: sb. t q
+    // Result: sb t m t q
     e.m_end = e.m_duration = tpq * 13 / 2;
-    AppendNoteEventToEvents(tpq, e, events);
-    REQUIRE(events.size() == 3);
-    REQUIRE(events[0].IsNote());
-    REQUIRE(events[0].m_timeVal == TimeVal::SEMIBREVE);
-    REQUIRE(events[0].m_dots == 1);
-    REQUIRE(events[0].m_duration == tpq * 6);
-    REQUIRE(events[0].m_end == tpq * 6); 
-    REQUIRE(events[1].IsTie());
-    REQUIRE(events[1].m_start == tpq * 6);
-    REQUIRE(events[2].IsNote());
-    REQUIRE(events[2].m_timeVal == TimeVal::QUAVER);
-    REQUIRE(events[2].m_start == tpq * 6);
-    REQUIRE(events[2].m_duration == tpq / 2); 
-    REQUIRE(events[2].m_end == tpq * 6 + tpq / 2); 
+    AppendNoteEventToEvents(tpq, e, events, TimeSig::TS_4_4);
+    REQUIRE(OutputNoteDurations(events) == "sb t m t q");
   }
 
+  SECTION("Note doesn't fit: 3/4")
   {
     Events events;
     Event e;
-    e.m_end = e.m_duration = tpq * 4;
-    AppendNoteEventToEvents(tpq, e, events);
-    REQUIRE(events.size() == 1);
-    REQUIRE(events[0].IsNote());
-    REQUIRE(events[0].m_timeVal == TimeVal::SEMIBREVE);
+    // 6.5 tpqs: = sb + m + q 
+    // Result: m. t m. t q
+    e.m_end = e.m_duration = tpq * 13 / 2;
+    AppendNoteEventToEvents(tpq, e, events, TimeSig::TS_3_4);
+    REQUIRE(OutputNoteDurations(events) == "m. t m. t q");
   }
 
+  SECTION("Note doesn't fit: 2/4")
   {
     Events events;
     Event e;
-    e.m_end = e.m_duration = tpq * 3;
-    AppendNoteEventToEvents(tpq, e, events);
-    REQUIRE(events.size() == 1);
-    REQUIRE(events[0].IsNote());
-    REQUIRE(events[0].m_timeVal == TimeVal::MINIM);
-    REQUIRE(events[0].m_dots == 1);
+    // 6.5 tpqs: = sb + m + q 
+    // Result: m t m t m t q
+    e.m_end = e.m_duration = tpq * 13 / 2;
+    AppendNoteEventToEvents(tpq, e, events, TimeSig::TS_2_4);
+    REQUIRE(OutputNoteDurations(events) == "m t m t m t q");
   }
 }
 
@@ -368,8 +396,8 @@ TEST_CASE("Notes split on beats", "[Events]")
 
   // We need to go through this function to split the notes.
   // This is what gets called for midi events.
-  AppendNoteEventToEvents(tpq, event1, events);
-  AppendNoteEventToEvents(tpq, event2, events);
+  AppendNoteEventToEvents(tpq, event1, events, TimeSig::TS_4_4);
+  AppendNoteEventToEvents(tpq, event2, events, TimeSig::TS_4_4);
 
 //std::cout << OutputEvents(events);
   // <q> 60 62 t <c> 62 t <q> 62 

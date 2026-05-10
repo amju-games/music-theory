@@ -168,6 +168,26 @@ std::string OutputEventsDebug(int tpq, const std::string& bar1Preamble, const Ev
   return res;
 }
 
+// For tests
+std::string OutputNoteDurations(const Events& events)
+{
+  std::string res;
+
+  for (int i = 0; i < events.size(); i++)
+  {
+    const auto& e = events[i];
+
+    if (e.IsNote())
+      res += e.DurationString();
+    else
+      res += e.ToString();
+
+    if (i < (events.size() - 1))
+      res += " ";
+  }
+  return res;
+}
+
 std::string OutputEvents(const Events& events)
 {
   std::string res;
