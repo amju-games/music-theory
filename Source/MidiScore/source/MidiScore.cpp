@@ -73,7 +73,7 @@ std::string OutputEvent(int& prevDuration, const Event& e)
   return e.ToString();
 }
 
-std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks, bool debug, int numBars)
+std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks, bool debug, int numBars, bool yesDynamics)
 {
   if (events.empty())
   {
@@ -89,7 +89,8 @@ std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks, bool deb
   res += TimeSigString(ts) + " ";
   res += KeySigString(ks) + " ";
 
-  InsertDynamics(events);
+  if (yesDynamics)
+    InsertDynamics(events);
 
   // Reset last dynamics string output (on prev track)
   Dynamics::SetLastDynamicsString();
@@ -390,13 +391,15 @@ std::string ToString(
   //  as a separate stave  
   midifile.splitTracks();
 
+  const bool noDynamics = false;
+
   // If track is specified, just output that one track.
   if (track)
   {
     Events events = GetEventsFromTrack(tpq, midifile[*track], ts);
     if (!events.empty()) 
     {
-      res += "stave " + OutputTrack(tpq, events, ts, ks, debug, numBars) + "\n";
+      res += "stave " + OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics) + "\n";
     }
   }
   else
@@ -409,7 +412,7 @@ std::string ToString(
       Events events = GetEventsFromTrack(tpq, midifile[t], ts);
       if (events.empty()) continue;
       res += "// ** STAVE " + std::to_string(stave++) + " **\n";
-      res += "stave " + OutputTrack(tpq, events, ts, ks, debug, numBars) + "\n";
+      res += "stave " + OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics) + "\n";
     }
   }
 
