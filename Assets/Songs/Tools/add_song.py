@@ -31,7 +31,7 @@ def get_exec_path(base_name):
         # Mac and Linux require the relative path prefix
         return f"./{base_name}"
 
-def generate_score_files(comp_camel, piece_camel, target_dir, score_midi_path, num, den, resolution, bpm):
+def generate_score_files(comp_camel, piece_camel, target_dir, score_midi_path, num, den, resolution, bpm, new_player_idx):
     """
     Step 1: Runs ./midiscore to create .makescore.txt
     Step 2: Runs ./makescore to create .score.txt
@@ -50,7 +50,8 @@ def generate_score_files(comp_camel, piece_camel, target_dir, score_midi_path, n
         str(score_midi_path),
         "--timesig", f"{num}/{den}",
         "--quant", resolution,
-        "--bpm", str(bpm)
+        "--bpm", str(bpm),
+        "--track", str(new_player_idx - 1) # zero-based player track number
     ]
     
     print(f"🎼 Step 1: Running midiscore...")
@@ -323,16 +324,33 @@ def process_audio_pipeline(input_path, output_path, mapping):
     return new_mapping
 
 
-# Create midi file with only the player track, quantised -- 
+# Create midi file with the player track quantised -- 
 #  this is for midiscore to process.
-def process_score_pipeline(input_path, output_path, player_idx, resolution):
+# Also retain the other tracks so we detect the length of the song correctly,
+#  as there could be rest bars after the last player note.
+#  E.g. Gymnopdie 1.
+def process_score_pipeline(input_path, output_path, player_idx, resolution, mapping):
     mid = mido.MidiFile(input_path)
     new_mid = mido.MidiFile(ticks_per_beat=mid.ticks_per_beat, type=mid.type)
+    keep = list(mapping.keys()) # retain all tracks
+    if 0 not in keep: keep.append(0) # including control track
+    
+    new_player_idx = 0
+    track_num = 1
+
     for i, track in enumerate(mid.tracks):
-        if i != player_idx: continue
+        if i not in keep: continue
+
+        # Find new player track index in new midi file
+        if i == player_idx:
+            new_player_idx = track_num
+        track_num += 1
+
         q_track = quantize_track(track, mid.ticks_per_beat, resolution)
         new_mid.tracks.append(mido.MidiTrack([m.copy(channel=0) if hasattr(m, 'channel') else m for m in q_track]))
     new_mid.save(output_path)
+    return new_player_idx
+
 
 def get_time_signature(mid):
     """Scans the MIDI file for a time signature meta-message."""
@@ -521,7 +539,7 @@ def main():
     new_mapping = process_audio_pipeline(input_path, audio_path, mapping)
     
     print(f"🎼 Generating UI Score File: {score_midi_path.name}...")
-    process_score_pipeline(input_path, score_midi_path, player_idx, num_res)
+    new_player_idx = process_score_pipeline(input_path, score_midi_path, player_idx, num_res, mapping)
     
     # 7. Local Metadata Text File
     with open(target_dir / "song_meta.txt", 'w') as f:
@@ -532,7 +550,7 @@ def main():
         
     # 8. Execute External Score Binaries (midiscore & makescore)
     score_csv_string = generate_score_files(
-        comp_camel, piece_camel, target_dir, score_midi_path, num, den, q_flag, bpm
+        comp_camel, piece_camel, target_dir, score_midi_path, num, den, q_flag, bpm, new_player_idx
     )
     
     # 9. Update the Game Database
