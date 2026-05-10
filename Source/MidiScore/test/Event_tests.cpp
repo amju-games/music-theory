@@ -48,6 +48,18 @@ static Event barline(int start, int tpq)
   return e;
 }
 
+TEST_CASE("CalcEndOfBar helper function", "[Events]")
+{
+  int tpq = 480;
+  REQUIRE(CalcEndOfBar(tpq, 0   * tpq, TimeSig::TS_4_4) == 4 * tpq);
+  REQUIRE(CalcEndOfBar(tpq, 7   * tpq, TimeSig::TS_4_4) == 8 * tpq);
+  REQUIRE(CalcEndOfBar(tpq, 8   * tpq, TimeSig::TS_4_4) == 12 * tpq);
+
+  REQUIRE(CalcEndOfBar(tpq, 4   * tpq, TimeSig::TS_3_4) == 6 * tpq);
+
+  REQUIRE(CalcEndOfBar(tpq, 5   * tpq, TimeSig::TS_2_4) == 6 * tpq);
+}
+
 // Test basic stuff, the output string for notes etc.
 TEST_CASE("Output strings", "[Events]")
 {
@@ -300,7 +312,6 @@ TEST_CASE("Quantise duration, split note if required", "[Events]")
     e.m_start = 3 * tpq;
     e.m_duration = tpq * 7 / 2;
     AppendNoteEventToEvents(tpq, e, events, TimeSig::TS_4_4);
-std::cout << OutputNoteDurations(events) << "\n";
     REQUIRE(events.size() == 5);
     REQUIRE(OutputNoteDurations(events) == "c t m t q");
 
@@ -323,16 +334,17 @@ std::cout << OutputNoteDurations(events) << "\n";
     REQUIRE(OutputNoteDurations(events) == "m t q");
   }
 
-  SECTION("Note duration 2.5 doesn't fit in bar, 2/4")
+  SECTION("Note duration 2.5 doesn't fit in bar, 2/4, starting at 1")
   {
     Events events;
     Event e;
     // 2.5 (5/2) tpqs: = m + q   (m is 2, q is 0.5)
-    // Result: c t [|] c t q
+    // Can't be m t q because bar line is half way through the minim.
+    // Result: c t [|] c t q  OR c t c.  if we don't split on beats.
     e.m_start = 1 * tpq;
     e.m_duration = tpq * 5 / 2;
-    AppendNoteEventToEvents(tpq, e, events, TimeSig::TS_3_4);
-    REQUIRE(OutputNoteDurations(events) == "c t c t q");
+    AppendNoteEventToEvents(tpq, e, events, TimeSig::TS_2_4);
+    REQUIRE(OutputNoteDurations(events) == "c t c.");
   }
 
   SECTION("Note duration 2.5 doesn't fit in bar, 3/4")
@@ -340,11 +352,11 @@ std::cout << OutputNoteDurations(events) << "\n";
     Events events;
     Event e;
     // 2.5 (5/2) tpqs: = m + q   (m is 2, q is 0.5)
-    // Result: c t [|] c t q
+    // Result: c t [|] c t q -- oh, actually it's:  c t c.  - dotted crotchet works.
     e.m_start = 2 * tpq;
     e.m_duration = tpq * 5 / 2;
     AppendNoteEventToEvents(tpq, e, events, TimeSig::TS_3_4);
-    REQUIRE(OutputNoteDurations(events) == "c t c t q");
+    REQUIRE(OutputNoteDurations(events) == "c t c.");
   }
 
   SECTION("Note doesn't fit: 4/4")
@@ -367,6 +379,16 @@ std::cout << OutputNoteDurations(events) << "\n";
     e.m_end = e.m_duration = tpq * 13 / 2;
     AppendNoteEventToEvents(tpq, e, events, TimeSig::TS_3_4);
     REQUIRE(OutputNoteDurations(events) == "m. t m. t q");
+  }
+
+  SECTION("Note doesn't fit: 3/4, 5 crotchets")
+  {
+    Events events;
+    Event e;
+    // 5 crotchets in 3/4, should be m. t m
+    e.m_end = e.m_duration = tpq * 5;
+    AppendNoteEventToEvents(tpq, e, events, TimeSig::TS_3_4);
+    REQUIRE(OutputNoteDurations(events) == "m. t m");
   }
 
   SECTION("Note doesn't fit: 2/4")
@@ -396,8 +418,9 @@ TEST_CASE("Notes split on beats", "[Events]")
 
   // We need to go through this function to split the notes.
   // This is what gets called for midi events.
-  AppendNoteEventToEvents(tpq, event1, events, TimeSig::TS_4_4);
-  AppendNoteEventToEvents(tpq, event2, events, TimeSig::TS_4_4);
+  const bool yesSplitOnBeats = true;
+  AppendNoteEventToEvents(tpq, event1, events, TimeSig::TS_4_4, yesSplitOnBeats);
+  AppendNoteEventToEvents(tpq, event2, events, TimeSig::TS_4_4, yesSplitOnBeats);
 
 //std::cout << OutputEvents(events);
   // <q> 60 62 t <c> 62 t <q> 62 

@@ -82,7 +82,9 @@ using Events = std::vector<Event>;
 //  notes. E.g.  4/4 <60> m t c t q <61>  q |
 // Pass in time sig so we split based on bars (although bar line
 //  events are not added yet.)
-void AppendNoteEventToEvents(int tpq, Event e, Events& events, TimeSig ts);
+// Default is to NOT split notes on beats, the algo for doing it is wrong.
+void AppendNoteEventToEvents(
+  int tpq, Event e, Events& events, TimeSig ts, bool yesSplitOnBeat = false);
 
 // Call first, when the only events are notes, for simplicity.
 void InsertDynamics(Events& events);
@@ -103,5 +105,10 @@ void InsertTimeSetEvents(int tpq, Events& events);
 // Reverse some events - we expect them to be notes and rests.
 // This reverses their order and recalculates start and end times.
 void Reverse(Events& events);
+
+// Helper function, exposed for testing.
+// Calc the end time of the bar.
+// pos: time position within the bar
+int CalcEndOfBar(int tpq, int pos, TimeSig ts);
 }
 

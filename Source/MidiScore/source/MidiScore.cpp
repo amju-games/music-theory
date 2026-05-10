@@ -360,8 +360,9 @@ std::string ToString(
   }
 
   KeySig ks;
+  TimeSig tsGuess;
   // Guess Key sig and Time sig from ALL events
-  GuessTimeSigAndKeySig(tpq, allEvents, ts, ks);
+  GuessTimeSigAndKeySig(tpq, allEvents, tsGuess, ks);
 
   // Override guess if value given
   if (keySig)

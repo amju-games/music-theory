@@ -124,7 +124,16 @@ static const std::vector<std::tuple<int, TimeVal, int>>
   };
 }
 
-void AppendNoteEventToEvents(int tpq, Event e, Events& events, TimeSig ts)
+// Calc the end time of the bar that `pos` is in.
+int CalcEndOfBar(int tpq, int pos, TimeSig ts)
+{
+  const float b = BeatsInBar(ts);
+  const int f = pos / b / tpq;
+  return (f + 1) * b * tpq;
+}
+
+void AppendNoteEventToEvents(
+  int tpq, Event e, Events& events, TimeSig ts, bool yesSplitOnBeat)
 {
   // Get TimeVal of note, with "tail", the extra bit.
   // Tail == 0? -> add note, Done
@@ -138,6 +147,10 @@ void AppendNoteEventToEvents(int tpq, Event e, Events& events, TimeSig ts)
 
   while (true)
   {
+    // Get the next bar line after start.
+    // Keep looking for a note length until we find one that fits the bar.
+    int barEnd = CalcEndOfBar(tpq, start, ts);
+
     // Get first element >= m_duration
     auto it = std::lower_bound(
       multiples.begin(), multiples.end(), tailDuration, 
@@ -147,8 +160,8 @@ void AppendNoteEventToEvents(int tpq, Event e, Events& events, TimeSig ts)
     if (it == multiples.end())
     {
       // Split the large note -- so not really an error?
-      std::cout << "// ** ERROR: note duration is too long: " 
-        << e.ToString() << "\n";
+//      std::cout << "// ** ERROR: note duration is too long: " 
+//        << e.ToString() << "\n";
       --it;
     }
 
@@ -157,13 +170,21 @@ void AppendNoteEventToEvents(int tpq, Event e, Events& events, TimeSig ts)
     { 
       --it;
     }
-//std::cout << "Tail duration: " << tailDuration << " lower_bound dur: " << std::get<0>(*it) << "\n";
+//std::cout << "Tail duration: " << tailDuration << " lower_bound dur: " << std::get<0>(*it) << " Bar end: " << barEnd << "\n";
+
+    // Reduce duration until head will fit in bar
+    while (it != multiples.begin() && 
+           (start + std::get<0>(*it)) > barEnd)
+    {
+      --it;
+    }
 
     // Split/tie notes on beats:
     // Split note further, (decrement `it`) until the start and end times of the
     //  head note falls on a multiple of its duration. 
     // SPLIT_ON_BEAT
-    while (it != multiples.begin() && 
+    while (yesSplitOnBeat &&
+           it != multiples.begin() && 
            (start % std::get<0>(*it)) != 0) // start should be multiple of duration
     {
       --it;
