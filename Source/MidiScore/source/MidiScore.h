@@ -29,11 +29,11 @@ std::string InfoString(smf::MidiFile& mf);
 std::string ToString(
   smf::MidiFile& mf,
   std::optional<int> track,
-  std::optional<std::string> timeSig, 
+  std::string timeSig, 
   std::optional<int> keySig,
   std::optional<std::string> quantResolution,
   bool debug,
-  std::optional<float> bpm);
+  float bpm);
 
 // Used internally and for testing
 std::string OutputEvents(const Events& events);

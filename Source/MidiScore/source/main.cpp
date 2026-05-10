@@ -22,7 +22,7 @@ static const auto BPM = "--bpm";
 static const auto USAGE_STRING = 
 R"(midiscore - convert midi file to juliet compact notation.
 Usage:
-  midiscore <midifile> --bpm <f> [options]
+  midiscore <midifile> --bpm <f> --timesig <t> [options]
 
 Options:
   --info        Output info about the midi file.
@@ -113,6 +113,11 @@ int main(int argc, const char** argv)
     std::cout << "Missing or bad time signature after " << TIMESIG << "\n";
     return 1;
   }
+  if (!timeSig)
+  {
+    std::cout << "Time sig is required, I can't guess it.\n";
+    return 1;
+  }
 
   // Optional key sig, overriding guessed key sig.
   const auto keySig = cl.get_value<int>(KEYSIG);
@@ -132,7 +137,7 @@ int main(int argc, const char** argv)
   }
 
   std::cout << MidiScore::ToString(
-    midifile, track, timeSig, keySig, quant, debug, bpm);
+    midifile, track, *timeSig, keySig, quant, debug, *bpm);
 
   return 0;
 }

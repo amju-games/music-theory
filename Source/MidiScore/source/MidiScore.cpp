@@ -16,7 +16,8 @@ namespace MidiScore
 {
 static TimeVal s_quantRes = TimeVal::QQQ;
 
-void AddEventToVec(int tpq, const smf::MidiEvent& mev, Events& events)
+static void AddEventToVec(
+  int tpq, const smf::MidiEvent& mev, Events& events, TimeSig ts)
 {
   if (mev.isNoteOn())
   {
@@ -45,7 +46,7 @@ void AddEventToVec(int tpq, const smf::MidiEvent& mev, Events& events)
 
       // TimeVal is NOT set yet! In this function we decide whether or
       //  not to split the note, and then assign TimeVals based on that.
-      AppendNoteEventToEvents(tpq, e, events);
+      AppendNoteEventToEvents(tpq, e, events, ts);
     }
   }
 }
@@ -191,13 +192,14 @@ void GuessTimeSigAndKeySig(int tpq, const Events& events, TimeSig& ts, KeySig& k
   ks = GuessKeySig(events, preferFlatKey); // or user can specify - TODO
 }
 
-Events GetEventsFromTrack(int tpq, const smf::MidiEventList& track)
+static Events GetEventsFromTrack(
+  int tpq, const smf::MidiEventList& track, TimeSig ts)
 {
   Events events;
   
   for (int event = 0; event < track.size(); event++) 
   {
-    AddEventToVec(tpq, track[event], events);
+    AddEventToVec(tpq, track[event], events, ts);
   }   
   
   if (events.empty()) return events;
@@ -304,11 +306,11 @@ std::string InfoString(smf::MidiFile& midifile)
 std::string ToString(
   smf::MidiFile& midifile, 
   std::optional<int> track,
-  std::optional<std::string> timeSig, 
+  std::string timeSig, 
   std::optional<int> keySig,
   std::optional<std::string> quant, 
   bool debug,
-  std::optional<float> bpm) 
+  float bpm) 
 {
   std::string res;
 
@@ -318,6 +320,9 @@ std::string ToString(
     std::cout << "// Quantising to: " << TimeValString(s_quantRes) << "\n";
   }
 
+  TimeSig ts;
+  ts = GetTimeSigFromString(timeSig);
+
   midifile.doTimeAnalysis();
   midifile.linkNotePairs();
 
@@ -326,24 +331,19 @@ std::string ToString(
 
   // First pass: Join all tracks 
   midifile.joinTracks(); 
-  Events allEvents = GetEventsFromTrack(tpq, midifile[0]);
+  Events allEvents = GetEventsFromTrack(tpq, midifile[0], ts);
+    // Timesig should be required, not an optional, so we know it here.
   if (allEvents.empty())
   {
     std::cout << "No events!\n";
     return "";
   }
 
-  TimeSig ts;
   KeySig ks;
   // Guess Key sig and Time sig from ALL events
   GuessTimeSigAndKeySig(tpq, allEvents, ts, ks);
 
-  // Override guesses if values have been given
-  if (timeSig)
-  {
-    ts = GetTimeSigFromString(*timeSig);
-  }
-
+  // Override guess if value given
   if (keySig)
   {
     ks = IntToKeySig(*keySig);
@@ -360,10 +360,7 @@ std::string ToString(
   // Give a rough page width using the number of bars
   res += "page-w " + std::to_string(6 * numBars) + "\n";
 
-  if (bpm)
-  {
-    res += "bpm " + (std::stringstream() << *bpm).str() + "\n";
-  }
+  res += "bpm " + (std::stringstream() << bpm).str() + "\n";
 
   // TODO do other first-pass things on all the events
   // E.g. create dynamics markers
@@ -375,7 +372,7 @@ std::string ToString(
   // If track is specified, just output that one track.
   if (track)
   {
-    Events events = GetEventsFromTrack(tpq, midifile[*track]);
+    Events events = GetEventsFromTrack(tpq, midifile[*track], ts);
     if (!events.empty()) 
     {
       res += "stave " + OutputTrack(tpq, events, ts, ks, debug) + "\n";
@@ -388,7 +385,7 @@ std::string ToString(
     int numTracks = midifile.getNumTracks();
     for (int t = 0; t < numTracks; t++)
     {
-      Events events = GetEventsFromTrack(tpq, midifile[t]);
+      Events events = GetEventsFromTrack(tpq, midifile[t], ts);
       if (events.empty()) continue;
       res += "// ** STAVE " + std::to_string(stave++) + " **\n";
       res += "stave " + OutputTrack(tpq, events, ts, ks, debug) + "\n";

@@ -80,7 +80,9 @@ using Events = std::vector<Event>;
 // NB Event is passed by value, as we will update dynamics members.
 // Also, we might need to split a note event into multiple tied
 //  notes. E.g.  4/4 <60> m t c t q <61>  q |
-void AppendNoteEventToEvents(int tpq, Event e, Events& events);
+// Pass in time sig so we split based on bars (although bar line
+//  events are not added yet.)
+void AppendNoteEventToEvents(int tpq, Event e, Events& events, TimeSig ts);
 
 // Call first, when the only events are notes, for simplicity.
 void InsertDynamics(Events& events);

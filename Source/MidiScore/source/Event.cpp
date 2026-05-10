@@ -124,7 +124,7 @@ static const std::vector<std::tuple<int, TimeVal, int>>
   };
 }
 
-void AppendNoteEventToEvents(int tpq, Event e, Events& events)
+void AppendNoteEventToEvents(int tpq, Event e, Events& events, TimeSig ts)
 {
   // Get TimeVal of note, with "tail", the extra bit.
   // Tail == 0? -> add note, Done
