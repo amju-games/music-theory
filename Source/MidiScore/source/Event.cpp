@@ -800,7 +800,13 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events, int numBars)
       bar++;
     }
   }
+
   // Add final bar lines
+
+  // numBars == 0 means not known or not specified. In that case,
+  //  just add one final bar line.
+  if (numBars == 0) numBars = bar + 1;
+
   for (int b = bar; b < numBars; b++)
   {
     events.push_back(MakeBarLine(b * ticksForOneBar));
