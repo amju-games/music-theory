@@ -34,6 +34,13 @@ std::string TimeValString(TimeVal t, int dots = 0);
 //  TimeVals.
 TimeVal GetTimeValFromString(const std::string& s);
 
+// * CalcTpqMultipleForTimeVal *
+// Calc tpq multiplied according to the TimeVal. A crotchet time val means
+//  a multiplier of 1; minim multiplies by 2, quaver multiplies by 0.5, etc.
+// All the arithmetic uses ints, and event start times and durations are ints,
+//  so there are no float precision issues to worry about.
+int CalcTpqMultipleForTimeVal(int tpq, TimeVal t);
+
 enum class EventType
 {
   NOTE, REST, BARLINE, TIE, CHORD_START, CHORD_END, TIME_SET

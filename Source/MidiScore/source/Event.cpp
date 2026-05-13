@@ -81,6 +81,18 @@ static Event MakeTimeSet(int tpq, int time)
   return e;
 }
 
+int CalcTpqMultipleForTimeVal(int tpq, TimeVal t)
+{
+  // Calc multiple of tpq according to TimeVal, using int arith only.
+  const std::array<int, 9> MULTS = 
+  {{
+    0,  // for NONE - indication of error?
+    tpq/8, tpq/4, tpq/2, tpq, tpq*2, tpq*4, tpq*8, tpq*16,
+  }};
+  int mult = MULTS[static_cast<int>(t)];
+  return mult;
+}
+
 static const std::vector<std::tuple<int, TimeVal, int>> 
   GetTpqMultiples(int tpq, bool withDots = true)
 {
@@ -439,11 +451,7 @@ void Event::QuantiseDuration(int tpq, TimeVal resolution)
 {
   assert(m_unquantisedDuration > -1);
 
-  const std::array<int, 8> MULTS = 
-  {{
-    tpq/8, tpq/4, tpq/2, tpq, tpq*2, tpq*4, tpq*8, tpq*16,
-  }};
-  int mult = MULTS[static_cast<int>(resolution)];
+  int mult = CalcTpqMultipleForTimeVal(tpq, resolution);
 
   // Here we ensure that duration is at least the quant resolution --
   //  otherwise the note would disappear, and surely we don't want 
@@ -464,14 +472,7 @@ void Event::QuantiseStartTime(int tpq, TimeVal resolution)
   //  event was created.
   assert(m_unquantisedStart > -1);
 
-  const std::array<int, 8> MULTS = 
-  {{
-    tpq/8, tpq/4, tpq/2, tpq, tpq*2, tpq*4, tpq*8, tpq*16,
-  }};
-
-  // Look up the mult value for the given resolution. This is a straight
-  //  lookup - it's not a search for closest.
-  int mult = MULTS[static_cast<int>(resolution)];
+  int mult = CalcTpqMultipleForTimeVal(tpq, resolution);
 
   // Get closest multiple of mult to the unquantised start time.
   m_start = mult * static_cast<int>(std::round(
