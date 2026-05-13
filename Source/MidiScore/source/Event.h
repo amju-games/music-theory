@@ -74,12 +74,6 @@ struct Event
   // Set timeval enum and dots in this Event, given duration and tpq. 
   void SetTimeVal(int tpq);
 
-  // Quantise start time, to the given resolution, which defaults
-  //  to the finest grain.
-  void QuantiseStartTime(int tpq, TimeVal resolution = TimeVal::QQQ);
-
-  void QuantiseDuration(int tpq, TimeVal resolution = TimeVal::QQQ);
-  
   bool IsNote() const { return m_type == EventType::NOTE; }
   bool IsRest() const { return m_type == EventType::REST; }
   bool IsBarLine() const { return m_type == EventType::BARLINE; }

@@ -10,14 +10,14 @@
 #include "Event.h"
 #include "KeySig.h"
 #include "MidiScore.h"
+#include "Quantiser.h"
 #include "TimeSig.h"
 
 namespace MidiScore
 {
-static TimeVal s_quantRes = TimeVal::QQQ;
-
 static void AddEventToVec(
-  int tpq, const smf::MidiEvent& mev, Events& events, TimeSig ts)
+  int tpq, const smf::MidiEvent& mev, Events& events, TimeSig ts,
+  const Quantiser& quantiser)
 {
   if (mev.isNoteOn())
   {
@@ -30,13 +30,13 @@ static void AddEventToVec(
       e.m_unquantisedDuration = mev.getTickDuration();
       e.m_end = e.m_start + e.m_duration;
 
-      e.QuantiseStartTime(tpq, s_quantRes);
+      quantiser.QuantiseStartTime(tpq, e);
 
       // Set duration to the closest multiple of tpqs in the quant resolution.
       // But don't set the timeval to the closest timeval. That would
       //  obliterate crucial timing info -- we might need to split the
       //  note to capture its length.
-      e.QuantiseDuration(tpq, s_quantRes);
+      quantiser.QuantiseDuration(tpq, e);
 
       e.m_pitch = static_cast<int>(mev[1]);
       if (numBytes > 2)
@@ -214,13 +214,13 @@ void GuessTimeSigAndKeySig(int tpq, const Events& events, TimeSig& ts, KeySig& k
 }
 
 static Events GetEventsFromTrack(
-  int tpq, const smf::MidiEventList& track, TimeSig ts)
+  int tpq, const smf::MidiEventList& track, TimeSig ts, const Quantiser& quantiser)
 {
   Events events;
   
   for (int event = 0; event < track.size(); event++) 
   {
-    AddEventToVec(tpq, track[event], events, ts);
+    AddEventToVec(tpq, track[event], events, ts, quantiser);
   }   
   
   if (events.empty()) return events;
@@ -232,6 +232,10 @@ static Events GetEventsFromTrack(
       return e1.m_start < e2.m_start; 
     }   
   ); 
+
+  // Second quantisation pass over events, e.g. to chop durations so 
+  //  there are no overlaps, if required
+  quantiser.SecondPass(events);
 
   return events;
 }
@@ -335,11 +339,25 @@ std::string ToString(
 {
   std::string res;
 
+  TimeVal quantRes = TimeVal::NONE;
   if (quant)
   {
-    s_quantRes = GetTimeValFromString(*quant);
-    std::cout << "// Quantising to: " << TimeValString(s_quantRes) << "\n";
+    quantRes = GetTimeValFromString(*quant);
+    if (quantRes == TimeVal::NONE)
+    {
+      std::cout << "Unrecognised quant resolution! Use one of sb/m/c/q/qq/qqq, or don't specify to not quantise.\n";
+      return {};
+    }
+
+    std::cout << "// Quantising to: " << TimeValString(quantRes) << "\n";
   }
+
+  // TODO Strategy pattern: create different quantiser type depending on 
+  //  command line params, in MakeQuantiser. 
+  // E.g. if no quant res set, create a null quantiser that does nothing.
+  // We will start off with a quantiser impl that chops durations so there
+  //  are no chords, then add a different impl later when required.
+  const Quantiser& quantiser = MakeQuantiser(quantRes); 
 
   TimeSig ts;
   ts = GetTimeSigFromString(timeSig);
@@ -352,7 +370,7 @@ std::string ToString(
 
   // First pass: Join all tracks 
   midifile.joinTracks(); 
-  Events allEvents = GetEventsFromTrack(tpq, midifile[0], ts);
+  Events allEvents = GetEventsFromTrack(tpq, midifile[0], ts, quantiser);
     // Timesig should be required, not an optional, so we know it here.
   if (allEvents.empty())
   {
@@ -396,7 +414,7 @@ std::string ToString(
   // If track is specified, just output that one track.
   if (track)
   {
-    Events events = GetEventsFromTrack(tpq, midifile[*track], ts);
+    Events events = GetEventsFromTrack(tpq, midifile[*track], ts, quantiser);
     if (!events.empty()) 
     {
       res += "stave " + OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics) + "\n";
@@ -409,7 +427,7 @@ std::string ToString(
     int numTracks = midifile.getNumTracks();
     for (int t = 0; t < numTracks; t++)
     {
-      Events events = GetEventsFromTrack(tpq, midifile[t], ts);
+      Events events = GetEventsFromTrack(tpq, midifile[t], ts, quantiser);
       if (events.empty()) continue;
       res += "// ** STAVE " + std::to_string(stave++) + " **\n";
       res += "stave " + OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics) + "\n";

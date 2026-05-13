@@ -203,66 +203,7 @@ TEST_CASE("Set time val", "[Events]")
   }
 }
 
-TEST_CASE("Quantise duration", "[Events]")
-{
-  // Quantise duration, which must be the given resolution at least.
-  // Quantising gets rid of weird durations, like SetTimeVal, but
-  //  with a selectable resolution, rather than getting the closest,
-  //  smallest value.
-  
-  const int pitch = 60; // not important
-  const int tpq = 64;
-
-  {
-  auto e = n(pitch, 73, 9, tpq);
-  REQUIRE(e.m_unquantisedStart == 73);
-  REQUIRE(e.m_start == 73);
-  REQUIRE(e.m_unquantisedDuration == 9);
-  REQUIRE(e.m_duration == 8); // SetTimeVal quantised it to QQQ
-  e.QuantiseDuration(tpq, TimeVal::CROTCHET);
-  // Duration can't be smaller than quatisation resolution, because
-  //  it would be zero.
-  REQUIRE(e.m_duration == 64);
-  }
-}
-
-TEST_CASE("Quantise start time", "[Events]")
-{
-  // Quantise event start times with different quant resolutions
-
-  const int pitch = 60; // not important
-  const int duration = 1; // not important
-  const int tpq = 64;
-
-  {
-  auto e = n(pitch, 73, duration, tpq);
-  REQUIRE(e.m_unquantisedStart == 73);
-  REQUIRE(e.m_start == 73);
-  e.QuantiseStartTime(tpq, TimeVal::CROTCHET);
-  REQUIRE(e.m_start == 64);
-
-  // It's ok to repeatedly call Quantise on the same event, because
-  //  we retain the unquantised start.
-  REQUIRE(e.m_unquantisedStart == 73);
-  // QQQ duration is 8/64 ticks
-  e.QuantiseStartTime(tpq, TimeVal::QQQ);
-  REQUIRE(e.m_start == 72);
-  }
-
-  // Check that a start time just under a multiple gets rounded up:
-  //  71 should be quantised to 72, not 64.
-  {
-  auto e = n(pitch, 71, duration, tpq);
-  e.QuantiseStartTime(tpq, TimeVal::QQQ);
-  REQUIRE(e.m_start == 72);
-
-  // Quantise to semiquaver, now lower time is closer
-  e.QuantiseStartTime(tpq, TimeVal::SEMIQUAVER);
-  REQUIRE(e.m_start == 64);
-  }
-}
-
-TEST_CASE("Quantise duration, split note if required", "[Events]")
+TEST_CASE("Append notes to events, split note if required", "[Events]")
 {
   // As we add notes from the midi file, we split them: some note lengths
   //  cannot be represented by one time value. 
