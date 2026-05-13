@@ -13,6 +13,8 @@ enum class TimeSig;
 
 enum class TimeVal
 {
+  NONE,
+
   QQQ,
   SEMIQUAVER,
   QUAVER,
@@ -23,8 +25,13 @@ enum class TimeVal
   SB4
 };
 
+// * TimeValString *
+// Return string for timeval, in juliet notation format, suitable for
+//  makescore.
 std::string TimeValString(TimeVal t, int dots = 0);
 
+// Return TimeVal from string, for converting command-line params to 
+//  TimeVals.
 TimeVal GetTimeValFromString(const std::string& s);
 
 enum class EventType
@@ -39,7 +46,7 @@ struct Event
   int m_duration = 0; // in tpq ticks
   int m_unquantisedDuration = -1; // in tpq ticks. 
   int m_end = 0; // in tpq ticks; start + duration
-  TimeVal m_timeVal = TimeVal::CROTCHET;
+  TimeVal m_timeVal = TimeVal::NONE;
   int m_dots = 0; // multiply time val by 1.5 per dot
   int m_pitch = 0; // MIDI pitch
   bool m_isWholeBar = false; // for rests

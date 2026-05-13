@@ -282,14 +282,18 @@ TimeVal GetTimeValFromString(const std::string& s)
     { "sb2", TimeVal::SB2 },
     { "sb4", TimeVal::SB4 },
   };
-  return TVS.at(s);
+
+  if (TVS.find(s) != TVS.end())
+    return TVS.at(s);
+
+  return TimeVal::NONE;
 }
 
 std::string TimeValString(TimeVal tv, int dots)
 {
-  static const std::array<std::string, 8> STRS = 
+  static const std::array<std::string, 9> STRS = 
   {{
-    "qqq", "qq", "q", "c", "m", "sb", "sb2", "sb4"
+    "NONE", "qqq", "qq", "q", "c", "m", "sb", "sb2", "sb4"
   }};
 
   std::string res = STRS[static_cast<int>(tv)];
