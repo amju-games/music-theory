@@ -231,8 +231,9 @@ def quantize_track(track, ticks_per_beat, resolution):
     events = []
     active_notes = {} # To track note_on/note_off pairs
     # Chop durations of overlapping notes:
-    most_recent_note = 0; # Most recent note, so we can detect overlaps
-    most_recent_on_time = 0; # Abs time of most recent note_on event
+    most_recent_note = 0 # Most recent note, so we can detect overlaps
+    most_recent_on_time = 0 # Abs time of most recent note_on event
+    chopped_to_zero = 0 # Count notes chopped down to zero length
 
     # 1. Convert to Absolute Time
     for msg in track:
@@ -260,6 +261,11 @@ def quantize_track(track, ticks_per_beat, resolution):
             else:
                 # Note off event, with a more recent note overlapping -- chop!
                 event['abs_time'] = most_recent_on_time
+                if active_notes[msg.note] == most_recent_on_time: 
+                    chopped_to_zero += 1
+
+    if chopped_to_zero > 0:
+        print(f"⚠️  WARNING: Quantisation chopped {chopped_to_zero} notes to zero length!")
 
     events.sort(key=lambda e: e['abs_time'])
 
