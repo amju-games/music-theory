@@ -1,6 +1,9 @@
 # add_song.py
 # Add a new song to the game. 
-
+# Usage example:
+#    python3 add_song.py ~/Downloads/newsong.mid
+#
+#
 # To install mido, the recommendation is to create a virtual env and install it 
 #  there.
 # On mac:
