@@ -3,8 +3,12 @@
 
 #include <algorithm>
 #include <cmath>
+#include <iostream>
+#include <limits>
 #include <map>
 #include <sstream>
+#include <string>
+#include <vector>
 #include <MidiFile.h>
 #include "Clef.h"
 #include "Event.h"
@@ -73,7 +77,8 @@ std::string OutputEvent(int& prevDuration, const Event& e)
   return e.ToString();
 }
 
-std::string OutputTrack(int tpq, Events& events, TimeSig ts, KeySig ks, bool debug, int numBars, bool yesDynamics)
+std::string OutputTrack(
+  int tpq, Events& events, TimeSig ts, KeySig ks, bool debug, int numBars, bool yesDynamics)
 {
   if (events.empty())
   {
@@ -206,11 +211,11 @@ std::string OutputEvents(const Events& events)
 void GuessTimeSigAndKeySig(int tpq, const Events& events, TimeSig& ts, KeySig& ks)
 {
   // This has to be passed in because it MUST NOT be different across tracks
-  ts = GuessTimeSig(tpq, events); // or user can specify - TODO
+  ts = GuessTimeSig(tpq, events); 
 
   // This has to be passed in because it shouldn't be different across tracks
   bool preferFlatKey = true;
-  ks = GuessKeySig(events, preferFlatKey); // or user can specify - TODO
+  ks = GuessKeySig(events, preferFlatKey); 
 }
 
 static Events GetEventsFromTrack(
@@ -240,6 +245,111 @@ static Events GetEventsFromTrack(
   return events;
 }
 
+struct NoteMap {
+    float target;
+    std::string notation;
+};
+
+// Generates the full lookup table including straight, dotted, and triplet notes
+std::vector<NoteMap> generateNoteTable() 
+{
+    // Base straight notes ordered from smallest to largest
+    std::vector<std::pair<float, std::string>> baseNotes = 
+    {
+        {1.0f / 16.0f, "qqqq"}, // 1/64 note
+        {1.0f / 8.0f,  "qqq"},  // 1/32 note
+        {1.0f / 4.0f,  "qq"},   // 1/16 note
+        {1.0f / 2.0f,  "q"},    // 1/8 note
+        {1.0f,         "c"},    // 1/4 note (Crotchet)
+        {2.0f,         "m"},    // 1/2 note (Minim)
+        {4.0f,         "sb"}    // Whole note (Semibreve)
+    };
+
+    std::vector<NoteMap> fullTable;
+
+    for (const auto& base : baseNotes) {
+        // 1. Add Straight Note
+        fullTable.push_back({base.first, base.second});
+        
+        // 2. Add Dotted Note (Base * 1.5)
+        fullTable.push_back({base.first * 1.5f, base.second + "."});
+        
+        // 3. Add Triplet Note (Base * 2/3)
+        fullTable.push_back({base.first * (2.0f / 3.0f), base.second + " triplet"});
+    }
+
+    // Sort table by duration size to ensure predictable nearest-neighbour matching
+    std::sort(fullTable.begin(), fullTable.end(), [](const NoteMap& a, const NoteMap& b) {
+        return a.target < b.target;
+    });
+
+    return fullTable;
+}
+
+// Convert duration (in crotchet units) into a juliet-notation string. 
+std::string quantiseFloatToNote(float duration) 
+{
+    static const std::vector<NoteMap> noteTable = generateNoteTable();
+
+    // Catch extreme out-of-bounds values immediately
+    if (duration < noteTable.front().target) return "qqqq-";
+    if (duration > noteTable.back().target) return "sb+";
+
+    float minDifference = std::numeric_limits<float>::max();
+    std::string bestMatch = "";
+
+    for (const auto& note : noteTable) {
+        float difference = std::abs(duration - note.target);
+        if (difference < minDifference) {
+            minDifference = difference;
+            bestMatch = note.notation;
+        }
+    }
+
+    // Dynamic fallback check for values drifting past the table edges
+    // dynamically handles values halfway between boundary thresholds
+    if (duration < 0.04f) return "qqqq-"; 
+    if (duration > 5.0f) return "sb+";
+
+    return bestMatch;
+}
+
+// Get duration range for track as a string
+std::string NoteDurationRangeInTrack(int tpq, const smf::MidiEventList& track)
+{
+  if (track.size() == 0) return "-";
+
+  std::string res;
+
+  float smallest = std::numeric_limits<float>::max();
+  float biggest = 0;
+  bool found = false;
+
+  for (int event = 0; event < track.size(); event++) 
+  {
+    const auto& mev = track[event];
+    if (mev.isNoteOn()) 
+    {
+      auto numBytes = mev.size();
+      if (numBytes > 1)
+      { 
+        found = true;  
+        float duration = static_cast<float>(mev.getTickDuration());
+        smallest = std::min(smallest, duration);
+        biggest = std::max(biggest, duration); 
+      }
+    }   
+  }
+
+  if (!found) return "-";
+
+  smallest /= static_cast<float>(tpq);
+  biggest /= static_cast<float>(tpq);
+  res = quantiseFloatToNote(smallest) + " - "  + quantiseFloatToNote(biggest);
+
+  return res;
+}
+
 int CountNoteOnEventsInTrack(const smf::MidiEventList& track)
 {
   int count = 0;
@@ -250,10 +360,72 @@ int CountNoteOnEventsInTrack(const smf::MidiEventList& track)
   return count;
 }
 
+static std::string InfoForMidiMsg(const smf::MidiEvent& msg)
+{
+  std::string res;
+  if (msg.isTrackName())
+  {
+     std::string content = msg.getMetaContent();
+     res += "  Track name: " + content + "\n";
+  }
+
+  if (msg.isKeySignature()) 
+  {
+     std::string content = msg.getMetaContent();
+     res += "  Key Signature: " + content + "\n";
+  }
+
+  if (msg.isTimeSignature()) 
+  {
+     std::string content = msg.getMetaContent();
+     res += "  Time Signature: " + content + "\n";
+  }
+
+  if (msg.isTempo()) 
+  {
+     std::string content = std::to_string(msg.getTempoBPM());
+     res += "  Tempo: " + content + " BPM\n";
+  }
+
+  if (msg.isMarkerText()) 
+  {
+     std::string content = msg.getMetaContent();
+     res += "  Marker text: " + content + "\n";
+  }
+
+  if (msg.isLyricText()) 
+  {
+     std::string content = msg.getMetaContent();
+     res += "  Lyric text: " + content + "\n";
+  }
+
+  if (msg.isInstrumentName()) 
+  {
+     std::string content = msg.getMetaContent();
+     res += "  Instrument name: " + content + "\n";
+  }
+
+  if (msg.isCopyright()) 
+  {
+     std::string content = msg.getMetaContent();
+     res += "  Copyright: " + content + "\n";
+  }
+
+  if (msg.isText()) 
+  {
+     std::string content = msg.getMetaContent();
+     res += "  Text: " + content + "\n";
+  }
+
+  return res;
+}
+
 std::string InfoString(smf::MidiFile& midifile)
 {
   midifile.removeEmpties();
   midifile.doTimeAnalysis();
+  midifile.linkNotePairs();
+
   const int tpq = midifile.getTicksPerQuarterNote();
   int tracks = midifile.getTrackCount();
   std::string res = "TPQ: " + std::to_string(tpq) + 
@@ -266,62 +438,13 @@ std::string InfoString(smf::MidiFile& midifile)
     res += "  Number of note on events: " + 
       std::to_string(CountNoteOnEventsInTrack(midifile[track])) + "\n";
 
+    res += "  Note duration range: " + 
+      NoteDurationRangeInTrack(tpq, midifile[track]) + "\n";
+
     for (int i = 0; i < midifile[track].getEventCount(); i++) 
     {
-        const auto& msg = midifile[track][i];
-        if (msg.isTrackName())
-        {
-           std::string content = msg.getMetaContent();
-           res += "  Track name: " + content + "\n";
-        }
- 
-        if (msg.isKeySignature()) 
-        {
-           std::string content = msg.getMetaContent();
-           res += "  Key Signature: " + content + "\n";
-        }
- 
-        if (msg.isTimeSignature()) 
-        {
-           std::string content = msg.getMetaContent();
-           res += "  Time Signature: " + content + "\n";
-        }
- 
-        if (msg.isTempo()) 
-        {
-           std::string content = std::to_string(msg.getTempoBPM());
-           res += "  Tempo: " + content + " BPM\n";
-        }
- 
-        if (msg.isMarkerText()) 
-        {
-           std::string content = msg.getMetaContent();
-           res += "  Marker text: " + content + "\n";
-        }
- 
-        if (msg.isLyricText()) 
-        {
-           std::string content = msg.getMetaContent();
-           res += "  Lyric text: " + content + "\n";
-        }
- 
-        if (msg.isInstrumentName()) 
-        {
-           std::string content = msg.getMetaContent();
-           res += "  Instrument name: " + content + "\n";
-        }
- 
-        if (msg.isCopyright()) 
-        {
-           std::string content = msg.getMetaContent();
-           res += "  Copyright: " + content + "\n";
-        }
- 
-        if (msg.isText()) 
-        {
-           std::string content = msg.getMetaContent();
-           res += "  Text: " + content + "\n";
-        }
+      const auto& msg = midifile[track][i];
+      res += InfoForMidiMsg(msg);
     }
   }
 
