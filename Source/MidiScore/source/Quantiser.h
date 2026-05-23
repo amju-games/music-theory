@@ -44,5 +44,17 @@ public:
   void QuantiseDuration(int tpq, Event& e) const override;
   void SecondPass(Events& events) const override;
 };
+
+// * NullQuantiser *
+// For when we don't need to quantise at all.
+class NullQuantiser : public Quantiser
+{
+public:
+  NullQuantiser() = default;
+
+  void QuantiseStartTime(int tpq, Event& e) const override {}
+  void QuantiseDuration(int tpq, Event& e) const override {}
+  void SecondPass(Events& events) const override {}
+};
 }
 

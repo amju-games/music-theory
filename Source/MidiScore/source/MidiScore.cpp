@@ -210,10 +210,8 @@ std::string OutputEvents(const Events& events)
 
 void GuessTimeSigAndKeySig(int tpq, const Events& events, TimeSig& ts, KeySig& ks)
 {
-  // This has to be passed in because it MUST NOT be different across tracks
   ts = GuessTimeSig(tpq, events); 
 
-  // This has to be passed in because it shouldn't be different across tracks
   bool preferFlatKey = true;
   ks = GuessKeySig(events, preferFlatKey); 
 }
@@ -245,11 +243,21 @@ static Events GetEventsFromTrack(
   return events;
 }
 
+static Events GetPitchEventsFromTrack(const smf::MidiEventList& track)
+{
+  // No quantising, note splitting etc - we just care about the pitches.
+  // This is for clef and key sig guessing.
+  const int TPQ = 256; // Arbitrary, probably should be high enough to avoid probs
+  return GetEventsFromTrack(TPQ, track, TimeSig::TS_NONE, NullQuantiser());
+}
+
+// Helper type for looking up best fit string for a note duration
 struct NoteMap {
     float target;
     std::string notation;
 };
 
+// Helper func for looking up best fit string for a note duration
 // Generates the full lookup table including straight, dotted, and triplet notes
 std::vector<NoteMap> generateNoteTable() 
 {
@@ -314,16 +322,44 @@ std::string quantiseFloatToNote(float duration)
     return bestMatch;
 }
 
-// Get duration range for track as a string
-std::string NoteDurationRangeInTrack(int tpq, const smf::MidiEventList& track)
+std::string pitchStr(int pitch, bool preferFlats)
+{
+  static const std::string SHARPS[12] = 
+    { "c", "c#", "d", "d#", "e", "f", "f#", "g", "g#", "a", "a#", "b" };
+  static const std::string FLATS[12] = 
+    { "c", "db", "d", "eb", "e", "f", "gb", "g", "ab", "a", "bb", "b" };
+
+  std::string res;
+  const int step = pitch % 12;
+  res += (preferFlats ? FLATS[step] : SHARPS[step]);
+  res += std::to_string(pitch / 12 - 1);
+  res += " (" + std::to_string(pitch) + ")";
+  return res;
+}
+
+std::string velStr(int vel)
+{
+  return std::to_string(vel);
+}
+
+// Get duration/pitch range for track as a string
+std::string NoteRangeInTrack(int tpq, const smf::MidiEventList& track)
 {
   if (track.size() == 0) return "-";
 
   std::string res;
 
-  float smallest = std::numeric_limits<float>::max();
-  float biggest = 0;
+  float minDuration = std::numeric_limits<float>::max();
+  float maxDuration = 0;
+
+  int minPitch = 129;
+  int maxPitch = -1;
+
+  int minVel = 129;
+  int maxVel = -1;
+
   bool found = false;
+  bool foundVel = false;
 
   for (int event = 0; event < track.size(); event++) 
   {
@@ -334,18 +370,45 @@ std::string NoteDurationRangeInTrack(int tpq, const smf::MidiEventList& track)
       if (numBytes > 1)
       { 
         found = true;  
+
         float duration = static_cast<float>(mev.getTickDuration());
-        smallest = std::min(smallest, duration);
-        biggest = std::max(biggest, duration); 
+        minDuration = std::min(minDuration, duration);
+        maxDuration = std::max(maxDuration, duration); 
+
+        int pitch = static_cast<int>(mev[1]);
+        minPitch = std::min(minPitch, pitch);
+        maxPitch = std::max(maxPitch, pitch);
+
+        if (numBytes > 2)
+        {
+          foundVel = true;
+          int vel = static_cast<int>(mev[2]);
+          minVel = std::min(minVel, vel);
+          maxVel = std::max(maxVel, vel);
+        }
       }
     }   
   }
 
-  if (!found) return "-";
+  if (!found) return "";
 
-  smallest /= static_cast<float>(tpq);
-  biggest /= static_cast<float>(tpq);
-  res = quantiseFloatToNote(smallest) + " - "  + quantiseFloatToNote(biggest);
+  minDuration /= static_cast<float>(tpq);
+  maxDuration /= static_cast<float>(tpq);
+  res = "  Duration range: " + 
+    quantiseFloatToNote(minDuration) + " - "  + quantiseFloatToNote(maxDuration);
+
+  const bool preferFlats = false; // TODO Get from key sig
+  res += "\n  PitchRange: " + pitchStr(minPitch, preferFlats) + " - " + 
+    pitchStr(maxPitch, preferFlats);
+
+  if (foundVel)
+  {
+    res += "\n  Velocity range: " + velStr(minVel) + " - " + velStr(maxVel);
+  }
+  else
+  {
+    res += "\n  (No note velocities found.)";
+  }
 
   return res;
 }
@@ -431,15 +494,31 @@ std::string InfoString(smf::MidiFile& midifile)
   std::string res = "TPQ: " + std::to_string(tpq) + 
     " number of tracks: " + std::to_string(tracks) + "\n";
 
+  midifile.joinTracks();  // join all tracks just while we guess key sig
+  if (midifile[0].getEventCount() == 0)
+  {
+    return "No events on any track!?\n";
+  }
+
+  bool preferFlatKey = true;
+  auto ks = GuessKeySig(GetPitchEventsFromTrack(midifile[0]), preferFlatKey); 
+  midifile.splitTracks();
+  res += "Guessed key sig: " + KeySigString(ks) + "\n";
+
   for (int track = 0; track < tracks; track++) 
   {
     res += "Track " + std::to_string(track) + ":\n";
-    
-    res += "  Number of note on events: " + 
-      std::to_string(CountNoteOnEventsInTrack(midifile[track])) + "\n";
 
-    res += "  Note duration range: " + 
-      NoteDurationRangeInTrack(tpq, midifile[track]) + "\n";
+    int numEvents = CountNoteOnEventsInTrack(midifile[track]);
+    res += "  Number of note on events: " + std::to_string(numEvents) + "\n";
+    if (numEvents > 0)
+    {
+      Clef clef = GuessClef(GetPitchEventsFromTrack(midifile[track]));
+      res += "  Guessed clef: " + ClefString(clef) + "\n";
+
+      auto str = NoteRangeInTrack(tpq, midifile[track]);
+      res += (str.empty() ? "" : str + "\n");
+    }
 
     for (int i = 0; i < midifile[track].getEventCount(); i++) 
     {
