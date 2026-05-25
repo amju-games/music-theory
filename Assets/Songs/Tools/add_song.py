@@ -97,38 +97,6 @@ ROLE_CHANNELS = {
     'percussion': 9
 }
 
-def get_quantization_setting(player_track, ticks_per_beat):
-    """Prompts the user, auto-detects best values, displaying a warning if runs are too fast for the grid."""
-    
-    # Unpack the new warning flag
-    suggested_code, warning = detect_suggested_quantization(player_track, ticks_per_beat)
-
-    print("\n⏱️  Quantization Settings:")
-    print("   c   = Crotchet     (1/4)")
-    print("   q   = Quaver       (1/8)")
-    print("   qq  = Semiquaver   (1/16)")
-    print("   qqq = Demisemiquaver (1/32)")
-    print(f"   💡 Auto-detected suggestion: {suggested_code.upper()}")
-   
-    # --- Display the warning ---
-    if warning:
-        print("   ⚠️  WARNING: Detected notes faster than 1/32nd resolution!")
-        print("       These fast notes/trills will likely render as chords.")
- 
-    while True:
-        # Inject our dynamic suggestion into the input prompt
-        q_code = input(f"\nEnter resolution code [{suggested_code}]: ").strip().lower()
-        
-        if not q_code: 
-            q_code = suggested_code # Use the dynamic default
-        
-        if q_code in QUANT_MAP:
-            num_res, flag = QUANT_MAP[q_code]
-            print(f"   ✅ Set to {q_code.upper()}")
-            return num_res, flag
-        else:
-            print("   ❌ Invalid code. Please use c, q, qq, or qqq.")
-
 def to_camel_case(text):
     return "".join(word.capitalize() for word in re.split(r'[^a-zA-Z0-9]', text) if word)
 

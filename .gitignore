@@ -36,3 +36,4 @@ build.log
 fixed.csv
 glue.log
 /Script/Msvc/AmjulaMusicTheory/MidiScore/x64
+Assets/Songs/Tools/__pycache__
