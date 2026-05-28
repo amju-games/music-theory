@@ -11,6 +11,9 @@
 #   source .venv/bin/activate   # activate it
 #   pip3 install mido           # install mido library
 #
+# In each new shell, you need to activate the venv again:
+#   source .venv/bin/activate   
+#
 # Or just:
 #   pip3 install mido 
 # to install system-wide.
@@ -422,19 +425,12 @@ def main():
     print(f"🎼 Generating UI Score File: {score_midi_path.name}...")
     new_player_idx = process_score_pipeline(input_path, score_midi_path, player_idx, num_res, mapping)
     
-    # 7. Local Metadata Text File
-    with open(target_dir / "song_meta.txt", 'w') as f:
-        f.write(f"Composer={composer_name}\n")
-        f.write(f"Piece={piece_name}\n")
-        f.write(f"Quantization={num_res}\n")
-        f.write(f"PlayerChannel={ROLE_CHANNELS['player']}\n")
-        
-    # 8. Execute External Score Binaries (midiscore & makescore)
+    # 7. Execute External Score Binaries (midiscore & makescore)
     score_csv_string = generate_score_files(
         comp_camel, piece_camel, target_dir, score_midi_path, num, den, q_flag, bpm, new_player_idx
     )
     
-    # 9. Update the Game Database
+    # 8. Update the Game Database
     if score_csv_string:
         update_songs_database(
             composer_name, piece_name, target_dir, audio_path, num, den, score_csv_string
@@ -442,7 +438,7 @@ def main():
     else:
         print("\n⚠️ Database update skipped due to score generation failure.")
     
-    # 10. Write channels.txt in case fix_channels.py is required
+    # 9. Write channels.txt in case fix_channels.py is required
     write_channels_txt(target_dir, new_mapping)
 
     print(f"\n🎉 Finished! Song successfully added to the game pipeline.")
