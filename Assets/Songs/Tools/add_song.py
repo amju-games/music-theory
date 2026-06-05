@@ -27,6 +27,8 @@ import subprocess
 import sys
 from quantise import *
 
+WORKSPACE = "workspace"
+
 def get_exec_path(base_name):
     """Adjusts executable path based on the Operating System."""
     system = platform.system() # Returns 'Windows', 'Darwin' (Mac), or 'Linux'
@@ -38,13 +40,13 @@ def get_exec_path(base_name):
         # Mac and Linux require the relative path prefix
         return f"./{base_name}"
 
-def generate_score_files(comp_camel, piece_camel, target_dir, score_midi_path, num, den, resolution, bpm, new_player_idx):
+def generate_score_files(comp_camel, piece_camel, target_dir, workspace_dir, score_midi_path, num, den, resolution, bpm, new_player_idx):
     """
     Step 1: Runs ./midiscore to create .makescore.txt
     Step 2: Runs ./makescore to create .score.txt
     """
     base_name = f"{comp_camel.lower()}-{piece_camel.lower()}"
-    makescore_path = target_dir / f"{base_name}.makescore.txt"
+    makescore_path = workspace_dir / f"{base_name}.makescore.txt"
     final_score_path = target_dir / f"{base_name}.score.txt"
 
     # Get the correct executable names for the current OS
@@ -109,11 +111,16 @@ def setup_paths(composer, piece):
     folder_name = f"{comp_camel}-{piece_camel}"
     target_dir = Path("..") / folder_name
     target_dir.mkdir(parents=True, exist_ok=True)
-    
+    # Create workspace dir
+    workspace_dir = target_dir / Path(WORKSPACE)
+    workspace_dir.mkdir(parents=True, exist_ok=True)
+   
+    # Final midi file: correct channels, chosen tracks, extra events stripped. 
     file_name = f"{comp_camel.lower()}-{piece_camel.lower()}.mid"
+    # Midi file with quantised player part for midiscore
     score_name = f"{comp_camel.lower()}-{piece_camel.lower()}-score.mid"
     
-    return target_dir, target_dir / file_name, target_dir / score_name
+    return target_dir, target_dir / file_name, workspace_dir / score_name, workspace_dir
 
 def analyze_tracks(mid):
     print("\n🔍 Analyzing MIDI Tracks...")
@@ -413,21 +420,21 @@ def main():
     piece_camel = to_camel_case(piece_name)
 
     # 5. File System Setup
-    target_dir, audio_path, score_midi_path = setup_paths(composer_name, piece_name)
+    target_dir, audio_path, score_midi_path, workspace_dir = setup_paths(composer_name, piece_name)
     print(f"\n📁 Created directory: {target_dir}")
-    shutil.copy(input_path, target_dir / "original_backup.mid")
+    shutil.copy(input_path, workspace_dir / "original_backup.mid")
 
     # 6. MIDI Pipeline Processing
     print(f"⚙️ Generating Audio File: {audio_path.name}...")
     # returns new track->channel mapping
     new_mapping = process_audio_pipeline(input_path, audio_path, mapping)
     
-    print(f"🎼 Generating UI Score File: {score_midi_path.name}...")
+    print(f"🎼 Generating Score File: {score_midi_path.name}...")
     new_player_idx = process_score_pipeline(input_path, score_midi_path, player_idx, num_res, mapping)
     
     # 7. Execute External Score Binaries (midiscore & makescore)
     score_csv_string = generate_score_files(
-        comp_camel, piece_camel, target_dir, score_midi_path, num, den, q_flag, bpm, new_player_idx
+        comp_camel, piece_camel, target_dir, workspace_dir, score_midi_path, num, den, q_flag, bpm, new_player_idx
     )
     
     # 8. Update the Game Database
@@ -439,7 +446,7 @@ def main():
         print("\n⚠️ Database update skipped due to score generation failure.")
     
     # 9. Write channels.txt in case fix_channels.py is required
-    write_channels_txt(target_dir, new_mapping)
+    write_channels_txt(workspace_dir, new_mapping)
 
     print(f"\n🎉 Finished! Song successfully added to the game pipeline.")
 
