@@ -78,7 +78,8 @@ std::string OutputEvent(int& prevDuration, const Event& e)
 }
 
 std::string OutputTrack(
-  int tpq, Events& events, TimeSig ts, KeySig ks, bool debug, int numBars, bool yesDynamics)
+  int tpq, Events& events, TimeSig ts, KeySig ks, bool debug, int numBars, 
+  bool yesDynamics, bool yesTimeSetEvents)
 {
   if (events.empty())
   {
@@ -110,7 +111,8 @@ std::string OutputTrack(
   InsertRests(tpq, events, ts);
 //std::cout << "With rests: " << OutputEvents(events) << "\n";
 
-  InsertTimeSetEvents(tpq, events);
+  if (yesTimeSetEvents)
+    InsertTimeSetEvents(tpq, events);
 //std::cout << "With time sets: " << OutputEvents(events) << "\n";
 
   if (debug)
@@ -398,7 +400,7 @@ std::string NoteRangeInTrack(int tpq, const smf::MidiEventList& track)
     quantiseFloatToNote(minDuration) + " - "  + quantiseFloatToNote(maxDuration);
 
   const bool preferFlats = false; // TODO Get from key sig
-  res += "\n  PitchRange: " + pitchStr(minPitch, preferFlats) + " - " + 
+  res += "\n  Pitch range: " + pitchStr(minPitch, preferFlats) + " - " + 
     pitchStr(maxPitch, preferFlats);
 
   if (foundVel)
@@ -612,6 +614,7 @@ std::string ToString(
   midifile.splitTracks();
 
   const bool noDynamics = false;
+  const bool noTimeSets = false;
 
   // If track is specified, just output that one track.
   if (track)
@@ -619,7 +622,8 @@ std::string ToString(
     Events events = GetEventsFromTrack(tpq, midifile[*track], ts, quantiser);
     if (!events.empty()) 
     {
-      res += "stave " + OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics) + "\n";
+      res += "stave " + 
+        OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics, noTimeSets) + "\n";
     }
   }
   else
@@ -632,7 +636,8 @@ std::string ToString(
       Events events = GetEventsFromTrack(tpq, midifile[t], ts, quantiser);
       if (events.empty()) continue;
       res += "// ** STAVE " + std::to_string(stave++) + " **\n";
-      res += "stave " + OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics) + "\n";
+      res += "stave " + 
+        OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics, noTimeSets) + "\n";
     }
   }
 
