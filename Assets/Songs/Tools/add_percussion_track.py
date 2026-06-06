@@ -122,6 +122,57 @@ STYLE_DATABASE = {
                 'open_triangle':"....x.......x..."
             }
         }
+    },
+    # -------------------------------------------------------------
+    # STYLE 6: JAZZ WALTZ (3/4 Time - 12 Step Grid)
+    # -------------------------------------------------------------
+    6: {
+        "name": "Jazz Waltz (3/4 Time - 12 Step Grid)",
+        "steps_per_bar": 12,  # 3 beats * 4 subdivisions per beat
+        "patterns": {
+            1: {
+                'ride':         "x..xx..xx..x",  # Swinging quarter + two eighths feel
+                'pedal_hihat':  "....x......."   # Foot chick strictly on beat 2
+            },
+            2: {
+                'ride':         "x..xx.ox..xx",  # Accented push into beat 3
+                'pedal_hihat':  "....x.......",
+                'kick':         "x...........",  # Grounding beat 1
+                'snare':        "........x..."   # Soft conversation on the back end
+            },
+            3: {
+                'ride':         "x.ox.ox.ox.o",  # Intense constant triplet swing drive
+                'pedal_hihat':  "....x...x...",  # Foot chick on 2 and 3
+                'kick':         "x...........",
+                'snare':        "....x..x.x.."   # Syncopated comping between the beats
+            }
+        }
+    },
+    # -------------------------------------------------------------
+    # STYLE 7: SIX-FOUR GROOVE (6/4 Time - 24 Step Grid)
+    # -------------------------------------------------------------
+    7: {
+        "name": "Six-Four Afro-Cuban/Jazz (6/4 Time - 24 Step Grid)",
+        "steps_per_bar": 24,  # 6 beats * 4 subdivisions per beat
+        "patterns": {
+            1: {
+                'shaker':       "x.x.x.x.x.x.x.x.x.x.x.x.", # Smooth 8th note stream
+                'low_conga':    "x...........x...........", # Anchors downbeats 1 and 4
+                'side_stick':   "....x..x........x..x...." # Classic dotted-quarter feel
+            },
+            2: {
+                'shaker':       "x.x.x.x.x.x.x.x.x.x.x.x.",
+                'low_conga':    "x.....x.....x.....x.....", # Dotted half-note sway
+                'side_stick':   "....x..x..x.....x..x..o.", # Expanded syncopation with an accent
+                'open_triangle':"............x..........." 
+            },
+            3: {
+                'shaker':       "xxxxxxxxxxxxxxxxxxxxxxxx", # Driving 16ths
+                'low_conga':    "x..x..x..x..x..x..x..x..", # Intense rolling cross-rhythm
+                'side_stick':   "o...x..o...x..o...x..o.x", # Full-bar Afro-Cuban bembe adaptation
+                'open_triangle':"......x...........x....."
+            }
+        }
     }
 }
 
