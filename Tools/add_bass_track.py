@@ -6,7 +6,7 @@
 import sys  
 import mido
 from pathlib import Path
-
+from music_utils import note_to_midi
 
 def get_add_bass_track():
     yes_bass = input("🍔 Would you like me to add an auto-generated bass track? (y/n): ").strip().lower()
@@ -29,10 +29,20 @@ def copy_notes_to_bass_track(mid, bass_track):
 
         # Get top bass note from user
         default_top_bass_note = 48
-        top_bass_str = input(f"🎵 Enter highest note we will extract to the bass line [{default_top_bass_note}]:")
-        top_bass_note = default_top_bass_note
-        if top_bass_str: 
-            top_bass_note = int(top_bass_str)
+        while True:
+            top_bass_str = input(f"🎵 Enter highest note we will extract to the bass line [C3 / 48]: ").strip()
+            
+            if not top_bass_str: 
+                top_bass_note = default_top_bass_note
+                print(f"   Using default: {top_bass_note}")
+                break
+                
+            try:
+                top_bass_note = note_to_midi(top_bass_str)
+                print(f"   Mapped '{top_bass_str}' to MIDI Note: {top_bass_note}")
+                break
+            except ValueError as e:
+                print(f"   ❌ {e} Please try again.")
 
         # Copy notes in the chosen track which are classed as bass notes
         num_events = 0 # count note on and note off events
