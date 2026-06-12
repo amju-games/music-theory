@@ -27,6 +27,8 @@ import subprocess
 import sys
 from quantise import *
 
+# Subdir to put workspace files: don't commit them, and don't add them 
+#  to the game!
 WORKSPACE = "workspace"
 
 def get_exec_path(base_name):
@@ -109,7 +111,7 @@ def setup_paths(composer, piece):
     comp_camel = to_camel_case(composer)
     piece_camel = to_camel_case(piece)
     folder_name = f"{comp_camel}-{piece_camel}"
-    target_dir = Path("..") / folder_name
+    target_dir = Path("../Assets/Songs") / folder_name
     target_dir.mkdir(parents=True, exist_ok=True)
     # Create workspace dir
     workspace_dir = target_dir / Path(WORKSPACE)
@@ -256,7 +258,7 @@ def update_songs_database(composer, piece, target_dir, audio_path, num, den, sco
     """Appends the new columns to songs.csv."""
     level = "1"
     new_round = 1
-    db_path = Path("..") / "songs.csv" 
+    db_path = Path("../Assets/Songs") / "songs.csv" 
     
     # 1. Read the last row to get the previous Level and Round
     if db_path.exists():
