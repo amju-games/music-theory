@@ -113,7 +113,7 @@ def deduplicate_bass_track(bass_track):
 
 
 def get_add_bass_track():
-    yes_bass = input("🍔 Would you like me to add an auto-generated bass track? (y/n): ").strip().lower()
+    yes_bass = input("🎸 Would you like me to add an auto-generated bass track? (y/n): ").strip().lower()
     return (yes_bass == 'y')
 
 
@@ -185,6 +185,16 @@ def show_info(mid):
             print(f"[{i}] {name: <20} | No notes.")
 
 
+def add_empty_bass_track(mid):
+    # Add new, empty bass track
+    new_track = mido.MidiTrack()
+    mid.tracks.append(new_track)
+    # Insert track name meta message at time = 0
+    new_track_name = "Bass (auto generated)"
+    new_track.append(mido.MetaMessage('track_name', name=new_track_name, time=0))
+    return new_track
+
+
 def create_new_midi_with_bass_track(input_filename):
     # Open input file
     try:
@@ -204,12 +214,7 @@ def create_new_midi_with_bass_track(input_filename):
         for msg in track:
             new_track.append(msg.copy())
 
-    # Add new, empty bass track
-    new_track = mido.MidiTrack()
-    new_mid.tracks.append(new_track)
-    # Insert track name meta message at time = 0
-    new_track_name = "Bass (auto generated)"
-    new_track.append(mido.MetaMessage('track_name', name=new_track_name, time=0))
+    new_track = add_empty_bass_track(new_mid)
     return new_mid, new_track
 
 
@@ -232,6 +237,23 @@ def add_bass_track_if_required():
         new_mid.save(output_filename)
         # Report new filename
         print(f"🎉 Finished! New midi file with bass track: {output_filename}")
+
+
+def add_bass_track_if_required_in_mem(mid):
+    # Add a bass track to a midi object in mem: don't save a new version
+    #  of the midi file.
+    # Call this from add_song to integrate.
+    if (get_add_bass_track()):
+        # Show info for midi file
+        show_info(mid)
+        # Add bass track - initially empty
+        new_track = add_empty_bass_track(mid) 
+        # Add notes from other tracks, using a per-track highest note
+        copy_notes_to_bass_track(mid, new_track)
+        print("🎉 Finished adding a bass track!")
+    else:
+        print("Okey dokey!")
+    return mid
 
 
 if __name__ == "__main__":

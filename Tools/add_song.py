@@ -26,6 +26,7 @@ import shutil
 import subprocess
 import sys
 from quantise import *
+from add_bass_track import add_bass_track_if_required_in_mem
 
 # Subdir to put workspace files: don't commit them, and don't add them 
 #  to the game!
@@ -213,6 +214,8 @@ def process_audio_pipeline(input_path, output_path, mapping):
             if msg.type == 'control_change' and msg.control in (7, 10, 11): continue
 
             new_track.append(msg.copy(channel=chan) if hasattr(msg, 'channel') and chan is not None else msg.copy())
+
+    add_bass_track_if_required_in_mem(new_mid)
     new_mid.save(output_path)
     return new_mapping
 
