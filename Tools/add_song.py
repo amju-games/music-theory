@@ -27,6 +27,8 @@ import subprocess
 import sys
 from quantise import *
 from add_bass_track import add_bass_track_if_required_in_mem
+from add_percussion_track import add_percussion_track_if_required_in_mem
+from extract_top_line import extract_top_line_in_mem
 
 # Subdir to put workspace files: don't commit them, and don't add them 
 #  to the game!
@@ -216,6 +218,7 @@ def process_audio_pipeline(input_path, output_path, mapping):
             new_track.append(msg.copy(channel=chan) if hasattr(msg, 'channel') and chan is not None else msg.copy())
 
     add_bass_track_if_required_in_mem(new_mid)
+    add_percussion_track_if_required_in_mem(new_mid)
     new_mid.save(output_path)
     return new_mapping
 
@@ -225,8 +228,7 @@ def process_audio_pipeline(input_path, output_path, mapping):
 # Also retain the other tracks so we detect the length of the song correctly,
 #  as there could be rest bars after the last player note.
 #  E.g. Gymnopdie 1.
-def process_score_pipeline(input_path, output_path, player_idx, resolution, mapping):
-    mid = mido.MidiFile(input_path)
+def process_score_pipeline(mid, output_path, player_idx, resolution, mapping):
     new_mid = mido.MidiFile(ticks_per_beat=mid.ticks_per_beat, type=mid.type)
     keep = list(mapping.keys()) # retain all tracks
     if 0 not in keep: keep.append(0) # including control track
@@ -407,6 +409,10 @@ def main():
     mid = mido.MidiFile(input_path)
     
     # 2. Track Analysis and Routing
+    analyze_tracks(mid)
+    # Extract top line from a polyphonic track if required
+    extract_top_line_in_mem(mid)
+    # Map tracks to channels
     track_data = analyze_tracks(mid)
     mapping, player_idx = get_user_mapping(track_data)
     # Grab the specific player track and pass it to the setting prompt
@@ -435,7 +441,7 @@ def main():
     new_mapping = process_audio_pipeline(input_path, audio_path, mapping)
     
     print(f"🎼 Generating Score File: {score_midi_path.name}...")
-    new_player_idx = process_score_pipeline(input_path, score_midi_path, player_idx, num_res, mapping)
+    new_player_idx = process_score_pipeline(mid, score_midi_path, player_idx, num_res, mapping)
     
     # 7. Execute External Score Binaries (midiscore & makescore)
     score_csv_string = generate_score_files(
@@ -449,6 +455,7 @@ def main():
         )
     else:
         print("\n⚠️ Database update skipped due to score generation failure.")
+        return
     
     # 9. Write channels.txt in case fix_channels.py is required
     write_channels_txt(workspace_dir, new_mapping)
