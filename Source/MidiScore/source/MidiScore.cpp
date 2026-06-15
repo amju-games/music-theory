@@ -6,6 +6,7 @@
 #include <iostream>
 #include <limits>
 #include <map>
+#include <set>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -367,12 +368,19 @@ std::string NoteRangeInTrack(int tpq, const smf::MidiEventList& track)
   bool found = false;
   bool foundVel = false;
 
+  std::set<int> channels;
+
   for (int event = 0; event < track.size(); event++) 
   {
     const auto& mev = track[event];
     if (mev.isNoteOn()) 
     {
       auto numBytes = mev.size();
+
+      // Get the channel (0-15)
+      const int channel = mev.getChannel(); 
+      channels.insert(channel); // add to set of channels      
+
       if (numBytes > 1)
       { 
         found = true;  
@@ -414,6 +422,20 @@ std::string NoteRangeInTrack(int tpq, const smf::MidiEventList& track)
   else
   {
     res += "\n  (No note velocities found.)";
+  }
+
+  if (channels.empty())
+  {
+    res += "\n  Couldn't find any channel info.";
+  }
+  else
+  {
+    res += std::string("\n  Channel") + ((channels.size() == 1) ? "" : "s") +
+      " (0-based) used in this track: ";
+    for (int ch : channels) 
+    {
+      res += std::to_string(ch) + " ";
+    }
   }
 
   return res;
@@ -496,7 +518,7 @@ std::string InfoString(smf::MidiFile& midifile)
   midifile.linkNotePairs();
 
   const int tpq = midifile.getTicksPerQuarterNote();
-  int tracks = midifile.getTrackCount();
+  const int tracks = midifile.getTrackCount();
   std::string res = "TPQ: " + std::to_string(tpq) + 
     " number of tracks: " + std::to_string(tracks) + "\n";
 
