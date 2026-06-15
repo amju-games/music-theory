@@ -252,16 +252,27 @@ def ask_user_for_style():
         except ValueError:
             print("❌ Invalid input. Please type a number.")
 
+def ask_if_percussion_is_required():
+    yes_perc = input("🍔 Would you like me to add auto-generated percussion? (y/n): ").strip().lower()
+    return yes_perc == 'y'
+
+def add_percussion_track_if_required_in_mem(mid):
+    # Add a drum track to existing midi object in mem
+    if not ask_if_percussion_is_required():
+        return mid
+    add_percussion_track_to_mid(mid)
+
 def add_percussion_track():
+    # Create a new midi file with drum track added
     print("\n🥁 Data-Driven Drum Engine v2.0")
     print("-" * 40)
     
     if len(sys.argv) != 2:
         print("Usage: python3 add_percussion_track.py input.mid")
         sys.exit(1)
-        
-    yes_perc = input("🍔 Add auto-generated percussion? (y/n): ").strip().lower()
-    if yes_perc != 'y': return
+
+    if not ask_if_percussion_is_required():
+        return
 
     input_filename = sys.argv[1]
     try:
@@ -269,6 +280,22 @@ def add_percussion_track():
     except Exception as e:
         sys.exit(f"❌ Error loading MIDI: {e}")
 
+    # Duplicate MIDI file
+    new_mid = mido.MidiFile(ticks_per_beat=mid.ticks_per_beat, type=mid.type)
+    for track in mid.tracks:
+        new_track = mido.MidiTrack()
+        new_mid.tracks.append(new_track)
+        for msg in track: new_track.append(msg.copy())
+
+    add_percussion_track_to_mid(new_mid)
+
+    # Save file
+    output_filename = f"{Path(input_filename).stem}_with_perc.mid"
+    new_mid.save(output_filename)
+    print(f"   💾 Saved new midi file to: {output_filename}\n")
+
+
+def add_percussion_track_to_mid(mid):
     # Gather settings
     ts_input = input("⏱️  Time signature (e.g., 4/4): ").strip()
     try:
@@ -285,13 +312,6 @@ def add_percussion_track():
     except ValueError:
         intensity = 2
 
-    # Duplicate current MIDI context structure
-    new_mid = mido.MidiFile(ticks_per_beat=mid.ticks_per_beat, type=mid.type)
-    for track in mid.tracks:
-        new_track = mido.MidiTrack()
-        new_mid.tracks.append(new_track)
-        for msg in track: new_track.append(msg.copy())
-
     # Sequencer calculations
     total_ticks = get_total_ticks(mid)
     abs_events = generate_drum_pattern(num, den, style_choice, intensity, mid.ticks_per_beat, total_ticks)
@@ -307,14 +327,8 @@ def add_percussion_track():
         perc_track.append(mido.Message(msg_type, note=note, velocity=vel, time=delta, channel=PERC_CHANNEL))
         last_time = abs_time
 
-    new_mid.tracks.append(perc_track)
-
-    # File output handling
-    output_filename = f"{Path(input_filename).stem}_with_perc.mid"
-    new_mid.save(output_filename)
-    
+    mid.tracks.append(perc_track)
     print(f"\n   ✅ Success! Processed {len(abs_events)//2} humanized drum steps.") 
-    print(f"   💾 Saved new track output layer to: {output_filename}\n")
 
 if __name__ == "__main__":
     add_percussion_track()
