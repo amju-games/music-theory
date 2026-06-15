@@ -618,10 +618,8 @@ std::string ToString(
     static_cast<float>(tpq) / 
     static_cast<float>(BeatsInBar(ts))));
 
-  // Add one more to bar count if anacrusis is specified
   if (anacrusis) 
   {
-    numBars++;
     std::cout << "// Anacrusis: " << *anacrusis << "\n";
   }
 
