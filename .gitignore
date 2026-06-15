@@ -38,3 +38,10 @@ glue.log
 /Script/Msvc/AmjulaMusicTheory/MidiScore/x64
 Assets/Songs/Tools/__pycache__
 Tools/__pycache__
+Source/MakeScore/makescore
+Source/MidiScore/midiscore
+Tools/libbass.dylib
+Tools/libbassmidi.dylib
+Tools/listen
+Tools/makescore
+Tools/midiscore
