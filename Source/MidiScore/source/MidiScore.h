@@ -33,7 +33,8 @@ std::string ToString(
   std::optional<int> keySig,
   std::optional<std::string> quantResolution,
   bool debug,
-  float bpm);
+  float bpm,
+  std::optional<std::string> anacrusis);
 
 // Used internally and for testing
 std::string OutputEvents(const Events& events);

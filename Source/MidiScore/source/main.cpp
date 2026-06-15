@@ -18,6 +18,7 @@ static const auto KEYSIG = "--keysig";
 static const auto QUANT = "--quant";
 static const auto DEBUG = "--debug";
 static const auto BPM = "--bpm";
+static const auto ANA = "--ana";
 
 static const auto USAGE_STRING = 
 R"(midiscore - convert midi file to juliet compact notation.
@@ -39,6 +40,8 @@ Options:
   --debug       Verbose output for debugging
   --bpm <f>     Set Beats Per Minute tempo: passed to MakeScore.
                   f is a number, can be fractional.
+  --ana <a>     Anacrusis: set length of incomplete first bar.
+                  a is one of: q, c, m, etc.
 )";
 
 void OutputCommandLine(const commandline& cl)
@@ -136,8 +139,11 @@ int main(int argc, const char** argv)
     return 1;
   }
 
+  // Optional anacrusis bar length
+  const auto ana = cl.get_value<std::string>(ANA);
+
   std::cout << MidiScore::ToString(
-    midifile, track, *timeSig, keySig, quant, debug, *bpm);
+    midifile, track, *timeSig, keySig, quant, debug, *bpm, ana);
 
   return 0;
 }

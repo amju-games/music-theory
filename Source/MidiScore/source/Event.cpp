@@ -136,16 +136,25 @@ static const std::vector<std::tuple<int, TimeVal, int>>
   };
 }
 
-// Calc the end time of the bar that `pos` is in.
-int CalcEndOfBar(int tpq, int pos, TimeSig ts)
+// Calc the end time of the bar that `pos` is in, or, equivalently,
+//  the start time of the next bar.
+int CalcEndOfBar(int tpq, int pos, TimeSig ts, int anacrusisTicks)
 {
+  if (pos < anacrusisTicks)
+  {
+    return anacrusisTicks;
+  }
+
   const float b = BeatsInBar(ts);
-  const int f = pos / b / tpq;
-  return (f + 1) * b * tpq;
+  // Get the current bar we are in, ignoring any anacrusis
+  const int bar = (pos - anacrusisTicks) / b / tpq;
+  // Return the time of the next bar, readding any anacrusis
+  return (bar + 1) * b * tpq + anacrusisTicks;
 }
 
 void AppendNoteEventToEvents(
-  int tpq, Event e, Events& events, TimeSig ts, bool yesSplitOnBeat)
+  int tpq, Event e, Events& events, TimeSig ts, bool yesSplitOnBeat, 
+  int anacrusisTicks)
 {
   // Get TimeVal of note, with "tail", the extra bit.
   // Tail == 0? -> add note, Done
@@ -159,9 +168,9 @@ void AppendNoteEventToEvents(
 
   while (true)
   {
-    // Get the next bar line after start.
+    // Get the time of the next bar line after start.
     // Keep looking for a note length until we find one that fits the bar.
-    int barEnd = CalcEndOfBar(tpq, start, ts);
+    int barEnd = CalcEndOfBar(tpq, start, ts, anacrusisTicks);
 
     // Get first element >= m_duration
     auto it = std::lower_bound(
@@ -730,10 +739,47 @@ int SplitNote(int tpq, Events& events, Events::iterator& it, int barLineTicks,
   return bar;
 }
 
-void InsertBarLines(int tpq, TimeSig ts, Events& events, int numBars)
+// Used in InsertBarLines. If anacrusis is non-zero, the first value (i.e. for
+//  when bar == 1) should be less that a whole bar.
+static int CalcBarLineTicks(int bar, int ticksForOneBar, int anacrusisTicks)
+{
+  assert(bar >= 1);
+
+  int barLineTicks = 0;
+
+  if (anacrusisTicks == 0)
+  {
+    barLineTicks = bar * ticksForOneBar;
+  }
+  else
+  {
+    barLineTicks = (bar - 1) * ticksForOneBar + anacrusisTicks;
+  }
+
+  assert(barLineTicks > 0);
+  return barLineTicks;
+}
+
+// Called at the end of InsertBarLines to add all final bar lines to song.
+static void AddFinalBarLines(int numBars, int bar, Events& events, 
+  int ticksForOneBar, int anacrusisTicks)
+{
+  // numBars == 0 means not known or not specified. In that case,
+  //  just add one final bar line. This is probably just in tests. 
+  if (numBars == 0) numBars = bar;
+
+  for (int b = bar; b <= numBars; b++)
+  {
+    events.push_back(MakeBarLine(
+      CalcBarLineTicks(b, ticksForOneBar, anacrusisTicks)));
+  }
+}
+
+void InsertBarLines(int tpq, TimeSig ts, Events& events, int numBars,
+  int anacrusisTicks)
 {
   int ticksForOneBar = static_cast<int>(static_cast<float>(tpq) * BeatsInBar(ts));
-  int bar = 1; // don't add barline at start  
+  int bar = 1;
   bool chord = false; // true if we are parsing between ( ) chord markers
   for (auto it = events.begin(); it != events.end(); ++it)
   {
@@ -742,10 +788,13 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events, int numBars)
     if (!it->IsNote()) continue;
 
     // Number of ticks at which we should insert bar line
-    int barLineTicks = bar * ticksForOneBar;
+    int barLineTicks = CalcBarLineTicks(bar, ticksForOneBar, anacrusisTicks);
 
     if (it->m_start < barLineTicks && it->m_end > barLineTicks)
     {
+      // We might only get here is tests now that we split on bar lines
+      //  when we first add midi events.
+
       // Note/chord duration crosses bar line, so split and tie it
       if (chord)
         bar += SplitChord(tpq, events, it, barLineTicks, ticksForOneBar);
@@ -770,15 +819,7 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events, int numBars)
   }
 
   // Add final bar lines
-
-  // numBars == 0 means not known or not specified. In that case,
-  //  just add one final bar line.
-  if (numBars == 0) numBars = bar + 1;
-
-  for (int b = bar; b < numBars; b++)
-  {
-    events.push_back(MakeBarLine(b * ticksForOneBar));
-  }
+  AddFinalBarLines(numBars, bar, events, ticksForOneBar, anacrusisTicks);
 }
 
 void InsertChordMarkers(Events& events)

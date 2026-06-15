@@ -50,7 +50,7 @@ static Event barline(int start, int tpq)
 
 TEST_CASE("CalcEndOfBar helper function", "[Events]")
 {
-  int tpq = 480;
+  const int tpq = 480;
   REQUIRE(CalcEndOfBar(tpq, 0   * tpq, TimeSig::TS_4_4) == 4 * tpq);
   REQUIRE(CalcEndOfBar(tpq, 7   * tpq, TimeSig::TS_4_4) == 8 * tpq);
   REQUIRE(CalcEndOfBar(tpq, 8   * tpq, TimeSig::TS_4_4) == 12 * tpq);
@@ -58,6 +58,21 @@ TEST_CASE("CalcEndOfBar helper function", "[Events]")
   REQUIRE(CalcEndOfBar(tpq, 4   * tpq, TimeSig::TS_3_4) == 6 * tpq);
 
   REQUIRE(CalcEndOfBar(tpq, 5   * tpq, TimeSig::TS_2_4) == 6 * tpq);
+}
+
+TEST_CASE("CalcEndOfBar with anacrusis", "[Events]")
+{
+  const int tpq = 480;
+  // Anacrusis length 1 crotchet, pos is zero: result is simply anac. length
+  REQUIRE(CalcEndOfBar(tpq, 0   * tpq, TimeSig::TS_4_4, 1 * tpq) == 1 * tpq);
+
+  // Anac. 1 minim, pos 1 crotchet: result is anac. length again
+  REQUIRE(CalcEndOfBar(tpq, 1   * tpq, TimeSig::TS_4_4, 2 * tpq) == 2 * tpq);
+
+  // Anac. 1 minim, pos 7 crotchets, in 4/4
+  // 0  1  2  3  4  5  6  7  8  9  10
+  //       |           |  *        |
+  REQUIRE(CalcEndOfBar(tpq, 7   * tpq, TimeSig::TS_4_4, 2 * tpq) == 10 * tpq);
 }
 
 // Test basic stuff, the output string for notes etc.
@@ -414,7 +429,7 @@ TEST_CASE("Insert rests with bar lines", "[Events]")
   };
 
   // Add bar lines as this is the 'real world' situation
-  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 0);
   InsertRests(tpq, events, TimeSig::TS_4_4);
 
   //std::cout << OutputEvents(events);
@@ -580,6 +595,88 @@ TEST_CASE("Insert rest, duration means it must be split", "[Events]")
   REQUIRE(events[6].IsNote()); // unchanged 
 }
 
+TEST_CASE("Add bar lines 3/4, with anacrusis c", "[Events]")
+{
+  const int tpq = 256; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0 * tpq, 1 * tpq, tpq), 
+    n(61, 1 * tpq, 1 * tpq, tpq),  
+    n(62, 2 * tpq, 1 * tpq, tpq),  
+    n(63, 3 * tpq, 1 * tpq, tpq),  
+    n(64, 4 * tpq, 1 * tpq, tpq),  
+  };
+
+  InsertBarLines(tpq, TimeSig::TS_3_4, events, 0, 1 * tpq); // anac. length  c
+  InsertRests(tpq, events, TimeSig::TS_3_4);
+
+  // TODO: Why do we have to restate <c> ??
+  // Also, TODO trim final space.
+  // NB rest is split because of 3/4 rest-splitting rules?
+  REQUIRE(OutputEvents(events) == "<c> 60 | <c> 61 62 63 | <c> 64 r r | ");
+}
+
+TEST_CASE("Add bar lines 3/4, with anacrusis m", "[Events]")
+{
+  const int tpq = 256; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0 * tpq, 1 * tpq, tpq), 
+    n(61, 1 * tpq, 1 * tpq, tpq),  
+    n(62, 2 * tpq, 1 * tpq, tpq),  
+    n(63, 3 * tpq, 1 * tpq, tpq),  
+    n(64, 4 * tpq, 1 * tpq, tpq),  
+  };
+
+  InsertBarLines(tpq, TimeSig::TS_3_4, events, 0, 2 * tpq); // anac. length m
+  InsertRests(tpq, events, TimeSig::TS_3_4);
+
+  // TODO: Why do we have to restate <c> ??
+  // Also, TODO trim final space.
+  REQUIRE(OutputEvents(events) == "<c> 60 61 | <c> 62 63 64 | ");
+}
+
+TEST_CASE("Add bar lines 4/4, with anacrusis c", "[Events]")
+{
+  const int tpq = 256; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0 * tpq, 1 * tpq, tpq), 
+    n(61, 1 * tpq, 1 * tpq, tpq),  
+    n(62, 2 * tpq, 1 * tpq, tpq),  
+    n(63, 3 * tpq, 1 * tpq, tpq),  
+    n(64, 4 * tpq, 1 * tpq, tpq),  
+  };
+
+  InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 1 * tpq); // anac. length  c
+  InsertRests(tpq, events, TimeSig::TS_4_4);
+
+  // TODO: Why do we have to restate <c> ??
+  // Also, TODO trim final space.
+  REQUIRE(OutputEvents(events) == "<c> 60 | <c> 61 62 63 64 | ");
+}
+
+TEST_CASE("Add bar lines 4/4, with anacrusis m", "[Events]")
+{
+  const int tpq = 256; // ticks per quarter note
+  Events events
+  { 
+    // pitch, start, duration, tpq
+    n(60, 0 * tpq, 1 * tpq, tpq), 
+    n(61, 1 * tpq, 1 * tpq, tpq),  
+    n(62, 2 * tpq, 1 * tpq, tpq),  
+    n(63, 3 * tpq, 1 * tpq, tpq),  
+    n(64, 4 * tpq, 1 * tpq, tpq),  
+  };
+
+  InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 2 * tpq); // anac. length m 
+  InsertRests(tpq, events, TimeSig::TS_4_4);
+  REQUIRE(OutputEvents(events) == "<c> 60 61 | <c> 62 63 64 r | ");
+}
+
 TEST_CASE("Add bar lines 4/4", "[Events]")
 {
   const int tpq = 4; // ticks per quarter note
@@ -595,7 +692,7 @@ TEST_CASE("Add bar lines 4/4", "[Events]")
     n(65, 48, 4, tpq),   // c
   };
 
-  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 0);
 
   // Not inserting rests, and notes fall nicely within bar lines, so
   //  output is simply the notes interleaved with bar lines.
@@ -624,7 +721,7 @@ TEST_CASE("Add bar lines 3/4", "[Events]")
     n(65, 48, 4, tpq),   // c   (final rest length is whatever fills up the last bar). 
   };
 
-  InsertBarLines(tpq, TimeSig::TS_3_4, events);
+  InsertBarLines(tpq, TimeSig::TS_3_4, events, 0, 0);
   // Same note events as in the 4/4 test, but now 
   //  the notes don't fall nicely within bars - add rests to show
   //  the timing, or it's hard to make sense of the result.
@@ -668,7 +765,7 @@ TEST_CASE("Adding bar lines splits notes", "[Events]")
     n(60, 8,  16, tpq),  // sb starting on beat 3 
   };
 
-  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 0);
   //InsertRests(tpq, events); 
   //std::cout << OutputEvents(events);
 
@@ -691,7 +788,7 @@ TEST_CASE("Split note across multiple bars", "[Events]")
     n(60, 8,  32, tpq),  // double-sb starting on beat 3 
   };
 
-  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 0);
   //InsertRests(tpq, events); 
   //std::cout << OutputEvents(events);
 
@@ -813,7 +910,7 @@ TEST_CASE("Chord split across bar line", "[Events]")
   };
 
   InsertChordMarkers(events);
-  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 0);
 
   //std::cout << "After bar line/splitting: " << OutputEvents(events) << "\n";
 
@@ -844,7 +941,7 @@ TEST_CASE("Chord split across bar line, different note durations", "[Events]")
   };
 
   InsertChordMarkers(events);
-  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 0);
 
   //std::cout << "After bar line/splitting: " << OutputEvents(events) << "\n";
 
@@ -876,7 +973,7 @@ TEST_CASE("Chord NOT split across bar lines", "[Events]")
   };
 
   InsertChordMarkers(events);
-  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 0);
 
   //std::cout << "After bar line/splitting: " << OutputEvents(events) << "\n";
 
@@ -911,7 +1008,7 @@ TEST_CASE("Time Set: Chord, different durations, with extra note in chord", "[Ev
   };
 
   InsertChordMarkers(events);
-  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 0);
   InsertRests(tpq, events, TimeSig::TS_4_4);
   InsertTimeSetEvents(tpq, events); // need time set event to correctly place final note
 
@@ -936,7 +1033,7 @@ TEST_CASE("Time Set: Chord, different durations, with note after shorter note in
   };
 
   InsertChordMarkers(events);
-  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 0);
   InsertRests(tpq, events, TimeSig::TS_4_4);
   InsertTimeSetEvents(tpq, events);
 
@@ -958,7 +1055,7 @@ TEST_CASE("Time Set event, not within chord", "[Events]")
   };
 
   InsertChordMarkers(events);
-  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 0);
   InsertRests(tpq, events, TimeSig::TS_4_4);
   InsertTimeSetEvents(tpq, events);
 
@@ -980,7 +1077,7 @@ TEST_CASE("Time Set event, fractional value", "[Events]")
   };
 
   InsertChordMarkers(events);
-  InsertBarLines(tpq, TimeSig::TS_4_4, events);
+  InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 0);
   InsertRests(tpq, events, TimeSig::TS_4_4);
   InsertTimeSetEvents(tpq, events);
 

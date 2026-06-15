@@ -39,6 +39,8 @@ TimeVal GetTimeValFromString(const std::string& s);
 //  a multiplier of 1; minim multiplies by 2, quaver multiplies by 0.5, etc.
 // All the arithmetic uses ints, and event start times and durations are ints,
 //  so there are no float precision issues to worry about.
+// 
+// E.g.: CalcTpqMultipleForTimeVal(16, <minim>) => 32
 int CalcTpqMultipleForTimeVal(int tpq, TimeVal t);
 
 enum class EventType
@@ -89,10 +91,12 @@ using Events = std::vector<Event>;
 // Also, we might need to split a note event into multiple tied
 //  notes. E.g.  4/4 <60> m t c t q <61>  q |
 // Pass in time sig so we split based on bars (although bar line
-//  events are not added yet.)
+//  events are not added yet.) Also pass in anacrusis length, so we
+//  split on bar lines correctly when there is an anacrusis.
 // Default is to NOT split notes on beats, the algo for doing it is wrong.
 void AppendNoteEventToEvents(
-  int tpq, Event e, Events& events, TimeSig ts, bool yesSplitOnBeat = false);
+  int tpq, Event e, Events& events, TimeSig ts, bool yesSplitOnBeat = false,
+  int anacrusisTicks = 0);
 
 // Call first, when the only events are notes, for simplicity.
 void InsertDynamics(Events& events);
@@ -104,7 +108,9 @@ void InsertDynamics(Events& events);
 // Time sig is required so we know if dotted rests are allowed.
 void InsertRests(int tpq, Events& events, TimeSig ts);
 
-void InsertBarLines(int tpq, TimeSig ts, Events& events, int numBars = 0);
+// Insert bar lines into the given events vec.
+// We have already split long notes at bar line positions.
+void InsertBarLines(int tpq, TimeSig ts, Events& events, int numBars, int anacrusisTicks);
 
 void InsertChordMarkers(Events& events);
 
@@ -115,8 +121,11 @@ void InsertTimeSetEvents(int tpq, Events& events);
 void Reverse(Events& events);
 
 // Helper function, exposed for testing.
-// Calc the end time of the bar.
+// Calc the end time of the bar; equivalently, the start time of the next bar.
 // pos: time position within the bar
-int CalcEndOfBar(int tpq, int pos, TimeSig ts);
+// ts: the time sig
+// anacrusisTicks: length of incomplete, introductory bar, at the scale
+//  of tpqs. E.g. anacrusis of a minim is 2 * tpq ticks. 
+int CalcEndOfBar(int tpq, int pos, TimeSig ts, int anacrusisTicks = 0);
 }
 

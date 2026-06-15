@@ -21,7 +21,7 @@ namespace MidiScore
 {
 static void AddEventToVec(
   int tpq, const smf::MidiEvent& mev, Events& events, TimeSig ts,
-  const Quantiser& quantiser)
+  const Quantiser& quantiser, int anacrusisTicks)
 {
   if (mev.isNoteOn())
   {
@@ -50,7 +50,8 @@ static void AddEventToVec(
 
       // TimeVal is NOT set yet! In this function we decide whether or
       //  not to split the note, and then assign TimeVals based on that.
-      AppendNoteEventToEvents(tpq, e, events, ts);
+      const bool NO_SPLIT_ON_BEATS = false;
+      AppendNoteEventToEvents(tpq, e, events, ts, NO_SPLIT_ON_BEATS, anacrusisTicks);
     }
   }
 }
@@ -79,7 +80,7 @@ std::string OutputEvent(int& prevDuration, const Event& e)
 
 std::string OutputTrack(
   int tpq, Events& events, TimeSig ts, KeySig ks, bool debug, int numBars, 
-  bool yesDynamics, bool yesTimeSetEvents)
+  bool yesDynamics, bool yesTimeSetEvents, int anacrusisTicks)
 {
   if (events.empty())
   {
@@ -104,7 +105,7 @@ std::string OutputTrack(
   InsertChordMarkers(events);
 //std::cout << "With chord markers: " << OutputEvents(events) << "\n";
 
-  InsertBarLines(tpq, ts, events, numBars);
+  InsertBarLines(tpq, ts, events, numBars, anacrusisTicks);
 //std::cout << "With bar lines: " << OutputEvents(events) << "\n";
 
   // Fill 'gaps' between note events with rests
@@ -219,13 +220,14 @@ void GuessTimeSigAndKeySig(int tpq, const Events& events, TimeSig& ts, KeySig& k
 }
 
 static Events GetEventsFromTrack(
-  int tpq, const smf::MidiEventList& track, TimeSig ts, const Quantiser& quantiser)
+  int tpq, const smf::MidiEventList& track, TimeSig ts, const Quantiser& quantiser,
+  int anacrusisTicks)
 {
   Events events;
   
   for (int event = 0; event < track.size(); event++) 
   {
-    AddEventToVec(tpq, track[event], events, ts, quantiser);
+    AddEventToVec(tpq, track[event], events, ts, quantiser, anacrusisTicks);
   }   
   
   if (events.empty()) return events;
@@ -250,7 +252,9 @@ static Events GetPitchEventsFromTrack(const smf::MidiEventList& track)
   // No quantising, note splitting etc - we just care about the pitches.
   // This is for clef and key sig guessing.
   const int TPQ = 256; // Arbitrary, probably should be high enough to avoid probs
-  return GetEventsFromTrack(TPQ, track, TimeSig::TS_NONE, NullQuantiser());
+  const int ANACRUSIS_TICKS = 0; // we don't care about timing
+  return GetEventsFromTrack(TPQ, track, TimeSig::TS_NONE, NullQuantiser(), 
+    ANACRUSIS_TICKS);
 }
 
 // Helper type for looking up best fit string for a note duration
@@ -539,7 +543,8 @@ std::string ToString(
   std::optional<int> keySig,
   std::optional<std::string> quant, 
   bool debug,
-  float bpm) 
+  float bpm,
+  std::optional<std::string> anacrusis)
 {
   std::string res;
 
@@ -572,10 +577,24 @@ std::string ToString(
   const int tpq = midifile.getTicksPerQuarterNote();
   std::cout << "// TPQ: " << tpq << "\n";
 
+  int anacrusisTicks = 0; // number of tpq ticks in first, incomplete bar
+  if (anacrusis)
+  { 
+     auto timeval = GetTimeValFromString(*anacrusis);
+     if (timeval == TimeVal::NONE)
+     {
+       std::cout << "Bad anacrusis duration.\n";
+       return {};
+     }
+     // TODO This function doesn't handle dots, it's just a lookup
+     anacrusisTicks = CalcTpqMultipleForTimeVal(tpq, timeval);
+  }
+
   // First pass: Join all tracks 
   midifile.joinTracks(); 
-  Events allEvents = GetEventsFromTrack(tpq, midifile[0], ts, quantiser);
-    // Timesig should be required, not an optional, so we know it here.
+  Events allEvents = GetEventsFromTrack(tpq, midifile[0], ts, quantiser,
+    anacrusisTicks);
+
   if (allEvents.empty())
   {
     std::cout << "No events!\n";
@@ -584,7 +603,7 @@ std::string ToString(
 
   KeySig ks;
   TimeSig tsGuess;
-  // Guess Key sig and Time sig from ALL events
+  // Guess Key sig (and possibly in future Time sig) from ALL events
   GuessTimeSigAndKeySig(tpq, allEvents, tsGuess, ks);
 
   // Override guess if value given
@@ -598,6 +617,13 @@ std::string ToString(
     static_cast<float>(allEvents.back().m_end) / 
     static_cast<float>(tpq) / 
     static_cast<float>(BeatsInBar(ts))));
+
+  // Add one more to bar count if anacrusis is specified
+  if (anacrusis) 
+  {
+    numBars++;
+    std::cout << "// Anacrusis: " << *anacrusis << "\n";
+  }
 
   std::cout << "// Num bars: " << numBars << "\n";
 
@@ -619,25 +645,29 @@ std::string ToString(
   // If track is specified, just output that one track.
   if (track)
   {
-    Events events = GetEventsFromTrack(tpq, midifile[*track], ts, quantiser);
+    Events events = GetEventsFromTrack(tpq, midifile[*track], ts, quantiser,
+      anacrusisTicks);
     if (!events.empty()) 
     {
       res += "stave " + 
-        OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics, noTimeSets) + "\n";
+        OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics, noTimeSets,
+          anacrusisTicks) + "\n";
     }
   }
   else
   {
-    // Output all (non-empty) tracks.
+    // Output all non-empty tracks.
     int stave = 0;
     int numTracks = midifile.getNumTracks();
     for (int t = 0; t < numTracks; t++)
     {
-      Events events = GetEventsFromTrack(tpq, midifile[t], ts, quantiser);
+      Events events = GetEventsFromTrack(tpq, midifile[t], ts, quantiser,
+        anacrusisTicks);
       if (events.empty()) continue;
       res += "// ** STAVE " + std::to_string(stave++) + " **\n";
       res += "stave " + 
-        OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics, noTimeSets) + "\n";
+        OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics, noTimeSets,
+          anacrusisTicks) + "\n";
     }
   }
 
