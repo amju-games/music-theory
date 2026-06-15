@@ -57,7 +57,10 @@ def generate_score_files(comp_camel, piece_camel, target_dir, workspace_dir, sco
     # Get the correct executable names for the current OS
     midiscore_exec = get_exec_path("midiscore")
     makescore_exec = get_exec_path("makescore")
-    
+
+    # Ask if we should add an anacrusis, (an incomplete first bar)
+    anacrusis = input("📝 Enter anacrusis length (q, c, m, etc., or leave blank if none): ").strip()
+
     # --- STEP 1: midiscore ---
     cmd1 = [
         midiscore_exec,
@@ -67,6 +70,8 @@ def generate_score_files(comp_camel, piece_camel, target_dir, workspace_dir, sco
         "--bpm", str(bpm),
         "--track", str(new_player_idx - 1) # zero-based player track number
     ]
+    if (anacrusis):
+        cmd1.extend(["--ana", anacrusis])
     
     print(f"🎼 Step 1: Running midiscore...")
     try:
