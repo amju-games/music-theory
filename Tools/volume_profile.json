@@ -1,8 +1,9 @@
 {
-  "melody":   { "channel": 0, "center": 90, "max_delta": 10, "min_delta": -10 },
-  "woodwinds":{ "channel": 3, "center": 80, "max_delta": 5,  "min_delta": -5  },
-  "strings":  { "channel": 7, "center": 95, "max_delta": 5,  "min_delta": -5  },
-  "bass":     { "channel": 8, "center": 85, "max_delta": 5,  "min_delta": -5  },
-  "drums":    { "channel": 9, "center": 75, "max_delta": 5,  "min_delta": -10 }
+  "melody":   { "channel": 0, "center": 100, "max_delta": 10, "min_delta": -10 },
+  "piano-l":  { "channel": 1, "center": 80, "max_delta": 5,  "min_delta": -5  },
+  "piano-r":  { "channel": 2, "center": 80, "max_delta": 5,  "min_delta": -5  },
+  "piano-c":  { "channel": 3, "center": 90, "max_delta": 5,  "min_delta": -5  },
+  "bass":     { "channel": 7, "center": 85, "max_delta": 5,  "min_delta": -5  },
+  "perc":     { "channel": 9, "center": 75, "max_delta": 5,  "min_delta": -10 }
 }
 
