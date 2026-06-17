@@ -1,12 +1,11 @@
-// ../../Assets/Songs/Tools/midiscore files/twinkle.txt --timesig 4/4 --bpm 60 
+// ../midiscore ../files/twinkle.txt --timesig 4/4 --bpm 60 --quant c 
+// Quantising to: c
 // TPQ: 120
 // Num bars: 4
-// Guessing clef... min pitch: 72 max pitch: 81
-// Guessing clef... min pitch: 48 max pitch: 65
 page-w 24
 bpm 60
 // ** STAVE 0 **
-stave clef-t 4/4 key-s-0 <c> 72 72 79 79 | <c> 81 81 <m> 79 | <c> 77 77 76 76 | <c> 74 74 <m> 72 
+stave clef-t 4/4 key-s-0 <c> 72 72 79 79 | <c> 81 81 <m> 79 | <c> 77 77 76 76 | <c> 74 74 <m> 72 | 
 // ** STAVE 1 **
-stave clef-b 4/4 key-s-0 <c> 48 60 64 60 | <c> 65 60 64 60 | <c> 62 59 60 57 | <c> 53 55 <m> 48 
+stave clef-b 4/4 key-s-0 <c> 48 60 64 60 | <c> 65 60 64 60 | <c> 62 59 60 57 | <c> 53 55 <m> 48 | 
 
