@@ -29,6 +29,7 @@ from quantise import *
 from add_bass_track import add_bass_track_if_required_in_mem
 from add_percussion_track import add_percussion_track_if_required_in_mem
 from extract_top_line import extract_top_line_in_mem
+from set_bpm import set_midi_bpm_in_mem
 
 # Subdir to put workspace files: don't commit them, and don't add them 
 #  to the game!
@@ -166,7 +167,7 @@ def get_user_mapping(track_data):
 
 # Output new midi file with remapped channels, and tracks renamed to
 #  reflect the mapping.
-def process_audio_pipeline(input_path, output_path, mapping):
+def process_audio_pipeline(mid, output_path, mapping):
 
     # the track->channel mapping after we chop unwanted tracks
     new_mapping = {} 
@@ -178,7 +179,6 @@ def process_audio_pipeline(input_path, output_path, mapping):
     # Track name counters to handle duplicates
     name_counters = {}
 
-    mid = mido.MidiFile(input_path)
     new_mid = mido.MidiFile(ticks_per_beat=mid.ticks_per_beat, type=mid.type)
     keep = list(mapping.keys())
     if 0 not in keep: keep.append(0)
@@ -354,11 +354,9 @@ def get_or_prompt_time_signature(mid):
         except ValueError:
             print("❌ Invalid format. Please use numerator/denominator (e.g., 4/4).")
 
-def get_or_prompt_bpm(mid):
-    """Scans for a tempo meta-message, converts to BPM, and asks user to confirm."""
+def find_bpm_in_midi(mid):
     extracted_bpm = None
-    
-    # Try to detect automatically first
+    # Look for tempo setting event.
     for track in mid.tracks:
         for msg in track:
             if msg.type == 'set_tempo':
@@ -367,7 +365,13 @@ def get_or_prompt_bpm(mid):
                 break 
         if extracted_bpm:
             break
+    return extracted_bpm
 
+
+def get_or_prompt_bpm(mid):
+    """Scans for a tempo meta-message, converts to BPM, and asks user to confirm."""
+    extracted_bpm = find_bpm_in_midi(mid)
+    
     # Set our default display string
     default_bpm_str = str(extracted_bpm) if extracted_bpm else "120"
     
@@ -414,11 +418,12 @@ def main():
     mid = mido.MidiFile(input_path)
     
     # 2. Track Analysis and Routing
-    analyze_tracks(mid)
-    # Extract top line from a polyphonic track if required
+    analyze_tracks(mid) # Just to show track list
+    # Extract top line from a polyphonic track if required, adding an extra track
     extract_top_line_in_mem(mid)
-    # Map tracks to channels
+    # Map tracks to channels: first, show new track list
     track_data = analyze_tracks(mid)
+    # Get track -> channel map
     mapping, player_idx = get_user_mapping(track_data)
     # Grab the specific player track and pass it to the setting prompt
     player_track = mid.tracks[player_idx]
@@ -426,8 +431,11 @@ def main():
 
     # 3. Time Signature and Tempo
     num, den = get_or_prompt_time_signature(mid)
-    bpm = get_or_prompt_bpm(mid)
-    
+    orig_bpm = find_bpm_in_midi(mid)
+    new_bpm = get_or_prompt_bpm(mid)
+    if (orig_bpm != new_bpm):
+        set_midi_bpm_in_mem(mid, float(new_bpm))
+ 
     # 4. Metadata Gathering
     piece_name = input("\n📝 Enter the name of the Piece: ")
     composer_name = input("📝 Enter the name of the Composer: ")
@@ -443,14 +451,14 @@ def main():
     # 6. MIDI Pipeline Processing
     print(f"⚙️ Generating Audio File: {audio_path.name}...")
     # returns new track->channel mapping
-    new_mapping = process_audio_pipeline(input_path, audio_path, mapping)
+    new_mapping = process_audio_pipeline(mid, audio_path, mapping)
     
     print(f"🎼 Generating Score File: {score_midi_path.name}...")
     new_player_idx = process_score_pipeline(mid, score_midi_path, player_idx, num_res, mapping)
     
     # 7. Execute External Score Binaries (midiscore & makescore)
     score_csv_string = generate_score_files(
-        comp_camel, piece_camel, target_dir, workspace_dir, score_midi_path, num, den, q_flag, bpm, new_player_idx
+        comp_camel, piece_camel, target_dir, workspace_dir, score_midi_path, num, den, q_flag, new_bpm, new_player_idx
     )
     
     # 8. Update the Game Database
