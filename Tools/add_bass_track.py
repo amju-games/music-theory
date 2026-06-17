@@ -86,8 +86,8 @@ def deduplicate_bass_track(bass_track):
         
     # Split our merged objects back into explicit MIDI on/off commands
     for note in unionized_notes:
-        on = mido.Message('note_on', note=note['pitch'], velocity=note['velocity'], channel=8)
-        off = mido.Message('note_off', note=note['pitch'], velocity=0, channel=8)
+        on = mido.Message('note_on', note=note['pitch'], velocity=note['velocity'], channel=7)
+        off = mido.Message('note_off', note=note['pitch'], velocity=0, channel=7)
         timeline_events.append((note['start'], on))
         timeline_events.append((note['end'], off))
 
@@ -153,7 +153,7 @@ def copy_notes_to_bass_track(mid, bass_track):
         for msg in track:
             if (msg.type == 'note_on' or msg.type == 'note_off') and msg.note <= top_bass_note:
                 msg_copy = msg.copy()
-                msg_copy.channel = 8 # set bass channel
+                msg_copy.channel = 7 # set bass channel
                 bass_track.append(msg_copy)
                 num_events += 1
 
