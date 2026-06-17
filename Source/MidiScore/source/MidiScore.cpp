@@ -81,7 +81,7 @@ std::string OutputEvent(int& prevDuration, const Event& e)
 
 std::string OutputTrack(
   int tpq, Events& events, TimeSig ts, KeySig ks, bool debug, int numBars, 
-  bool yesDynamics, bool yesTimeSetEvents, int anacrusisTicks)
+  bool yesDynamics, bool yesTimeSetEvents, int anacrusisTicks, bool allClefs)
 {
   if (events.empty())
   {
@@ -90,7 +90,8 @@ std::string OutputTrack(
 
 //std::cout << "Raw events: " << OutputEvents(events) << "\n";
 
-  Clef clef = GuessClef(events); 
+  ClefChanges allClefChanges;
+  Clef clef = GuessClef(events, tpq, ts, allClefChanges, !allClefs);
 
   std::string res;
   res += ClefString(clef) + " ";
@@ -216,7 +217,7 @@ void GuessTimeSigAndKeySig(int tpq, const Events& events, TimeSig& ts, KeySig& k
 {
   ts = GuessTimeSig(tpq, events); 
 
-  bool preferFlatKey = true;
+  const bool preferFlatKey = true; // TODO command line param?
   ks = GuessKeySig(events, preferFlatKey); 
 }
 
@@ -511,7 +512,57 @@ static std::string InfoForMidiMsg(const smf::MidiEvent& msg)
   return res;
 }
 
-std::string InfoString(smf::MidiFile& midifile)
+std::string InfoStringForOneTrack(
+  smf::MidiFile& midifile,
+  int track,
+  std::optional<std::string> optionalTimeSig,
+  bool allClefs)
+{
+  std::string res;
+  res += "Track " + std::to_string(track) + ":\n";
+
+  const int tpq = midifile.getTicksPerQuarterNote();
+
+  for (int i = 0; i < midifile[track].getEventCount(); i++) 
+  {
+    const auto& msg = midifile[track][i];
+    res += InfoForMidiMsg(msg);
+  }
+
+  int numEvents = CountNoteOnEventsInTrack(midifile[track]);
+  res += "  Number of note on events: " + std::to_string(numEvents) + "\n";
+  if (numEvents > 0)
+  {
+    const auto pitches = GetPitchEventsFromTrack(midifile[track]); 
+
+    const bool preferFlatKey = true; // TODO should be command line param
+    auto ks = GuessKeySig(pitches, preferFlatKey); 
+    res += "  Guessed key sig: " + KeySigString(ks) + "\n";
+
+    ClefChanges allClefChanges;
+    // Helpful for clef changes to know the time sig and anacrusis - TODO
+    TimeSig ts = TimeSig::TS_4_4; // default
+    if (optionalTimeSig) ts = GetTimeSigFromString(*optionalTimeSig);
+    GuessClef(pitches, tpq, ts, allClefChanges, !allClefs);
+    res += "  Guessed clefs: ";
+    for (const auto [t, clef] : allClefChanges)
+    {
+       res += ClefString(clef) + " ";
+    }
+    res += "\n";
+
+    auto str = NoteRangeInTrack(tpq, midifile[track]);
+    res += (str.empty() ? "" : str + "\n");
+  }
+
+  return res;
+}
+
+std::string InfoString(
+  smf::MidiFile& midifile,
+  std::optional<int> optionalTrack,
+  std::optional<std::string> optionalTimeSig,
+  bool allClefs)
 {
   midifile.removeEmpties();
   midifile.doTimeAnalysis();
@@ -522,37 +573,14 @@ std::string InfoString(smf::MidiFile& midifile)
   std::string res = "TPQ: " + std::to_string(tpq) + 
     " number of tracks: " + std::to_string(tracks) + "\n";
 
-  midifile.joinTracks();  // join all tracks just while we guess key sig
-  if (midifile[0].getEventCount() == 0)
+  // Output just the nominated track, or all of them.
+  if (optionalTrack)
   {
-    return "No events on any track!?\n";
+    res += InfoStringForOneTrack(midifile, *optionalTrack, optionalTimeSig, allClefs);
   }
-
-  bool preferFlatKey = true;
-  auto ks = GuessKeySig(GetPitchEventsFromTrack(midifile[0]), preferFlatKey); 
-  midifile.splitTracks();
-  res += "Guessed key sig: " + KeySigString(ks) + "\n";
-
-  for (int track = 0; track < tracks; track++) 
+  else for (int track = 0; track < tracks; track++) 
   {
-    res += "Track " + std::to_string(track) + ":\n";
-
-    int numEvents = CountNoteOnEventsInTrack(midifile[track]);
-    res += "  Number of note on events: " + std::to_string(numEvents) + "\n";
-    if (numEvents > 0)
-    {
-      Clef clef = GuessClef(GetPitchEventsFromTrack(midifile[track]));
-      res += "  Guessed clef: " + ClefString(clef) + "\n";
-
-      auto str = NoteRangeInTrack(tpq, midifile[track]);
-      res += (str.empty() ? "" : str + "\n");
-    }
-
-    for (int i = 0; i < midifile[track].getEventCount(); i++) 
-    {
-      const auto& msg = midifile[track][i];
-      res += InfoForMidiMsg(msg);
-    }
+    res += InfoStringForOneTrack(midifile, track, optionalTimeSig, allClefs);
   }
 
   return res;
@@ -566,7 +594,8 @@ std::string ToString(
   std::optional<std::string> quant, 
   bool debug,
   float bpm,
-  std::optional<std::string> anacrusis)
+  std::optional<std::string> anacrusis,
+  bool allClefs)
 {
   std::string res;
 
@@ -625,7 +654,8 @@ std::string ToString(
 
   KeySig ks;
   TimeSig tsGuess;
-  // Guess Key sig (and possibly in future Time sig) from ALL events
+  // Guess Key sig (and possibly in future Time sig) from ALL events.
+  // (We don't use the guessed time sig for now.)
   GuessTimeSigAndKeySig(tpq, allEvents, tsGuess, ks);
 
   // Override guess if value given
@@ -671,7 +701,7 @@ std::string ToString(
     {
       res += "stave " + 
         OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics, noTimeSets,
-          anacrusisTicks) + "\n";
+          anacrusisTicks, allClefs) + "\n";
     }
   }
   else
@@ -687,7 +717,7 @@ std::string ToString(
       res += "// ** STAVE " + std::to_string(stave++) + " **\n";
       res += "stave " + 
         OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics, noTimeSets,
-          anacrusisTicks) + "\n";
+          anacrusisTicks, allClefs) + "\n";
     }
   }
 
