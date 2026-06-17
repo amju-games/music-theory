@@ -82,6 +82,9 @@ int main(int argc, const char** argv)
   // All clefs option
   const bool allClefs = check_flag(cl, ALL_CLEFS);
 
+  // Optional anacrusis bar length
+  const auto optionalAna = cl.get_value<std::string>(ANA);
+
   // Optional track number
   const auto optionalTrack = cl.get_value<int>(TRACK);
   // Check for errors in track number
@@ -118,7 +121,7 @@ int main(int argc, const char** argv)
     }
 
     std::cout << MidiScore::InfoString(
-      midifile, optionalTrack, optionalTimeSig, allClefs);
+      midifile, optionalTrack, optionalAna, optionalTimeSig, allClefs);
     return 0;
   }
 
@@ -152,11 +155,8 @@ int main(int argc, const char** argv)
     return 1;
   }
 
-  // Optional anacrusis bar length
-  const auto ana = cl.get_value<std::string>(ANA);
-
   std::cout << MidiScore::ToString(
-    midifile, optionalTrack, *timeSig, keySig, quant, debug, *bpm, ana, allClefs);
+    midifile, optionalTrack, *timeSig, keySig, quant, debug, *bpm, optionalAna, allClefs);
 
   return 0;
 }

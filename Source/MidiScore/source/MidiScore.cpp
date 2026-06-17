@@ -91,7 +91,7 @@ std::string OutputTrack(
 //std::cout << "Raw events: " << OutputEvents(events) << "\n";
 
   ClefChanges allClefChanges;
-  Clef clef = GuessClef(events, tpq, ts, allClefChanges, !allClefs);
+  Clef clef = GuessClef(events, tpq, anacrusisTicks, ts, allClefChanges, !allClefs);
 
   std::string res;
   res += ClefString(clef) + " ";
@@ -512,9 +512,10 @@ static std::string InfoForMidiMsg(const smf::MidiEvent& msg)
   return res;
 }
 
-std::string InfoStringForOneTrack(
+static std::string InfoStringForOneTrack(
   smf::MidiFile& midifile,
   int track,
+  int anacrusisTicks,
   std::optional<std::string> optionalTimeSig,
   bool allClefs)
 {
@@ -543,7 +544,7 @@ std::string InfoStringForOneTrack(
     // Helpful for clef changes to know the time sig and anacrusis - TODO
     TimeSig ts = TimeSig::TS_4_4; // default
     if (optionalTimeSig) ts = GetTimeSigFromString(*optionalTimeSig);
-    GuessClef(pitches, tpq, ts, allClefChanges, !allClefs);
+    GuessClef(pitches, tpq, anacrusisTicks, ts, allClefChanges, !allClefs);
     res += "  Guessed clefs: ";
     for (const auto [t, clef] : allClefChanges)
     {
@@ -558,9 +559,28 @@ std::string InfoStringForOneTrack(
   return res;
 }
 
+static int GetAnacrusisTicks(std::optional<std::string> anacrusis, int tpq)
+{
+  int anacrusisTicks = 0;
+  if (anacrusis)
+  { 
+     auto timeval = GetTimeValFromString(*anacrusis);
+     // Assume anacrusis string is error checked in main() ?
+     if (timeval == TimeVal::NONE)
+     {
+       std::cout << "Bad anacrusis duration.\n";
+       return 0;
+     }
+     // TODO This function doesn't handle dots, it's just a lookup
+     anacrusisTicks = CalcTpqMultipleForTimeVal(tpq, timeval);
+  }
+  return anacrusisTicks;
+}
+
 std::string InfoString(
   smf::MidiFile& midifile,
   std::optional<int> optionalTrack,
+  std::optional<std::string> anacrusis,
   std::optional<std::string> optionalTimeSig,
   bool allClefs)
 {
@@ -573,14 +593,16 @@ std::string InfoString(
   std::string res = "TPQ: " + std::to_string(tpq) + 
     " number of tracks: " + std::to_string(tracks) + "\n";
 
+  int anacrusisTicks = GetAnacrusisTicks(anacrusis, tpq);
+
   // Output just the nominated track, or all of them.
   if (optionalTrack)
   {
-    res += InfoStringForOneTrack(midifile, *optionalTrack, optionalTimeSig, allClefs);
+    res += InfoStringForOneTrack(midifile, *optionalTrack, anacrusisTicks, optionalTimeSig, allClefs);
   }
   else for (int track = 0; track < tracks; track++) 
   {
-    res += InfoStringForOneTrack(midifile, track, optionalTimeSig, allClefs);
+    res += InfoStringForOneTrack(midifile, track, anacrusisTicks, optionalTimeSig, allClefs);
   }
 
   return res;
@@ -628,10 +650,13 @@ std::string ToString(
   const int tpq = midifile.getTicksPerQuarterNote();
   std::cout << "// TPQ: " << tpq << "\n";
 
-  int anacrusisTicks = 0; // number of tpq ticks in first, incomplete bar
+  int anacrusisTicks = GetAnacrusisTicks(anacrusis, tpq); 
+  // number of tpq ticks in first, incomplete bar
+
   if (anacrusis)
   { 
      auto timeval = GetTimeValFromString(*anacrusis);
+     // Assume anacrusis string is error checked in main() ?
      if (timeval == TimeVal::NONE)
      {
        std::cout << "Bad anacrusis duration.\n";

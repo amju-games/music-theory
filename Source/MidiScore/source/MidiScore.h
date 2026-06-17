@@ -18,6 +18,7 @@ namespace MidiScore
 std::string InfoString(
   smf::MidiFile& mf,
   std::optional<int> track,
+  std::optional<std::string> anacrusis,
   std::optional<std::string> timeSig,
   bool allClefs);
 

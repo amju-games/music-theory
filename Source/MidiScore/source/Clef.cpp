@@ -10,6 +10,8 @@
 #include "Clef.h"
 #include "TimeSig.h"
 
+#define DEBUG_SHOW_CHUNK_WINNERS
+
 namespace MidiScore
 {
 std::string ClefString(Clef clef)
@@ -102,14 +104,15 @@ std::map<int, std::vector<int>> SegmentPitchesByMeasures(
   int ticks_per_quarter, 
   int numerator, 
   int denominator, 
-  int measures_per_window
+  int measures_per_window,
+  int anacrusisTicks
 )
 {
   std::map<int, std::vector<int>> chunks;
   
   // Calculate exact footprint of a single measure in MIDI ticks
-  int ticks_per_measure = (ticks_per_quarter * 4 * numerator) / denominator;
-  int window_size_ticks = ticks_per_measure * measures_per_window;
+  int ticks_per_bar = (ticks_per_quarter * 4 * numerator) / denominator;
+  int window_size_ticks = ticks_per_bar * measures_per_window;
 
   if (window_size_ticks <= 0)
   {
@@ -124,7 +127,13 @@ std::map<int, std::vector<int>> SegmentPitchesByMeasures(
     }
     
     // Group into time chunks
-    int chunk_index = event.m_unquantisedStart / window_size_ticks;
+    // Chop off any anacrusis:
+    //      . . | . . . . | . . . . |  =>  . . | . . . . | . . . . |
+    // ch. -1--> ch. 0---> ch. 1--->       ch. 0 -------> ch. 1--->
+
+    int chunk_index = std::max(0,
+      (event.m_unquantisedStart - anacrusisTicks) / window_size_ticks);
+    assert(chunk_index >= 0);
     chunks[chunk_index].push_back(event.m_pitch);
   }
   return chunks;
@@ -133,33 +142,35 @@ std::map<int, std::vector<int>> SegmentPitchesByMeasures(
 // --- 4. CORE TIMELINE ORCHESTRATOR ---
 
 std::vector<ClefChange> GenerateClefChanges(
-  const Events& constevents, 
+  const Events& events, 
   int ticks_per_quarter, 
+  int anacrusisTicks,
   int numerator, 
   int denominator,
-  bool justTrebleAndBass
+  bool justTrebleAndBass,
+  int bars_per_chunk,
+  int threshold
 )
 {
   std::vector<ClefChange> timeline;
-  if (constevents.empty())
+  if (events.empty())
   {
 std::cout << "Clef guessing... no events\n";
     return timeline;
   }
 
-  // Evaluate the score in chunks of 4 full measures
-  const int measures_per_window = 4;
-  int ticks_per_measure = (ticks_per_quarter * 4 * numerator) / denominator;
-  int window_size_ticks = ticks_per_measure * measures_per_window;
+  // Evaluate the score in chunks -- currently a chunk is 4 bars. 
+  int ticks_per_bar = (ticks_per_quarter * 4 * numerator) / denominator;
+  int window_size_ticks = ticks_per_bar * bars_per_chunk;
 
   auto time_chunks = SegmentPitchesByMeasures(
-    constevents, ticks_per_quarter, numerator, denominator, measures_per_window
-  );
+    events, ticks_per_quarter, numerator, denominator, bars_per_chunk,
+    anacrusisTicks);
   if (time_chunks.empty())
   {
     return timeline;
   }
-  std::vector<Clef> chunk_winners;
+  std::vector<Clef> chunk_winners; // for reporting only
 
   // Establish the starting clef from the initial measure block
   Clef current_clef = EvaluateSingleWindow(time_chunks[0], Clef::TREBLE, justTrebleAndBass);
@@ -168,7 +179,6 @@ std::cout << "Clef guessing... no events\n";
 
   Clef pending_clef = current_clef;
   int consecutive_wins = 0;
-  const int persistence_threshold = 2; // Must hold out for 2 windows (8 measures)
 
   for (const auto& [chunk_index, pitches] : time_chunks)
   {
@@ -178,25 +188,30 @@ std::cout << "Clef guessing... no events\n";
     }
 
     Clef chunk_winner = EvaluateSingleWindow(pitches, current_clef, justTrebleAndBass);
-    chunk_winners.push_back(chunk_winner);
+    chunk_winners.push_back(chunk_winner); // for reporting only
 
     if (chunk_winner != current_clef)
     {
-      if (chunk_winner == pending_clef)
+      if (chunk_winner == pending_clef) 
       {
+        // same as previous chunk, and not the currently prevailing clef
         consecutive_wins++;
       }
       else
       {
+        // Not the currently prevailing clef, but different again to previous
         pending_clef = chunk_winner;
         consecutive_wins = 1;
       }
 
       // Threshold crossed! Safely push a clean downbeat-aligned clef change
-      if (consecutive_wins >= persistence_threshold)
+      if (consecutive_wins >= threshold)
       {
         current_clef = chunk_winner;
-        int downbeat_tick = chunk_index * window_size_ticks;
+        // Calc time to add clef: get the first chunk where we change; 
+        //  re-add anacrusis, which we subtracted in SegmentPitchesByMeasures.
+        int downbeat_tick = (chunk_index - threshold + 1) * window_size_ticks +
+          anacrusisTicks;
         timeline.push_back({downbeat_tick, current_clef});
         consecutive_wins = 0;
       }
@@ -217,8 +232,12 @@ std::cout << "Clef guessing... no events\n";
   return timeline;
 }
 
-Clef GuessClef(const Events& e, int tpq, TimeSig ts, ClefChanges& allClefChanges,
-  bool justTrebleAndBass)
+Clef GuessClef(const Events& e, int tpq, 
+  int anacrusisTicks,
+  TimeSig ts, ClefChanges& allClefChanges,
+  bool justTrebleAndBass,
+  int barsPerChunk, 
+  int threshold)
 {
   int num = Numerator(ts);
   int denom = Denominator(ts);
@@ -227,7 +246,7 @@ Clef GuessClef(const Events& e, int tpq, TimeSig ts, ClefChanges& allClefChanges
     num = 4; denom = 4; // default to 4/4, not 1/1
   }
 
-  allClefChanges = GenerateClefChanges(e, tpq, num, denom, justTrebleAndBass);
+  allClefChanges = GenerateClefChanges(e, tpq, anacrusisTicks, num, denom, justTrebleAndBass, barsPerChunk, threshold);
   if (allClefChanges.empty())
   {
 std::cout << "// Defaulting to clef-t!\n";
