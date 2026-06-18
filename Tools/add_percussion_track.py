@@ -191,7 +191,7 @@ def humanize(base_vel, variance=12, is_kick=False):
     return max(1, min(127, base_vel + random.randint(-variance, variance)))
 
 # --- STEP-PARSER MATHEMATICAL ENGINE ---
-def generate_drum_pattern(num, den, style_choice, intensity, ticks_per_beat, total_ticks):
+def generate_drum_pattern(num, den, style_choice, intensity, ticks_per_beat, total_ticks, anacrusis_ticks):
     events = []
     
     style_config = STYLE_DATABASE.get(style_choice, STYLE_DATABASE[1])
@@ -202,7 +202,7 @@ def generate_drum_pattern(num, den, style_choice, intensity, ticks_per_beat, tot
     bar_length = beat_length * num
     tick_per_step = bar_length / steps_per_bar
     
-    current_bar_tick = 0
+    current_bar_tick = anacrusis_ticks
     
     while current_bar_tick < total_ticks:
         for inst_name, pattern_string in active_patterns.items():
@@ -280,19 +280,33 @@ def add_percussion_track():
     except Exception as e:
         sys.exit(f"❌ Error loading MIDI: {e}")
 
-    # Duplicate MIDI file
-    new_mid = mido.MidiFile(ticks_per_beat=mid.ticks_per_beat, type=mid.type)
-    for track in mid.tracks:
-        new_track = mido.MidiTrack()
-        new_mid.tracks.append(new_track)
-        for msg in track: new_track.append(msg.copy())
-
-    add_percussion_track_to_mid(new_mid)
+    add_percussion_track_to_mid(mid)
 
     # Save file
     output_filename = f"{Path(input_filename).stem}_with_perc.mid"
-    new_mid.save(output_filename)
+    mid.save(output_filename)
     print(f"   💾 Saved new midi file to: {output_filename}\n")
+
+
+def ask_user_anacrusis():
+    while True:
+        ana = input("⏱️  Is there an anacrusis? (q/q./c/c./m/m.) or Enter if none: ").strip()
+        if not ana: 
+            return 0
+
+        ana_lookup = {
+            "q" :  0.5,
+            "q." : 0.75,
+            "c" :  1.0,
+            "c." : 1.5,
+            "m" :  2.0,
+            "m." : 2.5
+        }
+        if ana in ana_lookup:
+            tpq_mult = ana_lookup[ana]
+            return tpq_mult
+ 
+        print("❌ Sorry, I didn't recognise that. Please use one of q/q./c/c./m/m.") 
 
 
 def add_percussion_track_to_mid(mid):
@@ -304,6 +318,8 @@ def add_percussion_track_to_mid(mid):
         print("⚠️  Invalid format. Defaulting to 4/4.")
         num, den = 4, 4
 
+    anacrusis_ticks = ask_user_anacrusis() * mid.ticks_per_beat
+
     style_choice = ask_user_for_style()
 
     try:
@@ -314,7 +330,7 @@ def add_percussion_track_to_mid(mid):
 
     # Sequencer calculations
     total_ticks = get_total_ticks(mid)
-    abs_events = generate_drum_pattern(num, den, style_choice, intensity, mid.ticks_per_beat, total_ticks)
+    abs_events = generate_drum_pattern(num, den, style_choice, intensity, mid.ticks_per_beat, total_ticks, anacrusis_ticks)
 
     # Convert sorted global triggers to structural standard relative delta track
     perc_track = mido.MidiTrack()
