@@ -10,20 +10,6 @@
 #endif // WIN32
 
 #include <iostream>
-
-#if defined(WIN32) || defined(MACOSX)
-#define AMJU_USE_OPENGL
-#define AMJU_USE_GLUT
-#if !defined(CATCH) && !defined(LISTEN)
-// Main function already exists for Catch (unit test) build
-#include <main.h>
-#endif
-#endif
-
-#ifdef GEKKO
-#include <main.h>
-#endif
-
 #include <AmjuGLWindowInfo.h>
 #include <AmjuRand.h>
 #include <BassSoundPlayer.h>
