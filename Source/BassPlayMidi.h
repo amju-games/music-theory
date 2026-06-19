@@ -31,6 +31,9 @@ void PlayMidi(int midiNote, int velocity);
 void PlayMidiSong(const std::string& filename, 
   float seekTimeSeconds = 0, bool mutePlayer = false);
 
+// Get tracks names of the currently playing midi song.
+std::vector<std::string> GetPlayingSongTrackNames();
+
 // Stop the currently playing song.
 void StopMidiSong();
 

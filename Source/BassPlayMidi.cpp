@@ -499,4 +499,32 @@ bool BassMidiInput::IsConnected() const
 
   // TODO Also check for signals from device in callback?
 }
+
+static std::vector<std::string> GetTrackNames(HSTREAM stream) 
+{
+  std::vector<std::string> res;
+  // Attempt to get the number of track mark events in the MIDI stream
+  int markCount = BASS_MIDI_StreamGetMarks(stream, -1, BASS_MIDI_MARK_TRACK, NULL);
+    
+  if (markCount > 0) 
+  {
+    // Create a vector to hold all the markers
+    std::vector<BASS_MIDI_MARK> marks(markCount);
+        
+    // Fetch the actual markers
+    BASS_MIDI_StreamGetMarks(stream, -1, BASS_MIDI_MARK_TRACK, marks.data());
+        
+    for (int i = 0; i < markCount; i++) 
+    {
+      // The 'text' field of the BASS_MIDI_MARK struct contains the track name
+      res.push_back(marks[i].text);
+    }
+  } 
+  return res;
+}
+
+std::vector<std::string> GetPlayingSongTrackNames()
+{
+  return GetTrackNames(s_songStream);
+}
 }

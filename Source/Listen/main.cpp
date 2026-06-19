@@ -34,7 +34,13 @@ int main(int argc, char** argv)
   SetUpSound();
 
   PlayMidiSong(song);
- 
+  const auto trackNames = GetPlayingSongTrackNames(); 
+  int i = 0;
+  for (const auto& t : trackNames)
+  {
+    std::cout << "Track " << i++ << ":\t" << t << "\n";
+  }
+
   while (true)
   {
     SleepMs(1000);
