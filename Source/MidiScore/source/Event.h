@@ -9,6 +9,7 @@
 
 namespace MidiScore
 {
+enum class Clef;
 enum class TimeSig;
 
 enum class TimeVal
@@ -45,13 +46,18 @@ int CalcTpqMultipleForTimeVal(int tpq, TimeVal t);
 
 enum class EventType
 {
-  NOTE, REST, BARLINE, TIE, CHORD_START, CHORD_END, TIME_SET
+  NOTE, REST, BARLINE, TIE, CHORD_START, CHORD_END, TIME_SET,
+  CLEF,
+  KEY_SIG,
+  TIME_SIG
 };
 
 struct Event
 {
   int m_start = 0; // in tpq ticks
-  int m_unquantisedStart = -1; // in tpq ticks. -1 so we can check it's set
+  int m_unquantisedStart = -1; 
+  // ..in tpq ticks. Initially -1 so we can check it has been set.
+
   int m_duration = 0; // in tpq ticks
   int m_unquantisedDuration = -1; // in tpq ticks. 
   int m_end = 0; // in tpq ticks; start + duration
@@ -69,6 +75,9 @@ struct Event
   
   EventType m_type = EventType::NOTE;
 
+  Clef m_clef; // for clef events, obvs; initialised in ctor
+
+  Event();
   std::string ToString() const;
   std::string NoteToStringNoDuration() const;
   std::string DurationString() const;
@@ -82,6 +91,9 @@ struct Event
   bool IsTie() const { return m_type == EventType::TIE; }
   bool IsChordStart() const { return m_type == EventType::CHORD_START; }
   bool IsChordEnd() const { return m_type == EventType::CHORD_END; }
+  bool IsClef() const { return m_type == EventType::CLEF; }
+  bool IsKeySig() const { return m_type == EventType::KEY_SIG; }
+  bool IsTimeSig() const { return m_type == EventType::TIME_SIG; }
 };
 
 using Events = std::vector<Event>;

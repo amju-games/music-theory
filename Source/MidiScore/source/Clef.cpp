@@ -14,6 +14,16 @@
 
 namespace MidiScore
 {
+Event MakeClefChange(Clef clef, int time)
+{
+  Event e;
+  e.m_type = EventType::CLEF;
+  e.m_clef = clef;
+  e.m_start = time;
+  e.m_end = time;
+  return e;
+}
+
 std::string ClefString(Clef clef)
 {
   std::array<std::string, 4> CLEFS = 
@@ -174,7 +184,7 @@ std::cout << "Clef guessing... no events\n";
 
   // Establish the starting clef from the initial measure block
   Clef current_clef = EvaluateSingleWindow(time_chunks[0], Clef::TREBLE, justTrebleAndBass);
-  timeline.push_back({0, current_clef});
+  timeline.push_back(MakeClefChange(current_clef, 0));
   chunk_winners.push_back(current_clef);
 
   Clef pending_clef = current_clef;
@@ -212,7 +222,7 @@ std::cout << "Clef guessing... no events\n";
         //  re-add anacrusis, which we subtracted in SegmentPitchesByMeasures.
         int downbeat_tick = (chunk_index - threshold + 1) * window_size_ticks +
           anacrusisTicks;
-        timeline.push_back({downbeat_tick, current_clef});
+        timeline.push_back(MakeClefChange(current_clef, downbeat_tick));
         consecutive_wins = 0;
       }
     }
@@ -251,9 +261,67 @@ Clef GuessClef(const Events& e, int tpq,
   {
 std::cout << "// Defaulting to clef-t!\n";
     // Just in case we don't have any clefs:
-    allClefChanges.push_back({0, Clef::TREBLE});
+    allClefChanges.push_back(MakeClefChange(Clef::TREBLE, 0));
   }
-  return allClefChanges.front().clef;
+  return allClefChanges.front().m_clef;
+}
+
+void InsertClefs(Events& events, const ClefChanges& cc)
+{
+  // Interleave events and clef changes:
+  // Add clef changes immediately after a bar line, except for the
+  //  0th clef, which gets added before everything.
+  // TODO Clefs, keysigs and timesigs should all be events, so we can
+  //  deal with everything uniformly. Currently we are treating them
+  //  as special case output tokens.
+  // TODO post-process to remove or defer clef changes that
+  //  split tied notes.
+  if (cc.empty()) return;
+
+  Events newEvents;
+  int clefIndex = 0;
+  for (const Event& e : events)
+  {
+    // Put the 0th clef right at the start. For subsequent clef changes, 
+    //  we expect bar lines and clef changes to have the same start time.
+    if (clefIndex == 0)
+    {
+      // Insert 0th clef before any other event
+      const auto& clefChange = cc[clefIndex];
+      assert(clefChange.m_start == 0);
+      newEvents.push_back(clefChange);
+      clefIndex = 1;
+      newEvents.push_back(e);
+    } 
+    else if (clefIndex < cc.size() && // any clefs remaining
+             // Clef change on bar line, that's good
+             e.m_start == cc[clefIndex].m_start &&   
+             e.IsBarLine()) 
+    {
+      // Insert clef after bar line
+      newEvents.push_back(e);
+      // TODO Check next event, in case it's a tie, (and maybe there are other types
+      //  we can't split with a clef change?!)
+      newEvents.push_back(cc[clefIndex]);
+      ++clefIndex;
+    }
+    else if (clefIndex < cc.size() && // any clefs remaining
+             // There was no bar line where the clef change fell. Move on to the next.
+             e.m_start > cc[clefIndex].m_start)
+    {
+      // TODO We could push the clef change to the next bar, rather than just skipping it?
+      newEvents.push_back(e);
+      ++clefIndex;
+    }
+    else
+    {
+      newEvents.push_back(e);
+    }
+  }
+  // We might have skipped clef changes, if they couldn't be added.
+  assert(newEvents.size() >= events.size());
+  assert(newEvents.size() <= events.size() + cc.size());
+  events = newEvents;
 }
 }
 

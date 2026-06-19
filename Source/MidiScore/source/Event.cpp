@@ -8,12 +8,17 @@
 #include <iostream>
 #include <map>
 #include <sstream>
+#include "Clef.h"
 #include "Event.h"
 #include "MidiScore.h" // OutputEvents
 #include "TimeSig.h"
 
 namespace MidiScore
 {
+Event::Event() : m_clef(Clef::TREBLE)
+{
+}
+
 static Event MakeBarLine(int startTicks)
 {
   Event e;
@@ -374,6 +379,9 @@ std::string Event::ToString() const
       ss << "time " << m_timeSetVal;
       return ss.str();
     }
+
+  case EventType::CLEF:
+    return ClefString(m_clef);
 
   default:
     std::cout << "No String for Event Type " 

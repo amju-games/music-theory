@@ -546,9 +546,9 @@ static std::string InfoStringForOneTrack(
     if (optionalTimeSig) ts = GetTimeSigFromString(*optionalTimeSig);
     GuessClef(pitches, tpq, anacrusisTicks, ts, allClefChanges, !allClefs);
     res += "  Guessed clefs: ";
-    for (const auto [t, clef] : allClefChanges)
+    for (const auto& cc : allClefChanges)
     {
-       res += ClefString(clef) + " ";
+       res += ClefString(cc.m_clef) + " ";
     }
     res += "\n";
 
