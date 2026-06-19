@@ -10,7 +10,7 @@
 #include "Clef.h"
 #include "TimeSig.h"
 
-#define DEBUG_SHOW_CHUNK_WINNERS
+//#define DEBUG_SHOW_CHUNK_WINNERS
 
 namespace MidiScore
 {

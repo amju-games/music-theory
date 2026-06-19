@@ -7,6 +7,16 @@
 
 namespace MidiScore
 {
+Event MakeTimeSigEvent(TimeSig ts, int time)
+{
+  Event e;
+  e.m_type = EventType::TIME_SIG;
+  e.m_timeSig = ts;
+  e.m_start = time;
+  e.m_end = time;
+  return e;
+}
+
 int Numerator(TimeSig ts)
 {
   static const std::array<int, 9> NUMS = 

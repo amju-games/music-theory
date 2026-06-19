@@ -36,5 +36,8 @@ KeySig IntToKeySig(int k);
 std::string KeySigString(KeySig ks);
 
 KeySig GuessKeySig(const Events& events, bool preferFlatKey = false);
+
+// Create an Event of key sig type.
+Event MakeKeySigEvent(KeySig ks, int timeInTpqTicks);
 }
 

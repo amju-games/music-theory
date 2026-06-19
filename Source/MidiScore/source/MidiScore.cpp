@@ -90,13 +90,11 @@ std::string OutputTrack(
 
 //std::cout << "Raw events: " << OutputEvents(events) << "\n";
 
-  ClefChanges allClefChanges;
-  Clef clef = GuessClef(events, tpq, anacrusisTicks, ts, allClefChanges, !allClefs);
-
-  std::string res;
-  res += ClefString(clef) + " ";
-  res += TimeSigString(ts) + " ";
-  res += KeySigString(ks) + " ";
+  // Prepend time sig and key sig. TODO Later on consider looking for
+  //  key sig changes, as we do for clefs.
+  const int atStart = 0;
+  events.insert(events.begin(), MakeKeySigEvent(ks, atStart)); 
+  events.insert(events.begin(), MakeTimeSigEvent(ts, atStart)); 
 
   if (yesDynamics)
     InsertDynamics(events);
@@ -110,6 +108,11 @@ std::string OutputTrack(
   InsertBarLines(tpq, ts, events, numBars, anacrusisTicks);
 //std::cout << "With bar lines: " << OutputEvents(events) << "\n";
 
+  // Get initial clef event and possibly changes; interleave these events.
+  ClefChanges allClefChanges;
+  GuessClef(events, tpq, anacrusisTicks, ts, allClefChanges, !allClefs);
+  InsertClefs(events, allClefChanges);
+
   // Fill 'gaps' between note events with rests
   InsertRests(tpq, events, ts);
 //std::cout << "With rests: " << OutputEvents(events) << "\n";
@@ -120,13 +123,13 @@ std::string OutputTrack(
 
   if (debug)
   {
-    return OutputEventsDebug(tpq, res, events);
+    return OutputEventsDebug(tpq, events);
   }
 
-  return res + OutputEvents(events);
+  return OutputEvents(events);
 }
 
-std::string OutputEventsDebug(int tpq, const std::string& bar1Preamble, const Events& events)
+std::string OutputEventsDebug(int tpq, const Events& events)
 {
   std::string res = "\n";
 
@@ -134,7 +137,7 @@ std::string OutputEventsDebug(int tpq, const std::string& bar1Preamble, const Ev
   int prevDuration = -1;
 
   // Zero-based bar numbers to match MakeScore
-  res += "// BAR: 0\n" + bar1Preamble + "\n";
+  res += "// BAR: 0\n";
   int barNum = 1; // next bar num 
 
   // So we can output times as crotchets from last bar line

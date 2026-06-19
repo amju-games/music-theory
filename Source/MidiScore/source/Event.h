@@ -10,6 +10,7 @@
 namespace MidiScore
 {
 enum class Clef;
+enum class KeySig;
 enum class TimeSig;
 
 enum class TimeVal
@@ -75,7 +76,9 @@ struct Event
   
   EventType m_type = EventType::NOTE;
 
-  Clef m_clef; // for clef events, obvs; initialised in ctor
+  Clef m_clef; // for clef events; initialised in ctor
+  TimeSig m_timeSig; // for time sig events
+  KeySig m_keySig; // for key sig events
 
   Event();
   std::string ToString() const;

@@ -10,12 +10,16 @@
 #include <sstream>
 #include "Clef.h"
 #include "Event.h"
+#include "KeySig.h"
 #include "MidiScore.h" // OutputEvents
 #include "TimeSig.h"
 
 namespace MidiScore
 {
-Event::Event() : m_clef(Clef::TREBLE)
+Event::Event() : 
+  m_clef(Clef::TREBLE), 
+  m_timeSig(TimeSig::TS_NONE),
+  m_keySig(KeySig::KS_SHARP_0)
 {
 }
 
@@ -382,6 +386,12 @@ std::string Event::ToString() const
 
   case EventType::CLEF:
     return ClefString(m_clef);
+
+  case EventType::KEY_SIG:
+    return KeySigString(m_keySig);
+
+  case EventType::TIME_SIG:
+    return TimeSigString(m_timeSig);
 
   default:
     std::cout << "No String for Event Type " 

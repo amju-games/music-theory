@@ -9,6 +9,16 @@
 
 namespace MidiScore
 {
+Event MakeKeySigEvent(KeySig ks, int time)
+{
+  Event e;
+  e.m_type = EventType::KEY_SIG;
+  e.m_keySig = ks;
+  e.m_start = time;
+  e.m_end = time;
+  return e;
+}
+
 KeySig IntToKeySig(int k)
 {
   if (k > 0)

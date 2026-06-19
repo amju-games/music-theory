@@ -44,5 +44,8 @@ TimeSig GuessTimeSig(int tpq, const Events& events);
 
 // Return true for compound time, i.e. 6/8, 9/8, 12/8
 bool IsCompoundTimeSig(TimeSig ts);
+
+// Create an Event of key sig type.
+Event MakeTimeSigEvent(TimeSig ts, int timeInTpqTicks);
 }
 

@@ -51,7 +51,6 @@ std::string OutputEvents(const Events& events);
 std::string OutputNoteDurations(const Events& events);
 
 // Output with as much info as poss
-std::string OutputEventsDebug(int tpq, 
-  const std::string& bar1Preamble, const Events& events);
+std::string OutputEventsDebug(int tpq, const Events& events);
 }
 
