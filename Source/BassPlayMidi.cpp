@@ -527,4 +527,61 @@ std::vector<std::string> GetPlayingSongTrackNames()
 {
   return GetTrackNames(s_songStream);
 }
+
+static DWORD GetMidiTrackCount(HSTREAM midiStream) 
+{
+    DWORD track = 0;
+    while (true) {
+        // Passing NULL to the event array parameter simply checks if the track exists
+        DWORD eventCount = BASS_MIDI_StreamGetEvents(midiStream, track, 0, NULL);
+        
+        // If BASS returns -1, it means the track index is out of bounds
+        if (eventCount == (DWORD)-1) {
+            break;
+        }
+        track++;
+    }
+    return track; // This is your total track count
+}
+
+static void ApplyTrackMuteSolo(HSTREAM midiStream, 
+  const std::set<int>& muteTracks, 
+  const std::set<int>& soloTracks) 
+{
+  // Determine total tracks inside the file
+  DWORD totalTracks = GetMidiTrackCount(midiStream);
+
+  for (DWORD i = 0; i < totalTracks; ++i) 
+  {
+    bool shouldMute = false;
+
+    // Rule 1: If a Solo list exists, everything NOT in that list must be muted
+    if (!soloTracks.empty()) 
+    {
+        if (soloTracks.find(i) == soloTracks.end()) 
+        {
+            shouldMute = true;
+        }
+    }
+        
+    // Rule 2: If it's explicitly in the Mute list, it must be muted
+    if (muteTracks.find(i) != muteTracks.end()) 
+    {
+        shouldMute = true;
+    }
+
+    // Apply muting to the specific track index via the BASS_MIDI_StreamEvent API
+    // Passing 0 mutes the track completely, passing -1 restores default track processing
+    int mixValue = shouldMute ? 0 : -1;
+    BASS_MIDI_StreamEvent(midiStream, i, MIDI_EVENT_MIXLEVEL, mixValue);
+  }
+  BASS_ChannelPlay(midiStream, FALSE); 
+}
+
+void ApplyMuteSoloToPlayingSong(
+  const std::set<int>& muteTracks, 
+  const std::set<int>& soloTracks) 
+{
+  ApplyTrackMuteSolo(s_songStream, muteTracks, soloTracks);
+}
 }

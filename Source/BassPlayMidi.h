@@ -1,5 +1,8 @@
 #pragma once
 
+#include <set>
+#include <string>
+#include <vector>
 #include <Singleton.h>
 
 namespace Amju
@@ -33,6 +36,11 @@ void PlayMidiSong(const std::string& filename,
 
 // Get tracks names of the currently playing midi song.
 std::vector<std::string> GetPlayingSongTrackNames();
+
+// Apply mute/solo flags to tracks of currently playing midi song.
+void ApplyMuteSoloToPlayingSong(
+  const std::set<int>& muteTracks,
+  const std::set<int>& soloTracks);
 
 // Stop the currently playing song.
 void StopMidiSong();
