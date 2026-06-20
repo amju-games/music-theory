@@ -71,7 +71,7 @@ std::string OutputEvent(int& prevDuration, const Event& e)
   //  immediate rest token.
   if (e.IsRest() && e.m_duration == prevDuration)
   {
-    return "r"; // immediate rest token
+    return (e.m_isWholeBar ? "R" : "r"); // immediate rest token
   }
 
   if (e.m_duration > 0 || prevDuration < 0)
