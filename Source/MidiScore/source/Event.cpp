@@ -564,6 +564,37 @@ static Events::iterator SplitInsertRest(
   return it;
 }
 
+// Decide if we should insert a whole bar rest at the given insert
+//  point in a sequence of events. 
+// We should insert a whole bar rest if:
+//   1. `it` points to a bar line, and 
+//   2. there is no previous note or rest until we reach 
+//      a. the start of the sequence, or 
+//      b. the previous bar line.
+static bool ShouldWeInsertWholeBarRest(
+  const Events& events, Events::const_iterator it)
+{
+  if (!it->IsBarLine()) return false;
+  
+  // Work backwards until we reach a bar line or the sequence start.
+  while (it != events.begin())
+  {
+    --it;
+    if (it->m_duration > 0) 
+    {
+      // something else is taking up time in the bar
+      return false;
+    }
+    if (it->IsBarLine())
+    {
+      // Nothing takes time between the two bar lines
+      return true;
+    }
+  }
+  // We've hit the start
+  return true;
+}
+
 void InsertRests(int tpq, Events& events, TimeSig ts)
 {
   // To insert rests, we get the end time of each event, and compare it
@@ -594,13 +625,7 @@ void InsertRests(int tpq, Events& events, TimeSig ts)
         int restDuration = it->m_start - t;
 
         // Check for whole-bar rest
-        bool wholeBar = 
-          (it == events.begin() &&  // at start of stave..
-           it->IsBarLine()) // ..and first event is an end-of-bar line
-           || // .. OR..
-          (it != events.begin() && // after start of stave..
-          (it - 1)->IsBarLine() && // ..and there's a bar line before..
-           it->IsBarLine()); // ..and a bar line after.
+        bool wholeBar = ShouldWeInsertWholeBarRest(events, it);
 
         // A whole bar rest can be dotted. What this means in practice
         //  is that we only get one rest for a whole bar rest for
