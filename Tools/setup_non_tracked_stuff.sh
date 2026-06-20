@@ -19,12 +19,18 @@ cd ../../Tools
 # Listen + dylibs
 echo Building listen...
 cd ../Script/Macosx
+source ./setup_make_vars.sh 
 make -f ListenMakefile
 make runsetup
 cd ../../Tools
 echo Copying listen...
 cp ../Build/Mac/listen .
 cp ../Build/Mac/*.dylib .
-
+# Copy sound fonts to this dir so we don't rely on hard-coded
+#  Assets path
+mkdir Sound
+cp ../Assets/Sound/steinway_concert_piano.sf2 Sound
+cp ../Assets/Sound/Colin_s_Double_Bass.sf2 Sound
+cp ../Assets/Sound/Jazz\ Kit.sf2 Sound
 echo All done!
 

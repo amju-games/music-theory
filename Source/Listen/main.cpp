@@ -6,12 +6,14 @@
 //   ../../Build/Mac/listen Songs/Bach-Air/bach-air.mid
 
 
+#include <filesystem>
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <set>
 #include <vector>
 #include <AmjuSleep.h>
+#include <File.h>
 #include "BassPlayMidi.h"
 
 namespace Amju
@@ -94,7 +96,9 @@ int main(int argc, char** argv)
 
   std::cout << "Playing " << song << "..\n";
 
-  SetUpRootDir();
+  // Set cwd to find the sound fonts, which should be in a Sound/ dir,
+  //  in the dir where the exe is installed.
+  File::SetRoot(std::filesystem::current_path(), "/");
   SetUpSound();
 
   PlayMidiSong(song);

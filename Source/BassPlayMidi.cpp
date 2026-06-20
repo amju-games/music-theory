@@ -53,7 +53,8 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
 
   // Use this map so we only ever load a soundfont once.
   static std::unordered_map<std::string, HSOUNDFONT> fontPool;
-  auto it = fontPool.find(filename);
+  // Use unadorned filename so we can change File::Root
+  auto it = fontPool.find(fontFileName);
   if (it != fontPool.end())
   {
 #ifdef PLAY_MIDI_DEBUG
@@ -62,7 +63,7 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
     return it->second;
   }
 
-  auto font = BASS_MIDI_FontInit(filename.c_str(), 0);
+  auto font = BASS_MIDI_FontInit(filename.c_str(), 0); // load using full path
   if (font) 
   {
 #ifdef PLAY_MIDI_DEBUG
@@ -71,7 +72,7 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
   }
   else
   {
-    std::cout << "Failed to load soundfont: " << fontFileName << ": ";
+    std::cout << "Failed to load soundfont: " << filename << ": ";
     std::cout << "Bass error code: " << BASS_ErrorGetCode() << "\n";
     Assert(0);
   }
@@ -105,7 +106,7 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
     Assert(0);
   }
 
-  fontPool[filename] = font; // store for next time
+  fontPool[fontFileName] = font; // store for next time: use unadorned file name
   return font;
 }
 
@@ -280,9 +281,16 @@ std::cout << "BASS MIDI: using glue file.\n";
   }   
   else
   {
+    // If path to midi file is relative, prepend File::Root
+    auto fullPath = filename;
+    if (std::filesystem::path(filename).is_relative())
+    {
+      fullPath = File::GetRoot() + filename;
+    }
+
     stream = BASS_MIDI_StreamCreateFile(
       FALSE, 
-      (File::GetRoot() + filename).c_str(),
+      fullPath.c_str(),
       0, 0, 
       BASS_MIDI_NOSYSRESET, 
       44100);
