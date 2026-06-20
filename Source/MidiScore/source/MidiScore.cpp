@@ -74,7 +74,10 @@ std::string OutputEvent(int& prevDuration, const Event& e)
     return "r"; // immediate rest token
   }
 
-  prevDuration = e.m_duration;
+  if (e.m_duration > 0 || prevDuration < 0)
+  {
+    prevDuration = e.m_duration;
+  }
 
   return e.ToString();
 }

@@ -144,9 +144,9 @@ TEST_CASE("Interleave clef changes with notes and bar lines", "[Clef]")
   const int anacrusis = 0;
   int numBars = 4;
   InsertBarLines(tpq, TimeSig::TS_4_4, events, numBars, anacrusis); 
-  REQUIRE(OutputEvents(events) == "<sb> 48 | <sb> 48 | <sb> 72 | <sb> 72 | ");
+  REQUIRE(OutputEvents(events) == "<sb> 48 | 48 | 72 | 72 | ");
   InsertClefs(events, changes);
-  REQUIRE(OutputEvents(events) == "clef-b <sb> 48 | <sb> 48 | clef-t <sb> 72 | <sb> 72 | ");
+  REQUIRE(OutputEvents(events) == "clef-b <sb> 48 | 48 | clef-t 72 | 72 | ");
 }
 
 TEST_CASE("Interleave clef changes, with anacrusis ", "[Clef]")
@@ -160,11 +160,11 @@ TEST_CASE("Interleave clef changes, with anacrusis ", "[Clef]")
   const int anacrusis = 2 * tpq;
   const int numBars = 5; // extra bar because of anac.
   InsertBarLines(tpq, TimeSig::TS_4_4, events, numBars, anacrusis);  
-  REQUIRE(OutputEvents(events) == "<m> 48 | t <m> 48 48 | t <m> 48 72 | t <m> 72 72 | t <m> 72 | ");
+  REQUIRE(OutputEvents(events) == "<m> 48 | t 48 48 | t 48 72 | t 72 72 | t 72 | ");
   InsertClefs(events, changes);
   // Treble clef change is skipped because it can't fit in the shifted events.
   // It would have to be mid-bar or would have to increase its time to the next
   //  bar. But if we do that, we have to check for ties.
-  REQUIRE(OutputEvents(events) == "clef-b <m> 48 | t <m> 48 48 | t <m> 48 72 | t <m> 72 72 | t <m> 72 | ");
+  REQUIRE(OutputEvents(events) == "clef-b <m> 48 | t 48 48 | t 48 72 | t 72 72 | t 72 | ");
 }
 

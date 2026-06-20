@@ -541,7 +541,7 @@ TEST_CASE("Insert whole bar rest, not split", "[Events]")
 
   InsertRests(tpq, events, TimeSig::TS_3_4);
 
-//  std::cout << OutputEvents(events);
+  std::cout << OutputEvents(events);
   // Expect dotted minim whole bar rest
   REQUIRE(events.size() == 2);
   REQUIRE(events[0].IsRest());
@@ -614,7 +614,7 @@ TEST_CASE("Add bar lines 3/4, with anacrusis c", "[Events]")
   // TODO: Why do we have to restate <c> ??
   // Also, TODO trim final space.
   // NB rest is split because of 3/4 rest-splitting rules?
-  REQUIRE(OutputEvents(events) == "<c> 60 | <c> 61 62 63 | <c> 64 r r | ");
+  REQUIRE(OutputEvents(events) == "<c> 60 | 61 62 63 | 64 r r | ");
 }
 
 TEST_CASE("Add bar lines 3/4, with anacrusis m", "[Events]")
@@ -635,7 +635,7 @@ TEST_CASE("Add bar lines 3/4, with anacrusis m", "[Events]")
 
   // TODO: Why do we have to restate <c> ??
   // Also, TODO trim final space.
-  REQUIRE(OutputEvents(events) == "<c> 60 61 | <c> 62 63 64 | ");
+  REQUIRE(OutputEvents(events) == "<c> 60 61 | 62 63 64 | ");
 }
 
 TEST_CASE("Add bar lines 4/4, with anacrusis c", "[Events]")
@@ -656,7 +656,7 @@ TEST_CASE("Add bar lines 4/4, with anacrusis c", "[Events]")
 
   // TODO: Why do we have to restate <c> ??
   // Also, TODO trim final space.
-  REQUIRE(OutputEvents(events) == "<c> 60 | <c> 61 62 63 64 | ");
+  REQUIRE(OutputEvents(events) == "<c> 60 | 61 62 63 64 | ");
 }
 
 TEST_CASE("Add bar lines 4/4, with anacrusis m", "[Events]")
@@ -674,7 +674,7 @@ TEST_CASE("Add bar lines 4/4, with anacrusis m", "[Events]")
 
   InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 2 * tpq); // anac. length m 
   InsertRests(tpq, events, TimeSig::TS_4_4);
-  REQUIRE(OutputEvents(events) == "<c> 60 61 | <c> 62 63 64 r | ");
+  REQUIRE(OutputEvents(events) == "<c> 60 61 | 62 63 64 r | ");
 }
 
 TEST_CASE("Add bar lines 4/4", "[Events]")
