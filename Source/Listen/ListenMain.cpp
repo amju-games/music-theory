@@ -5,6 +5,7 @@
 //   make -f ListenMakefile
 //   ../../Build/Mac/listen Songs/Bach-Air/bach-air.mid
 
+#ifdef LISTEN
 
 #include <filesystem>
 #include <iostream>
@@ -123,3 +124,4 @@ int main(int argc, char** argv)
   return 0;
 }
 
+#endif // LISTEN

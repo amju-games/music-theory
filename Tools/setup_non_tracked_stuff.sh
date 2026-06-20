@@ -20,6 +20,7 @@ cd ../../Tools
 echo Building listen...
 cd ../Script/Macosx
 source ./setup_make_vars.sh 
+./touch_main_cpps.sh
 make -f ListenMakefile
 make runsetup
 cd ../../Tools

@@ -1,7 +1,7 @@
 // * PIANO FEST *
 // (c) Copyright 2026 Juliet Colman
 
-#if defined(WIN32) || defined(MACOSX)
+#if (defined(WIN32) || defined(MACOSX)) && !defined(LISTEN) && !defined(CATCH)
 #define AMJU_USE_OPENGL
 #define AMJU_USE_GLUT
 #include <main.h>
