@@ -41,8 +41,6 @@ struct ClefProfile
   int ideal_center;     // The middle line of the staff
 };
 
-// --- 2. CONFIGURATION ---
-
 const std::vector<ClefProfile>& GetClefProfiles(bool justTrebleAndBass)
 {
   static const std::vector<ClefProfile> tbProfiles = {
@@ -59,8 +57,6 @@ const std::vector<ClefProfile>& GetClefProfiles(bool justTrebleAndBass)
 
   return (justTrebleAndBass ? tbProfiles : allProfiles);
 }
-
-// --- 3. PIPELINE HELPERS ---
 
 float CalculateProfileScore(const std::vector<int>& pitches, const ClefProfile& profile)
 {
@@ -140,16 +136,17 @@ std::map<int, std::vector<int>> SegmentPitchesByMeasures(
     // Chop off any anacrusis:
     //      . . | . . . . | . . . . |  =>  . . | . . . . | . . . . |
     // ch. -1--> ch. 0---> ch. 1--->       ch. 0 -------> ch. 1--->
-
+    //
+    // Subtract anacrusis time from event start; anything that is then
+    //  negative just goes into chunk 0.
     int chunk_index = std::max(0,
       (event.m_unquantisedStart - anacrusisTicks) / window_size_ticks);
     assert(chunk_index >= 0);
+
     chunks[chunk_index].push_back(event.m_pitch);
   }
   return chunks;
 }
-
-// --- 4. CORE TIMELINE ORCHESTRATOR ---
 
 std::vector<ClefChange> GenerateClefChanges(
   const Events& events, 
@@ -165,7 +162,6 @@ std::vector<ClefChange> GenerateClefChanges(
   std::vector<ClefChange> timeline;
   if (events.empty())
   {
-std::cout << "Clef guessing... no events\n";
     return timeline;
   }
 
@@ -183,7 +179,8 @@ std::cout << "Clef guessing... no events\n";
   std::vector<Clef> chunk_winners; // for reporting only
 
   // Establish the starting clef from the initial measure block
-  Clef current_clef = EvaluateSingleWindow(time_chunks[0], Clef::TREBLE, justTrebleAndBass);
+  Clef current_clef = EvaluateSingleWindow(
+    time_chunks[0], Clef::TREBLE, justTrebleAndBass);
   timeline.push_back(MakeClefChange(current_clef, 0));
   chunk_winners.push_back(current_clef);
 
@@ -197,7 +194,8 @@ std::cout << "Clef guessing... no events\n";
       continue; 
     }
 
-    Clef chunk_winner = EvaluateSingleWindow(pitches, current_clef, justTrebleAndBass);
+    Clef chunk_winner = EvaluateSingleWindow(
+      pitches, current_clef, justTrebleAndBass);
     chunk_winners.push_back(chunk_winner); // for reporting only
 
     if (chunk_winner != current_clef)
@@ -259,7 +257,6 @@ Clef GuessClef(const Events& e, int tpq,
   allClefChanges = GenerateClefChanges(e, tpq, anacrusisTicks, num, denom, justTrebleAndBass, barsPerChunk, threshold);
   if (allClefChanges.empty())
   {
-std::cout << "// Defaulting to clef-t!\n";
     // Just in case we don't have any clefs:
     allClefChanges.push_back(MakeClefChange(Clef::TREBLE, 0));
   }
@@ -271,11 +268,8 @@ void InsertClefs(Events& events, const ClefChanges& cc)
   // Interleave events and clef changes:
   // Add clef changes immediately after a bar line, except for the
   //  0th clef, which gets added before everything.
-  // TODO Clefs, keysigs and timesigs should all be events, so we can
-  //  deal with everything uniformly. Currently we are treating them
-  //  as special case output tokens.
-  // TODO post-process to remove or defer clef changes that
-  //  split tied notes.
+  // TODO remove or defer clef changes that split tied notes.
+
   if (cc.empty()) return;
 
   Events newEvents;
