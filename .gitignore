@@ -36,3 +36,16 @@ build.log
 fixed.csv
 glue.log
 /Script/Msvc/AmjulaMusicTheory/MidiScore/x64
+Assets/Songs/Tools/__pycache__
+Tools/__pycache__
+Source/MakeScore/makescore
+Source/MidiScore/midiscore
+Tools/libbass.dylib
+Tools/libbassmidi.dylib
+Tools/listen
+Tools/makescore
+Tools/midiscore
+twinkle_out.txt
+Tools/Sound/Colin_s_Double_Bass.sf2
+Tools/Sound/Jazz Kit.sf2
+Tools/Sound/steinway_concert_piano.sf2

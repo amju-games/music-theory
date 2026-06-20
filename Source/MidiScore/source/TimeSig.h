@@ -21,6 +21,10 @@ enum class TimeSig
   TS_12_8,
 };
 
+// Get numerator and denominator for given time sig.
+int Numerator(TimeSig);
+int Denominator(TimeSig);
+
 // Get TimeSig value from string, used to parse time sig in 
 //  command line input, which overrides guessing.
 TimeSig GetTimeSigFromString(const std::string& s);
@@ -35,9 +39,13 @@ std::string TimeSigString(TimeSig ts);
 float BeatsInBar(TimeSig ts);
 
 // From the given events and tpq, guess the time sig.
+// TODO -- not implemented!!
 TimeSig GuessTimeSig(int tpq, const Events& events);
 
 // Return true for compound time, i.e. 6/8, 9/8, 12/8
 bool IsCompoundTimeSig(TimeSig ts);
+
+// Create an Event of key sig type.
+Event MakeTimeSigEvent(TimeSig ts, int timeInTpqTicks);
 }
 

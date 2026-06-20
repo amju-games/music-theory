@@ -1,5 +1,8 @@
 #pragma once
 
+#include <set>
+#include <string>
+#include <vector>
 #include <Singleton.h>
 
 namespace Amju
@@ -30,6 +33,14 @@ void PlayMidi(int midiNote, int velocity);
 // If mutePlayer is true, the player melody (channel 0) is muted.
 void PlayMidiSong(const std::string& filename, 
   float seekTimeSeconds = 0, bool mutePlayer = false);
+
+// Get tracks names of the currently playing midi song.
+std::vector<std::string> GetPlayingSongTrackNames();
+
+// Apply mute/solo flags to tracks of currently playing midi song.
+void ApplyMuteSoloToPlayingSong(
+  const std::set<int>& muteTracks,
+  const std::set<int>& soloTracks);
 
 // Stop the currently playing song.
 void StopMidiSong();

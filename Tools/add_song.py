@@ -1,6 +1,9 @@
 # add_song.py
 # Add a new song to the game. 
-
+# Usage example:
+#    python3 add_song.py ~/Downloads/newsong.mid
+#
+#
 # To install mido, the recommendation is to create a virtual env and install it 
 #  there.
 # On mac:
@@ -8,17 +11,29 @@
 #   source .venv/bin/activate   # activate it
 #   pip3 install mido           # install mido library
 #
+# In each new shell, you need to activate the venv again:
+#   source .venv/bin/activate   
+#
 # Or just:
 #   pip3 install mido 
 # to install system-wide.
 
-import sys
 import mido
-import re
 from pathlib import Path
+import platform
+import re
 import shutil
 import subprocess
-import platform
+import sys
+from quantise import *
+from add_bass_track import add_bass_track_if_required_in_mem
+from add_percussion_track import add_percussion_track_if_required_in_mem
+from extract_top_line import extract_top_line_in_mem
+from set_bpm import set_midi_bpm_in_mem
+
+# Subdir to put workspace files: don't commit them, and don't add them 
+#  to the game!
+WORKSPACE = "workspace"
 
 def get_exec_path(base_name):
     """Adjusts executable path based on the Operating System."""
@@ -31,27 +46,33 @@ def get_exec_path(base_name):
         # Mac and Linux require the relative path prefix
         return f"./{base_name}"
 
-def generate_score_files(comp_camel, piece_camel, target_dir, score_midi_path, num, den, resolution, bpm):
+def generate_score_files(comp_camel, piece_camel, target_dir, workspace_dir, score_midi_path, num, den, resolution, bpm, new_player_idx):
     """
     Step 1: Runs ./midiscore to create .makescore.txt
     Step 2: Runs ./makescore to create .score.txt
     """
     base_name = f"{comp_camel.lower()}-{piece_camel.lower()}"
-    makescore_path = target_dir / f"{base_name}.makescore.txt"
+    makescore_path = workspace_dir / f"{base_name}.makescore.txt"
     final_score_path = target_dir / f"{base_name}.score.txt"
 
     # Get the correct executable names for the current OS
     midiscore_exec = get_exec_path("midiscore")
     makescore_exec = get_exec_path("makescore")
-    
+
+    # Ask if we should add an anacrusis, (an incomplete first bar)
+    anacrusis = input("📝 Enter anacrusis length (q, c, m, etc., or leave blank if none): ").strip()
+
     # --- STEP 1: midiscore ---
     cmd1 = [
         midiscore_exec,
         str(score_midi_path),
         "--timesig", f"{num}/{den}",
         "--quant", resolution,
-        "--bpm", str(bpm)
+        "--bpm", str(bpm),
+        "--track", str(new_player_idx - 1) # zero-based player track number
     ]
+    if (anacrusis):
+        cmd1.extend(["--ana", anacrusis])
     
     print(f"🎼 Step 1: Running midiscore...")
     try:
@@ -92,89 +113,6 @@ ROLE_CHANNELS = {
     'percussion': 9
 }
 
-# Maps your shorthand to (Numerical Resolution, Midiscore Flag)
-QUANT_MAP = {
-    "c": (4, "c"),      # Crotchet (1/4)
-    "q": (8, "q"),      # Quaver (1/8)
-    "qq": (16, "qq"),    # Semiquaver (1/16)
-    "qqq": (32, "qqq")   # Demisemiquaver (1/32)
-}
-
-def detect_suggested_quantization(player_track, ticks_per_beat):
-    """Scans the track for the shortest gap between notes to suggest a grid size."""
-    abs_time = 0
-    onsets = []
-    
-    for msg in player_track:
-        abs_time += msg.time
-        if msg.type == 'note_on' and msg.velocity > 0:
-            onsets.append(abs_time)
-            
-    if len(onsets) < 2:
-        return "qq", False # Default with no warning
-        
-    # We ignore gaps smaller than a 128th note (ticks_per_beat / 32). 
-    # Anything faster than that is almost certainly a human playing a chord.
-    slop_threshold = ticks_per_beat / 32 
-    
-    intervals = []
-    for i in range(1, len(onsets)):
-        diff = onsets[i] - onsets[i-1]
-        if diff > slop_threshold:
-            intervals.append(diff)
-            
-    if not intervals:
-        return "qq", False
-        
-    min_interval = min(intervals)
-    
-    # --- Resolution Check ---
-    # A 32nd note is exactly ticks_per_beat / 8. 
-    # If the gap is smaller than this, 'qqq' won't be enough!
-    resolution_warning = min_interval < (ticks_per_beat / 8)
-    
-    # Match to the grid
-    if min_interval <= ticks_per_beat / 6: 
-        return "qqq", resolution_warning
-    elif min_interval <= ticks_per_beat / 3:
-        return "qq", resolution_warning
-    elif min_interval <= ticks_per_beat / 1.5:
-        return "q", resolution_warning
-    else:
-        return "c", resolution_warning
-
-def get_quantization_setting(player_track, ticks_per_beat):
-    """Prompts the user, auto-detects best values, displaying a warning if runs are too fast for the grid."""
-    
-    # Unpack the new warning flag
-    suggested_code, warning = detect_suggested_quantization(player_track, ticks_per_beat)
-
-    print("\n⏱️  Quantization Settings:")
-    print("   c   = Crotchet     (1/4)")
-    print("   q   = Quaver       (1/8)")
-    print("   qq  = Semiquaver   (1/16)")
-    print("   qqq = Demisemiquaver (1/32)")
-    print(f"   💡 Auto-detected suggestion: {suggested_code.upper()}")
-   
-    # --- Display the warning ---
-    if warning:
-        print("   ⚠️  WARNING: Detected notes faster than 1/32nd resolution!")
-        print("       These fast notes/trills will likely render as chords.")
- 
-    while True:
-        # Inject our dynamic suggestion into the input prompt
-        q_code = input(f"\nEnter resolution code [{suggested_code}]: ").strip().lower()
-        
-        if not q_code: 
-            q_code = suggested_code # Use the dynamic default
-        
-        if q_code in QUANT_MAP:
-            num_res, flag = QUANT_MAP[q_code]
-            print(f"   ✅ Set to {q_code.upper()}")
-            return num_res, flag
-        else:
-            print("   ❌ Invalid code. Please use c, q, qq, or qqq.")
-
 def to_camel_case(text):
     return "".join(word.capitalize() for word in re.split(r'[^a-zA-Z0-9]', text) if word)
 
@@ -182,13 +120,18 @@ def setup_paths(composer, piece):
     comp_camel = to_camel_case(composer)
     piece_camel = to_camel_case(piece)
     folder_name = f"{comp_camel}-{piece_camel}"
-    target_dir = Path("..") / folder_name
+    target_dir = Path("../Assets/Songs") / folder_name
     target_dir.mkdir(parents=True, exist_ok=True)
-    
+    # Create workspace dir
+    workspace_dir = target_dir / Path(WORKSPACE)
+    workspace_dir.mkdir(parents=True, exist_ok=True)
+   
+    # Final midi file: correct channels, chosen tracks, extra events stripped. 
     file_name = f"{comp_camel.lower()}-{piece_camel.lower()}.mid"
+    # Midi file with quantised player part for midiscore
     score_name = f"{comp_camel.lower()}-{piece_camel.lower()}-score.mid"
     
-    return target_dir, target_dir / file_name, target_dir / score_name
+    return target_dir, target_dir / file_name, workspace_dir / score_name, workspace_dir
 
 def analyze_tracks(mid):
     print("\n🔍 Analyzing MIDI Tracks...")
@@ -221,50 +164,10 @@ def get_user_mapping(track_data):
     
     return mapping, player_idx
 
-def quantize_track(track, ticks_per_beat, resolution):
-    """Snaps Note On/Off to grid and ensures a minimum duration."""
-    grid_size = ticks_per_beat * (4.0 / resolution)
-    min_duration = grid_size  # Ensure notes are at least one grid-unit long
-    
-    abs_time = 0
-    events = []
-    active_notes = {} # To track note_on/note_off pairs
-
-    # 1. Convert to Absolute Time
-    for msg in track:
-        abs_time += msg.time
-        events.append({'msg': msg, 'abs_time': abs_time})
-
-    # 2. Snap to Grid
-    for event in events:
-        msg = event['msg']
-        if msg.type in ('note_on', 'note_off'):
-            original_abs = event['abs_time']
-            new_abs = round(original_abs / grid_size) * grid_size
-            
-            # Logic to prevent Note Off from moving BEFORE or ON TOP OF Note On
-            if msg.type == 'note_on' and msg.velocity > 0:
-                active_notes[msg.note] = new_abs
-                event['abs_time'] = new_abs
-            elif msg.type == 'note_off' or (msg.type == 'note_on' and msg.velocity == 0):
-                on_time = active_notes.get(msg.note, new_abs - grid_size)
-                # Ensure the note has at least 'min_duration' length
-                event['abs_time'] = max(new_abs, on_time + min_duration)
-
-    events.sort(key=lambda e: e['abs_time'])
-
-    # 3. Rebuild Delta Times
-    new_track = mido.MidiTrack()
-    last_time = 0
-    for event in events:
-        delta = int(event['abs_time'] - last_time)
-        new_track.append(event['msg'].copy(time=max(0, delta)))
-        last_time = event['abs_time']
-    return new_track
 
 # Output new midi file with remapped channels, and tracks renamed to
 #  reflect the mapping.
-def process_audio_pipeline(input_path, output_path, mapping):
+def process_audio_pipeline(mid, output_path, mapping):
 
     # the track->channel mapping after we chop unwanted tracks
     new_mapping = {} 
@@ -276,7 +179,6 @@ def process_audio_pipeline(input_path, output_path, mapping):
     # Track name counters to handle duplicates
     name_counters = {}
 
-    mid = mido.MidiFile(input_path)
     new_mid = mido.MidiFile(ticks_per_beat=mid.ticks_per_beat, type=mid.type)
     keep = list(mapping.keys())
     if 0 not in keep: keep.append(0)
@@ -319,20 +221,39 @@ def process_audio_pipeline(input_path, output_path, mapping):
             if msg.type == 'control_change' and msg.control in (7, 10, 11): continue
 
             new_track.append(msg.copy(channel=chan) if hasattr(msg, 'channel') and chan is not None else msg.copy())
+
+    add_bass_track_if_required_in_mem(new_mid)
+    add_percussion_track_if_required_in_mem(new_mid)
     new_mid.save(output_path)
     return new_mapping
 
 
-# Create midi file with only the player track, quantised -- 
+# Create midi file with the player track quantised -- 
 #  this is for midiscore to process.
-def process_score_pipeline(input_path, output_path, player_idx, resolution):
-    mid = mido.MidiFile(input_path)
+# Also retain the other tracks so we detect the length of the song correctly,
+#  as there could be rest bars after the last player note.
+#  E.g. Gymnopdie 1.
+def process_score_pipeline(mid, output_path, player_idx, resolution, mapping):
     new_mid = mido.MidiFile(ticks_per_beat=mid.ticks_per_beat, type=mid.type)
+    keep = list(mapping.keys()) # retain all tracks
+    if 0 not in keep: keep.append(0) # including control track
+    
+    new_player_idx = 0
+    track_num = 1
+
     for i, track in enumerate(mid.tracks):
-        if i != player_idx: continue
+        if i not in keep: continue
+
+        # Find new player track index in new midi file
+        if i == player_idx:
+            new_player_idx = track_num
+        track_num += 1
+
         q_track = quantize_track(track, mid.ticks_per_beat, resolution)
         new_mid.tracks.append(mido.MidiTrack([m.copy(channel=0) if hasattr(m, 'channel') else m for m in q_track]))
     new_mid.save(output_path)
+    return new_player_idx
+
 
 def get_time_signature(mid):
     """Scans the MIDI file for a time signature meta-message."""
@@ -347,7 +268,7 @@ def update_songs_database(composer, piece, target_dir, audio_path, num, den, sco
     """Appends the new columns to songs.csv."""
     level = "1"
     new_round = 1
-    db_path = Path("..") / "songs.csv" 
+    db_path = Path("../Assets/Songs") / "songs.csv" 
     
     # 1. Read the last row to get the previous Level and Round
     if db_path.exists():
@@ -433,11 +354,9 @@ def get_or_prompt_time_signature(mid):
         except ValueError:
             print("❌ Invalid format. Please use numerator/denominator (e.g., 4/4).")
 
-def get_or_prompt_bpm(mid):
-    """Scans for a tempo meta-message, converts to BPM, and asks user to confirm."""
+def find_bpm_in_midi(mid):
     extracted_bpm = None
-    
-    # Try to detect automatically first
+    # Look for tempo setting event.
     for track in mid.tracks:
         for msg in track:
             if msg.type == 'set_tempo':
@@ -446,7 +365,13 @@ def get_or_prompt_bpm(mid):
                 break 
         if extracted_bpm:
             break
+    return extracted_bpm
 
+
+def get_or_prompt_bpm(mid):
+    """Scans for a tempo meta-message, converts to BPM, and asks user to confirm."""
+    extracted_bpm = find_bpm_in_midi(mid)
+    
     # Set our default display string
     default_bpm_str = str(extracted_bpm) if extracted_bpm else "120"
     
@@ -493,7 +418,12 @@ def main():
     mid = mido.MidiFile(input_path)
     
     # 2. Track Analysis and Routing
+    analyze_tracks(mid) # Just to show track list
+    # Extract top line from a polyphonic track if required, adding an extra track
+    extract_top_line_in_mem(mid)
+    # Map tracks to channels: first, show new track list
     track_data = analyze_tracks(mid)
+    # Get track -> channel map
     mapping, player_idx = get_user_mapping(track_data)
     # Grab the specific player track and pass it to the setting prompt
     player_track = mid.tracks[player_idx]
@@ -501,8 +431,11 @@ def main():
 
     # 3. Time Signature and Tempo
     num, den = get_or_prompt_time_signature(mid)
-    bpm = get_or_prompt_bpm(mid)
-    
+    orig_bpm = find_bpm_in_midi(mid)
+    new_bpm = get_or_prompt_bpm(mid)
+    if (orig_bpm != new_bpm):
+        set_midi_bpm_in_mem(mid, float(new_bpm))
+ 
     # 4. Metadata Gathering
     piece_name = input("\n📝 Enter the name of the Piece: ")
     composer_name = input("📝 Enter the name of the Composer: ")
@@ -511,40 +444,34 @@ def main():
     piece_camel = to_camel_case(piece_name)
 
     # 5. File System Setup
-    target_dir, audio_path, score_midi_path = setup_paths(composer_name, piece_name)
+    target_dir, audio_path, score_midi_path, workspace_dir = setup_paths(composer_name, piece_name)
     print(f"\n📁 Created directory: {target_dir}")
-    shutil.copy(input_path, target_dir / "original_backup.mid")
+    shutil.copy(input_path, workspace_dir / "original_backup.mid")
 
     # 6. MIDI Pipeline Processing
     print(f"⚙️ Generating Audio File: {audio_path.name}...")
     # returns new track->channel mapping
-    new_mapping = process_audio_pipeline(input_path, audio_path, mapping)
+    new_mapping = process_audio_pipeline(mid, audio_path, mapping)
     
-    print(f"🎼 Generating UI Score File: {score_midi_path.name}...")
-    process_score_pipeline(input_path, score_midi_path, player_idx, num_res)
+    print(f"🎼 Generating Score File: {score_midi_path.name}...")
+    new_player_idx = process_score_pipeline(mid, score_midi_path, player_idx, num_res, mapping)
     
-    # 7. Local Metadata Text File
-    with open(target_dir / "song_meta.txt", 'w') as f:
-        f.write(f"Composer={composer_name}\n")
-        f.write(f"Piece={piece_name}\n")
-        f.write(f"Quantization={num_res}\n")
-        f.write(f"PlayerChannel={ROLE_CHANNELS['player']}\n")
-        
-    # 8. Execute External Score Binaries (midiscore & makescore)
+    # 7. Execute External Score Binaries (midiscore & makescore)
     score_csv_string = generate_score_files(
-        comp_camel, piece_camel, target_dir, score_midi_path, num, den, q_flag, bpm
+        comp_camel, piece_camel, target_dir, workspace_dir, score_midi_path, num, den, q_flag, new_bpm, new_player_idx
     )
     
-    # 9. Update the Game Database
+    # 8. Update the Game Database
     if score_csv_string:
         update_songs_database(
             composer_name, piece_name, target_dir, audio_path, num, den, score_csv_string
         )
     else:
         print("\n⚠️ Database update skipped due to score generation failure.")
+        return
     
-    # 10. Write channels.txt in case fix_channels.py is required
-    write_channels_txt(target_dir, new_mapping)
+    # 9. Write channels.txt in case fix_channels.py is required
+    write_channels_txt(workspace_dir, new_mapping)
 
     print(f"\n🎉 Finished! Song successfully added to the game pipeline.")
 

@@ -1,3 +1,4 @@
+# set_bpm.py: set tempo in Beats Per Minute.
 import sys
 import mido
 from pathlib import Path
@@ -9,7 +10,12 @@ def set_midi_bpm(input_file, new_bpm):
     except Exception as e:
         print(f"❌ Error loading file: {e}")
         return
+    set_midi_bpm_in_mem(mid)
+    save_midi(mid, new_bpm, input_file)
 
+
+def set_midi_bpm_in_mem(mid, new_bpm):
+    print("  Setting new tempo...")
     # Convert BPM to MIDI tempo (microseconds per beat)
     new_tempo = mido.bpm2tempo(new_bpm)
     
@@ -23,7 +29,10 @@ def set_midi_bpm(input_file, new_bpm):
     # Note: time=0 ensures it happens at the very beginning
     tempo_msg = mido.MetaMessage('set_tempo', tempo=new_tempo, time=0)
     mid.tracks[0].insert(0, tempo_msg)
+    print(f"  ✅ Done! New tempo: {new_bpm} BPM")
 
+
+def save_midi(mid, new_bpm, input_file):
     # Generate output filename
     output_path = Path(input_file).stem + f"_{new_bpm}bpm.mid"
     mid.save(output_path)
@@ -42,5 +51,4 @@ if __name__ == "__main__":
         set_midi_bpm(file_arg, bpm_arg)
     except ValueError:
         print("❌ Error: BPM must be a number.")
-
 

@@ -4,6 +4,7 @@
 #include "catch.hpp"
 #include "Dynamics.h" 
 #include "Event.h"
+#include "TimeSig.h"
 
 using namespace MidiScore;
 
@@ -38,12 +39,12 @@ TEST_CASE("Dynamics processing: big range", "[Dynamics]")
   const int tpq = 480;
   Events events;
   // Add some notes with velocities - check vel and velChange are set
-  AppendNoteEventToEvents(tpq, n(60, 1), events); // ppp
-  AppendNoteEventToEvents(tpq, n(62, 125), events); // fff 
-  AppendNoteEventToEvents(tpq, n(64, 64), events); // mf
-  AppendNoteEventToEvents(tpq, n(65, 48), events); // mp
-  AppendNoteEventToEvents(tpq, n(67, 31), events); // pp
-  AppendNoteEventToEvents(tpq, n(69, 31), events); // pp
+  AppendNoteEventToEvents(tpq, n(60, 1), events, TimeSig::TS_4_4); // ppp
+  AppendNoteEventToEvents(tpq, n(62, 125), events, TimeSig::TS_4_4); // fff 
+  AppendNoteEventToEvents(tpq, n(64, 64), events, TimeSig::TS_4_4); // mf
+  AppendNoteEventToEvents(tpq, n(65, 48), events, TimeSig::TS_4_4); // mp
+  AppendNoteEventToEvents(tpq, n(67, 31), events, TimeSig::TS_4_4); // pp
+  AppendNoteEventToEvents(tpq, n(69, 31), events, TimeSig::TS_4_4); // pp
 
   InsertDynamics(events);
   Dynamics::SetLastDynamicsString(); // reset duplicate remover
@@ -63,10 +64,10 @@ TEST_CASE("Dynamics processing: final note", "[Dynamics]")
 {
   const int tpq = 480;
   Events events;
-  AppendNoteEventToEvents(tpq, n(60, 1), events); // ppp
-  AppendNoteEventToEvents(tpq, n(62, 1), events); // ppp
-  AppendNoteEventToEvents(tpq, n(62, 1), events); // ppp
-  AppendNoteEventToEvents(tpq, n(64, 64), events); // mf
+  AppendNoteEventToEvents(tpq, n(60, 1), events, TimeSig::TS_4_4); // ppp
+  AppendNoteEventToEvents(tpq, n(62, 1), events, TimeSig::TS_4_4); // ppp
+  AppendNoteEventToEvents(tpq, n(62, 1), events, TimeSig::TS_4_4); // ppp
+  AppendNoteEventToEvents(tpq, n(64, 64), events, TimeSig::TS_4_4); // mf
 
   InsertDynamics(events);
   Dynamics::SetLastDynamicsString(); // reset duplicate remover
@@ -85,10 +86,10 @@ TEST_CASE("Dynamics processing: all the same", "[Dynamics]")
 {
   const int tpq = 480;
   Events events;
-  AppendNoteEventToEvents(tpq, n(60, 75), events); // mf
-  AppendNoteEventToEvents(tpq, n(62, 75), events); // mf
-  AppendNoteEventToEvents(tpq, n(64, 75), events); // mf
-  AppendNoteEventToEvents(tpq, n(65, 75), events); // mf
+  AppendNoteEventToEvents(tpq, n(60, 75), events, TimeSig::TS_4_4); // mf
+  AppendNoteEventToEvents(tpq, n(62, 75), events, TimeSig::TS_4_4); // mf
+  AppendNoteEventToEvents(tpq, n(64, 75), events, TimeSig::TS_4_4); // mf
+  AppendNoteEventToEvents(tpq, n(65, 75), events, TimeSig::TS_4_4); // mf
 
   InsertDynamics(events);
   Dynamics::SetLastDynamicsString(); // reset duplicate remover
@@ -103,11 +104,11 @@ TEST_CASE("Dynamics processing: down and up", "[Dynamics]")
 {
   const int tpq = 480;
   Events events;
-  AppendNoteEventToEvents(tpq, n(60, 75), events); // mf
-  AppendNoteEventToEvents(tpq, n(62, 50), events); // mp
-  AppendNoteEventToEvents(tpq, n(64, 25), events); // pp
-  AppendNoteEventToEvents(tpq, n(65, 50), events); // mp
-  AppendNoteEventToEvents(tpq, n(67, 75), events); // mf
+  AppendNoteEventToEvents(tpq, n(60, 75), events, TimeSig::TS_4_4); // mf
+  AppendNoteEventToEvents(tpq, n(62, 50), events, TimeSig::TS_4_4); // mp
+  AppendNoteEventToEvents(tpq, n(64, 25), events, TimeSig::TS_4_4); // pp
+  AppendNoteEventToEvents(tpq, n(65, 50), events, TimeSig::TS_4_4); // mp
+  AppendNoteEventToEvents(tpq, n(67, 75), events, TimeSig::TS_4_4); // mf
 
   InsertDynamics(events);
   Dynamics::SetLastDynamicsString(); // reset duplicate remover

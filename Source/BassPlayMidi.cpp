@@ -53,7 +53,8 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
 
   // Use this map so we only ever load a soundfont once.
   static std::unordered_map<std::string, HSOUNDFONT> fontPool;
-  auto it = fontPool.find(filename);
+  // Use unadorned filename so we can change File::Root
+  auto it = fontPool.find(fontFileName);
   if (it != fontPool.end())
   {
 #ifdef PLAY_MIDI_DEBUG
@@ -62,7 +63,7 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
     return it->second;
   }
 
-  auto font = BASS_MIDI_FontInit(filename.c_str(), 0);
+  auto font = BASS_MIDI_FontInit(filename.c_str(), 0); // load using full path
   if (font) 
   {
 #ifdef PLAY_MIDI_DEBUG
@@ -71,7 +72,7 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
   }
   else
   {
-    std::cout << "Failed to load soundfont: " << fontFileName << ": ";
+    std::cout << "Failed to load soundfont: " << filename << ": ";
     std::cout << "Bass error code: " << BASS_ErrorGetCode() << "\n";
     Assert(0);
   }
@@ -105,7 +106,7 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
     Assert(0);
   }
 
-  fontPool[filename] = font; // store for next time
+  fontPool[fontFileName] = font; // store for next time: use unadorned file name
   return font;
 }
 
@@ -280,9 +281,16 @@ std::cout << "BASS MIDI: using glue file.\n";
   }   
   else
   {
+    // If path to midi file is relative, prepend File::Root
+    auto fullPath = filename;
+    if (std::filesystem::path(filename).is_relative())
+    {
+      fullPath = File::GetRoot() + filename;
+    }
+
     stream = BASS_MIDI_StreamCreateFile(
       FALSE, 
-      (File::GetRoot() + filename).c_str(),
+      fullPath.c_str(),
       0, 0, 
       BASS_MIDI_NOSYSRESET, 
       44100);
@@ -498,5 +506,90 @@ bool BassMidiInput::IsConnected() const
   return (info.flags & BASS_DEVICE_ENABLED);
 
   // TODO Also check for signals from device in callback?
+}
+
+static std::vector<std::string> GetTrackNames(HSTREAM stream) 
+{
+  std::vector<std::string> res;
+  // Attempt to get the number of track mark events in the MIDI stream
+  int markCount = BASS_MIDI_StreamGetMarks(stream, -1, BASS_MIDI_MARK_TRACK, NULL);
+    
+  if (markCount > 0) 
+  {
+    // Create a vector to hold all the markers
+    std::vector<BASS_MIDI_MARK> marks(markCount);
+        
+    // Fetch the actual markers
+    BASS_MIDI_StreamGetMarks(stream, -1, BASS_MIDI_MARK_TRACK, marks.data());
+        
+    for (int i = 0; i < markCount; i++) 
+    {
+      // The 'text' field of the BASS_MIDI_MARK struct contains the track name
+      res.push_back(marks[i].text);
+    }
+  } 
+  return res;
+}
+
+std::vector<std::string> GetPlayingSongTrackNames()
+{
+  return GetTrackNames(s_songStream);
+}
+
+static DWORD GetMidiTrackCount(HSTREAM midiStream) 
+{
+    DWORD track = 0;
+    while (true) {
+        // Passing NULL to the event array parameter simply checks if the track exists
+        DWORD eventCount = BASS_MIDI_StreamGetEvents(midiStream, track, 0, NULL);
+        
+        // If BASS returns -1, it means the track index is out of bounds
+        if (eventCount == (DWORD)-1) {
+            break;
+        }
+        track++;
+    }
+    return track; // This is your total track count
+}
+
+static void ApplyTrackMuteSolo(HSTREAM midiStream, 
+  const std::set<int>& muteTracks, 
+  const std::set<int>& soloTracks) 
+{
+  // Determine total tracks inside the file
+  DWORD totalTracks = GetMidiTrackCount(midiStream);
+
+  for (DWORD i = 0; i < totalTracks; ++i) 
+  {
+    bool shouldMute = false;
+
+    // Rule 1: If a Solo list exists, everything NOT in that list must be muted
+    if (!soloTracks.empty()) 
+    {
+        if (soloTracks.find(i) == soloTracks.end()) 
+        {
+            shouldMute = true;
+        }
+    }
+        
+    // Rule 2: If it's explicitly in the Mute list, it must be muted
+    if (muteTracks.find(i) != muteTracks.end()) 
+    {
+        shouldMute = true;
+    }
+
+    // Apply muting to the specific track index via the BASS_MIDI_StreamEvent API
+    // Passing 0 mutes the track completely, passing -1 restores default track processing
+    int mixValue = shouldMute ? 0 : -1;
+    BASS_MIDI_StreamEvent(midiStream, i, MIDI_EVENT_MIXLEVEL, mixValue);
+  }
+  BASS_ChannelPlay(midiStream, FALSE); 
+}
+
+void ApplyMuteSoloToPlayingSong(
+  const std::set<int>& muteTracks, 
+  const std::set<int>& soloTracks) 
+{
+  ApplyTrackMuteSolo(s_songStream, muteTracks, soloTracks);
 }
 }

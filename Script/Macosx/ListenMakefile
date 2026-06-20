@@ -1,0 +1,36 @@
+ifeq ($(strip $(AMJULIB_MAC_SCRIPT_PATH)),)
+$(error "Please set AMJULIB_MAC_SCRIPT_PATH in your environment.")
+endif
+
+AMJULIB		:=	$(AMJULIB_MAC_SCRIPT_PATH)/../../
+RUNDIR		:=	../../Assets/
+BUILD		:=	../../Build/Mac
+TARGET		:=	$(BUILD)/listen
+LIBDIRS   	:= 	$(AMJULIB)/Releases/amjulib-v.0.5-macosx
+SOURCES		:=	../../Source/Listen ../../Source
+BASSPATH	:=	$(AMJULIB)/Source/SoundBass/Bass2.4/Macosx
+
+BASSPATH        :=      $(AMJULIB)/3rdPartyLibs/Bass/2.4.18.3/bass24-osx
+BASSMIDIPATH    :=      $(AMJULIB)/3rdPartyLibs/Bass/BassMidi/2.4.15.3/bassmidi24-osx
+
+
+LIBS    := \
+	-lamju \
+	$(BASSPATH)/libbass.dylib \
+	$(BASSMIDIPATH)/libbassmidi.dylib \
+	-framework OpenGL \
+	-framework GLUT \
+	-framework Carbon \
+	-lcurl \
+	-lstdc++ -lm
+
+CFLAGS += -DLISTEN -D_DEBUG -DAMJU_USE_BASS_MIDI -DAMJU_USE_BASS -Wno-deprecated-declarations
+
+# Add path to exe to search path for dylibs.
+LDFLAGS += -Wl,-rpath,@executable_path/
+
+# Trying to disable usual main()
+AMJU_MACHDEP += -DLISTEN
+
+include $(AMJULIB_MAC_SCRIPT_PATH)/GenMakefile
+

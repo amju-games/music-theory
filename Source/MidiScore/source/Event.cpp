@@ -8,12 +8,21 @@
 #include <iostream>
 #include <map>
 #include <sstream>
+#include "Clef.h"
 #include "Event.h"
+#include "KeySig.h"
 #include "MidiScore.h" // OutputEvents
 #include "TimeSig.h"
 
 namespace MidiScore
 {
+Event::Event() : 
+  m_clef(Clef::TREBLE), 
+  m_timeSig(TimeSig::TS_NONE),
+  m_keySig(KeySig::KS_SHARP_0)
+{
+}
+
 static Event MakeBarLine(int startTicks)
 {
   Event e;
@@ -81,6 +90,18 @@ static Event MakeTimeSet(int tpq, int time)
   return e;
 }
 
+int CalcTpqMultipleForTimeVal(int tpq, TimeVal t)
+{
+  // Calc multiple of tpq according to TimeVal, using int arith only.
+  const std::array<int, 9> MULTS = 
+  {{
+    0,  // for NONE - indication of error?
+    tpq/8, tpq/4, tpq/2, tpq, tpq*2, tpq*4, tpq*8, tpq*16,
+  }};
+  int mult = MULTS[static_cast<int>(t)];
+  return mult;
+}
+
 static const std::vector<std::tuple<int, TimeVal, int>> 
   GetTpqMultiples(int tpq, bool withDots = true)
 {
@@ -124,7 +145,25 @@ static const std::vector<std::tuple<int, TimeVal, int>>
   };
 }
 
-void AppendNoteEventToEvents(int tpq, Event e, Events& events)
+// Calc the end time of the bar that `pos` is in, or, equivalently,
+//  the start time of the next bar.
+int CalcEndOfBar(int tpq, int pos, TimeSig ts, int anacrusisTicks)
+{
+  if (pos < anacrusisTicks)
+  {
+    return anacrusisTicks;
+  }
+
+  const float b = BeatsInBar(ts);
+  // Get the current bar we are in, ignoring any anacrusis
+  const int bar = (pos - anacrusisTicks) / b / tpq;
+  // Return the time of the next bar, readding any anacrusis
+  return (bar + 1) * b * tpq + anacrusisTicks;
+}
+
+void AppendNoteEventToEvents(
+  int tpq, Event e, Events& events, TimeSig ts, bool yesSplitOnBeat, 
+  int anacrusisTicks)
 {
   // Get TimeVal of note, with "tail", the extra bit.
   // Tail == 0? -> add note, Done
@@ -138,6 +177,10 @@ void AppendNoteEventToEvents(int tpq, Event e, Events& events)
 
   while (true)
   {
+    // Get the time of the next bar line after start.
+    // Keep looking for a note length until we find one that fits the bar.
+    int barEnd = CalcEndOfBar(tpq, start, ts, anacrusisTicks);
+
     // Get first element >= m_duration
     auto it = std::lower_bound(
       multiples.begin(), multiples.end(), tailDuration, 
@@ -147,8 +190,8 @@ void AppendNoteEventToEvents(int tpq, Event e, Events& events)
     if (it == multiples.end())
     {
       // Split the large note -- so not really an error?
-      std::cout << "// ** ERROR: note duration is too long: " 
-        << e.ToString() << "\n";
+//      std::cout << "// ** ERROR: note duration is too long: " 
+//        << e.ToString() << "\n";
       --it;
     }
 
@@ -157,13 +200,21 @@ void AppendNoteEventToEvents(int tpq, Event e, Events& events)
     { 
       --it;
     }
-//std::cout << "Tail duration: " << tailDuration << " lower_bound dur: " << std::get<0>(*it) << "\n";
+//std::cout << "Tail duration: " << tailDuration << " lower_bound dur: " << std::get<0>(*it) << " Bar end: " << barEnd << "\n";
+
+    // Reduce duration until head will fit in bar
+    while (it != multiples.begin() && 
+           (start + std::get<0>(*it)) > barEnd)
+    {
+      --it;
+    }
 
     // Split/tie notes on beats:
     // Split note further, (decrement `it`) until the start and end times of the
     //  head note falls on a multiple of its duration. 
     // SPLIT_ON_BEAT
-    while (it != multiples.begin() && 
+    while (yesSplitOnBeat &&
+           it != multiples.begin() && 
            (start % std::get<0>(*it)) != 0) // start should be multiple of duration
     {
       --it;
@@ -261,14 +312,18 @@ TimeVal GetTimeValFromString(const std::string& s)
     { "sb2", TimeVal::SB2 },
     { "sb4", TimeVal::SB4 },
   };
-  return TVS.at(s);
+
+  if (TVS.find(s) != TVS.end())
+    return TVS.at(s);
+
+  return TimeVal::NONE;
 }
 
 std::string TimeValString(TimeVal tv, int dots)
 {
-  static const std::array<std::string, 8> STRS = 
+  static const std::array<std::string, 9> STRS = 
   {{
-    "qqq", "qq", "q", "c", "m", "sb", "sb2", "sb4"
+    "NONE", "qqq", "qq", "q", "c", "m", "sb", "sb2", "sb4"
   }};
 
   std::string res = STRS[static_cast<int>(tv)];
@@ -328,6 +383,15 @@ std::string Event::ToString() const
       ss << "time " << m_timeSetVal;
       return ss.str();
     }
+
+  case EventType::CLEF:
+    return ClefString(m_clef);
+
+  case EventType::KEY_SIG:
+    return KeySigString(m_keySig);
+
+  case EventType::TIME_SIG:
+    return TimeSigString(m_timeSig);
 
   default:
     std::cout << "No String for Event Type " 
@@ -408,50 +472,6 @@ void Event::SetTimeVal(int tpq)
   m_duration = duration;
   m_dots = dots;
   m_end = m_start + m_duration; // recalc this
-}
-
-void Event::QuantiseDuration(int tpq, TimeVal resolution)
-{
-  assert(m_unquantisedDuration > -1);
-
-  const std::array<int, 8> MULTS = 
-  {{
-    tpq/8, tpq/4, tpq/2, tpq, tpq*2, tpq*4, tpq*8, tpq*16,
-  }};
-  int mult = MULTS[static_cast<int>(resolution)];
-
-  // Here we ensure that duration is at least the quant resolution --
-  //  otherwise the note would disappear, and surely we don't want 
-  //  that, right???
-  m_duration = mult * static_cast<int>(std::max(1.f,  // duration is at least resolution
-    std::round(
-      static_cast<float>(m_unquantisedDuration) / 
-      static_cast<float>(mult))));
- 
-  // DON'T set time val! First we need to consider splitting the
-  //  note into two or more tied notes.
-  //SetTimeVal(tpq); 
-}
-
-void Event::QuantiseStartTime(int tpq, TimeVal resolution)
-{
-  // If -1, unquantised start time was not set when
-  //  event was created.
-  assert(m_unquantisedStart > -1);
-
-  const std::array<int, 8> MULTS = 
-  {{
-    tpq/8, tpq/4, tpq/2, tpq, tpq*2, tpq*4, tpq*8, tpq*16,
-  }};
-
-  // Look up the mult value for the given resolution. This is a straight
-  //  lookup - it's not a search for closest.
-  int mult = MULTS[static_cast<int>(resolution)];
-
-  // Get closest multiple of mult to the unquantised start time.
-  m_start = mult * static_cast<int>(std::round(
-    static_cast<float>(m_unquantisedStart) / 
-    static_cast<float>(mult)));
 }
 
 void Reverse(Events& events)
@@ -544,6 +564,37 @@ static Events::iterator SplitInsertRest(
   return it;
 }
 
+// Decide if we should insert a whole bar rest at the given insert
+//  point in a sequence of events. 
+// We should insert a whole bar rest if:
+//   1. `it` points to a bar line, and 
+//   2. there is no previous note or rest until we reach 
+//      a. the start of the sequence, or 
+//      b. the previous bar line.
+static bool ShouldWeInsertWholeBarRest(
+  const Events& events, Events::const_iterator it)
+{
+  if (!it->IsBarLine()) return false;
+  
+  // Work backwards until we reach a bar line or the sequence start.
+  while (it != events.begin())
+  {
+    --it;
+    if (it->m_duration > 0) 
+    {
+      // something else is taking up time in the bar
+      return false;
+    }
+    if (it->IsBarLine())
+    {
+      // Nothing takes time between the two bar lines
+      return true;
+    }
+  }
+  // We've hit the start
+  return true;
+}
+
 void InsertRests(int tpq, Events& events, TimeSig ts)
 {
   // To insert rests, we get the end time of each event, and compare it
@@ -574,13 +625,7 @@ void InsertRests(int tpq, Events& events, TimeSig ts)
         int restDuration = it->m_start - t;
 
         // Check for whole-bar rest
-        bool wholeBar = 
-          (it == events.begin() &&  // at start of stave..
-           it->IsBarLine()) // ..and first event is an end-of-bar line
-           || // .. OR..
-          (it != events.begin() && // after start of stave..
-          (it - 1)->IsBarLine() && // ..and there's a bar line before..
-           it->IsBarLine()); // ..and a bar line after.
+        bool wholeBar = ShouldWeInsertWholeBarRest(events, it);
 
         // A whole bar rest can be dotted. What this means in practice
         //  is that we only get one rest for a whole bar rest for
@@ -737,15 +782,47 @@ int SplitNote(int tpq, Events& events, Events::iterator& it, int barLineTicks,
   return bar;
 }
 
-void InsertBarLines(int tpq, TimeSig ts, Events& events)
+// Used in InsertBarLines. If anacrusis is non-zero, the first value (i.e. for
+//  when bar == 1) should be less that a whole bar.
+static int CalcBarLineTicks(int bar, int ticksForOneBar, int anacrusisTicks)
 {
-  // We don't know where the bar lines should fall (although after the 
-  //  last note is probable, i.e. the last event is unlikely to be a 
-  //  rest??) - so let the user specify an anacrusis, otherwise just
-  //  start adding bar lines every time sig worth of tpq.
+  assert(bar >= 1);
 
+  int barLineTicks = 0;
+
+  if (anacrusisTicks == 0)
+  {
+    barLineTicks = bar * ticksForOneBar;
+  }
+  else
+  {
+    barLineTicks = (bar - 1) * ticksForOneBar + anacrusisTicks;
+  }
+
+  assert(barLineTicks > 0);
+  return barLineTicks;
+}
+
+// Called at the end of InsertBarLines to add all final bar lines to song.
+static void AddFinalBarLines(int numBars, int bar, Events& events, 
+  int ticksForOneBar, int anacrusisTicks)
+{
+  // numBars == 0 means not known or not specified. In that case,
+  //  just add one final bar line. This is probably just in tests. 
+  if (numBars == 0) numBars = bar;
+
+  for (int b = bar; b <= numBars; b++)
+  {
+    events.push_back(MakeBarLine(
+      CalcBarLineTicks(b, ticksForOneBar, anacrusisTicks)));
+  }
+}
+
+void InsertBarLines(int tpq, TimeSig ts, Events& events, int numBars,
+  int anacrusisTicks)
+{
   int ticksForOneBar = static_cast<int>(static_cast<float>(tpq) * BeatsInBar(ts));
-  int bar = 1; // don't add barline at start  
+  int bar = 1;
   bool chord = false; // true if we are parsing between ( ) chord markers
   for (auto it = events.begin(); it != events.end(); ++it)
   {
@@ -754,10 +831,13 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events)
     if (!it->IsNote()) continue;
 
     // Number of ticks at which we should insert bar line
-    int barLineTicks = bar * ticksForOneBar;
+    int barLineTicks = CalcBarLineTicks(bar, ticksForOneBar, anacrusisTicks);
 
     if (it->m_start < barLineTicks && it->m_end > barLineTicks)
     {
+      // We might only get here is tests now that we split on bar lines
+      //  when we first add midi events.
+
       // Note/chord duration crosses bar line, so split and tie it
       if (chord)
         bar += SplitChord(tpq, events, it, barLineTicks, ticksForOneBar);
@@ -780,8 +860,9 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events)
       bar++;
     }
   }
-  // Add final bar line
-  events.push_back(MakeBarLine(bar * ticksForOneBar));
+
+  // Add final bar lines
+  AddFinalBarLines(numBars, bar, events, ticksForOneBar, anacrusisTicks);
 }
 
 void InsertChordMarkers(Events& events)

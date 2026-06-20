@@ -10,20 +10,6 @@
 #endif // WIN32
 
 #include <iostream>
-
-#if defined(WIN32) || defined(MACOSX)
-#define AMJU_USE_OPENGL
-#define AMJU_USE_GLUT
-#ifndef CATCH
-// Main function already exists for Catch (unit test) build
-#include <main.h>
-#endif
-#endif
-
-#ifdef GEKKO
-#include <main.h>
-#endif
-
 #include <AmjuGLWindowInfo.h>
 #include <AmjuRand.h>
 #include <BassSoundPlayer.h>
@@ -116,8 +102,6 @@ void ReportError(const std::string& str)
   std::cout << str << "\n";
 }
 
-namespace
-{
 bool MyFileExists(const std::string& filename)
 {
 #ifdef YES_GLUE_FILE
@@ -231,7 +215,6 @@ void LoadWritableConfig()
   }
 #endif
 }
-} // anon namespace
 
 void StartUpBeforeCreateWindow()
 {
@@ -260,7 +243,7 @@ static void SetUpResourceLoaders()
 #endif
 }
 
-static void SetUpSound()
+void SetUpSound()
 {
 #ifdef AMJU_USE_BASS
   // Set sound player

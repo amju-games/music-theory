@@ -18,11 +18,13 @@ static const auto KEYSIG = "--keysig";
 static const auto QUANT = "--quant";
 static const auto DEBUG = "--debug";
 static const auto BPM = "--bpm";
+static const auto ANA = "--ana";
+static const auto ALL_CLEFS = "--allclefs";
 
 static const auto USAGE_STRING = 
 R"(midiscore - convert midi file to juliet compact notation.
 Usage:
-  midiscore <midifile> --bpm <f> [options]
+  midiscore <midifile> --bpm <f> --timesig <t> [options]
 
 Options:
   --info        Output info about the midi file.
@@ -39,6 +41,9 @@ Options:
   --debug       Verbose output for debugging
   --bpm <f>     Set Beats Per Minute tempo: passed to MakeScore.
                   f is a number, can be fractional.
+  --ana <a>     Anacrusis: set length of incomplete first bar.
+                  a is one of: q, c, m, etc.
+  --allclefs    Output alto and tenor clefs as well as bass and treble.
 )";
 
 void OutputCommandLine(const commandline& cl)
@@ -74,43 +79,62 @@ int main(int argc, const char** argv)
     return 1;
   }
 
-  // If "info" arg exists, output info about the midi file.
-  if (check_flag(cl, "--info"))
-  {
-    // TODO Combine this option with the others
-    std::cout << MidiScore::InfoString(midifile);
-    return 0;
-  }
+  // All clefs option
+  const bool allClefs = check_flag(cl, ALL_CLEFS);
+
+  // Optional anacrusis bar length
+  const auto optionalAna = cl.get_value<std::string>(ANA);
 
   // Optional track number
-  const auto track = cl.get_value<int>(TRACK);
+  const auto optionalTrack = cl.get_value<int>(TRACK);
   // Check for errors in track number
   if (cl.contains(TRACK))
   {
-    if (!track)
+    if (!optionalTrack)
     {
       std::cout << "Missing or bad track number after " << TRACK << ".\n";
       return 1;
     }
-    if (*track >= midifile.getNumTracks())
+    if (*optionalTrack >= midifile.getNumTracks())
     {
       std::cout << "Track number too big, max is " 
         << (midifile.getNumTracks() - 1) << " (zero-based).\n";
       return 1;
     }
-    if (*track < 0)
+    if (*optionalTrack < 0)
     {
       std::cout << "Negative track number.\n";
       return 1;
     }
-    std::cout << "// Output track " << *track << " only.\n";
+    std::cout << "// Output track " << *optionalTrack << " only.\n";
   }
 
-  // Optional time sig, overriding guessed time sig.
+  // If "info" arg exists, output info about the midi file.
+  if (check_flag(cl, "--info"))
+  {
+    // For --info, we can specify the time sig, and get better clef changes.
+    const auto optionalTimeSig = cl.get_value(TIMESIG);
+    if (cl.contains(TIMESIG) && !optionalTimeSig)
+    {
+      std::cout << "Missing or bad time signature after " << TIMESIG << "\n";
+      return 1;
+    }
+
+    std::cout << MidiScore::InfoString(
+      midifile, optionalTrack, optionalAna, optionalTimeSig, allClefs);
+    return 0;
+  }
+
+  // Non-optional time sig
   const auto timeSig = cl.get_value(TIMESIG);
   if (cl.contains(TIMESIG) && !timeSig)
   {
     std::cout << "Missing or bad time signature after " << TIMESIG << "\n";
+    return 1;
+  }
+  if (!timeSig)
+  {
+    std::cout << "Time sig is required, I can't guess it right now.\n";
     return 1;
   }
 
@@ -132,7 +156,7 @@ int main(int argc, const char** argv)
   }
 
   std::cout << MidiScore::ToString(
-    midifile, track, timeSig, keySig, quant, debug, bpm);
+    midifile, optionalTrack, *timeSig, keySig, quant, debug, *bpm, optionalAna, allClefs);
 
   return 0;
 }

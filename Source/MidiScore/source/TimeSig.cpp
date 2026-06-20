@@ -7,6 +7,52 @@
 
 namespace MidiScore
 {
+Event MakeTimeSigEvent(TimeSig ts, int time)
+{
+  Event e;
+  e.m_type = EventType::TIME_SIG;
+  e.m_timeSig = ts;
+  e.m_start = time;
+  e.m_end = time;
+  return e;
+}
+
+int Numerator(TimeSig ts)
+{
+  static const std::array<int, 9> NUMS = 
+  {{
+    1, // TS_NONE -- not sure what would happen here! 
+    2, //"2/4",
+    3, //"3/4",
+    4, //"4/4",
+    6, //"6/4",
+    3, //"3/8",
+    6, //"6/8",
+    9, //"9/8",
+    12, //"12/8",
+  }};
+
+  return NUMS[static_cast<int>(ts)]; 
+}
+
+int Denominator(TimeSig ts)
+{
+  static const std::array<int, 9> DENOMS = 
+  {{
+    1, // TS_NONE
+    4, //"2/4",
+    4, //"3/4",
+    4, //"4/4",
+    4, //"6/4",
+    8, //"3/8",
+    8, //"6/8",
+    8, //"9/8",
+    8, //"12/8",
+  }};
+
+  return DENOMS[static_cast<int>(ts)]; 
+}
+
 bool IsCompoundTimeSig(TimeSig ts)
 {
   return (
