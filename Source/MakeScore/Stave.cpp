@@ -37,7 +37,8 @@ std::string Stave::CommentString() const
 
 std::string Stave::ToString() const
 {
-  const bool yesComments = (GetSuppressFlags() & META_COMMENT) == 0;
+  const bool yesComments = (GetSuppressFlags() & MD_COMMENT) == 0;
+  const bool yesBarNumbers = (GetSuppressFlags() & MD_BAR_NUMBERS) == 0;
 
   std::string res;
 
@@ -63,7 +64,8 @@ std::string Stave::ToString() const
     if (yesComments)
       res += "// ** Bar " + std::to_string(barNum++) + " **" + LineEnd();
 
-    res += b->BarNumberString(barNum);
+    if (yesBarNumbers)
+      res += b->BarNumberString(barNum);
 
     res += b->ToString();
   }

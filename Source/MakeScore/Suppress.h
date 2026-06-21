@@ -3,12 +3,13 @@
 // Meta data we can output or suppress.
 enum Metadata
 {
-  META_TIME     = 0x01,
-  META_BEAT     = 0x02,
-  META_NOTE     = 0x04,
-  META_NOTENAME = 0x08,
-  META_COMMENT  = 0x10,
-  META_REST     = 0x20,
+  MD_TIME         = 0x01,
+  MD_BEAT         = 0x02,
+  MD_NOTE         = 0x04,
+  MD_NOTENAME     = 0x08,
+  MD_COMMENT      = 0x10,
+  MD_REST         = 0x20,
+  MD_BAR_NUMBERS  = 0x40,
 };
 
 static const unsigned int SUPPRESS_ALL = 0xffffffff;
