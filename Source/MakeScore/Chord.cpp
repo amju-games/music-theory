@@ -49,7 +49,7 @@ static int CalcOverlapOffset(
 
 std::string ChordGlyph::ToString() const 
 {
-  const bool yesComment = (GetSuppressFlags() & META_COMMENT) == 0;
+  const bool yesComment = (GetSuppressFlags() & MD_COMMENT) == 0;
 
   // TODO Check this can't happen!
   assert(!m_noteGlyphs.empty());

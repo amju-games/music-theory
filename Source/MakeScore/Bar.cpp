@@ -250,10 +250,10 @@ std::string Bar::ToString()
 {
   std::string res;
 
-  bool yesComments = (GetSuppressFlags() & META_COMMENT) == 0;
+  bool yesComments = (GetSuppressFlags() & MD_COMMENT) == 0;
 
   // Clef for each stave, if first bar of line, and single or double
-  //  stave - not if no stave or just rhythm line
+  //  stave - not if no stave; percussion clef for rhythm line - that's TODO
   if (YesShowClefAtFrontOfBar())
   {
     float x = 0;

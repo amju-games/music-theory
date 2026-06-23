@@ -590,7 +590,7 @@ std::string MakeScore::ToString()
 
 void MakeScore::ToStringInternal()
 {
-  const bool yesComments = (GetSuppressFlags() & META_COMMENT) == 0;
+  const bool yesComments = (GetSuppressFlags() & MD_COMMENT) == 0;
 
   std::string res;
 
@@ -634,7 +634,7 @@ std::string MakeScore::BarLinesToString()
   std::string res;
   if (m_staves.empty()) return "";
 
-  const bool yesComments = (GetSuppressFlags() & META_COMMENT) == 0;
+  const bool yesComments = (GetSuppressFlags() & MD_COMMENT) == 0;
 
   // Draw quads through all staves. Use stave 0 for all bar widths and
   //  bar line types. (Vertically aligned bars on all staves should have
