@@ -90,7 +90,10 @@ struct Glyph : public IGlyph
   bool ShouldCentreIfSingle() const { return m_centre; }
 
 private:
-  int order = 0; // horiz order in bar 
+  // horiz order in bar: glyphs are in a sequence container but don't 
+  //  know their own index. Well, they do now. Could be useful for some
+  //  Layout Strategy.
+  [[maybe_unused]] int m_order = 0; 
 
 protected:
   // Two glyph names. E.g. we have a quaver, but it's drawn using a 

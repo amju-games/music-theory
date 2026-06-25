@@ -106,6 +106,10 @@ int main(int argc, char** argv)
 
   MakeScore ms;
 
+  // To choose strategy at run time, we need to parse the input and call
+  //  this within CommandLineParams. 
+  ms.SetLayoutStrategy(); // TODO specify type
+
   if (CommandLineParams(argc, argv, ms) == false)
   {
     return 1;

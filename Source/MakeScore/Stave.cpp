@@ -72,6 +72,7 @@ std::string Stave::ToString() const
 
   for (const auto& t : m_ties)
   { 
+    // TODO Comment if requested
     res += t->ToString();
     res += LineEnd();
   }   
@@ -169,36 +170,15 @@ void Stave::MakeBeamGroups()
   }
 }
 
-void Stave::CalcBarSizesAndPositions(const std::vector<float>& widthScaleFactors)
+void Stave::PositionGlyphs()
 {
-  // Loop over the bars. From the number of glyphs in each bar,
-  //  work out the relative width of each bar.
-  // For now, assume only one line.
-  float totalWidth = 0;
-  int i = 0;
   for (auto& bar : m_bars)
   {
-    float w = bar->GetRelativeWidth();
-    w *= widthScaleFactors[i++];
-    totalWidth += w;
+    bar->PositionGlyphs();
   }
 
-  // Bar calculates its width as fraction of page width
-  i = 0; 
-  for (auto& bar : m_bars)
-  {
-    bar->CalcWidth(totalWidth, GetPageWidth(), widthScaleFactors[i++]);
-  }
-
-  // Set (left, bottom) position of each bar
-  float barX = 0;
-  float barY = y;
-
-  for (auto& bar : m_bars)
-  {
-    bar->SetPos(barX, barY);
-    barX += bar->GetWidth();
-  }
+  // Having positioned the notes, we can finalise the coords of the end 
+  //  points of ties - and also other attachments - TODO check that works!
 
   // Set left and right positions of ties
   for (auto& tie : m_ties)
@@ -206,6 +186,35 @@ void Stave::CalcBarSizesAndPositions(const std::vector<float>& widthScaleFactors
     // Look up positions of glyphs the tie connects
     tie->CalcPos();
   }
+}
+
+static void SetBarPositions(Bars& bars, float barY)
+{
+  // Starts from x=0; uses whatever y coord is passed in - so we can extend
+  //  to multiple lines/systems.
+  float barX = 0;
+
+  for (auto& bar : bars)
+  {
+    bar->SetPos(barX, barY);
+    barX += bar->GetWidth(); 
+  }
+}
+
+void Stave::CalcBarSizesAndPositions(const std::vector<float>& widthScaleFactors)
+{
+  // Each Bar calculates its width as fraction of page width: the calculation
+  //  is just mult/divs, not getting more info from the bar. (Well, ok, it
+  //  uses Bar::m_scale but I'm not sure we even want to do that.)
+  int i = 0; 
+  float totalWidth = static_cast<float>(m_bars.size());  
+  for (auto& bar : m_bars)
+  {
+    bar->CalcWidth(totalWidth, GetPageWidth(), widthScaleFactors[i++]);
+  }
+
+  // Set (left, bottom) position of each bar
+  SetBarPositions(m_bars, y);
 }
 
 void Stave::CalcStartTimes()

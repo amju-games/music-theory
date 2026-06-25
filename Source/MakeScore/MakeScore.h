@@ -29,14 +29,23 @@
 class MakeScore
 {
 public:
-  MakeScore() = default;
+  // Set a default strategy so tests run
+  MakeScore() { SetLayoutStrategy(); }
 
-  void SetInputString(const std::string& in) { m_input = in; }
   // Create with input string
-  MakeScore(const std::string& in) : m_input(in) { }
+  // Set a default strategy so tests run
+  MakeScore(const std::string& in) : m_input(in) { SetLayoutStrategy(); }
+
+  // Call this if you use the default ctor.
+  void SetInputString(const std::string& in) { m_input = in; }
 
   // Load input from a file, ignoring comment lines
   bool Load(const std::string& filename);
+
+  // Set layout strategy, which determines the positioning of glyphs 
+  //  within each bar.
+  // TODO Set from user input.
+  void SetLayoutStrategy();
 
   int NumBars() const;
 

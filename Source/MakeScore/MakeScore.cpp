@@ -30,6 +30,7 @@
 #include "Curve.h"
 #include "Hairpin.h"
 #include "KeySig.h"
+#include "LayoutFull.h"
 #include "MakeScore.h"
 #include "Pitch.h"
 #include "Performance.h"
@@ -56,6 +57,11 @@ static const std::map<std::string, float> DIRECTIONS =
 static bool IsDirection(const std::string& s)
 {
   return DIRECTIONS.find(s) != DIRECTIONS.end();
+}
+
+void MakeScore::SetLayoutStrategy()
+{
+  Bar::SetLayoutStrategy(new LayoutFull);
 }
 
 bool MakeScore::Load(const std::string& filename)
@@ -500,25 +506,22 @@ void MakeScore::AddStave()
   m_staves.emplace_back(std::move(stave));
 }
 
-static float CalcBarWidthScale(int numGlyphs)
-{
-  // Rough heuristic to increase scale factor as a bar has more glyphs
-  return std::max(1.f, static_cast<float>(numGlyphs) / 4.f);
-}
-
 void MakeScore::AdjustBarWidths()
 {
   if (m_staves.empty()) return;
 
   const int numBars = m_staves.front()->GetNumBars();
-  // Fill construct bar widths -- we start with 1.0 for every bar.
-  m_barWidths = std::vector<float>(numBars, 1.f);
+  // Initialise bar widths -- we start with 1.0 for every bar.
+  m_barWidths = std::vector<float>(numBars, 1.f); // 'fill ctor'
   float totalW = 0;
 
   for (int i = 0; i < numBars; i++)
   {
+    // This is a bit basic. We would really need to make verticals
+    //  from the bar in each stave.
     for (auto& stave : m_staves)
     {
+      // Sanity check:
       // We expect/require numBars to be the same across all staves.
       if (stave->GetNumBars() != numBars)
       {
@@ -526,11 +529,9 @@ void MakeScore::AdjustBarWidths()
         return;
       }
    
-      // Get the number of glyphs in the current bar for this stave.
-      // Calc bar width scale factor depending on the number of glyphs.
-      int numGlyphs = stave->GetBar(i).GetNumGlyphs();
-      float w = CalcBarWidthScale(numGlyphs);
-      // Get the max, so the width depends on the busiest bar vertically.
+      // Calc bar width scale factor
+      float w = stave->GetBar(i).GetRelativeWidth();
+      // Get the max, so the width depends on the widest bar vertically.
       w = std::max(m_barWidths[i], w);
       m_barWidths[i] = w;
     }
@@ -539,6 +540,18 @@ void MakeScore::AdjustBarWidths()
 
   // Pass 2: normalise so the sum of widths == the number of bars.
   // So busy bars are wider, not-busy bars are narrower.
+  // E.g.
+  // 
+  //           | sb | m m | c c c c | q q q q q q q q |
+  // w:          1    2     4         8
+  // totalW: 15
+  // scale:  .2667
+  // scaled w:  .2667 .5334 1.067     2.134    
+  // Total of widths is still 4.0, i.e. the number of bars, but the
+  //  individual widths are weighted depending on how busy the bar is.
+  // So we can stick to the specified page width: each bar gets
+  //  page_width / num_bars * m_barWidths[i].
+ 
   float scale = static_cast<float>(numBars) / totalW;
   for (float& w : m_barWidths)
   {
@@ -558,9 +571,10 @@ void MakeScore::MakeInternal()
   // At this stage the only tokens should be music notation, not settings.
   Parse(tokens);
 
-  // Get scale factor for each bar (the same value for the
+  // Get width scale factor for each bar (we use the same max value for the
   //  vertically corresponding bars in all staves).
-  AdjustBarWidths();
+  // Fills m_barWidths, which are widths, weighted to sum to the number of bars.
+  AdjustBarWidths();  // Internally uses Layout Strategy pattern
 
   for (auto& stave : m_staves)
   {
@@ -568,11 +582,13 @@ void MakeScore::MakeInternal()
     //  for animation meta data.
     stave->CalcStartTimes();
 
-    // Calc bar sizes, positions, and the positions of the glyphs in
-    //  each bar for this stave.
+    // Calc bar sizes, and the position of each bar.
+    // This uses the widths calcalated above so nothing to move to Strategy.
     stave->CalcBarSizesAndPositions(m_barWidths);
 
-    stave->MakeBeamGroups(); // Do this last so we have positions of notes?
+    stave->PositionGlyphs(); // Internally uses Layout Strategy 
+
+    stave->MakeBeamGroups(); // Do this last so we have positions of notes!
   }
 
   ToStringInternal();

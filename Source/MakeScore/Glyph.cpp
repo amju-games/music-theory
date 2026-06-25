@@ -9,7 +9,7 @@
 #include "Suppress.h"
 
 Glyph::Glyph(const std::string& inputToken, int order_) :
-  order(order_),
+  m_order(order_),
   realGlyphName(inputToken)
 {
   // Calc output (display) text later, but if we want to hide this glyph
