@@ -318,7 +318,7 @@ std::string Bar::PreNoteZoneToString()
   //  stave - not if no stave; percussion clef for rhythm line - that's TODO
 
   const bool yesComments = (GetSuppressFlags() & MD_COMMENT) == 0;
-  float x = 0; // x-coord within bar; also the width of the pre-note zone.
+  float x = m_x; 
   float y = m_y; 
 
   std::string res;
