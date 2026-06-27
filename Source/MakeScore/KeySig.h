@@ -39,10 +39,11 @@ KeySig GetKeySig(const std::string& s);
 
 // Generate output string for the given key sig, for the given clef.
 // x, y, scale are position and scale of owning Bar.
+// Default values are just to simplify tests.
 std::string GetKeySigOutputString(
   KeySig ks, 
   Clef clef, 
-  float x, float y, float scale);
+  float x = 0, float y = 0, float scale = 1.f);
 
 // Return new key sig, which is original key sig, tranposed by 
 //  tr semitones.

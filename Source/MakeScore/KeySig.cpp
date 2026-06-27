@@ -44,8 +44,8 @@ KeySig GetKeySig(const std::string& s)
     return KEYSIG_0_SHARP;
   }
 
-  const char* INPUT_TOKEN_KEYSIG_SHARP = "key-s-";
-  const char* INPUT_TOKEN_KEYSIG_FLAT  = "key-f-";
+  static const std::string INPUT_TOKEN_KEYSIG_SHARP = "key-s-";
+  static const std::string INPUT_TOKEN_KEYSIG_FLAT  = "key-f-";
 
   if (s.substr(0, 6) == INPUT_TOKEN_KEYSIG_SHARP)
   {
@@ -111,6 +111,8 @@ std::string GetKeySigOutputString(KeySig ks, Clef clef,
 KeySig TransposeKeySig(KeySig ks, int tr)
 {
   // TODO Choose to favour sharp or flat key sigs
+
+  if (tr == 0) return ks;
 
   // These are the key sigs for each tonic in sequence, i.e. the key sig
   //  for C major, then for C#/Db major, then D major, etc.
