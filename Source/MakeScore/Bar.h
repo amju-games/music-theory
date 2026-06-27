@@ -164,13 +164,38 @@ public:
   // So client code can draw all or some bar numbers.
   std::string BarNumberString(int barNum) const;
 
-  // Create the string for the pre-note part of this bar. Also
-  //  return the width of the pre-note zone.
-  // TODO This is a first pass hack -- we should calc the string and width
-  //  once as soon as we are able, and set member variables with the result.
-  std::pair<std::string, float> PreNoteZoneToString() const;
+  // Generate strings and initial widths of the non-note zones. 
+  // The widths are overwritten later so all vertically aligned bars
+  //  have the widths of the widest non-note zones. 
+  // E.g.
+  //   pre                post (empty)
+  // | clef-t :  c c c c : |      <- stave 0 
+  // |        :  m   m   : |      <- stave 1, with wide, empty pre-note zone
+  // TODO Generate post note zone: could also need the next bar.
+
+  // Calc width of pre-note zone for this bar.
+  float CalcPreNoteZoneWidth() const;
+ 
+  // Set width of pre- and post-note zones. 
+  // We do this to overwrite the value calculated in CalcPreNoteZoneWidth,
+  //  so we can vertically align the non-note zones of vertically aligned bars.
+  void SetPreNoteZoneWidth(float w);
+  void SetPostNoteZoneWidth(float w);
+
+  // For Layout Strategies: get the x-coord of the left-hand edge 
+  //  of the note zone.
+  float GetNoteZoneLeftX() const;
+
+  // For Layout Strategies: get the final width of the note zone.
+  float GetNoteZoneWidth() const;
 
 private:
+  // Generate string output for pre-note zone, once final bar pos is set.
+  std::string PreNoteZoneToString();
+
+  // Generate string output for post-note zone, once final bar pos is set.
+  std::string PostNoteZoneToString();
+
   // Position glyphs across bar after 'fixed' elements like clef and time
   //  sig have taken up some of the width of the bar.
   void PositionGlyphs(float leftX, float bottomStaveLineY,
@@ -253,5 +278,9 @@ private:
 
   // Start time of first beat of bar, in crotchet units
   TimeValue m_startTime = 0;
+
+  // Pre- and post- note zones: 
+  float m_preNoteZoneWidth = 0; // total width of glyphs in pre-note zone
+  float m_postNoteZoneWidth = 0; // total width of glyphs in post-note zone
 };
 

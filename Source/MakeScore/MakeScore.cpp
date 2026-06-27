@@ -506,6 +506,24 @@ void MakeScore::AddStave()
   m_staves.emplace_back(std::move(stave));
 }
 
+bool MakeScore::CheckStaveLengthsAreEqual() const
+{
+  // Sanity check:
+  // We expect and require numBars to be the same across all staves.
+
+  if (m_staves.empty()) return true; 
+
+  const int numBars = m_staves.front()->GetNumBars();
+  for (auto& stave : m_staves)
+  {
+    if (stave->GetNumBars() != numBars)
+    {
+      return false;
+    }
+  } 
+  return true;
+}
+
 void MakeScore::AdjustBarWidths()
 {
   if (m_staves.empty()) return;
@@ -521,14 +539,6 @@ void MakeScore::AdjustBarWidths()
     //  from the bar in each stave.
     for (auto& stave : m_staves)
     {
-      // Sanity check:
-      // We expect/require numBars to be the same across all staves.
-      if (stave->GetNumBars() != numBars)
-      {
-        std::cout << "ERROR! Num bars different across staves!\n";
-        return;
-      }
-   
       // Calc bar width scale factor
       float w = stave->GetBar(i).GetRelativeWidth();
       // Get the max, so the width depends on the widest bar vertically.
@@ -559,6 +569,49 @@ void MakeScore::AdjustBarWidths()
   }
 }
 
+void MakeScore::GeneratePreAndPostNoteZoneWidths()
+{
+  // Generate pre- and post-note zone for every bar. For vertically aligned bars,
+  //  we should take the width of the widest zone, in case there
+  //  are differences (e.g. a clef change in one stave).
+
+  const int numBars = m_staves.front()->GetNumBars();
+
+  for (int i = 0; i < numBars; i++)
+  {
+    float maxPreNoteZoneWidth = 0;  
+    float maxPostNoteZoneWidth = 0;
+
+    [[maybe_unused]] int nstave = 0;
+    for (auto& stave : m_staves)
+    {
+      assert(stave->GetNumBars() == numBars); // We checked for this earlier
+
+      const float preNoteWidth = stave->GetBar(i).CalcPreNoteZoneWidth();
+
+#ifdef DEBUG_SHOW_PRE_NOTE_WIDTH
+std::cout << "// Pre note zone width for bar " 
+  << i 
+  << " stave " << nstave++ 
+  << ": " 
+  << preNoteWidth << "\n";
+#endif
+
+      maxPreNoteZoneWidth = std::max(maxPreNoteZoneWidth, preNoteWidth);
+
+      // TODO Post-note zone
+    }
+ 
+    // 2nd pass: set the widest value for the pre- and post-note zones
+    for (auto& stave : m_staves)
+    {
+      auto& bar = stave->GetBar(i);
+      bar.SetPreNoteZoneWidth(maxPreNoteZoneWidth);
+      bar.SetPostNoteZoneWidth(maxPostNoteZoneWidth);
+    } 
+  }
+}
+
 void MakeScore::MakeInternal()
 {
   // Tokenise, preprocess, deal with global settings in the input,
@@ -570,6 +623,17 @@ void MakeScore::MakeInternal()
   // Tokenise input string and add each token to internal representation.
   // At this stage the only tokens should be music notation, not settings.
   Parse(tokens);
+
+  if (!CheckStaveLengthsAreEqual())  // TODO other sanity checks
+  {
+    // TODO Report error properly
+    std::cout << "ERROR! Num bars different across staves!\n";
+    return;
+  }
+
+  // The pre- and post-note zones in each bar contains clef/keysig/timesigs,
+  //  in fixed positions. We generate these first.
+  GeneratePreAndPostNoteZoneWidths();
 
   // Get width scale factor for each bar (we use the same max value for the
   //  vertically corresponding bars in all staves).
@@ -586,6 +650,7 @@ void MakeScore::MakeInternal()
     // This uses the widths calcalated above so nothing to move to Strategy.
     stave->CalcBarSizesAndPositions(m_barWidths);
 
+    // Within each bar, position elements in the note zone.
     stave->PositionGlyphs(); // Internally uses Layout Strategy 
 
     stave->MakeBeamGroups(); // Do this last so we have positions of notes!

@@ -277,7 +277,31 @@ bool Bar::YesShowPreNoteZoneKeySig() const
   return m_isFirstBarOfLine || m_yesOutputPreNoteZoneKeySig;
 }
 
-std::pair<std::string, float> Bar::PreNoteZoneToString() const
+float Bar::GetNoteZoneLeftX() const
+{
+  return GetX() + m_preNoteZoneWidth;
+}
+
+float Bar::GetNoteZoneWidth() const
+{
+  return m_width - m_preNoteZoneWidth - m_postNoteZoneWidth;
+}
+
+float Bar::CalcPreNoteZoneWidth() const
+{
+  float x = 0;
+
+  if (YesShowPreNoteZoneClef()) { x += CLEF_WIDTH; }
+
+  // TODO Neutraliser width
+  if (YesShowPreNoteZoneKeySig()) { x += GetKeySigWidth(); }  
+
+  if (m_timeSigGlyph) { x += TIME_SIG_WIDTH; }
+
+  return x;
+}
+
+std::string Bar::PreNoteZoneToString()
 {
   // Pre-note zone elements:
   // 0. Double barline if key or time sig changes, and not start of line
@@ -325,7 +349,7 @@ std::pair<std::string, float> Bar::PreNoteZoneToString() const
     //  bar is at end of line.
 
     // Set the pos of the time sig: TODO pass these into ToString for consistency.
-    m_timeSigGlyph->SetPos(x, m_timeSigGlyph->GetY() + m_y);
+    m_timeSigGlyph->SetPos(x, y);
 
     if (yesComments)
     {
@@ -335,10 +359,19 @@ std::pair<std::string, float> Bar::PreNoteZoneToString() const
     x += TIME_SIG_WIDTH;
   }
 
-  // TODO Maybe this is the place to add a bit of space between the pre-note and 
-  //  note zone. E.g. x += PRE_NOTE_ZONE_MARGIN etc.
+  return res;
+}
 
-  return {res, x};
+void Bar::SetPreNoteZoneWidth(float w)
+{
+  // Overwrite width calculated in GeneratePreNoteZone so all vertically
+  //  aligned zones have the same width.
+  m_preNoteZoneWidth = w;
+}
+
+void Bar::SetPostNoteZoneWidth(float w)
+{
+  m_postNoteZoneWidth = w;
 }
 
 std::string Bar::ToString()
@@ -352,8 +385,7 @@ std::string Bar::ToString()
   //  pre-note zone follows the same rules all the time and is fixed.
   // If we are drawing multiple lines/systems, there will be a post-note zone too.
   // For single-line, (i.e. Piano Fest game), we don't need a post-note zone.
-  [[maybe_unused]] const auto [preNoteStr, _] = PreNoteZoneToString();
-  res += preNoteStr;
+  res += PreNoteZoneToString();
 
   // Output the notes and rests in the note zone: this is just a simple loop - 
   //  the more complicated bit was setting their x-coords.
@@ -389,11 +421,12 @@ bool Bar::YesShowPreNoteZoneClef() const
 float Bar::GetRelativeWidth() const
 {
   // Get the width of this bar relative to other bars. 
-  // We delegate part of this to the layout strategy because the width of the 
-  //  note zone depends on how we space out notes. 
-  
-  [[maybe_unused]] const auto [_, preNoteZoneWidth] = PreNoteZoneToString();
-  return preNoteZoneWidth + GetLayoutStrategy()->CalcNoteZoneWidth(*this);
+  // We delegate the note zone portion of this to the layout strategy,
+  //   because the width of the note zone depends on how we space out notes. 
+  return 
+    m_preNoteZoneWidth + 
+    GetLayoutStrategy()->CalcNoteZoneWidth(*this) +
+    m_postNoteZoneWidth;
 }
 
 void Bar::CalcWidth(float totalWidth, float pageWidth, float widthScale)
@@ -402,7 +435,8 @@ void Bar::CalcWidth(float totalWidth, float pageWidth, float widthScale)
 
   if (m_scale == 0)
   {
-    std::cout << "Div by zero! m_scale == 0!\n";
+    // TODO Report Error
+    std::cout << "// Div by zero! m_scale == 0!\n";
     m_scale = 1.f;
   }
 
@@ -429,16 +463,16 @@ float Bar::GetKeySigWidth() const
 {
   // KeySig is just an enum so no member funcs
 
-  const float AW = 0.15f; // width of one accidental glyph
+  const float ACC_WIDTH = NOTE_HEAD_WIDTH * .8f;
   if (m_keySig >= KEYSIG_0_FLAT)
   {
     // Flat
-    return (m_keySig - KEYSIG_0_FLAT) * AW;
+    return (m_keySig - KEYSIG_0_FLAT) * ACC_WIDTH;
   }
   else
   {
     // Sharp
-    return (m_keySig - KEYSIG_0_SHARP) * AW;
+    return (m_keySig - KEYSIG_0_SHARP) * ACC_WIDTH;
   }
 }
 
@@ -450,15 +484,9 @@ void Bar::SetPos(float x, float y)
 
 void Bar::PositionGlyphs()
 {
-  // Position Pre-Note Zone (not strategised), then use Layout Strategy to
-  //  position glyphs in the Note Zone
-  [[maybe_unused]] const auto [_, preNoteZoneWidth] = PreNoteZoneToString();
-
-  // Calc the start of the Note Zone 
-  float noteZoneX = m_x + preNoteZoneWidth;
-  // TODO Reduce width by post-note zone, if we end up adding this.
-  float noteZoneWidth = m_width - preNoteZoneWidth;
-  // TODO Also reduce by a bit of space on the right?
+  // Calc the start of the Note Zone and its width.
+  float noteZoneX = m_x + m_preNoteZoneWidth;
+  float noteZoneWidth = m_width - m_preNoteZoneWidth - m_postNoteZoneWidth;
 
   // TODO Ask the Layout Strategy if we want to centre this single glyph.
   // This is really just about whole bar rests but could apply to other things?

@@ -88,6 +88,15 @@ public:
   }
 
 private:
+  // Check number of bars in each stave is the same. 
+  // (Just do this once after processing input.)
+  bool CheckStaveLengthsAreEqual() const;
+
+  // Generate widths for pre- and post-note zones in each bar. 
+  // Set widths of the zones for vertically aligned bars so the zones
+  //  line up vertically.
+  void GeneratePreAndPostNoteZoneWidths();
+
   void ToStringInternal(); // Populate m_outputStrings
 
   // Output bar lines

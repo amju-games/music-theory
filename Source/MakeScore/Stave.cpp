@@ -116,6 +116,11 @@ int Stave::GetNumBars() const
   return static_cast<int>(m_bars.size());
 }
 
+Bar& Stave::GetBar(int i) 
+{
+  return *(m_bars[i]);
+}
+
 const Bar& Stave::GetBar(int i) const
 {
   return *(m_bars[i]);
@@ -256,6 +261,7 @@ void Stave::AddTie()
       auto& prevBarGlyphs = prevBar->GetGlyphs();
       if (prevBarGlyphs.empty())
       {
+        // TODO Report Error
         std::cout << "// *** Error, no left glyph for tie to refer to (not first bar).\n";
         return;
       }
@@ -266,6 +272,7 @@ void Stave::AddTie()
     }   
     else
     {
+        // TODO Report Error
       std::cout << "// *** Error, no left glyph for tie to refer to (first bar).\n";
       return;
     }
