@@ -14,8 +14,9 @@ struct Tie;
 
 // * Glyph *
 // Base class for note and rest glyphs.
-struct Glyph : public IGlyph
+class Glyph : public IGlyph
 {
+public:
   Glyph() = default;
 
   // Construct glyph from inpupt token and position in bar.

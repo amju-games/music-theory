@@ -8,7 +8,7 @@
 
 #include "IGlyph.h"
 
-struct Glyph;
+class Glyph; // why not use IGlyph?
 
 // TODO Why not an attachment?
 struct Tie : public IGlyph

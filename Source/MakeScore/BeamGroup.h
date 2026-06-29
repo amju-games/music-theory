@@ -15,7 +15,7 @@
 #include "vec2.h"
 
 class Beam;
-struct Glyph;
+class Glyph;
 
 // * BeamGroup *
 // Identifies sequences of beamable notes; creates Beams, sets stems.
