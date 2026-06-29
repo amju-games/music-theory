@@ -31,6 +31,7 @@
 #include "Hairpin.h"
 #include "KeySig.h"
 #include "LayoutFull.h"
+#include "LayoutGrid.h"
 #include "MakeScore.h"
 #include "Pitch.h"
 #include "Performance.h"
@@ -61,7 +62,7 @@ static bool IsDirection(const std::string& s)
 
 void MakeScore::SetLayoutStrategy()
 {
-  Bar::SetLayoutStrategy(new LayoutFull);
+  Bar::SetLayoutStrategy(new LayoutGrid);
 }
 
 bool MakeScore::Load(const std::string& filename)
@@ -535,8 +536,6 @@ void MakeScore::AdjustBarWidths()
 
   for (int i = 0; i < numBars; i++)
   {
-    // This is a bit basic. We would really need to make verticals
-    //  from the bar in each stave.
     for (auto& stave : m_staves)
     {
       // Calc bar width scale factor
@@ -551,7 +550,6 @@ void MakeScore::AdjustBarWidths()
   // Pass 2: normalise so the sum of widths == the number of bars.
   // So busy bars are wider, not-busy bars are narrower.
   // E.g.
-  // 
   //           | sb | m m | c c c c | q q q q q q q q |
   // w:          1    2     4         8
   // totalW: 15
@@ -631,6 +629,14 @@ void MakeScore::MakeInternal()
     return;
   }
 
+  // Calculate bar start times before embarking on a layout strategy.
+  for (auto& stave : m_staves)
+  {
+    // Calc start times of bars and elements in them; normalise times
+    //  for animation meta data.
+    stave->CalcStartTimes();
+  }
+
   // The pre- and post-note zones in each bar contains clef/keysig/timesigs,
   //  in fixed positions. We generate these first.
   GeneratePreAndPostNoteZoneWidths();
@@ -638,16 +644,13 @@ void MakeScore::MakeInternal()
   // Get width scale factor for each bar (we use the same max value for the
   //  vertically corresponding bars in all staves).
   // Fills m_barWidths, which are widths, weighted to sum to the number of bars.
-  AdjustBarWidths();  // Internally uses Layout Strategy pattern
+  AdjustBarWidths();  
+  // Internally uses Layout Strategy pattern, calls CalcNoteZoneWidth for all bars.
 
   for (auto& stave : m_staves)
   {
-    // Calc start times of bars and elements in them; normalise times
-    //  for animation meta data.
-    stave->CalcStartTimes();
-
     // Calc bar sizes, and the position of each bar.
-    // This uses the widths calcalated above so nothing to move to Strategy.
+    // This uses the widths calculated above so nothing to move to Strategy.
     stave->CalcBarSizesAndPositions(m_barWidths);
 
     // Within each bar, position elements in the note zone.
