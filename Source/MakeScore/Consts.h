@@ -21,7 +21,7 @@ static const float NOTE_HEAD_OVERLAP_OFFSET = 0.18f;
 
 // Note positions, accidental positions, in chords etc
 // Offset for the accidental for a single note
-static const float ACCIDENTAL_X_OFFSET = 0.2f;
+static const float ACCIDENTAL_X_OFFSET = 0.1f;
 
 // For chords, if we offset further to the left, we use a reduced 
 //  offset width to try to limit the space taken up.

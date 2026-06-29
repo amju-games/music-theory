@@ -27,6 +27,8 @@ struct IGlyph
   virtual void SetScale(float sx, float sy) { scaleX = sx; scaleY = sy; }
   float GetScaleX() const { return scaleX; }
   float GetScaleY() const { return scaleY; }
+  void SetScaleX(float sx) { scaleX = sx; }
+  void SetScaleY(float sy) { scaleY = sy; }
 
   void SetPos(float x_, float y_) { x = x_; y = y_; }
 

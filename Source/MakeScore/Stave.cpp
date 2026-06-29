@@ -42,6 +42,10 @@ std::string Stave::ToString() const
 
   std::string res;
 
+  // Fix setting page-w after already adding elements: make sure the
+  //  width is set correctly.
+  const_cast<Stave*>(this)->SetScaleX(GetPageWidth());
+ 
   switch (m_type)
   {
   case StaveType::STAVE_TYPE_NONE:

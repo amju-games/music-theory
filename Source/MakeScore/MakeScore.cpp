@@ -103,7 +103,7 @@ bool MakeScore::IsSlur(const std::string& s)
     m_lastSlur = c;
     c->SetScale(m_scale);
 
-    // Attach to most reccent glyph if there is one
+    // Attach to most recent glyph if there is one
     GetCurrentStave().Attach(c, Attachment::LEFT);
 
     m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(c));
@@ -129,7 +129,7 @@ bool MakeScore::IsHairpin(const std::string& s)
     hp->SetPos(0, GetYForDirection());
     hp->SetCrescendo(s == "<");
 
-    // Attach to most reccent glyph if there is one
+    // Attach to most recent glyph if there is one
     GetCurrentStave().Attach(hp, Attachment::LEFT);
 
     m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(hp));
@@ -461,7 +461,7 @@ void MakeScore::AddDirection(const std::string& s)
   t->SetGlyphText(s);
   t->SetScale(m_scale);
 
-  // Attach to most reccent glyph if there is one
+  // Attach to most recent glyph if there is one
   GetCurrentStave().Attach(t);
 
   // Use width to offset x. Set y - 0.5, which is below the stave.
@@ -488,7 +488,7 @@ void MakeScore::AddText(const std::string& s)
   const float Y_ABOVE = 1.5f;
   t->SetPos(0, m_y + Y_ABOVE);
 
-  // Attach to most reccent glyph if there is one
+  // Attach to most recent glyph if there is one
   GetCurrentStave().Attach(t);
 
   m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(t));
