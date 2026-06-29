@@ -9,7 +9,6 @@ float LayoutFull::CalcNoteZoneWidth(const Bar& bar)
   //  to the number of beats. 
 
   // This calculation gives us a relative width for this bar's note zone.
-  // It isn't the final width, so we can't cache it for later.
   float noteZoneWidth = static_cast<float>(bar.GetNumBeats());
 
   // Scale the note zone width so it's using the same notional units as
@@ -79,8 +78,11 @@ void LayoutFull::PositionGlyphs(Bar& bar)
 
   // Compensate for glyph width, move to the left a bit
   // TODO depends on glyph type?, e.g. semibreve is slightly wider.
+  //  That probably doesn't matter, but we definitely should compensate
+  //  for accidentals, so they don't overlap anything!
   const float xfudge = -NOTE_HEAD_WIDTH * .5f; 
 
+  // Get the x-coord of the left-hand edge of the note zone.
   const float noteZoneLeftX = bar.GetNoteZoneLeftX();
 
   // Set the x-coord of each glyph in the note zone.
@@ -91,11 +93,10 @@ void LayoutFull::PositionGlyphs(Bar& bar)
     TimeValue glyphTimeInBar = 
       g->GetTimes().GetStartTimeValue() - bar.GetStartTime();
 
-    // Mult beat position by width of one beat to get x-coord.
+    // Mult beat position by width of one beat to get x-coord. Add fudge, yum.
     float xPosInBar = beatWidth * glyphTimeInBar + margin + xfudge;
 
-    // We are using the current glyph y-coord and adding to itself --
-    //  would it be better to set y-coords separately?
+    // Set the final, _final_ position of the glyph.
     g->SetPos(xPosInBar + noteZoneLeftX, g->GetY() + bar.GetY()); 
   }
 }
