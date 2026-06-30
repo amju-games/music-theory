@@ -12,6 +12,10 @@
 // strip off the quotes:
 //    (Win) echo "4/4 c c mr" | MakeScore.exe
 
+#include <ctime>
+#include <iostream>
+#include <iomanip>
+#include <sstream>
 #include "Consts.h"
 #include "MakeScore.h"
 
@@ -87,8 +91,25 @@ bool CommandLineParams(int argc, char** argv, MakeScore& ms)
   return true;
 }
 
+static std::string NowToString()
+{
+  // https://stackoverflow.com/a/16358111
+  // Seriously, how hard should this be.
+
+  auto t = std::time(nullptr);
+  auto tm = *std::localtime(&t);
+
+  std::ostringstream oss;
+  oss << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
+  return oss.str();
+}
+
 static void OutputCommandLineComment(int argc, char** argv)
 {
+  std::cout << "// Created by MAKESCORE by Juliet, " 
+    << NowToString()
+    << "\n";
+ 
   std::cout << "// " << argv[0] << " \"";
   for (int i = 1; i < argc; i++)
   {

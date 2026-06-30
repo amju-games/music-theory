@@ -4,7 +4,10 @@
 // MidiScore -- read midi file, output text which can be read by makescore.
 // Uses https://github.com/craigsapp/midifile.
 
+#include <ctime>
 #include <iostream>
+#include <iomanip>
+#include <sstream>
 #include <MidiFile.h> // 3rd party MidiFile lib
 #include "commandline.h"
 #include "MidiScore.h"
@@ -46,8 +49,25 @@ Options:
   --allclefs    Output alto and tenor clefs as well as bass and treble.
 )";
 
+static std::string NowToString()
+{
+  // https://stackoverflow.com/a/16358111
+  // Seriously, how hard should this be.
+
+  auto t = std::time(nullptr);
+  auto tm = *std::localtime(&t);
+
+  std::ostringstream oss;
+  oss << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
+  return oss.str();
+}
+
 void OutputCommandLine(const commandline& cl)
 {
+  std::cout << "// Created by MIDISCORE by Juliet, "
+    << NowToString()
+    << "\n";
+
   std::cout << "// ";
   const auto& strs = cl.strings();
   for (const auto& s : strs)
