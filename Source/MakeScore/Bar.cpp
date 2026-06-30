@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include "Bar.h"
+#include "LayoutStrategy.h"
 #include "NoteGlyph.h"
 #include "RestGlyph.h"
 #include "Stem.h"
@@ -23,8 +24,26 @@ BarLine GetBarLine(const std::string& s)
   return BarLine::BAR_LINE_NOT_SET;
 }
 
+// Just a basic impl of Strategy pattern
+static std::unique_ptr<LayoutStrategy> s_layoutStrategy;
+
+void Bar::SetLayoutStrategy(LayoutStrategy* ls)
+{
+  s_layoutStrategy.reset(ls);
+}
+
+LayoutStrategy* Bar::GetLayoutStrategy()
+{
+  assert(s_layoutStrategy);
+  return s_layoutStrategy.get();
+}
+
 void Bar::CopyState(const Bar& b)
 {
+  // Copy part of the given bar, but not everything. E.g. we need to know
+  //  the clef, but we don't want the 'clef changed' flag because that could
+  //  be different from the preceding bar.
+
   SetScale(b.m_scale);
   // Copy time sig over to next bar
   SetTimeSig(b.GetTimeSig());
@@ -37,6 +56,8 @@ void Bar::CopyState(const Bar& b)
 void Bar::SetKeySig(KeySig ks)
 {
   m_keySig = ks;
+  // TODO If setting rather than copying from preceding bar, that means
+  //  a key sig change, riiight? There's no AddKeySig....
 }
 
 KeySig Bar::GetKeySig() const
@@ -47,6 +68,7 @@ KeySig Bar::GetKeySig() const
 void Bar::SetTimeSig(TimeSig ts)
 {
   m_timeSig = ts;
+  //  That's it -- see AddTimeSig().
 }
 
 TimeSig Bar::GetTimeSig() const
@@ -90,7 +112,7 @@ int Bar::GetNumBeats() const
 
 void Bar::CalcNormalisedTimes(const TimeValue totalPieceDuration)
 {
-  auto [ _, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
+  const auto [ _, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
 
   for (auto& g : m_glyphs)
   {
@@ -107,7 +129,8 @@ void Bar::SetScale(float scale)
   m_scale = scale;
 }
 
-float Bar::AddRest(const std::string& token, [[maybe_unused]]int switches, float startTimeValue, bool isWholeBar)
+float Bar::AddRest(const std::string& token, 
+  [[maybe_unused]]int switches, float startTimeValue, bool isWholeBar)
 {
   int order = static_cast<int>(m_glyphs.size());
 
@@ -131,12 +154,14 @@ std::unique_ptr<ChordGlyph> Bar::CreateChordGlyph(
   auto chordGlyph = std::make_unique<ChordGlyph>(ch);
   chordGlyph->SetScale(m_scale);
 
+  // Create a note glyph for each note in the chord
   for (const auto& [pitch, duration] : ch)
   {
-    auto noteGlyph = CreateNoteGlyph(duration, pitch, switches, xOrder, crotchetTime);
+    auto noteGlyph = CreateNoteGlyph(
+      duration, pitch, switches, xOrder, crotchetTime);
     chordGlyph->AddNoteGlyph(std::move(noteGlyph));
   }
-  // Get the input token of the 0th note in the chord - which should be
+  // Get the duration (input) token of the 0th note in the chord - which should be
   //  the longest duration (notes are sorted by duration)
   const auto durationToken = ch[0].second;
   chordGlyph->GetTimes().Set(durationToken);
@@ -217,15 +242,12 @@ float Bar::AddChord(
 
 void Bar::SetClef(Clef clef)
 {
-  // Has clef changed? If so, output a mini-clef at the end of the bar.
-  // Not if this is the first bar though???? Not sure about this - TODO
-  // I think we need to add the mini-clef to the PREVIOUS bar.
-  if (    clef != m_currentClef
-      && !m_isFirstBarOfLine) // ?
-  {
-    m_yesOutputMiniClef = true;
-  }
+  // TODO Courtesy/cautionary clefs (the mini ones).
+
   m_currentClef = clef;
+  // Set flag so we know to output clef at the start of this bar;
+  // (If this is set, OR it's the first bar on a line, output the current clef)
+  m_yesOutputPreNoteZoneClef = true; 
 }
 
 void Bar::AddTimeSig(const std::string& s)
@@ -235,58 +257,138 @@ void Bar::AddTimeSig(const std::string& s)
   Glyph* glyph = new TimeSigGlyph(s);
   glyph->SetScale(m_scale);
   m_timeSigGlyph = std::unique_ptr<Glyph>(glyph);
+
+  // Set flag so we know to output timesig at the start of this bar?
+  // No, because we can use the non-nullness of m_timeSigGlyph. We don't add the
+  //  prevailing time sig at the start of every line.
 }
 
 std::string Bar::BarNumberString(int barNum) const
 {
-  // Output bar number and position of this bar -- called by Stave.
+  // Output bar number and position of this bar
   return "BAR_NUMBER, " + std::to_string(barNum) + ", " + 
     std::to_string(m_x * m_scale) + ", " + 
     std::to_string(m_y * m_scale) + 
     LineEnd(); 
 }
 
-std::string Bar::ToString()
+bool Bar::YesShowPreNoteZoneKeySig() const
 {
+  return m_isFirstBarOfLine || m_yesOutputPreNoteZoneKeySig;
+}
+
+float Bar::GetNoteZoneLeftX() const
+{
+  return GetX() + m_preNoteZoneWidth;
+}
+
+float Bar::GetNoteZoneWidth() const
+{
+  return m_width - m_preNoteZoneWidth - m_postNoteZoneWidth;
+}
+
+float Bar::CalcPreNoteZoneWidth() const
+{
+  float x = 0;
+
+  if (YesShowPreNoteZoneClef()) { x += CLEF_WIDTH; }
+
+  // TODO Neutraliser width
+  if (YesShowPreNoteZoneKeySig()) { x += GetKeySigWidth(); }  
+
+  if (m_timeSigGlyph) { x += TIME_SIG_WIDTH; }
+
+  return x;
+}
+
+std::string Bar::PreNoteZoneToString()
+{
+  // Pre-note zone elements:
+  // 0. Double barline if key or time sig changes, and not start of line
+  // 1. Clef: if clef change or start of line
+  // 2. Key sig: if start of line or key sig change. We first cancel any
+  //    sharps or flats in the old key sig that are naturals in the new 
+  //    key sig. So the key sig is comprised of two parts: "neutraliser" and
+  //    new key.
+  // 3. Time sig: if first bar or key sig change; ("mini bar" with time sig
+  //    at end of line if the time sig changes in the next bar on a 
+  //    new line).
+  // 4. Courtesy clef
+  // Clef for each stave, if first bar of line, and single or double
+  //  stave - not if no stave; percussion clef for rhythm line - that's TODO
+
+  const bool yesComments = (GetSuppressFlags() & MD_COMMENT) == 0;
+  float x = m_x; 
+  float y = m_y; 
+
   std::string res;
 
-  bool yesComments = (GetSuppressFlags() & META_COMMENT) == 0;
+  // TODO double bar line here
 
-  // Clef for each stave, if first bar of line, and single or double
-  //  stave - not if no stave or just rhythm line
-  if (YesShowClefAtFrontOfBar())
+  if (YesShowPreNoteZoneClef())
   {
-    float x = 0;
-    float y = m_y; 
-
     res += GetClefOutputString(m_currentClef, x, y, m_scale) + 
       LineEnd();
+    x += CLEF_WIDTH;
   }
 
   // Key sig
-  if (m_isFirstBarOfLine)
+  if (YesShowPreNoteZoneKeySig()) 
   {
-    float x = 0;
-    if (YesShowClefAtFrontOfBar()) // always true if showing key sig?
-    {
-      // offset to avoid clef, should be done by accumulating x pos
-      x = CLEF_WIDTH;
-    }
-    float y = m_y;
+    // TODO Neutraliser here
+
     res += GetKeySigOutputString(m_keySig, m_currentClef, x, y, m_scale) + 
       LineEnd();
+    x += GetKeySigWidth();
   }  
 
-  // Optional time sig
+  // Time sig
   if (m_timeSigGlyph)
   {
+    // TODO Create a "mini bar" containing only the new time sig,  if this 
+    //  bar is at end of line.
+
+    // Set the pos of the time sig: TODO pass these into ToString for consistency.
+    m_timeSigGlyph->SetPos(x, y);
+
     if (yesComments)
     {
       res += m_timeSigGlyph->CommentString() + LineEnd();
     }
     res += m_timeSigGlyph->ToString() + LineEnd();
+    x += TIME_SIG_WIDTH;
   }
 
+  return res;
+}
+
+void Bar::SetPreNoteZoneWidth(float w)
+{
+  // Overwrite width calculated in GeneratePreNoteZone so all vertically
+  //  aligned zones have the same width.
+  m_preNoteZoneWidth = w;
+}
+
+void Bar::SetPostNoteZoneWidth(float w)
+{
+  m_postNoteZoneWidth = w;
+}
+
+std::string Bar::ToString()
+{
+  std::string res;
+
+  const bool yesComments = (GetSuppressFlags() & MD_COMMENT) == 0;
+
+  // Each bar splits into two logical 'zones': pre-note zone, and note zone.
+  // The layout strategy controls glyph placement in the note zone, but the 
+  //  pre-note zone follows the same rules all the time and is fixed.
+  // If we are drawing multiple lines/systems, there will be a post-note zone too.
+  // For single-line, (i.e. Piano Fest game), we don't need a post-note zone.
+  res += PreNoteZoneToString();
+
+  // Output the notes and rests in the note zone: this is just a simple loop - 
+  //  the more complicated bit was setting their x-coords.
   for (auto& g : m_glyphs)
   {
     if (yesComments)
@@ -296,6 +398,7 @@ std::string Bar::ToString()
     res += g->ToString() + LineEnd();
   }
 
+  // Output beams.
   for (auto& b : m_beams)
   {
     b->SetPos(m_x, m_y); // set pos of bar, to add to beam coords
@@ -310,39 +413,45 @@ std::string Bar::ToString()
   return res;
 }
 
-bool Bar::YesShowClefAtFrontOfBar() const
+bool Bar::YesShowPreNoteZoneClef() const
 {
-  return (m_isFirstBarOfLine);
+  return (m_yesOutputPreNoteZoneClef || m_isFirstBarOfLine);
 }
 
 float Bar::GetRelativeWidth() const
 {
-  float w = static_cast<float>(GetNumBeats());
-  if (YesShowClefAtFrontOfBar())
-  {
-    w += 1; // clef
-    // TODO Key sig width
-    //w += GetKeySigWidth() * 5.0f; // scale up key sig width so it's about right
-  }
-  if (m_timeSigGlyph)
-  {
-    w += 1;
-  }
-  return w;
+  // Get the width of this bar relative to other bars. 
+  // We delegate the note zone portion of this to the layout strategy,
+  //   because the width of the note zone depends on how we space out notes. 
+  return 
+    m_preNoteZoneWidth + 
+    GetLayoutStrategy()->CalcNoteZoneWidth(*this) +
+    m_postNoteZoneWidth;
 }
 
 void Bar::CalcWidth(float totalWidth, float pageWidth, float widthScale)
 {
-  float relW = GetRelativeWidth();
+  // NOT delegated to the layout strategy: this just scales bar widths.
 
   if (m_scale == 0)
   {
-    std::cout << "Div by zero! m_scale == 0!\n";
+    // TODO Report Error
+    std::cout << "// Div by zero! m_scale == 0!\n";
     m_scale = 1.f;
   }
 
-  m_width = relW / totalWidth * pageWidth / m_scale;
-  m_width *= widthScale;
+  // This bar gets a fraction of the page width, scaled by bar-specific
+  //  widthScale, and m_scale which is the overall scale factor for all bars,
+  //  and is applied to all glyphs.
+
+  //  TODO  (m_scale should be static, no? Hmm not for
+  //  e.g. one stave  has smaller glyphs. Should be passed from stave?)
+
+  const float fractionOfPageForThisBar = widthScale / totalWidth;
+
+  // TODO I'm not sure about m_scale here. Scale affects glyph sizes, not
+  //  bar widths, no?
+  m_width = pageWidth * fractionOfPageForThisBar / m_scale;
 }
 
 float Bar::GetWidth() const
@@ -352,124 +461,55 @@ float Bar::GetWidth() const
 
 float Bar::GetKeySigWidth() const
 {
-  const float AW = 0.15f; // width of one accidental glyph
+  // KeySig is just an enum so no member funcs
+
+  const float ACC_WIDTH = NOTE_HEAD_WIDTH * .8f;
   if (m_keySig >= KEYSIG_0_FLAT)
   {
     // Flat
-    return (m_keySig - KEYSIG_0_FLAT) * AW;
+    return (m_keySig - KEYSIG_0_FLAT) * ACC_WIDTH;
   }
   else
   {
     // Sharp
-    return (m_keySig - KEYSIG_0_SHARP) * AW;
+    return (m_keySig - KEYSIG_0_SHARP) * ACC_WIDTH;
   }
 }
 
-// x is the left edge of the bar.
-// From this and the width, we can set the final x-coord of each glyph.
-// y is an offset added to the y-coord of each glyph (all the same for
-//  rhythm scores). 
 void Bar::SetPos(float x, float y)
 {
-  m_x = x; // Remember for bar lines
+  m_x = x; 
   m_y = y;
-
-  // Reduce available bar width when we have time sig, key sig, clef.
-  float reduction = 0;
-
-  // Displaying clef at front of this bar?
-  if (YesShowClefAtFrontOfBar())
-  {
-    // Need space for clef, so shunt everything right
-    float clefW = CLEF_WIDTH;
-
-    // Also we must be outputting key sig
-    clefW += GetKeySigWidth();
-
-    // Add a bit extra so there is a small space before the time sig
-    const float EXTRA_SPACE = 0.1f;
-    clefW += EXTRA_SPACE;
-
-    reduction += clefW;
-    x += clefW;
-  }
-
-  if (m_timeSigGlyph)
-  {
-    reduction += TIME_SIG_WIDTH;
-    m_timeSigGlyph->SetPos(x, m_timeSigGlyph->GetY() + y);
-    x += TIME_SIG_WIDTH;
-  }
-
-  PositionGlyphs(x, y, m_width - reduction);
 }
 
-void Bar::CentreSingleGlyph(float leftX, float bottomStaveLineY, 
-  float remainingBarWidth)
+void Bar::PositionGlyphs()
 {
-  auto& g = m_glyphs[0];
-  float xPosInBar = remainingBarWidth / 2.f;
-  g->SetPos(xPosInBar + leftX, g->GetY() + bottomStaveLineY); 
-}
+  // Calc the start of the Note Zone and its width.
+  float noteZoneX = m_x + m_preNoteZoneWidth;
+  float noteZoneWidth = m_width - m_preNoteZoneWidth - m_postNoteZoneWidth;
 
-static float CalcBeatWidth(int numBeats, float remainingBarWidth)
-{
-  // Divide remaining width by the number of beats to get 
-  //  the distance between each beat.
-  if (numBeats > 1)
-  {
-    return remainingBarWidth / (numBeats - 1.0f);
-  }
-  else
-  {
-    return remainingBarWidth;
-  }
-}
-
-static float CalcMargin(float remainingBarWidth, int numBeats)
-{
-  float m = remainingBarWidth / (numBeats + 2.0f);
-  m = std::max(m, NOTE_HEAD_WIDTH * 1.5f); // minimum margin width
-  // TODO max margin width
-  return m;
-}
-
-void Bar::PositionGlyphs(float leftX, float bottomStaveLineY, 
-  float remainingBarWidth)
-{
-  if (   GetNumGlyphs() == 1 
+  // TODO Ask the Layout Strategy if we want to centre this single glyph.
+  // This is really just about whole bar rests but could apply to other things?
+  if (   m_glyphs.size() == 1 
       && m_glyphs[0]->ShouldCentreIfSingle())
   {
-    CentreSingleGlyph(leftX, bottomStaveLineY, remainingBarWidth);
+    CentreSingleGlyph(noteZoneX, noteZoneWidth);
     return;
   }
 
-  const int numBeats = GetNumBeats();
+  // Delegate positioning notes to the Layout Strategy.
+  GetLayoutStrategy()->PositionGlyphs(*this);
+}
 
-  // margin is distance from leftX to first glyph, and also distance
-  //  from last glyph to right bar line.
-  const float margin = CalcMargin(remainingBarWidth, numBeats);
+void Bar::CentreSingleGlyph(float leftX, float noteZoneWidth)
+{
+  // This isn't part of the Layout Strategy, because it's just finding the
+  //  centre of the note zone. But the decision of whether or not to do this
+  //  should be made by the Strategy.
 
-  // Reduce the remaining bar width by the margin at left and right.
-  remainingBarWidth -= 2 * margin;
-  
-  // Distance between beats in this bar
-  const float beatWidth = CalcBeatWidth(numBeats, remainingBarWidth);
-
-  // Compensate for glyph width, move to the left a bit
-  // TODO depends on glyph type?, e.g. semibreve is slightly wider.
-  float xfudge = -0.2f;
-
-  for (auto& g : m_glyphs)
-  {
-    // Get the number of beats into the bar where this glyph lives
-    TimeValue glyphTimeInBar = 
-      g->GetTimes().GetStartTimeValue() - m_startTime;
-
-    // Mult beat position by width of one beat to get "final" pos in bar
-    float xPosInBar = beatWidth * glyphTimeInBar + margin + xfudge;
-    g->SetPos(xPosInBar + leftX, g->GetY() + bottomStaveLineY); 
-  }
+  auto& g = m_glyphs[0];
+  float xCentre = noteZoneWidth / 2.f;
+  g->SetPos(xCentre + leftX, g->GetY() + m_y); 
 }
 
 float Bar::GetBarLineX() const
@@ -491,23 +531,5 @@ void Bar::MakeBeamGroups()
     // Add beams for rendering later, in ToString()
     bg.AddBeams(m_beams, m_glyphs);
   } 
-}
-
-int Bar::GetNumGlyphs() const
-{
-  // Check for accidentals, to try to avoid overlaps.
-  // (TODO Other things we should throw in the count?)
-  int res = 0;
-  for (const auto& g : m_glyphs)
-  {
-    ++res; // 1 for the note/chord/rest 
-    const auto* n = dynamic_cast<const NoteAndChordBase*>(g.get());
-    if (n)
-    {
-      // Add extras for accidentals
-      res += n->GetNumAccidentals();
-    }
-  }
-  return res;
 }
 

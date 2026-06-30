@@ -39,13 +39,29 @@ bool IsBarLine(const std::string&);
 // Convert given string to bar line type
 BarLine GetBarLine(const std::string&);
 
+class LayoutStrategy;
+
 // * Bar *
-// Holds glyphs for one bar on one stave
+// Holds glyphs for one bar on one stave. Conceptually split into 
+//  pre-note zone and note zone. The notes etc in the note zone are
+//  positioned by a LayoutStrategy object. The stuff in the pre-note
+//  zone is fixed.
 class Bar
 {
 public:
+  // Set the strategy used to position glyphs within bars.
+  static void SetLayoutStrategy(LayoutStrategy*);
+  static LayoutStrategy* GetLayoutStrategy();
+
+  // Set the coord of each glyph within this bar.
+  // Delegates the work to a Layout Strategy object, set depending on 
+  //  desired positioning strategy.
+  void PositionGlyphs();
+
   // Copy state which carries over from one bar to the next, e.g. 
-  //  time sig, key sig, etc.
+  //  time sig, key sig, etc. 
+  // Not just a regular copy ctor because we don't want to copy _all_ of the
+  //  state.
   void CopyState(const Bar& b);
 
   void SetIsFirstBarOfLine(bool first) { m_isFirstBarOfLine = first; }
@@ -53,22 +69,25 @@ public:
   // Get x-coord for bar line at the end of this bar.
   float GetBarLineX() const;
 
+  // Bar line type.
   BarLine GetBarLine() const { return m_barLine; }
   void SetBarLine(BarLine b) { m_barLine = b; }
 
+  // Time signature -- this is the logical time sig, not necessarily
+  //  output as a glyph.
   void SetTimeSig(TimeSig ts);
-
   TimeSig GetTimeSig() const;
 
   // Get number of beats in this bar.
   // Calc on first call for this bar, then store the result.
   int GetNumBeats() const;
 
+  // Key sig -- like time sig, this is the logical value, not what is
+  //  going to be displayed necessarily.
   void SetKeySig(KeySig ks);
-
   KeySig GetKeySig() const;
 
-  // Return the total time for the bar, in crotchet units.
+  // Return the total time duration for the bar, in crotchet units.
   // Used to get the total duration for the whole piece.
   TimeValue GetDuration() const;
 
@@ -87,7 +106,8 @@ public:
   //  stems of member note glyphs.
   void MakeBeamGroups();
 
-  // Calc normalised start times and durations for meta data
+  // Calc normalised start times and durations. This is so we can output 
+  //  meta data to play the piece.
   void CalcNormalisedTimes(float totalDurationOfPiece);
 
   void SetScale(float scale);
@@ -113,51 +133,84 @@ public:
   // Return string comprising multiple lines, each line a separate glyph.
   std::string ToString();
 
-  // Get the rough width for the bar by adding up the sequential
-  //  glyphs, and adding extra for clefs, key sigs, time sigs.
-  // Used by MakeScore to set the width of each bar.
+  // Get the width for the bar by adding up the pre-note zone and glyphs.
+  // This delegates to the Layout Strategy because the note zone layout
+  //  strategy determines the width.
   float GetRelativeWidth() const;
 
-  // Work out width for this bar, given the total width of all bars, 
+  // Work out width for this bar, given the total relative width of all bars, 
   //  and the desired page width.
   void CalcWidth(float totalWidth, float pageWidth, float widthScale);
 
-  // Used by MakeScore to work out how much of the page width each bar gets
+  // Get width calculated above - this is in final renderable units.
   float GetWidth() const;
 
+  // Set position of bar.
   // x is the left edge of the bar.
-  // From this and the width, we can set the final x-coord of each glyph.
-  // y is an offset added to the y-coord of each glyph (all the same for
-  //  rhythm scores). 
+  // y is the position of the bottom line of a 5-line stave (TODO check that)
+  // The units are final, renderable units.
   void SetPos(float x, float y);
+  // Get the position set above.
+  float GetX() const { return m_x; }
+  float GetY() const { return m_y; }
 
-  // Required for Ties
+  // Get the glyphs in the note zone, for inspection only.
   const GlyphVec& GetGlyphs() const { return m_glyphs; }
 
-  // Required for BeamGroups
+  // Get the glyphs in the note zone, to set positions.
   GlyphVec& GetGlyphs() { return m_glyphs; }
-
-  // Get number of glyphs for adjusting the width of bars.
-  // Include any accidentals to try to avoid overlapping.
-  int GetNumGlyphs() const;
 
   // Return string of given bar number and the top left coords of this bar.
   // So client code can draw all or some bar numbers.
   std::string BarNumberString(int barNum) const;
 
+  // Generate strings and initial widths of the non-note zones. 
+  // The widths are overwritten later so all vertically aligned bars
+  //  have the widths of the widest non-note zones. 
+  // E.g.
+  //   pre                post (empty)
+  // | clef-t :  c c c c : |      <- stave 0 
+  // |        :  m   m   : |      <- stave 1, with wide, empty pre-note zone
+  // TODO Generate post note zone: could also need the next bar.
+
+  // Calc width of pre-note zone for this bar.
+  float CalcPreNoteZoneWidth() const;
+ 
+  // Set width of pre- and post-note zones. 
+  // We do this to overwrite the value calculated in CalcPreNoteZoneWidth,
+  //  so we can vertically align the non-note zones of vertically aligned bars.
+  void SetPreNoteZoneWidth(float w);
+  void SetPostNoteZoneWidth(float w);
+
+  // For Layout Strategies: get the x-coord of the left-hand edge 
+  //  of the note zone.
+  float GetNoteZoneLeftX() const;
+
+  // For Layout Strategies: get the final width of the note zone.
+  float GetNoteZoneWidth() const;
+
 private:
+  // Generate string output for pre-note zone, once final bar pos is set.
+  std::string PreNoteZoneToString();
+
+  // Generate string output for post-note zone, once final bar pos is set.
+  std::string PostNoteZoneToString();
+
   // Position glyphs across bar after 'fixed' elements like clef and time
   //  sig have taken up some of the width of the bar.
   void PositionGlyphs(float leftX, float bottomStaveLineY,
-    float remainingBarWidth);
+    float noteZoneWidth);
 
   // For bars with single glyphs that should be centred
-  void CentreSingleGlyph(float leftX, float bottomStaveLineY,
-    float remainingBarWidth);
+  void CentreSingleGlyph(float leftX, float noteZoneWidth);
   
   // Ret true if we should show clef at front of bar
-  bool YesShowClefAtFrontOfBar() const;
+  bool YesShowPreNoteZoneClef() const;
 
+  // Return true if we should show key sig in pre-note zone.
+  bool YesShowPreNoteZoneKeySig() const;
+
+  // Get width of key sig (in pre-note zone)
   float GetKeySigWidth() const;
 
   std::unique_ptr<NoteGlyph> CreateNoteGlyph(
@@ -178,7 +231,7 @@ private:
   //  and time sig.
   GlyphVec m_glyphs;
 
-  // Optional key sig glyph for the bar, at left edge.
+  // Optional key sig glyph for the bar, in the pre-note zone.
   // TODO Handle 'naturalising' key sig before a new key sig, i.e. there
   //  could be up to 2 key sig glyphs. Also, key sigs can be a lot wider
   //  than other glyphs.
@@ -205,8 +258,11 @@ private:
   Clef m_currentClef = Clef::CLEF_TREBLE;
 
   bool m_isFirstBarOfLine = false;
-  // Output mini clef at end of bar if the clef changed
-  bool m_yesOutputMiniClef = false; 
+
+  // Output clef in pre-note zone?
+  bool m_yesOutputPreNoteZoneClef = false; 
+
+  bool m_yesOutputPreNoteZoneKeySig = false; 
 
   KeySig m_keySig = KEYSIG_0_SHARP;
 
@@ -222,5 +278,9 @@ private:
 
   // Start time of first beat of bar, in crotchet units
   TimeValue m_startTime = 0;
+
+  // Pre- and post- note zones: 
+  float m_preNoteZoneWidth = 0; // total width of glyphs in pre-note zone
+  float m_postNoteZoneWidth = 0; // total width of glyphs in post-note zone
 };
 

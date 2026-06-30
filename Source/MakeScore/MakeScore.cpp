@@ -30,6 +30,8 @@
 #include "Curve.h"
 #include "Hairpin.h"
 #include "KeySig.h"
+#include "LayoutFull.h"
+#include "LayoutGrid.h"
 #include "MakeScore.h"
 #include "Pitch.h"
 #include "Performance.h"
@@ -56,6 +58,11 @@ static const std::map<std::string, float> DIRECTIONS =
 static bool IsDirection(const std::string& s)
 {
   return DIRECTIONS.find(s) != DIRECTIONS.end();
+}
+
+void MakeScore::SetLayoutStrategy()
+{
+  Bar::SetLayoutStrategy(new LayoutGrid);
 }
 
 bool MakeScore::Load(const std::string& filename)
@@ -96,7 +103,7 @@ bool MakeScore::IsSlur(const std::string& s)
     m_lastSlur = c;
     c->SetScale(m_scale);
 
-    // Attach to most reccent glyph if there is one
+    // Attach to most recent glyph if there is one
     GetCurrentStave().Attach(c, Attachment::LEFT);
 
     m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(c));
@@ -122,7 +129,7 @@ bool MakeScore::IsHairpin(const std::string& s)
     hp->SetPos(0, GetYForDirection());
     hp->SetCrescendo(s == "<");
 
-    // Attach to most reccent glyph if there is one
+    // Attach to most recent glyph if there is one
     GetCurrentStave().Attach(hp, Attachment::LEFT);
 
     m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(hp));
@@ -454,7 +461,7 @@ void MakeScore::AddDirection(const std::string& s)
   t->SetGlyphText(s);
   t->SetScale(m_scale);
 
-  // Attach to most reccent glyph if there is one
+  // Attach to most recent glyph if there is one
   GetCurrentStave().Attach(t);
 
   // Use width to offset x. Set y - 0.5, which is below the stave.
@@ -481,7 +488,7 @@ void MakeScore::AddText(const std::string& s)
   const float Y_ABOVE = 1.5f;
   t->SetPos(0, m_y + Y_ABOVE);
 
-  // Attach to most reccent glyph if there is one
+  // Attach to most recent glyph if there is one
   GetCurrentStave().Attach(t);
 
   m_otherGlyphs.push_back(std::unique_ptr<IGlyph>(t));
@@ -500,10 +507,22 @@ void MakeScore::AddStave()
   m_staves.emplace_back(std::move(stave));
 }
 
-static float CalcBarWidthScale(int numGlyphs)
+bool MakeScore::CheckStaveLengthsAreEqual() const
 {
-  // Rough heuristic to increase scale factor as a bar has more glyphs
-  return std::max(1.f, static_cast<float>(numGlyphs) / 4.f);
+  // Sanity check:
+  // We expect and require numBars to be the same across all staves.
+
+  if (m_staves.empty()) return true; 
+
+  const int numBars = m_staves.front()->GetNumBars();
+  for (auto& stave : m_staves)
+  {
+    if (stave->GetNumBars() != numBars)
+    {
+      return false;
+    }
+  } 
+  return true;
 }
 
 void MakeScore::AdjustBarWidths()
@@ -511,26 +530,17 @@ void MakeScore::AdjustBarWidths()
   if (m_staves.empty()) return;
 
   const int numBars = m_staves.front()->GetNumBars();
-  // Fill construct bar widths -- we start with 1.0 for every bar.
-  m_barWidths = std::vector<float>(numBars, 1.f);
+  // Initialise bar widths -- we start with 1.0 for every bar.
+  m_barWidths = std::vector<float>(numBars, 1.f); // 'fill ctor'
   float totalW = 0;
 
   for (int i = 0; i < numBars; i++)
   {
     for (auto& stave : m_staves)
     {
-      // We expect/require numBars to be the same across all staves.
-      if (stave->GetNumBars() != numBars)
-      {
-        std::cout << "ERROR! Num bars different across staves!\n";
-        return;
-      }
-   
-      // Get the number of glyphs in the current bar for this stave.
-      // Calc bar width scale factor depending on the number of glyphs.
-      int numGlyphs = stave->GetBar(i).GetNumGlyphs();
-      float w = CalcBarWidthScale(numGlyphs);
-      // Get the max, so the width depends on the busiest bar vertically.
+      // Calc bar width scale factor
+      float w = stave->GetBar(i).GetRelativeWidth();
+      // Get the max, so the width depends on the widest bar vertically.
       w = std::max(m_barWidths[i], w);
       m_barWidths[i] = w;
     }
@@ -539,10 +549,64 @@ void MakeScore::AdjustBarWidths()
 
   // Pass 2: normalise so the sum of widths == the number of bars.
   // So busy bars are wider, not-busy bars are narrower.
+  // E.g.
+  //           | sb | m m | c c c c | q q q q q q q q |
+  // w:          1    2     4         8
+  // totalW: 15
+  // scale:  .2667
+  // scaled w:  .2667 .5334 1.067     2.134    
+  // Total of widths is still 4.0, i.e. the number of bars, but the
+  //  individual widths are weighted depending on how busy the bar is.
+  // So we can stick to the specified page width: each bar gets
+  //  page_width / num_bars * m_barWidths[i].
+ 
   float scale = static_cast<float>(numBars) / totalW;
   for (float& w : m_barWidths)
   {
     w *= scale;
+  }
+}
+
+void MakeScore::GeneratePreAndPostNoteZoneWidths()
+{
+  // Generate pre- and post-note zone for every bar. For vertically aligned bars,
+  //  we should take the width of the widest zone, in case there
+  //  are differences (e.g. a clef change in one stave).
+
+  const int numBars = m_staves.front()->GetNumBars();
+
+  for (int i = 0; i < numBars; i++)
+  {
+    float maxPreNoteZoneWidth = 0;  
+    float maxPostNoteZoneWidth = 0;
+
+    [[maybe_unused]] int nstave = 0;
+    for (auto& stave : m_staves)
+    {
+      assert(stave->GetNumBars() == numBars); // We checked for this earlier
+
+      const float preNoteWidth = stave->GetBar(i).CalcPreNoteZoneWidth();
+
+#ifdef DEBUG_SHOW_PRE_NOTE_WIDTH
+std::cout << "// Pre note zone width for bar " 
+  << i 
+  << " stave " << nstave++ 
+  << ": " 
+  << preNoteWidth << "\n";
+#endif
+
+      maxPreNoteZoneWidth = std::max(maxPreNoteZoneWidth, preNoteWidth);
+
+      // TODO Post-note zone
+    }
+ 
+    // 2nd pass: set the widest value for the pre- and post-note zones
+    for (auto& stave : m_staves)
+    {
+      auto& bar = stave->GetBar(i);
+      bar.SetPreNoteZoneWidth(maxPreNoteZoneWidth);
+      bar.SetPostNoteZoneWidth(maxPostNoteZoneWidth);
+    } 
   }
 }
 
@@ -558,21 +622,41 @@ void MakeScore::MakeInternal()
   // At this stage the only tokens should be music notation, not settings.
   Parse(tokens);
 
-  // Get scale factor for each bar (the same value for the
-  //  vertically corresponding bars in all staves).
-  AdjustBarWidths();
+  if (!CheckStaveLengthsAreEqual())  // TODO other sanity checks
+  {
+    // TODO Report error properly
+    std::cout << "ERROR! Num bars different across staves!\n";
+    return;
+  }
 
+  // Calculate bar start times before embarking on a layout strategy.
   for (auto& stave : m_staves)
   {
     // Calc start times of bars and elements in them; normalise times
     //  for animation meta data.
     stave->CalcStartTimes();
+  }
 
-    // Calc bar sizes, positions, and the positions of the glyphs in
-    //  each bar for this stave.
+  // The pre- and post-note zones in each bar contains clef/keysig/timesigs,
+  //  in fixed positions. We generate these first.
+  GeneratePreAndPostNoteZoneWidths();
+
+  // Get width scale factor for each bar (we use the same max value for the
+  //  vertically corresponding bars in all staves).
+  // Fills m_barWidths, which are widths, weighted to sum to the number of bars.
+  AdjustBarWidths();  
+  // Internally uses Layout Strategy pattern, calls CalcNoteZoneWidth for all bars.
+
+  for (auto& stave : m_staves)
+  {
+    // Calc bar sizes, and the position of each bar.
+    // This uses the widths calculated above so nothing to move to Strategy.
     stave->CalcBarSizesAndPositions(m_barWidths);
 
-    stave->MakeBeamGroups(); // Do this last so we have positions of notes?
+    // Within each bar, position elements in the note zone.
+    stave->PositionGlyphs(); // Internally uses Layout Strategy 
+
+    stave->MakeBeamGroups(); // Do this last so we have positions of notes!
   }
 
   ToStringInternal();
@@ -590,7 +674,7 @@ std::string MakeScore::ToString()
 
 void MakeScore::ToStringInternal()
 {
-  const bool yesComments = (GetSuppressFlags() & META_COMMENT) == 0;
+  const bool yesComments = (GetSuppressFlags() & MD_COMMENT) == 0;
 
   std::string res;
 
@@ -634,7 +718,7 @@ std::string MakeScore::BarLinesToString()
   std::string res;
   if (m_staves.empty()) return "";
 
-  const bool yesComments = (GetSuppressFlags() & META_COMMENT) == 0;
+  const bool yesComments = (GetSuppressFlags() & MD_COMMENT) == 0;
 
   // Draw quads through all staves. Use stave 0 for all bar widths and
   //  bar line types. (Vertically aligned bars on all staves should have

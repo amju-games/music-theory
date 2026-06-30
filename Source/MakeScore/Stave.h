@@ -31,6 +31,8 @@ bool IsStaveType(const std::string& s);
 class Attachment;
 struct Tie;
 
+using Bars = std::vector<std::unique_ptr<Bar>>;
+
 class Stave : public IGlyph
 {
 public:
@@ -53,6 +55,9 @@ public:
 
   void CalcBarSizesAndPositions(const std::vector<float>& widthScaleFactors);
 
+  // Tell each Bar to position its glyphs within.
+  void PositionGlyphs();
+
   void CalcStartTimes();
 
   // Called by MakeScore after input has been parsed. 
@@ -62,6 +67,7 @@ public:
   void AddFirstBar();
   int GetNumBars() const;
   const Bar& GetBar(int i) const;
+  Bar& GetBar(int i);
   Bar& GetCurrentBar();
 
   void AddTie();
@@ -86,7 +92,7 @@ private:
 
 private:
   // Ordered sequence of bars in the score.
-  std::vector<std::unique_ptr<Bar>> m_bars;
+  Bars m_bars;
 
   StaveType m_type = StaveType::STAVE_TYPE_STANDARD;
 

@@ -470,7 +470,7 @@ std::string NoteGlyph::StemString() const
 {
   std::string res;
 
-  const bool yesComment = (GetSuppressFlags() & META_COMMENT) == 0;
+  const bool yesComment = (GetSuppressFlags() & MD_COMMENT) == 0;
 
   // Output stem
   const_cast<Stem&>(m_stem).SetScale(GetScaleX(), GetScaleY());
@@ -552,7 +552,7 @@ std::string NoteGlyph::TimeBefore() const
       endTimeNorm = durationNorm * 0.5f + startTimeNorm; // halve length of note
     }
 
-    if ((GetSuppressFlags() & META_TIME) == 0)
+    if ((GetSuppressFlags() & MD_TIME) == 0)
     {
       res += "TIME, " + Str(startTimeNorm) + ", " + Str(endTimeNorm) + LineEnd();
     }
@@ -562,7 +562,7 @@ std::string NoteGlyph::TimeBefore() const
     //  the client code some understanding of the musical content, rather
     //  than just rendering primitives.
     if (   !m_tieRight 
-        && (GetSuppressFlags() & META_NOTE) == 0)
+        && (GetSuppressFlags() & MD_NOTE) == 0)
     {
       // Output MIDI note event, unless on RHS of a tie
       res += "NOTE_ON, " + 
@@ -585,7 +585,7 @@ std::string NoteGlyph::TimeAfter() const
   if (yesTime)
   {
     if (   !m_tieLeft 
-        && (GetSuppressFlags() & META_NOTE) == 0)
+        && (GetSuppressFlags() & MD_NOTE) == 0)
     {
       const float startTime = m_times.GetNormalisedStartTime();
 
@@ -610,7 +610,7 @@ std::string NoteGlyph::TimeAfter() const
 
     // Cancel time for subsequent glyphs (but postprocess to strip out
     //  unnecessary cancellations)
-    if ((GetSuppressFlags() & META_TIME) == 0)
+    if ((GetSuppressFlags() & MD_TIME) == 0)
     {
       res += "TIME, -1, -1" + LineEnd();
     }

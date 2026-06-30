@@ -224,8 +224,9 @@ TEST_CASE("Calc primary beam y coords at ends - Advanced", "[Beam]")
     // c4 is -2. 
     // Quaver (Level 1) would be -2 + 4 = 2.
     // Semiquaver (Level 2) needs -2 + 4 + 1.0 (stack) = 3.
-    REQUIRE(y1 == 5);
-    REQUIRE(y2 == 5);
+    // But min height is 6.
+    REQUIRE(y1 == 6);
+    REQUIRE(y2 == 6);
   }
   
   SECTION("Descending group with StemDir DOWN") {

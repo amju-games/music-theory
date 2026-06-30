@@ -65,12 +65,12 @@ std::string RestGlyph::TimeBefore() const
     
     float t = timeval + startTime;
 
-    if ((GetSuppressFlags() & META_TIME) == 0)
+    if ((GetSuppressFlags() & MD_TIME) == 0)
     {
       res += "TIME, " + Str(start) + ", " + Str(t) + LineEnd();
     }
 
-    if ((GetSuppressFlags() & META_REST) == 0)
+    if ((GetSuppressFlags() & MD_REST) == 0)
     {
       // extra meta data for client to identify rests
       res += "REST_ON, " +
@@ -89,13 +89,13 @@ std::string RestGlyph::TimeAfter() const
   bool yesTime = (m_times.GetTimeValue() > 0); // why would this be false?
   if (yesTime)
   {
-    if ((GetSuppressFlags() & META_REST) == 0)
+    if ((GetSuppressFlags() & MD_REST) == 0)
     {
       // extra meta data for client to identify rests
       res += "REST_OFF" + LineEnd(); 
     }
 
-    if ((GetSuppressFlags() & META_TIME) == 0)
+    if ((GetSuppressFlags() & MD_TIME) == 0)
     {
       // Cancel time for subsequent glyphs (but postprocess to strip out
       //  unnecessary cancellations)
