@@ -33,14 +33,19 @@ static float FindResumePoint(
 // Look for a note event at the given time; return true if found.
 // This is used to check if there is a note event at the time
 //  of the first beat of the bar. If not, we go back to the prev bar.
-static bool NoteEventWasFoundAtTime(float time, const NoteEvents& noteEvents);
+static bool FindNoteEventAtTime(float time, const NoteEvents& noteEvents);
 
 // `iter` points to a beat in the given BeatVec for the piece.
 // Decrement iter until we point to the first beat in a bar.
-// Set `time` to the time of the beat iter points to.
-static void GoToFirstBeatOfBar(
-  const BeatVec& beats, BeatVec::const_iterator iter, float& time);
+// Returns time of the beat iter points to. This is what we want for
+//  the resume time!
+// NB we decrement the iterator in the calling code - note pass by ref.
+static float GoToFirstBeatOfBar(
+  const BeatVec& beats, BeatVec::const_iterator& iter);
 
+// Find next beat following the given time.
+static BeatVec::const_iterator NextBeatAfterTime(
+  const BeatVec& beats, float resumeTime);
 };
 }
 
