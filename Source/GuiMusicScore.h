@@ -11,27 +11,12 @@
 #include <StringUtils.h>
 #include <TextureSequence.h>
 #include <TriList.h>
+#include "Beat.h"
 #include "NoteEvent.h"
 #include "Palette.h"
 
 namespace Amju
 {
-// * Beat *
-// Normalised time for a beat in the piece
-struct Beat
-{
-  float m_time = 0; // (normalised)
-  int m_bar = 1; // bar number (1-based)
-  int m_beat = 1; // beat number in bar (1-based)
-
-  Beat(float time, int bar, int beat) : 
-    m_time(time), m_bar(bar), m_beat(beat) {}
-
-  bool operator<(const Beat& b) { return m_time < b.m_time; }
-};
-
-using BeatVec = std::vector<Beat>;
-
 // * BarNumber *
 // Parsed at load time, then client code can decide how to draw them.
 struct BarNumber

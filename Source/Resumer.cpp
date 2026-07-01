@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <AmjuAssert.h>
 #include "Resumer.h"
 
 namespace Amju
@@ -16,7 +17,6 @@ float Resumer::GoToFirstBeatOfBar(
 { 
   if (iter == beats.end()) 
   {
-std::cout << "Unexpected, iter is at end of beats.\n";
     return 0;
   }
 
@@ -24,11 +24,6 @@ std::cout << "Unexpected, iter is at end of beats.\n";
   while (iter != beats.begin() && iter->m_beat > 1) 
   { 
     --iter; 
-/*
-std::cout << "Decrementing.... at: bar: " << iter->m_bar
-  << " beat: " << iter->m_beat
-  << " time: " << iter->m_time << "\n";
-*/
   } 
  
   return iter->m_time;
@@ -53,21 +48,16 @@ bool Resumer::FindNoteEventAtTime(float time, const NoteEvents& noteEvents)
   auto noteIt = std::lower_bound(noteEvents.begin(), noteEvents.end(), searchVal);
   if (noteIt == noteEvents.end())
   {
-    std::cout << "**RESUME: no note event corresponding to resume time " << time << "\n";
-    return false; // ??????? true; // Just go with it
+    return false; 
   }
       
-  std::cout << "**RESUME: Note event for resume time " << time << " is: " << noteIt->ToString() << "\n";
   // Check if the note event is close enough to the resume time (account for 
   //  float precision)
   if (TimesApproxEqual(noteIt->m_time, time))
   { 
-    std::cout << "** This looks like the GOOD CASE.\n";
     return true;
   }
   
-  std::cout << "** This looks like the BAD CASE.\n";
-
   // The search failed. But it could be because the matching event has a slightly
   //  lower start time, due to float precision. So check the previous event.
   if (noteIt != noteEvents.begin())
@@ -75,7 +65,6 @@ bool Resumer::FindNoteEventAtTime(float time, const NoteEvents& noteEvents)
     --noteIt;
     if (TimesApproxEqual(noteIt->m_time, time))
     {
-      std::cout << "**RESUME: but previous event is: " << noteIt->ToString() << " so it's good after all!!\n";
       return true;
     }
   } 
@@ -146,12 +135,6 @@ std::cout << "VERY STRANGE, on resuming, we seem to be at the end of the song?\n
     const float timeAfter = iter->m_time;
     resumeTime = GoToFirstBeatOfBar(beats, iter);
 
-std::cout << "**RESUME: Now at beat " 
-  << iter->m_beat 
-  << " of bar " 
-  << iter->m_bar 
-  << "\n";
-
     Assert(resumeTime <= timeAfter);
 
     if (FindNoteEventAtTime(resumeTime, noteEvents))
@@ -173,8 +156,8 @@ std::cout << "**RESUME: Now at beat "
     }
   }
 
+std::cout << "*** FIND RESUME POINT. Resume time: " << resumeTime << "\n";
   return resumeTime;
 }
-
 }
 

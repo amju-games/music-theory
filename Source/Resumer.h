@@ -3,8 +3,7 @@
 
 #pragma once
 
-// TODO Factor different resposiblities out of GuiMusicScore!
-#include "GuiMusicScore.h" // Beat and BeatVec
+#include "Beat.h"
 #include "NoteEvent.h"
 
 namespace Amju
@@ -20,8 +19,8 @@ public:
 //  an appropriate resume time. 
 // To do this, we need info about the beats and bars in the song. We 
 //  want to go back to the first beat in the current bar, or the first
-//  beat of an earlier bar if the current bar isn't suitable. E.g. a 
-//  tied note.
+//  beat of an earlier bar if the current bar isn't suitable. 
+//  E.g. due to tied notes, there is nothing to play in a bar.
 // Returns HUGELY_LONG_TIME to trigger the 'game won' state if the
 //  resume time falls at the end of the beats.
 // Returns 0 if there is no suitable resume point (so the round restarts).
@@ -41,9 +40,11 @@ static bool FindNoteEventAtTime(float time, const NoteEvents& noteEvents);
 //  the resume time!
 // NB we decrement the iterator in the calling code - note pass by ref.
 static float GoToFirstBeatOfBar(
-  const BeatVec& beats, BeatVec::const_iterator& iter);
+  const BeatVec& beats, 
+  BeatVec::const_iterator& iter); // non-const ref
 
 // Find next beat following the given time.
+// Used to find the initial beat for our search.
 static BeatVec::const_iterator NextBeatAfterTime(
   const BeatVec& beats, float resumeTime);
 };
