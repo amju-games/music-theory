@@ -69,7 +69,7 @@ void MoveUpMultiLineTitle(GuiTextBase* t)
   // TODO This would be better handled by a vertical just setting in GuiTextBase :(
   if (t->GetNumLines() > 1)
   {
-    const float ONE_LINE_Y_INC = .3f;
+    const float ONE_LINE_Y_INC = .25f;
     float yInc = static_cast<float>(t->GetNumLines() - 1) * ONE_LINE_Y_INC;
     auto pos = t->GetLocalPos();
     pos.y += yInc; // +ve y is UP

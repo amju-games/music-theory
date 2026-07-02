@@ -18,11 +18,11 @@ gui-comp
 level-text
 1
 
-// Title of song/piece
+// Level number of song/piece
 text2
 // Name
 level
--.8, 0.0
+-.8, 0.1
 // size
 0.5, 0.2
 // Text
