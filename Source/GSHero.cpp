@@ -10,6 +10,7 @@
 #include <Timer.h>
 #include "BassPlayMidi.h"
 #include "Consts.h"
+#include "FeedbackBalloon.h"
 #include "Grader.h"
 #include "HeroGameRound.h"
 #include "GSHero.h"
@@ -754,7 +755,7 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
 #ifdef GRADE_DEBUG
 std::cout << "** Correct note! " << e.m_note << "\n";
 #endif
-      FeedbackBalloon(grade);
+      SetUpFeedbackBalloon(grade, m_gui);
       IncreaseScore(grade);
     }
     else if (e.m_on && !isPitchCorrect)
@@ -766,7 +767,7 @@ std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << 
       // Not sure if we should play wav every time
       PlayWav(WAV_INCORRECT);
       Assert(grade.m_type == Grade::BAD_NOTE);
-      FeedbackBalloon(grade);
+      SetUpFeedbackBalloon(grade, m_gui);
       DecreaseLife(grade); // TODO Life boosters when we reach checkpoints
     }
     else
@@ -776,7 +777,7 @@ std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << 
       Assert(isPitchCorrect); // sanity check
       // The visual feedback is different: show note trail and increasing
       //  score while note is being played.
-      //FeedbackBalloon(grade);
+      //SetUpFeedbackBalloon(grade);
     }
   }
   else
@@ -1008,7 +1009,7 @@ void GSHero::InitGui()
   m_keyboard->SetPalette(palette);
 
   // Hide GUI elements
-  ShowFeedbackBalloon(false);
+  SetFeedbackBalloonVisible(false, m_gui);
 
   SetSongTitle();
 
@@ -1067,52 +1068,5 @@ std::cout << "Failed to find score-extras!\n";
 
   extra->SetLocalPos(pos + extra->GetLocalPos());
 }
-
-void GSHero::ShowFeedbackBalloon(bool showNotHide)
-{
-  auto elem = GetElementByName(m_gui, "feedback-balloon");
-  if (elem)
-  {
-    elem->SetVisible(showNotHide);
-  }
 }
 
-void GSHero::FeedbackBalloon(const Grade& g)
-{
-  Assert(g.m_type != Grade::UNGRADED);
-
-  if (g.m_score > 0.5f)
-  {
-    // Sounds terrible //PlayWav("good1");
-  }
-  else
-  {
-    PlayWav("rubber_ducky");
-  }
-
-  ShowFeedbackBalloon(true);
-
-  auto elem = GetElementByName(m_gui, "feedback-text");
-  if (elem)
-  {
-    auto t = dynamic_cast<IGuiText*>(elem);
-    if (t)
-    {
-      t->SetText(g.m_feedback);
-    }
-  }
-
-  // Reset animation
-  elem = GetElementByName(m_gui, "moving-anim");
-  if (elem)
-  {
-    auto a = dynamic_cast<GuiDecAnimation*>(elem);
-    if (a)
-    {
-      a->ResetAnimation();
-    }
-  }
-
-  // TODO Set balloon colours according to score
-}
-}
