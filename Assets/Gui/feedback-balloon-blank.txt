@@ -1,0 +1,47 @@
+// * PIANO FEST *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+// Feedback balloon: a text balloon showing the player how well their
+//  input matched the attempt.
+// This is just the blank inner and outer balloon images.
+
+// Blank inner and outer balloon images
+gui-comp
+balloon-comp-blank
+2
+
+// Child 0
+// Outer, translucent balloon
+colour
+// Fade out
+ffffffff, ffffff00
+
+scale
+.9, .9; 2, 2
+// Pivot - centre
+.5, .5
+gui-image
+//fading-pulsing-balloon
+bg1
+-.05, 0.4
+.6, .4
+Image/rough-oval.png, stretch
+
+// Child 1
+// Inner, solid balloon
+scale
+.9, .9; 1.5, 1.5
+// Pivot - centre
+.5, .5
+
+gui-image
+//pulsing-balloon
+bg2
+-.05, 0.4
+.6, .4
+Image/rough-oval.png, stretch
+// End of inner/outer blanks
+
