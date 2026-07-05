@@ -15,22 +15,22 @@ static std::string GetFeedbackFromScore(float score)
 {
   static const std::map<float, std::string> STRS = 
   {
-    { .0f, "@@@Stinker!" },
-    { .1f, "@@@Woeful!" },
-    { .2f, "@@@Preposterous!" },
-    { .3f, "@@@Pitiful!" },
-    { .4f, "@@@Not bad!" },
-    { .5f, "@@@Fanciful!" },
-    { .6f, "@@@Smooth!" },
-    { .7f, "@@@Good!" },
-    { .8f, "@@@Delightful!!" },
-    { .9f, "@@@Great!" },
-    { .95f, "@@@Wonderful!" },
+    { .0f, "$$$23"/*Stinker!*/ },
+    { .1f, "$$$24"/*Woeful!*/ },
+    { .2f, "$$$25"/*Preposterous!*/ },
+    { .3f, "$$$26"/*Pitiful!*/ },
+    { .4f, "$$$27"/*Not bad!*/ },
+    { .5f, "$$$28"/*Fanciful!*/ },
+    { .6f, "$$$29"/*Smooth!*/ },
+    { .7f, "$$$30"/*Good!*/ },
+    { .8f, "$$$31"/*Delightful!!*/ },
+    { .9f, "$$$32"/*Great!*/ },
+    { .95f, "$$$33"/*Wonderful!*/ },
   };
   auto it = STRS.lower_bound(score);
   if (it == STRS.end())
   {
-    return "@@@Perfect!";
+    return "$$$34"/*Perfect!*/;
   }
   return it->second;
 }
@@ -40,11 +40,11 @@ Grade::Grade(Type t, float score) :
 {
   if (t == Grade::TOO_QUICK)
   {
-    m_feedback = "@@@Too Quick!";
+    m_feedback = "$$$35"/*Too Quick!*/;
   }
   else if (t == Grade::TOO_SLOW)
   {
-    m_feedback = "@@@Too Slow!";
+    m_feedback = "$$$36"/*Too Slow!*/;
   }
   else if (t == Grade::NO_ATTEMPT)
   {
