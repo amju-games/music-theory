@@ -126,11 +126,6 @@ protected:
   //  event in the score.
   void GradeEvent(const MusicKbEvent& e);
 
-  // Display feedback
-  void FeedbackBalloon(const Grade& g);
-
-  void ShowFeedbackBalloon(bool showNotHide);
-
   // Debug: called when R key is pressed to reload everything.
   void ReloadGui() override;
 

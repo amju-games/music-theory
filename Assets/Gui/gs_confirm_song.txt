@@ -36,7 +36,7 @@ song-title
 // Text
 title
 // Font name, size
-bmmolin, 3.0, multi, centre, fgcol=000000
+bmmolin, 2.5, multi, centre, fgcol=000000
 
 // Subtitle
 text2

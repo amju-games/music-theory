@@ -41,7 +41,7 @@ scale
 // TODO Use sprite, big atlas
 // TODO Actually we should include this - it will be the same for all count-ins.
 //  The timing above will be different.
-gui-text
+text2
 // Name
 count-1
 0, 0
@@ -81,7 +81,7 @@ scale
 // TODO Use sprite, big atlas
 // TODO Actually we should include this - it will be the same for all count-ins.
 //  The timing above will be different.
-gui-text
+text2
 // Name
 count-2
 0.2, 0
@@ -120,7 +120,7 @@ scale
 // TODO Use sprite, big atlas
 // TODO Actually we should include this - it will be the same for all count-ins.
 //  The timing above will be different.
-gui-text
+text2
 // Name
 count-3
 0.4, 0
@@ -159,7 +159,7 @@ scale
 // TODO Use sprite, big atlas
 // TODO Actually we should include this - it will be the same for all count-ins.
 //  The timing above will be different.
-gui-text
+text2
 // Name
 count-4
 0.6, 0

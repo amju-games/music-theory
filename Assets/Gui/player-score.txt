@@ -8,12 +8,6 @@
 // Left-justified text, growing rightwards,
 //  with backround that should also grow rightwards.
 
-animation
-pulsing anim
-mirror-repeat
-1.0
-linear
-
 // Element type
 gui-comp
 // Name
@@ -24,15 +18,11 @@ player-score-comp
 colour
 4D68F1
 
-scale
-0.9, 0.9; 1.1, 1.1
-.5,.5
-
 // Patch -- test
 patch
 score-bg-patch
 0.65, 0.6
-.3, .25
+.2, .25
 Image/rough-circle.png, stretch
 // Patch is a sprite, so we have to specify cell info - this should be  
 //  good for batching: we can have multiple different patches and other
@@ -56,7 +46,7 @@ mirror-repeat
 linear
 
 translate
-0,0 ; 0, 0.008
+0,0 ; 0, 0.016
 
 animation
 clean-anim
@@ -74,7 +64,6 @@ scale
 // Pivot
 0, .5
 
-//gui-text
 text2
 // Element name
 score-text

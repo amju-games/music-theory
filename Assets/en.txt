@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-22
+36
 1=The Swan
 2=From The Carnival of the Animals
 3=Camille Saint-Saëns
@@ -24,3 +24,17 @@
 20=Go!
 21=Bravo!!!
 22=The End!
+23=Stinker!
+24=Woeful!
+25=Preposterous!
+26=Pitiful!
+27=Not bad!
+28=Fanciful!
+29=Smooth!
+30=Good!
+31=Delightful!!
+32=Great!
+33=Wonderful!
+34=Perfect!
+35=Too Quick!
+36=Too Slow!

@@ -1,5 +1,5 @@
-// * Amjula music theory *
-// (c) Copyright 2024 Juliet Colman
+// * PIANO FEST *
+// (c) Copyright 2026 Juliet Colman
 
 // version
 1
@@ -11,6 +11,8 @@ gui-comp
 feedback-balloon
 1
 
+// Translation animation
+// ---------------------
 animation
 moving-anim
 one-shot
@@ -18,13 +20,20 @@ one-shot
 linear
 
 translate
-0, 0; -1.5, 1
+0, 0; -1.5, 1.4
 
+
+// Scale animation
+// ---------------
+// (First, reset the translation animation)
 animation
 clean-anim
 const
 one
 
+// This animation value is used to scale up the balloons and text.
+// Outer balloon grows more quickly than the inner balloon, and
+//  also animates alpha to fade out.
 animation
 pulsing-anim
 one-shot
@@ -33,50 +42,31 @@ linear
 
 gui-comp
 balloon-comp-2
-3
+2
 
-colour
-ffc000ff, ffff0000
-scale
-.9, .9; 2, 2
-// Pivot - centre
-.5, .5
-gui-image
-fading-pulsing-balloon
--.3, 0.4
-.6, .4
-Image/rough-oval.png, stretch
+// Child 0 
 
-// Inner, solid balloon
-colour
-ff8000ff
+// Blank inner and outer balloon images
+include
+feedback-balloon-blank.txt
+// End of inner/outer blanks
 
+
+// Child 1: the text
+// Scale up like the balloon
 scale
 .9, .9; 1.5, 1.5
 // Pivot - centre
 .5, .5
 
-gui-image
-pulsing-balloon
--.3, 0.4
-.6, .4
-Image/rough-oval.png, stretch
-
-scale
-.9, .9; 1.5, 1.5
-// Pivot - centre
-.5, .5
-
-gui-text
+text2
 // Element name
 feedback-text
 // pos (coords are -1..1)
--.3, 0.4
+0, 0
 .6, .4
-// Text
-Pitiful!
+// Text - set in code
+FEEDBACK
 // Font name, size
 CatComic, 4.0, fgcol=ffffff
-
-
 

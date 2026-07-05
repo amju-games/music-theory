@@ -1,5 +1,5 @@
-// * Amjula music theory *
-// (c) Copyright 2024 Juliet Colman
+// * PIANO_FEST *
+// (c) Copyright 2026 Juliet Colman
 
 // version
 1
@@ -12,13 +12,13 @@ gs-verify-root
 1
 
 // Element type
-gui-text
+text2
 // Element name
 verify-text
 // pos (coords are -1..1)
--0.9, 0.9
+-0.9, 0
 // size
-1.8, 2.0
+1.8, .1
 // Text
 Verifying... 
 // Font name, size
