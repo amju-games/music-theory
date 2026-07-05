@@ -46,13 +46,6 @@ balloon-comp-2
 
 // Child 0 
 
-// Set colour of balloon: translucent outer balloon multiplies this.
-colour
-// Orange
-//ff8000ff
-// Purpley
-8020c0ff
-
 // Blank inner and outer balloon images
 include
 feedback-balloon-blank.txt

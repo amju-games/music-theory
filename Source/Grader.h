@@ -12,6 +12,8 @@ struct Grade
 {
   enum Type { UNGRADED, GOOD_NOTE, NO_ATTEMPT, BAD_NOTE, TOO_QUICK, TOO_SLOW };
   Type m_type = UNGRADED;
+
+  // Grade score: range is 0..1, 1 being perfect.
   float m_score = 0;
   std::string m_feedback;
 

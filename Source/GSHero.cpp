@@ -767,7 +767,7 @@ std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << 
       // Not sure if we should play wav every time
       PlayWav(WAV_INCORRECT);
       Assert(grade.m_type == Grade::BAD_NOTE);
-      SetUpFeedbackBalloon(grade, m_gui);
+      //SetUpFeedbackBalloon(grade, m_gui);
       DecreaseLife(grade); // TODO Life boosters when we reach checkpoints
     }
     else

@@ -8,9 +8,13 @@
 //  input matched the attempt.
 // This is just the blank inner and outer balloon images.
 
+colour
+// Overwritten in code
+f0f0f0ff
+
 // Blank inner and outer balloon images
 gui-comp
-balloon-comp-blank
+balloon
 2
 
 // Child 0
