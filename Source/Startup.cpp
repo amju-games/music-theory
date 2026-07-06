@@ -60,8 +60,8 @@
 #endif
 
 #ifdef MACOSX
-//#define YES_GLUE_FILE
-//#define YES_BINARY_OBJ_FILES
+#define YES_GLUE_FILE
+#define YES_BINARY_OBJ_FILES
 #define GLUE_FILE "data-iOS.glue"
 #define MUSIC_GLUE_FILE "music-iOS.glue"
 #endif
