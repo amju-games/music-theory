@@ -64,6 +64,9 @@
 		C514212D2F5357A90009EB23 /* GuiSetFromString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C514212A2F5357A90009EB23 /* GuiSetFromString.cpp */; };
 		C53572E02FA7D17600E61A26 /* GSVerify.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C53572DF2FA7D17600E61A26 /* GSVerify.cpp */; };
 		C53572E22FA7D1BF00E61A26 /* steinway_concert_piano.sf2 in Resources */ = {isa = PBXBuildFile; fileRef = C53572E12FA7D1BF00E61A26 /* steinway_concert_piano.sf2 */; };
+		C548154D2FFBD2AD0066288A /* FeedbackBalloon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C54815462FFBD2AD0066288A /* FeedbackBalloon.cpp */; };
+		C548154E2FFBD2AD0066288A /* GameMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C54815482FFBD2AD0066288A /* GameMain.cpp */; };
+		C548154F2FFBD2AD0066288A /* Resumer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C548154B2FFBD2AD0066288A /* Resumer.cpp */; };
 		C54B4BD02F9CAA27001286FA /* SceneTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C54B4BCB2F9CAA27001286FA /* SceneTimeline.cpp */; };
 		C54B4BD12F9CAA27001286FA /* Timeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C54B4BCF2F9CAA27001286FA /* Timeline.cpp */; };
 		C5547F972F8C0388003AB05C /* BugSplat.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5547F942F8C0388003AB05C /* BugSplat.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -240,6 +243,12 @@
 		C53572DD2FA7D17600E61A26 /* GSVerify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSVerify.h; path = ../../../../Source/GSVerify.h; sourceTree = "<group>"; };
 		C53572DF2FA7D17600E61A26 /* GSVerify.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSVerify.cpp; path = ../../../../Source/GSVerify.cpp; sourceTree = "<group>"; };
 		C53572E12FA7D1BF00E61A26 /* steinway_concert_piano.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = steinway_concert_piano.sf2; path = ../../../../Assets/Sound/steinway_concert_piano.sf2; sourceTree = "<group>"; };
+		C54815462FFBD2AD0066288A /* FeedbackBalloon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FeedbackBalloon.cpp; path = ../../../../Source/FeedbackBalloon.cpp; sourceTree = "<group>"; };
+		C54815482FFBD2AD0066288A /* GameMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameMain.cpp; path = ../../../../Source/GameMain.cpp; sourceTree = "<group>"; };
+		C54815492FFBD2AD0066288A /* Resumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Resumer.h; path = ../../../../Source/Resumer.h; sourceTree = "<group>"; };
+		C548154A2FFBD2AD0066288A /* FeedbackBalloon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackBalloon.h; path = ../../../../Source/FeedbackBalloon.h; sourceTree = "<group>"; };
+		C548154B2FFBD2AD0066288A /* Resumer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Resumer.cpp; path = ../../../../Source/Resumer.cpp; sourceTree = "<group>"; };
+		C548154C2FFBD2AD0066288A /* Beat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Beat.h; path = ../../../../Source/Beat.h; sourceTree = "<group>"; };
 		C54B4BCB2F9CAA27001286FA /* SceneTimeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneTimeline.cpp; path = ../../../../Source/SceneTimeline.cpp; sourceTree = "<group>"; };
 		C54B4BCD2F9CAA27001286FA /* SceneTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneTimeline.h; path = ../../../../Source/SceneTimeline.h; sourceTree = "<group>"; };
 		C54B4BCE2F9CAA27001286FA /* Timeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Timeline.h; path = ../../../../Source/Timeline.h; sourceTree = "<group>"; };
@@ -461,8 +470,6 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				C53572DF2FA7D17600E61A26 /* GSVerify.cpp */,
-				C53572DD2FA7D17600E61A26 /* GSVerify.h */,
 				C5810E962F8C0C5000047856 /* AI.cpp */,
 				C5810E912F8C0C4F00047856 /* AI.h */,
 				C5810E992F8C0C5000047856 /* AIFalling.cpp */,
@@ -475,14 +482,18 @@
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */,
 				C5EA2CAC2F9540430063AEBD /* BassPlayMidi.h */,
+				C548154C2FFBD2AD0066288A /* Beat.h */,
 				C5810E902F8C0C4F00047856 /* Bird.cpp */,
 				C5810E8F2F8C0C4F00047856 /* Bird.h */,
 				C5810E932F8C0C4F00047856 /* BlinkSceneNode.cpp */,
 				C5810E942F8C0C4F00047856 /* BlinkSceneNode.h */,
 				69A23A591F61E6970021BF88 /* Consts.cpp */,
 				69D732821F23DA28007B73C1 /* Consts.h */,
+				C54815462FFBD2AD0066288A /* FeedbackBalloon.cpp */,
+				C548154A2FFBD2AD0066288A /* FeedbackBalloon.h */,
 				C561F3BB2F65CCDB003EE425 /* FindSongSections.cpp */,
 				C561F3C02F65CCDC003EE425 /* FindSongSections.h */,
+				C54815482FFBD2AD0066288A /* GameMain.cpp */,
 				C55726982F0EFA5300EEB2A5 /* Grader.cpp */,
 				C557269E2F0EFA5400EEB2A5 /* Grader.h */,
 				C557269F2F0EFA5400EEB2A5 /* GS3dExample.cpp */,
@@ -513,6 +524,8 @@
 				C56DAD012EF2CFED00739D75 /* GSShowGui.h */,
 				69F5E0861E8C09C000E7BF93 /* GSTestShowScore.cpp */,
 				69F5E0871E8C09C000E7BF93 /* GSTestShowScore.h */,
+				C53572DF2FA7D17600E61A26 /* GSVerify.cpp */,
+				C53572DD2FA7D17600E61A26 /* GSVerify.h */,
 				6945193D2017368D001C188B /* Gui3dScene.cpp */,
 				694519362017368C001C188B /* Gui3dScene.h */,
 				C561F3BE2F65CCDB003EE425 /* GuiMusic2dKeyboard.cpp */,
@@ -561,6 +574,8 @@
 				69C10CD51F122197009B6836 /* PlayWav.h */,
 				6959E31C1EAB5BA500E251A9 /* PrintGui.cpp */,
 				6959E31D1EAB5BA500E251A9 /* PrintGui.h */,
+				C548154B2FFBD2AD0066288A /* Resumer.cpp */,
+				C54815492FFBD2AD0066288A /* Resumer.h */,
 				694519472017368F001C188B /* SceneNodeGui.cpp */,
 				694519392017368D001C188B /* SceneNodeGui.h */,
 				C54B4BCB2F9CAA27001286FA /* SceneTimeline.cpp */,
@@ -809,6 +824,7 @@
 				C561F3C42F65CCDC003EE425 /* GuiMusicKbBase.cpp in Sources */,
 				C5810EA12F8C0C5000047856 /* AI.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
+				C548154F2FFBD2AD0066288A /* Resumer.cpp in Sources */,
 				C56DAD062EF2CFED00739D75 /* BassPlayMidi.cpp in Sources */,
 				C58E3BF92F8572930013E626 /* Hud.cpp in Sources */,
 				6945194A2017368F001C188B /* UseVertexColourShader.cpp in Sources */,
@@ -817,6 +833,7 @@
 				C5DB7D6D2F757E7C008CA51E /* GuiPatch.cpp in Sources */,
 				C5810EA22F8C0C5000047856 /* Npc.cpp in Sources */,
 				C55726A72F0EFA5400EEB2A5 /* GSHero.cpp in Sources */,
+				C548154E2FFBD2AD0066288A /* GameMain.cpp in Sources */,
 				C54B4BD02F9CAA27001286FA /* SceneTimeline.cpp in Sources */,
 				6951CF191F0B932300140095 /* Md2SceneNode.cpp in Sources */,
 				C5810EA02F8C0C5000047856 /* BlinkSceneNode.cpp in Sources */,
@@ -824,6 +841,7 @@
 				69D58E491E833741008A8D29 /* ViewController.mm in Sources */,
 				C561F3C12F65CCDC003EE425 /* FindSongSections.cpp in Sources */,
 				69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */,
+				C548154D2FFBD2AD0066288A /* FeedbackBalloon.cpp in Sources */,
 				6959E3191EA7F44600E251A9 /* iOSGuiTextEdit.mm in Sources */,
 				6945194F2017368F001C188B /* ParticleFx.cpp in Sources */,
 				C5810EA32F8C0C5000047856 /* AIFalling.cpp in Sources */,

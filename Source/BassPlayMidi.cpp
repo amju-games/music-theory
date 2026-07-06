@@ -281,6 +281,9 @@ std::cout << "BASS MIDI: using glue file.\n";
   }   
   else
   {
+#ifndef AMJU_IOS
+    // We won't be here for an iOS build - we always use Glue files.
+    
     // If path to midi file is relative, prepend File::Root
     auto fullPath = filename;
     if (std::filesystem::path(filename).is_relative())
@@ -294,6 +297,7 @@ std::cout << "BASS MIDI: using glue file.\n";
       0, 0, 
       BASS_MIDI_NOSYSRESET, 
       44100);
+#endif
   }
 
   if (stream)
