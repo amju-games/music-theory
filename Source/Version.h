@@ -8,9 +8,9 @@
 
 namespace Amju
 {
-static const char* const VERSION_STRING = "0.3.0 (1)";
+static const char* const VERSION_STRING = "v.0.4 (in development)";
 static const int MAJOR = 0;
-static const int MINOR = 3;
+static const int MINOR = 4;
 static const int PATCH = 0;
 static const int BUILD = 1;
 
