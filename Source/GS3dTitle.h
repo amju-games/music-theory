@@ -5,8 +5,6 @@
 
 namespace Amju
 {
-class Md2SceneNode;
-
 class GS3dTitle : public GSBase3d
 {
 public:

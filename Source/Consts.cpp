@@ -11,9 +11,6 @@ namespace Amju
 //  good to define it in a text file. 
 const std::string DEFAULT_SHARE_TEXT = "I'm playing Amju Piano Fest! #amjupianofest @amjugames";
 
-const std::string VIEWSCORE = "--viewscore";
-const std::string KEYBOARD = "--keyboard";
-
 const std::string WAV_CORRECT = "bell_tinkle";
 const std::string WAV_INCORRECT = "anvil";//"bad1";
 const std::string WAV_SWIPE_LEFT = "ok2";

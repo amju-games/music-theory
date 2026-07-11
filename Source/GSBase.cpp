@@ -99,7 +99,8 @@ void GSBase::OnActive()
   GameState::OnActive();
 
   IGuiPoly::SetPolyOutlineTextureName("Image/white.png");
-  
+ 
+  Assert(!m_guiFilename.empty()); // set gui filename in ctor pls!
   m_gui = LoadGui(m_guiFilename);
   if (!m_gui)
   {
