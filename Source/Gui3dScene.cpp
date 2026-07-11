@@ -69,10 +69,16 @@ void Gui3dScene::Update()
 
 bool Gui3dScene::Load(File* f)
 {
-  if (!GuiElement::Load(f))
+  // Just load name: pos and size are not used.
+  // If we want to set up a viewport, use a GuiWindow parent.
+  // (TODO test that actually works)
+
+  if (!f->GetDataLine(&m_name))
   {
+    f->ReportError("Gui3dScene: expected name");
     return false;
   }
+
   if (!f->GetDataLine(&m_sceneFilename))
   {
     f->ReportError("Expected scene filename");
