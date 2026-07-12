@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GameObject.h>
+#include <SceneNode.h>
 #include "AIController.h"
 #include "Md2SceneNodeController.h"
 
@@ -23,6 +24,16 @@ public:
 
 protected:
   static int CreateId();
+
+  // Super simple shadow for this game
+  struct Shadow
+  {
+    void SetSceneNode(SceneNode* sn) { m_sceneNode = sn; }
+    void SetPosAndSize(const Vec3f& pos, float size);
+
+    PSceneNode m_sceneNode;
+  };
+  Shadow m_shadow;
 
 protected:
   // Set in ctor.

@@ -8,23 +8,6 @@ namespace Amju
 {
 void AnimalController::AddAnimal(const char* animalType)
 {
-/*
-  std::string sceneFilename = "Scene/bird-scene.txt";
-//  std::string sceneFilename = "Scene/3d-title-scene.txt";
-  auto sg = GetSceneGraph();
-  auto root = sg->GetRootNode(SceneGraph::AMJU_OPAQUE); 
-  auto parent = root->GetNodeByName("add-animals-to-me");
-  Assert(parent);
-
-  auto sn = LoadScene(sceneFilename);
-  if (!sn)
-  {
-    std::cout << "Failed to load scene tree for bird!\n";
-    Assert(0);
-  }
-  parent->AddChild(sn);
-*/
-
   auto go = TheGameObjectFactory::Instance()->Create(animalType);
   if (!go)
   {
@@ -34,7 +17,6 @@ void AnimalController::AddAnimal(const char* animalType)
 
   // Animals should load themselves, etc. in their factory func.
   TheGame::Instance()->AddGameObject(go);
-
 }
 
 AnimalController& GetAnimalController()

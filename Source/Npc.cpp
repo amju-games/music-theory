@@ -35,5 +35,16 @@ bool Npc::Load(const std::string& filename)
   if (!f.OpenRead(filename)) return false; 
   return Load(&f);
 }
+
+void Npc::Shadow::SetPosAndSize(const Vec3f& pos, float size)
+{
+  Assert(m_sceneNode);
+
+  Matrix mtx;
+  mtx.Scale(size, 1.f, size);
+  mtx.TranslateKeepRotation(pos);
+ 
+  m_sceneNode->SetLocalTransform(mtx);
+}
 }
 

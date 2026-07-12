@@ -15,14 +15,8 @@ const char* Bird::NAME = "bird";
 
 GameObject* CreateBird() { return new Bird; }
 
-static const float XSIZE = 15.0f;
-static const float YSIZE = 20.0f;
-
 Bird::Bird()
 {
-  //m_aabbExtents = Vec3f(XSIZE, YSIZE, XSIZE);
-  //m_extentsSet = true;
-
   SetId(CreateId());
 
 std::cout << "Creating new Bird: ID: " << GetId() << "\n";
@@ -40,7 +34,6 @@ std::cout << "Creating new Bird: ID: " << GetId() << "\n";
 
   Vec3f pos(Rnd(-10, 10) * 20, 100, Rnd(-10, 10) * 20);
   SetPos(pos);
-
 }
 
 const char* Bird::GetTypeName() const
@@ -54,7 +47,14 @@ void Bird::Update()
 
   Npc::Update();
 
-  // TODO Shadow
+  // Shadow
+  auto pos = GetPos();
+  // Set size depending on height from ground.
+  // Max size is 1, min size 0
+  const float maxH = 100.f;
+  float shadowSize = (maxH - pos.y) / maxH;
+  shadowSize = std::clamp(shadowSize, 0.f, 1.f);
+  m_shadow.SetPosAndSize({pos.x, 0, pos.z}, shadowSize);
 
   // TODO Recalc collision vol
 }
@@ -79,6 +79,8 @@ void Bird::CreateSceneNode(PSceneNode parent)
 
   auto birdMd2 = dynamic_cast<Md2SceneNode*>(sn->GetNodeByName("bird-md2"));
   SetSceneNode(birdMd2);
+
+  m_shadow.SetSceneNode(sn->GetNodeByName("shadow"));
 }
 }
 

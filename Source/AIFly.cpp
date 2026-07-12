@@ -16,7 +16,7 @@ void AIFly::OnActivated()
 {
   AI::OnActivated();
   Assert(m_npc);
-  m_npc->SetAnim("fly"); // why not just in OnActivated?? TODO
+  m_npc->SetAnim("fly"); 
 }
 
 void AIFly::Update()
@@ -30,8 +30,6 @@ void AIFly::Update()
   {
     targetPos = m_target->GetPos();
   }
-
-//  m_npc->SetAnim("fly"); // why not just in OnActivated?? TODO
 
   // Accelerate towards point above target
   Vec3f a = (targetPos + Vec3f(0, 50.0f, 0)) - m_npc->GetPos();

@@ -27,8 +27,6 @@ public:
   void OnDeactive() override;
 
 protected:
-  SceneGraph* GetSceneGraph();
-
   // Keyboard camera control, just for debugging
   void DebugCamera(char key);
 

@@ -10,20 +10,6 @@
 
 namespace Amju
 {
-SceneGraph* GSBase3d::GetSceneGraph()
-{
-  return Amju::GetSceneGraph();
-
-/*
-  static SceneGraph* sg = nullptr;
-  if (!sg)
-  {
-    sg = new SceneGraph;
-  }
-  return sg;
-*/
-}
-
 void GSBase3d::OnDeactive()
 {
   GetSceneGraph()->Clear(); 
@@ -41,10 +27,6 @@ std::cout << "Loading 3d scene: " << m_sceneFilename << "\n";
 
   Amju::ResetSceneGraph();
   SceneGraph* sg = GetSceneGraph();
-//  sg->Clear(); // for reload
-
-//  SceneNode* root = new SceneNode;
-//  sg->SetRootNode(SceneGraph::AMJU_OPAQUE, root);
 
   // Load 3D scene.
   PSceneNode node = LoadScene(m_sceneFilename);
