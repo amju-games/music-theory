@@ -4,8 +4,8 @@
 
 namespace Amju
 {
-class Npc;
 class GameObject;
+class Npc;
 
 // Base class for AI states for NPCs
 class AI : public RefCounted
@@ -24,11 +24,12 @@ public:
   // Return float - higher means this AI is better
   virtual float GetRank();
 
+  // Set the AI controller, which decides when to activate/deactivate this AI.
   void SetNpc(Npc* npc);
+
   // Most AI behaviours involve some other target, e.g. to chase or avoid
   void SetTarget(GameObject*);
 
-  // Called from scene node which controls animation
   virtual void OnAnimFinished() {}
   virtual void OnAnimFreeze() {}
   virtual void OnAnimRepeat() {}

@@ -1,124 +1,39 @@
-#include <AmjuAssert.h>
-#include "AIFalling.h"
-#include "BlinkSceneNode.h"
-#include "Md2SceneNode.h"
+#include <File.h>
 #include "Npc.h"
-
-//#define AI_DEBUG
 
 namespace Amju
 {
-AI* Npc::GetAI(const char* aiName)
+int Npc::CreateId()
 {
-  auto it = m_ais.find(aiName);
-  Assert(it != m_ais.end());
-  return it->second;
-}
-
-void Npc::DecideAI()
-{
-  typedef std::pair<float, AI*> RankAI;
-  RankAI best(0.0f, (AI*)0);
-
-  // Rank each behaviour, choose best
-  for (AIs::iterator it = m_ais.begin(); it != m_ais.end(); ++it)
-  {
-    AI* ai = it->second;
-    float rank = ai->GetRank();
-#ifdef AI_DEBUG
-    std::cout << Describe(this) << ": rank for " 
-      << ai->GetName() << ": " << rank << "\n";   
-#endif
-
-    if (rank >= best.first)
-    {
-      best.first = rank;
-      best.second = ai;
-    }
-  }
-#ifdef AI_DEBUG
-  std::cout << GetTypeName() << " choosing AI: " << best.second->GetName() 
-    << " rank: " << best.first << "\n";
-#endif
-  SetAI(best.second);
-}
-
-void Npc::AddAI(AI* ai)
-{
-  m_ais[ai->GetName()] = ai;
-  ai->SetNpc(this);
-}
-
-void Npc::SetAI(AI* ai)
-{
-  if (m_ai == ai)
-  {
-    return;
-  }
-
-  if (m_ai)
-  {
-    m_ai->OnDeactivated();
-  }
-  m_ai = ai;
-#ifdef AI_DEBUG
-  std::cout << GetTypeName() << " changing AI to " << m_ai->GetName() << "\n";
-#endif
-  m_ai->OnActivated();
+  // Create new unique ID
+  static int s_id = 0;
+  return s_id++;
 }
 
 void Npc::Update()
 {
   GameObject::Update();
 
-  if (m_ai)
-  {
-    m_ai->Update();
-  }
+  // These type qualifiers aren't really necessary, I thought they
+  //  might be good for readability
+  AIController::UpdateAI();
+  Md2SceneNodeController::UpdateMd2(GetPos());
 }
 
-void Npc::SetAnim(const std::string& animName)
+bool Npc::Load(File* f)
 {
-  auto a = dynamic_cast<Md2SceneNode*>(GetSceneNode());
-  Assert(a);
-  int anim = a->GetMd2()->GetAnimationFromName(animName);
-  m_anim = anim;
-  a->SetAnim(animName);
+  if (!GameObject::Load(f)) return false;
+
+  // Load scene tree
+ 
+  return true;
 }
 
-void Npc::CreateSceneNode(PSceneNode parent)
+bool Npc::Load(const std::string& filename)
 {
-  // All our NPCs in this game are blinking MD2 characters.
-  auto sn = new BlinkSceneNode;
-  sn->LoadMd2("md2/pz-bird.md2"); // TODO TEMP TEST
-  sn->LoadTextures("Image/bird1.png", "Image/bird1a.png"); // TODO TEMP TEST
-  m_sceneNode = sn;
-  parent->AddChild(sn);
+  File f;
+  if (!f.OpenRead(filename)) return false; 
+  return Load(&f);
+}
 }
 
-/*
-void Npc::OnAnimFinished()
-{
-  if (m_ai)
-  {
-    m_ai->OnAnimFinished();
-  }
-}
-
-void Npc::OnAnimFreeze()
-{
-  if (m_ai)
-  {
-    m_ai->OnAnimFreeze();
-  }
-}
-
-void Npc::OnAnimRepeat()
-{
-  if (m_ai)
-  {
-    m_ai->OnAnimRepeat();
-  }
-}
-*/
-}

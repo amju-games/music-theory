@@ -12,6 +12,11 @@ class GSAnimals : public GSBase3d
 {
 public:
   GSAnimals();
+
+  void Update() override;
+
+  // Press keys to add animals
+  bool OnKeyEvent(const KeyEvent& ke) override;
 };
 
 using TheGSAnimals = Singleton<GSAnimals>;

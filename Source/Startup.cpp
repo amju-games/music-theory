@@ -27,6 +27,7 @@
 #include <Localise.h>
 #include <SceneNodeFactory.h>
 #include <SoundManager.h>
+#include "AnimalFactory.h"
 #include "BassPlayMidi.h"
 #include "BlinkSceneNode.h"
 #include "Consts.h"
@@ -331,6 +332,8 @@ static void SetUpFactories()
 
   // Overwrite default shader resource loader so we can specify the path.
   TheResourceManager::Instance()->AddLoader("shader", PianoShaderLoader);
+
+  SetUpAnimalFactory();
 }
 
 static void LoadStringTableForPreferredLanguage()

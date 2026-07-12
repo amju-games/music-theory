@@ -9,18 +9,18 @@
 // Node type
 comp
 // Name
-root
+animals-persp-root
 // Matrix
 I
 // Num children
-3
+6
 
 // Node type
 camera-persp
 // Name
-camera
+camera-persp
 // Eye pos
-0, 100, 100
+0, 150, 400
 // Look at pos
 0, 70, 0
 // Up vector
@@ -30,6 +30,36 @@ camera
 // Num children
 0
 
+// Add animals under this node: _not_ to the scene root, which won't 
+//  have the camera transform.
+comp
+add-animals-to-me
+I
+0
+
+mesh
+piano1
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  100, 0, 100,    1
+obj/piano1.obj
+0
+
+mesh
+piano2
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  -100, 0, 100,    1
+obj/piano1.obj
+0
+
+mesh
+piano3
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  -100, 0, -100,    1
+obj/piano1.obj
+0
+
+mesh
+piano4
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  100, 0, -100,    1
+obj/piano1.obj
+0
 
 // Dino
 // Node type
@@ -37,7 +67,8 @@ blink
 // Name
 dino
 // Matrix
-.5,0,0,0,  0,.5,0,0,  0,0,.5,0,   0, 106, -2,  1 
+I
+//.5,0,0,0,  0,.5,0,0,  0,0,.5,0,   -50, 0, 0,  1 
 // MD2 mesh
 md2/dino.md2
 // Freeze list: comma-sep anim names

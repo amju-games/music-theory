@@ -13,23 +13,46 @@ root
 // Matrix
 I
 // Num children
-3
+5
 
 // Node type
 camera-ortho
 // Name
 camera
 // Eye pos
-0, 100, 100
+0, 150, 400
 // Look at pos
 0, 70, 0
 // Up vector
 0, 1, 0
 // Ortho params: left, right, top, bottom, near, far, comma sep.
--100, 100, 100, -100, 0, 10000
+-200, 200, 200, -200, 0, 10000
 // Num children
 0
 
+mesh
+piano1
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  100, 0, 100,    1
+obj/piano1.obj
+0
+
+mesh
+piano2
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  -100, 0, 100,    1
+obj/piano1.obj
+0
+
+mesh
+piano3
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  -100, 0, -100,    1
+obj/piano1.obj
+0
+
+mesh
+piano4
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  100, 0, -100,    1
+obj/piano1.obj
+0
 
 // Dino
 // Node type
@@ -37,7 +60,7 @@ blink
 // Name
 dino
 // Matrix
-.5,0,0,0,  0,.5,0,0,  0,0,.5,0,   0, 106, -2,  1 
+.5,0,0,0,  0,.5,0,0,  0,0,.5,0,   -50, 0, 0,  1 
 // MD2 mesh
 md2/dino.md2
 // Freeze list: comma-sep anim names

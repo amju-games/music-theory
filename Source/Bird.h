@@ -11,6 +11,8 @@ public:
   static const char* NAME;
   virtual const char* GetTypeName() const override;
   virtual void Update() override;
-//  virtual void AddToGame() override;
+  void CreateSceneNode(PSceneNode parent) override;
 };
+
+GameObject* CreateBird();
 }

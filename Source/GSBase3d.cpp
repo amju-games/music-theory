@@ -6,17 +6,22 @@
 #include <ResourceManager.h>
 #include "GSBase3d.h"
 #include "MySceneGraph.h"
+#include "PrintScene.h"
 
 namespace Amju
 {
 SceneGraph* GSBase3d::GetSceneGraph()
 {
+  return Amju::GetSceneGraph();
+
+/*
   static SceneGraph* sg = nullptr;
   if (!sg)
   {
     sg = new SceneGraph;
   }
   return sg;
+*/
 }
 
 void GSBase3d::OnDeactive()
@@ -34,15 +39,18 @@ void GSBase3d::Reload3d()
 
 std::cout << "Loading 3d scene: " << m_sceneFilename << "\n";
 
+  Amju::ResetSceneGraph();
   SceneGraph* sg = GetSceneGraph();
-  sg->Clear(); // for reload
+//  sg->Clear(); // for reload
 
-  SceneNode* root = new SceneNode;
-  sg->SetRootNode(SceneGraph::AMJU_OPAQUE, root);
+//  SceneNode* root = new SceneNode;
+//  sg->SetRootNode(SceneGraph::AMJU_OPAQUE, root);
 
   // Load 3D scene.
   PSceneNode node = LoadScene(m_sceneFilename);
   Assert(node);
+
+  auto root = sg->GetRootNode(SceneGraph::AMJU_OPAQUE);
   root->AddChild(node);
 }
 
@@ -113,6 +121,9 @@ bool GSBase3d::OnKeyEvent(const KeyEvent& ke)
     case '3':
       Reload3d();
       break;
+  
+    case '4':
+      PrintScene(GetSceneGraph());
     }
   }
 #endif // _DEBUG
