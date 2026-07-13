@@ -7,8 +7,6 @@ namespace Amju
 {
 const char* Dino::NAME = "dino";
 
-GameObject* CreateDino() { return new Dino; }
-
 Dino::Dino()
 {
   CreateSceneNode();

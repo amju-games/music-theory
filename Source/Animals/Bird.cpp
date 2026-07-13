@@ -7,8 +7,6 @@ namespace Amju
 {
 const char* Bird::NAME = "bird";
 
-GameObject* CreateBird() { return new Bird; }
-
 Bird::Bird()
 {
   // Bummer: we can't do this in the base class ctor, we won't know

@@ -11,7 +11,5 @@ public:
   static const char* NAME;
   virtual const char* GetTypeName() const override;
 };
-
-GameObject* CreateBird();
 }
 

@@ -5,12 +5,17 @@
 
 namespace Amju
 {
-void SetUpAnimalFactory()
+template <class ANIMAL>
+static void AddToFactory()
 {
   auto factory = TheGameObjectFactory::Instance();
+  factory->Add(ANIMAL::NAME, []() -> GameObject* { return new ANIMAL; });
+}
 
-  factory->Add(Bird::NAME, CreateBird);
-  factory->Add(Dino::NAME, CreateDino);
+void SetUpAnimalFactory()
+{
+  AddToFactory<Bird>();
+  AddToFactory<Dino>();
 }
 }
 
