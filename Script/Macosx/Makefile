@@ -7,7 +7,7 @@ RUNDIR		:=	../../Assets/
 BUILD		:=	../../Build/Mac
 TARGET		:=	$(BUILD)/macgame
 LIBDIRS   	:= 	$(AMJULIB)/Releases/amjulib-v.0.5-macosx
-SOURCES		:=	../../Source 
+SOURCES		:=	../../Source ../../Source/Animals
 BASSPATH	:=	$(AMJULIB)/3rdPartyLibs/Bass/2.4.18.3/bass24-osx
 BASSMIDIPATH	:=	$(AMJULIB)/3rdPartyLibs/Bass/BassMidi/2.4.15.3/bassmidi24-osx
 
