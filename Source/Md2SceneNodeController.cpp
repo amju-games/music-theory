@@ -50,26 +50,10 @@ void Md2SceneNodeController::SetAnim(const std::string& animName)
 {
 std::cout << "Setting anim: " << animName << "\n";
 
-  auto a = dynamic_cast<Md2SceneNode*>(GetSceneNode());
-  Assert(a);
-  int anim = a->GetMd2()->GetAnimationFromName(animName);
+  Assert(m_sceneNode);
+  int anim = m_sceneNode->GetMd2()->GetAnimationFromName(animName);
   m_anim = anim;
-  a->SetAnim(animName);
-}
-
-void Md2SceneNodeController::CreateSceneNode(PSceneNode parent)
-{
-  // This is an example. We want to load from a scene file, because we
-  //  want Md2 scene node * and shadow *.
-
-/*
-  // All our NPCs in this game are blinking MD2 characters.
-  auto sn = new BlinkSceneNode;
-  sn->LoadMd2("md2/pz-bird.md2"); // TODO TEMP TEST
-  sn->LoadTextures("Image/bird1.png", "Image/bird1a.png"); // TODO TEMP TEST
-  m_sceneNode = sn;
-  parent->AddChild(sn);
-*/
+  m_sceneNode->SetAnim(animName);
 }
 }
 

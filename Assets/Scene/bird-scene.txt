@@ -16,8 +16,8 @@ I
 // Bird
 // Node type
 blink
-// Name
-bird-md2
+// Name: generic, looked for in PFNpc::CreateSceneNode
+md2
 // Matrix
 I
 //.1,0,0,0,  0,.1,0,0,  0,0,.1,0,   0, 0, 0,    1 

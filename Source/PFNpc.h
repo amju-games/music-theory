@@ -17,6 +17,9 @@ public:
   void SetFixedZ(bool isFixed, float z = 0);
 
 protected:
+  void CreateSceneNode();
+
+protected:
   bool m_isZFixed = true;
   float m_fixedZ = 0;
 };

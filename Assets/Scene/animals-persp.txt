@@ -20,7 +20,7 @@ camera-persp
 // Name
 camera-persp
 // Eye pos
-0, 150, 400
+0, 150, 200
 // Look at pos
 0, 70, 0
 // Up vector

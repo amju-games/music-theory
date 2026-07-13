@@ -15,13 +15,8 @@ public:
 
   void SetAnim(const std::string& animName);
 
-  // Create scene node and add to the given parent node.
-  // Override this to do the actual creating in the subclass.
-  virtual void CreateSceneNode(PSceneNode parent) = 0;
-
-  // Get the scene node created above.
+  // Get/set the scene node 
   SceneNode* GetSceneNode() { return m_sceneNode; }
-
   void SetSceneNode(Md2SceneNode* sceneNode) { m_sceneNode = sceneNode; }
 
   // Direction: this is desired direction (around y-axis), to which
@@ -30,7 +25,8 @@ public:
   float GetDir() const { return m_dir; }
 
 protected:
-  // The scene node which renders the MD2 model
+  // The MD2 scene node, not the whole tree for the character necessarily,
+  //  as this could include shadow and other stuff.
   RCPtr<Md2SceneNode> m_sceneNode;
 
   float m_dir = 0; // Direction of movement - DEGREES
