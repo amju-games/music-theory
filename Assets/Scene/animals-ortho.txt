@@ -13,7 +13,7 @@ root
 // Matrix
 I
 // Num children
-5
+6
 
 // Node type
 camera-ortho
@@ -28,6 +28,13 @@ camera
 // Ortho params: left, right, top, bottom, near, far, comma sep.
 -200, 200, 200, -200, 0, 10000
 // Num children
+0
+
+// Add animals under this node: _not_ to the scene root, which won't 
+//  have the camera transform.
+comp
+add-animals-to-me
+I
 0
 
 mesh
