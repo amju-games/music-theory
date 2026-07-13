@@ -2,6 +2,7 @@
 #include <Game.h>
 #include "AnimalController.h"
 #include "GSAnimals.h"
+#include "Palette.h"
 
 namespace Amju
 {
@@ -30,13 +31,17 @@ bool GSAnimals::OnKeyEvent(const KeyEvent& ke)
   {
     if (ke.key == '1')
     {
+      Palette pal;
+      pal.Load("Image/palette-notes-12-2.png");
+      GetAnimalController().AddPetsForGameRound(pal);
+/*
       static float z = 0; // quick hack: get a new z plane each time
       // Add a bird or dino: can only move in x
       static bool bird = true;
       GetAnimalController().AddAnimalFixedZ(bird ? "bird" : "cat", z);
       z -= 50.f;
       bird = !bird;
-
+*/
       return true; // consumed
     }
     else if (ke.key == '2')

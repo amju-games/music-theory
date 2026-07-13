@@ -1,18 +1,53 @@
+#include <AmjuRand.h>
 #include <Game.h>
 #include <GameObjectFactory.h>
 #include <LoadScene.h>
 #include "AnimalController.h"
 #include "MySceneGraph.h"
+#include "Palette.h"
 #include "PFNpc.h"
 
 namespace Amju
 {
-GameObject* AnimalController::AddAnimal(const char* animalType)
+std::vector<PFNpc*> AnimalController::AddPetsForGameRound(
+  const Palette& palette)
+{
+  std::vector<PFNpc*> vec;
+
+  float z = 0;  // TODO Adjust this or the camera as required
+  // Always 12? Or just the notes used in the game round?
+  for (int i = 0; i < 12; ++i)
+  {
+    // TODO Need an algo here to give a mix of types depending on 
+    //  game round unique ID. Also, do we want to distribute colours in a
+    //  special way, e.g. cats always blues, squirrels always reds, etc???
+
+    // Available pet types
+    const std::array<std::string, 1>  PET_TYPES = {{ "cat" }};
+
+    // TODO srand on game round ID to make this the same every time for 
+    //  any given game round
+    int r = Amju::RandomInt(PET_TYPES.size());
+
+    auto petType = PET_TYPES[r];
+    auto pet = AddAnimalFixedZ(petType, z);
+    z -= 40.f; // each pet is on a different 'track'
+
+    // Colourise: set colour [i].
+    pet->GetSceneNode()->SetColour(palette.GetColour(i));
+
+    vec.push_back(pet);
+  }
+  
+  return vec;
+}
+
+PFNpc* AnimalController::AddAnimal(const std::string& animalType)
 {
   auto go = TheGameObjectFactory::Instance()->Create(animalType);
   if (!go)
   {
-    std::cout << "Failed to create animal of type " << animalType << "!\n";
+    std::cout << "Failed to create animal of type " << animalType << "! CHECK ANIMAL FACTORY AND TYPE NAME!\n";
     return nullptr;
   }
 
@@ -20,13 +55,13 @@ GameObject* AnimalController::AddAnimal(const char* animalType)
   // We are not loading a level from file in this game.
   TheGame::Instance()->AddGameObject(go);
 
-  return go;
+  return dynamic_cast<PFNpc*>(go); // I'd be surprised if that didn't work.
 }
 
-GameObject* AnimalController::AddAnimalFixedZ(const char* animalType, float z)
+PFNpc* AnimalController::AddAnimalFixedZ(const std::string& animalType, float z)
 {
-  auto go = AddAnimal(animalType);
-  auto pfNpc = dynamic_cast<PFNpc*>(go);
+  auto pfNpc = AddAnimal(animalType);
+  Assert(pfNpc);
   pfNpc->SetFixedZ(true, z);
   return pfNpc;
 }
