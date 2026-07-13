@@ -4,6 +4,18 @@
 
 namespace Amju
 {
+int PFNpc::CreateId()
+{
+  // Create new unique ID
+  static int s_id = 0;
+  return s_id++;
+}
+
+PFNpc::PFNpc()
+{
+  SetId(CreateId());
+}
+
 void PFNpc::Update() 
 {
   Npc::Update();
@@ -33,20 +45,25 @@ void PFNpc::CreateSceneNode()
   auto parent = root->GetNodeByName("add-animals-to-me");
   Assert(parent);
 
+  // Set scene filename from type name, avoiding duplication and
+  //  source of error.
+  std::string sceneFilename = 
+    std::string("Scene/") + GetTypeName() + "-scene.txt";
+
   // Load scene tree specific to this animal's type. 
-  // The tree should include the character MD2 and a shadow.
-  // If we use generic names for these nodes, we can find them in
-  //  generic code, otherwise pass in the node names we are 
-  //  looking for.
-  // We need the md2 and shadow nodes separately.
-  auto sn = LoadScene(m_sceneFilename);
+  auto sn = LoadScene(sceneFilename);
   if (!sn)
   {
-    std::cout << "Failed to load scene: " << m_sceneFilename << "\n";
+    std::cout << "Failed to load scene: " << sceneFilename << "\n";
     Assert(0);
   }
   parent->AddChild(sn);
 
+  // The tree should include the character MD2 and a shadow.
+  // If we use generic names for these nodes, we can find them in
+  //  generic code, otherwise pass in the node names we are 
+  //  looking for.
+  // (We need the md2 and shadow nodes separately.)
   auto md2 = dynamic_cast<Md2SceneNode*>(sn->GetNodeByName("md2"));
   Assert(md2);
   SetSceneNode(md2);

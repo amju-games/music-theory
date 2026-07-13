@@ -11,16 +11,16 @@ GameObject* CreateBird() { return new Bird; }
 
 Bird::Bird()
 {
-  SetId(CreateId());
+  // Bummer: we can't do this in the base class ctor, we won't know
+  //  our full type yet. :(
+  CreateSceneNode(); 
 
-std::cout << "Creating new Bird: ID: " << GetId() << "\n";
-
-  m_sceneFilename = "Scene/bird-scene.txt";
-  CreateSceneNode();
-
+  // Type-specific initial position
   Vec3f pos(Rnd(-10, 10) * 20, 100, Rnd(-10, 10) * 20);
   SetPos(pos);
 
+  // Each animal type should do this: set up the behaviours
+  //  specific to the animal type, and set the initial one.
   auto ai = new AIFly;
   AddAI(ai);
   SetAI(ai); // The only AI for this type.. right? 

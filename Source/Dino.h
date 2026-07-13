@@ -4,14 +4,14 @@
 
 namespace Amju
 {
-class Bird : public PFNpc
+class Dino : public PFNpc
 {
 public:
-  Bird();
+  Dino();
   static const char* NAME;
   virtual const char* GetTypeName() const override;
 };
 
-GameObject* CreateBird();
+GameObject* CreateDino();
 }
 

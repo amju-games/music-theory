@@ -1,7 +1,6 @@
 #pragma once
 
 #include <GameObject.h>
-#include <SceneNode.h>
 #include "AIController.h"
 #include "Md2SceneNodeController.h"
 
@@ -16,19 +15,6 @@ class Npc :
 {
 public:
   void Update() override;
-
-  // Overload to take file name
-  bool Load(const std::string& filename);
-
-  bool Load(File*) override;
-
-protected:
-  static int CreateId();
-
-protected:
-  // Set in ctor.
-  // Used to load scene node tree for this game object.
-  std::string m_sceneFilename;
 };
 }
 
