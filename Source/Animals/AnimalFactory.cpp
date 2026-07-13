@@ -1,6 +1,7 @@
 #include <GameObjectFactory.h>
 #include "AnimalFactory.h"
 #include "Bird.h"
+#include "Cat.h"
 #include "Dino.h"
 
 namespace Amju
@@ -15,6 +16,7 @@ static void AddToFactory()
 void SetUpAnimalFactory()
 {
   AddToFactory<Bird>();
+  AddToFactory<Cat>();
   AddToFactory<Dino>();
 }
 }

@@ -33,7 +33,7 @@ bool GSAnimals::OnKeyEvent(const KeyEvent& ke)
       static float z = 0; // quick hack: get a new z plane each time
       // Add a bird or dino: can only move in x
       static bool bird = true;
-      GetAnimalController().AddAnimalFixedZ(bird ? "bird" : "dino", z);
+      GetAnimalController().AddAnimalFixedZ(bird ? "bird" : "cat", z);
       z -= 50.f;
       bird = !bird;
 
