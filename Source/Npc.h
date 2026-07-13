@@ -25,16 +25,6 @@ public:
 protected:
   static int CreateId();
 
-  // Super simple shadow for this game
-  struct Shadow
-  {
-    void SetSceneNode(SceneNode* sn) { m_sceneNode = sn; }
-    void SetPosAndSize(const Vec3f& pos, float size);
-
-    PSceneNode m_sceneNode;
-  };
-  Shadow m_shadow;
-
 protected:
   // Set in ctor.
   // Used to load scene node tree for this game object.

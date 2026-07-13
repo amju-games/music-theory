@@ -21,8 +21,6 @@ Bird::Bird()
 
 std::cout << "Creating new Bird: ID: " << GetId() << "\n";
 
-  AddAI(new AIFly);
-
   m_sceneFilename = "Scene/bird-scene.txt";
   auto sg = GetSceneGraph();
   auto root = sg->GetRootNode(SceneGraph::AMJU_OPAQUE); 
@@ -34,6 +32,10 @@ std::cout << "Creating new Bird: ID: " << GetId() << "\n";
 
   Vec3f pos(Rnd(-10, 10) * 20, 100, Rnd(-10, 10) * 20);
   SetPos(pos);
+
+  auto ai = new AIFly;
+  AddAI(ai);
+  SetAI(ai); // The only AI for this type.. right? 
 }
 
 const char* Bird::GetTypeName() const
@@ -43,18 +45,7 @@ const char* Bird::GetTypeName() const
 
 void Bird::Update()
 {
-  SetAI(GetAI(AIFly::NAME)); 
-
-  Npc::Update();
-
-  // Shadow
-  auto pos = GetPos();
-  // Set size depending on height from ground.
-  // Max size is 1, min size 0
-  const float maxH = 100.f;
-  float shadowSize = (maxH - pos.y) / maxH;
-  shadowSize = std::clamp(shadowSize, 0.f, 1.f);
-  m_shadow.SetPosAndSize({pos.x, 0, pos.z}, shadowSize);
+  PFNpc::Update();
 
   // TODO Recalc collision vol
 }
@@ -80,7 +71,7 @@ void Bird::CreateSceneNode(PSceneNode parent)
   auto birdMd2 = dynamic_cast<Md2SceneNode*>(sn->GetNodeByName("bird-md2"));
   SetSceneNode(birdMd2);
 
-  m_shadow.SetSceneNode(sn->GetNodeByName("shadow"));
+  SetShadowSceneNode(sn->GetNodeByName("shadow"));
 }
 }
 
