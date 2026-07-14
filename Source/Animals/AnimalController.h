@@ -11,6 +11,9 @@ class PFNpc;
 class AnimalController
 {
 public:
+  // Clean up game objects and scene graph.
+  void CleanUp();
+
   // Add one animal: typeName needs to match the name registered with
   //  GameObjectFactory.
   // Adds new game object to the game and returns its dynamic type.

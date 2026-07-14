@@ -25,6 +25,25 @@ GSAnimals::GSAnimals()
   m_guiFilename = "Gui/no_gui.txt";
 }
 
+void GSAnimals::OnDeactive()
+{
+  GSBase3d::OnDeactive();
+  GetAnimalController().CleanUp();
+}
+
+void GSAnimals::OnActive()
+{
+  GSBase3d::OnActive();
+
+  Palette pal;
+  pal.Load("Image/palette-notes-12-2.png");
+  GetAnimalController().AddPetsForGameRound(pal);
+
+std::cout << "Num game objects is now " 
+  << TheGame::Instance()->GetGameObjects()->size() 
+  << ".\n";
+}
+
 bool GSAnimals::OnKeyEvent(const KeyEvent& ke) 
 {
   if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR)

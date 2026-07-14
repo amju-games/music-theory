@@ -1,3 +1,4 @@
+#include <iostream>
 #include <AmjuRand.h>
 #include <Game.h>
 #include <GameObjectFactory.h>
@@ -9,6 +10,19 @@
 
 namespace Amju
 {
+void AnimalController::CleanUp()
+{
+  // Delete game objects.
+  auto game = TheGame::Instance();
+  auto numGos = game->GetGameObjects()->size();
+  game->ClearGameObjects();
+  Assert(game->GetGameObjects()->empty());
+  std::cout << "Cleared up " << numGos << " game objects. Now there are none.\n";
+
+  // Delete scene graph.
+  ResetSceneGraph();
+}
+
 std::vector<PFNpc*> AnimalController::AddPetsForGameRound(
   const Palette& palette)
 {

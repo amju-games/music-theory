@@ -14,6 +14,8 @@ public:
   GSAnimals();
 
   void Update() override;
+  void OnActive() override;
+  void OnDeactive() override;
 
   // Press keys to add animals
   bool OnKeyEvent(const KeyEvent& ke) override;
