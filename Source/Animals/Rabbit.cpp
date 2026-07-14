@@ -1,12 +1,12 @@
 #include <iostream>
 #include <AmjuRand.h>
-#include "Cat.h"
+#include "Rabbit.h"
 
 namespace Amju
 {
-const char* Cat::NAME = "cat";
+const char* Rabbit::NAME = "rabbit";
 
-Cat::Cat()
+Rabbit::Rabbit()
 {
   CreateSceneNode();
 

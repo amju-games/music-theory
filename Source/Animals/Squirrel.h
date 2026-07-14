@@ -4,10 +4,10 @@
 
 namespace Amju
 {
-class Cat : public PFNpc
+class Squirrel : public PFNpc
 {
 public:
-  Cat();
+  Squirrel();
   static const char* NAME;
   const char* GetTypeName() const override { return NAME; }
 };

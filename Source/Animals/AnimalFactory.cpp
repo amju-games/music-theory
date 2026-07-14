@@ -3,6 +3,9 @@
 #include "Bird.h"
 #include "Cat.h"
 #include "Dino.h"
+#include "Dog.h"
+#include "Rabbit.h"
+#include "Squirrel.h"
 
 namespace Amju
 {
@@ -18,6 +21,9 @@ void SetUpAnimalFactory()
   AddToFactory<Bird>();
   AddToFactory<Cat>();
   AddToFactory<Dino>();
+  AddToFactory<Dog>();
+  AddToFactory<Rabbit>();
+  AddToFactory<Squirrel>();
 }
 }
 

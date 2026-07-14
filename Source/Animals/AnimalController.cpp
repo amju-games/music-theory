@@ -37,7 +37,8 @@ std::vector<PFNpc*> AnimalController::AddPetsForGameRound(
     //  special way, e.g. cats always blues, squirrels always reds, etc???
 
     // Available pet types
-    const std::array<std::string, 1>  PET_TYPES = {{ "cat" }};
+    const std::array<std::string, 4>  PET_TYPES = 
+      {{ "cat", "dog", "squirrel", "rabbit" }};
 
     // TODO srand on game round ID to make this the same every time for 
     //  any given game round
