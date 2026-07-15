@@ -8,6 +8,7 @@
 #include <GuiText.h>
 #include <SoundManager.h>
 #include <Timer.h>
+#include "AnimalController.h"
 #include "BassPlayMidi.h"
 #include "Consts.h"
 #include "FeedbackBalloon.h"
@@ -66,6 +67,7 @@ static void OnKeyboardHasFinishedMoving(Animator*)
 GSHero::GSHero()
 {
   m_guiFilename = "Gui/gs_hero.txt";
+  m_sceneFilename = "Scene/animals-ortho.txt";
 }
 
 bool GSHero::OnKeyEvent(const KeyEvent& ke)
@@ -89,7 +91,7 @@ bool GSHero::OnKeyEvent(const KeyEvent& ke)
   }
 #endif
  
-  if (GSBase::OnKeyEvent(ke)) return true;
+  if (GSBase3d::OnKeyEvent(ke)) return true;
   return false;
 }
 
@@ -344,7 +346,11 @@ void GSHero::ChangeState(HeroState newState)
 
 void GSHero::Update()
 {
-  GSBase::Update();
+  GSBase3d::Update();
+
+  // Update animals
+  TheGame::Instance()->UpdateGameObjects();
+
   UpdateHud();
 
   // Scroll the score if we are playing the song.
@@ -405,7 +411,7 @@ void GSHero::ReloadGui()
   auto sm = TheSoundManager::Instance();
   sm->StopSong();
 
-  GSBase::ReloadGui();
+  GSBase3d::ReloadGui();
 }
 
 // TODO This is no good, it should be time, not number of frames, surely?!
@@ -769,6 +775,8 @@ std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << 
       Assert(grade.m_type == Grade::BAD_NOTE);
       //SetUpFeedbackBalloon(grade, m_gui);
       DecreaseLife(grade); // TODO Life boosters when we reach checkpoints
+
+      GetAnimalController().EatAPet(e.m_note % 12); // TODO just a test for now
     }
     else
     {
@@ -792,14 +800,14 @@ std::cout << ":((( Couldn't find a matching event to grade against!\n";
 
 void GSHero::OnDeactive() 
 {
-  GSBase::OnDeactive();
+  GSBase3d::OnDeactive();
   auto sm = TheSoundManager::Instance();
   sm->ClearPreloadedSongs(); 
 }
 
 void GSHero::OnActive() 
 {
-  GSBase::OnActive();  
+  GSBase3d::OnActive();  
 
   frameCount = 0;
   m_keyboardIsMoving = false;
@@ -826,6 +834,9 @@ std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
  
   // Set up but don't start playing anything yet
   InitSound();
+
+  // Init animals: just a test for now. TODO
+  GetAnimalController().Init();
  
   // Resume game if we have restarted after a pause.
   // If we weren't paused, just restart.

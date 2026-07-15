@@ -42,6 +42,7 @@ void PFNpc::CreateSceneNode()
   // Obvs this is very game-specific.
   auto sg = GetSceneGraph();
   auto root = sg->GetRootNode(SceneGraph::AMJU_OPAQUE); 
+  Assert(root);
   auto parent = root->GetNodeByName("add-animals-to-me");
   Assert(parent);
 

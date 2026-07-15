@@ -7,7 +7,7 @@
 #include <GuiDecTranslate.h>
 #include <Singleton.h>
 #include "FindSongSections.h"
-#include "GSBase.h"
+#include "GSBase3d.h"
 #include "GuiMusicKbBase.h"
 #include "GuiPatch.h"
 #include "GuiScrollScore.h"
@@ -34,7 +34,7 @@ enum class HeroState
 // * GSHero *
 // Hero mode: the game mechanic which is like Guitar Hero, but for 
 //  keyboard/sheet music.
-class GSHero : public GSBase, public WithHud
+class GSHero : public GSBase3d, public WithHud
 {
 public:
   GSHero();

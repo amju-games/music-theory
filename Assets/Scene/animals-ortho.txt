@@ -20,9 +20,9 @@ camera-ortho
 // Name
 camera
 // Eye pos
-0, 70, 400
+0, 50, 400
 // Look at pos
-0, 70, 0
+0, 50, 0
 // Up vector
 0, 1, 0
 // Ortho params: left, right, top, bottom, near, far, comma sep.

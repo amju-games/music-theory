@@ -29,6 +29,10 @@ void AnimalController::EatAPet(int petIndex)
   Assert(petIndex < static_cast<int>(m_pets.size()));
   auto pet = m_pets[petIndex];
 
+  // Knock out the pet when eaten so we don't try to eat it again.
+  if (!pet) return;
+  m_pets[petIndex] = nullptr; // It's an RCPtr; there is still a ref to it.
+
   // Set dino z-track to that of the pet to be eaten.
   // Maybe simpler to just do this in the Chase AI.
   auto pos = m_dino->GetPos();
