@@ -13,7 +13,7 @@ animals-persp-root
 // Matrix
 I
 // Num children
-6
+2
 
 // Node type
 camera-persp

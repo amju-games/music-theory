@@ -48,12 +48,14 @@ void Md2SceneNodeController::UpdateMd2(const Vec3f& pos)
 
 void Md2SceneNodeController::SetAnim(const std::string& animName)
 {
-std::cout << "Setting anim: " << animName << "\n";
-
   Assert(m_sceneNode);
   int anim = m_sceneNode->GetMd2()->GetAnimationFromName(animName);
-  m_anim = anim;
-  m_sceneNode->SetAnim(animName);
+  if (anim != m_anim)
+  {
+std::cout << "Setting anim: " << animName << "\n";
+    m_anim = anim;
+    m_sceneNode->SetAnim(animName);
+  }
 }
 }
 

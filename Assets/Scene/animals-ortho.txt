@@ -13,14 +13,14 @@ root
 // Matrix
 I
 // Num children
-6
+2
 
 // Node type
 camera-ortho
 // Name
 camera
 // Eye pos
-0, 150, 400
+0, 70, 400
 // Look at pos
 0, 70, 0
 // Up vector

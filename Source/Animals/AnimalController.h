@@ -2,15 +2,17 @@
 
 #include <string>
 #include <vector>
+#include <PFNpc.h>
 
 namespace Amju
 {
 class Palette;
-class PFNpc;
 
 class AnimalController
 {
 public:
+  void Init();
+
   // Clean up game objects and scene graph.
   void CleanUp();
 
@@ -25,8 +27,14 @@ public:
   // This is for hero mode, where we have an ortho camera.
   PFNpc* AddAnimalFixedZ(const std::string& typeName, float z);
 
-  std::vector<PFNpc*> AddPetsForGameRound(
+  std::vector<RCPtr<PFNpc>> AddPetsForGameRound(
     const Palette& palette);
+
+  void EatAPet(int petIndex);
+
+protected:
+  std::vector<RCPtr<PFNpc>> m_pets;
+  RCPtr<PFNpc> m_dino;
 };
 
 AnimalController& GetAnimalController();

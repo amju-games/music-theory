@@ -15,6 +15,12 @@ class Npc :
 {
 public:
   void Update() override;
+
+  void SetVisible(bool isVisible);
+
+protected:
+  // for this NPC, the scene tree root node. Set up in subclass initialisation. 
+  PSceneNode m_sceneRoot; 
 };
 }
 

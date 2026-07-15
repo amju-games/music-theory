@@ -4,12 +4,45 @@
 #include <GameObjectFactory.h>
 #include <LoadScene.h>
 #include "AnimalController.h"
+#include "Describe.h"
 #include "MySceneGraph.h"
 #include "Palette.h"
 #include "PFNpc.h"
 
 namespace Amju
 {
+void AnimalController::Init()
+{
+  // TODO Make this its own more testable class?
+  // TODO Get palette for current round
+  Palette palette;
+  palette.Load("Image/palette-notes-12-2.png");
+  m_pets = AddPetsForGameRound(palette); 
+  // Initial AIs should come onto screen from the sides.
+
+  // Dino for this round: we just need one, right?
+  m_dino = AddAnimal("dino"); // Initial AI is to wait off screen.
+}
+
+void AnimalController::EatAPet(int petIndex)
+{
+  Assert(petIndex < static_cast<int>(m_pets.size()));
+  auto pet = m_pets[petIndex];
+
+  // Set dino z-track to that of the pet to be eaten.
+  // Maybe simpler to just do this in the Chase AI.
+  auto pos = m_dino->GetPos();
+  pos.z = pet->GetPos().z;
+  m_dino->SetPos(pos); 
+ 
+  // Set dino AI to chase behaviour.
+  // TODO different if we are on-screen doing something other than waiting.
+  auto ai = m_dino->GetAI("chase");
+  Assert(ai);
+  ai->SetTarget(pet);
+  m_dino->SetAI(ai);
+}
+
 void AnimalController::CleanUp()
 {
   // Delete game objects.
@@ -23,10 +56,10 @@ void AnimalController::CleanUp()
   ResetSceneGraph();
 }
 
-std::vector<PFNpc*> AnimalController::AddPetsForGameRound(
+std::vector<RCPtr<PFNpc>> AnimalController::AddPetsForGameRound(
   const Palette& palette)
 {
-  std::vector<PFNpc*> vec;
+  std::vector<RCPtr<PFNpc>> vec;
 
   float z = 0;  // TODO Adjust this or the camera as required
   // Always 12? Or just the notes used in the game round?

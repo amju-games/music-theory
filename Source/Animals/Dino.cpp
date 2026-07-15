@@ -1,6 +1,9 @@
 #include <iostream>
 #include <AmjuRand.h>
-//#include "AIFly.h"
+#include "AIChasePet.h"
+#include "AIEatPet.h"
+#include "AIHide.h"
+#include "AIIdle.h"
 #include "Dino.h"
 
 namespace Amju
@@ -17,9 +20,13 @@ Dino::Dino()
 
   // Each animal type should do this: set up the behaviours
   //  specific to the animal type, and set the initial one.
-//  auto ai = new AIFly;
-//  AddAI(ai);
-//  SetAI(ai); // The only AI for this type.. right? 
+  auto ai = new AIIdle;
+  AddAI(ai);
+  SetAI(ai); // The only AI for this type.. right? 
+
+  AddAI(new AIChasePet);
+  AddAI(new AIEatPet);
+  AddAI(new AIHide);
 }
 
 const char* Dino::GetTypeName() const

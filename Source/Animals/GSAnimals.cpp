@@ -2,7 +2,6 @@
 #include <Game.h>
 #include "AnimalController.h"
 #include "GSAnimals.h"
-#include "Palette.h"
 
 namespace Amju
 {
@@ -35,9 +34,7 @@ void GSAnimals::OnActive()
 {
   GSBase3d::OnActive();
 
-  Palette pal;
-  pal.Load("Image/palette-notes-12-2.png");
-  GetAnimalController().AddPetsForGameRound(pal);
+  GetAnimalController().Init();
 
 std::cout << "Num game objects is now " 
   << TheGame::Instance()->GetGameObjects()->size() 
@@ -50,9 +47,16 @@ bool GSAnimals::OnKeyEvent(const KeyEvent& ke)
   {
     if (ke.key == '1')
     {
+      static int petIndex = 0;
+      GetAnimalController().EatAPet(petIndex % 12);
+      ++petIndex;
+
+/*
       Palette pal;
       pal.Load("Image/palette-notes-12-2.png");
       GetAnimalController().AddPetsForGameRound(pal);
+*/
+
 /*
       static float z = 0; // quick hack: get a new z plane each time
       // Add a bird or dino: can only move in x

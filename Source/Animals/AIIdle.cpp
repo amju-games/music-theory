@@ -3,7 +3,7 @@
 
 namespace Amju
 {
-const char* AIIdle::NAME = "aiidle";
+const char* AIIdle::NAME = "idle";
 
 AIIdle::AIIdle()
 {
@@ -19,12 +19,13 @@ void AIIdle::Update()
 {
   AI::Update();
   Assert(m_npc);
-
+/*
   // Wait for delay, then Decide
   if (m_time > 2.0f) // TODO
   {
     m_npc->DecideAI();
   }
+*/
 }
 
 void AIIdle::OnActivated()

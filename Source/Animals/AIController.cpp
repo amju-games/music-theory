@@ -24,6 +24,14 @@ AIController::AIController()
 AI* AIController::GetAI(const std::string& aiName)
 {
   auto it = m_ais.find(aiName);
+#ifdef _DEBUG
+  if (it == m_ais.end())
+  {
+    std::cout << "AIController: no ai named " << aiName << " found for " 
+      << Describe(this) 
+      << "\n";
+  }
+#endif
   Assert(it != m_ais.end());
   return it->second;
 }

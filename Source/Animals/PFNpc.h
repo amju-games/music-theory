@@ -28,7 +28,7 @@ protected:
   void CreateSceneNode();
 
 protected:
-  bool m_isZFixed = true;
+  bool m_isZFixed = false;
   float m_fixedZ = 0;
 };
 }

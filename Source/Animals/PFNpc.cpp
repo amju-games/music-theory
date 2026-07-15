@@ -51,26 +51,26 @@ void PFNpc::CreateSceneNode()
     std::string("Scene/") + GetTypeName() + "-scene.txt";
 
   // Load scene tree specific to this animal's type. 
-  auto sn = LoadScene(sceneFilename);
-  if (!sn)
+  m_sceneRoot = LoadScene(sceneFilename);
+  if (!m_sceneRoot)
   {
     std::cout << "Failed to load scene: " << sceneFilename << "\n";
     Assert(0);
   }
-  parent->AddChild(sn);
+  parent->AddChild(m_sceneRoot);
 
   // The tree should include the character MD2 and a shadow.
   // If we use generic names for these nodes, we can find them in
   //  generic code, otherwise pass in the node names we are 
   //  looking for.
   // (We need the md2 and shadow nodes separately.)
-  auto md2 = dynamic_cast<Md2SceneNode*>(sn->GetNodeByName("md2"));
+  auto md2 = dynamic_cast<Md2SceneNode*>(m_sceneRoot->GetNodeByName("md2"));
   Assert(md2);
   SetSceneNode(md2);
   // Set us up as the listener for animation events on the node.
   md2->SetListener(this); 
 
-  SetShadowSceneNode(sn->GetNodeByName("shadow"));
+  SetShadowSceneNode(m_sceneRoot->GetNodeByName("shadow"));
 }
 }
 

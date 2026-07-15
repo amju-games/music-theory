@@ -26,7 +26,7 @@ public:
   void DecideAI();
   void UpdateAI();
 
-  // Called from MD2 controller: we notify the current AI.
+  // We notify the current AI when anim ends.
   void OnAnimFinished() override;
   void OnAnimFreeze() override;
   void OnAnimRepeat() override;
