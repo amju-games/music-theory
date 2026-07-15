@@ -3,10 +3,11 @@
 
 #pragma once
 
-#include "SceneNode.h"
-#include "Md2Model.h"
-#include "Shader.h"
-#include "Texture.h"
+#include <SceneNode.h>
+#include <Md2Model.h>
+#include <Shader.h>
+#include <Texture.h>
+#include "AnimListener.h"
 
 namespace Amju
 {
@@ -29,6 +30,9 @@ public:
   bool LoadMd2(const std::string& md2name);
   void SetMd2(Md2Model* model);
   Md2Model* GetMd2();
+
+  // Set listener to recv notifications when anims end.
+  void SetListener(AnimListener*);
 
 protected:
   bool LoadEverythingExceptChildren(File* f); 
@@ -56,6 +60,9 @@ private:
   int m_frame;
   int m_nextFrame;
   float m_t; // varies from 0..1
+
+  // If non-null, we notify when animations end.
+  AnimListener* m_listener = nullptr;
 };
 
 class Md2SceneNodeWith1Texture : public Md2SceneNode

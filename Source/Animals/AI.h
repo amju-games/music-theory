@@ -30,13 +30,13 @@ public:
   // Most AI behaviours involve some other target, e.g. to chase or avoid
   void SetTarget(GameObject*);
 
-  virtual void OnAnimFinished() {}
+  virtual void OnAnimFinished() {} // e.g. decide on new AI once anim ends
   virtual void OnAnimFreeze() {}
   virtual void OnAnimRepeat() {}
 
 protected:
-  Npc* m_npc = nullptr;
-  GameObject* m_target = nullptr;
+  Npc* m_npc = nullptr; // owning NPC
+  GameObject* m_target = nullptr; // target of this behaviour
   float m_time = 0; // time since activated
   float m_rank = 0; // default rank 
 };

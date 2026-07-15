@@ -67,6 +67,8 @@ void PFNpc::CreateSceneNode()
   auto md2 = dynamic_cast<Md2SceneNode*>(sn->GetNodeByName("md2"));
   Assert(md2);
   SetSceneNode(md2);
+  // Set us up as the listener for animation events on the node.
+  md2->SetListener(this); 
 
   SetShadowSceneNode(sn->GetNodeByName("shadow"));
 }

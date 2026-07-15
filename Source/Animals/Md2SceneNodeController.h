@@ -10,6 +10,8 @@ namespace Amju
 class Md2SceneNodeController 
 {
 public:
+  virtual ~Md2SceneNodeController() = default;
+ 
   // Update turn angle and pos on scene node.
   void UpdateMd2(const Vec3f& pos);
 
