@@ -4,15 +4,13 @@
 
 namespace Amju
 {
-class AIIdle : public AI
+class AIEaten : public AI
 {
 public:
   static const char* NAME;
-
-  AIIdle();
-  void Update() override;
   const char* GetName() const override;
   void OnActivated() override;
+  void OnAnimFreeze() override;
 };
 }
 

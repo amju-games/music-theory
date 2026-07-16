@@ -1,4 +1,5 @@
 #include <LoadScene.h>
+#include "AIEaten.h"
 #include "MySceneGraph.h"
 #include "PFNpc.h"
 
@@ -16,6 +17,10 @@ int PFNpc::CreateId()
 PFNpc::PFNpc()
 {
   SetId(CreateId());
+
+  // Better if there was a base class just for edible animals
+  //  but this works ok. Maybe a big dino eats smaller dinos.
+  AddAI(new AIEaten);
 }
 
 void PFNpc::Update() 

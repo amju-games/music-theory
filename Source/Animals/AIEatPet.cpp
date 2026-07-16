@@ -29,8 +29,14 @@ void AIEatPet::OnActivated()
 
   m_npc->SetAnim("eat");
 
-  // TODO Target 'is being eaten' state; fully delete once eaten.
-  dynamic_cast<Npc*>(m_target)->SetVisible(false); 
+  // Target 'is being eaten' state; fully delete once eaten.
+  auto targetNpc = dynamic_cast<PFNpc*>(m_target);
+  Assert(targetNpc);
+  // The target of the pet we are eating is this eater.
+  auto eatenAI = targetNpc->GetAI("eaten");
+  Assert(eatenAI);
+  eatenAI->SetTarget(m_npc);
+  targetNpc->SetAI(eatenAI); 
 
   // Stop dino moving but allow to fall to ground
   auto vel = m_npc->GetVel();

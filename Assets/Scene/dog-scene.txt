@@ -9,7 +9,7 @@ comp
 // Name
 dog-root
 // Matrix
-I
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 3, 0, 1
 // Num children
 2
 
@@ -23,7 +23,7 @@ I
 // MD2 mesh
 md2/pz-dog.md2
 // Freeze list: comma-sep anim names
-none
+eaten
 // Loop list
 stand
 // Initial anim

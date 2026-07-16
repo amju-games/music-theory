@@ -6,6 +6,13 @@
 
 namespace Amju
 {
+// Convenience function
+float GetAngleDegsFromVec(const Vec3f& vec)
+{
+  float degs = RadToDeg(atan2(vec.x, vec.z));
+  return degs;
+}
+
 void Md2SceneNodeController::UpdateMd2(const Vec3f& pos)
 {
   float dt = TheTimer::Instance()->GetDt();

@@ -35,9 +35,8 @@ void AIChasePet::Update()
   Vec3f vel = aim - m_npc->GetPos();
   vel.y = 0; // we don't want y diff due to bouncing
 
-  // Turn to face target
-  float degs = RadToDeg(atan2(vel.x, vel.z)); 
-  m_npc->SetDir(degs);
+  // Turn to face target, use convenience function wrapping atan2
+  m_npc->SetDir(GetAngleDegsFromVec(vel)); 
 
   static const float MAX_DIST = 40.f;
   static const float MAX_DIST_SQ = MAX_DIST * MAX_DIST;

@@ -4,6 +4,10 @@
 
 namespace Amju
 {
+// Convenience function: get dir in degrees for vector: y-component is
+//  ignores, as this is intended for rotating around the y axis.
+float GetAngleDegsFromVec(const Vec3f& vec);
+
 // * Md2SceneNodeController *
 // MIXIN class.
 // Controls an Md2SceneNode.
