@@ -3,6 +3,7 @@
 #include <GameObject.h>
 #include <DegRad.h>
 #include "AIChasePet.h"
+#include "AngleVec.h"
 #include "Describe.h"
 #include "PFNpc.h"
 
