@@ -34,6 +34,7 @@ void GSAnimals::OnActive()
 {
   GSBase3d::OnActive();
 
+  Reload3d(); // we do want to do this here, but it's not done automatically.
   GetAnimalController().Init();
 
 std::cout << "Num game objects is now " 

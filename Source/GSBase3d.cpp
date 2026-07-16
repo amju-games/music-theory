@@ -12,12 +12,19 @@ namespace Amju
 {
 void GSBase3d::OnDeactive()
 {
-  GetSceneGraph()->Clear(); 
+  // DON'T clear the scene graph automatically when we change game
+  //  states; reset explicitly if required.
+//  GetSceneGraph()->Clear(); 
+
   GSBase::OnDeactive();
 }
 
 void GSBase3d::Reload3d()
 {
+  // Call Reload3d explicitly if you want to load/reload a scene.
+  // But don't call it automatically at the start of a state.
+  // We want the 3d scene to live across multiple game states.
+
   if (m_sceneFilename.empty())
   {
     return;
@@ -122,7 +129,10 @@ void GSBase3d::Update()
 void GSBase3d::OnActive()
 {
   GSBase::OnActive();
-  Reload3d();
+
+  // DON'T automatically reload the scene: we want to persist the
+  //  scene across game states.
+//  Reload3d();
+}
 }
 
-}

@@ -4,11 +4,18 @@
 
 namespace Amju
 {
+// Note on Scene Graph lifetime
+// This scene graph instance lives from the first call to
+//  GetScenGraph() until it is destroyed by ResetSceneGraph()
+//  or at the end of the process.
+
 // * GetSceneGraph *
-// For all 3D scenes, this is the scene graph
+// For all 3D scenes, this is the scene graph.
+// We don't need an Init function: we initialise here on the first
+//  call or after a reset.
 SceneGraph* GetSceneGraph();
 
-// Call to reset e.g. before displaying a new scene
+// Call to reset, deleting all scene nodes.
 void ResetSceneGraph();
 }
 

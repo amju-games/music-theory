@@ -1,16 +1,17 @@
 #include <GuiText.h>
 #include <SoundManager.h>
-#include "GS3dTitle.h"
+#include "GS3dTitle.h" // give up
 #include "GSChooseSong.h"
 #include "GSHero.h"
 #include "GSHeroEnd.h"
+#include "GSInitNewRound.h" // retry
 #include "HeroGameRound.h"
 
 namespace Amju
 {
 static void OnRetry(PGuiElement)
 {
-  GoTo<TheGSHero>();
+  GoTo<TheGSInitNewRound>();
 }
 
 static void OnQuit(PGuiElement)

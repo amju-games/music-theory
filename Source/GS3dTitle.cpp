@@ -39,7 +39,7 @@ void GS3dTitle::OnDeactive()
   // 2. Zero the shared ptrs to the resources.
 
   TheResourceManager::Instance()->Clear();
-  //GetSceneGraph()->Clear(); // done in GSBase3d::OnDeactive
+  GetSceneGraph()->Clear(); // NOT done in GSBase3d::OnDeactive
   StopMidiSong(); // TODO Fade?!
 
   GSBase3d::OnDeactive();
@@ -47,7 +47,8 @@ void GS3dTitle::OnDeactive()
 
 void GS3dTitle::OnActive()
 {
-  GSBase3d::OnActive();
+  GSBase3d::OnActive(); // Does not automatically load 3d scene.
+  Reload3d();
 
   // Start playing title music is performed by a timeline event
 

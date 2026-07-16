@@ -8,7 +8,7 @@
 #include <GuiText.h>
 #include <SoundManager.h>
 #include <Timer.h>
-#include "AnimalController.h"
+#include "AnimalController.h" // eat a pet on bum note
 #include "BassPlayMidi.h"
 #include "Consts.h"
 #include "FeedbackBalloon.h"
@@ -776,7 +776,9 @@ std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << 
       //SetUpFeedbackBalloon(grade, m_gui);
       DecreaseLife(grade); // TODO Life boosters when we reach checkpoints
 
-      GetAnimalController().EatAPet(e.m_note % 12); // TODO just a test for now
+      // TODO just a test for now. We haven't really designed how this
+      //  should work. We just eat the pet with the colour of the bum note.
+      GetAnimalController().EatAPet(e.m_note % 12); 
     }
     else
     {
@@ -835,9 +837,6 @@ std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
   // Set up but don't start playing anything yet
   InitSound();
 
-  // Init animals: just a test for now. TODO
-  GetAnimalController().Init();
- 
   // Resume game if we have restarted after a pause.
   // If we weren't paused, just restart.
   ResumeOrRestartGame();

@@ -3,8 +3,8 @@
 
 #include <Game.h>
 #include <GuiButton.h>
-#include "GS3dTitle.h"
-#include "GSHero.h"
+#include "GS3dTitle.h" // quit
+#include "GSHero.h" // resume
 #include "GSPause.h"
 
 namespace Amju
@@ -19,7 +19,7 @@ static void OnQuit(GuiElement*)
   // Back to main menu
   // TODO Quit confirm
   TheGSHero::Instance()->CancelResumeTime();
-  TheGame::Instance()->SetCurrentState(TheGS3dTitle::Instance());
+  GoTo<TheGS3dTitle>();
 }
 
 GSPause::GSPause()
