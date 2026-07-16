@@ -10,6 +10,10 @@ namespace Amju
 class PFNpc : public Npc, public SuperSimpleShadowCaster
 {
 public:
+  // Abs x coord which is off screen in ortho view. Good for behaviours 
+  //  like 'hide off screen'.
+  static const float OFF_SCREEN_X; 
+
   PFNpc();
   void Update() override;
 

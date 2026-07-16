@@ -4,6 +4,8 @@
 
 namespace Amju
 {
+const float PFNpc::OFF_SCREEN_X = 250.f;
+
 int PFNpc::CreateId()
 {
   // Create new unique ID

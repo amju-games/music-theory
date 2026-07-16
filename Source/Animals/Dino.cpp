@@ -14,19 +14,19 @@ Dino::Dino()
 {
   CreateSceneNode();
 
-  // Type-specific initial position
-  Vec3f pos(Rnd(-10, 10) * 20, 0, Rnd(-10, 10) * 20);
+  // Set initial position off screen.
+  bool onLeft = RandomInt(2) == 0;
+  Vec3f pos(onLeft ? -OFF_SCREEN_X : OFF_SCREEN_X, 0, 0);
   SetPos(pos);
 
-  // Each animal type should do this: set up the behaviours
-  //  specific to the animal type, and set the initial one.
-  auto ai = new AIIdle;
+  // Set AIs: we start off hiding.
+  auto ai = new AIHide;
   AddAI(ai);
-  SetAI(ai); // The only AI for this type.. right? 
+  SetAI(ai);
 
   AddAI(new AIChasePet);
   AddAI(new AIEatPet);
-  AddAI(new AIHide);
+  AddAI(new AIIdle);
 }
 
 const char* Dino::GetTypeName() const

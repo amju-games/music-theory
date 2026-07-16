@@ -1,12 +1,16 @@
 #pragma once
 
-#include "Md2SceneNode.h" // TODO Promote to amjulib
+#include "Md2SceneNode.h" // TODO Promote Md2SceneNode to amjulib
 
 namespace Amju
 {
 // * Md2SceneNodeController *
 // MIXIN class.
-// Animated (MD2) non-player character.
+// Controls an Md2SceneNode.
+// Implements some useful behaviour for animated (MD2) characters:
+// - Turn to face direction
+// - Set anim: passes through to Md2 node so not really a feature of this class.
+// - Maybe more in future
 class Md2SceneNodeController 
 {
 public:
@@ -15,6 +19,8 @@ public:
   // Update turn angle and pos on scene node.
   void UpdateMd2(const Vec3f& pos);
 
+  // Set animation on Md2 node, only if the given anim name is new.
+  // Does nothing if it's the same anim as we are currently showing.
   void SetAnim(const std::string& animName);
 
   // Get/set the scene node 

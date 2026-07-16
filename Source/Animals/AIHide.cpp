@@ -1,6 +1,6 @@
 #include <AmjuRand.h>
 #include "AIHide.h"
-#include "Npc.h"
+#include "PFNpc.h"
 
 namespace Amju
 {
@@ -17,9 +17,8 @@ void AIHide::Update()
   Assert(m_npc);
 
   // Stop once we get far enough to the side
-  const float MAX_X = 250.f;
   float x = m_npc->GetPos().x;
-  if (std::abs(x) > MAX_X)
+  if (std::abs(x) > PFNpc::OFF_SCREEN_X)
   {
     m_npc->SetAI("idle");
     m_npc->SetVisible(false);
@@ -35,7 +34,7 @@ void AIHide::OnActivated()
   m_npc->SetAnim("walk");
 
   // Choose direction to run
-  int runLeft = RandomInt(2);
+  int runLeft = m_npc->GetPos().x < 0;
   const float SPEED = 75.f;
   m_npc->SetVel(Vec3f(runLeft ? -SPEED : SPEED, 0, 0));
 
