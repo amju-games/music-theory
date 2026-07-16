@@ -61,7 +61,18 @@ void AIController::DecideAI()
   std::cout << Describe(this) << " choosing AI: " << best.second->GetName() 
     << " rank: " << best.first << "\n";
 #endif
-  SetAI(best.second);
+
+  auto newAI = best.second;
+  // If the best AI is already active, re-activate it. 
+  if (newAI == m_ai)
+  {
+    m_ai->OnDeactivated();
+    m_ai->OnActivated();
+  }
+  else
+  {
+    SetAI(best.second);
+  }
 }
 
 void AIController::AddAI(AI* ai)
@@ -74,6 +85,7 @@ void AIController::SetAI(AI* ai)
 {
   if (m_ai == ai)
   {
+std::cout << "SetAI: same AI, ignoring. (" << ai->GetName() << ")\n";
     return;
   }
 

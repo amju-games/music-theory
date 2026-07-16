@@ -1,5 +1,7 @@
 #include <Timer.h>
 #include "AI.h"
+#include "Describe.h"
+#include "Npc.h"
 
 namespace Amju
 {
@@ -18,6 +20,20 @@ void AI::SetTarget(GameObject* target)
 void AI::Update()
 {
   m_time += TheTimer::Instance()->GetDt();
+
+  if (m_maxTime > 0 && m_time > m_maxTime)
+  {
+std::cout << "AI for " << Describe(m_npc) << ": max time reached ("
+  << m_maxTime << "s).\n";
+    m_maxTime = 0; // set a new max time in OnActivated
+//    m_npc->SetAI(nullptr); // so we can chose the same AI again but call OnActivated
+    OnMaxTimeReached();
+  }
+}
+
+void AI::OnMaxTimeReached()
+{
+  m_npc->DecideAI();
 }
 
 void AI::OnActivated()

@@ -13,8 +13,12 @@ class AI : public RefCounted
 public:
   virtual const char* GetName() const = 0;
 
-  // Updates timer
-  virtual void Update() = 0;
+  // Default behaviour updates timer.
+  virtual void Update();
+
+  // Called if max time is set and we reached it.
+  // Default behaviour is to Decide on a new best AI.
+  virtual void OnMaxTimeReached();
 
   // Resets timer
   virtual void OnActivated();
@@ -35,9 +39,10 @@ public:
   virtual void OnAnimRepeat() {}
 
 protected:
-  Npc* m_npc = nullptr; // owning NPC
+  Npc* m_npc = nullptr; // NPC this AI directs
   GameObject* m_target = nullptr; // target of this behaviour
   float m_time = 0; // time since activated
+  float m_maxTime = 0; // time until we decide new behaviour
   float m_rank = 0; // default rank 
 };
 

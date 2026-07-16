@@ -1,3 +1,4 @@
+#include <AmjuRand.h>
 #include "AIIdle.h"
 #include "Npc.h"
 
@@ -34,5 +35,8 @@ void AIIdle::OnActivated()
 
   m_npc->SetAnim("stand");
   m_npc->SetVel(Vec3f(0, 0, 0));
+
+  // Choose time until we re-decide
+  m_maxTime = 1.f + Rnd(0.f, 2.0f);
 }
 }

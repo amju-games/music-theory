@@ -1,4 +1,5 @@
 #include "AIEaten.h"
+#include "AngleVec.h"
 #include "PFNpc.h"
 
 namespace Amju
@@ -10,6 +11,9 @@ const char* AIEaten::GetName() const { return NAME; }
 void AIEaten::OnActivated() 
 {
   m_npc->SetAnim("eaten");
+
+  // Stop if moving
+  m_npc->SetVel({});
 
   // V quickly turn to face dino.
   // Target is the dino eating us: turn to face in direction of dino.

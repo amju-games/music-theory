@@ -25,7 +25,7 @@ md2/pz-squirrel.md2
 // Freeze list: comma-sep anim names
 eaten
 // Loop list
-stand
+stand, walk
 // Initial anim
 stand
 // 2 textures, for blinking

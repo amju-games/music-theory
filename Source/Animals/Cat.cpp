@@ -1,5 +1,6 @@
 #include <iostream>
 #include <AmjuRand.h>
+#include "AIWander.h"
 #include "Cat.h"
 
 namespace Amju
@@ -11,10 +12,11 @@ Cat::Cat()
   CreateSceneNode();
 
   // Type-specific initial position
-  Vec3f pos(Rnd(-10, 10) * 20, 0, Rnd(-10, 10) * 20);
+  Vec3f pos(Rnd(-10, 10) * 20, 0, 0);
   SetPos(pos);
 
-  // TODO AIs
+  // AIs
+  SetAI(GetAI("wander"));
 }
 }
 

@@ -13,14 +13,14 @@ animals-persp-root
 // Matrix
 I
 // Num children
-2
+6
 
 // Node type
 camera-persp
 // Name
 camera-persp
 // Eye pos
-0, 150, 200
+0, 150, 500
 // Look at pos
 0, 70, 0
 // Up vector
