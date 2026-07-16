@@ -1,10 +1,10 @@
 #pragma once
 
-#include "PFNpc.h"
+#include "Pet.h"
 
 namespace Amju
 {
-class Cat : public PFNpc
+class Cat : public Pet
 {
 public:
   Cat();
