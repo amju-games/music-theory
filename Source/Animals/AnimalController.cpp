@@ -107,7 +107,14 @@ PFNpc* AnimalController::AddAnimal(const std::string& animalType)
   // We are not loading a level from file in this game.
   TheGame::Instance()->AddGameObject(go);
 
-  return dynamic_cast<PFNpc*>(go); // I'd be surprised if that didn't work.
+  auto pfnpc = dynamic_cast<PFNpc*>(go); 
+  Assert(pfnpc);
+
+  // For in-game animals, the camera is ortho and we can't see the shadows
+  //  anyway. (In title mode we do want to see the shadows.)
+  pfnpc->SetShadowVisible(false);
+
+  return pfnpc;
 }
 
 PFNpc* AnimalController::AddAnimalFixedZ(const std::string& animalType, float z)

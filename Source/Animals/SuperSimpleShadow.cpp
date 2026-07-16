@@ -2,6 +2,12 @@
 
 namespace Amju
 {
+void SuperSimpleShadowCaster::SetShadowVisible(bool visible)
+{
+  Assert(m_shadowSceneNode);
+  m_shadowSceneNode->SetVisible(visible);
+}
+
 void SuperSimpleShadowCaster::SetShadowPosAndSize(const Vec3f& pos, float size)
 {
   Assert(m_shadowSceneNode);
