@@ -1,5 +1,6 @@
 #include <DegRad.h>
 #include "AIEatPet.h"
+#include "AnimalController.h"
 #include "Dino.h"
 #include "PlayWav.h"
 
@@ -20,6 +21,18 @@ const char* AIEatPet::GetName() const
   return NAME;
 }
   
+void AIEatPet::OnDeactivated() 
+{
+  AI::OnDeactivated();
+
+  // Potentially we got interrupted by another bum note, so make
+  //  sure the pet we are currently eating is no longer visible, or it
+  //  could be floating in the air for a little while.
+  auto targetNpc = dynamic_cast<PFNpc*>(m_target);
+  Assert(targetNpc);
+  targetNpc->SetVisible(false);
+}
+
 void AIEatPet::OnActivated() 
 {
   AI::OnActivated();
@@ -27,7 +40,7 @@ void AIEatPet::OnActivated()
   Assert(m_npc);
   Assert(m_target);
 
-  m_npc->SetAnim("eat");
+  m_npc->SetAnim("eat"); // Dino eat anim
 
   // Target 'is being eaten' state; fully delete once eaten.
   auto targetNpc = dynamic_cast<PFNpc*>(m_target);
@@ -46,22 +59,8 @@ void AIEatPet::OnActivated()
 
   PlayWav("goopy");
 
-  /*
-  // TODO All pets within range flee
-  Pets pets;
-  GetPets(&pets);
-  for (Pets::iterator it = pets.begin(); it != pets.end(); ++it)
-  {
-    Pet* pet = *it;
-    if (!pet->IsDead())
-    {
-      // TODO And within range
-      AI* flee = pet->GetAI(AIFlee::NAME);
-      flee->SetTarget(m_npc);
-      pet->SetAI(flee);
-    }
-  }
-  */
+  // All pets within range flee
+  GetAnimalController().PetsFlee(m_npc);
 }
 
 void AIEatPet::Update()
@@ -84,7 +83,7 @@ void AIEatPet::Update()
 void AIEatPet::OnAnimFinished()
 {
   m_npc->SetAI("hide");
-  PlayWav("burp");
+  //PlayWav("burp"); // that's a bit annoying, no?
 }
 }
 

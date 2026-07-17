@@ -15,6 +15,7 @@ public:
   const char* GetName() const override;
   void Update() override;
   void OnActivated() override;
+  void OnDeactivated() override;
   void OnAnimFinished() override;
 };
 }

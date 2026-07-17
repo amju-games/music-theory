@@ -1,5 +1,6 @@
 #include <AmjuRand.h>
 #include "AIEaten.h"
+#include "AIFlee.h"
 #include "AIIdle.h"
 #include "AIWander.h"
 #include "Pet.h"
@@ -16,6 +17,7 @@ Pet::Pet()
 
   // Add AIs common to all Pets.
   AddAI(new AIEaten);
+  AddAI(new AIFlee);
   AddAI(new AIIdle);
   AddAI(new AIWander);
 }

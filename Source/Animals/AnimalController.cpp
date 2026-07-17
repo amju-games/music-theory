@@ -45,6 +45,40 @@ void AnimalController::Init()
   m_dino = AddAnimal("dino"); // Initial AI is to wait off screen.
 }
 
+void AnimalController::PetsFlee(Npc* dino)
+{
+  for (auto pet : m_pets)
+  {
+    if (!pet) continue;
+
+    // within range?
+    constexpr float FLEE_RADIUS = 100.f;
+    // We only care about the x distance; we don't need to get
+    //  vec sq len.
+    const float dx = dino->GetPos().x - pet->GetPos().x;
+#ifdef AI_DEBUG
+std::cout << "Pet: " << Describe(pet) << ": dist: " << dx 
+  << " / " << FLEE_RADIUS;
+#endif
+
+    if (std::abs(dx) < FLEE_RADIUS)
+    {
+#ifdef AI_DEBUG
+std::cout << " -- FLEE!\n";
+#endif
+      AI* flee = pet->GetAI(AIFlee::NAME);
+      flee->SetTarget(dino);
+      pet->SetAI(flee);
+    }
+    else
+    {
+#ifdef AI_DEBUG
+std::cout << "  no flee.\n";
+#endif
+    }
+  }
+}
+
 void AnimalController::EatAPet(int petIndex)
 {
   Assert(petIndex < static_cast<int>(m_pets.size()));
