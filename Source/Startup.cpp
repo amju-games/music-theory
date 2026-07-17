@@ -225,6 +225,17 @@ void StartUpBeforeCreateWindow()
   LoadWritableConfig();
 }
 
+Resource* PianoShaderLoader(const std::string& resName)
+{
+  // Unfortunately we need this to specify the directory.
+  // Strip off ".shader" from the name which is added to identify the resource type.
+  std::string fullName = "Shaders/" + 
+    AmjuGL::GetShaderDir() + "/" + 
+    GetFileNoExt(resName);
+  auto shader = AmjuGL::LoadShader(fullName); 
+  return shader; 
+}
+
 static void SetUpResourceLoaders()
 {
   // Add resource loaders
@@ -236,6 +247,14 @@ static void SetUpResourceLoaders()
 #else
   rm->AddLoader("obj", TextObjLoader);
 #endif
+
+  // Overwrite default shader resource loader so we can specify the path.
+  // This doesn't work with reloading resources.
+  // Resources should load through their loader function I guess.
+  TheResourceManager::Instance()->AddLoader("shader", PianoShaderLoader);
+
+  // Add palette loader: palettes are *.png.pal
+  TheResourceManager::Instance()->AddLoader("pal", PaletteLoader);
 }
 
 void SetUpSound()
@@ -287,17 +306,6 @@ static void AddToTimelineFactory()
     []()->TimelineEvent* { return new T; });
 }
 
-Resource* PianoShaderLoader(const std::string& resName)
-{
-  // Unfortunately we need this to specify the directory.
-  // Strip off ".shader" from the name which is added to identify the resource type.
-  std::string fullName = "Shaders/" + 
-    AmjuGL::GetShaderDir() + "/" + 
-    GetFileNoExt(resName);
-  auto shader = AmjuGL::LoadShader(fullName); 
-  return shader; 
-}
-
 static void SetUpFactories()
 {
 // Urgh, TODO remove the need for this.
@@ -329,9 +337,6 @@ static void SetUpFactories()
   // Timeline types (cut scene anims)
   AddToSceneNodeFactory<SceneTimeline>(); // TODO Promote to amjulib
   AddToTimelineFactory<EventSetAnim>(); // TODO Promote
-
-  // Overwrite default shader resource loader so we can specify the path.
-  TheResourceManager::Instance()->AddLoader("shader", PianoShaderLoader);
 
   SetUpAnimalFactory();
 }

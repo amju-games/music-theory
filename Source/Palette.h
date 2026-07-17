@@ -4,7 +4,7 @@
 
 #include <vector>
 #include <Colour.h>
-#include <RCPtr.h>
+#include <ResourceManager.h>
 
 namespace Amju
 {
@@ -26,7 +26,7 @@ class File;
 //
 // *** NB Don't duplicate behaviour of GuiDecColourPalette, which already
 // ***  sets a colour based on anim value!
-class Palette : public RefCounted
+class Palette : public Resource 
 {
 public:
   // Look up colour, modulus used to keep key in range.
@@ -41,4 +41,8 @@ private:
   using ColourVec = std::vector<Colour>;
   ColourVec m_colours;
 };
+
+// * PaletteLoader *
+// Register with ResourceManager to make palettes Resources.
+Resource* PaletteLoader(const std::string& resName);
 }

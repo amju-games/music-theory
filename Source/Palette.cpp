@@ -7,6 +7,22 @@
 
 namespace Amju
 {
+Resource* PaletteLoader(const std::string& resName)
+{
+  // ".pal" resources are images; strip off final extension and
+  //  load the palette. 
+  // E.g. spectrum.png.pal -> spectrum.png
+  // (It has to be a png.)
+  std::string imageFilename = GetFileNoExt(resName);
+  auto palette = new Palette;
+  if (!palette->Load(imageFilename)) 
+  {
+    Assert(0);
+    return nullptr; 
+  }
+  return palette;
+}
+
 bool Palette::Load(const std::string& imageFilename)
 {
   auto optPalette = ImageToColourVec(imageFilename);

@@ -870,14 +870,21 @@ void GSHero::SetSongTitle()
 
 RCPtr<Palette> GSHero::LoadPalette()
 {
-  RCPtr<Palette> palette = new Palette;
+  const std::string& pal = GetGameRound().m_palette;
+  auto resource = TheResourceManager::Instance()->GetRes(pal);
+  if (!resource)
+  {
+    std::cout << "Failed to load resource " << pal << ".\n";
+    Assert(0);
+  }
 
-  // TODO Fixed palette across songs but can be changed for accessibility
-  if (!palette->Load(GetGameRound().m_palette))
+  RCPtr<Palette> palette = dynamic_cast<Palette*>(resource);
+
+  if (!palette)
   {
     // TODO Report Error gracefully
-    std::cout << "Failed to load colours from  palette file.\n";
-    Assert(false);
+    std::cout << "Loaded resource but it's not a palette: " << pal << "\n";
+    Assert(0);
   }
 
   return palette;
