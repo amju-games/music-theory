@@ -3,19 +3,39 @@
 #include <Game.h>
 #include <GameObjectFactory.h>
 #include <LoadScene.h>
+#include "AIFlee.h"
 #include "AIWait.h"
 #include "AnimalController.h"
 #include "Describe.h"
+#include "HeroGameRound.h"
 #include "MySceneGraph.h"
 #include "Palette.h"
 #include "PFNpc.h"
 
 namespace Amju
 {
+void AnimalController::Init(const HeroGameRound& gameRound)
+{
+  const std::string& pal = gameRound.m_palette;
+  auto res = TheResourceManager::Instance()->GetRes(pal);
+  if (!res)
+  {
+    return;
+  }
+  auto palette = dynamic_cast<Palette*>(res);
+  if (!palette)
+  {
+    return;
+  }
+  m_pets = AddPetsForGameRound(*palette); 
+  m_dino = AddAnimal("dino"); 
+}
+
 void AnimalController::Init()
 {
   // TODO Make this its own more testable class?
-  // TODO Get palette for current round
+
+  // Load any palette
   Palette palette;
   palette.Load("Image/palette-notes-12-2.png");
   m_pets = AddPetsForGameRound(palette); 

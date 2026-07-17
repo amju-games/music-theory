@@ -6,12 +6,15 @@
 
 namespace Amju
 {
+struct HeroGameRound;
 class Palette;
 
 class AnimalController
 {
 public:
-  void Init();
+  // Initialise animals 
+  void Init(); // for testing
+  void Init(const HeroGameRound&); // for in-game
 
   // Clean up game objects and scene graph.
   void CleanUp();
@@ -31,6 +34,10 @@ public:
     const Palette& palette);
 
   void EatAPet(int petIndex);
+
+  // Called once dino starts eating a pet: other pets within range
+  //  can flee (TODO they could be sick, etc.)
+  void PetsFlee(Npc* dino);
 
 protected:
   std::vector<RCPtr<PFNpc>> m_pets;
