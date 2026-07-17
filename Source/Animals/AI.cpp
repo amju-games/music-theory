@@ -1,3 +1,4 @@
+#include <iostream>
 #include <Timer.h>
 #include "AI.h"
 #include "Describe.h"
@@ -23,10 +24,12 @@ void AI::Update()
 
   if (m_maxTime > 0 && m_time > m_maxTime)
   {
+#ifdef AI_DEBUG
 std::cout << "AI for " << Describe(m_npc) << ": max time reached ("
   << m_maxTime << "s).\n";
+#endif
+
     m_maxTime = 0; // set a new max time in OnActivated
-//    m_npc->SetAI(nullptr); // so we can chose the same AI again but call OnActivated
     OnMaxTimeReached();
   }
 }

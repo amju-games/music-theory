@@ -52,7 +52,9 @@ void Md2SceneNodeController::SetAnim(const std::string& animName)
   int anim = m_sceneNode->GetMd2()->GetAnimationFromName(animName);
   if (anim != m_anim)
   {
+#ifdef ANIM_DEBUG
 std::cout << "Setting anim: " << animName << "\n";
+#endif
     m_anim = anim;
     m_sceneNode->SetAnim(animName);
   }

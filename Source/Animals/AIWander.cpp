@@ -70,7 +70,9 @@ void AIWander::OnActivated()
     dir = Rnd(80.f, 100.f);
     if (RandomInt(2) == 0) dir = -dir;
   }
+#ifdef AI_DEBUG
 std::cout << "Wander dir: " << dir << " degs\n";
+#endif
 
   // Head in direction dir.
   m_npc->SetDir(dir);

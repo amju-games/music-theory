@@ -45,8 +45,10 @@ void AIChasePet::Update()
   float sqlen = vel.SqLen();
   if (sqlen < MAX_DIST_SQ)
   {
+#ifdef AI_DEBUG
 std::cout << "AI chase: " << Describe(m_npc) << " has reached target " <<
   Describe(m_target) << "!\n";
+#endif
 
     m_npc->SetVel(Vec3f(0, -500.f, 0)); // fall back to ground
 

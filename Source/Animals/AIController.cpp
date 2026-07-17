@@ -3,7 +3,7 @@
 #include "AIController.h"
 #include "Npc.h"
 
-#define AI_DEBUG
+//#define AI_DEBUG
 
 namespace Amju
 {
@@ -24,7 +24,7 @@ AIController::AIController()
 AI* AIController::GetAI(const std::string& aiName)
 {
   auto it = m_ais.find(aiName);
-#ifdef _DEBUG
+#ifdef AI_DEBUG
   if (it == m_ais.end())
   {
     std::cout << "AIController: no ai named " << aiName << " found for " 
