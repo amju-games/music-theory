@@ -1,4 +1,5 @@
 #include <AmjuRand.h>
+#include <Timer.h>
 #include "AIWander.h"
 #include "AngleVec.h"
 #include "PFNpc.h"
@@ -7,24 +8,44 @@ namespace Amju
 {
 const char* AIWander::NAME = "wander";
 
+AIWander::AIWander()
+{
+  // After initial wait period, the first thing we do is Wander
+  //  on to the screen.
+  m_rank = 1000.f;
+}
+
 const char* AIWander::GetName() const { return NAME; }
 
 void AIWander::Update() 
 {
   AI::Update();
 
-  const float EDGE = 220.f;
+  // If we are heading off screen, turn around.
+  const float TURN_VEL = 90.f;
+  const float dt = TheTimer::Instance()->GetDt();
+
+  const float EDGE = 200.f;
   const float x = m_npc->GetPos().x;
-  if (x < -EDGE || x > EDGE)
+  const float vx = m_npc->GetVel().x;
+
+  if ((x < -EDGE && vx < 0) || (x > EDGE && vx > 0))
   {
-    // Stop near edge
-    m_npc->SetVel({});
+    // Turn around
+    float dir = m_npc->GetDir();
+    dir += dt * TURN_VEL; 
+    m_npc->SetDir(dir);
+    m_npc->SetVel(GetVecFromAngleDegs(dir));
   }
 }
 
 void AIWander::OnActivated() 
 {
   AI::OnActivated();
+
+  // Reset rank so we yield to another behaviour. But in GetRank
+  //  we increase rank each time so it becomes more likely we wander again.
+  m_rank = 0;
 
   // Decide on direction to go, and how long for.
   m_maxTime = 1.5f + Rnd(0, 1.f);
@@ -44,7 +65,10 @@ void AIWander::OnActivated()
   }
   else
   {
-    dir = Rnd(-180.f, 180.f);
+    // Face left or right, with a bit of variety, but we don't want to 
+    //  be too perpendicular to the camera.
+    dir = Rnd(80.f, 100.f);
+    if (RandomInt(2) == 0) dir = -dir;
   }
 std::cout << "Wander dir: " << dir << " degs\n";
 
@@ -62,7 +86,9 @@ float AIWander::GetRank()
   //  activated, we will never calculate a new value.
 
   // How likely are we to keep wandering?
-  m_rank = Rnd(0, 200);
+  // Add to the rank each time we decide. So it becomes more and more
+  //  likely that we Wander. Then when we do, reset the rank.
+  m_rank += Rnd(0, 30.f);
   return m_rank;
 }
 }

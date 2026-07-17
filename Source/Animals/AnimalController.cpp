@@ -3,6 +3,7 @@
 #include <Game.h>
 #include <GameObjectFactory.h>
 #include <LoadScene.h>
+#include "AIWait.h"
 #include "AnimalController.h"
 #include "Describe.h"
 #include "MySceneGraph.h"
@@ -84,6 +85,14 @@ std::vector<RCPtr<PFNpc>> AnimalController::AddPetsForGameRound(
     auto petType = PET_TYPES[r];
     auto pet = AddAnimalFixedZ(petType, z);
     z -= 40.f; // each pet is on a different 'track'
+
+    // Add Wait AI so pets gradually appear.
+    float waitTime = 5.f * (i + 1);
+    auto wait = new AIWait(waitTime);
+    pet->AddAI(wait);
+    pet->SetAI(wait);
+    // Once wait expires, wander on screen - so wander has high initial
+    //  rank.
 
     // Colourise: set colour [i].
     pet->GetSceneNode()->SetColour(palette.GetColour(i));

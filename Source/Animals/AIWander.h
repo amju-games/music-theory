@@ -10,7 +10,8 @@ class AIWander : public AI
 {
 public:
   static const char* NAME;
-
+  
+  AIWander();
   void Update() override;
   const char* GetName() const override;
   void OnActivated() override;
