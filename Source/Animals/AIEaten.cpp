@@ -1,6 +1,7 @@
 #include "AIEaten.h"
 #include "AngleVec.h"
-#include "PFNpc.h"
+#include "AnimalController.h"
+#include "Pet.h"
 
 namespace Amju
 {
@@ -27,6 +28,9 @@ void AIEaten::OnActivated()
   m_npc->SetPos(desiredPos);
   // This would work best if the origin for the eaten anim matches the
   //  origin of the dino. Also, the anims aren't great.
+
+  GetAnimalController().SetPetEaten(
+    dynamic_cast<Pet*>(m_npc)->GetIndex());
 }
 
 void AIEaten::OnAnimFreeze() 

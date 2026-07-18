@@ -7,10 +7,11 @@
 #include "AIWait.h"
 #include "AnimalController.h"
 #include "Describe.h"
+#include "GSHero.h"
 #include "HeroGameRound.h"
 #include "MySceneGraph.h"
 #include "Palette.h"
-#include "PFNpc.h"
+#include "Pet.h"
 
 namespace Amju
 {
@@ -89,10 +90,27 @@ void AnimalController::EatAPet(int petIndex)
   Assert(petIndex < static_cast<int>(m_pets.size()));
   auto pet = m_pets[petIndex];
 
-  if (!pet) return; // already eaten or never created
+  if (!pet) 
+  {
+#ifdef EAT_PET_DEBUG
+std::cout << "We want to eat pet " << petIndex << " but already eaten?\n";
+#endif
+    return; // already eaten or never created
+  }
 
   // Check if the pet is in Wait state: if it is, we can't eat it yet.
-  if (dynamic_cast<AIWait*>(pet->GetActiveAI())) return;
+  if (dynamic_cast<AIWait*>(pet->GetActiveAI())) 
+  {
+#ifdef EAT_PET_DEBUG
+std::cout << "We want to eat pet " << petIndex << " but still in wait state?\n";
+#endif
+    return;
+  }
+
+#ifdef EAT_PET_DEBUG
+std::cout << "Eating pet " << petIndex << "; state is " 
+  << pet->GetActiveAI()->GetName() << "\n";
+#endif
 
   // Set dino z-track to that of the pet to be eaten.
   // Maybe simpler to just do this in the Chase AI.
@@ -107,9 +125,21 @@ void AnimalController::EatAPet(int petIndex)
   Assert(ai);
   ai->SetTarget(pet);
   m_dino->SetAI(ai);
+}
 
+void AnimalController::SetPetEaten(int petIndex)
+{
   // Knock out the pet when eaten so we don't try to eat it again.
   m_pets[petIndex] = nullptr; // It's an RCPtr; there is still a ref to it.
+
+  // Check if all pets eaten
+  for (auto pet : m_pets)
+  {
+    if (pet) return;
+  }  
+
+  // All pets eaten!
+  TheGSHero::Instance()->OnPlayerHasLost();
 }
 
 void AnimalController::CleanUp()
@@ -147,7 +177,7 @@ std::vector<RCPtr<PFNpc>> AnimalController::AddPetsForGameRound(
     int r = Amju::RandomInt(PET_TYPES.size());
 
     auto petType = PET_TYPES[r];
-    auto pet = AddAnimalFixedZ(petType, z);
+    auto pet = dynamic_cast<Pet*>(AddAnimalFixedZ(petType, z));
     z -= 40.f; // each pet is on a different 'track'
 
     // Add Wait AI so pets gradually appear.
@@ -160,6 +190,8 @@ std::vector<RCPtr<PFNpc>> AnimalController::AddPetsForGameRound(
 
     // Colourise: set colour [i].
     pet->GetSceneNode()->SetColour(palette.GetColour(i));
+
+    pet->SetIndex(i); // for when we get eaten
 
     vec.push_back(pet);
   }

@@ -33,7 +33,14 @@ public:
   std::vector<RCPtr<PFNpc>> AddPetsForGameRound(
     const Palette& palette);
 
+  // Set dino after the given pet, if it's not already eaten and not in
+  //  wait state.
   void EatAPet(int petIndex);
+
+  // Called when the pet has been eaten: we need this in case a pet
+  //  we were going to eat gets passed over. We call this when the
+  //  pet is definitely eaten.
+  void SetPetEaten(int petIndex);
 
   // Called once dino starts eating a pet: other pets within range
   //  can flee (TODO they could be sick, etc.)

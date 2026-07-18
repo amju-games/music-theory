@@ -67,6 +67,10 @@ public:
   void SetGameRound(const HeroGameRound* gameRound);
   const HeroGameRound& GetGameRound() const;
 
+  // Called when we detect that player has won or lost round;
+  //  AnimalController tells use we have lost if all pets eaten.
+  void OnPlayerHasLost();
+
 protected:
   // Call to change current 'micro state'
   void ChangeState(HeroState newState);
@@ -132,8 +136,7 @@ protected:
   void IncreaseScore(const Grade& grade);
   void DecreaseLife(const Grade& grade);
 
-  // Called internally when we detect that player has won or lost round
-  void OnPlayerHasLost();
+  // Called internally when player reaches end of song.
   void OnPlayerHasWon();
 
   void ShowCountInGui();
