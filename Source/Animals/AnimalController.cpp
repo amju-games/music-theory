@@ -33,8 +33,6 @@ void AnimalController::Init(const HeroGameRound& gameRound)
 
 void AnimalController::Init()
 {
-  // TODO Make this its own more testable class?
-
   // Load any palette
   Palette palette;
   palette.Load("Image/palette-notes-12-2.png");
@@ -51,19 +49,19 @@ void AnimalController::PetsFlee(Npc* dino)
   {
     if (!pet) continue;
 
-    // within range?
-    constexpr float FLEE_RADIUS = 100.f;
+    // Flee if within range of dino
+    constexpr float FLEE_RADIUS = 200.f;
     // We only care about the x distance; we don't need to get
     //  vec sq len.
     const float dx = dino->GetPos().x - pet->GetPos().x;
-#ifdef AI_DEBUG
+#ifdef FLEE_DEBUG
 std::cout << "Pet: " << Describe(pet) << ": dist: " << dx 
   << " / " << FLEE_RADIUS;
 #endif
 
     if (std::abs(dx) < FLEE_RADIUS)
     {
-#ifdef AI_DEBUG
+#ifdef FLEE_DEBUG
 std::cout << " -- FLEE!\n";
 #endif
       AI* flee = pet->GetAI(AIFlee::NAME);
@@ -72,7 +70,7 @@ std::cout << " -- FLEE!\n";
     }
     else
     {
-#ifdef AI_DEBUG
+#ifdef FLEE_DEBUG
 std::cout << "  no flee.\n";
 #endif
     }
@@ -84,22 +82,28 @@ void AnimalController::EatAPet(int petIndex)
   Assert(petIndex < static_cast<int>(m_pets.size()));
   auto pet = m_pets[petIndex];
 
-  // Knock out the pet when eaten so we don't try to eat it again.
-  if (!pet) return;
-  m_pets[petIndex] = nullptr; // It's an RCPtr; there is still a ref to it.
+  if (!pet) return; // already eaten or never created
+
+  // Check if the pet is in Wait state: if it is, we can't eat it yet.
+  if (dynamic_cast<AIWait*>(pet->GetActiveAI())) return;
 
   // Set dino z-track to that of the pet to be eaten.
   // Maybe simpler to just do this in the Chase AI.
+/*
   auto pos = m_dino->GetPos();
   pos.z = pet->GetPos().z;
   m_dino->SetPos(pos); 
- 
+*/
+
   // Set dino AI to chase behaviour.
   // TODO different if we are on-screen doing something other than waiting.
   auto ai = m_dino->GetAI("chase");
   Assert(ai);
   ai->SetTarget(pet);
   m_dino->SetAI(ai);
+
+  // Knock out the pet when eaten so we don't try to eat it again.
+  m_pets[petIndex] = nullptr; // It's an RCPtr; there is still a ref to it.
 }
 
 void AnimalController::CleanUp()

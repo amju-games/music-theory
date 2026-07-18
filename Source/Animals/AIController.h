@@ -18,9 +18,13 @@ public:
   virtual ~AIController() = default;
 
   // TODO can't we use ints here?! Maybe this way it's easier to debug.
-  AI* GetAI(const std::string& aiName);
-  void SetAI(const std::string& aiName);
-  void SetAI(AI*);
+  AI* GetAI(const std::string& aiName); // Get AI from map by name
+
+  // Get currently active AI
+  AI* GetActiveAI() { return m_ai; }
+
+  void SetAI(const std::string& aiName); // Set AI  by name
+  void SetAI(AI*); // Set AI directly
 
   void AddAI(AI*); // call to populate map
   void DecideAI();
@@ -34,7 +38,8 @@ public:
 protected:
   using AIs = std::map<std::string, PAI>;
   AIs m_ais;
-  AI* m_ai; // the current AI
+
+  AI* m_ai = nullptr; // the current AI: points to one of the values in map
 };
 }
 
