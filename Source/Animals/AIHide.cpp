@@ -1,6 +1,7 @@
 #include <AmjuRand.h>
 #include "AIHide.h"
-#include "PFNpc.h"
+#include "BlinkSceneNode.h"
+#include "Dino.h"
 
 namespace Amju
 {
@@ -22,6 +23,11 @@ void AIHide::Update()
   {
     m_npc->SetAI("idle");
     m_npc->SetVisible(false);
+
+    // Remove dino blood
+    auto blinkNode = dynamic_cast<BlinkSceneNode*>(m_npc->GetSceneNode());
+    Assert(blinkNode);
+    blinkNode->LoadTextures(Dino::NO_BLOOD_TEX_1, Dino::NO_BLOOD_TEX_2);
   }
 }
 

@@ -1,6 +1,7 @@
 #include <DegRad.h>
 #include "AIEatPet.h"
 #include "AnimalController.h"
+#include "BlinkSceneNode.h"
 #include "Dino.h"
 #include "PlayWav.h"
 
@@ -41,6 +42,11 @@ void AIEatPet::OnActivated()
   Assert(m_target);
 
   m_npc->SetAnim("eat"); // Dino eat anim
+
+  // Set dino blood
+  auto blinkNode = dynamic_cast<BlinkSceneNode*>(m_npc->GetSceneNode());
+  Assert(blinkNode);
+  blinkNode->LoadTextures(Dino::BLOODY_TEX_1, Dino::BLOODY_TEX_2);
 
   // Target 'is being eaten' state; fully delete once eaten.
   auto targetNpc = dynamic_cast<PFNpc*>(m_target);

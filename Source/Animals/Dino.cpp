@@ -9,6 +9,10 @@
 namespace Amju
 {
 const char* Dino::NAME = "dino";
+const char* Dino::BLOODY_TEX_1 = "Image/dino1a-withblood.png";
+const char* Dino::BLOODY_TEX_2 = "Image/dino1-withblood.png";
+const char* Dino::NO_BLOOD_TEX_1 = "Image/dino1a.png";
+const char* Dino::NO_BLOOD_TEX_2 = "Image/dino1.png";
 
 Dino::Dino()
 {
