@@ -10,7 +10,6 @@ public:
   static const char* NAME;
 
   AIIdle();
-  void Update() override;
   const char* GetName() const override;
   void OnActivated() override;
 };

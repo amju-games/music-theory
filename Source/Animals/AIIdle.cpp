@@ -16,19 +16,6 @@ const char* AIIdle::GetName() const
   return NAME;
 }
 
-void AIIdle::Update()
-{
-  AI::Update();
-  Assert(m_npc);
-/*
-  // Wait for delay, then Decide
-  if (m_time > 2.0f) // TODO
-  {
-    m_npc->DecideAI();
-  }
-*/
-}
-
 void AIIdle::OnActivated()
 {
   AI::OnActivated();
@@ -37,6 +24,6 @@ void AIIdle::OnActivated()
   m_npc->SetVel(Vec3f(0, 0, 0));
 
   // Choose time until we re-decide
-  m_maxTime = 1.f + Rnd(0.f, 2.0f);
+  m_maxTime = 2.f + Rnd(0.f, 2.0f);
 }
 }

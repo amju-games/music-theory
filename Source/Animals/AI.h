@@ -20,6 +20,10 @@ public:
   // Default behaviour is to Decide on a new best AI.
   virtual void OnMaxTimeReached();
 
+  // Usually set internally, but e.g. extend wait time if Dino is active.
+  float GetMaxTime() const { return m_maxTime; }
+  void SetMaxTime(float maxTime) { m_maxTime = maxTime; }
+  
   // Resets timer
   virtual void OnActivated();
 

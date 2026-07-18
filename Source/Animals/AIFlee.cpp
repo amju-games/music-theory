@@ -22,6 +22,9 @@ void AIFlee::OnMaxTimeReached()
   // Go to Idle state, to avoid immediately Wandering back towards 
   //  the dino.
   m_npc->SetAI("idle");
+
+  // Turn to face player accusingly
+  m_npc->SetDir(Rnd(-30.f, 30.f));
 }
 
 void AIFlee::Update() 
@@ -41,7 +44,7 @@ void AIFlee::OnActivated()
   //  restrict the direction we can go in.
   float dir = 0;
   float x = m_npc->GetPos().x;
-  const float EDGE = 120.f; 
+  const float EDGE = PFNpc::OFF_SCREEN_X * .7f; 
   if (x < -EDGE)
   {
     dir = 90.f; 

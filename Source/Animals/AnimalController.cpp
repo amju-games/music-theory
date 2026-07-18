@@ -49,6 +49,13 @@ void AnimalController::PetsFlee(Npc* dino)
   {
     if (!pet) continue;
 
+    // Don't Flee if still in Wait state; increase wait time tho.
+    if (auto wait = dynamic_cast<AIWait*>(pet->GetActiveAI())) 
+    {
+      wait->SetMaxTime(wait->GetMaxTime() + 1.5f);
+      continue;
+    }
+
     // Flee if within range of dino
     constexpr float FLEE_RADIUS = 200.f;
     // We only care about the x distance; we don't need to get
@@ -89,11 +96,10 @@ void AnimalController::EatAPet(int petIndex)
 
   // Set dino z-track to that of the pet to be eaten.
   // Maybe simpler to just do this in the Chase AI.
-/*
   auto pos = m_dino->GetPos();
-  pos.z = pet->GetPos().z;
+  // Add a bit of variety so we don't see Dino from exactly 90 degs every time.
+  pos.z = pet->GetPos().z + Rnd(-40.f, 40.f);
   m_dino->SetPos(pos); 
-*/
 
   // Set dino AI to chase behaviour.
   // TODO different if we are on-screen doing something other than waiting.
