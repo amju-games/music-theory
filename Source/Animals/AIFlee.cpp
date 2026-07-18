@@ -17,29 +17,17 @@ AIFlee::AIFlee()
 
 const char* AIFlee::GetName() const { return NAME; }
 
+void AIFlee::OnMaxTimeReached()
+{
+  // Go to Idle state, to avoid immediately Wandering back towards 
+  //  the dino.
+  m_npc->SetAI("idle");
+}
+
 void AIFlee::Update() 
 {
   AI::Update();
-
-  // Turn around when we are going off screen is same code as Wander.
-  // TODO Common base class for moving AIs.
-
-  // If we are heading off screen, turn around.
-  const float TURN_VEL = 90.f;
-  const float dt = TheTimer::Instance()->GetDt();
-
-  const float EDGE = 200.f;
-  const float x = m_npc->GetPos().x;
-  const float vx = m_npc->GetVel().x;
-
-  if ((x < -EDGE && vx < 0) || (x > EDGE && vx > 0))
-  {
-    // We are moving towards the edge of the screen: Turn around
-    float dir = m_npc->GetDir();
-    dir += dt * TURN_VEL; 
-    m_npc->SetDir(dir);
-    m_npc->SetVel(GetVecFromAngleDegs(dir));
-  }
+  StayOnScreen();
 }
 
 void AIFlee::OnActivated() 
@@ -66,6 +54,8 @@ void AIFlee::OnActivated()
   {
     // Run away from target (the dino) - just in x?
     auto vec = m_npc->GetPos() - m_target->GetPos();
+    // Reduce z so we run across screen more.
+    vec.z *= .2f;
     dir = GetAngleDegsFromVec(vec); 
   }
 #ifdef AI_DEBUG

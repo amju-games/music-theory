@@ -20,23 +20,7 @@ const char* AIWander::GetName() const { return NAME; }
 void AIWander::Update() 
 {
   AI::Update();
-
-  // If we are heading off screen, turn around.
-  const float TURN_VEL = 90.f;
-  const float dt = TheTimer::Instance()->GetDt();
-
-  const float EDGE = 200.f;
-  const float x = m_npc->GetPos().x;
-  const float vx = m_npc->GetVel().x;
-
-  if ((x < -EDGE && vx < 0) || (x > EDGE && vx > 0))
-  {
-    // Turn around
-    float dir = m_npc->GetDir();
-    dir += dt * TURN_VEL; 
-    m_npc->SetDir(dir);
-    m_npc->SetVel(GetVecFromAngleDegs(dir));
-  }
+  StayOnScreen();
 }
 
 void AIWander::OnActivated() 
@@ -54,7 +38,7 @@ void AIWander::OnActivated()
   //  restrict the direction we can go in.
   float dir = 0;
   float x = m_npc->GetPos().x;
-  const float EDGE = 100.f; 
+  const float EDGE = PFNpc::OFF_SCREEN_X * .5f;
   if (x < -EDGE)
   {
     dir = 90.f; //Rnd(0.f, 180.f);
@@ -67,7 +51,7 @@ void AIWander::OnActivated()
   {
     // Face left or right, with a bit of variety, but we don't want to 
     //  be too perpendicular to the camera.
-    dir = Rnd(80.f, 100.f);
+    dir = Rnd(40.f, 80.f);
     if (RandomInt(2) == 0) dir = -dir;
   }
 #ifdef AI_DEBUG

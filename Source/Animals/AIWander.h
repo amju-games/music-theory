@@ -1,12 +1,12 @@
 #pragma once
 
-#include "AI.h"
+#include "AIPetMoveBase.h"
 
 namespace Amju
 {
 // * AIWander *
 // Decide on direction and how long to go in this direction.
-class AIWander : public AI
+class AIWander : public AIPetMoveBase
 {
 public:
   static const char* NAME;
