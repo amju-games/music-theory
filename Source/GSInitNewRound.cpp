@@ -4,6 +4,11 @@
 
 namespace Amju
 {
+void GSInitNewRound::Draw()
+{
+  // TODO Just don't draw first frame if we do more in this state.
+}
+
 void GSInitNewRound::OnActive()
 {
   m_sceneFilename = "Scene/animals-ortho.txt";

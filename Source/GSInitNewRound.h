@@ -11,6 +11,7 @@ namespace Amju
 class GSInitNewRound : public GSBase3d
 {
 public:
+  void Draw() override; // don't draw scene until animal positions set
   void OnActive() override;
 };
 
