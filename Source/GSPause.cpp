@@ -3,6 +3,7 @@
 
 #include <Game.h>
 #include <GuiButton.h>
+#include "AnimalController.h"
 #include "GS3dTitle.h" // quit
 #include "GSHero.h" // resume
 #include "GSPause.h"
@@ -19,7 +20,11 @@ static void OnQuit(GuiElement*)
   // Back to main menu
   // TODO Quit confirm
   TheGSHero::Instance()->CancelResumeTime();
-  GoTo<TheGS3dTitle>();
+
+  // Clean up scene/game objects
+  GetAnimalController().CleanUp();
+
+  GoTo<TheGS3dTitle>(); // Or GSChooseSong?
 }
 
 GSPause::GSPause()
