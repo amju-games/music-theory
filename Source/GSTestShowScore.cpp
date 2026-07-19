@@ -16,14 +16,11 @@ GSTestShowScore::GSTestShowScore()
 void GSTestShowScore::OnActive() 
 {
   const auto& args = GetCommandLineArgs();
-  if (args.Contains(VIEWSCORE))
+  // Get the final command line arg string and use it as gui filename
+  const auto& strings = args.GetArgs();
+  if (!strings.empty())
   {
-    // Get the final command line arg string and use it as gui filename
-    const auto& strings = args.GetArgs();
-    if (!strings.empty())
-    {
-      m_guiFilename = strings.back();
-    }
+    m_guiFilename = strings.back();
   }
 
   GSBase::OnActive();  

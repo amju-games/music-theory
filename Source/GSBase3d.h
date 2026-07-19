@@ -17,8 +17,9 @@ public:
   void Update() override;
   void Draw() override;
 
-  // Key input: this is for debug camera
+  // Key input: this is for debug camera etc.
   bool OnKeyEvent(const KeyEvent& ke) override;
+  // TODO Mouse camera control
 
   void OnActive() override;
 
@@ -29,8 +30,6 @@ public:
   bool OnCursorEvent(const CursorEvent&) override;
 
 protected:
-  SceneGraph* GetSceneGraph();
-
   // Keyboard camera control, just for debugging
   void DebugCamera(char key);
 

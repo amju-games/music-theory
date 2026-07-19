@@ -4,6 +4,7 @@
 #include <GuiComposite.h>
 #include <GuiScroll.h>
 #include <GuiText.h>
+#include "AnimalController.h"
 #include "GSChooseSong.h"
 #include "GSConfirmSong.h"
 #include "GSHero.h"
@@ -119,6 +120,9 @@ static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
 
 void GSChooseSong::OnActive()
 {
+  // Clean up any outstanding animal scene/game objects
+  GetAnimalController().CleanUp();
+
   GSShowGui::OnActive();
   InitGui();
 }

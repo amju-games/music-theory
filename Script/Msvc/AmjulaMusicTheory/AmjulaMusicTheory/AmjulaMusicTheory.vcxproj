@@ -127,6 +127,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>..\..\..\..\Source\Animals;..\..\..\..\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -275,15 +276,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Source\AI.cpp" />
-    <ClCompile Include="..\..\..\..\Source\AIFalling.cpp" />
-    <ClCompile Include="..\..\..\..\Source\AIFly.cpp" />
-    <ClCompile Include="..\..\..\..\Source\AIIdle.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AI.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AIChasePet.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AIController.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AIEaten.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AIEatPet.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AIFalling.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AIFlee.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AIFly.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AIHide.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AIIdle.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AIJump.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AIPetMoveBase.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AIWait.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AIWander.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AngleVec.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AnimalController.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\AnimalFactory.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\Bird.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\Cat.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\Dino.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\Dog.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\GSAnimals.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\ListAnims.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\Md2SceneNodeController.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\Npc.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\Pet.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\PFNpc.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\Rabbit.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\Squirrel.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Animals\SuperSimpleShadow.cpp" />
     <ClCompile Include="..\..\..\..\Source\BassPlayMidi.cpp" />
-    <ClCompile Include="..\..\..\..\Source\Bird.cpp" />
     <ClCompile Include="..\..\..\..\Source\BlinkSceneNode.cpp" />
     <ClCompile Include="..\..\..\..\Source\Consts.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Describe.cpp" />
+    <ClCompile Include="..\..\..\..\Source\FeedbackBalloon.cpp" />
     <ClCompile Include="..\..\..\..\Source\FindSongSections.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GameMain.cpp" />
     <ClCompile Include="..\..\..\..\Source\Grader.cpp" />
     <ClCompile Include="..\..\..\..\Source\GS3dExample.cpp" />
     <ClCompile Include="..\..\..\..\Source\GS3dTitle.cpp" />
@@ -295,6 +324,7 @@
     <ClCompile Include="..\..\..\..\Source\GSAbout.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSBase3d.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSInitNewRound.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPause.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSShowGui.cpp" />
@@ -310,16 +340,18 @@
     <ClCompile Include="..\..\..\..\Source\HeroGameRound.cpp" />
     <ClCompile Include="..\..\..\..\Source\Hud.cpp" />
     <ClCompile Include="..\..\..\..\Source\HudNumber.cpp" />
+    <ClCompile Include="..\..\..\..\Source\InitialState.cpp" />
     <ClCompile Include="..\..\..\..\Source\Md2SceneNode.cpp" />
     <ClCompile Include="..\..\..\..\Source\MusicEvent.cpp" />
     <ClCompile Include="..\..\..\..\Source\MyROConfig.cpp" />
     <ClCompile Include="..\..\..\..\Source\MySceneGraph.cpp" />
     <ClCompile Include="..\..\..\..\Source\NoteEvent.cpp" />
-    <ClCompile Include="..\..\..\..\Source\Npc.cpp" />
     <ClCompile Include="..\..\..\..\Source\Palette.cpp" />
     <ClCompile Include="..\..\..\..\Source\ParticleFx.cpp" />
     <ClCompile Include="..\..\..\..\Source\PlayWav.cpp" />
     <ClCompile Include="..\..\..\..\Source\PrintGui.cpp" />
+    <ClCompile Include="..\..\..\..\Source\PrintScene.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Resumer.cpp" />
     <ClCompile Include="..\..\..\..\Source\SceneNodeGui.cpp" />
     <ClCompile Include="..\..\..\..\Source\SceneTimeline.cpp" />
     <ClCompile Include="..\..\..\..\Source\ShareManager.cpp" />
@@ -393,13 +425,43 @@
     <ClCompile Include="..\..\..\..\Source\WithHud.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Source\AI.h" />
-    <ClInclude Include="..\..\..\..\Source\AIFalling.h" />
-    <ClInclude Include="..\..\..\..\Source\AIFly.h" />
-    <ClInclude Include="..\..\..\..\Source\AIIdle.h" />
-    <ClInclude Include="..\..\..\..\Source\Bird.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AI.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AIChasePet.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AIController.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AIEaten.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AIEatPet.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AIFalling.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AIFlee.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AIFly.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AIHide.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AIIdle.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AIJump.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AIPetMoveBase.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AIWait.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AIWander.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AngleVec.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AnimalController.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\AnimalFactory.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\Bird.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\Cat.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\Dino.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\Dog.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\GSAnimals.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\ListAnims.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\Md2SceneNodeController.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\Npc.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\Pet.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\PFNpc.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\Rabbit.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\Squirrel.h" />
+    <ClInclude Include="..\..\..\..\Source\Animals\SuperSimpleShadow.h" />
+    <ClInclude Include="..\..\..\..\Source\AnimListener.h" />
+    <ClInclude Include="..\..\..\..\Source\BassPlayMidi.h" />
+    <ClInclude Include="..\..\..\..\Source\Beat.h" />
     <ClInclude Include="..\..\..\..\Source\BlinkSceneNode.h" />
     <ClInclude Include="..\..\..\..\Source\Consts.h" />
+    <ClInclude Include="..\..\..\..\Source\Describe.h" />
+    <ClInclude Include="..\..\..\..\Source\FeedbackBalloon.h" />
     <ClInclude Include="..\..\..\..\Source\FindSongSections.h" />
     <ClInclude Include="..\..\..\..\Source\Grader.h" />
     <ClInclude Include="..\..\..\..\Source\GS3dExample.h" />
@@ -413,6 +475,7 @@
     <ClInclude Include="..\..\..\..\Source\GSHero.h" />
     <ClInclude Include="..\..\..\..\Source\GSHeroEnd.h" />
     <ClInclude Include="..\..\..\..\Source\GSHeroWin.h" />
+    <ClInclude Include="..\..\..\..\Source\GSInitNewRound.h" />
     <ClInclude Include="..\..\..\..\Source\GSPause.h" />
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h" />
     <ClInclude Include="..\..\..\..\Source\GSShowGui.h" />
@@ -429,18 +492,20 @@
     <ClInclude Include="..\..\..\..\Source\HeroGameRound.h" />
     <ClInclude Include="..\..\..\..\Source\Hud.h" />
     <ClInclude Include="..\..\..\..\Source\HudNumber.h" />
+    <ClInclude Include="..\..\..\..\Source\InitialState.h" />
     <ClInclude Include="..\..\..\..\Source\Md2SceneNode.h" />
     <ClInclude Include="..\..\..\..\Source\MusicEvent.h" />
     <ClInclude Include="..\..\..\..\Source\MyROConfig.h" />
     <ClInclude Include="..\..\..\..\Source\MySceneGraph.h" />
     <ClInclude Include="..\..\..\..\Source\NoteEvent.h" />
-    <ClInclude Include="..\..\..\..\Source\Npc.h" />
     <ClInclude Include="..\..\..\..\Source\NumUpdate.h" />
     <ClInclude Include="..\..\..\..\Source\Palette.h" />
     <ClInclude Include="..\..\..\..\Source\ParticleFx.h" />
     <ClInclude Include="..\..\..\..\Source\PlayMidi.h" />
     <ClInclude Include="..\..\..\..\Source\PlayWav.h" />
     <ClInclude Include="..\..\..\..\Source\PrintGui.h" />
+    <ClInclude Include="..\..\..\..\Source\PrintScene.h" />
+    <ClInclude Include="..\..\..\..\Source\Resumer.h" />
     <ClInclude Include="..\..\..\..\Source\SceneNodeGui.h" />
     <ClInclude Include="..\..\..\..\Source\SceneTimeline.h" />
     <ClInclude Include="..\..\..\..\Source\ShareManager.h" />
@@ -449,6 +514,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Timeline.h" />
+    <ClInclude Include="..\..\..\..\Source\TimelineEventPlayWav.h" />
     <ClInclude Include="..\..\..\..\Source\UserProfile.h" />
     <ClInclude Include="..\..\..\..\Source\UseVertexColourShader.h" />
     <ClInclude Include="..\..\..\..\Source\Version.h" />
@@ -563,6 +629,9 @@
     <Text Include="..\..\..\..\Assets\Shaders\opengl\rotating-vert.txt" />
     <Text Include="..\..\..\..\Docs\bugs.txt" />
     <Text Include="..\..\..\..\Docs\TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Source\Version.h.template" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

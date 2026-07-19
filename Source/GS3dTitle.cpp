@@ -9,10 +9,9 @@
 #include "GSHero.h"
 #include "GS3dTitle.h"
 #include "Md2SceneNode.h"
+#include "MySceneGraph.h"
 #include "PlayWav.h"
-#ifdef AMJU_IOS
 #include "Version.h"
-#endif
 
 namespace Amju
 {
@@ -28,8 +27,8 @@ static void OnStart(GuiElement* elem)
 
 GS3dTitle::GS3dTitle()
 {
- m_sceneFilename = "Scene/3d-title-scene.txt";
- m_guiFilename = "Gui/gs_3dtitle.txt";
+  m_sceneFilename = "Scene/3d-title-scene.txt";
+  m_guiFilename = "Gui/gs_3dtitle.txt";
 }
 
 void GS3dTitle::OnDeactive()
@@ -40,7 +39,7 @@ void GS3dTitle::OnDeactive()
   // 2. Zero the shared ptrs to the resources.
 
   TheResourceManager::Instance()->Clear();
-  //GetSceneGraph()->Clear(); // done in GSBase3d::OnDeactive
+  GetSceneGraph()->Clear(); // NOT done in GSBase3d::OnDeactive
   StopMidiSong(); // TODO Fade?!
 
   GSBase3d::OnDeactive();
@@ -48,7 +47,8 @@ void GS3dTitle::OnDeactive()
 
 void GS3dTitle::OnActive()
 {
-  GSBase3d::OnActive();
+  GSBase3d::OnActive(); // Does not automatically load 3d scene.
+  Reload3d();
 
   // Start playing title music is performed by a timeline event
 
@@ -57,12 +57,10 @@ void GS3dTitle::OnActive()
   startButton->SetCommand(OnStart);
   startButton->SetHasFocus(true);
 
-#ifdef AMJU_IOS
   // Set version text (TODO move to a better place)
   auto versionText = dynamic_cast<GuiTextBase*>(GetElementByName(m_gui, "version-text"));
   Assert(versionText);
   versionText->SetText(VERSION_STRING);
-#endif
 }
 
 void GS3dTitle::Update()

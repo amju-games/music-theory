@@ -1,16 +1,15 @@
 #pragma once
 
-#include "Npc.h"
+#include "PFNpc.h"
 
 namespace Amju
 {
-class Bird : public Npc
+class Bird : public PFNpc
 {
 public:
   Bird();
   static const char* NAME;
   virtual const char* GetTypeName() const override;
-  virtual void Update() override;
-//  virtual void AddToGame() override;
 };
 }
+

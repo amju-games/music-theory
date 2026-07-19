@@ -8,6 +8,7 @@
 #include <GuiText.h>
 #include <SoundManager.h>
 #include <Timer.h>
+#include "AnimalController.h" // eat a pet on bum note
 #include "BassPlayMidi.h"
 #include "Consts.h"
 #include "FeedbackBalloon.h"
@@ -66,6 +67,7 @@ static void OnKeyboardHasFinishedMoving(Animator*)
 GSHero::GSHero()
 {
   m_guiFilename = "Gui/gs_hero.txt";
+  m_sceneFilename = "Scene/animals-ortho.txt";
 }
 
 bool GSHero::OnKeyEvent(const KeyEvent& ke)
@@ -89,7 +91,7 @@ bool GSHero::OnKeyEvent(const KeyEvent& ke)
   }
 #endif
  
-  if (GSBase::OnKeyEvent(ke)) return true;
+  if (GSBase3d::OnKeyEvent(ke)) return true;
   return false;
 }
 
@@ -344,7 +346,11 @@ void GSHero::ChangeState(HeroState newState)
 
 void GSHero::Update()
 {
-  GSBase::Update();
+  GSBase3d::Update();
+
+  // Update animals
+  TheGame::Instance()->UpdateGameObjects();
+
   UpdateHud();
 
   // Scroll the score if we are playing the song.
@@ -385,7 +391,7 @@ void GSHero::Update()
   // Check if we should change state -- we are not using timed messages,
   //  there are too many edge cases to worry about.
   // TODO config
-  if (m_state == HeroState::PLAYER_HAS_WON && m_timeInHeroState > 3.f) 
+  if (m_state == HeroState::PLAYER_HAS_WON && m_timeInHeroState > 5.f) 
   {
     GoTo<TheGSHeroWin>();
   }
@@ -405,7 +411,7 @@ void GSHero::ReloadGui()
   auto sm = TheSoundManager::Instance();
   sm->StopSong();
 
-  GSBase::ReloadGui();
+  GSBase3d::ReloadGui();
 }
 
 // TODO This is no good, it should be time, not number of frames, surely?!
@@ -442,6 +448,9 @@ std::cout << "Player has won this round!\n";
   m_roundIsOver = true;
   m_pauseResumeTime = 0;
   ChangeState(HeroState::PLAYER_HAS_WON);
+
+  // Surviving pets jump for joy
+  GetAnimalController().PetsJump(); 
 
   // Save progress -- TODO is there a better approach? We don't want
   //  to lose the player progress if the process terminates.
@@ -769,6 +778,10 @@ std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << 
       Assert(grade.m_type == Grade::BAD_NOTE);
       //SetUpFeedbackBalloon(grade, m_gui);
       DecreaseLife(grade); // TODO Life boosters when we reach checkpoints
+
+      // TODO just a test for now. We haven't really designed how this
+      //  should work. We just eat the pet with the colour of the bum note.
+      GetAnimalController().EatAPet(e.m_note % 12); 
     }
     else
     {
@@ -792,14 +805,14 @@ std::cout << ":((( Couldn't find a matching event to grade against!\n";
 
 void GSHero::OnDeactive() 
 {
-  GSBase::OnDeactive();
+  GSBase3d::OnDeactive();
   auto sm = TheSoundManager::Instance();
   sm->ClearPreloadedSongs(); 
 }
 
 void GSHero::OnActive() 
 {
-  GSBase::OnActive();  
+  GSBase3d::OnActive();  
 
   frameCount = 0;
   m_keyboardIsMoving = false;
@@ -826,7 +839,7 @@ std::cout << "CATASTROPHE! Failed to load game round .csv!!!\n";
  
   // Set up but don't start playing anything yet
   InitSound();
- 
+
   // Resume game if we have restarted after a pause.
   // If we weren't paused, just restart.
   ResumeOrRestartGame();
@@ -860,14 +873,21 @@ void GSHero::SetSongTitle()
 
 RCPtr<Palette> GSHero::LoadPalette()
 {
-  RCPtr<Palette> palette = new Palette;
+  const std::string& pal = GetGameRound().m_palette;
+  auto resource = TheResourceManager::Instance()->GetRes(pal);
+  if (!resource)
+  {
+    std::cout << "Failed to load resource " << pal << ".\n";
+    Assert(0);
+  }
 
-  // TODO Fixed palette across songs but can be changed for accessibility
-  if (!palette->Load(GetGameRound().m_palette))
+  RCPtr<Palette> palette = dynamic_cast<Palette*>(resource);
+
+  if (!palette)
   {
     // TODO Report Error gracefully
-    std::cout << "Failed to load colours from  palette file.\n";
-    Assert(false);
+    std::cout << "Loaded resource but it's not a palette: " << pal << "\n";
+    Assert(0);
   }
 
   return palette;

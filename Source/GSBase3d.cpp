@@ -6,6 +6,7 @@
 #include <ResourceManager.h>
 #include "GSBase3d.h"
 #include "MySceneGraph.h"
+#include "PrintScene.h"
 
 namespace Amju
 {
@@ -13,24 +14,21 @@ static float xrot = 0;
 static float yrot = 0;
 static bool drag = false;
 
-SceneGraph* GSBase3d::GetSceneGraph()
-{
-  static SceneGraph* sg = nullptr;
-  if (!sg)
-  {
-    sg = new SceneGraph;
-  }
-  return sg;
-}
-
 void GSBase3d::OnDeactive()
 {
-  GetSceneGraph()->Clear(); 
+  // DON'T clear the scene graph automatically when we change game
+  //  states; reset explicitly if required.
+//  GetSceneGraph()->Clear(); 
+
   GSBase::OnDeactive();
 }
 
 void GSBase3d::Reload3d()
 {
+  // Call Reload3d explicitly if you want to load/reload a scene.
+  // But don't call it automatically at the start of a state.
+  // We want the 3d scene to live across multiple game states.
+
   if (m_sceneFilename.empty())
   {
     return;
@@ -38,15 +36,14 @@ void GSBase3d::Reload3d()
 
 std::cout << "Loading 3d scene: " << m_sceneFilename << "\n";
 
+  Amju::ResetSceneGraph();
   SceneGraph* sg = GetSceneGraph();
-  sg->Clear(); // for reload
-
-  SceneNode* root = new SceneNode;
-  sg->SetRootNode(SceneGraph::AMJU_OPAQUE, root);
 
   // Load 3D scene.
   PSceneNode node = LoadScene(m_sceneFilename);
   Assert(node);
+
+  auto root = sg->GetRootNode(SceneGraph::AMJU_OPAQUE);
   root->AddChild(node);
 }
 
@@ -162,6 +159,9 @@ bool GSBase3d::OnKeyEvent(const KeyEvent& ke)
     case '3':
       Reload3d();
       break;
+  
+    case '4':
+      PrintScene(GetSceneGraph());
     }
   }
 #endif // _DEBUG
@@ -178,7 +178,10 @@ void GSBase3d::Update()
 void GSBase3d::OnActive()
 {
   GSBase::OnActive();
-  Reload3d();
+
+  // DON'T automatically reload the scene: we want to persist the
+  //  scene across game states.
+//  Reload3d();
+}
 }
 
-}

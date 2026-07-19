@@ -3,22 +3,26 @@
 
 #include <GuiButton.h>
 #include <GuiText.h>
+#include "AnimalController.h"
 #include "BassPlayMidi.h"
-#include "GSChooseSong.h"
+#include "GSChooseSong.h" // go back
 #include "GSConfirmSong.h"
-#include "GSHero.h"
+#include "GSHero.h" // to get game round - TODO Move
+#include "GSInitNewRound.h" // go forward
 #include "HeroGameRound.h"
 
 namespace Amju
 {
 static void OnQuit(GuiElement*)
 {
+  // Go back to Choose menu state
   GoTo<TheGSChooseSong>();
 }
 
 static void OnStart(GuiElement*)
 {
-  GoTo<TheGSHero>();
+  // Initialise the new game round.
+  GoTo<TheGSInitNewRound>();
 }
 
 GSConfirmSong::GSConfirmSong()

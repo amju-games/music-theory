@@ -26,6 +26,11 @@ Md2SceneNode::Md2SceneNode()
   m_anim = 0;
 }
 
+void Md2SceneNode::SetListener(AnimListener* listener)
+{
+  m_listener = listener;
+}
+
 void Md2SceneNode::SetAnim(const std::string& animName)
 {
   int anim = m_model->GetAnimationFromName(animName);
@@ -123,15 +128,13 @@ void Md2SceneNode::Update()
         if (m_model->GetDoesActionRepeat(m_anim))
         {
           m_nextFrame = startFrame;
-          // TODO animation listener mixin gets callback when we repeat, finish anim, etc
-          //Assert(m_gameObj);
-          //m_gameObj->OnAnimRepeat();
+          // animation listener mixin gets callback when we repeat, finish anim
+          if (m_listener) m_listener->OnAnimRepeat();
         }
         else if (m_model->GetDoesActionFreeze(m_anim))
         {
           m_nextFrame--;
-          //Assert(m_gameObj);
-          //m_gameObj->OnAnimFreeze();
+          if (m_listener) m_listener->OnAnimFreeze();
         }
         else
         {
@@ -139,8 +142,7 @@ void Md2SceneNode::Update()
           // Doesn't repeat or freeze - go back to stand
           m_anim = 0;
           m_nextFrame = 0;
-          //Assert(m_gameObj);
-          //m_gameObj->OnAnimFinished();
+          if (m_listener) m_listener->OnAnimFinished();
         }
       }
     }

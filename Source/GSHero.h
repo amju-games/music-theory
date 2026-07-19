@@ -7,7 +7,7 @@
 #include <GuiDecTranslate.h>
 #include <Singleton.h>
 #include "FindSongSections.h"
-#include "GSBase.h"
+#include "GSBase3d.h"
 #include "GuiMusicKbBase.h"
 #include "GuiPatch.h"
 #include "GuiScrollScore.h"
@@ -34,7 +34,7 @@ enum class HeroState
 // * GSHero *
 // Hero mode: the game mechanic which is like Guitar Hero, but for 
 //  keyboard/sheet music.
-class GSHero : public GSBase, public WithHud
+class GSHero : public GSBase3d, public WithHud
 {
 public:
   GSHero();
@@ -66,6 +66,10 @@ public:
 
   void SetGameRound(const HeroGameRound* gameRound);
   const HeroGameRound& GetGameRound() const;
+
+  // Called when we detect that player has won or lost round;
+  //  AnimalController tells use we have lost if all pets eaten.
+  void OnPlayerHasLost();
 
 protected:
   // Call to change current 'micro state'
@@ -132,8 +136,7 @@ protected:
   void IncreaseScore(const Grade& grade);
   void DecreaseLife(const Grade& grade);
 
-  // Called internally when we detect that player has won or lost round
-  void OnPlayerHasLost();
+  // Called internally when player reaches end of song.
   void OnPlayerHasWon();
 
   void ShowCountInGui();

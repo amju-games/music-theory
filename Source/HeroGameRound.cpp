@@ -63,7 +63,7 @@ bool GameRoundManager::Load()
     round.m_countIn = "Songs/" + cells[7];
     round.m_numCountInBeats = ToInt(cells[8]);
     round.m_countInGui = "Gui/" + cells[9];
-    round.m_palette = "Image/" + cells[10];
+    round.m_palette = "Image/" + cells[10] + ".pal"; // palette resource
     round.m_musicScore = "Songs/" + cells[11];
     round.m_lifeDecrease = ToInt(cells[12]);
     // Zero-based bar numbers for ends of sections.

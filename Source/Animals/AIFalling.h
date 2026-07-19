@@ -1,5 +1,4 @@
-#ifndef AI_FALLING_H
-#define AI_FALLING_H
+#pragma once
 
 #include "AI.h"
 
@@ -10,9 +9,8 @@ class AIFalling : public AI
 public:
   static const char* NAME;
   AIFalling();
-  virtual const char* GetName() const;
-  virtual void Update();
+  const char* GetName() const override;
+  void Update() override;
 };
 }
 
-#endif

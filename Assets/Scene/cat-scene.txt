@@ -1,0 +1,43 @@
+// * PIANO FEST *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+// Node type
+comp
+// Name
+cat-root
+// Matrix
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 0, 1
+// Num children
+2
+
+// Cat
+// Node type
+blink
+// Name: generic
+md2
+// Matrix
+I
+// MD2 mesh
+md2/pz-cat.md2
+// Freeze list: comma-sep anim names
+eaten
+// Loop list
+stand, walk, fall
+// Initial anim
+stand
+// 2 textures, for blinking
+Image/pz-pet1a.png
+Image/pz-pet1.png
+// Num children
+0
+
+// Shadow 
+mesh
+shadow
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 0, 1
+obj/shadow-sq.obj
+0
+

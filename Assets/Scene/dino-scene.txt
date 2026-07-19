@@ -1,0 +1,44 @@
+// * PIANO FEST *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+// Node type
+comp
+// Name
+dino-root
+// Matrix
+I
+// Num children
+2
+
+// Dino
+// Node type
+blink
+// Name: generic
+md2
+// Matrix
+I
+// MD2 mesh
+md2/dino.md2
+// Freeze list: comma-sep anim names
+piano-hide, piano-eat, piano-down
+//none
+// Loop list
+run, walk, stand
+// Initial anim
+stand
+// 2 textures, for blinking
+Image/dino1a.png
+Image/dino1.png
+// Num children
+0
+
+// Shadow 
+mesh
+shadow
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 0, 1
+obj/shadow-sq.obj
+0
+

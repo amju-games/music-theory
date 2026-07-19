@@ -1,0 +1,108 @@
+// * PIANO FEST *
+// (c) Copyright 2026 Juliet Colman
+
+// Animals scene
+
+// version
+1
+
+// Node type
+comp
+// Name
+animals-persp-root
+// Matrix
+I
+// Num children
+6
+
+// Node type
+camera-persp
+// Name
+camera-persp
+// Eye pos
+0, 150, 500
+// Look at pos
+0, 70, 0
+// Up vector
+0, 1, 0
+// FovY, aspect, near, far
+90, 1.0, 1, 1000
+// Num children
+0
+
+// Add animals under this node: _not_ to the scene root, which won't 
+//  have the camera transform.
+comp
+add-animals-to-me
+I
+0
+
+mesh
+piano1
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  100, 0, 100,    1
+obj/piano1.obj
+0
+
+mesh
+piano2
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  -100, 0, 100,    1
+obj/piano1.obj
+0
+
+mesh
+piano3
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  -100, 0, -100,    1
+obj/piano1.obj
+0
+
+mesh
+piano4
+1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  100, 0, -100,    1
+obj/piano1.obj
+0
+
+// Dino
+// Node type
+blink
+// Name
+dino
+// Matrix
+I
+//.5,0,0,0,  0,.5,0,0,  0,0,.5,0,   -50, 0, 0,  1 
+// MD2 mesh
+md2/dino.md2
+// Freeze list: comma-sep anim names
+piano-hide, piano-eat, piano-down
+//none
+// Loop list
+none
+// Initial anim
+stand
+// 2 textures, for blinking
+Image/dino1a.png
+Image/dino1.png
+// Num children
+0
+
+// Bird
+// Node type
+blink
+// Name
+bird-test
+// Matrix
+.5,0,0,0,  0,.5,0,0,  0,0,.5,0,   50, 106, -2,  1 
+//1,0,0,0,  0,1,0,0,  0,0,1,0, 0, 120, 0,1 
+// Obj mesh
+md2/bird.md2
+// Freeze list: comma-sep anim names
+none
+// Loop list
+none
+// Initial anim
+fly
+// 2 textures, for blinking
+Image/bird1a.png
+Image/bird1.png
+// Num children
+0
+

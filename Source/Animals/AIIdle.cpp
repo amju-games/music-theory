@@ -1,9 +1,10 @@
+#include <AmjuRand.h>
 #include "AIIdle.h"
 #include "Npc.h"
 
 namespace Amju
 {
-const char* AIIdle::NAME = "aiidle";
+const char* AIIdle::NAME = "idle";
 
 AIIdle::AIIdle()
 {
@@ -15,23 +16,14 @@ const char* AIIdle::GetName() const
   return NAME;
 }
 
-void AIIdle::Update()
-{
-  AI::Update();
-  Assert(m_npc);
-
-  // Wait for delay, then Decide
-  if (m_time > 2.0f) // TODO
-  {
-    m_npc->DecideAI();
-  }
-}
-
 void AIIdle::OnActivated()
 {
   AI::OnActivated();
 
   m_npc->SetAnim("stand");
   m_npc->SetVel(Vec3f(0, 0, 0));
+
+  // Choose time until we re-decide
+  m_maxTime = 2.f + Rnd(0.f, 2.0f);
 }
 }
