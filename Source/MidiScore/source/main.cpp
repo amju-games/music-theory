@@ -55,10 +55,15 @@ static std::string NowToString()
   // Seriously, how hard should this be.
 
   auto t = std::time(nullptr);
-  auto tm = *std::localtime(&t);
+#ifdef WIN32
+  tm timestamp;
+  localtime_s(&timestamp, &t);
+#else
+  auto timestamp = *std::localtime(&t);
+#endif
 
   std::ostringstream oss;
-  oss << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
+  oss << std::put_time(&timestamp, "%Y-%m-%d %H:%M:%S");
   return oss.str();
 }
 

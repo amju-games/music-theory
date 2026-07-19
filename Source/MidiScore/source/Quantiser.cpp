@@ -1,3 +1,4 @@
+#include <cassert>
 #include <cmath>
 #include "Quantiser.h"
 
@@ -42,7 +43,7 @@ void MonoQuantiser::QuantiseDuration(int tpq, Event& e) const
   //e.SetTimeVal(tpq); 
 }
 
-void MonoQuantiser::SecondPass(Events& events) const 
+void MonoQuantiser::SecondPass([[maybe_unused]] Events& events) const
 {
 }
 }

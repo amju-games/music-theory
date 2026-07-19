@@ -17,7 +17,7 @@ GS3dExample::GS3dExample()
     m_sceneFilename = strings.back();
   }   
 
-  m_guiFilename = "Gui/hearts.txt";
+  m_guiFilename = "Gui/no_gui.txt";
 }
 
 void GS3dExample::Draw()

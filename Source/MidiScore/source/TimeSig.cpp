@@ -116,7 +116,7 @@ float BeatsInBar(TimeSig ts)
   return BEATS[static_cast<int>(ts)];
 }
 
-TimeSig GuessTimeSig(int tpq, const Events& events)
+TimeSig GuessTimeSig([[maybe_unused]] int tpq, [[maybe_unused]] const Events& events)
 {
   // Oh no, TODO!!!!!
   return TimeSig::TS_4_4;

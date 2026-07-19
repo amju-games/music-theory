@@ -158,6 +158,10 @@
     <ClCompile Include="..\..\..\..\Source\MakeScore\Glyph.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Hairpin.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\KeySig.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\LayoutFull.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\LayoutGrid.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\LayoutMinSpacing.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MakeScore\LayoutStrategy.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\Main.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\MakeScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\MakeScore\NoteAndChordBase.cpp" />
@@ -189,6 +193,10 @@
     <ClInclude Include="..\..\..\..\Source\MakeScore\Hairpin.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\IGlyph.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\KeySig.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\LayoutFull.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\LayoutGrid.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\LayoutMinSpacing.h" />
+    <ClInclude Include="..\..\..\..\Source\MakeScore\LayoutStrategy.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\MakeScore.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\NoteAndChordBase.h" />
     <ClInclude Include="..\..\..\..\Source\MakeScore\NoteGlyph.h" />

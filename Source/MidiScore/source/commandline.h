@@ -37,7 +37,7 @@ public:
     if (it == m_strings.cend()) return std::nullopt;
     ++it;
     if (it == m_strings.cend()) return std::nullopt;
-    return get<T>(std::distance(m_strings.cbegin(), it)); 
+    return get<T>(static_cast<int>(std::distance(m_strings.cbegin(), it))); 
   }
    
   // Return the arg at given index, converted to the specified type.
