@@ -156,9 +156,11 @@ int CalcEndOfBar(int tpq, int pos, TimeSig ts, int anacrusisTicks)
 
   const float b = BeatsInBar(ts);
   // Get the current bar we are in, ignoring any anacrusis
-  const int bar = (pos - anacrusisTicks) / b / tpq;
+  const int bar = static_cast<int>(static_cast<float>(pos - anacrusisTicks) / b)/ tpq;
   // Return the time of the next bar, readding any anacrusis
-  return (bar + 1) * b * tpq + anacrusisTicks;
+  return static_cast<int>(
+      static_cast<float>(bar + 1) * b * static_cast<float>(tpq)) + 
+    anacrusisTicks;
 }
 
 void AppendNoteEventToEvents(

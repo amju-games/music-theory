@@ -52,9 +52,9 @@ class NullQuantiser : public Quantiser
 public:
   NullQuantiser() = default;
 
-  void QuantiseStartTime(int tpq, Event& e) const override {}
-  void QuantiseDuration(int tpq, Event& e) const override {}
-  void SecondPass(Events& events) const override {}
+  void QuantiseStartTime([[maybe_unused]]int tpq, [[maybe_unused]] Event& e) const override {}
+  void QuantiseDuration([[maybe_unused]] int tpq, [[maybe_unused]] Event& e) const override {}
+  void SecondPass([[maybe_unused]] Events& events) const override {}
 };
 }
 
