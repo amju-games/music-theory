@@ -9,7 +9,7 @@ comp
 // Name
 dog-root
 // Matrix
-1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 3, 0, 1
+I
 // Num children
 2
 
