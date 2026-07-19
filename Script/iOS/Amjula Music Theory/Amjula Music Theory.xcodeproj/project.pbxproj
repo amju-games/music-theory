@@ -75,6 +75,40 @@
 		C55726A52F0EFA5400EEB2A5 /* GS3dExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C557269F2F0EFA5400EEB2A5 /* GS3dExample.cpp */; };
 		C55726A62F0EFA5400EEB2A5 /* GuiScrollScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55726A02F0EFA5400EEB2A5 /* GuiScrollScore.cpp */; };
 		C55726A72F0EFA5400EEB2A5 /* GSHero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55726A22F0EFA5400EEB2A5 /* GSHero.cpp */; };
+		C55DEA5F300D2284006CB79F /* Dino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA23300D2282006CB79F /* Dino.cpp */; };
+		C55DEA60300D2284006CB79F /* Pet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA25300D2282006CB79F /* Pet.cpp */; };
+		C55DEA61300D2284006CB79F /* Dog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA27300D2282006CB79F /* Dog.cpp */; };
+		C55DEA62300D2284006CB79F /* ListAnims.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA2E300D2282006CB79F /* ListAnims.cpp */; };
+		C55DEA63300D2284006CB79F /* Rabbit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA2F300D2282006CB79F /* Rabbit.cpp */; };
+		C55DEA64300D2284006CB79F /* AIHide.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA31300D2282006CB79F /* AIHide.cpp */; };
+		C55DEA65300D2284006CB79F /* AnimalFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA32300D2282006CB79F /* AnimalFactory.cpp */; };
+		C55DEA66300D2284006CB79F /* Bird.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA33300D2282006CB79F /* Bird.cpp */; };
+		C55DEA67300D2284006CB79F /* PFNpc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA36300D2283006CB79F /* PFNpc.cpp */; };
+		C55DEA68300D2284006CB79F /* SuperSimpleShadow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA39300D2283006CB79F /* SuperSimpleShadow.cpp */; };
+		C55DEA69300D2284006CB79F /* AIJump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA3A300D2283006CB79F /* AIJump.cpp */; };
+		C55DEA6A300D2284006CB79F /* Cat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA3D300D2283006CB79F /* Cat.cpp */; };
+		C55DEA6B300D2284006CB79F /* Npc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA3E300D2283006CB79F /* Npc.cpp */; };
+		C55DEA6C300D2284006CB79F /* AIWander.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA3F300D2283006CB79F /* AIWander.cpp */; };
+		C55DEA6D300D2284006CB79F /* AIFalling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA40300D2283006CB79F /* AIFalling.cpp */; };
+		C55DEA6E300D2284006CB79F /* AIChasePet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA42300D2283006CB79F /* AIChasePet.cpp */; };
+		C55DEA6F300D2284006CB79F /* Md2SceneNodeController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA45300D2283006CB79F /* Md2SceneNodeController.cpp */; };
+		C55DEA70300D2284006CB79F /* AIWait.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA46300D2283006CB79F /* AIWait.cpp */; };
+		C55DEA71300D2284006CB79F /* GSAnimals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA47300D2283006CB79F /* GSAnimals.cpp */; };
+		C55DEA72300D2284006CB79F /* AIFly.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA4A300D2283006CB79F /* AIFly.cpp */; };
+		C55DEA73300D2284006CB79F /* Squirrel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA4B300D2283006CB79F /* Squirrel.cpp */; };
+		C55DEA74300D2284006CB79F /* AIController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA4C300D2283006CB79F /* AIController.cpp */; };
+		C55DEA75300D2284006CB79F /* AngleVec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA4F300D2283006CB79F /* AngleVec.cpp */; };
+		C55DEA76300D2284006CB79F /* AIEatPet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA50300D2283006CB79F /* AIEatPet.cpp */; };
+		C55DEA77300D2284006CB79F /* AnimalController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA51300D2283006CB79F /* AnimalController.cpp */; };
+		C55DEA78300D2284006CB79F /* AIEaten.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA52300D2283006CB79F /* AIEaten.cpp */; };
+		C55DEA79300D2284006CB79F /* AIIdle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA54300D2283006CB79F /* AIIdle.cpp */; };
+		C55DEA7A300D2284006CB79F /* AI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA56300D2283006CB79F /* AI.cpp */; };
+		C55DEA7B300D2284006CB79F /* AIPetMoveBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA57300D2283006CB79F /* AIPetMoveBase.cpp */; };
+		C55DEA7C300D2284006CB79F /* AIFlee.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA5C300D2284006CB79F /* AIFlee.cpp */; };
+		C55DEA8D300D2527006CB79F /* Describe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA81300D2526006CB79F /* Describe.cpp */; };
+		C55DEA92300D2527006CB79F /* GSInitNewRound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA87300D2526006CB79F /* GSInitNewRound.cpp */; };
+		C55DEA93300D2527006CB79F /* InitialState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA8A300D2526006CB79F /* InitialState.cpp */; };
+		C55DEA94300D2527006CB79F /* PrintScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C55DEA8B300D2526006CB79F /* PrintScene.cpp */; };
 		C561F3C12F65CCDC003EE425 /* FindSongSections.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C561F3BB2F65CCDB003EE425 /* FindSongSections.cpp */; };
 		C561F3C22F65CCDC003EE425 /* NoteEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C561F3BC2F65CCDB003EE425 /* NoteEvent.cpp */; };
 		C561F3C32F65CCDC003EE425 /* GuiMusic2dKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C561F3BE2F65CCDB003EE425 /* GuiMusic2dKeyboard.cpp */; };
@@ -87,13 +121,7 @@
 		C579D4782F12DBEE0042461C /* GSHeroWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C579D4772F12DBED0042461C /* GSHeroWin.cpp */; };
 		C57A6EEA2F925549002D4DB4 /* Jazz Kit.sf2 in Resources */ = {isa = PBXBuildFile; fileRef = C57A6EE72F925548002D4DB4 /* Jazz Kit.sf2 */; };
 		C57A6EEB2F925549002D4DB4 /* Colin_s_Double_Bass.sf2 in Resources */ = {isa = PBXBuildFile; fileRef = C57A6EE92F925549002D4DB4 /* Colin_s_Double_Bass.sf2 */; };
-		C5810E9F2F8C0C5000047856 /* Bird.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E902F8C0C4F00047856 /* Bird.cpp */; };
 		C5810EA02F8C0C5000047856 /* BlinkSceneNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E932F8C0C4F00047856 /* BlinkSceneNode.cpp */; };
-		C5810EA12F8C0C5000047856 /* AI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E962F8C0C5000047856 /* AI.cpp */; };
-		C5810EA22F8C0C5000047856 /* Npc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E972F8C0C5000047856 /* Npc.cpp */; };
-		C5810EA32F8C0C5000047856 /* AIFalling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E992F8C0C5000047856 /* AIFalling.cpp */; };
-		C5810EA42F8C0C5000047856 /* AIFly.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E9A2F8C0C5000047856 /* AIFly.cpp */; };
-		C5810EA52F8C0C5000047856 /* AIIdle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E9C2F8C0C5000047856 /* AIIdle.cpp */; };
 		C5810EA62F8C0C5000047856 /* WithHud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E9E2F8C0C5000047856 /* WithHud.cpp */; };
 		C58E3BF82F8572930013E626 /* GSChooseSong.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BEE2F8572930013E626 /* GSChooseSong.cpp */; };
 		C58E3BF92F8572930013E626 /* Hud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF02F8572930013E626 /* Hud.cpp */; };
@@ -265,6 +293,76 @@
 		C55726A02F0EFA5400EEB2A5 /* GuiScrollScore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiScrollScore.cpp; path = ../../../../Source/GuiScrollScore.cpp; sourceTree = "<group>"; };
 		C55726A12F0EFA5400EEB2A5 /* GSHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSHero.h; path = ../../../../Source/GSHero.h; sourceTree = "<group>"; };
 		C55726A22F0EFA5400EEB2A5 /* GSHero.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSHero.cpp; path = ../../../../Source/GSHero.cpp; sourceTree = "<group>"; };
+		C55DEA23300D2282006CB79F /* Dino.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Dino.cpp; path = ../../../../Source/Animals/Dino.cpp; sourceTree = "<group>"; };
+		C55DEA24300D2282006CB79F /* AIWander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIWander.h; path = ../../../../Source/Animals/AIWander.h; sourceTree = "<group>"; };
+		C55DEA25300D2282006CB79F /* Pet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Pet.cpp; path = ../../../../Source/Animals/Pet.cpp; sourceTree = "<group>"; };
+		C55DEA26300D2282006CB79F /* AIFalling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIFalling.h; path = ../../../../Source/Animals/AIFalling.h; sourceTree = "<group>"; };
+		C55DEA27300D2282006CB79F /* Dog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Dog.cpp; path = ../../../../Source/Animals/Dog.cpp; sourceTree = "<group>"; };
+		C55DEA28300D2282006CB79F /* AnimalFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimalFactory.h; path = ../../../../Source/Animals/AnimalFactory.h; sourceTree = "<group>"; };
+		C55DEA29300D2282006CB79F /* AIChasePet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIChasePet.h; path = ../../../../Source/Animals/AIChasePet.h; sourceTree = "<group>"; };
+		C55DEA2A300D2282006CB79F /* AIFlee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIFlee.h; path = ../../../../Source/Animals/AIFlee.h; sourceTree = "<group>"; };
+		C55DEA2B300D2282006CB79F /* AIEaten.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIEaten.h; path = ../../../../Source/Animals/AIEaten.h; sourceTree = "<group>"; };
+		C55DEA2C300D2282006CB79F /* AIHide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIHide.h; path = ../../../../Source/Animals/AIHide.h; sourceTree = "<group>"; };
+		C55DEA2D300D2282006CB79F /* SuperSimpleShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SuperSimpleShadow.h; path = ../../../../Source/Animals/SuperSimpleShadow.h; sourceTree = "<group>"; };
+		C55DEA2E300D2282006CB79F /* ListAnims.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ListAnims.cpp; path = ../../../../Source/Animals/ListAnims.cpp; sourceTree = "<group>"; };
+		C55DEA2F300D2282006CB79F /* Rabbit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Rabbit.cpp; path = ../../../../Source/Animals/Rabbit.cpp; sourceTree = "<group>"; };
+		C55DEA30300D2282006CB79F /* AI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AI.h; path = ../../../../Source/Animals/AI.h; sourceTree = "<group>"; };
+		C55DEA31300D2282006CB79F /* AIHide.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIHide.cpp; path = ../../../../Source/Animals/AIHide.cpp; sourceTree = "<group>"; };
+		C55DEA32300D2282006CB79F /* AnimalFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AnimalFactory.cpp; path = ../../../../Source/Animals/AnimalFactory.cpp; sourceTree = "<group>"; };
+		C55DEA33300D2282006CB79F /* Bird.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Bird.cpp; path = ../../../../Source/Animals/Bird.cpp; sourceTree = "<group>"; };
+		C55DEA34300D2282006CB79F /* AIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIController.h; path = ../../../../Source/Animals/AIController.h; sourceTree = "<group>"; };
+		C55DEA35300D2282006CB79F /* Bird.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bird.h; path = ../../../../Source/Animals/Bird.h; sourceTree = "<group>"; };
+		C55DEA36300D2283006CB79F /* PFNpc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PFNpc.cpp; path = ../../../../Source/Animals/PFNpc.cpp; sourceTree = "<group>"; };
+		C55DEA37300D2283006CB79F /* Rabbit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Rabbit.h; path = ../../../../Source/Animals/Rabbit.h; sourceTree = "<group>"; };
+		C55DEA38300D2283006CB79F /* Dino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dino.h; path = ../../../../Source/Animals/Dino.h; sourceTree = "<group>"; };
+		C55DEA39300D2283006CB79F /* SuperSimpleShadow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SuperSimpleShadow.cpp; path = ../../../../Source/Animals/SuperSimpleShadow.cpp; sourceTree = "<group>"; };
+		C55DEA3A300D2283006CB79F /* AIJump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIJump.cpp; path = ../../../../Source/Animals/AIJump.cpp; sourceTree = "<group>"; };
+		C55DEA3B300D2283006CB79F /* Npc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Npc.h; path = ../../../../Source/Animals/Npc.h; sourceTree = "<group>"; };
+		C55DEA3C300D2283006CB79F /* AIIdle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIIdle.h; path = ../../../../Source/Animals/AIIdle.h; sourceTree = "<group>"; };
+		C55DEA3D300D2283006CB79F /* Cat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Cat.cpp; path = ../../../../Source/Animals/Cat.cpp; sourceTree = "<group>"; };
+		C55DEA3E300D2283006CB79F /* Npc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Npc.cpp; path = ../../../../Source/Animals/Npc.cpp; sourceTree = "<group>"; };
+		C55DEA3F300D2283006CB79F /* AIWander.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIWander.cpp; path = ../../../../Source/Animals/AIWander.cpp; sourceTree = "<group>"; };
+		C55DEA40300D2283006CB79F /* AIFalling.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIFalling.cpp; path = ../../../../Source/Animals/AIFalling.cpp; sourceTree = "<group>"; };
+		C55DEA41300D2283006CB79F /* Cat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cat.h; path = ../../../../Source/Animals/Cat.h; sourceTree = "<group>"; };
+		C55DEA42300D2283006CB79F /* AIChasePet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIChasePet.cpp; path = ../../../../Source/Animals/AIChasePet.cpp; sourceTree = "<group>"; };
+		C55DEA43300D2283006CB79F /* AIPetMoveBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIPetMoveBase.h; path = ../../../../Source/Animals/AIPetMoveBase.h; sourceTree = "<group>"; };
+		C55DEA44300D2283006CB79F /* PFNpc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFNpc.h; path = ../../../../Source/Animals/PFNpc.h; sourceTree = "<group>"; };
+		C55DEA45300D2283006CB79F /* Md2SceneNodeController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Md2SceneNodeController.cpp; path = ../../../../Source/Animals/Md2SceneNodeController.cpp; sourceTree = "<group>"; };
+		C55DEA46300D2283006CB79F /* AIWait.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIWait.cpp; path = ../../../../Source/Animals/AIWait.cpp; sourceTree = "<group>"; };
+		C55DEA47300D2283006CB79F /* GSAnimals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSAnimals.cpp; path = ../../../../Source/Animals/GSAnimals.cpp; sourceTree = "<group>"; };
+		C55DEA48300D2283006CB79F /* Squirrel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Squirrel.h; path = ../../../../Source/Animals/Squirrel.h; sourceTree = "<group>"; };
+		C55DEA49300D2283006CB79F /* GSAnimals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSAnimals.h; path = ../../../../Source/Animals/GSAnimals.h; sourceTree = "<group>"; };
+		C55DEA4A300D2283006CB79F /* AIFly.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIFly.cpp; path = ../../../../Source/Animals/AIFly.cpp; sourceTree = "<group>"; };
+		C55DEA4B300D2283006CB79F /* Squirrel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Squirrel.cpp; path = ../../../../Source/Animals/Squirrel.cpp; sourceTree = "<group>"; };
+		C55DEA4C300D2283006CB79F /* AIController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIController.cpp; path = ../../../../Source/Animals/AIController.cpp; sourceTree = "<group>"; };
+		C55DEA4D300D2283006CB79F /* Md2SceneNodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Md2SceneNodeController.h; path = ../../../../Source/Animals/Md2SceneNodeController.h; sourceTree = "<group>"; };
+		C55DEA4E300D2283006CB79F /* Pet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Pet.h; path = ../../../../Source/Animals/Pet.h; sourceTree = "<group>"; };
+		C55DEA4F300D2283006CB79F /* AngleVec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AngleVec.cpp; path = ../../../../Source/Animals/AngleVec.cpp; sourceTree = "<group>"; };
+		C55DEA50300D2283006CB79F /* AIEatPet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIEatPet.cpp; path = ../../../../Source/Animals/AIEatPet.cpp; sourceTree = "<group>"; };
+		C55DEA51300D2283006CB79F /* AnimalController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AnimalController.cpp; path = ../../../../Source/Animals/AnimalController.cpp; sourceTree = "<group>"; };
+		C55DEA52300D2283006CB79F /* AIEaten.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIEaten.cpp; path = ../../../../Source/Animals/AIEaten.cpp; sourceTree = "<group>"; };
+		C55DEA53300D2283006CB79F /* AngleVec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AngleVec.h; path = ../../../../Source/Animals/AngleVec.h; sourceTree = "<group>"; };
+		C55DEA54300D2283006CB79F /* AIIdle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIIdle.cpp; path = ../../../../Source/Animals/AIIdle.cpp; sourceTree = "<group>"; };
+		C55DEA55300D2283006CB79F /* AIEatPet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIEatPet.h; path = ../../../../Source/Animals/AIEatPet.h; sourceTree = "<group>"; };
+		C55DEA56300D2283006CB79F /* AI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AI.cpp; path = ../../../../Source/Animals/AI.cpp; sourceTree = "<group>"; };
+		C55DEA57300D2283006CB79F /* AIPetMoveBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIPetMoveBase.cpp; path = ../../../../Source/Animals/AIPetMoveBase.cpp; sourceTree = "<group>"; };
+		C55DEA58300D2284006CB79F /* AIWait.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIWait.h; path = ../../../../Source/Animals/AIWait.h; sourceTree = "<group>"; };
+		C55DEA59300D2284006CB79F /* ListAnims.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListAnims.h; path = ../../../../Source/Animals/ListAnims.h; sourceTree = "<group>"; };
+		C55DEA5A300D2284006CB79F /* AnimalController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimalController.h; path = ../../../../Source/Animals/AnimalController.h; sourceTree = "<group>"; };
+		C55DEA5B300D2284006CB79F /* Dog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dog.h; path = ../../../../Source/Animals/Dog.h; sourceTree = "<group>"; };
+		C55DEA5C300D2284006CB79F /* AIFlee.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIFlee.cpp; path = ../../../../Source/Animals/AIFlee.cpp; sourceTree = "<group>"; };
+		C55DEA5D300D2284006CB79F /* AIJump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIJump.h; path = ../../../../Source/Animals/AIJump.h; sourceTree = "<group>"; };
+		C55DEA5E300D2284006CB79F /* AIFly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIFly.h; path = ../../../../Source/Animals/AIFly.h; sourceTree = "<group>"; };
+		C55DEA7D300D2525006CB79F /* AnimListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimListener.h; path = ../../../../Source/AnimListener.h; sourceTree = "<group>"; };
+		C55DEA7F300D2526006CB79F /* InitialState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InitialState.h; path = ../../../../Source/InitialState.h; sourceTree = "<group>"; };
+		C55DEA80300D2526006CB79F /* PrintScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintScene.h; path = ../../../../Source/PrintScene.h; sourceTree = "<group>"; };
+		C55DEA81300D2526006CB79F /* Describe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Describe.cpp; path = ../../../../Source/Describe.cpp; sourceTree = "<group>"; };
+		C55DEA86300D2526006CB79F /* GSInitNewRound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSInitNewRound.h; path = ../../../../Source/GSInitNewRound.h; sourceTree = "<group>"; };
+		C55DEA87300D2526006CB79F /* GSInitNewRound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSInitNewRound.cpp; path = ../../../../Source/GSInitNewRound.cpp; sourceTree = "<group>"; };
+		C55DEA88300D2526006CB79F /* BassMidiInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BassMidiInput.h; path = ../../../../Source/BassMidiInput.h; sourceTree = "<group>"; };
+		C55DEA89300D2526006CB79F /* Describe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Describe.h; path = ../../../../Source/Describe.h; sourceTree = "<group>"; };
+		C55DEA8A300D2526006CB79F /* InitialState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InitialState.cpp; path = ../../../../Source/InitialState.cpp; sourceTree = "<group>"; };
+		C55DEA8B300D2526006CB79F /* PrintScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintScene.cpp; path = ../../../../Source/PrintScene.cpp; sourceTree = "<group>"; };
 		C561F3B92F65CCDB003EE425 /* GuiMusic2dKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiMusic2dKeyboard.h; path = ../../../../Source/GuiMusic2dKeyboard.h; sourceTree = "<group>"; };
 		C561F3BB2F65CCDB003EE425 /* FindSongSections.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FindSongSections.cpp; path = ../../../../Source/FindSongSections.cpp; sourceTree = "<group>"; };
 		C561F3BC2F65CCDB003EE425 /* NoteEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NoteEvent.cpp; path = ../../../../Source/NoteEvent.cpp; sourceTree = "<group>"; };
@@ -284,20 +382,8 @@
 		C579D4772F12DBED0042461C /* GSHeroWin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSHeroWin.cpp; path = ../../../../Source/GSHeroWin.cpp; sourceTree = "<group>"; };
 		C57A6EE72F925548002D4DB4 /* Jazz Kit.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Jazz Kit.sf2"; path = "../../../../Assets/Sound/Jazz Kit.sf2"; sourceTree = "<group>"; };
 		C57A6EE92F925549002D4DB4 /* Colin_s_Double_Bass.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = Colin_s_Double_Bass.sf2; path = ../../../../Assets/Sound/Colin_s_Double_Bass.sf2; sourceTree = "<group>"; };
-		C5810E8F2F8C0C4F00047856 /* Bird.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bird.h; path = ../../../../Source/Bird.h; sourceTree = "<group>"; };
-		C5810E902F8C0C4F00047856 /* Bird.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Bird.cpp; path = ../../../../Source/Bird.cpp; sourceTree = "<group>"; };
-		C5810E912F8C0C4F00047856 /* AI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AI.h; path = ../../../../Source/AI.h; sourceTree = "<group>"; };
-		C5810E922F8C0C4F00047856 /* AIFly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIFly.h; path = ../../../../Source/AIFly.h; sourceTree = "<group>"; };
 		C5810E932F8C0C4F00047856 /* BlinkSceneNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BlinkSceneNode.cpp; path = ../../../../Source/BlinkSceneNode.cpp; sourceTree = "<group>"; };
 		C5810E942F8C0C4F00047856 /* BlinkSceneNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlinkSceneNode.h; path = ../../../../Source/BlinkSceneNode.h; sourceTree = "<group>"; };
-		C5810E952F8C0C5000047856 /* Npc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Npc.h; path = ../../../../Source/Npc.h; sourceTree = "<group>"; };
-		C5810E962F8C0C5000047856 /* AI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AI.cpp; path = ../../../../Source/AI.cpp; sourceTree = "<group>"; };
-		C5810E972F8C0C5000047856 /* Npc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Npc.cpp; path = ../../../../Source/Npc.cpp; sourceTree = "<group>"; };
-		C5810E982F8C0C5000047856 /* AIIdle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIIdle.h; path = ../../../../Source/AIIdle.h; sourceTree = "<group>"; };
-		C5810E992F8C0C5000047856 /* AIFalling.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIFalling.cpp; path = ../../../../Source/AIFalling.cpp; sourceTree = "<group>"; };
-		C5810E9A2F8C0C5000047856 /* AIFly.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIFly.cpp; path = ../../../../Source/AIFly.cpp; sourceTree = "<group>"; };
-		C5810E9B2F8C0C5000047856 /* AIFalling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIFalling.h; path = ../../../../Source/AIFalling.h; sourceTree = "<group>"; };
-		C5810E9C2F8C0C5000047856 /* AIIdle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIIdle.cpp; path = ../../../../Source/AIIdle.cpp; sourceTree = "<group>"; };
 		C5810E9D2F8C0C5000047856 /* WithHud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WithHud.h; path = ../../../../Source/WithHud.h; sourceTree = "<group>"; };
 		C5810E9E2F8C0C5000047856 /* WithHud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WithHud.cpp; path = ../../../../Source/WithHud.cpp; sourceTree = "<group>"; };
 		C58E3BEE2F8572930013E626 /* GSChooseSong.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSChooseSong.cpp; path = ../../../../Source/GSChooseSong.cpp; sourceTree = "<group>"; };
@@ -470,21 +556,22 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				C5810E962F8C0C5000047856 /* AI.cpp */,
-				C5810E912F8C0C4F00047856 /* AI.h */,
-				C5810E992F8C0C5000047856 /* AIFalling.cpp */,
-				C5810E9B2F8C0C5000047856 /* AIFalling.h */,
-				C5810E9A2F8C0C5000047856 /* AIFly.cpp */,
-				C5810E922F8C0C4F00047856 /* AIFly.h */,
-				C5810E9C2F8C0C5000047856 /* AIIdle.cpp */,
-				C5810E982F8C0C5000047856 /* AIIdle.h */,
+				C55DEA7D300D2525006CB79F /* AnimListener.h */,
+				C55DEA88300D2526006CB79F /* BassMidiInput.h */,
+				C55DEA81300D2526006CB79F /* Describe.cpp */,
+				C55DEA89300D2526006CB79F /* Describe.h */,
+				C55DEA87300D2526006CB79F /* GSInitNewRound.cpp */,
+				C55DEA86300D2526006CB79F /* GSInitNewRound.h */,
+				C55DEA8A300D2526006CB79F /* InitialState.cpp */,
+				C55DEA7F300D2526006CB79F /* InitialState.h */,
+				C55DEA8B300D2526006CB79F /* PrintScene.cpp */,
+				C55DEA80300D2526006CB79F /* PrintScene.h */,
+				C55DEA22300D226B006CB79F /* Animals */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
 				C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */,
 				C5EA2CAC2F9540430063AEBD /* BassPlayMidi.h */,
 				C548154C2FFBD2AD0066288A /* Beat.h */,
-				C5810E902F8C0C4F00047856 /* Bird.cpp */,
-				C5810E8F2F8C0C4F00047856 /* Bird.h */,
 				C5810E932F8C0C4F00047856 /* BlinkSceneNode.cpp */,
 				C5810E942F8C0C4F00047856 /* BlinkSceneNode.h */,
 				69A23A591F61E6970021BF88 /* Consts.cpp */,
@@ -563,8 +650,6 @@
 				695543131F3B526D007C23EA /* MySceneGraph.h */,
 				C561F3BC2F65CCDB003EE425 /* NoteEvent.cpp */,
 				C557269D2F0EFA5400EEB2A5 /* NoteEvent.h */,
-				C5810E972F8C0C5000047856 /* Npc.cpp */,
-				C5810E952F8C0C5000047856 /* Npc.h */,
 				C56DACF72EF2CFED00739D75 /* Palette.cpp */,
 				C56DACED2EF2CFEC00739D75 /* Palette.h */,
 				694519452017368F001C188B /* ParticleFx.cpp */,
@@ -598,6 +683,73 @@
 				C5810E9D2F8C0C5000047856 /* WithHud.h */,
 			);
 			name = Source;
+			sourceTree = "<group>";
+		};
+		C55DEA22300D226B006CB79F /* Animals */ = {
+			isa = PBXGroup;
+			children = (
+				C55DEA56300D2283006CB79F /* AI.cpp */,
+				C55DEA30300D2282006CB79F /* AI.h */,
+				C55DEA42300D2283006CB79F /* AIChasePet.cpp */,
+				C55DEA29300D2282006CB79F /* AIChasePet.h */,
+				C55DEA4C300D2283006CB79F /* AIController.cpp */,
+				C55DEA34300D2282006CB79F /* AIController.h */,
+				C55DEA52300D2283006CB79F /* AIEaten.cpp */,
+				C55DEA2B300D2282006CB79F /* AIEaten.h */,
+				C55DEA50300D2283006CB79F /* AIEatPet.cpp */,
+				C55DEA55300D2283006CB79F /* AIEatPet.h */,
+				C55DEA40300D2283006CB79F /* AIFalling.cpp */,
+				C55DEA26300D2282006CB79F /* AIFalling.h */,
+				C55DEA5C300D2284006CB79F /* AIFlee.cpp */,
+				C55DEA2A300D2282006CB79F /* AIFlee.h */,
+				C55DEA4A300D2283006CB79F /* AIFly.cpp */,
+				C55DEA5E300D2284006CB79F /* AIFly.h */,
+				C55DEA31300D2282006CB79F /* AIHide.cpp */,
+				C55DEA2C300D2282006CB79F /* AIHide.h */,
+				C55DEA54300D2283006CB79F /* AIIdle.cpp */,
+				C55DEA3C300D2283006CB79F /* AIIdle.h */,
+				C55DEA3A300D2283006CB79F /* AIJump.cpp */,
+				C55DEA5D300D2284006CB79F /* AIJump.h */,
+				C55DEA57300D2283006CB79F /* AIPetMoveBase.cpp */,
+				C55DEA43300D2283006CB79F /* AIPetMoveBase.h */,
+				C55DEA46300D2283006CB79F /* AIWait.cpp */,
+				C55DEA58300D2284006CB79F /* AIWait.h */,
+				C55DEA3F300D2283006CB79F /* AIWander.cpp */,
+				C55DEA24300D2282006CB79F /* AIWander.h */,
+				C55DEA4F300D2283006CB79F /* AngleVec.cpp */,
+				C55DEA53300D2283006CB79F /* AngleVec.h */,
+				C55DEA51300D2283006CB79F /* AnimalController.cpp */,
+				C55DEA5A300D2284006CB79F /* AnimalController.h */,
+				C55DEA32300D2282006CB79F /* AnimalFactory.cpp */,
+				C55DEA28300D2282006CB79F /* AnimalFactory.h */,
+				C55DEA33300D2282006CB79F /* Bird.cpp */,
+				C55DEA35300D2282006CB79F /* Bird.h */,
+				C55DEA3D300D2283006CB79F /* Cat.cpp */,
+				C55DEA41300D2283006CB79F /* Cat.h */,
+				C55DEA23300D2282006CB79F /* Dino.cpp */,
+				C55DEA38300D2283006CB79F /* Dino.h */,
+				C55DEA27300D2282006CB79F /* Dog.cpp */,
+				C55DEA5B300D2284006CB79F /* Dog.h */,
+				C55DEA47300D2283006CB79F /* GSAnimals.cpp */,
+				C55DEA49300D2283006CB79F /* GSAnimals.h */,
+				C55DEA2E300D2282006CB79F /* ListAnims.cpp */,
+				C55DEA59300D2284006CB79F /* ListAnims.h */,
+				C55DEA45300D2283006CB79F /* Md2SceneNodeController.cpp */,
+				C55DEA4D300D2283006CB79F /* Md2SceneNodeController.h */,
+				C55DEA3E300D2283006CB79F /* Npc.cpp */,
+				C55DEA3B300D2283006CB79F /* Npc.h */,
+				C55DEA25300D2282006CB79F /* Pet.cpp */,
+				C55DEA4E300D2283006CB79F /* Pet.h */,
+				C55DEA36300D2283006CB79F /* PFNpc.cpp */,
+				C55DEA44300D2283006CB79F /* PFNpc.h */,
+				C55DEA2F300D2282006CB79F /* Rabbit.cpp */,
+				C55DEA37300D2283006CB79F /* Rabbit.h */,
+				C55DEA4B300D2283006CB79F /* Squirrel.cpp */,
+				C55DEA48300D2283006CB79F /* Squirrel.h */,
+				C55DEA39300D2283006CB79F /* SuperSimpleShadow.cpp */,
+				C55DEA2D300D2282006CB79F /* SuperSimpleShadow.h */,
+			);
+			name = Animals;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -808,43 +960,60 @@
 			files = (
 				6945194C2017368F001C188B /* Gui3dScene.cpp in Sources */,
 				C5810EA62F8C0C5000047856 /* WithHud.cpp in Sources */,
+				C55DEA6E300D2284006CB79F /* AIChasePet.cpp in Sources */,
 				C55726A32F0EFA5400EEB2A5 /* Grader.cpp in Sources */,
 				C56DAD0A2EF2CFED00739D75 /* GSShowGui.cpp in Sources */,
 				69AC40371EB5331300F255A4 /* MusicEvent.cpp in Sources */,
 				C56DAD082EF2CFED00739D75 /* Palette.cpp in Sources */,
+				C55DEA7A300D2284006CB79F /* AI.cpp in Sources */,
+				C55DEA66300D2284006CB79F /* Bird.cpp in Sources */,
+				C55DEA8D300D2527006CB79F /* Describe.cpp in Sources */,
+				C55DEA7C300D2284006CB79F /* AIFlee.cpp in Sources */,
 				C5117C4C2F11CE0300952A7B /* GS3dTitle.cpp in Sources */,
 				6959E3031EA1091500E251A9 /* GSAbout.cpp in Sources */,
+				C55DEA5F300D2284006CB79F /* Dino.cpp in Sources */,
+				C55DEA7B300D2284006CB79F /* AIPetMoveBase.cpp in Sources */,
+				C55DEA78300D2284006CB79F /* AIEaten.cpp in Sources */,
 				6959E2F81E9ACE8A00E251A9 /* GSPause.cpp in Sources */,
 				C561F3C22F65CCDC003EE425 /* NoteEvent.cpp in Sources */,
+				C55DEA77300D2284006CB79F /* AnimalController.cpp in Sources */,
+				C55DEA75300D2284006CB79F /* AngleVec.cpp in Sources */,
 				C514212D2F5357A90009EB23 /* GuiSetFromString.cpp in Sources */,
+				C55DEA6F300D2284006CB79F /* Md2SceneNodeController.cpp in Sources */,
+				C55DEA68300D2284006CB79F /* SuperSimpleShadow.cpp in Sources */,
 				C58E3BFC2F8572930013E626 /* HudNumber.cpp in Sources */,
+				C55DEA65300D2284006CB79F /* AnimalFactory.cpp in Sources */,
 				C54B4BD12F9CAA27001286FA /* Timeline.cpp in Sources */,
-				C5810EA42F8C0C5000047856 /* AIFly.cpp in Sources */,
+				C55DEA72300D2284006CB79F /* AIFly.cpp in Sources */,
+				C55DEA79300D2284006CB79F /* AIIdle.cpp in Sources */,
 				C5117C4B2F11CE0300952A7B /* GSHeroEnd.cpp in Sources */,
 				C561F3C42F65CCDC003EE425 /* GuiMusicKbBase.cpp in Sources */,
-				C5810EA12F8C0C5000047856 /* AI.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
+				C55DEA6B300D2284006CB79F /* Npc.cpp in Sources */,
 				C548154F2FFBD2AD0066288A /* Resumer.cpp in Sources */,
+				C55DEA69300D2284006CB79F /* AIJump.cpp in Sources */,
 				C56DAD062EF2CFED00739D75 /* BassPlayMidi.cpp in Sources */,
+				C55DEA6C300D2284006CB79F /* AIWander.cpp in Sources */,
 				C58E3BF92F8572930013E626 /* Hud.cpp in Sources */,
 				6945194A2017368F001C188B /* UseVertexColourShader.cpp in Sources */,
+				C55DEA93300D2527006CB79F /* InitialState.cpp in Sources */,
+				C55DEA63300D2284006CB79F /* Rabbit.cpp in Sources */,
+				C55DEA74300D2284006CB79F /* AIController.cpp in Sources */,
 				C561F3C32F65CCDC003EE425 /* GuiMusic2dKeyboard.cpp in Sources */,
+				C55DEA94300D2527006CB79F /* PrintScene.cpp in Sources */,
 				6959E31E1EAB5BA500E251A9 /* PrintGui.cpp in Sources */,
 				C5DB7D6D2F757E7C008CA51E /* GuiPatch.cpp in Sources */,
-				C5810EA22F8C0C5000047856 /* Npc.cpp in Sources */,
 				C55726A72F0EFA5400EEB2A5 /* GSHero.cpp in Sources */,
 				C548154E2FFBD2AD0066288A /* GameMain.cpp in Sources */,
 				C54B4BD02F9CAA27001286FA /* SceneTimeline.cpp in Sources */,
 				6951CF191F0B932300140095 /* Md2SceneNode.cpp in Sources */,
 				C5810EA02F8C0C5000047856 /* BlinkSceneNode.cpp in Sources */,
-				C5810EA52F8C0C5000047856 /* AIIdle.cpp in Sources */,
 				69D58E491E833741008A8D29 /* ViewController.mm in Sources */,
 				C561F3C12F65CCDC003EE425 /* FindSongSections.cpp in Sources */,
 				69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */,
 				C548154D2FFBD2AD0066288A /* FeedbackBalloon.cpp in Sources */,
 				6959E3191EA7F44600E251A9 /* iOSGuiTextEdit.mm in Sources */,
 				6945194F2017368F001C188B /* ParticleFx.cpp in Sources */,
-				C5810EA32F8C0C5000047856 /* AIFalling.cpp in Sources */,
 				697A08031E82F19B0045CE54 /* GuiMusicScore.cpp in Sources */,
 				C58E3BF82F8572930013E626 /* GSChooseSong.cpp in Sources */,
 				69D58E4E1E84836B008A8D29 /* Startup.cpp in Sources */,
@@ -852,6 +1021,10 @@
 				C53572E02FA7D17600E61A26 /* GSVerify.cpp in Sources */,
 				6955431C1F3B526D007C23EA /* MySceneGraph.cpp in Sources */,
 				69C10CD61F122197009B6836 /* PlayWav.cpp in Sources */,
+				C55DEA6D300D2284006CB79F /* AIFalling.cpp in Sources */,
+				C55DEA73300D2284006CB79F /* Squirrel.cpp in Sources */,
+				C55DEA67300D2284006CB79F /* PFNpc.cpp in Sources */,
+				C55DEA76300D2284006CB79F /* AIEatPet.cpp in Sources */,
 				C55726A52F0EFA5400EEB2A5 /* GS3dExample.cpp in Sources */,
 				6951CF171F0B932300140095 /* GSBase3d.cpp in Sources */,
 				697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */,
@@ -859,16 +1032,23 @@
 				6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */,
 				C55726A42F0EFA5400EEB2A5 /* HeroGameRound.cpp in Sources */,
 				C5654CAD2FA3855B0071DEAF /* TimelineEventPlayWav.cpp in Sources */,
+				C55DEA62300D2284006CB79F /* ListAnims.cpp in Sources */,
+				C55DEA70300D2284006CB79F /* AIWait.cpp in Sources */,
 				C55726A62F0EFA5400EEB2A5 /* GuiScrollScore.cpp in Sources */,
 				C579D4782F12DBEE0042461C /* GSHeroWin.cpp in Sources */,
 				69A23A5C1F61E6970021BF88 /* Consts.cpp in Sources */,
 				C5D13B642F8EA48D00046430 /* GSConfirmSong.cpp in Sources */,
-				C5810E9F2F8C0C5000047856 /* Bird.cpp in Sources */,
 				6959E31A1EA7F44600E251A9 /* iOSKeyboard.mm in Sources */,
+				C55DEA71300D2284006CB79F /* GSAnimals.cpp in Sources */,
+				C55DEA92300D2527006CB79F /* GSInitNewRound.cpp in Sources */,
+				C55DEA6A300D2284006CB79F /* Cat.cpp in Sources */,
 				C58E3BFA2F8572930013E626 /* MyROConfig.cpp in Sources */,
 				69D58E481E833741008A8D29 /* main.m in Sources */,
+				C55DEA60300D2284006CB79F /* Pet.cpp in Sources */,
+				C55DEA61300D2284006CB79F /* Dog.cpp in Sources */,
 				694519502017368F001C188B /* SceneNodeGui.cpp in Sources */,
 				695543231F3B52C6007C23EA /* iOSShare.mm in Sources */,
+				C55DEA64300D2284006CB79F /* AIHide.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

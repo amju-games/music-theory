@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include <PFNpc.h>
+#include "PFNpc.h"
 
 namespace Amju
 {
