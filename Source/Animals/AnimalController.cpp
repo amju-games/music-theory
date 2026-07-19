@@ -44,6 +44,15 @@ void AnimalController::Init()
   m_dino = AddAnimal("dino"); // Initial AI is to wait off screen.
 }
 
+void AnimalController::PetsJump()
+{
+  for (auto pet : m_pets)
+  {
+    if (!pet) continue;
+    pet->SetAI("jump");
+  }
+}
+
 void AnimalController::PetsFlee(Npc* dino)
 {
   for (auto pet : m_pets)

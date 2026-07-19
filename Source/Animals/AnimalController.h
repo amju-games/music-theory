@@ -46,6 +46,9 @@ public:
   //  can flee (TODO they could be sick, etc.)
   void PetsFlee(Npc* dino);
 
+  // Call at end of round: surviving pets jump up 
+  void PetsJump();
+
 protected:
   std::vector<RCPtr<PFNpc>> m_pets;
   RCPtr<PFNpc> m_dino;

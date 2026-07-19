@@ -1,4 +1,5 @@
 #include <LoadScene.h>
+#include "ListAnims.h"
 #include "MySceneGraph.h"
 #include "PFNpc.h"
 
@@ -72,6 +73,8 @@ void PFNpc::CreateSceneNode()
   SetSceneNode(md2);
   // Set us up as the listener for animation events on the node.
   md2->SetListener(this); 
+
+  ListAnims(md2);
 
   SetShadowSceneNode(m_sceneRoot->GetNodeByName("shadow"));
 }

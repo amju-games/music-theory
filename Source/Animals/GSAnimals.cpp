@@ -70,8 +70,12 @@ bool GSAnimals::OnKeyEvent(const KeyEvent& ke)
     }
     else if (ke.key == '2')
     {
+      GetAnimalController().PetsJump();
+/*
       // Add a bird: can move in x-z plane
       GetAnimalController().AddAnimal("bird");
+*/
+
       return true; // consumed
     }
   }

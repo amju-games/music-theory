@@ -2,6 +2,7 @@
 #include "AIEaten.h"
 #include "AIFlee.h"
 #include "AIIdle.h"
+#include "AIJump.h"
 #include "AIWander.h"
 #include "Pet.h"
 
@@ -19,6 +20,7 @@ Pet::Pet()
   AddAI(new AIEaten);
   AddAI(new AIFlee);
   AddAI(new AIIdle);
+  AddAI(new AIJump);
   AddAI(new AIWander);
 }
 }

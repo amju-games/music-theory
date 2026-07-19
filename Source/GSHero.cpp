@@ -391,7 +391,7 @@ void GSHero::Update()
   // Check if we should change state -- we are not using timed messages,
   //  there are too many edge cases to worry about.
   // TODO config
-  if (m_state == HeroState::PLAYER_HAS_WON && m_timeInHeroState > 3.f) 
+  if (m_state == HeroState::PLAYER_HAS_WON && m_timeInHeroState > 5.f) 
   {
     GoTo<TheGSHeroWin>();
   }
@@ -448,6 +448,9 @@ std::cout << "Player has won this round!\n";
   m_roundIsOver = true;
   m_pauseResumeTime = 0;
   ChangeState(HeroState::PLAYER_HAS_WON);
+
+  // Surviving pets jump for joy
+  GetAnimalController().PetsJump(); 
 
   // Save progress -- TODO is there a better approach? We don't want
   //  to lose the player progress if the process terminates.
