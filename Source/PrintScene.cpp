@@ -4,7 +4,7 @@
 
 namespace Amju
 {
-void PrintNode(SceneNode* sn, int depth = 0)
+static void PrintNode(SceneNode* sn, int depth = 0)
 {
   std::string spaces(4 * depth, ' ');
   //std::string type = typeid(sn).name();
@@ -34,6 +34,5 @@ void PrintScene(SceneGraph* sg)
   auto root = sg->GetRootNode(SceneGraph::AMJU_OPAQUE);
   PrintNode(root);   
 }
-
 }
 

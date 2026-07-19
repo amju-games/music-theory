@@ -61,6 +61,9 @@
     <Filter Include="Assets\Gui\AvatarMod">
       <UniqueIdentifier>{dd2add74-0e35-4f95-a943-b0620b29e2bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Animals">
+      <UniqueIdentifier>{cbe4c753-f828-40c6-9b12-eab6ba507196}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp">
@@ -222,21 +225,6 @@
     <ClCompile Include="..\..\..\..\Source\NoteEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\AI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\AIFalling.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\AIFly.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\AIIdle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Bird.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\BlinkSceneNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -246,9 +234,6 @@
     <ClCompile Include="..\..\..\..\Source\WithHud.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Npc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\SceneTimeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -256,6 +241,120 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\TimelineEventPlayWav.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AI.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AIChasePet.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AIController.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AIEaten.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AIEatPet.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AIFalling.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AIFlee.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AIFly.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AIHide.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AIIdle.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AIJump.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AIPetMoveBase.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AIWait.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AIWander.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AngleVec.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AnimalController.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\AnimalFactory.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\Bird.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\Cat.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\Dino.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\Dog.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\GSAnimals.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\ListAnims.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\Md2SceneNodeController.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\Npc.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\Pet.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\PFNpc.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\Rabbit.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\Squirrel.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Animals\SuperSimpleShadow.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GSInitNewRound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\FeedbackBalloon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Resumer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Describe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GameMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GSVerify.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\InitialState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\PrintScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -409,21 +508,6 @@
     <ClInclude Include="..\..\..\..\Source\GSChooseSong.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\AI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\AIFalling.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\AIFly.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\AIIdle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\Bird.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\BlinkSceneNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -433,9 +517,6 @@
     <ClInclude Include="..\..\..\..\Source\WithHud.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\Npc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\SceneTimeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -443,6 +524,129 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TimelineEventPlayWav.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AI.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AIChasePet.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AIController.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AIEaten.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AIEatPet.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AIFalling.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AIFlee.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AIFly.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AIHide.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AIIdle.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AIJump.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AIPetMoveBase.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AIWait.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AIWander.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AngleVec.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AnimalController.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\AnimalFactory.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\Bird.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\Cat.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\Dino.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\Dog.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\GSAnimals.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\ListAnims.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\Md2SceneNodeController.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\Npc.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\Pet.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\PFNpc.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\Rabbit.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\Squirrel.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Animals\SuperSimpleShadow.h">
+      <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\AnimListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GSInitNewRound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\FeedbackBalloon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Resumer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\BassPlayMidi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Beat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Describe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GSVerify.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\InitialState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\PrintScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\TimelineEventPlayWav.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -750,5 +954,8 @@
     <Text Include="..\..\..\..\Assets\Gui\avatar-mod-mouth.txt">
       <Filter>Assets\Gui\AvatarMod</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Source\Version.h.template" />
   </ItemGroup>
 </Project>

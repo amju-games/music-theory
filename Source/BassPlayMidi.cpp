@@ -3,6 +3,7 @@
 
 // Implement PlayMidi() using the BASS library.
 
+#include <filesystem>
 #include <iostream>
 #include <unordered_map>
 
