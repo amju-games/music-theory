@@ -113,5 +113,12 @@ bool BassMidiInput::IsConnected() const
 
   // TODO Also check for signals from device in callback?
 }
+
+MidiInput& GetBassMidiInput()
+{
+  // TODO Have a Setter function so we can mock etc.
+  static BassMidiInput bmi;
+  return bmi;
+}
 }
 

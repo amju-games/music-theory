@@ -14,6 +14,7 @@
 #include <EventPoller.h>
 #include <Game.h>
 #include <StartUp.h>
+#include "BassMidiInput.h"
 #include "iOSKeyboard.h"
 
 @interface ViewController () {
@@ -73,6 +74,25 @@ static ViewController* s_theVc = NULL;
     
     // j.c. Initialise iOS-specific text edit boxes and keyboard
     Amju::iOSTextSetViewController(self);
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+  [super viewDidAppear:animated];
+  
+  // Try to connect to MIDI input device.
+  // Add a slight delay just to be completely sure CoreMIDI has finished scanning
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    bool connected = Amju::GetBassMidiInput().Connect();
+    if (connected)
+    {
+      NSLog(@"*!*!*! Woohoo, connected to midi input device!");
+    }
+    else
+    {
+      NSLog(@"Not connected to midi input device.");
+    }
+  });
 }
 
 - (void)didReceiveMemoryWarning

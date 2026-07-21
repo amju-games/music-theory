@@ -28,6 +28,7 @@
 #include <SceneNodeFactory.h>
 #include <SoundManager.h>
 #include "AnimalFactory.h"
+#include "BassMidiInput.h"
 #include "BassPlayMidi.h"
 #include "BlinkSceneNode.h"
 #include "Consts.h"
@@ -267,16 +268,13 @@ void SetUpSound()
 
   // This is the player piano sound, running as a separate channel, independently
   //  of the currently playing song. 
-  // TODO:
-  // All soundfont names should be runtime configurable (by me, not player) 
-std::cout << "Setting up player MIDI stream...\n";
   if (SetUpPlayerStream())
   {
-std::cout << "  ..player MIDI stream is ok?\n";
-
-    // This is just a test really. We need to check if we are connected,
-    //  and attempt to connect periodically if not connected.
-    TheBassMidiInput::Instance()->Connect();
+    // First attempt at MIDI input connection. This is too early on iOS
+    //  but is not too early on Windows.
+#ifndef AMJU_IOS
+    GetBassMidiInput().Connect();
+#endif
   }
   else
   {
