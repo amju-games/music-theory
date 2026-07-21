@@ -80,11 +80,11 @@ circle
 .2, .35
 // No "stretch" here to get a nice circular shape; but this somehow gives
 //  us the wrong centre point! Can't win - but this looks ok.
-Image/circle.png, stretch
+Image/atlas.png, stretch
 // Num cells x, y
-1, 1
+4, 4
 // Cell
-0
+1
 // corner radius
 .1, .1525
 

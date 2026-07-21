@@ -30,8 +30,8 @@ gui-sprite
 fading-pulsing-heart
 0, 0
 .3, .4
-Image/heart.png, stretch
-1, 1
+Image/atlas.png, stretch
+4, 4
 0
 
 scale
@@ -42,7 +42,7 @@ gui-sprite
 pulsing-heart
 0, 0
 .3, .4
-Image/heart.png, stretch
-1,1
+Image/atlas.png, stretch
+4, 4
 0
 
