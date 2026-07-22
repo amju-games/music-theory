@@ -4,8 +4,8 @@ IMG=../Assets/Image
 DEST=$IMG/atlas.png
 ATLAS=../Tools/atlas
 
-# Create atlas, 1024*1024, with a 16*16 grid
-$ATLAS create $DEST 1024 1024 16 16 --overwrite
+# Create atlas, 1024*1024, no grid to avoid bleeding into adjacent cells
+$ATLAS create $DEST 1024 1024 --overwrite
 
 # Add heart, cell 0 in 4*4 grid
 $ATLAS replace $IMG/heart.png $DEST 4 4 0 --overwrite

@@ -73,7 +73,8 @@ text2
 // Element name
 num-lives-text
 // pos (coords are -1..1)
-0.71, 0.7
+// NB Z coord for z-ordering with batching; +ve is CLOSER
+0.71, 0.7, .5
 .4, .1
 // Text
 3

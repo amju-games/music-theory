@@ -69,7 +69,8 @@ text2
 // Element name
 score-text
 // pos (coords are -1..1)
-0.7, .375
+// NB Z coord for z-ordering with batching; +ve is CLOSER
+0.7, .375, .5
 .4, .1
 // Text
 00
