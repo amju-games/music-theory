@@ -1036,7 +1036,7 @@ bool GuiMusicScore::LoadMusicScore(File* f)
 
   // Sort the glyphs by start time, for animation.
   // Oh, this doesn't do anything, we search exhaustively - we should do a
-  //  binary search now.
+  //  binary search now. TODO
   std::sort(m_glyphs.begin(), m_glyphs.end());
 
   // We should sort the note events by time!!

@@ -3,6 +3,19 @@
 
 using namespace Amju;
 
+// For these tests, populate m_id in NoteEvent sequences.
+// In normal use this happens in GuiMusicScore when we load 
+//  the events.
+void PopIds(NoteEvents& noteEvents)
+{
+  int id = 0;
+  for (auto& ne : noteEvents)
+  {
+    ne.m_id = id;
+    ++id;
+  }
+}
+
 TEST_CASE("Sign runs 1", "[NoteRun]")
 {
   std::vector<int> diffs =    { 0, 0, 0, 0 };
@@ -68,6 +81,7 @@ TEST_CASE("Diffs", "[NoteRun]")
     NoteEvent(73, 7.f,  NoteEventType::NOTE_ON,  {0, 0}),
     NoteEvent(60, 8.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
+  PopIds(noteEvents);
 
   auto diffs = FindNoteDiffs(noteEvents);
   REQUIRE(diffs.size() == noteEvents.size());
@@ -84,6 +98,7 @@ TEST_CASE("1 note", "[NoteRun]")
     // pitch, time, type, coord
     NoteEvent(60, 0.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
+  PopIds(noteEvents);
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
@@ -99,6 +114,7 @@ TEST_CASE("2 notes", "[NoteRun]")
     NoteEvent(60, 0.f,  NoteEventType::NOTE_ON,  {0, 0}),
     NoteEvent(61, 1.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
+  PopIds(noteEvents);
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
@@ -115,6 +131,7 @@ TEST_CASE("3 note run", "[NoteRun]")
     NoteEvent(61, 1.f,  NoteEventType::NOTE_ON,  {0, 0}),
     NoteEvent(62, 2.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
+  PopIds(noteEvents);
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
@@ -135,6 +152,7 @@ TEST_CASE("3 note run in 4 notes", "[NoteRun]")
     NoteEvent(61, 2.f,  NoteEventType::NOTE_ON,  {0, 0}),
     NoteEvent(62, 3.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
+  PopIds(noteEvents);
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
@@ -158,6 +176,7 @@ TEST_CASE("4 note run in 6 notes, ends before notes end", "[NoteRun]")
     // This jump is ok if we allow 3 semitone jumps but the sign is different.
     NoteEvent(60, 5.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
+  PopIds(noteEvents);
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
@@ -183,6 +202,7 @@ TEST_CASE("2 runs", "[NoteRun]")
     NoteEvent(73, 7.f,  NoteEventType::NOTE_ON,  {0, 0}),
     NoteEvent(60, 8.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
+  PopIds(noteEvents);
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
@@ -192,6 +212,44 @@ TEST_CASE("2 runs", "[NoteRun]")
   REQUIRE(runs[0].m_isUp == false);
   REQUIRE(runs[1].m_start == 5);
   REQUIRE(runs[1].m_finish == 8);
+  REQUIRE(runs[1].m_isUp == true);
+}
+
+TEST_CASE("2 note runs, note-on and note-off events", "[NoteRun]")
+{
+  // The events should be in time order.
+  NoteEvents noteEvents
+  {
+    // pitch, time, type, coord
+    NoteEvent(60, 0.f,  NoteEventType::NOTE_ON,  {0, 0}),
+    NoteEvent(60, 1.f,  NoteEventType::NOTE_OFF, {0, 0}),
+    NoteEvent(61, 2.f,  NoteEventType::NOTE_ON,  {0, 0}), // run start
+    NoteEvent(61, 3.f,  NoteEventType::NOTE_OFF, {0, 0}), 
+    NoteEvent(60, 4.f,  NoteEventType::NOTE_ON,  {0, 0}),
+    NoteEvent(60, 5.f,  NoteEventType::NOTE_OFF, {0, 0}),
+    NoteEvent(59, 6.f,  NoteEventType::NOTE_ON,  {0, 0}),
+    NoteEvent(59, 7.f,  NoteEventType::NOTE_OFF, {0, 0}),
+    NoteEvent(63, 8.f,  NoteEventType::NOTE_ON,  {0, 0}),
+    NoteEvent(63, 9.f,  NoteEventType::NOTE_OFF, {0, 0}),
+    NoteEvent(70, 10.f,  NoteEventType::NOTE_ON,  {0, 0}), // run start
+    NoteEvent(70, 11.f,  NoteEventType::NOTE_OFF, {0, 0}), 
+    NoteEvent(72, 12.f,  NoteEventType::NOTE_ON,  {0, 0}),
+    NoteEvent(72, 13.f,  NoteEventType::NOTE_OFF, {0, 0}),
+    NoteEvent(73, 14.f,  NoteEventType::NOTE_ON,  {0, 0}),
+    NoteEvent(73, 15.f,  NoteEventType::NOTE_OFF, {0, 0}),
+    NoteEvent(60, 16.f,  NoteEventType::NOTE_ON,  {0, 0}),
+    NoteEvent(60, 17.f,  NoteEventType::NOTE_OFF, {0, 0}),
+  };
+  PopIds(noteEvents);
+
+  auto runs = FindNoteRuns(noteEvents);
+
+  REQUIRE(runs.size() == 2);
+  REQUIRE(runs[0].m_start == 2);
+  REQUIRE(runs[0].m_finish == 8); // index of first note-on event after run
+  REQUIRE(runs[0].m_isUp == false);
+  REQUIRE(runs[1].m_start == 10);
+  REQUIRE(runs[1].m_finish == 16); // index of first note-on event after run
   REQUIRE(runs[1].m_isUp == true);
 }
 

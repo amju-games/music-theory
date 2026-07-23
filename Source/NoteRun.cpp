@@ -25,7 +25,16 @@ std::cout << "Poss add: start: " << start << " len: " << runLength << "\n";
   //  none, chromatic, major, minor, etc.
   if (runLength >= MIN_RUN_LENGTH)
   {
-    NoteRun nr { start, start + runLength, sign > 0 };
+    // Look up IDs, don't use indices. This is so we can remove
+    //  note events to simplify the algo, but point to the correct
+    //  events in the full sequence.
+    const int startId = allNoteEvents[start].m_id;
+    int endId = allNoteEvents.back().m_id + 1; // Or should this be inclusive?
+    if (start + runLength < allNoteEvents.size())
+    {
+      endId = allNoteEvents[start + runLength].m_id;
+    }
+    NoteRun nr { startId, endId, sign > 0 };
 //    nr.IndentifyType(allNoteEvents);
     res.emplace_back(nr);
     return true;
@@ -137,7 +146,12 @@ std::vector<NoteRun> FindNoteRuns(const NoteEvents& cNoteEvents)
     }), 
     noteEvents.end());
 
-   return FindNoteRunsNoNoteOffEvents(noteEvents);
+   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
+
+   // Convert indices into noteEvents into indices into cNoteEvents?
+   // No, we get that automatically by using IDs instead of indices when
+   //  we make NoteRuns
+   return runs;
 }
 }
 
