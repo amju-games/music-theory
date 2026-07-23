@@ -85,7 +85,7 @@ TEST_CASE("1 note", "[NoteRun]")
     NoteEvent(60, 0.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
 
-  auto runs = FindNoteRuns(noteEvents);
+  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
   REQUIRE(runs.size() == 0);
 }
@@ -100,7 +100,7 @@ TEST_CASE("2 notes", "[NoteRun]")
     NoteEvent(61, 1.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
 
-  auto runs = FindNoteRuns(noteEvents);
+  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
   REQUIRE(runs.size() == 0);
 }
@@ -116,7 +116,7 @@ TEST_CASE("3 note run", "[NoteRun]")
     NoteEvent(62, 2.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
 
-  auto runs = FindNoteRuns(noteEvents);
+  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
   REQUIRE(runs.size() == 1);
   REQUIRE(runs.front().m_start == 0);
@@ -136,7 +136,7 @@ TEST_CASE("3 note run in 4 notes", "[NoteRun]")
     NoteEvent(62, 3.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
 
-  auto runs = FindNoteRuns(noteEvents);
+  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
   REQUIRE(runs.size() == 1);
   REQUIRE(runs.front().m_start == 1);
@@ -159,7 +159,7 @@ TEST_CASE("4 note run in 6 notes, ends before notes end", "[NoteRun]")
     NoteEvent(60, 5.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
 
-  auto runs = FindNoteRuns(noteEvents);
+  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
   REQUIRE(runs.size() == 1);
   REQUIRE(runs.front().m_start == 1);
@@ -184,7 +184,7 @@ TEST_CASE("2 runs", "[NoteRun]")
     NoteEvent(60, 8.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
 
-  auto runs = FindNoteRuns(noteEvents);
+  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
   REQUIRE(runs.size() == 2);
   REQUIRE(runs[0].m_start == 1);

@@ -90,13 +90,12 @@ std::vector<int> FindNoteDiffs(const NoteEvents& allNoteEvents)
 //  - all same duration? TODO
 //  - Run in same direction
 //  - Essentially, part of a scale ascending or descending.
-std::vector<NoteRun> FindNoteRuns(const NoteEvents& allNoteEvents)
+std::vector<NoteRun> FindNoteRunsNoNoteOffEvents(const NoteEvents& allNoteEvents)
 {
 std::cout << "** Starting search for note runs **\n";
 
   std::vector<NoteRun> res;
-  int start = 0; // ID of first note in run
-  int runSign = 0; // scale ascending or descending
+  int start = 0; // index of first note in run
 
   auto diffs = FindNoteDiffs(allNoteEvents);
 std::cout << "  Diffs: " << diffs << "\n";
@@ -121,6 +120,24 @@ std::cout << "  Runs:  " << runs << "\n";
 std::cout << "Final add: ";
   PossiblyAddRun(res, runs.size() - start, start, Sign(diffs.back()), allNoteEvents);
   return res;
+}
+
+std::vector<NoteRun> FindNoteRuns(const NoteEvents& cNoteEvents)
+{
+  // Remove note off events, to make things simpler
+  // When we search noteEvents, we only care about note and rest ON events.
+  // TODO Find a better way to do this: we are copying the vec and erasing.
+  auto noteEvents(cNoteEvents);
+  // Strip out everything except note on and rest on events
+  noteEvents.erase(
+    std::remove_if(noteEvents.begin(), noteEvents.end(),
+    [](const NoteEvent& ne) 
+    {   
+      return !ne.IsNoteOnEvent() && !ne.IsRestOnEvent();
+    }), 
+    noteEvents.end());
+
+   return FindNoteRunsNoNoteOffEvents(noteEvents);
 }
 }
 

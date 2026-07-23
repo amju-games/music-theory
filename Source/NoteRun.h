@@ -21,6 +21,10 @@ struct NoteRun
 // Detect note runs in song.
 std::vector<NoteRun> FindNoteRuns(const NoteEvents& allNoteEvents);
 
+// Detect note runs in note events with only Note On and Rest On events.
+// That simplifies the search a lot.
+std::vector<NoteRun> FindNoteRunsNoNoteOffEvents(const NoteEvents& noteEvents);
+
 // Store note pitch diffs in vector the same length as allNoteEvents.
 // Zero for all positions where diff doesn't make sense, e.g. 
 //  for non-note events etc., and where the diff is too large to 
