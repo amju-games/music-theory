@@ -13,7 +13,8 @@ namespace Amju
 // Set time to the time of the beat iter points to.
 // NB we decrement the iterator in the calling code - note pass by ref.
 float Resumer::GoToFirstBeatOfBar(
-  const BeatVec& beats, BeatVec::const_iterator& iter)
+  const BeatVec& beats, 
+  BeatVec::const_iterator& iter) // NON CONST REF
 { 
   if (iter == beats.end()) 
   {
