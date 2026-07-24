@@ -3,6 +3,10 @@
 
 using namespace Amju;
 
+// Default values for note runs, just in this file.
+static const int MIN_DIFF = 1;
+static const int MAX_DIFF = 3;
+
 // For these tests, populate m_id in NoteEvent sequences.
 // In normal use this happens in GuiMusicScore when we load 
 //  the events.
@@ -83,7 +87,7 @@ TEST_CASE("Diffs", "[NoteRun]")
   };
   PopIds(noteEvents);
 
-  auto diffs = FindNoteDiffs(noteEvents);
+  auto diffs = FindNoteDiffs(noteEvents, MIN_DIFF, MAX_DIFF);
   REQUIRE(diffs.size() == noteEvents.size());
   // Expected diffs are zero where they are too big to count as a run.
   std::vector<int> expected = { 0, 1, -1, -1, 0, 0, 2, 1, 0 };
@@ -100,7 +104,7 @@ TEST_CASE("1 note", "[NoteRun]")
   };
   PopIds(noteEvents);
 
-  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
+  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents, MIN_DIFF, MAX_DIFF);
 
   REQUIRE(runs.size() == 0);
 }
@@ -116,7 +120,7 @@ TEST_CASE("2 notes", "[NoteRun]")
   };
   PopIds(noteEvents);
 
-  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
+  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents, MIN_DIFF, MAX_DIFF);
 
   REQUIRE(runs.size() == 0);
 }
@@ -133,7 +137,7 @@ TEST_CASE("3 note run", "[NoteRun]")
   };
   PopIds(noteEvents);
 
-  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
+  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents, MIN_DIFF, MAX_DIFF);
 
   const std::vector<int> expectedIds = { 0, 1, 2 };
   REQUIRE(runs.size() == 1);
@@ -154,7 +158,7 @@ TEST_CASE("3 note run in 4 notes", "[NoteRun]")
   };
   PopIds(noteEvents);
 
-  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
+  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents, MIN_DIFF, MAX_DIFF);
 
   const std::vector<int> expectedIds = { 1, 2, 3 };
   REQUIRE(runs.size() == 1);
@@ -178,7 +182,7 @@ TEST_CASE("4 note run in 6 notes, ends before notes end", "[NoteRun]")
   };
   PopIds(noteEvents);
 
-  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
+  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents, MIN_DIFF, MAX_DIFF);
 
   const std::vector<int> expectedIds = { 1, 2, 3, 4 };
   REQUIRE(runs.size() == 1);
@@ -204,7 +208,7 @@ TEST_CASE("2 runs", "[NoteRun]")
   };
   PopIds(noteEvents);
 
-  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
+  auto runs = FindNoteRunsNoNoteOffEvents(noteEvents, MIN_DIFF, MAX_DIFF);
 
   const std::vector<int> expectedIds1 = { 1, 2, 3 };
   const std::vector<int> expectedIds2 = { 5, 6, 7 };
@@ -243,7 +247,7 @@ TEST_CASE("2 note runs, note-on and note-off events", "[NoteRun]")
   };
   PopIds(noteEvents);
 
-  auto runs = FindNoteRuns(noteEvents);
+  auto runs = FindNoteRuns(noteEvents, MIN_DIFF, MAX_DIFF);
 
   const std::vector<int> expectedIds1 = { 2, 4, 6 };
   const std::vector<int> expectedIds2 = { 10, 12, 14 };

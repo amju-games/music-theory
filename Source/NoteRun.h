@@ -28,7 +28,9 @@ struct NoteRun
 };
   
 // Detect note runs in song.
-std::vector<NoteRun> FindNoteRuns(const NoteEvents& allNoteEvents);
+std::vector<NoteRun> FindNoteRuns(
+  const NoteEvents& allNoteEvents,
+  int minPitchDiff, int maxPitchDiff);
 
 // Debug print
 void PrintRuns(const std::vector<NoteRun>& runs,
@@ -37,16 +39,19 @@ void PrintRuns(const std::vector<NoteRun>& runs,
 // Detect note runs in note events with only Note On and Rest On events.
 // That simplifies the search a lot.
 // Publicly exposed for testing.
-std::vector<NoteRun> FindNoteRunsNoNoteOffEvents(const NoteEvents& noteEvents);
+std::vector<NoteRun> FindNoteRunsNoNoteOffEvents(
+  const NoteEvents& noteEvents,
+  int minPitchDiff, int maxPitchDiff);
 
 // The algo is broken into forward-only passes over the note events.
 
 // Pass 1
 // Store note pitch diffs in vector the same length as allNoteEvents.
 // Zero for all positions where diff doesn't make sense, e.g. 
-//  for non-note events etc., and where the diff is too large to 
-//  count as a run. So we should pass in max allowed diff. TODO
-std::vector<int> FindNoteDiffs(const NoteEvents& allNoteEvents);
+//  for non-note events etc., and where the diff is too large/small to 
+//  count as a run. So we pass in allowed diff range. 
+std::vector<int> FindNoteDiffs(const NoteEvents& allNoteEvents,
+  int minPitchDiff, int maxPitchDiff);
 
 // Pass 2 
 // Store vector of counts of contiguous runs of the same sign in the 
