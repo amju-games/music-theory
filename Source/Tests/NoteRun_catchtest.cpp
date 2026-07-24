@@ -135,9 +135,9 @@ TEST_CASE("3 note run", "[NoteRun]")
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
+  const std::vector<int> expectedIds = { 0, 1, 2 };
   REQUIRE(runs.size() == 1);
-  REQUIRE(runs.front().m_start == 0);
-  REQUIRE(runs.front().m_finish == 3);
+  REQUIRE(runs.front().m_ids == expectedIds);
   REQUIRE(runs.front().m_isUp == true);
 }
 
@@ -156,9 +156,9 @@ TEST_CASE("3 note run in 4 notes", "[NoteRun]")
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
+  const std::vector<int> expectedIds = { 1, 2, 3 };
   REQUIRE(runs.size() == 1);
-  REQUIRE(runs.front().m_start == 1);
-  REQUIRE(runs.front().m_finish == 4);
+  REQUIRE(runs.front().m_ids == expectedIds);
   REQUIRE(runs.front().m_isUp == true);
 }
 
@@ -180,9 +180,9 @@ TEST_CASE("4 note run in 6 notes, ends before notes end", "[NoteRun]")
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
+  const std::vector<int> expectedIds = { 1, 2, 3, 4 };
   REQUIRE(runs.size() == 1);
-  REQUIRE(runs.front().m_start == 1);
-  REQUIRE(runs.front().m_finish == 5);
+  REQUIRE(runs.front().m_ids == expectedIds);
   REQUIRE(runs.front().m_isUp == true);
 }
 
@@ -206,12 +206,13 @@ TEST_CASE("2 runs", "[NoteRun]")
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents);
 
+  const std::vector<int> expectedIds1 = { 1, 2, 3 };
+  const std::vector<int> expectedIds2 = { 5, 6, 7 };
+
   REQUIRE(runs.size() == 2);
-  REQUIRE(runs[0].m_start == 1);
-  REQUIRE(runs[0].m_finish == 4);
+  REQUIRE(runs[0].m_ids == expectedIds1);
   REQUIRE(runs[0].m_isUp == false);
-  REQUIRE(runs[1].m_start == 5);
-  REQUIRE(runs[1].m_finish == 8);
+  REQUIRE(runs[1].m_ids == expectedIds2);
   REQUIRE(runs[1].m_isUp == true);
 }
 
@@ -244,12 +245,13 @@ TEST_CASE("2 note runs, note-on and note-off events", "[NoteRun]")
 
   auto runs = FindNoteRuns(noteEvents);
 
+  const std::vector<int> expectedIds1 = { 2, 4, 6 };
+  const std::vector<int> expectedIds2 = { 10, 12, 14 };
+
   REQUIRE(runs.size() == 2);
-  REQUIRE(runs[0].m_start == 2);
-  REQUIRE(runs[0].m_finish == 8); // index of first note-on event after run
+  REQUIRE(runs[0].m_ids == expectedIds1);
   REQUIRE(runs[0].m_isUp == false);
-  REQUIRE(runs[1].m_start == 10);
-  REQUIRE(runs[1].m_finish == 16); // index of first note-on event after run
+  REQUIRE(runs[1].m_ids == expectedIds2);
   REQUIRE(runs[1].m_isUp == true);
 }
 
