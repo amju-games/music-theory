@@ -7,7 +7,15 @@
 
 namespace Amju
 {
+// * Section *
+// Each section is defined by a pair of ints, [first, last). The
+//  ints are the IDs of the events in the section, (which is the same as
+//  their indices in the NoteEvents vector -- we need the redundancy).
 using Section = std::pair<int, int>;
+
+// * Sections *
+// A song probably contains multiple sections, but should have at least 
+//  one - the entire song.
 using Sections = std::vector<Section>;
 
 inline std::ostream& operator<<(std::ostream& os, const Section& s)
