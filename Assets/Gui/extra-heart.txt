@@ -5,9 +5,34 @@
 1
 
 // Heart to attach to score - play note correctly, get extra life.
+// Heart bg, with +1 etc on top
 
+// This comp is used to position the extra 
+gui-comp
+heart-root
+1
+
+// Animation controller for moving in a curved path.
+animation
+extra-anim-controller
+one-shot
+// This time should be set in code proportional to distance we will travel.
+1.0
+linear
+
+curved-path
+// Start ; end coords
+0,0 ; -1, 1
+
+gui-comp
+// This name becomes part of name of parent, and is looked up in code.
+heart
+1
+
+// Child 0
 scale
-0.25, 0.25
+0.5, 0.5
+// pivot
 0.5, 0.5
 
 // Heart
@@ -19,7 +44,7 @@ linear
 
 gui-comp
 heart-comp-2
-2
+3
 
 colour
 ffffffff, ffffff00
@@ -45,4 +70,22 @@ pulsing-heart
 Image/atlas.png, stretch
 4, 4
 0
+
+// text2 seems to be ignoring scale decorator??
+
+scale
+.9, .9; 1.1, 1.1
+.5, .5
+
+text2
+// Element name
+extra-text
+// pos (coords are -1..1)
+// NB Z coord for z-ordering with batching; +ve is CLOSER
+0, -.14, 1 
+.125, .1
+// Text
++5
+// Font name, size
+catcomic, 1.5, fgcol=ffffff, centre
 

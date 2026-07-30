@@ -6,6 +6,7 @@
 #include <GuiDecAnimation.h>
 #include <GuiDecTranslate.h>
 #include <Singleton.h>
+#include "ExtrasAdder.h"
 #include "FindSongSections.h"
 #include "GSBase3d.h"
 #include "GuiMusicKbBase.h"
@@ -71,19 +72,12 @@ public:
   //  AnimalController tells use we have lost if all pets eaten.
   void OnPlayerHasLost();
 
+  // Extra Reward -- resuscitate life score 
+  void IncreaseLife(int inc); 
+
 protected:
   // Call to change current 'micro state'
   void ChangeState(HeroState newState);
-
-  // Add an extra GUI element to the score.
-  // Specify the event number and type. So you can attach to, say,
-  //  the 3rd note on event, or the 2nd rest on event.
-  // eventNum is zero-based.
-  void AttachExtraBitToScore(PGuiElement extra, int eventNum, NoteEventType net);
-
-  // Attach extra GUI elements to the score -- it would be nice if this
-  //  is programmatic rather than specified - could be a mix of both.
-  void AttachExtraBits();
 
   // Called when we restart this state - we may need to resume if we were
   //  paused.
@@ -144,6 +138,12 @@ protected:
   // Calls the above and starts the count-in song
   void StartCountInSongAndGui();
 
+  // Distribute extras throughout song, add to GUI
+  void InitExtras();
+
+  // Scroll extras so they appear attached to their notes
+  void ScrollExtras();
+
 protected:
   // The scroll score child of m_gui (get after gui is loaded)
   RCPtr<GuiScrollScore> m_scrollScore;
@@ -161,6 +161,10 @@ protected:
   // A composite on to which we can hang extra stuff we want the 
   //  musical score to display. E.g. bonus at end of section, etc.
   RCPtr<GuiComposite> m_scoreExtras;
+
+  // Extras adder: adds the extra bits to the score; also notifies them
+  //  if the player correctly plays the note to which the extra is attached.
+  RCPtr<ExtrasAdder> m_extrasAdder;
 
   // Count-in GUI
   PGuiElement m_countInGui;

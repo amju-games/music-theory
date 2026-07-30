@@ -9,7 +9,7 @@ gui-comp
 // Name
 gs-hero-root
 // Num children
-8
+9
 
 // Title of song/piece
 animation
@@ -101,6 +101,11 @@ gui-comp
 score-extras
 0
 
+// Non-scrolling Extras root, for when we detach an extra from the scrolling root.
+gui-comp
+non-scrolling-extras-root
+0
+
 // Vertical line colour
 colour
 ff4000
@@ -122,4 +127,3 @@ quit-button.txt
 include
 elastic-hud.txt
 
-	

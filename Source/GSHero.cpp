@@ -338,6 +338,16 @@ void GSHero::Draw2d()
   }
 }
 
+void GSHero::ScrollExtras()
+{
+  Assert(m_scrollScore);
+  Assert(m_scoreExtras);
+
+  // Scroll the extras along with the score.
+  auto pos = m_scrollScore->GetLocalPos();
+  m_scoreExtras->SetLocalPos(pos);
+}
+
 void GSHero::ChangeState(HeroState newState)
 {
   m_timeInHeroState = 0;
@@ -357,6 +367,7 @@ void GSHero::Update()
   if (m_state == HeroState::SONG_PLAYING)
   {
     float songElapsedSeconds = GetMidiSongElapsedTimeSeconds();
+    Assert(m_scoreLengthSeconds > 0);
     float normalisedAnimTime = songElapsedSeconds / m_scoreLengthSeconds;
 
     // Get 'dt' for animTime
@@ -365,10 +376,13 @@ void GSHero::Update()
     m_prevAnimTime = normalisedAnimTime;
 
     // Scroll the score.
+    Assert(m_scrollScore);
     m_scrollScore->AnimateSpecial(normalisedAnimTime, dAnimTime);
   
+    ScrollExtras();
     // Scroll the extras along with the score.
     auto pos = m_scrollScore->GetLocalPos();
+    Assert(m_scoreExtras);
     m_scoreExtras->SetLocalPos(pos);
 
     // If we have reached the end, we have won!
@@ -376,6 +390,10 @@ void GSHero::Update()
     {
       OnPlayerHasWon();
     }
+  }
+  else if (m_state == HeroState::COUNT_IN)
+  {
+    ScrollExtras(); // (count in scrolling for the score is different to above.)
   }
 
   // Update keyboard pos after state has initialised
@@ -415,7 +433,7 @@ void GSHero::ReloadGui()
 }
 
 // TODO This is no good, it should be time, not number of frames, surely?!
-static const int NUM_UPDATE_NUM_FRAMES = 50;
+static const int NUM_UPDATE_NUM_FRAMES = 60; // assume 60 fps
 
 void GSHero::IncreaseScore(const Grade& grade)
 {
@@ -425,6 +443,17 @@ void GSHero::IncreaseScore(const Grade& grade)
   GetHud().m_playerScore.Add(amount, NUM_UPDATE_NUM_FRAMES);
 
   GetHud().SetPatchSizes();
+}
+
+void GSHero::IncreaseLife(int inc)
+{
+  auto& life = GetHud().m_playerLife;
+  life.Add(inc, NUM_UPDATE_NUM_FRAMES); 
+  // It's a %, so cap at 100
+  if (life.m_internalNumber > 100)
+  {
+    life.m_internalNumber = 100;
+  }
 }
 
 void GSHero::DecreaseLife(const Grade& grade)
@@ -766,6 +795,16 @@ std::cout << "** Correct note! " << e.m_note << "\n";
 #endif
       SetUpFeedbackBalloon(grade, m_gui);
       IncreaseScore(grade);
+
+      // Collect any extra attached to the note we correctly played,
+      //  * if * the grade is good enough.
+      if (grade.ShouldAwardExtra())
+      {
+        Assert(m_extrasAdder);
+        auto nonScrollingExtrasRoot = dynamic_cast<GuiComposite*>(
+          GetElementByName(m_gui, "non-scrolling-extras-root"));
+        m_extrasAdder->CollectExtra(ne.m_id, nonScrollingExtrasRoot);
+      }
     }
     else if (e.m_on && !isPitchCorrect)
     {
@@ -1040,53 +1079,25 @@ void GSHero::InitGui()
   //  event multiple times)
   m_prevAttempt = m_scrollScore->GetNoteEvents().end();
 
-  AttachExtraBits(); 
+  InitExtras();
 }
 
-void GSHero::AttachExtraBits()
+void GSHero::InitExtras()
 {
-  // TODO TEMP TEST 
-  // Attach a heart to the score 
-  auto heart = LoadGui("Gui/extra-heart.txt");
-  AttachExtraBitToScore(heart, 1, NoteEventType::NOTE_ON);
-
-  auto heart2 = LoadGui("Gui/extra-heart.txt");
-  AttachExtraBitToScore(heart2, 2, NoteEventType::NOTE_ON);
-}
-
-void GSHero::AttachExtraBitToScore(
-  PGuiElement extra, int eventNum, NoteEventType net)
-{
-  // TODO for now, we are only supporting note on events.
-
   auto elem = GetElementByName(m_gui, "score-extras");
-  m_scoreExtras = dynamic_cast<GuiComposite*>(elem);
-  if (!m_scoreExtras)
-  {
-std::cout << "Failed to find score-extras!\n";
-    return;
-  }
+  Assert(elem);
+  m_scoreExtras = dynamic_cast<GuiComposite*>(elem); 
+  Assert(m_scoreExtras);
 
-  m_scoreExtras->AddChild(extra);
+  // Initial pos of m_scoreExtras
+  auto pos = m_scrollScore->GetLocalPos();
+  m_scoreExtras->SetLocalPos(pos);
 
-  const auto& noteEvents = m_scrollScore->GetNoteEvents();
-  // Get rid of all events except for the type we are looking for.
-  auto notesCopy(noteEvents);
-  notesCopy.erase(
-    std::remove_if(notesCopy.begin(), notesCopy.end(), 
-     [=](const NoteEvent& ne) { return ne.m_type != net; }),
-    notesCopy.end());
+  // Create extras manager instance
+  m_extrasAdder = new ExtrasAdder(elem, *m_scrollScore, m_songSections);
 
-  const auto& ne = notesCopy[eventNum];
-
-  // Find the position of the note or rest so we can place the extra
-  //  GUI on top -- extra's local pos then finesses the position.
-  Vec2f pos = ne.GetPos();
-  Vec2f scale = m_scrollScore->GetSize();
- 
-  pos *= scale; // or just scale x ?? TODO
-
-  extra->SetLocalPos(pos + extra->GetLocalPos());
+  int fromEventId = 0; // TODO last graded event if resuming after pause.
+  m_extrasAdder->AttachExtraBits(fromEventId); 
 }
 }
 

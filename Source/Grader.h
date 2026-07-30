@@ -18,6 +18,8 @@ struct Grade
   std::string m_feedback;
 
   Grade(Type t, float score);
+
+  bool ShouldAwardExtra() const;
 };
 
 // * Grader *
