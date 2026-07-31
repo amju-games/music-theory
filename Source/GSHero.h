@@ -144,6 +144,12 @@ protected:
   // Scroll extras so they appear attached to their notes
   void ScrollExtras();
 
+  // Player note doesn't match score note
+  void OnBumNote(const MusicKbEvent& e, const NoteEvent& ne, const Grade& grade);
+
+  // Player note is correct, matches score note
+  void OnCorrectNote(const NoteEvent& ne, const Grade& grade);
+
 protected:
   // The scroll score child of m_gui (get after gui is loaded)
   RCPtr<GuiScrollScore> m_scrollScore;

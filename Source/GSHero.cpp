@@ -685,6 +685,50 @@ std::cout << "Not grading event, keyboard is moving. ("
   }
 }
 
+void GSHero::OnBumNote(const MusicKbEvent& e, const NoteEvent& ne, const Grade& grade)
+{
+  // Note on event, pitch is INCORRECT
+#ifdef GRADE_DEBUG
+std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << ne.m_note << "\n";
+#endif
+  // Not sure if we should play wav every time
+  PlayWav(WAV_INCORRECT);
+  Assert(grade.m_type == Grade::BAD_NOTE);
+  //SetUpFeedbackBalloon(grade, m_gui);
+  DecreaseLife(grade); // TODO Life boosters when we reach checkpoints
+
+  // If there's an extra on this note, don't collect it.
+  m_extrasAdder->NoCollectExtra(ne.m_id);
+
+  // Eat the pet with the colour of the bum note.
+  GetAnimalController().EatAPet(e.m_note % 12); 
+}
+
+void GSHero::OnCorrectNote(const NoteEvent& ne, const Grade& grade)
+{
+  // Note on event, pitch is correct
+#ifdef GRADE_DEBUG
+std::cout << "** Correct note! " << e.m_note << "\n";
+#endif
+  SetUpFeedbackBalloon(grade, m_gui);
+  IncreaseScore(grade);
+
+  // Collect any extra attached to the note we correctly played,
+  //  * if * the grade is good enough.
+  Assert(m_extrasAdder);
+  if (grade.ShouldAwardExtra())
+  {    
+    auto nonScrollingExtrasRoot = dynamic_cast<GuiComposite*>(
+      GetElementByName(m_gui, "non-scrolling-extras-root"));
+    m_extrasAdder->CollectExtra(ne.m_id, nonScrollingExtrasRoot);
+  }   
+  else 
+  {    
+    // If there's an extra on this note, don't collect it.
+    m_extrasAdder->NoCollectExtra(ne.m_id);
+  }    
+}
+
 void GSHero::GradeEvent(const MusicKbEvent& e)
 {
 #ifdef GRADE_DEBUG
@@ -789,38 +833,11 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
     bool isPitchCorrect = IsPlayerPitchCorrect(e.m_note, ne.m_note);
     if (e.m_on && isPitchCorrect)
     {
-      // Note on event, pitch is correct
-#ifdef GRADE_DEBUG
-std::cout << "** Correct note! " << e.m_note << "\n";
-#endif
-      SetUpFeedbackBalloon(grade, m_gui);
-      IncreaseScore(grade);
-
-      // Collect any extra attached to the note we correctly played,
-      //  * if * the grade is good enough.
-      if (grade.ShouldAwardExtra())
-      {
-        Assert(m_extrasAdder);
-        auto nonScrollingExtrasRoot = dynamic_cast<GuiComposite*>(
-          GetElementByName(m_gui, "non-scrolling-extras-root"));
-        m_extrasAdder->CollectExtra(ne.m_id, nonScrollingExtrasRoot);
-      }
+      OnCorrectNote(ne, grade);
     }
     else if (e.m_on && !isPitchCorrect)
     {
-      // Note on event, pitch is INCORRECT
-#ifdef GRADE_DEBUG
-std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << ne.m_note << "\n";
-#endif
-      // Not sure if we should play wav every time
-      PlayWav(WAV_INCORRECT);
-      Assert(grade.m_type == Grade::BAD_NOTE);
-      //SetUpFeedbackBalloon(grade, m_gui);
-      DecreaseLife(grade); // TODO Life boosters when we reach checkpoints
-
-      // TODO just a test for now. We haven't really designed how this
-      //  should work. We just eat the pet with the colour of the bum note.
-      GetAnimalController().EatAPet(e.m_note % 12); 
+      OnBumNote(e, ne, grade);
     }
     else
     {
