@@ -4,6 +4,34 @@
 
 namespace Amju
 {
+bool ExtrasAdder::IsExtraAllocated(int eventId) const
+{
+  return m_extrasMap.contains(eventId);
+}
+
+void ExtrasAdder::NoCollectExtra(int eventId)
+{
+  // Assume this gets called for every correct event: 
+  //  do nothing if no extra for the event.
+  auto it = m_extrasMap.find(eventId);
+  if (it == m_extrasMap.end()) 
+  {
+std::cout << "No collect: this ID does not have an extra??: " << eventId << "\n";
+    return; // No extra for this event.
+  }
+
+  std::cout << "NOT Collecting extra for note event " << eventId << "\n";
+
+  auto extra = it->second;
+
+  //GuiComposite* extrasRootComp = dynamic_cast<GuiComposite*>(m_extrasRoot.GetPtr());
+
+  // Start 'not collected' anim - no need to add to non-scrolling root,
+  //  we can continue scrolling, but we will detach from scrolling root
+  //  when anim is finished.
+  extra->StartNoCollect();
+}
+
 void ExtrasAdder::CollectExtra(int eventId, GuiComposite* nonScrollingRoot)
 {
   // Assume this gets called for every correct event: 

@@ -12,9 +12,9 @@ gui-comp
 heart-root
 1
 
-// Animation controller for moving in a curved path.
+// Animation controller for moving in a curved path, when we do collect.
 animation
-extra-anim-controller
+extra-anim-controller-collect
 one-shot
 // This time should be set in code proportional to distance we will travel.
 1.0
@@ -29,11 +29,33 @@ gui-comp
 heart
 1
 
-// Child 0
+// (First, clean the curved path translation animation)
+animation
+clean-anim
+const
+one
+
+// Animation controller for shrinking the extra if not collected.
+animation
+extra-anim-controller-no-collect
+one-shot
+1.0
+// TODO we would like an initial spike
+linear
+
+translate
+0,0 ; 0, -2
+
 scale
-0.5, 0.5
+0.5, 0.5 
 // pivot
 0.5, 0.5
+
+// (First, reset the shrinking animation)
+animation
+clean-anim
+const
+one
 
 // Heart
 animation

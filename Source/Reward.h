@@ -28,7 +28,10 @@ public:
   void InitAnim();
 
   // When awarded: start the anim to show the reward being given.
-  void StartAnim();
+  void StartCollectAnim();
+
+  // When not awarded (bum note etc.)
+  void StartNoCollectAnim();
 
   // Called by owning Extra when the anim has finished. 
   // That control flow is a bit convoluted but lets the Extra decide what to do 
@@ -46,8 +49,10 @@ protected:
 
   // Anim controller: paused initially, started if/when we want to 
   //  give the reward. 
-  GuiDecAnimation* m_animController;
-  // Hmm maybe we just need to find this once when we initialise.
+  GuiDecAnimation* m_animControllerCollect = nullptr;
+
+  // Anim controller for if we don't collect
+  GuiDecAnimation* m_animControllerNoCollect = nullptr;
   
   Vec2f m_destPos; // destination pos in screen coords - we set this
   //  when the reward is collected, then start the anim so the reward

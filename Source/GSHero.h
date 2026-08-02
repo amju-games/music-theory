@@ -150,6 +150,11 @@ protected:
   // Player note is correct, matches score note
   void OnCorrectNote(const NoteEvent& ne, const Grade& grade);
 
+  // Player has missed a note: the note event is the note ON event,
+  //  corresponding to the note OFF event that triggered this call.
+  // (I.e. the note the player should have played.)
+  void OnMissedNote(const NoteEvent& ne);
+
 protected:
   // The scroll score child of m_gui (get after gui is loaded)
   RCPtr<GuiScrollScore> m_scrollScore;

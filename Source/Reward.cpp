@@ -43,7 +43,17 @@ void IReward::OnDestPosReached()
 
   // Give reward: this depends on the extra type so we go round the houses
   //  a bit here.
-  m_parent->Collect(); // (Extra parent, not parent gui node)
+  m_parent->Collect(); // (Extra owner of this reward, not parent gui node)
+}
+
+// Pause the given animation controller node, and return the casted node.
+static GuiDecAnimation* PauseAnim(GuiElement* elem)
+{
+  Assert(elem);
+  auto animController = dynamic_cast<GuiDecAnimation*>(elem);
+  Assert(animController);
+  animController->SetIsPaused(true);
+  return animController;
 }
 
 void IReward::InitAnim()
@@ -52,11 +62,15 @@ void IReward::InitAnim()
   // Set the anim to initially paused.
   auto gui = GetGui();
   Assert(gui);
-  auto elem = GetElementByName(gui, "extra-anim-controller");
-  Assert(elem);
-  m_animController = dynamic_cast<GuiDecAnimation*>(elem);
-  Assert(m_animController);
-  m_animController->SetIsPaused(true);
+
+  // Set anims to paused 
+  // This is the anim for the curved path if we collect 
+  auto elem = GetElementByName(gui, "extra-anim-controller-collect");
+  m_animControllerCollect = PauseAnim(elem);
+
+  // This is the anim for if we don't collect
+  elem = GetElementByName(gui, "extra-anim-controller-no-collect");
+  m_animControllerNoCollect = PauseAnim(elem);
 }
 
 static void RandomiseCurvedPath(PathConfig& config)
@@ -65,7 +79,15 @@ static void RandomiseCurvedPath(PathConfig& config)
   config.spiral.maxRadius = Rnd(.4f, .8f); 
 }
  
-void IReward::StartAnim()
+void IReward::StartNoCollectAnim()
+{
+  // Start the 'no collect' animation
+  m_animControllerNoCollect->SetIsPaused(false); 
+
+  // TODO Set callback so we detach from scrolling root when anim complete.
+}
+
+void IReward::StartCollectAnim()
 {
   auto gui = GetGui();
   Assert(gui);
@@ -85,12 +107,12 @@ void IReward::StartAnim()
   // We need this: we don't want curve pos + random extra pos
   gui->SetLocalPos(Vec2f(0, 0)); // curve takes over setting position
 
-  // Start the animation!
-  m_animController->SetIsPaused(false);
+  // Start the collect animation!
+  m_animControllerCollect->SetIsPaused(false);
 
-  // Set up On anim finished callback
-  m_animController->SetUserData(this); // so we know which reward to notify
-  m_animController->SetOnCompleteCallback(OnRewardAnimComplete);
+  // Set up 'On anim finished' callback
+  m_animControllerCollect->SetUserData(this); // so we know which reward to notify
+  m_animControllerCollect->SetOnCompleteCallback(OnRewardAnimComplete);
 }
 
 void RewardHealth::GiveReward()

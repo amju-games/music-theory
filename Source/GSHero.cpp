@@ -629,28 +629,45 @@ std::cout << "Score note! (" << ne.m_note << ", note off):\n";
 std::cout << "  Num player notes: " << m_numPlayerNotes 
   << " Num score notes: " << m_numScoreNotes << "\n";
 #endif
-  }
 
-  if (m_numScoreNotes > m_numPlayerNotes)
-  {
+    if (m_numScoreNotes > m_numPlayerNotes)
+    {
+      // Search back for the note on event corresponding to this note off event
+      const auto& noteEvents = m_scrollScore->GetNoteEvents();
+      int id = FindNoteOnEventForNoteOffEvent(noteEvents, ne.m_id);
+      Assert(id >= 0);
+      Assert(id < noteEvents.size());
+      const auto& noteOn = noteEvents[id];
+      Assert(noteOn.IsNoteOnEvent());
+      OnMissedNote(noteOn);
+    }
+  }
+}
+
+void GSHero::OnMissedNote(const NoteEvent& noteOnEvent)
+{
 #ifdef MISSED_NOTE_DEBUG
 std::cout << "*** Player has missed a note, I think!!!\n";
 std::cout << "  Num player notes: " << m_numPlayerNotes 
   << " Num score notes: " << m_numScoreNotes << "\n";
 #endif
 
-    m_numPlayerNotes = m_numScoreNotes;
+  m_numPlayerNotes = m_numScoreNotes;
 #ifdef MISSED_NOTE_DEBUG
 std::cout << "  ... Resetting: counters now equal:\n";
 std::cout << "  Num player notes: " << m_numPlayerNotes 
   << " Num score notes: " << m_numScoreNotes << "\n";
 #endif
 
-    // Missed note
-    Grade grade(Grade::NO_ATTEMPT, 0);
-    // Show the missed note TODO
-    DecreaseLife(grade); 
-  }
+  // Missed note
+  Grade grade(Grade::NO_ATTEMPT, 0);
+  // Show the missed note TODO
+
+  // Lose health.
+  DecreaseLife(grade); 
+
+  // If there's an extra on this note, don't collect it.
+  m_extrasAdder->NoCollectExtra(noteOnEvent.m_id);
 }
 
 void GSHero::OnMusicKbEvent(const MusicKbEvent& e) 
@@ -724,6 +741,7 @@ std::cout << "** Correct note! " << e.m_note << "\n";
   }   
   else 
   {    
+    // The pitch is correct but still we should not award any extra.
     // If there's an extra on this note, don't collect it.
     m_extrasAdder->NoCollectExtra(ne.m_id);
   }    

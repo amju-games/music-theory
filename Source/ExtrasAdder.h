@@ -38,11 +38,23 @@ public:
   //  root (could be ctor param instead).
   void CollectExtra(int eventId, GuiComposite* nonScrollingRoot);
 
+  // Bum note or missed note: if there is an extra attached to the
+  //  given event, show it has been missed.
+  // For a multi-event extra, (e.g. note run), the remaining child extras
+  //  and the final payoff are all lost, right? Bad one.
+  void NoCollectExtra(int eventId);
+
 protected:
+  // Returns true if an extra has already been allocated to the
+  //  given event ID.
+  bool IsExtraAllocated(int eventId) const;
+
   void AddSectionExtras();
 
   void AddNoteRunExtras();
 
+  // Sprinkles extras in the song for note events that have not already
+  //  been allocated an extra.
   void AddRandomExtras(
     GuiComposite* extrasRootComp,
     const NoteEvents& noteEvents,

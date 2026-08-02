@@ -29,7 +29,10 @@ public:
     GuiComposite* scrollingRoot, GuiComposite* nonScrollingRoot);
 
   // When collection anim has finished: award points etc.
-  virtual void Collect();
+  virtual void Collect() = 0;
+
+  // When extra is not collected (bum note etc.)
+  void StartNoCollect(); 
 
   // For the Reward we own to access the gui.
   PGuiElement GetGui() { return m_gui; }

@@ -4,6 +4,11 @@
 
 namespace Amju
 {
+void IExtra::StartNoCollect()
+{
+  m_reward->StartNoCollectAnim();
+}
+
 void IExtra::StartCollection(
   GuiComposite* scrollingRoot, GuiComposite* nonScrollingRoot)
 {
@@ -17,7 +22,7 @@ void IExtra::StartCollection(
   nonScrollingRoot->AddChild(m_gui);
 
   // Notify reward to start animating to its destination pos
-  m_reward->StartAnim();
+  m_reward->StartCollectAnim();
 }
 
 void IExtra::AttachToScrollingRoot(GuiComposite* root, const Vec2f& pos)
@@ -35,10 +40,6 @@ void IExtra::DetachGui(GuiComposite* root)
   int index = root->FindChildIndex(m_gui);
   Assert(index != -1); // root is not the direct parent of this extra!
   root->DeleteChild(index);
-}
-
-void IExtra::Collect() // ?
-{
 }
 
 void Extra::Collect() 
