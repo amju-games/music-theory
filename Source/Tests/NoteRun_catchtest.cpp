@@ -10,7 +10,7 @@ static const int MAX_DIFF = 3;
 // For these tests, populate m_id in NoteEvent sequences.
 // In normal use this happens in GuiMusicScore when we load 
 //  the events.
-void PopIds(NoteEvents& noteEvents)
+void PopulateIdsForNoteEvents(NoteEvents& noteEvents)
 {
   int id = 0;
   for (auto& ne : noteEvents)
@@ -85,7 +85,7 @@ TEST_CASE("Diffs", "[NoteRun]")
     NoteEvent(73, 7.f,  NoteEventType::NOTE_ON,  {0, 0}),
     NoteEvent(60, 8.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
-  PopIds(noteEvents);
+  PopulateIdsForNoteEvents(noteEvents);
 
   auto diffs = FindNoteDiffs(noteEvents, MIN_DIFF, MAX_DIFF);
   REQUIRE(diffs.size() == noteEvents.size());
@@ -102,7 +102,7 @@ TEST_CASE("1 note", "[NoteRun]")
     // pitch, time, type, coord
     NoteEvent(60, 0.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
-  PopIds(noteEvents);
+  PopulateIdsForNoteEvents(noteEvents);
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents, MIN_DIFF, MAX_DIFF);
 
@@ -118,7 +118,7 @@ TEST_CASE("2 notes", "[NoteRun]")
     NoteEvent(60, 0.f,  NoteEventType::NOTE_ON,  {0, 0}),
     NoteEvent(61, 1.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
-  PopIds(noteEvents);
+  PopulateIdsForNoteEvents(noteEvents);
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents, MIN_DIFF, MAX_DIFF);
 
@@ -135,7 +135,7 @@ TEST_CASE("3 note run", "[NoteRun]")
     NoteEvent(61, 1.f,  NoteEventType::NOTE_ON,  {0, 0}),
     NoteEvent(62, 2.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
-  PopIds(noteEvents);
+  PopulateIdsForNoteEvents(noteEvents);
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents, MIN_DIFF, MAX_DIFF);
 
@@ -156,7 +156,7 @@ TEST_CASE("3 note run in 4 notes", "[NoteRun]")
     NoteEvent(61, 2.f,  NoteEventType::NOTE_ON,  {0, 0}),
     NoteEvent(62, 3.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
-  PopIds(noteEvents);
+  PopulateIdsForNoteEvents(noteEvents);
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents, MIN_DIFF, MAX_DIFF);
 
@@ -180,7 +180,7 @@ TEST_CASE("4 note run in 6 notes, ends before notes end", "[NoteRun]")
     // This jump is ok if we allow 3 semitone jumps but the sign is different.
     NoteEvent(60, 5.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
-  PopIds(noteEvents);
+  PopulateIdsForNoteEvents(noteEvents);
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents, MIN_DIFF, MAX_DIFF);
 
@@ -206,7 +206,7 @@ TEST_CASE("2 runs", "[NoteRun]")
     NoteEvent(73, 7.f,  NoteEventType::NOTE_ON,  {0, 0}),
     NoteEvent(60, 8.f,  NoteEventType::NOTE_ON,  {0, 0}),
   };
-  PopIds(noteEvents);
+  PopulateIdsForNoteEvents(noteEvents);
 
   auto runs = FindNoteRunsNoNoteOffEvents(noteEvents, MIN_DIFF, MAX_DIFF);
 
@@ -245,7 +245,7 @@ TEST_CASE("2 note runs, note-on and note-off events", "[NoteRun]")
     NoteEvent(60, 16.f,  NoteEventType::NOTE_ON,  {0, 0}),
     NoteEvent(60, 17.f,  NoteEventType::NOTE_OFF, {0, 0}),
   };
-  PopIds(noteEvents);
+  PopulateIdsForNoteEvents(noteEvents);
 
   auto runs = FindNoteRuns(noteEvents, MIN_DIFF, MAX_DIFF);
 
