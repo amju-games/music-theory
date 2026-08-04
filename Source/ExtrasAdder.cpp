@@ -16,11 +16,15 @@ void ExtrasAdder::NoCollectExtra(int eventId)
   auto it = m_extrasMap.find(eventId);
   if (it == m_extrasMap.end()) 
   {
+#ifdef EXTRA_DEBUG
 std::cout << "No collect: this ID does not have an extra??: " << eventId << "\n";
+#endif
     return; // No extra for this event.
   }
 
+#ifdef EXTRA_DEBUG
   std::cout << "NOT Collecting extra for note event " << eventId << "\n";
+#endif
 
   auto extra = it->second;
 
@@ -42,7 +46,9 @@ void ExtrasAdder::CollectExtra(int eventId, GuiComposite* nonScrollingRoot)
     return; // No extra for this event.
   }
 
+#ifdef EXTRA_DEBUG
   std::cout << "Collecting extra for note event " << eventId << "\n";
+#endif
 
   auto extra = it->second;
 
@@ -64,7 +70,9 @@ void ExtrasAdder::AttachExtraBitToScore(
   Assert(m_extrasMap.find(eventId) == m_extrasMap.end());
   m_extrasMap[eventId] = extra;
 
+#ifdef EXTRA_DEBUG
 std::cout << "Extras: adding extra for event: " << eventId << "\n";
+#endif
 
   // Get pos on score where we should attach Extra gui
   const auto& ne = m_musicScore.GetNoteEvents()[eventId];

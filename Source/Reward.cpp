@@ -8,6 +8,21 @@
 
 namespace Amju
 {
+// Find the player life/heart pos on screen as the destination for
+//  health reward.
+Vec2f RewardHealth::GetCollectDestPos() const
+{
+  auto gui = TheGSHero::Instance()->GetGui();
+  Assert(gui);
+  auto health = GetElementByName(gui, "player-life-heart-comp");
+  Assert(health);
+  // Getting centre of bounding rect isn't really working :(
+  // Just hack an offset onto the top left pos of the heart.
+  auto rect = GetRect(health);
+  auto dest = Vec2f(rect.GetMin(0), rect.GetMax(1)) + Vec2f(.1f, -.1f);
+  return dest;
+}
+
 // Callback: called when reward animation reaches destination.
 static void OnRewardAnimComplete(Animator* animator)
 {
@@ -99,6 +114,7 @@ static void RandomiseCurvedPath(PathConfig& config)
 {
   // Randomise the path
   config.spiral.maxRadius = Rnd(.4f, .8f); 
+  // TODO Add curve/loop/fig-8
 }
  
 void IReward::StartNoCollectAnim()
@@ -124,8 +140,9 @@ void IReward::StartCollectAnim()
   // Get pos of extra gui now: this becomes the start pos of the curve.
   // Once set, the curve takes over from the local pos of the gui root.
   config.startPos = gui->GetLocalPos(); 
-  // Set destination
-  config.endPos = Vec2f(-.9, .7); //m_destPos; // TODO TEMP TEST
+  // Set destination: do this as late as poss to minimise visual bugs due
+  //  to changing orientation (if we change, this destination could be wrong).
+  config.endPos = GetCollectDestPos(); 
   RandomiseCurvedPath(config);
   curve->SetPathConfig(config);
   // We need this: we don't want curve pos + random extra pos
@@ -139,7 +156,7 @@ void IReward::StartCollectAnim()
   m_animControllerCollect->SetOnCompleteCallback(OnRewardAnimComplete);
 }
 
-void RewardHealth::GiveReward()
+void RewardHealth::GiveReward() const
 {
 #ifdef EXTRA_DEBUG
 std::cout << "Give reward: " << m_points << " health points!\n";

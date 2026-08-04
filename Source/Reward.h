@@ -40,7 +40,15 @@ public:
   // Called by owning Extra when the anim has finished. 
   // That control flow is a bit convoluted but lets the Extra decide what to do 
   //  when the anim ends, rather than hardcoding that behaviour. 
-  virtual void GiveReward() = 0;
+  virtual void GiveReward() const = 0;
+
+  // Get destination pos in screen coords for the collection anim.
+  // NB Query the position of GUI elements -- don't hard code any positions.
+  // We could have landscape/portrait orientations.
+  // Called as late as poss to minimise visual bugs due to the orientation changing.
+  // (Very low priority proper fix: register for notification when orientation
+  //  changes, if/when we add this.)
+  virtual Vec2f GetCollectDestPos() const = 0;
 
 protected:
   // Root element for GUI that shows the reward on screen.
@@ -69,11 +77,18 @@ protected:
 
 using PReward = RCPtr<IReward>;
 
+// * Reward Health *
+// Give player some extra health/life.
 class RewardHealth : public IReward
 {
 public:
   RewardHealth(int points) { m_points = points; }
-  void GiveReward() override;
+
+  // Increase the player health by m_points, up to max.
+  void GiveReward() const override;
+
+  // Get screen coords of player health indicator (query GSHero gui).
+  Vec2f GetCollectDestPos() const override;
 
 private:
   int m_points;
@@ -82,7 +97,8 @@ private:
 class RewardPointsMult : public IReward
 {
   RewardPointsMult(PGuiElement gui, int pointsMult, float duration);
-  void GiveReward() override {}
+  void GiveReward() const override {}
+  Vec2f GetCollectDestPos() const override { return {}; }
 };
 }
 

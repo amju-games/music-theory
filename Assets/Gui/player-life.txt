@@ -14,7 +14,8 @@ repeat
 linear
 
 gui-comp
-heart-comp-2
+// This name is looked up in code to add health rewards
+player-life-heart-comp
 3
 
 colour
