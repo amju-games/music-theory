@@ -39,11 +39,13 @@ one
 animation
 extra-anim-controller-no-collect
 one-shot
-1.0
+0.4
 // TODO we would like an initial spike
 linear
 
 translate
+// Hmm we need -2 to make sure it goes off the bottom of the screen.
+// Because of music score scale maybe.
 0,0 ; 0, -2
 
 scale

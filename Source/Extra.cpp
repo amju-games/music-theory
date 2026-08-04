@@ -9,6 +9,19 @@ void IExtra::StartNoCollect()
   m_reward->StartNoCollectAnim();
 }
 
+void IExtra::FinishNoCollect()
+{
+  // Assuming direct parent of the GUI is the scrolling or non-scrolling
+  //  root... even if not, we will detach from something :)
+  auto comp = dynamic_cast<GuiComposite*>(m_gui->GetParent());
+  Assert(comp);  // we must have a parent... unless already detached?
+  DetachGui(comp);
+
+#ifdef EXTRA_DEBUG
+std::cout << "Extra not collected, detached.\n";
+#endif
+}
+
 void IExtra::StartCollection(
   GuiComposite* scrollingRoot, GuiComposite* nonScrollingRoot)
 {

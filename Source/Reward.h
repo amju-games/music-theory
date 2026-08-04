@@ -33,6 +33,10 @@ public:
   // When not awarded (bum note etc.)
   void StartNoCollectAnim();
 
+  // Called from callback when not-collected anim completes.
+  // We detach the GUI from its root so it is deleted.
+  void OnNoCollectAnimComplete();
+
   // Called by owning Extra when the anim has finished. 
   // That control flow is a bit convoluted but lets the Extra decide what to do 
   //  when the anim ends, rather than hardcoding that behaviour. 

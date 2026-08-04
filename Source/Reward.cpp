@@ -15,12 +15,34 @@ static void OnRewardAnimComplete(Animator* animator)
   // GuiDecAnimation is an Animator
   GuiDecAnimation* guiAnim = dynamic_cast<GuiDecAnimation*>(animator);
   Assert(guiAnim);
-  // We had set user data in IReward::StartAnim to point to the Reward 
+  // We had set user data in IReward::StartCollectAnim to point to the Reward 
   void* data = guiAnim->GetUserData();
   Assert(data);
   IReward* reward = reinterpret_cast<IReward*>(data);
   // Notify reward it has reached the end of its anim
   reward->OnDestPosReached();
+}
+
+// Callback: called when the animation for NOT collecting the reward
+//  is complete.
+static void OnRewardNoCollectAnimComplete(Animator* animator)
+{
+  Assert(animator);
+  // GuiDecAnimation is an Animator
+  GuiDecAnimation* guiAnim = dynamic_cast<GuiDecAnimation*>(animator);
+  Assert(guiAnim);
+  // We had set user data in IReward::StartNoCollectAnim to point to the Reward 
+  void* data = guiAnim->GetUserData();
+  Assert(data);
+  IReward* reward = reinterpret_cast<IReward*>(data);
+  // Notify reward it has reached the end of its anim
+  reward->OnNoCollectAnimComplete();
+}
+
+void IReward::OnNoCollectAnimComplete()
+{
+  Assert(m_parent);
+  m_parent->FinishNoCollect();
 }
 
 PGuiElement IReward::GetGui()
@@ -84,7 +106,9 @@ void IReward::StartNoCollectAnim()
   // Start the 'no collect' animation
   m_animControllerNoCollect->SetIsPaused(false); 
 
-  // TODO Set callback so we detach from scrolling root when anim complete.
+  // Set up 'On no-collect anim finished' callback
+  m_animControllerNoCollect->SetUserData(this); // so we know which reward to notify
+  m_animControllerNoCollect->SetOnCompleteCallback(OnRewardNoCollectAnimComplete);
 }
 
 void IReward::StartCollectAnim()
@@ -117,7 +141,10 @@ void IReward::StartCollectAnim()
 
 void RewardHealth::GiveReward()
 {
+#ifdef EXTRA_DEBUG
 std::cout << "Give reward: " << m_points << " health points!\n";
+#endif
+
   TheGSHero::Instance()->IncreaseLife(m_points);
 }
 }

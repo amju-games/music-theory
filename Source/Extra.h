@@ -34,6 +34,9 @@ public:
   // When extra is not collected (bum note etc.)
   void StartNoCollect(); 
 
+  // When no collect anim completes, this is called, for final cleanup.
+  void FinishNoCollect();
+
   // For the Reward we own to access the gui.
   PGuiElement GetGui() { return m_gui; }
 
