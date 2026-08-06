@@ -20,6 +20,10 @@ struct HudNumber
   PGuiElement m_guiTextElement; // GuiText node displaying the value
   PGuiElement m_guiAnimElement; // animation node which animates the text
 
+  // Prefix and suffix strings to add to the integer value
+  std::string m_prefix;
+  std::string m_suffix;
+
   // Call once after initialising GUI
   void SetGuiElement(
     PGuiElement guiRoot, 
