@@ -1,11 +1,11 @@
 #pragma once
 
 #include <GuiElement.h>
-#include "Extra.h"
 #include "FindSongSections.h"
 
 namespace Amju
 {
+class ExtrasAdderImpl;
 class GuiMusicScore;
 
 // * Extras Adder *
@@ -16,10 +16,9 @@ public:
   ExtrasAdder(
     PGuiElement extrasRoot,
     const GuiMusicScore& musicScore,
-    const Sections& songSections) : 
-    m_extrasRoot(extrasRoot),
-    m_musicScore(musicScore),
-    m_songSections(songSections) {}
+    const Sections& songSections);
+
+  virtual ~ExtrasAdder();
 
   // Programatically add extras to the given music score by adding
   //  children to the given GUI root.
@@ -45,44 +44,7 @@ public:
   void NoCollectExtra(int eventId);
 
 protected:
-  // Returns true if an extra has already been allocated to the
-  //  given event ID.
-  bool IsExtraAllocated(int eventId) const;
-
-  void AddSectionExtras(GuiComposite* extrasRootComp);
-
-  void AddNoteRunExtras();
-
-  // Sprinkles extras in the song for note events that have not already
-  //  been allocated an extra.
-  void AddRandomExtras(
-    GuiComposite* extrasRootComp,
-    const NoteEvents& noteEvents,
-    int fromThisNoteId);
-
-  // Attach the given Extra to the scrolling score.
-  // eventId is note event ID, unique in the song, so we can retrieve the
-  //  extra later when collected or not.
-  void AttachExtraBitToScore(
-    GuiComposite* scrollingRoot,
-    int eventId,  // 'global' ID into all note events, not just note on events.
-    IExtra* extra);
-
-  // Attach a points multiplier extra to the given gui root, for the given
-  //  note on event.
-  void AttachPointsMultiplier(GuiComposite* extrasRootComp, int noteEventId);
-
-  // Attach a health boost extra to the given GUI root for the given event.
-  void AttachHealthBoost(GuiComposite* extrasRootComp, int noteEventId);
-
-protected:
-  PGuiElement m_extrasRoot;
-  const GuiMusicScore& m_musicScore;
-  const Sections& m_songSections;
-  int m_minEventId = 0; // we only add from this event ID onwards.
-
-  using NoteIdToExtra = std::unordered_map<int, PExtra>;
-  NoteIdToExtra m_extrasMap;
+  ExtrasAdderImpl* m_pimpl;
 };
 }
 
