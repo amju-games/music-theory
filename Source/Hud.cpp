@@ -7,6 +7,10 @@ void Hud::InitGui(PGuiElement gui, bool reset)
 {
   // Find and store pointers to GUI elements
   m_playerScore.SetGuiElement(gui, "score-text", "score-text-anim-trigger");
+
+  m_pointsMultiplier.SetGuiElement(gui, 
+    "points-mult-text", "points-mult-text-anim-trigger");
+
   m_playerLife.SetGuiElement(
     gui, "num-lives-text", "num-lives-text-anim-trigger");
 
@@ -15,11 +19,13 @@ void Hud::InitGui(PGuiElement gui, bool reset)
   if (reset)
   {
     m_playerScore.Reset(0);
+    m_pointsMultiplier.Reset(0);
     m_playerLife.Reset(100); 
   }
   else 
   {
     m_playerScore.ResumeAfterPause();
+    m_pointsMultiplier.ResumeAfterPause();
     m_playerLife.ResumeAfterPause();
   }
 
@@ -45,6 +51,8 @@ void Hud::SetPatchSizes()
 void Hud::Update()
 {
   m_playerScore.Update();
+  m_pointsMultiplier.Update();
+  
   SetPatchSizes();
 
   m_playerLife.Update();

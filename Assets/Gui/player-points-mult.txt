@@ -1,0 +1,81 @@
+// * Amjula music theory *
+// (c) Copyright 2024 Juliet Colman
+
+// version
+1
+
+// Player points multiplier, "x2" etc. If multiplier is 1, don't show.
+
+// Element type
+gui-comp
+// Name
+player-points-mult-comp
+// Num children
+2
+
+colour
+// TODO TEMP TEST
+ff4040
+
+// Patch
+patch
+points-mult-bg-patch
+0, 0
+.1, .15
+// Rough circle TODO Rectangle
+Image/atlas.png, stretch
+// Patch is a sprite, so we have to specify cell info - this should be  
+//  good for batching: we can have multiple different patches and other
+//  HUD elements on the same atlas.
+// Num cells
+8, 8
+// Cell
+18
+// Corner size
+0.03, 0.04
+
+gui-comp
+// Name looked up in code?? No I don't think so.
+points-mult-comp
+1
+
+// Bob up and down
+animation
+bob-up-and-down
+mirror-repeat
+0.6
+linear
+
+translate
+0,0 ; 0, 0.008
+
+animation
+clean-anim
+const
+one
+
+animation
+// Name looked up in code
+points-mult-text-anim-trigger
+one-shot
+0.2
+linear
+
+scale
+3, 3 ; 2, 2
+// Pivot
+0, .5
+
+text2
+// Element name
+// Name looked up in code
+points-mult-text
+// pos (coords are -1..1)
+// NB Z coord for z-ordering with batching; +ve is CLOSER
+0.7, .375, .5
+.4, .1
+// Text
+x2
+// Font name, size
+catcomic, 1.5, fgcol=404040, left
+

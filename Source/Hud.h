@@ -19,6 +19,8 @@ public:
   void SetPatchSizes();
 
   HudNumber m_playerScore;
+  HudNumber m_pointsMultiplier;
+
   HudNumber m_playerLife;
 
   // Patch behind player score (numeric points)
