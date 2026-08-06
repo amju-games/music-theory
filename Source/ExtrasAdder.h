@@ -49,7 +49,7 @@ protected:
   //  given event ID.
   bool IsExtraAllocated(int eventId) const;
 
-  void AddSectionExtras();
+  void AddSectionExtras(GuiComposite* extrasRootComp);
 
   void AddNoteRunExtras();
 
@@ -67,6 +67,13 @@ protected:
     GuiComposite* scrollingRoot,
     int eventId,  // 'global' ID into all note events, not just note on events.
     IExtra* extra);
+
+  // Attach a points multiplier extra to the given gui root, for the given
+  //  note on event.
+  void AttachPointsMultiplier(GuiComposite* extrasRootComp, int noteEventId);
+
+  // Attach a health boost extra to the given GUI root for the given event.
+  void AttachHealthBoost(GuiComposite* extrasRootComp, int noteEventId);
 
 protected:
   PGuiElement m_extrasRoot;

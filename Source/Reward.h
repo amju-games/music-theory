@@ -94,11 +94,23 @@ private:
   int m_points;
 };
 
+// * Reward Points Mult *
+// Player gets additions to points multiplied by some value for a duration.
+// (The multipliers should themselves multiply, so e.g. a x2 followed by another
+//  x2 within the duration, gives x4. But that's not done in this class.) 
 class RewardPointsMult : public IReward
 {
-  RewardPointsMult(PGuiElement gui, int pointsMult, float duration);
-  void GiveReward() const override {}
-  Vec2f GetCollectDestPos() const override { return {}; }
+public:
+  RewardPointsMult(int pointsMult) { m_pointsMult = pointsMult; }
+
+  // Multiply current player score multiplier by our member value.
+  void GiveReward() const override;
+
+  // Get screen coords of player score multiplier
+  Vec2f GetCollectDestPos() const override;
+
+private:
+  int m_pointsMult;
 };
 }
 

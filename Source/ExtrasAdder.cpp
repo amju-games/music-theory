@@ -1,9 +1,37 @@
+#include <AmjuRand.h>
 #include <GuiComposite.h>
+#include <GuiText.h>
 #include "ExtrasAdder.h"
 #include "GuiMusicScore.h"
 
 namespace Amju
 {
+// Get random value for points mutiplier reward
+static int GetRandomPointsMultiplier()
+{
+  // Let's say 80% chance of x2, 20% chance of x5.
+  // As these accumulate we don't want to go crazy.
+  return (Rnd(0.f, 1.f) > .8f ? 5 : 2);
+}
+
+// Get random value for health boost reward
+static int GetRandomHealthBoost()
+{
+  // 60% chance of +2, 30% chance of +5, 10% chance of +10.
+  const float r = Rnd(0.f, 1.f);
+  return (r < .6f ? 2 : (r < .9 ? 5 : 10));
+}
+
+// Set the text node named "extra-text" with the given string.
+static void SetRewardGuiText(PGuiElement gui, const std::string& text)
+{
+  auto elem = GetElementByName(gui, "extra-text");
+  Assert(elem);
+  auto textNode = dynamic_cast<GuiTextBase*>(elem);
+  Assert(elem);
+  textNode->SetText(text);
+}
+
 bool ExtrasAdder::IsExtraAllocated(int eventId) const
 {
   return m_extrasMap.contains(eventId);
@@ -27,8 +55,6 @@ std::cout << "No collect: this ID does not have an extra??: " << eventId << "\n"
 #endif
 
   auto extra = it->second;
-
-  //GuiComposite* extrasRootComp = dynamic_cast<GuiComposite*>(m_extrasRoot.GetPtr());
 
   // Start 'not collected' anim - no need to add to non-scrolling root,
   //  we can continue scrolling, but we will detach from scrolling root
@@ -64,6 +90,15 @@ void ExtrasAdder::AttachExtraBitToScore(
   int eventId, 
   IExtra* extra) 
 {
+#ifdef EXTRA_DEBUG
+std::cout << "Extras at these IDs: ";
+for (const auto& [id, extra] : m_extrasMap)
+{
+  std::cout << id << " ";
+}
+std::cout << ", adding " << eventId << "\n";
+#endif
+
   // Add the extra we create to map: so we don't add more than
   //  one extra to any one event; and we can look up the extra to 
   //  collect it when event is graded as correct.
@@ -83,8 +118,7 @@ std::cout << "Extras: adding extra for event: " << eventId << "\n";
   extra->AttachToScrollingRoot(extrasRootComp, pos);
 }
 
-void ExtrasAdder::AttachExtraBits(
-  int fromThisNoteId) 
+void ExtrasAdder::AttachExtraBits(int fromThisNoteId) 
 {
   // Get rid of all events except for the type we are looking for.
   // For now, we are only supporting note on events.
@@ -95,16 +129,83 @@ void ExtrasAdder::AttachExtraBits(
      [=](const NoteEvent& ne) { return ne.m_type != net; }),
     noteEvents.end());
 
-  GuiComposite* extrasRootComp = dynamic_cast<GuiComposite*>(m_extrasRoot.GetPtr());
-  AddSectionExtras();
+  auto extrasRootComp = dynamic_cast<GuiComposite*>(m_extrasRoot.GetPtr());
 
-  AddNoteRunExtras(); // needs note on events only, right?
+  AddSectionExtras(extrasRootComp);
+
+  AddNoteRunExtras(); // TODO needs note on events only, right?
 
   AddRandomExtras(extrasRootComp, noteEvents, fromThisNoteId);
 }
 
-void ExtrasAdder::AddSectionExtras()
+void ExtrasAdder::AttachHealthBoost(
+  GuiComposite* extrasRootComp, int noteEventId)
 {
+  // Load gui
+  auto gui = LoadGui("Gui/extra-heart.txt");
+
+  // Get boost value, e.g. 2, 5, 10
+  const int healthBoost = GetRandomHealthBoost();
+
+  // Create reward
+  auto reward = new RewardHealth(healthBoost); 
+
+  // Set text in GUI
+  SetRewardGuiText(gui, "+" + std::to_string(healthBoost));
+
+  // Create and add Extra.
+  // This is a standard Extra type.
+  auto extra = new Extra(gui, reward);
+  AttachExtraBitToScore(extrasRootComp, noteEventId, extra);
+}
+
+void ExtrasAdder::AttachPointsMultiplier(
+  GuiComposite* extrasRootComp, int noteEventId)
+{
+  // Load points multiplier gui
+  auto gui = LoadGui("Gui/extra-points-mult.txt");
+
+  // Multiplier, e.g. 2, 5
+  int pointsMult = GetRandomPointsMultiplier(); 
+
+  // Create Reward for this extra
+  auto reward = new RewardPointsMult(pointsMult);
+
+  // Set text in GUI 
+  SetRewardGuiText(gui, "x" + std::to_string(pointsMult));
+
+  // Create extra, add to scrolling root.
+  // This is a standard Extra type, not a multi-extra.
+  auto extra = new Extra(gui, reward);
+  AttachExtraBitToScore(extrasRootComp, noteEventId, extra);
+}
+
+void ExtrasAdder::AddSectionExtras(GuiComposite* extrasRootComp)
+{
+  const auto& noteEvents = m_musicScore.GetNoteEvents();
+  int sectionNum = 0;
+  for (auto [first, last] : m_songSections)
+  {
+    // Iterate back from last to find the last note-on event
+    while (last > first)
+    {
+      --last;
+      const auto& ne = noteEvents[last];
+      if (ne.IsNoteOnEvent())
+      {
+        // Found final note-on event in the section
+#ifdef EXTRA_DEBUG
+std::cout << "Extras: adding extra to final note on event in section " 
+  << sectionNum
+  << " Note event ID: " << ne.GetId()
+  << "\n";
+#endif
+        ++sectionNum;
+        AttachPointsMultiplier(extrasRootComp, ne.GetId());
+        break;
+      }
+    }
+  }
 }
 
 void ExtrasAdder::AddNoteRunExtras()
@@ -124,16 +225,15 @@ void ExtrasAdder::AddRandomExtras(
   // Shuffle remaining vec.
   // Allocate extras to the first <n> ids in vec.
 
-  // TODO TEMP TEST:
   // Attach a heart to the score.
-  // This is a standard Extra type.
   for (int i = 0; i < 10; i++)
   {
-    auto gui = LoadGui("Gui/extra-heart.txt");
-    auto reward = new RewardHealth(10); 
-    auto extra = new Extra(gui, reward);
- 
-    AttachExtraBitToScore(extrasRootComp, noteEvents[i].m_id, extra);
+    const int id = noteEvents[i].GetId();
+
+    // Quick hack for now to avoid clashes
+    if (IsExtraAllocated(id)) continue;
+
+    AttachHealthBoost(extrasRootComp, id);
   }
 }
 }

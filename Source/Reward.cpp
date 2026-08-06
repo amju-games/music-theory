@@ -8,21 +8,6 @@
 
 namespace Amju
 {
-// Find the player life/heart pos on screen as the destination for
-//  health reward.
-Vec2f RewardHealth::GetCollectDestPos() const
-{
-  auto gui = TheGSHero::Instance()->GetGui();
-  Assert(gui);
-  auto health = GetElementByName(gui, "player-life-heart-comp");
-  Assert(health);
-  // Getting centre of bounding rect isn't really working :(
-  // Just hack an offset onto the top left pos of the heart.
-  auto rect = GetRect(health);
-  auto dest = Vec2f(rect.GetMin(0), rect.GetMax(1)) + Vec2f(.1f, -.1f);
-  return dest;
-}
-
 // Callback: called when reward animation reaches destination.
 static void OnRewardAnimComplete(Animator* animator)
 {
@@ -156,6 +141,21 @@ void IReward::StartCollectAnim()
   m_animControllerCollect->SetOnCompleteCallback(OnRewardAnimComplete);
 }
 
+Vec2f RewardHealth::GetCollectDestPos() const
+{
+  // Find the player life/heart pos on screen as the destination for
+  //  health reward.
+  auto gui = TheGSHero::Instance()->GetGui();
+  Assert(gui);
+  auto health = GetElementByName(gui, "player-life-heart-comp");
+  Assert(health);
+  // Getting centre of bounding rect isn't really working :(
+  // Just hack an offset onto the top left pos of the heart.
+  auto rect = GetRect(health);
+  auto dest = Vec2f(rect.GetMin(0), rect.GetMax(1)) + Vec2f(.1f, -.1f);
+  return dest;
+}
+
 void RewardHealth::GiveReward() const
 {
 #ifdef EXTRA_DEBUG
@@ -163,6 +163,16 @@ std::cout << "Give reward: " << m_points << " health points!\n";
 #endif
 
   TheGSHero::Instance()->IncreaseLife(m_points);
+}
+
+Vec2f RewardPointsMult::GetCollectDestPos() const 
+{
+  return Vec2f(1.f, 1.f); // TODO TEMP TEST
+}
+
+void RewardPointsMult::GiveReward() const 
+{
+  // TODO
 }
 }
 
