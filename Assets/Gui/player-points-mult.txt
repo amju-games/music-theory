@@ -14,14 +14,15 @@ player-points-mult-comp
 2
 
 colour
-// TODO TEMP TEST
-ff4040
+// TODO get these colours from a HUD palette, which we can change
+//  in settings for accessibility.
+ff40c0
 
 // Patch
 patch
 points-mult-bg-patch
 0, 0
-.1, .15
+.1, .17
 // Rough circle TODO Rectangle
 Image/atlas.png, stretch
 // Patch is a sprite, so we have to specify cell info - this should be  
@@ -72,10 +73,10 @@ text2
 points-mult-text
 // pos (coords are -1..1)
 // NB Z coord for z-ordering with batching; +ve is CLOSER
-0.7, .375, .5
-.4, .1
+0.02, -.11,  .5
+.4, .09
 // Text
 x2
 // Font name, size
-catcomic, 1.5, fgcol=404040, left
+catcomic, 1.5, fgcol=ffffff, left
 

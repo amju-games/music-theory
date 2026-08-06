@@ -29,6 +29,10 @@ public:
   HudNumber& GetPlayerScore();
   HudNumber& GetPlayerLife();
 
+  // Multiply the current points multiplier by the given value, and
+  //  reset the countdown timer.
+  void MultPointsMultiplier(int mult);
+
 private:
   HudImpl* m_pimpl;
 };

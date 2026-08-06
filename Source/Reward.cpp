@@ -141,14 +141,20 @@ void IReward::StartCollectAnim()
   m_animControllerCollect->SetOnCompleteCallback(OnRewardAnimComplete);
 }
 
+static PGuiElement GetHeroGuiElement(const std::string& name)
+{
+  auto gui = TheGSHero::Instance()->GetGui();
+  Assert(gui);
+  auto elem = GetElementByName(gui, name);
+  Assert(elem);
+  return elem;
+}
+
 Vec2f RewardHealth::GetCollectDestPos() const
 {
   // Find the player life/heart pos on screen as the destination for
   //  health reward.
-  auto gui = TheGSHero::Instance()->GetGui();
-  Assert(gui);
-  auto health = GetElementByName(gui, "player-life-heart-comp");
-  Assert(health);
+  auto health = GetHeroGuiElement("player-life-heart-comp");
   // Getting centre of bounding rect isn't really working :(
   // Just hack an offset onto the top left pos of the heart.
   auto rect = GetRect(health);
@@ -167,12 +173,15 @@ std::cout << "Give reward: " << m_points << " health points!\n";
 
 Vec2f RewardPointsMult::GetCollectDestPos() const 
 {
-  return Vec2f(1.f, 1.f); // TODO TEMP TEST
+  auto points = GetHeroGuiElement("player-score-comp");
+  auto rect = GetRect(points);
+  auto dest = Vec2f(rect.GetMin(0), rect.GetMax(1)) + Vec2f(.1f, -.04f);
+  return dest;
 }
 
 void RewardPointsMult::GiveReward() const 
 {
-  // TODO
+  GetHud().MultPointsMultiplier(m_pointsMult);
 }
 }
 
