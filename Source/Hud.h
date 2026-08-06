@@ -1,15 +1,23 @@
 #pragma once
 
-#include "GuiPatch.h"
-#include "HudNumber.h"
+#include <GuiElement.h>
 
 namespace Amju
 {
+// Pimpl idiom: reduce compile dependencies.
+struct HudImpl;
+
+// One integer value displayed on the HUD.
+struct HudNumber;
+
 // ** HUD **
 // Head up display: score, life counter, etc.
 struct Hud
 {
 public:
+  Hud();
+  ~Hud();
+
   void Update();
   // Call when gui is (re)loaded; optionally reset to new game values,
   //  or keep values from previous incarnation
@@ -18,13 +26,11 @@ public:
   // Set size of patch behind player numeric score, and any others in future.
   void SetPatchSizes();
 
-  HudNumber m_playerScore;
-  HudNumber m_pointsMultiplier;
+  HudNumber& GetPlayerScore();
+  HudNumber& GetPlayerLife();
 
-  HudNumber m_playerLife;
-
-  // Patch behind player score (numeric points)
-  RCPtr<GuiPatch> m_playerScoreBg;
+private:
+  HudImpl* m_pimpl;
 };
 
 // Singleton-ish so we can display it across multiple

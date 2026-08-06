@@ -19,6 +19,7 @@
 #include "GSHeroWin.h"
 #include "GSPause.h"
 #include "Hud.h"
+#include "HudNumber.h"
 #include "PlayWav.h"
 #include "Resumer.h"
 #include "UserProfile.h"
@@ -440,14 +441,14 @@ void GSHero::IncreaseScore(const Grade& grade)
   int amount = static_cast<int>(std::round(grade.m_score * 1000.f));
   amount *= 100;
 
-  GetHud().m_playerScore.Add(amount, NUM_UPDATE_NUM_FRAMES);
+  GetHud().GetPlayerScore().Add(amount, NUM_UPDATE_NUM_FRAMES);
 
   GetHud().SetPatchSizes();
 }
 
 void GSHero::IncreaseLife(int inc)
 {
-  auto& life = GetHud().m_playerLife;
+  auto& life = GetHud().GetPlayerLife();
   life.Add(inc, NUM_UPDATE_NUM_FRAMES); 
   // It's a %, so cap at 100
   if (life.m_internalNumber > 100)
@@ -460,7 +461,7 @@ void GSHero::DecreaseLife(const Grade& grade)
 {
   int dec = GetGameRound().m_lifeDecrease;
   dec = std::abs(dec);
-  auto& life = GetHud().m_playerLife;
+  auto& life = GetHud().GetPlayerLife();
   life.Add(-dec, NUM_UPDATE_NUM_FRAMES); 
 
   if (life.m_internalNumber <= 0)
