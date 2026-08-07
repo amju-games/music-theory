@@ -50,6 +50,10 @@ protected:
 
   // This is the Reward given to the player when collected.
   PReward m_reward;
+
+  // Reset once we first collect or un-collect, so we don't try to do it 
+  //  more than once.
+  bool m_isActive = true; 
 };
 
 using PExtra = RCPtr<IExtra>;

@@ -6,6 +6,10 @@ namespace Amju
 {
 void IExtra::StartNoCollect()
 {
+  // Once-only check
+  if (!m_isActive) return;
+  m_isActive = false;
+
   m_reward->StartNoCollectAnim();
 }
 
@@ -25,6 +29,10 @@ std::cout << "Extra not collected, detached.\n";
 void IExtra::StartCollection(
   GuiComposite* scrollingRoot, GuiComposite* nonScrollingRoot)
 {
+  // Once-only check
+  if (!m_isActive) return;
+  m_isActive = false;
+
   auto pos = m_gui->GetCombinedPos(); // get local + scroll pos
 
   DetachGui(scrollingRoot); // detach from scrolling root
