@@ -70,26 +70,45 @@ struct HudImpl
     SetPatchSizes();
   }
 
+  // Size an element to enclose text in the given text element.
+  static void SizePatchToText(
+    GuiElement* text, 
+    GuiElement* patch, 
+    float extra, // add this to the size, for margins on left and right
+    bool canShorten = false) 
+  {
+    Vec2f textSize = dynamic_cast<GuiTextBase*>(text)->CalcSizeToText();
+    Vec2f bgSize = patch->GetSize();
+    if (canShorten || (textSize.x > (bgSize.x - extra)))
+    { 
+      bgSize.x = textSize.x + extra;  
+    }
+    patch->SetSize(bgSize);
+  }
+
   void SetPatchSizes()
   {
-    Vec2f textSize = dynamic_cast<GuiTextBase*>(
-      m_playerScore.m_guiTextElement.GetPtr())->CalcSizeToText();
-
-    Vec2f bgSize = m_playerScoreBg->GetSize();
-    const float EXTRA_X = .1f;
-    if (textSize.x > (bgSize.x - EXTRA_X))
-    { 
-      bgSize.x = textSize.x + EXTRA_X;  
-    }
-    m_playerScoreBg->SetSize(bgSize);
+    // Set player score bg patch to fit the score
+    const float EXTRA_X_SCORE = .1f;
+    SizePatchToText(
+      m_playerScore.m_guiTextElement, 
+      m_playerScoreBg,
+      EXTRA_X_SCORE);
 
     // Set position of points multiplier to the right of the (points) score.
     const float UP_A_BIT = .07f;
-    auto pos = m_playerScoreBg->GetCombinedPos() + Vec2f(bgSize.x, UP_A_BIT);
+    Vec2f scoreBgSize = m_playerScoreBg->GetSize();
+    auto pos = m_playerScoreBg->GetCombinedPos() + Vec2f(scoreBgSize.x, UP_A_BIT);
     m_pointsMultRoot->SetLocalPos(pos);
 
-    // TODO Set size of multiplier bg -- it could be large, in theory,
+    // Set size of multiplier bg -- it could be large, in theory,
     //  because the multipliers multiply! E.g. x2 -> x5 -> x2 => x20
+    const float EXTRA_X_POINTS_MULT = .05f;
+    const bool CAN_SHORTEN = true;
+    SizePatchToText(
+      m_pointsMultiplier.m_guiTextElement, 
+      m_pointsMultBg,
+      EXTRA_X_POINTS_MULT, CAN_SHORTEN);
   }
 
   void MultPointsMultiplier(int mult)
@@ -101,13 +120,14 @@ struct HudImpl
     m_pointsMultiplier.m_internalNumber *= mult;
 
     // Set timer
-    const float POINTS_MULT_MAX_TIME = 500.f; // TODO config
+    const float POINTS_MULT_MAX_TIME = 5.f; // TODO config
     m_pointsMultTime = POINTS_MULT_MAX_TIME;
    
     // Update display
     m_pointsMultiplier.Reset(m_pointsMultiplier.m_internalNumber);
 
-    // Trigger pulse anim TODO 
+    // Trigger pulse anim 
+    m_pointsMultiplier.ResetAnimation();
   }
 
   void UpdatePointsMultiplier()

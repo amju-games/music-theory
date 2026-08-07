@@ -13,6 +13,18 @@ player-points-mult-comp
 // Num children
 2
 
+animation
+// Name looked up in code
+points-mult-text-anim-trigger
+one-shot
+0.1
+linear
+
+scale
+3, 3 ; 1, 1 
+// Pivot
+1, 1
+
 colour
 // TODO get these colours from a HUD palette, which we can change
 //  in settings for accessibility.
@@ -40,6 +52,11 @@ gui-comp
 points-mult-comp
 1
 
+animation
+clean-anim
+const
+one
+
 // Bob up and down
 animation
 bob-up-and-down
@@ -49,23 +66,6 @@ linear
 
 translate
 0,0 ; 0, 0.008
-
-animation
-clean-anim
-const
-one
-
-animation
-// Name looked up in code
-points-mult-text-anim-trigger
-one-shot
-0.2
-linear
-
-scale
-3, 3 ; 2, 2
-// Pivot
-0, .5
 
 text2
 // Element name

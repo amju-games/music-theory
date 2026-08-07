@@ -73,13 +73,19 @@ void HudNumber::Add(int amountToAdd, int numFrames)
     m_increment = Sign(amountToAdd);
   }
 
+  ResetAnimation();
+}
+
+void HudNumber::ResetAnimation()
+{
   if (m_guiAnimElement)
   {
-    GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(m_guiAnimElement.GetPtr());
+    auto anim = dynamic_cast<GuiDecAnimation*>(m_guiAnimElement.GetPtr());
     Assert(anim);
     anim->ResetAnimation();
   }
 }
+
 /*
 void NumUpdate(PGuiElement gui, const std::string& elemName, int value)
 {

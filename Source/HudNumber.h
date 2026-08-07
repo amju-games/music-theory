@@ -34,6 +34,10 @@ struct HudNumber
   //  and any other time the value should be reset.
   void Reset(int initialValue = 0); 
 
+  // If there is one, trigger the animation controller for this HUD value --
+  //  this is called in Add.
+  void ResetAnimation();
+
   // Call every frame
   void Update();
 

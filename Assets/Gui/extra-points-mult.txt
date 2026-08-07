@@ -1,0 +1,143 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+// EXTRA POINTS MULT
+// 
+// Purple rounded rect, with x2 etc on top
+
+// This comp is used to position the extra 
+gui-comp
+root
+1
+
+// Animation controller for moving in a curved path, when we do collect.
+animation
+extra-anim-controller-collect
+one-shot
+// This time should be set in code proportional to distance we will travel.
+1.0
+linear
+
+curved-path
+// Start ; end coords
+0,0 ; -1, 1
+
+gui-comp
+// This name becomes part of name of parent, and is looked up in code.
+heart
+1
+
+// (First, clean the curved path translation animation)
+animation
+clean-anim
+const
+one
+
+// Animation controller for dropping off screen if not collected.
+animation
+extra-anim-controller-no-collect
+one-shot
+0.4
+linear
+
+translate
+// Hmm we need -2 to make sure it goes off the bottom of the screen.
+// Because of music score scale maybe.
+0,0 ; 0, -2
+
+scale
+0.5, 0.5 
+// pivot
+0.5, 0.5
+
+// (First, reset the no-collect animation)
+animation
+clean-anim
+const
+one
+
+// Pulse animation
+animation
+pulsing anim
+repeat
+1.2
+linear
+
+gui-comp
+mult-comp-2
+2
+
+// Child 0: colour dec then 2 children
+colour
+ff40c0
+
+gui-comp
+mult-comp-just-bg
+2
+
+colour
+ffffffff, ffffff00
+scale
+.9, .9; 1.5, 1.5
+.5, .5
+
+patch
+points-mult-bg-patch
+0, 0
+.15, .2
+Image/atlas.png, stretch
+8, 8
+18
+// Corner size
+0.04, 0.05
+
+//gui-sprite
+//fading-pulsing-heart
+//0, 0
+//.3, .4
+//Image/atlas.png, stretch
+//8, 8
+//18
+
+scale
+.9, .9; 1.1, 1.1
+.5, .5
+
+patch
+points-mult-bg-patch
+0, 0
+.15, .2 
+Image/atlas.png, stretch
+8, 8
+18
+// Corner size
+0.04, 0.05
+
+//gui-sprite
+//pulsing-heart
+//0, 0
+//.3, .4
+//Image/atlas.png, stretch
+//8, 8
+//18
+
+// text2 seems to be ignoring scale decorator??
+scale
+.9, .9; 1.1, 1.1
+.5, .5
+
+text2
+// Element name: This is looked up in code.
+extra-text
+// pos (coords are -1..1)
+// NB Z coord for z-ordering with batching; +ve is CLOSER
+-.026, -.04, 1 
+.125, .1
+// Text
++5
+// Font name, size
+catcomic, 1.0, fgcol=ffffff, centre
+
