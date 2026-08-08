@@ -173,7 +173,7 @@ std::cout << "Give reward: " << m_points << " health points!\n";
 
 Vec2f RewardPointsMult::GetCollectDestPos() const 
 {
-  auto points = GetHeroGuiElement("player-score-comp");
+  auto points = GetHeroGuiElement("player-points-mult-comp");
   auto rect = GetRect(points);
   auto dest = Vec2f(rect.GetMin(0), rect.GetMax(1)) + Vec2f(.1f, -.04f);
   return dest;
@@ -182,6 +182,35 @@ Vec2f RewardPointsMult::GetCollectDestPos() const
 void RewardPointsMult::GiveReward() const 
 {
   GetHud().MultPointsMultiplier(m_pointsMult);
+}
+
+void RewardPoints::GiveReward() const 
+{
+  static const int NUM_UPDATE_NUM_FRAMES = 60; // TODO This is terrible
+  GetHud().AddToPlayerPoints(m_points, NUM_UPDATE_NUM_FRAMES);
+}
+
+Vec2f RewardPoints::GetCollectDestPos() const 
+{
+  // Dest is score in HUD... but for multi-extras we want the dest to be
+  //  the final 'parent' extra. TODO
+  auto points = GetHeroGuiElement("player-score-comp");
+  auto rect = GetRect(points);
+  auto dest = Vec2f(rect.GetMin(0), rect.GetMax(1)) + Vec2f(.1f, -.04f);
+  return dest;
+}
+
+void RewardPointsChild::GiveReward() const 
+{
+  // Add m_points to the total shown in the 'parent' final Extra of the run.
+  // TODO
+}
+
+Vec2f RewardPointsChild::GetCollectDestPos() const
+{
+  // Return centre point of final parent... but it's moving!! The
+  //  time to traverse the path will be v short tho.
+  return m_finalExtra->CalcRect().GetCentre();
 }
 }
 

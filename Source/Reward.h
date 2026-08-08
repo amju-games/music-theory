@@ -112,5 +112,42 @@ public:
 private:
   int m_pointsMult;
 };
+
+// * Reward Points *
+// Points added to player total: these do not accumulate like points multiplier.
+class RewardPoints : public IReward
+{
+public:
+  RewardPoints(int points) { m_points = points; }
+
+  // Add to player points
+  void GiveReward() const override;
+
+  // Get screen coords of player score 
+  Vec2f GetCollectDestPos() const override;
+
+protected:
+  int m_points;
+};
+
+// * Reward Points Child *
+// For multi-extras, these child rewards boost the final 'parent' extra.
+class RewardPointsChild : public RewardPoints
+{
+public:
+  RewardPointsChild(int points, PGuiElement finalExtra): 
+    RewardPoints(points), 
+    m_finalExtra(finalExtra) {}
+
+  // Only the final Extra really gives anything; in here we can boost the
+  //  number shown in that final Extra.
+  void GiveReward() const override;
+
+  // Return pos (centre) of final extra.
+  Vec2f GetCollectDestPos() const override;
+
+private:
+  PGuiElement m_finalExtra;
+};
 }
 
