@@ -15,8 +15,11 @@ player-score-comp
 // Num children
 2
 
+// BG Patch colour: to match Extras.
 colour
-4D68F1
+// TODO get these colours from a HUD palette, which we can change
+//  in settings for accessibility.
+ff40c0
 
 // Patch -- test
 patch
