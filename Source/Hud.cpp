@@ -46,6 +46,13 @@ struct HudImpl
       gui, "num-lives-text", "num-lives-text-anim-trigger");
     m_playerLife.m_suffix = "%";
 
+    m_playerScoreBg = dynamic_cast<GuiPatch*>(GetElementByName(gui, "score-bg-patch"));
+    Assert(m_playerScoreBg);
+    m_pointsMultBg = dynamic_cast<GuiPatch*>(GetElementByName(gui, "points-mult-bg-patch"));
+    Assert(m_pointsMultBg);
+    m_pointsMultRoot = GetElementByName(gui, "player-points-mult-comp");
+    Assert(m_pointsMultRoot);
+
     // Reset score and life values: but only if we are not resuming 
     //  from being paused.
     if (reset)
@@ -61,12 +68,7 @@ struct HudImpl
       m_playerLife.ResumeAfterPause();
     }
 
-    m_playerScoreBg = dynamic_cast<GuiPatch*>(GetElementByName(gui, "score-bg-patch"));
-    Assert(m_playerScoreBg);
-    m_pointsMultBg = dynamic_cast<GuiPatch*>(GetElementByName(gui, "points-mult-bg-patch"));
-    Assert(m_pointsMultBg);
-    m_pointsMultRoot = GetElementByName(gui, "player-points-mult-comp");
-    Assert(m_pointsMultRoot);
+    m_pointsMultRoot->SetVisible(m_pointsMultiplier.m_internalNumber > 1);
 
     SetPatchSizes();
   }
@@ -130,6 +132,9 @@ struct HudImpl
     // Trigger pulse anim 
     m_pointsMultiplier.ResetAnimation();
 
+    // Make sure it's visible!
+    m_pointsMultRoot->SetVisible(true);
+
 #ifdef HUD_DEBUG
 std::cout << "HUD: Points multiplier is now: " 
   << m_pointsMultiplier.m_internalNumber
@@ -172,8 +177,8 @@ std::cout << "Points multiplier timed out, is now 1.\n";
     }
     else
     {
-      // TODO Hud number visible setting
-      //m_pointsMultiplier.m_guiRoot->SetVisible(false);
+      // TODO Hud number visible setting would be handy.
+      m_pointsMultRoot->SetVisible(false);
     }
   }
 
