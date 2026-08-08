@@ -128,6 +128,7 @@ void ExtrasAdderImpl::AttachExtraBits(int fromThisNoteId)
     std::remove_if(noteEvents.begin(), noteEvents.end(),
      [=](const NoteEvent& ne) { return ne.m_type != net; }),
     noteEvents.end());
+  // NB noteEvents are Note ON events only!
 
   auto extrasRootComp = dynamic_cast<GuiComposite*>(m_extrasRoot.GetPtr());
 
@@ -217,22 +218,49 @@ void ExtrasAdderImpl::AddNoteRunExtras()
 
 void ExtrasAdderImpl::AddRandomExtras(
   GuiComposite* extrasRootComp,
-  const NoteEvents& noteEvents,
+  const NoteEvents& noteOnEvents,
   int fromThisNoteId)
 {
-  // TODO
-  // Start with vec of all event ids.
-  // Remove event ids in m_extrasMap.
-  // Shuffle remaining vec.
+  // Start with vec of all NOTE ON event ids, WITHOUT the event ids 
+  //  to which we have already allocated an Extra - i.e. those in m_extrasMap.
+  // Shuffle the vec of remaining IDs.
   // Allocate extras to the first <n> ids in vec.
+  std::vector<int> eventIds;
+  eventIds.reserve(noteOnEvents.size());
+  // Add the note event IDs that are NOT in m_extrasMap.
+  std::for_each(noteOnEvents.begin(), noteOnEvents.end(), 
+    [&eventIds, this](const NoteEvent& ne) 
+    {
+      if (!m_extrasMap.contains(ne.GetId())) { eventIds.push_back(ne.GetId()); }
+    }
+  );
 
-  // Attach a heart to the score.
-  for (int i = 0; i < 10; i++)
+std::cout << "Vec of unallocated IDs.....\n";
+for (int i : eventIds) { std::cout << i << " "; }
+std::cout << "\n";
+
+  Amju::RandomShuffle(eventIds.begin(), eventIds.end(), Amju::RandomInt);
+
+std::cout << "SHUFFLED IDs.....\n";
+for (int i : eventIds) { std::cout << i << " "; }
+std::cout << "\n";
+
+  // Number of extras we add here should be a proportion of the total number
+  //  of notes. 
+  int numExtras = eventIds.size() / 10; // TODO config? Set in .csv??
+  // Make sure we don't overrun!
+  numExtras = std::min(numExtras, static_cast<int>(eventIds.size()));
+
+std::cout << "Allocating random extra to " << numExtras << " extras.\n";
+
+  for (int i = 0; i < numExtras; i++)
   {
-    const int id = noteEvents[i].GetId();
+    const int id = eventIds[i];
 
-    // Quick hack for now to avoid clashes
-    if (IsExtraAllocated(id)) continue;
+    Assert(!IsExtraAllocated(id));
+
+    // TODO More Extra types.
+std::cout << "Allocating an extra to event: " << id << "\n";
 
     AttachHealthBoost(extrasRootComp, id);
   }
