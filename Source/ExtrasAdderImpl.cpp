@@ -191,17 +191,18 @@ void ExtrasAdderImpl::AddSectionExtras(GuiComposite* extrasRootComp)
     {
       --last;
       const auto& ne = noteEvents[last];
+      const int id = ne.GetId();
       if (ne.IsNoteOnEvent())
       {
         // Found final note-on event in the section
 #ifdef EXTRA_DEBUG
 std::cout << "Extras: adding extra to final note on event in section " 
   << sectionNum
-  << " Note event ID: " << ne.GetId()
+  << " Note event ID: " << id
   << "\n";
 #endif
         ++sectionNum;
-        AttachPointsMultiplier(extrasRootComp, ne.GetId());
+        AttachPointsMultiplier(extrasRootComp, id);
         break;
       }
     }

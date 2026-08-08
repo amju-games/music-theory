@@ -21,6 +21,7 @@
 #include "Hud.h"
 #include "HudNumber.h"
 #include "PlayWav.h"
+#include "PointsCalculator.h"
 #include "Resumer.h"
 #include "UserProfile.h"
 #include "UseVertexColourShader.h"
@@ -438,12 +439,7 @@ static const int NUM_UPDATE_NUM_FRAMES = 60; // assume 60 fps
 
 void GSHero::IncreaseScore(const Grade& grade)
 {
-  int amount = static_cast<int>(std::round(grade.m_score * 1000.f));
-  amount *= 100;
-
-  GetHud().GetPlayerScore().Add(amount, NUM_UPDATE_NUM_FRAMES);
-
-  GetHud().SetPatchSizes();
+  GetHud().AddToPlayerPoints(CalcPoints(grade), NUM_UPDATE_NUM_FRAMES);
 }
 
 void GSHero::IncreaseLife(int inc)
@@ -684,6 +680,9 @@ std::cout << "Music KB event: "
 
   if (m_roundIsOver)
   {
+#ifdef MUSIC_EVENT_DEBUG
+std::cout << "Round is over, ignoring player kb event.\n";
+#endif
     return;
   }
 
@@ -695,10 +694,12 @@ std::cout << "Not grading event, keyboard is moving. ("
   << (e.m_on? "on" : "off")
   << ")\n";
 #endif  // MUSIC_EVENT_DEBUG
-
   }
   else
   {
+#ifdef MUSIC_EVENT_DEBUG
+std::cout << "Grading event...\n";
+#endif
     GradeEvent(e);
   }
 }
@@ -713,7 +714,7 @@ std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << 
   PlayWav(WAV_INCORRECT);
   Assert(grade.m_type == Grade::BAD_NOTE);
   //SetUpFeedbackBalloon(grade, m_gui);
-  DecreaseLife(grade); // TODO Life boosters when we reach checkpoints
+  DecreaseLife(grade); 
 
   // If there's an extra on this note, don't collect it.
   m_extrasAdder->NoCollectExtra(ne.m_id);
@@ -726,7 +727,7 @@ void GSHero::OnCorrectNote(const NoteEvent& ne, const Grade& grade)
 {
   // Note on event, pitch is correct
 #ifdef GRADE_DEBUG
-std::cout << "** Correct note! " << e.m_note << "\n";
+std::cout << "** Correct note! " << ne.m_note << "\n";
 #endif
   SetUpFeedbackBalloon(grade, m_gui);
   IncreaseScore(grade);
@@ -736,6 +737,9 @@ std::cout << "** Correct note! " << e.m_note << "\n";
   Assert(m_extrasAdder);
   if (grade.ShouldAwardExtra())
   {    
+#ifdef GRADE_DEBUG
+std::cout << " -- so good, we are awarding EXTRA!\n";
+#endif
     auto nonScrollingExtrasRoot = dynamic_cast<GuiComposite*>(
       GetElementByName(m_gui, "non-scrolling-extras-root"));
     m_extrasAdder->CollectExtra(ne.m_id, nonScrollingExtrasRoot);
@@ -751,7 +755,7 @@ std::cout << "** Correct note! " << e.m_note << "\n";
 void GSHero::GradeEvent(const MusicKbEvent& e)
 {
 #ifdef GRADE_DEBUG
-std::cout << "=================================\nGrading note event: Pitch: " << e.m_note 
+std::cout << "Grading note event: Pitch: " << e.m_note 
   << " " << (e.m_on ? "*ON*" : "+off+");
   // No newline!
 #endif
@@ -766,6 +770,9 @@ std::cout << "\n";
     //  late note up event??
     if (e.m_on) // ? Or safer to just totally ignore
     {
+#ifdef GRADE_DEBUG
+std::cout << "Ignoring note down event after song finished.\n";
+#endif
       return;
     }
   }
@@ -835,7 +842,7 @@ std::cout << " - ignoring this player event, already graded.\n";
     if (e.m_on && grade.m_type != Grade::TOO_QUICK)
     {
 #ifdef GRADE_DEBUG
-std::cout << "Storing event so you can't try again\n";
+std::cout << "Storing event so player can't try this same note again\n";
 #endif
 
       // This is the right place to increment player note count?
@@ -852,6 +859,7 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
     bool isPitchCorrect = IsPlayerPitchCorrect(e.m_note, ne.m_note);
     if (e.m_on && isPitchCorrect)
     {
+      // ne is the scored note event, not the player attempt.
       OnCorrectNote(ne, grade);
     }
     else if (e.m_on && !isPitchCorrect)

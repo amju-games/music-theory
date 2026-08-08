@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 #include <GuiText.h>
 #include <Timer.h>
 #include "GuiPatch.h"
@@ -128,6 +129,12 @@ struct HudImpl
 
     // Trigger pulse anim 
     m_pointsMultiplier.ResetAnimation();
+
+#ifdef HUD_DEBUG
+std::cout << "HUD: Points multiplier is now: " 
+  << m_pointsMultiplier.m_internalNumber
+  << " (this could be from an earlier Extra Reward).\n";
+#endif
   }
 
   void UpdatePointsMultiplier()
@@ -158,6 +165,9 @@ struct HudImpl
       {
         // Set multiplier to 1; set GUI element to invisible.
         m_pointsMultiplier.Reset(1);
+#ifdef HUD_DEBUG
+std::cout << "Points multiplier timed out, is now 1.\n";
+#endif
       }
     }
     else
@@ -173,7 +183,7 @@ struct HudImpl
 
     UpdatePointsMultiplier();
 
-    SetPatchSizes();
+    SetPatchSizes(); // Update sizes of patch bgs for score and multiplier
 
     m_playerLife.Update();
   }
@@ -217,6 +227,20 @@ void Hud::Update()
 void Hud::MultPointsMultiplier(int mult)
 {
   m_pimpl->MultPointsMultiplier(mult);
+}
+
+void Hud::AddToPlayerPoints(int add, int frames)
+{
+  int mult = m_pimpl->m_pointsMultiplier.m_internalNumber;
+  int product = add * std::max(mult, 1);
+  m_pimpl->m_playerScore.Add(product, frames);
+
+#ifdef HUD_DEBUG
+std::cout << "HUD points add: " << add 
+  << " mult is: " << mult 
+  << " Added points: " << product 
+  << "\n";
+#endif
 }
 
 // Singleton-ish so we can display it across multiple
