@@ -34,6 +34,8 @@
 
 //#define KEYBOARD_DEBUG
 //#define MISSED_NOTE_DEBUG
+//#define MUSIC_EVENT_DEBUG
+//#define GRADE_DEBUG
 
 namespace Amju
 {
