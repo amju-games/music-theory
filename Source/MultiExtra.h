@@ -6,10 +6,11 @@ namespace Amju
 {
 // IExtra subtypes for collecting multiple connected extras
 
+// * Multi Extra *
 // For note runs etc, i.e. final extra is only collected when all child
 //  extras are collected.
-// Should this Extra be attached to the final note in the run, with
-//  ChildExtras for the preceding ones? That sounds ok.
+// This Extra type is attached to the final note in the run, with
+//  ChildExtras for the preceding ones.
 class MultiExtra : public Extra
 {
 public:

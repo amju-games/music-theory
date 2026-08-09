@@ -6,6 +6,7 @@
 namespace Amju
 {
 class ExtrasAdderImpl;
+class GuiComposite;
 class GuiMusicScore;
 
 // * Extras Adder *

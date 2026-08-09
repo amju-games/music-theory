@@ -23,9 +23,9 @@ public:
   // Called when anim finishes: actually update values.
   virtual void OnDestPosReached();
 
-  // Called in ctor when dest pos set: initialise reward animation,
-  //  and set to paused until we award.
-  void InitAnim();
+  // Called by Extra ctor: initialise reward animations,
+  //  and set to paused until we collect, or not.
+  virtual void InitAnim();
 
   // When awarded: start the anim to show the reward being given.
   void StartCollectAnim();

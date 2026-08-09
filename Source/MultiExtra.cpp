@@ -1,4 +1,5 @@
 #include <iostream>
+#include <AmjuAssert.h>
 #include "MultiExtra.h"
 
 namespace Amju
@@ -18,7 +19,9 @@ std::cout << "No collect on multi extra..\n";
   for (auto child : m_children)
   {
     if (child->IsActive())
+    {
       child->StartNoCollect();
+    }
   }
 }
 
@@ -40,6 +43,7 @@ std::cout << "No collect on child  extra..\n";
 
   // Child not collected: notify the parent so we no-collect all the
   //  children and the parent.
+  Assert(m_parent);
   bool isParentActive = m_parent->IsActive();
 
   Extra::StartNoCollect();

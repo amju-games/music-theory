@@ -61,6 +61,7 @@ void IReward::OnDestPosReached()
   Assert(parent);
   auto comp = dynamic_cast<GuiComposite*>(parent);
   Assert(comp);
+  Assert(m_parent); // TODO Rename this: it's the owning Extra
   m_parent->DetachGui(comp);
 
   // Give reward: this depends on the extra type so we go round the houses
