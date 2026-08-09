@@ -32,7 +32,7 @@ public:
   virtual void Collect() = 0;
 
   // When extra is not collected (bum note etc.)
-  void StartNoCollect(); 
+  virtual void StartNoCollect(); 
 
   // When no collect anim completes, this is called, for final cleanup.
   void FinishNoCollect();
@@ -43,6 +43,8 @@ public:
   // Detach the Extra from the given parent node, which has to be
   //  the direct parent, not some other ancestor.
   void DetachGui(GuiComposite* root);
+
+  bool IsActive() const { return m_isActive; }
 
 protected:
   // This is what the Extra looks like.
@@ -71,34 +73,6 @@ public:
   }
 
   void Collect() override; 
-};
-
-// For note runs etc, i.e. final extra is only collected when all child
-//  extras are collected.
-// Should this Extra be attached to the final note in the run, with
-//  ChildExtras for the preceding ones? That sounds ok.
-class MultiEventExtra : public IExtra
-{
-public:
-  // Collect won't be called externally, right? We do it ourself when the
-  //  last child is collected and all children have been.
-  void Collect() override; 
-
-  // Child extras: when all are collected, we fire off Collect? No, we
-  //  check they have all been collected when we are Collected.
-  std::vector<PExtra> m_children;
-};
-
-// Used internally in above type and probably should be an inner class of 
-//  MultiEventExtra. Keep external for now, maybe there will be other
-//  composite types?
-class ChildExtra : public IExtra
-{
-public:
-  // Mini reward and notify parent that this child was collected.
-  void Collect() override;
-
-  MultiEventExtra* m_parent = nullptr;
 };
 }
 

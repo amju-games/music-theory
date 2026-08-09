@@ -68,13 +68,5 @@ void Extra::Collect()
   // Award points etc here
   m_reward->GiveReward();
 }
-
-void MultiEventExtra::Collect()
-{
-}
-
-void ChildExtra::Collect() 
-{
-}
 }
 

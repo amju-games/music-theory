@@ -7,6 +7,8 @@
 namespace Amju
 {
 class GuiMusicScore;
+class MultiExtra;
+struct NoteRun;
 
 // * Extras Adder Impl *
 // Adds Extras to the score. 
@@ -51,7 +53,18 @@ protected:
 
   void AddSectionExtras(GuiComposite* extrasRootComp);
 
-  void AddNoteRunExtras();
+  void AddNoteRunExtras(GuiComposite * extrasRootComp,
+    const NoteEvents& noteOnEvents);
+
+  void AddExtrasForOneRun(GuiComposite* extrasRootComp, 
+    const NoteRun& run);
+
+  MultiExtra* AttachMultiPoints(
+    GuiComposite* extrasRootComp, int noteEventId, int points);
+
+  void AttachChildPoints(
+    GuiComposite* extrasRootComp, int noteEventId, int points,
+    MultiExtra* multiParent);
 
   // Sprinkles extras in the song for note events that have not already
   //  been allocated an extra.
