@@ -635,7 +635,7 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
       const auto& noteEvents = m_scrollScore->GetNoteEvents();
       int id = FindNoteOnEventForNoteOffEvent(noteEvents, ne.m_id);
       Assert(id >= 0);
-      Assert(id < noteEvents.size());
+      Assert(id < static_cast<int>(noteEvents.size()));
       const auto& noteOn = noteEvents[id];
       Assert(noteOn.IsNoteOnEvent());
       OnMissedNote(noteOn);

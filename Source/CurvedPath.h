@@ -2,8 +2,13 @@
 
 #include <cmath>
 #include <iostream>
+#include <numbers>
 #include <vector>
 #include <Vec2.h>
+
+#ifndef M_PI
+#define M_PI std::numbers::pi_v<float>
+#endif
 
 namespace Amju
 {

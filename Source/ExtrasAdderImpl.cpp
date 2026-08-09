@@ -192,6 +192,7 @@ std::cout << " .. attaching multi points extra to event " << noteEventId
 
   // Load points add gui
   auto gui = LoadGui("Gui/extra-points.txt");
+  Assert(gui);
 
   // Create Reward for this extra
   auto reward = new RewardPoints(points);

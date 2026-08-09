@@ -86,7 +86,7 @@ std::vector<int> CountSignRuns(const std::vector<int> diffs)
 
   // Loop over the diffs, checking if the sign has changed from the
   //  previous to the current element.
-  for (int i = 1; i < diffs.size(); i++)
+  for (int i = 1; i < static_cast<int>(diffs.size()); ++i)
   {
     int s = Sign(diffs[i]);
     if (s == 0)
@@ -186,7 +186,7 @@ std::cout << "  Runs:  " << runs << "\n";
   // Loop over the sign run lengths. When the run length drops down,
   //  we have reached the end of the previous run and consider adding it
   //  to the result.
-  for (int i = 1; i < runs.size(); ++i)
+  for (int i = 1; i < static_cast<int>(runs.size()); ++i)
   {
     // Run length drop?
     if (runs[i] == 0 || (runs[i] < runs[i - 1]))

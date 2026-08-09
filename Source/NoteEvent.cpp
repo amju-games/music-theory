@@ -31,14 +31,14 @@ int FindNoteOnEventForNoteOffEvent(
 {
   int i = noteOffEventId;
 
-  Assert(i < events.size());
+  Assert(i < static_cast<int>(events.size()));
   if (!events[i].IsNoteOffEvent()) return NOT_A_NOTE_OFF_EVENT;
 
   const int pitch = events[i].m_note;
   while (i > 0) 
   {
     --i;
-    Assert(i >= 0 && i < events.size());
+    Assert(i >= 0 && i < static_cast<int>(events.size()));
     const auto& n = events[i];
     if (n.m_note == pitch && n.IsNoteOnEvent())
     {
