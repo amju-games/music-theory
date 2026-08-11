@@ -67,7 +67,7 @@ Grade::Grade(Type t, float score) :
 bool Grade::ShouldAwardExtra() const
 {
   // TODO depends on difficulty??
-  return m_type == Grade::GOOD_NOTE && m_score >= .7f;
+  return m_type == Grade::GOOD_NOTE && m_score > 0;
 }
 
 std::pair<NoteEvents::const_iterator, NoteEvents::const_iterator> 

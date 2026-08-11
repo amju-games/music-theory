@@ -36,6 +36,25 @@ static void SetRewardGuiText(PGuiElement gui, const std::string& text)
   textNode->SetText(text);
 }
 
+static std::vector<int> CreatePointsForNoteRun(const NoteRun& run)
+{
+  const size_t numNotes = run.m_ids.size();
+  std::vector<int> res;
+  res.reserve(numNotes);
+  // Points double; final value is sum of all previous points.
+  int points = 100;
+  int total = 0;
+  for (size_t i = 0; i < numNotes - 1; ++i)
+  {
+    res.push_back(points);
+    total += points;
+    points *= 2;
+  }
+  res.push_back(total);
+  Assert(res.size() == numNotes);
+  return res;
+}
+
 bool ExtrasAdderImpl::IsExtraAllocated(int eventId) const
 {
   return m_extrasMap.contains(eventId);
@@ -93,7 +112,7 @@ void ExtrasAdderImpl::AttachExtraBitToScore(
   int eventId, 
   IExtra* extra) 
 {
-#ifdef EXTRA_DEBUG
+#ifdef EXTRA_DEBUG_TMI
 std::cout << "Extras at these IDs: ";
 for (const auto& [id, extra] : m_extrasMap)
 {
@@ -207,9 +226,9 @@ std::cout << " .. attaching multi points extra to event " << noteEventId
   return extra;
 }
 
-void ExtrasAdderImpl::AttachChildPoints(
+Extra* ExtrasAdderImpl::AttachChildPoints(
   GuiComposite* extrasRootComp, int noteEventId, int points,
-  MultiExtra* multiParent)
+  MultiExtra* multiParent, Extra* nextExtra)
 {
 std::cout << " .. attaching child points extra to event " << noteEventId
   << " (" << points << " points)\n";
@@ -217,8 +236,8 @@ std::cout << " .. attaching child points extra to event " << noteEventId
   // Load points add gui
   auto gui = LoadGui("Gui/extra-points.txt");
 
-  // Create Reward for this extra. Destination will be the final Extra.
-  auto reward = new RewardPointsChild(points, multiParent->GetGui());
+  // Create Reward for this extra. Destination will be the next Extra in the run.
+  auto reward = new RewardPointsChild(points, nextExtra->GetGui());
 
   // Set text in GUI 
   SetRewardGuiText(gui, "+" + std::to_string(points));
@@ -226,6 +245,8 @@ std::cout << " .. attaching child points extra to event " << noteEventId
   // Create extra, add to scrolling root.
   auto extra = new ChildExtra(gui, reward, multiParent);
   AttachExtraBitToScore(extrasRootComp, noteEventId, extra);
+
+  return extra;
 }
 
 void ExtrasAdderImpl::AddSectionExtras(GuiComposite* extrasRootComp)
@@ -310,21 +331,21 @@ for (int note = 0; note < numNotesInRun; ++note)
 }
 std::cout << "\n";
 
-  // Create MultiExtra for the last note
-  int sumOfPoints = 5000; // TODO TEMP TEST
-  auto multiExtra = AttachMultiPoints(extrasRootComp, run.m_ids.back(), sumOfPoints);
+  // Create vec of points, in forward order of notes in run
+  auto points = CreatePointsForNoteRun(run);
 
-  // Create ChildExtras for all the notes in the run, up to but not including
-  //  the final note.
-  int points = 100;
-  for (int note = 0; note < numNotesInRun - 1; ++note)
+  // Create MultiExtra for the last note
+  auto multiExtra = AttachMultiPoints(extrasRootComp, run.m_ids.back(), points.back());
+  Extra* nextExtra = multiExtra; // collected children fly to next extra in the run
+
+  // Create ChildExtras for all the notes in the run, from the penultimate note
+  //  to the first. The reward for each child extra travels to the next extra in the run.
+  for (int note = numNotesInRun - 2; note >= 0; --note)
   { 
     int id = run.m_ids[note];
     
     // Create ChildExtra
-    AttachChildPoints(extrasRootComp, id, points, multiExtra);
-
-    points *= 2; // Or have an array of values we index into, with a max.
+    nextExtra = AttachChildPoints(extrasRootComp, id, points[note], multiExtra, nextExtra);
   }
 }
 
@@ -386,4 +407,3 @@ std::cout << "Allocating an extra to event: " << id << "\n";
   }
 }
 }
-

@@ -62,9 +62,9 @@ protected:
   MultiExtra* AttachMultiPoints(
     GuiComposite* extrasRootComp, int noteEventId, int points);
 
-  void AttachChildPoints(
+  Extra* AttachChildPoints(
     GuiComposite* extrasRootComp, int noteEventId, int points,
-    MultiExtra* multiParent);
+    MultiExtra* multiParent, Extra* nextExtra);
 
   // Sprinkles extras in the song for note events that have not already
   //  been allocated an extra.

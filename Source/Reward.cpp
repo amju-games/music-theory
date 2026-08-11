@@ -39,6 +39,29 @@ static void OnRewardNoCollectAnimComplete(Animator* animator)
   reward->OnNoCollectAnimComplete();
 }
 
+static float SetTravelTime(GuiDecAnimation* anim, const Vec2f& start, const Vec2f& end)
+{
+  float len = std::sqrt((start - end).SqLen());
+  anim->SetCycleTime(len); // TODO scale factor?
+  std::cout << "^^^Reward anim: setting travel time to " << len << "\n";
+  return len;
+}
+
+static void RandomiseCurvedPath(PathConfig& config, float extravagance)
+{
+	// We use extravagance 0..1 to decide how many loops etc to add to the curve. 
+
+	// TODO!!!
+	config.spiral.maxRadius = Rnd(.4f, .8f);
+	// TODO Add curve/loop/fig-8
+}
+
+static void SetUpPath(GuiDecAnimation* anim, PathConfig& config)
+{
+  float time = SetTravelTime(anim, config.startPos, config.endPos);
+  RandomiseCurvedPath(config, time);
+}
+
 void IReward::OnNoCollectAnimComplete()
 {
   Assert(m_parent);
@@ -96,13 +119,6 @@ void IReward::InitAnim()
   m_animControllerNoCollect = PauseAnim(elem);
 }
 
-static void RandomiseCurvedPath(PathConfig& config)
-{
-  // Randomise the path
-  config.spiral.maxRadius = Rnd(.4f, .8f); 
-  // TODO Add curve/loop/fig-8
-}
- 
 void IReward::StartNoCollectAnim()
 {
   // Start the 'no collect' animation
@@ -117,19 +133,21 @@ void IReward::StartCollectAnim()
 {
   auto gui = GetGui();
   Assert(gui);
-  // Set start and dest pos in curve config
+  // Find curved path anim controller
   auto elem = GetElementByName(gui, "curved-path-for-heart");
   Assert(elem);
   auto curve = dynamic_cast<GuiDecCurvedPath*>(elem);
   Assert(curve);
+  // Set start and dest pos in curve config
   auto config = curve->GetPathConfig();
   // Get pos of extra gui now: this becomes the start pos of the curve.
   // Once set, the curve takes over from the local pos of the gui root.
   config.startPos = gui->GetLocalPos(); 
   // Set destination: do this as late as poss to minimise visual bugs due
   //  to changing orientation (if we change, this destination could be wrong).
-  config.endPos = GetCollectDestPos(); 
-  RandomiseCurvedPath(config);
+  config.endPos = GetCollectDestPos();
+  // Set up curve config and anim time
+  SetUpPath(m_animControllerCollect, config);
   curve->SetPathConfig(config);
   // We need this: we don't want curve pos + random extra pos
   gui->SetLocalPos(Vec2f(0, 0)); // curve takes over setting position
@@ -176,7 +194,7 @@ Vec2f RewardPointsMult::GetCollectDestPos() const
 {
   auto points = GetHeroGuiElement("player-points-mult-comp");
   auto rect = GetRect(points);
-  auto dest = Vec2f(rect.GetMin(0), rect.GetMax(1)) + Vec2f(.1f, -.04f);
+  auto dest = Vec2f(rect.GetMin(0), rect.GetMax(1)) + Vec2f(0, -.04f);
   return dest;
 }
 
