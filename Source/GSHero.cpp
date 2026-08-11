@@ -789,9 +789,8 @@ std::cout << "Ignoring note down event after song finished.\n";
     {
       // If we haven't even started the count-in, ignore this event.
 #ifdef GRADE_DEBUG
-std::cout << "  * not even counting in yet bruv!\n";
+std::cout << "  * Wow, right on the edge between count-in and song?!\n";
 #endif
-      return;
     }
 #ifdef GRADE_DEBUG
 std::cout << " -- grade count-in event!\n";
@@ -833,6 +832,13 @@ std::cout << " - ignoring this player event, already graded.\n";
 
     // The note event we think the player is attempting to match
     const NoteEvent& ne = *it;
+
+#ifdef GRADE_DEBUG
+std::cout << "I think you are attempting this note/event: "
+  << ne.ToString()
+  << "\n";
+#endif
+
     // Grade the time difference between player and note event ne
     const float MAX_ERROR = 0.5f; // Max acceptable time diff, TODO CONFIG
     auto grade = grader.FinalGrade(
