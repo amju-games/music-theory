@@ -9,12 +9,19 @@ static bool RndBool()
   return (RandomInt(2) == 0);
 }
 
+static int RndInt(int begin, int end)
+{
+  if (end < begin) std::swap(end, begin);
+  int r = RandomInt(end - begin) + begin;
+  return r;
+}
+
 void AddSpiral(
   PathConfig& config, float start, float end, bool expand, float scale)
 {
   config.spirals.emplace_back(SpiralConfig
   {
-    start, end, Rnd(1.f, 3.f), scale * Rnd(.2f, .4f), 0, RndBool(), expand
+    start, end, RndInt(1, 3), scale * Rnd(.2f, .4f), 0, RndBool(), expand
   });
 }
 
@@ -24,7 +31,7 @@ void AddLoop(
   config.loops.emplace_back(LoopConfig
   {
     std::min(start, end), std::max(start, end), scale * Rnd(.3f, .6f),
-      Rnd(1.f, 2.f), RndBool()
+      RndInt(1, 3), RndBool()
   });
 }
 
@@ -34,7 +41,7 @@ void AddFigure8(
   config.figureEights.emplace_back(Figure8Config
   {
     std::min(start, end), std::max(start, end), scale * Rnd(.3f, .7f),
-      Rnd(1.f, 2.f)
+      RndInt(1, 3)
   });
 }
 

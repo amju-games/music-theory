@@ -20,7 +20,7 @@ struct SpiralConfig
 {
   float startT = 0.f;         // Where on the path [0, 1] it begins
   float endT = 0.3f;          // Where it ends
-  float turns = 2.f;          // Total full rotations
+  int turns = 2.f;            // Total full rotations
   float maxRadius = 50.0f;    // Peak radius of the spiral
   float startAngleRad = 0.0f; // Initial direction angle in radians
   bool clockwise = false;     // False = CCW, True = CW
@@ -32,7 +32,7 @@ struct LoopConfig
   float startT;             // Where on the path [0, 1] it begins
   float endT;               // Where it ends
   float radius;             // Radius of the loop
-  float rotations = 1;        // Number of full loops
+  int rotations = 1;        // Number of full loops
   bool clockwise = false;   // Rotation direction
 };
 
@@ -41,7 +41,7 @@ struct Figure8Config
   float startT;             // Where on the path [0, 1] it begins
   float endT;               // Where it ends
   float scale;              // Size of the figure-8
-  float rotations = 1;        // Number of full figure-8s
+  int rotations = 1;        // Number of full figure-8s
 };
 
 struct PathConfig
