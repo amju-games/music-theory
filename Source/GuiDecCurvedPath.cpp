@@ -8,6 +8,13 @@ const char* GuiDecCurvedPath::NAME = "curved-path";
 
 bool GuiDecCurvedPath::Load(File* f) 
 {
+  // Load name
+  if (!f->GetDataLine(&m_name))
+  {
+    f->ReportError("Curved path: expected name");
+    return false;
+  }
+
   // Load curved path config  
   if (!LoadPathConfig(f))
   {
@@ -24,8 +31,6 @@ bool GuiDecCurvedPath::Load(File* f)
     return false;
   }
 
-  SetName("curved-path-for-" + GetChild()->GetName());
-
   return true;
 }
 
@@ -35,6 +40,8 @@ bool GuiDecCurvedPath::Save(File* f)
   {
     return false;
   }
+
+  f->Write(GetName());
 
   // Save curved path config
   if (!SavePathConfig(f))

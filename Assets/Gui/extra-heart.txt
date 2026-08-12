@@ -21,13 +21,10 @@ one-shot
 linear
 
 curved-path
+// Name, looked up in code
+curved-path
 // Start ; end coords
 0,0 ; -1, 1
-
-gui-comp
-// This name becomes part of name of parent, and is looked up in code.
-heart
-1
 
 // (First, clean the curved path translation animation)
 animation
