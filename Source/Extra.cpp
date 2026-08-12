@@ -1,6 +1,7 @@
 #include <AmjuAssert.h>
 #include <GuiComposite.h>
 #include "Extra.h"
+#include "PlayWav.h"
 
 namespace Amju
 {
@@ -70,6 +71,9 @@ void Extra::Collect()
   // Award points etc here
   Assert(m_reward);
   m_reward->GiveReward();
+
+  // TODO - for now, play a wav; future: play some MIDI notes
+  PlayWav("waterdrop");
 }
 }
 
