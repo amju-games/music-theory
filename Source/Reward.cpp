@@ -134,7 +134,7 @@ void IReward::StartCollectAnim()
   auto gui = GetGui();
   Assert(gui);
   // Find curved path anim controller
-  auto elem = GetElementByName(gui, "curved-path-for-heart");
+  auto elem = GetElementByName(gui, "curved-path");
   Assert(elem);
   auto curve = dynamic_cast<GuiDecCurvedPath*>(elem);
   Assert(curve);
