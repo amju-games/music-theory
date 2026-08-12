@@ -2,6 +2,7 @@
 #include <AmjuRand.h>
 #include <GuiDecAnimation.h>
 #include "Extra.h"
+#include "GenerateCurvedPathConfig.h"
 #include "GSHero.h"
 #include "GuiDecCurvedPath.h"
 #include "Reward.h"
@@ -47,19 +48,10 @@ static float SetTravelTime(GuiDecAnimation* anim, const Vec2f& start, const Vec2
   return len;
 }
 
-static void RandomiseCurvedPath(PathConfig& config, float extravagance)
-{
-	// We use extravagance 0..1 to decide how many loops etc to add to the curve. 
-
-	// TODO!!!
-	config.spiral.maxRadius = Rnd(.4f, .8f);
-	// TODO Add curve/loop/fig-8
-}
-
 static void SetUpPath(GuiDecAnimation* anim, PathConfig& config)
 {
   float time = SetTravelTime(anim, config.startPos, config.endPos);
-  RandomiseCurvedPath(config, time);
+  GenerateCurvedPathConfig(config, time);
 }
 
 void IReward::OnNoCollectAnimComplete()
