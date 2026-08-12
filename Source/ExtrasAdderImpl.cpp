@@ -1,6 +1,7 @@
-#include <AmjuRand.h>
+#include <AmjuRand.h> // Random shuffle 
 #include <GuiComposite.h>
 #include <GuiText.h>
+#include "ExtraAllocator.h"
 #include "ExtrasAdderImpl.h"
 #include "GuiMusicScore.h"
 #include "MultiExtra.h"
@@ -10,22 +11,6 @@
 
 namespace Amju
 {
-// Get random value for points mutiplier reward
-static int GetRandomPointsMultiplier()
-{
-  // Let's say 80% chance of x2, 20% chance of x5.
-  // As these accumulate we don't want to go crazy.
-  return (Rnd(0.f, 1.f) > .8f ? 5 : 2);
-}
-
-// Get random value for health boost reward
-static int GetRandomHealthBoost()
-{
-  // 60% chance of +2, 30% chance of +5, 10% chance of +10.
-  const float r = Rnd(0.f, 1.f);
-  return (r < .6f ? 2 : (r < .9 ? 5 : 10));
-}
-
 // Set the text node named "extra-text" with the given string.
 static void SetRewardGuiText(PGuiElement gui, const std::string& text)
 {
@@ -34,25 +19,6 @@ static void SetRewardGuiText(PGuiElement gui, const std::string& text)
   auto textNode = dynamic_cast<GuiTextBase*>(elem);
   Assert(elem);
   textNode->SetText(text);
-}
-
-static std::vector<int> CreatePointsForNoteRun(const NoteRun& run)
-{
-  const size_t numNotes = run.m_ids.size();
-  std::vector<int> res;
-  res.reserve(numNotes);
-  // Points double; final value is sum of all previous points.
-  int points = 100;
-  int total = 0;
-  for (size_t i = 0; i < numNotes - 1; ++i)
-  {
-    res.push_back(points);
-    total += points;
-    points *= 2;
-  }
-  res.push_back(total);
-  Assert(res.size() == numNotes);
-  return res;
 }
 
 bool ExtrasAdderImpl::IsExtraAllocated(int eventId) const
@@ -304,7 +270,9 @@ std::cout << "SORTED NOTE RUNS:\n";
   PrintRuns(runs, m_musicScore.GetNoteEvents());
 #endif
 
-  int numNoteRunExtras = runs.size() / 3; // TODO TEMP TEST
+  // Get the number of note runs to which we apply extras. 
+  int numNoteRunExtras = GetNumExtraRuns(runs.size());
+
   for (int i = 0; i < numNoteRunExtras; ++i)
   {
     const auto& run = runs[i];
@@ -384,7 +352,7 @@ std::cout << "\n";
 
   // Number of extras we add here should be a proportion of the total number
   //  of notes. 
-  int numExtras = eventIds.size() / 10; // TODO config? Set in .csv??
+  int numExtras = GetNumRandomExtras(eventIds.size());
   // Make sure we don't overrun!
   numExtras = std::min(numExtras, static_cast<int>(eventIds.size()));
 
