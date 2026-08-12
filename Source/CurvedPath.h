@@ -18,8 +18,9 @@ namespace Amju
 
 struct SpiralConfig
 {
-  float durationT = 0.3f;     // What fraction of the path the spiral covers [0.0, 1.0]
-  int turns = 2;              // Total full rotations
+  float startT = 0.f;         // Where on the path [0, 1] it begins
+  float endT = 0.3f;          // Where it ends
+  float turns = 2.f;          // Total full rotations
   float maxRadius = 50.0f;    // Peak radius of the spiral
   float startAngleRad = 0.0f; // Initial direction angle in radians
   bool clockwise = false;     // False = CCW, True = CW
@@ -31,7 +32,7 @@ struct LoopConfig
   float startT;             // Where on the path [0, 1] it begins
   float endT;               // Where it ends
   float radius;             // Radius of the loop
-  int rotations = 1;        // Number of full loops
+  float rotations = 1;        // Number of full loops
   bool clockwise = false;   // Rotation direction
 };
 
@@ -40,7 +41,7 @@ struct Figure8Config
   float startT;             // Where on the path [0, 1] it begins
   float endT;               // Where it ends
   float scale;              // Size of the figure-8
-  int rotations = 1;        // Number of full figure-8s
+  float rotations = 1;        // Number of full figure-8s
 };
 
 struct PathConfig
@@ -49,7 +50,7 @@ struct PathConfig
   Vec2f endPos;
   bool backwards = false; // if true, reverse through the path from the end.
  
-  SpiralConfig spiral;
+  std::vector<SpiralConfig> spirals;
   std::vector<LoopConfig> loops;
   std::vector<Figure8Config> figureEights;
 };
@@ -117,25 +118,45 @@ public:
   Vec2f CalcPointAtT(float t) const
   {
       // 1. Base Linear Position (lerp)
-      Vec2f currentPos = 
-      {
-        m_config.startPos.x + m_dir.x * t,
-        m_config.startPos.y + m_dir.y * t
-      };
+      Vec2f currentPos = m_config.startPos + m_dir * t;
+//      {
+//        m_config.startPos.x + m_dir.x * t,
+//        m_config.startPos.y + m_dir.y * t
+//      };
 
       Vec2f offset = { 0.0f, 0.0f };
 
       // 2. Add Initial Spiral Offset
-      if (t <= m_config.spiral.durationT && m_config.spiral.durationT > 0.0f)
+      offset += AddSpirals(t);
+
+      // 3. Add Loop Offsets (Aligned to Path Direction)
+      offset += AddLoops(t);
+
+      // 4. Add Figure-8 Offsets (Aligned to Path Direction)
+      offset += AddFigureEights(t);
+      
+      // Combine and store
+      currentPos += offset;
+//      currentPos.x += offset.x;
+//      currentPos.y += offset.y;
+      return currentPos;
+  }
+
+  Vec2f AddSpirals(float t) const
+  {
+    Vec2f offset;
+    for (const auto& spiral : m_config.spirals)
+    {
+      if (t >= spiral.startT && t <= spiral.endT)
       {
-        float localT = t / m_config.spiral.durationT;
+        float localT = (t - spiral.startT) / (spiral.endT - spiral.startT);
         
-        float directionMult = m_config.spiral.clockwise ? -1.0f : 1.0f;
-        float angle = m_config.spiral.startAngleRad + (directionMult * localT * m_config.spiral.turns * 2.0f * M_PI);
+        float directionMult = spiral.clockwise ? -1.0f : 1.0f;
+        float angle = spiral.startAngleRad + (directionMult * localT * spiral.turns * 2.0f * M_PI);
         
-        float radius = m_config.spiral.expandOutward 
-            ? m_config.spiral.maxRadius * localT 
-            : m_config.spiral.maxRadius * (1.0f - localT);
+        float radius = spiral.expandOutward 
+            ? spiral.maxRadius * localT 
+            : spiral.maxRadius * (1.0f - localT);
 
         // Smoothly fade out into the main path
         float fadeOut = std::cos(localT * M_PI * 0.5f); 
@@ -144,51 +165,57 @@ public:
         offset.x += std::cos(angle) * radius;
         offset.y += std::sin(angle) * radius;
       }
+    }
+    return offset;
+  }
 
-      // 3. Add Loop Offsets (Aligned to Path Direction)
-      for (const auto& loop : m_config.loops)
+  Vec2f AddLoops(float t) const
+  {
+    Vec2f offset;
+
+    for (const auto& loop : m_config.loops)
+    {
+      if (t >= loop.startT && t <= loop.endT)
       {
-        if (t >= loop.startT && t <= loop.endT)
-        {
-          float localT = (t - loop.startT) / (loop.endT - loop.startT);
-          float angle = localT * loop.rotations * 2.0f * M_PI * (loop.clockwise ? -1.0f : 1.0f);
-          
-          float envelope = std::sin(localT * M_PI);
-          float r = loop.radius * envelope;
+        float localT = (t - loop.startT) / (loop.endT - loop.startT);
+        float angle = localT * loop.rotations * 2.0f * M_PI * (loop.clockwise ? -1.0f : 1.0f);
+        
+        float envelope = std::sin(localT * M_PI);
+        float r = loop.radius * envelope;
 
-          // Project standard circle onto m_tangent/m_normal axes
-          offset.x += (m_normal.x * std::cos(angle) + m_tangent.x * std::sin(angle)) * r;
-          offset.y += (m_normal.y * std::cos(angle) + m_tangent.y * std::sin(angle)) * r;
-        }
+        // Project standard circle onto m_tangent/m_normal axes
+        offset.x += (m_normal.x * std::cos(angle) + m_tangent.x * std::sin(angle)) * r;
+        offset.y += (m_normal.y * std::cos(angle) + m_tangent.y * std::sin(angle)) * r;
       }
+    }
+    return offset;
+  }
 
-      // 4. Add Figure-8 Offsets (Aligned to Path Direction)
-      for (const auto& fig8 : m_config.figureEights)
+  Vec2f AddFigureEights(float t) const
+  {
+    Vec2f offset;
+    for (const auto& fig8 : m_config.figureEights)
+    {
+      if (t >= fig8.startT && t <= fig8.endT)
       {
-        if (t >= fig8.startT && t <= fig8.endT)
-        {
-          float localT = (t - fig8.startT) / (fig8.endT - fig8.startT);
-          float angle = localT * fig8.rotations * 2.0f * M_PI;
-          
-          float envelope = std::sin(localT * M_PI);
-          
-          // Lemniscate math
-          float localX = fig8.scale * std::sin(angle);
-          float localY = fig8.scale * std::sin(angle) * std::cos(angle);
-          
-          localX *= envelope;
-          localY *= envelope;
+        float localT = (t - fig8.startT) / (fig8.endT - fig8.startT);
+        float angle = localT * fig8.rotations * 2.0f * M_PI;
+        
+        float envelope = std::sin(localT * M_PI);
+        
+        // Lemniscate math
+        float localX = fig8.scale * std::sin(angle);
+        float localY = fig8.scale * std::sin(angle) * std::cos(angle);
+        
+        localX *= envelope;
+        localY *= envelope;
 
-          // Project onto m_tangent/m_normal axes
-          offset.x += m_tangent.x * localX + m_normal.x * localY;
-          offset.y += m_tangent.y * localX + m_normal.y * localY;
-        }
+        // Project onto m_tangent/m_normal axes
+        offset.x += m_tangent.x * localX + m_normal.x * localY;
+        offset.y += m_tangent.y * localX + m_normal.y * localY;
       }
-
-      // Combine and store
-      currentPos.x += offset.x;
-      currentPos.y += offset.y;
-      return currentPos;
+    }
+    return offset;
   }
 };
 }
