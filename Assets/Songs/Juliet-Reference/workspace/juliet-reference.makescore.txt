@@ -1,0 +1,10 @@
+// Created by MIDISCORE by Juliet, 2026-08-14 14:48:35
+// ./midiscore ../Assets/Songs/Juliet-Reference/workspace/juliet-reference-score.mid --timesig 4/4 --quant c --bpm 30 --track 1 
+// Output track 1 only.
+// Quantising to: c
+// TPQ: 480
+// Num bars: 14
+page-w 84
+bpm 30
+stave clef-t 4/4 key-s-0 <m> 60 62 | 64 65 | 67 65 | 64 60 | 62 64 | 65 67 | 69 67 | 65 64 | <c> 65 66 67 68 | 69 70 71 76 | 75 74 73 72 | 69 67 65 64 | <sb> 60 | <m.> 60 <c> r | 
+
