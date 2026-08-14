@@ -64,13 +64,7 @@ using PExtra = RCPtr<IExtra>;
 class Extra : public IExtra
 {
 public:
-  Extra(PGuiElement gui, PReward reward)
-  {
-    m_gui = gui;
-    m_reward = reward;
-    m_reward->SetParent(this);
-    m_reward->InitAnim();
-  }
+  Extra(PGuiElement gui, PReward reward);
 
   void Collect() override; 
 };

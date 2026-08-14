@@ -66,6 +66,14 @@ void IExtra::DetachGui(GuiComposite* root)
   root->DeleteChild(index);
 }
 
+Extra::Extra(PGuiElement gui, PReward reward)
+{
+  m_gui = gui;
+  m_reward = reward;
+  m_reward->SetParent(this);
+  m_reward->InitAnims();
+}
+
 void Extra::Collect() 
 {
   // Award points etc here
