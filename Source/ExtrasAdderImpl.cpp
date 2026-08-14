@@ -203,7 +203,10 @@ std::cout << " .. attaching child points extra to event " << noteEventId
   auto gui = LoadGui("Gui/extra-points.txt");
 
   // Create Reward for this extra. Destination will be the next Extra in the run.
-  auto reward = new RewardPointsChild(points, nextExtra->GetGui());
+  // Pass in music score so we can get its scroll speed when we set 
+  //  destination pos.
+  auto reward = new RewardPointsChild(points, nextExtra->GetGui(), 
+    m_musicScore);
 
   // Set text in GUI 
   SetRewardGuiText(gui, "+" + std::to_string(points));

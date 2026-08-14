@@ -94,7 +94,7 @@ static GuiDecAnimation* PauseAnim(GuiElement* elem)
   return animController;
 }
 
-void IReward::InitAnim()
+void IReward::InitAnims()
 {
   // We should have a GUI and that should contain an animation controller.
   // Set the anim to initially paused.
@@ -221,7 +221,19 @@ Vec2f RewardPointsChild::GetCollectDestPos() const
 {
   // Return centre point of final parent... but it's moving!! The
   //  time to traverse the path will be v short tho.
-  return m_finalExtra->CalcRect().GetCentre();
+
+  // Get the current score scroll vel. We have to assume it's constant
+  //  while this Reward is in flight. 
+  float speed = dynamic_cast<const GuiScrollScore&>(m_musicScore).GetScrollSpeed();
+  
+  // Get the flight time
+  float time = m_animControllerCollect->GetCycleTime();
+
+  // Calc the distance we will move to the left; add this to the final
+  //  dest pos.
+  float left = -speed * time;
+
+  return m_finalExtra->CalcRect().GetCentre() + Vec2f(left, 0);
 }
 }
 

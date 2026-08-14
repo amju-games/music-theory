@@ -5,6 +5,7 @@
 namespace Amju
 {
 class GuiDecAnimation;
+class GuiMusicScore;
 class IExtra;
 
 // * IReward *
@@ -25,17 +26,17 @@ public:
 
   // Called by Extra ctor: initialise reward animations,
   //  and set to paused until we collect, or not.
-  virtual void InitAnim();
+  virtual void InitAnims();
 
   // When awarded: start the anim to show the reward being given.
   void StartCollectAnim();
 
   // When not awarded (bum note etc.)
-  void StartNoCollectAnim();
+  virtual void StartNoCollectAnim();
 
   // Called from callback when not-collected anim completes.
   // We detach the GUI from its root so it is deleted.
-  void OnNoCollectAnimComplete();
+  virtual void OnNoCollectAnimComplete();
 
   // Called by owning Extra when the anim has finished. 
   // That control flow is a bit convoluted but lets the Extra decide what to do 
@@ -135,9 +136,14 @@ protected:
 class RewardPointsChild : public RewardPoints
 {
 public:
-  RewardPointsChild(int points, PGuiElement finalExtra): 
+  // Pass in points to display (they aren't awarded by this), the 
+  //  destination (next reward in sequence), and the scrolling music score,
+  //  so we can get the scroll speed to calc the final dest.
+  RewardPointsChild(int points, PGuiElement finalExtra, 
+    const GuiMusicScore& musicScore): 
     RewardPoints(points), 
-    m_finalExtra(finalExtra) {}
+    m_finalExtra(finalExtra),
+    m_musicScore(musicScore) {}
 
   // Only the final Extra really gives anything; in here we can boost the
   //  number shown in that final Extra.
@@ -148,6 +154,7 @@ public:
 
 private:
   PGuiElement m_finalExtra;
+  const GuiMusicScore& m_musicScore;
 };
 }
 
