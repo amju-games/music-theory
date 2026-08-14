@@ -51,7 +51,9 @@ static float SetTravelTime(GuiDecAnimation* anim, const Vec2f& start, const Vec2
 static void SetUpPath(GuiDecAnimation* anim, PathConfig& config)
 {
   float time = SetTravelTime(anim, config.startPos, config.endPos);
-  GenerateCurvedPathConfig(config, time);
+  // For now, just travel in straight lines. Getting curves working
+  //  has turned into a collosal time suck.
+//  GenerateCurvedPathConfig(config, time); // TODO
 }
 
 void IReward::OnNoCollectAnimComplete()
