@@ -37,7 +37,7 @@ public:
   float GetCountInTimeRemaining() const;
 
   // Get the current speed at which we are scrolling left.
-  float GetScrollSpeed() const { return m_scrollSpeed; }
+  float GetScrollSpeed() const;
 
   // Get the last timing value passed into Animate().
   // This is used to compare player input with the beat table.
