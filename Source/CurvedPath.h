@@ -20,7 +20,7 @@ struct SpiralConfig
 {
   float startT = 0.f;         // Where on the path [0, 1] it begins
   float endT = 0.3f;          // Where it ends
-  int turns = 2.f;            // Total full rotations
+  int turns = 2;            // Total full rotations
   float maxRadius = 50.0f;    // Peak radius of the spiral
   float startAngleRad = 0.0f; // Initial direction angle in radians
   bool clockwise = false;     // False = CCW, True = CW
