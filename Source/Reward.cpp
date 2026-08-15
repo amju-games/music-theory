@@ -40,12 +40,20 @@ static void OnRewardNoCollectAnimComplete(Animator* animator)
   reward->OnNoCollectAnimComplete();
 }
 
+// Calc the flight time for a reward given the start and end positions.
+static float CalcRewardFlightTime(const Vec2f& startPos, const Vec2f& endPos)
+{
+  const float dist = std::sqrt((startPos - endPos).SqLen());
+  const float time = dist * 1.f; // TODO Config this multiplier
+  return time;
+}
+
 static float SetTravelTime(GuiDecAnimation* anim, const Vec2f& start, const Vec2f& end)
 {
-  float len = std::sqrt((start - end).SqLen());
-  anim->SetCycleTime(len); // TODO scale factor?
-  std::cout << "^^^Reward anim: setting travel time to " << len << "\n";
-  return len;
+  // might have been already set but only for child rewards.
+  const float time = CalcRewardFlightTime(start, end);
+  anim->SetCycleTime(time); 
+  return time;
 }
 
 static void SetUpPath(GuiDecAnimation* anim, PathConfig& config)
@@ -221,21 +229,24 @@ void RewardPointsChild::GiveReward() const
 
 Vec2f RewardPointsChild::GetCollectDestPos() const
 {
-  // Return centre point of final parent... but it's moving!! The
-  //  time to traverse the path will be v short tho.
+  // Return pos of next reward... but it's moving!! Calc how far we will move
+  //  to compensate.
 
   // Get the current score scroll vel. We have to assume it's constant
   //  while this Reward is in flight. 
   float speed = dynamic_cast<const GuiScrollScore&>(m_musicScore).GetScrollSpeed();
   
   // Get the flight time
-  float time = m_animControllerCollect->GetCycleTime();
+  const Vec2f& startPos = const_cast<RewardPointsChild*>(this)->GetGui()->GetLocalPos();
+  const Vec2f& nextRewardPos = m_finalExtra->CalcRect().GetCentre();
+  const float time = CalcRewardFlightTime(startPos, nextRewardPos);
+  m_animControllerCollect->SetCycleTime(time);
 
   // Calc the distance we will move to the left; add this to the final
   //  dest pos.
-  float left = -speed * time;
+  float left = speed * time;
 
-  return m_finalExtra->CalcRect().GetCentre() + Vec2f(left, 0);
+  return nextRewardPos + Vec2f(-left, 0);
 }
 }
 
