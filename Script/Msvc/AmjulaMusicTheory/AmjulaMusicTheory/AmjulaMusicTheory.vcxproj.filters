@@ -390,6 +390,12 @@
     <ClCompile Include="..\..\..\..\Source\GuiDecCurvedPath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\GenerateCurvedPathConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ExtraAllocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\GLUT\glut32.lib">
@@ -716,6 +722,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\GuiDecCurvedPath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\GenerateCurvedPathConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\ExtraAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

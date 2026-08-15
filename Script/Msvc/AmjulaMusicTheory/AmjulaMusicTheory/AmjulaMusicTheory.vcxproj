@@ -312,11 +312,13 @@
     <ClCompile Include="..\..\..\..\Source\CurvedPathMixin.cpp" />
     <ClCompile Include="..\..\..\..\Source\Describe.cpp" />
     <ClCompile Include="..\..\..\..\Source\Extra.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ExtraAllocator.cpp" />
     <ClCompile Include="..\..\..\..\Source\ExtrasAdder.cpp" />
     <ClCompile Include="..\..\..\..\Source\ExtrasAdderImpl.cpp" />
     <ClCompile Include="..\..\..\..\Source\FeedbackBalloon.cpp" />
     <ClCompile Include="..\..\..\..\Source\FindSongSections.cpp" />
     <ClCompile Include="..\..\..\..\Source\GameMain.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GenerateCurvedPathConfig.cpp" />
     <ClCompile Include="..\..\..\..\Source\Grader.cpp" />
     <ClCompile Include="..\..\..\..\Source\GS3dExample.cpp" />
     <ClCompile Include="..\..\..\..\Source\GS3dTitle.cpp" />
@@ -474,10 +476,12 @@
     <ClInclude Include="..\..\..\..\Source\CurvedPathMixin.h" />
     <ClInclude Include="..\..\..\..\Source\Describe.h" />
     <ClInclude Include="..\..\..\..\Source\Extra.h" />
+    <ClInclude Include="..\..\..\..\Source\ExtraAllocator.h" />
     <ClInclude Include="..\..\..\..\Source\ExtrasAdder.h" />
     <ClInclude Include="..\..\..\..\Source\ExtrasAdderImpl.h" />
     <ClInclude Include="..\..\..\..\Source\FeedbackBalloon.h" />
     <ClInclude Include="..\..\..\..\Source\FindSongSections.h" />
+    <ClInclude Include="..\..\..\..\Source\GenerateCurvedPathConfig.h" />
     <ClInclude Include="..\..\..\..\Source\Grader.h" />
     <ClInclude Include="..\..\..\..\Source\GS3dExample.h" />
     <ClInclude Include="..\..\..\..\Source\GS3dTitle.h" />
