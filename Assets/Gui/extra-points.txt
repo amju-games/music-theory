@@ -10,7 +10,7 @@
 
 // This comp is used to position the extra 
 gui-comp
-root
+extra-points-root
 1
 
 // Animation controller for moving in a curved path, when we do collect.
@@ -86,7 +86,7 @@ scale
 patch
 points-bg-patch
 0, 0
-.15, .2
+.2, .22
 Image/atlas.png, stretch
 8, 8
 18
@@ -100,7 +100,7 @@ scale
 patch
 points-bg-patch
 0, 0
-.15, .2 
+.2, .22
 Image/atlas.png, stretch
 8, 8
 18
@@ -118,7 +118,7 @@ extra-text
 // pos (coords are -1..1)
 // NB Z coord for z-ordering with batching; +ve is CLOSER
 -.026, -.04, 1 
-.125, .1
+.125, .09
 // Text
 +5
 // Font name, size

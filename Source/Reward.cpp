@@ -237,8 +237,9 @@ Vec2f RewardPointsChild::GetCollectDestPos() const
   float speed = dynamic_cast<const GuiScrollScore&>(m_musicScore).GetScrollSpeed();
   
   // Get the flight time
-  const Vec2f& startPos = const_cast<RewardPointsChild*>(this)->GetGui()->GetLocalPos();
-  const Vec2f& nextRewardPos = m_finalExtra->CalcRect().GetCentre();
+  const Vec2f& startPos = const_cast<RewardPointsChild*>(this)->GetGui()->GetCombinedPos();
+  const Vec2f& nextRewardPos = m_finalExtra->GetCombinedPos() + 
+    m_finalExtra->GetSize() * .5f; //CalcRect().GetCentre();
   const float time = CalcRewardFlightTime(startPos, nextRewardPos);
   m_animControllerCollect->SetCycleTime(time);
 
