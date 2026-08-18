@@ -76,6 +76,9 @@ public:
   void IncreaseLife(int inc); 
 
 protected:
+  // Generate events to auto-play the current song. 
+  void SetUpAutoPlay();
+
   // Call to change current 'micro state'
   void ChangeState(HeroState newState);
 

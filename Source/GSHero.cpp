@@ -9,6 +9,7 @@
 #include <SoundManager.h>
 #include <Timer.h>
 #include "AnimalController.h" // eat a pet on bum note
+#include "AutoPlayer.h" // TODO TEMP TEST generate events to auto-play song
 #include "BassPlayMidi.h"
 #include "Consts.h"
 #include "FeedbackBalloon.h"
@@ -34,7 +35,7 @@
 
 //#define KEYBOARD_DEBUG
 //#define MISSED_NOTE_DEBUG
-//#define MUSIC_EVENT_DEBUG
+#define MUSIC_EVENT_DEBUG
 //#define GRADE_DEBUG
 
 namespace Amju
@@ -538,9 +539,30 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
 #endif
 }
 
+void GSHero::SetUpAutoPlay()
+{
+#ifdef _DEBUG
+  AutoPlayer ap;
+  auto messages = ap.GenerateMessages(m_scrollScore->GetNoteEvents(), {});
+  auto queue = TheMessageQueue::Instance();
+  float queueTime = queue->GetTime();
+  for (const auto& m : messages)
+  {
+    m->m_time += queueTime;
+    queue->Add(m.GetPtr());
+  }
+std::cout << "AUTOPLAY: generated " << messages.size() << " music event messages!\n";
+#endif
+}
+
 void GSHero::OnCountInFinished()
 {
 std::cout << "Count in finished!\n";
+
+  // For debug, generate events to auto-play the song - make this
+  //  something you can turn on/off. Would it have any use outside of
+  //  debugging?? (And to create vids.)
+  SetUpAutoPlay();
 
   ChangeState(HeroState::SONG_PLAYING);
 
