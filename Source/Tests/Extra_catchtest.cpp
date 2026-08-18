@@ -15,7 +15,7 @@ class RewardPointsMock : public RewardPoints
 public:
   RewardPointsMock(int points) : RewardPoints(points) {}
 
-  void InitAnim() override {}
+  void InitAnims() override {}
   Vec2f GetCollectDestPos() const override { return {}; }  
 };
 
@@ -23,9 +23,9 @@ class RewardPointsChildMock : public RewardPointsChild
 {
 public:
   RewardPointsChildMock(int points, PGuiElement multiGui) :
-    RewardPointsChild(points, multiGui) {}
+    RewardPointsChild(points, multiGui, {}) {}
 
-  void InitAnim() override {}
+  void InitAnims() override {}
   Vec2f GetCollectDestPos() const override { return {}; }  
 };
 }
