@@ -545,9 +545,10 @@ void GSHero::SetUpAutoPlay()
   AutoPlayer ap;
   auto messages = ap.GenerateMessages(m_scrollScore->GetNoteEvents(), {});
   auto queue = TheMessageQueue::Instance();
-  float queueTime = queue->GetTime();
-  for (const auto& m : messages)
+  const float queueTime = queue->GetTime();
+  for (auto& m : messages)
   {
+    m->m_time *= m_scoreLengthSeconds; // ah ha, we need seconds, not 0..1 time!
     m->m_time += queueTime;
     queue->Add(m.GetPtr());
   }
