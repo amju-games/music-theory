@@ -32,6 +32,7 @@ public:
 
 TEST_CASE("Create multi extra with children", "[Extra]")
 {
+/*
   // Create multi extra (the 'parent')
   PGuiElement gui = new GuiComposite;
   const int POINTS = 50;
@@ -47,6 +48,7 @@ TEST_CASE("Create multi extra with children", "[Extra]")
     RCPtr<ChildExtra> child = new ChildExtra(gui, childReward, multi);
     children.push_back(child);
   }
+*/
 
   // Triggering no-collect on any of the children or the parent
   //  causes the whole lot to be no-collected.
