@@ -20,6 +20,10 @@ struct HudNumber
   PGuiElement m_guiTextElement; // GuiText node displaying the value
   PGuiElement m_guiAnimElement; // animation node which animates the text
 
+  // Prefix and suffix strings to add to the integer value
+  std::string m_prefix;
+  std::string m_suffix;
+
   // Call once after initialising GUI
   void SetGuiElement(
     PGuiElement guiRoot, 
@@ -29,6 +33,10 @@ struct HudNumber
   // Call to immediately reset value, e.g. just after calling the above, 
   //  and any other time the value should be reset.
   void Reset(int initialValue = 0); 
+
+  // If there is one, trigger the animation controller for this HUD value --
+  //  this is called in Add.
+  void ResetAnimation();
 
   // Call every frame
   void Update();

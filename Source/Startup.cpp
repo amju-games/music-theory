@@ -20,27 +20,17 @@
 #include <FileImplGlue.h>
 #include <Game.h>
 #include <GlueFileMem.h>
-#include <GuiButton.h>
-#include <GuiFactory.h>
-#include <GuiRect.h>
+#include <GuiButton.h> // set click wav
 #include <iOSUtils.h>
 #include <Localise.h>
-#include <SceneNodeFactory.h>
+#include <ObjMesh.h> // set bin or text resource loader
+#include <Shader.h> // set custom loader, TODO temporarily, it breaks reloading
 #include <SoundManager.h>
-#include "AnimalFactory.h"
 #include "BassPlayMidi.h"
-#include "BlinkSceneNode.h"
 #include "Consts.h"
-#include "Gui3dScene.h"
-#include "GuiMusic2dKeyboard.h"
-#include "GuiMusicScore.h"
-#include "GuiPatch.h"
-#include "GuiScrollScore.h"
 #include "InitialState.h"
-#include "Md2SceneNode.h"
-#include "ParticleFx.h"
-#include "SceneNodeGui.h"
-#include "SceneTimeline.h"
+#include "Palette.h" // add resource
+#include "SetUpFactories.h"
 
 #ifdef AMJU_IOS
 // just on device, where we create Version.h in release script
@@ -77,9 +67,6 @@
 #define MUSIC_GLUE_FILE "music-win.glue"
 #endif // NDEBUG
 #endif  // WIN32
-
-// Probably just for now
-#define YES_FPS_COUNTER
 
 namespace Amju
 {
@@ -286,59 +273,17 @@ std::cout << "  ..player MIDI stream is ok?\n";
 #endif // AMJU_USE_BASS
 }
 
-template <class T>
-static void AddToGuiFactory()
-{
-  TheGuiFactory::Instance()->Add(T::NAME, []()->GuiElement* { return new T; });
-}
-
-template <class T>
-static void AddToSceneNodeFactory()
-{
-  TheSceneNodeFactory::Instance()->Add(T::NAME, 
-    []()->SceneNode* { return new T; });
-}
-
-template <class T>
-static void AddToTimelineFactory()
-{
-  TheTimelineEventFactory::Instance()->Add(T::NAME, 
-    []()->TimelineEvent* { return new T; });
-}
-
-static void SetUpFactories()
+static void SetUpMisc()
 {
 // Urgh, TODO remove the need for this.
 #if defined(WIN32) || defined(MACOSX)
   // Set image for cursor (e.g. hand with pointing finger for Wii controller).
   // If we don't care, just set any texture we have.
-  // 2nd param is 'hotspot' pixel position.
-  TheCursorManager::Instance()->Load("Image/hand.png", Vec2f()); 
+  // 2nd param is 'hotspot' pixel position, which, again, we don't care about.
+  TheCursorManager::Instance()->Load("Image/hand.png", {}); 
 #endif
 
   GuiButton::SetClickFilename(WAV_BUTTON_CLICK);
-
-  // Add game-specific types to Gui factory
-  AddToGuiFactory<Gui3dScene>(); // TODO Promote to amjulib
-  AddToGuiFactory<GuiMusic2dKeyboard>();
-  AddToGuiFactory<GuiMusicScore>();
-  AddToGuiFactory<GuiPatch>(); // TODO Promote to amjulib
-  AddToGuiFactory<GuiScrollScore>();
-
-  //Add game-specific types to Scene node factory
-  // TODO These are not game specific! Add to amjulib!!
-  ParticleFx::AddToFactory();
-
-  AddToSceneNodeFactory<SceneNodeGui>(); // TODO Promote to amjulib
-  AddToSceneNodeFactory<Md2SceneNode>(); // TODO Promote to amjulib
-  AddToSceneNodeFactory<Md2SceneNodeWith1Texture>(); // TODO Promote to amjulib? I think?
-  AddToSceneNodeFactory<BlinkSceneNode>(); // TODO Promote to amjulib
-
-  // Timeline types (cut scene anims)
-  AddToSceneNodeFactory<SceneTimeline>(); // TODO Promote to amjulib
-  AddToTimelineFactory<EventSetAnim>(); // TODO Promote
-
-  SetUpAnimalFactory();
 }
 
 static void LoadStringTableForPreferredLanguage()
@@ -417,6 +362,8 @@ void StartUpAfterCreateWindow()
   LoadStringTableForPreferredLanguage();
 
   SetUpFactories();
+
+  SetUpMisc();
 
   SetInitialState();
 }

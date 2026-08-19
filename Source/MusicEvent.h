@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <vector>
 #include <MessageQueue.h>
 
 namespace Amju
@@ -37,5 +38,7 @@ struct MusicKbMsg : public Message
 
   MusicKbEvent m_event;
 };
+
+using MusicMessages = std::vector<RCPtr<MusicKbMsg>>;
 }
 

@@ -75,17 +75,27 @@ TEST_CASE("Go to first beat of bar: 4/4", "[Resumer]")
     { 7.f, 2, 4 },
   };
 
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 0) == 0.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 1) == 0.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 2) == 0.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 3) == 0.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 4) == 4.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 5) == 4.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 6) == 4.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 7) == 4.f);
+  BeatVec::const_iterator it = beats.begin();
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 0.f);
+  it = beats.begin() + 1;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 0.f);
+  it = beats.begin() + 2;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 0.f);
+  it = beats.begin() + 3;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 0.f);
+  it = beats.begin() + 4;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 4.f);
+  it = beats.begin() + 5;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 4.f);
+  it = beats.begin() + 6;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 4.f);
+  it = beats.begin() + 7;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 4.f);
+  it = beats.begin() + 8;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 0.f); // begin() + 8
 
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 8) == 0.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.end()) == 0.f);
+  it = beats.end();
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 0.f);
 }
 
 TEST_CASE("Go to first beat of bar: 3/4", "[Resumer]")
@@ -105,17 +115,27 @@ TEST_CASE("Go to first beat of bar: 3/4", "[Resumer]")
     { 8.f, 3, 3 },
   };
 
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 0) == 0.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 1) == 0.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 2) == 0.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 3) == 3.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 4) == 3.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 5) == 3.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 6) == 6.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 7) == 6.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 8) == 6.f);
-
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.begin() + 9) == 0.f);
-  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, beats.end()) == 0.f);
+  auto it = beats.begin();
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 0.f);
+  it = beats.begin() + 1;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 0.f);
+  it = beats.begin() + 2;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 0.f);
+  it = beats.begin() + 3;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 3.f);
+  it = beats.begin() + 4;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 3.f);
+  it = beats.begin() + 5;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 3.f);
+  it = beats.begin() + 6;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 6.f);
+  it = beats.begin() + 7;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 6.f);
+  it = beats.begin() + 8;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 6.f);
+  it = beats.begin() + 9;
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 0.f);
+  it = beats.end();
+  REQUIRE(Resumer::GoToFirstBeatOfBar(beats, it) == 0.f);
 }
 

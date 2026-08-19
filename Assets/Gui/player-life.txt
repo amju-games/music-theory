@@ -14,7 +14,8 @@ repeat
 linear
 
 gui-comp
-heart-comp-2
+// This name is looked up in code to add health rewards
+player-life-heart-comp
 3
 
 colour
@@ -26,8 +27,8 @@ gui-sprite
 fading-pulsing-heart
 0.65, 1.0
 .3, .4
-Image/heart.png, stretch
-1, 1
+Image/atlas.png, stretch
+4, 4
 0
 
 scale
@@ -38,8 +39,8 @@ gui-sprite
 pulsing-heart
 0.65, 1.0
 .3, .4
-Image/heart.png, stretch
-1, 1
+Image/atlas.png, stretch
+4, 4
 0
 
 // Bob up and down
@@ -73,7 +74,8 @@ text2
 // Element name
 num-lives-text
 // pos (coords are -1..1)
-0.71, 0.7
+// NB Z coord for z-ordering with batching; +ve is CLOSER
+0.71, 0.7, .5
 .4, .1
 // Text
 3

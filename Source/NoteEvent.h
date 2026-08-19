@@ -55,8 +55,9 @@ namespace Amju
     // Convenience for debugging
     std::string ToString() const;
 
-    // Midi note value (if applicable)
+    // Midi note value, i.e. pitch (if applicable - not for rests)
     int m_note = -1; // not set 
+
     // Times are 0..1 animation values, not time in seconds
     float m_time = 0;
     // Type of event
@@ -73,5 +74,17 @@ namespace Amju
   // Vector of note events, sorted by time.
   // NB For polyphony, consecutive events could have the same time.
   using NoteEvents = std::vector<NoteEvent>;
+
+  // Find the note on event for the given note off event.
+  // Linear search backwards for a note on event with the same pitch
+  //  as the given event.
+  // Returns id of corresponding note on event if found, or one of the
+  //  error codes below, which are < 0.
+  int FindNoteOnEventForNoteOffEvent(
+    const NoteEvents& events, int noteOffEventId);
+
+  // Error codes for above function return value
+  static const int NOTE_ON_EVENT_NOT_FOUND = -1;
+  static const int NOT_A_NOTE_OFF_EVENT = -2;
 }
 

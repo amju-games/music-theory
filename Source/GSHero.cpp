@@ -9,6 +9,7 @@
 #include <SoundManager.h>
 #include <Timer.h>
 #include "AnimalController.h" // eat a pet on bum note
+#include "AutoPlayer.h" // TODO TEMP TEST generate events to auto-play song
 #include "BassPlayMidi.h"
 #include "Consts.h"
 #include "FeedbackBalloon.h"
@@ -19,7 +20,9 @@
 #include "GSHeroWin.h"
 #include "GSPause.h"
 #include "Hud.h"
+#include "HudNumber.h"
 #include "PlayWav.h"
+#include "PointsCalculator.h"
 #include "Resumer.h"
 #include "UserProfile.h"
 #include "UseVertexColourShader.h"
@@ -32,6 +35,8 @@
 
 //#define KEYBOARD_DEBUG
 //#define MISSED_NOTE_DEBUG
+#define MUSIC_EVENT_DEBUG
+//#define GRADE_DEBUG
 
 namespace Amju
 {
@@ -338,6 +343,16 @@ void GSHero::Draw2d()
   }
 }
 
+void GSHero::ScrollExtras()
+{
+  Assert(m_scrollScore);
+  Assert(m_scoreExtras);
+
+  // Scroll the extras along with the score.
+  auto pos = m_scrollScore->GetLocalPos();
+  m_scoreExtras->SetLocalPos(pos);
+}
+
 void GSHero::ChangeState(HeroState newState)
 {
   m_timeInHeroState = 0;
@@ -357,6 +372,7 @@ void GSHero::Update()
   if (m_state == HeroState::SONG_PLAYING)
   {
     float songElapsedSeconds = GetMidiSongElapsedTimeSeconds();
+    Assert(m_scoreLengthSeconds > 0);
     float normalisedAnimTime = songElapsedSeconds / m_scoreLengthSeconds;
 
     // Get 'dt' for animTime
@@ -365,10 +381,13 @@ void GSHero::Update()
     m_prevAnimTime = normalisedAnimTime;
 
     // Scroll the score.
+    Assert(m_scrollScore);
     m_scrollScore->AnimateSpecial(normalisedAnimTime, dAnimTime);
   
+    ScrollExtras();
     // Scroll the extras along with the score.
     auto pos = m_scrollScore->GetLocalPos();
+    Assert(m_scoreExtras);
     m_scoreExtras->SetLocalPos(pos);
 
     // If we have reached the end, we have won!
@@ -376,6 +395,10 @@ void GSHero::Update()
     {
       OnPlayerHasWon();
     }
+  }
+  else if (m_state == HeroState::COUNT_IN)
+  {
+    ScrollExtras(); // (count in scrolling for the score is different to above.)
   }
 
   // Update keyboard pos after state has initialised
@@ -415,23 +438,29 @@ void GSHero::ReloadGui()
 }
 
 // TODO This is no good, it should be time, not number of frames, surely?!
-static const int NUM_UPDATE_NUM_FRAMES = 50;
+static const int NUM_UPDATE_NUM_FRAMES = 60; // assume 60 fps
 
 void GSHero::IncreaseScore(const Grade& grade)
 {
-  int amount = static_cast<int>(std::round(grade.m_score * 1000.f));
-  amount *= 100;
+  GetHud().AddToPlayerPoints(CalcPoints(grade), NUM_UPDATE_NUM_FRAMES);
+}
 
-  GetHud().m_playerScore.Add(amount, NUM_UPDATE_NUM_FRAMES);
-
-  GetHud().SetPatchSizes();
+void GSHero::IncreaseLife(int inc)
+{
+  auto& life = GetHud().GetPlayerLife();
+  life.Add(inc, NUM_UPDATE_NUM_FRAMES); 
+  // It's a %, so cap at 100
+  if (life.m_internalNumber > 100)
+  {
+    life.m_internalNumber = 100;
+  }
 }
 
 void GSHero::DecreaseLife(const Grade& grade)
 {
   int dec = GetGameRound().m_lifeDecrease;
   dec = std::abs(dec);
-  auto& life = GetHud().m_playerLife;
+  auto& life = GetHud().GetPlayerLife();
   life.Add(-dec, NUM_UPDATE_NUM_FRAMES); 
 
   if (life.m_internalNumber <= 0)
@@ -510,9 +539,31 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
 #endif
 }
 
+void GSHero::SetUpAutoPlay()
+{
+#ifdef _DEBUG
+  AutoPlayer ap;
+  auto messages = ap.GenerateMessages(m_scrollScore->GetNoteEvents(), {});
+  auto queue = TheMessageQueue::Instance();
+  const float queueTime = queue->GetTime();
+  for (auto& m : messages)
+  {
+    m->m_time *= m_scoreLengthSeconds; // ah ha, we need seconds, not 0..1 time!
+    m->m_time += queueTime;
+    queue->Add(m.GetPtr());
+  }
+std::cout << "AUTOPLAY: generated " << messages.size() << " music event messages!\n";
+#endif
+}
+
 void GSHero::OnCountInFinished()
 {
 std::cout << "Count in finished!\n";
+
+  // For debug, generate events to auto-play the song - make this
+  //  something you can turn on/off. Would it have any use outside of
+  //  debugging?? (And to create vids.)
+  SetUpAutoPlay();
 
   ChangeState(HeroState::SONG_PLAYING);
 
@@ -600,28 +651,45 @@ std::cout << "Score note! (" << ne.m_note << ", note off):\n";
 std::cout << "  Num player notes: " << m_numPlayerNotes 
   << " Num score notes: " << m_numScoreNotes << "\n";
 #endif
-  }
 
-  if (m_numScoreNotes > m_numPlayerNotes)
-  {
+    if (m_numScoreNotes > m_numPlayerNotes)
+    {
+      // Search back for the note on event corresponding to this note off event
+      const auto& noteEvents = m_scrollScore->GetNoteEvents();
+      int id = FindNoteOnEventForNoteOffEvent(noteEvents, ne.m_id);
+      Assert(id >= 0);
+      Assert(id < static_cast<int>(noteEvents.size()));
+      const auto& noteOn = noteEvents[id];
+      Assert(noteOn.IsNoteOnEvent());
+      OnMissedNote(noteOn);
+    }
+  }
+}
+
+void GSHero::OnMissedNote(const NoteEvent& noteOnEvent)
+{
 #ifdef MISSED_NOTE_DEBUG
 std::cout << "*** Player has missed a note, I think!!!\n";
 std::cout << "  Num player notes: " << m_numPlayerNotes 
   << " Num score notes: " << m_numScoreNotes << "\n";
 #endif
 
-    m_numPlayerNotes = m_numScoreNotes;
+  m_numPlayerNotes = m_numScoreNotes;
 #ifdef MISSED_NOTE_DEBUG
 std::cout << "  ... Resetting: counters now equal:\n";
 std::cout << "  Num player notes: " << m_numPlayerNotes 
   << " Num score notes: " << m_numScoreNotes << "\n";
 #endif
 
-    // Missed note
-    Grade grade(Grade::NO_ATTEMPT, 0);
-    // Show the missed note TODO
-    DecreaseLife(grade); 
-  }
+  // Missed note
+  Grade grade(Grade::NO_ATTEMPT, 0);
+  // Show the missed note TODO
+
+  // Lose health.
+  DecreaseLife(grade); 
+
+  // If there's an extra on this note, don't collect it.
+  m_extrasAdder->NoCollectExtra(noteOnEvent.m_id);
 }
 
 void GSHero::OnMusicKbEvent(const MusicKbEvent& e) 
@@ -637,6 +705,9 @@ std::cout << "Music KB event: "
 
   if (m_roundIsOver)
   {
+#ifdef MUSIC_EVENT_DEBUG
+std::cout << "Round is over, ignoring player kb event.\n";
+#endif
     return;
   }
 
@@ -648,18 +719,68 @@ std::cout << "Not grading event, keyboard is moving. ("
   << (e.m_on? "on" : "off")
   << ")\n";
 #endif  // MUSIC_EVENT_DEBUG
-
   }
   else
   {
+#ifdef MUSIC_EVENT_DEBUG
+std::cout << "Grading event...\n";
+#endif
     GradeEvent(e);
   }
+}
+
+void GSHero::OnBumNote(const MusicKbEvent& e, const NoteEvent& ne, const Grade& grade)
+{
+  // Note on event, pitch is INCORRECT
+#ifdef GRADE_DEBUG
+std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << ne.m_note << "\n";
+#endif
+  // Not sure if we should play wav every time
+  PlayWav(WAV_INCORRECT);
+  Assert(grade.m_type == Grade::BAD_NOTE);
+  //SetUpFeedbackBalloon(grade, m_gui);
+  DecreaseLife(grade); 
+
+  // If there's an extra on this note, don't collect it.
+  m_extrasAdder->NoCollectExtra(ne.m_id);
+
+  // Eat the pet with the colour of the bum note.
+  GetAnimalController().EatAPet(e.m_note % 12); 
+}
+
+void GSHero::OnCorrectNote(const NoteEvent& ne, const Grade& grade)
+{
+  // Note on event, pitch is correct
+#ifdef GRADE_DEBUG
+std::cout << "** Correct note! " << ne.m_note << "\n";
+#endif
+  SetUpFeedbackBalloon(grade, m_gui);
+  IncreaseScore(grade);
+
+  // Collect any extra attached to the note we correctly played,
+  //  * if * the grade is good enough.
+  Assert(m_extrasAdder);
+  if (grade.ShouldAwardExtra())
+  {    
+#ifdef GRADE_DEBUG
+std::cout << " -- so good, we are awarding EXTRA!\n";
+#endif
+    auto nonScrollingExtrasRoot = dynamic_cast<GuiComposite*>(
+      GetElementByName(m_gui, "non-scrolling-extras-root"));
+    m_extrasAdder->CollectExtra(ne.m_id, nonScrollingExtrasRoot);
+  }   
+  else 
+  {    
+    // The pitch is correct but still we should not award any extra.
+    // If there's an extra on this note, don't collect it.
+    m_extrasAdder->NoCollectExtra(ne.m_id);
+  }    
 }
 
 void GSHero::GradeEvent(const MusicKbEvent& e)
 {
 #ifdef GRADE_DEBUG
-std::cout << "=================================\nGrading note event: Pitch: " << e.m_note 
+std::cout << "Grading note event: Pitch: " << e.m_note 
   << " " << (e.m_on ? "*ON*" : "+off+");
   // No newline!
 #endif
@@ -674,6 +795,9 @@ std::cout << "\n";
     //  late note up event??
     if (e.m_on) // ? Or safer to just totally ignore
     {
+#ifdef GRADE_DEBUG
+std::cout << "Ignoring note down event after song finished.\n";
+#endif
       return;
     }
   }
@@ -688,9 +812,8 @@ std::cout << "\n";
     {
       // If we haven't even started the count-in, ignore this event.
 #ifdef GRADE_DEBUG
-std::cout << "  * not even counting in yet bruv!\n";
+std::cout << "  * Wow, right on the edge between count-in and song?!\n";
 #endif
-      return;
     }
 #ifdef GRADE_DEBUG
 std::cout << " -- grade count-in event!\n";
@@ -732,6 +855,13 @@ std::cout << " - ignoring this player event, already graded.\n";
 
     // The note event we think the player is attempting to match
     const NoteEvent& ne = *it;
+
+#ifdef GRADE_DEBUG
+std::cout << "I think you are attempting this note/event: "
+  << ne.ToString()
+  << "\n";
+#endif
+
     // Grade the time difference between player and note event ne
     const float MAX_ERROR = 0.5f; // Max acceptable time diff, TODO CONFIG
     auto grade = grader.FinalGrade(
@@ -743,7 +873,7 @@ std::cout << " - ignoring this player event, already graded.\n";
     if (e.m_on && grade.m_type != Grade::TOO_QUICK)
     {
 #ifdef GRADE_DEBUG
-std::cout << "Storing event so you can't try again\n";
+std::cout << "Storing event so player can't try this same note again\n";
 #endif
 
       // This is the right place to increment player note count?
@@ -760,28 +890,12 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
     bool isPitchCorrect = IsPlayerPitchCorrect(e.m_note, ne.m_note);
     if (e.m_on && isPitchCorrect)
     {
-      // Note on event, pitch is correct
-#ifdef GRADE_DEBUG
-std::cout << "** Correct note! " << e.m_note << "\n";
-#endif
-      SetUpFeedbackBalloon(grade, m_gui);
-      IncreaseScore(grade);
+      // ne is the scored note event, not the player attempt.
+      OnCorrectNote(ne, grade);
     }
     else if (e.m_on && !isPitchCorrect)
     {
-      // Note on event, pitch is INCORRECT
-#ifdef GRADE_DEBUG
-std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << ne.m_note << "\n";
-#endif
-      // Not sure if we should play wav every time
-      PlayWav(WAV_INCORRECT);
-      Assert(grade.m_type == Grade::BAD_NOTE);
-      //SetUpFeedbackBalloon(grade, m_gui);
-      DecreaseLife(grade); // TODO Life boosters when we reach checkpoints
-
-      // TODO just a test for now. We haven't really designed how this
-      //  should work. We just eat the pet with the colour of the bum note.
-      GetAnimalController().EatAPet(e.m_note % 12); 
+      OnBumNote(e, ne, grade);
     }
     else
     {
@@ -1040,53 +1154,25 @@ void GSHero::InitGui()
   //  event multiple times)
   m_prevAttempt = m_scrollScore->GetNoteEvents().end();
 
-  AttachExtraBits(); 
+  InitExtras();
 }
 
-void GSHero::AttachExtraBits()
+void GSHero::InitExtras()
 {
-  // TODO TEMP TEST 
-  // Attach a heart to the score 
-  auto heart = LoadGui("Gui/extra-heart.txt");
-  AttachExtraBitToScore(heart, 1, NoteEventType::NOTE_ON);
-
-  auto heart2 = LoadGui("Gui/extra-heart.txt");
-  AttachExtraBitToScore(heart2, 2, NoteEventType::NOTE_ON);
-}
-
-void GSHero::AttachExtraBitToScore(
-  PGuiElement extra, int eventNum, NoteEventType net)
-{
-  // TODO for now, we are only supporting note on events.
-
   auto elem = GetElementByName(m_gui, "score-extras");
-  m_scoreExtras = dynamic_cast<GuiComposite*>(elem);
-  if (!m_scoreExtras)
-  {
-std::cout << "Failed to find score-extras!\n";
-    return;
-  }
+  Assert(elem);
+  m_scoreExtras = dynamic_cast<GuiComposite*>(elem); 
+  Assert(m_scoreExtras);
 
-  m_scoreExtras->AddChild(extra);
+  // Initial pos of m_scoreExtras
+  auto pos = m_scrollScore->GetLocalPos();
+  m_scoreExtras->SetLocalPos(pos);
 
-  const auto& noteEvents = m_scrollScore->GetNoteEvents();
-  // Get rid of all events except for the type we are looking for.
-  auto notesCopy(noteEvents);
-  notesCopy.erase(
-    std::remove_if(notesCopy.begin(), notesCopy.end(), 
-     [=](const NoteEvent& ne) { return ne.m_type != net; }),
-    notesCopy.end());
+  // Create extras manager instance
+  m_extrasAdder = new ExtrasAdder(elem, *m_scrollScore, m_songSections);
 
-  const auto& ne = notesCopy[eventNum];
-
-  // Find the position of the note or rest so we can place the extra
-  //  GUI on top -- extra's local pos then finesses the position.
-  Vec2f pos = ne.GetPos();
-  Vec2f scale = m_scrollScore->GetSize();
- 
-  pos *= scale; // or just scale x ?? TODO
-
-  extra->SetLocalPos(pos + extra->GetLocalPos());
+  int fromEventId = 0; // TODO last graded event if resuming after pause.
+  m_extrasAdder->AttachExtraBits(fromEventId); 
 }
 }
 

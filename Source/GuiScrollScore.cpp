@@ -102,6 +102,22 @@ void GuiScrollScore::Update()
   // Sigh, can't update here because count-in won't work.
 }
 
+float GuiScrollScore::GetScrollSpeed() const
+{
+  if (m_countInSpeed > 0)
+    return m_countInSpeed;
+
+  // m_scrollVel is not in distance/sec, it's in distance/anim-cycle-time.
+  auto optSongLength = GetSongLengthSeconds();
+  if (optSongLength)
+  {
+    const float songLength = *optSongLength;
+    const float speed = m_scrollSpeed / songLength;
+    return speed;
+  }
+  return 1.f;
+}
+
 void GuiScrollScore::Draw()
 {
   // Mini-update in Draw :( ... 

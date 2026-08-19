@@ -18,10 +18,12 @@ TEST_CASE("Insert new sections", "[SongSections]")
   // That's something that should be tested!! TODO!!
   InsertNewSections(sections, ids, {});
 
+#ifdef SECTIONS_DEBUG
 for (const auto& s : sections)
 {
   std::cout << s << "\n";
 }
+#endif
 
   REQUIRE(sections[0] == Section(10, 19));
   REQUIRE(sections[1] == Section(19, 30));
