@@ -7,7 +7,10 @@
 #include "MultiExtra.h"
 #include "NoteRun.h"
 
-#define EXTRA_DEBUG
+//#define EXTRA_DEBUG
+//#define EXTRA_DEBUG_TMI
+//#define NOTE_RUN_DEBUG
+//#define RANDOM_EXTRAS_DEBUG
 
 namespace Amju
 {
@@ -172,8 +175,10 @@ void ExtrasAdderImpl::AttachPointsMultiplier(
 MultiExtra* ExtrasAdderImpl::AttachMultiPoints(
   GuiComposite* extrasRootComp, int noteEventId, int points)
 {
+#ifdef EXTRA_DEBUG
 std::cout << " .. attaching multi points extra to event " << noteEventId 
   << " (" << points << " points)\n";
+#endif
 
   // Load points add gui
   auto gui = LoadGui("Gui/extra-points.txt");
@@ -196,8 +201,10 @@ Extra* ExtrasAdderImpl::AttachChildPoints(
   GuiComposite* extrasRootComp, int noteEventId, int points,
   MultiExtra* multiParent, Extra* nextExtra)
 {
+#ifdef EXTRA_DEBUG
 std::cout << " .. attaching child points extra to event " << noteEventId
   << " (" << points << " points)\n";
+#endif
  
   // Load points add gui
   auto gui = LoadGui("Gui/extra-points.txt");
@@ -295,12 +302,14 @@ void ExtrasAdderImpl::AddExtrasForOneRun(
     if (IsExtraAllocated(id)) return;
   }
 
+#ifdef EXTRA_DEBUG
 std::cout << "Adding extras for note run: ";
 for (int note = 0; note < numNotesInRun; ++note) 
 { 
   std::cout << run.m_ids[note] << " "; 
 }
 std::cout << "\n";
+#endif
 
   // Create vec of points, in forward order of notes in run
   auto points = CreatePointsForNoteRun(run);
