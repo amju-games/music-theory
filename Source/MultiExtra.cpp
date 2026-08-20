@@ -2,6 +2,8 @@
 #include <AmjuAssert.h>
 #include "MultiExtra.h"
 
+//#define MULTI_EXTRA_DEBUG
+
 namespace Amju
 {
 void MultiExtra::Collect() 
@@ -12,7 +14,10 @@ void MultiExtra::Collect()
 
 void MultiExtra::StartNoCollect() 
 {
+#ifdef MULTI_EXTRA_DEBUG
 std::cout << "No collect on multi extra..\n";
+#endif
+
   // No-collect this and all children.
   Extra::StartNoCollect(); 
 
@@ -39,7 +44,9 @@ void ChildExtra::Collect()
 
 void ChildExtra::StartNoCollect() 
 {
+#ifdef MULTI_EXTRA_DEBUG
 std::cout << "No collect on child  extra..\n";
+#endif
 
   // Child not collected: notify the parent so we no-collect all the
   //  children and the parent.

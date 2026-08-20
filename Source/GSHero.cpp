@@ -35,8 +35,9 @@
 
 //#define KEYBOARD_DEBUG
 //#define MISSED_NOTE_DEBUG
-#define MUSIC_EVENT_DEBUG
+//#define MUSIC_EVENT_DEBUG
 //#define GRADE_DEBUG
+//#define AUTOPLAY_ENABLED 
 
 namespace Amju
 {
@@ -541,7 +542,7 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
 
 void GSHero::SetUpAutoPlay()
 {
-#ifdef _DEBUG
+#ifdef AUTOPLAY_ENABLED
   AutoPlayer ap;
   auto messages = ap.GenerateMessages(m_scrollScore->GetNoteEvents(), {});
   auto queue = TheMessageQueue::Instance();
