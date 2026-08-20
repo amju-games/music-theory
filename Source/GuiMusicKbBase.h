@@ -125,8 +125,9 @@ protected:
   // Keys arranged from lowest to highest.
   // TODO Should this be a map - we are binary searching to find the key
   //  for a midi pitch.
+  // NO! We can just index into this vector!! -- TODO
   using PKey = RCPtr<Key>;
-  std::vector<PKey> m_keys; // Dynamic type depends on dynamic keyboard type
+  std::vector<PKey> m_keys; // Dynamic type depends on 2D/3D keyboard type
 
   // For dragging keyboard left and right; conflicts with glissando so
   //  probably always disabled.

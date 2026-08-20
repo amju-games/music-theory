@@ -18,6 +18,9 @@ bool SetUpPlayerStream();
 // Play a note on the 'player stream', separate from song.
 void PlayMidi(int midiNote, int velocity); 
 
+// Kill all notes on player stream, (with decay).
+void KillPlayerNotes();
+
 // * Play MIDI backing track (optionally with player's top line) *
 // Convention for this game:
 // Channel 1 is the player track – muted for game play, but enabled for preview.

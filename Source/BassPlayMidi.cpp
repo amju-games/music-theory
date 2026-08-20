@@ -29,16 +29,28 @@ static const auto DRUM_FONT = "Jazz Kit.sf2";
 
 static HSTREAM s_playerStream = 0;
 
+static const int PLAYER_CHANNEL = 0;
+
 void PlayMidi(int note, int velocity)
 {
 #ifdef PLAY_MIDI_DEBUG
   std::cout << "Playing midi note: " << note << " vel: " << velocity << "\n";
 #endif
 
-  const int pianoChannel = 0;
-
   BASS_MIDI_StreamEvent(
-    s_playerStream, pianoChannel, MIDI_EVENT_NOTE, MAKEWORD(note, velocity));
+    s_playerStream, PLAYER_CHANNEL, MIDI_EVENT_NOTE, MAKEWORD(note, velocity));
+}
+
+void KillPlayerNotes()
+{
+std::cout << "Killing off all notes on player stream.\n";
+
+  // Release sustain pedal, in case player has a MIDI keyboard connected
+  //  and the sustain pedal is down.
+  BASS_MIDI_StreamEvent(s_playerStream, PLAYER_CHANNEL, MIDI_EVENT_SUSTAIN, 0); 
+
+  // Release all notes.
+  BASS_MIDI_StreamEvent(s_playerStream, PLAYER_CHANNEL, MIDI_EVENT_NOTESOFF, 0);
 }
 
 HSOUNDFONT LoadSoundFont(const std::string fontFileName)

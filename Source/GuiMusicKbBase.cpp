@@ -7,9 +7,9 @@
 #include <MessageQueue.h>
 #include <StringUtils.h>
 #include <Timer.h>
+#include "BassPlayMidi.h"
 #include "GuiMusicKbBase.h"
 #include "MusicEvent.h"
-#include "BassPlayMidi.h"
 
 #ifdef min
 #undef min
@@ -34,6 +34,9 @@ GuiMusicKbBase::~GuiMusicKbBase()
 {
   // Make sure all keys which were pressed send final key up events
   ReleaseAllKeys();
+
+  // Make sure there are no lingering notes audible.
+  KillPlayerNotes(); 
 }
 
 void GuiMusicKbBase::Update()
@@ -219,6 +222,11 @@ GuiMusicKbBase::Key* GuiMusicKbBase::GetKey(int midiNote) const
 {
   // Binary search for key with the given midi note value
   //  (keys are in midi note value order)
+
+  // TODO If keys are in midi note order, but don't start at zero, we
+  //  can just use the offset to get the index and index into the container,
+  //  no??!?!?
+
   auto it = std::lower_bound(m_keys.begin(), m_keys.end(), midiNote,
     [](const Key* k1, int m) { return k1->m_midiNote < m; }
   );

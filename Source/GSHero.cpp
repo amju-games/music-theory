@@ -920,8 +920,18 @@ std::cout << ":((( Couldn't find a matching event to grade against!\n";
 void GSHero::OnDeactive() 
 {
   GSBase3d::OnDeactive();
+
   auto sm = TheSoundManager::Instance();
   sm->ClearPreloadedSongs(); 
+
+  // Kill the Extras manager (it's an RCPtr).
+  // It has a ref to the GUI, which we want to drop.
+  m_extrasAdder = nullptr;
+
+  // Kill any lingering player notes. This would be done by the 
+  //  GuiMusicKb dtor, but it might not be called as there are multiple
+  //  references to bits of the GUI.
+  KillPlayerNotes();
 }
 
 void GSHero::OnActive() 
