@@ -25,6 +25,9 @@ namespace Amju
   struct NoteEvent
   {
     NoteEvent() = default;
+
+    // For tests, where the only member we care about is m_time.
+    NoteEvent(float time) : NoteEvent(0, time, NoteEventType::NOTE_ON, Vec2f{}) {}
   
     NoteEvent(int note, float time, NoteEventType type, const Vec2f& pos) :
       m_note(note), m_time(time), m_type(type), m_pos(pos) {}

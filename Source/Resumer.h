@@ -32,7 +32,8 @@ static float FindResumePoint(
 // Look for a note event at the given time; return true if found.
 // This is used to check if there is a note event at the time
 //  of the first beat of the bar. If not, we go back to the prev bar.
-static bool FindNoteEventAtTime(float time, const NoteEvents& noteEvents);
+static bool FindNoteEventAtTime(float time, const NoteEvents& noteEvents,
+  float epsilon);
 
 // `iter` points to a beat in the given BeatVec for the piece.
 // Decrement iter until we point to the first beat in a bar.

@@ -16,7 +16,7 @@ float Resumer::GoToFirstBeatOfBar(
   const BeatVec& beats, 
   BeatVec::const_iterator& iter) // NON CONST REF
 { 
-  if (iter == beats.end()) 
+  if (beats.empty() || iter == beats.end()) 
   {
     return 0;
   }
@@ -30,45 +30,31 @@ float Resumer::GoToFirstBeatOfBar(
   return iter->m_time;
 }   
 
-static bool TimesApproxEqual(float time1, float time2)
-{
-  static const float EPSILON = 0.00001f;
-  return std::abs(time1 - time2) < EPSILON;
-}
-
 // Look for a note event at the given time; return true if found.
 // This is used to check if there is a note event at the time
 //  of the first beat of the bar. If not, we can go back to the prev bar.
-bool Resumer::FindNoteEventAtTime(float time, const NoteEvents& noteEvents)
+bool Resumer::FindNoteEventAtTime(float time, const NoteEvents& noteEvents,
+  float epsilon)
 {
-  // Search for note event at the given time: return true if found.
-
-  NoteEvent searchVal; // create a NoteEvent to use as the value we want to find.
-  searchVal.m_time = time; // this is easier than the alternatives.
-
-  auto noteIt = std::lower_bound(noteEvents.begin(), noteEvents.end(), searchVal);
-  if (noteIt == noteEvents.end())
-  {
-    return false; 
+  if (noteEvents.empty() || epsilon < 0.0f) {
+    return false;
   }
-      
-  // Check if the note event is close enough to the resume time (account for 
-  //  float precision)
-  if (TimesApproxEqual(noteIt->m_time, time))
-  { 
+
+  // Binary search to find the first event with m_time >= (time - epsilon)
+  auto it = std::lower_bound(
+      noteEvents.begin(), 
+      noteEvents.end(), 
+      time - epsilon,
+      [](const NoteEvent& event, float value) {
+          return event.m_time < value;
+      }
+  );
+
+  // Check if the found element is within [time - epsilon, time + epsilon]
+  if (it != noteEvents.end() && std::abs(it->m_time - time) <= epsilon) 
+  {
     return true;
   }
-  
-  // The search failed. But it could be because the matching event has a slightly
-  //  lower start time, due to float precision. So check the previous event.
-  if (noteIt != noteEvents.begin())
-  {
-    --noteIt;
-    if (TimesApproxEqual(noteIt->m_time, time))
-    {
-      return true;
-    }
-  } 
 
   return false;
 }   
@@ -99,7 +85,7 @@ std::cout << "*** FIND RESUME POINT. Pause time: " << pauseTime << "\n";
 
   // Work out how far back we should go from the resume time.
   // We want to find the start of the current bar.
-  // If we're in the first bar, we should just restart the game round. TODO
+  // If we're in the first bar, we should just restart the game round. 
 
   // Find the beat closest to resumeTime:
   // 1. Find the next beat _after_ resumeTime
@@ -137,8 +123,11 @@ std::cout << "VERY STRANGE, on resuming, we seem to be at the end of the song?\n
     resumeTime = GoToFirstBeatOfBar(beats, iter);
 
     Assert(resumeTime <= timeAfter);
+    Assert(iter->m_beat == 1);
+std::cout << "  ** Resume point: found 1st beat of bar " << iter->m_bar << "\n";
 
-    if (FindNoteEventAtTime(resumeTime, noteEvents))
+    const float epsilon = 0.000001f;
+    if (FindNoteEventAtTime(resumeTime, noteEvents, epsilon))
     {
       // If note found, that's good - we are finished. 
       break;
