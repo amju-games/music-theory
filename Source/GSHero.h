@@ -177,7 +177,8 @@ protected:
   RCPtr<GuiComposite> m_scoreExtras;
 
   // Extras adder: adds the extra bits to the score; also notifies them
-  //  if the player correctly plays the note to which the extra is attached.
+  //  if the player correctly (or incorrectly) plays the note to which 
+  //  the extra is attached.
   RCPtr<ExtrasAdder> m_extrasAdder;
 
   // Count-in GUI
@@ -200,7 +201,17 @@ protected:
 
   // If we paused the game while mid-song, this is the normalised
   //  time at which we paused.
+  // This is adjusted to the start of the current bar (or a previous
+  //  bar if appropriate).
   float m_pauseResumeTime = 0;
+
+  // This is a copy of the pause/resume time that does not get adjusted
+  //  back to the start of the bar.
+  float m_unadjustedPauseResumeTime = 0;
+
+  // This is the x-coord of the score corresponding to the unadjusted
+  //  pause/resume time.
+  float m_unadjustedPauseResumeXPos = 0;
 
   // Length of song in music score in seconds -- NOT normalised, which 
   //  would be 1! 

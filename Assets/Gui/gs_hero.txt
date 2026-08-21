@@ -99,13 +99,35 @@ translate
 // (it won't - unless we set its position in code.)
 gui-comp
 score-extras
-0
+1
+
+// Add a thin red line to the extras: this is to show the max
+//  pause time so far (high water mark). We don't award anything
+//  if the current time is below this.
+gui-comp
+pause-time
+1
+// Adjust this translation to set the pause time.
+translate 
+0, 0
+// Thin line to show pause time
+colour
+ff8080
+poly
+pause_line
+0, 0
+style=2, outCol=ffffff, fillCol=ffffff, radius=0.003
+0.0, -2 
+0.0, 2
+end
 
 // Non-scrolling Extras root, for when we detach an extra from the scrolling root.
 gui-comp
 non-scrolling-extras-root
 0
 
+
+// The "play marker": notes are due to be played as they pass this line.
 // Vertical line colour
 colour
 ff4000

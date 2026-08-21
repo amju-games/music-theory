@@ -115,6 +115,19 @@ void GSHero::FindResumePoint()
     m_scrollScore->GetBeats(), 
     m_scrollScore->GetNoteEvents());
 
+  // The resume time should be earlier than when we paused, because we
+  //  go back to the start of the bar, or earlier.
+  // It's just possible, I suppose, that the pause time could be
+  //  precisely at the start of a bar..??
+  if (m_pauseResumeTime > m_unadjustedPauseResumeTime)
+  {
+std::cout << "PAUSE/RESUME FAIL!! Pause time is: " << m_pauseResumeTime
+  << " m_unadjustedPauseResumeTime is: " << m_unadjustedPauseResumeTime 
+  << "\n";
+
+    Assert(false);
+  }
+
   // This check might not be necessary. The end-of-round detection code 
   //  should do this.. right?
   if (m_pauseResumeTime > HUGELY_LONG_TIME)
@@ -152,9 +165,15 @@ std::cout << "Playing midi count in: " << gameround.m_countIn << " at bpm: " << 
 
 void GSHero::CancelResumeTime()
 {
+  // Reset pause/resume time:
   // Called when player quits from pause menu, so when we re-enter
   //  Hero Mode, we restart the song from the beginning.
+  // Also called when we win or lose the game round, again because we
+  //  want to start from the beginning, not the pause point, when we
+  //  reenter this state.
   m_pauseResumeTime = 0;
+  m_unadjustedPauseResumeTime = 0;
+  m_unadjustedPauseResumeXPos = 0;
 }
 
 void GSHero::ResumeOrRestartGame()
@@ -210,12 +229,18 @@ void GSHero::OnPauseGame()
   {
     // During or before the count-in, do nothing special, just restart
     //  the round when we re-enter this state.
-    // But if we have started the song, store the point we go to.
-    // Check if we are in the first bar - if so, we just restart the
-    //  round, as we can't go back to the previous bar.
-    // TODO
-
+    // But if we have started the song, store the point we got to.
     m_pauseResumeTime = animTime;
+
+    // Make a copy that won't get adjusted back to the start of the bar.
+    // Also, this value only goes up.
+    if (m_unadjustedPauseResumeTime < animTime)
+    { 
+      m_unadjustedPauseResumeTime = animTime; 
+      // Get the x-coord of the score, used to set a line so we can see
+      //  the pause time.
+      m_unadjustedPauseResumeXPos = m_scrollScore->GetLocalPos().x;
+    }
   }
 
   GoTo<TheGSPause>();
@@ -476,7 +501,7 @@ void GSHero::OnPlayerHasWon()
 std::cout << "Player has won this round!\n";
 
   m_roundIsOver = true;
-  m_pauseResumeTime = 0;
+  CancelResumeTime();
   ChangeState(HeroState::PLAYER_HAS_WON);
 
   // Surviving pets jump for joy
@@ -499,7 +524,7 @@ void GSHero::OnPlayerHasLost()
 std::cout << "Player has lost this round!\n";
 
   m_roundIsOver = true;
-  m_pauseResumeTime = 0;
+  CancelResumeTime();
   ChangeState(HeroState::PLAYER_HAS_LOST);
 
   StopMidiSong();
@@ -576,7 +601,7 @@ std::cout << "Count in finished!\n";
   // At this point, the count in has finished, so no more need for this?
   // Actually it prob doesn't matter, it will get overwritten as we 
   //  play forward from this point.
-  //m_pauseResumeTime = 0;
+  //CancelResumeTime(), not m_pauseResumeTime = 0;
 
   ResetMissedNoteCounters();
 
@@ -1184,6 +1209,11 @@ void GSHero::InitExtras()
 
   int fromEventId = 0; // TODO last graded event if resuming after pause.
   m_extrasAdder->AttachExtraBits(fromEventId); 
+
+  // Set the position of the pause time line
+  elem = GetElementByName(m_gui, "translate-colour-pause_line");
+  dynamic_cast<GuiDecTranslate*>(elem)->SetTranslation(Vec2f(
+    -m_unadjustedPauseResumeXPos, 0));
 }
 }
 
