@@ -6,6 +6,7 @@ AMJULIB		:=	$(AMJULIB_MAC_SCRIPT_PATH)/../../
 RUNDIR		:=	../../Assets/
 BUILD		:=	../../Build/Mac
 TARGET		:=	$(BUILD)/macgame
+TEST_TARGET	:=	$(BUILD)/macgame_test
 LIBDIRS   	:= 	$(AMJULIB)/Releases/amjulib-v.0.5-macosx
 SOURCES		:=	../../Source ../../Source/Animals
 BASSPATH	:=	$(AMJULIB)/3rdPartyLibs/Bass/2.4.18.3/bass24-osx
@@ -29,7 +30,7 @@ CFLAGS += -D_DEBUG -DAMJU_USE_BASS_MIDI -DAMJU_USE_BASS -Wno-deprecated-declarat
 LDFLAGS += -Wl,-rpath,@executable_path/
 
 run:
-	$(TARGET)
+	$(TEST_TARGET) && $(TARGET)
 
 # Use runsetup after a make clean or first ever build
 

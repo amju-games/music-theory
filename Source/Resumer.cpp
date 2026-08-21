@@ -6,6 +6,8 @@
 #include <AmjuAssert.h>
 #include "Resumer.h"
 
+//#define RESUMER_DEBUG
+
 namespace Amju
 {
 // iter points to a beat in the BeatVec for the piece.
@@ -79,7 +81,9 @@ BeatVec::const_iterator Resumer::NextBeatAfterTime(
 float Resumer::FindResumePoint(
   float pauseTime, const BeatVec& beats, const NoteEvents& cNoteEvents)
 {
+#ifdef RESUMER_DEBUG
 std::cout << "*** FIND RESUME POINT. Pause time: " << pauseTime << "\n";
+#endif
 
   float resumeTime = pauseTime;
 
@@ -98,7 +102,10 @@ std::cout << "*** FIND RESUME POINT. Pause time: " << pauseTime << "\n";
   else if (iter == beats.end())
   {
     // We must have reached the end of the song. 
+#ifdef RESUMER_DEBUG
 std::cout << "VERY STRANGE, on resuming, we seem to be at the end of the song?\n";
+#endif
+
     // Return a super high value for resume time, so GSHero will detect the
     //  end of the round.
     return HUGELY_LONG_TIME;
@@ -132,7 +139,10 @@ std::cout << "VERY STRANGE, on resuming, we seem to be at the end of the song?\n
 
     Assert(resumeTime <= timeAfter);
     Assert(iter->m_beat == 1);
+
+#ifdef RESUMER_DEBUG
 std::cout << "  ** Resume point: found 1st beat of bar " << iter->m_bar << "\n";
+#endif
 
     const float epsilon = 0.000001f;
     if (FindNoteEventAtTime(resumeTime, noteEvents, epsilon))
@@ -154,7 +164,10 @@ std::cout << "  ** Resume point: found 1st beat of bar " << iter->m_bar << "\n";
     }
   }
 
+#ifdef RESUMER_DEBUG
 std::cout << "*** FIND RESUME POINT. Resume time: " << resumeTime << "\n";
+#endif
+
   return resumeTime;
 }
 }
