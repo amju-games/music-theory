@@ -572,13 +572,23 @@ void GSHero::SetUpAutoPlay()
   auto messages = ap.GenerateMessages(m_scrollScore->GetNoteEvents(), {});
   auto queue = TheMessageQueue::Instance();
   const float queueTime = queue->GetTime();
+  int numMessagesQueued = 0;
   for (auto& m : messages)
   {
+    // Handle pause/resume!
+    m->m_time -= m_pauseResumeTime; // this time is normalised
+    if (m->m_time < 0) continue;
+
     m->m_time *= m_scoreLengthSeconds; // ah ha, we need seconds, not 0..1 time!
+
     m->m_time += queueTime;
     queue->Add(m.GetPtr());
+
+    ++numMessagesQueued;
   }
-std::cout << "AUTOPLAY: generated " << messages.size() << " music event messages!\n";
+std::cout << "AUTOPLAY: queued " << numMessagesQueued
+   << " music event messages, of "
+   << messages.size() << " total.\n";
 #endif
 }
 
