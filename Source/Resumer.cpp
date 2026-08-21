@@ -91,7 +91,11 @@ std::cout << "*** FIND RESUME POINT. Pause time: " << pauseTime << "\n";
   // 1. Find the next beat _after_ resumeTime
   auto iter = NextBeatAfterTime(beats, resumeTime);
 
-  if (iter == beats.end())
+  if (iter == beats.begin())
+  {
+    return 0;
+  }
+  else if (iter == beats.end())
   {
     // We must have reached the end of the song. 
 std::cout << "VERY STRANGE, on resuming, we seem to be at the end of the song?\n";
@@ -102,6 +106,8 @@ std::cout << "VERY STRANGE, on resuming, we seem to be at the end of the song?\n
 
   // We have got the next beat after resumeTime.
   Assert(iter->m_time > resumeTime);
+  // Go to the prev beat
+  --iter;
 
   // When we search noteEvents, we only care about note and rest ON events.
   // TODO Find a better way to do this: we are copying the vec and erasing.

@@ -270,10 +270,10 @@ TEST_CASE("Resumer::FindResumePoint", "[Resumer][ResumePoint]") {
         {1.00f, 2, 1}, {1.25f, 2, 2}, {1.50f, 2, 3}, {1.75f, 2, 4}
     };
 
-    SECTION("Returns pauseTime if beats vector is empty") {
+    SECTION("Returns zero if beats vector is empty") {
         BeatVec emptyBeats;
         NoteEvents notes = {{0.0f}};
-        REQUIRE(Resumer::FindResumePoint(1.2f, emptyBeats, notes) == END_OF_SONG);
+        REQUIRE(Resumer::FindResumePoint(1.2f, emptyBeats, notes) == 0);
     }
 
     SECTION("Resumes at beat 1 of current bar when note exists at beat 1") {
