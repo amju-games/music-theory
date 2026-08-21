@@ -106,7 +106,9 @@ std::cout << "VERY STRANGE, on resuming, we seem to be at the end of the song?\n
 
   // We have got the next beat after resumeTime.
   Assert(iter->m_time > resumeTime);
-  // Go to the prev beat
+
+  // Go to the prev beat: this fixes the bug where the beat iter points
+  //  to is the first beat of the next bar.
   --iter;
 
   // When we search noteEvents, we only care about note and rest ON events.

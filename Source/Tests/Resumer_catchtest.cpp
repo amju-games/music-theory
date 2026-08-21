@@ -309,5 +309,15 @@ TEST_CASE("Resumer::FindResumePoint", "[Resumer][ResumePoint]") {
         float resumeTime = Resumer::FindResumePoint(1.5f, standardBeats, notes);
         REQUIRE(resumeTime == 0.0f); // Stops at beats.begin()
     }
+
+    SECTION("Goes back to start of bar when on final beat of bar")
+    {
+        NoteEvents notes = {{.25f}, {.5f}, {.75f}, {1.f}, {1.25f}};
+
+        // Pause just before bar 2, which does have a note on the first
+        //  beat.
+        float resumeTime = Resumer::FindResumePoint(.9f, standardBeats, notes);
+        REQUIRE(resumeTime == 0.0f); // go back to start of bar 1
+    }
 }
 
