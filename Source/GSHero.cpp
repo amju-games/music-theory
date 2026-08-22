@@ -465,11 +465,29 @@ static const int NUM_UPDATE_NUM_FRAMES = 60; // assume 60 fps
 
 void GSHero::IncreaseScore(const Grade& grade)
 {
+  // Don't add points if we are behind the unadjusted pause time.
+  float animTime = m_scrollScore->GetAnimTime();
+  if (animTime <= m_unadjustedPauseResumeTime)
+  {
+std::cout << "No points awarded, we are behind the pause time! "
+  << animTime << " / " << m_unadjustedPauseResumeTime << "\n";
+    return;
+  }
+
   GetHud().AddToPlayerPoints(CalcPoints(grade), NUM_UPDATE_NUM_FRAMES);
 }
 
 void GSHero::IncreaseLife(int inc)
 {
+  // Don't think we can get here if we are behind the pause time, riiiight?
+  float animTime = m_scrollScore->GetAnimTime();
+  if (animTime <= m_unadjustedPauseResumeTime)
+  {
+std::cout << "No health awarded, we are behind the pause time! "
+  << animTime << " / " << m_unadjustedPauseResumeTime << "\n";
+    return;
+  }
+
   auto& life = GetHud().GetPlayerLife();
   life.Add(inc, NUM_UPDATE_NUM_FRAMES); 
   // It's a %, so cap at 100
