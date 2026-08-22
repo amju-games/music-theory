@@ -410,11 +410,8 @@ void GSHero::Update()
     Assert(m_scrollScore);
     m_scrollScore->AnimateSpecial(normalisedAnimTime, dAnimTime);
   
-    ScrollExtras();
     // Scroll the extras along with the score.
-    auto pos = m_scrollScore->GetLocalPos();
-    Assert(m_scoreExtras);
-    m_scoreExtras->SetLocalPos(pos);
+    ScrollExtras();
 
     // If we have reached the end, we have won!
     if (!m_roundIsOver && normalisedAnimTime > 0.99f)
