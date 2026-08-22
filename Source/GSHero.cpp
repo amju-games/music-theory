@@ -115,6 +115,19 @@ void GSHero::FindResumePoint()
     m_scrollScore->GetBeats(), 
     m_scrollScore->GetNoteEvents());
 
+  // The resume time should be earlier than when we paused, because we
+  //  go back to the start of the bar, or earlier.
+  // It's just possible, I suppose, that the pause time could be
+  //  precisely at the start of a bar..??
+  if (m_pauseResumeTime > m_unadjustedPauseResumeTime)
+  {
+std::cout << "PAUSE/RESUME FAIL!! Pause time is: " << m_pauseResumeTime
+  << " m_unadjustedPauseResumeTime is: " << m_unadjustedPauseResumeTime 
+  << "\n";
+
+    Assert(false);
+  }
+
   // This check might not be necessary. The end-of-round detection code 
   //  should do this.. right?
   if (m_pauseResumeTime > HUGELY_LONG_TIME)
@@ -152,9 +165,15 @@ std::cout << "Playing midi count in: " << gameround.m_countIn << " at bpm: " << 
 
 void GSHero::CancelResumeTime()
 {
+  // Reset pause/resume time:
   // Called when player quits from pause menu, so when we re-enter
   //  Hero Mode, we restart the song from the beginning.
+  // Also called when we win or lose the game round, again because we
+  //  want to start from the beginning, not the pause point, when we
+  //  reenter this state.
   m_pauseResumeTime = 0;
+  m_unadjustedPauseResumeTime = 0;
+  m_unadjustedPauseResumeXPos = 0;
 }
 
 void GSHero::ResumeOrRestartGame()
@@ -210,12 +229,18 @@ void GSHero::OnPauseGame()
   {
     // During or before the count-in, do nothing special, just restart
     //  the round when we re-enter this state.
-    // But if we have started the song, store the point we go to.
-    // Check if we are in the first bar - if so, we just restart the
-    //  round, as we can't go back to the previous bar.
-    // TODO
-
+    // But if we have started the song, store the point we got to.
     m_pauseResumeTime = animTime;
+
+    // Make a copy that won't get adjusted back to the start of the bar.
+    // Also, this value only goes up.
+    if (m_unadjustedPauseResumeTime < animTime)
+    { 
+      m_unadjustedPauseResumeTime = animTime; 
+      // Get the x-coord of the score, used to set a line so we can see
+      //  the pause time.
+      m_unadjustedPauseResumeXPos = m_scrollScore->GetLocalPos().x;
+    }
   }
 
   GoTo<TheGSPause>();
@@ -385,11 +410,8 @@ void GSHero::Update()
     Assert(m_scrollScore);
     m_scrollScore->AnimateSpecial(normalisedAnimTime, dAnimTime);
   
-    ScrollExtras();
     // Scroll the extras along with the score.
-    auto pos = m_scrollScore->GetLocalPos();
-    Assert(m_scoreExtras);
-    m_scoreExtras->SetLocalPos(pos);
+    ScrollExtras();
 
     // If we have reached the end, we have won!
     if (!m_roundIsOver && normalisedAnimTime > 0.99f)
@@ -443,11 +465,29 @@ static const int NUM_UPDATE_NUM_FRAMES = 60; // assume 60 fps
 
 void GSHero::IncreaseScore(const Grade& grade)
 {
+  // Don't add points if we are behind the unadjusted pause time.
+  float animTime = m_scrollScore->GetAnimTime();
+  if (animTime <= m_unadjustedPauseResumeTime)
+  {
+std::cout << "No points awarded, we are behind the pause time! "
+  << animTime << " / " << m_unadjustedPauseResumeTime << "\n";
+    return;
+  }
+
   GetHud().AddToPlayerPoints(CalcPoints(grade), NUM_UPDATE_NUM_FRAMES);
 }
 
 void GSHero::IncreaseLife(int inc)
 {
+  // Don't think we can get here if we are behind the pause time, riiiight?
+  float animTime = m_scrollScore->GetAnimTime();
+  if (animTime <= m_unadjustedPauseResumeTime)
+  {
+std::cout << "No health awarded, we are behind the pause time! "
+  << animTime << " / " << m_unadjustedPauseResumeTime << "\n";
+    return;
+  }
+
   auto& life = GetHud().GetPlayerLife();
   life.Add(inc, NUM_UPDATE_NUM_FRAMES); 
   // It's a %, so cap at 100
@@ -476,7 +516,7 @@ void GSHero::OnPlayerHasWon()
 std::cout << "Player has won this round!\n";
 
   m_roundIsOver = true;
-  m_pauseResumeTime = 0;
+  CancelResumeTime();
   ChangeState(HeroState::PLAYER_HAS_WON);
 
   // Surviving pets jump for joy
@@ -499,7 +539,7 @@ void GSHero::OnPlayerHasLost()
 std::cout << "Player has lost this round!\n";
 
   m_roundIsOver = true;
-  m_pauseResumeTime = 0;
+  CancelResumeTime();
   ChangeState(HeroState::PLAYER_HAS_LOST);
 
   StopMidiSong();
@@ -547,13 +587,23 @@ void GSHero::SetUpAutoPlay()
   auto messages = ap.GenerateMessages(m_scrollScore->GetNoteEvents(), {});
   auto queue = TheMessageQueue::Instance();
   const float queueTime = queue->GetTime();
+  int numMessagesQueued = 0;
   for (auto& m : messages)
   {
+    // Handle pause/resume!
+    m->m_time -= m_pauseResumeTime; // this time is normalised
+    if (m->m_time < 0) continue;
+
     m->m_time *= m_scoreLengthSeconds; // ah ha, we need seconds, not 0..1 time!
+
     m->m_time += queueTime;
     queue->Add(m.GetPtr());
+
+    ++numMessagesQueued;
   }
-std::cout << "AUTOPLAY: generated " << messages.size() << " music event messages!\n";
+std::cout << "AUTOPLAY: queued " << numMessagesQueued
+   << " music event messages, of "
+   << messages.size() << " total.\n";
 #endif
 }
 
@@ -576,7 +626,7 @@ std::cout << "Count in finished!\n";
   // At this point, the count in has finished, so no more need for this?
   // Actually it prob doesn't matter, it will get overwritten as we 
   //  play forward from this point.
-  //m_pauseResumeTime = 0;
+  //CancelResumeTime(), not m_pauseResumeTime = 0;
 
   ResetMissedNoteCounters();
 
@@ -1168,6 +1218,13 @@ void GSHero::InitGui()
   InitExtras();
 }
 
+int GSHero::FindNoteEventForTime(float normalisedTime)
+{
+  Assert(m_scrollScore);
+  const auto& noteEvents = m_scrollScore->GetNoteEvents();
+  return Amju::FindNoteEventForTime(noteEvents, normalisedTime);
+}
+
 void GSHero::InitExtras()
 {
   auto elem = GetElementByName(m_gui, "score-extras");
@@ -1182,8 +1239,17 @@ void GSHero::InitExtras()
   // Create extras manager instance
   m_extrasAdder = new ExtrasAdder(elem, *m_scrollScore, m_songSections);
 
-  int fromEventId = 0; // TODO last graded event if resuming after pause.
+  // Find the note event ID corresponding to the time we paused.
+  // Don't add extras to any notes below this ID, because we've already
+  //  graded the notes and had extras awarded. We don't want to award
+  //  the same extras multiple times.
+  int fromEventId = FindNoteEventForTime(m_unadjustedPauseResumeTime);
   m_extrasAdder->AttachExtraBits(fromEventId); 
+
+  // Set the position of the pause time line
+  elem = GetElementByName(m_gui, "translate-colour-pause_line");
+  dynamic_cast<GuiDecTranslate*>(elem)->SetTranslation(Vec2f(
+    -m_unadjustedPauseResumeXPos, 0));
 }
 }
 
