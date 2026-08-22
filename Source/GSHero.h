@@ -76,6 +76,10 @@ public:
   void IncreaseLife(int inc); 
 
 protected:
+  // Find highest note event ID up to and including the given
+  //  normalised time.
+  int FindNoteEventForTime(float normalisedTime);
+
   // Generate events to auto-play the current song. 
   void SetUpAutoPlay();
 

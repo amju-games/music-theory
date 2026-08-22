@@ -89,5 +89,10 @@ namespace Amju
   // Error codes for above function return value
   static const int NOTE_ON_EVENT_NOT_FOUND = -1;
   static const int NOT_A_NOTE_OFF_EVENT = -2;
+
+  // Find highest note event ID up to and including the given
+  //  normalised time, for the given note events.
+  int FindNoteEventForTime(
+    const NoteEvents& noteEvents, float normalisedTime);
 }
 

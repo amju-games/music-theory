@@ -47,5 +47,29 @@ int FindNoteOnEventForNoteOffEvent(
   }
   return NOTE_ON_EVENT_NOT_FOUND;
 }
+
+int FindNoteEventForTime(const NoteEvents& noteEvents, float normalisedTime)
+{
+  Assert(normalisedTime >= 0.f);
+  Assert(normalisedTime <= 1.f);
+
+  if (noteEvents.empty()) return 0;
+
+  // Binary search to find the first event with m_time > normalisedTime 
+  auto it = std::upper_bound(
+    noteEvents.begin(),
+    noteEvents.end(),
+    normalisedTime,
+    [](float value, const NoteEvent& event) {
+      return value < event.m_time;
+    });  
+ 
+  if (it == noteEvents.end()) 
+  {
+    return noteEvents.back().GetId();
+  }
+
+  return it->GetId();
+}
 }
 

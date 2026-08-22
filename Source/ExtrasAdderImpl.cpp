@@ -114,6 +114,11 @@ void ExtrasAdderImpl::AttachExtraBits(int fromThisNoteId)
   // Get rid of all events except for the type we are looking for.
   // For now, we are only supporting note on events.
   auto noteEvents(m_musicScore.GetNoteEvents()); 
+
+  // Remove all events up to 'fromThisNoteId' - it's an index.
+  noteEvents.erase(noteEvents.begin(), noteEvents.begin() + fromThisNoteId);
+
+  // Remove events that are not NOTE_ON
   const auto net = NoteEventType::NOTE_ON;
   noteEvents.erase(
     std::remove_if(noteEvents.begin(), noteEvents.end(),

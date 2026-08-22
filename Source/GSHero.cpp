@@ -1200,6 +1200,13 @@ void GSHero::InitGui()
   InitExtras();
 }
 
+int GSHero::FindNoteEventForTime(float normalisedTime)
+{
+  Assert(m_scrollScore);
+  const auto& noteEvents = m_scrollScore->GetNoteEvents();
+  return Amju::FindNoteEventForTime(noteEvents, normalisedTime);
+}
+
 void GSHero::InitExtras()
 {
   auto elem = GetElementByName(m_gui, "score-extras");
@@ -1214,7 +1221,11 @@ void GSHero::InitExtras()
   // Create extras manager instance
   m_extrasAdder = new ExtrasAdder(elem, *m_scrollScore, m_songSections);
 
-  int fromEventId = 0; // TODO last graded event if resuming after pause.
+  // Find the note event ID corresponding to the time we paused.
+  // Don't add extras to any notes below this ID, because we've already
+  //  graded the notes and had extras awarded. We don't want to award
+  //  the same extras multiple times.
+  int fromEventId = FindNoteEventForTime(m_unadjustedPauseResumeTime);
   m_extrasAdder->AttachExtraBits(fromEventId); 
 
   // Set the position of the pause time line
