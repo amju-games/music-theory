@@ -1,59 +1,67 @@
-REM makeglue.bat
-REM glue every file (which we want) in this directory into a Glue file.
+@echo off
+setlocal enabledelayedexpansion
 
-set THIS_DIR=%cd%
-set TOP_DIR=%THIS_DIR%\..\..
-set COMPILED_ASSETS=%TOP_DIR%\Build\CompiledAssets
-set DEST_DIR=%COMPILED_ASSETS%\Win
-set SRC_DIR=%TOP_DIR%\Assets
-set SRC_FONT2D=%TOP_DIR%\..\amjulib\Assets\font2d
+:: 1. Setup paths
+set "PLATFORM=WIN"
+set "THIS_DIR=%cd%"
 
-mkdir %COMPILED_ASSETS%
-mkdir %DEST_DIR%
-mkdir %DEST_DIR%\font2d
-rem del /S /Q %DEST_DIR%\*.*
+:: Navigate up to get the TOP_DIR path accurately
+pushd "%THIS_DIR%\..\.."
+set "TOP_DIR=%cd%"
+popd
 
-REM Copy other files to compiled dir
-REM /Y when we would get overwrite confirm prompt
+set "COMPILED_ASSETS=%TOP_DIR%\Build\CompiledAssets"
+set "DEST_DIR=%COMPILED_ASSETS%\%PLATFORM%"
+set "SRC_DIR=%TOP_DIR%\Assets"
+set "GLUE_EXE=%THIS_DIR%\glue.exe"
+set "GLUE_FILE=%DEST_DIR%\..\data-%PLATFORM%.glue"
 
-xcopy /Y /S %SRC_DIR%\*.txt %DEST_DIR%
-xcopy /Y /S %SRC_DIR%\obj\*.txt %DEST_DIR%
-xcopy /Y /S %SRC_DIR%\gui\common\*.txt %DEST_DIR%
-xcopy /Y /S %SRC_DIR%\gui\win\*.txt %DEST_DIR%
-xcopy /Y /S %SRC_FONT2D%\* %DEST_DIR%\font2d\
-xcopy /Y /S %SRC_DIR%\tex\common\*.png %DEST_DIR%
-xcopy /Y /S %SRC_DIR%\tex\win\*.png %DEST_DIR%
-xcopy /Y /S %SRC_DIR%\md2\*.md2 %DEST_DIR%
+:: 2. Create all directories at once
+for %%d in (font2d Image md2 obj Scene Shaders\gles Shaders\opengl Sound\wav Songs) do (
+    if not exist "%DEST_DIR%\%%d" mkdir "%DEST_DIR%\%%d"
+)
 
-cd %DEST_DIR%
+:: 3. Copy Assets
+xcopy "%SRC_DIR%\*.txt" "%DEST_DIR%\" /y
+xcopy "%SRC_DIR%\font2d\*" "%DEST_DIR%\font2d\" /e /y
+xcopy "%SRC_DIR%\Gui\*" "%DEST_DIR%\Gui\" /e /y
+xcopy "%SRC_DIR%\Songs\*" "%DEST_DIR%\Songs\" /e /y
+xcopy "%SRC_DIR%\md2\*" "%DEST_DIR%\md2\" /e /y
+xcopy "%SRC_DIR%\Image\*.png" "%DEST_DIR%\Image\" /y
+xcopy "%SRC_DIR%\Shaders\gles\*.txt" "%DEST_DIR%\Shaders\gles\" /y
+xcopy "%SRC_DIR%\Shaders\opengl\*.txt" "%DEST_DIR%\Shaders\opengl\" /y
+xcopy "%SRC_DIR%\Scene\*.txt" "%DEST_DIR%\Scene\" /y
+xcopy "%SRC_DIR%\obj\*.png" "%DEST_DIR%\obj\" /y
+xcopy "%SRC_DIR%\obj\*.mtl" "%DEST_DIR%\obj\" /y
+xcopy "%SRC_DIR%\obj\*.png" "%DEST_DIR%\" /y
 
-set GLUE_EXE=%THIS_DIR%\glue.exe
-set GLUE_FILE=%DEST_DIR%\..\data-win.glue
-REM make glue file
-%GLUE_EXE% -c %GLUE_FILE%
+:: 4. Add EOL to all text/csv files
+for /r "%DEST_DIR%" %%f in (*.txt *.csv) do (
+    echo(>>"%%f"
+)
 
-REM for each file, add to glue file.
-for %%f in (*.txt, *.md2) do %GLUE_EXE% -a %GLUE_FILE% %%f
+:: 5. Create the Glue File
+cd /d "%DEST_DIR%"
+"%GLUE_EXE%" -c "%GLUE_FILE%"
 
-REM texture files
-for %%f in (*.png) do %GLUE_EXE% -a %GLUE_FILE% %%f
+:: 6. Add all files to Glue
+for /r %%f in (*.txt *.csv *.png *.obj *.mtl) do (
+    set "FULL_PATH=%%f"
+    :: Strip the DEST_DIR path to get the relative path
+    set "REL_PATH=!FULL_PATH:%DEST_DIR%\=!"
+    echo Adding file: !REL_PATH!
+    "%GLUE_EXE%" -a "%GLUE_FILE%" "!REL_PATH!"
+)
 
-REM obj files are NOT in sub dir
-for %%f in (*.obj) do %GLUE_EXE% -a %GLUE_FILE% %%f
+for /r "%DEST_DIR%\md2" %%f in (*.md2) do (
+    set "FULL_PATH=%%f"
+    set "REL_PATH=!FULL_PATH:%DEST_DIR%\=!"
+    echo Adding file: !REL_PATH!
+    "%GLUE_EXE%" -a "%GLUE_FILE%" "!REL_PATH!"
+)
 
-REM Add files in font3d dir
-for %%f in (obj\font3d\*.obj) do %GLUE_EXE% -a %GLUE_FILE% %%f
+:: 7. Verify and Return
+"%GLUE_EXE%" -d "%GLUE_FILE%"
+cd /d "%THIS_DIR%"
 
-REM Add files in font2d dir
-for %%f in (font2d\*.txt, font2d\*.png) do %GLUE_EXE% -a %GLUE_FILE% %%f
-
-REM Add files in levels dir
-for %%f in (levels\*.txt) do %GLUE_EXE% -a %GLUE_FILE% %%f
-
-
-REM Verify contents
-%GLUE_EXE% -d %GLUE_FILE%
-
-
-cd %THIS_DIR%
-
+endlocal

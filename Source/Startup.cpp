@@ -2,6 +2,8 @@
 // (c) Copyright 2024 Juliet Colman
 
 #ifdef WIN32
+// Hola! There's a batch file to copy DLLs to Build dirs: Scripts/Msvc/DLLs/copy_dlls.bat
+
 #if defined(_DEBUG)
 #pragma comment(lib, "../../../../../amjulib/Build/Debug/AmjuLibMsvc.lib")
 #else
@@ -84,6 +86,12 @@ void ReportError(const std::string& str)
   std::cout << str << "\n";
 }
 
+void Stop()
+{
+  // Stop prog execution in Release build.
+  exit(1);
+}
+
 bool MyFileExists(const std::string& filename)
 {
 #ifdef YES_GLUE_FILE
@@ -113,6 +121,16 @@ std::string ConfigFilename()
 
 void SetUpRootDir()
 {
+#ifdef WIN32
+  // In MSVC we set the working directory in project properties,
+  //  so just rely on that to set the root dir to Assets/.
+  // But if we are using glue files, we want to look in Build/CompiledAssets.
+#ifdef YES_GLUE_FILE
+  File::SetRoot("..\\Build\\CompiledAssets", "/");
+  std::cout << "Setting File::Root to " << File::GetRoot() << " for glue files.\n";
+#endif
+#endif
+
 #ifdef AMJU_IOS
   std::string dir = GetDataDir();
 
@@ -148,6 +166,7 @@ void SetUpGlueFile()
   else
   {
     ReportError("Failed to open data glue file");
+    Stop();
   }
 
   SoundManager* sm = TheSoundManager::Instance();
@@ -161,8 +180,8 @@ void SetUpGlueFile()
   else
   {
     ReportError("Failed to open music glue file");
+    Stop();
   }
-
 #endif // YES_GLUE_FILE
 }
 
@@ -200,6 +219,8 @@ void LoadWritableConfig()
 
 void StartUpBeforeCreateWindow()
 {
+  std::cout << "*** AMJU PIANO FEST *** -- written by Juliet Colman 2026\n";
+
 #if defined(WIN32) && defined(_DEBUG)
   // Set up MSVC mem leak reporting
   _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);

@@ -1,35 +1,58 @@
-REM makemusicglue.bat
-REM glue sound files into a Glue file.
+@echo off
+setlocal enabledelayedexpansion
 
-set THIS_DIR=%cd%
-set TOP_DIR=%THIS_DIR%\..\..
-set DEST_DIR=%TOP_DIR%\Build\CompiledAssets\Win
-set SRC_DIR=%TOP_DIR%\Assets\sound
+:: 1. Setup paths
+set "PLATFORM=WIN"
+set "THIS_DIR=%cd%"
 
-mkdir %DEST_DIR%
-mkdir %DEST_DIR%\sound
+:: Navigate up to get the TOP_DIR path accurately
+pushd "%THIS_DIR%\..\.."
+set "TOP_DIR=%cd%"
+popd
 
+set "COMPILED_ASSETS=%TOP_DIR%\Build\CompiledAssets"
+set "DEST_DIR=%COMPILED_ASSETS%\%PLATFORM%"
+set "SRC_DIR=%TOP_DIR%\Assets"
+set "GLUE_EXE=%THIS_DIR%\glue.exe"
+set "GLUE_FILE=%DEST_DIR%\..\music-%PLATFORM%.glue"
 
-xcopy /S /Y %SRC_DIR%\windows\*.wav %DEST_DIR%\sound
-xcopy /S /Y %SRC_DIR%\*.it %DEST_DIR%\sound
+:: 2. Create directories
+if not exist "%COMPILED_ASSETS%" mkdir "%COMPILED_ASSETS%"
+if not exist "%DEST_DIR%\Sound\wav" mkdir "%DEST_DIR%\Sound\wav"
 
+:: 3. Clear existing files and copy new ones
+del /q "%DEST_DIR%\Sound\wav\*.wav" 2>nul
+xcopy "%SRC_DIR%\Sound\wav\*.wav" "%DEST_DIR%\Sound\wav\" /y
 
-cd %DEST_DIR%
+:: Delete all .mid files recursively in the destination Songs directory
+del /s /q "%DEST_DIR%\Songs\*.mid" 2>nul
+xcopy "%SRC_DIR%\Songs\*" "%DEST_DIR%\Songs\" /e /y
 
-set GLUE_EXE=%THIS_DIR%\glue.exe
-set GLUE_FILE=%DEST_DIR%\..\music-win.glue
-REM make glue file
-%GLUE_EXE% -c %GLUE_FILE%
+:: 4. Navigate to destination
+cd /d "%DEST_DIR%"
 
-REM Add files in sound dir
+:: 5. Create empty glue file
+"%GLUE_EXE%" -c "%GLUE_FILE%"
 
-for %%f in (sound\*.wav) do %GLUE_EXE% -a %GLUE_FILE% %%f
+:: 6. Add WAV files to Glue
+for /r "Sound\wav" %%f in (*.wav) do (
+    set "FULL_PATH=%%f"
+    :: Strip the DEST_DIR path to get the relative path
+    set "REL_PATH=!FULL_PATH:%DEST_DIR%\=!"
+    echo Adding file: !REL_PATH!
+    "%GLUE_EXE%" -a "%GLUE_FILE%" "!REL_PATH!"
+)
 
-for %%f in (sound\*.it) do %GLUE_EXE% -a %GLUE_FILE% %%f
+:: 7. Add MID files to Glue (handles nested folders like Zsh's **)
+for /r "Songs" %%f in (*.mid) do (
+    set "FULL_PATH=%%f"
+    set "REL_PATH=!FULL_PATH:%DEST_DIR%\=!"
+    echo Adding file: !REL_PATH!
+    "%GLUE_EXE%" -a "%GLUE_FILE%" "!REL_PATH!"
+)
 
+:: 8. Verify and Return
+"%GLUE_EXE%" -d "%GLUE_FILE%"
+cd /d "%THIS_DIR%"
 
-REM Verify contents
-%GLUE_EXE% -d %GLUE_FILE%
-
-
-cd %THIS_DIR%
+endlocal

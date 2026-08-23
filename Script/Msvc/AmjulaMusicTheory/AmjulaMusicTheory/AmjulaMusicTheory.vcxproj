@@ -234,7 +234,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AMJU_USE_BASS;AMJU_USE_BASS_MIDI;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/I "../../../../../amjulib/Source/Events" 
 /I "../../../../../amjulib/Source/EventsWin32" 
 /I "../../../../../amjulib/Source/EventsSDL" 
