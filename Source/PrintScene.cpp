@@ -11,7 +11,7 @@ static void PrintNode(SceneNode* sn, int depth = 0)
   std::cout 
     << spaces << sn->GetName() 
     << "\n"
-    //<< " (" << type << ")" // not useful info
+    // << " (" << type << ")" // not useful info
     << spaces << "Local: " << Describe(sn->GetLocalTransform()) 
     << "\n"
     << spaces << "Combi: " << Describe(sn->GetCombinedTransform()) 

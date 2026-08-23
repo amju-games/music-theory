@@ -127,6 +127,19 @@
 		C58E3BF92F8572930013E626 /* Hud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF02F8572930013E626 /* Hud.cpp */; };
 		C58E3BFA2F8572930013E626 /* MyROConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF22F8572930013E626 /* MyROConfig.cpp */; };
 		C58E3BFC2F8572930013E626 /* HudNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF62F8572930013E626 /* HudNumber.cpp */; };
+		C5BB24F5303A02B400AAAACA /* ExtraAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24DA303A02B200AAAACA /* ExtraAllocator.cpp */; };
+		C5BB24F6303A02B400AAAACA /* GenerateCurvedPathConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24DC303A02B200AAAACA /* GenerateCurvedPathConfig.cpp */; };
+		C5BB24F7303A02B400AAAACA /* PointsCalculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24DE303A02B300AAAACA /* PointsCalculator.cpp */; };
+		C5BB24F8303A02B400AAAACA /* ExtrasAdder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24DF303A02B300AAAACA /* ExtrasAdder.cpp */; };
+		C5BB24F9303A02B400AAAACA /* ExtrasAdderImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24E0303A02B300AAAACA /* ExtrasAdderImpl.cpp */; };
+		C5BB24FA303A02B400AAAACA /* Extra.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24E2303A02B300AAAACA /* Extra.cpp */; };
+		C5BB24FB303A02B400AAAACA /* Reward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24E7303A02B300AAAACA /* Reward.cpp */; };
+		C5BB24FC303A02B400AAAACA /* SetUpFactories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24E9303A02B300AAAACA /* SetUpFactories.cpp */; };
+		C5BB24FD303A02B400AAAACA /* NoteRun.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24EC303A02B300AAAACA /* NoteRun.cpp */; };
+		C5BB24FE303A02B400AAAACA /* GuiDecCurvedPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24ED303A02B300AAAACA /* GuiDecCurvedPath.cpp */; };
+		C5BB24FF303A02B400AAAACA /* AutoPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24F0303A02B300AAAACA /* AutoPlayer.cpp */; };
+		C5BB2500303A02B400AAAACA /* MultiExtra.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24F1303A02B300AAAACA /* MultiExtra.cpp */; };
+		C5BB2501303A02B400AAAACA /* CurvedPathMixin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24F4303A02B400AAAACA /* CurvedPathMixin.cpp */; };
 		C5D13B642F8EA48D00046430 /* GSConfirmSong.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D13B612F8EA48D00046430 /* GSConfirmSong.cpp */; };
 		C5DB7D6D2F757E7C008CA51E /* GuiPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5DB7D6A2F757E7C008CA51E /* GuiPatch.cpp */; };
 		C5EA2CA82F953F720063AEBD /* bass.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5EA2CA42F953ED60063AEBD /* bass.xcframework */; };
@@ -359,7 +372,6 @@
 		C55DEA81300D2526006CB79F /* Describe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Describe.cpp; path = ../../../../Source/Describe.cpp; sourceTree = "<group>"; };
 		C55DEA86300D2526006CB79F /* GSInitNewRound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSInitNewRound.h; path = ../../../../Source/GSInitNewRound.h; sourceTree = "<group>"; };
 		C55DEA87300D2526006CB79F /* GSInitNewRound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSInitNewRound.cpp; path = ../../../../Source/GSInitNewRound.cpp; sourceTree = "<group>"; };
-		C55DEA88300D2526006CB79F /* BassMidiInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BassMidiInput.h; path = ../../../../Source/BassMidiInput.h; sourceTree = "<group>"; };
 		C55DEA89300D2526006CB79F /* Describe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Describe.h; path = ../../../../Source/Describe.h; sourceTree = "<group>"; };
 		C55DEA8A300D2526006CB79F /* InitialState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InitialState.cpp; path = ../../../../Source/InitialState.cpp; sourceTree = "<group>"; };
 		C55DEA8B300D2526006CB79F /* PrintScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrintScene.cpp; path = ../../../../Source/PrintScene.cpp; sourceTree = "<group>"; };
@@ -394,6 +406,33 @@
 		C58E3BF42F8572930013E626 /* GSChooseSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSChooseSong.h; path = ../../../../Source/GSChooseSong.h; sourceTree = "<group>"; };
 		C58E3BF62F8572930013E626 /* HudNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HudNumber.cpp; path = ../../../../Source/HudNumber.cpp; sourceTree = "<group>"; };
 		C58E3BF72F8572930013E626 /* MyROConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyROConfig.h; path = ../../../../Source/MyROConfig.h; sourceTree = "<group>"; };
+		C5BB24DA303A02B200AAAACA /* ExtraAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExtraAllocator.cpp; path = ../../../../Source/ExtraAllocator.cpp; sourceTree = "<group>"; };
+		C5BB24DB303A02B200AAAACA /* MultiExtra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiExtra.h; path = ../../../../Source/MultiExtra.h; sourceTree = "<group>"; };
+		C5BB24DC303A02B200AAAACA /* GenerateCurvedPathConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GenerateCurvedPathConfig.cpp; path = ../../../../Source/GenerateCurvedPathConfig.cpp; sourceTree = "<group>"; };
+		C5BB24DD303A02B200AAAACA /* CurvedPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurvedPath.h; path = ../../../../Source/CurvedPath.h; sourceTree = "<group>"; };
+		C5BB24DE303A02B300AAAACA /* PointsCalculator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PointsCalculator.cpp; path = ../../../../Source/PointsCalculator.cpp; sourceTree = "<group>"; };
+		C5BB24DF303A02B300AAAACA /* ExtrasAdder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExtrasAdder.cpp; path = ../../../../Source/ExtrasAdder.cpp; sourceTree = "<group>"; };
+		C5BB24E0303A02B300AAAACA /* ExtrasAdderImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExtrasAdderImpl.cpp; path = ../../../../Source/ExtrasAdderImpl.cpp; sourceTree = "<group>"; };
+		C5BB24E1303A02B300AAAACA /* NoteRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteRun.h; path = ../../../../Source/NoteRun.h; sourceTree = "<group>"; };
+		C5BB24E2303A02B300AAAACA /* Extra.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Extra.cpp; path = ../../../../Source/Extra.cpp; sourceTree = "<group>"; };
+		C5BB24E3303A02B300AAAACA /* Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Extra.h; path = ../../../../Source/Extra.h; sourceTree = "<group>"; };
+		C5BB24E4303A02B300AAAACA /* GenerateCurvedPathConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GenerateCurvedPathConfig.h; path = ../../../../Source/GenerateCurvedPathConfig.h; sourceTree = "<group>"; };
+		C5BB24E5303A02B300AAAACA /* CurvedPathMixin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurvedPathMixin.h; path = ../../../../Source/CurvedPathMixin.h; sourceTree = "<group>"; };
+		C5BB24E6303A02B300AAAACA /* ExtrasAdderImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExtrasAdderImpl.h; path = ../../../../Source/ExtrasAdderImpl.h; sourceTree = "<group>"; };
+		C5BB24E7303A02B300AAAACA /* Reward.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Reward.cpp; path = ../../../../Source/Reward.cpp; sourceTree = "<group>"; };
+		C5BB24E8303A02B300AAAACA /* PointsCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PointsCalculator.h; path = ../../../../Source/PointsCalculator.h; sourceTree = "<group>"; };
+		C5BB24E9303A02B300AAAACA /* SetUpFactories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SetUpFactories.cpp; path = ../../../../Source/SetUpFactories.cpp; sourceTree = "<group>"; };
+		C5BB24EA303A02B300AAAACA /* GuiDecCurvedPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiDecCurvedPath.h; path = ../../../../Source/GuiDecCurvedPath.h; sourceTree = "<group>"; };
+		C5BB24EB303A02B300AAAACA /* ExtrasAdder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExtrasAdder.h; path = ../../../../Source/ExtrasAdder.h; sourceTree = "<group>"; };
+		C5BB24EC303A02B300AAAACA /* NoteRun.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NoteRun.cpp; path = ../../../../Source/NoteRun.cpp; sourceTree = "<group>"; };
+		C5BB24ED303A02B300AAAACA /* GuiDecCurvedPath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiDecCurvedPath.cpp; path = ../../../../Source/GuiDecCurvedPath.cpp; sourceTree = "<group>"; };
+		C5BB24EE303A02B300AAAACA /* Reward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reward.h; path = ../../../../Source/Reward.h; sourceTree = "<group>"; };
+		C5BB24EF303A02B300AAAACA /* SetUpFactories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetUpFactories.h; path = ../../../../Source/SetUpFactories.h; sourceTree = "<group>"; };
+		C5BB24F0303A02B300AAAACA /* AutoPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AutoPlayer.cpp; path = ../../../../Source/AutoPlayer.cpp; sourceTree = "<group>"; };
+		C5BB24F1303A02B300AAAACA /* MultiExtra.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MultiExtra.cpp; path = ../../../../Source/MultiExtra.cpp; sourceTree = "<group>"; };
+		C5BB24F2303A02B300AAAACA /* ExtraAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExtraAllocator.h; path = ../../../../Source/ExtraAllocator.h; sourceTree = "<group>"; };
+		C5BB24F3303A02B300AAAACA /* AutoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AutoPlayer.h; path = ../../../../Source/AutoPlayer.h; sourceTree = "<group>"; };
+		C5BB24F4303A02B400AAAACA /* CurvedPathMixin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CurvedPathMixin.cpp; path = ../../../../Source/CurvedPathMixin.cpp; sourceTree = "<group>"; };
 		C5D13B612F8EA48D00046430 /* GSConfirmSong.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSConfirmSong.cpp; path = ../../../../Source/GSConfirmSong.cpp; sourceTree = "<group>"; };
 		C5D13B632F8EA48D00046430 /* GSConfirmSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSConfirmSong.h; path = ../../../../Source/GSConfirmSong.h; sourceTree = "<group>"; };
 		C5DB7D6A2F757E7C008CA51E /* GuiPatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiPatch.cpp; path = ../../../../Source/GuiPatch.cpp; sourceTree = "<group>"; };
@@ -556,19 +595,12 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				C55DEA7D300D2525006CB79F /* AnimListener.h */,
-				C55DEA88300D2526006CB79F /* BassMidiInput.h */,
-				C55DEA81300D2526006CB79F /* Describe.cpp */,
-				C55DEA89300D2526006CB79F /* Describe.h */,
-				C55DEA87300D2526006CB79F /* GSInitNewRound.cpp */,
-				C55DEA86300D2526006CB79F /* GSInitNewRound.h */,
-				C55DEA8A300D2526006CB79F /* InitialState.cpp */,
-				C55DEA7F300D2526006CB79F /* InitialState.h */,
-				C55DEA8B300D2526006CB79F /* PrintScene.cpp */,
-				C55DEA80300D2526006CB79F /* PrintScene.h */,
 				C55DEA22300D226B006CB79F /* Animals */,
+				C55DEA7D300D2525006CB79F /* AnimListener.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
 				69D58E431E833741008A8D29 /* AppDelegate.mm */,
+				C5BB24F0303A02B300AAAACA /* AutoPlayer.cpp */,
+				C5BB24F3303A02B300AAAACA /* AutoPlayer.h */,
 				C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */,
 				C5EA2CAC2F9540430063AEBD /* BassPlayMidi.h */,
 				C548154C2FFBD2AD0066288A /* Beat.h */,
@@ -576,11 +608,26 @@
 				C5810E942F8C0C4F00047856 /* BlinkSceneNode.h */,
 				69A23A591F61E6970021BF88 /* Consts.cpp */,
 				69D732821F23DA28007B73C1 /* Consts.h */,
+				C5BB24DD303A02B200AAAACA /* CurvedPath.h */,
+				C5BB24F4303A02B400AAAACA /* CurvedPathMixin.cpp */,
+				C5BB24E5303A02B300AAAACA /* CurvedPathMixin.h */,
+				C55DEA81300D2526006CB79F /* Describe.cpp */,
+				C55DEA89300D2526006CB79F /* Describe.h */,
+				C5BB24E2303A02B300AAAACA /* Extra.cpp */,
+				C5BB24E3303A02B300AAAACA /* Extra.h */,
+				C5BB24DA303A02B200AAAACA /* ExtraAllocator.cpp */,
+				C5BB24F2303A02B300AAAACA /* ExtraAllocator.h */,
+				C5BB24DF303A02B300AAAACA /* ExtrasAdder.cpp */,
+				C5BB24EB303A02B300AAAACA /* ExtrasAdder.h */,
+				C5BB24E0303A02B300AAAACA /* ExtrasAdderImpl.cpp */,
+				C5BB24E6303A02B300AAAACA /* ExtrasAdderImpl.h */,
 				C54815462FFBD2AD0066288A /* FeedbackBalloon.cpp */,
 				C548154A2FFBD2AD0066288A /* FeedbackBalloon.h */,
 				C561F3BB2F65CCDB003EE425 /* FindSongSections.cpp */,
 				C561F3C02F65CCDC003EE425 /* FindSongSections.h */,
 				C54815482FFBD2AD0066288A /* GameMain.cpp */,
+				C5BB24DC303A02B200AAAACA /* GenerateCurvedPathConfig.cpp */,
+				C5BB24E4303A02B300AAAACA /* GenerateCurvedPathConfig.h */,
 				C55726982F0EFA5300EEB2A5 /* Grader.cpp */,
 				C557269E2F0EFA5400EEB2A5 /* Grader.h */,
 				C557269F2F0EFA5400EEB2A5 /* GS3dExample.cpp */,
@@ -603,6 +650,8 @@
 				C5117C492F11CE0300952A7B /* GSHeroEnd.h */,
 				C579D4772F12DBED0042461C /* GSHeroWin.cpp */,
 				C579D4762F12DBED0042461C /* GSHeroWin.h */,
+				C55DEA87300D2526006CB79F /* GSInitNewRound.cpp */,
+				C55DEA86300D2526006CB79F /* GSInitNewRound.h */,
 				6959E2F41E9ACE8A00E251A9 /* GSPause.cpp */,
 				6959E2F51E9ACE8A00E251A9 /* GSPause.h */,
 				697A07F11E82F19B0045CE54 /* GSPlayNotes.cpp */,
@@ -615,6 +664,8 @@
 				C53572DD2FA7D17600E61A26 /* GSVerify.h */,
 				6945193D2017368D001C188B /* Gui3dScene.cpp */,
 				694519362017368C001C188B /* Gui3dScene.h */,
+				C5BB24ED303A02B300AAAACA /* GuiDecCurvedPath.cpp */,
+				C5BB24EA303A02B300AAAACA /* GuiDecCurvedPath.h */,
 				C561F3BE2F65CCDB003EE425 /* GuiMusic2dKeyboard.cpp */,
 				C561F3B92F65CCDB003EE425 /* GuiMusic2dKeyboard.h */,
 				C561F3BF2F65CCDB003EE425 /* GuiMusicKbBase.cpp */,
@@ -633,6 +684,8 @@
 				C58E3BF12F8572930013E626 /* Hud.h */,
 				C58E3BF62F8572930013E626 /* HudNumber.cpp */,
 				C58E3BF32F8572930013E626 /* HudNumber.h */,
+				C55DEA8A300D2526006CB79F /* InitialState.cpp */,
+				C55DEA7F300D2526006CB79F /* InitialState.h */,
 				6959E3151EA7F44600E251A9 /* iOSGuiTextEdit.h */,
 				6959E3161EA7F44600E251A9 /* iOSGuiTextEdit.mm */,
 				6959E3171EA7F44600E251A9 /* iOSKeyboard.h */,
@@ -642,6 +695,8 @@
 				69D58E441E833741008A8D29 /* main.m */,
 				6951CF151F0B932300140095 /* Md2SceneNode.cpp */,
 				6951CF161F0B932300140095 /* Md2SceneNode.h */,
+				C5BB24F1303A02B300AAAACA /* MultiExtra.cpp */,
+				C5BB24DB303A02B200AAAACA /* MultiExtra.h */,
 				69AC40311EB5331300F255A4 /* MusicEvent.cpp */,
 				69AC40321EB5331300F255A4 /* MusicEvent.h */,
 				C58E3BF22F8572930013E626 /* MyROConfig.cpp */,
@@ -650,6 +705,8 @@
 				695543131F3B526D007C23EA /* MySceneGraph.h */,
 				C561F3BC2F65CCDB003EE425 /* NoteEvent.cpp */,
 				C557269D2F0EFA5400EEB2A5 /* NoteEvent.h */,
+				C5BB24EC303A02B300AAAACA /* NoteRun.cpp */,
+				C5BB24E1303A02B300AAAACA /* NoteRun.h */,
 				C56DACF72EF2CFED00739D75 /* Palette.cpp */,
 				C56DACED2EF2CFEC00739D75 /* Palette.h */,
 				694519452017368F001C188B /* ParticleFx.cpp */,
@@ -657,14 +714,22 @@
 				69F5E08A1E8C09C000E7BF93 /* PlayMidi.h */,
 				69C10CD41F122197009B6836 /* PlayWav.cpp */,
 				69C10CD51F122197009B6836 /* PlayWav.h */,
+				C5BB24DE303A02B300AAAACA /* PointsCalculator.cpp */,
+				C5BB24E8303A02B300AAAACA /* PointsCalculator.h */,
 				6959E31C1EAB5BA500E251A9 /* PrintGui.cpp */,
 				6959E31D1EAB5BA500E251A9 /* PrintGui.h */,
+				C55DEA8B300D2526006CB79F /* PrintScene.cpp */,
+				C55DEA80300D2526006CB79F /* PrintScene.h */,
 				C548154B2FFBD2AD0066288A /* Resumer.cpp */,
 				C54815492FFBD2AD0066288A /* Resumer.h */,
+				C5BB24E7303A02B300AAAACA /* Reward.cpp */,
+				C5BB24EE303A02B300AAAACA /* Reward.h */,
 				694519472017368F001C188B /* SceneNodeGui.cpp */,
 				694519392017368D001C188B /* SceneNodeGui.h */,
 				C54B4BCB2F9CAA27001286FA /* SceneTimeline.cpp */,
 				C54B4BCD2F9CAA27001286FA /* SceneTimeline.h */,
+				C5BB24E9303A02B300AAAACA /* SetUpFactories.cpp */,
+				C5BB24EF303A02B300AAAACA /* SetUpFactories.h */,
 				695543141F3B526D007C23EA /* ShareManager.cpp */,
 				695543151F3B526D007C23EA /* ShareManager.h */,
 				69D58E4D1E84836B008A8D29 /* Startup.cpp */,
@@ -960,6 +1025,7 @@
 			files = (
 				6945194C2017368F001C188B /* Gui3dScene.cpp in Sources */,
 				C5810EA62F8C0C5000047856 /* WithHud.cpp in Sources */,
+				C5BB24FB303A02B400AAAACA /* Reward.cpp in Sources */,
 				C55DEA6E300D2284006CB79F /* AIChasePet.cpp in Sources */,
 				C55726A32F0EFA5400EEB2A5 /* Grader.cpp in Sources */,
 				C56DAD0A2EF2CFED00739D75 /* GSShowGui.cpp in Sources */,
@@ -976,6 +1042,7 @@
 				C55DEA78300D2284006CB79F /* AIEaten.cpp in Sources */,
 				6959E2F81E9ACE8A00E251A9 /* GSPause.cpp in Sources */,
 				C561F3C22F65CCDC003EE425 /* NoteEvent.cpp in Sources */,
+				C5BB2500303A02B400AAAACA /* MultiExtra.cpp in Sources */,
 				C55DEA77300D2284006CB79F /* AnimalController.cpp in Sources */,
 				C55DEA75300D2284006CB79F /* AngleVec.cpp in Sources */,
 				C514212D2F5357A90009EB23 /* GuiSetFromString.cpp in Sources */,
@@ -990,12 +1057,14 @@
 				C561F3C42F65CCDC003EE425 /* GuiMusicKbBase.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
 				C55DEA6B300D2284006CB79F /* Npc.cpp in Sources */,
+				C5BB24FF303A02B400AAAACA /* AutoPlayer.cpp in Sources */,
 				C548154F2FFBD2AD0066288A /* Resumer.cpp in Sources */,
 				C55DEA69300D2284006CB79F /* AIJump.cpp in Sources */,
 				C56DAD062EF2CFED00739D75 /* BassPlayMidi.cpp in Sources */,
 				C55DEA6C300D2284006CB79F /* AIWander.cpp in Sources */,
 				C58E3BF92F8572930013E626 /* Hud.cpp in Sources */,
 				6945194A2017368F001C188B /* UseVertexColourShader.cpp in Sources */,
+				C5BB24FC303A02B400AAAACA /* SetUpFactories.cpp in Sources */,
 				C55DEA93300D2527006CB79F /* InitialState.cpp in Sources */,
 				C55DEA63300D2284006CB79F /* Rabbit.cpp in Sources */,
 				C55DEA74300D2284006CB79F /* AIController.cpp in Sources */,
@@ -1006,12 +1075,18 @@
 				C55726A72F0EFA5400EEB2A5 /* GSHero.cpp in Sources */,
 				C548154E2FFBD2AD0066288A /* GameMain.cpp in Sources */,
 				C54B4BD02F9CAA27001286FA /* SceneTimeline.cpp in Sources */,
+				C5BB24FA303A02B400AAAACA /* Extra.cpp in Sources */,
+				C5BB24F8303A02B400AAAACA /* ExtrasAdder.cpp in Sources */,
+				C5BB24F5303A02B400AAAACA /* ExtraAllocator.cpp in Sources */,
+				C5BB24FE303A02B400AAAACA /* GuiDecCurvedPath.cpp in Sources */,
 				6951CF191F0B932300140095 /* Md2SceneNode.cpp in Sources */,
 				C5810EA02F8C0C5000047856 /* BlinkSceneNode.cpp in Sources */,
 				69D58E491E833741008A8D29 /* ViewController.mm in Sources */,
 				C561F3C12F65CCDC003EE425 /* FindSongSections.cpp in Sources */,
 				69D58E471E833741008A8D29 /* AppDelegate.mm in Sources */,
 				C548154D2FFBD2AD0066288A /* FeedbackBalloon.cpp in Sources */,
+				C5BB24FD303A02B400AAAACA /* NoteRun.cpp in Sources */,
+				C5BB2501303A02B400AAAACA /* CurvedPathMixin.cpp in Sources */,
 				6959E3191EA7F44600E251A9 /* iOSGuiTextEdit.mm in Sources */,
 				6945194F2017368F001C188B /* ParticleFx.cpp in Sources */,
 				697A08031E82F19B0045CE54 /* GuiMusicScore.cpp in Sources */,
@@ -1029,9 +1104,11 @@
 				6951CF171F0B932300140095 /* GSBase3d.cpp in Sources */,
 				697A07FE1E82F19B0045CE54 /* GSPlayNotes.cpp in Sources */,
 				69F5E08D1E8C09C000E7BF93 /* GSTestShowScore.cpp in Sources */,
+				C5BB24F7303A02B400AAAACA /* PointsCalculator.cpp in Sources */,
 				6959E2EF1E97F6F800E251A9 /* UserProfile.cpp in Sources */,
 				C55726A42F0EFA5400EEB2A5 /* HeroGameRound.cpp in Sources */,
 				C5654CAD2FA3855B0071DEAF /* TimelineEventPlayWav.cpp in Sources */,
+				C5BB24F9303A02B400AAAACA /* ExtrasAdderImpl.cpp in Sources */,
 				C55DEA62300D2284006CB79F /* ListAnims.cpp in Sources */,
 				C55DEA70300D2284006CB79F /* AIWait.cpp in Sources */,
 				C55726A62F0EFA5400EEB2A5 /* GuiScrollScore.cpp in Sources */,
@@ -1048,6 +1125,7 @@
 				C55DEA61300D2284006CB79F /* Dog.cpp in Sources */,
 				694519502017368F001C188B /* SceneNodeGui.cpp in Sources */,
 				695543231F3B52C6007C23EA /* iOSShare.mm in Sources */,
+				C5BB24F6303A02B400AAAACA /* GenerateCurvedPathConfig.cpp in Sources */,
 				C55DEA64300D2284006CB79F /* AIHide.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1236,7 +1314,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AVUUC7C85U;
 				ENABLE_BITCODE = NO;
@@ -1267,7 +1345,7 @@
 					../../../../amjulib/Source/SoundBass/Bass2.4/iPhone,
 					"../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.amju.pianofest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1284,7 +1362,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AVUUC7C85U;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1308,7 +1386,7 @@
 					../../../../amjulib/Source/SoundBass/Bass2.4/iPhone,
 					"../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.amju.pianofest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
