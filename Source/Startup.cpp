@@ -265,22 +265,17 @@ static void SetUpResourceLoaders()
   TheResourceManager::Instance()->AddLoader("pal", PaletteLoader);
 }
 
-void SetUpSound()
+static void SetUpMIDI()
 {
 #ifdef AMJU_USE_BASS
-  // Set sound player
-  SoundManager* sm = TheSoundManager::Instance();
-  BassSoundPlayer* bsp = new BassSoundPlayer;
-  sm->SetImpl(bsp);
-
   // This is the player piano sound, running as a separate channel, independently
   //  of the currently playing song. 
   // TODO:
   // All soundfont names should be runtime configurable (by me, not player) 
-std::cout << "Setting up player MIDI stream...\n";
+  std::cout << "Setting up player MIDI stream...\n";
   if (SetUpPlayerStream())
   {
-std::cout << "  ..player MIDI stream is ok?\n";
+    std::cout << "  ..player MIDI stream is ok?\n";
 
     // This is just a test really. We need to check if we are connected,
     //  and attempt to connect periodically if not connected.
@@ -291,6 +286,16 @@ std::cout << "  ..player MIDI stream is ok?\n";
     std::cout << "\nSETTING PLAYER MIDI STREAM FAILED!\n";
   }
 
+#endif // AMJU_USE_BASS
+}
+
+static void SetUpSoundPlayer()
+{
+#ifdef AMJU_USE_BASS
+  // Set sound player
+  SoundManager* sm = TheSoundManager::Instance();
+  BassSoundPlayer* bsp = new BassSoundPlayer;
+  sm->SetImpl(bsp);
 #endif // AMJU_USE_BASS
 }
 
@@ -376,9 +381,11 @@ void StartUpAfterCreateWindow()
 {
   SetUpResourceLoaders();
 
-  SetUpSound();
+  SetUpSoundPlayer(); 
 
-  SetUpGlueFile();
+  SetUpGlueFile(); // glue files contain soundfonts so this has to happen before MIDI.
+
+  SetUpMIDI(); // We could do this later if it causes any delay in launching.
 
   LoadStringTableForPreferredLanguage();
 
