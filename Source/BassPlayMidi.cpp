@@ -21,8 +21,17 @@
 #include "BassPlayMidi.h"
 #include "MusicEvent.h"
 
+// We CAN load soundfonts from memory, i.e. from a glue file! We need to use this
+//  undocumented flag.
+#ifndef BASS_MIDI_FONT_MEM
+// Define the undocumented flag manually if it's missing from your wrapper
+#define BASS_MIDI_FONT_MEM 0x10000 
+#endif
+
 namespace Amju
 {
+void ReportError(const std::string&);
+
 static const auto PIANO_FONT = "steinway_concert_piano.sf2";
 static const auto BASS_FONT = "Colin_s_Double_Bass.sf2";
 static const auto DRUM_FONT = "Jazz Kit.sf2";
@@ -53,19 +62,30 @@ std::cout << "Killing off all notes on player stream.\n";
   BASS_MIDI_StreamEvent(s_playerStream, PLAYER_CHANNEL, MIDI_EVENT_NOTESOFF, 0);
 }
 
+// Use this map so we only ever load a soundfont once.
+static std::unordered_map<std::string, HSOUNDFONT> fontPool;
+
+void BassMidiShutdown()
+{
+  for (const auto& [name, font] : fontPool)
+  {
+    std::cout << "Freeing soundfont: " << name << "\n";
+    BASS_MIDI_FontFree(font);
+  }
+  fontPool.clear();
+}
+
 HSOUNDFONT LoadSoundFont(const std::string fontFileName)
 {
 #ifdef AMJU_IOS
   // Assets are not in subdirectories on iOS
-  std::string prefix = File::GetRoot();
+  std::string prefix = File::GetRoot(); -- TODO This will go away once we use glue file.
 #else
   std::string prefix = File::GetRoot() + "Sound/";
 #endif
 
   auto filename = prefix + fontFileName;
 
-  // Use this map so we only ever load a soundfont once.
-  static std::unordered_map<std::string, HSOUNDFONT> fontPool;
   // Use unadorned filename so we can change File::Root
   auto it = fontPool.find(fontFileName);
   if (it != fontPool.end())
@@ -76,7 +96,38 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
     return it->second;
   }
 
-  auto font = BASS_MIDI_FontInit(filename.c_str(), 0); // load using full path
+  HSOUNDFONT font = 0;
+  // Load from disk or from glue file if it exists
+  if (auto gf = TheSoundManager::Instance()->GetGlueFile())
+  {
+    //#ifdef BASS_DEBUG
+    std::cout << "Loading soundfont from glue file: " << filename << "\n";
+    //#endif
+
+    // Find the start of the soundfont in the glue file, and find the length
+    uint32 soundfontPos = 0;
+    if (!gf->GetSeekBase(filename, &soundfontPos))
+    {
+      std::string s = "BASS: soundfont not in Glue File: " + filename;
+      ReportError(s);
+      return 0;
+    }
+    uint32 soundfontLength = gf->GetSize(filename);
+
+    //#ifdef BASS_DEBUG
+    std::cout << "Soundfont length is " << soundfontLength << "\n";
+    //#endif
+
+    // Use GlueFileBinaryData to get the data without copying it
+    GlueFileBinaryData data = gf->GetBinary(soundfontPos, soundfontLength);
+
+    // Load directly from buffer
+    font = BASS_MIDI_FontInit(data.GetBuffer(), BASS_MIDI_FONT_MEM);
+  }
+  else
+  {
+    font = BASS_MIDI_FontInit(filename.c_str(), 0); // load using full path
+  }
   if (font) 
   {
 #ifdef PLAY_MIDI_DEBUG
@@ -420,6 +471,9 @@ bool SetUpPlayerStream()
   SetPanningAndReverb(s_playerStream);
 
   BASS_ChannelPlay(s_playerStream, FALSE);
+
+  // Free soundfonts before glue file data is destroyed, hopefully.
+  std::atexit(BassMidiShutdown);
 
   return true;
 }
