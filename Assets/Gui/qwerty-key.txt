@@ -1,0 +1,98 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+// Qwerty key
+
+scale
+.75, .75
+0, 0
+
+// This comp is used to position the extra 
+gui-comp
+qwerty-key-root
+5
+
+colour
+// Same as player points: TODO Get from palette
+202020
+
+patch
+qwerty-key-dark-patch
+-0.0025, 0
+.105, .19
+Image/atlas.png, stretch
+4,4
+1
+// Corner size: square, so only width is specified.
+0.025
+
+colour
+505050
+
+patch
+qwerty-key-light-patch
+0.002, 0
+.096, .16
+Image/atlas.png, stretch
+4,4
+1
+// Corner size: square
+0.025
+
+colour
+//646464
+444444
+gui-sprite
+qwerty-key-highlight
+.01, -0.004
+.08, .14
+Image/atlas.png, stretch
+4,4
+1
+
+// Not used - if used, should go above text
+colour
+c0c0c0
+patch
+qwerty-key-highlight-patch
+.072, -.03
+.008, .012
+Image/atlas.png, stretch
+4,4
+1
+// Corner - square
+.004
+
+// Letter on key
+// Using an olde skool sprite sheet for this, not a text object.
+colour
+e0e0e0
+gui-sprite
+qwerty-key-highlight
+.02, -0.004, 1
+.1, .14
+Image/arial_round_2048_64pt.png, stretch
+16,8
+// Characters are ascii code - 32
+// TEST
+3
+
+
+// Don't use text2, it doesn't scale, it's quite hard to work with in this situation.
+text2
+key-text
+// pos (coords are -1..1)
+// NB Z coord for z-ordering with batching; +ve is CLOSER
+0, -.14, 1 
+.065, .2
+// Text
+.
+// Font name, size
+catcomic, 2., fgcol=e0e0e0, centre
+
+
+
+
