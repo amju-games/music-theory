@@ -60,14 +60,16 @@
 #define _CRTDBG_MAP_ALLOC  
 #include <stdlib.h>  
 #include <crtdbg.h>  
-#endif  // _DEBUG
 
-#ifdef NDEBUG
+#else  // _DEBUG
+
+// Release build: use glue files and binary obj files.
 #define YES_GLUE_FILE
 #define YES_BINARY_OBJ_FILES
 #define GLUE_FILE "data-win.glue"
 #define MUSIC_GLUE_FILE "music-win.glue"
-#endif // NDEBUG
+
+#endif // _DEBUG
 #endif  // WIN32
 
 namespace Amju
@@ -123,12 +125,10 @@ void SetUpRootDir()
 {
 #ifdef WIN32
   // In MSVC we set the working directory in project properties,
-  //  so just rely on that to set the root dir to Assets/.
-  // But if we are using glue files, we want to look in Build/CompiledAssets.
-#ifdef YES_GLUE_FILE
-  File::SetRoot("..\\Build\\CompiledAssets", "/");
-  std::cout << "Setting File::Root to " << File::GetRoot() << " for glue files.\n";
-#endif
+  //  so just rely on that to set the root dir to Assets/ for debug builds,
+  //  or Build/CompiledAssets for release/glue builds.
+  // For an actual distro we expect the exe to be in the same place as the
+  //  assets and DLLs, or for the installer to sort it out.
 #endif
 
 #ifdef AMJU_IOS
