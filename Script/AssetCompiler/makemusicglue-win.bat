@@ -22,7 +22,10 @@ if not exist "%DEST_DIR%\Sound\wav" mkdir "%DEST_DIR%\Sound\wav"
 
 :: 3. Clear existing files and copy new ones
 del /q "%DEST_DIR%\Sound\wav\*.wav" 2>nul
+del /q "%DEST_DIR%\Sound\*.sf2" 2>nul
+
 xcopy "%SRC_DIR%\Sound\wav\*.wav" "%DEST_DIR%\Sound\wav\" /y
+xcopy "%SRC_DIR%\Sound\*.sf2" "%DEST_DIR%\Sound\" /y
 
 :: Delete all .mid files recursively in the destination Songs directory
 del /s /q "%DEST_DIR%\Songs\*.mid" 2>nul
@@ -36,6 +39,15 @@ cd /d "%DEST_DIR%"
 
 :: 6. Add WAV files to Glue
 for /r "Sound\wav" %%f in (*.wav) do (
+    set "FULL_PATH=%%f"
+    :: Strip the DEST_DIR path to get the relative path
+    set "REL_PATH=!FULL_PATH:%DEST_DIR%\=!"
+    echo Adding file: !REL_PATH!
+    "%GLUE_EXE%" -a "%GLUE_FILE%" "!REL_PATH!"
+)
+
+:: 6.5. Add sf2 files to Glue
+for /r "Sound" %%f in (*.sf2) do (
     set "FULL_PATH=%%f"
     :: Strip the DEST_DIR path to get the relative path
     set "REL_PATH=!FULL_PATH:%DEST_DIR%\=!"
