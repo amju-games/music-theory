@@ -301,7 +301,7 @@ static void SetUpMisc()
   // Set image for cursor (e.g. hand with pointing finger for Wii controller).
   // If we don't care, just set any texture we have.
   // 2nd param is 'hotspot' pixel position, which, again, we don't care about.
-  TheCursorManager::Instance()->Load("Image/hand.png", {}); 
+  TheCursorManager::Instance()->Load("Image/atlas.png", {}); 
 #endif
 
   GuiButton::SetClickFilename(WAV_BUTTON_CLICK);
