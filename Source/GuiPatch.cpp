@@ -1,4 +1,5 @@
 #include <LoadVec2.h>
+#include <StringUtils.h>
 #include "GuiPatch.h"
 
 namespace Amju
@@ -10,8 +11,23 @@ bool GuiPatch::Load(File* f)
   if (!GuiSprite::Load(f)) // base class load
     return false;
 
-  // Load corner size
-  if (!LoadVec2(f, &m_cornerSize))
+  // Load corner size: if only one float is given, we want square corners,
+  //  taking screen aspect ratio into account.
+  std::string s;
+  if (!f->GetDataLine(&s))
+  {
+    f->ReportError("GuiPatch: expected corner size vec2 or corner width.");
+    return false;
+  }
+  auto strs = Split(s, ',');
+  if (strs.size() == 1)
+  {
+    // Square corners
+    m_cornerSize.x = ToFloat(s);
+    m_cornerSize.y = m_cornerSize.x;
+    m_squareCorners = true;
+  }
+  else if (!ToVec2(s, &m_cornerSize))
   {
     f->ReportError("GuiPatch: expected corner size vec2.");
     return false;
@@ -39,12 +55,14 @@ void GuiPatch::AddToTrilist(AmjuGL::Tris& triList)
   Vec2f size = GetSize();
   Vec2f pos = GetCombinedPos();
 
-  // Get aspect ratio so corners are square -- don't think we want this
-  //int vx, vy, vw, vh; 
-  //AmjuGL::GetViewport(&vx, &vy, &vw, &vh);
-  //float asp = (float)vw / (float)vh;
-
   float asp = 1.f;
+  if (m_squareCorners)
+  {
+    // Get aspect ratio so corners are square, if flag set.
+    int vx, vy, vw, vh;
+    AmjuGL::GetViewport(&vx, &vy, &vw, &vh);
+    asp = (float)vw / (float)vh;
+  }
 
   // 4 x-coords, left to right
   float x[4] = { pos.x, pos.x + m_cornerSize.x, pos.x + size.x - m_cornerSize.x, pos.x + size.x };

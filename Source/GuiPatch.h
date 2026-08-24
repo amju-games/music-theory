@@ -24,6 +24,9 @@ private:
   //  the given cell is mapped to each corner. 
   // (The gaps are filled by stretching the quadrant edges to fit.)
   Vec2f m_cornerSize;
+
+  // For square corners, just specify one side length (x) for corner size. 
+  bool m_squareCorners = false;
 };
 }
 
