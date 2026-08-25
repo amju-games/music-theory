@@ -736,6 +736,9 @@
     <ClInclude Include="..\..\..\..\Source\AutoPlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt">
@@ -1044,5 +1047,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Source\Version.h.template" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AmjulaMusicTheory.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Assets\Windows\piano_fest_icons_win.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
