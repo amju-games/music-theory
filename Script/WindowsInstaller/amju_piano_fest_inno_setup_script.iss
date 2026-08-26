@@ -6,7 +6,7 @@
 #define MyAppVersion "0.4"
 #define MyAppPublisher "Amju Games"
 #define MyAppURL "https://www.amju.com/"
-#define MyAppExeName "amju_piano_fest_win.exe"
+#define MyAppExeName "amju_piano_fest.exe"
 #define DoubleAmp(Value) StringChange(Value, "&", "&&")
 #define EscapeConstArgument(Value) StringChange(StringChange(StringChange(Value, "%", "%25"), ",", "%2c"), "}", "%7d")
 
