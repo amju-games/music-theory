@@ -212,15 +212,28 @@ def process_audio_pipeline(mid, output_path, mapping):
     
             # Insert the track name meta message at the very beginning
             new_track.append(mido.MetaMessage('track_name', name=final_name, time=0))
+
+        # Accumulator for the delta time of skipped messages
+        skipped_time = 0 
+        
         for msg in track:
-            # Skip existing track names so they don't conflict with our new ones
             # STRIP: Text, Lyrics, Markers, Cue Points, and old Track Names 
             if msg.is_meta and msg.type in ('text', 'lyrics', 'marker', 'cue_marker', 'track_name', 'copyright'):
+                skipped_time += msg.time
                 continue
-
-            if msg.type == 'control_change' and msg.control in (7, 10, 11): continue
-
-            new_track.append(msg.copy(channel=chan) if hasattr(msg, 'channel') and chan is not None else msg.copy())
+                    
+            if msg.type == 'control_change' and msg.control in (7, 10, 11): 
+                skipped_time += msg.time
+                continue
+                
+            # Copy the message and apply channel mapping if necessary
+            new_msg = msg.copy(channel=chan) if hasattr(msg, 'channel') and chan is not None else msg.copy()
+            
+            # Add any accumulated skipped time to this message, then reset the accumulator
+            new_msg.time += skipped_time
+            skipped_time = 0
+            
+            new_track.append(new_msg)
 
     add_bass_track_if_required_in_mem(new_mid)
     add_percussion_track_if_required_in_mem(new_mid)
