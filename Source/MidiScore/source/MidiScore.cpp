@@ -21,7 +21,8 @@
 namespace MidiScore
 {
 static void AddEventToVec(
-  int tpq, const smf::MidiEvent& mev, Events& events, TimeSig ts,
+  int tpq, const smf::MidiEvent& mev, Events& events, TimeSig ts, 
+  KeySig ks,
   const Quantiser& quantiser, int anacrusisTicks)
 {
   if (mev.isNoteOn())
@@ -44,6 +45,8 @@ static void AddEventToVec(
       quantiser.QuantiseDuration(tpq, e);
 
       e.m_pitch = static_cast<int>(mev[1]);
+      e.m_keySig = ks;
+
       if (numBytes > 2)
       {
         e.m_dynamics.SetVelocity(static_cast<int>(mev[2]));
@@ -228,14 +231,15 @@ void GuessTimeSigAndKeySig(int tpq, const Events& events, TimeSig& ts, KeySig& k
 }
 
 static Events GetEventsFromTrack(
-  int tpq, const smf::MidiEventList& track, TimeSig ts, const Quantiser& quantiser,
+  int tpq, const smf::MidiEventList& track, TimeSig ts, KeySig ks, 
+  const Quantiser& quantiser,
   int anacrusisTicks)
 {
   Events events;
   
   for (int event = 0; event < track.size(); event++) 
   {
-    AddEventToVec(tpq, track[event], events, ts, quantiser, anacrusisTicks);
+    AddEventToVec(tpq, track[event], events, ts, ks, quantiser, anacrusisTicks);
   }   
   
   if (events.empty()) return events;
@@ -261,7 +265,8 @@ static Events GetPitchEventsFromTrack(const smf::MidiEventList& track)
   // This is for clef and key sig guessing.
   const int TPQ = 256; // Arbitrary, probably should be high enough to avoid probs
   const int ANACRUSIS_TICKS = 0; // we don't care about timing
-  return GetEventsFromTrack(TPQ, track, TimeSig::TS_NONE, NullQuantiser(), 
+  return GetEventsFromTrack(
+    TPQ, track, TimeSig::TS_NONE, KeySig::KS_SHARP_0, NullQuantiser(), 
     ANACRUSIS_TICKS);
 }
 
@@ -674,8 +679,8 @@ std::string ToString(
 
   // First pass: Join all tracks 
   midifile.joinTracks(); 
-  Events allEvents = GetEventsFromTrack(tpq, midifile[0], ts, quantiser,
-    anacrusisTicks);
+  Events allEvents = GetEventsFromTrack(
+    tpq, midifile[0], ts, KeySig::KS_SHARP_0, quantiser, anacrusisTicks);
 
   if (allEvents.empty())
   {
@@ -726,7 +731,7 @@ std::string ToString(
   // If track is specified, just output that one track.
   if (track)
   {
-    Events events = GetEventsFromTrack(tpq, midifile[*track], ts, quantiser,
+    Events events = GetEventsFromTrack(tpq, midifile[*track], ts, ks, quantiser,
       anacrusisTicks);
     if (!events.empty()) 
     {
@@ -742,7 +747,7 @@ std::string ToString(
     int numTracks = midifile.getNumTracks();
     for (int t = 0; t < numTracks; t++)
     {
-      Events events = GetEventsFromTrack(tpq, midifile[t], ts, quantiser,
+      Events events = GetEventsFromTrack(tpq, midifile[t], ts, ks, quantiser,
         anacrusisTicks);
       if (events.empty()) continue;
       res += "// ** STAVE " + std::to_string(stave++) + " **\n";
