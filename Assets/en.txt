@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-39
+40
 1=The Swan
 2=From The Carnival of the Animals
 3=Camille Saint-Saëns
@@ -41,3 +41,4 @@
 37=Reference
 38=Juliet
 39=Gymnopédie no. 2
+40=Gymnopédie no. 3
