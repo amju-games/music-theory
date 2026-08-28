@@ -416,7 +416,9 @@ def write_channels_txt(target_dir, mapping):
     
     with open(target_dir / "channels.txt", 'w') as f:
         for k in mapping:
-            f.write(f"{k}: {mapping[k]} # Track {k} -> {chan_to_name[mapping[k]]}\n")
+            # Add 1 to the channel number, making it 1-based;
+            #  in fix_channels.py we subtract the 1. Sigh, I hate 1-based.
+            f.write(f"{k}: {mapping[k] + 1} # Track {k} -> {chan_to_name[mapping[k]]}\n")
 
 
 def main():
