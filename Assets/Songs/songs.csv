@@ -4,3 +4,4 @@ Level	Round	Name	Display title (localised)	Subtitle (localised)	Composer (locali
 1	9	pachelbel-canonind	$$$14		$$$15	Pachelbel-CanonInD/pachelbel-canonind.mid	Count-in/count-in-4-4.mid	2	count-in-4.txt	palette-notes-12-1.png	Pachelbel-CanonInD/pachelbel-canonind.score.txt	1	-1
 1	1	bach-air	$$$4	$$$5	$$$6	Bach-Air/bach-air.mid	Count-in/count-in-4-4.mid	2	Count-in-4.txt	Palette-notes-12-1.png	Bach-Air/bach-air.score.txt	1	
 2	0	bbartk-romanianfolkdanceno2	$$$16	$$$17	$$$18	BBartK-RomanianFolkDanceNo2/bbartk-romanianfolkdanceno2.mid	Count-in/count-in-2-4.mid	2	count-in-2.txt	palette-notes-12-1.png	BBartK-RomanianFolkDanceNo2/bbartk-romanianfolkdanceno2.score.txt	1	-1
+2	1	satie-gymnopedie2	@@@Gymnopedie-2		@@@Satie	Satie-Gymnopedie2/satie-gymnopedie2.mid	Count-in/count-in-3-4.mid	3	count-in-3.txt	palette-notes-12-1.png	Satie-Gymnopedie2/satie-gymnopedie2.score.txt	1	-1
