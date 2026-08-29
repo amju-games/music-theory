@@ -1,0 +1,48 @@
+// Credits
+
+// File ver
+1
+
+gui-comp
+credits-root
+2
+
+animation
+auto-scroller
+one-shot
+// Time: set this depending on num lines?
+20.0
+linear
+
+translate
+// Final pos should also depend on num lines.
+0, -1; 0, 3
+
+// Load credits text from file
+text-file
+credits-text
+// pos (coords are -1..1)
+-1, 0
+// size
+1.9, 0.1 
+// TEXT FILENAME
+credits.txt
+// Font name, size
+bmmolin, 1.0, centre, fgcol=000000
+
+include
+quit-button.txt
+
+
+elastic
+0,-2
+// back button
+back-button
+quit-button
+-0.2, -0.4
+0.4, 0.25
+Image/rough-oval.png
+@@@Back
+BUTTON, 1.0, fgcol=ffffff, bgcol=4E69F4
+
+

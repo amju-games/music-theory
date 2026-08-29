@@ -1,23 +1,21 @@
-#include <GuiText.h>
-#include <Md2Model.h>
-#include <SceneGraph.h>
-#include <SoundManager.h>
-#include <Timer.h>
-#include "BassPlayMidi.h"
+#include <GuiText.h> // set version string
+#include <SceneGraph.h> // camera move
+#include <Timer.h> // camera move
+#include "BassPlayMidi.h"  // still needed for StopSong
 #include "Consts.h"
-#include "GSChooseSong.h"
-#include "GSHero.h"
 #include "GS3dTitle.h"
-#include "Md2SceneNode.h"
+#include "GSChooseSong.h" // next state
+#include "GSCredits.h"
 #include "MySceneGraph.h"
-#include "PlayWav.h"
+#include "PlayWav.h" // TODO move to midi songs for buttons etc
 #include "Version.h"
 
 namespace Amju
 {
 static void OnStart(GuiElement* elem)
 {
-  TheSoundManager::Instance()->StopSong(); // TODO play next song
+  // Song is a midi song, not .it
+  //TheSoundManager::Instance()->StopSong(); 
 
   PlayWav(WAV_START_BUTTON); // This wav should blend nicely with the title music
   TheGSChooseSong::Instance()->SetPrevState(TheGS3dTitle::Instance());
@@ -57,6 +55,10 @@ void GS3dTitle::OnActive()
   startButton->SetCommand(OnStart);
   startButton->SetHasFocus(true);
 
+  // Set up credits button (info icon)
+  auto creditsButton = GetElementByName(m_gui, "info-button");
+  creditsButton->SetCommand(OnCreditsButton);
+ 
   // Set version text (TODO move to a better place)
   auto versionText = dynamic_cast<GuiTextBase*>(GetElementByName(m_gui, "version-text"));
   Assert(versionText);

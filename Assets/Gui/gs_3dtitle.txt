@@ -11,7 +11,7 @@ gui-comp
 // Name
 title-root
 // Num children
-2
+3
 
 // Fade in title text
 animation
@@ -61,6 +61,15 @@ Image/rough-oval.png
 // START
 $$$12
 BUTTON, 3.5, fgcol=ffffff, bgcol=4E69F4
+
+translate
+-0.6, -0.45
+elastic
+-2, 0
+include
+info-button.txt
+
+// --------- Test stuff
 
 colour 
 ff8000ff

@@ -1,0 +1,110 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// Credits scene
+
+// version
+1
+
+// Timeline for animations.
+// This is the root node so we can search under it for named nodes.
+// Node type
+timeline
+// Name
+credits-timeline
+// Timeline instructions start here, until we reach "end".
+// (For each event: 
+//  type;
+//  seconds from now (+ve for accumulated; -ve for an absolute);
+//  event-specific data.
+
+play-midi
+0.001
+Songs/Bach-Air/bach-air.mid
+
+set-anim
+2
+dino
+piano-up
+
+set-anim
+1.5
+dino
+piano-eat
+
+set-anim
+.75
+dino
+piano-down
+
+end
+// now or later
+now
+// Num children
+1
+
+// Node type
+comp
+// Name
+root
+// Matrix
+I
+// Num children
+2
+
+// Node type
+camera-persp
+// Name
+camera
+// Eye pos
+120, 100, 50
+// Look at pos
+0, 70, 0
+// Up vector
+0, 1, 0
+// FovY, aspect, near, far
+90, 1.0, 1, 1000
+// Num children
+0
+
+// Dino
+// Node type
+blink
+// Name
+dino
+// Matrix
+.5,0,0,0,  0,.5,0,0,  0,0,.5,0,   0, 106, -2,  1 
+// MD2 mesh
+md2/dino.md2
+// Freeze list: comma-sep anim names
+piano-hide, piano-eat, piano-down
+//none
+// Loop list
+none
+// Initial anim
+piano-hide
+// 2 textures, for blinking
+Image/dino1a.png
+Image/dino1.png
+// Num children
+0
+
+// Bird
+// Node type
+blink
+// Name
+bird-test
+// Matrix
+1,0,0,0,  0,1,0,0,  0,0,1,0, 0, 120, 0,1 
+// Obj mesh
+md2/bird.md2
+// Freeze list: comma-sep anim names
+none
+// Loop list
+none
+// 2 textures, for blinking
+Image/bird1a.png
+Image/bird1.png
+// Num children
+0
+

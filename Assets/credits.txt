@@ -1,0 +1,30 @@
+// Piano Fest
+@@@Piano Fest
+//By Amju Games
+@@@By @@@Amju Games
+
+//Developer ... Juliet Colman
+@@@Developer ... @@@Juliet Colman
+
+//THREE GYMNOPÉDIES 
+@@@THREE GYMNOPÉDIES 
+//By Erik Satie
+@@@BY @@@ERIK SATIE
+//From the Mutopia Project, www.mutopiaproject.org
+@@@From the Mutopia Project, www.mutopiaproject.org
+//License: Public Domain
+@@@License: @@@Public Domain
+
+//Air 
+@@@Air 
+//From Orchestral Suite No. 3 in D major
+@@@From Orchestral Suite No. 3 in D major
+//By J.S. Bach
+@@@BY @@@J.S. BACH
+//From the Mutopia Project, www.mutopiaproject.org
+@@@From the Mutopia Project, www.mutopiaproject.org
+//Midi sequence by: Bach-Gesellschaft
+@@@Midi sequence by: @@@Bach-Gesellschaft
+//License: Creative Commons Attribution-ShareAlike 3.0
+@@@License: @@@Creative Commons Attribution-ShareAlike @@@3.0
+
