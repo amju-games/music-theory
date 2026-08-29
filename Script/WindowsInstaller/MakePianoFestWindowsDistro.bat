@@ -10,7 +10,7 @@ set TOP_DIR=%cd%\..\..
 
 cd %TOP_DIR%\Script\Msvc\AmjulaMusicTheory\
 
-msbuild AmjulaMusicTheory.sln /p:Configuration=Release /t:Rebuild /m
+msbuild AmjulaMusicTheory.sln /p:Configuration=Release /t:AmjulaMusicTheory:Build /m
 
 REM makes Build/Release/amju_piano_fest.exe
 
