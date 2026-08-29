@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-52
+66
 1=The Swan
 2=From The Carnival of the Animals
 3=Camille Saint-Saëns
@@ -46,10 +46,25 @@
 43=Developer ... Juliet Colman
 44=THREE GYMNOPÉDIES 
 45=By ERIK SATIE
-46=From the Mutopia Project, www.mutopiaproject.org
+46=From the Mutopia Project, mutopiaproject.org
 47=License: Public Domain
 48=AIR 
 49=From Orchestral Suite No. 3 in D major
 50=By J.S. BACH
 51=Midi sequence by: Bach-Gesellschaft
 52=License: Creative Commons Attribution-ShareAlike 3.0
+54=Sound Fonts
+55=STEINWAY CONCERT PIANO 
+56=David Shan
+57=License: Give credit
+58=COLIN'S DOUBLE BASS 
+59=ColinOculus
+60=From Musical Artefacts, musical-artifacts.com
+61=License: Creative Commons Attribution 3.0 Unported
+62=JAZZ KIT
+63=E-mu Sound Central
+64=Special Thanks
+65=BASS Audio Library by UN4SEEN DEVELOPMENTS
+66=Molin font by Aqeela Studio
+67=CatComic font by Khurasan Studio
+68=From Polyphone, polyphone.io 

@@ -5,8 +5,7 @@
 // Param 1 is string table; param 2 is file to localise 
 
 // For now (?) only whole lines are added to the string table; so 
-//  prefix the start of each line with @@@. Copy comment lines/$$$ line 
-//  for repeated strings.
+//  prefix the start of each line with three @s
 
 // Format:
 // - Use capital letters for song titles and composers
@@ -46,4 +45,58 @@ $$$46
 $$$51
 //License: Creative Commons Attribution-ShareAlike 3.0
 $$$52
+
+$$$empty
+
+
+// Sound fonts: special section? How should we format this?
+
+$$$54
+
+$$$empty
+
+// Steinway concert piano 
+$$$55
+// David Shan
+$$$56
+// From polyphone.io 
+$$$68
+// License: Give credit
+$$$57
+
+$$$empty
+
+// Colin's Double Bass 
+$$$58
+// ColinOculus
+$$$59
+// From Musical Artefacts, musical-artifacts.com
+$$$60
+// License: Creative Commons Attribution 3.0 Unported
+$$$61
+
+$$$empty
+
+// Jazz Kit
+$$$62
+// E-mu Sound Central
+$$$63
+// From polyphone.io 
+$$$68
+// License: Give credit
+$$$57
+
+$$$empty
+
+// Special Thanks
+$$$64
+
+$$$empty
+
+// BASS Audio Library by UN4SEEN DEVELOPMENTS
+$$$65
+// Molin font by Aqeela Studio
+$$$66
+// CatComic font by Khurasan Studio
+$$$67
 
