@@ -31,6 +31,7 @@
     <ClCompile Include="..\..\..\..\Source\MidiScore\source\KeySig.cpp" />
     <ClCompile Include="..\..\..\..\Source\MidiScore\source\main.cpp" />
     <ClCompile Include="..\..\..\..\Source\MidiScore\source\MidiScore.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MidiScore\source\Pitch.cpp" />
     <ClCompile Include="..\..\..\..\Source\MidiScore\source\Quantiser.cpp" />
     <ClCompile Include="..\..\..\..\Source\MidiScore\source\TimeSig.cpp" />
   </ItemGroup>
@@ -47,6 +48,7 @@
     <ClInclude Include="..\..\..\..\Source\MidiScore\source\Event.h" />
     <ClInclude Include="..\..\..\..\Source\MidiScore\source\KeySig.h" />
     <ClInclude Include="..\..\..\..\Source\MidiScore\source\MidiScore.h" />
+    <ClInclude Include="..\..\..\..\Source\MidiScore\source\Pitch.h" />
     <ClInclude Include="..\..\..\..\Source\MidiScore\source\Quantiser.h" />
     <ClInclude Include="..\..\..\..\Source\MidiScore\source\TimeSig.h" />
   </ItemGroup>
