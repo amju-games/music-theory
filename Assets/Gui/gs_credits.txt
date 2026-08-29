@@ -5,7 +5,9 @@
 
 gui-comp
 credits-root
-2
+3
+
+// Child 0: scrolling text
 
 animation
 auto-scroller
@@ -17,6 +19,8 @@ linear
 translate
 // Final pos should also depend on num lines.
 0, -1; 0, 3
+
+// TODO Gui comp here so we can have logo, larger text, etc.
 
 // Load credits text from file
 text-file
@@ -30,9 +34,43 @@ credits.txt
 // Font name, size
 bmmolin, 1.0, centre, fgcol=000000
 
+
+// Child 1: gradient overlay
+
+colour
+// This is the clear colour we have been using up til now.
+f2f2f2
+
+gui-comp
+gradient-overlay-comp
+2
+
+scale
+1, -1
+.5,.5
+
+gui-sprite
+top-gradient
+-1.1, 1 
+2.2, 0.2
+Image/atlas.png, stretch
+8, 8
+19
+
+gui-sprite
+bottom-gradient
+-1.1, -0.8
+2.2, 0.2
+Image/atlas.png, stretch
+8, 8
+19
+
+// Child 2: quit button
+
 include
 quit-button.txt
 
+// Child 3: back button
 
 elastic
 0,-2
