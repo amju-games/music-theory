@@ -19,3 +19,6 @@ $ATLAS replace $IMG/rough-oval.png $DEST 4 8 8 --overwrite
 # Rough circle: under circle. Cell 18 in 8 * 8 grid
 $ATLAS replace $IMG/rough-circle.png $DEST 8 8 18 --overwrite
 
+# Gradient square: next to rough circle, cell 19 in 8 * 8 grid
+$ATLAS replace $IMG/gradient128.png $DEST 8 8 19 --overwrite
+

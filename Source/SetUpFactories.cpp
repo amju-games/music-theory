@@ -8,6 +8,7 @@
 #include "GuiMusicScore.h"
 #include "GuiPatch.h"
 #include "GuiScrollScore.h"
+#include "GuiTextFile.h"
 #include "Md2SceneNode.h"
 #include "ParticleFx.h"
 #include "SceneNodeGui.h"
@@ -44,6 +45,7 @@ void SetUpFactories()
   AddToGuiFactory<GuiMusicScore>();
   AddToGuiFactory<GuiPatch>(); // TODO Promote to amjulib
   AddToGuiFactory<GuiScrollScore>();
+  AddToGuiFactory<GuiTextFile>(); // TODO Promote to amjulib
 
   //Add game-specific types to Scene node factory
   // TODO These are not game specific! Add to amjulib!!

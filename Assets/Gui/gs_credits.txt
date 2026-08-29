@@ -1,0 +1,94 @@
+// Credits
+
+// File ver
+1
+
+gui-comp
+credits-root
+4
+
+// Child 0: scrolling text
+
+animation
+auto-scroller
+one-shot
+// Time: set this depending on num lines?
+20.0
+linear
+
+translate
+// Final pos should also depend on num lines.
+0, -1; 0, 6
+
+// TODO Gui comp here so we can have logo, larger text, etc.
+
+// Load credits text from file
+text-file
+credits-text
+// pos (coords are -1..1)
+// Behind gradient overlay
+-1, 0, -1
+// size
+1.9, 0.1 
+// TEXT FILENAME
+credits.txt
+// Font name, size
+bmmolin, 1.0, centre, fgcol=000000
+
+
+// Child 1: gradient overlay
+
+colour
+// This is the clear colour we have been using up til now.
+f2f2f2
+
+gui-comp
+gradient-overlay-comp
+2
+
+scale
+1, -1
+.5,.5
+
+gui-sprite
+top-gradient
+// Closer than text
+-1.1, 1, -0.5 
+2.2, 0.2
+Image/atlas.png, stretch
+8, 8
+19
+
+gui-sprite
+bottom-gradient
+-1.1, -0.8, -0.5
+2.2, 0.2
+Image/atlas.png, stretch
+8, 8
+19
+
+
+// Child 2: flush
+
+// Flush batches so quit button will be drawn after.
+flush
+
+// Child 3: quit button
+
+include
+quit-button.txt
+
+// Child 4: back button, not sure about this.
+
+elastic
+0,-2
+// back button
+back-button
+quit-button
+-0.2, -0.4
+0.4, 0.25
+Image/rough-oval.png
+@@@Back
+BUTTON, 1.0, fgcol=ffffff, bgcol=4E69F4
+
+

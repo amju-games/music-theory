@@ -583,6 +583,7 @@
     <ClCompile Include="..\..\..\..\Source\GS3dTitle.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSChooseSong.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSConfirmSong.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GSCredits.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSHero.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSHeroEnd.cpp" />
     <ClCompile Include="..\..\..\..\Source\GSHeroWin.cpp" />
@@ -603,6 +604,7 @@
     <ClCompile Include="..\..\..\..\Source\GuiPatch.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiScrollScore.cpp" />
     <ClCompile Include="..\..\..\..\Source\GuiSetFromString.cpp" />
+    <ClCompile Include="..\..\..\..\Source\GuiTextFile.cpp" />
     <ClCompile Include="..\..\..\..\Source\HeroGameRound.cpp" />
     <ClCompile Include="..\..\..\..\Source\Hud.cpp" />
     <ClCompile Include="..\..\..\..\Source\HudNumber.cpp" />
@@ -787,6 +789,7 @@
     <ClInclude Include="..\..\..\..\Source\GSBase3d.h" />
     <ClInclude Include="..\..\..\..\Source\GSChooseSong.h" />
     <ClInclude Include="..\..\..\..\Source\GSConfirmSong.h" />
+    <ClInclude Include="..\..\..\..\Source\GSCredits.h" />
     <ClInclude Include="..\..\..\..\Source\GSGuiEdit.h" />
     <ClInclude Include="..\..\..\..\Source\GSHero.h" />
     <ClInclude Include="..\..\..\..\Source\GSHeroEnd.h" />
@@ -806,6 +809,7 @@
     <ClInclude Include="..\..\..\..\Source\GuiPatch.h" />
     <ClInclude Include="..\..\..\..\Source\GuiScrollScore.h" />
     <ClInclude Include="..\..\..\..\Source\GuiSetFromString.h" />
+    <ClInclude Include="..\..\..\..\Source\GuiTextFile.h" />
     <ClInclude Include="..\..\..\..\Source\HeroGameRound.h" />
     <ClInclude Include="..\..\..\..\Source\Hud.h" />
     <ClInclude Include="..\..\..\..\Source\HudNumber.h" />
