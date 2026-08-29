@@ -64,6 +64,9 @@
     <Filter Include="Animals">
       <UniqueIdentifier>{cbe4c753-f828-40c6-9b12-eab6ba507196}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Windows">
+      <UniqueIdentifier>{fe0e5938-4f77-4d7e-add6-dbe5a7d77de6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Source\GSPlayNotes.cpp">
@@ -748,6 +751,12 @@
     <ClInclude Include="..\..\..\..\Source\GuiTextFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Windows\WindowsVersion.h">
+      <Filter>Source Files\Windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt">
@@ -1056,5 +1065,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Source\Version.h.template" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AmjulaMusicTheory.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Assets\Windows\piano_fest_icons_win.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
