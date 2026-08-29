@@ -51,3 +51,6 @@ Tools/Sound/steinway_concert_piano.sf2
 Source/MakeScore/Examples/out.txt
 /Script/Msvc/AmjulaMusicTheory/AmjulaMusicTheory/x64
 /Script/Msvc/AmjulaMusicTheory/x64
+/Script/Msvc/AmjulaMusicTheory/CatchTests/Release
+/Script/Msvc/AmjulaMusicTheory/MakeScore_CatchTests/Release
+/Script/Msvc/AmjulaMusicTheory/MidiScore/Release

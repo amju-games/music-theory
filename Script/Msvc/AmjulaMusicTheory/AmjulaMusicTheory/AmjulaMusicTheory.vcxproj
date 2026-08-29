@@ -151,6 +151,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\..\..\Build\$(Configuration)\</OutDir>
     <IntDir>..\..\..\..\Build\$(Configuration)\</IntDir>
+    <TargetName>amju_piano_fest</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -841,7 +842,9 @@
     <ClInclude Include="..\..\..\..\Source\UserProfile.h" />
     <ClInclude Include="..\..\..\..\Source\UseVertexColourShader.h" />
     <ClInclude Include="..\..\..\..\Source\Version.h" />
+    <ClInclude Include="..\..\..\..\Source\Windows\WindowsVersion.h" />
     <ClInclude Include="..\..\..\..\Source\WithHud.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="TimelineEventPlayWav.h" />
   </ItemGroup>
   <ItemGroup>
@@ -955,6 +958,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Source\Version.h.template" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AmjulaMusicTheory.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Assets\Windows\piano_fest_icons_win.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
