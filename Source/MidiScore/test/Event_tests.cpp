@@ -83,27 +83,27 @@ TEST_CASE("Output strings", "[Events]")
   // TPQ needs to be >1, because we do some integer arithmetic to work 
   //  out if we should add a dot. If TPQ is 1, 1.5*1 == 1 in integer
   //  land, and we erroneously add a dot.  
-  REQUIRE(n(60, 0, 4, 4).ToString() == "<c> 60"); // crotchet, pitch 60
+  REQUIRE(n(60, 0, 4, 4).ToString() == "<c> c4"); // crotchet, pitch 60
 
-  REQUIRE(n(60, 0, 8, 4).ToString() == "<m> 60"); // minim
-  REQUIRE(n(60, 0, 16, 4).ToString() == "<sb> 60"); // semibreve
-  REQUIRE(n(60, 0, 32, 4).ToString() == "<sb2> 60"); // double semibreve
-  REQUIRE(n(60, 0, 64, 4).ToString() == "<sb4> 60"); // quadruple semibreve
-  REQUIRE(n(60, 0, 2, 4).ToString() == "<q> 60"); // quaver
+  REQUIRE(n(60, 0, 8, 4).ToString() == "<m> c4"); // minim
+  REQUIRE(n(60, 0, 16, 4).ToString() == "<sb> c4"); // semibreve
+  REQUIRE(n(60, 0, 32, 4).ToString() == "<sb2> c4"); // double semibreve
+  REQUIRE(n(60, 0, 64, 4).ToString() == "<sb4> c4"); // quadruple semibreve
+  REQUIRE(n(60, 0, 2, 4).ToString() == "<q> c4"); // quaver
   // We need a TPQ of at least 8 for semiquavers to work, again because of integer
   //  arithmetic.
-  REQUIRE(n(60, 0, 2, 8).ToString() == "<qq> 60"); // semiquaver
+  REQUIRE(n(60, 0, 2, 8).ToString() == "<qq> c4"); // semiquaver
   // TODO What about durations above sb4 and below qq? 
 
   // Dotted durations
-  REQUIRE(n(60, 0, 6, 4).ToString() == "<c.> 60"); // dotted crotchet
-  REQUIRE(n(60, 0, 12, 4).ToString() == "<m.> 60"); // dotted minim
-  REQUIRE(n(60, 0, 24, 4).ToString() == "<sb.> 60"); // dotted semibreve
-  REQUIRE(n(60, 0, 48, 4).ToString() == "<sb2.> 60"); // dotted double semibreve
-  REQUIRE(n(60, 0, 96, 4).ToString() == "<sb4.> 60"); // dotted quadruple semibreve
-  REQUIRE(n(60, 0, 3, 4).ToString() == "<q.> 60"); // dotted quaver
+  REQUIRE(n(60, 0, 6, 4).ToString() == "<c.> c4"); // dotted crotchet
+  REQUIRE(n(60, 0, 12, 4).ToString() == "<m.> c4"); // dotted minim
+  REQUIRE(n(60, 0, 24, 4).ToString() == "<sb.> c4"); // dotted semibreve
+  REQUIRE(n(60, 0, 48, 4).ToString() == "<sb2.> c4"); // dotted double semibreve
+  REQUIRE(n(60, 0, 96, 4).ToString() == "<sb4.> c4"); // dotted quadruple semibreve
+  REQUIRE(n(60, 0, 3, 4).ToString() == "<q.> c4"); // dotted quaver
   // For qqs we need a TPQ of at least 8
-  REQUIRE(n(60, 0, 3, 8).ToString() == "<qq.> 60"); // dotted semiquaver
+  REQUIRE(n(60, 0, 3, 8).ToString() == "<qq.> c4"); // dotted semiquaver
 
   // Rests
   REQUIRE(r(0, 4, 4).ToString() == "<c> r"); // crotchet rest
@@ -130,9 +130,9 @@ TEST_CASE("BAD Output strings 1", "[Events]")
 
   // TPQ is 1, int arithmetic fails and we erroneously add a dot?
   // Actually that seeems to be ok now.
-  REQUIRE(n(60, 0, 1, 1).ToString() == "<c> 60"); // s/b "<c> 60"
+  REQUIRE(n(60, 0, 1, 1).ToString() == "<c> c4"); // s/b "<c> 60"
   // TPQ of 2 gives correct string for a crotchet
-  REQUIRE(n(60, 0, 2, 2).ToString() == "<c> 60"); // s/b "<c> 60"
+  REQUIRE(n(60, 0, 2, 2).ToString() == "<c> c4"); // s/b "<c> 60"
 }
 
 TEST_CASE("BAD Output strings 2", "[Events]")
@@ -140,16 +140,16 @@ TEST_CASE("BAD Output strings 2", "[Events]")
   // TPQ needs to be >=4 for a semiquaver, (so we can express 1/4 of a crotchet)
   //  -- but this erroneously adds a dot, so TPQ needs to be >=8. 
   // Hmm seems ok now
-  REQUIRE(n(60, 0, 1, 4).ToString() == "<qq> 60"); // s/b "<qq> 60"
+  REQUIRE(n(60, 0, 1, 4).ToString() == "<qq> c4"); // s/b "<qq> 60"
 
   // Limit of small note values: demisemiquaver IS recognised.
   // Duration is 1/8 of a crotchet, should be "qqq"
-  REQUIRE(n(60, 0, 1, 8).ToString() == "<qqq> 60"); 
+  REQUIRE(n(60, 0, 1, 8).ToString() == "<qqq> c4"); 
 
   // Smaller than smallest value:
   // Duration is 1/16 of a crotchet, should be "qqqq"
   // Not supported.
-  REQUIRE(n(60, 0, 1, 16).ToString() == "<qqq> 60"); // s/b "<qqqq> 60" ?
+  REQUIRE(n(60, 0, 1, 16).ToString() == "<qqq> c4"); // s/b "<qqqq> 60" ?
 }
 
 TEST_CASE("BAD Output strings 3", "[Events]")
@@ -157,7 +157,7 @@ TEST_CASE("BAD Output strings 3", "[Events]")
   // Limit of large note values
   // Above a dotted sb4, note values are not recognised.
   // Duration is 32 crotchets (128/4), 8 semibreves.
-  REQUIRE(n(60, 0, 128, 4).ToString() == "<sb4.> 60"); // s/b "<sb8> 60" ?
+  REQUIRE(n(60, 0, 128, 4).ToString() == "<sb4.> c4"); // s/b "<sb8> 60" ?
 }
 
 TEST_CASE("Set time val", "[Events]")
@@ -614,7 +614,7 @@ TEST_CASE("Add bar lines 3/4, with anacrusis c", "[Events]")
   // TODO: Why do we have to restate <c> ??
   // Also, TODO trim final space.
   // NB rest is split because of 3/4 rest-splitting rules?
-  REQUIRE(OutputEvents(events) == "<c> 60 | 61 62 63 | 64 r r | ");
+  REQUIRE(OutputEvents(events) == "<c> c4 | c4+ d4 d4+ | e4 r r | ");
 }
 
 TEST_CASE("Add bar lines 3/4, with anacrusis m", "[Events]")
@@ -635,7 +635,7 @@ TEST_CASE("Add bar lines 3/4, with anacrusis m", "[Events]")
 
   // TODO: Why do we have to restate <c> ??
   // Also, TODO trim final space.
-  REQUIRE(OutputEvents(events) == "<c> 60 61 | 62 63 64 | ");
+  REQUIRE(OutputEvents(events) == "<c> c4 c4+ | d4 d4+ e4 | ");
 }
 
 TEST_CASE("Add bar lines 4/4, with anacrusis c", "[Events]")
@@ -656,7 +656,7 @@ TEST_CASE("Add bar lines 4/4, with anacrusis c", "[Events]")
 
   // TODO: Why do we have to restate <c> ??
   // Also, TODO trim final space.
-  REQUIRE(OutputEvents(events) == "<c> 60 | 61 62 63 64 | ");
+  REQUIRE(OutputEvents(events) == "<c> c4 | c4+ d4 d4+ e4 | ");
 }
 
 TEST_CASE("Add bar lines 4/4, with anacrusis m", "[Events]")
@@ -674,7 +674,7 @@ TEST_CASE("Add bar lines 4/4, with anacrusis m", "[Events]")
 
   InsertBarLines(tpq, TimeSig::TS_4_4, events, 0, 2 * tpq); // anac. length m 
   InsertRests(tpq, events, TimeSig::TS_4_4);
-  REQUIRE(OutputEvents(events) == "<c> 60 61 | 62 63 64 r | ");
+  REQUIRE(OutputEvents(events) == "<c> c4 c4+ | d4 d4+ e4 r | ");
 }
 
 TEST_CASE("Add bar lines 4/4", "[Events]")
@@ -1015,7 +1015,7 @@ TEST_CASE("Time Set: Chord, different durations, with extra note in chord", "[Ev
   auto str = OutputEvents(events);
   //std::cout << str;
   // Expect time set event to place final note; time set value is in crotchets
-  const std::string expected = "( <sb> 60 <m> 64 ) time 3 <c> 62";
+  const std::string expected = "( <sb> c4 <m> e4 ) time 3 <c> d4";
   REQUIRE(str.substr(0, expected.size()) == expected);
 }
 
@@ -1040,7 +1040,7 @@ TEST_CASE("Time Set: Chord, different durations, with note after shorter note in
   auto str = OutputEvents(events);
   //std::cout << str;
   // Expect time set event to correctly place the 3rd note.
-  const std::string expected = "( <sb> 60 <m> 64 ) time 2 <c> 62"; 
+  const std::string expected = "( <sb> c4 <m> e4 ) time 2 <c> d4"; 
   REQUIRE(str.substr(0, expected.size()) == expected);
 }
 
@@ -1062,7 +1062,7 @@ TEST_CASE("Time Set event, not within chord", "[Events]")
   auto str = OutputEvents(events);
   //std::cout << str;
   // Time set value is in crotchets from start of piece
-  const std::string expected = "<sb> 60 time 2 <c> 62";
+  const std::string expected = "<sb> c4 time 2 <c> d4";
   REQUIRE(str.substr(0, expected.size()) == expected);
 }
 
@@ -1084,7 +1084,7 @@ TEST_CASE("Time Set event, fractional value", "[Events]")
   auto str = OutputEvents(events);
   //std::cout << str;
   // Time set value is in crotchets, so we expect time set of 0.5 
-  const std::string expected = "<sb> 60 time 0.5 <q> 62";
+  const std::string expected = "<sb> c4 time 0.5 <q> d4";
   REQUIRE(str.substr(0, expected.size()) == expected);
 }
 

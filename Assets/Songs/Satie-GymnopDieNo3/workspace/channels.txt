@@ -1,0 +1,5 @@
+2: 3 # Track 2 -> Piano-R
+3: 2 # Track 3 -> Piano-L
+4: 1 # Track 4 -> Player
+5:8   # Track 5 -> Ch 8 (Bass)
+6:10  # Drums (Ch 10)

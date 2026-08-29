@@ -1,4 +1,0 @@
-Composer=B. Bartók
-Piece=Romanian Folk Dance No.2
-Quantization=16
-PlayerChannel=0
