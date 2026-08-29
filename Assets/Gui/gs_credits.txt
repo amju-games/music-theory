@@ -5,7 +5,7 @@
 
 gui-comp
 credits-root
-3
+4
 
 // Child 0: scrolling text
 
@@ -18,7 +18,7 @@ linear
 
 translate
 // Final pos should also depend on num lines.
-0, -1; 0, 3
+0, -1; 0, 6
 
 // TODO Gui comp here so we can have logo, larger text, etc.
 
@@ -26,7 +26,8 @@ translate
 text-file
 credits-text
 // pos (coords are -1..1)
--1, 0
+// Behind gradient overlay
+-1, 0, -1
 // size
 1.9, 0.1 
 // TEXT FILENAME
@@ -51,7 +52,8 @@ scale
 
 gui-sprite
 top-gradient
--1.1, 1 
+// Closer than text
+-1.1, 1, -0.5 
 2.2, 0.2
 Image/atlas.png, stretch
 8, 8
@@ -59,18 +61,24 @@ Image/atlas.png, stretch
 
 gui-sprite
 bottom-gradient
--1.1, -0.8
+-1.1, -0.8, -0.5
 2.2, 0.2
 Image/atlas.png, stretch
 8, 8
 19
 
-// Child 2: quit button
+
+// Child 2: flush
+
+// Flush batches so quit button will be drawn after.
+flush
+
+// Child 3: quit button
 
 include
 quit-button.txt
 
-// Child 3: back button
+// Child 4: back button, not sure about this.
 
 elastic
 0,-2

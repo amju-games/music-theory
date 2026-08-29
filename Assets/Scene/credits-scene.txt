@@ -52,20 +52,23 @@ I
 // Num children
 2
 
+// For now, we point the camera at nothing.
 // Node type
 camera-persp
 // Name
 camera
 // Eye pos
-120, 100, 50
+500, 100, 50
 // Look at pos
-0, 70, 0
+500, 70, 0
 // Up vector
 0, 1, 0
 // FovY, aspect, near, far
 90, 1.0, 1, 1000
 // Num children
 0
+
+// TODO Dino can talk to player at the end?
 
 // Dino
 // Node type
