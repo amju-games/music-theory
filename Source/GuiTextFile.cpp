@@ -31,6 +31,7 @@ void GuiTextFile::SetText(const std::string& text)
     {
       break;
     }
+    if (str.empty()) str = "\n"; // TODO argh it's being stripped
     allText += str + "\n";
   } 
   

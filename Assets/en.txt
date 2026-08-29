@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-40
+52
 1=The Swan
 2=From The Carnival of the Animals
 3=Camille Saint-Saëns
@@ -42,3 +42,14 @@
 38=Juliet
 39=Gymnopédie no. 2
 40=Gymnopédie no. 3
+41=Amju Piano Fest
+43=Developer ... Juliet Colman
+44=THREE GYMNOPÉDIES 
+45=By ERIK SATIE
+46=From the Mutopia Project, www.mutopiaproject.org
+47=License: Public Domain
+48=AIR 
+49=From Orchestral Suite No. 3 in D major
+50=By J.S. BACH
+51=Midi sequence by: Bach-Gesellschaft
+52=License: Creative Commons Attribution-ShareAlike 3.0

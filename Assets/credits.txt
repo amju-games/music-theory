@@ -1,30 +1,49 @@
+// CREDITS
+// How to localise me
+// Run this from Assets dir:
+//    perl ../../amjulib/Source/Localise/localise.pl en.txt credits.txt
+// Param 1 is string table; param 2 is file to localise 
+
+// For now (?) only whole lines are added to the string table; so 
+//  prefix the start of each line with @@@. Copy comment lines/$$$ line 
+//  for repeated strings.
+
+// Format:
+// - Use capital letters for song titles and composers
+// - Use TASL: title/author/source/license format.
+// - Use $$$empty for blank lines, which are otherwise stripped.
+ 
 // Piano Fest
-@@@Piano Fest
-//By Amju Games
-@@@By @@@Amju Games
+$$$41
+
+$$$empty
 
 //Developer ... Juliet Colman
-@@@Developer ... @@@Juliet Colman
+$$$43
+
+$$$empty
 
 //THREE GYMNOPÉDIES 
-@@@THREE GYMNOPÉDIES 
+$$$44
 //By Erik Satie
-@@@BY @@@ERIK SATIE
+$$$45
 //From the Mutopia Project, www.mutopiaproject.org
-@@@From the Mutopia Project, www.mutopiaproject.org
+$$$46
 //License: Public Domain
-@@@License: @@@Public Domain
+$$$47
+
+$$$empty
 
 //Air 
-@@@Air 
+$$$48
 //From Orchestral Suite No. 3 in D major
-@@@From Orchestral Suite No. 3 in D major
+$$$49
 //By J.S. Bach
-@@@BY @@@J.S. BACH
+$$$50
 //From the Mutopia Project, www.mutopiaproject.org
-@@@From the Mutopia Project, www.mutopiaproject.org
+$$$46
 //Midi sequence by: Bach-Gesellschaft
-@@@Midi sequence by: @@@Bach-Gesellschaft
+$$$51
 //License: Creative Commons Attribution-ShareAlike 3.0
-@@@License: @@@Creative Commons Attribution-ShareAlike @@@3.0
+$$$52
 
