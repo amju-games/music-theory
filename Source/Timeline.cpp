@@ -8,20 +8,19 @@ namespace Amju
 {
 const char* TimelineEventWait::NAME = "wait";
 
+template <class T>
+static void AddToFactory(TimelineEventFactory* f)
+{
+  f->Add(T::NAME, []()->TimelineEvent* { return new T; });
+}
+
 TimelineEventFactory::TimelineEventFactory()
 {
   // Add game-agnostic event types here
-  Add(TimelineEventWait::NAME,
-    []()->TimelineEvent* {return new TimelineEventWait; });
-
-  Add(TimelineEventPlayWav::NAME,
-    []()->TimelineEvent* {return new TimelineEventPlayWav; });
-
-  Add(TimelineEventPlayMidiSong::NAME,
-    []()->TimelineEvent* {return new TimelineEventPlayMidiSong; });
-
-  Add(TimelineEventStopMidiSong::NAME,
-    []()->TimelineEvent* {return new TimelineEventStopMidiSong; });
+  AddToFactory<TimelineEventWait>(this);
+  AddToFactory<TimelineEventPlayWav>(this);
+  AddToFactory<TimelineEventPlayMidiSong>(this);
+  AddToFactory<TimelineEventStopMidiSong>(this);
 }
 
 RCPtr<TimelineEvent> Timeline::CreateTimelineEvent(const std::string& eventType)
