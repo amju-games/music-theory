@@ -126,6 +126,9 @@ protected:
   // Look ahead at note events coming up, and translate the keyboard
   //  if necessary, so the keys are on screen.
   void UpdateKeyboardPosition();
+
+  // Set palette colours on keys that appear in the upcoming section.
+  void ColouriseKeysForSection();
  
   // Grade player input event against what we think is the corresponding
   //  event in the score.
