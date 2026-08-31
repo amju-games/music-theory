@@ -89,9 +89,9 @@ $$$57
 $$$empty
 
 // Special Thanks
-$$$64
+//$$$64
 
-$$$empty
+//$$$empty
 
 // BASS Audio Library by UN4SEEN DEVELOPMENTS
 $$$65
@@ -101,4 +101,6 @@ $$$66
 $$$67
 // The Guido project
 $$$69
+// Inno Setup
+$$$70
 
