@@ -94,7 +94,7 @@ TEST_CASE("Generate curved path, extravagance .1", "[CurvedPath]")
   GenerateCurvedPathConfig(config, .1f);
   CurvedPathGenerator gen(config);
   const auto path = gen.Generate(1000);
-  SavePathToCsv("extravagance_0.1.csv", path);
+//  SavePathToCsv("extravagance_0.1.csv", path);
 }
 
 TEST_CASE("Generate curved path, extravagance .99", "[CurvedPath]")
@@ -111,7 +111,7 @@ TEST_CASE("Generate curved path, extravagance .99", "[CurvedPath]")
   CurvedPathGenerator gen(config);
   const auto path = gen.Generate(1000);
 
-  SavePathToCsv("extravagance_0.99.csv", path);
+//  SavePathToCsv("extravagance_0.99.csv", path);
 
 //  PrintPath(path);
 }
@@ -130,7 +130,7 @@ TEST_CASE("Generate curved path, extravagance .5", "[CurvedPath]")
   CurvedPathGenerator gen(config);
   const auto path = gen.Generate(1000);
 
-  SavePathToCsv("extravagance_0.5.csv", path);
+//  SavePathToCsv("extravagance_0.5.csv", path);
 
 //  PrintPath(path);
 }
