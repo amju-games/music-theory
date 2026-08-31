@@ -853,7 +853,7 @@ std::cout << " -- so good, we are awarding EXTRA!\n";
   }    
 }
 
-void GSHero::GradeEvent(const MusicKbEvent& e)
+void GSHero::GradeEvent(const MusicKbEvent& playerNoteEvent)
 {
 #ifdef GRADE_DEBUG
 std::cout << "Grading note event: Pitch: " << e.m_note 
@@ -869,7 +869,7 @@ std::cout << "\n";
 #endif
     // Ignore note down event after song finished. But allow for final
     //  late note up event??
-    if (e.m_on) // ? Or safer to just totally ignore
+    if (playerNoteEvent.m_on) // ? Or safer to just totally ignore
     {
 #ifdef GRADE_DEBUG
 std::cout << "Ignoring note down event after song finished.\n";
@@ -911,7 +911,7 @@ std::cout << " AnimTime now: " << animTime
   // Get iterator pointing to the event we think the player is attempting.
   Grader grader;
   auto optIt = grader.GetClosestMatchingEvent(
-    e, noteEvents, animTime, m_scoreLengthSeconds);
+    playerNoteEvent, noteEvents, animTime, m_scoreLengthSeconds);
   if (optIt)
   {
     const auto it = *optIt;
@@ -930,23 +930,23 @@ std::cout << " - ignoring this player event, already graded.\n";
     }
 
     // The note event we think the player is attempting to match
-    const NoteEvent& ne = *it;
+    const NoteEvent& scoreNoteEvent = *it;
 
 #ifdef GRADE_DEBUG
 std::cout << "I think you are attempting this note/event: "
-  << ne.ToString()
+  << scoreNoteEvent.ToString()
   << "\n";
 #endif
 
     // Grade the time difference between player and note event ne
     const float MAX_ERROR = 0.5f; // Max acceptable time diff, TODO CONFIG
     auto grade = grader.FinalGrade(
-      e, ne, animTime, m_scoreLengthSeconds, MAX_ERROR);
+      playerNoteEvent, scoreNoteEvent, animTime, m_scoreLengthSeconds, MAX_ERROR);
 
     // Prevent multiple attempts at the same event: store the iterator
     //  so we can check above.
     // Only remember if note on, and a valid attempt.
-    if (e.m_on && grade.m_type != Grade::TOO_QUICK)
+    if (playerNoteEvent.m_on && grade.m_type != Grade::TOO_QUICK)
     {
 #ifdef GRADE_DEBUG
 std::cout << "Storing event so player can't try this same note again\n";
@@ -963,20 +963,20 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
       m_prevAttempt = it;
     }
 
-    bool isPitchCorrect = IsPlayerPitchCorrect(e.m_note, ne.m_note);
-    if (e.m_on && isPitchCorrect)
+    bool isPitchCorrect = IsPlayerPitchCorrect(playerNoteEvent.m_note, scoreNoteEvent.m_note);
+    if (playerNoteEvent.m_on && isPitchCorrect)
     {
       // ne is the scored note event, not the player attempt.
-      OnCorrectNote(ne, grade);
+      OnCorrectNote(scoreNoteEvent, grade);
     }
-    else if (e.m_on && !isPitchCorrect)
+    else if (playerNoteEvent.m_on && !isPitchCorrect)
     {
-      OnBumNote(e, ne, grade);
+      OnBumNote(playerNoteEvent, scoreNoteEvent, grade);
     }
     else
     {
       // Note off event. We grade on time.
-      Assert(!e.m_on);
+      Assert(!playerNoteEvent.m_on);
       Assert(isPitchCorrect); // sanity check
       // The visual feedback is different: show note trail and increasing
       //  score while note is being played.
