@@ -19,6 +19,7 @@ public:
   virtual void Draw() override;
   virtual bool Load(File*) override;
 
+  // Not polymorphic, just additive
   struct Key2d : public GuiMusicKbBase::Key
   {
     RCPtr<GuiComposite> m_keyComp;

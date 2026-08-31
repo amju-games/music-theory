@@ -29,11 +29,14 @@ public:
 
   // Using the palette set in SetPalette, apply colours to the given
   //  keys.
-  // Base class version sets members in m_keys, could be overridden.
-  virtual void ColouriseKeys(std::vector<int> midiNotes);
+  void ColouriseKeys(std::vector<int> midiNotes);
 
-  // TODO Operations on keys: press, release, highlight, etc.
-  // Use the unique name for the key? Or perhaps use the midi value as the unique ID?
+  // Colourise all octaves of each key - this is better when we allow
+  //  the player to hit any octave as long as the step is correct.
+  void ColouriseKeysAllOctaves(std::vector<int> midiNotes);
+
+  // Reset all keys to their "natural" colours
+  void ResetKeyColours();
 
   struct Key : public RefCounted
   {
@@ -57,8 +60,11 @@ public:
     bool m_isBlack = false; // black key: wins in picking
     bool m_isPressed = false; // true if currently held down
 
-    virtual void Press();
-    virtual void Release();
+    void Press();
+    void Release();
+
+    // Reset colour to m_naturalColour
+    void ResetColour();
   };
 
   // Get key: midi note is unique ID
@@ -73,6 +79,8 @@ public:
 
   // Get screen x-coord of middle of key
   float GetKeyMidX(int midiKey) const;
+
+  void ResetColour();
 
 protected:
   // Find key picked by user; relies on projected rect in Keys.
