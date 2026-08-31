@@ -253,9 +253,35 @@ T Mean(T t1, T t2)
   return (t1 + t2) / T(2);
 }
 
+void GSHero::ColouriseKeysForSection()
+{
+  // Colourise keyboard: Find all the notes we play in the section.  
+  if (m_sectionIndex >= static_cast<int>(m_songSections.size()))
+  {
+    return;
+  }
+  const Section& s = m_songSections[m_sectionIndex];
+
+  const auto& noteEvents = m_scrollScore->GetNoteEvents();
+
+  std::vector<int> keys;
+  for (int i = s.first; i < s.second; ++i)
+  {
+    int note = noteEvents[i].m_note;
+    if (note != -1)
+    {
+      keys.push_back(note);
+    }
+  }
+  m_keyboard->ColouriseKeysAllOctaves(keys);
+}
+
 void GSHero::UpdateKeyboardPosition()
 {
   // Set keyboard x-coord so that upcoming notes will be playable.
+  // The problem with this is it's some kind of violation of UI law:
+  //  don't move things around, as the player learns where things are.
+  // So just call this at the start of the song, not after each section.
 
   // Look ahead to see what note events will be coming soon.
   // Get the min/max note pitches in the current section.
@@ -266,18 +292,6 @@ void GSHero::UpdateKeyboardPosition()
     return;
   }
   const Section& s = m_songSections[m_sectionIndex];
-
-  // Colourise keyboard: Find all the notes we play in the section.  
-  std::vector<int> keys;
-  for (int i = s.first; i < s.second; ++i)
-  {
-    int note = noteEvents[i].m_note;
-    if (note != -1)
-    {
-      keys.push_back(note);
-    }
-  }
-  m_keyboard->ColouriseKeys(keys);
 
   // Move the keyboard so all notes in the section are centred on screen. 
   // Although, centring looks good, it is bad for playability :(
@@ -428,7 +442,8 @@ void GSHero::Update()
   frameCount++;
   if (frameCount == 2)
   {
-    UpdateKeyboardPosition();
+    UpdateKeyboardPosition(); // we only do this at the start of the song.
+    ColouriseKeysForSection();
   }
 
   // Update the time spent in the current 'micro state'
@@ -674,7 +689,17 @@ void GSHero::OnNoteEvent(const NoteEvent& ne)
   {
     ++m_sectionIndex;
 std::cout << "New song section! " << m_sectionIndex << "\n";
+
+#ifdef UPDATE_KEYBOARD_POS_ON_NEW_SECTION__BAD_IDEA
+    // This seemed like a good idea but is actually really bad.
+    // Don't update the keyboard pos once it has been set at the
+    //  start of the song!
     UpdateKeyboardPosition();
+#endif
+
+    // We are not updating the KB pos but we still want to colourise
+    //  the keys for the section.
+    ColouriseKeysForSection();
   }
 
   if (ne.m_time < m_pauseResumeTime)
