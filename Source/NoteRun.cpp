@@ -115,6 +115,7 @@ std::vector<int> FindNoteDiffs(const NoteEvents& allNoteEvents,
   int minPitchDiff, int maxPitchDiff)
 {
   const int numNoteEvents = static_cast<int>(allNoteEvents.size());
+  if (numNoteEvents == 0) return {};
 
   // Create a vec of ints of the same size as allNoteEvents.
   std::vector<int> diffs;

@@ -14,6 +14,7 @@
 #include "../../../amjulib/Source/SoundBass/bassmidi.h"
 
 #include <Directory.h>
+#include <DoOnce.h>
 #include <File.h>
 #include <GlueFile.h>
 #include <MessageQueue.h>
@@ -67,12 +68,15 @@ static std::unordered_map<std::string, HSOUNDFONT> fontPool;
 
 void BassMidiShutdown()
 {
-  for (const auto& [name, font] : fontPool)
+  do_once
   {
-    std::cout << "Freeing soundfont: " << name << "\n";
-    BASS_MIDI_FontFree(font);
+    for (const auto& [name, font] : fontPool)
+    {
+      std::cout << "Freeing soundfont: " << name << "\n";
+      BASS_MIDI_FontFree(font);
+    }
+    fontPool.clear();
   }
-  fontPool.clear();
 }
 
 HSOUNDFONT LoadSoundFont(const std::string fontFileName)

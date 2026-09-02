@@ -198,7 +198,7 @@
       <AdditionalIncludeDirectories>..\..\..\..\Source\Animals;..\..\..\..\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>Rpcrt4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -628,6 +628,7 @@
     <ClCompile Include="..\..\..\..\Source\SceneTimeline.cpp" />
     <ClCompile Include="..\..\..\..\Source\SetUpFactories.cpp" />
     <ClCompile Include="..\..\..\..\Source\ShareManager.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ShutDown.cpp" />
     <ClCompile Include="..\..\..\..\Source\Startup.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|x64'">true</ExcludedFromBuild>
@@ -732,6 +733,8 @@
     <ClCompile Include="..\..\..\..\Source\TimelineEventPlayWav.cpp" />
     <ClCompile Include="..\..\..\..\Source\UserProfile.cpp" />
     <ClCompile Include="..\..\..\..\Source\UseVertexColourShader.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Windows\WinMain.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Windows\WinMainOpenGL.cpp" />
     <ClCompile Include="..\..\..\..\Source\WithHud.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -846,9 +849,9 @@
     <ClInclude Include="..\..\..\..\Source\UserProfile.h" />
     <ClInclude Include="..\..\..\..\Source\UseVertexColourShader.h" />
     <ClInclude Include="..\..\..\..\Source\Version.h" />
+    <ClInclude Include="..\..\..\..\Source\Windows\resource.h" />
     <ClInclude Include="..\..\..\..\Source\Windows\WindowsVersion.h" />
     <ClInclude Include="..\..\..\..\Source\WithHud.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="TimelineEventPlayWav.h" />
   </ItemGroup>
   <ItemGroup>
