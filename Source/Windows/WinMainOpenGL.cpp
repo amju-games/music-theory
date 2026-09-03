@@ -136,16 +136,18 @@ static void SetUpVSync()
 }
 
 // Global variables for window and rendering contexts
-bool      g_running = true;
-int       g_width = 800;
-int       g_height = 600;
-bool      g_active = TRUE;
+static bool g_running = true;
+static int g_width = 800;
+static int g_height = 600;
+static bool g_active = true;
+static bool g_isFullscreen = false;
+// Window placement, for returning from full screen
+WINDOWPLACEMENT g_wpPrev = { sizeof(g_wpPrev) };
 
 // Forward declarations
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 void CreateOpenGLContext(HWND hwnd, HDC* hDC, HGLRC* hRC);
 void DisableOpenGL(HWND hwnd, HDC hDC, HGLRC hRC);
-void ResizeScene(int width, int height);
 void UpdateDrawFlip();
 
 static void SleepIfFrameRateTooHigh(LARGE_INTEGER timeStart, LARGE_INTEGER timeEnd, LARGE_INTEGER frequency)
@@ -165,6 +167,29 @@ static void SleepIfFrameRateTooHigh(LARGE_INTEGER timeStart, LARGE_INTEGER timeE
       Sleep(sleepTimeMs);
     }
   }
+}
+
+static std::tuple<int, int, int, int>
+GetCentredPosOnCurrentMonitor()
+{
+  // 1. Find out where the mouse cursor is *right now* before creating the window
+  POINT mousePos;
+  GetCursorPos(&mousePos);
+
+  // 2. Identify the monitor under the cursor
+  HMONITOR hMonitor = MonitorFromPoint(mousePos, MONITOR_DEFAULTTONEAREST);
+  MONITORINFO mi = { sizeof(mi) };
+  GetMonitorInfo(hMonitor, &mi);
+
+  // 3. Calculate a centered position within that specific monitor's workspace
+  int windowWidth = 800; // TODO Hard coded size, get from required window size
+  int windowHeight = 600;
+  int monitorWidth = mi.rcWork.right - mi.rcWork.left;
+  int monitorHeight = mi.rcWork.bottom - mi.rcWork.top;
+  int posX = mi.rcWork.left + (monitorWidth - windowWidth) / 2;
+  int posY = mi.rcWork.top + (monitorHeight - windowHeight) / 2;
+
+  return { posX, posY, windowWidth, windowHeight };
 }
 
 static int CreateWindow(HINSTANCE hInstance, HWND& hWnd)
@@ -195,12 +220,16 @@ static int CreateWindow(HINSTANCE hInstance, HWND& hWnd)
   }
 
   // Create Window 
+  const auto [x, y, w, h] = GetCentredPosOnCurrentMonitor();
+  g_width = w;
+  g_height = h;
+
   hWnd = CreateWindowEx(
     WS_EX_APPWINDOW | WS_EX_WINDOWEDGE,
     WINDOW_CLASS,
     WindowTitle,
     WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
-    CW_USEDEFAULT, CW_USEDEFAULT, g_width, g_height,
+    x, y, w, h, // Native multi-monitor positioning
     NULL, NULL, hInstance, NULL
   );
 
@@ -209,6 +238,43 @@ static int CreateWindow(HINSTANCE hInstance, HWND& hWnd)
     return 0;
   }
   return 1; 
+}
+
+static void ToggleFullscreen(HWND hwnd, bool& isFullscreen, WINDOWPLACEMENT& wpPrev) 
+{
+  DWORD dwStyle = GetWindowLong(hwnd, GWL_STYLE);
+
+  if (isFullscreen == false) 
+  {
+    // Moving to FULLSCREEN
+    if (GetWindowPlacement(hwnd, &wpPrev)) 
+    {
+      HMONITOR hMonitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTOPRIMARY);
+      MONITORINFO mi = { sizeof(mi) };
+      if (GetMonitorInfo(hMonitor, &mi)) 
+      {
+        // Strip window borders
+        SetWindowLong(hwnd, GWL_STYLE, dwStyle & ~WS_OVERLAPPEDWINDOW);
+        // Resize to absolute monitor coordinates
+        SetWindowPos(hwnd, HWND_TOP,
+          mi.rcMonitor.left, mi.rcMonitor.top,
+          mi.rcMonitor.right - mi.rcMonitor.left,
+          mi.rcMonitor.bottom - mi.rcMonitor.top,
+          SWP_NOOWNERZORDER | SWP_FRAMECHANGED);
+        isFullscreen = true;
+      }
+    }
+  }
+  else 
+  {
+    // Restoring to WINDOWED mode
+    SetWindowLong(hwnd, GWL_STYLE, dwStyle | WS_OVERLAPPEDWINDOW);
+    SetWindowPlacement(hwnd, &wpPrev);
+    SetWindowPos(hwnd, NULL, 0, 0, 0, 0,
+      SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER |
+      SWP_NOOWNERZORDER | SWP_FRAMECHANGED);
+    isFullscreen = false;
+  }
 }
 
 static void MainLoop(MSG& msg)
@@ -335,6 +401,69 @@ static void ButtonEvent(Amju::MouseButton button, WPARAM wParam, LPARAM lParam)
     button, x, y, down, ctrl, shift));
 }
 
+static void ResizeWindowEvent(int width, int height)
+{
+  if (height == 0) height = 1; // Prevent division by zero
+
+  using namespace Amju;
+
+  Screen::SetSize(width, height);
+  ResizeEvent* e = new ResizeEvent;
+  e->type = AMJU_RESIZE;
+  e->x = width;
+  e->y = height;
+  QueueEvent(e);
+}
+
+void KeyEvent(char k, bool down)
+{
+  using namespace Amju;
+
+  auto ke = new Amju::KeyEvent;
+  //ke->modifier = glutGetModifiers();
+  ke->keyDown = down;
+
+  if (k == 127) // backspace
+  {
+#ifdef WIN32
+    ke->keyType = AMJU_KEY_DELETE;
+#else
+    ke->keyType = AMJU_KEY_BACKSPACE;
+#endif
+  }
+  else if (k == 8) // delete
+  {
+#ifdef WIN32
+    ke->keyType = AMJU_KEY_BACKSPACE;
+#else
+    ke->keyType = AMJU_KEY_DELETE;
+#endif
+  }
+  else if (k == 13)
+  {
+    ke->keyType = AMJU_KEY_ENTER;
+  }
+  else if (k == 27) // esc
+  {
+    ke->keyType = AMJU_KEY_ESC;
+  }
+  else if (k == ' ')
+  {
+    ke->keyType = AMJU_KEY_SPACE;
+  }
+  else
+  {
+    ke->keyType = AMJU_KEY_CHAR;
+    ke->key = k;
+  }
+
+  QueueEvent(ke);
+}
+
+static void HandleResizing(WPARAM wParam, LPARAM lParam)
+{
+}
+
 // Event Callback 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) 
 {
@@ -365,19 +494,54 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     break;
 
   case WM_SIZE:
+    // New window size
     g_width = LOWORD(lParam);
     g_height = HIWORD(lParam);
-    ResizeScene(g_width, g_height); 
+    ResizeWindowEvent(g_width, g_height);
+    break;
+
+  case WM_SIZING: 
+    // Player is dragging a window corner or edge to resize. 
+    HandleResizing(wParam, lParam);
     break;
 
   case WM_KEYDOWN:
-    // We should exit with ALT-F4, no? 
-    // Esc should map to the Go Back/Pause/Quit button.
-    if (wParam == VK_ESCAPE) 
-    { // Press ESC to quit
-      g_running = false;
+    KeyEvent(static_cast<char>(wParam & 0xff), true);
+    //// We should exit with ALT-F4, no? 
+    //// Esc should map to the Go Back/Pause/Quit button.
+    //if (wParam == VK_ESCAPE) 
+    //{ // Press ESC to quit
+    //  g_running = false;
+    //}
+    //// Add other key handling here (Replaces glutKeyboardFunc)
+    break;
+
+  case WM_KEYUP:
+    KeyEvent(static_cast<char>(wParam & 0xff), false);
+    break;
+
+  case WM_SYSKEYDOWN:
+    if (wParam == VK_RETURN && (lParam & (1 << 29)))
+    {
+      // We check bit 29 of lParam to confirm the ALT key is actually held down
+      ToggleFullscreen(hwnd, g_isFullscreen, g_wpPrev);
+      return 0; // Handled, prevent Windows from making an error ding
     }
-    // Add other key handling here (Replaces glutKeyboardFunc)
+    // For other key combos, do the DefWindowProc
+    return DefWindowProc(hwnd, msg, wParam, lParam);
+
+  case WM_POWERBROADCAST:
+    if (wParam == PBT_APMSUSPEND) 
+    {
+      // The computer is going to sleep! 
+      // Force-save user data and completely pause your loops.
+      ActivationEvent(false);
+    }
+    else if (wParam == PBT_APMRESUMEAUTOMATIC) {
+      // The computer just woke back up.
+      // Re-anchor your high-resolution timer to prevent giant dt spikes!
+      ActivationEvent(true);
+    }
     break;
 
   case WM_CLOSE:
@@ -429,20 +593,6 @@ void DisableOpenGL(HWND hwnd, HDC hDC, HGLRC hRC)
   wglMakeCurrent(NULL, NULL);
   wglDeleteContext(hRC);
   ReleaseDC(hwnd, hDC);
-}
-
-void ResizeScene(int width, int height) 
-{
-  if (height == 0) height = 1; // Prevent division by zero
-
-  using namespace Amju;
-
-  Screen::SetSize(width, height);
-  ResizeEvent* e = new ResizeEvent;
-  e->type = AMJU_RESIZE; // TODO How do we get minimise, maximise etc
-  e->x = width;
-  e->y = height;
-  QueueEvent(e);
 }
 
 void UpdateDrawFlip() 
