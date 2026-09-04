@@ -17,7 +17,7 @@ SetupArchitecture=x64
 
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={D205EEBE-8B95-43F8-A6AF-CCF677C04928}
+AppId={{D205EEBE-8B95-43F8-A6AF-CCF677C04928}}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={cm:NameAndVersion,{#EscapeConstArgument(MyAppName)},{#EscapeConstArgument(MyAppVersion)}}
