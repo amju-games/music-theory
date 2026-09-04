@@ -855,12 +855,6 @@
     <ClInclude Include="TimelineEventPlayWav.h" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\2.4.18.3\bass24-win\c\bass.lib" />
-    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\BassMidi\2.4.15.3\bassmidi24-win\c\bassmidi.lib" />
-    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Curl\Win32\lib\libcurl.lib" />
-    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\GLUT\glut32.lib" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="..\..\..\..\Assets\en.txt" />
     <Text Include="..\..\..\..\Assets\Gui\avatar-eye-simple.txt" />
     <Text Include="..\..\..\..\Assets\Gui\avatar-mod-bg-and-tabs.txt" />
@@ -971,6 +965,10 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\Assets\Windows\piano_fest_icons_win.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\2.4.18.3\bass24-win\c\x64\bass.lib" />
+    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\BassMidi\2.4.15.3\bassmidi24-win\c\x64\bassmidi.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

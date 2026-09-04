@@ -41,7 +41,6 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "C:\Users\Juliet\repos\amt\music-theory\Build\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\Juliet\repos\amt\music-theory\Script\Msvc\DLLs\bass.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\Juliet\repos\amt\music-theory\Script\Msvc\DLLs\bassmidi.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Juliet\repos\amt\music-theory\Script\Msvc\DLLs\glut32.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\Juliet\repos\amt\music-theory\Build\CompiledAssets\data-WIN.glue"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\Juliet\repos\amt\music-theory\Build\CompiledAssets\music-WIN.glue"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files.
