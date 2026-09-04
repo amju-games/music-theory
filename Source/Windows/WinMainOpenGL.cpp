@@ -622,6 +622,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     }
     break;
 
+  case WM_SYSCOMMAND:
+    switch (wParam & 0xFFF0) 
+    {
+    case SC_SCREENSAVE:   // Intercepts screensaver launch
+    case SC_MONITORPOWER: // Intercepts monitor sleep signal
+      return 0;         // Absorb the message and block the action
+
+    default:
+      return DefWindowProc(hwnd, msg, wParam, lParam);
+    }
+
   case WM_CLOSE:
     // Make sure we exit gracefully -- we can call this multiple times ok.
     Amju::ShutDownGameAndLibs(); 
