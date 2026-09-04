@@ -2,6 +2,7 @@
 #include "GS3dExample.h" // for dev/test of 3d scene
 #include "GS3dTitle.h"
 #include "GSAnimals.h"
+#include "GSDino.h"
 #include "GSHero.h"
 #include "GSPlayNotes.h" // --keyboard mode
 #include "GSShowGui.h" // for quick dev/test of a new GUI
@@ -14,6 +15,12 @@ namespace Amju
 void SetInitialState()
 {
   const auto& args = GetCommandLineArgs();
+
+  if (args.Contains("--dino"))
+  {
+    TheGame::Instance()->SetCurrentState(TheGSDino::Instance());
+    return;
+  }
 
   if (args.Contains("--viewscore"))
   {

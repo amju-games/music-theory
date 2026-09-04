@@ -58,6 +58,7 @@ void SetUpFactories()
 
   // Timeline types (cut scene anims)
   AddToSceneNodeFactory<SceneTimeline>(); // TODO Promote to amjulib
+  AddToSceneNodeFactory<SceneTimelineAppend>(); 
   AddToTimelineFactory<EventSetAnim>(); // TODO Promote
 
   SetUpAnimalFactory();

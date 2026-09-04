@@ -5,6 +5,7 @@
 
 namespace Amju
 {
+// * Scene Timeline *
 // Scene node which loads a timeline.
 class SceneTimeline : public SceneNode, public Timeline
 {
@@ -19,9 +20,34 @@ protected:
   //  we seach for nodes named in the timeline data. 
   // I.e., the timeline is the root node of everything we animate.
   RCPtr<TimelineEvent> CreateTimelineEvent(const std::string& eventType) override;
+
+  // Return the root node under which all nodes named in the timeline
+  //  should live.
+  virtual SceneNode* GetTimelineRoot();
 };
 
-// SceneNodeTimelineEvents are messages which act on scene nodes
+// * Scene Timeline Append *
+// This special scene timeline appends its events to an existing
+//  SceneTimeline.
+class SceneTimelineAppend : public SceneTimeline
+{
+public:
+  static const char* NAME;
+
+  // Override load to append to a named Scene Timeline node.
+  bool Load(File*) override;
+
+protected:
+  // Return root node named in Load data.
+  SceneNode* GetTimelineRoot() override;
+
+protected:
+  // The parent Scene Timeline to which we will append events.
+  SceneNode* m_parentNode = nullptr;
+};
+
+// * Scene Node Timeline Event *
+// SceneNodeTimelineEvents are messages which act on scene nodes.
 struct SceneNodeTimelineEvent : public TimelineEvent
 {
   // Convenience for subclasses: load scene node name

@@ -71,8 +71,8 @@ bool Timeline::Load(File* f)
 
     // Load time (seconds from now) when the event should execute.
     // We want to set absolute times, and also relative to the time
-    //  accumulated so far. To do this, negative time means absolute;
-    //  positive time means added to time so far.
+    //  accumulated so far. To do this, "abs" means absolute;
+    //  no "abs" means add to time so far.
     std::string timeStr;
     if (!f->GetDataLine(&timeStr))
     {

@@ -1,0 +1,46 @@
+// Dino test timeline
+// v
+1
+
+// Load data for Scene Timeline Append
+
+// Name
+my-append-timeline
+// Timeline instructions start here, until we reach "end".
+// (For each event:
+//  type;
+//  seconds from now [, absolute]
+//  event-specific data.
+
+play-midi
+0.001
+Songs/Bach-Air/bach-air.mid
+
+set-anim
+1.0
+piano
+open
+
+play-wav
+0
+doorcreak
+
+set-anim
+2
+dino
+piano-up
+
+set-anim
+1.5
+dino
+piano-eat
+
+set-anim
+.75
+dino
+piano-down
+
+end
+
+now
+

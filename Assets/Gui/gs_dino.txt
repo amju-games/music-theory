@@ -1,0 +1,132 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// GSDino
+
+// version
+1
+
+// Element type
+gui-comp
+// Name
+dino-root
+// Num children
+6
+
+// Patch with outline: drawing 2 patches, so a lot of overdraw :(
+colour
+30c030
+
+// Patch -- test
+patch
+score-bg-patch
+0, 0.6 
+.4, .7 
+// Rough circle
+Image/atlas.png, stretch
+// Patch is a sprite, so we have to specify cell info - this should be  
+//  good for batching: we can have multiple different patches and other
+//  HUD elements on the same atlas.
+// Num cells
+8, 8
+// Cell
+18
+// Corner size -- square
+0.1
+
+colour
+208f20
+
+// Patch -- test
+patch
+score-bg-patch
+0.05, 0.55 
+.3, .6 
+// Rough circle
+Image/atlas.png, stretch
+// Patch is a sprite, so we have to specify cell info - this should be  
+//  good for batching: we can have multiple different patches and other
+//  HUD elements on the same atlas.
+// Num cells
+8, 8
+// Cell
+18
+// Corner size -- square
+0.08
+
+
+flush
+
+text2
+dino-text
+0.05, 0.4
+.3, .5
+Call me Scales...
+catcomic, 2.0, centre, multi
+
+// More button
+gui-button
+more-button
+0.4, 0.1
+0.2, 0.2
+Image/rough-oval.png, stretch
+...
+BUTTON, 2, fgcol=ffffff, bgcol=208f20
+
+elastic
+0,-2
+// Start button
+gui-button
+skip-button
+-0.2, -0.4
+0.4, 0.25
+Image/rough-oval.png
+Skip
+BUTTON, 3.5, fgcol=ffffff, bgcol=4E69F4
+
+translate
+-0.6, -0.45
+elastic
+-2, 0
+include
+info-button.txt
+
+// --------- Test stuff
+
+colour 
+ff8000ff
+// Patch -- test
+patch
+my-patch
+-.8, 0
+.8, .4
+Image/rough-circle.png, stretch
+// Patch is a sprite, so we have to specify cell info - this should be 
+//  good for batching: we can have multiple different patches and other
+//  HUD elements on the same atlas.
+// Num cells
+1,1
+// Cell
+0
+// Corner size: TODO: should this be auto-adjusted so equal coords give squares?
+0.1, 0.15
+
+curve-anim
+one-shot
+// Time to set new translation
+10
+ease-in-out-elastic
+
+spline
+my spline
+0.2, 0.2 
+style=2, outCol=000000, fillCol=000000, radius=0.010000
+0.500000, 0.500000
+0.360211, 0.640625
+-0.108099, 0.662500
+-0.500000, 0.500000
+-0.585211, 0.053125
+-0.500000, -0.500000
+0.500000, -0.500000
+end
+
