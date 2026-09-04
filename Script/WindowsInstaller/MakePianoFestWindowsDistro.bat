@@ -14,7 +14,7 @@ REM **********************
 
 cd %TOP_DIR%\Script\Msvc\AmjulaMusicTheory\
 
-msbuild AmjulaMusicTheory.sln /p:Configuration=Release /t:Rebuild /m
+msbuild AmjulaMusicTheory.sln /p:Configuration=Release /p:Platform=x64 /t:Rebuild /m
 
 REM ...that creates Build/Release/amju_piano_fest.exe
 

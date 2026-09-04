@@ -11,9 +11,13 @@
 #define EscapeConstArgument(Value) StringChange(StringChange(StringChange(Value, "%", "%25"), ",", "%2c"), "}", "%7d")
 
 [Setup]
+
+; juliet - Piano Fest is now 64 bit!
+SetupArchitecture=x64
+
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{3D4ACA7D-9958-4524-AC82-BE6E1725268B}
+AppId={D205EEBE-8B95-43F8-A6AF-CCF677C04928}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={cm:NameAndVersion,{#EscapeConstArgument(MyAppName)},{#EscapeConstArgument(MyAppVersion)}}
