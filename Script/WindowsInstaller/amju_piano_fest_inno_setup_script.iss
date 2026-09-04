@@ -11,9 +11,13 @@
 #define EscapeConstArgument(Value) StringChange(StringChange(StringChange(Value, "%", "%25"), ",", "%2c"), "}", "%7d")
 
 [Setup]
+
+; juliet - Piano Fest is now 64 bit!
+SetupArchitecture=x64
+
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{3D4ACA7D-9958-4524-AC82-BE6E1725268B}
+AppId={{D205EEBE-8B95-43F8-A6AF-CCF677C04928}}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={cm:NameAndVersion,{#EscapeConstArgument(MyAppName)},{#EscapeConstArgument(MyAppVersion)}}
@@ -41,7 +45,6 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "C:\Users\Juliet\repos\amt\music-theory\Build\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\Juliet\repos\amt\music-theory\Script\Msvc\DLLs\bass.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\Juliet\repos\amt\music-theory\Script\Msvc\DLLs\bassmidi.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Juliet\repos\amt\music-theory\Script\Msvc\DLLs\glut32.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\Juliet\repos\amt\music-theory\Build\CompiledAssets\data-WIN.glue"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\Juliet\repos\amt\music-theory\Build\CompiledAssets\music-WIN.glue"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files.

@@ -243,7 +243,9 @@ GuiMusicScore::GuiMusicScore()
   // Create texture atlas. TODO CONFIG
   // Image is a resource, only loaded once.
 #ifdef USE_BM_FONT
-  static RCPtr<BmFontTextureSequence> bm;
+  // Don't make this static; any static resource will break the shutdown
+  //  sequence and we will get a crash on exit.
+  RCPtr<BmFontTextureSequence> bm;
   if (!bm)
   {
     bm = new BmFontTextureSequence;

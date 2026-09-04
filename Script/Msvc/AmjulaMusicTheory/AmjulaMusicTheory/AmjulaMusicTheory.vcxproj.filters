@@ -408,20 +408,12 @@
     <ClCompile Include="..\..\..\..\Source\GuiTextFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\GLUT\glut32.lib">
-      <Filter>Libs</Filter>
-    </Library>
-    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Curl\Win32\lib\libcurl.lib">
-      <Filter>Libs</Filter>
-    </Library>
-    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\2.4.18.3\bass24-win\c\bass.lib">
-      <Filter>Libs</Filter>
-    </Library>
-    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\BassMidi\2.4.15.3\bassmidi24-win\c\bassmidi.lib">
-      <Filter>Libs</Filter>
-    </Library>
+    <ClCompile Include="..\..\..\..\Source\Windows\WinMainOpenGL.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\ShutDown.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h">
@@ -751,11 +743,11 @@
     <ClInclude Include="..\..\..\..\Source\GuiTextFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Windows\WindowsVersion.h">
       <Filter>Source Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Windows\resource.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1075,5 +1067,13 @@
     <Image Include="..\..\..\..\Assets\Windows\piano_fest_icons_win.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\2.4.18.3\bass24-win\c\x64\bass.lib">
+      <Filter>Libs</Filter>
+    </Library>
+    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\BassMidi\2.4.15.3\bassmidi24-win\c\x64\bassmidi.lib">
+      <Filter>Libs</Filter>
+    </Library>
   </ItemGroup>
 </Project>

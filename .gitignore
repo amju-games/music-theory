@@ -54,3 +54,5 @@ Source/MakeScore/Examples/out.txt
 /Script/Msvc/AmjulaMusicTheory/CatchTests/Release
 /Script/Msvc/AmjulaMusicTheory/MakeScore_CatchTests/Release
 /Script/Msvc/AmjulaMusicTheory/MidiScore/Release
+Assets/bassmidi.dll
+Assets/bass.dll
