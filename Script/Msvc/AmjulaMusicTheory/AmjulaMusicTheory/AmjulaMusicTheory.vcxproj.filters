@@ -408,9 +408,6 @@
     <ClCompile Include="..\..\..\..\Source\GuiTextFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Windows\WinMain.cpp">
-      <Filter>Source Files\Windows</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Windows\WinMainOpenGL.cpp">
       <Filter>Source Files\Windows</Filter>
     </ClCompile>

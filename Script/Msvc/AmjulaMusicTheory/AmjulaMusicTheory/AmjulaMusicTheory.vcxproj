@@ -733,7 +733,6 @@
     <ClCompile Include="..\..\..\..\Source\TimelineEventPlayWav.cpp" />
     <ClCompile Include="..\..\..\..\Source\UserProfile.cpp" />
     <ClCompile Include="..\..\..\..\Source\UseVertexColourShader.cpp" />
-    <ClCompile Include="..\..\..\..\Source\Windows\WinMain.cpp" />
     <ClCompile Include="..\..\..\..\Source\Windows\WinMainOpenGL.cpp" />
     <ClCompile Include="..\..\..\..\Source\WithHud.cpp" />
   </ItemGroup>
