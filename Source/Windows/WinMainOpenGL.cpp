@@ -6,6 +6,7 @@
 #include "../../../amjulib/Source/SoundBass/bassmidi.h"
 
 // Amjulib includes
+#include <AmjuGL.h>
 #include <AmjuGL-OpenGL.h>
 #include <AmjuGLWindowInfo.h>
 #include <CommandLineArgs.h>
@@ -28,7 +29,13 @@
 // Link OpenGL libraries via code pragmas (avoids configuring linker settings manually)
 #pragma comment(lib, "opengl32.lib")
 
+// Aim for this frame rate: don't run as fast as poss.
 static const int TARGET_FPS = 60;
+
+// Aspect ratio: we want to maintain this as far as poss,
+//  but not in fullscreen for now.
+const double TARGET_ASPECT = 16.0 / 9.0;
+
 static auto WINDOW_CLASS = L"OpenGLWin32Class";
 
 // TODO Game-specific
@@ -119,6 +126,17 @@ namespace Amju
   }
 } // namespace Amju
 
+void UpdateDrawFlip()
+{
+  Amju::TheGame::Instance()->RunOneLoop();
+}
+
+void DrawAndFlip()
+{
+  Amju::TheGame::Instance()->Draw();
+  Amju::AmjuGL::Flip();
+}
+
 // Vertical sync function ptr
 typedef BOOL(WINAPI* PFNWGLSWAPINTERVALEXTPROC)(int interval);
 PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = nullptr;
@@ -136,9 +154,9 @@ static void SetUpVSync()
 }
 
 // Global variables for window and rendering contexts
-static bool g_running = true;
-static int g_width = 800;
-static int g_height = 600;
+static bool g_running = false;
+static int g_width = 0; // these are set before we use them!
+static int g_height = 0;
 static bool g_active = true;
 static bool g_isFullscreen = false;
 // Window placement, for returning from full screen
@@ -148,7 +166,6 @@ WINDOWPLACEMENT g_wpPrev = { sizeof(g_wpPrev) };
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 void CreateOpenGLContext(HWND hwnd, HDC* hDC, HGLRC* hRC);
 void DisableOpenGL(HWND hwnd, HDC hDC, HGLRC hRC);
-void UpdateDrawFlip();
 
 static void SleepIfFrameRateTooHigh(LARGE_INTEGER timeStart, LARGE_INTEGER timeEnd, LARGE_INTEGER frequency)
 {
@@ -183,7 +200,7 @@ GetCentredPosOnCurrentMonitor()
 
   // 3. Calculate a centered position within that specific monitor's workspace
   int windowWidth = 800; // TODO Hard coded size, get from required window size
-  int windowHeight = 600;
+  int windowHeight = static_cast<int>(windowWidth / TARGET_ASPECT);
   int monitorWidth = mi.rcWork.right - mi.rcWork.left;
   int monitorHeight = mi.rcWork.bottom - mi.rcWork.top;
   int posX = mi.rcWork.left + (monitorWidth - windowWidth) / 2;
@@ -347,7 +364,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
   Amju::GameSpecificPostWindowTasks();
 
+  // We need one update before we start the main loop, which will 
+  //  cause an immediate Draw (WM_PAINT message).
+  Amju::TheGame::Instance()->Update();
+
   UpdateWindow(hWnd);
+
+  g_running = true;
 
   MSG msg {};
   MainLoop(msg);
@@ -361,7 +384,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
   return static_cast<int>(msg.wParam);
 }
 
-static void ActivationEvent(bool active)
+static void OnActivation(bool active)
 {
   g_active = active;
 
@@ -382,14 +405,14 @@ static void ActivationEvent(bool active)
   }
 }
 
-static void MouseMoveEvent(LPARAM lParam)
+static void OnMouseMove(LPARAM lParam)
 {
   int x = LOWORD(lParam);
   int y = HIWORD(lParam);
   Amju::QueueEvent(Amju::MakeCursorEvent(x, y));
 }
 
-static void ButtonEvent(Amju::MouseButton button, WPARAM wParam, LPARAM lParam)
+static void OnMouseButton(Amju::MouseButton button, WPARAM wParam, LPARAM lParam)
 {
   bool down = (wParam & MK_LBUTTON) != 0;
   bool ctrl = (wParam & MK_CONTROL) != 0;
@@ -401,13 +424,19 @@ static void ButtonEvent(Amju::MouseButton button, WPARAM wParam, LPARAM lParam)
     button, x, y, down, ctrl, shift));
 }
 
-static void ResizeWindowEvent(int width, int height)
+static void SetAmjuViewport(int width, int height)
 {
   if (height == 0) height = 1; // Prevent division by zero
+  Amju::Screen::SetSize(width, height);
+}
 
+static void OnSize(int width, int height)
+{
   using namespace Amju;
 
-  Screen::SetSize(width, height);
+  if (height == 0) height = 1; // Prevent division by zero
+  SetAmjuViewport(width, height);
+
   ResizeEvent* e = new ResizeEvent;
   e->type = AMJU_RESIZE;
   e->x = width;
@@ -415,7 +444,7 @@ static void ResizeWindowEvent(int width, int height)
   QueueEvent(e);
 }
 
-void KeyEvent(char k, bool down)
+void OnKeyEvent(char k, bool down)
 {
   using namespace Amju;
 
@@ -460,8 +489,59 @@ void KeyEvent(char k, bool down)
   QueueEvent(ke);
 }
 
-static void HandleResizing(WPARAM wParam, LPARAM lParam)
+static void OnResizing(HWND hwnd, WPARAM wParam, LPARAM lParam)
 {
+  // Only enforce this if we are not currently fullscreen
+  if (g_isFullscreen) return;
+
+  RECT* rect = (RECT*)lParam;
+
+  // Calculate the current window border overhead (borders + title bar)
+  RECT winRect = { 0, 0, 0, 0 };
+  AdjustWindowRectEx(&winRect, GetWindowLong(hwnd, GWL_STYLE), FALSE, GetWindowLong(hwnd, GWL_EXSTYLE));
+  int borderWidth = winRect.right - winRect.left;
+  int borderHeight = winRect.bottom - winRect.top;
+
+  // Extract the proposed internal client dimensions
+  int proposedClientWidth = (rect->right - rect->left) - borderWidth;
+  int proposedClientHeight = (rect->bottom - rect->top) - borderHeight;
+
+  // Adjust based on which side/corner the user is dragging
+  switch (wParam) 
+  {
+  case WMSZ_LEFT:
+  case WMSZ_RIGHT:
+  case WMSZ_BOTTOMLEFT:
+  case WMSZ_BOTTOMRIGHT:
+    // User adjusted width; update height to match
+    proposedClientHeight = (int)(proposedClientWidth / TARGET_ASPECT);
+    rect->bottom = rect->top + proposedClientHeight + borderHeight;
+    break;
+
+  case WMSZ_TOP:
+  case WMSZ_BOTTOM:
+  case WMSZ_TOPLEFT:
+  case WMSZ_TOPRIGHT:
+    // User adjusted height; update width to match
+    proposedClientWidth = (int)(proposedClientHeight * TARGET_ASPECT);
+    rect->right = rect->left + proposedClientWidth + borderWidth;
+    break;
+  }
+
+  // Update size, redraw with no update.
+  g_width = (rect->right - rect->left) - borderWidth;
+  g_height = (rect->bottom - rect->top) - borderHeight;
+
+  SetAmjuViewport(g_width, g_height);
+  // Don't DrawAndFlip(). Leave this to OnPaint. It looks smoother.
+}
+
+static void OnPaint(HWND hwnd)
+{
+  PAINTSTRUCT ps;
+  HDC hdc = BeginPaint(hwnd, &ps);
+  DrawAndFlip();
+  EndPaint(hwnd, &ps);
 }
 
 // Event Callback 
@@ -470,54 +550,52 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
   switch (msg) 
   {
   case WM_MOUSEMOVE:
-    MouseMoveEvent(lParam);
+    OnMouseMove(lParam);
     break;
 
   case WM_LBUTTONDOWN:
     // SetCapture() means we still get mouse events when the
     // mouse leaves the client area.
     SetCapture(hwnd);
-    ButtonEvent(Amju::AMJU_BUTTON_MOUSE_LEFT, wParam, lParam);
+    OnMouseButton(Amju::AMJU_BUTTON_MOUSE_LEFT, wParam, lParam);
     break;
 
   case WM_LBUTTONUP:
     // We must now release the mouse - end of SetCapture()
     // mouse ownership.
     ReleaseCapture();
-    ButtonEvent(Amju::AMJU_BUTTON_MOUSE_LEFT, wParam, lParam);
+    OnMouseButton(Amju::AMJU_BUTTON_MOUSE_LEFT, wParam, lParam);
     break;
 
   case WM_ACTIVATE:
     // LOWORD(wParam) tells us the activation state.
     // HIWORD(wParam) tells us if the window is minimized (non-zero means minimized).
-    ActivationEvent(!(LOWORD(wParam) == WA_INACTIVE || HIWORD(wParam) != 0));
+    OnActivation(!(LOWORD(wParam) == WA_INACTIVE || HIWORD(wParam) != 0));
     break;
 
   case WM_SIZE:
     // New window size
     g_width = LOWORD(lParam);
     g_height = HIWORD(lParam);
-    ResizeWindowEvent(g_width, g_height);
+    OnSize(g_width, g_height);
     break;
 
   case WM_SIZING: 
     // Player is dragging a window corner or edge to resize. 
-    HandleResizing(wParam, lParam);
+    OnResizing(hwnd, wParam, lParam);
+    break;
+
+  case WM_PAINT: 
+    // We need to hndle this to redraw the window nicely when resizing.
+    if (g_running) OnPaint(hwnd);
     break;
 
   case WM_KEYDOWN:
-    KeyEvent(static_cast<char>(wParam & 0xff), true);
-    //// We should exit with ALT-F4, no? 
-    //// Esc should map to the Go Back/Pause/Quit button.
-    //if (wParam == VK_ESCAPE) 
-    //{ // Press ESC to quit
-    //  g_running = false;
-    //}
-    //// Add other key handling here (Replaces glutKeyboardFunc)
+    OnKeyEvent(static_cast<char>(wParam & 0xff), true);
     break;
 
   case WM_KEYUP:
-    KeyEvent(static_cast<char>(wParam & 0xff), false);
+    OnKeyEvent(static_cast<char>(wParam & 0xff), false);
     break;
 
   case WM_SYSKEYDOWN:
@@ -535,12 +613,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
       // The computer is going to sleep! 
       // Force-save user data and completely pause your loops.
-      ActivationEvent(false);
+      OnActivation(false);
     }
     else if (wParam == PBT_APMRESUMEAUTOMATIC) {
       // The computer just woke back up.
       // Re-anchor your high-resolution timer to prevent giant dt spikes!
-      ActivationEvent(true);
+      OnActivation(true);
     }
     break;
 
@@ -593,9 +671,4 @@ void DisableOpenGL(HWND hwnd, HDC hDC, HGLRC hRC)
   wglMakeCurrent(NULL, NULL);
   wglDeleteContext(hRC);
   ReleaseDC(hwnd, hDC);
-}
-
-void UpdateDrawFlip() 
-{
-    Amju::TheGame::Instance()->RunOneLoop();
 }
