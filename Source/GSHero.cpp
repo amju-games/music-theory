@@ -971,6 +971,7 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
     }
     else if (playerNoteEvent.m_on && !isPitchCorrect)
     {
+      // STYLOPHONE - here is where to not grade stylophone notes I think.
       OnBumNote(playerNoteEvent, scoreNoteEvent, grade);
     }
     else
