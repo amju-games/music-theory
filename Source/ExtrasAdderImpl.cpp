@@ -286,7 +286,7 @@ std::cout << "SORTED NOTE RUNS:\n";
 #endif
 
   // Get the number of note runs to which we apply extras. 
-  int numNoteRunExtras = GetNumExtraRuns(runs.size());
+  int numNoteRunExtras = GetNumExtraRuns(static_cast<int>(runs.size()));
 
   for (int i = 0; i < numNoteRunExtras; ++i)
   {
@@ -298,7 +298,7 @@ std::cout << "SORTED NOTE RUNS:\n";
 void ExtrasAdderImpl::AddExtrasForOneRun(
   GuiComposite* extrasRootComp, const NoteRun& run)
 {
-  const int numNotesInRun = run.m_ids.size();
+  const int numNotesInRun = static_cast<int>(run.m_ids.size());
 
   // Check for overlap with existing Extra
   for (int note = 0; note < numNotesInRun; ++note)
@@ -369,7 +369,7 @@ std::cout << "\n";
 
   // Number of extras we add here should be a proportion of the total number
   //  of notes. 
-  int numExtras = GetNumRandomExtras(eventIds.size());
+  int numExtras = GetNumRandomExtras(static_cast<int>(eventIds.size()));
   // Make sure we don't overrun!
   numExtras = std::min(numExtras, static_cast<int>(eventIds.size()));
 
