@@ -71,7 +71,7 @@ Image/atlas.png, stretch
 colour
 e0e0e0
 gui-sprite
-qwerty-key-highlight
+qwerty-key-text
 .02, -0.004, 1
 .1, .14
 Image/arial_round_2048_64pt.png, stretch

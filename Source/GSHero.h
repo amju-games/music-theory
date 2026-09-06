@@ -12,6 +12,7 @@
 #include "GuiMusicKbBase.h"
 #include "GuiPatch.h"
 #include "GuiScrollScore.h"
+#include "QwertyOverlay.h"
 #include "WithHud.h"
 
 namespace Amju
@@ -244,6 +245,8 @@ protected:
 
   // While true, keyboard is moving to a new position
   bool m_keyboardIsMoving = false;
+
+  QwertyOverlay m_qwertyOverlay;
 };
 
 typedef Singleton<GSHero> TheGSHero;

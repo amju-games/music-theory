@@ -316,6 +316,11 @@ float GuiMusicKbBase::GetKeyMidX(int midiKey) const
   return rect.GetCentre().x;
 }
 
+float GuiMusicKbBase::GetYForQwerty(bool isBlack) const
+{
+  return -0.8f; // TODO
+}
+
 GuiMusicKbBase::Key* GuiMusicKbBase::PickKey(const Vec2f& pos)
 {
   std::vector<PKey> pickedKeys; // should be 0, 1 or 2, right?!

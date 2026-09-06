@@ -363,6 +363,7 @@
     <ClCompile Include="..\..\..\..\Source\PointsCalculator.cpp" />
     <ClCompile Include="..\..\..\..\Source\PrintGui.cpp" />
     <ClCompile Include="..\..\..\..\Source\PrintScene.cpp" />
+    <ClCompile Include="..\..\..\..\Source\QwertyOverlay.cpp" />
     <ClCompile Include="..\..\..\..\Source\Resumer.cpp" />
     <ClCompile Include="..\..\..\..\Source\Reward.cpp" />
     <ClCompile Include="..\..\..\..\Source\SceneNodeGui.cpp" />
@@ -535,6 +536,7 @@
     <ClInclude Include="..\..\..\..\Source\PointsCalculator.h" />
     <ClInclude Include="..\..\..\..\Source\PrintGui.h" />
     <ClInclude Include="..\..\..\..\Source\PrintScene.h" />
+    <ClInclude Include="..\..\..\..\Source\QwertyOverlay.h" />
     <ClInclude Include="..\..\..\..\Source\Resumer.h" />
     <ClInclude Include="..\..\..\..\Source\Reward.h" />
     <ClInclude Include="..\..\..\..\Source\SceneNodeGui.h" />

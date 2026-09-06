@@ -414,6 +414,9 @@
     <ClCompile Include="..\..\..\..\Source\ShutDown.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\QwertyOverlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h">
@@ -747,6 +750,9 @@
       <Filter>Source Files\Windows</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Windows\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\QwertyOverlay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

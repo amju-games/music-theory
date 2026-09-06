@@ -74,11 +74,16 @@ public:
   int GetMinKey() const;
   int GetMaxKey() const;
 
+  // Get range of midi notes on screen
   int GetMinKeyOnScreen() const;
   int GetMaxKeyOnScreen() const;
 
   // Get screen x-coord of middle of key
   float GetKeyMidX(int midiKey) const;
+
+  // Get screen y-coord for a qwerty key symbol to be placed.
+  // The y-coord depends on whether the key is white or black.
+  float GetYForQwerty(bool isBlack) const;
 
   void ResetColour();
 
