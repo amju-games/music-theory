@@ -4,7 +4,7 @@
 
 namespace Amju
 {
-void QwertyOverlay::Clear()
+void QwertyOverlay::Reset()
 {
   m_qwertyRoot.Reset();
 }
@@ -27,6 +27,7 @@ std::string QwertyOverlay::GetQwertyStrForMidi(int midi) const
 
 void QwertyOverlay::SetQwertyStrForMidi(WeakPtr<GuiElement> key, int midi)
 {
+  Assert(key);
   auto str = GetQwertyStrForMidi(midi);
   auto text = GetElementByName(key, "qwerty-key-text");
   GuiSprite* sprite = dynamic_cast<GuiSprite*>(text);
@@ -51,7 +52,7 @@ bool QwertyOverlay::Init(WeakPtr<GuiElement> root)
 WeakPtr<GuiElement> QwertyOverlay::GetQwertyKeyForMidi(int midi)
 {
   std::string keyName = "qwerty-" + std::to_string(midi);
-  auto key = GetElementByName(m_qwertyRoot, keyName);
+  RCPtr<GuiElement> key = m_qwertyRoot->GetElementByName(keyName);
   if (key)
     return key;
 

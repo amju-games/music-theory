@@ -318,7 +318,7 @@ float GuiMusicKbBase::GetKeyMidX(int midiKey) const
 
 float GuiMusicKbBase::GetYForQwerty(bool isBlack) const
 {
-  return -0.8f; // TODO
+  return isBlack ? -0.4 : -0.8f; // TODO scale if KB squished
 }
 
 GuiMusicKbBase::Key* GuiMusicKbBase::PickKey(const Vec2f& pos)

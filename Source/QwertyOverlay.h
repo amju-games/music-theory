@@ -38,7 +38,7 @@ public:
   void SetVisible(bool visible);
 
   // Zero out weak ptr
-  void Clear();
+  void Reset();
 
 private:
   // Points to the root node in the gui tree, to which we add 

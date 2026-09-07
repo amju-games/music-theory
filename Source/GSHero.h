@@ -120,6 +120,8 @@ protected:
 
   void InitKeyboard();
 
+  void InitQwertyKeys();
+
   void ResetHud();
 
   void ResetMissedNoteCounters();

@@ -372,6 +372,9 @@ void GSHero::OnKeyboardHasFinishedMoving()
   m_keyboardAnim->SetOnCompleteCallback(nullptr);
 
   m_keyboardIsMoving = false;
+
+  // Now we can set the qwerty keys
+  m_qwertyOverlay.SetKeyPositions(*m_keyboard); 
 }
 
 void GSHero::Draw2d()
@@ -996,6 +999,9 @@ std::cout << ":((( Couldn't find a matching event to grade against!\n";
 
 void GSHero::OnDeactive() 
 {
+  // Reset weak pointers pointing to bits of the GUI tree.
+  m_qwertyOverlay.Reset();
+
   GSBase3d::OnDeactive();
 
   auto sm = TheSoundManager::Instance();
@@ -1242,6 +1248,13 @@ void GSHero::InitGui()
   m_prevAttempt = m_scrollScore->GetNoteEvents().end();
 
   InitExtras();
+
+  InitQwertyKeys();
+}
+
+void GSHero::InitQwertyKeys()
+{
+  m_qwertyOverlay.Init(m_gui);
 }
 
 int GSHero::FindNoteEventForTime(float normalisedTime)

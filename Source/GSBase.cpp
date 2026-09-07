@@ -137,7 +137,7 @@ void GSBase::OnDeactive()
   TheMessageQueue::Instance()->Clear();
 
   GameState::OnDeactive();
-  m_gui = nullptr;
+  m_gui.Reset(); // Reset any weak ptrs to bits of the gui first!
 }
 
 void GSBase::ReloadGui()

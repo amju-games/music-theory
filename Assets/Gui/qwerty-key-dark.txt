@@ -4,7 +4,7 @@
 // version
 1
 
-// Qwerty key, light version
+// Qwerty key
 
 scale
 .75, .75
@@ -18,8 +18,8 @@ qwerty-key-root
 5
 
 colour
-//a0a0a0
-404040
+202020
+
 patch
 qwerty-key-dark-patch
 -0.0025, 0
@@ -31,7 +31,8 @@ Image/atlas.png, stretch
 0.025
 
 colour
-e8e8e8
+505050
+
 patch
 qwerty-key-light-patch
 0.002, 0
@@ -43,7 +44,7 @@ Image/atlas.png, stretch
 0.025
 
 colour
-e0e0e0
+444444
 gui-sprite
 qwerty-key-highlight
 .01, -0.004
@@ -53,7 +54,7 @@ Image/atlas.png, stretch
 1
 
 colour
-ffffff
+c0c0c0
 patch
 qwerty-key-highlight-patch
 .072, -.03
@@ -67,7 +68,7 @@ Image/atlas.png, stretch
 // Letter on key
 // Using an olde skool sprite sheet for this, not a text object.
 colour
-202020
+e0e0e0
 gui-sprite
 qwerty-key-text
 .02, -0.004, 1
