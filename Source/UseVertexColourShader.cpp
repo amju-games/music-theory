@@ -25,8 +25,7 @@ void UseVertexColourShader()
   //  way we want (i.e. multiply by currently active colour)
   do_once
   {
-    vertexColourShader = AmjuGL::LoadShader(
-      "Shaders/" + AmjuGL::GetShaderDir() + "/gui");
+    vertexColourShader = AmjuGL::LoadShader("gui");
     Assert(vertexColourShader);
   }
 
