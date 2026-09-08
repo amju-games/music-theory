@@ -14,13 +14,14 @@
 #include "Consts.h"
 #include "FeedbackBalloon.h"
 #include "Grader.h"
-#include "HeroGameRound.h"
 #include "GSHero.h"
 #include "GSHeroEnd.h"
 #include "GSHeroWin.h"
 #include "GSPause.h"
+#include "HeroGameRound.h"
 #include "Hud.h"
 #include "HudNumber.h"
+#include "KeyInputHandler.h"
 #include "PlayWav.h"
 #include "PointsCalculator.h"
 #include "Resumer.h"
@@ -76,6 +77,24 @@ GSHero::GSHero()
   m_sceneFilename = "Scene/animals-ortho.txt";
 }
 
+KeyInputHandler& GSHero::AddKeyInputHandlers()
+{
+  auto& kih = GSBase3d::AddKeyInputHandlers();
+
+  bool added = kih.AddHandler(MakeKeyEvent('L'), 
+    [this](const KeyEvent&) { OnPlayerHasLost(); return true; }, 
+    "Lose game round");
+  Assert(added);
+
+  added = kih.AddHandler(MakeKeyEvent('W'), 
+    [this](const KeyEvent&) { OnPlayerHasWon(); return true; }, 
+    "Win game round");
+  Assert(added);
+
+  return kih;
+}
+
+/*
 bool GSHero::OnKeyEvent(const KeyEvent& ke)
 {
   // Debug cheat buttons
@@ -100,6 +119,7 @@ bool GSHero::OnKeyEvent(const KeyEvent& ke)
   if (GSBase3d::OnKeyEvent(ke)) return true;
   return false;
 }
+*/
 
 void GSHero::SetGameRound(const HeroGameRound* gameRound)
 {

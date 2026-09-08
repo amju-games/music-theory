@@ -46,8 +46,8 @@ public:
   void Update() override;
   void Draw2d() override;
 
-  // Debug: win/lose cheat buttons
-  bool OnKeyEvent(const KeyEvent&) override;
+  // Add debug key handlers, and TODO qwerty key handlers too.
+  KeyInputHandler& AddKeyInputHandlers() override;
 
   void OnPauseGame() override;
 

@@ -5,6 +5,7 @@
 #include <LoadScene.h>
 #include <ResourceManager.h>
 #include "GSBase3d.h"
+#include "KeyInputHandler.h"
 #include "MySceneGraph.h"
 #include "PrintScene.h"
 
@@ -142,31 +143,34 @@ void GSBase3d::DebugCamera(char key)
   std::cout << "Eye pos: " << eye.x << ", " << eye.y << ", " << eye.z << "\n";
 }
 
-bool GSBase3d::OnKeyEvent(const KeyEvent& ke)
+KeyInputHandler& GSBase3d::AddKeyInputHandlers()
 {
-  if (GSBase::OnKeyEvent(ke))
-  {
-    return true;
-  }
+  auto& kih = GSBase::AddKeyInputHandlers();
+
+  bool added = true;
 
 #ifdef _DEBUG
-  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR)
-  {
-    DebugCamera(ke.key);
-
-    switch (ke.key)
-    {
-    case '3':
+  added = kih.AddHandler(MakeKeyEvent('3'), 
+    [this](const KeyEvent&)->bool 
+    {   
       Reload3d();
-      break;
-  
-    case '4':
+      return true;
+    },  
+    "Reload 3d scene");
+  Assert(added);
+
+  added = kih.AddHandler(MakeKeyEvent('4'), 
+    [](const KeyEvent&)->bool 
+    {   
       PrintScene(GetSceneGraph());
-    }
-  }
+      return true;
+    },  
+    "Print scene graph");
+  Assert(added);
+
 #endif // _DEBUG
 
-  return false;
+  return kih;
 }
 
 void GSBase3d::Update()

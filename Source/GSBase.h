@@ -10,6 +10,8 @@
 
 namespace Amju
 {
+class KeyInputHandler;
+
 // * GSBase *
 // Base class for game states for Amjula music theory
 class GSBase : public GameState
@@ -21,10 +23,21 @@ public:
   virtual void OnActive() override;
   virtual void OnDeactive() override;
 
-  // Check keys for debug features: R to reload, G to show GUI tree
-  virtual bool OnKeyEvent(const KeyEvent&) override;
+  // This should be the one and only KeyEvent handler. 
+  // All KeyEvents go though KeyInputHandler, so our job in the
+  //  game states is now to add and remove handlers.
+  bool OnKeyEvent(const KeyEvent&) override final;
 
-  // Music keyboard events are sent to current game state
+  // Add key mappings for this state.
+  // Returns the key input handler as a convenience for subclass impl.
+  virtual KeyInputHandler& AddKeyInputHandlers();
+
+  // Remove the mappings we added in the above function.
+  // (Default impl clears all mappings)
+  virtual void RemoveKeyInputHandlers();
+
+  // Music events are sent to current game state:
+  // Override this to handle music events.
   virtual void OnMusicKbEvent(const MusicKbEvent&) {}
 
   GuiElement* GetGui();
@@ -44,9 +57,6 @@ protected:
   // Default impl is to call OnDeactive() then OnActive, so reloading everything
   //  for the state. (This could have unwanted effects.)
   virtual void ReloadGui();
-
-  // If B key pressed, go to previous state: return true if we do.
-  bool CheckForKey_B_BackToPrevState(const KeyEvent& ke);
 
 protected: 
   // 2D GUI
