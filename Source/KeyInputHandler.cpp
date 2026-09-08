@@ -5,6 +5,21 @@
 
 namespace Amju
 {
+static KeyEvent Sanitise(const KeyEvent& ke)
+{
+  // Set char to lower case, and zero if this is a special key event.
+  auto copy(ke);
+  copy.key = std::tolower(copy.key);
+  if (copy.keyType != AMJU_KEY_CHAR) copy.key = 0;
+  return copy;
+}
+
+KeyInputHandler& GetKeyInputHandler()
+{
+  static KeyInputHandler kih;
+  return kih;
+}
+
 std::ostream& operator<<(std::ostream& os, const KeyEvent& ke)
 {
   return os << "Key: " << ke.key << " " << (ke.keyDown ? "down" : "up");
@@ -15,6 +30,11 @@ bool operator<(const KeyEvent& ke1, const KeyEvent& ke2)
   return 
     std::tie(ke1.keyType, ke1.key, ke1.keyDown, ke1.modifier) < 
     std::tie(ke2.keyType, ke2.key, ke2.keyDown, ke2.modifier); 
+}
+
+void KeyInputHandler::Clear()
+{
+  m_map.clear();
 }
 
 std::string KeyInputHandler::ListHandlers() const
@@ -28,16 +48,21 @@ std::string KeyInputHandler::ListHandlers() const
   return ss.str();
 }
 
-bool KeyInputHandler::RemoveHandler(const KeyHandlerInfo& info)
+bool KeyInputHandler::RemoveHandler(const KeyEvent& ke)
 {
-  return m_map.erase(info);
+  return m_map.erase(Sanitise(ke));
 }
 
 bool KeyInputHandler::AddHandler(
-  const KeyHandlerInfo& info, const KeyHandlerValue& value,
+  const KeyEvent& ke, 
+  const KeyHandlerFunction func,
+  const std::string& description,
   bool overwrite)
 {
-  if (m_map.contains(info) && !overwrite)
+  // Set char to lower case, and zero if this is a special key event.
+  auto copy = Sanitise(ke);
+
+  if (m_map.contains(copy) && !overwrite)
   {
 #ifdef KEY_INPUT_HANDLER_OVERWRITE_DEBUG
     std::cout << "Overwriting handler for Key Event! The event is: "
@@ -46,16 +71,19 @@ bool KeyInputHandler::AddHandler(
 #endif
     return false;
   } 
-  m_map[info] = value;
+  m_map[copy] = { func, description };
   return true;
 }
 
 bool KeyInputHandler::OnKeyEvent(const KeyEvent& ke)
 {
-  auto it = m_map.find(ke);
+  // Set char to lower case, and zero if this is a special key event.
+  auto copy = Sanitise(ke);
+
+  auto it = m_map.find(copy);
   if (it == m_map.end()) return false; // no handler registered
   const auto [func, str] = it->second;
-  return func(ke);
+  return func(copy);
 }
 
 KeyEvent MakeKeyEvent(char key, bool isDown, 

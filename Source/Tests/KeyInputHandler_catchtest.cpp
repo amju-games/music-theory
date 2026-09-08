@@ -19,14 +19,12 @@ TEST_CASE("Add/Remove handlers", "[KeyInputHandler]")
   //  description pair.
   bool added = kih.AddHandler(
     MakeKeyEvent('a', true), 
+    [&](const KeyEvent& ke)->bool 
     { 
-      [&](const KeyEvent& ke)->bool 
-      { 
-        setByHandlerFunction = 666; 
-        return true; 
-      },
-      "Handler for 'a' key!"
-    }
+      setByHandlerFunction = 666; 
+      return true; 
+    },
+    "Handler for 'a' key!"
   );
   REQUIRE(added == true);
 
@@ -65,10 +63,10 @@ TEST_CASE("List handler functions", "[KeyInputHandler]")
 
   // Add handlers 
   bool added = true;
-  added &= kih.AddHandler(MakeKeyEvent('c', true), { func, "'c' key" });
-  added &= kih.AddHandler(MakeKeyEvent('a', true), { func, "'a' key down" });
-  added &= kih.AddHandler(MakeKeyEvent('b', true), { func, "'b' key" });
-  added &= kih.AddHandler(MakeKeyEvent('a', false), { func, "'a' key up" });
+  added &= kih.AddHandler(MakeKeyEvent('c', true), func, "'c' key");
+  added &= kih.AddHandler(MakeKeyEvent('a', true), func, "'a' key down");
+  added &= kih.AddHandler(MakeKeyEvent('b', true), func, "'b' key");
+  added &= kih.AddHandler(MakeKeyEvent('a', false), func, "'a' key up");
   REQUIRE(added == true);
 
   // Check ListHandlers
@@ -88,16 +86,16 @@ TEST_CASE("Add existing fails unless overwrite flag set", "[KeyInputHandler]")
 
   // Add handlers 
   bool added = true;
-  added = kih.AddHandler(MakeKeyEvent('a', true), { func, "'a' key down" });
+  added = kih.AddHandler(MakeKeyEvent('a', true), func, "'a' key down");
   REQUIRE(added == true);
 
   // Add existing key event -> fails
-  added = kih.AddHandler(MakeKeyEvent('a', true), { func, "'a' key down" });
+  added = kih.AddHandler(MakeKeyEvent('a', true), func, "'a' key down");
   REQUIRE(added == false);
 
   // Add existing key event with overwrite -> ok
   const bool OVERWRITE = true;
-  added = kih.AddHandler(MakeKeyEvent('a', true), { func, "'a' key down 2" },
+  added = kih.AddHandler(MakeKeyEvent('a', true), func, "'a' key down 2",
     OVERWRITE);
   REQUIRE(added == true);
 

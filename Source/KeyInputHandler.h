@@ -14,10 +14,6 @@ namespace Amju
 class KeyInputHandler
 {
 public:
-  // The key for our lookup table is a KeyEvent. There is no coord member,
-  //  and we want to match all the members.
-  using KeyHandlerInfo = KeyEvent; 
-
   // Handler function for a key event.
   // Return true if the key event is consumed and should not be
   //  processed further.
@@ -30,30 +26,40 @@ public:
 
 public:
   // Handle a key event if there is a function registered for the 
-  //  key, up/down flag and possibly other bits.
+  //  key, up/down flag and possibly modifier.
   // Return true if handled (event consumed).
+  // NB All chars are converted to lower case when adding to map
+  //  and in OnKeyEvent.
   bool OnKeyEvent(const KeyEvent&);
 
   // Add handler function/description pair for the given key event.
   // Allow overwrite of existing handler if `overwrite` is true.
   // Returns true if successful.
   // Returns false if we would overwrite an existing handler and
-  //  overwrite is false, and doesn't overwrite.
+  //  overwrite is false -- and doesn't overwrite the prev handler.
   // [[nodiscard]] on the result because the point of having this
   //  class is to make sure we aren't remapping keys willy-nilly :)
+  // NB All chars are converted to lower case when adding to map
+  //  and in OnKeyEvent.
   [[nodiscard]] bool 
-  AddHandler(const KeyHandlerInfo& info, const KeyHandlerValue& value,
+  AddHandler(
+    const KeyEvent& info, 
+    KeyHandlerFunction func,
+    const std::string& description,
     bool overwrite = false);
 
   // Remove handler func/description for the given event type.
   // Returns true if removed, false if it wasn't there.
-  bool RemoveHandler(const KeyHandlerInfo& info);
+  bool RemoveHandler(const KeyEvent& info);
 
   // List each handler description on a separate line.
   std::string ListHandlers() const;
 
+  // Trash all handlers
+  void Clear();
+
 private:
-  using KeyHandlerMap = std::map<KeyHandlerInfo, KeyHandlerValue>;
+  using KeyHandlerMap = std::map<KeyEvent, KeyHandlerValue>;
   KeyHandlerMap m_map;
 };
 
@@ -65,12 +71,14 @@ KeyInputHandler& GetKeyInputHandler();
 
 // Convenience functions to create keys 
 // Create character KeyEvent
-KeyEvent MakeKeyEvent(char key, bool isDown, 
+KeyEvent MakeKeyEvent(char key, bool isDown = true, 
   KeyModifier modifier = KeyModifier::AMJU_KEY_MOD_NONE);
 
 // Create special key event
-KeyEvent MakeKeyEvent(KeyType specialKey, bool isDown, 
+KeyEvent MakeKeyEvent(KeyType specialKey, bool isDown = true, 
   KeyModifier modifier = KeyModifier::AMJU_KEY_MOD_NONE);
 
+// Comparison op for map
+bool operator<(const KeyEvent& ke1, const KeyEvent& ke2);
 }
 
