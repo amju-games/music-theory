@@ -81,6 +81,10 @@ KeyInputHandler& GSHero::AddKeyInputHandlers()
 {
   auto& kih = GSBase3d::AddKeyInputHandlers();
 
+  // Qwerty key overlay registers for KeyEvents for the keys it
+  //  has drawn. 
+  m_qwertyOverlay.RegisterKeyEvents(kih);
+
   bool added = kih.AddHandler(MakeKeyEvent('L'), 
     [this](const KeyEvent&) { OnPlayerHasLost(); return true; }, 
     "Lose game round");
@@ -93,33 +97,6 @@ KeyInputHandler& GSHero::AddKeyInputHandlers()
 
   return kih;
 }
-
-/*
-bool GSHero::OnKeyEvent(const KeyEvent& ke)
-{
-  // Debug cheat buttons
-#ifdef _DEBUG
-  // Lose the round
-  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
-     (std::tolower(ke.key) == 'l')) // L for Lose
-  {
-    OnPlayerHasLost();
-    return true;
-  }
-
-  // Win the round
-  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
-     (std::tolower(ke.key) == 'w'))
-  {
-    OnPlayerHasWon();
-    return true;
-  }
-#endif
- 
-  if (GSBase3d::OnKeyEvent(ke)) return true;
-  return false;
-}
-*/
 
 void GSHero::SetGameRound(const HeroGameRound* gameRound)
 {

@@ -6,6 +6,7 @@
 namespace Amju
 {
 class GuiMusicKbBase;
+class KeyInputHandler;
 
 // * Qwerty Overlay *
 // Displays qwerty keys over the piano keyboard. This is so
@@ -39,6 +40,9 @@ public:
 
   // Zero out weak ptr
   void Reset();
+
+  // Register handlers for KeyEvents with the given KeyInputHandler.
+  void RegisterKeyEvents(KeyInputHandler&);
 
 private:
   // Points to the root node in the gui tree, to which we add 

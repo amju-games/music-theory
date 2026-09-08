@@ -1,9 +1,44 @@
 #include <GuiSprite.h>
+#include <MessageQueue.h>
 #include "GuiMusicKbBase.h"
+#include "KeyInputHandler.h"
+#include "MusicEvent.h"
 #include "QwertyOverlay.h"
 
 namespace Amju
 {
+static void RegisterKey(char ch, int i, KeyInputHandler& kih, bool down)
+{
+  const bool OVERWRITE = true; // trash any existing mappings
+
+  bool added = kih.AddHandler(MakeKeyEvent(ch, down),
+    [=](const KeyEvent& ke) 
+    { 
+      TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(i, down)));
+      return true; 
+    },
+    "Qwerty key for MIDI " + std::to_string(i),
+    OVERWRITE);
+
+  Assert(added);
+}
+
+void QwertyOverlay::RegisterKeyEvents(KeyInputHandler& kih)
+{
+  // Register a callback for each key with the Key Input Handler.
+  // KeyEvents for our given keys will be mapped to our handler.
+
+  // TODO This isn't right, we want to find the actual midi notes
+  //  we are covering... unless we just don't play bum notes.
+  for (int i = 0; i < 12; i++)
+  {
+    auto s = GetQwertyStrForMidi(i);
+    char ch = s[0];
+    RegisterKey(ch, i, kih, true); // key down
+    RegisterKey(ch, i, kih, false); // key up
+  }
+}
+
 void QwertyOverlay::Reset()
 {
   m_qwertyRoot.Reset();
