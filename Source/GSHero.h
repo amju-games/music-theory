@@ -17,6 +17,7 @@
 
 namespace Amju
 {
+struct AutoMusicEvent; // plays music event in dtor
 struct Grade;
 struct HeroGameRound;
 
@@ -135,7 +136,7 @@ protected:
  
   // Grade player input event against what we think is the corresponding
   //  event in the score.
-  void GradeEvent(const MusicKbEvent& e);
+  void GradeEvent(const AutoMusicEvent& e);
 
   // Debug: called when R key is pressed to reload everything.
   void ReloadGui() override;

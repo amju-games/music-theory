@@ -81,9 +81,11 @@ KeyInputHandler& GSHero::AddKeyInputHandlers()
 {
   auto& kih = GSBase3d::AddKeyInputHandlers();
 
-  // Qwerty key overlay registers for KeyEvents for the keys it
-  //  has drawn. 
+  // Qwerty key overlay: register for KeyEvents 
   m_qwertyOverlay.RegisterKeyEvents(kih);
+
+#ifdef _DEBUG
+  // Debug-only cheats
 
   bool added = kih.AddHandler(MakeKeyEvent('L'), 
     [this](const KeyEvent&) { OnPlayerHasLost(); return true; }, 
@@ -94,6 +96,7 @@ KeyInputHandler& GSHero::AddKeyInputHandlers()
     [this](const KeyEvent&) { OnPlayerHasWon(); return true; }, 
     "Win game round");
   Assert(added);
+#endif
 
   return kih;
 }
@@ -768,9 +771,39 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
   m_extrasAdder->NoCollectExtra(noteOnEvent.m_id);
 }
 
+// OnMusicKbEvent is horrifically complicated. We want to make
+//  sure we sound/silence the note in the given event, as we 
+//  wend our way through this rat's nest of spag. So this type sounds
+//  the note in its dtor. I.e. we use RAII to make sure we get
+//  all the code paths.
+struct AutoMusicEvent : public MusicKbEvent
+{
+  AutoMusicEvent(const MusicKbEvent& m) : MusicKbEvent(m) {}
+
+  ~AutoMusicEvent()
+  {
+    // TODO velocity
+    PlayMidi(m_note, (m_on ? 100 : 0));
+  }
+
+  void SetNewPitch(int midiPitch) const
+  {
+    const_cast<AutoMusicEvent&>(*this).m_note = midiPitch;
+  }
+};
+
 void GSHero::OnMusicKbEvent(const MusicKbEvent& e) 
 {
-  // This is a player-generated event
+  // This is a player-generated music event, which could come
+  //  from the virtual piano keyboard, MIDI input, or qwerty keys.
+
+  // Don't immediately sound the note: we want to play the note
+  //  at the scored octave if possible, regardless of the octave
+  //  of the pitch of the event. 
+  // E.g. qwerty or virtual keyboard could only cover one octave,
+  //  but if we can match the event to its corresponding note in
+  //  the score, we can play it at the scored octave.
+  AutoMusicEvent raiiSound(e);
 
 #ifdef MUSIC_EVENT_DEBUG
 std::cout << "Music KB event: " 
@@ -801,7 +834,7 @@ std::cout << "Not grading event, keyboard is moving. ("
 #ifdef MUSIC_EVENT_DEBUG
 std::cout << "Grading event...\n";
 #endif
-    GradeEvent(e);
+    GradeEvent(raiiSound);
   }
 }
 
@@ -853,7 +886,7 @@ std::cout << " -- so good, we are awarding EXTRA!\n";
   }    
 }
 
-void GSHero::GradeEvent(const MusicKbEvent& playerNoteEvent)
+void GSHero::GradeEvent(const AutoMusicEvent& playerNoteEvent)
 {
 #ifdef GRADE_DEBUG
 std::cout << "Grading note event: Pitch: " << e.m_note 
@@ -964,9 +997,14 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
     }
 
     bool isPitchCorrect = IsPlayerPitchCorrect(playerNoteEvent.m_note, scoreNoteEvent.m_note);
+
     if (playerNoteEvent.m_on && isPitchCorrect)
     {
-      // ne is the scored note event, not the player attempt.
+      // Revise the pitch
+      playerNoteEvent.SetNewPitch(scoreNoteEvent.m_note);
+
+      // We pass the scored note event, not the player attempt - we 
+      //  have already graded the player attempt and pass in the grade.
       OnCorrectNote(scoreNoteEvent, grade);
     }
     else if (playerNoteEvent.m_on && !isPitchCorrect)
@@ -982,6 +1020,9 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
       // The visual feedback is different: show note trail and increasing
       //  score while note is being played.
       //SetUpFeedbackBalloon(grade);
+
+      // Revise the pitch
+      playerNoteEvent.SetNewPitch(scoreNoteEvent.m_note);
     }
   }
   else
