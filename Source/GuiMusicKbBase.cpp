@@ -7,6 +7,7 @@
 #include <MessageQueue.h>
 #include <StringUtils.h>
 #include <Timer.h>
+#include "BassPlayMidi.h"
 #include "GuiMusicKbBase.h"
 #include "MusicEvent.h"
 
