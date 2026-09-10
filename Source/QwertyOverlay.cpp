@@ -7,17 +7,18 @@
 
 namespace Amju
 {
-static void RegisterKey(char ch, int i, KeyInputHandler& kih, bool down)
+static void RegisterKey(char ch, int midiPitch, KeyInputHandler& kih, bool down)
 {
   const bool OVERWRITE = true; // trash any existing mappings
 
   bool added = kih.AddHandler(MakeKeyEvent(ch, down),
     [=](const KeyEvent& ke) 
     { 
-      TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(i, down)));
+      TheMessageQueue::Instance()->Add(
+        new MusicKbMsg(MusicKbEvent(midiPitch, down)));
       return true; 
     },
-    "Qwerty key for MIDI " + std::to_string(i),
+    "Qwerty key for MIDI " + std::to_string(midiPitch),
     OVERWRITE);
 
   Assert(added);
@@ -30,12 +31,16 @@ void QwertyOverlay::RegisterKeyEvents(KeyInputHandler& kih)
 
   // TODO This isn't right, we want to find the actual midi notes
   //  we are covering... unless we just don't play bum notes.
+  const int midiPitchStart = 60;
   for (int i = 0; i < 12; i++)
   {
     auto s = GetQwertyStrForMidi(i);
     char ch = s[0];
-    RegisterKey(ch, i, kih, true); // key down
-    RegisterKey(ch, i, kih, false); // key up
+    const bool KEY_UP = false;
+    const bool KEY_DOWN = true;
+    // Register two KeyEvents: one for key up, one for key down.
+    RegisterKey(ch, midiPitchStart + i, kih, KEY_UP);
+    RegisterKey(ch, midiPitchStart + i, kih, KEY_DOWN);
   }
 }
 
