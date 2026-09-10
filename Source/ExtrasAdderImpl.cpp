@@ -115,8 +115,12 @@ void ExtrasAdderImpl::AttachExtraBits(int fromThisNoteId)
   // For now, we are only supporting note on events.
   auto noteEvents(m_musicScore.GetNoteEvents()); 
 
+  if (fromThisNoteId >= noteEvents.size()) return;
+
   // Remove all events up to 'fromThisNoteId' - it's an index.
   noteEvents.erase(noteEvents.begin(), noteEvents.begin() + fromThisNoteId);
+
+  if (noteEvents.empty()) return;
 
   // Remove events that are not NOTE_ON
   const auto net = NoteEventType::NOTE_ON;
@@ -125,6 +129,8 @@ void ExtrasAdderImpl::AttachExtraBits(int fromThisNoteId)
      [=](const NoteEvent& ne) { return ne.m_type != net; }),
     noteEvents.end());
   // NB noteEvents are Note ON events only!
+
+  if (noteEvents.empty()) return;
 
   auto extrasRootComp = dynamic_cast<GuiComposite*>(m_extrasRoot.GetPtr());
 
