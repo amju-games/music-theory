@@ -11,6 +11,7 @@
 #include "GSBase.h"
 #include "KeyInputHandler.h"
 #include "MyROConfig.h"
+#include "PlayMidi.h"
 #include "PrintGui.h"
 #include "ShareManager.h"
 #include "UseVertexColourShader.h"
@@ -246,6 +247,17 @@ bool GSBase::OnKeyEvent(const KeyEvent& ke)
 const std::string& GSBase::GetGuiFilename()
 {
   return m_guiFilename;
+}
+
+void GSBase::OnMusicKbEvent(const MusicKbEvent& musicEvent)
+{
+  // We have recvd a music event from virtual piano, MIDI input
+  //  or qwerty keys.
+
+  // TODO Music events should contain velocities, not on/off
+  int vol = musicEvent.m_on ? 110 : 0;
+
+  PlayMidi(musicEvent.m_note, vol);
 }
 }
 

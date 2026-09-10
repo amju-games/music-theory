@@ -7,7 +7,6 @@
 #include <MessageQueue.h>
 #include <StringUtils.h>
 #include <Timer.h>
-#include "BassPlayMidi.h"
 #include "GuiMusicKbBase.h"
 #include "MusicEvent.h"
 
@@ -176,12 +175,9 @@ void GuiMusicKbBase::Key::Press()
   m_isPressed = true;
   m_desiredAngle = 5.0f;
 
-  int vol = 100; // TODO Humanise?
-
-  // TODO Don't play the note here: play it when we consume the event
+  // Don't play the note here: play it when we consume the event
   //  we are queueing. That will let us play the correct pitch whatever
   //  octave note the player presses.
-  PlayMidi(m_midiNote, vol); 
 
   TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, true)));
 
@@ -200,8 +196,9 @@ void GuiMusicKbBase::Key::Release()
   m_isPressed = false;
   m_desiredAngle = 0.0f;
 
-  // TODO for symmetry/consistency, we should not note off here either?
-  PlayMidi(m_midiNote, 0); 
+  // For symmetry, we don't silence the note here either.
+  // (Also it allows for the possibility of resolving events for the
+  //  same note from e.g. midi input and virtual piano keys.)
 
   TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, false)));
 

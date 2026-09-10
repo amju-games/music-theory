@@ -36,9 +36,12 @@ public:
   // (Default impl clears all mappings)
   virtual void RemoveKeyInputHandlers();
 
-  // Music events are sent to current game state:
-  // Override this to handle music events.
-  virtual void OnMusicKbEvent(const MusicKbEvent&) {}
+  // Music events are sent to current game state.
+  // Override this to handle music events, so for actual
+  //  game play states.
+  // Default behaviour (this impl) is to sound the note
+  //  (or silence it, if the event is a note off event).
+  virtual void OnMusicKbEvent(const MusicKbEvent&);
 
   GuiElement* GetGui();
 
