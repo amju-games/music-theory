@@ -123,12 +123,12 @@ for (auto it = beforeIt; it != afterIt; ++it)
 
 bool EventTypesMatch(const NoteEvent& ne, const MusicKbEvent& e)
 {
-  if (e.m_on && ne.IsNoteOnEvent())
+  if (e.IsOn() && ne.IsNoteOnEvent())
   {
     return true;
   }
   
-  if (!e.m_on && ne.IsNoteOffEvent())
+  if (!e.IsOn() && ne.IsNoteOffEvent())
   {
     return true;
   }
@@ -161,7 +161,7 @@ std::optional<NoteEvents::const_iterator> Grader::FindBestMatch(
 
     if (   EventTypesMatch(*it, e)  // event types match?
         && diff < bestDiff // closer time?
-        && (e.m_on || IsPlayerPitchCorrect(it->m_note, e.m_note)))
+        && (e.IsOn() || IsPlayerPitchCorrect(it->m_note, e.m_note)))
           // if note off, do pitches match? (We are looking for the matching event here.)
           // if note is on, the match is the closest note on event.
     {

@@ -254,10 +254,7 @@ void GSBase::OnMusicKbEvent(const MusicKbEvent& musicEvent)
   // We have recvd a music event from virtual piano, MIDI input
   //  or qwerty keys.
 
-  // TODO Music events should contain velocities, not on/off
-  int vol = musicEvent.m_on ? 110 : 0;
-
-  PlayMidi(musicEvent.m_note, vol);
+  PlayMidi(musicEvent.m_note, musicEvent.m_velocity);
 }
 }
 

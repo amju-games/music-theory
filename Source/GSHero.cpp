@@ -782,8 +782,7 @@ struct AutoMusicEvent : public MusicKbEvent
 
   ~AutoMusicEvent()
   {
-    // TODO velocity
-    PlayMidi(m_note, (m_on ? 100 : 0));
+    PlayMidi(m_note, m_velocity);
   }
 
   void SetNewPitch(int midiPitch) const
@@ -808,7 +807,7 @@ void GSHero::OnMusicKbEvent(const MusicKbEvent& e)
 #ifdef MUSIC_EVENT_DEBUG
 std::cout << "Music KB event: " 
   << e.m_note << " " 
-  << (e.m_on? "on" : "off")
+  << (e.IsOn() ? "on" : "off")
   << "\n";
 #endif  // MUSIC_EVENT_DEBUG
 
@@ -825,7 +824,7 @@ std::cout << "Round is over, ignoring player kb event.\n";
 #ifdef MUSIC_EVENT_DEBUG
 std::cout << "Not grading event, keyboard is moving. (" 
   << e.m_note << " " 
-  << (e.m_on? "on" : "off")
+  << (e.IsOn() ? "on" : "off")
   << ")\n";
 #endif  // MUSIC_EVENT_DEBUG
   }
@@ -890,7 +889,7 @@ void GSHero::GradeEvent(const AutoMusicEvent& playerNoteEvent)
 {
 #ifdef GRADE_DEBUG
 std::cout << "Grading note event: Pitch: " << e.m_note 
-  << " " << (e.m_on ? "*ON*" : "+off+");
+  << " " << (e.IsOn()  ? "*ON*" : "+off+");
   // No newline!
 #endif
 
@@ -902,7 +901,7 @@ std::cout << "\n";
 #endif
     // Ignore note down event after song finished. But allow for final
     //  late note up event??
-    if (playerNoteEvent.m_on) // ? Or safer to just totally ignore
+    if (playerNoteEvent.IsOn()) // ? Or safer to just totally ignore
     {
 #ifdef GRADE_DEBUG
 std::cout << "Ignoring note down event after song finished.\n";
@@ -979,7 +978,7 @@ std::cout << "I think you are attempting this note/event: "
     // Prevent multiple attempts at the same event: store the iterator
     //  so we can check above.
     // Only remember if note on, and a valid attempt.
-    if (playerNoteEvent.m_on && grade.m_type != Grade::TOO_QUICK)
+    if (playerNoteEvent.IsOn() && grade.m_type != Grade::TOO_QUICK)
     {
 #ifdef GRADE_DEBUG
 std::cout << "Storing event so player can't try this same note again\n";
@@ -998,7 +997,7 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
 
     bool isPitchCorrect = IsPlayerPitchCorrect(playerNoteEvent.m_note, scoreNoteEvent.m_note);
 
-    if (playerNoteEvent.m_on && isPitchCorrect)
+    if (playerNoteEvent.IsOn() && isPitchCorrect)
     {
       // Revise the pitch
       playerNoteEvent.SetNewPitch(scoreNoteEvent.m_note);
@@ -1007,7 +1006,7 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
       //  have already graded the player attempt and pass in the grade.
       OnCorrectNote(scoreNoteEvent, grade);
     }
-    else if (playerNoteEvent.m_on && !isPitchCorrect)
+    else if (playerNoteEvent.IsOn() && !isPitchCorrect)
     {
       // STYLOPHONE - here is where to not grade stylophone notes I think.
       OnBumNote(playerNoteEvent, scoreNoteEvent, grade);
@@ -1015,7 +1014,7 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
     else
     {
       // Note off event. We grade on time.
-      Assert(!playerNoteEvent.m_on);
+      Assert(!playerNoteEvent.IsOn());
       Assert(isPitchCorrect); // sanity check
       // The visual feedback is different: show note trail and increasing
       //  score while note is being played.
