@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <tuple>
+#include "AutoRepeatFilter.h"
 #include "KeyInputHandler.h"
 
 namespace Amju
@@ -77,6 +78,12 @@ bool KeyInputHandler::AddHandler(
 
 bool KeyInputHandler::OnKeyEvent(const KeyEvent& ke)
 {
+  if (IsAutoRepeat(ke))
+  {
+    // Ignore event but return true to say 'consumed'.
+    return true;
+  }
+
   // Set char to lower case, and zero if this is a special key event.
   auto copy = Sanitise(ke);
 
