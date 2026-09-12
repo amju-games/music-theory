@@ -100,7 +100,7 @@ static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
   // Set 'is completed' text, and TODO best percent and hi score.
   t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-is-completed"));
   Assert(t); 
-  t->SetText(isCompleted ? "@@@Completed!" : "");
+  t->SetText(isCompleted ? "$$$71"/*Completed!*/ : "");
 
   auto elem = gui->GetElementByName("song-start-button");
   auto b = dynamic_cast<GuiButton*>(elem);
