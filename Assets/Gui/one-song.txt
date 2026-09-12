@@ -13,7 +13,19 @@ one-song
 
 gui-comp
 text-group
-4
+5
+
+// Is Completed? 
+text2
+// Name
+song-is-completed
+0.3, -0.5 
+// size
+0.2, 0.2
+// Text
+is-completed
+// Font name, size
+bmmolin, 1.0, left, fgcol=000000
 
 // Song number
 text2

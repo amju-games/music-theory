@@ -79,7 +79,8 @@ void MoveUpMultiLineTitle(GuiTextBase* t)
 }
 
 static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
-  bool isUnlocked, const SongPlayerInfo& spi, bool hasFocus)
+  bool isUnlocked, const SongPlayerInfo& spi, bool hasFocus, 
+  bool isCompleted)
 {
   auto t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-title"));
   Assert(t); // this is all stuff that is fixed at compile time
@@ -95,6 +96,11 @@ static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
   t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-number"));
   Assert(t); 
   t->SetText(std::to_string(songNum) + "."); 
+
+  // Set 'is completed' text, and TODO best percent and hi score.
+  t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-is-completed"));
+  Assert(t); 
+  t->SetText(isCompleted ? "$$$71"/*Completed!*/ : "");
 
   auto elem = gui->GetElementByName("song-start-button");
   auto b = dynamic_cast<GuiButton*>(elem);
@@ -204,13 +210,15 @@ void GSChooseSong::InitScrollingGui()
     // TODO player like flag, hi score, completed flag
     const auto& spi = user->GetSongPlayerInfo(gameround.m_name);
     bool hasFocus = false;
+
+    // Set focus button on the next uncompleted song.
     if (isUnlocked && !spi.m_completed && !focusHasBeenSet)
     {
       hasFocus = true;
       focusHasBeenSet = true;
       tabStopForFocusSong = -i; // tab stops go negative, should we change
     }
-    SetSongGui(gameround, elem, songNum, isUnlocked, spi, hasFocus);
+    SetSongGui(gameround, elem, songNum, isUnlocked, spi, hasFocus, spi.m_completed);
     ++songNum;
     rootNode->AddChild(elem);
   }
