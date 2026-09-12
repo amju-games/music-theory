@@ -500,9 +500,9 @@ static void CALLBACK BassMidiInputCallback(
     BYTE velocity = buffer[2];
     if (velocity > 127) return;
 
-    bool isNoteOn = (velocity > 0); // velocity 0 means note off
     // Good news, MessageQueue::Add is thread safe
-    TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(midiNote, isNoteOn)));
+    TheMessageQueue::Instance()->Add(
+      new MusicKbMsg(MusicKbEvent(midiNote, velocity)));
   }
 
 #ifdef MIDI_INPUT_DEBUG

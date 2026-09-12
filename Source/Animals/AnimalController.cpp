@@ -183,7 +183,7 @@ std::vector<RCPtr<PFNpc>> AnimalController::AddPetsForGameRound(
 
     // TODO srand on game round ID to make this the same every time for 
     //  any given game round
-    int r = Amju::RandomInt(PET_TYPES.size());
+    int r = Amju::RandomInt(static_cast<int>(PET_TYPES.size()));
 
     auto petType = PET_TYPES[r];
     auto pet = dynamic_cast<Pet*>(AddAnimalFixedZ(petType, z));

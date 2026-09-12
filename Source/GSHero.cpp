@@ -14,13 +14,14 @@
 #include "Consts.h"
 #include "FeedbackBalloon.h"
 #include "Grader.h"
-#include "HeroGameRound.h"
 #include "GSHero.h"
 #include "GSHeroEnd.h"
 #include "GSHeroWin.h"
 #include "GSPause.h"
+#include "HeroGameRound.h"
 #include "Hud.h"
 #include "HudNumber.h"
+#include "KeyInputHandler.h"
 #include "PlayWav.h"
 #include "PointsCalculator.h"
 #include "Resumer.h"
@@ -76,29 +77,28 @@ GSHero::GSHero()
   m_sceneFilename = "Scene/animals-ortho.txt";
 }
 
-bool GSHero::OnKeyEvent(const KeyEvent& ke)
+KeyInputHandler& GSHero::AddKeyInputHandlers()
 {
-  // Debug cheat buttons
-#ifdef _DEBUG
-  // Lose the round
-  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
-     (std::tolower(ke.key) == 'l')) // L for Lose
-  {
-    OnPlayerHasLost();
-    return true;
-  }
+  auto& kih = GSBase3d::AddKeyInputHandlers();
 
-  // Win the round
-  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
-     (std::tolower(ke.key) == 'w'))
-  {
-    OnPlayerHasWon();
-    return true;
-  }
+  // Qwerty key overlay: register for KeyEvents 
+  m_qwertyOverlay.RegisterKeyEvents(kih);
+
+#ifdef _DEBUG
+  // Debug-only cheats
+
+  bool added = kih.AddHandler(MakeKeyEvent('L'), 
+    [this](const KeyEvent&) { OnPlayerHasLost(); return true; }, 
+    "Lose game round");
+  Assert(added);
+
+  added = kih.AddHandler(MakeKeyEvent('W'), 
+    [this](const KeyEvent&) { OnPlayerHasWon(); return true; }, 
+    "Win game round");
+  Assert(added);
 #endif
- 
-  if (GSBase3d::OnKeyEvent(ke)) return true;
-  return false;
+
+  return kih;
 }
 
 void GSHero::SetGameRound(const HeroGameRound* gameRound)
@@ -372,6 +372,9 @@ void GSHero::OnKeyboardHasFinishedMoving()
   m_keyboardAnim->SetOnCompleteCallback(nullptr);
 
   m_keyboardIsMoving = false;
+
+  // Now we can set the qwerty keys
+  m_qwertyOverlay.SetKeyPositions(*m_keyboard); 
 }
 
 void GSHero::Draw2d()
@@ -768,14 +771,43 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
   m_extrasAdder->NoCollectExtra(noteOnEvent.m_id);
 }
 
+// OnMusicKbEvent is horrifically complicated. We want to make
+//  sure we sound/silence the note in the given event, as we 
+//  wend our way through this rat's nest of spag. So this type sounds
+//  the note in its dtor. I.e. we use RAII to make sure we get
+//  all the code paths.
+struct AutoMusicEvent : public MusicKbEvent
+{
+  AutoMusicEvent(const MusicKbEvent& m) : MusicKbEvent(m) {}
+
+  ~AutoMusicEvent()
+  {
+    PlayMidi(m_note, m_velocity);
+  }
+
+  void SetNewPitch(int midiPitch) const
+  {
+    const_cast<AutoMusicEvent&>(*this).m_note = midiPitch;
+  }
+};
+
 void GSHero::OnMusicKbEvent(const MusicKbEvent& e) 
 {
-  // This is a player-generated event
+  // This is a player-generated music event, which could come
+  //  from the virtual piano keyboard, MIDI input, or qwerty keys.
+
+  // Don't immediately sound the note: we want to play the note
+  //  at the scored octave if possible, regardless of the octave
+  //  of the pitch of the event. 
+  // E.g. qwerty or virtual keyboard could only cover one octave,
+  //  but if we can match the event to its corresponding note in
+  //  the score, we can play it at the scored octave.
+  AutoMusicEvent raiiSound(e);
 
 #ifdef MUSIC_EVENT_DEBUG
 std::cout << "Music KB event: " 
   << e.m_note << " " 
-  << (e.m_on? "on" : "off")
+  << (e.IsOn() ? "on" : "off")
   << "\n";
 #endif  // MUSIC_EVENT_DEBUG
 
@@ -792,7 +824,7 @@ std::cout << "Round is over, ignoring player kb event.\n";
 #ifdef MUSIC_EVENT_DEBUG
 std::cout << "Not grading event, keyboard is moving. (" 
   << e.m_note << " " 
-  << (e.m_on? "on" : "off")
+  << (e.IsOn() ? "on" : "off")
   << ")\n";
 #endif  // MUSIC_EVENT_DEBUG
   }
@@ -801,7 +833,7 @@ std::cout << "Not grading event, keyboard is moving. ("
 #ifdef MUSIC_EVENT_DEBUG
 std::cout << "Grading event...\n";
 #endif
-    GradeEvent(e);
+    GradeEvent(raiiSound);
   }
 }
 
@@ -853,11 +885,11 @@ std::cout << " -- so good, we are awarding EXTRA!\n";
   }    
 }
 
-void GSHero::GradeEvent(const MusicKbEvent& playerNoteEvent)
+void GSHero::GradeEvent(const AutoMusicEvent& playerNoteEvent)
 {
 #ifdef GRADE_DEBUG
 std::cout << "Grading note event: Pitch: " << e.m_note 
-  << " " << (e.m_on ? "*ON*" : "+off+");
+  << " " << (e.IsOn()  ? "*ON*" : "+off+");
   // No newline!
 #endif
 
@@ -869,7 +901,7 @@ std::cout << "\n";
 #endif
     // Ignore note down event after song finished. But allow for final
     //  late note up event??
-    if (playerNoteEvent.m_on) // ? Or safer to just totally ignore
+    if (playerNoteEvent.IsOn()) // ? Or safer to just totally ignore
     {
 #ifdef GRADE_DEBUG
 std::cout << "Ignoring note down event after song finished.\n";
@@ -946,7 +978,7 @@ std::cout << "I think you are attempting this note/event: "
     // Prevent multiple attempts at the same event: store the iterator
     //  so we can check above.
     // Only remember if note on, and a valid attempt.
-    if (playerNoteEvent.m_on && grade.m_type != Grade::TOO_QUICK)
+    if (playerNoteEvent.IsOn() && grade.m_type != Grade::TOO_QUICK)
     {
 #ifdef GRADE_DEBUG
 std::cout << "Storing event so player can't try this same note again\n";
@@ -964,12 +996,17 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
     }
 
     bool isPitchCorrect = IsPlayerPitchCorrect(playerNoteEvent.m_note, scoreNoteEvent.m_note);
-    if (playerNoteEvent.m_on && isPitchCorrect)
+
+    if (playerNoteEvent.IsOn() && isPitchCorrect)
     {
-      // ne is the scored note event, not the player attempt.
+      // Revise the pitch
+      playerNoteEvent.SetNewPitch(scoreNoteEvent.m_note);
+
+      // We pass the scored note event, not the player attempt - we 
+      //  have already graded the player attempt and pass in the grade.
       OnCorrectNote(scoreNoteEvent, grade);
     }
-    else if (playerNoteEvent.m_on && !isPitchCorrect)
+    else if (playerNoteEvent.IsOn() && !isPitchCorrect)
     {
       // STYLOPHONE - here is where to not grade stylophone notes I think.
       OnBumNote(playerNoteEvent, scoreNoteEvent, grade);
@@ -977,11 +1014,14 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
     else
     {
       // Note off event. We grade on time.
-      Assert(!playerNoteEvent.m_on);
+      Assert(!playerNoteEvent.IsOn());
       Assert(isPitchCorrect); // sanity check
       // The visual feedback is different: show note trail and increasing
       //  score while note is being played.
       //SetUpFeedbackBalloon(grade);
+
+      // Revise the pitch
+      playerNoteEvent.SetNewPitch(scoreNoteEvent.m_note);
     }
   }
   else
@@ -996,6 +1036,9 @@ std::cout << ":((( Couldn't find a matching event to grade against!\n";
 
 void GSHero::OnDeactive() 
 {
+  // Reset weak pointers pointing to bits of the GUI tree.
+  m_qwertyOverlay.Reset();
+
   GSBase3d::OnDeactive();
 
   auto sm = TheSoundManager::Instance();
@@ -1242,6 +1285,13 @@ void GSHero::InitGui()
   m_prevAttempt = m_scrollScore->GetNoteEvents().end();
 
   InitExtras();
+
+  InitQwertyKeys();
+}
+
+void GSHero::InitQwertyKeys()
+{
+  m_qwertyOverlay.Init(m_gui);
 }
 
 int GSHero::FindNoteEventForTime(float normalisedTime)

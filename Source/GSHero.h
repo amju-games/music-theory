@@ -12,10 +12,12 @@
 #include "GuiMusicKbBase.h"
 #include "GuiPatch.h"
 #include "GuiScrollScore.h"
+#include "QwertyOverlay.h"
 #include "WithHud.h"
 
 namespace Amju
 {
+struct AutoMusicEvent; // plays music event in dtor
 struct Grade;
 struct HeroGameRound;
 
@@ -45,8 +47,8 @@ public:
   void Update() override;
   void Draw2d() override;
 
-  // Debug: win/lose cheat buttons
-  bool OnKeyEvent(const KeyEvent&) override;
+  // Add debug key handlers, and TODO qwerty key handlers too.
+  KeyInputHandler& AddKeyInputHandlers() override;
 
   void OnPauseGame() override;
 
@@ -119,6 +121,8 @@ protected:
 
   void InitKeyboard();
 
+  void InitQwertyKeys();
+
   void ResetHud();
 
   void ResetMissedNoteCounters();
@@ -132,7 +136,7 @@ protected:
  
   // Grade player input event against what we think is the corresponding
   //  event in the score.
-  void GradeEvent(const MusicKbEvent& e);
+  void GradeEvent(const AutoMusicEvent& e);
 
   // Debug: called when R key is pressed to reload everything.
   void ReloadGui() override;
@@ -244,6 +248,8 @@ protected:
 
   // While true, keyboard is moving to a new position
   bool m_keyboardIsMoving = false;
+
+  QwertyOverlay m_qwertyOverlay;
 };
 
 typedef Singleton<GSHero> TheGSHero;

@@ -9,7 +9,7 @@ gui-comp
 // Name
 gs-hero-root
 // Num children
-9
+10
 
 // Title of song/piece
 animation
@@ -148,4 +148,9 @@ quit-button.txt
 // HUD: This state uses the elastic version
 include
 elastic-hud.txt
+
+// Root for qwerty keys, added in code.
+gui-comp
+qwerty-root
+0
 

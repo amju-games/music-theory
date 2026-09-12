@@ -24,10 +24,10 @@ LIBS	:= \
 	-lstdc++ -lm 
 
 include $(AMJULIB_MAC_SCRIPT_PATH)/GenMakefile
-CFLAGS += -D_DEBUG -DAMJU_USE_BASS_MIDI -DAMJU_USE_BASS -Wno-deprecated-declarations
+CFLAGS += -D_DEBUG -DAMJU_USE_BASS_MIDI -DAMJU_USE_BASS -Wno-deprecated-declarations -fsanitize=address -g -glldb
 
 # Add path to exe to search path for dylibs.
-LDFLAGS += -Wl,-rpath,@executable_path/
+LDFLAGS += -Wl,-rpath,@executable_path/ -fsanitize=address -g -glldb
 
 run:
 	$(TEST_TARGET) && $(TARGET)

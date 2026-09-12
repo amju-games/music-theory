@@ -1,4 +1,4 @@
-REM These DLLs are copied from amjulin/3rdParty.
+REM These DLLs are copied from amjulib/3rdParty.
 REM We are now building for x64 so these are the x64 DLLs!
 
 mkdir ..\..\..\Build\CompiledAssets

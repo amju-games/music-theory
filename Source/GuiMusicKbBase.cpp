@@ -176,12 +176,9 @@ void GuiMusicKbBase::Key::Press()
   m_isPressed = true;
   m_desiredAngle = 5.0f;
 
-  int vol = 100; // TODO Humanise?
-
-  // TODO Don't play the note here: play it when we consume the event
+  // Don't play the note here: play it when we consume the event
   //  we are queueing. That will let us play the correct pitch whatever
   //  octave note the player presses.
-  PlayMidi(m_midiNote, vol); 
 
   TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, true)));
 
@@ -200,8 +197,9 @@ void GuiMusicKbBase::Key::Release()
   m_isPressed = false;
   m_desiredAngle = 0.0f;
 
-  // TODO for symmetry/consistency, we should not note off here either?
-  PlayMidi(m_midiNote, 0); 
+  // For symmetry, we don't silence the note here either.
+  // (Also it allows for the possibility of resolving events for the
+  //  same note from e.g. midi input and virtual piano keys.)
 
   TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, false)));
 
@@ -314,6 +312,11 @@ float GuiMusicKbBase::GetKeyMidX(int midiKey) const
   Assert(key); // make sure midiKey is a valid note?
   const auto& rect = key->m_projectedRect;
   return rect.GetCentre().x;
+}
+
+float GuiMusicKbBase::GetYForQwerty(bool isBlack) const
+{
+  return isBlack ? -0.4 : -0.8f; // TODO scale if KB squished
 }
 
 GuiMusicKbBase::Key* GuiMusicKbBase::PickKey(const Vec2f& pos)
