@@ -306,6 +306,7 @@
     <ClCompile Include="..\..\..\..\Source\Animals\Squirrel.cpp" />
     <ClCompile Include="..\..\..\..\Source\Animals\SuperSimpleShadow.cpp" />
     <ClCompile Include="..\..\..\..\Source\AutoPlayer.cpp" />
+    <ClCompile Include="..\..\..\..\Source\AutoRepeatFilter.cpp" />
     <ClCompile Include="..\..\..\..\Source\BassPlayMidi.cpp" />
     <ClCompile Include="..\..\..\..\Source\BlinkSceneNode.cpp" />
     <ClCompile Include="..\..\..\..\Source\Consts.cpp" />
@@ -350,6 +351,7 @@
     <ClCompile Include="..\..\..\..\Source\Hud.cpp" />
     <ClCompile Include="..\..\..\..\Source\HudNumber.cpp" />
     <ClCompile Include="..\..\..\..\Source\InitialState.cpp" />
+    <ClCompile Include="..\..\..\..\Source\KeyInputHandler.cpp" />
     <ClCompile Include="..\..\..\..\Source\Md2SceneNode.cpp" />
     <ClCompile Include="..\..\..\..\Source\MultiExtra.cpp" />
     <ClCompile Include="..\..\..\..\Source\MusicEvent.cpp" />
@@ -474,6 +476,7 @@
     <ClInclude Include="..\..\..\..\Source\Animals\SuperSimpleShadow.h" />
     <ClInclude Include="..\..\..\..\Source\AnimListener.h" />
     <ClInclude Include="..\..\..\..\Source\AutoPlayer.h" />
+    <ClInclude Include="..\..\..\..\Source\AutoRepeatFilter.h" />
     <ClInclude Include="..\..\..\..\Source\BassPlayMidi.h" />
     <ClInclude Include="..\..\..\..\Source\Beat.h" />
     <ClInclude Include="..\..\..\..\Source\BlinkSceneNode.h" />
@@ -521,6 +524,7 @@
     <ClInclude Include="..\..\..\..\Source\Hud.h" />
     <ClInclude Include="..\..\..\..\Source\HudNumber.h" />
     <ClInclude Include="..\..\..\..\Source\InitialState.h" />
+    <ClInclude Include="..\..\..\..\Source\KeyInputHandler.h" />
     <ClInclude Include="..\..\..\..\Source\Md2SceneNode.h" />
     <ClInclude Include="..\..\..\..\Source\MultiExtra.h" />
     <ClInclude Include="..\..\..\..\Source\MusicEvent.h" />
