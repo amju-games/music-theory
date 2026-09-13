@@ -4,6 +4,7 @@
 
 // This is a bit unforgiving with section numbers in songs.csv
 //#define ASSERT_ON_BAD_NOTE_EVENT_INDEX
+//#define SECTION_DEBUG
 
 namespace Amju
 {
@@ -26,7 +27,9 @@ Sections FindSongSections(const NoteEvents& events)
       Section s(start, ne.GetId());
       if (s.second > s.first) 
       { 
+#ifdef SECTION_DEBUG
 std::cout << "Found section: " << s << "\n";
+#endif
         res.push_back(s);
         start = s.second;
       }
@@ -42,7 +45,9 @@ std::cout << "Found section: " << s << "\n";
   if (s.second > s.first)
   {
     res.push_back(s);
+#ifdef SECTION_DEBUG
 std::cout << "Final section: " << res.back() << "\n";
+#endif
   }
 
   return res;

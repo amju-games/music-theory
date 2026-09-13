@@ -262,8 +262,6 @@ static void SetUpMIDI()
   std::cout << "Setting up player MIDI stream...\n";
   if (SetUpPlayerStream())
   {
-    std::cout << "  ..player MIDI stream is ok?\n";
-
     // This is just a test really. We need to check if we are connected,
     //  and attempt to connect periodically if not connected.
     TheBassMidiInput::Instance()->Connect();

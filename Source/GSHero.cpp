@@ -34,6 +34,8 @@
 #undef max
 #endif
 
+//#define SECTION_DEBUG
+//#define COUNT_IN_DEBUG
 //#define KEYBOARD_DEBUG
 //#define MISSED_NOTE_DEBUG
 //#define MUSIC_EVENT_DEBUG
@@ -156,7 +158,9 @@ void GSHero::StartCountInSongAndGui()
   // Start playing the count-in track
   const float bpm = m_scrollScore->GetBpm();
 
+#ifdef COUNT_IN_DEBUG
 std::cout << "Playing midi count in: " << gameround.m_countIn << " at bpm: " << bpm << "\n";
+#endif
 
   PlayMidiCountIn(gameround.m_countIn, bpm);
 
@@ -186,7 +190,10 @@ void GSHero::ResumeOrRestartGame()
 
   const auto& gameround = GetGameRound();
   m_countInExpiryTime = gameround.m_numCountInBeats / m_scrollScore->GetBpm() * 60.f;
+
+#ifdef COUNT_IN_DEBUG
 std::cout << "Count in time: " << m_countInExpiryTime << "\n";
+#endif
 
   if (m_pauseResumeTime > 0)
   {
@@ -1184,11 +1191,13 @@ std::cout << "Loading music score: " << score << "...\n";
     events, // all note (and rest) events 
     m_scrollScore->GetBeats()); // time for each bar
 
+#ifdef SECTION_DEBUG
 std::cout << "Here are the final sections:\n";
 for (const auto& s : m_songSections)
 {
   std::cout << s << "\n";
 }
+#endif
 }
 
 void GSHero::InitScrollScoreAnim()
