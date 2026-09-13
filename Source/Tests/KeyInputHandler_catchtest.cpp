@@ -29,10 +29,23 @@ TEST_CASE("Add/Remove handlers", "[KeyInputHandler]")
   REQUIRE(added == true);
 
   // Now the same event should be handled and the function executed.
+  // BUT WAIT! We now filter out auto-repeat key events! So this next
+  //  event gets filtered out!
   consumed = kih.OnKeyEvent(MakeKeyEvent('a', true));
+  REQUIRE(consumed == true); // event is consumed..
+  REQUIRE(setByHandlerFunction == 0); // but we DON'T execute func!
 
+  // Key up event to reset auto-repeat flag
+  consumed = kih.OnKeyEvent(MakeKeyEvent('a', false));
+  REQUIRE(consumed == false); // event is not mapped
+
+  // Key down event, not auto repeat due to above key up event
+  consumed = kih.OnKeyEvent(MakeKeyEvent('a', true));
   REQUIRE(consumed == true); // handled!
   REQUIRE(setByHandlerFunction == 666);
+  // Key up event to reset auto-repeat flag
+  consumed = kih.OnKeyEvent(MakeKeyEvent('a', false));
+  REQUIRE(consumed == false); // event is not mapped
  
   // Other key events are not handled. 
   consumed = kih.OnKeyEvent(MakeKeyEvent('b', true));
