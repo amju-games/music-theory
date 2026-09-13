@@ -4,27 +4,43 @@
 
 namespace Amju
 {
-bool IsAutoRepeat(const KeyEvent& ke)
+template <int ARRAY_SIZE>
+static bool AutoRepeatCheck(bool isDown, unsigned char key, 
+  std::array<bool, ARRAY_SIZE>& flags)
 {
-  static std::array<bool, 256> autoRepeat = {};
-
-  if (ke.keyDown && !autoRepeat[ke.key])
+  Assert(key < ARRAY_SIZE);
+  if (isDown && !flags[key])
   {
-    autoRepeat[ke.key] = true;
+    flags[key] = true;
     return false; // not auto-repeat
   }
-  else if (!ke.keyDown)
+  else if (!isDown)
   {
-    autoRepeat[ke.key] = false;
+    flags[key] = false;
     return false; // not auto-repeat
   }
   else
   {
-    Assert(ke.keyDown);
-    Assert(autoRepeat[ke.key]);
+    Assert(isDown);
+    Assert(flags[key]);
 
     // This is an auto-repeat event.
     return true;
+  }
+}
+
+bool IsAutoRepeat(const KeyEvent& ke)
+{
+  if (ke.keyType == AMJU_KEY_CHAR)
+  {
+    static std::array<bool, 256> flags = {};
+    return AutoRepeatCheck(ke.keyDown, static_cast<unsigned char>(ke.key), flags);
+  }
+  else
+  {
+    // 'Special key', not a character. 
+    static std::array<bool, AMJU_KEY_MAX> flags = {};
+    return AutoRepeatCheck(ke.keyDown, static_cast<unsigned char>(ke.keyType), flags);
   }
 }
 }

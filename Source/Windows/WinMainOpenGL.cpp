@@ -1,3 +1,4 @@
+#include <array>
 #include <windows.h>
 #include <gl/GL.h>
 
@@ -386,6 +387,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 static void OnActivation(bool active)
 {
+  // This is called whenever we want to pause music and updates.
   g_active = active;
 
   // Resume or pause audio: this is very convenient but horrendously non-portable
@@ -396,13 +398,15 @@ static void OnActivation(bool active)
   else
   {
     BASS_Pause();
-  }
 
-  // If we are actually playing the game (not in a menu etc), go to the pause state.
-  if (!active)
-  {
+    // If we are deactivating and actually playing the game
+    //  (not in a menu etc), go to the pause state.
     Amju::TheGame::Instance()->PauseGame();
   }
+
+  // TODO Reset the auto-repeat flags. 
+  // Also we should probably do that when we activate a new state so
+  //  this is likely to happen anyway.
 }
 
 static void OnMouseMove(LPARAM lParam)
@@ -444,49 +448,71 @@ static void OnSize(int width, int height)
   QueueEvent(e);
 }
 
-void OnKeyEvent(char k, bool down)
+static bool IsRepeat(LPARAM lParam)
+{
+  // Bit 30 tells us if a keypress is an auto-repeat.
+  bool isRepeat = (lParam & (1 << 30)) != 0;
+  return isRepeat;
+}
+
+static auto MakeLookupTable()
+{
+  // Make lookup table from windows VK_ to Amju key type.
+  using namespace Amju;
+  std::array<Amju::KeyType, 256> table = {};
+  table[VK_UP] = AMJU_KEY_UP;
+  table[VK_DOWN] = AMJU_KEY_DOWN;
+  table[VK_LEFT] = AMJU_KEY_LEFT;
+  table[VK_RIGHT] = AMJU_KEY_RIGHT;
+  table[VK_RETURN] = AMJU_KEY_ENTER;
+  table[VK_SPACE] = AMJU_KEY_SPACE;
+  table[VK_ESCAPE] = AMJU_KEY_ESC;
+  table[VK_BACK] = AMJU_KEY_BACKSPACE;
+  table[VK_DELETE] = AMJU_KEY_DELETE;
+
+  return table;
+}
+
+static Amju::KeyType LookupKey(unsigned int key)
+{
+  static auto lookupTable = MakeLookupTable();
+  return lookupTable[key];
+}
+
+static void QueueCharEvent(unsigned char k, bool down)
+{
+  using namespace Amju;
+  auto ke = new KeyEvent;
+  ke->keyType = AMJU_KEY_CHAR;
+  ke->keyDown = down;
+  ke->key = k;
+  ke->modifier = 0; // TODO Modifiers
+  QueueEvent(ke);
+}
+
+static void OnKeyEvent(unsigned char k, bool down)
 {
   using namespace Amju;
 
-  auto ke = new Amju::KeyEvent;
-  //ke->modifier = glutGetModifiers();
-  ke->keyDown = down;
-
-  if (k == 127) // backspace
+  if (std::isupper(k))
   {
-#ifdef WIN32
-    ke->keyType = AMJU_KEY_DELETE;
-#else
-    ke->keyType = AMJU_KEY_BACKSPACE;
-#endif
-  }
-  else if (k == 8) // delete
-  {
-#ifdef WIN32
-    ke->keyType = AMJU_KEY_BACKSPACE;
-#else
-    ke->keyType = AMJU_KEY_DELETE;
-#endif
-  }
-  else if (k == 13)
-  {
-    ke->keyType = AMJU_KEY_ENTER;
-  }
-  else if (k == 27) // esc
-  {
-    ke->keyType = AMJU_KEY_ESC;
-  }
-  else if (k == ' ')
-  {
-    ke->keyType = AMJU_KEY_SPACE;
-  }
-  else
-  {
-    ke->keyType = AMJU_KEY_CHAR;
-    ke->key = k;
+    // Upper case letters are character keys
+    QueueCharEvent(k, down);
+    return;
   }
 
-  QueueEvent(ke);
+  // Lookup windows VK_ key -> Amju key
+  const auto amjuKey = LookupKey(k);
+  if (amjuKey > 0)
+  {
+    // Special key
+    auto ke = new Amju::KeyEvent;
+    ke->keyType = amjuKey;
+    ke->keyDown = down;
+    ke->key = 0;
+    ke->modifier = 0; // TODO Modifiers
+    QueueEvent(ke);
+  }
 }
 
 static void OnResizing(HWND hwnd, WPARAM wParam, LPARAM lParam)
@@ -585,17 +611,30 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     OnResizing(hwnd, wParam, lParam);
     break;
 
+  case WM_ENTERSIZEMOVE:
+    // If we resize while playing the game, it's critical to pause
+    //  music and updates!
+    OnActivation(false); // deactivate
+    return 0;
+
+  case WM_EXITSIZEMOVE:
+    OnActivation(true); // re-activate
+    return 0;
+
   case WM_PAINT: 
-    // We need to hndle this to redraw the window nicely when resizing.
+    // We need to handle this to redraw the window nicely when resizing.
     if (g_running) OnPaint(hwnd);
     break;
 
   case WM_KEYDOWN:
-    OnKeyEvent(static_cast<char>(wParam & 0xff), true);
+    if (!IsRepeat(lParam))
+    {
+      OnKeyEvent(static_cast<unsigned char>(wParam & 0xff), true);
+    }
     break;
 
   case WM_KEYUP:
-    OnKeyEvent(static_cast<char>(wParam & 0xff), false);
+    OnKeyEvent(static_cast<unsigned char>(wParam & 0xff), false);
     break;
 
   case WM_SYSKEYDOWN:
@@ -625,7 +664,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
   case WM_SYSCOMMAND:
     switch (wParam & 0xFFF0) 
     {
-    case SC_SCREENSAVE:   // Intercepts screensaver launch
+    case SC_KEYMENU: // 'Activate menu bar'
+    case SC_SCREENSAVE: // Intercepts screensaver launch
     case SC_MONITORPOWER: // Intercepts monitor sleep signal
       return 0;         // Absorb the message and block the action
 
