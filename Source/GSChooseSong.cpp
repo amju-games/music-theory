@@ -5,6 +5,7 @@
 #include <GuiScroll.h>
 #include <GuiText.h>
 #include <Localise.h>
+#include "printf_format.h" 
 #include "AnimalController.h"
 #include "GSChooseSong.h"
 #include "GSConfirmSong.h"
@@ -53,15 +54,22 @@ void GSChooseSong::Draw2d()
 
 static void SetLevelGui(const HeroGameRound& r, PGuiElement gui)
 {
-  // We want the whole string localised. So our design should have
-  //  a fixed number of levels, say 8 or 10..? It won't be hundreds.
+  // Set the "Level <n>" text.
   auto t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("level"));
   Assert(t); 
 
-  // NB convert zero-based level number to one-based string
-  //  -- that's for now. We will localise the entire string.
-  std::string str = "Level " + std::to_string(r.m_level + 1);
-  t->SetText(str); 
+  // Look up localised string with format arg for the int level number.
+  // We are using a fallback format function while still on Apple clang 13.
+  // Very unfortunately, that means we are using printf formatting args
+  //  and can't choose the order of the args in the format string.
+  std::string levelStr = Lookup("$$$72"/*Level %d*/);
+
+  // Printf the level number into the string
+  // NB convert zero-based level number to one-based string.
+  // TODO use std::format.
+  std::string finalStr = Amju::format(levelStr,(r.m_level + 1));
+  
+  t->SetText(finalStr); 
 }
 
 void MoveUpMultiLineTitle(GuiTextBase* t)

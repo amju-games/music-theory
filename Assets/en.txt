@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-69
+70
 1=The Swan
 2=From The Carnival of the Animals
 3=Camille Saint-Saëns
@@ -71,3 +71,4 @@
 69=The Guido project
 70=Inno Setup
 71=Completed!
+72=Level %d
