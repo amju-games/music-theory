@@ -221,6 +221,10 @@ void StartUpBeforeCreateWindow()
 {
   std::cout << "*** AMJU PIANO FEST *** -- written by Juliet Colman 2026\n";
 
+#ifdef _DEBUG
+  std::cout << "** Press / to see current key bindings.\n";
+#endif
+
 #if defined(WIN32) && defined(_DEBUG)
   // Set up MSVC mem leak reporting
   _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);

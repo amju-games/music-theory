@@ -103,10 +103,6 @@ void GSBase::OnActive()
   // Add qwerty-keyboard key bindings we want for this state.
   AddKeyInputHandlers();
 
-  // Report on keys currently mapped
-std::cout << "** KEY BINDINGS:\n" 
-  << GetKeyInputHandler().ListHandlers() << "\n";
-
   IGuiPoly::SetPolyOutlineTextureName("Image/white.png");
  
   Assert(!m_guiFilename.empty()); // set gui filename in ctor pls!
@@ -166,6 +162,15 @@ KeyInputHandler& GSBase::AddKeyInputHandlers()
   bool added = true;
 
 #ifdef _DEBUG
+  added = kih.AddHandler(MakeKeyEvent('/'), 
+    [&](const KeyEvent&)->bool 
+    {
+      std::cout << "** Key mappings:\n" << kih.ListHandlers() << "\n";
+      return true;
+    },
+    "Print key mappings");
+  Assert(added);
+
   added = kih.AddHandler(MakeKeyEvent('B'), 
     [](const KeyEvent&)->bool 
     {
