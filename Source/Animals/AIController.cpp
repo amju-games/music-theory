@@ -85,7 +85,9 @@ void AIController::SetAI(AI* ai)
 {
   if (m_ai == ai)
   {
+#ifdef AI_DEBUG
 std::cout << "SetAI: same AI, ignoring. (" << ai->GetName() << ")\n";
+#endif
     return;
   }
 
