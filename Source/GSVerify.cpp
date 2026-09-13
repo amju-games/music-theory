@@ -5,6 +5,8 @@
 #include "GuiMusicScore.h"
 #include "HeroGameRound.h"
 
+//#define DEBUG_PRINT_INFO
+
 namespace Amju
 {
 GSVerify::GSVerify()
@@ -44,11 +46,17 @@ static bool VerifyLoadSong(int i)
   if (i == grm->GetNumGameRounds()) return true; // finished
   const HeroGameRound& r = grm->GetGameRound(i);
 
+#ifdef DEBUG_PRINT_INFO
   std::cout << "Verifying " << r.m_name << "\n";
+#endif
+
   // TODO Check display strings for localise '@'s
   // Play midi (won't be for long, but will assert if no good).
   PlayMidiSong(r.m_backingTrack);
+
+#ifdef DEBUG_PRINT_INFO
   std::cout << "  ..midi loaded ok\n";
+#endif
  
   GuiMusicScore score;
   if (!score.LoadMusicScore(r.m_musicScore))
@@ -56,11 +64,15 @@ static bool VerifyLoadSong(int i)
     std::cout << "Failed to load score: " << r.m_musicScore << "\n";
     Assert(0);
   }
+#ifdef DEBUG_PRINT_INFO
   std::cout << "  ..score loaded ok\n";
+#endif
 
   // We will load the same count-ins multiple times but it's simpler.
   PlayMidiSong(r.m_countIn); 
+#ifdef DEBUG_PRINT_INFO
   std::cout << "  ..count-in midi loaded ok\n";
+#endif
 
   return false; // not finished
 }
