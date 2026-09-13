@@ -4,6 +4,7 @@
 #include <GuiComposite.h>
 #include <GuiScroll.h>
 #include <GuiText.h>
+#include <Localise.h>
 #include "AnimalController.h"
 #include "GSChooseSong.h"
 #include "GSConfirmSong.h"
@@ -83,7 +84,13 @@ static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
   bool isCompleted)
 {
   auto t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-title"));
-  Assert(t); // this is all stuff that is fixed at compile time
+
+  // These names of gui elements are fixed at compile time and these
+  //  Asserts are there to catch typos. 
+  Assert(t); 
+
+  // The song strings are already Looked Up in HeroGameRound::Load, so we
+  //  can set the text directly here.
   t->SetText(r.m_title); 
   MoveUpMultiLineTitle(t);
 
@@ -100,19 +107,25 @@ static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
   // Set 'is completed' text, and TODO best percent and hi score.
   t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-is-completed"));
   Assert(t); 
-  t->SetText(isCompleted ? "$$$71"/*Completed!*/ : "");
+  // LOCALISATION: reminder that we must Lookup any player-visible string
+  t->SetText(isCompleted ? Lookup("$$$71"/*Completed!*/) : "");
 
   auto elem = gui->GetElementByName("song-start-button");
   auto b = dynamic_cast<GuiButton*>(elem);
   Assert(b);
-  b->SetUserData(const_cast<HeroGameRound*>(&r)); // element in a singleton vector, so ok, riight?
+  // Set user data for this button so we know which song we chose.
+  // (It's the same command handler for every button.)
+  // This is safe because the game round is an element in a static vector, 
+  //  will outlive the button, riight?
+  b->SetUserData(const_cast<HeroGameRound*>(&r)); 
   b->SetCommand(Amju::OnSongStart);
   b->SetHasFocus(hasFocus); 
 
-  // All songs are selectable in debug builds
 #ifdef _DEBUG
+  // All songs are selectable in debug builds
   b->SetIsEnabled(true); 
 #else
+  // In release builds, you can't select a song if not unlocked
   b->SetIsEnabled(isUnlocked);
 #endif
 
