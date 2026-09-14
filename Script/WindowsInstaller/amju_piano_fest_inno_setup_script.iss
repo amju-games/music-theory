@@ -30,7 +30,7 @@ UninstallDisplayIcon={app}\{#MyAppExeName}
 DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only).
 ;PrivilegesRequired=lowest
-OutputDir=C:\Users\Juliet\repos\amt\music-theory\Build\WindowsInstaller
+OutputDir=..\..\Build\WindowsInstaller
 OutputBaseFilename=amju_piano_fest_installer
 SolidCompression=yes
 WizardStyle=modern dynamic
@@ -42,12 +42,20 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\Juliet\repos\amt\music-theory\Build\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Juliet\repos\amt\music-theory\Script\Msvc\DLLs\bass.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Juliet\repos\amt\music-theory\Script\Msvc\DLLs\bassmidi.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Juliet\repos\amt\music-theory\Build\CompiledAssets\data-WIN.glue"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Juliet\repos\amt\music-theory\Build\CompiledAssets\music-WIN.glue"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\Build\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\Build\CompiledAssets\data-WIN.glue"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\Build\CompiledAssets\music-WIN.glue"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files.
+
+; BASS DLLs
+Source: "..\..\..\amjulib\3rdPartyLibs\Bass\2.4.18.3\bass24-win\x64\bass.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\..\amjulib\3rdPartyLibs\Bass\BassMidi\2.4.15.3\bassmidi24-win\x64\bassmidi.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+; BugSplat binaries
+Source: "..\..\..\amjulib\3rdPartyLibs\BugSplat\Windows\x64\Release\bin\BugSplatMonitor.exe"; DestDir: "{app}"; Flags: ignoreversion
+; We aren't setting the required registry key for this.
+;Source: "..\..\..\amjulib\3rdPartyLibs\BugSplat\Windows\x64\Release\bin\BugSplatWer.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\..\amjulib\3rdPartyLibs\BugSplat\Windows\x64\Release\bin\BugSplatRc.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
