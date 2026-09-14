@@ -231,6 +231,18 @@ KeyInputHandler& GSBase::AddKeyInputHandlers()
 
 #endif // _DEBUG
 
+#ifdef CRASH_TEST
+  // This should be in a test release build, but not actually shipped, ha ha
+  bool crasher = kih.AddHandler(MakeKeyEvent('9'),
+    [](const KeyEvent&)->bool
+    {
+      volatile int* ptr = nullptr;
+      *ptr = 42;
+      return true;
+    },
+    "Force a crash, for BugSplat testing");
+#endif // CRASH_TEST
+
   return kih;
 }
 
