@@ -21,6 +21,7 @@
 #include <Screen.h>
 #include <SoundManager.h>
 #include "resource.h" // For icon; should be part of game-specific info
+#include "WindowsVersion.h"
 
 // Enable console for debug builds
 #ifdef _DEBUG
@@ -169,7 +170,7 @@ WINDOWPLACEMENT g_wpPrev = { sizeof(g_wpPrev) };
 BugSplat g_BugSplat(
   L"amju-games", // BugSplat database name
   L"piano-fest", // Application name
-  L"0.4.0" // Version string -- TODO Get from WindowsVersion.h
+  VERSION_NUMBER_WSTR_NO_BUILD_NUM  // version number string - wide char flavour
 );
 
 // Forward declarations
