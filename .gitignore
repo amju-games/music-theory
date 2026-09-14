@@ -56,3 +56,5 @@ Source/MakeScore/Examples/out.txt
 /Script/Msvc/AmjulaMusicTheory/MidiScore/Release
 Assets/bassmidi.dll
 Assets/bass.dll
+Script/Msvc/BugSplat/env.ps1
+Assets/BugSplatRc.dll
