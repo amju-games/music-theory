@@ -30,6 +30,7 @@
 #include <SoundManager.h>
 #include "BassPlayMidi.h"
 #include "Consts.h"
+#include "GetVersion.h"
 #include "InitialState.h"
 #include "UserLocale.h" // TODO Promote to amjulib
 #include "Palette.h" // add resource
@@ -208,14 +209,13 @@ void LoadWritableConfig()
     }
   }
 
-#ifdef AMJU_IOS
   if (isFirstTime)
   {
-    gcf->Set(FIRST_TIME_VERSION, VERSION_STRING);
+    gcf->Set(FIRST_TIME_VERSION, GetVersionString3());
     gcf->Save();
     std::cout << "First time run! Setting first time version in game config.\n";
+    // TODO Set first time flag so we give good FTUE
   }
-#endif
 }
 
 void StartUpBeforeCreateWindow()
