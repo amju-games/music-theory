@@ -31,6 +31,7 @@
 #include "BassPlayMidi.h"
 #include "Consts.h"
 #include "InitialState.h"
+#include "UserLocale.h" // TODO Promote to amjulib
 #include "Palette.h" // add resource
 #include "SetUpFactories.h"
 
@@ -301,66 +302,42 @@ static void SetUpMisc()
   GuiButton::SetClickFilename(WAV_BUTTON_CLICK);
 }
 
-static void LoadStringTableForPreferredLanguage()
+static std::string GetLanguageFilename()
 {
-  std::string language = "en-GB";
-  
-#ifdef AMJU_IOS
-  language = GetDevicePreferredLanguage();
-  std::cout << "Preferred language: " << language << "\n";
-  if (language.empty())
+  auto language = GetDevicePreferredLanguage();
+  if (MyFileExists(language + ".txt"))
   {
-    // TODO We should send this info back to Amju HQ
-    // AMJU_TRACKING
-    std::cout << "No preferred language found! Report this interesting finding!\n";
-    language = "en-GB";
-  }
-#endif // AMJU_IOS
-  
-  // Use the preferred language code to load the appropriate string table
-  std::string stringTableFile = language + ".txt";
-  if (MyFileExists(stringTableFile))
-  {
-    if (Localise::LoadStringTable(stringTableFile))
-    {
-      std::cout << "Loaded preferred string table file " << stringTableFile << "\n";
-      return;
-    }
-    else
-    {
-      ReportError("String table file " + stringTableFile + " exists but load failed!");
-      // AMJU_TRACKING
-    }
-  }
-  else
-  {
-    std::cout << "Preferred language is " << language << " but no string table.\n";
+    return language + ".txt";
   }
 
   // No exact match. We want to get the closest match we have.
-  // Try chopping off anything after the 2-char country code
-  // (TODO Is this a good strategy?)
-  stringTableFile = language.substr(0, 2) + ".txt";
-  if (MyFileExists(stringTableFile))
+  // Try chopping off anything after the 2-char base language code.
+  // The country code can be 2 or 3 chars! Look for the first hyphen.
+  size_t hyphenPos = language.find('-');
+  if (hyphenPos != std::string::npos)
   {
-    if (Localise::LoadStringTable(stringTableFile))
+    language = language.substr(0, hyphenPos);
+    if (MyFileExists(language + ".txt"))
     {
-      std::cout << "Loaded fallback string table file " << stringTableFile << "\n";
-      return;
+      return language + ".txt";
     }
-    else
-    {
-      ReportError("String table file " + stringTableFile + " exists but load failed!");
-      // AMJU_TRACKING
-    }
+  }
+  // Fallback
+  return "en.txt";
+}
+
+static void LoadStringTableForPreferredLanguage()
+{
+  auto stringTableFile = GetLanguageFilename();
+  if (Localise::LoadStringTable(stringTableFile))
+  {
+    std::cout << "Loaded string table file " << stringTableFile << "\n";
+    return;
   }
   else
   {
-    std::cout << "Fallback string table is " << stringTableFile << " but doesn't exist.\n";
+    ReportError("String table file " + stringTableFile + " exists but load failed!");
   }
-
-  std::cout << "Failed to load any string table, defaulting to 'en'.\n";
-  // AMJU_TRACKING
 
   // Default to en.txt if all else failed
   Localise::LoadStringTable("en.txt");
