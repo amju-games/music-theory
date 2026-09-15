@@ -25,12 +25,20 @@ public:
   using KeyHandlerValue = std::pair<KeyHandlerFunction, std::string>;
 
 public:
+  enum class Result
+  {
+    AMJU_KEY_EVENT_CONSUMED,
+    AMJU_KEY_EVENT_NOT_CONSUMED,
+    AMJU_KEY_EVENT_NO_HANDLER_REGISTERED,
+    AMJU_KEY_EVENT_REJECTED_AUTO_REPEAT,
+  };
+
   // Handle a key event if there is a function registered for the 
   //  key, up/down flag and possibly modifier.
-  // Return true if handled (event consumed).
+  // Return one of the above results.
   // NB All chars are converted to lower case when adding to map
   //  and in OnKeyEvent.
-  bool OnKeyEvent(const KeyEvent&);
+  Result OnKeyEvent(const KeyEvent&);
 
   // Add handler function/description pair for the given key event.
   // Allow overwrite of existing handler if `overwrite` is true.
