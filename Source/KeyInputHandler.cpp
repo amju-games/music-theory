@@ -76,21 +76,27 @@ bool KeyInputHandler::AddHandler(
   return true;
 }
 
-bool KeyInputHandler::OnKeyEvent(const KeyEvent& ke)
+KeyInputHandler::Result KeyInputHandler::OnKeyEvent(const KeyEvent& ke)
 {
   if (IsAutoRepeat(ke))
   {
     // Ignore event but return true to say 'consumed'.
-    return true;
+    return Result::AMJU_KEY_EVENT_REJECTED_AUTO_REPEAT;
   }
 
   // Set char to lower case, and zero if this is a special key event.
   auto copy = Sanitise(ke);
 
   auto it = m_map.find(copy);
-  if (it == m_map.end()) return false; // no handler registered
+  if (it == m_map.end()) 
+  {
+    return Result::AMJU_KEY_EVENT_NO_HANDLER_REGISTERED; 
+  }
   const auto [func, str] = it->second;
-  return func(copy);
+  // Call the handler function: it returns true if handled.
+  const bool ret = func(copy);
+  return ret ? Result::AMJU_KEY_EVENT_CONSUMED : 
+               Result::AMJU_KEY_EVENT_NOT_CONSUMED;
 }
 
 KeyEvent MakeKeyEvent(char key, bool isDown, 
