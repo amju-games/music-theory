@@ -1,19 +1,22 @@
 #include <iostream>
 #include "catch.hpp"
 #include <EventTypes.h> // KeyEvent
+#include "AutoRepeatFilter.h"		
 #include "KeyInputHandler.h"
 
 TEST_CASE("Add/Remove handlers", "[KeyInputHandler]")
 {
   using namespace Amju;
 
+  AutoClearAutoRepeatFlags cleaner;
+
   KeyInputHandler kih;
 
   // Our handler func modifies this var
   int setByHandlerFunction = 0;
 
-  bool consumed = kih.OnKeyEvent(MakeKeyEvent('a', true));
-  REQUIRE(consumed == false); // no handler 
+  auto consumed = kih.OnKeyEvent(MakeKeyEvent('a', true));
+  REQUIRE(consumed == KeyInputHandler::Result::AMJU_KEY_EVENT_NO_HANDLER_REGISTERED); 
 
   // Add handler for 'a' key down: value is handler function and 
   //  description pair.
@@ -32,31 +35,37 @@ TEST_CASE("Add/Remove handlers", "[KeyInputHandler]")
   // BUT WAIT! We now filter out auto-repeat key events! So this next
   //  event gets filtered out!
   consumed = kih.OnKeyEvent(MakeKeyEvent('a', true));
-  REQUIRE(consumed == true); // event is consumed..
-  REQUIRE(setByHandlerFunction == 0); // but we DON'T execute func!
+  // Event is rejected as auto-repeat
+  REQUIRE(consumed == KeyInputHandler::Result::AMJU_KEY_EVENT_REJECTED_AUTO_REPEAT);
+  REQUIRE(setByHandlerFunction == 0); // ..but we DON'T execute func!
 
   // Key up event to reset auto-repeat flag
   consumed = kih.OnKeyEvent(MakeKeyEvent('a', false));
-  REQUIRE(consumed == false); // event is not mapped
+  // (Event is not mapped to a handler)
+  REQUIRE(consumed == KeyInputHandler::Result::AMJU_KEY_EVENT_NO_HANDLER_REGISTERED); 
 
   // Key down event, not auto repeat due to above key up event
   consumed = kih.OnKeyEvent(MakeKeyEvent('a', true));
-  REQUIRE(consumed == true); // handled!
+
+  // Handled!
+  REQUIRE(consumed == KeyInputHandler::Result::AMJU_KEY_EVENT_CONSUMED); 
+  // Handler function changed this value...
   REQUIRE(setByHandlerFunction == 666);
+
   // Key up event to reset auto-repeat flag
   consumed = kih.OnKeyEvent(MakeKeyEvent('a', false));
-  REQUIRE(consumed == false); // event is not mapped
+  REQUIRE(consumed == KeyInputHandler::Result::AMJU_KEY_EVENT_NO_HANDLER_REGISTERED); 
  
   // Other key events are not handled. 
   consumed = kih.OnKeyEvent(MakeKeyEvent('b', true));
-  REQUIRE(consumed == false); // not handled!
+  REQUIRE(consumed == KeyInputHandler::Result::AMJU_KEY_EVENT_NO_HANDLER_REGISTERED); 
 
   // Remove handler for 'a' key
   bool removed = kih.RemoveHandler(MakeKeyEvent('a', true));
   REQUIRE(removed == true);
   // Now the event is not handled
   consumed = kih.OnKeyEvent(MakeKeyEvent('a', true));
-  REQUIRE(consumed == false);
+  REQUIRE(consumed == KeyInputHandler::Result::AMJU_KEY_EVENT_NO_HANDLER_REGISTERED); 
 
   // Try to remove non-existent handler
   removed = kih.RemoveHandler(MakeKeyEvent('b', true));
@@ -66,6 +75,8 @@ TEST_CASE("Add/Remove handlers", "[KeyInputHandler]")
 TEST_CASE("List handler functions", "[KeyInputHandler]")
 {
   using namespace Amju;
+
+  AutoClearAutoRepeatFlags cleaner;
 
   KeyInputHandler kih;
 
@@ -89,6 +100,8 @@ TEST_CASE("List handler functions", "[KeyInputHandler]")
 TEST_CASE("Add existing fails unless overwrite flag set", "[KeyInputHandler]")
 {
   using namespace Amju;
+
+  AutoClearAutoRepeatFlags cleaner;
 
   KeyInputHandler kih;
 
@@ -114,5 +127,6 @@ TEST_CASE("Add existing fails unless overwrite flag set", "[KeyInputHandler]")
 
   // Check ListHandlers: name of second handler is listed
 //std::cout << kih.ListHandlers() << "\n";
+//
 }
 
