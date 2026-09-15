@@ -29,18 +29,30 @@ static bool AutoRepeatCheck(bool isDown, unsigned char key,
   }
 }
 
+// Key down arrays for characters and special keys.
+static std::array<bool, 256> charFlags = {};
+static std::array<bool, AMJU_KEY_MAX> specialFlags = {};
+
+void ClearAutoRepeatFlags()
+{
+  charFlags = {};
+  specialFlags = {};
+}
+
 bool IsAutoRepeat(const KeyEvent& ke)
 {
   if (ke.keyType == AMJU_KEY_CHAR)
   {
-    static std::array<bool, 256> flags = {};
-    return AutoRepeatCheck(ke.keyDown, static_cast<unsigned char>(ke.key), flags);
+    return AutoRepeatCheck(ke.keyDown, 
+      static_cast<unsigned char>(ke.key), 
+      charFlags);
   }
   else
   {
     // 'Special key', not a character. 
-    static std::array<bool, AMJU_KEY_MAX> flags = {};
-    return AutoRepeatCheck(ke.keyDown, static_cast<unsigned char>(ke.keyType), flags);
+    return AutoRepeatCheck(ke.keyDown, 
+      static_cast<unsigned char>(ke.keyType), 
+      specialFlags);
   }
 }
 }
