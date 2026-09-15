@@ -9,6 +9,7 @@
 #include <GuiMenu.h>
 #include <GuiPoly.h> // to set global texture on poly outlines
 #include "GSBase.h"
+#include "AutoRepeatFilter.h"
 #include "KeyInputHandler.h"
 #include "MyROConfig.h"
 #include "PlayMidi.h"
@@ -101,6 +102,7 @@ void GSBase::OnActive()
   GameState::OnActive();
 
   // Add qwerty-keyboard key bindings we want for this state.
+  ClearAutoRepeatFlags();
   AddKeyInputHandlers();
 
   // Report on keys currently mapped
@@ -144,6 +146,7 @@ GuiElement* GSBase::GetGui()
 void GSBase::OnDeactive()
 {
   RemoveKeyInputHandlers();
+  ClearAutoRepeatFlags();
 
   // Anim messages in the queue need to be cleared!
   TheMessageQueue::Instance()->Clear();
@@ -241,7 +244,8 @@ void GSBase::RemoveKeyInputHandlers()
 
 bool GSBase::OnKeyEvent(const KeyEvent& ke)
 {
-  return GetKeyInputHandler().OnKeyEvent(ke);
+  auto res = GetKeyInputHandler().OnKeyEvent(ke);
+  return res == KeyInputHandler::Result::AMJU_KEY_EVENT_CONSUMED;
 }
 
 const std::string& GSBase::GetGuiFilename()
