@@ -4,7 +4,7 @@
 
 namespace Amju
 {
-template <int ARRAY_SIZE>
+template <size_t ARRAY_SIZE>
 static bool AutoRepeatCheck(bool isDown, unsigned char key, 
   std::array<bool, ARRAY_SIZE>& flags)
 {
