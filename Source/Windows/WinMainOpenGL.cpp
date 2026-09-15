@@ -1,6 +1,9 @@
 #include <windows.h>
 #include <gl/GL.h>
 
+// This is in amjulib/3rdPartyLibs.
+#include <BugSplat.h>
+
 // TODO!!!!!
 #include "../../../amjulib/Source/SoundBass/bass.h"
 #include "../../../amjulib/Source/SoundBass/bassmidi.h"
@@ -18,6 +21,7 @@
 #include <Screen.h>
 #include <SoundManager.h>
 #include "resource.h" // For icon; should be part of game-specific info
+#include "WindowsVersion.h"
 
 // Enable console for debug builds
 #ifdef _DEBUG
@@ -161,6 +165,13 @@ static bool g_active = true;
 static bool g_isFullscreen = false;
 // Window placement, for returning from full screen
 WINDOWPLACEMENT g_wpPrev = { sizeof(g_wpPrev) };
+
+// Create BugSplat global object
+BugSplat g_BugSplat(
+  L"amju-games", // BugSplat database name
+  L"piano-fest", // Application name
+  VERSION_NUMBER_WSTR_NO_BUILD_NUM  // version number string - wide char flavour
+);
 
 // Forward declarations
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);

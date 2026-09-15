@@ -16,3 +16,11 @@
                                     STRINGIZE(VERSION_MINOR) "." \
                                     STRINGIZE(VERSION_REVISION) "." \
                                     STRINGIZE(VERSION_BUILD)
+
+// Wide string flavour
+#define WIDE_STRINGIZE(x)       L#x
+#define TO_WIDE_STRING(x)       WIDE_STRINGIZE(x)
+#define VERSION_NUMBER_WSTR_NO_BUILD_NUM \
+  TO_WIDE_STRING(VERSION_MAJOR) L"." \
+  TO_WIDE_STRING(VERSION_MINOR) L"." \
+  TO_WIDE_STRING(VERSION_REVISION)
