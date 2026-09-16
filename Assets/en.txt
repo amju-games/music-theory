@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-70
+71
 1=The Swan
 2=From The Carnival of the Animals
 3=Camille Saint-Saëns
@@ -72,3 +72,4 @@
 70=Inno Setup
 71=Completed!
 72=Level %d
+73=BUGSPLAT crash reporter

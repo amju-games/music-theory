@@ -1,5 +1,6 @@
 #include <iostream>
 #include <File.h>
+#include <Game.h>
 #include <StringUtils.h>
 #include "Timeline.h"
 #include "TimelineEventPlayWav.h"
@@ -7,6 +8,13 @@
 namespace Amju
 {
 const char* TimelineEventWait::NAME = "wait";
+
+const char* TimelineEventGoBack::NAME = "go-back";
+
+void TimelineEventGoBack::Execute()
+{
+  TheGame::Instance()->GetState()->GoBack();
+}
 
 template <class T>
 static void AddToFactory(TimelineEventFactory* f)
@@ -17,6 +25,7 @@ static void AddToFactory(TimelineEventFactory* f)
 TimelineEventFactory::TimelineEventFactory()
 {
   // Add game-agnostic event types here
+  AddToFactory<TimelineEventGoBack>(this);
   AddToFactory<TimelineEventWait>(this);
   AddToFactory<TimelineEventPlayWav>(this);
   AddToFactory<TimelineEventPlayMidiSong>(this);
