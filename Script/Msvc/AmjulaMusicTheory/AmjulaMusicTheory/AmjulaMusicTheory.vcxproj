@@ -504,6 +504,7 @@
     <ClInclude Include="..\..\..\..\Source\FeedbackBalloon.h" />
     <ClInclude Include="..\..\..\..\Source\FindSongSections.h" />
     <ClInclude Include="..\..\..\..\Source\GenerateCurvedPathConfig.h" />
+    <ClInclude Include="..\..\..\..\Source\GetVersion.h" />
     <ClInclude Include="..\..\..\..\Source\Grader.h" />
     <ClInclude Include="..\..\..\..\Source\GS3dExample.h" />
     <ClInclude Include="..\..\..\..\Source\GS3dTitle.h" />
