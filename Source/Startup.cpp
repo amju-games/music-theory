@@ -36,6 +36,11 @@
 #include "Palette.h" // add resource
 #include "SetUpFactories.h"
 
+// On Macosx we can test languages with a command line param!
+// E.g. -AppleLocale "fr_FR"
+// This is handled by the OS!
+//#define LANG_DEBUG
+
 #ifdef AMJU_IOS
 // just on device, where we create Version.h in release script
 #include "Version.h"
@@ -305,6 +310,11 @@ static void SetUpMisc()
 static std::string GetLanguageFilename()
 {
   auto language = GetDevicePreferredLanguage();
+ 
+#ifdef LANG_DEBUG
+std::cout << "Preferred language: " << language << "\n";
+#endif
+
   if (MyFileExists(language + ".txt"))
   {
     return language + ".txt";
@@ -317,11 +327,21 @@ static std::string GetLanguageFilename()
   if (hyphenPos != std::string::npos)
   {
     language = language.substr(0, hyphenPos);
+ 
+#ifdef LANG_DEBUG
+std::cout << "Falling back to base language: " << language << "\n";
+#endif
+
     if (MyFileExists(language + ".txt"))
     {
       return language + ".txt";
     }
   }
+ 
+#ifdef LANG_DEBUG
+std::cout << "Falling back to default language.\n";
+#endif
+
   // Fallback
   return "en.txt";
 }
