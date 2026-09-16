@@ -35,6 +35,14 @@ struct TimelineEventWait : public TimelineEvent
   void Execute() override {}
 };
 
+// * TimelineEventGoBack *
+// Go back to the previous Game State, if it has been set.
+struct TimelineEventGoBack : public TimelineEvent
+{
+  static const char* NAME;
+  void Execute() override;
+};
+
 // * TimelineEventFactory *
 // Registers known timeline event types in ctor.
 // For other types, call Add in game-specific code.
