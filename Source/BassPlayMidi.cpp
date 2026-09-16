@@ -81,15 +81,6 @@ void BassMidiShutdown()
 
 HSOUNDFONT LoadSoundFont(const std::string fontFileName)
 {
-#ifdef AMJU_IOS
-  // Assets are not in subdirectories on iOS
-  std::string prefix = File::GetRoot(); -- TODO This will go away once we use glue file.
-#else
-  std::string prefix = File::GetRoot() + "Sound/";
-#endif
-
-  auto filename = prefix + fontFileName;
-
   // Use unadorned filename so we can change File::Root
   auto it = fontPool.find(fontFileName);
   if (it != fontPool.end())
@@ -104,6 +95,9 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
   // Load from disk or from glue file if it exists
   if (auto gf = TheSoundManager::Instance()->GetGlueFile())
   {
+    const std::string prefix = "Sound/";
+    auto filename = prefix + fontFileName;
+
     //#ifdef BASS_DEBUG
     std::cout << "Loading soundfont from glue file: " << filename << "\n";
     //#endif
@@ -130,6 +124,9 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
   }
   else
   {
+    const std::string prefix = File::GetRoot() + "Sound/";
+    auto filename = prefix + fontFileName;
+
     font = BASS_MIDI_FontInit(filename.c_str(), 0); // load using full path
   }
   if (font) 
@@ -140,7 +137,7 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
   }
   else
   {
-    std::cout << "Failed to load soundfont: " << filename << ": ";
+    std::cout << "Failed to load soundfont: " << fontFileName << ": ";
     std::cout << "Bass error code: " << BASS_ErrorGetCode() << "\n";
     Assert(0);
   }
