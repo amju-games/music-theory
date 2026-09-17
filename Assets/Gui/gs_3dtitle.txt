@@ -25,19 +25,32 @@ ffffff00,000000ff
 
 gui-comp
 title-and-version
-2
+3
 
 // Title text
 text2
 title-text
 // pos (coords are -1..1)
--1.0, 0.2
+-1.0, 0.4
 // size
-2.0, 0.6
+2.0, 0.65
 // Text
 Piano Fest
 // Font name, size
 bmmolin, 4.0, centre
+
+// Amju/compyright text
+text2
+info-text
+// pos (coords are -1..1)
+-1.0, -.8
+// size
+2.0, .2
+// Text
+$$$74
+// Font name, size
+bmmolin, 1.0, centre, multi
+
 // Version text
 text2
 version-text
@@ -48,22 +61,24 @@ version-text
 // Text
 Version 0.0.0
 // Font name, size
-bmmolin, 0.6, right
+bmmolin, 1.0, right
 
+// START BUTTON
 elastic
 0,-2
 // Start button
 gui-button
 start-button
--0.2, -0.4
+-0.2, -0.3
 0.4, 0.25
 Image/rough-oval.png
 // START
 $$$12
 BUTTON, 3.5, fgcol=ffffff, bgcol=4E69F4
 
+// CREDITS/INFO BUTTON
 translate
--0.6, -0.45
+-0.6, -0.35
 elastic
 -2, 0
 include

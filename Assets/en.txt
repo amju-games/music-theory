@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-71
+73
 1=The Swan
 2=From The Carnival of the Animals
 3=Camille Saint-Saëns
@@ -43,10 +43,10 @@
 39=Gymnopédie no. 2
 40=Gymnopédie no. 3
 41=Amju Piano Fest
-43=Developer ... Juliet Colman
+43=Developer ... Juliet C
 44=THREE GYMNOPÉDIES 
 45=By ERIK SATIE
-46=From the Mutopia Project, mutopiaproject.org
+46=From the Mutopia Project
 47=License: Public Domain
 48=AIR 
 49=From Orchestral Suite No. 3 in D major
@@ -59,7 +59,7 @@
 57=License: Give credit
 58=COLIN'S DOUBLE BASS 
 59=ColinOculus
-60=From Musical Artefacts, musical-artifacts.com
+60=From Musical Artefacts
 61=License: Creative Commons Attribution 3.0 Unported
 62=JAZZ KIT
 63=E-mu Sound Central
@@ -67,9 +67,11 @@
 65=BASS Audio Library by UN4SEEN DEVELOPMENTS
 66=Molin font by Aqeela Studio
 67=CatComic font by Khurasan Studio
-68=From Polyphone, polyphone.io 
+68=From Polyphone
 69=The Guido project
 70=Inno Setup
 71=Completed!
 72=Level %d
 73=BUGSPLAT crash reporter
+74=© Copyright 2026 Amju Games\nwww.amju.com
+75=Back

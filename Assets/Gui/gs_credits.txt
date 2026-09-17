@@ -88,7 +88,7 @@ quit-button
 -0.2, -0.4
 0.4, 0.25
 Image/rough-oval.png
-@@@Back
+$$$75
 BUTTON, 1.0, fgcol=ffffff, bgcol=4E69F4
 
 
