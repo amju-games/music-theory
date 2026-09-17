@@ -17,7 +17,7 @@ SetupArchitecture=x64
 
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{D205EEBE-8B95-43F8-A6AF-CCF677C04928}}
+AppId={{DE8E248C-DC5E-43A0-8840-7A34015A2C80}}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={cm:NameAndVersion,{#EscapeConstArgument(MyAppName)},{#EscapeConstArgument(MyAppVersion)}}
@@ -34,6 +34,14 @@ OutputDir=..\..\Build\WindowsInstaller
 OutputBaseFilename=amju_piano_fest_installer
 SolidCompression=yes
 WizardStyle=modern dynamic
+
+; Juliet - add images. TODO Create custom images
+DisableWelcomePage=no
+; Large image on the left (Recommended size: 240x459 or larger for high-DPI)
+WizardImageFile=..\..\Assets\Windows\logo-512.png
+
+; Small image in the top right (Recommended size: 147x147 or larger)
+WizardSmallImageFile=..\..\Assets\Windows\logo-256.png
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -56,6 +64,9 @@ Source: "..\..\..\amjulib\3rdPartyLibs\BugSplat\Windows\x64\Release\bin\BugSplat
 ; We aren't setting the required registry key for this.
 ;Source: "..\..\..\amjulib\3rdPartyLibs\BugSplat\Windows\x64\Release\bin\BugSplatWer.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\..\amjulib\3rdPartyLibs\BugSplat\Windows\x64\Release\bin\BugSplatRc.dll"; DestDir: "{app}"; Flags: ignoreversion
+; MS redistributables, also required by BugSplat.
+Source: "..\..\..\amjulib\3rdPartyLibs\BugSplat\Windows\Redist_DLLs\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
