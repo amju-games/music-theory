@@ -38,7 +38,7 @@ WizardStyle=modern dynamic
 ; Juliet - add images. TODO Create custom images
 DisableWelcomePage=no
 ; Large image on the left (Recommended size: 240x459 or larger for high-DPI)
-WizardImageFile=..\..\Assets\Windows\logo-512.png
+WizardImageFile=..\..\Assets\Windows\inno-welcome.png
 
 ; Small image in the top right (Recommended size: 147x147 or larger)
 WizardSmallImageFile=..\..\Assets\Windows\logo-256.png
