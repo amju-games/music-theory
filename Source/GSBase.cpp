@@ -17,11 +17,10 @@
 #include "ShareManager.h"
 #include "UseVertexColourShader.h"
 
+// By default, frame stats are off for release builds.
+#ifdef _DEBUG
 #define YES_FRAME_STATS
-// Not on device/release tho, right?
-#if defined(AMJU_IOS) && !defined(_DEBUG)
-#undef YES_FRAME_STATS
-#endif 
+#endif
 
 namespace Amju
 {
