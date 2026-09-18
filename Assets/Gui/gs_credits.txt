@@ -9,18 +9,94 @@ credits-root
 
 // Child 0: scrolling text
 
+// This is the translation node we animate in code: y increases at constant rate.
+translate
+0, 0
+
+// Gui comp for logo, larger text, etc.
+gui-comp
+// NB This name is looked up in code
+text-and-logo
+3
+
+// Fade in the fixed text in the middle of the screen
+// Delay the fade-in
 animation
-auto-scroller
+delay
 one-shot
-// Time: set this depending on num lines?
-20.0
+.75
+step
+
+animation
+fade-in
+one-shot
+// Fade in time
+1.5
 linear
 
-translate
-// Final pos should also depend on num lines.
-0, -1; 0, 6
+// Animates this colour
+colour
+00000000, 000000ff
 
-// TODO Gui comp here so we can have logo, larger text, etc.
+gui-comp
+title-and-version-text
+3
+
+// Title text
+text2
+title-text
+// pos (coords are -1..1)
+-1.0, 0.0
+// size
+2.0, 0.65
+// Text
+//Piano Fest
+$$$41
+// Font name, size
+bmmolin, 4.0, centre
+
+// Amju/copyright text
+text2
+info-text
+// pos (coords are -1..1)
+-1.0, -.2
+// size
+2.0, .2
+// Text
+$$$74
+// Font name, size
+bmmolin, 1.0, centre, multi
+
+// Version text
+text2
+version-text
+// pos (coords are -1..1)
+-1.0, -.6
+// size
+2.0, .2
+// Text - replaced in code
+Version 0.0.0
+// Font name, size
+bmmolin, 1.0, centre
+
+
+// Amju logo -- TODO 3D
+elastic 
+0, 2
+gui-sprite
+amju-logo
+-.15, .7
+.3,.4 
+// TODO Add to atlas? But hopefully will upgrade to nice shiny 3D model
+// No stretch
+Image/logo.png
+1, 1
+0
+
+// Credits text
+// Start at bottom of screen
+translate
+0, -1.2
 
 // Load credits text from file
 text-file
@@ -29,7 +105,7 @@ credits-text
 // Behind gradient overlay
 -1, 0, -1
 // size
-1.9, 0.1 
+2.0, 0.1 
 // TEXT FILENAME
 credits.txt
 // Font name, size
@@ -46,6 +122,7 @@ gui-comp
 gradient-overlay-comp
 2
 
+// Flip image
 scale
 1, -1
 .5,.5
@@ -88,6 +165,7 @@ quit-button
 -0.2, -0.4
 0.4, 0.25
 Image/rough-oval.png
+// Back
 $$$75
 BUTTON, 1.0, fgcol=ffffff, bgcol=4E69F4
 

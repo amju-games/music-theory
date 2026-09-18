@@ -12,12 +12,7 @@
 // - Use TASL: title/author/source/license format.
 // - Use $$$empty for blank lines, which are otherwise stripped.
  
-// Piano Fest
-$$$41
-
-$$$empty
-
-//Developer ... Juliet Colman
+//Developer 
 $$$43
 
 $$$empty
@@ -95,14 +90,14 @@ $$$empty
 
 // BASS Audio Library by UN4SEEN DEVELOPMENTS
 $$$65
+// Inno Setup
+$$$70
+// BugSplat
+$$$73
 // Molin font by Aqeela Studio
 $$$66
 // CatComic font by Khurasan Studio
 $$$67
 // The Guido project
 $$$69
-// Inno Setup
-$$$70
-// BugSplat
-$$$73
 

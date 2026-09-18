@@ -5,12 +5,13 @@
 #include <CursorManager.h>
 #include <GuiButton.h>
 #include <GuiComposite.h>
-#include <GuiDecAnimation.h>
-#include <GuiMenu.h>
 #include <GuiPoly.h> // to set global texture on poly outlines
+#include <GuiText.h> // set version string
+#include <Timer.h>
 #include "GSBase.h"
 #include "AutoRepeatFilter.h"
 #include "AutoTest.h"
+#include "GetVersion.h"
 #include "KeyInputHandler.h"
 #include "MyROConfig.h"
 #include "PlayMidi.h"
@@ -95,6 +96,17 @@ void GSBase::AutoTestSetup()
   });
 }
 
+void GSBase::SetVersionText()
+{
+  Assert(m_gui);
+  auto versionText = dynamic_cast<GuiTextBase*>(
+    m_gui->GetElementByName("version-text"));
+  if (versionText)
+  {
+    versionText->SetText("v. " + GetVersionString3());
+  }
+}
+
 void GSBase::Update()
 {
 #ifdef _DEBUG
@@ -121,6 +133,8 @@ void GSBase::Update()
     frameStatsText->SetText(TheGame::Instance()->GetFrameStats());
   }
 #endif
+
+  m_timeInThisState += TheTimer::Instance()->GetDt();
 }
 
 void GSBase::Draw2d() 
@@ -141,6 +155,8 @@ void GSBase::Draw2d()
 void GSBase::OnActive() 
 {
   GameState::OnActive();
+
+  m_timeInThisState = 0;
 
   // Add qwerty-keyboard key bindings we want for this state.
   ClearAutoRepeatFlags();

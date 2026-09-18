@@ -4,6 +4,8 @@
 
 namespace Amju
 {
+class GuiTextBase;
+
 // ** Choose song **
 // We are building a GUI in code, and to look at extents, we
 //  inherit from GSShowGui.
