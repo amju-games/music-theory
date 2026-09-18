@@ -10,6 +10,7 @@
 #include <GuiPoly.h> // to set global texture on poly outlines
 #include "GSBase.h"
 #include "AutoRepeatFilter.h"
+#include "AutoTest.h"
 #include "KeyInputHandler.h"
 #include "MyROConfig.h"
 #include "PlayMidi.h"
@@ -99,6 +100,17 @@ void GSBase::Draw2d()
 void GSBase::OnActive() 
 {
   GameState::OnActive();
+
+  // If autotest is turned on, set up testing for this state.
+  // We check here if tests are disabled, so in subclasses, we
+  //  know tests are enabled if AutoTestSetup() is called.
+  if (GetAutoTestLevel() != AutoTestLevel::AMJU_NO_TEST)
+  {
+    // The idea here is that every state knows how to test itself;
+    //  so it shouldn't matter what order states get activated.
+    //  We'll see if that theory pans out.
+    AutoTestSetup();
+  }
 
   // Add qwerty-keyboard key bindings we want for this state.
   ClearAutoRepeatFlags();

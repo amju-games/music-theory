@@ -53,6 +53,15 @@ public:
   //  convenience.
   virtual GSBase* HideButtons();
 
+  // Automated testing: every state should know how to test itself,
+  //  whatever order states get activated.
+  // That's the theory anyway.
+  // Each subclass should override this, check the AutoTestLevel,
+  //  and test itself, or set up the next state for testing.
+  // This function is only called if AutoTesting is on, but it could
+  //  be a smoke test or full test.
+  virtual void AutoTestSetup() {}
+
 protected:
   void HideButtons(GuiElement*);
 

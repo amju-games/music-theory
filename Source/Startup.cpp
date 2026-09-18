@@ -15,7 +15,6 @@
 #include <AmjuGLWindowInfo.h>
 #include <AmjuRand.h>
 #include <BassSoundPlayer.h>
-#include <CommandLineArgs.h>
 #include <ConfigFile.h>
 #include <CursorManager.h>
 #include <Directory.h>
