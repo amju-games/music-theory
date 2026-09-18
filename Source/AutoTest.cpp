@@ -1,5 +1,6 @@
 #include <iostream>
 #include <CommandLineArgs.h>
+#include <MessageQueue.h>
 #include "AutoTest.h"
 
 namespace Amju
@@ -25,4 +26,16 @@ AutoTestLevel GetAutoTestLevel()
   static auto testLevel = GetAutoTestLevelFromCommandLine();
   return testLevel;
 }
+
+void EndTest(EndTestReason reason)
+{
+  std::cout << "**** END OF TEST! ****\n";
+  exit(static_cast<int>(reason));
 }
+
+void AutoMsg(std::function<void()> f)
+{
+  TheMessageQueue::Instance()->Add(new FuncMsg(f, SecondsFromNow(1.f)));
+}
+}
+
