@@ -611,7 +611,8 @@ void GSHero::AutoTestSetup()
   {
     // Full test: auto-play the game round.
     // TODO Play badly, losing, then well, winning.
-    SetUpAutoPlay();
+std::cout << "** AUTO TEST: Setting auto play on.\n";
+    m_autoPlay = true;
   }
   else if (GetAutoTestLevel() == AutoTestLevel::AMJU_SMOKE_TEST)
   {
@@ -641,14 +642,20 @@ void GSHero::SetUpAutoPlay()
 
     ++numMessagesQueued;
   }
-std::cout << "AUTOPLAY: queued " << numMessagesQueued
+std::cout << "*** AUTOPLAY: queued " << numMessagesQueued
    << " music event messages, of "
-   << messages.size() << " total.\n";
+   << messages.size() << " total note events in the score.\n";
 }
 
 void GSHero::OnCountInFinished()
 {
 std::cout << "Count in finished!\n";
+
+  if (m_autoPlay)
+  {
+std::cout << "*** Setting up Auto Play messages...\n";
+    SetUpAutoPlay();
+  }
 
   ChangeState(HeroState::SONG_PLAYING);
 
@@ -1075,6 +1082,8 @@ void GSHero::OnDeactive()
 
 void GSHero::OnActive() 
 {
+  m_autoPlay = false; // set to true if in auto test mode
+
   GSBase3d::OnActive();  
 
   frameCount = 0;

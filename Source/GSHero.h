@@ -253,6 +253,9 @@ protected:
   bool m_keyboardIsMoving = false;
 
   QwertyOverlay m_qwertyOverlay;
+
+  // Set to true if in auto test mode: then we auto-play the round.
+  bool m_autoPlay = false;
 };
 
 typedef Singleton<GSHero> TheGSHero;
