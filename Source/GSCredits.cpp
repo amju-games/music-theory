@@ -25,6 +25,11 @@ GSCredits::GSCredits()
 {
   m_guiFilename = "Gui/gs_credits.txt";
   m_sceneFilename = "Scene/credits-scene.txt";
+  // Constants for non-auto-test mode
+  const float WAIT_TIME = 3.f;
+  const float SCROLL_VEL = .5f; // screen units/sec
+  m_waitTime = WAIT_TIME; 
+  m_scrollVel = SCROLL_VEL;
 }
 
 void GSCredits::OnActive()
@@ -45,20 +50,26 @@ void GSCredits::OnActive()
   SetVersionText();
 }
 
+void GSCredits::AutoTestSetup()
+{
+  const float WAIT_TIME = 0.3f;
+  const float SCROLL_VEL = 5.f; // screen units/sec
+  m_waitTime = WAIT_TIME; 
+  m_scrollVel = SCROLL_VEL;
+}
+
 void GSCredits::Update()
 {
   GSBase3d::Update();
 
   // Scroll the logo and all text.
-  const float WAIT_TIME = 3.f;
-  const float SCROLL_VEL = .5f; // screen units/sec
-  if (GetTimeInThisState() > WAIT_TIME)
+  if (GetTimeInThisState() > m_waitTime)
   {
     auto translate = dynamic_cast<GuiDecTranslate*>(
       m_gui->GetElementByName("translate-text-and-logo"));
     Assert(translate);
     auto pos = translate->GetLocalPos();
-    pos.y += SCROLL_VEL * TheTimer::Instance()->GetDt();
+    pos.y += m_scrollVel * TheTimer::Instance()->GetDt();
     translate->SetLocalPos(pos);
   }
 
