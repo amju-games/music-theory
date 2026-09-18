@@ -11,7 +11,22 @@ gui-comp
 // Name
 title-root
 // Num children
-3
+4
+
+
+// Amju logo -- TODO 3D
+elastic 
+0, 2
+gui-sprite
+amju-logo
+-.125, .8
+.25,.35 
+// TODO Add to atlas? But hopefully will upgrade to nice shiny 3D model
+// No stretch
+Image/logo.png
+1, 1
+0
+
 
 // Fade in title text
 animation
