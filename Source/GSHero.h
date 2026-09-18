@@ -47,6 +47,9 @@ public:
   void Update() override;
   void Draw2d() override;
 
+  // Set up Auto Player
+  void AutoTestSetup() override;
+
   // Add debug key handlers, and TODO qwerty key handlers too.
   KeyInputHandler& AddKeyInputHandlers() override;
 

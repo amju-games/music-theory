@@ -9,7 +9,8 @@
 #include <SoundManager.h>
 #include <Timer.h>
 #include "AnimalController.h" // eat a pet on bum note
-#include "AutoPlayer.h" // TODO TEMP TEST generate events to auto-play song
+#include "AutoPlayer.h" // generate events to auto-play song
+#include "AutoTest.h"
 #include "BassPlayMidi.h"
 #include "Consts.h"
 #include "FeedbackBalloon.h"
@@ -40,7 +41,6 @@
 //#define MISSED_NOTE_DEBUG
 //#define MUSIC_EVENT_DEBUG
 //#define GRADE_DEBUG
-//#define AUTOPLAY_ENABLED 
 
 namespace Amju
 {
@@ -438,7 +438,7 @@ void GSHero::Update()
     ScrollExtras();
 
     // If we have reached the end, we have won!
-    if (!m_roundIsOver && normalisedAnimTime > 0.99f)
+    if (!m_roundIsOver && normalisedAnimTime > 0.99999f)
     {
       OnPlayerHasWon();
     }
@@ -605,9 +605,24 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
 #endif
 }
 
+void GSHero::AutoTestSetup()
+{
+  if (GetAutoTestLevel() == AutoTestLevel::AMJU_FULL_TEST)
+  {
+    // Full test: auto-play the game round.
+    // TODO Play badly, losing, then well, winning.
+    SetUpAutoPlay();
+  }
+  else if (GetAutoTestLevel() == AutoTestLevel::AMJU_SMOKE_TEST)
+  {
+    // Smoke test: generate win event after a short delay.
+    AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasWon(); }, 3.f);
+  }
+}
+
 void GSHero::SetUpAutoPlay()
 {
-#ifdef AUTOPLAY_ENABLED
+  // For auto-test, generate events to auto-play the song.
   AutoPlayer ap;
   auto messages = ap.GenerateMessages(m_scrollScore->GetNoteEvents(), {});
   auto queue = TheMessageQueue::Instance();
@@ -629,17 +644,11 @@ void GSHero::SetUpAutoPlay()
 std::cout << "AUTOPLAY: queued " << numMessagesQueued
    << " music event messages, of "
    << messages.size() << " total.\n";
-#endif
 }
 
 void GSHero::OnCountInFinished()
 {
 std::cout << "Count in finished!\n";
-
-  // For debug, generate events to auto-play the song - make this
-  //  something you can turn on/off. Would it have any use outside of
-  //  debugging?? (And to create vids.)
-  SetUpAutoPlay();
 
   ChangeState(HeroState::SONG_PLAYING);
 
@@ -1054,6 +1063,9 @@ void GSHero::OnDeactive()
   // Kill the Extras manager (it's an RCPtr).
   // It has a ref to the GUI, which we want to drop.
   m_extrasAdder = nullptr;
+
+  // The song should have stopped but we could be auto-testing.
+  StopMidiSong();
 
   // Kill any lingering player notes. This would be done by the 
   //  GuiMusicKb dtor, but it might not be called as there are multiple
