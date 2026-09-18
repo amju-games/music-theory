@@ -60,7 +60,9 @@ public:
   //  and test itself, or set up the next state for testing.
   // This function is only called if AutoTesting is on, but it could
   //  be a smoke test or full test.
-  virtual void AutoTestSetup() {}
+  // Default impl: if there is a button with Focus, click it after
+  //  1s. If no focus button, does nothing, and you should override.
+  virtual void AutoTestSetup(); 
 
 protected:
   void HideButtons(GuiElement*);

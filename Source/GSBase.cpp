@@ -54,6 +54,47 @@ GSBase* GSBase::HideButtons()
   return this;
 }
 
+static GuiButton* FindFocusButton(GuiElement* elem)
+{
+  if (auto button = dynamic_cast<GuiButton*>(elem)) 
+  {
+    std::cout << "Found button: " << button->GetName() << "\n";
+    if (button->IsFocusButton())
+    {
+      std::cout << "It's the focus button!!\n"; 
+      return button;
+    }
+  }
+  else if (GuiComposite* comp = dynamic_cast<GuiComposite*>(elem))
+  {
+    int n = comp->GetNumChildren();
+    for (int i = 0; i < n; i++)
+    {
+      if (auto button = FindFocusButton(comp->GetChild(i)))
+      {
+        return button;
+      }
+    }
+  }
+  return nullptr;
+}
+
+void GSBase::AutoTestSetup()
+{
+  AutoMsg([=]()
+  { 
+    // Try to find a button with Focus. If we find one, click it.
+    if (auto button = FindFocusButton(m_gui))
+    {
+      std::cout << "*** AUTO TEST *** Found Focus button \""
+        << button->GetName()
+        << "\", pressing it...\n";
+      // Simulate button press
+      button->ExecuteCommand(); 
+    }
+  });
+}
+
 void GSBase::Update()
 {
 #ifdef _DEBUG
@@ -101,17 +142,6 @@ void GSBase::OnActive()
 {
   GameState::OnActive();
 
-  // If autotest is turned on, set up testing for this state.
-  // We check here if tests are disabled, so in subclasses, we
-  //  know tests are enabled if AutoTestSetup() is called.
-  if (GetAutoTestLevel() != AutoTestLevel::AMJU_NO_TEST)
-  {
-    // The idea here is that every state knows how to test itself;
-    //  so it shouldn't matter what order states get activated.
-    //  We'll see if that theory pans out.
-    AutoTestSetup();
-  }
-
   // Add qwerty-keyboard key bindings we want for this state.
   ClearAutoRepeatFlags();
   AddKeyInputHandlers();
@@ -143,6 +173,17 @@ void GSBase::OnActive()
     std::cout << "Failed to load extra GUI.\n";
   }
 #endif
+
+  // If autotest is turned on, set up testing for this state.
+  // We check here if tests are disabled, so in subclasses, we
+  //  know tests are enabled if AutoTestSetup() is called.
+  if (GetAutoTestLevel() != AutoTestLevel::AMJU_NO_TEST)
+  {
+    // The idea here is that every state knows how to test itself;
+    //  so it shouldn't matter what order states get activated.
+    //  We'll see if that theory pans out.
+    AutoTestSetup();
+  }
 }
 
 GuiElement* GSBase::GetGui()
