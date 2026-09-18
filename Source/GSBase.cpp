@@ -55,14 +55,12 @@ GSBase* GSBase::HideButtons()
   return this;
 }
 
-static GuiButton* FindFocusButton(GuiElement* elem)
+GuiButton* GSBase::FindFocusButton(GuiElement* elem)
 {
   if (auto button = dynamic_cast<GuiButton*>(elem)) 
   {
-    std::cout << "Found button: " << button->GetName() << "\n";
     if (button->IsFocusButton())
     {
-      std::cout << "It's the focus button!!\n"; 
       return button;
     }
   }
@@ -82,7 +80,7 @@ static GuiButton* FindFocusButton(GuiElement* elem)
 
 void GSBase::AutoTestSetup()
 {
-  AutoMsg([=]()
+  AutoMsg([this]()
   { 
     // Try to find a button with Focus. If we find one, click it.
     if (auto button = FindFocusButton(m_gui))

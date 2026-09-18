@@ -1,4 +1,5 @@
 #include <iostream>
+#include <DoOnce.h>
 #include <DrawRect.h>
 #include <GuiButton.h>
 #include <GuiComposite.h>
@@ -7,6 +8,7 @@
 #include <Localise.h>
 #include "printf_format.h" 
 #include "AnimalController.h"
+#include "AutoTest.h"
 #include "GSChooseSong.h"
 #include "GSConfirmSong.h"
 #include "GSHero.h"
@@ -41,6 +43,56 @@ static void OnSongStart(GuiElement* button)
 GSChooseSong::GSChooseSong()
 {
   m_guiFilename = "Gui/gs_choose_song.txt";
+}
+
+static void WipeUserProgress()
+{
+  auto grm = TheGameRoundManager::Instance();
+  // Make sure the game round csv file is loaded; load only happens
+  //  once, right?
+  grm->Load();
+  auto user = GetUserProfile();
+  int numSongs = grm->GetNumGameRounds();
+  for (int i = 0; i < numSongs; i++)
+  {
+    const auto& gameround = grm->GetGameRound(i);
+    auto song = user->GetSongPlayerInfo(gameround.m_name);
+    song.m_completed = false;
+    user->SetSongPlayerInfo(song);
+  }
+  // (Don't save, just wipe progress in mem)
+}
+
+void GSChooseSong::AutoTestSetup()
+{
+  // Wipe out user progress: we want to go through all the songs
+  do_once
+  {
+    WipeUserProgress();
+  }
+
+  // If there is a focus button, click it -- that's the next song
+  //  we should attempt.
+  
+  // If no focus button, there are no more songs to attempt.
+  // In which case, we have finished the auto test!!
+  AutoMsg([this]()
+  {    
+    // Try to find a button with Focus. If we find one, click it.    
+    if (auto button = FindFocusButton(m_gui))    
+    {    
+      std::cout << "*** AUTO TEST *** Choose song: found Focus button \""    
+        << button->GetName()    
+        << "\", pressing it...\n";    
+      // Simulate button press    
+      button->ExecuteCommand();    
+    }    
+    else
+    {
+      std::cout << "*** AUTO TEST *** Choose song: no more songs!\n";
+      EndTest(EndTestReason::AMJU_OK);
+    }
+  });    
 }
 
 void GSChooseSong::Draw2d()

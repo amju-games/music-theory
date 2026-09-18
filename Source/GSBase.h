@@ -10,6 +10,7 @@
 
 namespace Amju
 {
+class GuiButton;
 class KeyInputHandler;
 
 // * GSBase *
@@ -71,7 +72,12 @@ protected:
   // Set version in "version-text" GUI text field if it exists
   void SetVersionText();
 
+  // Convenience function: hide GuiButtons in the given GUI tree.
   void HideButtons(GuiElement*);
+
+  // Convenience function: find the (first) button with Focus in
+  //  the given GUI tree.
+  GuiButton* FindFocusButton(GuiElement* elem);
 
   // For dev/debugging, or when landscape/portrait orientation changes.
   // Default impl is to call OnDeactive() then OnActive, so reloading everything
