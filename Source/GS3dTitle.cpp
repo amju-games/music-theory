@@ -1,6 +1,7 @@
 #include <GuiText.h> // set version string
 #include <SceneGraph.h> // camera move
 #include <Timer.h> // camera move
+#include "AutoTest.h"                   
 #include "BassPlayMidi.h"  // still needed for StopSong
 #include "Consts.h"
 #include "GS3dTitle.h"
@@ -27,6 +28,27 @@ GS3dTitle::GS3dTitle()
 {
   m_sceneFilename = "Scene/3d-title-scene.txt";
   m_guiFilename = "Gui/gs_3dtitle.txt";
+}
+
+void GS3dTitle::AutoTestSetup()
+{
+  static int visit = 0;
+  switch (visit)
+  {
+  case 0:
+    // Queue the function to execute in 1s.
+    AutoMsg([](){ OnCreditsButton(nullptr); });
+    break;
+
+  case 1:
+    AutoMsg([](){ OnStart(nullptr); });
+    break;
+
+  default:
+    EndTest(EndTestReason::AMJU_OK);
+    break;
+  };
+  ++visit;
 }
 
 void GS3dTitle::OnDeactive()
