@@ -50,11 +50,12 @@ title-text
 // size
 2.0, 0.65
 // Text
-Piano Fest
+//Piano Fest
+$$$41
 // Font name, size
 bmmolin, 4.0, centre
 
-// Amju/compyright text
+// Amju/copyright text
 text2
 info-text
 // pos (coords are -1..1)

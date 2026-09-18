@@ -53,7 +53,13 @@ public:
   //  convenience.
   virtual GSBase* HideButtons();
 
+  // Time since OnActive() called
+  float GetTimeInThisState() { return m_timeInThisState; }
+
 protected:
+  // Set version in "version-text" GUI text field if it exists
+  void SetVersionText();
+
   void HideButtons(GuiElement*);
 
   // For dev/debugging, or when landscape/portrait orientation changes.
@@ -65,6 +71,9 @@ protected:
   // 2D GUI
   PGuiElement m_gui;
   std::string m_guiFilename; // used to load m_gui - set this in ctor 
+
+  // Time since OnActive() called
+  float m_timeInThisState = 0;
 };
 
 // Useful function for timed messages: go to Game State T.

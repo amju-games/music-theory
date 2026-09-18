@@ -11,6 +11,7 @@ class GSCredits : public GSBase3d
 public:
   GSCredits();
   void OnActive() override;
+  void Update() override;
 };
 
 using TheGSCredits = Singleton<GSCredits>;

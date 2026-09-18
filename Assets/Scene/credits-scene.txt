@@ -22,8 +22,9 @@ play-midi
 0.001
 Songs/Bach-Air/bach-air.mid
 
-go-back
-17 absolute
+// Detect the end in code!
+//go-back
+//17 absolute
 
 end
 // now or later

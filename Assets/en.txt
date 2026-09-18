@@ -42,8 +42,8 @@
 38=Juliet
 39=Gymnopédie no. 2
 40=Gymnopédie no. 3
-41=Amju Piano Fest
-43=Developer ... Juliet C
+41=Piano Fest
+43=Developer: Juliet C.
 44=THREE GYMNOPÉDIES 
 45=By ERIK SATIE
 46=From the Mutopia Project

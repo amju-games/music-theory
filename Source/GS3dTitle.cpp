@@ -1,4 +1,4 @@
-#include <GuiText.h> // set version string
+#include <ResourceManager.h>
 #include <SceneGraph.h> // camera move
 #include <Timer.h> // camera move
 #include "BassPlayMidi.h"  // still needed for StopSong
@@ -8,7 +8,6 @@
 #include "GSCredits.h"
 #include "MySceneGraph.h"
 #include "PlayWav.h" // TODO move to midi songs for buttons etc
-#include "GetVersion.h"
 
 namespace Amju
 {
@@ -59,11 +58,7 @@ void GS3dTitle::OnActive()
   auto creditsButton = GetElementByName(m_gui, "info-button");
   creditsButton->SetCommand(OnCreditsButton);
  
-  // Set version text 
-  // (TODO move to a better place, e.g. Credits/Info/Settings)
-  auto versionText = dynamic_cast<GuiTextBase*>(GetElementByName(m_gui, "version-text"));
-  Assert(versionText);
-  versionText->SetText("v. " + GetVersionString3());
+  SetVersionText();
 }
 
 void GS3dTitle::Update()
