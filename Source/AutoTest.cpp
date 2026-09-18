@@ -33,9 +33,10 @@ void EndTest(EndTestReason reason)
   exit(static_cast<int>(reason));
 }
 
-void AutoMsg(std::function<void()> f)
+void AutoMsg(std::function<void()> f, float delay)
 {
-  TheMessageQueue::Instance()->Add(new FuncMsg(f, SecondsFromNow(1.f)));
+  TheMessageQueue::Instance()->Add(new FuncMsg(f, 
+    SecondsFromNow(delay)));
 }
 }
 

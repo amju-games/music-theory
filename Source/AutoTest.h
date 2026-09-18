@@ -30,10 +30,11 @@ enum class EndTestReason
   AMJU_OK,
 
 };
+// End game in auto test mode, with given reason.
 void EndTest(EndTestReason reason);
 
 // Convenience for auto testing: queue a message to execute
-//  after 1 sec, executing the given function.
-void AutoMsg(std::function<void()>);
+//  after 1 sec (default), executing the given function.
+void AutoMsg(std::function<void()>, float delay = 1.0);
 }
 
