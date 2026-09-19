@@ -616,8 +616,17 @@ std::cout << "** AUTO TEST: Setting auto play on.\n";
   }
   else if (GetAutoTestLevel() == AutoTestLevel::AMJU_SMOKE_TEST)
   {
-    // Smoke test: generate win event after a short delay.
-    AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasWon(); }, 3.f);
+    // Smoke test: generate lose or win event after a short delay.
+    static int visit = 0;
+    if (visit % 2 == 0)
+    {
+      AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasLost(); }, 3.f);
+    }
+    else
+    {
+      AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasWon(); }, 3.f);
+    }
+    ++visit;
   }
 }
 
