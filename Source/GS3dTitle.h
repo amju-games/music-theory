@@ -14,7 +14,7 @@ public:
   void OnActive() override;
   void OnDeactive() override;
 
-protected:
+  void AutoTestSetup() override;
 };
 
 using TheGS3dTitle = Singleton<GS3dTitle>;

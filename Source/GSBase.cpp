@@ -10,6 +10,7 @@
 #include <Timer.h>
 #include "GSBase.h"
 #include "AutoRepeatFilter.h"
+#include "AutoTest.h"
 #include "GetVersion.h"
 #include "KeyInputHandler.h"
 #include "MyROConfig.h"
@@ -52,6 +53,45 @@ GSBase* GSBase::HideButtons()
 {
   HideButtons(m_gui);
   return this;
+}
+
+GuiButton* GSBase::FindFocusButton(GuiElement* elem)
+{
+  if (auto button = dynamic_cast<GuiButton*>(elem)) 
+  {
+    if (button->IsFocusButton())
+    {
+      return button;
+    }
+  }
+  else if (GuiComposite* comp = dynamic_cast<GuiComposite*>(elem))
+  {
+    int n = comp->GetNumChildren();
+    for (int i = 0; i < n; i++)
+    {
+      if (auto button = FindFocusButton(comp->GetChild(i)))
+      {
+        return button;
+      }
+    }
+  }
+  return nullptr;
+}
+
+void GSBase::AutoTestSetup()
+{
+  AutoMsg([this]()
+  { 
+    // Try to find a button with Focus. If we find one, click it.
+    if (auto button = FindFocusButton(m_gui))
+    {
+      std::cout << "*** AUTO TEST *** Found Focus button \""
+        << button->GetName()
+        << "\", pressing it...\n";
+      // Simulate button press
+      button->ExecuteCommand(); 
+    }
+  });
 }
 
 void GSBase::SetVersionText()
@@ -147,6 +187,17 @@ void GSBase::OnActive()
     std::cout << "Failed to load extra GUI.\n";
   }
 #endif
+
+  // If autotest is turned on, set up testing for this state.
+  // We check here if tests are disabled, so in subclasses, we
+  //  know tests are enabled if AutoTestSetup() is called.
+  if (GetAutoTestLevel() != AutoTestLevel::AMJU_NO_TEST)
+  {
+    // The idea here is that every state knows how to test itself;
+    //  so it shouldn't matter what order states get activated.
+    //  We'll see if that theory pans out.
+    AutoTestSetup();
+  }
 }
 
 GuiElement* GSBase::GetGui()

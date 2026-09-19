@@ -47,6 +47,9 @@ public:
   void Update() override;
   void Draw2d() override;
 
+  // Set up Auto Player
+  void AutoTestSetup() override;
+
   // Add debug key handlers, and TODO qwerty key handlers too.
   KeyInputHandler& AddKeyInputHandlers() override;
 
@@ -250,6 +253,9 @@ protected:
   bool m_keyboardIsMoving = false;
 
   QwertyOverlay m_qwertyOverlay;
+
+  // Set to true if in auto test mode: then we auto-play the round.
+  bool m_autoPlay = false;
 };
 
 typedef Singleton<GSHero> TheGSHero;

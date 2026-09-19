@@ -17,6 +17,8 @@ public:
   void OnActive() override;
   void Draw2d() override;
 
+  void AutoTestSetup() override;
+
   // Callback for when we stop on a song in the scrolling list.
   void OnTabStop(int tabStop);
 

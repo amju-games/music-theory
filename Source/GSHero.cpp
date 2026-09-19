@@ -9,7 +9,8 @@
 #include <SoundManager.h>
 #include <Timer.h>
 #include "AnimalController.h" // eat a pet on bum note
-#include "AutoPlayer.h" // TODO TEMP TEST generate events to auto-play song
+#include "AutoPlayer.h" // generate events to auto-play song
+#include "AutoTest.h"
 #include "BassPlayMidi.h"
 #include "Consts.h"
 #include "FeedbackBalloon.h"
@@ -40,7 +41,6 @@
 //#define MISSED_NOTE_DEBUG
 //#define MUSIC_EVENT_DEBUG
 //#define GRADE_DEBUG
-//#define AUTOPLAY_ENABLED 
 
 namespace Amju
 {
@@ -438,7 +438,7 @@ void GSHero::Update()
     ScrollExtras();
 
     // If we have reached the end, we have won!
-    if (!m_roundIsOver && normalisedAnimTime > 0.99f)
+    if (!m_roundIsOver && normalisedAnimTime > 0.99999f)
     {
       OnPlayerHasWon();
     }
@@ -605,9 +605,34 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
 #endif
 }
 
+void GSHero::AutoTestSetup()
+{
+  if (GetAutoTestLevel() == AutoTestLevel::AMJU_FULL_TEST)
+  {
+    // Full test: auto-play the game round.
+    // TODO Play badly, losing, then well, winning.
+std::cout << "** AUTO TEST: Setting auto play on.\n";
+    m_autoPlay = true;
+  }
+  else if (GetAutoTestLevel() == AutoTestLevel::AMJU_SMOKE_TEST)
+  {
+    // Smoke test: generate lose or win event after a short delay.
+    static int visit = 0;
+    if (visit % 2 == 0)
+    {
+      AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasLost(); }, 3.f);
+    }
+    else
+    {
+      AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasWon(); }, 3.f);
+    }
+    ++visit;
+  }
+}
+
 void GSHero::SetUpAutoPlay()
 {
-#ifdef AUTOPLAY_ENABLED
+  // For auto-test, generate events to auto-play the song.
   AutoPlayer ap;
   auto messages = ap.GenerateMessages(m_scrollScore->GetNoteEvents(), {});
   auto queue = TheMessageQueue::Instance();
@@ -626,20 +651,20 @@ void GSHero::SetUpAutoPlay()
 
     ++numMessagesQueued;
   }
-std::cout << "AUTOPLAY: queued " << numMessagesQueued
+std::cout << "*** AUTOPLAY: queued " << numMessagesQueued
    << " music event messages, of "
-   << messages.size() << " total.\n";
-#endif
+   << messages.size() << " total note events in the score.\n";
 }
 
 void GSHero::OnCountInFinished()
 {
 std::cout << "Count in finished!\n";
 
-  // For debug, generate events to auto-play the song - make this
-  //  something you can turn on/off. Would it have any use outside of
-  //  debugging?? (And to create vids.)
-  SetUpAutoPlay();
+  if (m_autoPlay)
+  {
+std::cout << "*** Setting up Auto Play messages...\n";
+    SetUpAutoPlay();
+  }
 
   ChangeState(HeroState::SONG_PLAYING);
 
@@ -1055,6 +1080,9 @@ void GSHero::OnDeactive()
   // It has a ref to the GUI, which we want to drop.
   m_extrasAdder = nullptr;
 
+  // The song should have stopped but we could be auto-testing.
+  StopMidiSong();
+
   // Kill any lingering player notes. This would be done by the 
   //  GuiMusicKb dtor, but it might not be called as there are multiple
   //  references to bits of the GUI.
@@ -1063,6 +1091,8 @@ void GSHero::OnDeactive()
 
 void GSHero::OnActive() 
 {
+  m_autoPlay = false; // set to true if in auto test mode
+
   GSBase3d::OnActive();  
 
   frameCount = 0;

@@ -10,6 +10,7 @@
 
 namespace Amju
 {
+class GuiButton;
 class KeyInputHandler;
 
 // * GSBase *
@@ -53,6 +54,17 @@ public:
   //  convenience.
   virtual GSBase* HideButtons();
 
+  // Automated testing: every state should know how to test itself,
+  //  whatever order states get activated.
+  // That's the theory anyway.
+  // Each subclass should override this, check the AutoTestLevel,
+  //  and test itself, or set up the next state for testing.
+  // This function is only called if AutoTesting is on, but it could
+  //  be a smoke test or full test.
+  // Default impl: if there is a button with Focus, click it after
+  //  1s. If no focus button, does nothing, and you should override.
+  virtual void AutoTestSetup(); 
+
   // Time since OnActive() called
   float GetTimeInThisState() { return m_timeInThisState; }
 
@@ -60,7 +72,12 @@ protected:
   // Set version in "version-text" GUI text field if it exists
   void SetVersionText();
 
+  // Convenience function: hide GuiButtons in the given GUI tree.
   void HideButtons(GuiElement*);
+
+  // Convenience function: find the (first) button with Focus in
+  //  the given GUI tree.
+  GuiButton* FindFocusButton(GuiElement* elem);
 
   // For dev/debugging, or when landscape/portrait orientation changes.
   // Default impl is to call OnDeactive() then OnActive, so reloading everything

@@ -12,6 +12,11 @@ public:
   GSCredits();
   void OnActive() override;
   void Update() override;
+  void AutoTestSetup() override;
+
+private:
+  float m_waitTime;
+  float m_scrollVel;
 };
 
 using TheGSCredits = Singleton<GSCredits>;
