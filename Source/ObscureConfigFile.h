@@ -10,10 +10,13 @@
 
 namespace Amju 
 {
+// DON'T CHANGE THIS: Changing this would invalidate all config files.
+static const char* XOR_KEY = R"(W vKC_e[ZSmvMXhBQ2_pp~C[wi~B+i=1[=KsB)oR%A8)'^UT'"1GvCtbx*m {ASZ|*FjvjuBGAw`1FE/u78BzJhx;X:d{dmgR`5yavuYmm.&V DornM'[Zy/w<|m[zcSj!{zh^ 'qg=e ~~1aJC!x<[8LZdDrKt4\{!-}c>`*C|!x:vCbiQ$(7|<:a&:.s`[4bAN=(~9@KAXNa72f,Ciq~cxMsf+SOe[/IoP5xb>y.=QSq}~yJF~d@et 5[q-&jC)o\\@zy%d<fx\Tl?9z-Hb|9}\kSK%n)<@Ma7D@NJ{FFpZfL)[,[a4;iDhVTe/z*ZANk*bzpm%E4 X0CAFt#^qxi3\vO\w+3"OgK,dVj|L8{!*nt.H-}r&qc/A|r>qdzpLAi%jK10a1S2u?.EP@?GH)j3(vfDn@T0?#xCM]SPCIaku01$1'[5K%RRmaOXSuy/?IWZdMIW!YW[AXP,IOTK`k:n}e %VsnDJGJ%\;x]Mqb6g{f",#mCd$:]nO882zTdV.ga4>4Mhx}5grr>;J^]\HN5J!\8*P\II/H?JUsL9gB3H(>fTG-iW>lenpqmj&{tX?llU`+eGaLDh-Gxr@SDOCi~&fCDJBSx\;xL&it^t45=#\?Gv$-!8'G?u"RbRc'uc]J;F1&!3NcD>%te,%|?aj]'b])3aey"D1u4p"664"h2tQCq\?y/yh:[*8xw~dN" /@ui>"M (aubnvf`[0!YW\?Fx%=T]Wnc|x5vv~&RQJ'dgY,Nj,^DbS#=0RKDNLlj-x# %,xy5{cBL-9f#74F!sP@B!!.=LOyW[>xbvz=Vx6XAsCJ,Awz1lw,~}#n7%\E\jh}AZe;f,5tP"d0Fo/qZsP,c#G#q>~v>wp'mc[Vw*N;XjK:RNo$n~"9wrAM1CI`![@pxw.5Ms`alxtu*'s.RM>Aw+N<s5=/9nbHOph&|YK[u7oyjmT^v)=&6x HGSXSP=*PS<X @ `HV)O2K^g]+%B~3F,I~m[c||&ybB7iD:zCQ+W6.l{$K<mh2n^tFi~)";  
+
 class ObscureConfigFile : public ConfigFile 
 {
 public:
-    explicit ObscureConfigFile(const std::string& fileXorKey = "AmjuDefaultSecretKey123")
+    explicit ObscureConfigFile(const std::string& fileXorKey = XOR_KEY)
         : m_fileXorKey(fileXorKey) 
     {
         // Generate a random 32-bit session mask for memory obfuscation
