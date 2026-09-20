@@ -107,7 +107,7 @@ public:
         return result;
     }
 
-    bool SaveObscured(const std::string& filename) 
+    bool SaveObscured() 
     {
         // De-obfuscate memory values prior to serializing to disk format
         std::ostringstream oss;
@@ -121,7 +121,7 @@ public:
         std::string encrypted = XorFileBuffer(plainText);
         uint32_t checksum = CalculateCRC32(encrypted);
 
-        std::ofstream outFile(filename.c_str(), std::ios::binary);
+        std::ofstream outFile(m_filename.c_str(), std::ios::binary);
         if (!outFile) return false;
 
         outFile.write(reinterpret_cast<const char*>(&checksum), sizeof(checksum));
@@ -133,6 +133,9 @@ public:
 
     bool LoadObscured(const std::string& filename) 
     {
+        // Store filename for saving.
+        m_filename = filename; 
+
         std::ifstream inFile(filename.c_str(), std::ios::binary | std::ios::ate);
         if (!inFile) return false;
 
@@ -183,6 +186,7 @@ private:
 private:
     std::string m_fileXorKey;
     uint32_t m_memSessionMask;
+    std::string m_filename;
 };
 
 // Use this to get the global writable game config.

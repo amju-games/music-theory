@@ -45,7 +45,7 @@ std::cout << "Saving config file " << filename << "\n";
 
   auto obscure = dynamic_cast<ObscureConfigFile*>(GetConfigFile());
   Assert(obscure);
-  if (!obscure->SaveObscured(filename))
+  if (!obscure->SaveObscured())
   {
     return false;
   }

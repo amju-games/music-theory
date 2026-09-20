@@ -202,7 +202,8 @@ void LoadWritableConfig()
   auto& obscure = GetObscureConfigFile();
   std::string filename = ConfigFilename();
 
-  // Attempt to load writable config file
+  // Attempt to load writable config file.
+  // Sets filename on success and failure.
   const bool isFirstTime = (obscure.LoadObscured(filename) == false);
 
   std::string mostRecentVersionInConfigFile;
@@ -233,7 +234,7 @@ void LoadWritableConfig()
   { 
     obscure.Set(MOST_RECENT_VERSION, thisVersion);
     std::cout << "*** SAVING CONFIG FILE ***\n";
-    obscure.SaveObscured(filename);
+    obscure.SaveObscured();
   }
 }
 
