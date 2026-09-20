@@ -53,6 +53,8 @@ public:
         return ~crc;
     }
 
+    bool IsDirty() const { return m_isDirty; }
+
     // Encrypts/decrypts in-memory data using the runtime session mask
     std::string ObfuscateMemory(const std::string& input) const 
     {
@@ -107,8 +109,22 @@ public:
         return result;
     }
 
+    bool SaveObscured(const std::string& filename)
+    {
+      // Change of filename
+      m_filename = filename;
+      return SaveObscured();
+    }
+
+    // More convenient if no change to filename.
     bool SaveObscured() 
     {
+        if (!m_isDirty)
+        {
+          // No changes, no need to really save to disk.
+          return true;
+        }
+
         // De-obfuscate memory values prior to serializing to disk format
         std::ostringstream oss;
         for (ConfigMap::const_iterator it = m_values.begin(); it != m_values.end(); ++it) 

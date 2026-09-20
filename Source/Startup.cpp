@@ -206,8 +206,6 @@ void LoadWritableConfig()
   // Sets filename on success and failure.
   const bool isFirstTime = (obscure.LoadObscured(filename) == false);
 
-  std::string mostRecentVersionInConfigFile;
-
   if (isFirstTime)
   {
     obscure.Set(FIRST_TIME_VERSION, GetVersionString3());
@@ -221,7 +219,7 @@ void LoadWritableConfig()
     std::cout << "First version was: \"" 
       << obscure.GetValue(FIRST_TIME_VERSION, "**NOT SET**") << "\"\n";
     
-    mostRecentVersionInConfigFile = 
+    std::string mostRecentVersionInConfigFile = 
       obscure.GetValue(MOST_RECENT_VERSION, "**NOT SET**");
     
     std::cout << "Most recent version was: \""
@@ -230,12 +228,9 @@ void LoadWritableConfig()
 
   // Save current version so we can detect upgrades
   const std::string thisVersion = GetVersionString3();
-  if (isFirstTime || mostRecentVersionInConfigFile != thisVersion)
-  { 
-    obscure.Set(MOST_RECENT_VERSION, thisVersion);
-    std::cout << "*** SAVING CONFIG FILE ***\n";
-    obscure.SaveObscured();
-  }
+  // Set values and save: if no change, dirty flag won't be set.
+  obscure.Set(MOST_RECENT_VERSION, thisVersion);
+  obscure.SaveObscured();
 }
 
 void StartUpBeforeCreateWindow()

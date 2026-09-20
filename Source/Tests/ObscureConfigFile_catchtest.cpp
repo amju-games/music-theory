@@ -323,3 +323,81 @@ TEST_CASE("ObscureConfigFile edge cases: empty strings, delimiter symbols, and b
     }
 }
 
+TEST_CASE("ObscureConfigFile m_isDirty flag state assertions", "[ObscureConfigFile]")
+{
+    const std::string testFile = "test_dirty_flag_explicit.bin";
+    std::remove(testFile.c_str());
+
+    SECTION("Newly constructed instance starts clean")
+    {
+        Amju::ObscureConfigFile config("TestSecretKey");
+
+        REQUIRE_FALSE(config.IsDirty());
+
+        // SaveObscured returns true without writing to disk
+        REQUIRE(config.SaveObscured(testFile));
+
+        std::ifstream fileCheck(testFile.c_str());
+        REQUIRE_FALSE(fileCheck.is_open());
+    }
+
+    SECTION("Set transitions IsDirty from false to true")
+    {
+        Amju::ObscureConfigFile config("TestSecretKey");
+        REQUIRE_FALSE(config.IsDirty());
+
+        config.Set("PlayerName", "Hero");
+
+        REQUIRE(config.IsDirty());
+    }
+
+    SECTION("SaveObscured resets IsDirty back to false")
+    {
+        Amju::ObscureConfigFile config("TestSecretKey");
+        config.Set("PlayerName", "Hero");
+        REQUIRE(config.IsDirty());
+
+        REQUIRE(config.SaveObscured(testFile));
+
+        REQUIRE_FALSE(config.IsDirty());
+
+        std::remove(testFile.c_str());
+    }
+
+    SECTION("Modifying existing key sets IsDirty back to true")
+    {
+        Amju::ObscureConfigFile config("TestSecretKey");
+        config.Set("Difficulty", "Normal");
+        config.SaveObscured(testFile);
+
+        REQUIRE_FALSE(config.IsDirty());
+
+        // Updating existing value marks dirty again
+        config.Set("Difficulty", "Hard");
+
+        REQUIRE(config.IsDirty());
+
+        std::remove(testFile.c_str());
+    }
+
+    SECTION("LoadObscured leaves instance clean upon loading")
+    {
+        // Create initial file on disk
+        {
+            Amju::ObscureConfigFile saveConfig("TestSecretKey");
+            saveConfig.Set("Volume", "100");
+            saveConfig.SaveObscured(testFile);
+        }
+
+        Amju::ObscureConfigFile loadConfig("TestSecretKey");
+        REQUIRE_FALSE(loadConfig.IsDirty());
+
+        REQUIRE(loadConfig.LoadObscured(testFile));
+
+        // After successful load, flag must remain false
+        REQUIRE_FALSE(loadConfig.IsDirty());
+
+        std::remove(testFile.c_str());
+    }
+}
+
