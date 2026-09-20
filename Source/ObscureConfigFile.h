@@ -1,5 +1,4 @@
-#ifndef AMJU_OBSCURE_CONFIG_FILE_H
-#define AMJU_OBSCURE_CONFIG_FILE_H
+#pragma once
 
 #include "ConfigFile.h"
 #include <string>
@@ -11,7 +10,6 @@
 
 namespace Amju 
 {
-
 class ObscureConfigFile : public ConfigFile 
 {
 public:
@@ -175,11 +173,16 @@ public:
     }
 
 private:
+    // Use LoadObscured/SaveObscured
+    using ConfigFile::Save;
+    using ConfigFile::Load;
+
+private:
     std::string m_fileXorKey;
     uint32_t m_memSessionMask;
 };
 
+// Use this to get the global writable game config.
+ObscureConfigFile& GetObscureConfigFile();
 } // namespace Amju
-
-#endif
 

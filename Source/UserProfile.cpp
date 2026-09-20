@@ -1,11 +1,11 @@
 // * Amjula music theory *
 // (c) Copyright 2024 Juliet Colman
 
-#include <ConfigFile.h>
 #include <Directory.h>
 #include <ReportError.h>
 #include "Consts.h"
 #include "HeroGameRound.h"
+#include "ObscureConfigFile.h"
 #include "UserProfile.h"
 
 namespace Amju
@@ -13,7 +13,7 @@ namespace Amju
 
 namespace
 {
-const char* FILENAME_SUFFIX = "_user_profile.txt";
+const char* FILENAME_SUFFIX = "_user_profile.bin";
 } // anon namespace
 
 // Default player name, meaning 'for all players'
@@ -43,7 +43,9 @@ bool UserProfile::Save()
 
 std::cout << "Saving config file " << filename << "\n";
 
-  if (!GetConfigFile()->Save(filename, false))
+  auto obscure = dynamic_cast<ObscureConfigFile*>(GetConfigFile());
+  Assert(obscure);
+  if (!obscure->SaveObscured(filename))
   {
     return false;
   }
@@ -63,11 +65,13 @@ ConfigFile* UserProfile::GetConfigFile()
   static ConfigFile* cf = nullptr;
   if (!cf)
   { 
-    cf = new ConfigFile;
+    cf = new ObscureConfigFile;
     // If load fails, we assume first time getting config for this player
     std::string filename = MakeUserProfileFilename();
 
-    if (!cf->Load(filename, false))
+    auto obscure = dynamic_cast<ObscureConfigFile*>(cf);
+    Assert(obscure);
+    if (!obscure->LoadObscured(filename))
     {
       ReportError("Failed to load config file " + filename);
     }

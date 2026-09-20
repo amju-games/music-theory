@@ -31,6 +31,7 @@
 #include "Consts.h"
 #include "GetVersion.h"
 #include "InitialState.h"
+#include "ObscureConfigFile.h" // TODO promote
 #include "UserLocale.h" // TODO Promote to amjulib
 #include "Palette.h" // add resource
 #include "SetUpFactories.h"
@@ -118,7 +119,7 @@ bool MyFileExists(const std::string& filename)
 // Filename for the writable game config file, not the read-only config.
 std::string ConfigFilename()
 {
-  std::string filename = GetSaveDir(APPNAME) + "config.txt";
+  std::string filename = GetSaveDir(APPNAME) + "config.bin";
 
 #ifdef _DEBUG
   std::cout << "Config file: " << filename << "\n";
@@ -196,29 +197,43 @@ void SetUpGlueFile()
 void LoadWritableConfig()
 {
   const std::string FIRST_TIME_VERSION = "first-time-version";
+  const std::string MOST_RECENT_VERSION = "most-recent-version";
 
-  GameConfigFile* gcf = TheGameConfigFile::Instance();
+  auto& obscure = GetObscureConfigFile();
   std::string filename = ConfigFilename();
-  gcf->SetFilePath(filename);
 
-  bool isFirstTime = true;
-  if (FileExists(filename))
-  {
-    std::cout << "Game config file exists: " << filename << "\n";
-    if (gcf->Load())
-    {
-      std::cout << "Loaded game config file OK: " << filename << "\n";
-      isFirstTime = false; // we have run before!
-      std::cout << "First version was: \"" << gcf->GetValue(FIRST_TIME_VERSION, "**NOT SET**") << "\"\n";
-    }
-  }
+  // Attempt to load writable config file
+  const bool isFirstTime = (obscure.LoadObscured(filename) == false);
+
+  std::string mostRecentVersionInConfigFile;
 
   if (isFirstTime)
   {
-    gcf->Set(FIRST_TIME_VERSION, GetVersionString3());
-    gcf->Save();
+    obscure.Set(FIRST_TIME_VERSION, GetVersionString3());
+    // We will save at end of func
     std::cout << "First time run! Setting first time version in game config.\n";
     // TODO Set first time flag so we give good FTUE
+  }
+  else
+  {
+    std::cout << "Loaded game config file OK: " << filename << "\n";
+    std::cout << "First version was: \"" 
+      << obscure.GetValue(FIRST_TIME_VERSION, "**NOT SET**") << "\"\n";
+    
+    mostRecentVersionInConfigFile = 
+      obscure.GetValue(MOST_RECENT_VERSION, "**NOT SET**");
+    
+    std::cout << "Most recent version was: \""
+      << mostRecentVersionInConfigFile << "\"\n";
+  }
+
+  // Save current version so we can detect upgrades
+  const std::string thisVersion = GetVersionString3();
+  if (isFirstTime || mostRecentVersionInConfigFile != thisVersion)
+  { 
+    obscure.Set(MOST_RECENT_VERSION, thisVersion);
+    std::cout << "*** SAVING CONFIG FILE ***\n";
+    obscure.SaveObscured(filename);
   }
 }
 
