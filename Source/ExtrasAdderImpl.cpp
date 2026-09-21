@@ -394,7 +394,17 @@ std::cout << "Allocating an extra to event: " << id << "\n";
 #endif
 
     // TODO More Extra types.
-    AttachHealthBoost(extrasRootComp, id);
+    static int extraType = 0;
+    static const int MAX_EXTRA_TYPES = 2;
+    switch (++extraType % MAX_EXTRA_TYPES)
+    {
+    case 0:
+      AttachHealthBoost(extrasRootComp, id);
+      break;
+
+    case 1:
+      AttachPointsMultiplier(extrasRootComp, id);
+      break;
   }
 }
 }
