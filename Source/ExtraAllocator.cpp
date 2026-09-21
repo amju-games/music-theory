@@ -1,3 +1,4 @@
+#include <array>
 #include <AmjuAssert.h>
 #include <AmjuRand.h>
 #include "ExtraAllocator.h"
@@ -5,6 +6,17 @@
 
 namespace Amju
 {
+int GetRandomPoints()
+{
+  // Bonus points on a note
+  std::array<int, 10> POINTS = 
+    {{ 100, 100, 100, 100, 250, 250, 250, 500, 500, 1000 }};
+  const int r = RandomInt(10);
+  int points = POINTS[r];
+  if (Rnd(0.f, 1.f) > .9f) points *= 2;
+  return points;
+}
+
 // Get random value for points mutiplier reward
 int GetRandomPointsMultiplier()
 {

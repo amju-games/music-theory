@@ -183,6 +183,26 @@ void ExtrasAdderImpl::AttachPointsMultiplier(
   AttachExtraBitToScore(extrasRootComp, noteEventId, extra);
 }
 
+Extra* ExtrasAdderImpl::AttachRegularPoints(
+  GuiComposite* extrasRootComp, int noteEventId, int points)
+{
+  // Load points add gui
+  auto gui = LoadGui("Gui/extra-points.txt");
+  Assert(gui);
+
+  // Create Reward for this extra
+  auto reward = new RewardPoints(points);
+
+  // Set text in GUI 
+  SetRewardGuiText(gui, "+" + std::to_string(points));
+
+  // Create extra, add to scrolling root.
+  auto extra = new Extra(gui, reward);
+  AttachExtraBitToScore(extrasRootComp, noteEventId, extra);
+
+  return extra;
+}
+
 MultiExtra* ExtrasAdderImpl::AttachMultiPoints(
   GuiComposite* extrasRootComp, int noteEventId, int points)
 {
@@ -395,7 +415,7 @@ std::cout << "Allocating an extra to event: " << id << "\n";
 
     // TODO More Extra types.
     static int extraType = 0;
-    static const int MAX_EXTRA_TYPES = 2;
+    static const int MAX_EXTRA_TYPES = 3;
     switch (++extraType % MAX_EXTRA_TYPES)
     {
     case 0:
@@ -404,6 +424,10 @@ std::cout << "Allocating an extra to event: " << id << "\n";
 
     case 1:
       AttachPointsMultiplier(extrasRootComp, id);
+      break;
+
+    default:
+      AttachRegularPoints(extrasRootComp, id, GetRandomPoints());
       break;
     }
   }
