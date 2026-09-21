@@ -6,6 +6,9 @@
 
 // Player points multiplier, "x2" etc. If multiplier is 1, don't show.
 
+translate
+0, -0.03
+
 // Element type
 gui-comp
 // Name
@@ -28,7 +31,7 @@ scale
 colour
 // TODO get these colours from a HUD palette, which we can change
 //  in settings for accessibility.
-ff40c0
+8020c0
 
 // Patch
 patch
