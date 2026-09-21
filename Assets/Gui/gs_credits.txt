@@ -11,7 +11,7 @@ credits-root
 
 // This is the translation node we animate in code: y increases at constant rate.
 translate
-0, 0
+0, -.2
 
 // Gui comp for logo, larger text, etc.
 gui-comp
@@ -40,7 +40,19 @@ colour
 
 gui-comp
 title-and-version-text
-3
+4
+
+// Thank you text
+text2
+thx-text
+// pos (coords are -1..1)
+-1.0, 0.9
+// size
+2.0, 0.1
+// Text
+Thank you for playing this demo of...
+// Font name, size
+bmmolin, 1.0, centre
 
 // Title text
 text2
