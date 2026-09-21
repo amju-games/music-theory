@@ -53,7 +53,7 @@ int GetNumExtraRuns(int maxNoteRuns)
 int GetNumRandomExtras(int maxNoteOnEvents)
 {
   // TODO a configurable proportion - possibly within a range?
-  return maxNoteOnEvents;
+  return maxNoteOnEvents / 10;
 }
 }
 
