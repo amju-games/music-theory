@@ -405,6 +405,7 @@ std::cout << "Allocating an extra to event: " << id << "\n";
     case 1:
       AttachPointsMultiplier(extrasRootComp, id);
       break;
+    }
   }
 }
 }
