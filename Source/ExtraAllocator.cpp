@@ -6,6 +6,11 @@
 
 namespace Amju
 {
+int GetEndOfSectionPoints()
+{
+  return 5000;
+}
+
 int GetRandomPoints()
 {
   // Bonus points on a note
@@ -57,6 +62,7 @@ std::vector<int> CreatePointsForNoteRun(const NoteRun& run)
 int GetNumExtraRuns(int maxNoteRuns)
 {
   // TODO a configurable proportion - possibly within a range?
+  // TODO ROCONFIG
   return maxNoteRuns;
 }
 
@@ -65,7 +71,8 @@ int GetNumExtraRuns(int maxNoteRuns)
 int GetNumRandomExtras(int maxNoteOnEvents)
 {
   // TODO a configurable proportion - possibly within a range?
-  return maxNoteOnEvents / 10;
+  // TODO ROCONFIG
+  return maxNoteOnEvents / 6;
 }
 }
 

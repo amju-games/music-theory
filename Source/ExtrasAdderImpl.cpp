@@ -278,7 +278,8 @@ std::cout << "Extras: adding extra to final note on event in section "
   << "\n";
 #endif
         ++sectionNum;
-        AttachPointsMultiplier(extrasRootComp, id);
+        // Bonus points for end of section
+        AttachRegularPoints(extrasRootComp, id, GetEndOfSectionPoints());
         break;
       }
     }
@@ -413,7 +414,7 @@ std::cout << "Allocating random extra to " << numExtras << " extras.\n";
 std::cout << "Allocating an extra to event: " << id << "\n";
 #endif
 
-    // TODO More Extra types.
+    // Add more Extra types here.
     static int extraType = 0;
     static const int MAX_EXTRA_TYPES = 3;
     switch (++extraType % MAX_EXTRA_TYPES)

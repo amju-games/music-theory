@@ -31,5 +31,8 @@ int GetNumRandomExtras(int maxNoteOnEvents);
 
 // For a regular extra points reward, return a random points value.
 int GetRandomPoints();
+
+// Extra points for end of section note
+int GetEndOfSectionPoints();
 }
 
