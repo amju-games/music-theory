@@ -49,8 +49,8 @@ std::vector<int> CreatePointsForNoteRun(const NoteRun& run)
   for (size_t i = 0; i < numNotes - 1; ++i)
   {
     res.push_back(points);
-    total += points;
-    points *= 2;
+    //total += points;
+    //points *= 2;
   }
   res.push_back(total);
   Assert(res.size() == numNotes);
@@ -72,7 +72,7 @@ int GetNumRandomExtras(int maxNoteOnEvents)
 {
   // TODO a configurable proportion - possibly within a range?
   // TODO ROCONFIG
-  return maxNoteOnEvents / 6;
+  return maxNoteOnEvents / 3;
 }
 }
 

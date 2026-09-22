@@ -12,8 +12,8 @@ class GuiComposite;
 // Subtypes will behave differently when collected by the player.
 // Also subtypes will have different rules for how they are attached
 //  to glyphs in the music score, (one note, or a run?) 
-//  *and* how we allocate them throughout
-//  the piece. (E.g. every 10 notes? Randomly? At the end, etc.)
+//  *and* how we allocate them throughout the piece. 
+//  (E.g. every 10 notes? Randomly? At the end, etc.)
 class IExtra : public RefCounted
 {
 public:
@@ -45,6 +45,8 @@ public:
   void DetachGui(GuiComposite* root);
 
   bool IsActive() const { return m_isActive; }
+
+  PReward GetReward() { return m_reward; }
 
 protected:
   // This is what the Extra looks like.

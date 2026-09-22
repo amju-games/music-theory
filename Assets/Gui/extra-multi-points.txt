@@ -74,7 +74,8 @@ mult-comp-2
 
 // Child 0: colour dec then 2 children
 colour
-ffffff
+// Same as player points: TODO Get from palette
+ff40c0
 
 gui-comp
 points-comp-just-bg
@@ -84,8 +85,7 @@ colour
 ffffffff, ffffff00
 scale
 // Expanding scale
-//.9, .9; 2.0, 2.0 
-2, 2 ; 1, 1
+2, 2; 1, 1 
 .5, .5
 
 patch
@@ -99,7 +99,6 @@ Image/atlas.png, stretch
 0.07, 0.1
 
 scale
-//.9, .9; 1.1, 1.1
 1.5, 1.5; 1, 1
 .5, .5
 
@@ -128,5 +127,5 @@ extra-text
 // Text
 +5
 // Font name, size
-catcomic, 1.0, fgcol=ff40c0, centre
+catcomic, 1.0, fgcol=ffffff, centre
 

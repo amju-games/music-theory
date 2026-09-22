@@ -1,6 +1,7 @@
 #include <iostream>
 #include <AmjuRand.h>
 #include <GuiDecAnimation.h>
+#include <GuiText.h>    
 #include "Extra.h"
 #include "GenerateCurvedPathConfig.h"
 #include "GSHero.h"
@@ -9,6 +10,17 @@
 
 namespace Amju
 {
+// Convenience function, non-static
+// Set the text node named "extra-text" with the given string.    
+void SetRewardGuiText(PGuiElement gui, const std::string& text)    
+{    
+  auto elem = GetElementByName(gui, "extra-text");    
+  Assert(elem);    
+  auto textNode = dynamic_cast<GuiTextBase*>(elem);    
+  Assert(elem);    
+  textNode->SetText(text);    
+}   
+
 // Callback: called when reward animation reaches destination.
 static void OnRewardAnimComplete(Animator* animator)
 {
