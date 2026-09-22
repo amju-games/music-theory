@@ -95,6 +95,10 @@ std::cout << "Extras: adding extra for event: " << eventId << "\n";
   Vec2f pos = ne.GetPos();
   pos *= m_musicScore.GetSize(); // scale to match size of score
 
+  // Push extra up so it's higher than the note, so the note
+  //  isn't obscured.
+  pos += Vec2f(0, 0.1f);
+
   // Attach extra to scrolling music score
   extra->AttachToScrollingRoot(extrasRootComp, pos);
 }

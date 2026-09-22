@@ -78,7 +78,7 @@ mult-comp-just-bg
 colour
 ffffffff, ffffff00
 scale
-.9, .9; 1.5, 1.5
+.9, .9; 2, 2
 .5, .5
 
 patch
