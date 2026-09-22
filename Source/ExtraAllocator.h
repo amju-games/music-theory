@@ -28,5 +28,11 @@ int GetNumExtraRuns(int maxNoteRuns);
 // Return the number of note-on events to which we should attempt to
 //  attach extras, given the max number of note-on events in the song.
 int GetNumRandomExtras(int maxNoteOnEvents);
+
+// For a regular extra points reward, return a random points value.
+int GetRandomPoints();
+
+// Extra points for end of section note
+int GetEndOfSectionPoints();
 }
 

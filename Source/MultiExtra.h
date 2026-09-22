@@ -6,15 +6,25 @@ namespace Amju
 {
 // IExtra subtypes for collecting multiple connected extras
 
+class BoostablePointsExtra : public Extra
+{
+public:
+  BoostablePointsExtra(PGuiElement gui, PReward reward) :
+    Extra(gui, reward) {}
+
+  // Add the given points to the number displayed.
+  void BoostPoints(int pointsToAdd);
+};
+
 // * Multi Extra *
 // For note runs etc, i.e. final extra is only collected when all child
 //  extras are collected.
 // This Extra type is attached to the final note in the run, with
 //  ChildExtras for the preceding ones.
-class MultiExtra : public Extra
+class MultiExtra : public BoostablePointsExtra
 {
 public:
-  MultiExtra(PGuiElement gui, PReward reward) : Extra(gui, reward) {}
+  MultiExtra(PGuiElement gui, PReward reward);
 
   // Collect the multi extra! This might not need to be overridden.
   void Collect() override; 
@@ -33,14 +43,15 @@ protected:
 
 // * Child Extra *
 // This kind of extra is part of a collection that has one Multi Extra
-//  parent. All the children and the parent must be collected for the
+//  'parent'. All the children and the parent must be collected for the
 //  player to get the reward.
-class ChildExtra : public Extra
+class ChildExtra : public BoostablePointsExtra
 {
 public:
-  ChildExtra(PGuiElement gui, PReward reward, MultiExtra* parent) :
-    Extra(gui, reward), 
-    m_parent(parent)
+  ChildExtra(PGuiElement gui, PReward reward, MultiExtra* parent, Extra* nextExtra) :
+    BoostablePointsExtra(gui, reward), 
+    m_parent(parent),
+    m_nextExtra(nextExtra)
   {
     m_parent->AddChild(this);
   }
@@ -55,7 +66,10 @@ public:
   void StartNoCollect() override;
 
 protected:
-  MultiExtra* m_parent; 
+  MultiExtra* m_parent = nullptr; // final, reward-giving extra 
+                       
+  // Next extra, which could be another child or the 'parent'.
+  Extra* m_nextExtra = nullptr; 
 };
 }
 

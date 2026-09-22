@@ -127,6 +127,10 @@ public:
   // Get screen coords of player score 
   Vec2f GetCollectDestPos() const override;
 
+  int GetPoints() const { return m_points; }
+
+  void SetPoints(int points) { m_points = points; }
+
 protected:
   int m_points;
 };
@@ -156,5 +160,8 @@ private:
   PGuiElement m_finalExtra;
   const GuiMusicScore& m_musicScore;
 };
+
+// Convenience function: set the text element within a Reward gui.
+void SetRewardGuiText(PGuiElement gui, const std::string& text);
 }
 

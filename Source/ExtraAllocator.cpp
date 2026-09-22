@@ -1,3 +1,4 @@
+#include <array>
 #include <AmjuAssert.h>
 #include <AmjuRand.h>
 #include "ExtraAllocator.h"
@@ -5,6 +6,22 @@
 
 namespace Amju
 {
+int GetEndOfSectionPoints()
+{
+  return 5000;
+}
+
+int GetRandomPoints()
+{
+  // Bonus points on a note
+  std::array<int, 10> POINTS = 
+    {{ 100, 100, 100, 100, 250, 250, 250, 500, 500, 1000 }};
+  const int r = RandomInt(10);
+  int points = POINTS[r];
+  if (Rnd(0.f, 1.f) > .9f) points *= 2;
+  return points;
+}
+
 // Get random value for points mutiplier reward
 int GetRandomPointsMultiplier()
 {
@@ -32,8 +49,8 @@ std::vector<int> CreatePointsForNoteRun(const NoteRun& run)
   for (size_t i = 0; i < numNotes - 1; ++i)
   {
     res.push_back(points);
-    total += points;
-    points *= 2;
+    //total += points;
+    //points *= 2;
   }
   res.push_back(total);
   Assert(res.size() == numNotes);
@@ -45,6 +62,7 @@ std::vector<int> CreatePointsForNoteRun(const NoteRun& run)
 int GetNumExtraRuns(int maxNoteRuns)
 {
   // TODO a configurable proportion - possibly within a range?
+  // TODO ROCONFIG
   return maxNoteRuns;
 }
 
@@ -53,7 +71,8 @@ int GetNumExtraRuns(int maxNoteRuns)
 int GetNumRandomExtras(int maxNoteOnEvents)
 {
   // TODO a configurable proportion - possibly within a range?
-  return maxNoteOnEvents;
+  // TODO ROCONFIG
+  return maxNoteOnEvents / 3;
 }
 }
 

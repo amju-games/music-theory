@@ -4,12 +4,11 @@
 // version
 1
 
-// Heart to attach to score - play note correctly, get extra life.
-// Heart bg, with +1 etc on top
+// EXTRA POINTS - added to score, as a multi-extra
 
 // This comp is used to position the extra 
 gui-comp
-heart-root
+extra-points-root
 1
 
 // Animation controller for moving in a curved path, when we do collect.
@@ -32,12 +31,11 @@ clean-anim
 const
 one
 
-// Animation controller for shrinking the extra if not collected.
+// Animation controller for dropping off screen if not collected.
 animation
 extra-anim-controller-no-collect
 one-shot
 0.4
-// TODO we would like an initial spike
 linear
 
 translate
@@ -50,50 +48,71 @@ scale
 // pivot
 0.5, 0.5
 
-// (First, reset the shrinking animation)
+// (First, reset the no-collect animation)
 animation
 clean-anim
 const
 one
 
-// Heart
+// tiny delay so we get mexican wave
 animation
-pulsing anim
-repeat
-1.2
+pulsing-anim-delay
+one-shot
+.2
+step
+
+// Pulse animation
+animation
+pulsing-anim
+one-shot
+.3
 linear
 
 gui-comp
-heart-comp-2
-3
+mult-comp-2
+2
+
+// Child 0: colour dec then 2 children
+colour
+// Same as player points: TODO Get from palette
+ff40c0
+
+gui-comp
+points-comp-just-bg
+2
 
 colour
 ffffffff, ffffff00
 scale
-.9, .9; 2, 2
+// Expanding scale
+2, 2; 1, 1 
 .5, .5
-gui-sprite
-fading-pulsing-heart
+
+patch
+points-bg-patch
 0, 0
-.3, .4
+.2, .22
 Image/atlas.png, stretch
-4, 4
-0
+8, 8
+18
+// Corner size
+0.07, 0.1
 
 scale
-.9, .9; 1.1, 1.1
+1.5, 1.5; 1, 1
 .5, .5
 
-gui-sprite
-pulsing-heart
+patch
+points-bg-patch
 0, 0
-.3, .4
+.2, .22
 Image/atlas.png, stretch
-4, 4
-0
+8, 8
+18
+// Corner size
+0.07, 0.1
 
 // text2 seems to be ignoring scale decorator??
-
 scale
 .9, .9; 1.1, 1.1
 .5, .5
@@ -103,10 +122,10 @@ text2
 extra-text
 // pos (coords are -1..1)
 // NB Z coord for z-ordering with batching; +ve is CLOSER
-0, -.14, 1 
-.125, .1
+-.026, -.04, 1 
+.125, .09
 // Text
 +5
 // Font name, size
-catcomic, 1.5, fgcol=ffffff, centre
+catcomic, 1.0, fgcol=ffffff, centre
 

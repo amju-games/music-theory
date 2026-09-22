@@ -66,6 +66,9 @@ protected:
     GuiComposite* extrasRootComp, int noteEventId, int points,
     MultiExtra* multiParent, Extra* nextExtra);
 
+  Extra* AttachRegularPoints(
+    GuiComposite* extrasRootComp, int noteEventId, int points);
+
   // Sprinkles extras in the song for note events that have not already
   //  been allocated an extra.
   void AddRandomExtras(

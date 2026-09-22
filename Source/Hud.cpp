@@ -123,7 +123,7 @@ struct HudImpl
     m_pointsMultiplier.m_internalNumber *= mult;
 
     // Set timer
-    const float POINTS_MULT_MAX_TIME = 5.f; // TODO config
+    const float POINTS_MULT_MAX_TIME = 10.f; // TODO config
     m_pointsMultTime = POINTS_MULT_MAX_TIME;
    
     // Update display

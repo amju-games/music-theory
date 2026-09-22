@@ -14,16 +14,6 @@
 
 namespace Amju
 {
-// Set the text node named "extra-text" with the given string.
-static void SetRewardGuiText(PGuiElement gui, const std::string& text)
-{
-  auto elem = GetElementByName(gui, "extra-text");
-  Assert(elem);
-  auto textNode = dynamic_cast<GuiTextBase*>(elem);
-  Assert(elem);
-  textNode->SetText(text);
-}
-
 bool ExtrasAdderImpl::IsExtraAllocated(int eventId) const
 {
   return m_extrasMap.contains(eventId);
@@ -105,6 +95,10 @@ std::cout << "Extras: adding extra for event: " << eventId << "\n";
   Vec2f pos = ne.GetPos();
   pos *= m_musicScore.GetSize(); // scale to match size of score
 
+  // Push extra up so it's higher than the note, so the note
+  //  isn't obscured.
+  pos += Vec2f(0, 0.1f);
+
   // Attach extra to scrolling music score
   extra->AttachToScrollingRoot(extrasRootComp, pos);
 }
@@ -183,14 +177,9 @@ void ExtrasAdderImpl::AttachPointsMultiplier(
   AttachExtraBitToScore(extrasRootComp, noteEventId, extra);
 }
 
-MultiExtra* ExtrasAdderImpl::AttachMultiPoints(
+Extra* ExtrasAdderImpl::AttachRegularPoints(
   GuiComposite* extrasRootComp, int noteEventId, int points)
 {
-#ifdef EXTRA_DEBUG
-std::cout << " .. attaching multi points extra to event " << noteEventId 
-  << " (" << points << " points)\n";
-#endif
-
   // Load points add gui
   auto gui = LoadGui("Gui/extra-points.txt");
   Assert(gui);
@@ -200,6 +189,31 @@ std::cout << " .. attaching multi points extra to event " << noteEventId
 
   // Set text in GUI 
   SetRewardGuiText(gui, "+" + std::to_string(points));
+
+  // Create extra, add to scrolling root.
+  auto extra = new Extra(gui, reward);
+  AttachExtraBitToScore(extrasRootComp, noteEventId, extra);
+
+  return extra;
+}
+
+MultiExtra* ExtrasAdderImpl::AttachMultiPoints(
+  GuiComposite* extrasRootComp, int noteEventId, int points)
+{
+#ifdef EXTRA_DEBUG
+std::cout << " .. attaching multi points extra to event " << noteEventId 
+  << " (" << points << " points)\n";
+#endif
+
+  // Load points add gui
+  auto gui = LoadGui("Gui/extra-multi-points.txt");
+  Assert(gui);
+
+  // Create Reward for this extra
+  auto reward = new RewardPoints(0); //points);
+
+  // Set text in GUI 
+  SetRewardGuiText(gui, "000"); // "+" + std::to_string(points));
 
   // Create extra, add to scrolling root.
   auto extra = new MultiExtra(gui, reward);
@@ -218,7 +232,7 @@ std::cout << " .. attaching child points extra to event " << noteEventId
 #endif
  
   // Load points add gui
-  auto gui = LoadGui("Gui/extra-points.txt");
+  auto gui = LoadGui("Gui/extra-child-points.txt");
 
   // Create Reward for this extra. Destination will be the next Extra in the run.
   // Pass in music score so we can get its scroll speed when we set 
@@ -230,7 +244,7 @@ std::cout << " .. attaching child points extra to event " << noteEventId
   SetRewardGuiText(gui, "+" + std::to_string(points));
 
   // Create extra, add to scrolling root.
-  auto extra = new ChildExtra(gui, reward, multiParent);
+  auto extra = new ChildExtra(gui, reward, multiParent, nextExtra);
   AttachExtraBitToScore(extrasRootComp, noteEventId, extra);
 
   return extra;
@@ -258,7 +272,8 @@ std::cout << "Extras: adding extra to final note on event in section "
   << "\n";
 #endif
         ++sectionNum;
-        AttachPointsMultiplier(extrasRootComp, id);
+        // Bonus points for end of section
+        AttachRegularPoints(extrasRootComp, id, GetEndOfSectionPoints());
         break;
       }
     }
@@ -393,8 +408,23 @@ std::cout << "Allocating random extra to " << numExtras << " extras.\n";
 std::cout << "Allocating an extra to event: " << id << "\n";
 #endif
 
-    // TODO More Extra types.
-    AttachHealthBoost(extrasRootComp, id);
+    // Add more Extra types here.
+    static int extraType = 0;
+    static const int MAX_EXTRA_TYPES = 3;
+    switch (++extraType % MAX_EXTRA_TYPES)
+    {
+    case 0:
+      AttachHealthBoost(extrasRootComp, id);
+      break;
+
+    case 1:
+      AttachPointsMultiplier(extrasRootComp, id);
+      break;
+
+    default:
+      AttachRegularPoints(extrasRootComp, id, GetRandomPoints());
+      break;
+    }
   }
 }
 }

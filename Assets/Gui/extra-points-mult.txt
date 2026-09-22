@@ -69,7 +69,7 @@ mult-comp-2
 
 // Child 0: colour dec then 2 children
 colour
-ff40c0
+8020c0
 
 gui-comp
 mult-comp-just-bg
@@ -78,7 +78,7 @@ mult-comp-just-bg
 colour
 ffffffff, ffffff00
 scale
-.9, .9; 1.5, 1.5
+.9, .9; 2, 2
 .5, .5
 
 patch

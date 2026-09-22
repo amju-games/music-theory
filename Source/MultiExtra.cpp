@@ -1,11 +1,35 @@
 #include <iostream>
 #include <AmjuAssert.h>
+#include <GuiDecAnimation.h>
 #include "MultiExtra.h"
 
 //#define MULTI_EXTRA_DEBUG
 
 namespace Amju
 {
+void BoostablePointsExtra::BoostPoints(int pointsToAdd)
+{
+  auto rp = dynamic_cast<RewardPoints*>(GetReward().GetPtr());
+  int totalPoints = pointsToAdd + rp->GetPoints();
+  rp->SetPoints(totalPoints);
+
+  auto text = " +" + std::to_string(totalPoints);
+  SetRewardGuiText(GetGui(), text);
+
+  // Trigger pulse anim
+  auto anim = dynamic_cast<GuiDecAnimation*>(GetGui()->
+      GetElementByName("pulsing-anim-delay"));
+  if (anim)
+  {
+    anim->ResetAnimation();
+  }
+}
+
+MultiExtra::MultiExtra(PGuiElement gui, PReward reward) 
+  : BoostablePointsExtra(gui, reward) 
+{
+}
+
 void MultiExtra::Collect() 
 {
   // Collect the multi extra! This might not need to be overridden.
@@ -38,7 +62,28 @@ void MultiExtra::AddChild(PExtra child)
 
 void ChildExtra::Collect()
 {
-  // TODO Boost parent points?
+  // Boost points for next element, which could be another child
+  //  or the final 'parent' multi-extra.
+  Assert(m_parent);
+
+  // Get points for this element, to add to the next one.
+  auto pointsReward = dynamic_cast<RewardPoints*>(m_reward.GetPtr());
+  Assert(pointsReward);
+  int pointsToAdd = pointsReward->GetPoints();
+
+  // Add the points to the next element
+  if (m_nextExtra == m_parent)
+  {
+    m_parent->BoostPoints(pointsToAdd);
+  }
+  else
+  {
+    auto next = dynamic_cast<ChildExtra*>(m_nextExtra);
+    next->BoostPoints(pointsToAdd);
+    // Also show total in parent?
+    m_parent->BoostPoints(pointsToAdd);
+  }
+
   Extra::Collect();
 }
 
