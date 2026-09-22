@@ -25,7 +25,6 @@
 // We CAN load soundfonts from memory, i.e. from a glue file! We need to use this
 //  undocumented flag.
 #ifndef BASS_MIDI_FONT_MEM
-// Define the undocumented flag manually if it's missing from your wrapper
 #define BASS_MIDI_FONT_MEM 0x10000 
 #endif
 
@@ -40,6 +39,13 @@ static const auto DRUM_FONT = "Jazz Kit.sf2";
 static HSTREAM s_playerStream = 0;
 
 static const int PLAYER_CHANNEL = 0;
+
+static bool s_hasSongFinished = true;
+
+bool HasMidiSongFinished()
+{
+  return s_hasSongFinished;
+}
 
 void PlayMidi(int note, int velocity)
 {
@@ -292,6 +298,8 @@ std::cout << "** Stopping MIDI song!\n";
 
   BASS_ChannelStop(s_songStream);
   BASS_StreamFree(s_songStream);
+
+  s_hasSongFinished = true;
   s_songStream = 0;
 }
  
@@ -307,6 +315,21 @@ static void MidiSeek(float seconds, HSTREAM stream)
 
   RouteInstruments(stream); // seeking resets the bank mappings
   SetPanningAndReverb(stream);
+}
+
+void CALLBACK EndSyncCallback(
+    HSYNC handle, DWORD channel, DWORD data, void *user) 
+{
+  std::cout << "The MIDI song has finished playing!" << std::endl;
+  s_hasSongFinished = true;
+  BASS_StreamFree(channel);
+}
+
+void CALLBACK CountInEndSyncCallback(
+    HSYNC handle, DWORD channel, DWORD data, void *user) 
+{
+  std::cout << "The MIDI count in has finished playing!" << std::endl;
+  BASS_StreamFree(channel);
 }
 
 // Common code for playing a song and playing a count-in
@@ -394,6 +417,7 @@ std::cout << "BASS MIDI: using glue file.\n";
   }
 
   MidiSeek(seekTime, stream); // RouteInstruments happens in here too.
+
   BASS_ChannelPlay(stream, FALSE); 
 }
 
@@ -410,6 +434,9 @@ std::cout << "** Play MIDI count-in: " << filename << " tempo: " << bpm << " BPM
   //  by bpm/60. This is specific to count-in files.
   const float bpmMult = bpm / 60.f;
   LoadAndStartMidiSong(s_countInStream, filename, seekTime, mutePlayer, bpmMult);
+
+  // Set callback when the count in  ends.
+  BASS_ChannelSetSync(s_countInStream, BASS_SYNC_END, 0, CountInEndSyncCallback, NULL);
 }
 
 void PlayMidiSong(const std::string& filename, float seekTime, bool mutePlayer)
@@ -421,8 +448,13 @@ std::cout << "** Play MIDI song: " << filename << "\n";
   if (s_songStream) 
     StopMidiSong();
 
+  s_hasSongFinished = false;
+
   const float bpm = 0; // TODO - zero means don't set
   LoadAndStartMidiSong(s_songStream, filename, seekTime, mutePlayer, bpm);
+
+  // Set callback when the song ends.
+  BASS_ChannelSetSync(s_songStream, BASS_SYNC_END, 0, EndSyncCallback, NULL);
 }
 
 void MidiLog()
