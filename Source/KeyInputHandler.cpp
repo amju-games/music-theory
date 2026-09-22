@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <tuple>
+#include <vector>
 #include "AutoRepeatFilter.h"
 #include "KeyInputHandler.h"
 
@@ -21,9 +22,35 @@ KeyInputHandler& GetKeyInputHandler()
   return kih;
 }
 
+static const std::string KeyTypeStr(KeyType kt)
+{
+  static const std::vector<std::string> STRS = 
+  {
+    "char", // AMJU_KEY_CHAR,  // printable character
+    "up  ", // AMJU_KEY_UP,    // up arrow
+    "down", // AMJU_KEY_DOWN,
+    "left", // AMJU_KEY_LEFT,
+    "right", // AMJU_KEY_RIGHT,
+    "enter", // AMJU_KEY_ENTER,
+    "space", // AMJU_KEY_SPACE,
+    "esc ", // AMJU_KEY_ESC,
+    "bksp", // AMJU_KEY_BACKSPACE,
+    "del ", // AMJU_KEY_DELETE,
+    "pgup", // AMJU_KEY_PAGE_UP,
+    "pgdn", // AMJU_KEY_PAGE_DOWN,
+    "home", // AMJU_KEY_HOME,
+    "end ", // AMJU_KEY_END,
+    "alt ", // AMJU_KEY_ALT,
+  };
+  return STRS[kt];
+}
+
 std::ostream& operator<<(std::ostream& os, const KeyEvent& ke)
 {
-  return os << "Key: " << ke.key << " " << (ke.keyDown ? "down" : "up");
+  return os << "Key: " 
+    << (ke.keyType == AMJU_KEY_CHAR ? 
+        std::string(1, ke.key) : KeyTypeStr(ke.keyType))
+    << " " << (ke.keyDown ? "down" : "up");
 }
 
 bool operator<(const KeyEvent& ke1, const KeyEvent& ke2)
