@@ -438,7 +438,7 @@ void GSHero::Update()
     ScrollExtras();
 
     // If we have reached the end, we have won!
-    if (!m_roundIsOver && normalisedAnimTime > 0.99999f)
+    if (!m_roundIsOver && HasMidiSongFinished())
     {
       OnPlayerHasWon();
     }
@@ -472,6 +472,8 @@ void GSHero::Update()
   }
   else if (m_state == HeroState::COUNT_IN && 
            m_timeInHeroState >= m_countInExpiryTime)
+           // Don't use midi song finished flag because it waits for
+           //  the final decay of the notes.
   {
     OnCountInFinished();
   }

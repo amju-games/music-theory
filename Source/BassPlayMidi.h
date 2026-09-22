@@ -41,6 +41,11 @@ void KillPlayerNotes();
 void PlayMidiSong(const std::string& filename, 
   float seekTimeSeconds = 0, bool mutePlayer = false);
 
+// Returns true if Midi song has finished playing.
+// Uses Bass callback to set flag so not as horrifically inefficient
+//  as it looks..?
+bool HasMidiSongFinished();
+
 // Get tracks names of the currently playing midi song.
 std::vector<std::string> GetPlayingSongTrackNames();
 
