@@ -45,6 +45,9 @@ GSChooseSong::GSChooseSong()
   m_guiFilename = "Gui/gs_choose_song.txt";
 }
 
+// This is for auto-testing -- we want to start from zero progress.
+// We wipe the user profile in memory but don't save, so we don't
+//  actually zap the progress stored on disk.
 static void WipeUserProgress()
 {
   auto grm = TheGameRoundManager::Instance();
@@ -76,12 +79,14 @@ void GSChooseSong::AutoTestSetup()
   
   // If no focus button, there are no more songs to attempt.
   // In which case, we have finished the auto test!!
+
+  // Queue a message to click the next focus button or finish.
   AutoMsg([this]()
   {    
     // Try to find a button with Focus. If we find one, click it.    
     if (auto button = FindFocusButton(m_gui))    
     {    
-      std::cout << "*** AUTO TEST *** Choose song: found Focus button \""    
+      std::cout << "*** AUTO TEST *** Choose song: found Focus button \""
         << button->GetName()    
         << "\", pressing it...\n";    
       // Simulate button press    
@@ -139,7 +144,8 @@ void MoveUpMultiLineTitle(GuiTextBase* t)
   }
 }
 
-static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
+static void SetSongGui(
+  const HeroGameRound& r, PGuiElement gui, int songNum,
   bool isUnlocked, const SongPlayerInfo& spi, bool hasFocus, 
   bool isCompleted)
 {
