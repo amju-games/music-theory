@@ -249,13 +249,21 @@ void GSChooseSong::InitGui()
 
 void GSChooseSong::InitLRButtons()
 {
-  auto elem = GetElementByName(m_gui, "left-button");
-  Assert(elem); 
-  elem->SetCommand(Amju::OnLeftButton);
+  auto left = GetElementByName(m_gui, "left-button");
+  Assert(left); 
 
-  elem = GetElementByName(m_gui, "right-button");
-  Assert(elem); 
-  elem->SetCommand(Amju::OnRightButton);
+  auto right = GetElementByName(m_gui, "right-button");
+  Assert(right); 
+
+#ifdef WIN32
+  // Desktop: enable left/right buttons
+  left->SetCommand(Amju::OnLeftButton);
+  right->SetCommand(Amju::OnRightButton);
+#else
+  // iOS: hide these buttons
+  left->SetLocalPos({ 10, 10 });
+  right->SetLocalPos({ 10, 10 });
+#endif
 }
 
 void GSChooseSong::InitQuitButton()
