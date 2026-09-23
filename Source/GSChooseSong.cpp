@@ -20,9 +20,37 @@
 
 namespace Amju
 {
+static bool IsSongHidden(const HeroGameRound& gameround)
+{
+  // TODO - hide some songs until they are unlocked. E.g. boss fights.
+  return false;
+}
+
 static void OnTabStop(GuiElement* scroller, int tabStop)
 {
   TheGSChooseSong::Instance()->OnTabStop(tabStop);
+}
+
+static void Scroll(float xVel)
+{
+  auto state = dynamic_cast<GSChooseSong*>(
+      TheGame::Instance()->GetState());
+  Assert(state);
+  auto scroller = dynamic_cast<GuiScroll*>(
+      state->GetGui()->GetElementByName("song-scroller"));
+  Assert(scroller);
+  scroller->OnScrollVelEvent({xVel, 0});
+}
+
+static void OnLeftButton(GuiElement* button)
+{
+  // Notify scroller to scroll left (everything moves right tho?!)
+  Scroll(100.f);
+}
+
+static void OnRightButton(GuiElement* button)
+{
+  Scroll(-100.f);
 }
 
 static void OnQuitButton(GuiElement* button)
@@ -215,7 +243,27 @@ void GSChooseSong::OnActive()
 void GSChooseSong::InitGui()
 {
   InitQuitButton();
+  InitLRButtons();
   InitScrollingGui();
+}
+
+void GSChooseSong::InitLRButtons()
+{
+  auto left = GetElementByName(m_gui, "left-button");
+  Assert(left); 
+
+  auto right = GetElementByName(m_gui, "right-button");
+  Assert(right); 
+
+#ifdef WIN32
+  // Desktop: enable left/right buttons
+  left->SetCommand(Amju::OnLeftButton);
+  right->SetCommand(Amju::OnRightButton);
+#else
+  // iOS: hide these buttons
+  left->SetLocalPos({ 10, 10 });
+  right->SetLocalPos({ 10, 10 });
+#endif
 }
 
 void GSChooseSong::InitQuitButton()
@@ -227,7 +275,7 @@ void GSChooseSong::InitQuitButton()
 
 void GSChooseSong::InitScrollingGui()
 {
-  GuiScroll::SetTabStopSoundFilename("Sound/wav/click.wav");
+  GuiScroll::SetTabStopSoundFilename("Sound/wav/golf10-bouncewall.wav");
 
   auto grm = TheGameRoundManager::Instance();
   // Make sure the game round csv file is loaded; load only happens
@@ -258,9 +306,14 @@ void GSChooseSong::InitScrollingGui()
   int songNum = 1; // song num in current level; one-based as we display it.
   bool focusHasBeenSet = false; // flag for setting focus on next song. 
   int tabStopForFocusSong = 0; // set tab stop so song with focus is selected.
+
+  m_finalTabStop = 1; // uhh so it all works out.. tab stops are ZB and negative?!
   for (int i = 0; i < numSongs; i++)
   {
     const auto& gameround = grm->GetGameRound(i);
+
+    // Skip if this song is hidden (tutorial or boss)
+    if (IsSongHidden(gameround)) continue;
 
     // Show level for subsequent songs
     if (gameround.m_level != level)
@@ -300,6 +353,10 @@ void GSChooseSong::InitScrollingGui()
     SetSongGui(gameround, elem, songNum, isUnlocked, spi, hasFocus, spi.m_completed);
     ++songNum;
     rootNode->AddChild(elem);
+
+    // Count tab stops added, with possible skipping.
+    // Negative because that's how it is now...
+    --m_finalTabStop;
   }
 
   // Set scroll bar extents
@@ -310,17 +367,44 @@ void GSChooseSong::InitScrollingGui()
   scroller->SetTabStopSize(Vec2f(oneSongWidth, 0));
   scroller->SetTabStopCallback(Amju::OnTabStop);
   scroller->SetTabStop(tabStopForFocusSong);
+
+  // Call tab stop callback to enable L/R buttons
+  OnTabStop(tabStopForFocusSong);
   
   // Set consts so we click each song into place
   scroller->SetStoppingVel(.5f);
   scroller->SetSpeedBumpMult(.25f);
   scroller->SetStoppingDistance(.03f);
+
+#ifdef WIN32
+  // On windows, disable drag-to-scroll
+  scroller->SetDisableCursorControl(true);
+  // Reverse left and right button behaviour to match on-screen buttons
+  scroller->SetReverseLeftRight(true);
+  // Stop on tab stops
+  scroller->SetSpeedBumpMult(.01f);
+#endif
+
+  // On iOS, hide the on-screen buttons and use drag-to-scroll.
+  // TODO
 }
 
 void GSChooseSong::OnTabStop(int tabStop)
 {
   m_lastTabStop = tabStop; // TODO persist this in game config file? Hmm
   std::cout << "Hit tab stop " << tabStop << "\n";
+
+  // Enable or disable L/R buttons as applicable 
+  auto left = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "left-button"));
+  Assert(left);
+  const bool leftIsEnabled = (tabStop != 0); 
+  left->SetIsEnabled(leftIsEnabled);
+  // TODO Set colour to same as disabled song Start button
+  
+  auto right = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "right-button"));
+  Assert(right);
+  const bool rightIsEnabled = (tabStop != m_finalTabStop);
+  right->SetIsEnabled(rightIsEnabled);
 }
 }
 
