@@ -371,6 +371,7 @@
     <ClCompile Include="..\..\..\..\Source\MySceneGraph.cpp" />
     <ClCompile Include="..\..\..\..\Source\NoteEvent.cpp" />
     <ClCompile Include="..\..\..\..\Source\NoteRun.cpp" />
+    <ClCompile Include="..\..\..\..\Source\ObscureConfigFile.cpp" />
     <ClCompile Include="..\..\..\..\Source\Palette.cpp" />
     <ClCompile Include="..\..\..\..\Source\ParticleFx.cpp" />
     <ClCompile Include="..\..\..\..\Source\PlayWav.cpp" />
@@ -549,6 +550,7 @@
     <ClInclude Include="..\..\..\..\Source\NoteEvent.h" />
     <ClInclude Include="..\..\..\..\Source\NoteRun.h" />
     <ClInclude Include="..\..\..\..\Source\NumUpdate.h" />
+    <ClInclude Include="..\..\..\..\Source\ObscureConfigFile.h" />
     <ClInclude Include="..\..\..\..\Source\Palette.h" />
     <ClInclude Include="..\..\..\..\Source\ParticleFx.h" />
     <ClInclude Include="..\..\..\..\Source\PlayMidi.h" />
