@@ -30,6 +30,9 @@ protected:
 
 protected:
   int m_lastTabStop = 0; // track most recent tab stop in scrolling list.
+
+  // This is the last position, (the final song displayed!)
+  int m_finalTabStop = 0;
 };
 
 // Use this to move title up if on two lines; poor substitute for 

@@ -20,6 +20,12 @@
 
 namespace Amju
 {
+static bool IsSongHidden(const HeroGameRound& gameround)
+{
+  // TODO - hide some songs until they are unlocked. E.g. boss fights.
+  return false;
+}
+
 static void OnTabStop(GuiElement* scroller, int tabStop)
 {
   TheGSChooseSong::Instance()->OnTabStop(tabStop);
@@ -39,12 +45,12 @@ static void Scroll(float xVel)
 static void OnLeftButton(GuiElement* button)
 {
   // Notify scroller to scroll left (everything moves right tho?!)
-  Scroll(-1.f);
+  Scroll(100.f);
 }
 
 static void OnRightButton(GuiElement* button)
 {
-  Scroll(1.f);
+  Scroll(-100.f);
 }
 
 static void OnQuitButton(GuiElement* button)
@@ -261,7 +267,7 @@ void GSChooseSong::InitQuitButton()
 
 void GSChooseSong::InitScrollingGui()
 {
-  GuiScroll::SetTabStopSoundFilename("Sound/wav/click.wav");
+  GuiScroll::SetTabStopSoundFilename("Sound/wav/golf10-bouncewall.wav");
 
   auto grm = TheGameRoundManager::Instance();
   // Make sure the game round csv file is loaded; load only happens
@@ -292,9 +298,14 @@ void GSChooseSong::InitScrollingGui()
   int songNum = 1; // song num in current level; one-based as we display it.
   bool focusHasBeenSet = false; // flag for setting focus on next song. 
   int tabStopForFocusSong = 0; // set tab stop so song with focus is selected.
+
+  m_finalTabStop = 1; // uhh so it all works out.. tab stops are ZB and negative?!
   for (int i = 0; i < numSongs; i++)
   {
     const auto& gameround = grm->GetGameRound(i);
+
+    // Skip if this song is hidden (tutorial or boss)
+    if (IsSongHidden(gameround)) continue;
 
     // Show level for subsequent songs
     if (gameround.m_level != level)
@@ -334,6 +345,10 @@ void GSChooseSong::InitScrollingGui()
     SetSongGui(gameround, elem, songNum, isUnlocked, spi, hasFocus, spi.m_completed);
     ++songNum;
     rootNode->AddChild(elem);
+
+    // Count tab stops added, with possible skipping.
+    // Negative because that's how it is now...
+    --m_finalTabStop;
   }
 
   // Set scroll bar extents
@@ -352,6 +367,18 @@ void GSChooseSong::InitScrollingGui()
   scroller->SetStoppingVel(.5f);
   scroller->SetSpeedBumpMult(.25f);
   scroller->SetStoppingDistance(.03f);
+
+#ifdef WIN32
+  // On windows, disable drag-to-scroll
+  scroller->SetDisableCursorControl(true);
+  // Reverse left and right button behaviour to match on-screen buttons
+  scroller->SetReverseLeftRight(true);
+  // Stop on tab stops
+  scroller->SetSpeedBumpMult(.01f);
+#endif
+
+  // On iOS, hide the on-screen buttons and use drag-to-scroll.
+  // TODO
 }
 
 void GSChooseSong::OnTabStop(int tabStop)
@@ -362,13 +389,14 @@ void GSChooseSong::OnTabStop(int tabStop)
   // Enable or disable L/R buttons as applicable 
   auto left = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "left-button"));
   Assert(left);
-  bool leftIsEnabled = (tabStop != 0); 
+  const bool leftIsEnabled = (tabStop != 0); 
   left->SetIsEnabled(leftIsEnabled);
   // TODO Set colour to same as disabled song Start button
   
   auto right = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "right-button"));
   Assert(right);
-  right->SetIsEnabled(true);
+  const bool rightIsEnabled = (tabStop != m_finalTabStop);
+  right->SetIsEnabled(rightIsEnabled);
 }
 }
 
