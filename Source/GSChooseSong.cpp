@@ -25,6 +25,28 @@ static void OnTabStop(GuiElement* scroller, int tabStop)
   TheGSChooseSong::Instance()->OnTabStop(tabStop);
 }
 
+static void Scroll(float xVel)
+{
+  auto state = dynamic_cast<GSChooseSong*>(
+      TheGame::Instance()->GetState());
+  Assert(state);
+  auto scroller = dynamic_cast<GuiScroll*>(
+      state->GetGui()->GetElementByName("song-scroller"));
+  Assert(scroller);
+  scroller->OnScrollVelEvent({xVel, 0});
+}
+
+static void OnLeftButton(GuiElement* button)
+{
+  // Notify scroller to scroll left (everything moves right tho?!)
+  Scroll(-1.f);
+}
+
+static void OnRightButton(GuiElement* button)
+{
+  Scroll(1.f);
+}
+
 static void OnQuitButton(GuiElement* button)
 {
   TheGame::Instance()->GetState()->GoBack();
@@ -215,7 +237,19 @@ void GSChooseSong::OnActive()
 void GSChooseSong::InitGui()
 {
   InitQuitButton();
+  InitLRButtons();
   InitScrollingGui();
+}
+
+void GSChooseSong::InitLRButtons()
+{
+  auto elem = GetElementByName(m_gui, "left-button");
+  Assert(elem); 
+  elem->SetCommand(Amju::OnLeftButton);
+
+  elem = GetElementByName(m_gui, "right-button");
+  Assert(elem); 
+  elem->SetCommand(Amju::OnRightButton);
 }
 
 void GSChooseSong::InitQuitButton()
@@ -310,6 +344,9 @@ void GSChooseSong::InitScrollingGui()
   scroller->SetTabStopSize(Vec2f(oneSongWidth, 0));
   scroller->SetTabStopCallback(Amju::OnTabStop);
   scroller->SetTabStop(tabStopForFocusSong);
+
+  // Call tab stop callback to enable L/R buttons
+  OnTabStop(tabStopForFocusSong);
   
   // Set consts so we click each song into place
   scroller->SetStoppingVel(.5f);
@@ -321,6 +358,17 @@ void GSChooseSong::OnTabStop(int tabStop)
 {
   m_lastTabStop = tabStop; // TODO persist this in game config file? Hmm
   std::cout << "Hit tab stop " << tabStop << "\n";
+
+  // Enable or disable L/R buttons as applicable 
+  auto left = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "left-button"));
+  Assert(left);
+  bool leftIsEnabled = (tabStop != 0); 
+  left->SetIsEnabled(leftIsEnabled);
+  // TODO Set colour to same as disabled song Start button
+  
+  auto right = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "right-button"));
+  Assert(right);
+  right->SetIsEnabled(true);
 }
 }
 

@@ -24,6 +24,7 @@ public:
 
 protected:
   void InitGui();
+  void InitLRButtons();
   void InitQuitButton();
   void InitScrollingGui();
 
