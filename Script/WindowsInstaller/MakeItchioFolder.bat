@@ -36,7 +36,7 @@ REM COPY ..\amjulib\3rdPartyLibs\BugSplat\Windows\x64\Release\bin\BugSplatWer.dl
 COPY ..\amjulib\3rdPartyLibs\BugSplat\Windows\x64\Release\bin\BugSplatRc.dll %DEST%
 
 REM MS redistributables, also required by BugSplat.
-XCOPY ..\amjulib\3rdPartyLibs\BugSplat\Windows\Redist_DLLs\*.dll %DEST%
+XCOPY ..\amjulib\3rdPartyLibs\BugSplat\Windows\Redist_DLLs\*.dll %DEST% /y
 
 
 REM Distro folder is Build\WindowsItchio
