@@ -4,9 +4,9 @@
 // This file is included in the .rc file, and used to build the Version Resource.
 // This version number for windows only.
 
-#define VERSION_MAJOR               0
-#define VERSION_MINOR               4
-#define VERSION_REVISION            0
+#define VERSION_MAJOR 0
+#define VERSION_MINOR 4
+#define VERSION_REVISION 0
 #define VERSION_BUILD               1
 
 #define STRINGIZE2(s) #s

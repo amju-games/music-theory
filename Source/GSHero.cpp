@@ -461,12 +461,17 @@ void GSHero::Update()
 
   // Check if we should change state -- we are not using timed messages,
   //  there are too many edge cases to worry about.
-  // TODO config
-  if (m_state == HeroState::PLAYER_HAS_WON && m_timeInHeroState > 5.f) 
+  // TODO config for the time delays.
+  // If we are auto-testing, delay is v short.
+  const bool autoTest = (GetAutoTestLevel() != AutoTestLevel::AMJU_NO_TEST);
+  const float wonDelay = autoTest ? .3f : 5.f;
+  const float lostDelay = autoTest ? .3f : 3.f;
+
+  if (m_state == HeroState::PLAYER_HAS_WON && m_timeInHeroState > wonDelay)
   {
     GoTo<TheGSHeroWin>();
   }
-  else if (m_state == HeroState::PLAYER_HAS_LOST && m_timeInHeroState > 3.f)
+  else if (m_state == HeroState::PLAYER_HAS_LOST && m_timeInHeroState > lostDelay)
   {
     GoTo<TheGSHeroEnd>();
   }
@@ -619,14 +624,15 @@ std::cout << "** AUTO TEST: Setting auto play on.\n";
   else if (GetAutoTestLevel() == AutoTestLevel::AMJU_SMOKE_TEST)
   {
     // Smoke test: generate lose or win event after a short delay.
+    const float DELAY = 1.f;
     static int visit = 0;
     if (visit % 2 == 0)
     {
-      AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasLost(); }, 3.f);
+      AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasLost(); }, DELAY);
     }
     else
     {
-      AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasWon(); }, 3.f);
+      AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasWon(); }, DELAY);
     }
     ++visit;
   }
