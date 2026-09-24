@@ -106,8 +106,6 @@ def main():
     run_command("msbuild --version");
     run_command("butler --version");
     
-    return
-
     # 1. Clean workspace check
     status = run_command("git status --porcelain", capture_output=True).stdout.strip()
     if status and not args.dry_run:
