@@ -1,12 +1,17 @@
+# PIANO FEST (c) Amju Games 2026
 # Build and publish a new version of PIANO FEST to ITCH.IO
-# Run this from a "Developer Command Prompt" to get msbuild.
+# Run this from a "Developer Command Prompt" to get msbuild, with:
+#
+#    python3 PUBLISH_ITCHIO.py
+#
 # You need these tools to be accessible too:
+# * Python (of course!)
 # * Git
 # * Perl
-# * Python
 # * Butler (itchio uploader)
-# Test you've got everything with 
-#  msbuild -v, git -v, perl -v, python3 --version, butler --version.
+#
+# This script prompts for new version (in major.minor.patch format).
+# It may well also prompt for authentication for butler and git.
 
 import subprocess
 import sys
@@ -68,7 +73,6 @@ def get_latest_git_tag():
 def update_version_header(version_str, dry_run=False):
     clean_ver = version_str.lstrip('v.')
     parts = clean_ver.split('.')
-    print(parts);
     major, minor, patch = parts[0], parts[1], parts[2] if len(parts) > 2 else "0"
 
     if dry_run:
@@ -94,6 +98,15 @@ def main():
     args = parse_args()
     if args.dry_run:
         print("\n*** RUNNING IN DRY RUN MODE - No changes will be saved, tagged, or pushed ***\n")
+
+    # Check we have got everything we need!
+    run_command("git --version");
+    # Localise script is in perl, until we redo it in python.
+    run_command("perl --version");
+    run_command("msbuild --version");
+    run_command("butler --version");
+    
+    return
 
     # 1. Clean workspace check
     status = run_command("git status --porcelain", capture_output=True).stdout.strip()
@@ -128,16 +141,19 @@ def main():
     update_version_header(new_version, dry_run=args.dry_run)
 
     # 5. Build Release
+    # This takes a while (~10 mins) - better to spew output so we know it's alive.
     print("\n--- Building Release ---")
-    # capture_output hides the thousands of lines of spam
-    run_command("MakeItchioFolder.bat", capture_output=True)
+    # Add capture_output to hide the thousands of lines of spam
+    run_command("MakeItchioFolder.bat")
 
     # 6. Automated Smoke Test
+    # Runs the game, takes a few minutes, you can see it working tho.
     print("\n--- Running Automated Tests ---")
     build_dir = (Path(__file__).parent / ".." / ".." / "Build" / "WindowsItchio").resolve()
     run_command(f"{GAME_EXE} --smoketest", cwd=build_dir)
 
     # 7. Upload to Itch.io via Butler
+    # Could prompt for creds
     print("\n--- Uploading to Itch.io ---")
     run_command(
         f"butler push {build_dir.as_posix()} {ITCH_TARGET} --userversion {new_version}",
@@ -146,6 +162,7 @@ def main():
     )
 
     # 8. Git Commit & Tag
+    # Could prompt for creds
     print("\n--- Tagging & Pushing Release ---")
     run_command(f'git commit -am "Release {new_version}"', dry_run=args.dry_run, is_side_effect=True)
     run_command(f'git tag -a {new_version} -m "Release {new_version}"', dry_run=args.dry_run, is_side_effect=True)
