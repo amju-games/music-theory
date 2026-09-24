@@ -4,7 +4,9 @@
 # * Git
 # * Perl
 # * Python
-# Test you've got everything with msbuild -v, git -v, perl -v, python3 --version.
+# * Butler (itchio uploader)
+# Test you've got everything with 
+#  msbuild -v, git -v, perl -v, python3 --version, butler --version.
 
 import subprocess
 import sys
@@ -61,7 +63,7 @@ def get_latest_git_tag():
     res = run_command("git describe --tags --abbrev=0", check=False, capture_output=True)
     if res.returncode == 0:
         return res.stdout.strip()
-    return "v0.0.0"
+    return "v.0.0.0"
 
 def update_version_header(version_str, dry_run=False):
     clean_ver = version_str.lstrip('v.')
