@@ -28,11 +28,3 @@ cd Script/AssetCompiler
 REM use CALL so we come back here afterwards!
 CALL make-everything-win.bat
 
-REM ***************************
-REM *** Build setup program ***
-REM ***************************
-
-cd %TOP_DIR%
-"\Program Files\Inno Setup 7\iscc.exe" Script\WindowsInstaller\amju_piano_fest_inno_setup_script.iss
-
-REM Installer is in: Build\WindowsInstaller\amju_piano_fest_installer.exe
