@@ -4,8 +4,12 @@ import re
 import os
 import argparse
 
-VERSION_HEADER_PATH = "Source/Windows/WindowsVersion.h"
-ITCH_TARGET = "your-itch-username/your-game-slug:windows"
+VERSION_HEADER_PATH = "../../Source/Windows/WindowsVersion.h"
+ITCH_TARGET = "amju-games/piano-fest:windows"
+LOCALISE_PL = "../../../amjulib/Source/Localise.pl"
+EN_TXT = "../../Assets/en.txt"
+ASSETS_DIR = "../../Assets"
+SOURCE_DIR = "../../Source"
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Automated release script.")
@@ -43,6 +47,7 @@ def get_latest_git_tag():
 def update_version_header(version_str, dry_run=False):
     clean_ver = version_str.lstrip('v')
     parts = clean_ver.split('.')
+    print(parts);
     major, minor, patch = parts[0], parts[1], parts[2] if len(parts) > 2 else "0"
 
     if dry_run:
@@ -55,13 +60,14 @@ def update_version_header(version_str, dry_run=False):
 
         content = re.sub(r'#define\s+VERSION_MAJOR\s+\d+', f'#define VERSION_MAJOR {major}', content)
         content = re.sub(r'#define\s+VERSION_MINOR\s+\d+', f'#define VERSION_MINOR {minor}', content)
-        content = re.sub(r'#define\s+VERSION_PATCH\s+\d+', f'#define VERSION_PATCH {patch}', content)
+        content = re.sub(r'#define\s+VERSION_REVISION\s+\d+', f'#define VERSION_REVISION {patch}', content)
 
         with open(VERSION_HEADER_PATH, 'w') as f:
             f.write(content)
         print(f"Updated {VERSION_HEADER_PATH} to {clean_ver}")
     else:
-        print(f"Warning: Header file not found at {VERSION_HEADER_PATH}")
+        print(f"Fatal error: Header file not found at {VERSION_HEADER_PATH}")
+        sys.exit(1)
 
 def main():
     args = parse_args()
@@ -82,11 +88,15 @@ def main():
         new_version = f"v{new_version}"
 
     # 3. Update version header
+    # Exits if header not found, that is serious!
     update_version_header(new_version, dry_run=args.dry_run)
 
     # 4. Localisation check
     print("\n--- Running Localisation Checks ---")
-    # run_command("python scripts/check_loc.py")
+    # Running a localisation pass should have no effect: all player-facing
+    #  strings should be localised already!
+    run_command(f"perl {LOCALISE_PL} {EN_TXT} {ASSETS_DIR}")
+    run_command(f"perl {LOCALISE_PL} {EN_TXT} {SOURCE_DIR}")
     loc_status = run_command("git status --porcelain", capture_output=True).stdout.strip()
     if loc_status and not args.dry_run:
         print("Error: Un-translated strings or untracked changes detected during localization pass.")
@@ -94,11 +104,11 @@ def main():
 
     # 5. Build Release
     print("\n--- Building Release ---")
-    # run_command("cmake --build build --config Release")
+    run_command("MakeItchioFolder.bat")
 
     # 6. Automated Smoke Test
     print("\n--- Running Automated Tests ---")
-    # run_command("./build/Release/MyGame.exe --smoketest")
+    run_command("../../Build/WindowsItchio/amju_piano_fest.exe --smoketest")
 
     # 7. Upload to Itch.io via Butler
     print("\n--- Uploading to Itch.io ---")
