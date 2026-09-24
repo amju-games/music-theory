@@ -1,15 +1,34 @@
+# Build and publish a new version of PIANO FEST to ITCH.IO
+# Run this from a "Developer Command Prompt" to get msbuild.
+# You need these tools to be accessible too:
+# * Git
+# * Perl
+# * Python
+# Test you've got everything with msbuild -v, git -v, perl -v, python3 --version.
+
 import subprocess
 import sys
 import re
 import os
 import argparse
+from pathlib import Path
 
 VERSION_HEADER_PATH = "../../Source/Windows/WindowsVersion.h"
 ITCH_TARGET = "amju-games/piano-fest:windows"
-LOCALISE_PL = "../../../amjulib/Source/Localise.pl"
+LOCALISE_PL = "../../../amjulib/Source/Localise/localise.pl"
 EN_TXT = "../../Assets/en.txt"
 ASSETS_DIR = "../../Assets"
 SOURCE_DIR = "../../Source"
+GAME_EXE = "amju_piano_fest.exe"
+
+def is_valid_version(version_str):
+    # Regex breakdown:
+    # ^       = start of string
+    # \d+     = one or more digits
+    # \.      = a literal dot
+    # $       = end of string
+    pattern = r"^\d+\.\d+\.\d+$"    
+    return bool(re.match(pattern, version_str))
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Automated release script.")
@@ -20,7 +39,7 @@ def parse_args():
     )
     return parser.parse_args()
 
-def run_command(cmd, check=True, capture_output=False, dry_run=False, is_side_effect=False):
+def run_command(cmd, check=True, capture_output=False, dry_run=False, is_side_effect=False, cwd="."):
     """
     Executes a shell command. 
     If dry_run is True and is_side_effect is True, logs the command instead of executing.
@@ -30,7 +49,7 @@ def run_command(cmd, check=True, capture_output=False, dry_run=False, is_side_ef
         return subprocess.CompletedProcess(args=cmd, returncode=0, stdout="", stderr="")
 
     print(f"--> Running: {cmd}")
-    result = subprocess.run(cmd, shell=True, text=True, capture_output=capture_output)
+    result = subprocess.run(cmd, shell=True, text=True, capture_output=capture_output, cwd=cwd)
     if check and result.returncode != 0:
         print(f"Error: Command failed with exit code {result.returncode}")
         if capture_output:
@@ -45,7 +64,7 @@ def get_latest_git_tag():
     return "v0.0.0"
 
 def update_version_header(version_str, dry_run=False):
-    clean_ver = version_str.lstrip('v')
+    clean_ver = version_str.lstrip('v.')
     parts = clean_ver.split('.')
     print(parts);
     major, minor, patch = parts[0], parts[1], parts[2] if len(parts) > 2 else "0"
@@ -83,37 +102,43 @@ def main():
     # 2. Version selection
     latest_tag = get_latest_git_tag()
     print(f"Latest release tag: {latest_tag}")
-    new_version = input("Enter new version (e.g., 0.3.0 or v0.3.0): ").strip()
-    if not new_version.startswith('v'):
-        new_version = f"v{new_version}"
+    new_version = input("Enter new version (e.g., 0.3.0): ").strip()
+    if not is_valid_version(new_version):
+        print("Bad version! Must be <major>.<minor>.<patch>, e.g. 0.3.0.")
+        sys.exit(1)
+    new_version = f"v.{new_version}"
 
-    # 3. Update version header
-    # Exits if header not found, that is serious!
-    update_version_header(new_version, dry_run=args.dry_run)
-
-    # 4. Localisation check
+    # 3. Localisation check
     print("\n--- Running Localisation Checks ---")
     # Running a localisation pass should have no effect: all player-facing
     #  strings should be localised already!
-    run_command(f"perl {LOCALISE_PL} {EN_TXT} {ASSETS_DIR}")
-    run_command(f"perl {LOCALISE_PL} {EN_TXT} {SOURCE_DIR}")
+    # capture_output hides the thousands of lines of spam
+    run_command(f"perl {LOCALISE_PL} {EN_TXT} {ASSETS_DIR}", capture_output=True)
+    run_command(f"perl {LOCALISE_PL} {EN_TXT} {SOURCE_DIR}", capture_output=True)
     loc_status = run_command("git status --porcelain", capture_output=True).stdout.strip()
     if loc_status and not args.dry_run:
-        print("Error: Un-translated strings or untracked changes detected during localization pass.")
+        print("Error: Un-translated strings or untracked changes detected during localisation pass.")
         sys.exit(1)
+
+    # 4. Update version header: after localisation check, so updated 
+    #   version file doesn't look like a localise error.
+    # Exits if header not found, that is serious!
+    update_version_header(new_version, dry_run=args.dry_run)
 
     # 5. Build Release
     print("\n--- Building Release ---")
-    run_command("MakeItchioFolder.bat")
+    # capture_output hides the thousands of lines of spam
+    run_command("MakeItchioFolder.bat", capture_output=True)
 
     # 6. Automated Smoke Test
     print("\n--- Running Automated Tests ---")
-    run_command("../../Build/WindowsItchio/amju_piano_fest.exe --smoketest")
+    build_dir = (Path(__file__).parent / ".." / ".." / "Build" / "WindowsItchio").resolve()
+    run_command(f"{GAME_EXE} --smoketest", cwd=build_dir)
 
     # 7. Upload to Itch.io via Butler
     print("\n--- Uploading to Itch.io ---")
     run_command(
-        f"butler push ./build/Release {ITCH_TARGET} --userversion {new_version}",
+        f"butler push {build_dir.as_posix()} {ITCH_TARGET} --userversion {new_version}",
         dry_run=args.dry_run,
         is_side_effect=True
     )
