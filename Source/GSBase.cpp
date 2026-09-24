@@ -80,6 +80,7 @@ GuiButton* GSBase::FindFocusButton(GuiElement* elem)
 
 void GSBase::AutoTestSetup()
 {
+  const float DELAY = 0.3f;
   AutoMsg([this]()
   { 
     // Try to find a button with Focus. If we find one, click it.
@@ -91,7 +92,7 @@ void GSBase::AutoTestSetup()
       // Simulate button press
       button->ExecuteCommand(); 
     }
-  });
+  }, DELAY);
 }
 
 void GSBase::SetVersionText()

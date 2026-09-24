@@ -53,7 +53,7 @@ void GSCredits::OnActive()
 void GSCredits::AutoTestSetup()
 {
   const float WAIT_TIME = 0.3f;
-  const float SCROLL_VEL = 5.f; // screen units/sec
+  const float SCROLL_VEL = 20.f; // screen units/sec
   m_waitTime = WAIT_TIME; 
   m_scrollVel = SCROLL_VEL;
 }
