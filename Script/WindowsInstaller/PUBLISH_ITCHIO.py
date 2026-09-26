@@ -119,6 +119,7 @@ def main():
     if not is_valid_version(new_version):
         print("Bad version! Must be <major>.<minor>.<patch>, e.g. 0.3.0.")
         sys.exit(1)
+    clean_version = new_version
     new_version = f"v.{new_version}"
 
     # 3. Localisation check
@@ -154,7 +155,7 @@ def main():
     # Could prompt for creds
     print("\n--- Uploading to Itch.io ---")
     run_command(
-        f"butler push {build_dir.as_posix()} {ITCH_TARGET} --userversion {new_version}",
+        f"butler push {build_dir.as_posix()} {ITCH_TARGET} --userversion {clean_version}",
         dry_run=args.dry_run,
         is_side_effect=True
     )
