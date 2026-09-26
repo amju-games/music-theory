@@ -10,7 +10,7 @@ param (
 )
 
 # Parse version macros from header file
-$headerPath = Join-Path $ProjectDir "..\..\..\Source\Windows\WindowsVersion.h"
+$headerPath = Join-Path $ProjectDir "..\..\..\..\Source\Windows\WindowsVersion.h"
 if (Test-Path $headerPath) {
     $content = Get-Content $headerPath -Raw
     $major = [regex]::Match($content, '#define\s+VERSION_MAJOR\s+(\d+)').Groups[1].Value
