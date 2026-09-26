@@ -23,7 +23,7 @@ MKDIR %DEST%
 COPY Build\Release\amju_piano_fest.exe %DEST%
 
 REM Important for itch.io app! Identifies game exe.
-COPY Script\WindowsInstaller\itch.toml %DEST%
+COPY Script\WindowsInstaller\.itch.toml %DEST%
 
 COPY Build\CompiledAssets\data-WIN.glue %DEST%
 COPY Build\CompiledAssets\music-WIN.glue %DEST%
