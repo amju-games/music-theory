@@ -50,7 +50,8 @@ thx-text
 // size
 2.0, 0.1
 // Text
-@@@Thank you for playing this demo of...
+// Thank you for playing this demo of...
+$$$76
 // Font name, size
 bmmolin, 1.0, centre
 
