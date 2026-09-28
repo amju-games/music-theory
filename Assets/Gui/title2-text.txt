@@ -1,0 +1,106 @@
+// * Amjula music theory *
+// (c) Copyright 2024 Juliet Colman
+
+// version
+1
+
+// If we're keeping the rotate, that lives here.
+// Scale and rotate should be in the including file tho.
+rotate
+12.
+.5, .5
+
+gui-comp
+piano-fest
+2
+
+translate
+.2, -.5
+gui-comp
+fest
+4
+
+gui-sprite
+title-text-f
+0, 0
+.6, 1.2
+// stretch to exact size above to fit edges together
+font2d/Title/title.png, stretch
+10, 1
+5
+
+gui-sprite
+title-text-e
+.44, -.04
+.42,.84
+// stretch to exact size above to fit edges together
+font2d/Title/title.png, stretch
+10, 1
+6
+
+gui-sprite
+title-text-s
+.62, -0.02
+.5,1
+// stretch to exact size above to fit edges together
+font2d/Title/title.png, stretch
+10, 1
+7
+
+gui-sprite
+title-text-t
+.82, 0
+.5,1
+// stretch to exact size above to fit edges together
+font2d/Title/title.png, stretch
+10, 1
+8
+
+gui-comp
+piano
+5
+
+gui-sprite
+title-text-p
+-.1, 0
+.7, 1.4
+// stretch to exact size above to fit edges together
+font2d/Title/title.png, stretch
+10, 1
+0
+
+gui-sprite
+title-text-i
+.47, .1
+.4, .8
+// stretch to exact size above to fit edges together
+font2d/Title/title.png, stretch
+10, 1
+1
+
+gui-sprite
+title-text-a
+.6, 0.1
+.4,.8
+// stretch to exact size above to fit edges together
+font2d/Title/title.png, stretch
+10, 1
+2
+
+gui-sprite
+title-text-n
+.8, .1
+.5,1
+// stretch to exact size above to fit edges together
+font2d/Title/title.png, stretch
+10, 1
+3
+
+gui-sprite
+title-text-o
+1.08, .12
+.45, .9
+// stretch to exact size above to fit edges together
+font2d/Title/title.png, stretch
+10, 1
+4

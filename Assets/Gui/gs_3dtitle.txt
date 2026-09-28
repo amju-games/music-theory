@@ -19,8 +19,8 @@ elastic
 0, 2
 gui-sprite
 amju-logo
--.125, .85
-.2,.3 
+-.7, .75
+.25,.3 
 // TODO Add to atlas? But hopefully will upgrade to nice shiny 3D model
 // No stretch
 Image/logo.png
@@ -42,18 +42,14 @@ gui-comp
 title-and-version
 3
 
-// Title text
-text2
-title-text
-// pos (coords are -1..1)
--1.0, 0.4
-// size
-2.0, 0.65
-// Text
-//Piano Fest
-$$$41
-// Font name, size
-bmmolin, 4.0, centre
+scale
+.5,.5
+.5,.5
+translate
+-0.25,0.75
+
+include
+title2-text-long.txt
 
 // Amju/copyright text
 text2

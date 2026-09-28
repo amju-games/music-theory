@@ -50,22 +50,19 @@ thx-text
 // size
 2.0, 0.1
 // Text
-Thank you for playing this demo of...
+// Thank you for playing this demo of...
+$$$76
 // Font name, size
 bmmolin, 1.0, centre
 
-// Title text
-text2
-title-text
-// pos (coords are -1..1)
--1.0, 0.0
-// size
-2.0, 0.65
-// Text
-//Piano Fest
-$$$41
-// Font name, size
-bmmolin, 4.0, centre
+// TITLE
+scale
+.5,.5
+.5,.5
+translate
+-0.4,0.4
+include
+title2-text-long.txt
 
 // Amju/copyright text
 text2
@@ -97,7 +94,7 @@ elastic
 0, 2
 gui-sprite
 amju-logo
--.15, .7
+-.15, .8
 .3,.4 
 // TODO Add to atlas? But hopefully will upgrade to nice shiny 3D model
 // No stretch
