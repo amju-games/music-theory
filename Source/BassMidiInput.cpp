@@ -4,7 +4,7 @@
 
 #include <MessageQueue.h>
 #include <SoundManager.h>
-#include "BassPlayMidi.h" //???
+#include "BassErrorStrings.h"
 #include "BassMidiInput.h"
 #include "MusicEvent.h"
 
@@ -33,7 +33,8 @@ static void CALLBACK BassMidiInputCallback(
 
     bool isNoteOn = (velocity > 0); // velocity 0 means note off
     // Good news, MessageQueue::Add is thread safe
-    TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(midiNote, isNoteOn)));
+    TheMessageQueue::Instance()->Add(
+      new MusicKbMsg(MusicKbEvent(midiNote, isNoteOn)));
   }
 
 #ifdef MIDI_INPUT_DEBUG
@@ -55,7 +56,8 @@ bool BassMidiInput::Connect()
   if (!BASS_MIDI_InGetDeviceInfo(device, &info))
   {
 #ifdef MIDI_CONNECT_DEBUG
-    std::cout << "BASS MIDI failed to get midi device info. Error code: " << BASS_ErrorGetCode() << "\n";
+    std::cout << "BASS MIDI failed to get midi device info:\n";
+    CheckBassStatus();
 #endif
     return false;
   }
@@ -81,14 +83,16 @@ bool BassMidiInput::Connect()
     }
     else
     {
-      std::cout << "BASS MIDI failed to initialise midi device. Error code: " << BASS_ErrorGetCode() << "\n";
+      std::cout << "BASS MIDI failed to initialise midi device:\n";
+      CheckBassStatus();
       return false;
     }
   }
 
   if (!BASS_MIDI_InStart(device))
   {
-    std::cout << "BASS MIDI failed to start recv from midi device. Error code: " << BASS_ErrorGetCode() << "\n";
+    std::cout << "BASS MIDI failed to start recv from midi device:\n";
+    CheckBassStatus();
     return false;
   }
 
@@ -102,7 +106,8 @@ bool BassMidiInput::IsConnected() const
   if (!BASS_MIDI_InGetDeviceInfo(device, &info))
   {
 #ifdef MIDI_CONNECT_DEBUG
-    std::cout << "BASS MIDI failed to get midi device info. Error code: " << BASS_ErrorGetCode() << "\n";
+    std::cout << "BASS MIDI failed to get midi device info:\n";
+    CheckBassStatus();
 #endif
     return false;
   }
