@@ -6,15 +6,18 @@
 #include <GuiDecAnimation.h>
 #include <GuiDecTranslate.h>
 #include <Singleton.h>
+#include "ExtrasAdder.h"
 #include "FindSongSections.h"
 #include "GSBase3d.h"
 #include "GuiMusicKbBase.h"
 #include "GuiPatch.h"
 #include "GuiScrollScore.h"
+#include "QwertyOverlay.h"
 #include "WithHud.h"
 
 namespace Amju
 {
+struct AutoMusicEvent; // plays music event in dtor
 struct Grade;
 struct HeroGameRound;
 
@@ -44,8 +47,11 @@ public:
   void Update() override;
   void Draw2d() override;
 
-  // Debug: win/lose cheat buttons
-  bool OnKeyEvent(const KeyEvent&) override;
+  // Set up Auto Player
+  void AutoTestSetup() override;
+
+  // Add debug key handlers, and TODO qwerty key handlers too.
+  KeyInputHandler& AddKeyInputHandlers() override;
 
   void OnPauseGame() override;
 
@@ -71,19 +77,19 @@ public:
   //  AnimalController tells use we have lost if all pets eaten.
   void OnPlayerHasLost();
 
+  // Extra Reward -- resuscitate life score 
+  void IncreaseLife(int inc); 
+
 protected:
+  // Find highest note event ID up to and including the given
+  //  normalised time.
+  int FindNoteEventForTime(float normalisedTime);
+
+  // Generate events to auto-play the current song. 
+  void SetUpAutoPlay();
+
   // Call to change current 'micro state'
   void ChangeState(HeroState newState);
-
-  // Add an extra GUI element to the score.
-  // Specify the event number and type. So you can attach to, say,
-  //  the 3rd note on event, or the 2nd rest on event.
-  // eventNum is zero-based.
-  void AttachExtraBitToScore(PGuiElement extra, int eventNum, NoteEventType net);
-
-  // Attach extra GUI elements to the score -- it would be nice if this
-  //  is programmatic rather than specified - could be a mix of both.
-  void AttachExtraBits();
 
   // Called when we restart this state - we may need to resume if we were
   //  paused.
@@ -118,6 +124,8 @@ protected:
 
   void InitKeyboard();
 
+  void InitQwertyKeys();
+
   void ResetHud();
 
   void ResetMissedNoteCounters();
@@ -125,10 +133,13 @@ protected:
   // Look ahead at note events coming up, and translate the keyboard
   //  if necessary, so the keys are on screen.
   void UpdateKeyboardPosition();
+
+  // Set palette colours on keys that appear in the upcoming section.
+  void ColouriseKeysForSection();
  
   // Grade player input event against what we think is the corresponding
   //  event in the score.
-  void GradeEvent(const MusicKbEvent& e);
+  void GradeEvent(const AutoMusicEvent& e);
 
   // Debug: called when R key is pressed to reload everything.
   void ReloadGui() override;
@@ -143,6 +154,23 @@ protected:
 
   // Calls the above and starts the count-in song
   void StartCountInSongAndGui();
+
+  // Distribute extras throughout song, add to GUI
+  void InitExtras();
+
+  // Scroll extras so they appear attached to their notes
+  void ScrollExtras();
+
+  // Player note doesn't match score note
+  void OnBumNote(const MusicKbEvent& e, const NoteEvent& ne, const Grade& grade);
+
+  // Player note is correct, matches score note
+  void OnCorrectNote(const NoteEvent& ne, const Grade& grade);
+
+  // Player has missed a note: the note event is the note ON event,
+  //  corresponding to the note OFF event that triggered this call.
+  // (I.e. the note the player should have played.)
+  void OnMissedNote(const NoteEvent& ne);
 
 protected:
   // The scroll score child of m_gui (get after gui is loaded)
@@ -161,6 +189,11 @@ protected:
   // A composite on to which we can hang extra stuff we want the 
   //  musical score to display. E.g. bonus at end of section, etc.
   RCPtr<GuiComposite> m_scoreExtras;
+
+  // Extras adder: adds the extra bits to the score; also notifies them
+  //  if the player correctly (or incorrectly) plays the note to which 
+  //  the extra is attached.
+  RCPtr<ExtrasAdder> m_extrasAdder;
 
   // Count-in GUI
   PGuiElement m_countInGui;
@@ -182,7 +215,17 @@ protected:
 
   // If we paused the game while mid-song, this is the normalised
   //  time at which we paused.
+  // This is adjusted to the start of the current bar (or a previous
+  //  bar if appropriate).
   float m_pauseResumeTime = 0;
+
+  // This is a copy of the pause/resume time that does not get adjusted
+  //  back to the start of the bar.
+  float m_unadjustedPauseResumeTime = 0;
+
+  // This is the x-coord of the score corresponding to the unadjusted
+  //  pause/resume time.
+  float m_unadjustedPauseResumeXPos = 0;
 
   // Length of song in music score in seconds -- NOT normalised, which 
   //  would be 1! 
@@ -208,6 +251,11 @@ protected:
 
   // While true, keyboard is moving to a new position
   bool m_keyboardIsMoving = false;
+
+  QwertyOverlay m_qwertyOverlay;
+
+  // Set to true if in auto test mode: then we auto-play the round.
+  bool m_autoPlay = false;
 };
 
 typedef Singleton<GSHero> TheGSHero;

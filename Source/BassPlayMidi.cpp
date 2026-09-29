@@ -14,6 +14,7 @@
 #include "../../../amjulib/Source/SoundBass/bassmidi.h"
 
 #include <Directory.h>
+#include <DoOnce.h>
 #include <File.h>
 #include <GlueFile.h>
 #include <MessageQueue.h>
@@ -21,13 +22,30 @@
 #include "BassPlayMidi.h"
 #include "MusicEvent.h"
 
+// We CAN load soundfonts from memory, i.e. from a glue file! We need to use this
+//  undocumented flag.
+#ifndef BASS_MIDI_FONT_MEM
+#define BASS_MIDI_FONT_MEM 0x10000 
+#endif
+
 namespace Amju
 {
+void ReportError(const std::string&);
+
 static const auto PIANO_FONT = "steinway_concert_piano.sf2";
 static const auto BASS_FONT = "Colin_s_Double_Bass.sf2";
 static const auto DRUM_FONT = "Jazz Kit.sf2";
 
 static HSTREAM s_playerStream = 0;
+
+static const int PLAYER_CHANNEL = 0;
+
+static bool s_hasSongFinished = true;
+
+bool HasMidiSongFinished()
+{
+  return s_hasSongFinished;
+}
 
 void PlayMidi(int note, int velocity)
 {
@@ -35,25 +53,40 @@ void PlayMidi(int note, int velocity)
   std::cout << "Playing midi note: " << note << " vel: " << velocity << "\n";
 #endif
 
-  const int pianoChannel = 0;
-
   BASS_MIDI_StreamEvent(
-    s_playerStream, pianoChannel, MIDI_EVENT_NOTE, MAKEWORD(note, velocity));
+    s_playerStream, PLAYER_CHANNEL, MIDI_EVENT_NOTE, MAKEWORD(note, velocity));
+}
+
+void KillPlayerNotes()
+{
+std::cout << "Killing off all notes on player stream.\n";
+
+  // Release sustain pedal, in case player has a MIDI keyboard connected
+  //  and the sustain pedal is down.
+  BASS_MIDI_StreamEvent(s_playerStream, PLAYER_CHANNEL, MIDI_EVENT_SUSTAIN, 0); 
+
+  // Release all notes.
+  BASS_MIDI_StreamEvent(s_playerStream, PLAYER_CHANNEL, MIDI_EVENT_NOTESOFF, 0);
+}
+
+// Use this map so we only ever load a soundfont once.
+static std::unordered_map<std::string, HSOUNDFONT> fontPool;
+
+void BassMidiShutdown()
+{
+  do_once
+  {
+    for (const auto& [name, font] : fontPool)
+    {
+      std::cout << "Freeing soundfont: " << name << "\n";
+      BASS_MIDI_FontFree(font);
+    }
+    fontPool.clear();
+  }
 }
 
 HSOUNDFONT LoadSoundFont(const std::string fontFileName)
 {
-#ifdef AMJU_IOS
-  // Assets are not in subdirectories on iOS
-  std::string prefix = File::GetRoot();
-#else
-  std::string prefix = File::GetRoot() + "Sound/";
-#endif
-
-  auto filename = prefix + fontFileName;
-
-  // Use this map so we only ever load a soundfont once.
-  static std::unordered_map<std::string, HSOUNDFONT> fontPool;
   // Use unadorned filename so we can change File::Root
   auto it = fontPool.find(fontFileName);
   if (it != fontPool.end())
@@ -64,7 +97,44 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
     return it->second;
   }
 
-  auto font = BASS_MIDI_FontInit(filename.c_str(), 0); // load using full path
+  HSOUNDFONT font = 0;
+  // Load from disk or from glue file if it exists
+  if (auto gf = TheSoundManager::Instance()->GetGlueFile())
+  {
+    const std::string prefix = "Sound/";
+    auto filename = prefix + fontFileName;
+
+    //#ifdef BASS_DEBUG
+    std::cout << "Loading soundfont from glue file: " << filename << "\n";
+    //#endif
+
+    // Find the start of the soundfont in the glue file, and find the length
+    uint32 soundfontPos = 0;
+    if (!gf->GetSeekBase(filename, &soundfontPos))
+    {
+      std::string s = "BASS: soundfont not in Glue File: " + filename;
+      ReportError(s);
+      return 0;
+    }
+    uint32 soundfontLength = gf->GetSize(filename);
+
+    //#ifdef BASS_DEBUG
+    std::cout << "Soundfont length is " << soundfontLength << "\n";
+    //#endif
+
+    // Use GlueFileBinaryData to get the data without copying it
+    GlueFileBinaryData data = gf->GetBinary(soundfontPos, soundfontLength);
+
+    // Load directly from buffer
+    font = BASS_MIDI_FontInit(data.GetBuffer(), BASS_MIDI_FONT_MEM);
+  }
+  else
+  {
+    const std::string prefix = File::GetRoot() + "Sound/";
+    auto filename = prefix + fontFileName;
+
+    font = BASS_MIDI_FontInit(filename.c_str(), 0); // load using full path
+  }
   if (font) 
   {
 #ifdef PLAY_MIDI_DEBUG
@@ -73,7 +143,7 @@ HSOUNDFONT LoadSoundFont(const std::string fontFileName)
   }
   else
   {
-    std::cout << "Failed to load soundfont: " << filename << ": ";
+    std::cout << "Failed to load soundfont: " << fontFileName << ": ";
     std::cout << "Bass error code: " << BASS_ErrorGetCode() << "\n";
     Assert(0);
   }
@@ -228,6 +298,8 @@ std::cout << "** Stopping MIDI song!\n";
 
   BASS_ChannelStop(s_songStream);
   BASS_StreamFree(s_songStream);
+
+  s_hasSongFinished = true;
   s_songStream = 0;
 }
  
@@ -243,6 +315,21 @@ static void MidiSeek(float seconds, HSTREAM stream)
 
   RouteInstruments(stream); // seeking resets the bank mappings
   SetPanningAndReverb(stream);
+}
+
+void CALLBACK EndSyncCallback(
+    HSYNC handle, DWORD channel, DWORD data, void *user) 
+{
+  std::cout << "The MIDI song has finished playing!" << std::endl;
+  s_hasSongFinished = true;
+  BASS_StreamFree(channel);
+}
+
+void CALLBACK CountInEndSyncCallback(
+    HSYNC handle, DWORD channel, DWORD data, void *user) 
+{
+  std::cout << "The MIDI count in has finished playing!" << std::endl;
+  BASS_StreamFree(channel);
 }
 
 // Common code for playing a song and playing a count-in
@@ -330,6 +417,7 @@ std::cout << "BASS MIDI: using glue file.\n";
   }
 
   MidiSeek(seekTime, stream); // RouteInstruments happens in here too.
+
   BASS_ChannelPlay(stream, FALSE); 
 }
 
@@ -346,6 +434,9 @@ std::cout << "** Play MIDI count-in: " << filename << " tempo: " << bpm << " BPM
   //  by bpm/60. This is specific to count-in files.
   const float bpmMult = bpm / 60.f;
   LoadAndStartMidiSong(s_countInStream, filename, seekTime, mutePlayer, bpmMult);
+
+  // Set callback when the count in  ends.
+  BASS_ChannelSetSync(s_countInStream, BASS_SYNC_END, 0, CountInEndSyncCallback, NULL);
 }
 
 void PlayMidiSong(const std::string& filename, float seekTime, bool mutePlayer)
@@ -357,8 +448,13 @@ std::cout << "** Play MIDI song: " << filename << "\n";
   if (s_songStream) 
     StopMidiSong();
 
+  s_hasSongFinished = false;
+
   const float bpm = 0; // TODO - zero means don't set
   LoadAndStartMidiSong(s_songStream, filename, seekTime, mutePlayer, bpm);
+
+  // Set callback when the song ends.
+  BASS_ChannelSetSync(s_songStream, BASS_SYNC_END, 0, EndSyncCallback, NULL);
 }
 
 void MidiLog()
@@ -408,6 +504,9 @@ bool SetUpPlayerStream()
   SetPanningAndReverb(s_playerStream);
 
   BASS_ChannelPlay(s_playerStream, FALSE);
+
+  // Free soundfonts before glue file data is destroyed, hopefully.
+  std::atexit(BassMidiShutdown);
 
   return true;
 }

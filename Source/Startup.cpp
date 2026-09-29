@@ -2,6 +2,8 @@
 // (c) Copyright 2024 Juliet Colman
 
 #ifdef WIN32
+// Hola! There's a batch file to copy DLLs to Build dirs: Scripts/Msvc/DLLs/copy_dlls.bat
+
 #if defined(_DEBUG)
 #pragma comment(lib, "../../../../../amjulib/Build/Debug/AmjuLibMsvc.lib")
 #else
@@ -13,35 +15,32 @@
 #include <AmjuGLWindowInfo.h>
 #include <AmjuRand.h>
 #include <BassSoundPlayer.h>
-#include <CommandLineArgs.h>
 #include <ConfigFile.h>
 #include <CursorManager.h>
 #include <Directory.h>
 #include <FileImplGlue.h>
 #include <Game.h>
 #include <GlueFileMem.h>
-#include <GuiButton.h>
-#include <GuiFactory.h>
-#include <GuiRect.h>
+#include <GuiButton.h> // set click wav
 #include <iOSUtils.h>
 #include <Localise.h>
-#include <SceneNodeFactory.h>
+#include <ObjMesh.h> // set bin or text resource loader
+#include <Shader.h> // set custom loader, TODO temporarily, it breaks reloading
 #include <SoundManager.h>
-#include "AnimalFactory.h"
 #include "BassMidiInput.h"
 #include "BassPlayMidi.h"
-#include "BlinkSceneNode.h"
 #include "Consts.h"
-#include "Gui3dScene.h"
-#include "GuiMusic2dKeyboard.h"
-#include "GuiMusicScore.h"
-#include "GuiPatch.h"
-#include "GuiScrollScore.h"
+#include "GetVersion.h"
 #include "InitialState.h"
-#include "Md2SceneNode.h"
-#include "ParticleFx.h"
-#include "SceneNodeGui.h"
-#include "SceneTimeline.h"
+#include "ObscureConfigFile.h" // TODO promote
+#include "UserLocale.h" // TODO Promote to amjulib
+#include "Palette.h" // add resource
+#include "SetUpFactories.h"
+
+// On Macosx we can test languages with a command line param!
+// E.g. -AppleLocale "fr_FR"
+// This is handled by the OS!
+//#define LANG_DEBUG
 
 #ifdef AMJU_IOS
 // just on device, where we create Version.h in release script
@@ -69,18 +68,17 @@
 #define _CRTDBG_MAP_ALLOC  
 #include <stdlib.h>  
 #include <crtdbg.h>  
-#endif  // _DEBUG
 
-#ifdef NDEBUG
+#else  // _DEBUG
+
+// Release build: use glue files and binary obj files.
 #define YES_GLUE_FILE
 #define YES_BINARY_OBJ_FILES
 #define GLUE_FILE "data-win.glue"
 #define MUSIC_GLUE_FILE "music-win.glue"
-#endif // NDEBUG
-#endif  // WIN32
 
-// Probably just for now
-#define YES_FPS_COUNTER
+#endif // _DEBUG
+#endif  // WIN32
 
 namespace Amju
 {
@@ -96,6 +94,12 @@ Amju::AmjuGLWindowInfo w(1136, 640, false, "Landscape iPhone 5");
 void ReportError(const std::string& str)
 {
   std::cout << str << "\n";
+}
+
+void Stop()
+{
+  // Stop prog execution in Release build.
+  exit(1);
 }
 
 bool MyFileExists(const std::string& filename)
@@ -116,7 +120,7 @@ bool MyFileExists(const std::string& filename)
 // Filename for the writable game config file, not the read-only config.
 std::string ConfigFilename()
 {
-  std::string filename = GetSaveDir(APPNAME) + "config.txt";
+  std::string filename = GetSaveDir(APPNAME) + "config.bin";
 
 #ifdef _DEBUG
   std::cout << "Config file: " << filename << "\n";
@@ -127,6 +131,14 @@ std::string ConfigFilename()
 
 void SetUpRootDir()
 {
+#ifdef WIN32
+  // In MSVC we set the working directory in project properties,
+  //  so just rely on that to set the root dir to Assets/ for debug builds,
+  //  or Build/CompiledAssets for release/glue builds.
+  // For an actual distro we expect the exe to be in the same place as the
+  //  assets and DLLs, or for the installer to sort it out.
+#endif
+
 #ifdef AMJU_IOS
   std::string dir = GetDataDir();
 
@@ -162,6 +174,7 @@ void SetUpGlueFile()
   else
   {
     ReportError("Failed to open data glue file");
+    Stop();
   }
 
   SoundManager* sm = TheSoundManager::Instance();
@@ -175,8 +188,8 @@ void SetUpGlueFile()
   else
   {
     ReportError("Failed to open music glue file");
+    Stop();
   }
-
 #endif // YES_GLUE_FILE
 }
 
@@ -185,35 +198,50 @@ void SetUpGlueFile()
 void LoadWritableConfig()
 {
   const std::string FIRST_TIME_VERSION = "first-time-version";
+  const std::string MOST_RECENT_VERSION = "most-recent-version";
 
-  GameConfigFile* gcf = TheGameConfigFile::Instance();
+  auto& obscure = GetObscureConfigFile();
   std::string filename = ConfigFilename();
-  gcf->SetFilePath(filename);
 
-  bool isFirstTime = true;
-  if (FileExists(filename))
-  {
-    std::cout << "Game config file exists: " << filename << "\n";
-    if (gcf->Load())
-    {
-      std::cout << "Loaded game config file OK: " << filename << "\n";
-      isFirstTime = false; // we have run before!
-      std::cout << "First version was: \"" << gcf->GetValue(FIRST_TIME_VERSION, "**NOT SET**") << "\"\n";
-    }
-  }
+  // Attempt to load writable config file.
+  // Sets filename on success and failure.
+  const bool isFirstTime = (obscure.LoadObscured(filename) == false);
 
-#ifdef AMJU_IOS
   if (isFirstTime)
   {
-    gcf->Set(FIRST_TIME_VERSION, VERSION_STRING);
-    gcf->Save();
+    obscure.Set(FIRST_TIME_VERSION, GetVersionString3());
+    // We will save at end of func
     std::cout << "First time run! Setting first time version in game config.\n";
+    // TODO Set first time flag so we give good FTUE
   }
-#endif
+  else
+  {
+    std::cout << "Loaded game config file OK: " << filename << "\n";
+    std::cout << "First version was: \"" 
+      << obscure.GetValue(FIRST_TIME_VERSION, "**NOT SET**") << "\"\n";
+    
+    std::string mostRecentVersionInConfigFile = 
+      obscure.GetValue(MOST_RECENT_VERSION, "**NOT SET**");
+    
+    std::cout << "Most recent version was: \""
+      << mostRecentVersionInConfigFile << "\"\n";
+  }
+
+  // Save current version so we can detect upgrades
+  const std::string thisVersion = GetVersionString3();
+  // Set values and save: if no change, dirty flag won't be set.
+  obscure.Set(MOST_RECENT_VERSION, thisVersion);
+  obscure.SaveObscured();
 }
 
 void StartUpBeforeCreateWindow()
 {
+  std::cout << "*** AMJU PIANO FEST *** -- written by Juliet Colman 2026\n";
+
+#ifdef _DEBUG
+  std::cout << "** Press / to see current key bindings.\n";
+#endif
+
 #if defined(WIN32) && defined(_DEBUG)
   // Set up MSVC mem leak reporting
   _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -224,17 +252,6 @@ void StartUpBeforeCreateWindow()
   SetUpRootDir();
   
   LoadWritableConfig();
-}
-
-Resource* PianoShaderLoader(const std::string& resName)
-{
-  // Unfortunately we need this to specify the directory.
-  // Strip off ".shader" from the name which is added to identify the resource type.
-  std::string fullName = "Shaders/" + 
-    AmjuGL::GetShaderDir() + "/" + 
-    GetFileNoExt(resName);
-  auto shader = AmjuGL::LoadShader(fullName); 
-  return shader; 
 }
 
 static void SetUpResourceLoaders()
@@ -249,25 +266,18 @@ static void SetUpResourceLoaders()
   rm->AddLoader("obj", TextObjLoader);
 #endif
 
-  // Overwrite default shader resource loader so we can specify the path.
-  // This doesn't work with reloading resources.
-  // Resources should load through their loader function I guess.
-  TheResourceManager::Instance()->AddLoader("shader", PianoShaderLoader);
+  // Set top level dir for shaders; platform-specific dirs live in here.
+  AmjuGL::SetShaderPrefixDir("Shaders");
 
   // Add palette loader: palettes are *.png.pal
   TheResourceManager::Instance()->AddLoader("pal", PaletteLoader);
 }
 
-void SetUpSound()
+static void SetUpMIDI()
 {
 #ifdef AMJU_USE_BASS
-  // Set sound player
-  SoundManager* sm = TheSoundManager::Instance();
-  BassSoundPlayer* bsp = new BassSoundPlayer;
-  sm->SetImpl(bsp);
-
-  // This is the player piano sound, running as a separate channel, independently
-  //  of the currently playing song. 
+  // This is the player piano sound, running as a separate channel, 
+  //  independently of the currently playing song. 
   if (SetUpPlayerStream())
   {
     // First attempt at MIDI input connection. This is too early on iOS
@@ -284,121 +294,80 @@ void SetUpSound()
 #endif // AMJU_USE_BASS
 }
 
-template <class T>
-static void AddToGuiFactory()
+static void SetUpSoundPlayer()
 {
-  TheGuiFactory::Instance()->Add(T::NAME, []()->GuiElement* { return new T; });
+#ifdef AMJU_USE_BASS
+  // Set sound player
+  SoundManager* sm = TheSoundManager::Instance();
+  BassSoundPlayer* bsp = new BassSoundPlayer;
+  sm->SetImpl(bsp);
+#endif // AMJU_USE_BASS
 }
 
-template <class T>
-static void AddToSceneNodeFactory()
-{
-  TheSceneNodeFactory::Instance()->Add(T::NAME, 
-    []()->SceneNode* { return new T; });
-}
-
-template <class T>
-static void AddToTimelineFactory()
-{
-  TheTimelineEventFactory::Instance()->Add(T::NAME, 
-    []()->TimelineEvent* { return new T; });
-}
-
-static void SetUpFactories()
+static void SetUpMisc()
 {
 // Urgh, TODO remove the need for this.
 #if defined(WIN32) || defined(MACOSX)
   // Set image for cursor (e.g. hand with pointing finger for Wii controller).
   // If we don't care, just set any texture we have.
-  // 2nd param is 'hotspot' pixel position.
-  TheCursorManager::Instance()->Load("Image/hand.png", Vec2f()); 
+  // 2nd param is 'hotspot' pixel position, which, again, we don't care about.
+  TheCursorManager::Instance()->Load("Image/atlas.png", {}); 
 #endif
 
   GuiButton::SetClickFilename(WAV_BUTTON_CLICK);
+}
 
-  // Add game-specific types to Gui factory
-  AddToGuiFactory<Gui3dScene>(); // TODO Promote to amjulib
-  AddToGuiFactory<GuiMusic2dKeyboard>();
-  AddToGuiFactory<GuiMusicScore>();
-  AddToGuiFactory<GuiPatch>(); // TODO Promote to amjulib
-  AddToGuiFactory<GuiScrollScore>();
+static std::string GetLanguageFilename()
+{
+  auto language = GetDevicePreferredLanguage();
+ 
+#ifdef LANG_DEBUG
+std::cout << "Preferred language: " << language << "\n";
+#endif
 
-  //Add game-specific types to Scene node factory
-  // TODO These are not game specific! Add to amjulib!!
-  ParticleFx::AddToFactory();
+  if (MyFileExists(language + ".txt"))
+  {
+    return language + ".txt";
+  }
 
-  AddToSceneNodeFactory<SceneNodeGui>(); // TODO Promote to amjulib
-  AddToSceneNodeFactory<Md2SceneNode>(); // TODO Promote to amjulib
-  AddToSceneNodeFactory<Md2SceneNodeWith1Texture>(); // TODO Promote to amjulib? I think?
-  AddToSceneNodeFactory<BlinkSceneNode>(); // TODO Promote to amjulib
+  // No exact match. We want to get the closest match we have.
+  // Try chopping off anything after the 2-char base language code.
+  // The country code can be 2 or 3 chars! Look for the first hyphen.
+  size_t hyphenPos = language.find('-');
+  if (hyphenPos != std::string::npos)
+  {
+    language = language.substr(0, hyphenPos);
+ 
+#ifdef LANG_DEBUG
+std::cout << "Falling back to base language: " << language << "\n";
+#endif
 
-  // Timeline types (cut scene anims)
-  AddToSceneNodeFactory<SceneTimeline>(); // TODO Promote to amjulib
-  AddToTimelineFactory<EventSetAnim>(); // TODO Promote
+    if (MyFileExists(language + ".txt"))
+    {
+      return language + ".txt";
+    }
+  }
+ 
+#ifdef LANG_DEBUG
+std::cout << "Falling back to default language.\n";
+#endif
 
-  SetUpAnimalFactory();
+  // Fallback
+  return "en.txt";
 }
 
 static void LoadStringTableForPreferredLanguage()
 {
-  std::string language = "en-GB";
-  
-#ifdef AMJU_IOS
-  language = GetDevicePreferredLanguage();
-  std::cout << "Preferred language: " << language << "\n";
-  if (language.empty())
+  auto stringTableFile = GetLanguageFilename();
+  if (Localise::LoadStringTable(stringTableFile))
   {
-    // TODO We should send this info back to Amju HQ
-    // AMJU_TRACKING
-    std::cout << "No preferred language found! Report this interesting finding!\n";
-    language = "en-GB";
-  }
-#endif // AMJU_IOS
-  
-  // Use the preferred language code to load the appropriate string table
-  std::string stringTableFile = language + ".txt";
-  if (MyFileExists(stringTableFile))
-  {
-    if (Localise::LoadStringTable(stringTableFile))
-    {
-      std::cout << "Loaded preferred string table file " << stringTableFile << "\n";
-      return;
-    }
-    else
-    {
-      ReportError("String table file " + stringTableFile + " exists but load failed!");
-      // AMJU_TRACKING
-    }
+    std::cout << "Loaded string table file " << stringTableFile << "\n";
+    return;
   }
   else
   {
-    std::cout << "Preferred language is " << language << " but no string table.\n";
+    ReportError("String table file " + stringTableFile + " exists but load failed!");
   }
-
-  // No exact match. We want to get the closest match we have.
-  // Try chopping off anything after the 2-char country code
-  // (TODO Is this a good strategy?)
-  stringTableFile = language.substr(0, 2) + ".txt";
-  if (MyFileExists(stringTableFile))
-  {
-    if (Localise::LoadStringTable(stringTableFile))
-    {
-      std::cout << "Loaded fallback string table file " << stringTableFile << "\n";
-      return;
-    }
-    else
-    {
-      ReportError("String table file " + stringTableFile + " exists but load failed!");
-      // AMJU_TRACKING
-    }
-  }
-  else
-  {
-    std::cout << "Fallback string table is " << stringTableFile << " but doesn't exist.\n";
-  }
-
-  std::cout << "Failed to load any string table, defaulting to 'en'.\n";
-  // AMJU_TRACKING
 
   // Default to en.txt if all else failed
   Localise::LoadStringTable("en.txt");
@@ -408,13 +377,17 @@ void StartUpAfterCreateWindow()
 {
   SetUpResourceLoaders();
 
-  SetUpSound();
+  SetUpSoundPlayer(); 
 
-  SetUpGlueFile();
+  SetUpGlueFile(); // glue files contain soundfonts so this has to happen before MIDI.
+
+  SetUpMIDI(); // We could do this later if it causes any delay in launching.
 
   LoadStringTableForPreferredLanguage();
 
   SetUpFactories();
+
+  SetUpMisc();
 
   SetInitialState();
 }

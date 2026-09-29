@@ -2,15 +2,24 @@
 // version
 1
 
+// WATCH OUT!!! THERE ARE TWO HUDS! ELASTIC AND NON-ELASTIC!
+//  hud.txt and elastic-hud.txt
+
 gui-comp
 hud-root
-2
+3
 
 // Player score for the round
 translate
 -1.57, .35 
 include 
 player-score.txt
+
+// Points multiplier
+translate
+0, 0 
+include 
+player-points-mult.txt
 
 // Player lives
 translate

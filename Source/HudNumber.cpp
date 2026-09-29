@@ -37,7 +37,7 @@ void HudNumber::Reset(int initialValue)
 
   IGuiText* text = dynamic_cast<IGuiText*>(m_guiTextElement.GetPtr());
   Assert(text); 
-  text->SetText(std::to_string(initialValue));
+  text->SetText(m_prefix + std::to_string(initialValue) + m_suffix);
 }
 
 void HudNumber::Update()
@@ -55,7 +55,7 @@ void HudNumber::Update()
 
     IGuiText* text = dynamic_cast<IGuiText*>(m_guiTextElement.GetPtr());
     Assert(text); 
-    text->SetText(std::to_string(m_displayedNumber));
+    text->SetText(m_prefix + std::to_string(m_displayedNumber) + m_suffix);
   }
 }
 
@@ -73,13 +73,19 @@ void HudNumber::Add(int amountToAdd, int numFrames)
     m_increment = Sign(amountToAdd);
   }
 
+  ResetAnimation();
+}
+
+void HudNumber::ResetAnimation()
+{
   if (m_guiAnimElement)
   {
-    GuiDecAnimation* anim = dynamic_cast<GuiDecAnimation*>(m_guiAnimElement.GetPtr());
+    auto anim = dynamic_cast<GuiDecAnimation*>(m_guiAnimElement.GetPtr());
     Assert(anim);
     anim->ResetAnimation();
   }
 }
+
 /*
 void NumUpdate(PGuiElement gui, const std::string& elemName, int value)
 {

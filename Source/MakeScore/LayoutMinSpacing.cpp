@@ -1,11 +1,11 @@
 #include "LayoutMinSpacing.h"
 
-float LayoutMinSpacing::CalcNoteZoneWidth(const Bar& bar) 
+float LayoutMinSpacing::CalcNoteZoneWidth(const Bar&) 
 {
   return 0; // TODO. You think?
 }
 
-void LayoutMinSpacing::PositionGlyphs(Bar& bar) 
+void LayoutMinSpacing::PositionGlyphs(Bar&) 
 {
 }
 

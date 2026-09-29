@@ -11,12 +11,19 @@ namespace Amju
 // Eventually, promote bits of this to amjulib.
 // Play individual MIDI notes and MIDI backing tracks, using BASS.
 
+// Release sound fonts loaded earlier. 
+// We may need a more complete shutdown.
+void BassMidiShutdown();
+
 // Set up stream for player's piano. It's independent of other
 //  streams, i.e. the backing tracks.
 bool SetUpPlayerStream();
 
 // Play a note on the 'player stream', separate from song.
 void PlayMidi(int midiNote, int velocity); 
+
+// Kill all notes on player stream, (with decay).
+void KillPlayerNotes();
 
 // * Play MIDI backing track (optionally with player's top line) *
 // Convention for this game:
@@ -33,6 +40,11 @@ void PlayMidi(int midiNote, int velocity);
 // If mutePlayer is true, the player melody (channel 0) is muted.
 void PlayMidiSong(const std::string& filename, 
   float seekTimeSeconds = 0, bool mutePlayer = false);
+
+// Returns true if Midi song has finished playing.
+// Uses Bass callback to set flag so not as horrifically inefficient
+//  as it looks..?
+bool HasMidiSongFinished();
 
 // Get tracks names of the currently playing midi song.
 std::vector<std::string> GetPlayingSongTrackNames();

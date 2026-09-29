@@ -1,23 +1,21 @@
-#include <GuiText.h>
-#include <Md2Model.h>
-#include <SceneGraph.h>
-#include <SoundManager.h>
-#include <Timer.h>
-#include "BassPlayMidi.h"
+#include <ResourceManager.h>
+#include <SceneGraph.h> // camera move
+#include <Timer.h> // camera move
+#include "AutoTest.h"                   
+#include "BassPlayMidi.h"  // still needed for StopSong
 #include "Consts.h"
-#include "GSChooseSong.h"
-#include "GSHero.h"
 #include "GS3dTitle.h"
-#include "Md2SceneNode.h"
+#include "GSChooseSong.h" // next state
+#include "GSCredits.h"
 #include "MySceneGraph.h"
-#include "PlayWav.h"
-#include "Version.h"
+#include "PlayWav.h" // TODO move to midi songs for buttons etc
 
 namespace Amju
 {
 static void OnStart(GuiElement* elem)
 {
-  TheSoundManager::Instance()->StopSong(); // TODO play next song
+  // Song is a midi song, not .it
+  //TheSoundManager::Instance()->StopSong(); 
 
   PlayWav(WAV_START_BUTTON); // This wav should blend nicely with the title music
   TheGSChooseSong::Instance()->SetPrevState(TheGS3dTitle::Instance());
@@ -29,6 +27,27 @@ GS3dTitle::GS3dTitle()
 {
   m_sceneFilename = "Scene/3d-title-scene.txt";
   m_guiFilename = "Gui/gs_3dtitle.txt";
+}
+
+void GS3dTitle::AutoTestSetup()
+{
+  static int visit = 0;
+  switch (visit)
+  {
+  case 0:
+    // Queue the function to execute in 1s.
+    AutoMsg([](){ OnCreditsButton(nullptr); });
+    break;
+
+  case 1:
+    AutoMsg([](){ OnStart(nullptr); });
+    break;
+
+  default:
+    EndTest(EndTestReason::AMJU_OK);
+    break;
+  };
+  ++visit;
 }
 
 void GS3dTitle::OnDeactive()
@@ -57,10 +76,11 @@ void GS3dTitle::OnActive()
   startButton->SetCommand(OnStart);
   startButton->SetHasFocus(true);
 
-  // Set version text (TODO move to a better place)
-  auto versionText = dynamic_cast<GuiTextBase*>(GetElementByName(m_gui, "version-text"));
-  Assert(versionText);
-  versionText->SetText(VERSION_STRING);
+  // Set up credits button (info icon)
+  auto creditsButton = GetElementByName(m_gui, "info-button");
+  creditsButton->SetCommand(OnCreditsButton);
+ 
+  SetVersionText();
 }
 
 void GS3dTitle::Update()

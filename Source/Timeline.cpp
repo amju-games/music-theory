@@ -1,5 +1,6 @@
 #include <iostream>
 #include <File.h>
+#include <Game.h>
 #include <StringUtils.h>
 #include "Timeline.h"
 #include "TimelineEventPlayWav.h"
@@ -8,20 +9,27 @@ namespace Amju
 {
 const char* TimelineEventWait::NAME = "wait";
 
+const char* TimelineEventGoBack::NAME = "go-back";
+
+void TimelineEventGoBack::Execute()
+{
+  TheGame::Instance()->GetState()->GoBack();
+}
+
+template <class T>
+static void AddToFactory(TimelineEventFactory* f)
+{
+  f->Add(T::NAME, []()->TimelineEvent* { return new T; });
+}
+
 TimelineEventFactory::TimelineEventFactory()
 {
   // Add game-agnostic event types here
-  Add(TimelineEventWait::NAME,
-    []()->TimelineEvent* {return new TimelineEventWait; });
-
-  Add(TimelineEventPlayWav::NAME,
-    []()->TimelineEvent* {return new TimelineEventPlayWav; });
-
-  Add(TimelineEventPlayMidiSong::NAME,
-    []()->TimelineEvent* {return new TimelineEventPlayMidiSong; });
-
-  Add(TimelineEventStopMidiSong::NAME,
-    []()->TimelineEvent* {return new TimelineEventStopMidiSong; });
+  AddToFactory<TimelineEventGoBack>(this);
+  AddToFactory<TimelineEventWait>(this);
+  AddToFactory<TimelineEventPlayWav>(this);
+  AddToFactory<TimelineEventPlayMidiSong>(this);
+  AddToFactory<TimelineEventStopMidiSong>(this);
 }
 
 RCPtr<TimelineEvent> Timeline::CreateTimelineEvent(const std::string& eventType)

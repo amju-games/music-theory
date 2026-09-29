@@ -63,6 +63,9 @@
     <ClCompile Include="..\..\..\..\Source\MidiScore\source\Quantiser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\MidiScore\source\Pitch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\MidiScore\source\Clef.h">
@@ -105,6 +108,9 @@
       <Filter>Header Files\midifile</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\MidiScore\source\Quantiser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\MidiScore\source\Pitch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

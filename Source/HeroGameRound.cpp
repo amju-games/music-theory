@@ -74,7 +74,15 @@ bool GameRoundManager::Load()
       round.m_sectionEndBarNumbers = SplitIntoVec(cell);
     }
 
+    // Only add reference/test songs in debug mode.
+#ifdef _DEBUG
     AddGameRound(round);
+#else
+    if (round.m_level >= 0)
+    {
+      AddGameRound(round);
+    }
+#endif
   }
 
   if (m_gameRounds.empty()) return false;

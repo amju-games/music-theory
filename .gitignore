@@ -49,3 +49,12 @@ Tools/Sound/Colin_s_Double_Bass.sf2
 Tools/Sound/Jazz Kit.sf2
 Tools/Sound/steinway_concert_piano.sf2
 Source/MakeScore/Examples/out.txt
+/Script/Msvc/AmjulaMusicTheory/AmjulaMusicTheory/x64
+/Script/Msvc/AmjulaMusicTheory/x64
+/Script/Msvc/AmjulaMusicTheory/CatchTests/Release
+/Script/Msvc/AmjulaMusicTheory/MakeScore_CatchTests/Release
+/Script/Msvc/AmjulaMusicTheory/MidiScore/Release
+Assets/bassmidi.dll
+Assets/bass.dll
+Script/Msvc/BugSplat/env.ps1
+Assets/BugSplatRc.dll

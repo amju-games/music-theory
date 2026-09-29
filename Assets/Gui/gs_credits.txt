@@ -1,0 +1,181 @@
+// Credits
+
+// File ver
+1
+
+gui-comp
+credits-root
+4
+
+// Child 0: scrolling text
+
+// This is the translation node we animate in code: y increases at constant rate.
+translate
+0, -.2
+
+// Gui comp for logo, larger text, etc.
+gui-comp
+// NB This name is looked up in code
+text-and-logo
+3
+
+// Fade in the fixed text in the middle of the screen
+// Delay the fade-in
+animation
+delay
+one-shot
+.75
+step
+
+animation
+fade-in
+one-shot
+// Fade in time
+1.5
+linear
+
+// Animates this colour
+colour
+00000000, 000000ff
+
+gui-comp
+title-and-version-text
+4
+
+// Thank you text
+text2
+thx-text
+// pos (coords are -1..1)
+-1.0, 0.9
+// size
+2.0, 0.1
+// Text
+// Thank you for playing this demo of...
+$$$76
+// Font name, size
+bmmolin, 1.0, centre
+
+// TITLE
+scale
+.5,.5
+.5,.5
+translate
+-0.4,0.4
+include
+title2-text-long.txt
+
+// Amju/copyright text
+text2
+info-text
+// pos (coords are -1..1)
+-1.0, -.2
+// size
+2.0, .2
+// Text
+$$$74
+// Font name, size
+bmmolin, 1.0, centre, multi
+
+// Version text
+text2
+version-text
+// pos (coords are -1..1)
+-1.0, -.6
+// size
+2.0, .2
+// Text - replaced in code
+Version 0.0.0
+// Font name, size
+bmmolin, 1.0, centre
+
+
+// Amju logo -- TODO 3D
+elastic 
+0, 2
+gui-sprite
+amju-logo
+-.15, .8
+.3,.4 
+// TODO Add to atlas? But hopefully will upgrade to nice shiny 3D model
+// No stretch
+Image/logo.png
+1, 1
+0
+
+// Credits text
+// Start at bottom of screen
+translate
+0, -1.2
+
+// Load credits text from file
+text-file
+credits-text
+// pos (coords are -1..1)
+// Behind gradient overlay
+-1, 0, -1
+// size
+2.0, 0.1 
+// TEXT FILENAME
+credits.txt
+// Font name, size
+bmmolin, 1.0, centre, fgcol=000000
+
+
+// Child 1: gradient overlay
+
+colour
+// This is the clear colour we have been using up til now.
+f2f2f2
+
+gui-comp
+gradient-overlay-comp
+2
+
+// Flip image
+scale
+1, -1
+.5,.5
+
+gui-sprite
+top-gradient
+// Closer than text
+-1.1, 1, -0.5 
+2.2, 0.2
+Image/atlas.png, stretch
+8, 8
+19
+
+gui-sprite
+bottom-gradient
+-1.1, -0.8, -0.5
+2.2, 0.2
+Image/atlas.png, stretch
+8, 8
+19
+
+
+// Child 2: flush
+
+// Flush batches so quit button will be drawn after.
+flush
+
+// Child 3: quit button
+
+include
+quit-button.txt
+
+// Child 4: back button, not sure about this.
+
+elastic
+0,-2
+// back button
+back-button
+quit-button
+-0.2, -0.4
+0.4, 0.25
+Image/rough-oval.png
+// Back
+$$$75
+BUTTON, 1.0, fgcol=ffffff, bgcol=4E69F4
+
+

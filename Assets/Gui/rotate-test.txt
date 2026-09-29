@@ -1,0 +1,90 @@
+// * PIANO FEST *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+gui-comp
+rotate-root
+3
+
+// BLUE: Image, not sprite
+// By default (no "stretch") we compensate for aspect ratio.
+
+animation
+rotate-the-circle
+repeat
+3
+linear
+
+rotate
+// 1 or 2 (for animation) angles in degrees
+0, 360
+// Pivot point
+.5, .5
+
+colour 
+0000ff80
+// Solid circle
+gui-image
+combo-bg
+// Pos, size
+0, 0
+.5, .5
+//Image/circle.png, stretch
+Image/dino1.png, stretch
+
+
+// RED
+
+rotate
+// 1 or 2 (for animation) angles in degrees
+-30
+// Pivot point
+.5, .5
+
+colour 
+ff000080
+// Patch -- test
+patch
+my-patch
+0, 0
+.8, .4
+Image/rough-circle.png, stretch
+// Patch is a sprite, so we have to specify cell info - this should be  
+//  good for batching: we can have multiple different patches and other
+//  HUD elements on the same atlas.
+// Num cells
+1,1
+// Cell
+0
+// Corner size: TODO: should this be auto-adjusted so equal coords give squares?
+0.1, 0.15
+
+// GREEN
+
+rotate
+// 1 or 2 (for animation) angles in degrees
+30
+// Pivot point
+.5, .5
+
+colour 
+00ff0080
+// Patch -- test
+patch
+my-patch
+0, 0
+.8, .4
+Image/rough-circle.png, stretch
+// Patch is a sprite, so we have to specify cell info - this should be  
+//  good for batching: we can have multiple different patches and other
+//  HUD elements on the same atlas.
+// Num cells
+1,1
+// Cell
+0
+// Corner size: TODO: should this be auto-adjusted so equal coords give squares?
+0.1, 0.15
+
+

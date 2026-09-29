@@ -1,10 +1,14 @@
 #include <iostream>
+#include <DoOnce.h>
 #include <DrawRect.h>
 #include <GuiButton.h>
 #include <GuiComposite.h>
 #include <GuiScroll.h>
 #include <GuiText.h>
+#include <Localise.h>
+#include "printf_format.h" 
 #include "AnimalController.h"
+#include "AutoTest.h"
 #include "GSChooseSong.h"
 #include "GSConfirmSong.h"
 #include "GSHero.h"
@@ -16,9 +20,37 @@
 
 namespace Amju
 {
+static bool IsSongHidden(const HeroGameRound& gameround)
+{
+  // TODO - hide some songs until they are unlocked. E.g. boss fights.
+  return false;
+}
+
 static void OnTabStop(GuiElement* scroller, int tabStop)
 {
   TheGSChooseSong::Instance()->OnTabStop(tabStop);
+}
+
+static void Scroll(float xVel)
+{
+  auto state = dynamic_cast<GSChooseSong*>(
+      TheGame::Instance()->GetState());
+  Assert(state);
+  auto scroller = dynamic_cast<GuiScroll*>(
+      state->GetGui()->GetElementByName("song-scroller"));
+  Assert(scroller);
+  scroller->OnScrollVelEvent({xVel, 0});
+}
+
+static void OnLeftButton(GuiElement* button)
+{
+  // Notify scroller to scroll left (everything moves right tho?!)
+  Scroll(100.f);
+}
+
+static void OnRightButton(GuiElement* button)
+{
+  Scroll(-100.f);
 }
 
 static void OnQuitButton(GuiElement* button)
@@ -41,6 +73,61 @@ GSChooseSong::GSChooseSong()
   m_guiFilename = "Gui/gs_choose_song.txt";
 }
 
+// This is for auto-testing -- we want to start from zero progress.
+// We wipe the user profile in memory but don't save, so we don't
+//  actually zap the progress stored on disk.
+static void WipeUserProgress()
+{
+  auto grm = TheGameRoundManager::Instance();
+  // Make sure the game round csv file is loaded; load only happens
+  //  once, right?
+  grm->Load();
+  auto user = GetUserProfile();
+  int numSongs = grm->GetNumGameRounds();
+  for (int i = 0; i < numSongs; i++)
+  {
+    const auto& gameround = grm->GetGameRound(i);
+    auto song = user->GetSongPlayerInfo(gameround.m_name);
+    song.m_completed = false;
+    user->SetSongPlayerInfo(song);
+  }
+  // (Don't save, just wipe progress in mem)
+}
+
+void GSChooseSong::AutoTestSetup()
+{
+  // Wipe out user progress: we want to go through all the songs
+  do_once
+  {
+    WipeUserProgress();
+  }
+
+  // If there is a focus button, click it -- that's the next song
+  //  we should attempt.
+  
+  // If no focus button, there are no more songs to attempt.
+  // In which case, we have finished the auto test!!
+
+  // Queue a message to click the next focus button or finish.
+  AutoMsg([this]()
+  {    
+    // Try to find a button with Focus. If we find one, click it.    
+    if (auto button = FindFocusButton(m_gui))    
+    {    
+      std::cout << "*** AUTO TEST *** Choose song: found Focus button \""
+        << button->GetName()    
+        << "\", pressing it...\n";    
+      // Simulate button press    
+      button->ExecuteCommand();    
+    }    
+    else
+    {
+      std::cout << "*** AUTO TEST *** Choose song: no more songs!\n";
+      EndTest(EndTestReason::AMJU_OK);
+    }
+  });    
+}
+
 void GSChooseSong::Draw2d()
 {
 #ifdef DEBUG_DRAW_RECTS
@@ -52,15 +139,22 @@ void GSChooseSong::Draw2d()
 
 static void SetLevelGui(const HeroGameRound& r, PGuiElement gui)
 {
-  // We want the whole string localised. So our design should have
-  //  a fixed number of levels, say 8 or 10..? It won't be hundreds.
+  // Set the "Level <n>" text.
   auto t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("level"));
   Assert(t); 
 
-  // NB convert zero-based level number to one-based string
-  //  -- that's for now. We will localise the entire string.
-  std::string str = "Level " + std::to_string(r.m_level + 1);
-  t->SetText(str); 
+  // Look up localised string with format arg for the int level number.
+  // We are using a fallback format function while still on Apple clang 13.
+  // Very unfortunately, that means we are using printf formatting args
+  //  and can't choose the order of the args in the format string.
+  std::string levelStr = Lookup("$$$72"/*Level %d*/);
+
+  // Printf the level number into the string
+  // NB convert zero-based level number to one-based string.
+  // TODO use std::format.
+  std::string finalStr = Amju::format(levelStr,(r.m_level + 1));
+  
+  t->SetText(finalStr); 
 }
 
 void MoveUpMultiLineTitle(GuiTextBase* t)
@@ -78,11 +172,19 @@ void MoveUpMultiLineTitle(GuiTextBase* t)
   }
 }
 
-static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
-  bool isUnlocked, const SongPlayerInfo& spi, bool hasFocus)
+static void SetSongGui(
+  const HeroGameRound& r, PGuiElement gui, int songNum,
+  bool isUnlocked, const SongPlayerInfo& spi, bool hasFocus, 
+  bool isCompleted)
 {
   auto t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-title"));
-  Assert(t); // this is all stuff that is fixed at compile time
+
+  // These names of gui elements are fixed at compile time and these
+  //  Asserts are there to catch typos. 
+  Assert(t); 
+
+  // The song strings are already Looked Up in HeroGameRound::Load, so we
+  //  can set the text directly here.
   t->SetText(r.m_title); 
   MoveUpMultiLineTitle(t);
 
@@ -96,17 +198,28 @@ static void SetSongGui(const HeroGameRound& r, PGuiElement gui, int songNum,
   Assert(t); 
   t->SetText(std::to_string(songNum) + "."); 
 
+  // Set 'is completed' text, and TODO best percent and hi score.
+  t = dynamic_cast<GuiTextBase*>(gui->GetElementByName("song-is-completed"));
+  Assert(t); 
+  // LOCALISATION: reminder that we must Lookup any player-visible string
+  t->SetText(isCompleted ? Lookup("$$$71"/*Completed!*/) : "");
+
   auto elem = gui->GetElementByName("song-start-button");
   auto b = dynamic_cast<GuiButton*>(elem);
   Assert(b);
-  b->SetUserData(const_cast<HeroGameRound*>(&r)); // element in a singleton vector, so ok, riight?
+  // Set user data for this button so we know which song we chose.
+  // (It's the same command handler for every button.)
+  // This is safe because the game round is an element in a static vector, 
+  //  will outlive the button, riight?
+  b->SetUserData(const_cast<HeroGameRound*>(&r)); 
   b->SetCommand(Amju::OnSongStart);
   b->SetHasFocus(hasFocus); 
 
-  // All songs are selectable in debug builds
 #ifdef _DEBUG
+  // All songs are selectable in debug builds
   b->SetIsEnabled(true); 
 #else
+  // In release builds, you can't select a song if not unlocked
   b->SetIsEnabled(isUnlocked);
 #endif
 
@@ -130,7 +243,27 @@ void GSChooseSong::OnActive()
 void GSChooseSong::InitGui()
 {
   InitQuitButton();
+  InitLRButtons();
   InitScrollingGui();
+}
+
+void GSChooseSong::InitLRButtons()
+{
+  auto left = GetElementByName(m_gui, "left-button");
+  Assert(left); 
+
+  auto right = GetElementByName(m_gui, "right-button");
+  Assert(right); 
+
+  // Desktop: enable left/right buttons
+  left->SetCommand(Amju::OnLeftButton);
+  right->SetCommand(Amju::OnRightButton);
+
+#ifdef AMJU_IOS
+  // iOS: hide these buttons
+  left->SetLocalPos({ 10, 10 });
+  right->SetLocalPos({ 10, 10 });
+#endif
 }
 
 void GSChooseSong::InitQuitButton()
@@ -142,7 +275,7 @@ void GSChooseSong::InitQuitButton()
 
 void GSChooseSong::InitScrollingGui()
 {
-  GuiScroll::SetTabStopSoundFilename("Sound/wav/click.wav");
+  GuiScroll::SetTabStopSoundFilename("Sound/wav/golf10-bouncewall.wav");
 
   auto grm = TheGameRoundManager::Instance();
   // Make sure the game round csv file is loaded; load only happens
@@ -173,9 +306,14 @@ void GSChooseSong::InitScrollingGui()
   int songNum = 1; // song num in current level; one-based as we display it.
   bool focusHasBeenSet = false; // flag for setting focus on next song. 
   int tabStopForFocusSong = 0; // set tab stop so song with focus is selected.
+
+  m_finalTabStop = 1; // uhh so it all works out.. tab stops are ZB and negative?!
   for (int i = 0; i < numSongs; i++)
   {
     const auto& gameround = grm->GetGameRound(i);
+
+    // Skip if this song is hidden (tutorial or boss)
+    if (IsSongHidden(gameround)) continue;
 
     // Show level for subsequent songs
     if (gameround.m_level != level)
@@ -204,15 +342,21 @@ void GSChooseSong::InitScrollingGui()
     // TODO player like flag, hi score, completed flag
     const auto& spi = user->GetSongPlayerInfo(gameround.m_name);
     bool hasFocus = false;
+
+    // Set focus button on the next uncompleted song.
     if (isUnlocked && !spi.m_completed && !focusHasBeenSet)
     {
       hasFocus = true;
       focusHasBeenSet = true;
       tabStopForFocusSong = -i; // tab stops go negative, should we change
     }
-    SetSongGui(gameround, elem, songNum, isUnlocked, spi, hasFocus);
+    SetSongGui(gameround, elem, songNum, isUnlocked, spi, hasFocus, spi.m_completed);
     ++songNum;
     rootNode->AddChild(elem);
+
+    // Count tab stops added, with possible skipping.
+    // Negative because that's how it is now...
+    --m_finalTabStop;
   }
 
   // Set scroll bar extents
@@ -223,17 +367,44 @@ void GSChooseSong::InitScrollingGui()
   scroller->SetTabStopSize(Vec2f(oneSongWidth, 0));
   scroller->SetTabStopCallback(Amju::OnTabStop);
   scroller->SetTabStop(tabStopForFocusSong);
+
+  // Call tab stop callback to enable L/R buttons
+  OnTabStop(tabStopForFocusSong);
   
   // Set consts so we click each song into place
   scroller->SetStoppingVel(.5f);
   scroller->SetSpeedBumpMult(.25f);
   scroller->SetStoppingDistance(.03f);
+
+#ifdef WIN32
+  // On windows, disable drag-to-scroll
+  scroller->SetDisableCursorControl(true);
+  // Reverse left and right button behaviour to match on-screen buttons
+  scroller->SetReverseLeftRight(true);
+  // Stop on tab stops
+  scroller->SetSpeedBumpMult(.01f);
+#endif
+
+  // On iOS, hide the on-screen buttons and use drag-to-scroll.
+  // TODO
 }
 
 void GSChooseSong::OnTabStop(int tabStop)
 {
   m_lastTabStop = tabStop; // TODO persist this in game config file? Hmm
   std::cout << "Hit tab stop " << tabStop << "\n";
+
+  // Enable or disable L/R buttons as applicable 
+  auto left = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "left-button"));
+  Assert(left);
+  const bool leftIsEnabled = (tabStop != 0); 
+  left->SetIsEnabled(leftIsEnabled);
+  // TODO Set colour to same as disabled song Start button
+  
+  auto right = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "right-button"));
+  Assert(right);
+  const bool rightIsEnabled = (tabStop != m_finalTabStop);
+  right->SetIsEnabled(rightIsEnabled);
 }
 }
 

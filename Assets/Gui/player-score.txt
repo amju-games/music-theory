@@ -15,22 +15,26 @@ player-score-comp
 // Num children
 2
 
+// BG Patch colour: to match Extras.
 colour
-4D68F1
+// TODO get these colours from a HUD palette, which we can change
+//  in settings for accessibility.
+ff40c0
 
 // Patch -- test
 patch
 score-bg-patch
 0.65, 0.6
 .2, .25
-Image/rough-circle.png, stretch
+// Rough circle
+Image/atlas.png, stretch
 // Patch is a sprite, so we have to specify cell info - this should be  
 //  good for batching: we can have multiple different patches and other
 //  HUD elements on the same atlas.
 // Num cells
-1,1
+8, 8
 // Cell
-0
+18
 // Corner size
 0.1, 0.125
 
@@ -68,7 +72,8 @@ text2
 // Element name
 score-text
 // pos (coords are -1..1)
-0.7, .375
+// NB Z coord for z-ordering with batching; +ve is CLOSER
+0.7, .375, .5
 .4, .1
 // Text
 00

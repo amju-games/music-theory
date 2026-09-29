@@ -2,6 +2,7 @@
 #include <Game.h>
 #include "AnimalController.h"
 #include "GSAnimals.h"
+#include "KeyInputHandler.h"
 
 namespace Amju
 {
@@ -42,45 +43,36 @@ std::cout << "Num game objects is now "
   << ".\n";
 }
 
-bool GSAnimals::OnKeyEvent(const KeyEvent& ke) 
+KeyInputHandler& GSAnimals::AddKeyInputHandlers()
 {
-  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR)
-  {
-    if (ke.key == '1')
+  auto& kih = GSBase3d::AddKeyInputHandlers();
+
+  bool added = true;
+
+#ifdef _DEBUG
+  added = kih.AddHandler(MakeKeyEvent('1'), 
+    [](const KeyEvent&)->bool 
     {
       static int petIndex = 0;
       GetAnimalController().EatAPet(petIndex % 12);
       ++petIndex;
+      return true;
+    },
+    "Eat a pet");
+  Assert(added);
 
-/*
-      Palette pal;
-      pal.Load("Image/palette-notes-12-2.png");
-      GetAnimalController().AddPetsForGameRound(pal);
-*/
-
-/*
-      static float z = 0; // quick hack: get a new z plane each time
-      // Add a bird or dino: can only move in x
-      static bool bird = true;
-      GetAnimalController().AddAnimalFixedZ(bird ? "bird" : "cat", z);
-      z -= 50.f;
-      bird = !bird;
-*/
-      return true; // consumed
-    }
-    else if (ke.key == '2')
+  added = kih.AddHandler(MakeKeyEvent('2'), 
+    [](const KeyEvent&)->bool 
     {
       GetAnimalController().PetsJump();
-/*
-      // Add a bird: can move in x-z plane
-      GetAnimalController().AddAnimal("bird");
-*/
+      return true;
+    },
+    "Pets jump");
+  Assert(added);
 
-      return true; // consumed
-    }
-  }
+#endif
 
-  return GSBase3d::OnKeyEvent(ke);
+  return kih;
 }
 
 void GSAnimals::Update()

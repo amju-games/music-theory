@@ -212,15 +212,28 @@ def process_audio_pipeline(mid, output_path, mapping):
     
             # Insert the track name meta message at the very beginning
             new_track.append(mido.MetaMessage('track_name', name=final_name, time=0))
+
+        # Accumulator for the delta time of skipped messages
+        skipped_time = 0 
+        
         for msg in track:
-            # Skip existing track names so they don't conflict with our new ones
             # STRIP: Text, Lyrics, Markers, Cue Points, and old Track Names 
             if msg.is_meta and msg.type in ('text', 'lyrics', 'marker', 'cue_marker', 'track_name', 'copyright'):
+                skipped_time += msg.time
                 continue
-
-            if msg.type == 'control_change' and msg.control in (7, 10, 11): continue
-
-            new_track.append(msg.copy(channel=chan) if hasattr(msg, 'channel') and chan is not None else msg.copy())
+                    
+            if msg.type == 'control_change' and msg.control in (7, 10, 11): 
+                skipped_time += msg.time
+                continue
+                
+            # Copy the message and apply channel mapping if necessary
+            new_msg = msg.copy(channel=chan) if hasattr(msg, 'channel') and chan is not None else msg.copy()
+            
+            # Add any accumulated skipped time to this message, then reset the accumulator
+            new_msg.time += skipped_time
+            skipped_time = 0
+            
+            new_track.append(new_msg)
 
     add_bass_track_if_required_in_mem(new_mid)
     add_percussion_track_if_required_in_mem(new_mid)
@@ -233,7 +246,7 @@ def process_audio_pipeline(mid, output_path, mapping):
 # Also retain the other tracks so we detect the length of the song correctly,
 #  as there could be rest bars after the last player note.
 #  E.g. Gymnopdie 1.
-def process_score_pipeline(mid, output_path, player_idx, resolution, mapping):
+def save_midi_with_quantised_player_track(mid, output_path, player_idx, resolution, mapping):
     new_mid = mido.MidiFile(ticks_per_beat=mid.ticks_per_beat, type=mid.type)
     keep = list(mapping.keys()) # retain all tracks
     if 0 not in keep: keep.append(0) # including control track
@@ -247,10 +260,13 @@ def process_score_pipeline(mid, output_path, player_idx, resolution, mapping):
         # Find new player track index in new midi file
         if i == player_idx:
             new_player_idx = track_num
+            q_track = quantize_track(track, mid.ticks_per_beat, resolution)
+            new_mid.tracks.append(mido.MidiTrack([m.copy(channel=0) if hasattr(m, 'channel') else m for m in q_track]))
+        else:
+            new_mid.tracks.append(mido.MidiTrack([m.copy(channel=0) if hasattr(m, 'channel') else m for m in track]))
+
         track_num += 1
 
-        q_track = quantize_track(track, mid.ticks_per_beat, resolution)
-        new_mid.tracks.append(mido.MidiTrack([m.copy(channel=0) if hasattr(m, 'channel') else m for m in q_track]))
     new_mid.save(output_path)
     return new_player_idx
 
@@ -400,7 +416,9 @@ def write_channels_txt(target_dir, mapping):
     
     with open(target_dir / "channels.txt", 'w') as f:
         for k in mapping:
-            f.write(f"{k}: {mapping[k]} # Track {k} -> {chan_to_name[mapping[k]]}\n")
+            # Add 1 to the channel number, making it 1-based;
+            #  in fix_channels.py we subtract the 1. Sigh, I hate 1-based.
+            f.write(f"{k}: {mapping[k] + 1} # Track {k} -> {chan_to_name[mapping[k]]}\n")
 
 
 def main():
@@ -454,7 +472,7 @@ def main():
     new_mapping = process_audio_pipeline(mid, audio_path, mapping)
     
     print(f"🎼 Generating Score File: {score_midi_path.name}...")
-    new_player_idx = process_score_pipeline(mid, score_midi_path, player_idx, num_res, mapping)
+    new_player_idx = save_midi_with_quantised_player_track(mid, score_midi_path, player_idx, num_res, mapping)
     
     # 7. Execute External Score Binaries (midiscore & makescore)
     score_csv_string = generate_score_files(

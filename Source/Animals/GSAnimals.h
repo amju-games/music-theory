@@ -18,7 +18,7 @@ public:
   void OnDeactive() override;
 
   // Press keys to add animals
-  bool OnKeyEvent(const KeyEvent& ke) override;
+  KeyInputHandler& AddKeyInputHandlers() override;
 };
 
 using TheGSAnimals = Singleton<GSAnimals>;

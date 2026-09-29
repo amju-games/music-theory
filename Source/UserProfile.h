@@ -17,6 +17,7 @@ struct SongPlayerInfo
   int m_hiScore = 0;
   bool m_completed = false;
   bool m_like = false;
+  int m_bestPercent = 0;
  
   void GetFromConfig(const ConfigFile*);
   void SetToConfig(ConfigFile*) const;

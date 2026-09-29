@@ -9,17 +9,22 @@
 #include <SoundManager.h>
 #include <Timer.h>
 #include "AnimalController.h" // eat a pet on bum note
+#include "AutoPlayer.h" // generate events to auto-play song
+#include "AutoTest.h"
 #include "BassPlayMidi.h"
 #include "Consts.h"
 #include "FeedbackBalloon.h"
 #include "Grader.h"
-#include "HeroGameRound.h"
 #include "GSHero.h"
 #include "GSHeroEnd.h"
 #include "GSHeroWin.h"
 #include "GSPause.h"
+#include "HeroGameRound.h"
 #include "Hud.h"
+#include "HudNumber.h"
+#include "KeyInputHandler.h"
 #include "PlayWav.h"
+#include "PointsCalculator.h"
 #include "Resumer.h"
 #include "UserProfile.h"
 #include "UseVertexColourShader.h"
@@ -30,8 +35,12 @@
 #undef max
 #endif
 
+//#define SECTION_DEBUG
+//#define COUNT_IN_DEBUG
 //#define KEYBOARD_DEBUG
 //#define MISSED_NOTE_DEBUG
+//#define MUSIC_EVENT_DEBUG
+//#define GRADE_DEBUG
 
 namespace Amju
 {
@@ -70,29 +79,28 @@ GSHero::GSHero()
   m_sceneFilename = "Scene/animals-ortho.txt";
 }
 
-bool GSHero::OnKeyEvent(const KeyEvent& ke)
+KeyInputHandler& GSHero::AddKeyInputHandlers()
 {
-  // Debug cheat buttons
-#ifdef _DEBUG
-  // Lose the round
-  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
-     (std::tolower(ke.key) == 'l')) // L for Lose
-  {
-    OnPlayerHasLost();
-    return true;
-  }
+  auto& kih = GSBase3d::AddKeyInputHandlers();
 
-  // Win the round
-  if (ke.keyDown && ke.keyType == AMJU_KEY_CHAR &&
-     (std::tolower(ke.key) == 'w'))
-  {
-    OnPlayerHasWon();
-    return true;
-  }
+  // Qwerty key overlay: register for KeyEvents 
+  m_qwertyOverlay.RegisterKeyEvents(kih);
+
+#ifdef _DEBUG
+  // Debug-only cheats
+
+  bool added = kih.AddHandler(MakeKeyEvent('L'), 
+    [this](const KeyEvent&) { OnPlayerHasLost(); return true; }, 
+    "Lose game round");
+  Assert(added);
+
+  added = kih.AddHandler(MakeKeyEvent('W'), 
+    [this](const KeyEvent&) { OnPlayerHasWon(); return true; }, 
+    "Win game round");
+  Assert(added);
 #endif
- 
-  if (GSBase3d::OnKeyEvent(ke)) return true;
-  return false;
+
+  return kih;
 }
 
 void GSHero::SetGameRound(const HeroGameRound* gameRound)
@@ -108,6 +116,19 @@ void GSHero::FindResumePoint()
     m_pauseResumeTime, 
     m_scrollScore->GetBeats(), 
     m_scrollScore->GetNoteEvents());
+
+  // The resume time should be earlier than when we paused, because we
+  //  go back to the start of the bar, or earlier.
+  // It's just possible, I suppose, that the pause time could be
+  //  precisely at the start of a bar..??
+  if (m_pauseResumeTime > m_unadjustedPauseResumeTime)
+  {
+std::cout << "PAUSE/RESUME FAIL!! Pause time is: " << m_pauseResumeTime
+  << " m_unadjustedPauseResumeTime is: " << m_unadjustedPauseResumeTime 
+  << "\n";
+
+    Assert(false);
+  }
 
   // This check might not be necessary. The end-of-round detection code 
   //  should do this.. right?
@@ -137,7 +158,9 @@ void GSHero::StartCountInSongAndGui()
   // Start playing the count-in track
   const float bpm = m_scrollScore->GetBpm();
 
+#ifdef COUNT_IN_DEBUG
 std::cout << "Playing midi count in: " << gameround.m_countIn << " at bpm: " << bpm << "\n";
+#endif
 
   PlayMidiCountIn(gameround.m_countIn, bpm);
 
@@ -146,9 +169,15 @@ std::cout << "Playing midi count in: " << gameround.m_countIn << " at bpm: " << 
 
 void GSHero::CancelResumeTime()
 {
+  // Reset pause/resume time:
   // Called when player quits from pause menu, so when we re-enter
   //  Hero Mode, we restart the song from the beginning.
+  // Also called when we win or lose the game round, again because we
+  //  want to start from the beginning, not the pause point, when we
+  //  reenter this state.
   m_pauseResumeTime = 0;
+  m_unadjustedPauseResumeTime = 0;
+  m_unadjustedPauseResumeXPos = 0;
 }
 
 void GSHero::ResumeOrRestartGame()
@@ -161,7 +190,10 @@ void GSHero::ResumeOrRestartGame()
 
   const auto& gameround = GetGameRound();
   m_countInExpiryTime = gameround.m_numCountInBeats / m_scrollScore->GetBpm() * 60.f;
+
+#ifdef COUNT_IN_DEBUG
 std::cout << "Count in time: " << m_countInExpiryTime << "\n";
+#endif
 
   if (m_pauseResumeTime > 0)
   {
@@ -204,12 +236,18 @@ void GSHero::OnPauseGame()
   {
     // During or before the count-in, do nothing special, just restart
     //  the round when we re-enter this state.
-    // But if we have started the song, store the point we go to.
-    // Check if we are in the first bar - if so, we just restart the
-    //  round, as we can't go back to the previous bar.
-    // TODO
-
+    // But if we have started the song, store the point we got to.
     m_pauseResumeTime = animTime;
+
+    // Make a copy that won't get adjusted back to the start of the bar.
+    // Also, this value only goes up.
+    if (m_unadjustedPauseResumeTime < animTime)
+    { 
+      m_unadjustedPauseResumeTime = animTime; 
+      // Get the x-coord of the score, used to set a line so we can see
+      //  the pause time.
+      m_unadjustedPauseResumeXPos = m_scrollScore->GetLocalPos().x;
+    }
   }
 
   GoTo<TheGSPause>();
@@ -222,9 +260,35 @@ T Mean(T t1, T t2)
   return (t1 + t2) / T(2);
 }
 
+void GSHero::ColouriseKeysForSection()
+{
+  // Colourise keyboard: Find all the notes we play in the section.  
+  if (m_sectionIndex >= static_cast<int>(m_songSections.size()))
+  {
+    return;
+  }
+  const Section& s = m_songSections[m_sectionIndex];
+
+  const auto& noteEvents = m_scrollScore->GetNoteEvents();
+
+  std::vector<int> keys;
+  for (int i = s.first; i < s.second; ++i)
+  {
+    int note = noteEvents[i].m_note;
+    if (note != -1)
+    {
+      keys.push_back(note);
+    }
+  }
+  m_keyboard->ColouriseKeysAllOctaves(keys);
+}
+
 void GSHero::UpdateKeyboardPosition()
 {
   // Set keyboard x-coord so that upcoming notes will be playable.
+  // The problem with this is it's some kind of violation of UI law:
+  //  don't move things around, as the player learns where things are.
+  // So just call this at the start of the song, not after each section.
 
   // Look ahead to see what note events will be coming soon.
   // Get the min/max note pitches in the current section.
@@ -235,18 +299,6 @@ void GSHero::UpdateKeyboardPosition()
     return;
   }
   const Section& s = m_songSections[m_sectionIndex];
-
-  // Colourise keyboard: Find all the notes we play in the section.  
-  std::vector<int> keys;
-  for (int i = s.first; i < s.second; ++i)
-  {
-    int note = noteEvents[i].m_note;
-    if (note != -1)
-    {
-      keys.push_back(note);
-    }
-  }
-  m_keyboard->ColouriseKeys(keys);
 
   // Move the keyboard so all notes in the section are centred on screen. 
   // Although, centring looks good, it is bad for playability :(
@@ -327,6 +379,9 @@ void GSHero::OnKeyboardHasFinishedMoving()
   m_keyboardAnim->SetOnCompleteCallback(nullptr);
 
   m_keyboardIsMoving = false;
+
+  // Now we can set the qwerty keys
+  m_qwertyOverlay.SetKeyPositions(*m_keyboard); 
 }
 
 void GSHero::Draw2d()
@@ -336,6 +391,16 @@ void GSHero::Draw2d()
     UseVertexColourShader();
     m_gui->Draw();
   }
+}
+
+void GSHero::ScrollExtras()
+{
+  Assert(m_scrollScore);
+  Assert(m_scoreExtras);
+
+  // Scroll the extras along with the score.
+  auto pos = m_scrollScore->GetLocalPos();
+  m_scoreExtras->SetLocalPos(pos);
 }
 
 void GSHero::ChangeState(HeroState newState)
@@ -357,6 +422,7 @@ void GSHero::Update()
   if (m_state == HeroState::SONG_PLAYING)
   {
     float songElapsedSeconds = GetMidiSongElapsedTimeSeconds();
+    Assert(m_scoreLengthSeconds > 0);
     float normalisedAnimTime = songElapsedSeconds / m_scoreLengthSeconds;
 
     // Get 'dt' for animTime
@@ -365,24 +431,29 @@ void GSHero::Update()
     m_prevAnimTime = normalisedAnimTime;
 
     // Scroll the score.
+    Assert(m_scrollScore);
     m_scrollScore->AnimateSpecial(normalisedAnimTime, dAnimTime);
   
     // Scroll the extras along with the score.
-    auto pos = m_scrollScore->GetLocalPos();
-    m_scoreExtras->SetLocalPos(pos);
+    ScrollExtras();
 
     // If we have reached the end, we have won!
-    if (!m_roundIsOver && normalisedAnimTime > 0.99f)
+    if (!m_roundIsOver && HasMidiSongFinished())
     {
       OnPlayerHasWon();
     }
+  }
+  else if (m_state == HeroState::COUNT_IN)
+  {
+    ScrollExtras(); // (count in scrolling for the score is different to above.)
   }
 
   // Update keyboard pos after state has initialised
   frameCount++;
   if (frameCount == 2)
   {
-    UpdateKeyboardPosition();
+    UpdateKeyboardPosition(); // we only do this at the start of the song.
+    ColouriseKeysForSection();
   }
 
   // Update the time spent in the current 'micro state'
@@ -390,17 +461,24 @@ void GSHero::Update()
 
   // Check if we should change state -- we are not using timed messages,
   //  there are too many edge cases to worry about.
-  // TODO config
-  if (m_state == HeroState::PLAYER_HAS_WON && m_timeInHeroState > 5.f) 
+  // TODO config for the time delays.
+  // If we are auto-testing, delay is v short.
+  const bool autoTest = (GetAutoTestLevel() != AutoTestLevel::AMJU_NO_TEST);
+  const float wonDelay = autoTest ? .3f : 5.f;
+  const float lostDelay = autoTest ? .3f : 3.f;
+
+  if (m_state == HeroState::PLAYER_HAS_WON && m_timeInHeroState > wonDelay)
   {
     GoTo<TheGSHeroWin>();
   }
-  else if (m_state == HeroState::PLAYER_HAS_LOST && m_timeInHeroState > 3.f)
+  else if (m_state == HeroState::PLAYER_HAS_LOST && m_timeInHeroState > lostDelay)
   {
     GoTo<TheGSHeroEnd>();
   }
   else if (m_state == HeroState::COUNT_IN && 
            m_timeInHeroState >= m_countInExpiryTime)
+           // Don't use midi song finished flag because it waits for
+           //  the final decay of the notes.
   {
     OnCountInFinished();
   }
@@ -415,23 +493,47 @@ void GSHero::ReloadGui()
 }
 
 // TODO This is no good, it should be time, not number of frames, surely?!
-static const int NUM_UPDATE_NUM_FRAMES = 50;
+static const int NUM_UPDATE_NUM_FRAMES = 60; // assume 60 fps
 
 void GSHero::IncreaseScore(const Grade& grade)
 {
-  int amount = static_cast<int>(std::round(grade.m_score * 1000.f));
-  amount *= 100;
+  // Don't add points if we are behind the unadjusted pause time.
+  float animTime = m_scrollScore->GetAnimTime();
+  if (animTime <= m_unadjustedPauseResumeTime)
+  {
+std::cout << "No points awarded, we are behind the pause time! "
+  << animTime << " / " << m_unadjustedPauseResumeTime << "\n";
+    return;
+  }
 
-  GetHud().m_playerScore.Add(amount, NUM_UPDATE_NUM_FRAMES);
+  GetHud().AddToPlayerPoints(CalcPoints(grade), NUM_UPDATE_NUM_FRAMES);
+}
 
-  GetHud().SetPatchSizes();
+void GSHero::IncreaseLife(int inc)
+{
+  // Don't think we can get here if we are behind the pause time, riiiight?
+  float animTime = m_scrollScore->GetAnimTime();
+  if (animTime <= m_unadjustedPauseResumeTime)
+  {
+std::cout << "No health awarded, we are behind the pause time! "
+  << animTime << " / " << m_unadjustedPauseResumeTime << "\n";
+    return;
+  }
+
+  auto& life = GetHud().GetPlayerLife();
+  life.Add(inc, NUM_UPDATE_NUM_FRAMES); 
+  // It's a %, so cap at 100
+  if (life.m_internalNumber > 100)
+  {
+    life.m_internalNumber = 100;
+  }
 }
 
 void GSHero::DecreaseLife(const Grade& grade)
 {
   int dec = GetGameRound().m_lifeDecrease;
   dec = std::abs(dec);
-  auto& life = GetHud().m_playerLife;
+  auto& life = GetHud().GetPlayerLife();
   life.Add(-dec, NUM_UPDATE_NUM_FRAMES); 
 
   if (life.m_internalNumber <= 0)
@@ -446,7 +548,7 @@ void GSHero::OnPlayerHasWon()
 std::cout << "Player has won this round!\n";
 
   m_roundIsOver = true;
-  m_pauseResumeTime = 0;
+  CancelResumeTime();
   ChangeState(HeroState::PLAYER_HAS_WON);
 
   // Surviving pets jump for joy
@@ -469,7 +571,7 @@ void GSHero::OnPlayerHasLost()
 std::cout << "Player has lost this round!\n";
 
   m_roundIsOver = true;
-  m_pauseResumeTime = 0;
+  CancelResumeTime();
   ChangeState(HeroState::PLAYER_HAS_LOST);
 
   StopMidiSong();
@@ -510,9 +612,67 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
 #endif
 }
 
+void GSHero::AutoTestSetup()
+{
+  if (GetAutoTestLevel() == AutoTestLevel::AMJU_FULL_TEST)
+  {
+    // Full test: auto-play the game round.
+    // TODO Play badly, losing, then well, winning.
+std::cout << "** AUTO TEST: Setting auto play on.\n";
+    m_autoPlay = true;
+  }
+  else if (GetAutoTestLevel() == AutoTestLevel::AMJU_SMOKE_TEST)
+  {
+    // Smoke test: generate lose or win event after a short delay.
+    const float DELAY = 1.f;
+    static int visit = 0;
+    if (visit % 2 == 0)
+    {
+      AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasLost(); }, DELAY);
+    }
+    else
+    {
+      AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasWon(); }, DELAY);
+    }
+    ++visit;
+  }
+}
+
+void GSHero::SetUpAutoPlay()
+{
+  // For auto-test, generate events to auto-play the song.
+  AutoPlayer ap;
+  auto messages = ap.GenerateMessages(m_scrollScore->GetNoteEvents(), {});
+  auto queue = TheMessageQueue::Instance();
+  const float queueTime = queue->GetTime();
+  int numMessagesQueued = 0;
+  for (auto& m : messages)
+  {
+    // Handle pause/resume!
+    m->m_time -= m_pauseResumeTime; // this time is normalised
+    if (m->m_time < 0) continue;
+
+    m->m_time *= m_scoreLengthSeconds; // ah ha, we need seconds, not 0..1 time!
+
+    m->m_time += queueTime;
+    queue->Add(m.GetPtr());
+
+    ++numMessagesQueued;
+  }
+std::cout << "*** AUTOPLAY: queued " << numMessagesQueued
+   << " music event messages, of "
+   << messages.size() << " total note events in the score.\n";
+}
+
 void GSHero::OnCountInFinished()
 {
 std::cout << "Count in finished!\n";
+
+  if (m_autoPlay)
+  {
+std::cout << "*** Setting up Auto Play messages...\n";
+    SetUpAutoPlay();
+  }
 
   ChangeState(HeroState::SONG_PLAYING);
 
@@ -524,7 +684,7 @@ std::cout << "Count in finished!\n";
   // At this point, the count in has finished, so no more need for this?
   // Actually it prob doesn't matter, it will get overwritten as we 
   //  play forward from this point.
-  //m_pauseResumeTime = 0;
+  //CancelResumeTime(), not m_pauseResumeTime = 0;
 
   ResetMissedNoteCounters();
 
@@ -572,7 +732,17 @@ void GSHero::OnNoteEvent(const NoteEvent& ne)
   {
     ++m_sectionIndex;
 std::cout << "New song section! " << m_sectionIndex << "\n";
+
+#ifdef UPDATE_KEYBOARD_POS_ON_NEW_SECTION__BAD_IDEA
+    // This seemed like a good idea but is actually really bad.
+    // Don't update the keyboard pos once it has been set at the
+    //  start of the song!
     UpdateKeyboardPosition();
+#endif
+
+    // We are not updating the KB pos but we still want to colourise
+    //  the keys for the section.
+    ColouriseKeysForSection();
   }
 
   if (ne.m_time < m_pauseResumeTime)
@@ -600,43 +770,92 @@ std::cout << "Score note! (" << ne.m_note << ", note off):\n";
 std::cout << "  Num player notes: " << m_numPlayerNotes 
   << " Num score notes: " << m_numScoreNotes << "\n";
 #endif
-  }
 
-  if (m_numScoreNotes > m_numPlayerNotes)
-  {
+    if (m_numScoreNotes > m_numPlayerNotes)
+    {
+      // Search back for the note on event corresponding to this note off event
+      const auto& noteEvents = m_scrollScore->GetNoteEvents();
+      int id = FindNoteOnEventForNoteOffEvent(noteEvents, ne.m_id);
+      Assert(id >= 0);
+      Assert(id < static_cast<int>(noteEvents.size()));
+      const auto& noteOn = noteEvents[id];
+      Assert(noteOn.IsNoteOnEvent());
+      OnMissedNote(noteOn);
+    }
+  }
+}
+
+void GSHero::OnMissedNote(const NoteEvent& noteOnEvent)
+{
 #ifdef MISSED_NOTE_DEBUG
 std::cout << "*** Player has missed a note, I think!!!\n";
 std::cout << "  Num player notes: " << m_numPlayerNotes 
   << " Num score notes: " << m_numScoreNotes << "\n";
 #endif
 
-    m_numPlayerNotes = m_numScoreNotes;
+  m_numPlayerNotes = m_numScoreNotes;
 #ifdef MISSED_NOTE_DEBUG
 std::cout << "  ... Resetting: counters now equal:\n";
 std::cout << "  Num player notes: " << m_numPlayerNotes 
   << " Num score notes: " << m_numScoreNotes << "\n";
 #endif
 
-    // Missed note
-    Grade grade(Grade::NO_ATTEMPT, 0);
-    // Show the missed note TODO
-    DecreaseLife(grade); 
-  }
+  // Missed note
+  Grade grade(Grade::NO_ATTEMPT, 0);
+  // Show the missed note TODO
+
+  // Lose health.
+  DecreaseLife(grade); 
+
+  // If there's an extra on this note, don't collect it.
+  m_extrasAdder->NoCollectExtra(noteOnEvent.m_id);
 }
+
+// OnMusicKbEvent is horrifically complicated. We want to make
+//  sure we sound/silence the note in the given event, as we 
+//  wend our way through this rat's nest of spag. So this type sounds
+//  the note in its dtor. I.e. we use RAII to make sure we get
+//  all the code paths.
+struct AutoMusicEvent : public MusicKbEvent
+{
+  AutoMusicEvent(const MusicKbEvent& m) : MusicKbEvent(m) {}
+
+  ~AutoMusicEvent()
+  {
+    PlayMidi(m_note, m_velocity);
+  }
+
+  void SetNewPitch(int midiPitch) const
+  {
+    const_cast<AutoMusicEvent&>(*this).m_note = midiPitch;
+  }
+};
 
 void GSHero::OnMusicKbEvent(const MusicKbEvent& e) 
 {
-  // This is a player-generated event
+  // This is a player-generated music event, which could come
+  //  from the virtual piano keyboard, MIDI input, or qwerty keys.
+
+  // Don't immediately sound the note: we want to play the note
+  //  at the scored octave if possible, regardless of the octave
+  //  of the pitch of the event. 
+  // E.g. qwerty or virtual keyboard could only cover one octave,
+  //  but if we can match the event to its corresponding note in
+  //  the score, we can play it at the scored octave.
+  AutoMusicEvent raiiSound(e);
 
 #ifdef MUSIC_EVENT_DEBUG
 std::cout << "Music KB event: " 
   << e.m_note << " " 
-  << (e.m_on? "on" : "off")
+  << (e.IsOn() ? "on" : "off")
   << "\n";
 #endif  // MUSIC_EVENT_DEBUG
 
   if (m_roundIsOver)
   {
+#ifdef MUSIC_EVENT_DEBUG
+std::cout << "Round is over, ignoring player kb event.\n";
+#endif
     return;
   }
 
@@ -645,22 +864,72 @@ std::cout << "Music KB event: "
 #ifdef MUSIC_EVENT_DEBUG
 std::cout << "Not grading event, keyboard is moving. (" 
   << e.m_note << " " 
-  << (e.m_on? "on" : "off")
+  << (e.IsOn() ? "on" : "off")
   << ")\n";
 #endif  // MUSIC_EVENT_DEBUG
-
   }
   else
   {
-    GradeEvent(e);
+#ifdef MUSIC_EVENT_DEBUG
+std::cout << "Grading event...\n";
+#endif
+    GradeEvent(raiiSound);
   }
 }
 
-void GSHero::GradeEvent(const MusicKbEvent& e)
+void GSHero::OnBumNote(const MusicKbEvent& e, const NoteEvent& ne, const Grade& grade)
+{
+  // Note on event, pitch is INCORRECT
+#ifdef GRADE_DEBUG
+std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << ne.m_note << "\n";
+#endif
+  // Not sure if we should play wav every time
+  PlayWav(WAV_INCORRECT);
+  Assert(grade.m_type == Grade::BAD_NOTE);
+  //SetUpFeedbackBalloon(grade, m_gui);
+  DecreaseLife(grade); 
+
+  // If there's an extra on this note, don't collect it.
+  m_extrasAdder->NoCollectExtra(ne.m_id);
+
+  // Eat the pet with the colour of the bum note.
+  GetAnimalController().EatAPet(e.m_note % 12); 
+}
+
+void GSHero::OnCorrectNote(const NoteEvent& ne, const Grade& grade)
+{
+  // Note on event, pitch is correct
+#ifdef GRADE_DEBUG
+std::cout << "** Correct note! " << ne.m_note << "\n";
+#endif
+  SetUpFeedbackBalloon(grade, m_gui);
+  IncreaseScore(grade);
+
+  // Collect any extra attached to the note we correctly played,
+  //  * if * the grade is good enough.
+  Assert(m_extrasAdder);
+  if (grade.ShouldAwardExtra())
+  {    
+#ifdef GRADE_DEBUG
+std::cout << " -- so good, we are awarding EXTRA!\n";
+#endif
+    auto nonScrollingExtrasRoot = dynamic_cast<GuiComposite*>(
+      GetElementByName(m_gui, "non-scrolling-extras-root"));
+    m_extrasAdder->CollectExtra(ne.m_id, nonScrollingExtrasRoot);
+  }   
+  else 
+  {    
+    // The pitch is correct but still we should not award any extra.
+    // If there's an extra on this note, don't collect it.
+    m_extrasAdder->NoCollectExtra(ne.m_id);
+  }    
+}
+
+void GSHero::GradeEvent(const AutoMusicEvent& playerNoteEvent)
 {
 #ifdef GRADE_DEBUG
-std::cout << "=================================\nGrading note event: Pitch: " << e.m_note 
-  << " " << (e.m_on ? "*ON*" : "+off+");
+std::cout << "Grading note event: Pitch: " << e.m_note 
+  << " " << (e.IsOn()  ? "*ON*" : "+off+");
   // No newline!
 #endif
 
@@ -672,8 +941,11 @@ std::cout << "\n";
 #endif
     // Ignore note down event after song finished. But allow for final
     //  late note up event??
-    if (e.m_on) // ? Or safer to just totally ignore
+    if (playerNoteEvent.IsOn()) // ? Or safer to just totally ignore
     {
+#ifdef GRADE_DEBUG
+std::cout << "Ignoring note down event after song finished.\n";
+#endif
       return;
     }
   }
@@ -688,9 +960,8 @@ std::cout << "\n";
     {
       // If we haven't even started the count-in, ignore this event.
 #ifdef GRADE_DEBUG
-std::cout << "  * not even counting in yet bruv!\n";
+std::cout << "  * Wow, right on the edge between count-in and song?!\n";
 #endif
-      return;
     }
 #ifdef GRADE_DEBUG
 std::cout << " -- grade count-in event!\n";
@@ -712,7 +983,7 @@ std::cout << " AnimTime now: " << animTime
   // Get iterator pointing to the event we think the player is attempting.
   Grader grader;
   auto optIt = grader.GetClosestMatchingEvent(
-    e, noteEvents, animTime, m_scoreLengthSeconds);
+    playerNoteEvent, noteEvents, animTime, m_scoreLengthSeconds);
   if (optIt)
   {
     const auto it = *optIt;
@@ -731,19 +1002,26 @@ std::cout << " - ignoring this player event, already graded.\n";
     }
 
     // The note event we think the player is attempting to match
-    const NoteEvent& ne = *it;
+    const NoteEvent& scoreNoteEvent = *it;
+
+#ifdef GRADE_DEBUG
+std::cout << "I think you are attempting this note/event: "
+  << scoreNoteEvent.ToString()
+  << "\n";
+#endif
+
     // Grade the time difference between player and note event ne
     const float MAX_ERROR = 0.5f; // Max acceptable time diff, TODO CONFIG
     auto grade = grader.FinalGrade(
-      e, ne, animTime, m_scoreLengthSeconds, MAX_ERROR);
+      playerNoteEvent, scoreNoteEvent, animTime, m_scoreLengthSeconds, MAX_ERROR);
 
     // Prevent multiple attempts at the same event: store the iterator
     //  so we can check above.
     // Only remember if note on, and a valid attempt.
-    if (e.m_on && grade.m_type != Grade::TOO_QUICK)
+    if (playerNoteEvent.IsOn() && grade.m_type != Grade::TOO_QUICK)
     {
 #ifdef GRADE_DEBUG
-std::cout << "Storing event so you can't try again\n";
+std::cout << "Storing event so player can't try this same note again\n";
 #endif
 
       // This is the right place to increment player note count?
@@ -757,40 +1035,33 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
       m_prevAttempt = it;
     }
 
-    bool isPitchCorrect = IsPlayerPitchCorrect(e.m_note, ne.m_note);
-    if (e.m_on && isPitchCorrect)
-    {
-      // Note on event, pitch is correct
-#ifdef GRADE_DEBUG
-std::cout << "** Correct note! " << e.m_note << "\n";
-#endif
-      SetUpFeedbackBalloon(grade, m_gui);
-      IncreaseScore(grade);
-    }
-    else if (e.m_on && !isPitchCorrect)
-    {
-      // Note on event, pitch is INCORRECT
-#ifdef GRADE_DEBUG
-std::cout << "** Incorrect note! You played: " << e.m_note << " should be: " << ne.m_note << "\n";
-#endif
-      // Not sure if we should play wav every time
-      PlayWav(WAV_INCORRECT);
-      Assert(grade.m_type == Grade::BAD_NOTE);
-      //SetUpFeedbackBalloon(grade, m_gui);
-      DecreaseLife(grade); // TODO Life boosters when we reach checkpoints
+    bool isPitchCorrect = IsPlayerPitchCorrect(playerNoteEvent.m_note, scoreNoteEvent.m_note);
 
-      // TODO just a test for now. We haven't really designed how this
-      //  should work. We just eat the pet with the colour of the bum note.
-      GetAnimalController().EatAPet(e.m_note % 12); 
+    if (playerNoteEvent.IsOn() && isPitchCorrect)
+    {
+      // Revise the pitch
+      playerNoteEvent.SetNewPitch(scoreNoteEvent.m_note);
+
+      // We pass the scored note event, not the player attempt - we 
+      //  have already graded the player attempt and pass in the grade.
+      OnCorrectNote(scoreNoteEvent, grade);
+    }
+    else if (playerNoteEvent.IsOn() && !isPitchCorrect)
+    {
+      // STYLOPHONE - here is where to not grade stylophone notes I think.
+      OnBumNote(playerNoteEvent, scoreNoteEvent, grade);
     }
     else
     {
       // Note off event. We grade on time.
-      Assert(!e.m_on);
+      Assert(!playerNoteEvent.IsOn());
       Assert(isPitchCorrect); // sanity check
       // The visual feedback is different: show note trail and increasing
       //  score while note is being played.
       //SetUpFeedbackBalloon(grade);
+
+      // Revise the pitch
+      playerNoteEvent.SetNewPitch(scoreNoteEvent.m_note);
     }
   }
   else
@@ -805,13 +1076,31 @@ std::cout << ":((( Couldn't find a matching event to grade against!\n";
 
 void GSHero::OnDeactive() 
 {
+  // Reset weak pointers pointing to bits of the GUI tree.
+  m_qwertyOverlay.Reset();
+
   GSBase3d::OnDeactive();
+
   auto sm = TheSoundManager::Instance();
   sm->ClearPreloadedSongs(); 
+
+  // Kill the Extras manager (it's an RCPtr).
+  // It has a ref to the GUI, which we want to drop.
+  m_extrasAdder = nullptr;
+
+  // The song should have stopped but we could be auto-testing.
+  StopMidiSong();
+
+  // Kill any lingering player notes. This would be done by the 
+  //  GuiMusicKb dtor, but it might not be called as there are multiple
+  //  references to bits of the GUI.
+  KillPlayerNotes();
 }
 
 void GSHero::OnActive() 
 {
+  m_autoPlay = false; // set to true if in auto test mode
+
   GSBase3d::OnActive();  
 
   frameCount = 0;
@@ -940,11 +1229,13 @@ std::cout << "Loading music score: " << score << "...\n";
     events, // all note (and rest) events 
     m_scrollScore->GetBeats()); // time for each bar
 
+#ifdef SECTION_DEBUG
 std::cout << "Here are the final sections:\n";
 for (const auto& s : m_songSections)
 {
   std::cout << s << "\n";
 }
+#endif
 }
 
 void GSHero::InitScrollScoreAnim()
@@ -1040,53 +1331,48 @@ void GSHero::InitGui()
   //  event multiple times)
   m_prevAttempt = m_scrollScore->GetNoteEvents().end();
 
-  AttachExtraBits(); 
+  InitExtras();
+
+  InitQwertyKeys();
 }
 
-void GSHero::AttachExtraBits()
+void GSHero::InitQwertyKeys()
 {
-  // TODO TEMP TEST 
-  // Attach a heart to the score 
-  auto heart = LoadGui("Gui/extra-heart.txt");
-  AttachExtraBitToScore(heart, 1, NoteEventType::NOTE_ON);
-
-  auto heart2 = LoadGui("Gui/extra-heart.txt");
-  AttachExtraBitToScore(heart2, 2, NoteEventType::NOTE_ON);
+  m_qwertyOverlay.Init(m_gui);
 }
 
-void GSHero::AttachExtraBitToScore(
-  PGuiElement extra, int eventNum, NoteEventType net)
+int GSHero::FindNoteEventForTime(float normalisedTime)
 {
-  // TODO for now, we are only supporting note on events.
-
-  auto elem = GetElementByName(m_gui, "score-extras");
-  m_scoreExtras = dynamic_cast<GuiComposite*>(elem);
-  if (!m_scoreExtras)
-  {
-std::cout << "Failed to find score-extras!\n";
-    return;
-  }
-
-  m_scoreExtras->AddChild(extra);
-
+  Assert(m_scrollScore);
   const auto& noteEvents = m_scrollScore->GetNoteEvents();
-  // Get rid of all events except for the type we are looking for.
-  auto notesCopy(noteEvents);
-  notesCopy.erase(
-    std::remove_if(notesCopy.begin(), notesCopy.end(), 
-     [=](const NoteEvent& ne) { return ne.m_type != net; }),
-    notesCopy.end());
+  return Amju::FindNoteEventForTime(noteEvents, normalisedTime);
+}
 
-  const auto& ne = notesCopy[eventNum];
+void GSHero::InitExtras()
+{
+  auto elem = GetElementByName(m_gui, "score-extras");
+  Assert(elem);
+  m_scoreExtras = dynamic_cast<GuiComposite*>(elem); 
+  Assert(m_scoreExtras);
 
-  // Find the position of the note or rest so we can place the extra
-  //  GUI on top -- extra's local pos then finesses the position.
-  Vec2f pos = ne.GetPos();
-  Vec2f scale = m_scrollScore->GetSize();
- 
-  pos *= scale; // or just scale x ?? TODO
+  // Initial pos of m_scoreExtras
+  auto pos = m_scrollScore->GetLocalPos();
+  m_scoreExtras->SetLocalPos(pos);
 
-  extra->SetLocalPos(pos + extra->GetLocalPos());
+  // Create extras manager instance
+  m_extrasAdder = new ExtrasAdder(elem, *m_scrollScore, m_songSections);
+
+  // Find the note event ID corresponding to the time we paused.
+  // Don't add extras to any notes below this ID, because we've already
+  //  graded the notes and had extras awarded. We don't want to award
+  //  the same extras multiple times.
+  int fromEventId = FindNoteEventForTime(m_unadjustedPauseResumeTime);
+  m_extrasAdder->AttachExtraBits(fromEventId); 
+
+  // Set the position of the pause time line
+  elem = GetElementByName(m_gui, "translate-colour-pause_line");
+  dynamic_cast<GuiDecTranslate*>(elem)->SetTranslation(Vec2f(
+    -m_unadjustedPauseResumeXPos, 0));
 }
 }
 

@@ -1,11 +1,11 @@
 // * Amjula music theory *
 // (c) Copyright 2024 Juliet Colman
 
-#include <ConfigFile.h>
 #include <Directory.h>
 #include <ReportError.h>
 #include "Consts.h"
 #include "HeroGameRound.h"
+#include "ObscureConfigFile.h"
 #include "UserProfile.h"
 
 namespace Amju
@@ -13,7 +13,7 @@ namespace Amju
 
 namespace
 {
-const char* FILENAME_SUFFIX = "_user_profile.txt";
+const char* FILENAME_SUFFIX = "_user_profile.bin";
 } // anon namespace
 
 // Default player name, meaning 'for all players'
@@ -22,6 +22,12 @@ static std::string s_playerName = "all";
 void SetPlayerName(const std::string& playerName)
 {
   s_playerName = playerName;
+}
+
+static std::string MakeUserProfileFilename()
+{
+  std::string filename = GetSaveDir(APPNAME) + s_playerName + FILENAME_SUFFIX;
+  return filename;
 }
 
 UserProfile* GetUserProfile()
@@ -33,11 +39,13 @@ UserProfile* GetUserProfile()
 
 bool UserProfile::Save()
 {
-  std::string filename = GetSaveDir(APPNAME) + s_playerName + FILENAME_SUFFIX;
+  std::string filename = MakeUserProfileFilename();
 
 std::cout << "Saving config file " << filename << "\n";
 
-  if (!GetConfigFile()->Save(filename, false))
+  auto obscure = dynamic_cast<ObscureConfigFile*>(GetConfigFile());
+  Assert(obscure);
+  if (!obscure->SaveObscured())
   {
     return false;
   }
@@ -57,11 +65,13 @@ ConfigFile* UserProfile::GetConfigFile()
   static ConfigFile* cf = nullptr;
   if (!cf)
   { 
-    cf = new ConfigFile;
+    cf = new ObscureConfigFile;
     // If load fails, we assume first time getting config for this player
-    std::string filename = GetSaveDir(APPNAME) + FILENAME_SUFFIX;
+    std::string filename = MakeUserProfileFilename();
 
-    if (!cf->Load(filename, false))
+    auto obscure = dynamic_cast<ObscureConfigFile*>(cf);
+    Assert(obscure);
+    if (!obscure->LoadObscured(filename))
     {
       ReportError("Failed to load config file " + filename);
     }
@@ -70,6 +80,7 @@ ConfigFile* UserProfile::GetConfigFile()
   return cf;
 }
 
+std::string bestPercent(const std::string prefix) { return prefix + "-bestpercent"; }
 std::string hiScore(const std::string prefix) { return prefix + "-hiscore"; }
 std::string completed(const std::string prefix) { return prefix + "-completed"; }
 std::string like(const std::string prefix) { return prefix + "-like"; }
@@ -79,6 +90,7 @@ void SongPlayerInfo::GetFromConfig(const ConfigFile* cf)
   m_hiScore = cf->GetInt(hiScore(m_name), 0);
   m_completed = cf->GetInt(completed(m_name), 0) != 0;
   m_like = cf->GetInt(like(m_name), 0) != 0;
+  m_bestPercent = cf->GetInt(bestPercent(m_name), 0);
 }
 
 void SongPlayerInfo::SetToConfig(ConfigFile* cf) const
@@ -86,6 +98,7 @@ void SongPlayerInfo::SetToConfig(ConfigFile* cf) const
   cf->SetInt(hiScore(m_name), m_hiScore);
   cf->SetInt(completed(m_name), m_completed ? 1 : 0);
   cf->SetInt(like(m_name), m_like ? 1 : 0);
+  cf->SetInt(bestPercent(m_name), m_bestPercent);
 }
 
 SongPlayerInfo UserProfile::GetSongPlayerInfo(const std::string songName)

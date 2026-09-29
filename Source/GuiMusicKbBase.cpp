@@ -7,9 +7,9 @@
 #include <MessageQueue.h>
 #include <StringUtils.h>
 #include <Timer.h>
+#include "BassPlayMidi.h"
 #include "GuiMusicKbBase.h"
 #include "MusicEvent.h"
-#include "BassPlayMidi.h"
 
 #ifdef min
 #undef min
@@ -34,6 +34,9 @@ GuiMusicKbBase::~GuiMusicKbBase()
 {
   // Make sure all keys which were pressed send final key up events
   ReleaseAllKeys();
+
+  // Make sure there are no lingering notes audible.
+  KillPlayerNotes(); 
 }
 
 void GuiMusicKbBase::Update()
@@ -83,14 +86,65 @@ void GuiMusicKbBase::SetPalette(RCPtr<Palette> palette)
   m_palette = palette;
 }
 
-void GuiMusicKbBase::ColouriseKeys(std::vector<int> midiNotes)
+void GuiMusicKbBase::ResetKeyColours()
 {
   // Reset all keys to their natural colour
   for (auto& key : m_keys)
   {
-    key->m_colour = key->m_naturalColour; // a member function would be nice
+    key->ResetColour();
+  }
+}
+
+void GuiMusicKbBase::ColouriseKeysAllOctaves(std::vector<int> midiNotes)
+{
+  ResetKeyColours();
+
+  Assert(m_palette);
+  if (!m_palette)
+  {
+    return;
   }
 
+  // Set of the base steps
+  std::set<int> steps;
+  for (int midiNote : midiNotes)
+  {
+    steps.insert(midiNote % 12);
+  }
+
+  // Colourise all the octaves for each step
+
+  // Find the first and last keys in the KB
+  //  and work out the min/max octaves.
+  const int minKey = GetMinKey();
+  const int maxKey = GetMaxKey();
+  const int firstOctave = minKey / 12; 
+  const int lastOctave = maxKey / 12;
+
+  for (int step : steps)
+  {
+    for (int oct = firstOctave; oct <= lastOctave; ++oct)
+    {
+      int pitch = step + oct * 12;
+
+      if (pitch < minKey) continue;
+      if (pitch > maxKey) break;
+
+      Key* key = GetKey(pitch);
+      Assert(key);
+      if (key)
+      {
+        key->m_colour = m_palette->GetColour(pitch);
+      }
+    } 
+  }
+}
+
+void GuiMusicKbBase::ColouriseKeys(std::vector<int> midiNotes)
+{
+  ResetKeyColours();
+
+  Assert(m_palette);
   if (!m_palette)
   {
     return;
@@ -99,11 +153,17 @@ void GuiMusicKbBase::ColouriseKeys(std::vector<int> midiNotes)
   for (int midiNote : midiNotes)
   {
     Key* key = GetKey(midiNote);
+    Assert(key);
     if (key)
     {
       key->m_colour = m_palette->GetColour(midiNote);
     } 
   }
+}
+
+void GuiMusicKbBase::Key::ResetColour()
+{
+  m_colour = m_naturalColour; 
 }
 
 void GuiMusicKbBase::Key::Press()
@@ -116,8 +176,9 @@ void GuiMusicKbBase::Key::Press()
   m_isPressed = true;
   m_desiredAngle = 5.0f;
 
-  int vol = 100; // TODO Humanise
-  PlayMidi(m_midiNote, vol); 
+  // Don't play the note here: play it when we consume the event
+  //  we are queueing. That will let us play the correct pitch whatever
+  //  octave note the player presses.
 
   TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, true)));
 
@@ -136,7 +197,9 @@ void GuiMusicKbBase::Key::Release()
   m_isPressed = false;
   m_desiredAngle = 0.0f;
 
-  PlayMidi(m_midiNote, 0); // ?
+  // For symmetry, we don't silence the note here either.
+  // (Also it allows for the possibility of resolving events for the
+  //  same note from e.g. midi input and virtual piano keys.)
 
   TheMessageQueue::Instance()->Add(new MusicKbMsg(MusicKbEvent(m_midiNote, false)));
 
@@ -219,6 +282,11 @@ GuiMusicKbBase::Key* GuiMusicKbBase::GetKey(int midiNote) const
 {
   // Binary search for key with the given midi note value
   //  (keys are in midi note value order)
+
+  // TODO If keys are in midi note order, but don't start at zero, we
+  //  can just use the offset to get the index and index into the container,
+  //  no??!?!?
+
   auto it = std::lower_bound(m_keys.begin(), m_keys.end(), midiNote,
     [](const Key* k1, int m) { return k1->m_midiNote < m; }
   );
@@ -246,6 +314,11 @@ float GuiMusicKbBase::GetKeyMidX(int midiKey) const
   return rect.GetCentre().x;
 }
 
+float GuiMusicKbBase::GetYForQwerty(bool isBlack) const
+{
+  return isBlack ? -0.4f : -0.75f; // TODO scale if KB squished
+}
+
 GuiMusicKbBase::Key* GuiMusicKbBase::PickKey(const Vec2f& pos)
 {
   std::vector<PKey> pickedKeys; // should be 0, 1 or 2, right?!
@@ -270,15 +343,16 @@ GuiMusicKbBase::Key* GuiMusicKbBase::PickKey(const Vec2f& pos)
   // Decide which one to return: for our keyboard, the black key wins
   for (PKey& key : pickedKeys)
   {
-    //auto key = dynamic_cast<GuiMusicKb::Key3d*>(pkey.GetPtr());
     if (key->m_isBlack)
     {   
       return key;
     }   
   }
 
-  // Overlapping white keys: choose the one we are closest to the centre of, just in x axis
   Assert(pickedKeys.size() > 1); // from logic above
+
+  // Overlapping white keys: choose the one we are closest to the 
+  //  centre of, just in x axis
   float dist0 = pickedKeys[0]->m_projectedRect.GetCentre().x - pos.x;
   float dist1 = pickedKeys[1]->m_projectedRect.GetCentre().x - pos.x;
   return (dist0 < dist1) ? pickedKeys[0] : pickedKeys[1];
@@ -333,9 +407,10 @@ bool GuiMusicKbBase::OnCursorEvent(const CursorEvent& ce)
 
 bool GuiMusicKbBase::OnMouseButtonEvent(const MouseButtonEvent& mbe)
 {
-  // TODO CONFIG
   // Anything below this line is treated as a tap on the keyboard.
   // Above this, we use to scroll L/R
+
+  // TODO 296: calc this, don't hardcode it
   const float KEYBOARD_TOP_Y_COORD = -0.2f;
 
   if (mbe.button != AMJU_BUTTON_MOUSE_LEFT)

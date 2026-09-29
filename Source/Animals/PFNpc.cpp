@@ -74,7 +74,9 @@ void PFNpc::CreateSceneNode()
   // Set us up as the listener for animation events on the node.
   md2->SetListener(this); 
 
+#ifdef LIST_ANIMS_DEBUG
   ListAnims(md2);
+#endif
 
   SetShadowSceneNode(m_sceneRoot->GetNodeByName("shadow"));
 }

@@ -78,7 +78,7 @@ struct Event
 
   Clef m_clef; // for clef events; initialised in ctor
   TimeSig m_timeSig; // for time sig events
-  KeySig m_keySig; // for key sig events
+  KeySig m_keySig; // for key sig events, and for note events, the prevailing key sig, used to output pitch correctly.
 
   Event();
   std::string ToString() const;

@@ -10,6 +10,9 @@
 
 namespace Amju
 {
+class GuiButton;
+class KeyInputHandler;
+
 // * GSBase *
 // Base class for game states for Amjula music theory
 class GSBase : public GameState
@@ -21,11 +24,25 @@ public:
   virtual void OnActive() override;
   virtual void OnDeactive() override;
 
-  // Check keys for debug features: R to reload, G to show GUI tree
-  virtual bool OnKeyEvent(const KeyEvent&) override;
+  // This should be the one and only KeyEvent handler. 
+  // All KeyEvents go though KeyInputHandler, so our job in the
+  //  game states is now to add and remove handlers.
+  bool OnKeyEvent(const KeyEvent&) override final;
 
-  // Music keyboard events are sent to current game state
-  virtual void OnMusicKbEvent(const MusicKbEvent&) {}
+  // Add key mappings for this state.
+  // Returns the key input handler as a convenience for subclass impl.
+  virtual KeyInputHandler& AddKeyInputHandlers();
+
+  // Remove the mappings we added in the above function.
+  // (Default impl clears all mappings)
+  virtual void RemoveKeyInputHandlers();
+
+  // Music events are sent to current game state.
+  // Override this to handle music events, so for actual
+  //  game play states.
+  // Default behaviour (this impl) is to sound the note
+  //  (or silence it, if the event is a note off event).
+  virtual void OnMusicKbEvent(const MusicKbEvent&);
 
   GuiElement* GetGui();
 
@@ -37,21 +54,43 @@ public:
   //  convenience.
   virtual GSBase* HideButtons();
 
+  // Automated testing: every state should know how to test itself,
+  //  whatever order states get activated.
+  // That's the theory anyway.
+  // Each subclass should override this, check the AutoTestLevel,
+  //  and test itself, or set up the next state for testing.
+  // This function is only called if AutoTesting is on, but it could
+  //  be a smoke test or full test.
+  // Default impl: if there is a button with Focus, click it after
+  //  1s. If no focus button, does nothing, and you should override.
+  virtual void AutoTestSetup(); 
+
+  // Time since OnActive() called
+  float GetTimeInThisState() { return m_timeInThisState; }
+
 protected:
+  // Set version in "version-text" GUI text field if it exists
+  void SetVersionText();
+
+  // Convenience function: hide GuiButtons in the given GUI tree.
   void HideButtons(GuiElement*);
+
+  // Convenience function: find the (first) button with Focus in
+  //  the given GUI tree.
+  GuiButton* FindFocusButton(GuiElement* elem);
 
   // For dev/debugging, or when landscape/portrait orientation changes.
   // Default impl is to call OnDeactive() then OnActive, so reloading everything
   //  for the state. (This could have unwanted effects.)
   virtual void ReloadGui();
 
-  // If B key pressed, go to previous state: return true if we do.
-  bool CheckForKey_B_BackToPrevState(const KeyEvent& ke);
-
 protected: 
   // 2D GUI
   PGuiElement m_gui;
   std::string m_guiFilename; // used to load m_gui - set this in ctor 
+
+  // Time since OnActive() called
+  float m_timeInThisState = 0;
 };
 
 // Useful function for timed messages: go to Game State T.

@@ -12,6 +12,7 @@
 #include "Event.h"
 #include "KeySig.h"
 #include "MidiScore.h" // OutputEvents
+#include "Pitch.h"
 #include "TimeSig.h"
 
 namespace MidiScore
@@ -339,7 +340,10 @@ std::string Event::NoteToStringNoDuration() const
   assert(m_type == EventType::NOTE);
 
   // Dynamics refer to the last note, so pitch comes first.
-  auto res = std::to_string(m_pitch);
+
+  // Keysig is used to correctly write pitch string
+  auto res = PitchToString(m_pitch, m_keySig);
+
   auto d = m_dynamics.ToString();
   if (!d.empty())
   {

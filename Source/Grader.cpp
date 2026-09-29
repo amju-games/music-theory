@@ -64,6 +64,12 @@ Grade::Grade(Type t, float score) :
   }
 }
 
+bool Grade::ShouldAwardExtra() const
+{
+  // TODO depends on difficulty??
+  return m_type == Grade::GOOD_NOTE && m_score > 0;
+}
+
 std::pair<NoteEvents::const_iterator, NoteEvents::const_iterator> 
   Grader::GetRangeToConsider(
   const MusicKbEvent& e, const NoteEvents& noteEvents, float animTime, float songLength)
@@ -117,12 +123,12 @@ for (auto it = beforeIt; it != afterIt; ++it)
 
 bool EventTypesMatch(const NoteEvent& ne, const MusicKbEvent& e)
 {
-  if (e.m_on && ne.IsNoteOnEvent())
+  if (e.IsOn() && ne.IsNoteOnEvent())
   {
     return true;
   }
   
-  if (!e.m_on && ne.IsNoteOffEvent())
+  if (!e.IsOn() && ne.IsNoteOffEvent())
   {
     return true;
   }
@@ -155,7 +161,7 @@ std::optional<NoteEvents::const_iterator> Grader::FindBestMatch(
 
     if (   EventTypesMatch(*it, e)  // event types match?
         && diff < bestDiff // closer time?
-        && (e.m_on || IsPlayerPitchCorrect(it->m_note, e.m_note)))
+        && (e.IsOn() || IsPlayerPitchCorrect(it->m_note, e.m_note)))
           // if note off, do pitches match? (We are looking for the matching event here.)
           // if note is on, the match is the closest note on event.
     {

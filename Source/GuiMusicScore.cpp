@@ -243,7 +243,9 @@ GuiMusicScore::GuiMusicScore()
   // Create texture atlas. TODO CONFIG
   // Image is a resource, only loaded once.
 #ifdef USE_BM_FONT
-  static RCPtr<BmFontTextureSequence> bm;
+  // Don't make this static; any static resource will break the shutdown
+  //  sequence and we will get a crash on exit.
+  RCPtr<BmFontTextureSequence> bm;
   if (!bm)
   {
     bm = new BmFontTextureSequence;
@@ -1036,7 +1038,7 @@ bool GuiMusicScore::LoadMusicScore(File* f)
 
   // Sort the glyphs by start time, for animation.
   // Oh, this doesn't do anything, we search exhaustively - we should do a
-  //  binary search now.
+  //  binary search now. TODO
   std::sort(m_glyphs.begin(), m_glyphs.end());
 
   // We should sort the note events by time!!

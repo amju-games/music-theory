@@ -1,0 +1,10 @@
+// Created by MIDISCORE by Juliet, 2026-08-27 18:43:27
+// ./midiscore ../Assets/Songs/Satie-Gymnopedie2/workspace/satie-gymnopedie2-score.mid --timesig 3/4 --quant c --bpm 80 --track 3 
+// Output track 3 only.
+// Quantising to: c
+// TPQ: 384
+// Num bars: 65
+page-w 120
+bpm 80
+stave clef-t 3/4 key-f-0 <m.> R | R | R | R | g5 | <c> a5 g5 f5 | e5 f5 g5 | <m.> d5 | g5 | <c> a5 g5 f5 | e5 f5 g5 | f5 <m> c5 | <m.> R | R | c6 | <c> f5 g5 a5 | <m.> g5 | c5 | f5 t | <c> f5 e5- d5 | <m.> f5 t | <c> f5 g5 b5- | a5 g5 f5 | <m.> g5 | f5 | R | R | c6 | <c> a5- g5 f5 | <m.> g5 | f5 t | <c> f5 e5- d5 | <m.> f5 | d5 t | <c> d5 e5- a5- | <m.> b5- | f5 | R | R | <m.> g5 | <c> f5 g5 a5 | e5 f5 g5 | <m.> d5 | g5 | <c> f5 g5 a5 | e5 f5 g5 | f5 <m> c5 | <m.> R | R | c6 | <c> f5 g5 a5 | <m.> g5 | c5 | f5 | g5 | d5 t | d5 t | d5 t | <m> d5 <c> f5 | <m.> b5- | <c> a5 <m> f5 | <m.> R | R | R | R | 
+

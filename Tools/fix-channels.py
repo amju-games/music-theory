@@ -33,6 +33,7 @@ def process_midi(input_file, mapping_file, output_file):
                     # Convert channel from 1-16 (text file) to 0-15 (MIDI standard)
                     channel_val = int(parts[1].strip()) - 1 
                     mapping[track_idx] = channel_val
+                    print(f"Map {track_idx} -> {channel_val}")
     except FileNotFoundError:
         print(f"Error: Could not find mapping file '{mapping_file}'")
         sys.exit(1)

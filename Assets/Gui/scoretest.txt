@@ -3,6 +3,8 @@
 
 // gs_score.txt
 // Test: draw music notation
+// This is a 'blank' score. We use it in the MakeScore/Examples
+//  scripts by concatentating the output from MakeScore.
 
 // version
 1
