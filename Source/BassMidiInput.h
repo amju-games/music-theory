@@ -9,14 +9,15 @@ namespace Amju
 class BassMidiInput : public MidiInput
 {
 public:
+  BassMidiInput();
+
   // Return true if device is connected; call sparingly
   bool IsConnected() const override;
 
   // Call to connect to midi input device
   bool Connect() override;
-};
 
-// Get the instance of the BassMidiInput class.
-MidiInput& GetBassMidiInput();
+  void OnDeviceChange() override;
+};
 }
 

@@ -6,6 +6,7 @@
 #include <Game.h>
 #include <GameState.h>
 #include <GuiElement.h>
+#include "DeviceChangeEvent.h"
 #include "MusicEvent.h"
 
 namespace Amju
@@ -43,6 +44,10 @@ public:
   // Default behaviour (this impl) is to sound the note
   //  (or silence it, if the event is a note off event).
   virtual void OnMusicKbEvent(const MusicKbEvent&);
+
+  // Called when a device is added or removed.
+  // Rebuild our list of MIDI devices when we get this.
+  virtual void OnDeviceChangeEvent(const DeviceChangeEvent&);
 
   GuiElement* GetGui();
 

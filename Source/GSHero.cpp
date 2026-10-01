@@ -95,7 +95,10 @@ KeyInputHandler& GSHero::AddKeyInputHandlers()
   Assert(added);
 
   added = kih.AddHandler(MakeKeyEvent('W'), 
-    [this](const KeyEvent&) { OnPlayerHasWon(); return true; }, 
+    [this](const KeyEvent&) 
+    { 
+      OnPlayerHasWon(); return true; 
+    }, 
     "Win game round");
   Assert(added);
 #endif

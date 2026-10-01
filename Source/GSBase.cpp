@@ -11,6 +11,7 @@
 #include "GSBase.h"
 #include "AutoRepeatFilter.h"
 #include "AutoTest.h"
+#include "BassMidiInput.h"
 #include "GetVersion.h"
 #include "KeyInputHandler.h"
 #include "MyROConfig.h"
@@ -343,6 +344,15 @@ void GSBase::OnMusicKbEvent(const MusicKbEvent& musicEvent)
   //  or qwerty keys.
 
   PlayMidi(musicEvent.m_note, musicEvent.m_velocity);
+}
+
+void GSBase::OnDeviceChangeEvent(const DeviceChangeEvent&)
+{
+  auto m = GetMidiInput();
+  if (m)
+  {
+    m->OnDeviceChange();
+  }
 }
 }
 
