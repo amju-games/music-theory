@@ -113,41 +113,29 @@ sub AddHeaders($)
 
   # Print new verison of file 
   # -------------------------
-  #
+
   print "\n\nNEW FILE:\n";
-  foreach my $line (@lines)
-  {
-    # Remove newline characters
-    chomp($line);
 
-    if ($line ne "**DELETE_ME**")
-    {
-      print "$line\n";
-    }
+  my $out_fh;
+
+  my $write_to_file = !(defined $ARGV[1] && $ARGV[1] eq "nowrite");
+
+  if ($write_to_file) {
+    print "WRITING OUTPUT TO FILE $fileToModify\n";
+    open($out_fh, '>', $fileToModify) or die "Cannot open $fileToModify: $!";
   }
+
+  foreach my $line (@lines) {
+    chomp(my $clean_line = $line);
+    next if $clean_line eq "**DELETE_ME**";
+
+    print "$clean_line\n";                  # Output to console
+    print $out_fh "$clean_line\n" if $write_to_file; # Output to file
+  }
+
+  close($out_fh) if $write_to_file;
+
   print "\n\n";
-
-  if ($ARGV[1] eq "nowrite")
-  {
-    return;
-  }
-
-  print "WRITING OUTPUT TO FILE $fileToModify\n";
-
-  # Print lines to file
-  open(MODIFY_THIS, ">$fileToModify");
-  # Can't use $line again
-  foreach my $line2 (@lines)
-  {
-    # Remove newline characters
-    chomp($line2);
-
-    if ($line2 ne "**DELETE_ME**")
-    {
-      print MODIFY_THIS "$line2" . $/;
-    }
-  }
-  close (MODIFY_THIS);
 }
 
 # START HERE
