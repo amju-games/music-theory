@@ -505,9 +505,12 @@ static void OnKeyEvent(unsigned char k, bool down)
 {
   using namespace Amju;
 
-  if (std::isupper(k))
+  // Upper case letters are character keys; lower case letters mean
+  //  a special key.
+  // We aren't handling punctuation keys.
+  if (std::isdigit(k) ||
+     (std::isalpha(k)) && (std::isupper(k)))
   {
-    // Upper case letters are character keys
     QueueCharEvent(k, down);
     return;
   }

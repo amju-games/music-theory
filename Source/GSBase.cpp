@@ -27,7 +27,8 @@
 
 namespace Amju
 {
-static bool reload = false;
+static bool s_reload = false;
+static bool s_showFrameStats = true;
 
 void OnShare(GuiElement*)
 {
@@ -110,9 +111,9 @@ void GSBase::SetVersionText()
 void GSBase::Update()
 {
 #ifdef _DEBUG
-  if (reload)
+  if (s_reload)
   {
-    reload = false;
+    s_reload = false;
     TheMessageQueue::Instance()->Clear();
     ReloadMyROConfig();
     ReloadGui();
@@ -124,13 +125,13 @@ void GSBase::Update()
     m_gui->Update();
   }
 
-// Not on device?
 #ifdef YES_FRAME_STATS
   auto frameStatsText = 
     dynamic_cast<IGuiText*>(GetElementByName(m_gui, "frame-stats"));
   if (frameStatsText)
   {
-    frameStatsText->SetText(TheGame::Instance()->GetFrameStats());
+    frameStatsText->SetText(
+      s_showFrameStats ? TheGame::Instance()->GetFrameStats() : "");
   }
 #endif
 
@@ -252,7 +253,16 @@ KeyInputHandler& GSBase::AddKeyInputHandlers()
     "Save screenshot");
   Assert(added);
 
-  added = kih.AddHandler(MakeKeyEvent('B'), 
+  added = kih.AddHandler(MakeKeyEvent('8'),
+    [](const KeyEvent&)->bool
+    {
+      s_showFrameStats = !s_showFrameStats;
+      return true;
+    },
+    "Toggle frame stats display");
+  Assert(added);
+
+  added = kih.AddHandler(MakeKeyEvent('B'),
     [](const KeyEvent&)->bool 
     {
       auto* state = TheGame::Instance()->GetState();
@@ -297,7 +307,7 @@ KeyInputHandler& GSBase::AddKeyInputHandlers()
   added = kih.AddHandler(MakeKeyEvent('R'), 
     [&](const KeyEvent&)->bool 
     {
-      reload = true;
+      s_reload = true;
       return true;
     },
     "Reload GUI");
@@ -313,6 +323,15 @@ KeyInputHandler& GSBase::AddKeyInputHandlers()
       return true;
     },
     "Print GUI tree");
+  Assert(added);
+
+  added = kih.AddHandler(MakeKeyEvent('H'),
+    [&](const KeyEvent&)->bool
+    {
+      HideButtons();
+      return true;
+    },
+    "Hide buttons");
   Assert(added);
 
 #endif // _DEBUG
