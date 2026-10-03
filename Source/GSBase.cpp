@@ -14,6 +14,7 @@
 #include "GetVersion.h"
 #include "KeyInputHandler.h"
 #include "MyROConfig.h"
+#include "PFScreenshot.h"
 #include "PlayMidi.h"
 #include "PrintGui.h"
 #include "ShareManager.h"
@@ -239,6 +240,16 @@ KeyInputHandler& GSBase::AddKeyInputHandlers()
       return true;
     },
     "Print key mappings");
+  Assert(added);
+
+  added = kih.AddHandler(MakeKeyEvent('0'),
+    [](const KeyEvent&)
+    {
+      auto path = SavePFScreenshot();
+      std::cout << "Saved screenshot to: " << path << "\n";
+      return true;
+    },
+    "Save screenshot");
   Assert(added);
 
   added = kih.AddHandler(MakeKeyEvent('B'), 
