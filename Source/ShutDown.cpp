@@ -1,4 +1,5 @@
-// PIANO FEST 
+// * Amju PIANO FEST *
+// (c) Copyright Juliet Colman 2000-2026
 
 #include "BassPlayMidi.h" // ..until promoted to amjulib/BassSoundPlayer
 #include "UseVertexColourShader.h"

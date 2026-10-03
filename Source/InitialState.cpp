@@ -1,3 +1,6 @@
+// * Amju PIANO FEST *
+// (c) Copyright Juliet Colman 2000-2026
+
 #include <CommandLineArgs.h>
 #include "AutoTest.h"
 #include "GS3dExample.h" // for dev/test of 3d scene

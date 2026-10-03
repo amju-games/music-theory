@@ -1,3 +1,6 @@
+// * Amju PIANO FEST *
+// (c) Copyright Juliet Colman 2000-2026
+
 #if 0
 // Enable this once we have {fmt} library installed
 
