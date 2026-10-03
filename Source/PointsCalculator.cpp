@@ -1,3 +1,6 @@
+// * Amju PIANO FEST *
+// (c) Copyright Juliet Colman 2000-2026
+
 #include <cmath>
 #include <iostream>
 #include "Grader.h"

@@ -1,5 +1,5 @@
-// * Amjula music theory *
-// (c) Copyright 2026 Juliet Colman
+// * Amju PIANO FEST *
+// (c) Copyright Juliet Colman 2000-2026
 
 #include <array>
 #include <DrawRect.h>

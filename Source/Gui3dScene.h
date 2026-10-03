@@ -1,7 +1,5 @@
-// * Amjula music theory *
-// (c) Copyright 2024 Juliet Colman
-
-// TODO Promote to Amjulib
+// * Amju PIANO FEST *
+// (c) Copyright Juliet Colman 2000-2026
 
 #pragma once
 
