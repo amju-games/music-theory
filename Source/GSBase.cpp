@@ -5,6 +5,7 @@
 #include <CursorManager.h>
 #include <GuiButton.h>
 #include <GuiComposite.h>
+#include <GuiDecAnimation.h>
 #include <GuiPoly.h> // to set global texture on poly outlines
 #include <GuiText.h> // set version string
 #include <Timer.h>
@@ -16,6 +17,7 @@
 #include "KeyInputHandler.h"
 #include "MyROConfig.h"
 #include "PlayMidi.h"
+#include "PlayWav.h"
 #include "PrintGui.h"
 #include "ShareManager.h"
 #include "UseVertexColourShader.h"
@@ -172,9 +174,9 @@ void GSBase::OnActive()
     Assert(false);
   }
  
-// Not on device?
-#ifdef YES_FRAME_STATS
   // Extra GUI, to display frame stats, etc
+  // MIDI connect/disconnect too - so we want to add it
+  //  to every state's gui, whether or not we display frame stats.
   auto extraGui = LoadGui("Gui/extra-gui.txt", false);
   if (extraGui)
   {
@@ -187,8 +189,13 @@ void GSBase::OnActive()
   else
   {
     std::cout << "Failed to load extra GUI.\n";
+    Assert(false);
   }
-#endif
+
+  // Show MIDI connection status.
+  // We don't want to show the MIDI gui every state change, so
+  //  we pause the anim if no change.
+  TriggerMidiConnectGui();
 
   // If autotest is turned on, set up testing for this state.
   // We check here if tests are disabled, so in subclasses, we
@@ -240,6 +247,16 @@ KeyInputHandler& GSBase::AddKeyInputHandlers()
       return true;
     },
     "Print key mappings");
+  Assert(added);
+  
+  added = kih.AddHandler(MakeKeyEvent('i'),
+    [this](const KeyEvent&)->bool
+    {
+      static int connections = 0;
+      TestMidiConnectGui((connections++) % 3);
+      return true;
+    },
+    "Trigger MIDI connect GUI");
   Assert(added);
 
   added = kih.AddHandler(MakeKeyEvent('B'), 
@@ -346,12 +363,66 @@ void GSBase::OnMusicKbEvent(const MusicKbEvent& musicEvent)
   PlayMidi(musicEvent.m_note, musicEvent.m_velocity);
 }
 
+void GSBase::TestMidiConnectGui(int numConnections)
+{
+  MidiConnectGuiImpl(numConnections);
+}
+
+void GSBase::TriggerMidiConnectGui()
+{
+  auto midiInput = GetMidiInput();
+  Assert(midiInput);
+  MidiConnectGuiImpl(midiInput->GetNumConnections());
+}
+
+void GSBase::MidiConnectGuiImpl(int numConnections)
+{
+  // This is called when one of two things change:
+  // 1. The GameState has changed and we have loaded a new GUI
+  // 2. The MIDI connection has changed.
+  // We only want to do an animation for case 2.
+  // But if we just want to show the status without an anim, we
+  //  want to set the correct gui to show.
+  
+  auto root = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "midi-anim-root"));
+  Assert(root);
+
+  static int prevNumConnections = -1;
+  if (prevNumConnections == numConnections)
+  {
+    // No change - don't do an anim, but do set a static status gui.
+    // TODO
+    root->SetIsPaused(true);
+    return;
+  }
+  // Store new value
+  prevNumConnections = numConnections;
+
+  Assert(m_gui);
+  auto chooser = dynamic_cast<GuiDecAnimation*>(m_gui->GetElementByName("midi-choose-anim"));
+  Assert(chooser);
+
+  // Set const anim value depending on connected status.
+  bool isConnected = numConnections > 0;
+  chooser->SetValue(isConnected ? 1.f : 0.f);
+
+  // Play connected or disconnected wav
+  // TODO maybe piano notes
+  PlayWav(isConnected ? "blip-up" : "blip-down");
+
+  // Reset animation and unpause
+  root->ResetAnimation();
+  root->SetIsPaused(false);
+}
+
 void GSBase::OnDeviceChangeEvent(const DeviceChangeEvent&)
 {
   auto m = GetMidiInput();
   if (m)
   {
     m->OnDeviceChange();
+    // TODO trigger animation for connected or disconnected.
+    TriggerMidiConnectGui();
   }
 }
 }

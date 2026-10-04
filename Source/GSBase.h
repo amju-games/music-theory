@@ -74,6 +74,15 @@ public:
   float GetTimeInThisState() { return m_timeInThisState; }
 
 protected:
+  // For testing, simulate number of connected devices
+  void TestMidiConnectGui(int numConnections);
+
+  // Show MIDI connection status GUI
+  void TriggerMidiConnectGui();
+
+  // Common impl for test and real MIDI connect functions
+  void MidiConnectGuiImpl(int numConnections);
+
   // Set version in "version-text" GUI text field if it exists
   void SetVersionText();
 
