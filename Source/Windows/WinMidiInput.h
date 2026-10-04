@@ -14,3 +14,4 @@ public:
   void OnDeviceChange() override;
 };
 }
+

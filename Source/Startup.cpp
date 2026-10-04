@@ -36,8 +36,13 @@
 #include "UserLocale.h" // TODO Promote to amjulib
 #include "Palette.h" // add resource
 #include "SetUpFactories.h"
+
 #ifdef WIN32
 #include "Windows/WinMidiInput.h"
+#endif
+
+#ifdef MACOSX
+#include "MacMidiInput.h"
 #endif
 
 // On Macosx we can test languages with a command line param!
@@ -287,6 +292,11 @@ static void SetUpMIDI()
     //  but is not too early on Windows.
 #ifdef WIN32
     SetMidiInput(new WinMidiInput);
+    GetMidiInput()->Connect();
+#endif
+
+#ifdef MACOSX
+    SetMidiInput(new MacMidiInput);
     GetMidiInput()->Connect();
 #endif
   }
