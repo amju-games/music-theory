@@ -10,7 +10,7 @@ class MidiInput : public RefCounted
 {
 public:
   virtual ~MidiInput() = default;
-  virtual bool IsConnected() const = 0;
+  virtual int GetNumConnections() const = 0;
   virtual bool Connect() = 0;
   virtual void OnDeviceChange() = 0;
 };

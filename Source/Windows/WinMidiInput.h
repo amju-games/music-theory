@@ -9,7 +9,7 @@ namespace Amju
 class WinMidiInput : public MidiInput
 {
 public:
-  bool IsConnected() const override;
+  int GetNumConnections() const override;
   bool Connect() override;
   void OnDeviceChange() override;
 };

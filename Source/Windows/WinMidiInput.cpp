@@ -146,9 +146,9 @@ int FindMidiDevices()
   return numDevs;
 }
 
-bool WinMidiInput::IsConnected() const
+int Amju::WinMidiInput::GetNumConnections() const
 {
-  return (midiInGetNumDevs() > 0);
+  return midiInGetNumDevs();
 }
 
 bool WinMidiInput::Connect()

@@ -99,31 +99,10 @@ bool BassMidiInput::Connect()
   return true;
 }
 
-bool BassMidiInput::IsConnected() const
+int Amju::BassMidiInput::GetNumConnections() const
 {
-  BASS_MIDI_DEVICEINFO info;
-  DWORD device = 0; // index of device we want -- TODO
-  if (!BASS_MIDI_InGetDeviceInfo(device, &info))
-  {
-#ifdef MIDI_CONNECT_DEBUG
-    std::cout << "BASS MIDI failed to get midi device info:\n";
-    CheckBassStatus();
-#endif
-    return false;
-  }
-
-  // BASS_DEVICE_ENABLED indicates if the device is currently usable/present.
-  // BASS_DEVICE_INIT indicates if you have already successfully called BASS_MIDI_InInit.
-  return (info.flags & BASS_DEVICE_ENABLED);
-
-  // TODO Also check for signals from device in callback?
-}
-
-MidiInput& GetBassMidiInput()
-{
-  // TODO Have a Setter function so we can mock etc.
-  static BassMidiInput bmi;
-  return bmi;
+  return 0; 
+  // TODO scan all devices
 }
 }
 

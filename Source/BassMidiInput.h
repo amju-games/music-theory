@@ -12,7 +12,7 @@ public:
   BassMidiInput();
 
   // Return true if device is connected; call sparingly
-  bool IsConnected() const override;
+  int GetNumConnections() const override;
 
   // Call to connect to midi input device
   bool Connect() override;
