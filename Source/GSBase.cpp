@@ -387,11 +387,12 @@ void GSBase::MidiConnectGuiImpl(int numConnections)
   auto root = dynamic_cast<GuiDecAnimation*>(GetElementByName(m_gui, "midi-anim-root"));
   Assert(root);
 
-  static int prevNumConnections = -1;
+  // Initial value is zero; so if nothing is connected at startup,
+  //  we don't show the 'disconnected' status.
+  static int prevNumConnections = 0;
   if (prevNumConnections == numConnections)
   {
-    // No change - don't do an anim, but do set a static status gui.
-    // TODO
+    // No change - don't do the anim.
     root->SetIsPaused(true);
     return;
   }
