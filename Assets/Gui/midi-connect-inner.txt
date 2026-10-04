@@ -1,0 +1,133 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+// MIDI notification
+animation
+clean
+const
+one
+
+gui-comp
+midi-bg-and-chooser
+2
+
+// Child 0
+// -------
+// BG: for connected and not-connected
+colour
+402020
+patch
+midi-bg
+0, 0
+.35, .2
+Image/atlas.png, stretch
+8, 8
+18
+// Corner size - only 1 size => square
+0.03
+
+// Child 1
+// -------
+// The midi logo and LED
+// Anim value is used by chooser child to decide which child gui tree to show
+// Reset anim value from above
+animation
+clean
+const
+one
+
+animation
+midi-choose-anim
+const
+// Value set in code
+set
+
+// choose which child to show
+choose
+midi-chooser
+2
+
+// Chooser child 0
+// ---------------
+gui-comp
+red-midi-logo-and-led
+2
+
+// midi logo - fades out after delay
+animation
+led-off-delay
+one-shot
+1.0
+step
+
+animation
+led-off
+one-shot
+0.6
+linear
+colour
+ffffffff, 00000000
+
+gui-comp
+red-midi-logo
+2
+colour 
+c0c0c0
+include
+midi-logo-and-led.txt
+colour 
+ff0000c0
+include
+midi-logo-and-led.txt
+
+// midi led - fades out after delay
+animation
+led-off-delay
+one-shot
+0.2
+step
+
+animation
+led-off
+one-shot
+0.8
+linear
+colour
+ffffffff, ffffff00
+
+colour
+ffffff60
+include
+led-highlight.txt
+
+// Chooser child 1
+// ---------------
+
+// midi logo - fades out after delay
+animation
+led-on
+one-shot
+0.6
+linear
+colour
+00000000, ffffffff
+
+gui-comp
+green-midi
+3
+colour 
+e0e0e0
+include
+midi-logo-and-led.txt
+colour 
+00cf0080
+include
+midi-logo-and-led.txt
+colour
+ffffffa0
+include
+led-highlight.txt
+
