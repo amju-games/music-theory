@@ -371,8 +371,10 @@ void GSBase::TestMidiConnectGui(int numConnections)
 void GSBase::TriggerMidiConnectGui()
 {
   auto midiInput = GetMidiInput();
-  Assert(midiInput);
-  MidiConnectGuiImpl(midiInput->GetNumConnections());
+  if (midiInput)
+  {
+    MidiConnectGuiImpl(midiInput->GetNumConnections());
+  }
 }
 
 void GSBase::MidiConnectGuiImpl(int numConnections)

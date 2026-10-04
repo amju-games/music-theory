@@ -6,7 +6,6 @@ static RCPtr<MidiInput> s_midiInput;
 
 MidiInput* GetMidiInput()
 {
-  Assert(s_midiInput);
   return s_midiInput;
 }
 

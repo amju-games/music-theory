@@ -48,6 +48,11 @@ static void CALLBACK BassMidiInputCallback(
 #endif // MIDI_INPUT_DEBUG
 }
 
+void BassMidiInput::OnDeviceChange()
+{
+  Connect();
+}
+
 bool BassMidiInput::Connect()
 {
   BASS_MIDI_DEVICEINFO info;
