@@ -42,8 +42,9 @@ step
 animation
 off-screen
 one-shot
-0.6
-ease-in-out-elastic
+0.1
+//ease-in-out-elastic - don't overuse; too jittery here
+linear
 translate
 0,0; 0, 0.5
 
