@@ -18,10 +18,10 @@ midi-bg-and-chooser
 // -------
 // BG: for connected and not-connected
 colour
-402020
+181010
 patch
 midi-bg
-0, 0
+0, 0, 0.9
 .35, .2
 Image/atlas.png, stretch
 8, 8
@@ -106,11 +106,17 @@ led-highlight.txt
 // Chooser child 1
 // ---------------
 
-// midi logo - fades out after delay
+// midi logo - fades in after delay
+animation
+led-on-delay
+one-shot
+0.5
+step
+
 animation
 led-on
 one-shot
-0.6
+0.3
 linear
 colour
 00000000, ffffffff

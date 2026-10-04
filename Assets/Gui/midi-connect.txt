@@ -20,8 +20,8 @@ animation
 move-on-screen
 one-shot
 // Time to move on screen
-0.2
-linear
+0.8
+ease-in-out-elastic
 
 translate
 0, .5; 0, 0
@@ -42,8 +42,8 @@ step
 animation
 off-screen
 one-shot
-0.1
-linear
+0.6
+ease-in-out-elastic
 translate
 0,0; 0, 0.5
 
