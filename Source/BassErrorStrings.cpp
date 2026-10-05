@@ -1,3 +1,6 @@
+// * Amju PIANO FEST *
+// (c) Copyright Juliet Colman 2000-2026
+
 // Bass headers are copied from 3rdPartyLibs to Source/SoundBass.
 #include "../../../amjulib/Source/SoundBass/bass.h"
 #include "../../../amjulib/Source/SoundBass/bassmidi.h"
