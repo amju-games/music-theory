@@ -1,0 +1,19 @@
+// version
+1
+
+// MIDI notification: LED highlight
+
+
+gui-comp
+midi-elements
+1
+
+gui-sprite
+led
+0.28, -.055, 1
+.04, .04
+// TODO Move to atlas
+Image/led.png
+1,1
+0
+

@@ -36,6 +36,14 @@
 #include "Palette.h" // add resource
 #include "SetUpFactories.h"
 
+#ifdef WIN32
+#include "Windows/WinMidiInput.h"
+#endif
+
+#if defined(MACOSX) || defined(AMJU_IOS)
+#include "MacMidiInput.h"
+#endif
+
 // On Macosx we can test languages with a command line param!
 // E.g. -AppleLocale "fr_FR"
 // This is handled by the OS!
@@ -275,16 +283,21 @@ static void SetUpResourceLoaders()
 static void SetUpMIDI()
 {
 #ifdef AMJU_USE_BASS
-  // This is the player piano sound, running as a separate channel, independently
-  //  of the currently playing song. 
-  // TODO:
-  // All soundfont names should be runtime configurable (by me, not player) 
-  std::cout << "Setting up player MIDI stream...\n";
+  // This is the player piano sound, running as a separate channel, 
+  //  independently of the currently playing song. 
   if (SetUpPlayerStream())
   {
-    // This is just a test really. We need to check if we are connected,
-    //  and attempt to connect periodically if not connected.
-    TheBassMidiInput::Instance()->Connect();
+    // First attempt at MIDI input connection. This is too early on iOS
+    //  but is not too early on Windows.
+#ifdef WIN32
+    SetMidiInput(new WinMidiInput);
+    GetMidiInput()->Connect();
+#endif
+
+#if defined(MACOSX) || defined(AMJU_IOS)
+    SetMidiInput(new MacMidiInput); // works on iOS too?!?!?!?!?!
+    GetMidiInput()->Connect();
+#endif
   }
   else
   {

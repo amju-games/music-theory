@@ -6,6 +6,7 @@
 #include <Game.h>
 #include <GameState.h>
 #include <GuiElement.h>
+#include "DeviceChangeEvent.h"
 #include "MusicEvent.h"
 
 namespace Amju
@@ -44,6 +45,10 @@ public:
   //  (or silence it, if the event is a note off event).
   virtual void OnMusicKbEvent(const MusicKbEvent&);
 
+  // Called when a device is added or removed.
+  // Rebuild our list of MIDI devices when we get this.
+  virtual void OnDeviceChangeEvent(const DeviceChangeEvent&);
+
   GuiElement* GetGui();
 
   const std::string& GetGuiFilename();
@@ -69,6 +74,15 @@ public:
   float GetTimeInThisState() { return m_timeInThisState; }
 
 protected:
+  // For testing, simulate number of connected devices
+  void TestMidiConnectGui(int numConnections);
+
+  // Show MIDI connection status GUI
+  void TriggerMidiConnectGui();
+
+  // Common impl for test and real MIDI connect functions
+  void MidiConnectGuiImpl(int numConnections);
+
   // Set version in "version-text" GUI text field if it exists
   void SetVersionText();
 

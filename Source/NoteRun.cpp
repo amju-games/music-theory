@@ -22,7 +22,7 @@ void PrintRuns(const std::vector<NoteRun>& runs,
   const NoteEvents& events)
 {
   std::cout << "* Note Runs *\n";
-  int num = runs.size();
+  int num = static_cast<int>(runs.size());
   for (int i = 0; i < num; i++)
   {
     const NoteRun& run = runs[i];
@@ -216,7 +216,7 @@ std::cout << "  Runs:  " << runs << "\n";
 std::cout << "Final add: ";
 #endif
 
-  PossiblyAddRun(res, runs.size() - start, start, Sign(diffs.back()), 
+  PossiblyAddRun(res, static_cast<int>(runs.size()) - start, start, Sign(diffs.back()), 
     allNoteEvents);
 
   return res;

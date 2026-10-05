@@ -317,12 +317,15 @@
     <ClCompile Include="..\..\..\..\Source\AutoPlayer.cpp" />
     <ClCompile Include="..\..\..\..\Source\AutoRepeatFilter.cpp" />
     <ClCompile Include="..\..\..\..\Source\AutoTest.cpp" />
+    <ClCompile Include="..\..\..\..\Source\BassErrorStrings.cpp" />
+    <ClCompile Include="..\..\..\..\Source\BassMidiInput.cpp" />
     <ClCompile Include="..\..\..\..\Source\BassPlayMidi.cpp" />
     <ClCompile Include="..\..\..\..\Source\BlinkSceneNode.cpp" />
     <ClCompile Include="..\..\..\..\Source\Consts.cpp" />
     <ClCompile Include="..\..\..\..\Source\CrashManager.cpp" />
     <ClCompile Include="..\..\..\..\Source\CurvedPathMixin.cpp" />
     <ClCompile Include="..\..\..\..\Source\Describe.cpp" />
+    <ClCompile Include="..\..\..\..\Source\DeviceChangeEvent.cpp" />
     <ClCompile Include="..\..\..\..\Source\Extra.cpp" />
     <ClCompile Include="..\..\..\..\Source\ExtraAllocator.cpp" />
     <ClCompile Include="..\..\..\..\Source\ExtrasAdder.cpp" />
@@ -364,6 +367,7 @@
     <ClCompile Include="..\..\..\..\Source\InitialState.cpp" />
     <ClCompile Include="..\..\..\..\Source\KeyInputHandler.cpp" />
     <ClCompile Include="..\..\..\..\Source\Md2SceneNode.cpp" />
+    <ClCompile Include="..\..\..\..\Source\MidiInput.cpp" />
     <ClCompile Include="..\..\..\..\Source\MultiExtra.cpp" />
     <ClCompile Include="..\..\..\..\Source\MusicEvent.cpp" />
     <ClCompile Include="..\..\..\..\Source\MyROConfig.cpp" />
@@ -454,6 +458,7 @@
     <ClCompile Include="..\..\..\..\Source\UserProfile.cpp" />
     <ClCompile Include="..\..\..\..\Source\UseVertexColourShader.cpp" />
     <ClCompile Include="..\..\..\..\Source\Windows\WinMainOpenGL.cpp" />
+    <ClCompile Include="..\..\..\..\Source\Windows\WinMidiInput.cpp" />
     <ClCompile Include="..\..\..\..\Source\WithHud.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -491,6 +496,8 @@
     <ClInclude Include="..\..\..\..\Source\AutoPlayer.h" />
     <ClInclude Include="..\..\..\..\Source\AutoRepeatFilter.h" />
     <ClInclude Include="..\..\..\..\Source\AutoTest.h" />
+    <ClInclude Include="..\..\..\..\Source\BassErrorStrings.h" />
+    <ClInclude Include="..\..\..\..\Source\BassMidiInput.h" />
     <ClInclude Include="..\..\..\..\Source\BassPlayMidi.h" />
     <ClInclude Include="..\..\..\..\Source\Beat.h" />
     <ClInclude Include="..\..\..\..\Source\BlinkSceneNode.h" />
@@ -499,6 +506,7 @@
     <ClInclude Include="..\..\..\..\Source\CurvedPath.h" />
     <ClInclude Include="..\..\..\..\Source\CurvedPathMixin.h" />
     <ClInclude Include="..\..\..\..\Source\Describe.h" />
+    <ClInclude Include="..\..\..\..\Source\DeviceChangeEvent.h" />
     <ClInclude Include="..\..\..\..\Source\Extra.h" />
     <ClInclude Include="..\..\..\..\Source\ExtraAllocator.h" />
     <ClInclude Include="..\..\..\..\Source\ExtrasAdder.h" />
@@ -576,6 +584,7 @@
     <ClInclude Include="..\..\..\..\Source\Version.h" />
     <ClInclude Include="..\..\..\..\Source\Windows\resource.h" />
     <ClInclude Include="..\..\..\..\Source\Windows\WindowsVersion.h" />
+    <ClInclude Include="..\..\..\..\Source\Windows\WinMidiInput.h" />
     <ClInclude Include="..\..\..\..\Source\WithHud.h" />
     <ClInclude Include="TimelineEventPlayWav.h" />
   </ItemGroup>

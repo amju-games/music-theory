@@ -1,0 +1,28 @@
+// version
+1
+
+// MIDI notification: MIDI logo and LED
+
+
+gui-comp
+midi-elements
+2
+
+gui-sprite
+midi-logo
+0, 0, 1
+.3, .2
+// TODO Move to atlas
+Image/midi.png, stretch
+1,1
+0
+
+gui-sprite
+led
+0.27, -.04, 1
+.06, .06
+// TODO Move to atlas
+Image/led.png
+1,1
+0
+

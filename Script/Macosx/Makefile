@@ -19,6 +19,7 @@ LIBS	:= \
 	$(BASSMIDIPATH)/libbassmidi.dylib \
 	-framework OpenGL \
 	-framework GLUT \
+	-framework CoreMIDI -framework CoreFoundation \
 	-framework Carbon \
 	-lcurl \
 	-lstdc++ -lm 

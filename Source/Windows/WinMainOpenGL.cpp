@@ -1,5 +1,6 @@
 #include <array>
 #include <windows.h>
+#include <Dbt.h>
 #include <gl/GL.h>
 
 // This is in amjulib/3rdPartyLibs.
@@ -21,6 +22,7 @@
 #include <ResourceManager.h>
 #include <Screen.h>
 #include <SoundManager.h>
+#include "DeviceChangeEvent.h"
 #include "resource.h" // For icon; should be part of game-specific info
 #include "WindowsVersion.h"
 
@@ -39,7 +41,12 @@ static const int TARGET_FPS = 60;
 
 // Aspect ratio: we want to maintain this as far as poss,
 //  but not in fullscreen for now.
-const double TARGET_ASPECT = 16.0 / 9.0;
+static const double TARGET_ASPECT = 16.0 / 9.0;
+
+// Unique ID for the debouncing device changed msgs
+static const int MIDI_REFRESH_TIMER_ID = 999;
+// Time delay before we process device change event, to debounce.
+static const int MIDI_REFRESH_TIME_MS = 300;
 
 static auto WINDOW_CLASS = L"OpenGLWin32Class";
 
@@ -584,11 +591,39 @@ static void OnPaint(HWND hwnd)
   EndPaint(hwnd, &ps);
 }
 
+static void OnDeviceChange()
+{
+  using namespace Amju;
+  std::cout << "Queuing one DeviceChangeMsg...\n";
+  TheMessageQueue::Instance()->Add(new DeviceChangeMsg({}));
+}
+
 // Event Callback 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) 
 {
   switch (msg) 
   {
+  case WM_DEVICECHANGE:
+    if (wParam == DBT_DEVNODES_CHANGED)
+    {
+      // Reset the timer on every hit. This postpones execution until
+      // the system stops firing messages for e.g. 500 milliseconds.
+      KillTimer(hwnd, MIDI_REFRESH_TIMER_ID);
+      SetTimer(hwnd, MIDI_REFRESH_TIMER_ID, MIDI_REFRESH_TIME_MS, NULL);
+    }
+    break;
+
+  case WM_TIMER:
+    if (wParam == MIDI_REFRESH_TIMER_ID)
+    {
+      // Stop the timer from running indefinitely
+      KillTimer(hwnd, MIDI_REFRESH_TIMER_ID);
+
+      // Execute the deduplicated string scan
+      OnDeviceChange();
+    }
+    break;
+
   case WM_MOUSEMOVE:
     OnMouseMove(lParam);
     break;

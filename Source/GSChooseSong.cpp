@@ -258,11 +258,11 @@ void GSChooseSong::InitLRButtons()
   auto right = GetElementByName(m_gui, "right-button");
   Assert(right); 
 
-#ifdef WIN32
   // Desktop: enable left/right buttons
   left->SetCommand(Amju::OnLeftButton);
   right->SetCommand(Amju::OnRightButton);
-#else
+
+#ifdef AMJU_IOS
   // iOS: hide these buttons
   left->SetLocalPos({ 10, 10 });
   right->SetLocalPos({ 10, 10 });

@@ -76,28 +76,5 @@ void MidiSongSeek(float seconds);
 //  that a song is playing, if in the awful position of not hearing
 //  anything :(
 void MidiLog();
-
-// TODO Move to its own file
-class MidiInput
-{
-public:
-  virtual ~MidiInput() = default;
-  virtual bool IsConnected() const = 0;
-  virtual bool Connect() = 0;
-};
-
-// * BassMidiInput *
-// Get input from MIDI device
-class BassMidiInput : public MidiInput
-{
-public:
-  // Return true if device is connected; call sparingly
-  bool IsConnected() const override;
-
-  // Call to connect to midi input device
-  bool Connect() override;
-};
-
-using TheBassMidiInput = Singleton<BassMidiInput>;
 }
 

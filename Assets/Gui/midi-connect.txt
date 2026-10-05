@@ -1,0 +1,59 @@
+// * Amjula music theory *
+// (c) Copyright 2026 Juliet Colman
+
+// version
+1
+
+// MIDI notification
+// In this file we deal with the animation on/off screen, then include the animated midi logo.
+
+// Adjust translation of whole thing to centre/top of screen
+translate
+-0.2, 0.8
+
+animation
+midi-anim-root
+const
+one
+
+animation
+move-on-screen
+one-shot
+// Time to move on screen
+0.8
+ease-in-out-elastic
+
+translate
+0, .5; 0, 0
+
+animation
+clean
+const
+one
+
+// animate off screen
+animation
+off-screen-delay
+one-shot
+// Time to stay on screen before moving off
+1.7
+step
+
+animation
+off-screen
+one-shot
+0.1
+//ease-in-out-elastic - don't overuse; too jittery here
+linear
+translate
+0,0; 0, 0.5
+
+
+animation
+clean
+const
+one
+
+include
+midi-connect-inner.txt
+

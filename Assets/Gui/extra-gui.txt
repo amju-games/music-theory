@@ -4,11 +4,25 @@
 // version
 1
 
-// EXTRA GUI
+// "EXTRA GUI"
+// This is where we add global GUI elements that are in addition to 
+//  every state's gui.
 
+gui-comp
+extra-gui-root
+2
+
+
+// MIDI Connection notification
+// ============================
+include
+midi-connect.txt
+
+
+// Frame stats text
+// ================
 colour
 000000ff
-
 //gui-text
 text2
 // Element name
@@ -17,7 +31,7 @@ frame-stats
 -1, 0.85
 1, .05
 // Text
-Hello, I am extra
+$$$empty
 // Font name, size
 bmmolin, 1.0
 
