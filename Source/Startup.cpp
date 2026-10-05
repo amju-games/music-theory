@@ -27,7 +27,6 @@
 #include <ObjMesh.h> // set bin or text resource loader
 #include <Shader.h> // set custom loader, TODO temporarily, it breaks reloading
 #include <SoundManager.h>
-#include "BassMidiInput.h"
 #include "BassPlayMidi.h"
 #include "Consts.h"
 #include "GetVersion.h"
@@ -41,7 +40,7 @@
 #include "Windows/WinMidiInput.h"
 #endif
 
-#ifdef MACOSX
+#if defined(MACOSX) || defined(AMJU_IOS)
 #include "MacMidiInput.h"
 #endif
 
@@ -295,8 +294,8 @@ static void SetUpMIDI()
     GetMidiInput()->Connect();
 #endif
 
-#ifdef MACOSX
-    SetMidiInput(new MacMidiInput);
+#if defined(MACOSX) || defined(AMJU_IOS)
+    SetMidiInput(new MacMidiInput); // works on iOS too?!?!?!?!?!
     GetMidiInput()->Connect();
 #endif
   }

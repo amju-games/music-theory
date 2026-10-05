@@ -62,7 +62,7 @@
 		C5117C4B2F11CE0300952A7B /* GSHeroEnd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5117C462F11CE0300952A7B /* GSHeroEnd.cpp */; };
 		C5117C4C2F11CE0300952A7B /* GS3dTitle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5117C4A2F11CE0300952A7B /* GS3dTitle.cpp */; };
 		C514212D2F5357A90009EB23 /* GuiSetFromString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C514212A2F5357A90009EB23 /* GuiSetFromString.cpp */; };
-		C52E258A300E66C10053021A /* BassMidiInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C52E2587300E66C10053021A /* BassMidiInput.cpp */; };
+		C51CBB943073CC6A00B15579 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D58E5A1E848660008A8D29 /* CoreFoundation.framework */; };
 		C53572E02FA7D17600E61A26 /* GSVerify.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C53572DF2FA7D17600E61A26 /* GSVerify.cpp */; };
 		C542D81C305A8AC9008C0186 /* QwertyOverlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C542D80D305A8AC8008C0186 /* QwertyOverlay.cpp */; };
 		C542D81D305A8AC9008C0186 /* GuiTextFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C542D80E305A8AC8008C0186 /* GuiTextFile.cpp */; };
@@ -130,12 +130,15 @@
 		C5810EA02F8C0C5000047856 /* BlinkSceneNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E932F8C0C4F00047856 /* BlinkSceneNode.cpp */; };
 		C5810EA62F8C0C5000047856 /* WithHud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5810E9E2F8C0C5000047856 /* WithHud.cpp */; };
 		C583E0AA306C5D4E00EA3E08 /* AutoTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C583E0A6306C5D4E00EA3E08 /* AutoTest.cpp */; };
-		C583E0AB306C5D4E00EA3E08 /* BassMidiInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C583E0A8306C5D4E00EA3E08 /* BassMidiInput.cpp */; };
 		C583E0AE306C5D7400EA3E08 /* ObscureConfigFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C583E0AC306C5D7400EA3E08 /* ObscureConfigFile.cpp */; };
 		C58E3BF82F8572930013E626 /* GSChooseSong.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BEE2F8572930013E626 /* GSChooseSong.cpp */; };
 		C58E3BF92F8572930013E626 /* Hud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF02F8572930013E626 /* Hud.cpp */; };
 		C58E3BFA2F8572930013E626 /* MyROConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF22F8572930013E626 /* MyROConfig.cpp */; };
 		C58E3BFC2F8572930013E626 /* HudNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58E3BF62F8572930013E626 /* HudNumber.cpp */; };
+		C5AF78263073A23F00F8A1C5 /* DeviceChangeEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5AF78203073A23F00F8A1C5 /* DeviceChangeEvent.cpp */; };
+		C5AF78273073A23F00F8A1C5 /* BassErrorStrings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5AF78213073A23F00F8A1C5 /* BassErrorStrings.cpp */; };
+		C5AF78283073A23F00F8A1C5 /* MacMidiInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5AF78223073A23F00F8A1C5 /* MacMidiInput.cpp */; };
+		C5AF78293073A23F00F8A1C5 /* MidiInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5AF78253073A23F00F8A1C5 /* MidiInput.cpp */; };
 		C5BB24F5303A02B400AAAACA /* ExtraAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24DA303A02B200AAAACA /* ExtraAllocator.cpp */; };
 		C5BB24F6303A02B400AAAACA /* GenerateCurvedPathConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24DC303A02B200AAAACA /* GenerateCurvedPathConfig.cpp */; };
 		C5BB24F7303A02B400AAAACA /* PointsCalculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BB24DE303A02B300AAAACA /* PointsCalculator.cpp */; };
@@ -425,8 +428,6 @@
 		C5810E9D2F8C0C5000047856 /* WithHud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WithHud.h; path = ../../../../Source/WithHud.h; sourceTree = "<group>"; };
 		C5810E9E2F8C0C5000047856 /* WithHud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WithHud.cpp; path = ../../../../Source/WithHud.cpp; sourceTree = "<group>"; };
 		C583E0A6306C5D4E00EA3E08 /* AutoTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AutoTest.cpp; path = ../../../../Source/AutoTest.cpp; sourceTree = "<group>"; };
-		C583E0A7306C5D4E00EA3E08 /* BassMidiInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BassMidiInput.h; path = ../../../../Source/BassMidiInput.h; sourceTree = "<group>"; };
-		C583E0A8306C5D4E00EA3E08 /* BassMidiInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BassMidiInput.cpp; path = ../../../../Source/BassMidiInput.cpp; sourceTree = "<group>"; };
 		C583E0A9306C5D4E00EA3E08 /* AutoTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AutoTest.h; path = ../../../../Source/AutoTest.h; sourceTree = "<group>"; };
 		C583E0AC306C5D7400EA3E08 /* ObscureConfigFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObscureConfigFile.cpp; path = ../../../../Source/ObscureConfigFile.cpp; sourceTree = "<group>"; };
 		C583E0AD306C5D7400EA3E08 /* ObscureConfigFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObscureConfigFile.h; path = ../../../../Source/ObscureConfigFile.h; sourceTree = "<group>"; };
@@ -438,6 +439,13 @@
 		C58E3BF42F8572930013E626 /* GSChooseSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSChooseSong.h; path = ../../../../Source/GSChooseSong.h; sourceTree = "<group>"; };
 		C58E3BF62F8572930013E626 /* HudNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HudNumber.cpp; path = ../../../../Source/HudNumber.cpp; sourceTree = "<group>"; };
 		C58E3BF72F8572930013E626 /* MyROConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyROConfig.h; path = ../../../../Source/MyROConfig.h; sourceTree = "<group>"; };
+		C5AF781F3073A23F00F8A1C5 /* BassErrorStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BassErrorStrings.h; path = ../../../../Source/BassErrorStrings.h; sourceTree = "<group>"; };
+		C5AF78203073A23F00F8A1C5 /* DeviceChangeEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DeviceChangeEvent.cpp; path = ../../../../Source/DeviceChangeEvent.cpp; sourceTree = "<group>"; };
+		C5AF78213073A23F00F8A1C5 /* BassErrorStrings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BassErrorStrings.cpp; path = ../../../../Source/BassErrorStrings.cpp; sourceTree = "<group>"; };
+		C5AF78223073A23F00F8A1C5 /* MacMidiInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MacMidiInput.cpp; path = ../../../../Source/MacMidiInput.cpp; sourceTree = "<group>"; };
+		C5AF78233073A23F00F8A1C5 /* DeviceChangeEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceChangeEvent.h; path = ../../../../Source/DeviceChangeEvent.h; sourceTree = "<group>"; };
+		C5AF78243073A23F00F8A1C5 /* MacMidiInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MacMidiInput.h; path = ../../../../Source/MacMidiInput.h; sourceTree = "<group>"; };
+		C5AF78253073A23F00F8A1C5 /* MidiInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiInput.cpp; path = ../../../../Source/MidiInput.cpp; sourceTree = "<group>"; };
 		C5BB24DA303A02B200AAAACA /* ExtraAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExtraAllocator.cpp; path = ../../../../Source/ExtraAllocator.cpp; sourceTree = "<group>"; };
 		C5BB24DB303A02B200AAAACA /* MultiExtra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiExtra.h; path = ../../../../Source/MultiExtra.h; sourceTree = "<group>"; };
 		C5BB24DC303A02B200AAAACA /* GenerateCurvedPathConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GenerateCurvedPathConfig.cpp; path = ../../../../Source/GenerateCurvedPathConfig.cpp; sourceTree = "<group>"; };
@@ -489,6 +497,7 @@
 				69D58E591E84864F008A8D29 /* AudioToolbox.framework in Frameworks */,
 				69D58E5F1E84869F008A8D29 /* SystemConfiguration.framework in Frameworks */,
 				69D58E551E8484EA008A8D29 /* OpenGLES.framework in Frameworks */,
+				C51CBB943073CC6A00B15579 /* CoreFoundation.framework in Frameworks */,
 				69D58E4C1E848318008A8D29 /* GLKit.framework in Frameworks */,
 				69D58E631E84878A008A8D29 /* CoreMotion.framework in Frameworks */,
 				69D58E5D1E848679008A8D29 /* Foundation.framework in Frameworks */,
@@ -625,13 +634,6 @@
 		69D58E7A1E869FF8008A8D29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				C583E0AC306C5D7400EA3E08 /* ObscureConfigFile.cpp */,
-				C583E0AD306C5D7400EA3E08 /* ObscureConfigFile.h */,
-				C583E0A6306C5D4E00EA3E08 /* AutoTest.cpp */,
-				C583E0A9306C5D4E00EA3E08 /* AutoTest.h */,
-				C583E0A8306C5D4E00EA3E08 /* BassMidiInput.cpp */,
-				C583E0A7306C5D4E00EA3E08 /* BassMidiInput.h */,
-				C52E2589300E66C10053021A /* MidiInput.h */,
 				C55DEA22300D226B006CB79F /* Animals */,
 				C55DEA7D300D2525006CB79F /* AnimListener.h */,
 				69D58E421E833741008A8D29 /* AppDelegate.h */,
@@ -640,6 +642,10 @@
 				C5BB24F3303A02B300AAAACA /* AutoPlayer.h */,
 				C542D817305A8AC8008C0186 /* AutoRepeatFilter.cpp */,
 				C542D80F305A8AC8008C0186 /* AutoRepeatFilter.h */,
+				C583E0A6306C5D4E00EA3E08 /* AutoTest.cpp */,
+				C583E0A9306C5D4E00EA3E08 /* AutoTest.h */,
+				C5AF78213073A23F00F8A1C5 /* BassErrorStrings.cpp */,
+				C5AF781F3073A23F00F8A1C5 /* BassErrorStrings.h */,
 				C56DACF42EF2CFED00739D75 /* BassPlayMidi.cpp */,
 				C5EA2CAC2F9540430063AEBD /* BassPlayMidi.h */,
 				C548154C2FFBD2AD0066288A /* Beat.h */,
@@ -654,6 +660,8 @@
 				C5BB24E5303A02B300AAAACA /* CurvedPathMixin.h */,
 				C55DEA81300D2526006CB79F /* Describe.cpp */,
 				C55DEA89300D2526006CB79F /* Describe.h */,
+				C5AF78203073A23F00F8A1C5 /* DeviceChangeEvent.cpp */,
+				C5AF78233073A23F00F8A1C5 /* DeviceChangeEvent.h */,
 				C5BB24E2303A02B300AAAACA /* Extra.cpp */,
 				C5BB24E3303A02B300AAAACA /* Extra.h */,
 				C5BB24DA303A02B200AAAACA /* ExtraAllocator.cpp */,
@@ -741,9 +749,13 @@
 				695543221F3B52C6007C23EA /* iOSShare.mm */,
 				C542D815305A8AC8008C0186 /* KeyInputHandler.cpp */,
 				C542D80C305A8AC8008C0186 /* KeyInputHandler.h */,
+				C5AF78223073A23F00F8A1C5 /* MacMidiInput.cpp */,
+				C5AF78243073A23F00F8A1C5 /* MacMidiInput.h */,
 				69D58E441E833741008A8D29 /* main.m */,
 				6951CF151F0B932300140095 /* Md2SceneNode.cpp */,
 				6951CF161F0B932300140095 /* Md2SceneNode.h */,
+				C5AF78253073A23F00F8A1C5 /* MidiInput.cpp */,
+				C52E2589300E66C10053021A /* MidiInput.h */,
 				C5BB24F1303A02B300AAAACA /* MultiExtra.cpp */,
 				C5BB24DB303A02B200AAAACA /* MultiExtra.h */,
 				69AC40311EB5331300F255A4 /* MusicEvent.cpp */,
@@ -756,6 +768,8 @@
 				C557269D2F0EFA5400EEB2A5 /* NoteEvent.h */,
 				C5BB24EC303A02B300AAAACA /* NoteRun.cpp */,
 				C5BB24E1303A02B300AAAACA /* NoteRun.h */,
+				C583E0AC306C5D7400EA3E08 /* ObscureConfigFile.cpp */,
+				C583E0AD306C5D7400EA3E08 /* ObscureConfigFile.h */,
 				C56DACF72EF2CFED00739D75 /* Palette.cpp */,
 				C56DACED2EF2CFEC00739D75 /* Palette.h */,
 				694519452017368F001C188B /* ParticleFx.cpp */,
@@ -950,8 +964,6 @@
 				TargetAttributes = {
 					699058BB1E7D3BF400E528B4 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = AVUUC7C85U;
-						ProvisioningStyle = Automatic;
 					};
 					699058D81E7D3BF500E528B4 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1089,6 +1101,7 @@
 				C55DEA6E300D2284006CB79F /* AIChasePet.cpp in Sources */,
 				C55726A32F0EFA5400EEB2A5 /* Grader.cpp in Sources */,
 				C56DAD0A2EF2CFED00739D75 /* GSShowGui.cpp in Sources */,
+				C5AF78263073A23F00F8A1C5 /* DeviceChangeEvent.cpp in Sources */,
 				69AC40371EB5331300F255A4 /* MusicEvent.cpp in Sources */,
 				C56DAD082EF2CFED00739D75 /* Palette.cpp in Sources */,
 				C55DEA7A300D2284006CB79F /* AI.cpp in Sources */,
@@ -1113,9 +1126,11 @@
 				C54B4BD12F9CAA27001286FA /* Timeline.cpp in Sources */,
 				C55DEA72300D2284006CB79F /* AIFly.cpp in Sources */,
 				C55DEA79300D2284006CB79F /* AIIdle.cpp in Sources */,
+				C5AF78273073A23F00F8A1C5 /* BassErrorStrings.cpp in Sources */,
 				C5117C4B2F11CE0300952A7B /* GSHeroEnd.cpp in Sources */,
 				C561F3C42F65CCDC003EE425 /* GuiMusicKbBase.cpp in Sources */,
 				697A07FD1E82F19B0045CE54 /* GSBase.cpp in Sources */,
+				C5AF78293073A23F00F8A1C5 /* MidiInput.cpp in Sources */,
 				C55DEA6B300D2284006CB79F /* Npc.cpp in Sources */,
 				C5BB24FF303A02B400AAAACA /* AutoPlayer.cpp in Sources */,
 				C548154F2FFBD2AD0066288A /* Resumer.cpp in Sources */,
@@ -1152,10 +1167,10 @@
 				C5BB24FD303A02B400AAAACA /* NoteRun.cpp in Sources */,
 				C5BB2501303A02B400AAAACA /* CurvedPathMixin.cpp in Sources */,
 				6959E3191EA7F44600E251A9 /* iOSGuiTextEdit.mm in Sources */,
+				C5AF78283073A23F00F8A1C5 /* MacMidiInput.cpp in Sources */,
 				6945194F2017368F001C188B /* ParticleFx.cpp in Sources */,
 				697A08031E82F19B0045CE54 /* GuiMusicScore.cpp in Sources */,
 				C58E3BF82F8572930013E626 /* GSChooseSong.cpp in Sources */,
-				C52E258A300E66C10053021A /* BassMidiInput.cpp in Sources */,
 				69D58E4E1E84836B008A8D29 /* Startup.cpp in Sources */,
 				6955431D1F3B526D007C23EA /* ShareManager.cpp in Sources */,
 				C53572E02FA7D17600E61A26 /* GSVerify.cpp in Sources */,
@@ -1164,7 +1179,6 @@
 				C55DEA6D300D2284006CB79F /* AIFalling.cpp in Sources */,
 				C55DEA73300D2284006CB79F /* Squirrel.cpp in Sources */,
 				C55DEA67300D2284006CB79F /* PFNpc.cpp in Sources */,
-				C583E0AB306C5D4E00EA3E08 /* BassMidiInput.cpp in Sources */,
 				C55DEA76300D2284006CB79F /* AIEatPet.cpp in Sources */,
 				C55726A52F0EFA5400EEB2A5 /* GS3dExample.cpp in Sources */,
 				C542D81E305A8AC9008C0186 /* UserLocale.cpp in Sources */,
@@ -1386,6 +1400,8 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AVUUC7C85U;
@@ -1417,9 +1433,10 @@
 					../../../../amjulib/Source/SoundBass/Bass2.4/iPhone,
 					"../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
 				);
-				MARKETING_VERSION = 0.4.0;
+				MARKETING_VERSION = 0.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.amju.pianofest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1434,6 +1451,8 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AVUUC7C85U;
 				ENABLE_BITCODE = NO;
@@ -1458,9 +1477,10 @@
 					../../../../amjulib/Source/SoundBass/Bass2.4/iPhone,
 					"../../../../amjulib/Source/SoundBass/Bass2.4/iPhone/mp3-free",
 				);
-				MARKETING_VERSION = 0.4.0;
+				MARKETING_VERSION = 0.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.amju.pianofest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
