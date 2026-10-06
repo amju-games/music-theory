@@ -17,11 +17,48 @@
 #include "Info.h"
 #include "KeySig.h"
 #include "MidiScore.h"
+#include "Polyphony.h"
 #include "Quantiser.h"
 #include "TimeSig.h"
 
 namespace MidiScore
 {
+std::string GetPolyphonyInfo(
+  smf::MidiFile& midifile,
+  int track,
+  TimeSig ts
+)
+{
+  auto poly = GetPolyphonyLevelPerBar(midifile, track, ts);
+  if (poly.empty()) 
+  {
+    return "No polyphony info.";
+  }
+
+  auto it = std::max_element(poly.begin(), poly.end());
+  assert(it != poly.end());
+  int maxPolyLevel = *it;
+  if (maxPolyLevel == 0)
+  {
+    return "No notes? (" + std::to_string(poly.size()) + " bars)";
+  }
+  if (maxPolyLevel == 1) 
+  {
+    // No bar has overlapping notes
+    return "No polyphony (" + std::to_string(poly.size()) + " bars)";
+  }
+  // Report bars with polyphony. 
+  std::string res = "Polyphony in these bars: ";
+  for (auto i = 0; i < poly.size(); ++i)
+  {
+    if (poly[i] > 1)
+    {
+      res += std::to_string(i + 1) + " ";
+    }
+  }
+  return res;
+}
+
 // Helper type for looking up best fit string for a note duration
 struct NoteMap 
 {
@@ -304,6 +341,16 @@ static std::string InfoStringForOneTrack(
     res += InfoForMidiMsg(msg);
   }
 
+  TimeSig ts = TimeSig::TS_4_4; // default
+  if (optionalTimeSig) 
+  {
+    ts = GetTimeSigFromString(*optionalTimeSig);
+  }
+  else
+  {
+    res += "  (Defaulting to time sig 4/4 for clef changes and polyphony:)\n";
+  }
+
   int numEvents = CountNoteOnEventsInTrack(midifile[track]);
   res += "  Number of note on events: " + std::to_string(numEvents) + "\n";
   if (numEvents > 0)
@@ -316,8 +363,6 @@ static std::string InfoStringForOneTrack(
 
     ClefChanges allClefChanges;
     // Helpful for clef changes to know the time sig and anacrusis - TODO
-    TimeSig ts = TimeSig::TS_4_4; // default
-    if (optionalTimeSig) ts = GetTimeSigFromString(*optionalTimeSig);
     GuessClef(pitches, tpq, anacrusisTicks, ts, allClefChanges, !allClefs);
     res += "  Guessed clefs: ";
     for (const auto& cc : allClefChanges)
@@ -329,6 +374,8 @@ static std::string InfoStringForOneTrack(
     auto str = NoteRangeInTrack(tpq, midifile[track]);
     res += (str.empty() ? "" : str + "\n");
   }
+
+  res += "  " + GetPolyphonyInfo(midifile, track, ts) + "\n";
 
   return res;
 }

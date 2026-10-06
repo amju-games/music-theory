@@ -17,7 +17,7 @@ namespace MidiScore
 // Generate text info about the given midi file.
 // mf: the midi file
 // track: track number; if nullopt, we report on all tracks.
-// anacrusis: optional time value of first bar.
+// anacrusis: optional time value of first bar, using TimeVal notation.
 // timeSig: optional time sig, for better reporting.
 // allClefs: if true, consider alto and tenor clefs, else just treble
 //  and bass.
