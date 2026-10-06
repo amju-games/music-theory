@@ -12,6 +12,7 @@
 #include "printf_format.h" 
 #include "AnimalController.h"
 #include "AutoTest.h"
+#include "BassPlayMidi.h"
 #include "GSChooseSong.h"
 #include "GSConfirmSong.h"
 #include "GSHero.h"
@@ -23,6 +24,16 @@
 
 namespace Amju
 {
+static void PlaySelectedSong(int tabStop)
+{
+  StopMidiSong();
+  auto grm = TheGameRoundManager::Instance();
+  int index = -tabStop;
+  Assert(index >= 0 && index <= grm->GetNumGameRounds());
+  const auto& gameround = grm->GetGameRound(index);
+  PlayMidiSong(gameround.m_backingTrack);
+}
+
 static bool IsSongHidden(const HeroGameRound& gameround)
 {
   // TODO - hide some songs until they are unlocked. E.g. boss fights.
@@ -371,6 +382,8 @@ void GSChooseSong::InitScrollingGui()
   scroller->SetTabStopCallback(Amju::OnTabStop);
   scroller->SetTabStop(tabStopForFocusSong);
 
+  PlaySelectedSong(tabStopForFocusSong);
+
   // Call tab stop callback to enable L/R buttons
   OnTabStop(tabStopForFocusSong);
   
@@ -394,6 +407,11 @@ void GSChooseSong::InitScrollingGui()
 
 void GSChooseSong::OnTabStop(int tabStop)
 {
+  if (tabStop == m_lastTabStop)
+  {
+    return;
+  }
+
   m_lastTabStop = tabStop; // TODO persist this in game config file? Hmm
   std::cout << "Hit tab stop " << tabStop << "\n";
 
@@ -408,6 +426,9 @@ void GSChooseSong::OnTabStop(int tabStop)
   Assert(right);
   const bool rightIsEnabled = (tabStop != m_finalTabStop);
   right->SetIsEnabled(rightIsEnabled);
+
+  // Start new midi song
+  PlaySelectedSong(tabStop);
 }
 }
 
