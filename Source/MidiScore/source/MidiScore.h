@@ -10,18 +10,11 @@
 namespace smf
 {
 class MidiFile;
+class MidiEventList;
 }
 
 namespace MidiScore
 {
-// Output text info about the given midi file.
-std::string InfoString(
-  smf::MidiFile& mf,
-  std::optional<int> track,
-  std::optional<std::string> anacrusis,
-  std::optional<std::string> timeSig,
-  bool allClefs);
-
 // Output midi file as juliet shorthand notation, for reading 
 //  by MakeScore.
 // mf: the midi file.
@@ -52,5 +45,12 @@ std::string OutputNoteDurations(const Events& events);
 
 // Output with as much info as poss
 std::string OutputEventsDebug(int tpq, const Events& events);
+
+// Generate Events from a MidiFile track.
+class Quantiser;
+Events GetEventsFromTrack(
+  int tpq, const smf::MidiEventList& track, TimeSig ts, KeySig ks,
+  const Quantiser& quantiser,
+  int anacrusisTicks);
 }
 

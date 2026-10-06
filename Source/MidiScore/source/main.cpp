@@ -11,6 +11,7 @@
 #include <MidiFile.h> // 3rd party MidiFile lib
 #include "commandline.h"
 #include "MidiScore.h"
+#include "Info.h"
 
 using namespace std;
 using namespace smf;
