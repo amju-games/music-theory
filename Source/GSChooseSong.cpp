@@ -29,7 +29,7 @@ static void PlaySelectedSong(int tabStop)
   StopMidiSong();
   auto grm = TheGameRoundManager::Instance();
   int index = -tabStop;
-  Assert(index >= 0 && index <= grm->GetNumGameRounds());
+  Assert(index >= 0 && index < grm->GetNumGameRounds());
   const auto& gameround = grm->GetGameRound(index);
   PlayMidiSong(gameround.m_backingTrack);
 }
