@@ -17,17 +17,56 @@
 #include "Info.h"
 #include "KeySig.h"
 #include "MidiScore.h"
+#include "NumBars.h"
+#include "Ornament.h"
 #include "Polyphony.h"
 #include "Quantiser.h"
 #include "TimeSig.h"
 
 namespace MidiScore
 {
+std::string GetOrnamentInfo(
+  smf::MidiFile& midifile,
+  int track,
+  TimeSig ts)
+{
+  int numBars = NumBars(midifile, track, ts);
+  if (numBars == 0) return "";
+
+  int ticksPerBar = TicksPerBar(midifile, ts);
+
+  auto reports = OrnamentAnalyzer::GetOrnamentationPerBar(
+    midifile, track, numBars, ticksPerBar);
+  assert(reports.size() == numBars);
+
+  auto it = std::max_element(
+    reports.begin(), reports.end(), 
+    [](const OrnamentCounts& a, const OrnamentCounts& b) 
+    { 
+      return a.total() < b.total(); 
+    });
+  assert(it != reports.end());
+  int maxNumOrnamentsInBar = it->total();
+  if (maxNumOrnamentsInBar == 0)
+  {
+    return "No ornaments!";
+  }
+  std::string res = "Ornamentation:\n";
+  for (int i = 0; i < numBars; ++i)
+  {
+    if (reports[i].total() > 0)
+    {
+      res += "\tBar " + std::to_string(i + 1) + ": " + 
+        reports[i].ToString() + "\n";
+    }
+  }
+  return res;
+}
+      
 std::string GetPolyphonyInfo(
   smf::MidiFile& midifile,
   int track,
-  TimeSig ts
-)
+  TimeSig ts)
 {
   auto poly = GetPolyphonyLevelPerBar(midifile, track, ts);
   if (poly.empty()) 
@@ -376,6 +415,12 @@ static std::string InfoStringForOneTrack(
   }
 
   res += "  " + GetPolyphonyInfo(midifile, track, ts) + "\n";
+
+  std::string ornament = GetOrnamentInfo(midifile, track, ts);
+  if (!ornament.empty())
+  {
+    res += "  " + ornament + "\n";
+  }
 
   return res;
 }

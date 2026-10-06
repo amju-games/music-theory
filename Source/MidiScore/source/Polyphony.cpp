@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include <MidiFile.h>
+#include "NumBars.h"
 #include "TimeSig.h"
 
 namespace MidiScore
