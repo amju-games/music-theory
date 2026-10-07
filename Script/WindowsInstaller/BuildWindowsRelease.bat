@@ -16,6 +16,12 @@ cd %TOP_DIR%\Script\Msvc\AmjulaMusicTheory\
 
 msbuild AmjulaMusicTheory.sln /p:Configuration=Release /p:Platform=x64 /t:Rebuild /m
 
+REM Check if MSBuild failed
+if %ERRORLEVEL% NEQ 0 (
+    echo MSBuild failed with error code %ERRORLEVEL%
+    exit /b %ERRORLEVEL%
+)
+
 REM ...that creates Build/Release/amju_piano_fest.exe
 
 REM ************************

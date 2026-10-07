@@ -9,6 +9,12 @@ REM **********************
 
 CALL BuildWindowsRelease.bat
 
+REM Check if MSBuild failed
+if %ERRORLEVEL% NEQ 0 (
+    echo BuildWindowsRelease script failed with error code %ERRORLEVEL%
+    exit /b %ERRORLEVEL%
+)
+
 set TOP_DIR=%cd%\..\..
 
 REM ***********************************
@@ -20,6 +26,9 @@ cd %TOP_DIR%
 SET DEST=Build\WindowsItchio
 
 MKDIR %DEST%
+REM delete any preexisting files
+DEL /q "%DEST%\*.*"
+
 COPY Build\Release\amju_piano_fest.exe %DEST%
 
 REM Important for itch.io app! Identifies game exe.
