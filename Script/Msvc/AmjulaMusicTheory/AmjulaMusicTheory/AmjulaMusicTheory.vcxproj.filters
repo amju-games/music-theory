@@ -16,56 +16,11 @@
     <Filter Include="Libs">
       <UniqueIdentifier>{9f54667e-733b-4866-a04d-9d5f4f3d57eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets">
-      <UniqueIdentifier>{a70f4905-5465-4dd6-aafb-ec9a060d5786}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Gui">
-      <UniqueIdentifier>{e4acba82-f939-4a6b-b369-4ad0b58c684f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CatchTests">
-      <UniqueIdentifier>{5264d4d1-c136-425a-b529-f3ac408c2367}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Gui\Stroke">
-      <UniqueIdentifier>{84a3835c-428f-4394-8591-b2957993e95c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Docs">
-      <UniqueIdentifier>{389502a0-4ed0-4cea-a477-3e3400506ecb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Shaders">
-      <UniqueIdentifier>{13e147ae-fa40-4ad6-bc88-c5260cbab2c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Shaders\opengl">
-      <UniqueIdentifier>{5f6a7a55-3c78-47d9-b0ef-5911e95f9135}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Gui\GameStates">
-      <UniqueIdentifier>{ffcfdbd7-f559-4dcd-a6d2-b5b1ac252b41}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Gui\PageLayout">
-      <UniqueIdentifier>{9555aefb-1d27-4eb5-a7aa-227dc67ec9aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Gui\PageLayout\Landscape">
-      <UniqueIdentifier>{60d5d345-6ce1-4901-af62-c3648d31bfa6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Gui\PageLayout\Portrait">
-      <UniqueIdentifier>{0f18077a-5e86-483b-89a9-501c6f5ee205}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Scene">
-      <UniqueIdentifier>{6a4d1c27-e555-42fe-a8ef-d86e7c96b50b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Gui\Tappables">
-      <UniqueIdentifier>{8dc2b9af-840b-409a-bf8f-cf3466b0f258}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Gui\CorridorModes">
-      <UniqueIdentifier>{06975070-ae9d-4e45-8be1-65b1289afc63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Gui\AvatarMod">
-      <UniqueIdentifier>{dd2add74-0e35-4f95-a943-b0620b29e2bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Animals">
-      <UniqueIdentifier>{cbe4c753-f828-40c6-9b12-eab6ba507196}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Windows">
       <UniqueIdentifier>{fe0e5938-4f77-4d7e-add6-dbe5a7d77de6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Animals">
+      <UniqueIdentifier>{cbe4c753-f828-40c6-9b12-eab6ba507196}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -90,23 +45,8 @@
     <ClCompile Include="..\..\..\..\Source\GSTestShowScore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\Question_catchtest.cpp">
-      <Filter>CatchTests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\CatchTestMain.cpp">
-      <Filter>CatchTests</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\UserProfile.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\Topic_catchtest.cpp">
-      <Filter>CatchTests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\UserProfile_catchtest.cpp">
-      <Filter>CatchTests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\Course_catchtest.cpp">
-      <Filter>CatchTests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\GSPause.cpp">
       <Filter>Source Files</Filter>
@@ -141,24 +81,6 @@
     <ClCompile Include="..\..\..\..\Source\Gui3dScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\CreateDictionary.cpp">
-      <Filter>CatchTests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\Dictionary_catchtest.cpp">
-      <Filter>CatchTests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\MultiChoice_catchtest.cpp">
-      <Filter>CatchTests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\MusicalTermQuestion_catchtest.cpp">
-      <Filter>CatchTests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\QuestionPicker_catchtest.cpp">
-      <Filter>CatchTests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\QuestionProgress_catchtest.cpp">
-      <Filter>CatchTests</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\SceneNodeGui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -167,9 +89,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\UseVertexColourShader.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\Localisation_catchtest.cpp">
-      <Filter>CatchTests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Palette.cpp">
       <Filter>Source Files</Filter>
@@ -247,94 +166,94 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AI.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AIChasePet.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AIController.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AIEaten.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AIEatPet.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AIFalling.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AIFlee.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AIFly.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AIHide.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AIIdle.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AIJump.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AIPetMoveBase.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AIWait.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AIWander.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AngleVec.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AnimalController.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\AnimalFactory.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\Bird.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\Cat.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\Dino.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\Dog.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\GSAnimals.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\ListAnims.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\Md2SceneNodeController.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\Npc.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\Pet.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\PFNpc.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\Rabbit.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\Squirrel.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Animals\SuperSimpleShadow.cpp">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\GSInitNewRound.cpp">
       <Filter>Source Files</Filter>
@@ -515,9 +434,6 @@
     <ClInclude Include="..\..\..\..\Source\Gui3dScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\Tests\CreateDictionary.h">
-      <Filter>CatchTests</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\SceneNodeGui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -609,94 +525,94 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AI.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AIChasePet.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AIController.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AIEaten.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AIEatPet.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AIFalling.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AIFlee.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AIFly.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AIHide.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AIIdle.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AIJump.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AIPetMoveBase.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AIWait.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AIWander.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AngleVec.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AnimalController.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\AnimalFactory.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\Bird.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\Cat.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\Dino.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\Dog.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\GSAnimals.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\ListAnims.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\Md2SceneNodeController.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\Npc.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\Pet.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\PFNpc.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\Rabbit.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\Squirrel.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Animals\SuperSimpleShadow.h">
-      <Filter>Animals</Filter>
+      <Filter>Source Files\Animals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\AnimListener.h">
       <Filter>Header Files</Filter>
@@ -827,314 +743,6 @@
     <ClInclude Include="..\..\..\..\Source\precomp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\..\..\..\Assets\Gui\keyboard.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\title-text.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\stroke-mid-line.txt">
-      <Filter>Assets\Gui\Stroke</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Docs\TODO.txt">
-      <Filter>Docs</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Docs\bugs.txt">
-      <Filter>Docs</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-frag.txt">
-      <Filter>Assets\Shaders\opengl</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-vert.txt">
-      <Filter>Assets\Shaders\opengl</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\compound_glyphs.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_about.txt">
-      <Filter>Assets\Gui\GameStates</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt">
-      <Filter>Assets\Gui\GameStates</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_main_menu.txt">
-      <Filter>Assets\Gui\GameStates</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_main_menu_corridor.txt">
-      <Filter>Assets\Gui\GameStates</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_play_notes.txt">
-      <Filter>Assets\Gui\GameStates</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_score.txt">
-      <Filter>Assets\Gui\GameStates</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_test_show_score.txt">
-      <Filter>Assets\Gui\GameStates</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_title.txt">
-      <Filter>Assets\Gui\GameStates</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_topic_end.txt">
-      <Filter>Assets\Gui\GameStates</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_topic_start.txt">
-      <Filter>Assets\Gui\GameStates</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt">
-      <Filter>Assets\Gui\GameStates</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs-first-user.txt">
-      <Filter>Assets\Gui\GameStates</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_symbol_text_4_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_wide_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gui_top_bar_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gui-top-bar.txt">
-      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-wide.txt">
-      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\quit-confirm.txt">
-      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_text_text_4_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_text_text_4.txt">
-      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_symbol_text_4.txt">
-      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_symbol_symbol_4.txt">
-      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_symbol_symbol_4_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-square-symbol.txt">
-      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_text_symbol_4_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_text_symbol_4.txt">
-      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_pages_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs_pages.txt">
-      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\music-score-bg.txt">
-      <Filter>Assets\Gui\PageLayout\Portrait</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\music_score_bg_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\text_bg_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\question_text_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\question_symbol_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\stroke-rubout.txt">
-      <Filter>Assets\Gui\Stroke</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\speech_bubble_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Scene\room1-scene.txt">
-      <Filter>Assets\Scene</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Scene\schoolhouse-scene.txt">
-      <Filter>Assets\Scene</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Shaders\opengl\rotating-frag.txt">
-      <Filter>Assets\Shaders\opengl</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Shaders\opengl\rotating-vert.txt">
-      <Filter>Assets\Shaders\opengl</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_symbol_kb_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\corridor_mode_wait.txt">
-      <Filter>Assets\Gui\CorridorModes</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\corridor_mode_show_tappable.txt">
-      <Filter>Assets\Gui\CorridorModes</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\tap-picture-note-lengths.txt">
-      <Filter>Assets\Gui\Tappables</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\tap-picture-note-lengths-quavers.txt">
-      <Filter>Assets\Gui\Tappables</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\hint-display.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\keyboard-black.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\keyboard-pink.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Scene\title-scene.txt">
-      <Filter>Assets\Scene</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Scene\topic_start_scene.txt">
-      <Filter>Assets\Scene</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_play_notes.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\page_interval.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_square_symbol_4_landscape.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\player-score.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\en.txt">
-      <Filter>Assets</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\hint-display-no-button.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Scene\corridor-one-door-1.txt">
-      <Filter>Assets\Scene</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Scene\corridor-one-door-2.txt">
-      <Filter>Assets\Scene</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Scene\corridor-scene-1.txt">
-      <Filter>Assets\Scene</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Scene\corridor-scene-2.txt">
-      <Filter>Assets\Scene</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\tappables-1.txt">
-      <Filter>Assets\Gui\Tappables</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\tappables-2.txt">
-      <Filter>Assets\Gui\Tappables</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\tap-picture-treb-clef.txt">
-      <Filter>Assets\Gui\Tappables</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\keyboard-pink-with-treb-clef-1.txt">
-      <Filter>Assets\Gui\Tappables</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\tap-pic-notes-on-treb-clef-1.txt">
-      <Filter>Assets\Gui\Tappables</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\tap-picture-semibreve.txt">
-      <Filter>Assets\Gui\Tappables</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\hearts.txt">
-      <Filter>Assets\Gui\PageLayout\Landscape</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\corridor-shadow.txt">
-      <Filter>Assets\Scene</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\certificate.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\static-certificate.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\composers.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\tutorial.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\modal-grey-out.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\modal-buttons.txt">
-      <Filter>Assets\Gui</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-bg-and-tabs.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\colour-picker.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-head.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\direction-control.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\gs-avatar-mod.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar-eye-simple.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-body.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-eye.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-eyebrow.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-hair.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-lower-lid.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-upper-lid.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\cell-control.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\scale-control.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-glasses.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-nose.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-mouth.txt">
-      <Filter>Assets\Gui\AvatarMod</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\Source\Version.h.template" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AmjulaMusicTheory.rc">

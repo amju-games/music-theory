@@ -398,66 +398,6 @@
     <ClCompile Include="..\..\..\..\Source\Startup.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\Course_catchtest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Catch|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\CreateDictionary.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\Dictionary_catchtest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\Localisation_catchtest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Catch|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\MultiChoice_catchtest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\MusicalTermQuestion_catchtest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\QuestionPicker_catchtest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\QuestionProgress_catchtest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\Question_catchtest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Catch|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\CatchTestMain.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Catch|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\Topic_catchtest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Catch|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Tests\UserProfile_catchtest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Catch|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\Timeline.cpp" />
     <ClCompile Include="..\..\..\..\Source\TimelineEventPlayWav.cpp" />
     <ClCompile Include="..\..\..\..\Source\UserLocale.cpp" />
@@ -589,10 +529,6 @@
     <ClInclude Include="..\..\..\..\Source\SceneTimeline.h" />
     <ClInclude Include="..\..\..\..\Source\SetUpFactories.h" />
     <ClInclude Include="..\..\..\..\Source\ShareManager.h" />
-    <ClInclude Include="..\..\..\..\Source\Tests\CreateDictionary.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\Timeline.h" />
     <ClInclude Include="..\..\..\..\Source\TimelineEventPlayWav.h" />
     <ClInclude Include="..\..\..\..\Source\UserLocale.h" />
@@ -604,112 +540,6 @@
     <ClInclude Include="..\..\..\..\Source\Windows\WinMidiInput.h" />
     <ClInclude Include="..\..\..\..\Source\WithHud.h" />
     <ClInclude Include="TimelineEventPlayWav.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\..\..\..\Assets\en.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\avatar-eye-simple.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-bg-and-tabs.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-body.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-eye.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-eyebrow.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-glasses.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-hair.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-head.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-lower-lid.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-mouth.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-nose.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\avatar-mod-upper-lid.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\avatar.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\blackboard_erase.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\boilerplate.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\cell-control.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\certificate.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\colour-picker.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\composers.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\compound_glyphs.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\corridor-shadow.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\corridor_mode_show_tappable.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\corridor_mode_wait.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\direction-control.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs-avatar-mod.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs-first-user.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs_about.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs_line_drawing.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs_main_menu.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs_main_menu_corridor.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs_pages.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs_pages_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs_play_notes.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs_score.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs_test_show_score.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs_title.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs_topic_end.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs_topic_start.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gs_user_draw.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gui-top-bar.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\gui_top_bar_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\hearts.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\hint-display-no-button.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\hint-display.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\keyboard-black.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\keyboard-pink-with-treb-clef-1.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\keyboard-pink.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\keyboard.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-square-symbol.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\mcq-buttons-wide.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_square_symbol_4_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\mcq_buttons_wide_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\modal-buttons.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\modal-grey-out.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\scale-control.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\tutorial.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\music-score-bg.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\music_score_bg_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\page_interval.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\page_symbol_kb_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\page_symbol_symbol_4.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\page_symbol_symbol_4_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\page_symbol_text_4.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\page_symbol_text_4_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\page_text_symbol_4_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\page_text_text_4.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\page_play_notes.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\page_text_symbol_4.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\page_text_text_4_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\player-score.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\question_symbol_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\question_text_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\quit-confirm.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\speech_bubble_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\static-certificate.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\stroke-mid-line.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\stroke-rubout.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\tap-pic-notes-on-treb-clef-1.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\tap-picture-note-lengths.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\tap-picture-note-lengths-quavers.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\tap-picture-semibreve.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\tap-picture-treb-clef.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\tappables-1.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\tappables-2.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\text_bg_landscape.txt" />
-    <Text Include="..\..\..\..\Assets\Gui\title-text.txt" />
-    <Text Include="..\..\..\..\Assets\Scene\corridor-one-door-1.txt" />
-    <Text Include="..\..\..\..\Assets\Scene\corridor-one-door-2.txt" />
-    <Text Include="..\..\..\..\Assets\Scene\corridor-scene-1.txt" />
-    <Text Include="..\..\..\..\Assets\Scene\corridor-scene-2.txt" />
-    <Text Include="..\..\..\..\Assets\Scene\room1-scene.txt" />
-    <Text Include="..\..\..\..\Assets\Scene\schoolhouse-scene.txt" />
-    <Text Include="..\..\..\..\Assets\Scene\title-scene.txt" />
-    <Text Include="..\..\..\..\Assets\Scene\topic_start_scene.txt" />
-    <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-frag.txt" />
-    <Text Include="..\..\..\..\Assets\Shaders\opengl\gui-vert.txt" />
-    <Text Include="..\..\..\..\Assets\Shaders\opengl\rotating-frag.txt" />
-    <Text Include="..\..\..\..\Assets\Shaders\opengl\rotating-vert.txt" />
-    <Text Include="..\..\..\..\Docs\bugs.txt" />
-    <Text Include="..\..\..\..\Docs\TODO.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\Source\Version.h.template" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AmjulaMusicTheory.rc" />
