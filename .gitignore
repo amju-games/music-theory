@@ -58,3 +58,5 @@ Assets/bassmidi.dll
 Assets/bass.dll
 Script/Msvc/BugSplat/env.ps1
 Assets/BugSplatRc.dll
+Script/Msvc/ScoreTools/.vs
+Script/Msvc/ScoreTools/x64
