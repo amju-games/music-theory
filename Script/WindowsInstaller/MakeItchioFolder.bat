@@ -15,13 +15,11 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b %ERRORLEVEL%
 )
 
-set TOP_DIR=%cd%\..\..
+set TOP_DIR=%cd%
 
 REM ***********************************
 REM * Copy all distro files to folder *
 REM ***********************************
-
-cd %TOP_DIR%
 
 SET DEST=Build\WindowsItchio
 

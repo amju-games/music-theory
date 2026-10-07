@@ -34,4 +34,6 @@ if %ERRORLEVEL% NEQ 0 (
 
 REM ...that creates Build/Release/amju_piano_fest.exe
 
+cd %TOP_DIR%
+
 
