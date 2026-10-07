@@ -318,7 +318,6 @@
     <ClCompile Include="..\..\..\..\Source\AutoRepeatFilter.cpp" />
     <ClCompile Include="..\..\..\..\Source\AutoTest.cpp" />
     <ClCompile Include="..\..\..\..\Source\BassErrorStrings.cpp" />
-    <ClCompile Include="..\..\..\..\Source\BassMidiInput.cpp" />
     <ClCompile Include="..\..\..\..\Source\BassPlayMidi.cpp" />
     <ClCompile Include="..\..\..\..\Source\BlinkSceneNode.cpp" />
     <ClCompile Include="..\..\..\..\Source\Consts.cpp" />
@@ -497,7 +496,6 @@
     <ClInclude Include="..\..\..\..\Source\AutoRepeatFilter.h" />
     <ClInclude Include="..\..\..\..\Source\AutoTest.h" />
     <ClInclude Include="..\..\..\..\Source\BassErrorStrings.h" />
-    <ClInclude Include="..\..\..\..\Source\BassMidiInput.h" />
     <ClInclude Include="..\..\..\..\Source\BassPlayMidi.h" />
     <ClInclude Include="..\..\..\..\Source\Beat.h" />
     <ClInclude Include="..\..\..\..\Source\BlinkSceneNode.h" />
