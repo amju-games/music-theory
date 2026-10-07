@@ -14,6 +14,14 @@ set DEBUG_DIR=..\..\..\Assets
 REM Make sure release build folder exists. 
 mkdir %RELEASE_DIR%
 
+REM **************
+REM ***  curl  ***
+REM **************
+
+set CURL_RELEASE_DIR=%cd%\..\..\..\..\amjulib\3rdPartyLibs\Curl\curl-8.22.0\Win64\lib\
+copy %CURL_RELEASE_DIR%\*.dll       %RELEASE_DIR%
+copy %CURL_RELEASE_DIR%\*.dll       %DEBUG_DIR%
+
 
 REM **************
 REM ***  BASS  ***

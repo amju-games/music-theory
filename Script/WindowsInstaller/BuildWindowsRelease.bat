@@ -8,6 +8,16 @@ REM run from Script\WindowsInstaller
 
 set TOP_DIR=%cd%\..\..
 
+REM ************************
+REM *** Build glue files ***
+REM ************************
+
+cd %TOP_DIR%
+
+cd Script/AssetCompiler
+REM use CALL so we come back here afterwards!
+CALL make-everything-win.bat
+
 REM **********************
 REM *** Build game exe ***
 REM **********************
@@ -24,13 +34,4 @@ if %ERRORLEVEL% NEQ 0 (
 
 REM ...that creates Build/Release/amju_piano_fest.exe
 
-REM ************************
-REM *** Build glue files ***
-REM ************************
-
-cd %TOP_DIR%
-
-cd Script/AssetCompiler
-REM use CALL so we come back here afterwards!
-CALL make-everything-win.bat
 

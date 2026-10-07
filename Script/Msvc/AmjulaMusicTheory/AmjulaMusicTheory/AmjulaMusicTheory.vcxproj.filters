@@ -447,6 +447,9 @@
     <ClCompile Include="..\..\..\..\Source\MidiInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\PFScreenshot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Source\GSPlayNotes.h">
@@ -815,6 +818,9 @@
     <ClInclude Include="..\..\..\..\Source\Windows\WinMidiInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\PFScreenshot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Assets\Gui\keyboard.txt">
@@ -1139,6 +1145,9 @@
       <Filter>Libs</Filter>
     </Library>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\BassMidi\2.4.15.3\bassmidi24-win\c\x64\bassmidi.lib">
+      <Filter>Libs</Filter>
+    </Library>
+    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Curl\curl-8.22.0\Win64\lib\libcurl_imp.lib">
       <Filter>Libs</Filter>
     </Library>
   </ItemGroup>

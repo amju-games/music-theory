@@ -37,6 +37,9 @@ COPY Script\WindowsInstaller\.itch.toml %DEST%
 COPY Build\CompiledAssets\data-WIN.glue %DEST%
 COPY Build\CompiledAssets\music-WIN.glue %DEST%
 
+REM libcurl
+COPY ..\amjulib\3rdPartyLibs\curl\curl-8.22.0\Win64\lib\libcurl.dll %DEST%
+
 REM BASS DLLs
 COPY ..\amjulib\3rdPartyLibs\Bass\2.4.18.3\bass24-win\x64\bass.dll %DEST%
 COPY ..\amjulib\3rdPartyLibs\Bass\BassMidi\2.4.15.3\bassmidi24-win\x64\bassmidi.dll %DEST%

@@ -96,7 +96,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>AMJU_USE_BASS;AMJU_USE_BASS_MIDI;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/I "../../../../../amjulib/Source/Events" 
+      <AdditionalOptions>/I "../../../../../amjulib/Source/Community" /I "../../../../../amjulib/Source/Events" 
 /I "../../../../../amjulib/Source/EventsWin32" 
 /I "../../../../../amjulib/Source/EventsSDL" 
 /I "../../../../../amjulib/Source/FileUtils" 
@@ -143,7 +143,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>CATCH;USE_BASS_MIDI;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/I "../../../../../amjulib/Source/Events" 
+      <AdditionalOptions>/I "../../../../../amjulib/Source/Community" /I "../../../../../amjulib/Source/Events" 
 /I "../../../../../amjulib/Source/EventsWin32" 
 /I "../../../../../amjulib/Source/EventsSDL" 
 /I "../../../../../amjulib/Source/FileUtils" 
@@ -189,7 +189,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>GTEST;USE_BASS_MIDI;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/I "../../../../../amjulib/Source/Events" 
+      <AdditionalOptions>/I "../../../../../amjulib/Source/Community" /I "../../../../../amjulib/Source/Events" 
 /I "../../../../../amjulib/Source/EventsWin32" 
 /I "../../../../../amjulib/Source/EventsSDL" 
 /I "../../../../../amjulib/Source/FileUtils" 
@@ -236,7 +236,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>AMJU_USE_BASS;AMJU_USE_BASS_MIDI;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/I "../../../../../amjulib/Source/Events" 
+      <AdditionalOptions>/I "../../../../../amjulib/Source/Community" /I "../../../../../amjulib/Source/Events" 
 /I "../../../../../amjulib/Source/EventsWin32" 
 /I "../../../../../amjulib/Source/EventsSDL" 
 /I "../../../../../amjulib/Source/FileUtils" 
@@ -376,6 +376,7 @@
     <ClCompile Include="..\..\..\..\Source\ObscureConfigFile.cpp" />
     <ClCompile Include="..\..\..\..\Source\Palette.cpp" />
     <ClCompile Include="..\..\..\..\Source\ParticleFx.cpp" />
+    <ClCompile Include="..\..\..\..\Source\PFScreenshot.cpp" />
     <ClCompile Include="..\..\..\..\Source\PlayWav.cpp" />
     <ClCompile Include="..\..\..\..\Source\PointsCalculator.cpp" />
     <ClCompile Include="..\..\..\..\Source\PrintGui.cpp" />
@@ -558,6 +559,7 @@
     <ClInclude Include="..\..\..\..\Source\ObscureConfigFile.h" />
     <ClInclude Include="..\..\..\..\Source\Palette.h" />
     <ClInclude Include="..\..\..\..\Source\ParticleFx.h" />
+    <ClInclude Include="..\..\..\..\Source\PFScreenshot.h" />
     <ClInclude Include="..\..\..\..\Source\PlayMidi.h" />
     <ClInclude Include="..\..\..\..\Source\PlayWav.h" />
     <ClInclude Include="..\..\..\..\Source\PointsCalculator.h" />
@@ -701,6 +703,7 @@
   <ItemGroup>
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\2.4.18.3\bass24-win\c\x64\bass.lib" />
     <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Bass\BassMidi\2.4.15.3\bassmidi24-win\c\x64\bassmidi.lib" />
+    <Library Include="..\..\..\..\..\amjulib\3rdPartyLibs\Curl\curl-8.22.0\Win64\lib\libcurl_imp.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
