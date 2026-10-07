@@ -1,3 +1,8 @@
+// * Amju PIANO FEST *
+// (c) Copyright Juliet Colman 2000-2026
+
+#include "precomp.h" // first include
+
 #include <GameObjectFactory.h>
 #include "AnimalFactory.h"
 #include "Bird.h"

@@ -1,6 +1,8 @@
 // * Amju PIANO FEST *
 // (c) Copyright Juliet Colman 2000-2026
 
+#include "precomp.h" // first include
+
 #include <GuiButton.h>
 #include <GuiText.h>
 #include "AnimalController.h"
