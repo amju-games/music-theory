@@ -441,9 +441,6 @@
     <ClCompile Include="..\..\..\..\Source\DeviceChangeEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Source\Windows\WinMidiInput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\MidiInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -452,6 +449,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Source\precomp.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Windows\WinMidiInput.cpp">
+      <Filter>Source Files\Windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
