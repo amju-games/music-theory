@@ -647,12 +647,19 @@ std::cout << "** AUTO TEST: Setting auto play on.\n";
     // Smoke test: generate lose or win event after a short delay.
     const float DELAY = 1.f;
     static int visit = 0;
-    if (visit % 2 == 0)
+    if (visit == 0)
     {
       AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasLost(); }, DELAY);
     }
+    else if (visit == 1)
+    {
+      // Test pause button/resume
+      AutoMsg([]() { TheGSHero::Instance()->OnPauseGame(); }, DELAY);
+    }
     else
     {
+      // After testing lose and pause states once, just win each round.
+      // This speeds up the smoke test and we get the same coverage.
       AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasWon(); }, DELAY);
     }
     ++visit;
