@@ -32,7 +32,9 @@ protected:
   void InitScrollingGui();
 
 protected:
-  int m_lastTabStop = 0; // track most recent tab stop in scrolling list.
+  // Track most recent tab stop in scrolling list.
+  // Start with invalid value, set on first activation.
+  int m_lastTabStop = 999;
 
   // This is the last position, (the final song displayed!)
   int m_finalTabStop = 0;

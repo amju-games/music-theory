@@ -422,12 +422,15 @@ void GSChooseSong::OnTabStop(int tabStop)
   Assert(left);
   const bool leftIsEnabled = (tabStop != 0); 
   left->SetIsEnabled(leftIsEnabled);
+  left->SetVisible(leftIsEnabled);
+
   // TODO Set colour to same as disabled song Start button
   
   auto right = dynamic_cast<GuiButton*>(GetElementByName(m_gui, "right-button"));
   Assert(right);
   const bool rightIsEnabled = (tabStop != m_finalTabStop);
   right->SetIsEnabled(rightIsEnabled);
+  right->SetVisible(rightIsEnabled);
 
   // Start new midi song
   PlaySelectedSong(tabStop);
