@@ -421,6 +421,36 @@ def write_channels_txt(target_dir, mapping):
             f.write(f"{k}: {mapping[k] + 1} # Track {k} -> {chan_to_name[mapping[k]]}\n")
 
 
+def splice_lines_after_match(
+    file_path: str, target_pattern: str, new_lines: list[str]):
+    """
+    Finds a line containing target_pattern and splices new lines before it.
+    """
+    with open(file_path, "r", encoding="utf-8") as file:
+        lines = file.readlines()
+
+    # Find the insertion index
+    insert_index = None
+    for i, line in enumerate(lines):
+        if target_pattern in line:
+            insert_index = i  # Elements will be placed *before* the match
+            break
+
+    if insert_index is None:
+        raise ValueError(f"Pattern '{target_pattern}' not found in the file.")
+
+    # Format new lines to guarantee line breaks
+    formatted_new_lines = [
+        line if line.endswith("\n") else f"{line}\n" for line in new_lines
+    ]
+
+    # Splice and overwrite
+    lines[insert_index:insert_index] = formatted_new_lines
+
+    with open(file_path, "w", encoding="utf-8") as file:
+        file.writelines(lines)
+
+
 def main():
     # 1. Setup and Validation
     if len(sys.argv) < 2:
@@ -490,6 +520,16 @@ def main():
     
     # 9. Write channels.txt in case fix_channels.py is required
     write_channels_txt(workspace_dir, new_mapping)
+
+    # 10. Write to credits file
+    credits_file = Path("../Assets") / "credits.txt" 
+    splice_point = "// End of songs"
+    new_lines = [ f"// {piece_name}", f"@@@{piece_name}", 
+        f"// By {composer_name}", f"@@@By {composer_name}", 
+        "// Source", "TODO source", 
+        "// License", "TODO licence", 
+        "$$$empty", "" ]
+    splice_lines_after_match(credits_file, splice_point, new_lines)
 
     print(f"\n🎉 Finished! Song successfully added to the game pipeline.")
 
