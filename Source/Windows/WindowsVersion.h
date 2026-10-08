@@ -1,3 +1,6 @@
+// * Amju PIANO FEST *
+// (c) Copyright Juliet Colman 2000-2026
+
 #pragma once
 
 // * Windows Version *
@@ -6,7 +9,7 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 5
-#define VERSION_REVISION 0
+#define VERSION_REVISION 5
 #define VERSION_BUILD               1
 
 #define STRINGIZE2(s) #s

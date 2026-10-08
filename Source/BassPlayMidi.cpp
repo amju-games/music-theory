@@ -1,6 +1,8 @@
 // * Amju PIANO FEST *
 // (c) Copyright Juliet Colman 2000-2026
 
+#include "precomp.h" // first include
+
 #include <filesystem>
 #include <iostream>
 #include <unordered_map>
@@ -465,6 +467,9 @@ void MidiLog()
 
 float GetMidiSongElapsedTimeSeconds()
 {
+  Assert(s_songStream > 0);
+  Assert(s_hasSongFinished == false);
+
   QWORD pos = BASS_ChannelGetPosition(s_songStream, BASS_POS_BYTE); // Get current position
   double elapsedSeconds = BASS_ChannelBytes2Seconds(s_songStream, pos); // Convert to seconds
   return static_cast<float>(elapsedSeconds);

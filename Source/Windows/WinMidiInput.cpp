@@ -1,3 +1,9 @@
+// * Amju PIANO FEST *
+// (c) Copyright Juliet Colman 2000-2026
+
+// Don't use precompiled headers for the Windows-specific .cpps!
+//#include "precomp.h" // first include
+
 #include <windows.h>
 #include <mmsystem.h>
 #include <iostream>

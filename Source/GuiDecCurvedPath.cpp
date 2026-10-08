@@ -1,6 +1,8 @@
 // * Amju PIANO FEST *
 // (c) Copyright Juliet Colman 2000-2026
 
+#include "precomp.h" // first include
+
 #include <LoadVec2.h>
 #include <StringUtils.h>
 #include "GuiDecCurvedPath.h"

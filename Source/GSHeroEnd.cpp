@@ -1,6 +1,8 @@
 // * Amju PIANO FEST *
 // (c) Copyright Juliet Colman 2000-2026
 
+#include "precomp.h" // first include
+
 #include <GuiText.h>
 #include <SoundManager.h>
 #include "GS3dTitle.h" // give up

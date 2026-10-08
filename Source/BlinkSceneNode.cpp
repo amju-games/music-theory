@@ -1,6 +1,8 @@
 // * Amju PIANO FEST *
 // (c) Copyright Juliet Colman 2000-2026
 
+#include "precomp.h" // first include
+
 #include <File.h>
 #include <ResourceManager.h>
 #include <Timer.h>

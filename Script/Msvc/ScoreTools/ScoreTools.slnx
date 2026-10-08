@@ -1,0 +1,8 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="../AmjulaMusicTheory/MakeScore/MakeScore.vcxproj" />
+  <Project Path="../AmjulaMusicTheory/MidiScore/MidiScore.vcxproj" />
+</Solution>

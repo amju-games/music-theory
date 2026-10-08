@@ -1,6 +1,8 @@
 // * Amju PIANO FEST *
 // (c) Copyright Juliet Colman 2000-2026
 
+#include "precomp.h" // first include
+
 #include <mutex> // call_once
 #include <unordered_map> // map glyph names to ascii codes
 

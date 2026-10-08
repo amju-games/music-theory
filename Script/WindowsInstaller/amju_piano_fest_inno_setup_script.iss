@@ -55,6 +55,9 @@ Source: "..\..\Build\CompiledAssets\data-WIN.glue"; DestDir: "{app}"; Flags: ign
 Source: "..\..\Build\CompiledAssets\music-WIN.glue"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files.
 
+; curl
+Source: "..\..\..\amjulib\3rdPartyLibs\curl\curl-8.22.0\Win64\lib\libcurl.dll"; DestDir: "{app}"; Flags: ignoreversion
+
 ; BASS DLLs
 Source: "..\..\..\amjulib\3rdPartyLibs\Bass\2.4.18.3\bass24-win\x64\bass.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\..\amjulib\3rdPartyLibs\Bass\BassMidi\2.4.15.3\bassmidi24-win\x64\bassmidi.dll"; DestDir: "{app}"; Flags: ignoreversion

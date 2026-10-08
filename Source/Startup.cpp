@@ -1,6 +1,8 @@
 // * Amju PIANO FEST *
 // (c) Copyright Juliet Colman 2000-2026
 
+#include "precomp.h" // first include
+
 #ifdef WIN32
 // Hola! There's a batch file to copy DLLs to Build dirs: Scripts/Msvc/DLLs/copy_dlls.bat
 

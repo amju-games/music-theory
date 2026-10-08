@@ -1,6 +1,8 @@
 // * Amju PIANO FEST *
 // (c) Copyright Juliet Colman 2000-2026
 
+#include "precomp.h" // first include
+
 #include <GuiButton.h>
 #include <GuiText.h>
 #include "AnimalController.h"
@@ -21,6 +23,9 @@ static void OnQuit(GuiElement*)
 
 static void OnStart(GuiElement*)
 {
+  // Stop preview of song
+  StopMidiSong();
+
   // Initialise the new game round.
   GoTo<TheGSInitNewRound>();
 }

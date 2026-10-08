@@ -9,17 +9,24 @@ REM **********************
 
 CALL BuildWindowsRelease.bat
 
-set TOP_DIR=%cd%\..\..
+REM Check if MSBuild failed
+if %ERRORLEVEL% NEQ 0 (
+    echo BuildWindowsRelease script failed with error code %ERRORLEVEL%
+    exit /b %ERRORLEVEL%
+)
+
+set TOP_DIR=%cd%
 
 REM ***********************************
 REM * Copy all distro files to folder *
 REM ***********************************
 
-cd %TOP_DIR%
-
 SET DEST=Build\WindowsItchio
 
 MKDIR %DEST%
+REM delete any preexisting files
+DEL /q "%DEST%\*.*"
+
 COPY Build\Release\amju_piano_fest.exe %DEST%
 
 REM Important for itch.io app! Identifies game exe.
@@ -27,6 +34,9 @@ COPY Script\WindowsInstaller\.itch.toml %DEST%
 
 COPY Build\CompiledAssets\data-WIN.glue %DEST%
 COPY Build\CompiledAssets\music-WIN.glue %DEST%
+
+REM libcurl
+COPY ..\amjulib\3rdPartyLibs\curl\curl-8.22.0\Win64\lib\libcurl.dll %DEST%
 
 REM BASS DLLs
 COPY ..\amjulib\3rdPartyLibs\Bass\2.4.18.3\bass24-win\x64\bass.dll %DEST%

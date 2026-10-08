@@ -1,6 +1,8 @@
 // * Amju PIANO FEST *
 // (c) Copyright Juliet Colman 2000-2026
 
+#include "precomp.h" // first include
+
 #include <AmjuRand.h> // Random shuffle 
 #include <GuiComposite.h>
 #include <GuiText.h>
@@ -119,6 +121,10 @@ void ExtrasAdderImpl::AttachExtraBits(int fromThisNoteId)
 
   if (noteEvents.empty()) return;
 
+  auto extrasRootComp = dynamic_cast<GuiComposite*>(m_extrasRoot.GetPtr());
+
+  AddSectionExtras(extrasRootComp, noteEvents);
+
   // Remove events that are not NOTE_ON
   const auto net = NoteEventType::NOTE_ON;
   noteEvents.erase(
@@ -129,13 +135,9 @@ void ExtrasAdderImpl::AttachExtraBits(int fromThisNoteId)
 
   if (noteEvents.empty()) return;
 
-  auto extrasRootComp = dynamic_cast<GuiComposite*>(m_extrasRoot.GetPtr());
-
-  AddSectionExtras(extrasRootComp);
-
   AddNoteRunExtras(extrasRootComp, noteEvents); 
 
-  AddRandomExtras(extrasRootComp, noteEvents, fromThisNoteId);
+  AddRandomExtras(extrasRootComp, noteEvents);
 }
 
 void ExtrasAdderImpl::AttachHealthBoost(
@@ -253,33 +255,53 @@ std::cout << " .. attaching child points extra to event " << noteEventId
   return extra;
 }
 
-void ExtrasAdderImpl::AddSectionExtras(GuiComposite* extrasRootComp)
+void ExtrasAdderImpl::AddBonusPointsToSectionEnd(int first, int last,
+  GuiComposite* extrasRootComp,
+  const NoteEvents& noteEvents,
+  int sectionNum)
 {
-  const auto& noteEvents = m_musicScore.GetNoteEvents();
+  // Iterate back from last to find the last note-on event
+  while (last > first)
+  {
+    --last;
+
+    if (last >= static_cast<int>(noteEvents.size()))
+    {
+#ifdef EXTRA_DEBUG
+      std::cout << "Extras: NOT adding extra to final note-on event in section "
+        << sectionNum
+        << " (behind pause point?)\n";
+#endif
+      return;
+    }
+
+    const auto& ne = noteEvents[last];
+    const int id = ne.GetId();
+    if (ne.IsNoteOnEvent())
+    {
+      // Found final note-on event in the section
+#ifdef EXTRA_DEBUG
+      std::cout << "Extras: adding extra to final note-on event in section "
+        << sectionNum
+        << " Note event ID: " << id
+        << "\n";
+#endif
+      // Bonus points for end of section
+      AttachRegularPoints(extrasRootComp, id, GetEndOfSectionPoints());
+      break;
+    }
+  }
+}
+
+void ExtrasAdderImpl::AddSectionExtras(
+  GuiComposite* extrasRootComp,
+  const NoteEvents& noteEvents)
+{
   int sectionNum = 0;
   for (auto [first, last] : m_songSections)
   {
-    // Iterate back from last to find the last note-on event
-    while (last > first)
-    {
-      --last;
-      const auto& ne = noteEvents[last];
-      const int id = ne.GetId();
-      if (ne.IsNoteOnEvent())
-      {
-        // Found final note-on event in the section
-#ifdef EXTRA_DEBUG
-std::cout << "Extras: adding extra to final note on event in section " 
-  << sectionNum
-  << " Note event ID: " << id
-  << "\n";
-#endif
-        ++sectionNum;
-        // Bonus points for end of section
-        AttachRegularPoints(extrasRootComp, id, GetEndOfSectionPoints());
-        break;
-      }
-    }
+    AddBonusPointsToSectionEnd(first, last, extrasRootComp, noteEvents, sectionNum);
+    ++sectionNum;
   }
 }
 
@@ -360,8 +382,7 @@ std::cout << "\n";
 
 void ExtrasAdderImpl::AddRandomExtras(
   GuiComposite* extrasRootComp,
-  const NoteEvents& noteOnEvents,
-  int fromThisNoteId)
+  const NoteEvents& noteOnEvents)
 {
   // Start with vec of all NOTE ON event ids, WITHOUT the event ids 
   //  to which we have already allocated an Extra - i.e. those in m_extrasMap.

@@ -1,6 +1,8 @@
 // * Amju PIANO FEST *
 // (c) Copyright Juliet Colman 2000-2026
 
+#include "precomp.h" // first include
+
 #include <algorithm>
 #include <iostream>
 #include <CommandLineArgs.h>
@@ -214,7 +216,8 @@ void GSHero::OnPauseGame()
 {
   TheGSPause::Instance()->SetPrevState(this);
 
-  StopMidiSong();
+  // Don't do this yet: song elapsed time will no longer work.
+  //StopMidiSong();
 
   if (m_roundIsOver)
   {
@@ -408,6 +411,20 @@ void GSHero::ScrollExtras()
 
 void GSHero::ChangeState(HeroState newState)
 {
+#ifdef _DEBUG
+  static const std::vector<std::string> strs =
+  {
+    "new",
+    "before_count_in_resume",
+    "before_count_in_restart",
+    "count_in",
+    "song_playing",
+    "player_has_won",
+    "player_has_lost",
+  };
+  std::cout << "Changing to new Hero state: " << strs[static_cast<int>(m_state)] << "\n";
+#endif
+
   m_timeInHeroState = 0;
   m_state = newState;
 }
@@ -425,6 +442,7 @@ void GSHero::Update()
   if (m_state == HeroState::SONG_PLAYING)
   {
     float songElapsedSeconds = GetMidiSongElapsedTimeSeconds();
+    Assert(songElapsedSeconds >= 0.f); // Riight?
     Assert(m_scoreLengthSeconds > 0);
     float normalisedAnimTime = songElapsedSeconds / m_scoreLengthSeconds;
 
@@ -629,12 +647,19 @@ std::cout << "** AUTO TEST: Setting auto play on.\n";
     // Smoke test: generate lose or win event after a short delay.
     const float DELAY = 1.f;
     static int visit = 0;
-    if (visit % 2 == 0)
+    if (visit == 0)
     {
       AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasLost(); }, DELAY);
     }
+    else if (visit == 1)
+    {
+      // Test pause button/resume
+      AutoMsg([]() { TheGSHero::Instance()->OnPauseGame(); }, DELAY);
+    }
     else
     {
+      // After testing lose and pause states once, just win each round.
+      // This speeds up the smoke test and we get the same coverage.
       AutoMsg([](){ TheGSHero::Instance()->OnPlayerHasWon(); }, DELAY);
     }
     ++visit;
@@ -713,7 +738,10 @@ void GSHero::ShowCountInGui()
   {
     auto anim = dynamic_cast<GuiDecAnimation*>(countInGuiComp->GetChild(i));
     Assert(anim);
-    anim->SetCycleTime(static_cast<float>(i) * beatTime);
+    float cycleTime = static_cast<float>(i) * beatTime;
+    const float MIN_CYCLE_TIME = 0.0001f;
+    cycleTime = std::max(cycleTime, MIN_CYCLE_TIME);
+    anim->SetCycleTime(cycleTime);
   }
 
   // Add count-in gui to main gui for this state

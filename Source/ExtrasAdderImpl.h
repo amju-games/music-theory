@@ -54,7 +54,13 @@ protected:
   //  given event ID.
   bool IsExtraAllocated(int eventId) const;
 
-  void AddSectionExtras(GuiComposite* extrasRootComp);
+  void AddSectionExtras(GuiComposite* extrasRootComp, 
+    const NoteEvents& noteOnEvents);
+
+  void AddBonusPointsToSectionEnd(int first, int last,
+    GuiComposite* extrasRootComp,
+    const NoteEvents& noteEvents,
+    int sectionNum);
 
   void AddNoteRunExtras(GuiComposite * extrasRootComp,
     const NoteEvents& noteOnEvents);
@@ -76,8 +82,7 @@ protected:
   //  been allocated an extra.
   void AddRandomExtras(
     GuiComposite* extrasRootComp,
-    const NoteEvents& noteEvents,
-    int fromThisNoteId);
+    const NoteEvents& noteEvents);
 
   // Attach the given Extra to the scrolling score.
   // eventId is note event ID, unique in the song, so we can retrieve the

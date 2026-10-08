@@ -1,6 +1,12 @@
-#include <array>
+// * Amju PIANO FEST *
+// (c) Copyright Juliet Colman 2000-2026
+
+// Don't use precompiled headers for the Windows-specific .cpps!
+//#include "precomp.h" // first include
 #include <windows.h>
 #include <Dbt.h>
+
+#include <array>
 #include <gl/GL.h>
 
 // This is in amjulib/3rdPartyLibs.

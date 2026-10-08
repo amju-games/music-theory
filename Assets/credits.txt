@@ -43,6 +43,25 @@ $$$52
 
 $$$empty
 
+//Polonaise in F major
+//By J.S.Bach
+//From the Mutopia Project
+//Midi seq by Bach-Gesellschaft
+//Licance: public Domain
+$$$78
+$$$50
+$$$46
+$$$51
+$$$47
+
+// Break between songs
+$$$empty
+
+// End of songs
+// =====================================================
+
+// Section break
+$$$empty
 
 // Sound fonts: special section? How should we format this?
 
