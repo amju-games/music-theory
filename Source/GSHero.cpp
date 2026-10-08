@@ -216,7 +216,8 @@ void GSHero::OnPauseGame()
 {
   TheGSPause::Instance()->SetPrevState(this);
 
-  StopMidiSong();
+  // Don't do this yet: song elapsed time will no longer work.
+  //StopMidiSong();
 
   if (m_roundIsOver)
   {

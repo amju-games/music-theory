@@ -6,6 +6,7 @@
 #include <Game.h>
 #include <GuiButton.h>
 #include "AnimalController.h"
+#include "BassPlayMidi.h"
 #include "GS3dTitle.h" // quit
 #include "GSHero.h" // resume
 #include "GSPause.h"
@@ -43,6 +44,10 @@ void GSPause::Update()
 void GSPause::OnActive()
 {
   GSBase::OnActive();
+
+  // Stop the playing song.
+  // What about count-in? It's ok, we are stopping an already-stopped song.
+  StopMidiSong();
 
   GuiElement* elem = GetElementByName(m_gui, "resume-button");
   Assert(elem);
