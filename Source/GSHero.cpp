@@ -410,6 +410,20 @@ void GSHero::ScrollExtras()
 
 void GSHero::ChangeState(HeroState newState)
 {
+#ifdef _DEBUG
+  static const std::vector<std::string> strs =
+  {
+    "new",
+    "before_count_in_resume",
+    "before_count_in_restart",
+    "count_in",
+    "song_playing",
+    "player_has_won",
+    "player_has_lost",
+  };
+  std::cout << "Changing to new Hero state: " << strs[static_cast<int>(m_state)] << "\n";
+#endif
+
   m_timeInHeroState = 0;
   m_state = newState;
 }
@@ -427,6 +441,7 @@ void GSHero::Update()
   if (m_state == HeroState::SONG_PLAYING)
   {
     float songElapsedSeconds = GetMidiSongElapsedTimeSeconds();
+    Assert(songElapsedSeconds >= 0.f); // Riight?
     Assert(m_scoreLengthSeconds > 0);
     float normalisedAnimTime = songElapsedSeconds / m_scoreLengthSeconds;
 
