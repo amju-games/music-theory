@@ -23,6 +23,9 @@ static void OnQuit(GuiElement*)
 
 static void OnStart(GuiElement*)
 {
+  // Stop preview of song
+  StopMidiSong();
+
   // Initialise the new game round.
   GoTo<TheGSInitNewRound>();
 }
