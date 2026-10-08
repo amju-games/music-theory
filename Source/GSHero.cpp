@@ -731,7 +731,10 @@ void GSHero::ShowCountInGui()
   {
     auto anim = dynamic_cast<GuiDecAnimation*>(countInGuiComp->GetChild(i));
     Assert(anim);
-    anim->SetCycleTime(static_cast<float>(i) * beatTime);
+    float cycleTime = static_cast<float>(i) * beatTime;
+    const float MIN_CYCLE_TIME = 0.0001f;
+    cycleTime = std::max(cycleTime, MIN_CYCLE_TIME);
+    anim->SetCycleTime(cycleTime);
   }
 
   // Add count-in gui to main gui for this state
