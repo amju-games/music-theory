@@ -1,0 +1,8 @@
+# Wow, this makes builds a lot faster, it uses all cpus, not just one.
+make -j$(sysctl -n hw.ncpu)
+
+# Add this to your .zshrc to make fastmake an alias for the above.
+fastmake() {
+    make -j$(sysctl -n hw.ncpu) "$@"
+}
+
