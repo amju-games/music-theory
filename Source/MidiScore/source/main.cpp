@@ -24,6 +24,8 @@ static const auto DEBUG = "--debug";
 static const auto BPM = "--bpm";
 static const auto ANA = "--ana";
 static const auto ALL_CLEFS = "--allclefs";
+static const auto GRID = "--grid";
+static const auto POLY = "--poly";
 
 static const auto USAGE_STRING = 
 R"(midiscore - convert midi file to juliet compact notation.
@@ -48,6 +50,8 @@ Options:
   --ana <a>     Anacrusis: set length of incomplete first bar.
                   a is one of: q, c, m, etc.
   --allclefs    Output alto and tenor clefs as well as bass and treble.
+  --grid        Output in grid format.
+  --poly        Retain chords; otherwise, highest pitch note only.
 )";
 
 static std::string NowToString()
@@ -93,8 +97,6 @@ int main(int argc, const char** argv)
     return 0;
   }
 
-  OutputCommandLine(cl);
-
   MidiFile midifile;
   // 0th arg is exe name, 1th arg is midi filename
   std::string filename(argv[1]);
@@ -132,7 +134,6 @@ int main(int argc, const char** argv)
       std::cout << "Negative track number.\n";
       return 1;
     }
-    std::cout << "// Output track " << *optionalTrack << " only.\n";
   }
 
   // If "info" arg exists, output info about the midi file.
@@ -160,29 +161,48 @@ int main(int argc, const char** argv)
   }
   if (!timeSig)
   {
-    std::cout << "Time sig is required, I can't guess it right now.\n";
+    std::cout << "Time sig is required, I can't guess it. (e.g.: --timesig 3/4)\n";
     return 1;
   }
 
   // Optional key sig, overriding guessed key sig.
   const auto keySig = cl.get_value<int>(KEYSIG);
 
-  // Optional quantisation resolution
+  // Non-optional quantisation resolution
   const auto quant = cl.get_value<std::string>(QUANT);
+  if (!quant)
+  {
+    std::cout << "Please choose quantisation. (e.g.: --quant qq)\n";
+    return 1;
+  }
 
   // Debug option
   const bool debug = check_flag(cl, DEBUG);
 
-  // BPM tempo -- passed through to MakeScore, and is required.
+  // Grid option
+  const bool grid = check_flag(cl, GRID);
+
+  // Poly option
+  const bool poly = check_flag(cl, POLY);
+
+  // BPM tempo -- passed through to MakeScore
   const auto bpm = cl.get_value<float>(BPM);
+#ifdef MANDATORY_BPM
   if (!bpm)
   {
     std::cout << "No BPM specified! (e.g.: --bpm 120)\n";
     return 1;
   }
+#endif // MANDATORY_BPM
+
+  OutputCommandLine(cl);
+  if (optionalTrack)
+  {
+    std::cout << "// Output track " << *optionalTrack << " only.\n";
+  }
 
   std::cout << MidiScore::ToString(
-    midifile, optionalTrack, *timeSig, keySig, quant, debug, *bpm, optionalAna, allClefs);
+    midifile, optionalTrack, *timeSig, keySig, quant, debug, bpm, optionalAna, allClefs, grid, poly);
 
   return 0;
 }

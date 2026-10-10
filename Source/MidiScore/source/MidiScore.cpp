@@ -14,8 +14,11 @@
 #include "Anacrusis.h"
 #include "Clef.h"
 #include "Event.h"
+#include "Grid.h"
+#include "Info.h"
 #include "KeySig.h"
 #include "MidiScore.h"
+#include "Polyphony.h"
 #include "Quantiser.h"
 #include "TimeSig.h"
 
@@ -88,7 +91,7 @@ std::string OutputEvent(int& prevDuration, const Event& e)
 
 std::string OutputTrack(
   int tpq, Events& events, TimeSig ts, KeySig ks, bool debug, int numBars, 
-  bool yesDynamics, bool yesTimeSetEvents, int anacrusisTicks, bool allClefs)
+  bool yesDynamics, bool yesTimeSetEvents, int anacrusisTicks, bool allClefs, bool grid)
 {
   if (events.empty())
   {
@@ -133,7 +136,7 @@ std::string OutputTrack(
     return OutputEventsDebug(tpq, events);
   }
 
-  return OutputEvents(events);
+  return OutputEvents(events, grid);
 }
 
 std::string OutputEventsDebug(int tpq, const Events& events)
@@ -209,8 +212,13 @@ std::string OutputNoteDurations(const Events& events)
   return res;
 }
 
-std::string OutputEvents(const Events& events)
+std::string OutputEvents(const Events& events, bool grid)
 {
+  if (grid)
+  {
+    return Gridify(events);
+  }
+
   std::string res;
 
   // Traverse events. Output time val when it changes.
@@ -220,6 +228,7 @@ std::string OutputEvents(const Events& events)
     res += OutputEvent(prevDuration, events[i]);
     res += " ";
   }
+
   return res;
 }
 
@@ -267,10 +276,38 @@ std::string ToString(
   std::optional<int> keySig,
   std::optional<std::string> quant, 
   bool debug,
-  float bpm,
+  std::optional<float> bpm,
   std::optional<std::string> anacrusis,
-  bool allClefs)
+  bool allClefs,
+  bool grid,
+  bool poly)
 {
+  TimeSig ts;
+  ts = GetTimeSigFromString(timeSig);
+
+  if (!poly && track)
+  {
+    auto splitResult = SplitPolyTrack(midifile, *track, ts);
+    if (splitResult.empty())
+    {
+      std::cout << "No polyphony found.\n";
+    }
+    else
+    {
+      std::cout << "Split poly track, creating " 
+        << splitResult.size() 
+        << " new tracks. Total num tracks in midi is now: " << midifile.getTrackCount()
+        << "\n";
+
+      std::cout << "INFO FOR NEW TRACKS:\n";
+      std::cout << InfoString(midifile, std::nullopt, anacrusis, timeSig, allClefs);
+
+      // Get new track index
+      *track = splitResult[0];
+      std::cout << "New track to output: " << *track << "\n";
+    }
+  }
+
   std::string res;
 
   TimeVal quantRes = TimeVal::NONE;
@@ -292,9 +329,6 @@ std::string ToString(
   // We will start off with a quantiser impl that chops durations so there
   //  are no chords, then add a different impl later when required.
   const Quantiser& quantiser = MakeQuantiser(quantRes); 
-
-  TimeSig ts;
-  ts = GetTimeSigFromString(timeSig);
 
   midifile.doTimeAnalysis();
   midifile.linkNotePairs();
@@ -357,7 +391,10 @@ std::string ToString(
   // Give a rough page width using the number of bars
   res += "page-w " + std::to_string(6 * numBars) + "\n";
 
-  res += "bpm " + (std::stringstream() << bpm).str() + "\n";
+  if (bpm)
+  {
+    res += "bpm " + (std::stringstream() << *bpm).str() + "\n";
+  }
 
   // TODO do other first-pass things on all the events
   // E.g. create dynamics markers
@@ -378,7 +415,7 @@ std::string ToString(
     {
       res += "stave " + 
         OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics, noTimeSets,
-          anacrusisTicks, allClefs) + "\n";
+          anacrusisTicks, allClefs, grid) + "\n";
     }
   }
   else
@@ -394,7 +431,7 @@ std::string ToString(
       res += "// ** STAVE " + std::to_string(stave++) + " **\n";
       res += "stave " + 
         OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics, noTimeSets,
-          anacrusisTicks, allClefs) + "\n";
+          anacrusisTicks, allClefs, grid) + "\n";
     }
   }
 

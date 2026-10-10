@@ -26,6 +26,8 @@ namespace MidiScore
 // bpm: optional bpm tempo.
 // anacrusis: optional short first bar time value (c, m, etc).
 // allClefs: allow alto and tenor clefs in output
+// grid: output in grid format
+// poly: retain chords
 std::string ToString(
   smf::MidiFile& mf,
   std::optional<int> track,
@@ -33,12 +35,14 @@ std::string ToString(
   std::optional<int> keySig,
   std::optional<std::string> quantResolution,
   bool debug,
-  float bpm,
+  std::optional<float> bpm,
   std::optional<std::string> anacrusis,
-  bool allClefs);
+  bool allClefs,
+  bool grid,
+  bool poly);
 
 // Used internally and for testing
-std::string OutputEvents(const Events& events);
+std::string OutputEvents(const Events& events, bool grid = false);
 
 // For tests: we want to check strings like "c t c" for note duration tests
 std::string OutputNoteDurations(const Events& events);
@@ -52,5 +56,12 @@ Events GetEventsFromTrack(
   int tpq, const smf::MidiEventList& track, TimeSig ts, KeySig ks,
   const Quantiser& quantiser,
   int anacrusisTicks);
-}
+
+// Output one event. 
+// The idea is to only output duration elements when the duration
+//  changes, not for every note/rest, so track the duration of the
+//  current event.
+std::string OutputEvent(int& prevDuration, const Event& e);
+
+} // namespace MidiScore
 

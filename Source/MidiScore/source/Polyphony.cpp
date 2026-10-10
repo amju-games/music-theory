@@ -1,6 +1,8 @@
-#include <vector>
 #include <algorithm>
 #include <cmath>
+#include <iostream>
+#include <sstream>
+#include <vector>
 #include <MidiFile.h>
 #include "NumBars.h"
 #include "TimeSig.h"
@@ -136,9 +138,22 @@ namespace
             return {trackIndex};
         }
 
+        midifile.makeAbsoluteTicks();
+
         // 2. Extract active notes from track
         smf::MidiEventList& track = midifile[trackIndex];
         track.linkNotePairs();
+
+        // 2. Extract meta-events (tempo, time signature, etc.) from the source track
+        smf::MidiEventList metaEvents;
+        for (int i = 0; i < track.size(); ++i) {
+            if (!track[i].isNote()) {
+                metaEvents.append(track[i]);
+                std::cout << "Track " 
+                  << trackIndex 
+                  << ": found meta event: " << i << "!\n";
+            }
+        }
 
         std::vector<Note> notes;
         for (int i = 0; i < track.size(); ++i) {
@@ -190,16 +205,24 @@ namespace
             if (voiceStreams[v].empty()) continue;
 
             int newTrackIdx = midifile.addTrack();
+
             newTrackIndices.push_back(newTrackIdx);
             smf::MidiEventList& newTrack = midifile[newTrackIdx];
+
+            // Inherit meta-events 
+            for (int m = 0; m < metaEvents.size(); ++m) {
+                newTrack.append(metaEvents[m]);
+            }
+
+            int voiceChannel = newTrackIdx % 16;
 
             for (const auto& n : voiceStreams[v]) {
                 smf::MidiEvent onEvent, offEvent;
 
-                onEvent.makeNoteOn(n.channel, n.pitch, n.velocity);
+                onEvent.makeNoteOn(voiceChannel, n.pitch, n.velocity);
                 onEvent.tick = n.start_tick;
 
-                offEvent.makeNoteOff(n.channel, n.pitch);
+                offEvent.makeNoteOff(voiceChannel, n.pitch);
                 offEvent.tick = n.end_tick;
 
                 newTrack.append(onEvent);
@@ -209,6 +232,14 @@ namespace
             midifile.sortTrack(newTrackIdx);
             midifile[newTrackIdx].linkNotePairs();
         }
+
+        // OK, the only way I can get the new tracks to not be
+        //  wiped out by doTimeAnalysis is to save and re-load the 
+        //  midi file! Luckily we can save/load to a stringstream,
+        //  we don't have to write to disk!
+        std::stringstream ss;
+        midifile.write(ss);
+        midifile.read(ss);
 
         return newTrackIndices;
     }
