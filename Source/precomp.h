@@ -2,10 +2,13 @@
 // (c) Copyright Juliet Colman 2000-2026
 #pragma once
 
+#ifdef WIN32
 #define WIN32_LEAN_AND_MEAN  // Prevents older winsock.h conflicts down the line
 #define NOMINMAX             // Prevents min/max macro conflicts with std::min/max
 
 #include <Windows.h>
+#endif
+
 #include <algorithm>
 #include <array>
 #include <functional>
