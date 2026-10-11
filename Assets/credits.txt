@@ -34,7 +34,7 @@ $$$48
 $$$49
 //By J.S. Bach
 $$$50
-//From the Mutopia Project, www.mutopiaproject.org
+//From the Mutopia Project
 $$$46
 //Midi sequence by: Bach-Gesellschaft
 $$$51
@@ -58,13 +58,14 @@ $$$47
 $$$empty
 
 // Greensleeves
-@@@Greensleeves
-// By Traditional
-@@@By Traditional
-// Source
-TODO source
-// License
-TODO licence
+$$$79
+// Traditional
+$$$80
+//From the Mutopia Project
+$$$46
+//License: Public Domain
+$$$47
+
 $$$empty
 
 // End of songs

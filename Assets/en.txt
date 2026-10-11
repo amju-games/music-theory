@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-76
+78
 1=The Swan
 2=From The Carnival of the Animals
 3=Camille Saint-Saëns
@@ -78,3 +78,5 @@
 76=Thank you for playing this demo of...
 77=Polonaise in F major
 78=POLONAISE IN F MAJOR
+79=Greensleeves
+80=Traditional
