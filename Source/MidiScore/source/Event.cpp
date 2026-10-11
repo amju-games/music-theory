@@ -854,14 +854,19 @@ void ForceChordsToMono(Events& events)
     // Ornaments (grace notes etc) look like chords but are not!
     if (it->IsOrnament() || (it - 1)->IsOrnament()) continue;
 
+    assert(it != events.end());
+    assert((it - 1) != events.end());
+
     int start = (it - 1)->m_start; 
     
     if (start == it->m_start)
     {
+      auto firstNote = it - 1;
+      assert(firstNote != events.end());
+//      std::cout << "Found chord: " << firstNote->ToString() << "\n";
+
       // Find all events with the same start time      
       // Store start of notes in chord
-      ++it;
-      auto firstNote = it;
       while (it != events.end() && it->m_start == start)
       {
         ++it;
@@ -875,9 +880,16 @@ void ForceChordsToMono(Events& events)
         }
       );
       // Mark all notes after the first
-      for (auto j = firstNote; j != it; j++)
+      for (auto j = firstNote + 1; j != events.end() && j != it; j++)
       {
         j->m_isGraceNote = true;
+      }
+
+      if (it == events.end())
+      {
+        // We could already be at the end, in which case the loop 
+        //  increment will push us over the edge!
+        break;
       }
     }
   }

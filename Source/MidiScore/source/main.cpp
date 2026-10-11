@@ -140,7 +140,7 @@ int main(int argc, const char** argv)
   auto quant = cl.get_value<std::string>(QUANT);
   if (!quant)
   {
-    std::cout << "Defaulting to semiquaver quantisation. (i.e.: --quant qq)\n";
+//    std::cout << "Defaulting to semiquaver quantisation. (i.e.: --quant qq)\n";
     quant = "qq";
   }
 
