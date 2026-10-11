@@ -28,15 +28,23 @@ namespace MidiScore
 std::string GetOrnamentInfo(
   smf::MidiFile& midifile,
   int track,
-  TimeSig ts)
+  int tpq,
+  TimeSig ts,
+  TimeVal quant)
 {
   int numBars = NumBars(midifile, track, ts);
   if (numBars == 0) return "";
 
   int ticksPerBar = TicksPerBar(midifile, ts);
+  // Get max num ticks for a note to be considered part of an ornament
+  int ornamentNoteMaxTicks = GetOrnamentNoteMaxTicks(tpq, quant);
 
   auto reports = OrnamentAnalyzer::GetOrnamentationPerBar(
-    midifile, track, numBars, ticksPerBar);
+    midifile, track, numBars, ticksPerBar, ornamentNoteMaxTicks);
+
+//  std::cout << "num bars: " << numBars << "\n";
+//  std::cout << "num reports: " << reports.size() << "\n";
+
   assert(reports.size() == numBars);
 
   auto it = std::max_element(
@@ -367,7 +375,8 @@ static std::string InfoStringForOneTrack(
   int track,
   int anacrusisTicks,
   std::optional<std::string> optionalTimeSig,
-  bool allClefs)
+  bool allClefs,
+  TimeVal quant)
 {
   std::string res;
   res += "Track " + std::to_string(track) + ":\n";
@@ -416,7 +425,7 @@ static std::string InfoStringForOneTrack(
 
   res += "  " + GetPolyphonyInfo(midifile, track, ts) + "\n";
 
-  std::string ornament = GetOrnamentInfo(midifile, track, ts);
+  std::string ornament = GetOrnamentInfo(midifile, track, tpq, ts, quant);
   if (!ornament.empty())
   {
     res += "  " + ornament + "\n";
@@ -430,7 +439,8 @@ std::string InfoString(
   std::optional<int> optionalTrack,
   std::optional<std::string> anacrusis,
   std::optional<std::string> optionalTimeSig,
-  bool allClefs)
+  bool allClefs,
+  TimeVal quant)
 {
   midifile.removeEmpties();
   midifile.doTimeAnalysis();
@@ -446,11 +456,11 @@ std::string InfoString(
   // Output just the nominated track, or all of them.
   if (optionalTrack)
   {
-    res += InfoStringForOneTrack(midifile, *optionalTrack, anacrusisTicks, optionalTimeSig, allClefs);
+    res += InfoStringForOneTrack(midifile, *optionalTrack, anacrusisTicks, optionalTimeSig, allClefs, quant);
   }
   else for (int track = 0; track < tracks; track++)
   {
-    res += InfoStringForOneTrack(midifile, track, anacrusisTicks, optionalTimeSig, allClefs);
+    res += InfoStringForOneTrack(midifile, track, anacrusisTicks, optionalTimeSig, allClefs, quant);
   }
 
   return res;

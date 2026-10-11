@@ -149,9 +149,6 @@ namespace
         for (int i = 0; i < track.size(); ++i) {
             if (!track[i].isNote()) {
                 metaEvents.append(track[i]);
-                std::cout << "Track " 
-                  << trackIndex 
-                  << ": found meta event: " << i << "!\n";
             }
         }
 

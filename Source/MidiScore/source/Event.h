@@ -45,6 +45,9 @@ struct Event
   
   EventType m_type = EventType::NOTE;
 
+  // Ornamentation: 
+  bool m_isGraceNote = false;
+
   Clef m_clef; // for clef events; initialised in ctor
   TimeSig m_timeSig; // for time sig events
   KeySig m_keySig; // for key sig events, and for note events, the prevailing key sig, used to output pitch correctly.
@@ -66,6 +69,7 @@ struct Event
   bool IsClef() const { return m_type == EventType::CLEF; }
   bool IsKeySig() const { return m_type == EventType::KEY_SIG; }
   bool IsTimeSig() const { return m_type == EventType::TIME_SIG; }
+  bool IsOrnament() const { return m_isGraceNote; }
 };
 
 using Events = std::vector<Event>;
@@ -96,7 +100,11 @@ void InsertRests(int tpq, Events& events, TimeSig ts);
 // We have already split long notes at bar line positions.
 void InsertBarLines(int tpq, TimeSig ts, Events& events, int numBars, int anacrusisTicks);
 
+// For poly tracks, detect chords and put chord markers ( ) around them.
 void InsertChordMarkers(Events& events);
+
+// For mono tracks, anything that would be a chord gets forced to mono. 
+void ForceChordsToMono(Events& events);
 
 void InsertTimeSetEvents(int tpq, Events& events);
 

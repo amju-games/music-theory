@@ -21,11 +21,13 @@ namespace MidiScore
 // timeSig: optional time sig, for better reporting.
 // allClefs: if true, consider alto and tenor clefs, else just treble
 //  and bass.
+// quant: quantisation level, to calc max ornament note length.
 std::string InfoString(
   smf::MidiFile& mf,
   std::optional<int> track,
   std::optional<std::string> anacrusis,
   std::optional<std::string> timeSig,
-  bool allClefs);
+  bool allClefs,
+  TimeVal quant);
 }
 

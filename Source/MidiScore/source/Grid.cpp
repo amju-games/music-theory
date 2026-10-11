@@ -4,7 +4,7 @@
 namespace MidiScore
 {
 // Change this when we know tpq
-static int tpq = 480; // TODO
+//static int tpq = 480; // TODO
 
 std::string WhitespaceForDuration(std::string e, int dur)
 {
@@ -48,15 +48,18 @@ std::string Gridify(const Events& events)
     // From here, there is a next event
     const auto& next = events[i + 1];
 
-    // Preamble stuff (generally in bar 1) should go on its own line
-    //  so we don't mess up the grid. Stave, time sig, key sig, clefs.
     if (ev.IsBarLine())
     {
-      res += "\n";
-      res += "// Bar " + std::to_string(++bar) + "\n";
+      // Start next bar on a new line, for readability.
+      res += "\n\n// Bar " + std::to_string(++bar) + "\n";
+
+      // Don't carry over duration from prev bar, for readability.
+      prevDuration = -1;
     }
     else if (IsPreamble(ev) && !IsPreamble(next))
     {
+      // Preamble stuff (generally in bar 1) should go on its own line
+      //  so we don't mess up the grid. Stave, time sig, key sig, clefs.
       res += "\n";
     }
     else if (NoTimeVal(ev))

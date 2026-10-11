@@ -18,6 +18,8 @@
 #include "Info.h"
 #include "KeySig.h"
 #include "MidiScore.h"
+#include "NumBars.h"
+#include "Ornament.h"
 #include "Polyphony.h"
 #include "Quantiser.h"
 #include "TimeSig.h"
@@ -91,7 +93,7 @@ std::string OutputEvent(int& prevDuration, const Event& e)
 
 std::string OutputTrack(
   int tpq, Events& events, TimeSig ts, KeySig ks, bool debug, int numBars, 
-  bool yesDynamics, bool yesTimeSetEvents, int anacrusisTicks, bool allClefs, bool grid)
+  bool yesDynamics, bool yesTimeSetEvents, int anacrusisTicks, bool allClefs, bool grid, bool poly)
 {
   if (events.empty())
   {
@@ -112,7 +114,11 @@ std::string OutputTrack(
   // Reset last dynamics string output (on prev track)
   Dynamics::SetLastDynamicsString();
 
-  InsertChordMarkers(events);
+  if (poly)
+    InsertChordMarkers(events);
+  else
+    ForceChordsToMono(events);
+
 //std::cout << "With chord markers: " << OutputEvents(events) << "\n";
 
   InsertBarLines(tpq, ts, events, numBars, anacrusisTicks);
@@ -269,6 +275,106 @@ Events GetEventsFromTrack(
   return events;
 }
 
+static int MakeTrackMono(
+  smf::MidiFile& midifile, 
+  std::optional<int>& track,
+  TimeSig ts)
+{
+  // Chop polyphonic track into multiple mono tracks.
+  auto splitResult = SplitPolyTrack(midifile, *track, ts);
+  if (splitResult.empty())
+  {
+    std::cout << "No polyphony found.\n";
+  }
+  else
+  {
+    std::cout << "Split poly track, creating " 
+      << splitResult.size() 
+      << " new tracks. Total num tracks in midi is now: " << midifile.getTrackCount()
+      << "\n";
+
+    // Perhaps an option to save the split poly tracks. TODO
+    // Get new track index: the first of the new mono tracks.
+    *track = splitResult[0];
+    std::cout << "New track to output: " << *track << "\n";
+  }
+  return splitResult.size();
+}
+
+// Remove the grace notes with given positions from the given events.
+static void StripGraceNotes(Events& res, int barNum, const Positions& positions)
+{
+  for (auto position : positions)
+  {
+    int start = position.first;
+    [[maybe_unused]]int end = position.second;
+    // start, end are time ticks
+//    std::cout << "Looking for grace note at " << start << "-" << end << "...\n";
+    // Find the event with the closest start time
+    auto it = std::min_element(res.begin(), res.end(), 
+      [start](const Event& a, const Event& b)
+      {
+        return std::abs(a.m_start - start) < std::abs(b.m_start - start);
+      }
+    );
+    if (it != res.end())
+    {
+      // TODO Check the end of the original reported grace note and
+      //  the event we have found.
+
+      // We can see the actual result so silencing this
+ //     std::cout << "Removing grace note: " << it->ToString() 
+ //       << " in bar " << barNum << "\n";
+      //res.erase(it);
+
+      // TODO Insert marker: retain info about this grace note:
+      //  we need the pitch, so we should change the type of this
+      //  event from note to grace note, rather than erasing it.
+      it->m_isGraceNote = true;
+    }
+  }
+}
+
+// Find closest events to the reported ornaments and strip them
+//  out, depending on ornament type.
+static Events StripOrnamentsFromEvents(
+  const Events& constevents,
+  std::vector<OrnamentCounts> allOrnaments)
+{
+  auto res(constevents);
+  // Ornaments are split by bar
+  int barNum = 1;
+  for (const auto& bar : allOrnaments)
+  {
+    // For each type, find matching Events and remove them as appropriate.
+    StripGraceNotes(res, barNum, bar.grace_notes);
+    ++barNum;
+  }
+
+  return res;
+}
+
+static std::vector<OrnamentCounts> FindOrnaments(
+  smf::MidiFile& midifile, 
+  int track,
+  TimeSig ts,
+  int ornamentNoteMaxDurationTicks)
+{
+  int numBars = NumBars(midifile, track, ts);
+  if (numBars == 0) 
+  {
+    std::cout << "ERROR: Num bars is zero?!\n";
+    return {};
+  } 
+ 
+  int ticksPerBar = TicksPerBar(midifile, ts);
+
+  auto reports = OrnamentAnalyzer::GetOrnamentationPerBar(
+    midifile, track, numBars, ticksPerBar, ornamentNoteMaxDurationTicks);
+
+  return reports;
+}
+
 std::string ToString(
   smf::MidiFile& midifile, 
   std::optional<int> track,
@@ -282,33 +388,18 @@ std::string ToString(
   bool grid,
   bool poly)
 {
-  TimeSig ts;
-  ts = GetTimeSigFromString(timeSig);
+  TimeSig ts = GetTimeSigFromString(timeSig);
 
   if (!poly && track)
   {
-    auto splitResult = SplitPolyTrack(midifile, *track, ts);
-    if (splitResult.empty())
-    {
-      std::cout << "No polyphony found.\n";
-    }
-    else
-    {
-      std::cout << "Split poly track, creating " 
-        << splitResult.size() 
-        << " new tracks. Total num tracks in midi is now: " << midifile.getTrackCount()
-        << "\n";
+    [[maybe_unused]]int numNewTracks = MakeTrackMono(midifile, track, ts);
 
-      std::cout << "INFO FOR NEW TRACKS:\n";
-      std::cout << InfoString(midifile, std::nullopt, anacrusis, timeSig, allClefs);
-
-      // Get new track index
-      *track = splitResult[0];
-      std::cout << "New track to output: " << *track << "\n";
-    }
+  //  std::cout << "INFO FOR NEW TRACKS:\n";
+  //  std::cout << InfoString(midifile, std::nullopt, anacrusis, timeSig, allClefs);
+    midifile.removeEmpties();                                     
+    midifile.doTimeAnalysis();                 
+    midifile.linkNotePairs();                
   }
-
-  std::string res;
 
   TimeVal quantRes = TimeVal::NONE;
   if (quant)
@@ -316,12 +407,42 @@ std::string ToString(
     quantRes = GetTimeValFromString(*quant);
     if (quantRes == TimeVal::NONE)
     {
-      std::cout << "Unrecognised quant resolution! Use one of sb/m/c/q/qq/qqq, or don't specify to not quantise.\n";
+      std::cout << "Unrecognised quant resolution! Use one of sb/m/c/q/qq/qqq.\n";
       return {};
     }
 
     std::cout << "// Quantising to: " << TimeValString(quantRes) << "\n";
   }
+
+  const int tpq = midifile.getTicksPerQuarterNote();
+  std::cout << "// TPQ: " << tpq << "\n";
+
+  // Find ornamentation, with info so we can flag ornament notes.
+  std::vector<OrnamentCounts> ornaments;
+  if (track)
+  {
+    // Do this before quantising.
+    // If no track, do all tracks TODO
+    // Doesn't strip them, but detects them.
+
+    int ornamentDurationTicks = 
+      CalcTpqMultipleForTimeVal(tpq, quantRes);
+    std::cout << "// Ornamentation duration: " 
+      << ornamentDurationTicks << " ticks "
+      << "(1/"
+      << (tpq / ornamentDurationTicks) << " crotchet)\n";
+
+    ornaments = FindOrnaments(midifile, *track, ts, ornamentDurationTicks);
+    int numOrnaments = 0;
+    for (const auto& b : ornaments)
+    {
+      numOrnaments += b.total();
+    }
+    std::cout << "// Found ornaments: " << numOrnaments << "\n";
+  }
+
+  std::string res;
+
 
   // TODO Strategy pattern: create different quantiser type depending on 
   //  command line params, in MakeQuantiser. 
@@ -332,9 +453,6 @@ std::string ToString(
 
   midifile.doTimeAnalysis();
   midifile.linkNotePairs();
-
-  const int tpq = midifile.getTicksPerQuarterNote();
-  std::cout << "// TPQ: " << tpq << "\n";
 
   int anacrusisTicks = GetAnacrusisTicks(anacrusis, tpq); 
   // number of tpq ticks in first, incomplete bar
@@ -413,9 +531,11 @@ std::string ToString(
       anacrusisTicks);
     if (!events.empty()) 
     {
+      events = StripOrnamentsFromEvents(events, ornaments);
+
       res += "stave " + 
         OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics, noTimeSets,
-          anacrusisTicks, allClefs, grid) + "\n";
+          anacrusisTicks, allClefs, grid, poly) + "\n";
     }
   }
   else
@@ -428,10 +548,13 @@ std::string ToString(
       Events events = GetEventsFromTrack(tpq, midifile[t], ts, ks, quantiser,
         anacrusisTicks);
       if (events.empty()) continue;
+
+      events = StripOrnamentsFromEvents(events, ornaments);
+
       res += "// ** STAVE " + std::to_string(stave++) + " **\n";
       res += "stave " + 
         OutputTrack(tpq, events, ts, ks, debug, numBars, noDynamics, noTimeSets,
-          anacrusisTicks, allClefs, grid) + "\n";
+          anacrusisTicks, allClefs, grid, poly) + "\n";
     }
   }
 

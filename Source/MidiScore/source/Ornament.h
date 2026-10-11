@@ -1,24 +1,31 @@
 #pragma once
 
-#include "MidiFile.h"
-#include <vector>
-#include <cmath>
 #include <algorithm>
+#include <cmath>
+#include <utility>
+#include <vector>
+#include "MidiFile.h"
+#include "TimeSig.h"
+#include "TimeVal.h"
 
 namespace MidiScore
 {
+// Start and end time (ticks) of one ornament
+using StartEnd = std::pair<int, int>;
+// Positions of multiple ornaments
+using Positions = std::vector<StartEnd>;
+
 struct OrnamentCounts 
 {
     std::string ToString() const;
 
-    int grace_notes{0};
-    int trills{0};
-    int mordents{0};
-    int turns{0};
+    Positions grace_notes;
+    Positions trills;
+    Positions mordents;
+    Positions turns;
 
-    int total() const {
-        return grace_notes + trills + mordents + turns;
-    }
+    // Get total number of ornaments
+    int total() const;
 };
 
 enum class OrnamentType {
@@ -29,8 +36,27 @@ enum class OrnamentType {
     Trill
 };
 
-class OrnamentAnalyzer {
+// Helper function: get the max number of ticks for a note to be
+//  considered part of an ornament.
+int GetOrnamentNoteMaxTicks(int tpq, TimeVal quant);
+
+class OrnamentAnalyzer 
+{
 public:
+    // Find ornaments in each bar for the given track.
+    //
+    // maxOrnNoteDurTicks: 
+    // Maximum duration for a note to be considered part of an ornament,
+    //  in ticks.
+    // Outputs a report of the positions of each ornament found.
+    static std::vector<OrnamentCounts> GetOrnamentationPerBar(
+        smf::MidiFile& midifile,
+        int trackIndex,
+        int totalBars,
+        int ticksPerBar,
+        int maxOrnNoteDurTicks);
+
+private:
     struct Note {
         int pitch;
         int velocity;
@@ -41,26 +67,32 @@ public:
         double end_time;
     };
 
-    static std::vector<OrnamentCounts> GetOrnamentationPerBar(
-        smf::MidiFile& midifile,
-        int trackIndex,
-        int totalBars,
-        int ticksPerBar,
-        double maxOrnamentNoteDuration = 0.08);
-
-private:
     static OrnamentType classifySequence(
         const std::vector<Note>& notes,
         size_t start,
         size_t end,
-        double maxGraceDuration);
+        int maxGraceDurationTicks);
 
-    static void recordOrnament(OrnamentCounts& counts, OrnamentType type) {
+    static void recordOrnament(
+        OrnamentCounts& counts, 
+        OrnamentType type, int start, int end) {
         switch (type) {
-            case OrnamentType::GraceNote: counts.grace_notes++; break;
-            case OrnamentType::Trill:     counts.trills++; break;
-            case OrnamentType::Mordent:   counts.mordents++; break;
-            case OrnamentType::Turn:      counts.turns++; break;
+            case OrnamentType::GraceNote: 
+              counts.grace_notes.emplace_back(StartEnd{start, end}); 
+              break;
+
+            case OrnamentType::Trill:     
+              counts.trills.emplace_back(StartEnd{start, end});
+              break;
+
+            case OrnamentType::Mordent:   
+              counts.mordents.emplace_back(StartEnd{start, end});
+              break;
+
+            case OrnamentType::Turn:      
+              counts.turns.emplace_back(StartEnd{start, end});
+              break;
+
             default: break;
         }
     }

@@ -295,10 +295,16 @@ std::string Event::NoteToStringNoDuration() const
 {
   assert(m_type == EventType::NOTE);
 
+  std::string res;
+  if (m_isGraceNote)
+  {
+    res += "{ gr ";
+  }
+
   // Dynamics refer to the last note, so pitch comes first.
 
   // Keysig is used to correctly write pitch string
-  auto res = PitchToString(m_pitch, m_keySig);
+  res += PitchToString(m_pitch, m_keySig);
 
   auto d = m_dynamics.ToString();
   if (!d.empty())
@@ -306,6 +312,11 @@ std::string Event::NoteToStringNoDuration() const
     res += " " + d;
   }
   // TODO also articulation
+  if (m_isGraceNote)
+  {
+    res += " }";
+  }
+
   return res;
 }
 
@@ -827,6 +838,51 @@ void InsertBarLines(int tpq, TimeSig ts, Events& events, int numBars,
   AddFinalBarLines(numBars, bar, events, ticksForOneBar, anacrusisTicks);
 }
 
+void ForceChordsToMono(Events& events)
+{
+  // For monophonic output, don't output chord markers.
+  // Instead, one of the notes in the chord is retained, while the
+  //  others are flagged as ornamentation.
+  // We keep the note with the longest duration.
+
+  // Look for notes with the same start time.
+  for (auto it = events.begin() + 1; it != events.end(); ++it)
+  {
+    if (!it->IsNote()) continue;
+    if (!(it - 1)->IsNote()) continue;
+
+    // Ornaments (grace notes etc) look like chords but are not!
+    if (it->IsOrnament() || (it - 1)->IsOrnament()) continue;
+
+    int start = (it - 1)->m_start; 
+    
+    if (start == it->m_start)
+    {
+      // Find all events with the same start time      
+      // Store start of notes in chord
+      ++it;
+      auto firstNote = it;
+      while (it != events.end() && it->m_start == start)
+      {
+        ++it;
+      }
+
+      // Sort the notes in the chord, longest duration first.
+      std::sort(firstNote, it,
+        [](const Event& e1, const Event& e2)
+        {
+          return e2.m_duration < e1.m_duration; // descending order
+        }
+      );
+      // Mark all notes after the first
+      for (auto j = firstNote; j != it; j++)
+      {
+        j->m_isGraceNote = true;
+      }
+    }
+  }
+}
+
 void InsertChordMarkers(Events& events)
 {
   // Look for notes with the same start time; once found, add markers 
@@ -839,7 +895,10 @@ void InsertChordMarkers(Events& events)
     //  that require tied notes I expect. :|
     if (!it->IsNote()) continue;
     if (!(it - 1)->IsNote()) continue;
-  
+
+    // Ornaments (grace notes etc) look like chords but are not!
+    if (it->IsOrnament() || (it - 1)->IsOrnament()) continue;
+
     int start = (it - 1)->m_start; 
     
     if (start == it->m_start)

@@ -136,6 +136,14 @@ int main(int argc, const char** argv)
     }
   }
 
+  // Quantisation resolution.. default to qq.
+  auto quant = cl.get_value<std::string>(QUANT);
+  if (!quant)
+  {
+    std::cout << "Defaulting to semiquaver quantisation. (i.e.: --quant qq)\n";
+    quant = "qq";
+  }
+
   // If "info" arg exists, output info about the midi file.
   if (check_flag(cl, "--info"))
   {
@@ -147,8 +155,16 @@ int main(int argc, const char** argv)
       return 1;
     }
 
+    // Get quant resolution, defaultint to qq. We need this to get the
+    //  max duration for a note in an ornament.
+    auto quantRes = MidiScore::GetTimeValFromString(*quant);
+    if (quantRes == MidiScore::TimeVal::NONE)
+    {
+      quantRes = MidiScore::TimeVal::SEMIQUAVER;
+    }
+
     std::cout << MidiScore::InfoString(
-      midifile, optionalTrack, optionalAna, optionalTimeSig, allClefs);
+      midifile, optionalTrack, optionalAna, optionalTimeSig, allClefs, quantRes);
     return 0;
   }
 
@@ -167,14 +183,6 @@ int main(int argc, const char** argv)
 
   // Optional key sig, overriding guessed key sig.
   const auto keySig = cl.get_value<int>(KEYSIG);
-
-  // Non-optional quantisation resolution
-  const auto quant = cl.get_value<std::string>(QUANT);
-  if (!quant)
-  {
-    std::cout << "Please choose quantisation. (e.g.: --quant qq)\n";
-    return 1;
-  }
 
   // Debug option
   const bool debug = check_flag(cl, DEBUG);
