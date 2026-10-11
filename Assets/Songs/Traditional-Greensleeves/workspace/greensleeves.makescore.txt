@@ -1,0 +1,110 @@
+// Created by MIDISCORE by Juliet, 2026-10-11 17:54:30
+// ./midiscore /Users/juliet/greensleeves.mid --timesig 3/4 --ana c --track 1 
+// Output track 1 only.
+// Split poly track, creating 3 new tracks. Total num tracks in midi is now: 5
+// Quantising to: qq
+// TPQ: 384
+// Ornamentation duration: 96 ticks (1/4 crotchet)
+// Found ornaments: 0
+// Anacrusis: c
+// Num bars: 33
+page-w 198
+stave clef-t 3/4 key-s-0
+<c> a4 |
+
+// Bar 2
+<m> c5 <c> d5 |
+
+// Bar 3
+<c.> e5 <q> f5 <c> e5 |
+
+// Bar 4
+<m> d5 <c> b4 |
+
+// Bar 5
+<c.> g4 <q> a4 <c> b4 |
+
+// Bar 6
+<m> c5 <c> a4 |
+
+// Bar 7
+<c.> a4 <q> g4+ <c> a4 |
+
+// Bar 8
+<m> b4 <c> g4+ |
+
+// Bar 9
+<m> e4 <c> a4 |
+
+// Bar 10
+<m> c5 <c> d5 |
+
+// Bar 11
+<c.> e5 <q> f5 <c> e5 |
+
+// Bar 12
+<m> d5 <c> b4 |
+
+// Bar 13
+<c.> g4 <q> a4 <c> b4 |
+
+// Bar 14
+<c.> c5 <q> b4 <c> a4 |
+
+// Bar 15
+<c.> g4+ <q> f4+ <c> g4+ |
+
+// Bar 16
+<m.> a4 |
+
+// Bar 17
+<m.> a4 |
+
+// Bar 18
+<m.> g5 |
+
+// Bar 19
+<c.> g5 <q> f5 <c> e5 |
+
+// Bar 20
+<m> d5 <c> b4 |
+
+// Bar 21
+<c.> g4 <q> a4 <c> b4 |
+
+// Bar 22
+<m> c5 <c> a4 |
+
+// Bar 23
+<c.> a4 <q> g4+ <c> a4 |
+
+// Bar 24
+<m> b4 <c> g4+ |
+
+// Bar 25
+<m.> e4 |
+
+// Bar 26
+<m.> g5 |
+
+// Bar 27
+<c.> g5 <q> f5 <c> e5 |
+
+// Bar 28
+<m> d5 <c> b4 |
+
+// Bar 29
+<c.> g4 <q> a4 <c> b4 |
+
+// Bar 30
+<c.> c5 <q> b4 <c> a4 |
+
+// Bar 31
+<c.> g4+ <q> f4+ <c> g4+ |
+
+// Bar 32
+<m.> a4 |
+
+// Bar 33
+<m.> a4 |
+
