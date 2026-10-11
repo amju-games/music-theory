@@ -284,11 +284,11 @@ static int MakeTrackMono(
   auto splitResult = SplitPolyTrack(midifile, *track, ts);
   if (splitResult.empty())
   {
-    std::cout << "No polyphony found.\n";
+    std::cout << "// No polyphony found.\n";
   }
   else
   {
-    std::cout << "Split poly track, creating " 
+    std::cout << "// Split poly track, creating " 
       << splitResult.size() 
       << " new tracks. Total num tracks in midi is now: " << midifile.getTrackCount()
       << "\n";
@@ -296,7 +296,7 @@ static int MakeTrackMono(
     // Perhaps an option to save the split poly tracks. TODO
     // Get new track index: the first of the new mono tracks.
     *track = splitResult[0];
-    std::cout << "New track to output: " << *track << "\n";
+//    std::cout << "New track to output: " << *track << "\n";
   }
   return splitResult.size();
 }
