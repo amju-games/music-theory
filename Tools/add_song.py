@@ -84,6 +84,12 @@ def generate_score_file(comp_camel, piece_camel, target_dir, midiscore_output, b
         print(f"❌ makescore failed: {e}")
         return None
 
+    # Copy the input file (i.e. the output from midiscore) into the
+    #  workspace dir.
+    workspace_dir = target_dir / Path(WORKSPACE)
+    shutil.copy(midiscore_output, workspace_dir)
+    print(f"📋 Copied source file to workspace dir.");
+
     # Return the string formatted for the CSV column: 'Composer-Piece/composer-piece.score.txt'
     return f"{target_dir.name}/{final_score_path.name}"
 
