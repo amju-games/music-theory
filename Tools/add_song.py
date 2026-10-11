@@ -1,22 +1,32 @@
 # add_song.py
 # Add a new song to the game. 
 # Usage example:
-#    python3 add_song.py ~/Downloads/newsong.mid
+#    python3 add_song.py  song.mid  midiscore_output.txt
 #
+# First arg:  midi file: we will copy this to remove tracks and 
+#   re-map channels.
 #
-# To install mido, the recommendation is to create a virtual env and install it 
-#  there.
+# Second arg: output from running midiscore on song.mid. 
+#   I.e. you have to run midiscore before running this script. The
+#   reason is that running midiscore to get a decent score output
+#   is the fiddly bit and will probably need "a few" goes to get it
+#   right. Once done, you "should" only need to run this script once.
+#
+# *** Seeing this error? 
+# ***  ModuleNotFoundError: No module named 'mido'
+#
+# To install mido on clean machine/fresh clone:
 # On mac:
 #   python3 -m venv .venv       # create virtual environment
 #   source .venv/bin/activate   # activate it
 #   pip3 install mido           # install mido library
-#
-# In each new shell, you need to activate the venv again:
-#   source .venv/bin/activate   
-#
 # Or just:
 #   pip3 install mido 
 # to install system-wide.
+#
+# In each new shell, you need to activate the venv again:
+#   . ./activate_venv.sh 
+#
 
 import mido
 from pathlib import Path
@@ -25,10 +35,6 @@ import re
 import shutil
 import subprocess
 import sys
-from quantise import *
-from add_bass_track import add_bass_track_if_required_in_mem
-from add_percussion_track import add_percussion_track_if_required_in_mem
-from extract_top_line import extract_top_line_in_mem
 from set_bpm import set_midi_bpm_in_mem
 
 # Subdir to put workspace files: don't commit them, and don't add them 
@@ -46,55 +52,33 @@ def get_exec_path(base_name):
         # Mac and Linux require the relative path prefix
         return f"./{base_name}"
 
-def generate_score_files(comp_camel, piece_camel, target_dir, workspace_dir, score_midi_path, num, den, resolution, bpm, new_player_idx):
+def generate_score_file(comp_camel, piece_camel, target_dir, midiscore_output, bpm):
     """
-    Step 1: Runs ./midiscore to create .makescore.txt
-    Step 2: Runs ./makescore to create .score.txt
+    MidiScore has already been run when we run this script. So we just
+      run ./makescore to create .score.txt
     """
     base_name = f"{comp_camel.lower()}-{piece_camel.lower()}"
-    makescore_path = workspace_dir / f"{base_name}.makescore.txt"
     final_score_path = target_dir / f"{base_name}.score.txt"
 
     # Get the correct executable names for the current OS
-    midiscore_exec = get_exec_path("midiscore")
     makescore_exec = get_exec_path("makescore")
 
-    # Ask if we should add an anacrusis, (an incomplete first bar)
-    anacrusis = input("📝 Enter anacrusis length (q, c, m, etc., or leave blank if none): ").strip()
-
-    # --- STEP 1: midiscore ---
-    cmd1 = [
-        midiscore_exec,
-        str(score_midi_path),
-        "--timesig", f"{num}/{den}",
-        "--quant", resolution,
-        "--bpm", str(bpm),
-        "--track", str(new_player_idx - 1) # zero-based player track number
-    ]
-    if (anacrusis):
-        cmd1.extend(["--ana", anacrusis])
-    
-    print(f"🎼 Step 1: Running midiscore...")
-    try:
-        with open(makescore_path, "w") as f:
-            subprocess.run(cmd1, stdout=f, check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"❌ midiscore failed: {e}")
-        return None
-
-    # --- STEP 2: makescore ---
-    # Note: We pass the path to the .makescore.txt we just created
+    # --- makescore ---
     cmd2 = [
         makescore_exec,
-        "--file", str(makescore_path)
+        "--file", str(midiscore_output)
     ]
     
-    print(f"🎼 Step 2: Running makescore...")
+    print(f"🎼 Running makescore...")
     try:
-        # Assuming makescore writes the .score.txt file itself or to stdout
-        # If it writes to stdout, we redirect it:
+        # makescore writes to stdout: redirect to output file.
         with open(final_score_path, "w") as f:
             subprocess.run(cmd2, stdout=f, check=True)
+
+        # Append tempo to the makescore file
+        with open(final_score_path, "a") as file:
+            file.write(f"BPM, {bpm}\n")  
+
         print(f"✅ Created: {final_score_path.name}")
     except subprocess.CalledProcessError as e:
         print(f"❌ makescore failed: {e}")
@@ -235,40 +219,8 @@ def process_audio_pipeline(mid, output_path, mapping):
             
             new_track.append(new_msg)
 
-    add_bass_track_if_required_in_mem(new_mid)
-    add_percussion_track_if_required_in_mem(new_mid)
     new_mid.save(output_path)
     return new_mapping
-
-
-# Create midi file with the player track quantised -- 
-#  this is for midiscore to process.
-# Also retain the other tracks so we detect the length of the song correctly,
-#  as there could be rest bars after the last player note.
-#  E.g. Gymnopdie 1.
-def save_midi_with_quantised_player_track(mid, output_path, player_idx, resolution, mapping):
-    new_mid = mido.MidiFile(ticks_per_beat=mid.ticks_per_beat, type=mid.type)
-    keep = list(mapping.keys()) # retain all tracks
-    if 0 not in keep: keep.append(0) # including control track
-    
-    new_player_idx = 0
-    track_num = 1
-
-    for i, track in enumerate(mid.tracks):
-        if i not in keep: continue
-
-        # Find new player track index in new midi file
-        if i == player_idx:
-            new_player_idx = track_num
-            q_track = quantize_track(track, mid.ticks_per_beat, resolution)
-            new_mid.tracks.append(mido.MidiTrack([m.copy(channel=0) if hasattr(m, 'channel') else m for m in q_track]))
-        else:
-            new_mid.tracks.append(mido.MidiTrack([m.copy(channel=0) if hasattr(m, 'channel') else m for m in track]))
-
-        track_num += 1
-
-    new_mid.save(output_path)
-    return new_player_idx
 
 
 def get_time_signature(mid):
@@ -344,8 +296,6 @@ def update_songs_database(composer, piece, target_dir, audio_path, num, den, sco
         f.write("\t".join(new_row) + "\n")
         
     print(f"📊 Database updated with score path: {score_file}")
-
-    
     level = "1"
     return new_row
 
@@ -369,6 +319,7 @@ def get_or_prompt_time_signature(mid):
             return num, den
         except ValueError:
             print("❌ Invalid format. Please use numerator/denominator (e.g., 4/4).")
+
 
 def find_bpm_in_midi(mid):
     extracted_bpm = None
@@ -453,8 +404,8 @@ def splice_lines_after_match(
 
 def main():
     # 1. Setup and Validation
-    if len(sys.argv) < 2:
-        print("Usage: python3 add_song.py <input.mid>")
+    if len(sys.argv) < 3:
+        print("Usage: python3 add_song.py <song.mid> <song.makescore.txt>")
         sys.exit(1)
 
     input_path = Path(sys.argv[1])
@@ -462,20 +413,21 @@ def main():
         print(f"❌ File not found: {input_path}")
         sys.exit(1)
 
+    midiscore_output = Path(sys.argv[2])
+    if not midiscore_output.exists():
+        print(f"❌ File not found: {midiscore_output}")
+        sys.exit(1)
+
     print(f"🎵 Initializing One-Minute Importer for: {input_path.name}")
     mid = mido.MidiFile(input_path)
     
     # 2. Track Analysis and Routing
-    analyze_tracks(mid) # Just to show track list
-    # Extract top line from a polyphonic track if required, adding an extra track
-    extract_top_line_in_mem(mid)
-    # Map tracks to channels: first, show new track list
+    # Map tracks to channels: first, show track list
     track_data = analyze_tracks(mid)
     # Get track -> channel map
     mapping, player_idx = get_user_mapping(track_data)
     # Grab the specific player track and pass it to the setting prompt
     player_track = mid.tracks[player_idx]
-    num_res, q_flag = get_quantization_setting(player_track, mid.ticks_per_beat)
 
     # 3. Time Signature and Tempo
     num, den = get_or_prompt_time_signature(mid)
@@ -497,17 +449,14 @@ def main():
     shutil.copy(input_path, workspace_dir / "original_backup.mid")
 
     # 6. MIDI Pipeline Processing
-    print(f"⚙️ Generating Audio File: {audio_path.name}...")
+    print(f"⚙️ Generating new midi file: {audio_path.name}...")
     # returns new track->channel mapping
     new_mapping = process_audio_pipeline(mid, audio_path, mapping)
     
-    print(f"🎼 Generating Score File: {score_midi_path.name}...")
-    new_player_idx = save_midi_with_quantised_player_track(mid, score_midi_path, player_idx, num_res, mapping)
-    
-    # 7. Execute External Score Binaries (midiscore & makescore)
-    score_csv_string = generate_score_files(
-        comp_camel, piece_camel, target_dir, workspace_dir, score_midi_path, num, den, q_flag, new_bpm, new_player_idx
-    )
+    # 7. Run  makescore
+    print(f"⚙️ Running MakeScore on {midiscore_output}...")
+    score_csv_string = generate_score_file(
+        comp_camel, piece_camel, target_dir, midiscore_output, new_bpm)
     
     # 8. Update the Game Database
     if score_csv_string:
