@@ -8,7 +8,8 @@
 // Found ornaments: 0
 // Anacrusis: c
 // Num bars: 33
-page-w 198
+bpm 120
+page-w 90
 stave clef-t 3/4 key-s-0
 <c> a4 |
 
