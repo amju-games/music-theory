@@ -143,7 +143,6 @@ int Stave::GetTotalNumBeats() const
 std::string Stave::OutputBeats() const
 {
   // Output every beat in each bar with its time marker
-  // (TODO I think this might be overkill for what we need)
 
   int totalNumBeats = GetTotalNumBeats();
   
@@ -156,7 +155,8 @@ std::string Stave::OutputBeats() const
   int bar = 1;
   for (const auto& b : m_bars)
   {
-    auto [ numBeats, _ ] = GetNumBeatsAndCrotchetValue(b->GetTimeSig());
+    int numBeats = b->GetNumBeats();
+
     for (int i = 1; i <= numBeats; i++)
     {   
       res += "TIME, " + Str(t) + LineEnd(); // one-value TIME variant

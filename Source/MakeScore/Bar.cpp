@@ -89,23 +89,23 @@ int Bar::GetNumBeats() const
 {
   if (m_numBeats != -1) return m_numBeats;
 
-  auto [ numBeats, timeMult ] = GetNumBeatsAndCrotchetValue(m_timeSig);
-  
-  if (numBeats == 0)
+  // Count the beats
+  int numBeats = 0;
+
+  // No time sig, so add up duration of all sequential glyphs
+  float d = 0;
+  for (auto& g : m_glyphs)
   {
-    // No time sig, so add up duration of all sequential glyphs
-    float d = 0;
-    for (auto& g : m_glyphs)
-    {
-      // get duration, float, in crotchets
-      TimeValue timeVal = g->GetTimes().GetTimeValue(); 
-      d += timeVal;
-    }
-    numBeats = static_cast<int>(d + .5f);
-    // Beef up a small number of beats so spacing algo works
-    numBeats = std::max(2, numBeats);
+    // get duration, float, in crotchets
+    TimeValue timeVal = g->GetTimes().GetTimeValue(); 
+    d += timeVal;
   }
-  m_numBeats = numBeats;
+
+  // Hmm numBeats really should be a whole number now!
+  // Convert with rounding for safety.
+  numBeats = static_cast<int>(d + .5f);
+  
+  m_numBeats = numBeats; // cache for next time
 
   return m_numBeats;
 }
