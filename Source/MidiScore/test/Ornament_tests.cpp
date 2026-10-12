@@ -20,7 +20,8 @@ void appendTestNote(smf::MidiFile& midi, int track, int pitch, double startTimeS
 
 TEST_CASE("OrnamentAnalyzer: Comprehensive multi-bar ornament detection", "[OrnamentAnalyzer]") {
     smf::MidiFile midi;
-    midi.setTicksPerQuarterNote(480);
+    const int tpq = 480;
+    midi.setTicksPerQuarterNote(tpq);
     midi.addTrack(1);
 
     int ticksPerBar = 1920; // 4/4 time at 480 TPQ
@@ -64,7 +65,8 @@ TEST_CASE("OrnamentAnalyzer: Comprehensive multi-bar ornament detection", "[Orna
 
     midi.sortTrack(0);
 
-    auto reports = OrnamentAnalyzer::GetOrnamentationPerBar(midi, 0, 4, ticksPerBar);
+    int maxOrnTicks = tpq / 4; // qq
+    auto reports = OrnamentAnalyzer::GetOrnamentationPerBar(midi, 0, 4, ticksPerBar, maxOrnTicks);
 
     REQUIRE(reports.size() == 4);
 
@@ -75,20 +77,20 @@ TEST_CASE("OrnamentAnalyzer: Comprehensive multi-bar ornament detection", "[Orna
 
     // Bar 1: Multiple ornaments
     SECTION("Bar 1 contains 1 Grace Note and 1 Mordent") {
-        CHECK(reports[1].grace_notes == 1);
-        CHECK(reports[1].mordents == 1);
+        CHECK(reports[1].grace_notes.size() == 1);
+        CHECK(reports[1].mordents.size() == 1);
         CHECK(reports[1].total() == 2);
     }
 
     // Bar 2: Turn
     SECTION("Bar 2 contains 1 Turn") {
-        CHECK(reports[2].turns == 1);
+        CHECK(reports[2].turns.size() == 1);
         CHECK(reports[2].total() == 1);
     }
 
     // Bar 3: Trill
     SECTION("Bar 3 contains 1 Trill") {
-        CHECK(reports[3].trills == 1);
+        CHECK(reports[3].trills.size() == 1);
         CHECK(reports[3].total() == 1);
     }
 }
