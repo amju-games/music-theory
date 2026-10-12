@@ -122,24 +122,24 @@ void GSHero::FindResumePoint()
     m_scrollScore->GetBeats(), 
     m_scrollScore->GetNoteEvents());
 
-  // The resume time should be earlier than when we paused, because we
-  //  go back to the start of the bar, or earlier.
-  // It's just possible, I suppose, that the pause time could be
-  //  precisely at the start of a bar..??
-  if (m_pauseResumeTime > m_unadjustedPauseResumeTime)
+  // This check might not be necessary. The end-of-round detection code 
+  //  should do this.. right?
+  if (m_pauseResumeTime >= HUGELY_LONG_TIME)
   {
+    OnPlayerHasWon(); 
+  }
+  else if (m_pauseResumeTime > m_unadjustedPauseResumeTime)
+  {
+    // The resume time should be earlier than when we paused, because we
+    //  go back to the start of the bar, or earlier.
+    // It's just possible, I suppose, that the pause time could be
+    //  precisely at the start of a bar..??
+
 std::cout << "PAUSE/RESUME FAIL!! Pause time is: " << m_pauseResumeTime
   << " m_unadjustedPauseResumeTime is: " << m_unadjustedPauseResumeTime 
   << "\n";
 
     Assert(false);
-  }
-
-  // This check might not be necessary. The end-of-round detection code 
-  //  should do this.. right?
-  if (m_pauseResumeTime > HUGELY_LONG_TIME)
-  {
-    OnPlayerHasWon(); 
   }
 
   // Set the resume point of the score 
