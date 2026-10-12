@@ -30,7 +30,7 @@ bool GameRoundManager::Load()
     return false;
   }
   // Identify lines we don't want to include by counting the number of cells.
-  const int EXPECTED_NUM_CELLS = 14;
+  const int EXPECTED_NUM_CELLS = 17;
   std::string line;
   bool isFirstLine = true;
   while (f.GetDataLine(&line))
@@ -63,15 +63,21 @@ bool GameRoundManager::Load()
     }
     round.m_composer = Lookup(cells[5]); // Get localised string
     round.m_backingTrack = "Songs/" + cells[6];
-    round.m_countIn = "Songs/" + cells[7];
-    round.m_numCountInBeats = ToInt(cells[8]);
-    round.m_countInGui = "Gui/" + cells[9];
-    round.m_palette = "Image/" + cells[10] + ".pal"; // palette resource
-    round.m_musicScore = "Songs/" + cells[11];
-    round.m_lifeDecrease = ToInt(cells[12]);
+
+    round.m_countInAtStart.m_countIn = "Songs/" + cells[7];
+    round.m_countInAtStart.m_numCountInBeats = ToInt(cells[8]);
+    round.m_countInAtStart.m_countInGui = "Gui/" + cells[9];
+
+    round.m_countInMidSong.m_countIn = "Songs/" + cells[10];
+    round.m_countInMidSong.m_numCountInBeats = ToInt(cells[11]);
+    round.m_countInMidSong.m_countInGui = "Gui/" + cells[12];
+
+    round.m_palette = "Image/" + cells[13] + ".pal"; // palette resource
+    round.m_musicScore = "Songs/" + cells[14];
+    round.m_lifeDecrease = ToInt(cells[15]);
     // Zero-based bar numbers for ends of sections.
     // If none specified, the cell could be empty, or have, -1 as the content.
-    const auto cell = cells[13];
+    const auto cell = cells[16];
     if (!cell.empty() && ToInt(cell) > 0)
     {
       round.m_sectionEndBarNumbers = SplitIntoVec(cell);
@@ -95,6 +101,16 @@ std::cout << "Loaded game round .csv file ok! There are: " << m_gameRounds.size(
   return true;
 }
 
+std::ostream& operator<<(std::ostream& os, const CountInInfo& countIn)
+{
+  return os
+    << "Count In: {"
+    << countIn.m_countIn << ", "
+    << countIn.m_numCountInBeats << ", "
+    << countIn.m_countInGui
+    << "}"; 
+}
+
 std::ostream& operator<<(std::ostream& os, const HeroGameRound& round)
 {
   return os 
@@ -104,8 +120,8 @@ std::ostream& operator<<(std::ostream& os, const HeroGameRound& round)
     << round.m_title << ", "
     << round.m_composer << ", "
     << round.m_backingTrack << ", "
-    << round.m_countIn << ", "
-    << round.m_numCountInBeats << ", "
+    << round.GetCountInAtStart() << ", "
+    << round.GetCountInMidSong() << ", "
     << round.m_palette << ", "
     << round.m_musicScore << ", "
     << round.m_lifeDecrease  << ", "

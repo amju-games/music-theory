@@ -74,7 +74,15 @@ static bool VerifyLoadSong(int i)
 #endif
 
   // We will load the same count-ins multiple times but it's simpler.
-  PlayMidiSong(r.m_countIn); 
+  auto startCountIn = r.GetCountInAtStart().m_countIn; 
+  auto midCountIn = r.GetCountInMidSong().m_countIn; 
+  PlayMidiSong(startCountIn); 
+  if (startCountIn != midCountIn)
+  {
+    // TODO Should we wait before doing this?
+    PlayMidiSong(midCountIn); 
+  }
+
 #ifdef DEBUG_PRINT_INFO
   std::cout << "  ..count-in midi loaded ok\n";
 #endif

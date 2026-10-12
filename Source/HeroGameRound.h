@@ -10,6 +10,23 @@
 
 namespace Amju
 {
+// * CountIn * 
+// Info for counting-in
+struct CountInInfo
+{
+  // Count-in: filename of audio count-in track
+  std::string m_countIn;
+  // Number of beats in count-in
+  int m_numCountInBeats = 1;
+  // Count-in GUI 
+  std::string m_countInGui;
+
+  float CalcExpiryTime(float bpm) const
+  {
+    return m_numCountInBeats / bpm * 60.f;
+  }
+};
+
 // * HeroGameRound *
 // Stores the info we need for one round of Hero mode.
 struct HeroGameRound
@@ -34,12 +51,13 @@ struct HeroGameRound
   // Filename of audio backing track
   std::string m_backingTrack;
 
-  // Count-in: filename of audio count-in track
-  std::string m_countIn;
-  // Number of beats in count-in
-  int m_numCountInBeats = 1;
-  // Count-in GUI 
-  std::string m_countInGui;
+  // Separate count-ins for start of song and mid-song, to
+  //  support anacrusis.
+  CountInInfo m_countInAtStart;
+  CountInInfo m_countInMidSong;
+
+  const CountInInfo& GetCountInAtStart() const { return m_countInAtStart; }
+  const CountInInfo& GetCountInMidSong() const { return m_countInMidSong; }
 
   // Filename of palette for score and keyboard
   std::string m_palette;

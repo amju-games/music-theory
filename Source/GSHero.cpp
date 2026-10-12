@@ -163,11 +163,13 @@ void GSHero::StartCountInSongAndGui()
   // Start playing the count-in track
   const float bpm = m_scrollScore->GetBpm();
 
+  auto countIn = (m_pauseResumeTime > 0 ? gameround.GetCountInMidSong().m_countIn : gameround.GetCountInAtStart().m_countIn);
+
 #ifdef COUNT_IN_DEBUG
-std::cout << "Playing midi count in: " << gameround.m_countIn << " at bpm: " << bpm << "\n";
+std::cout << "Playing midi count in: " << countIn << " at bpm: " << bpm << "\n";
 #endif
 
-  PlayMidiCountIn(gameround.m_countIn, bpm);
+  PlayMidiCountIn(countIn, bpm);
 
   ShowCountInGui();
 }
@@ -188,28 +190,35 @@ void GSHero::CancelResumeTime()
 void GSHero::ResumeOrRestartGame()
 {
   // HUD values are restored in ResetHUD.
-  // Here we need to set the score position so we play the song from the
-  //  time we were at when we were paused.
+  // Here we need to set the score position so we play the song from 
+  //  the start of the bar we were at when we were paused.
 
   m_scrollScore->OnResetAnimation(); 
 
   const auto& gameround = GetGameRound();
-  m_countInExpiryTime = gameround.m_numCountInBeats / m_scrollScore->GetBpm() * 60.f;
-
-#ifdef COUNT_IN_DEBUG
-std::cout << "Count in time: " << m_countInExpiryTime << "\n";
-#endif
 
   if (m_pauseResumeTime > 0)
   {
+    FindResumePoint(); // possibly resetting us to zero...
+  }
+
+  auto bpm = m_scrollScore->GetBpm();
+  if (m_pauseResumeTime > 0) // ...so check again
+  {
+    m_countInExpiryTime = gameround.GetCountInMidSong().CalcExpiryTime(bpm);
     FindResumePoint();
     ResumeGame();
   }
   else
   {
     // Nothing to resume -- restart everything.
+    m_countInExpiryTime = gameround.GetCountInAtStart().CalcExpiryTime(bpm);
     RestartGame();
   }
+
+#ifdef COUNT_IN_DEBUG
+std::cout << "Count in time: " << m_countInExpiryTime << "\n";
+#endif
 }
 
 void GSHero::OnPauseGame()
@@ -630,7 +639,8 @@ std::cout << "Restarting game, here comes the count-in...\n";
 
   // Start the count-in on the music score.
   auto& gameround = GetGameRound();
-  const int numCountInBeats = gameround.m_numCountInBeats;
+  auto countInAtStart = gameround.GetCountInAtStart();
+  const int numCountInBeats = countInAtStart.m_numCountInBeats;
   m_scrollScore->StartCountIn(numCountInBeats, onFinished);
 }
 
@@ -735,7 +745,11 @@ std::cout << "*** Setting up Auto Play messages...\n";
 
 void GSHero::ShowCountInGui()
 {
-  m_countInGui = LoadGui(GetGameRound().m_countInGui, false);
+  // TODO move to CountIn
+
+  auto gameround = GetGameRound();
+  auto gui = (m_pauseResumeTime > 0) ? gameround.GetCountInMidSong().m_countInGui : gameround.GetCountInAtStart().m_countInGui;
+  m_countInGui = LoadGui(gui, false);
 
   // Expect this to have a comp called "count-in-comp" with animator children. Each child
   //  shows a count-in beat/number, so we set times so these go off one at a time.
