@@ -172,6 +172,10 @@ protected:
   // (I.e. the note the player should have played.)
   void OnMissedNote(const NoteEvent& ne);
 
+  // Update logic when we are in SONG_PLAYING mini-state.
+  // Better to use State Pattern...
+  void UpdateSongPlaying();
+
 protected:
   // The scroll score child of m_gui (get after gui is loaded)
   RCPtr<GuiScrollScore> m_scrollScore;

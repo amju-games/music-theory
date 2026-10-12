@@ -429,17 +429,20 @@ void GSHero::ChangeState(HeroState newState)
   m_state = newState;
 }
 
-void GSHero::Update()
+void GSHero::UpdateSongPlaying()
 {
-  GSBase3d::Update();
-
-  // Update animals
-  TheGame::Instance()->UpdateGameObjects();
-
-  UpdateHud();
-
-  // Scroll the score if we are playing the song.
-  if (m_state == HeroState::SONG_PLAYING)
+  // Check if song is still playing: it could have finished and
+  //  the 'song playing' flag reset, by a worker thread.
+  if (HasMidiSongFinished())
+  {
+    // Set win state - but only do it once.
+      // If we have reached the end, we have won!
+    if (!m_roundIsOver)
+    {
+      OnPlayerHasWon();
+    }
+  }
+  else
   {
     float songElapsedSeconds = GetMidiSongElapsedTimeSeconds();
     Assert(songElapsedSeconds >= 0.f); // Riight?
@@ -454,19 +457,29 @@ void GSHero::Update()
     // Scroll the score.
     Assert(m_scrollScore);
     m_scrollScore->AnimateSpecial(normalisedAnimTime, dAnimTime);
-  
+
     // Scroll the extras along with the score.
     ScrollExtras();
+  }
+}
 
-    // If we have reached the end, we have won!
-    if (!m_roundIsOver && HasMidiSongFinished())
-    {
-      OnPlayerHasWon();
-    }
+void GSHero::Update()
+{
+  GSBase3d::Update();
+
+  // Update animals
+  TheGame::Instance()->UpdateGameObjects();
+
+  UpdateHud();
+
+  // Scroll the score if we are playing the song.
+  if (m_state == HeroState::SONG_PLAYING)
+  {
+    UpdateSongPlaying();
   }
   else if (m_state == HeroState::COUNT_IN)
   {
-    ScrollExtras(); // (count in scrolling for the score is different to above.)
+    ScrollExtras(); // (count in scrolling for the score is different to song playing state.)
   }
 
   // Update keyboard pos after state has initialised
