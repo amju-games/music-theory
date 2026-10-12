@@ -40,7 +40,6 @@ static void AddEventToVec(
       Event e;
       e.m_unquantisedStart = mev.tick;
       e.m_unquantisedDuration = mev.getTickDuration();
-      e.m_end = e.m_start + e.m_duration;
 
       quantiser.QuantiseStartTime(tpq, e);
 
@@ -49,6 +48,8 @@ static void AddEventToVec(
       //  obliterate crucial timing info -- we might need to split the
       //  note to capture its length.
       quantiser.QuantiseDuration(tpq, e);
+
+      e.m_end = e.m_start + e.m_duration;
 
       e.m_pitch = static_cast<int>(mev[1]);
       e.m_keySig = ks;
