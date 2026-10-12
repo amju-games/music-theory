@@ -3,13 +3,18 @@
 
 namespace MidiScore
 {
-int TicksPerBar(smf::MidiFile& midifile, TimeSig ts)
+int TicksPerBar(int tpq, TimeSig ts)
 {
-  int tpq = midifile.getTPQ(); // Ticks Per Quarter note
   int ticksPerBar = static_cast<int>(
     tpq * Numerator(ts) * (4.0 / Denominator(ts)));
 
   return ticksPerBar;
+}
+
+int TicksPerBar(smf::MidiFile& midifile, TimeSig ts)
+{
+  int tpq = midifile.getTPQ(); // Ticks Per Quarter note
+  return TicksPerBar(tpq, ts);
 }
 
 int NumBars(smf::MidiFile& midifile, int track, TimeSig ts)
