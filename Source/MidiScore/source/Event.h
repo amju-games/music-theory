@@ -96,6 +96,19 @@ void InsertDynamics(Events& events);
 // Time sig is required so we know if dotted rests are allowed.
 void InsertRests(int tpq, Events& events, TimeSig ts);
 
+// Used internally by the above, to add anacrusis rests
+//  and should be tested too!!!! TODO
+// Insert the rest with given start time and duration, splitting
+//  it if duration is not a nice tpq multiple.
+Events::iterator SplitInsertRest(
+  Events& events, // container we will insert into
+  Events::iterator it, // insertion point
+  int tpq,  // Ticks per quarter note
+  int durationTicks, // Duration of rest, in ticks
+  int startTicks,  // Start point of rest, in ticks
+  bool wholeBar, // if true, we can insert a whole bar rest if poss
+  bool allowDottedRests); // for compound time sigs
+
 // Insert bar lines into the given events vec.
 // We have already split long notes at bar line positions.
 void InsertBarLines(int tpq, TimeSig ts, Events& events, int numBars, int anacrusisTicks);

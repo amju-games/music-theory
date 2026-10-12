@@ -467,7 +467,7 @@ void Reverse(Events& events)
   }
 }
 
-static Events::iterator SplitInsertRest(
+Events::iterator SplitInsertRest(
   Events& events, // container we will insert into 
   Events::iterator it, // insertion point
   int tpq, int duration, int start, bool wholeBar,
