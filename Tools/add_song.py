@@ -270,6 +270,7 @@ def update_songs_database(composer, piece, target_dir, audio_path, num, den, sco
     
     # --- Count-in Columns ---
     # e.g., Count-in/count-in-4-4.mid
+    # Add count-in data twice, as we have count-in at start and mid-song.
     count_in_midi = f"Count-in/count-in-{num}-{den}.mid"
     # e.g., 4
     count_in_beats = str(num)
@@ -293,8 +294,12 @@ def update_songs_database(composer, piece, target_dir, audio_path, num, den, sco
     sections = "-1"
  
     new_row = [
-        level, str(new_round), internal_name, loc_title, loc_subtitle, loc_composer,
-        midi_file_path, count_in_midi, count_in_beats, count_in_gui,
+        level, str(new_round), internal_name, 
+        loc_title, loc_subtitle, loc_composer,
+        midi_file_path, 
+        # TWO groups of count-in columns for at start and mid-song.  
+        count_in_midi, count_in_beats, count_in_gui,
+        count_in_midi, count_in_beats, count_in_gui,
         palette, score_file, life_decrease, sections
     ]
     
