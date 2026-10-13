@@ -10,7 +10,7 @@ def set_midi_bpm(input_file, new_bpm):
     except Exception as e:
         print(f"❌ Error loading file: {e}")
         return
-    set_midi_bpm_in_mem(mid)
+    set_midi_bpm_in_mem(mid, new_bpm)
     save_midi(mid, new_bpm, input_file)
 
 
