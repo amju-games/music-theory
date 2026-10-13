@@ -21,7 +21,7 @@ struct CountInInfo
   // Count-in GUI 
   std::string m_countInGui;
 
-  float CalcExpiryTime(float bpm) const
+  float CalcDuration(float bpm) const
   {
     return m_numCountInBeats / bpm * 60.f;
   }

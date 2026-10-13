@@ -23,6 +23,7 @@ struct HeroGameRound;
 
 // Urgh, better to convert this into State pattern once the
 //  structure is clearer.
+// ** Update GSHero::ChangeState if this changes! **
 enum class HeroState
 {
   NEW,

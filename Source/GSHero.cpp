@@ -163,13 +163,18 @@ void GSHero::StartCountInSongAndGui()
   // Start playing the count-in track
   const float bpm = m_scrollScore->GetBpm();
 
-  auto countIn = (m_pauseResumeTime > 0 ? gameround.GetCountInMidSong().m_countIn : gameround.GetCountInAtStart().m_countIn);
+  const auto& countIn = (m_pauseResumeTime > 0) ? 
+    gameround.GetCountInMidSong() : 
+    gameround.GetCountInAtStart();
+
+  const std::string& countInMidi = countIn.m_countIn;
 
 #ifdef COUNT_IN_DEBUG
-std::cout << "Playing midi count in: " << countIn << " at bpm: " << bpm << "\n";
+std::cout << "Playing midi count in: " << countInMidi
+  << " at bpm: " << bpm << "\n";
 #endif
 
-  PlayMidiCountIn(countIn, bpm);
+  PlayMidiCountIn(countInMidi, bpm);
 
   ShowCountInGui();
 }
@@ -196,23 +201,23 @@ void GSHero::ResumeOrRestartGame()
   m_scrollScore->OnResetAnimation(); 
 
   const auto& gameround = GetGameRound();
+  auto bpm = m_scrollScore->GetBpm();
 
   if (m_pauseResumeTime > 0)
   {
     FindResumePoint(); // possibly resetting us to zero...
   }
 
-  auto bpm = m_scrollScore->GetBpm();
   if (m_pauseResumeTime > 0) // ...so check again
   {
-    m_countInExpiryTime = gameround.GetCountInMidSong().CalcExpiryTime(bpm);
+    m_countInExpiryTime = gameround.GetCountInMidSong().CalcDuration(bpm);
     FindResumePoint();
     ResumeGame();
   }
   else
   {
     // Nothing to resume -- restart everything.
-    m_countInExpiryTime = gameround.GetCountInAtStart().CalcExpiryTime(bpm);
+    m_countInExpiryTime = gameround.GetCountInAtStart().CalcDuration(bpm);
     RestartGame();
   }
 
@@ -421,6 +426,7 @@ void GSHero::ScrollExtras()
 void GSHero::ChangeState(HeroState newState)
 {
 #ifdef _DEBUG
+  // This vec must mirror enum class HeroState
   static const std::vector<std::string> strs =
   {
     "new",
@@ -431,7 +437,7 @@ void GSHero::ChangeState(HeroState newState)
     "player_has_won",
     "player_has_lost",
   };
-  std::cout << "Changing to new Hero state: " << strs[static_cast<int>(m_state)] << "\n";
+  std::cout << "Changing to new Hero state: " << strs[static_cast<int>(newState)] << "\n";
 #endif
 
   m_timeInHeroState = 0;
@@ -717,7 +723,10 @@ std::cout << "*** AUTOPLAY: queued " << numMessagesQueued
 
 void GSHero::OnCountInFinished()
 {
-std::cout << "Count in finished!\n";
+#ifdef COUNT_IN_DEBUG
+std::cout << "Count in finished! Time reached: " 
+  << m_countInExpiryTime << " sec.\n";
+#endif
 
   if (m_autoPlay)
   {
@@ -747,9 +756,12 @@ void GSHero::ShowCountInGui()
 {
   // TODO move to CountIn
 
-  auto gameround = GetGameRound();
-  auto gui = (m_pauseResumeTime > 0) ? gameround.GetCountInMidSong().m_countInGui : gameround.GetCountInAtStart().m_countInGui;
-  m_countInGui = LoadGui(gui, false);
+  const auto& gameround = GetGameRound();
+  const auto& countIn = (m_pauseResumeTime > 0) ? 
+    gameround.GetCountInMidSong() : 
+    gameround.GetCountInAtStart();
+
+  m_countInGui = LoadGui(countIn.m_countInGui, false);
 
   // Expect this to have a comp called "count-in-comp" with animator children. Each child
   //  shows a count-in beat/number, so we set times so these go off one at a time.
@@ -759,6 +771,9 @@ void GSHero::ShowCountInGui()
 
   int numBeats = countInGuiComp->GetNumChildren();
   float beatTime = m_countInExpiryTime / static_cast<float>(numBeats);
+#ifdef COUNT_IN_DEBUG
+  std::cout << "Time for each GUI count: " << beatTime << " sec.\n";
+#endif
 
   // Set anim time for each count-in beat
   for (int i = 0; i < numBeats; ++i)
@@ -766,9 +781,17 @@ void GSHero::ShowCountInGui()
     auto anim = dynamic_cast<GuiDecAnimation*>(countInGuiComp->GetChild(i));
     Assert(anim);
     float cycleTime = static_cast<float>(i) * beatTime;
+
+    // Cycle time of zero is a bit of a weird one, so make it non-zero.
     const float MIN_CYCLE_TIME = 0.0001f;
     cycleTime = std::max(cycleTime, MIN_CYCLE_TIME);
     anim->SetCycleTime(cycleTime);
+
+#ifdef COUNT_IN_DEBUG
+  std::cout << "Time for " << anim->GetName() 
+    << ": "
+    << cycleTime << " sec.\n";
+#endif
   }
 
   // Add count-in gui to main gui for this state
