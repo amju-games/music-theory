@@ -91,6 +91,13 @@ Pitch GetPitch(const std::string& cs)
     return pitch;
   }
   pitch.m_step = s.substr(0, 1);
+
+  // Chop off final '.' to indicate staccato
+  if (s.back() == '.') 
+  {
+    s.pop_back();
+  }
+
   while (s.back() == '+')
   {
     s.pop_back();
