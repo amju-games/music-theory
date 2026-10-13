@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <ostream>
 #include <string>
 #include <vector>
 #include <Vec2.h>
@@ -76,6 +77,9 @@ namespace Amju
     // ID. Set after the sort by time and so give position in the song.
     int m_id = -1; // not set yet
   };  
+
+  // Convenience function for debugging
+  std::ostream& operator<<(std::ostream&, const NoteEvent& ne);
 
   // Vector of note events, sorted by time.
   // NB For polyphony, consecutive events could have the same time.

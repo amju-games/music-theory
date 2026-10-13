@@ -8,6 +8,11 @@
 
 namespace Amju
 {
+std::ostream& operator<<(std::ostream& os, const NoteEvent& ne)
+{
+  return os << ne.ToString();
+}
+
 std::string ToString(NoteEventType net)
 {
   switch (net)

@@ -857,6 +857,20 @@ std::cout << "  Num player notes: " << m_numPlayerNotes
       // Search back for the note on event corresponding to this note off event
       const auto& noteEvents = m_scrollScore->GetNoteEvents();
       int id = FindNoteOnEventForNoteOffEvent(noteEvents, ne.m_id);
+      if (id < 0)
+      {
+        switch (id)
+        {
+          case NOTE_ON_EVENT_NOT_FOUND:
+            std::cout << "No note on found corresponding to " << ne << "\n";
+            break;
+          case NOT_A_NOTE_OFF_EVENT:
+            std::cout << "Logic error, not a note off event? " << ne << "\n";
+        }
+        Assert(false);
+        return;
+      }
+
       Assert(id >= 0);
       Assert(id < static_cast<int>(noteEvents.size()));
       const auto& noteOn = noteEvents[id];
