@@ -33,8 +33,8 @@ def set_midi_bpm_in_mem(mid, new_bpm):
 
 
 def save_midi(mid, new_bpm, input_file):
-    # Generate output filename
-    output_path = Path(input_file).stem + f"_{new_bpm}bpm.mid"
+    # Generate output filename? Actually this is just a big pain.
+    output_path = input_file ##Path(input_file).stem + f"_{new_bpm}bpm.mid"
     mid.save(output_path)
     print(f"✅ Successfully set BPM to {new_bpm}")
     print(f"💾 Saved as: {output_path}")

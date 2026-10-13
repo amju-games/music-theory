@@ -77,9 +77,12 @@ def process_midi(input_file, mapping_file, output_file):
     print(f"(Channels remapped via {mapping_file}, CC 7/10/11 stripped)")
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        print("Usage: python fix_channels.py input.mid mapping.txt output.mid")
+    if len(sys.argv) != 4 and len(sys.argv) != 3:
+        print("Usage: python fix_channels.py input.mid mapping.txt output.mid\n   or: python fix_channels.py input.mid mapping.txt, which overwrites.")
         sys.exit(1)
         
-    process_midi(sys.argv[1], sys.argv[2], sys.argv[3])
+    if (len(sys.argv) == 4):
+        process_midi(sys.argv[1], sys.argv[2], sys.argv[3])
+    else:
+        process_midi(sys.argv[1], sys.argv[2], sys.argv[1])
 
