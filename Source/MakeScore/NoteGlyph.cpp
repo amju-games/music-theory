@@ -344,6 +344,11 @@ std::string NoteGlyph::CommentString() const
   {
     res += ", duration: " + token;
   }
+  if (IsStaccato())
+  {
+    res += ", staccato";
+  }
+
   res += LineEnd();
   return res;
 }

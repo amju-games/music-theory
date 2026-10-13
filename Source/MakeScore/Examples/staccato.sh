@@ -2,7 +2,7 @@
 # (c) Copyright 2026 Juliet Colman
 
 
-../makescore "page-w 4 [Staccato] <c> <stacc> c4 e4 g4 ( c4 e4 g4 c5 )" > out.txt
+../makescore --scale 0.5 "page-w 4 [Staccato] <c> c4. e4. g4. ( c4. e4 g4 c5 )" > out.txt
 
 cat out.txt
 

@@ -211,12 +211,14 @@ std::unique_ptr<NoteGlyph> Bar::CreateNoteGlyph(
 }
 
 float Bar::AddNote(const std::string& token, Pitch pitch, int switches,
-  float startTimeValue)
+  float startTimeValue, bool isStaccato)
 {
   int order = static_cast<int>(m_glyphs.size());
 
   auto noteGlyph = 
     CreateNoteGlyph(token, pitch, switches, order, startTimeValue);
+
+  if (isStaccato) noteGlyph->SetPerformance(SW_STACCATO);
 
   noteGlyph->SetStem(); // outside of Create because chords also call that.
   auto duration = noteGlyph->GetTimes().GetTimeValue();

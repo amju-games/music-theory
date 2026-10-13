@@ -7,6 +7,7 @@
 #pragma once
 
 #include "IGlyph.h"
+#include "Performance.h"
 #include "TimeValue.h"
 #include "Utils.h"
 
@@ -84,7 +85,10 @@ public:
   void SetTieRight(Tie* tie) { m_tieRight = tie; }
   Tie* GetTieRight() { return m_tieRight; }
 
-  void SetPerformance(int switches) { m_switches = switches; }
+  // Set performance switches: bitwise-or of flags.
+  void SetPerformance(int switches) { m_switches |= switches; }
+
+  bool IsStaccato() const { return (m_switches & SW_STACCATO) != 0; }
 
   virtual bool IsBeamable() const { return false; }
 

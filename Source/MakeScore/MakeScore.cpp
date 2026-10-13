@@ -145,6 +145,13 @@ bool MakeScore::IsHairpin(const std::string& s)
   return true;
 }
 
+static bool IsStaccato(const std::string& s)
+{
+  // A pitch string can have '.' at the end, indicating staccato.
+  // (It only makes sense to call this on a pitch string)
+  return (!s.empty() && s.back() == '.');
+}
+
 bool MakeScore::IsPerformance(const std::string& s)
 {
   if (s == "<stacc>")
@@ -364,11 +371,14 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
     }
     else if (IsDeferredPitch(s))
     {
+      // Deprecated
+      assert(false);
       m_lastPitch = GetPitch(s); // + m_transpose;
     }
     else if (IsImmediatePitch(s))
     {
       m_lastPitch = GetPitch(s); // + m_transpose;
+      bool isStaccato = IsStaccato(s);
       if (inChord)
       {
         chord.push_back({ m_lastPitch, m_lastTimeValToken });
@@ -376,7 +386,7 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
       else
       {
         crotchetTime = GetCurrentStave().AddNote(
-          m_lastTimeValToken, m_lastPitch, crotchetTime);
+          m_lastTimeValToken, m_lastPitch, crotchetTime, isStaccato);
       }
     }
     else if (IsChordStart(s))
@@ -404,6 +414,8 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
     }
     else if (IsImmediateTimeVal(s))
     {
+      assert(false); // deprecated
+
       m_lastTimeValToken = s;
       if (inChord)
       {
@@ -411,7 +423,7 @@ void MakeScore::Parse(std::vector<std::string>& tokens)
       }
       else
       {
-        crotchetTime = GetCurrentStave().AddNote(m_lastTimeValToken, m_lastPitch, crotchetTime);
+        crotchetTime = GetCurrentStave().AddNote(m_lastTimeValToken, m_lastPitch, crotchetTime, false);
       }
     }
     else if (s == "page-w")

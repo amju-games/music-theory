@@ -72,7 +72,7 @@ public:
 
   void AddTie();
 
-  float AddNote(const std::string& timeToken, const Pitch& pitch, float crotchetTime);
+  float AddNote(const std::string& timeToken, const Pitch& pitch, float crotchetTime, bool isStaccato);
   float AddChord(const Chord& chord, float crotchetTime);
   float AddRest(const std::string& s, float crotchetTime, bool isWholeBar);
 

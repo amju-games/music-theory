@@ -113,7 +113,7 @@ public:
   void SetScale(float scale);
 
   float AddNote(const std::string& durationToken, Pitch pitch, int switches,
-    float startTimeValue);
+    float startTimeValue, bool isStaccato = false);
 
   float AddChord(const Chord& ch, int switches,
     float startTimeValue);

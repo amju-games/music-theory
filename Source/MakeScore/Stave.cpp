@@ -307,11 +307,11 @@ float Stave::AddChord(const Chord& chord, float crotchetTime)
   return newCrotchetTime;
 }
 
-float Stave::AddNote(const std::string& timeToken, const Pitch& pitch, float crotchetTime)
+float Stave::AddNote(const std::string& timeToken, const Pitch& pitch, float crotchetTime, bool isStaccato)
 {
   float newCrotchetTime = GetCurrentBar().AddNote(
     timeToken, pitch, m_switches,
-    crotchetTime);
+    crotchetTime, isStaccato);
 
   // If last tie has no right connection, connect it now to the
   //  glyph we just added.
