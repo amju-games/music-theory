@@ -35,6 +35,7 @@ struct Event
   int m_dots = 0; // multiply time val by 1.5 per dot
   int m_pitch = 0; // MIDI pitch
   bool m_isWholeBar = false; // for rests
+  bool m_isStacc = false; // staccato, for notes only
 
   Dynamics m_dynamics;
 
@@ -59,6 +60,7 @@ struct Event
 
   // Set timeval enum and dots in this Event, given duration and tpq. 
   void SetTimeVal(int tpq);
+  TimeVal GetTimeVal() const { return m_timeVal; }
 
   bool IsNote() const { return m_type == EventType::NOTE; }
   bool IsRest() const { return m_type == EventType::REST; }

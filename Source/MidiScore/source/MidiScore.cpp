@@ -22,6 +22,7 @@
 #include "Ornament.h"
 #include "Polyphony.h"
 #include "Quantiser.h"
+#include "Staccato.h"
 #include "TimeSig.h"
 
 namespace MidiScore
@@ -102,6 +103,8 @@ std::string OutputTrack(
   }
 
 //std::cout << "Raw events: " << OutputEvents(events) << "\n";
+
+  StaccatoPass(events); // identify staccato notes, TODO: if wanted
 
   // Prepend time sig and key sig. TODO Later on consider looking for
   //  key sig changes, as we do for clefs.

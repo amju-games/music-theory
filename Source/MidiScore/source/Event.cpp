@@ -306,6 +306,12 @@ std::string Event::NoteToStringNoDuration() const
   // Keysig is used to correctly write pitch string
   res += PitchToString(m_pitch, m_keySig);
 
+  if (m_isStacc)
+  {
+    // indicate staccato note with a dot immediately after the pitch
+    res += "."; 
+  }
+
   auto d = m_dynamics.ToString();
   if (!d.empty())
   {
