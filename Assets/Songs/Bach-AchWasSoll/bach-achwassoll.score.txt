@@ -1,0 +1,518 @@
+// Created by MAKESCORE by Juliet, 2026-10-14 18:26:26
+// ./makescore "--file /Users/juliet/bwv-259.makescore.txt "
+// Final input as one line:
+// page-w 36.000000 bpm 60 stave clef-t 4/4 key-s-1 <c> e4 e4 g4 g4 |  <c> a4 a4 b4 b4 |  <c> b4 d5 c5 b4 |  <c.> a4 <q> a4 <m> g4 |  <c> a4 a4 b4 g4 |  <c.> f4+ <q> f4+ <m> e4 |  <c> e5 e5 d5 d5 |  <c> c5+ c5+ b4 b4 |  <c> d5 d5 c5 b4 |  <c.> a4 <q> a4 <m> g4 |  <c> a4 a4 b4 g4 |  <c.> f4+ <q> f4+ <m> e4 |  
+BPM, 60.000000
+// *** STAVE 0  ***
+stave, 0, 0, 36, 1
+// ** Bar 0 **
+BAR_NUMBER, 1, 0.000000, 0.000000
+treble-clef, 0, 0, 1, 1
+keysig-1sharp-treble, 0.45, 0, 1, 1
+// Time sig: 4/4
+4/4, 0.61, 0
+// Note, e4 midi: 64, duration: c
+TIME, 0.0001, 0.0209333
+NOTE_ON, 64, 0.0001, 127, 1.11, 0
+note-solid, 1.11, 0
+// Stem: Direction: up LengthType: standard
+quad, 1.35, 0.475, 1.372, 0.475, 1.372, 0.8, 1.35, 0.8
+NOTE_OFF, 64, 0.01875
+TIME, -1, -1
+// Note, e4 midi: 64, duration: c
+TIME, 0.0208333, 0.0416667
+NOTE_ON, 64, 0.0208333, 127, 1.63398, 0
+note-solid, 1.63398, 0
+// Stem: Direction: up LengthType: standard
+quad, 1.87398, 0.475, 1.89598, 0.475, 1.89598, 0.8, 1.87398, 0.8
+NOTE_OFF, 64, 0.0395833
+TIME, -1, -1
+// Note, g4 midi: 67, duration: c
+TIME, 0.0416667, 0.0625
+NOTE_ON, 67, 0.0416667, 127, 2.15796, 0.1
+note-solid, 2.15796, 0.1
+// Stem: Direction: up LengthType: standard
+quad, 2.39796, 0.575, 2.41996, 0.575, 2.41996, 0.9, 2.39796, 0.9
+NOTE_OFF, 67, 0.0604167
+TIME, -1, -1
+// Note, g4 midi: 67, duration: c
+TIME, 0.0625, 0.0833333
+NOTE_ON, 67, 0.0625, 127, 2.68195, 0.1
+note-solid, 2.68195, 0.1
+// Stem: Direction: up LengthType: standard
+quad, 2.92195, 0.575, 2.94395, 0.575, 2.94395, 0.9, 2.92195, 0.9
+NOTE_OFF, 67, 0.08125
+TIME, -1, -1
+// ** Bar 1 **
+BAR_NUMBER, 2, 3.605928, 0.000000
+// Note, a4 midi: 69, duration: c
+TIME, 0.0833333, 0.104167
+NOTE_ON, 69, 0.0833333, 127, 3.80593, 0.15
+note-solid, 3.80593, 0.15
+// Stem: Direction: up LengthType: standard
+quad, 4.04593, 0.625, 4.06793, 0.625, 4.06793, 0.95, 4.04593, 0.95
+NOTE_OFF, 69, 0.102083
+TIME, -1, -1
+// Note, a4 midi: 69, duration: c
+TIME, 0.104167, 0.125
+NOTE_ON, 69, 0.104167, 127, 4.43869, 0.15
+note-solid, 4.43869, 0.15
+// Stem: Direction: up LengthType: standard
+quad, 4.67869, 0.625, 4.70069, 0.625, 4.70069, 0.95, 4.67869, 0.95
+NOTE_OFF, 69, 0.122917
+TIME, -1, -1
+// Note, b4 midi: 71, duration: c
+TIME, 0.125, 0.145833
+NOTE_ON, 71, 0.125, 127, 5.07145, 0.2
+note-solid, 5.07145, 0.2
+// Stem: Direction: up LengthType: standard
+quad, 5.31145, 0.675, 5.33345, 0.675, 5.33345, 1, 5.31145, 1
+NOTE_OFF, 71, 0.14375
+TIME, -1, -1
+// Note, b4 midi: 71, duration: c
+TIME, 0.145833, 0.166667
+NOTE_ON, 71, 0.145833, 127, 5.70422, 0.2
+note-solid, 5.70422, 0.2
+// Stem: Direction: up LengthType: standard
+quad, 5.94422, 0.675, 5.96622, 0.675, 5.96622, 1, 5.94422, 1
+NOTE_OFF, 71, 0.164583
+TIME, -1, -1
+// ** Bar 2 **
+BAR_NUMBER, 3, 6.736980, 0.000000
+// Note, b4 midi: 71, duration: c
+TIME, 0.166667, 0.1875
+NOTE_ON, 71, 0.166667, 127, 6.93698, 0.2
+note-solid, 6.93698, 0.2
+// Stem: Direction: up LengthType: standard
+quad, 7.17698, 0.675, 7.19898, 0.675, 7.19898, 1, 7.17698, 1
+NOTE_OFF, 71, 0.185417
+TIME, -1, -1
+// Note, d5 midi: 74, duration: c
+TIME, 0.1875, 0.208333
+NOTE_ON, 74, 0.1875, 127, 7.56974, 0.3
+note-solid, 7.56974, 0.3
+// Stem: Direction: down LengthType: standard
+quad, 7.63974, 0.45, 7.66174, 0.45, 7.66174, 0.775, 7.63974, 0.775
+NOTE_OFF, 74, 0.20625
+TIME, -1, -1
+// Note, c5 midi: 72, duration: c
+TIME, 0.208333, 0.229167
+NOTE_ON, 72, 0.208333, 127, 8.20251, 0.25
+note-solid, 8.20251, 0.25
+// Stem: Direction: down LengthType: standard
+quad, 8.27251, 0.4, 8.29451, 0.4, 8.29451, 0.725, 8.27251, 0.725
+NOTE_OFF, 72, 0.227083
+TIME, -1, -1
+// Note, b4 midi: 71, duration: c
+TIME, 0.229167, 0.25
+NOTE_ON, 71, 0.229167, 127, 8.83527, 0.2
+note-solid, 8.83527, 0.2
+// Stem: Direction: up LengthType: standard
+quad, 9.07527, 0.675, 9.09727, 0.675, 9.09727, 1, 9.07527, 1
+NOTE_OFF, 71, 0.247917
+TIME, -1, -1
+// ** Bar 3 **
+BAR_NUMBER, 4, 9.868032, 0.000000
+// Note, a4 midi: 69, duration: c.
+TIME, 0.25, 0.28125
+NOTE_ON, 69, 0.25, 127, 10.068, 0.15
+note-solid, 10.068, 0.15
+// Stem: Direction: up LengthType: standard
+quad, 10.308, 0.625, 10.33, 0.625, 10.33, 0.95, 10.308, 0.95
+reg-dot, 10.068, 0.15
+NOTE_OFF, 69, 0.278125
+TIME, -1, -1
+// Note, a4 midi: 69, duration: q
+TIME, 0.28125, 0.291667
+NOTE_ON, 69, 0.28125, 127, 10.8071, 0.15
+note-solid, 10.8071, 0.15
+// Stem: Direction: up LengthType: standard
+quad, 11.0471, 0.625, 11.0691, 0.625, 11.0691, 0.95, 11.0471, 0.95
+tail-down-1, 10.8671, 0.475
+NOTE_OFF, 69, 0.290625
+TIME, -1, -1
+// Note, g4 midi: 67, duration: m
+TIME, 0.291667, 0.333333
+NOTE_ON, 67, 0.291667, 127, 11.2338, 0.1
+note-minim, 11.2338, 0.1
+// Stem: Direction: up LengthType: standard
+quad, 11.4738, 0.575, 11.4958, 0.575, 11.4958, 0.9, 11.4738, 0.9
+NOTE_OFF, 67, 0.329167
+TIME, -1, -1
+// ** Bar 4 **
+BAR_NUMBER, 5, 12.487208, 0.000000
+// Note, a4 midi: 69, duration: c
+TIME, 0.333333, 0.354167
+NOTE_ON, 69, 0.333333, 127, 12.6872, 0.15
+note-solid, 12.6872, 0.15
+// Stem: Direction: up LengthType: standard
+quad, 12.9272, 0.625, 12.9492, 0.625, 12.9492, 0.95, 12.9272, 0.95
+NOTE_OFF, 69, 0.352083
+TIME, -1, -1
+// Note, a4 midi: 69, duration: c
+TIME, 0.354167, 0.375
+NOTE_ON, 69, 0.354167, 127, 13.32, 0.15
+note-solid, 13.32, 0.15
+// Stem: Direction: up LengthType: standard
+quad, 13.56, 0.625, 13.582, 0.625, 13.582, 0.95, 13.56, 0.95
+NOTE_OFF, 69, 0.372917
+TIME, -1, -1
+// Note, b4 midi: 71, duration: c
+TIME, 0.375, 0.395833
+NOTE_ON, 71, 0.375, 127, 13.9527, 0.2
+note-solid, 13.9527, 0.2
+// Stem: Direction: up LengthType: standard
+quad, 14.1927, 0.675, 14.2147, 0.675, 14.2147, 1, 14.1927, 1
+NOTE_OFF, 71, 0.39375
+TIME, -1, -1
+// Note, g4 midi: 67, duration: c
+TIME, 0.395833, 0.416667
+NOTE_ON, 67, 0.395833, 127, 14.5855, 0.1
+note-solid, 14.5855, 0.1
+// Stem: Direction: up LengthType: standard
+quad, 14.8255, 0.575, 14.8475, 0.575, 14.8475, 0.9, 14.8255, 0.9
+NOTE_OFF, 67, 0.414583
+TIME, -1, -1
+// ** Bar 5 **
+BAR_NUMBER, 6, 15.618260, 0.000000
+// Note, f4+ midi: 66, duration: c.
+TIME, 0.416667, 0.447917
+NOTE_ON, 66, 0.416667, 127, 15.8183, 0.05
+note-solid, 15.8183, 0.05
+// Stem: Direction: up LengthType: standard
+quad, 16.0583, 0.525, 16.0803, 0.525, 16.0803, 0.85, 16.0583, 0.85
+reg-dot, 15.8183, 0.05
+NOTE_OFF, 66, 0.444792
+TIME, -1, -1
+// Note, f4+ midi: 66, duration: q
+TIME, 0.447917, 0.458333
+NOTE_ON, 66, 0.447917, 127, 16.5573, 0.05
+note-solid, 16.5573, 0.05
+// Stem: Direction: up LengthType: standard
+quad, 16.7973, 0.525, 16.8193, 0.525, 16.8193, 0.85, 16.7973, 0.85
+tail-down-1, 16.6173, 0.375
+NOTE_OFF, 66, 0.457292
+TIME, -1, -1
+// Note, e4 midi: 64, duration: m
+TIME, 0.458333, 0.5
+NOTE_ON, 64, 0.458333, 127, 16.984, 0
+note-minim, 16.984, 0
+// Stem: Direction: up LengthType: standard
+quad, 17.224, 0.475, 17.246, 0.475, 17.246, 0.8, 17.224, 0.8
+NOTE_OFF, 64, 0.495833
+TIME, -1, -1
+// ** Bar 6 **
+BAR_NUMBER, 7, 18.237436, 0.000000
+// Note, e5 midi: 76, duration: c
+TIME, 0.5, 0.520833
+NOTE_ON, 76, 0.5, 127, 18.4374, 0.35
+note-solid, 18.4374, 0.35
+// Stem: Direction: down LengthType: standard
+quad, 18.5074, 0.5, 18.5294, 0.5, 18.5294, 0.825, 18.5074, 0.825
+NOTE_OFF, 76, 0.51875
+TIME, -1, -1
+// Note, e5 midi: 76, duration: c
+TIME, 0.520833, 0.541667
+NOTE_ON, 76, 0.520833, 127, 19.0702, 0.35
+note-solid, 19.0702, 0.35
+// Stem: Direction: down LengthType: standard
+quad, 19.1402, 0.5, 19.1622, 0.5, 19.1622, 0.825, 19.1402, 0.825
+NOTE_OFF, 76, 0.539583
+TIME, -1, -1
+// Note, d5 midi: 74, duration: c
+TIME, 0.541667, 0.5625
+NOTE_ON, 74, 0.541667, 127, 19.703, 0.3
+note-solid, 19.703, 0.3
+// Stem: Direction: down LengthType: standard
+quad, 19.773, 0.45, 19.795, 0.45, 19.795, 0.775, 19.773, 0.775
+NOTE_OFF, 74, 0.560417
+TIME, -1, -1
+// Note, d5 midi: 74, duration: c
+TIME, 0.5625, 0.583333
+NOTE_ON, 74, 0.5625, 127, 20.3357, 0.3
+note-solid, 20.3357, 0.3
+// Stem: Direction: down LengthType: standard
+quad, 20.4057, 0.45, 20.4277, 0.45, 20.4277, 0.775, 20.4057, 0.775
+NOTE_OFF, 74, 0.58125
+TIME, -1, -1
+// ** Bar 7 **
+BAR_NUMBER, 8, 21.368488, 0.000000
+// Note, c5+ midi: 73, duration: c
+TIME, 0.583333, 0.604167
+NOTE_ON, 73, 0.583333, 127, 21.7685, 0.25
+note-solid, 21.7685, 0.25
+// Stem: Direction: down LengthType: standard
+quad, 21.8385, 0.4, 21.8605, 0.4, 21.8605, 0.725, 21.8385, 0.725
+sharp, 21.5685, 0.25
+NOTE_OFF, 73, 0.602083
+TIME, -1, -1
+// Note, c5+ midi: 73, duration: c
+TIME, 0.604167, 0.625
+NOTE_ON, 73, 0.604167, 127, 22.3513, 0.25
+note-solid, 22.3513, 0.25
+// Stem: Direction: down LengthType: standard
+quad, 22.4213, 0.4, 22.4433, 0.4, 22.4433, 0.725, 22.4213, 0.725
+NOTE_OFF, 73, 0.622917
+TIME, -1, -1
+// Note, b4 midi: 71, duration: c
+TIME, 0.625, 0.645833
+NOTE_ON, 71, 0.625, 127, 22.934, 0.2
+note-solid, 22.934, 0.2
+// Stem: Direction: up LengthType: standard
+quad, 23.174, 0.675, 23.196, 0.675, 23.196, 1, 23.174, 1
+NOTE_OFF, 71, 0.64375
+TIME, -1, -1
+// Note, b4 midi: 71, duration: c
+TIME, 0.645833, 0.666667
+NOTE_ON, 71, 0.645833, 127, 23.5168, 0.2
+note-solid, 23.5168, 0.2
+// Stem: Direction: up LengthType: standard
+quad, 23.7568, 0.675, 23.7788, 0.675, 23.7788, 1, 23.7568, 1
+NOTE_OFF, 71, 0.664583
+TIME, -1, -1
+// ** Bar 8 **
+BAR_NUMBER, 9, 24.499540, 0.000000
+// Note, d5 midi: 74, duration: c
+TIME, 0.666667, 0.6875
+NOTE_ON, 74, 0.666667, 127, 24.6995, 0.3
+note-solid, 24.6995, 0.3
+// Stem: Direction: down LengthType: standard
+quad, 24.7695, 0.45, 24.7915, 0.45, 24.7915, 0.775, 24.7695, 0.775
+NOTE_OFF, 74, 0.685417
+TIME, -1, -1
+// Note, d5 midi: 74, duration: c
+TIME, 0.6875, 0.708333
+NOTE_ON, 74, 0.6875, 127, 25.3323, 0.3
+note-solid, 25.3323, 0.3
+// Stem: Direction: down LengthType: standard
+quad, 25.4023, 0.45, 25.4243, 0.45, 25.4243, 0.775, 25.4023, 0.775
+NOTE_OFF, 74, 0.70625
+TIME, -1, -1
+// Note, c5 midi: 72, duration: c
+TIME, 0.708333, 0.729167
+NOTE_ON, 72, 0.708333, 127, 25.9651, 0.25
+note-solid, 25.9651, 0.25
+// Stem: Direction: down LengthType: standard
+quad, 26.0351, 0.4, 26.0571, 0.4, 26.0571, 0.725, 26.0351, 0.725
+NOTE_OFF, 72, 0.727083
+TIME, -1, -1
+// Note, b4 midi: 71, duration: c
+TIME, 0.729167, 0.75
+NOTE_ON, 71, 0.729167, 127, 26.5978, 0.2
+note-solid, 26.5978, 0.2
+// Stem: Direction: up LengthType: standard
+quad, 26.8378, 0.675, 26.8598, 0.675, 26.8598, 1, 26.8378, 1
+NOTE_OFF, 71, 0.747917
+TIME, -1, -1
+// ** Bar 9 **
+BAR_NUMBER, 10, 27.630592, 0.000000
+// Note, a4 midi: 69, duration: c.
+TIME, 0.75, 0.78125
+NOTE_ON, 69, 0.75, 127, 27.8306, 0.15
+note-solid, 27.8306, 0.15
+// Stem: Direction: up LengthType: standard
+quad, 28.0706, 0.625, 28.0926, 0.625, 28.0926, 0.95, 28.0706, 0.95
+reg-dot, 27.8306, 0.15
+NOTE_OFF, 69, 0.778125
+TIME, -1, -1
+// Note, a4 midi: 69, duration: q
+TIME, 0.78125, 0.791667
+NOTE_ON, 69, 0.78125, 127, 28.5697, 0.15
+note-solid, 28.5697, 0.15
+// Stem: Direction: up LengthType: standard
+quad, 28.8097, 0.625, 28.8317, 0.625, 28.8317, 0.95, 28.8097, 0.95
+tail-down-1, 28.6297, 0.475
+NOTE_OFF, 69, 0.790625
+TIME, -1, -1
+// Note, g4 midi: 67, duration: m
+TIME, 0.791667, 0.833333
+NOTE_ON, 67, 0.791667, 127, 28.9964, 0.1
+note-minim, 28.9964, 0.1
+// Stem: Direction: up LengthType: standard
+quad, 29.2364, 0.575, 29.2584, 0.575, 29.2584, 0.9, 29.2364, 0.9
+NOTE_OFF, 67, 0.829167
+TIME, -1, -1
+// ** Bar 10 **
+BAR_NUMBER, 11, 30.249767, 0.000000
+// Note, a4 midi: 69, duration: c
+TIME, 0.833333, 0.854167
+NOTE_ON, 69, 0.833333, 127, 30.4498, 0.15
+note-solid, 30.4498, 0.15
+// Stem: Direction: up LengthType: standard
+quad, 30.6898, 0.625, 30.7118, 0.625, 30.7118, 0.95, 30.6898, 0.95
+NOTE_OFF, 69, 0.852083
+TIME, -1, -1
+// Note, a4 midi: 69, duration: c
+TIME, 0.854167, 0.875
+NOTE_ON, 69, 0.854167, 127, 31.0825, 0.15
+note-solid, 31.0825, 0.15
+// Stem: Direction: up LengthType: standard
+quad, 31.3225, 0.625, 31.3445, 0.625, 31.3445, 0.95, 31.3225, 0.95
+NOTE_OFF, 69, 0.872917
+TIME, -1, -1
+// Note, b4 midi: 71, duration: c
+TIME, 0.875, 0.895833
+NOTE_ON, 71, 0.875, 127, 31.7153, 0.2
+note-solid, 31.7153, 0.2
+// Stem: Direction: up LengthType: standard
+quad, 31.9553, 0.675, 31.9773, 0.675, 31.9773, 1, 31.9553, 1
+NOTE_OFF, 71, 0.89375
+TIME, -1, -1
+// Note, g4 midi: 67, duration: c
+TIME, 0.895833, 0.916667
+NOTE_ON, 67, 0.895833, 127, 32.3481, 0.1
+note-solid, 32.3481, 0.1
+// Stem: Direction: up LengthType: standard
+quad, 32.5881, 0.575, 32.6101, 0.575, 32.6101, 0.9, 32.5881, 0.9
+NOTE_OFF, 67, 0.914583
+TIME, -1, -1
+// ** Bar 11 **
+BAR_NUMBER, 12, 33.380821, 0.000000
+// Note, f4+ midi: 66, duration: c.
+TIME, 0.916667, 0.947917
+NOTE_ON, 66, 0.916667, 127, 33.5808, 0.05
+note-solid, 33.5808, 0.05
+// Stem: Direction: up LengthType: standard
+quad, 33.8208, 0.525, 33.8428, 0.525, 33.8428, 0.85, 33.8208, 0.85
+reg-dot, 33.5808, 0.05
+NOTE_OFF, 66, 0.944792
+TIME, -1, -1
+// Note, f4+ midi: 66, duration: q
+TIME, 0.947917, 0.958333
+NOTE_ON, 66, 0.947917, 127, 34.3199, 0.05
+note-solid, 34.3199, 0.05
+// Stem: Direction: up LengthType: standard
+quad, 34.5599, 0.525, 34.5819, 0.525, 34.5819, 0.85, 34.5599, 0.85
+tail-down-1, 34.3799, 0.375
+NOTE_OFF, 66, 0.957292
+TIME, -1, -1
+// Note, e4 midi: 64, duration: m
+TIME, 0.958333, 1
+NOTE_ON, 64, 0.958333, 127, 34.7466, 0
+note-minim, 34.7466, 0
+// Stem: Direction: up LengthType: standard
+quad, 34.9866, 0.475, 35.0086, 0.475, 35.0086, 0.8, 34.9866, 0.8
+NOTE_OFF, 64, 0.995833
+TIME, -1, -1
+// Bar lines
+// Bar line 0
+quad, 3.57593, 0.475, 3.60593, 0.475, 3.60593, 0.875, 3.57593, 0.875
+// Bar line 1
+quad, 6.70698, 0.475, 6.73698, 0.475, 6.73698, 0.875, 6.70698, 0.875
+// Bar line 2
+quad, 9.83803, 0.475, 9.86803, 0.475, 9.86803, 0.875, 9.83803, 0.875
+// Bar line 3
+quad, 12.4572, 0.475, 12.4872, 0.475, 12.4872, 0.875, 12.4572, 0.875
+// Bar line 4
+quad, 15.5883, 0.475, 15.6183, 0.475, 15.6183, 0.875, 15.5883, 0.875
+// Bar line 5
+quad, 18.2074, 0.475, 18.2374, 0.475, 18.2374, 0.875, 18.2074, 0.875
+// Bar line 6
+quad, 21.3385, 0.475, 21.3685, 0.475, 21.3685, 0.875, 21.3385, 0.875
+// Bar line 7
+quad, 24.4695, 0.475, 24.4995, 0.475, 24.4995, 0.875, 24.4695, 0.875
+// Bar line 8
+quad, 27.6006, 0.475, 27.6306, 0.475, 27.6306, 0.875, 27.6006, 0.875
+// Bar line 9
+quad, 30.2198, 0.475, 30.2498, 0.475, 30.2498, 0.875, 30.2198, 0.875
+// Bar line 10
+quad, 33.3508, 0.475, 33.3808, 0.475, 33.3808, 0.875, 33.3508, 0.875
+// Bar line 11
+quad, 35.97, 0.475, 36, 0.475, 36, 0.875, 35.97, 0.875
+TIME, 0
+BEAT, 1, 1
+TIME, 0.0208333
+BEAT, 1, 2
+TIME, 0.0416667
+BEAT, 1, 3
+TIME, 0.0625
+BEAT, 1, 4
+TIME, 0.0833333
+BEAT, 2, 1
+TIME, 0.104167
+BEAT, 2, 2
+TIME, 0.125
+BEAT, 2, 3
+TIME, 0.145833
+BEAT, 2, 4
+TIME, 0.166667
+BEAT, 3, 1
+TIME, 0.1875
+BEAT, 3, 2
+TIME, 0.208333
+BEAT, 3, 3
+TIME, 0.229167
+BEAT, 3, 4
+TIME, 0.25
+BEAT, 4, 1
+TIME, 0.270833
+BEAT, 4, 2
+TIME, 0.291667
+BEAT, 4, 3
+TIME, 0.3125
+BEAT, 4, 4
+TIME, 0.333333
+BEAT, 5, 1
+TIME, 0.354167
+BEAT, 5, 2
+TIME, 0.375
+BEAT, 5, 3
+TIME, 0.395833
+BEAT, 5, 4
+TIME, 0.416667
+BEAT, 6, 1
+TIME, 0.4375
+BEAT, 6, 2
+TIME, 0.458333
+BEAT, 6, 3
+TIME, 0.479167
+BEAT, 6, 4
+TIME, 0.5
+BEAT, 7, 1
+TIME, 0.520833
+BEAT, 7, 2
+TIME, 0.541667
+BEAT, 7, 3
+TIME, 0.5625
+BEAT, 7, 4
+TIME, 0.583333
+BEAT, 8, 1
+TIME, 0.604167
+BEAT, 8, 2
+TIME, 0.625
+BEAT, 8, 3
+TIME, 0.645833
+BEAT, 8, 4
+TIME, 0.666667
+BEAT, 9, 1
+TIME, 0.6875
+BEAT, 9, 2
+TIME, 0.708333
+BEAT, 9, 3
+TIME, 0.729167
+BEAT, 9, 4
+TIME, 0.75
+BEAT, 10, 1
+TIME, 0.770833
+BEAT, 10, 2
+TIME, 0.791666
+BEAT, 10, 3
+TIME, 0.8125
+BEAT, 10, 4
+TIME, 0.833333
+BEAT, 11, 1
+TIME, 0.854166
+BEAT, 11, 2
+TIME, 0.875
+BEAT, 11, 3
+TIME, 0.895833
+BEAT, 11, 4
+TIME, 0.916666
+BEAT, 12, 1
+TIME, 0.9375
+BEAT, 12, 2
+TIME, 0.958333
+BEAT, 12, 3
+TIME, 0.979166
+BEAT, 12, 4
+BPM, 60

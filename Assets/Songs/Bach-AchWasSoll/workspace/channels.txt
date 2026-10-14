@@ -1,0 +1,4 @@
+2: 1 # Track 2 -> Player
+3: 3 # Track 3 -> Piano-R
+4: 2 # Track 4 -> Piano-L
+5: 8 # Track 5 -> Bass
