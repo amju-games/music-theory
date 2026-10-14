@@ -436,8 +436,9 @@ std::string ToString(
   {
     int numNewTracks = MakeTrackMono(midifile, track, ts);
 
-  std::cout << "INFO FOR NEW TRACKS:\n";
-  std::cout << InfoString(midifile, std::nullopt, anacrusis, timeSig, allClefs, quantRes);
+    // Breaks MakeScore - just for dev/debug.
+//  std::cout << "INFO FOR NEW TRACKS:\n";
+//  std::cout << InfoString(midifile, std::nullopt, anacrusis, timeSig, allClefs, quantRes);
 
     // If this flag is specified, save the file with the extra mono
     //  tracks.

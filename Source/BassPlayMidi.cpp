@@ -599,3 +599,4 @@ void ApplyMuteSoloToPlayingSong(
   ApplyTrackMuteSolo(s_songStream, muteTracks, soloTracks);
 }
 }
+
