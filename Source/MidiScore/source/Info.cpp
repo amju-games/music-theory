@@ -396,8 +396,11 @@ static std::string InfoStringForOneTrack(
   }
   else
   {
-    res += "  (Defaulting to time sig 4/4 for clef changes and polyphony:)\n";
+    res += "  (Defaulting to time sig 4/4...)\n";
   }
+
+  int numBars = NumBars(midifile, track, ts);
+  res += "  Number of bars: " + std::to_string(numBars) + "\n";
 
   int numEvents = CountNoteOnEventsInTrack(midifile[track]);
   res += "  Number of note on events: " + std::to_string(numEvents) + "\n";
