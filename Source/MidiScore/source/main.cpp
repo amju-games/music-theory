@@ -26,6 +26,7 @@ static const auto ANA = "--ana";
 static const auto ALL_CLEFS = "--allclefs";
 static const auto GRID = "--grid";
 static const auto POLY = "--poly";
+static const auto SPLITPOLY = "--splitpoly";
 
 static const auto USAGE_STRING = 
 R"(midiscore - convert midi file to juliet compact notation.
@@ -52,6 +53,8 @@ Options:
   --allclefs    Output alto and tenor clefs as well as bass and treble.
   --grid        Output in grid format.
   --poly        Retain chords; otherwise, highest pitch note only.
+  --splitpoly   Save new version of midi file with polyphony split into
+                  separate tracks.
 )";
 
 static std::string NowToString()
@@ -190,8 +193,11 @@ int main(int argc, const char** argv)
   // Grid option
   const bool grid = check_flag(cl, GRID);
 
-  // Poly option
+  // Poly option (if true, retain chords in track(s))
   const bool poly = check_flag(cl, POLY);
+
+  // Split poly option (if true, save poly tracks as new mono tracks)
+  const bool splitpoly = check_flag(cl, SPLITPOLY);
 
   // BPM tempo -- passed through to MakeScore
   const auto bpm = cl.get_value<float>(BPM);
@@ -210,7 +216,7 @@ int main(int argc, const char** argv)
   }
 
   std::cout << MidiScore::ToString(
-    midifile, optionalTrack, *timeSig, keySig, quant, debug, bpm, optionalAna, allClefs, grid, poly);
+    midifile, optionalTrack, *timeSig, keySig, quant, debug, bpm, optionalAna, allClefs, grid, poly, splitpoly);
 
   return 0;
 }

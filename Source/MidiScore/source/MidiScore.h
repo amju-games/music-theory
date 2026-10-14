@@ -39,7 +39,8 @@ std::string ToString(
   std::optional<std::string> anacrusis,
   bool allClefs,
   bool grid,
-  bool poly);
+  bool retainChords,
+  bool splitPolyAsMonoTracksAndSaveNewFile);
 
 // Used internally and for testing
 std::string OutputEvents(const Events& events, bool grid = false);

@@ -279,30 +279,51 @@ Events GetEventsFromTrack(
   return events;
 }
 
+static std::vector<int> MakeOneTrackMono(
+  smf::MidiFile& midifile, 
+  int track,
+  TimeSig ts)
+{ 
+  // Chop polyphonic track into multiple mono tracks.
+  auto splitResult = SplitPolyTrack(midifile, track, ts);
+  if (splitResult.empty())
+  {
+    std::cout << "// No polyphony found for track " << track << ".\n";
+  }
+  else
+  {
+    std::cout << "// Split poly track " << track 
+      << ", creating " 
+      << splitResult.size() 
+      << " new tracks. Total num tracks in midi is now: " << midifile.getTrackCount()
+      << "\n";
+  }
+  return splitResult;
+}
+
+// Return number of new tracks created.
 static int MakeTrackMono(
   smf::MidiFile& midifile, 
   std::optional<int>& track,
   TimeSig ts)
-{
-  // Chop polyphonic track into multiple mono tracks.
-  auto splitResult = SplitPolyTrack(midifile, *track, ts);
-  if (splitResult.empty())
+{ 
+  if (track)
   {
-    std::cout << "// No polyphony found.\n";
+    auto res = MakeOneTrackMono(midifile, *track, ts);
+    *track = res[0];
+    std::cout << "// New track to output: " << *track << "\n";
+    return res.size(); 
   }
   else
   {
-    std::cout << "// Split poly track, creating " 
-      << splitResult.size() 
-      << " new tracks. Total num tracks in midi is now: " << midifile.getTrackCount()
-      << "\n";
-
-    // Perhaps an option to save the split poly tracks. TODO
-    // Get new track index: the first of the new mono tracks.
-    *track = splitResult[0];
-//    std::cout << "New track to output: " << *track << "\n";
+    int res = 0;
+    for (int t = 0; t < midifile.getNumTracks(); ++t)
+    {
+      auto newTracks = MakeOneTrackMono(midifile, t, ts);
+      res += newTracks.size();
+    }
+    return res;
   }
-  return splitResult.size();
 }
 
 // Remove the grace notes with given positions from the given events.
@@ -390,20 +411,10 @@ std::string ToString(
   std::optional<std::string> anacrusis,
   bool allClefs,
   bool grid,
-  bool poly)
+  bool poly,
+  bool saveSplitPoly)
 {
   TimeSig ts = GetTimeSigFromString(timeSig);
-
-  if (!poly && track)
-  {
-    [[maybe_unused]]int numNewTracks = MakeTrackMono(midifile, track, ts);
-
-  //  std::cout << "INFO FOR NEW TRACKS:\n";
-  //  std::cout << InfoString(midifile, std::nullopt, anacrusis, timeSig, allClefs);
-    midifile.removeEmpties();                                     
-    midifile.doTimeAnalysis();                 
-    midifile.linkNotePairs();                
-  }
 
   TimeVal quantRes = TimeVal::NONE;
   if (quant)
@@ -416,6 +427,32 @@ std::string ToString(
     }
 
     std::cout << "// Quantising to: " << TimeValString(quantRes) << "\n";
+  }
+
+  // Unless --poly is specified, split poly tracks into multiple
+  //  mono tracks. I.e. one track with a three note chord gets
+  //  converted to three separate tracks. 
+  if (!poly)
+  {
+    int numNewTracks = MakeTrackMono(midifile, track, ts);
+
+  std::cout << "INFO FOR NEW TRACKS:\n";
+  std::cout << InfoString(midifile, std::nullopt, anacrusis, timeSig, allClefs, quantRes);
+
+    // If this flag is specified, save the file with the extra mono
+    //  tracks.
+    if (saveSplitPoly && numNewTracks > 0)
+    {
+      // Save midifile with the new mono tracks
+      const std::string filename = "split_poly.mid";
+      midifile.write(filename);
+      std::cout << "** Saved file with split poly->mono tracks: " 
+        << filename << "\n";
+    }
+
+    midifile.removeEmpties();                                     
+    midifile.doTimeAnalysis();                 
+    midifile.linkNotePairs();                
   }
 
   const int tpq = midifile.getTicksPerQuarterNote();
@@ -511,7 +548,9 @@ std::string ToString(
   std::cout << "// Num bars: " << numBars << "\n";
 
   // Give a rough page width using the number of bars
-  res += "page-w " + std::to_string(6 * numBars) + "\n";
+  const float ROUGH_PAGE_WIDTH_MULT = 3.f;
+  res += "page-w " + 
+    std::to_string(ROUGH_PAGE_WIDTH_MULT  * numBars) + "\n";
 
   if (bpm)
   {
