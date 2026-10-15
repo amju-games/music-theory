@@ -440,6 +440,10 @@ std::string ToString(
 //  std::cout << "INFO FOR NEW TRACKS:\n";
 //  std::cout << InfoString(midifile, std::nullopt, anacrusis, timeSig, allClefs, quantRes);
 
+    midifile.removeEmpties();                                     
+    midifile.doTimeAnalysis();                 
+    midifile.linkNotePairs();                
+
     // If this flag is specified, save the file with the extra mono
     //  tracks.
     if (saveSplitPoly && numNewTracks > 0)
@@ -450,10 +454,6 @@ std::string ToString(
       std::cout << "** Saved file with split poly->mono tracks: " 
         << filename << "\n";
     }
-
-    midifile.removeEmpties();                                     
-    midifile.doTimeAnalysis();                 
-    midifile.linkNotePairs();                
   }
 
   const int tpq = midifile.getTicksPerQuarterNote();
