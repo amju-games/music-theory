@@ -29,7 +29,7 @@ $$$47
 $$$empty
 
 //Air 
-$$$48
+$$$4
 //From Orchestral Suite No. 3 in D major
 $$$49
 //By J.S. Bach
@@ -44,14 +44,14 @@ $$$52
 $$$empty
 
 //Polonaise in F major
+$$$77
 //By J.S.Bach
-//From the Mutopia Project
-//Midi seq by Bach-Gesellschaft
-//Licance: public Domain
-$$$78
 $$$50
+//From the Mutopia Project
 $$$46
+//Midi seq by Bach-Gesellschaft
 $$$51
+//Licence: public Domain
 $$$47
 
 // Break between songs
@@ -69,13 +69,17 @@ $$$47
 $$$empty
 
 // Ach was soll
-@@@Ach was soll
+$$$81
+$$$82
 // By Bach
-@@@By Bach
+$$$50
 // Source
-TODO source
+//From the Mutopia Project
+$$$46
 // License
-TODO licence
+//License: Creative Commons Attribution-ShareAlike 4.0
+$$$83
+
 $$$empty
 
 // End of songs

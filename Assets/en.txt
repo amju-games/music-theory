@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-78
+81
 1=The Swan
 2=From The Carnival of the Animals
 3=Camille Saint-Saëns
@@ -44,13 +44,12 @@
 40=Gymnopédie no. 3
 41=Piano Fest
 43=Developer: Juliet C.
-44=THREE GYMNOPÉDIES 
-45=By ERIK SATIE
+44=Three Gymnopédies
+45=By Erik Satie
 46=From the Mutopia Project
 47=License: Public Domain
-48=AIR 
 49=From Orchestral Suite No. 3 in D major
-50=By J.S. BACH
+50=By J.S. Bach
 51=Midi sequence by: Bach-Gesellschaft
 52=License: Creative Commons Attribution-ShareAlike 3.0
 54=Sound Fonts
@@ -77,6 +76,9 @@
 75=Back
 76=Thank you for playing this demo of...
 77=Polonaise in F major
-78=POLONAISE IN F MAJOR
 79=Greensleeves
 80=Traditional
+81=Ach, was soll ich Sünder machen
+82=(Ah, what shall I, a sinner, do?)
+83=License: Creative Commons Attribution-ShareAlike 4.0
+
