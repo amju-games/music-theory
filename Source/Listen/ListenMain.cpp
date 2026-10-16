@@ -20,7 +20,7 @@
 namespace Amju
 {
 void SetUpRootDir();
-void SetUpSound();
+void SetUpSoundPlayer();
 }
 
 // Parse input strings like "1-3,5", for selecting tracks.
@@ -112,7 +112,7 @@ int main(int argc, char** argv)
   // Set cwd to find the sound fonts, which should be in a Sound/ dir,
   //  in the dir where the exe is installed.
   File::SetRoot(std::filesystem::current_path(), "/");
-  SetUpSound();
+  SetUpSoundPlayer();
 
   PlayMidiSong(song);
 

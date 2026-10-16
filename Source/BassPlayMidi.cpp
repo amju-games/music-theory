@@ -584,10 +584,10 @@ static void ApplyTrackMuteSolo(HSTREAM midiStream,
         shouldMute = true;
     }
 
-    // Apply muting to the specific track index via the BASS_MIDI_StreamEvent API
-    // Passing 0 mutes the track completely, passing -1 restores default track processing
-    int mixValue = shouldMute ? 0 : -1;
-    BASS_MIDI_StreamEvent(midiStream, i, MIDI_EVENT_MIXLEVEL, mixValue);
+    if (shouldMute)
+    {
+      BASS_MIDI_StreamEvent(midiStream, i, MIDI_EVENT_MIXLEVEL, 0);
+    }
   }
   BASS_ChannelPlay(midiStream, FALSE); 
 }

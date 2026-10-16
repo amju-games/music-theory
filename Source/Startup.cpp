@@ -309,7 +309,9 @@ static void SetUpMIDI()
 #endif // AMJU_USE_BASS
 }
 
-static void SetUpSoundPlayer()
+// Set the sound player implementation.
+// Not static as we call this from Listen as well as the game.
+void SetUpSoundPlayer()
 {
 #ifdef AMJU_USE_BASS
   // Set sound player
