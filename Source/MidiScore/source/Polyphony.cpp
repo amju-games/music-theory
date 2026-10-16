@@ -191,6 +191,15 @@ namespace
                 assignedVoice = maxVoices - 1;
             }
 
+            // Check for same-pitch collision/overlap with the last note in this voice stream
+            if (!voiceStreams[assignedVoice].empty()) {
+                auto& lastNote = voiceStreams[assignedVoice].back();
+                if (lastNote.pitch == note.pitch && lastNote.end_tick >= note.start_tick) {
+                    // Truncate the previous note slightly to allow re-articulation
+                    lastNote.end_tick = std::max(lastNote.start_tick, note.start_tick - 1);
+                }
+            }
+
             voiceStreams[assignedVoice].push_back(note);
             voiceLastEndTick[assignedVoice] = std::max(voiceLastEndTick[assignedVoice], note.end_tick);
         }
