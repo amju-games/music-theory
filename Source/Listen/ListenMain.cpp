@@ -56,7 +56,8 @@ std::set<int> ParseTrackSelection(const std::string& input)
 }
 
 bool GetArgs(int argc, char* argv[], 
-  std::set<int>& muteTracks, std::set<int>& soloTracks) 
+  std::set<int>& muteTracks, std::set<int>& soloTracks,
+  float& tempoMult) 
 {
   std::string midiFilePath = "";
 
@@ -72,6 +73,10 @@ bool GetArgs(int argc, char* argv[],
     else if (arg == "--solo" && i + 1 < argc) 
     {
       soloTracks = ParseTrackSelection(argv[++i]);
+    } 
+    else if (arg == "--tempo" && i + 1 < argc) 
+    {
+      tempoMult = std::stof(argv[i + 1]);
     } 
     else 
     {
@@ -103,18 +108,24 @@ int main(int argc, char** argv)
 
   std::set<int> muteTracks;
   std::set<int> soloTracks;
-  if (!GetArgs(argc, argv, muteTracks, soloTracks)) return 1;
+  float tempoMult = 1.f;
+
+  if (!GetArgs(argc, argv, muteTracks, soloTracks, tempoMult)) return 1;
 
   std::string song(argv[1]);
 
-  std::cout << "Playing " << song << "..\n";
+  std::cout << "Playing " << song << ", tempo " << tempoMult << "..\n";
 
   // Set cwd to find the sound fonts, which should be in a Sound/ dir,
   //  in the dir where the exe is installed.
   File::SetRoot(std::filesystem::current_path(), "/");
   SetUpSoundPlayer();
 
-  PlayMidiSong(song);
+  // *** Start playing the song ***
+  float seekTime = 0;
+  bool mutePlayer = false;
+
+  PlayMidiSong(song, seekTime, mutePlayer, tempoMult);
 
   // Apply mute/solo flags
   ApplyMuteSoloToPlayingSong(muteTracks, soloTracks);

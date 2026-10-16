@@ -439,7 +439,7 @@ std::cout << "** Play MIDI count-in: " << filename << " tempo: " << bpm << " BPM
   BASS_ChannelSetSync(s_countInStream, BASS_SYNC_END, 0, CountInEndSyncCallback, NULL);
 }
 
-void PlayMidiSong(const std::string& filename, float seekTime, bool mutePlayer)
+void PlayMidiSong(const std::string& filename, float seekTime, bool mutePlayer, float bpmMult)
 {
 #ifdef PLAY_MIDI_DEBUG
 std::cout << "** Play MIDI song: " << filename << "\n";
@@ -450,8 +450,7 @@ std::cout << "** Play MIDI song: " << filename << "\n";
 
   s_hasSongFinished = false;
 
-  const float bpm = 0; // TODO - zero means don't set
-  LoadAndStartMidiSong(s_songStream, filename, seekTime, mutePlayer, bpm);
+  LoadAndStartMidiSong(s_songStream, filename, seekTime, mutePlayer, bpmMult);
 
   // Set callback when the song ends.
   BASS_ChannelSetSync(s_songStream, BASS_SYNC_END, 0, EndSyncCallback, NULL);

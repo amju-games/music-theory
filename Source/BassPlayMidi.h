@@ -41,8 +41,12 @@ void KillPlayerNotes();
 // Start the song at the given seek time. (I.e. this is position in song,
 //  not a delay before we start playing.)
 // If mutePlayer is true, the player melody (channel 0) is muted.
-void PlayMidiSong(const std::string& filename, 
-  float seekTimeSeconds = 0, bool mutePlayer = false);
+// Tempo mult speeds up or slows down the song.
+void PlayMidiSong(
+  const std::string& filename, 
+  float seekTimeSeconds = 0, 
+  bool mutePlayer = false,
+  float tempoMult = 1.f);
 
 // Returns true if Midi song has finished playing.
 // Uses Bass callback to set flag so not as horrifically inefficient
