@@ -1,7 +1,7 @@
 // version
 1
 // number of strings
-81
+79
 1=The Swan
 2=From The Carnival of the Animals
 3=Camille Saint-Saëns
