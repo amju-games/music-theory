@@ -1398,6 +1398,7 @@ void GSHero::InitExtras()
   //  graded the notes and had extras awarded. We don't want to award
   //  the same extras multiple times.
   int fromEventId = FindNoteEventForTime(m_unadjustedPauseResumeTime);
+  // TODO how many tris????
   m_extrasAdder->AttachExtraBits(fromEventId); 
 
   // Set the position of the pause time line

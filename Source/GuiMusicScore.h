@@ -100,6 +100,11 @@ public:
   // Used internally but may be used with AddGlyph()
   void BuildTriList();
 
+  // Culling test used in BuildTriList: set cull and stop depending on 
+  //  bounding rect of glyph; we can stop so long as glyphs run left-to-right,
+  //  and the current rect is off screen to the right.
+  virtual void CullTest(const Rect& r, bool& cull, bool& stop) {}
+
   // Call to refresh vertex buffer when any Glyph colours are changed
   void RefreshColours();
 
@@ -186,10 +191,12 @@ protected:
 
   void DrawBoundingRect() const;
   void DrawIndividualGlyphRects() const;
+  void DrawChildRects() const;
 
-  // Add one quad (2 triangles) to the given vec of tris, made from the
+  // Make one quad (2 triangles) from the
   //  4 corners supplied. I.e. can be any quad shape.
-  void MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris, const Colour& col);
+  // Result is set in the given array of two triangles.
+  void MakeQuad(const Vec2f corners[4], AmjuGL::Tri tri[2], const Colour& col);
 
   // Convenience function: set the colour attribs on all the verts in a quad
   static void SetQuadColour(AmjuGL::Tri t[2], const Colour& col);

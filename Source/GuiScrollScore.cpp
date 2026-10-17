@@ -21,6 +21,17 @@ float GetStartX()
   return 3.f; // TODO 
 }
 
+void GuiScrollScore::CullTest(const Rect& r, bool& cull, bool& stop)
+{
+  // If we build tri list every frame, we can cull everything outside of
+  //  (-1..1). But if we build the tri list less often, we need a buffer
+  //  so the bits to the right can scroll on to the right of the screen
+  //  before the tri list is rebuilt.
+  if (   r.GetMax(0) < -1.f     // right edge of glyph is off to the left
+      || r.GetMin(0) > 3.f)     // left edge of glyph is off to the right
+    cull = true;
+}
+
 void GuiScrollScore::DrawChildren()
 {
   GuiMusicScore::DrawChildren();
@@ -104,7 +115,9 @@ float GuiScrollScore::GetCountInTimeRemaining() const
 
 void GuiScrollScore::Update()
 {
-  // Sigh, can't update here because count-in won't work.
+  // Sigh, can't update much here because count-in won't work.
+  // Update not called before we start scrolling 
+  //  (count-in is over at that point).
 }
 
 float GuiScrollScore::GetScrollSpeed() const
@@ -150,9 +163,18 @@ void GuiScrollScore::Draw()
   const float scale = GetSize().x * GetCombinedScale().x;
 
   // We want increasingly negative x to scroll R -> L
+  float posxBefore = pos.x;
   pos.x = - m_currentX * scale; 
 
   SetLocalPos(pos);
+
+  // If we crossed a boundary line, rebuild the tri list.
+  // The idea is we have a rolling window of tris, and the rest of the 
+  //  glyphs are culled.
+  if (static_cast<int>(pos.x) < static_cast<int>(posxBefore))
+  {
+    m_triList = nullptr;
+  }
 
   GuiMusicScore::Draw();
 }
