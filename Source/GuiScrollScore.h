@@ -53,6 +53,13 @@ protected:
 
   void DrawChildren() override;
 
+  // Used in BuildTriList to decide to cull glyphs or stop adding 
+  //  to tri list completely. 
+  // So long as the glyphs are dependably added from left to right,
+  //  we can stop once we encounter a glyph that is too far to the
+  //  right.
+  void CullTest(const Rect& r, bool& cull, bool& stop) override;
+
 protected:
   // Beats per min, used to set scroll speed.
   float m_bpm = 80.f;

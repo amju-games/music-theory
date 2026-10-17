@@ -3,10 +3,9 @@
 
 #include "precomp.h" // first include
 
-#include <mutex> // call_once
 #include <unordered_map> // map glyph names to ascii codes
-
 #include <BmFont.h>
+#include <DoOnce.h>
 #include <DrawRect.h>
 #include <GuiFactory.h>
 #include <GuiText2.h>
@@ -17,6 +16,7 @@
 #include "GuiSpline.h"
 #include "GuiMusicScore.h"
 #include "BassPlayMidi.h"
+#include "UseVertexColourShader.h"
 
 // Draw bounding rect for entire score
 //#define DEBUG_DRAW_BOUNDING_RECT
@@ -274,8 +274,10 @@ GuiMusicScore::GuiMusicScore()
   OneTimeInit();
 #else // _DEBUG
   // One time init for all Music Scores - we just do it once.
-  static std::once_flag flag;
-  std::call_once(flag, OneTimeInit);
+  do_once
+  {
+    OneTimeInit();
+  }
 #endif // _DEBUG
 
 #ifdef USE_RTT
@@ -404,6 +406,24 @@ void GuiMusicScore::DrawBoundingRect() const
 #endif // DEBUG_DRAW_BOUNDING_RECT
 }
 
+void GuiMusicScore::DrawChildRects() const
+{
+#ifdef DEBUG_DRAW_GLYPH_RECTS
+  AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
+  AmjuGL::SetColour(Colour(0, 1, 0, 1));
+  AmjuGL::UseShader(nullptr);
+  AmjuGL::PushMatrix();
+  auto pos = GetLocalPos();
+  AmjuGL::Translate(pos.x, pos.y, 0);
+  for (auto child : m_children)
+  {
+    DrawRect(child->CalcRect());
+  }
+  AmjuGL::PopMatrix();
+  UseVertexColourShader();
+#endif
+}
+
 void GuiMusicScore::DrawIndividualGlyphRects() const
 {
 #ifdef DEBUG_DRAW_GLYPH_RECTS
@@ -414,7 +434,7 @@ void GuiMusicScore::DrawIndividualGlyphRects() const
   {
     DrawRect(r);
   }
-  // TODO Draw child bounding rects too
+  UseVertexColourShader();
 #endif
 
 }
@@ -446,6 +466,7 @@ void GuiMusicScore::Draw()
   AmjuGL::PopMatrix();
 
   DrawChildren();
+  DrawChildRects();
 
 #ifdef USE_RTT
   m_rtt->End();
@@ -465,6 +486,22 @@ void GuiMusicScore::DrawChildren()
   AmjuGL::Scale(size.x, size.y, 1);
   for (auto child : m_children)
   {
+    // Cull children: especially curves, which have quite a lot of tris.
+    // This hinges on CalcRect working for curves
+
+    Rect r = child->CalcRect();
+    auto transformedRect(r);
+    // Curves are already transformed by scale and combined pos when
+    //  created - so not yet transformed by local pos.
+    auto localpos = GetLocalPos();
+    transformedRect.Translate(localpos.x, localpos.y);
+
+    bool cull = false;
+    bool stop = false;
+    CullTest(transformedRect, cull, stop);
+    if (stop) break;
+    if (cull) continue;
+
     child->Draw();
   }
   AmjuGL::PopMatrix();
@@ -916,6 +953,9 @@ bool GuiMusicScore::AddCurveFromString(
     curve->SetWidths(w * 0.1f, w * 1.5f);
     curve->SetIsLoop(false);
     curve->SetOutlineColour(m_fgCol);
+    curve->SetWidthFunc(MusicCurveWidthFunc);
+    curve->SetNumInterpPoints(5); // more than enough interpolated points, but
+      // we are culling so that's not the issue.
 
     for (int i = 1; i < n; i += 2)
     {
@@ -1071,10 +1111,8 @@ void GuiMusicScore::SetFgCol(const Colour& col)
   RefreshColours();
 }
 
-void GuiMusicScore::MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris, const Colour& col)
+void GuiMusicScore::MakeQuad(const Vec2f corners[4], AmjuGL::Tri t[2], const Colour& col)
 {
-  AmjuGL::Tri t[2];
-
   const float Z = 0.0f;
   float u = .999f;
   float v = .001f; // TODO texture atlas should be opaque at this (u, v)
@@ -1095,9 +1133,6 @@ void GuiMusicScore::MakeQuad(const Vec2f corners[4], AmjuGL::Tris& tris, const C
   t[1].m_verts[2] = verts[3];
 
   SetQuadColour(t, col);
-
-  tris.push_back(t[0]);
-  tris.push_back(t[1]);
 }
 
 void GuiMusicScore::BuildTriList()
@@ -1108,19 +1143,22 @@ void GuiMusicScore::BuildTriList()
   glyphRects.clear();
 #endif
 
+  Vec2f pos = GetCombinedPos();
+  Vec2f size = GetSize();
+
   AmjuGL::Tris tris;
 
   for (const Glyph& g : m_glyphs)
   {
+    AmjuGL::Tri t[2];
+
     if (g.m_char == QUAD_CHAR)
     {
       // Special case: make a quad from the 4 coords
-      MakeQuad(g.m_corner, tris, g.m_colour);
+      MakeQuad(g.m_corner, t, g.m_colour);
     }
     else
     {
-      AmjuGL::Tri t[2];
-
       m_atlas->SetSize(g.m_scale.x, g.m_scale.y);
       const bool NO_ITALIC = false;
 #ifdef USE_BM_FONT
@@ -1130,26 +1168,35 @@ void GuiMusicScore::BuildTriList()
 #endif
 
       SetQuadColour(t, g.m_colour);
-
-      tris.push_back(t[0]);
-      tris.push_back(t[1]);
     }
 
     // Keep track of bounding rect.
     // Add bounding box of the last two tris to the overall bounding rect
-    Assert(tris.size() >= 2);
     AmjuGL::Vert verts[4] = 
     {
-      tris[tris.size() - 2].m_verts[0],
-      tris[tris.size() - 2].m_verts[1], // the other two verts are duplicates of these
-      tris[tris.size() - 2].m_verts[2], // the other two verts are duplicates of these
-      tris[tris.size() - 1].m_verts[2],
+      t[0].m_verts[0],
+      t[0].m_verts[1], // the other two verts are duplicates of these
+      t[0].m_verts[2], // the other two verts are duplicates of these
+      t[1].m_verts[2],
     };
     Rect r = EmptyRect();
     for (int i = 0; i < 4; i++)
     {
       r.SetIf(verts[i].m_x, verts[i].m_y);
     }
+    auto transformedRect(r);
+    transformedRect.Scale(size.x, size.y);
+    transformedRect.Translate(pos.x, pos.y);
+
+    bool cull = false;
+    bool stop = false;
+    CullTest(transformedRect, cull, stop);
+
+    if (stop) break;
+    if (cull) continue;
+
+    tris.push_back(t[0]);
+    tris.push_back(t[1]);
 
 #ifdef DEBUG_DRAW_GLYPH_RECTS
     glyphRects.push_back(r);

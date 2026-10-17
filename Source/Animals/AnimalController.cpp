@@ -101,6 +101,7 @@ std::cout << "  no flee.\n";
 
 void AnimalController::EatAPet(int petIndex)
 {
+  petIndex %= static_cast<int>(m_pets.size());
   Assert(petIndex < static_cast<int>(m_pets.size()));
   auto pet = m_pets[petIndex];
 
